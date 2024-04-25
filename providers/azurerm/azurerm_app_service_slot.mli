@@ -64,12 +64,12 @@ val auth_settings :
   ?token_refresh_extension_hours:float prop ->
   ?token_store_enabled:bool prop ->
   ?unauthenticated_client_action:string prop ->
+  ?active_directory:auth_settings__active_directory list ->
+  ?facebook:auth_settings__facebook list ->
+  ?google:auth_settings__google list ->
+  ?microsoft:auth_settings__microsoft list ->
+  ?twitter:auth_settings__twitter list ->
   enabled:bool prop ->
-  active_directory:auth_settings__active_directory list ->
-  facebook:auth_settings__facebook list ->
-  google:auth_settings__google list ->
-  microsoft:auth_settings__microsoft list ->
-  twitter:auth_settings__twitter list ->
   unit ->
   auth_settings
 
@@ -103,7 +103,7 @@ type logs__application_logs
 
 val logs__application_logs :
   ?file_system_level:string prop ->
-  azure_blob_storage:logs__application_logs__azure_blob_storage list ->
+  ?azure_blob_storage:logs__application_logs__azure_blob_storage list ->
   unit ->
   logs__application_logs
 
@@ -126,8 +126,8 @@ val logs__http_logs__file_system :
 type logs__http_logs
 
 val logs__http_logs :
-  azure_blob_storage:logs__http_logs__azure_blob_storage list ->
-  file_system:logs__http_logs__file_system list ->
+  ?azure_blob_storage:logs__http_logs__azure_blob_storage list ->
+  ?file_system:logs__http_logs__file_system list ->
   unit ->
   logs__http_logs
 
@@ -136,8 +136,8 @@ type logs
 val logs :
   ?detailed_error_messages_enabled:bool prop ->
   ?failed_request_tracing_enabled:bool prop ->
-  application_logs:logs__application_logs list ->
-  http_logs:logs__http_logs list ->
+  ?application_logs:logs__application_logs list ->
+  ?http_logs:logs__http_logs list ->
   unit ->
   logs
 
@@ -220,7 +220,7 @@ val site_config :
   ?vnet_route_all_enabled:bool prop ->
   ?websockets_enabled:bool prop ->
   ?windows_fx_version:string prop ->
-  cors:site_config__cors list ->
+  ?cors:site_config__cors list ->
   unit ->
   site_config
 
@@ -256,17 +256,17 @@ val azurerm_app_service_slot :
   ?id:string prop ->
   ?key_vault_reference_identity_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?auth_settings:auth_settings list ->
+  ?identity:identity list ->
+  ?logs:logs list ->
+  ?site_config:site_config list ->
   ?timeouts:timeouts ->
   app_service_name:string prop ->
   app_service_plan_id:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  auth_settings:auth_settings list ->
   connection_string:connection_string list ->
-  identity:identity list ->
-  logs:logs list ->
-  site_config:site_config list ->
   storage_account:storage_account list ->
   unit ->
   azurerm_app_service_slot
@@ -302,17 +302,17 @@ val register :
   ?id:string prop ->
   ?key_vault_reference_identity_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?auth_settings:auth_settings list ->
+  ?identity:identity list ->
+  ?logs:logs list ->
+  ?site_config:site_config list ->
   ?timeouts:timeouts ->
   app_service_name:string prop ->
   app_service_plan_id:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  auth_settings:auth_settings list ->
   connection_string:connection_string list ->
-  identity:identity list ->
-  logs:logs list ->
-  site_config:site_config list ->
   storage_account:storage_account list ->
   string ->
   t
@@ -325,17 +325,17 @@ val make :
   ?id:string prop ->
   ?key_vault_reference_identity_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?auth_settings:auth_settings list ->
+  ?identity:identity list ->
+  ?logs:logs list ->
+  ?site_config:site_config list ->
   ?timeouts:timeouts ->
   app_service_name:string prop ->
   app_service_plan_id:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  auth_settings:auth_settings list ->
   connection_string:connection_string list ->
-  identity:identity list ->
-  logs:logs list ->
-  site_config:site_config list ->
   storage_account:storage_account list ->
   string ->
   t Tf_core.resource

@@ -223,8 +223,8 @@ let validation_shared_keys ~secret_version () :
   { secret_version }
 
 let google_network_services_edge_cache_keyset ?description ?id
-    ?labels ?project ?timeouts ~name ~public_key
-    ~validation_shared_keys () :
+    ?labels ?project ?(public_key = []) ?timeouts
+    ?(validation_shared_keys = []) ~name () :
     google_network_services_edge_cache_keyset =
   {
     description;
@@ -247,8 +247,8 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let make ?description ?id ?labels ?project ?timeouts ~name
-    ~public_key ~validation_shared_keys __id =
+let make ?description ?id ?labels ?project ?(public_key = [])
+    ?timeouts ?(validation_shared_keys = []) ~name __id =
   let __type = "google_network_services_edge_cache_keyset" in
   let __attrs =
     ({
@@ -270,16 +270,17 @@ let make ?description ?id ?labels ?project ?timeouts ~name
     json =
       yojson_of_google_network_services_edge_cache_keyset
         (google_network_services_edge_cache_keyset ?description ?id
-           ?labels ?project ?timeouts ~name ~public_key
-           ~validation_shared_keys ());
+           ?labels ?project ~public_key ?timeouts
+           ~validation_shared_keys ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?labels ?project ?timeouts
-    ~name ~public_key ~validation_shared_keys __id =
+let register ?tf_module ?description ?id ?labels ?project
+    ?(public_key = []) ?timeouts ?(validation_shared_keys = []) ~name
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?labels ?project ?timeouts ~name
-      ~public_key ~validation_shared_keys __id
+    make ?description ?id ?labels ?project ~public_key ?timeouts
+      ~validation_shared_keys ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -24,7 +24,7 @@ val certs_info__cert_info :
 type certs_info
 
 val certs_info :
-  cert_info:certs_info__cert_info list -> unit -> certs_info
+  ?cert_info:certs_info__cert_info list -> unit -> certs_info
 
 type timeouts
 
@@ -42,13 +42,13 @@ val google_apigee_keystores_aliases_key_cert_file :
   ?id:string prop ->
   ?key:string prop ->
   ?password:string prop ->
+  ?certs_info:certs_info list ->
   ?timeouts:timeouts ->
   alias:string prop ->
   cert:string prop ->
   environment:string prop ->
   keystore:string prop ->
   org_id:string prop ->
-  certs_info:certs_info list ->
   unit ->
   google_apigee_keystores_aliases_key_cert_file
 
@@ -74,13 +74,13 @@ val register :
   ?id:string prop ->
   ?key:string prop ->
   ?password:string prop ->
+  ?certs_info:certs_info list ->
   ?timeouts:timeouts ->
   alias:string prop ->
   cert:string prop ->
   environment:string prop ->
   keystore:string prop ->
   org_id:string prop ->
-  certs_info:certs_info list ->
   string ->
   t
 
@@ -88,12 +88,12 @@ val make :
   ?id:string prop ->
   ?key:string prop ->
   ?password:string prop ->
+  ?certs_info:certs_info list ->
   ?timeouts:timeouts ->
   alias:string prop ->
   cert:string prop ->
   environment:string prop ->
   keystore:string prop ->
   org_id:string prop ->
-  certs_info:certs_info list ->
   string ->
   t Tf_core.resource

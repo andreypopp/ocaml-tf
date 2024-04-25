@@ -29,10 +29,10 @@ val google_logging_project_sink :
   ?id:string prop ->
   ?project:string prop ->
   ?unique_writer_identity:bool prop ->
+  ?bigquery_options:bigquery_options list ->
+  ?exclusions:exclusions list ->
   destination:string prop ->
   name:string prop ->
-  bigquery_options:bigquery_options list ->
-  exclusions:exclusions list ->
   unit ->
   google_logging_project_sink
 
@@ -63,10 +63,10 @@ val register :
   ?id:string prop ->
   ?project:string prop ->
   ?unique_writer_identity:bool prop ->
+  ?bigquery_options:bigquery_options list ->
+  ?exclusions:exclusions list ->
   destination:string prop ->
   name:string prop ->
-  bigquery_options:bigquery_options list ->
-  exclusions:exclusions list ->
   string ->
   t
 
@@ -78,9 +78,9 @@ val make :
   ?id:string prop ->
   ?project:string prop ->
   ?unique_writer_identity:bool prop ->
+  ?bigquery_options:bigquery_options list ->
+  ?exclusions:exclusions list ->
   destination:string prop ->
   name:string prop ->
-  bigquery_options:bigquery_options list ->
-  exclusions:exclusions list ->
   string ->
   t Tf_core.resource

@@ -44,9 +44,9 @@ type insights
 
 val insights :
   ?retention_in_days:float prop ->
+  ?log_analytics_workspace:insights__log_analytics_workspace list ->
   default_log_analytics_workspace_id:string prop ->
   enabled:bool prop ->
-  log_analytics_workspace:insights__log_analytics_workspace list ->
   unit ->
   insights
 
@@ -77,8 +77,8 @@ type intrusion_detection
 val intrusion_detection :
   ?mode:string prop ->
   ?private_ranges:string prop list ->
-  signature_overrides:intrusion_detection__signature_overrides list ->
-  traffic_bypass:intrusion_detection__traffic_bypass list ->
+  ?signature_overrides:intrusion_detection__signature_overrides list ->
+  ?traffic_bypass:intrusion_detection__traffic_bypass list ->
   unit ->
   intrusion_detection
 
@@ -119,17 +119,17 @@ val azurerm_firewall_policy :
   ?sql_redirect_allowed:bool prop ->
   ?tags:(string * string prop) list ->
   ?threat_intelligence_mode:string prop ->
+  ?dns:dns list ->
+  ?explicit_proxy:explicit_proxy list ->
+  ?identity:identity list ->
+  ?insights:insights list ->
+  ?intrusion_detection:intrusion_detection list ->
+  ?threat_intelligence_allowlist:threat_intelligence_allowlist list ->
   ?timeouts:timeouts ->
+  ?tls_certificate:tls_certificate list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  dns:dns list ->
-  explicit_proxy:explicit_proxy list ->
-  identity:identity list ->
-  insights:insights list ->
-  intrusion_detection:intrusion_detection list ->
-  threat_intelligence_allowlist:threat_intelligence_allowlist list ->
-  tls_certificate:tls_certificate list ->
   unit ->
   azurerm_firewall_policy
 
@@ -165,17 +165,17 @@ val register :
   ?sql_redirect_allowed:bool prop ->
   ?tags:(string * string prop) list ->
   ?threat_intelligence_mode:string prop ->
+  ?dns:dns list ->
+  ?explicit_proxy:explicit_proxy list ->
+  ?identity:identity list ->
+  ?insights:insights list ->
+  ?intrusion_detection:intrusion_detection list ->
+  ?threat_intelligence_allowlist:threat_intelligence_allowlist list ->
   ?timeouts:timeouts ->
+  ?tls_certificate:tls_certificate list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  dns:dns list ->
-  explicit_proxy:explicit_proxy list ->
-  identity:identity list ->
-  insights:insights list ->
-  intrusion_detection:intrusion_detection list ->
-  threat_intelligence_allowlist:threat_intelligence_allowlist list ->
-  tls_certificate:tls_certificate list ->
   string ->
   t
 
@@ -188,16 +188,16 @@ val make :
   ?sql_redirect_allowed:bool prop ->
   ?tags:(string * string prop) list ->
   ?threat_intelligence_mode:string prop ->
+  ?dns:dns list ->
+  ?explicit_proxy:explicit_proxy list ->
+  ?identity:identity list ->
+  ?insights:insights list ->
+  ?intrusion_detection:intrusion_detection list ->
+  ?threat_intelligence_allowlist:threat_intelligence_allowlist list ->
   ?timeouts:timeouts ->
+  ?tls_certificate:tls_certificate list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  dns:dns list ->
-  explicit_proxy:explicit_proxy list ->
-  identity:identity list ->
-  insights:insights list ->
-  intrusion_detection:intrusion_detection list ->
-  threat_intelligence_allowlist:threat_intelligence_allowlist list ->
-  tls_certificate:tls_certificate list ->
   string ->
   t Tf_core.resource

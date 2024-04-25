@@ -33,11 +33,11 @@ val azurerm_synapse_sql_pool :
   ?recovery_database_id:string prop ->
   ?storage_account_type:string prop ->
   ?tags:(string * string prop) list ->
+  ?restore:restore list ->
   ?timeouts:timeouts ->
   name:string prop ->
   sku_name:string prop ->
   synapse_workspace_id:string prop ->
-  restore:restore list ->
   unit ->
   azurerm_synapse_sql_pool
 
@@ -70,11 +70,11 @@ val register :
   ?recovery_database_id:string prop ->
   ?storage_account_type:string prop ->
   ?tags:(string * string prop) list ->
+  ?restore:restore list ->
   ?timeouts:timeouts ->
   name:string prop ->
   sku_name:string prop ->
   synapse_workspace_id:string prop ->
-  restore:restore list ->
   string ->
   t
 
@@ -87,10 +87,10 @@ val make :
   ?recovery_database_id:string prop ->
   ?storage_account_type:string prop ->
   ?tags:(string * string prop) list ->
+  ?restore:restore list ->
   ?timeouts:timeouts ->
   name:string prop ->
   sku_name:string prop ->
   synapse_workspace_id:string prop ->
-  restore:restore list ->
   string ->
   t Tf_core.resource

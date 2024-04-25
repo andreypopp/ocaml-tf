@@ -33,8 +33,8 @@ val configuration__provider_identity :
 type configuration
 
 val configuration :
-  crawler_configuration:configuration__crawler_configuration list ->
-  provider_identity:configuration__provider_identity list ->
+  ?crawler_configuration:configuration__crawler_configuration list ->
+  ?provider_identity:configuration__provider_identity list ->
   unit ->
   configuration
 
@@ -43,8 +43,8 @@ type aws_securitylake_custom_log_source
 val aws_securitylake_custom_log_source :
   ?event_classes:string prop list ->
   ?source_version:string prop ->
+  ?configuration:configuration list ->
   source_name:string prop ->
-  configuration:configuration list ->
   unit ->
   aws_securitylake_custom_log_source
 
@@ -66,15 +66,15 @@ val register :
   ?tf_module:tf_module ->
   ?event_classes:string prop list ->
   ?source_version:string prop ->
+  ?configuration:configuration list ->
   source_name:string prop ->
-  configuration:configuration list ->
   string ->
   t
 
 val make :
   ?event_classes:string prop list ->
   ?source_version:string prop ->
+  ?configuration:configuration list ->
   source_name:string prop ->
-  configuration:configuration list ->
   string ->
   t Tf_core.resource

@@ -589,7 +589,7 @@ let dynamodb_config__delta_sync_config ?base_table_ttl
   { base_table_ttl; delta_sync_table_name; delta_sync_table_ttl }
 
 let dynamodb_config ?region ?use_caller_credentials ?versioned
-    ~table_name ~delta_sync_config () : dynamodb_config =
+    ?(delta_sync_config = []) ~table_name () : dynamodb_config =
   {
     region;
     table_name;
@@ -611,10 +611,11 @@ let http_config__authorization_config__aws_iam_config ?signing_region
   { signing_region; signing_service_name }
 
 let http_config__authorization_config ?authorization_type
-    ~aws_iam_config () : http_config__authorization_config =
+    ?(aws_iam_config = []) () : http_config__authorization_config =
   { authorization_type; aws_iam_config }
 
-let http_config ~endpoint ~authorization_config () : http_config =
+let http_config ?(authorization_config = []) ~endpoint () :
+    http_config =
   { endpoint; authorization_config }
 
 let lambda_config ~function_arn () : lambda_config = { function_arn }
@@ -634,14 +635,15 @@ let relational_database_config__http_endpoint_config ?database_name
     schema;
   }
 
-let relational_database_config ?source_type ~http_endpoint_config ()
-    : relational_database_config =
+let relational_database_config ?source_type
+    ?(http_endpoint_config = []) () : relational_database_config =
   { source_type; http_endpoint_config }
 
-let aws_appsync_datasource ?description ?id ?service_role_arn ~api_id
-    ~name ~type_ ~dynamodb_config ~elasticsearch_config
-    ~event_bridge_config ~http_config ~lambda_config
-    ~opensearchservice_config ~relational_database_config () :
+let aws_appsync_datasource ?description ?id ?service_role_arn
+    ?(dynamodb_config = []) ?(elasticsearch_config = [])
+    ?(event_bridge_config = []) ?(http_config = [])
+    ?(lambda_config = []) ?(opensearchservice_config = [])
+    ?(relational_database_config = []) ~api_id ~name ~type_ () :
     aws_appsync_datasource =
   {
     api_id;
@@ -669,10 +671,11 @@ type t = {
   type_ : string prop;
 }
 
-let make ?description ?id ?service_role_arn ~api_id ~name ~type_
-    ~dynamodb_config ~elasticsearch_config ~event_bridge_config
-    ~http_config ~lambda_config ~opensearchservice_config
-    ~relational_database_config __id =
+let make ?description ?id ?service_role_arn ?(dynamodb_config = [])
+    ?(elasticsearch_config = []) ?(event_bridge_config = [])
+    ?(http_config = []) ?(lambda_config = [])
+    ?(opensearchservice_config = [])
+    ?(relational_database_config = []) ~api_id ~name ~type_ __id =
   let __type = "aws_appsync_datasource" in
   let __attrs =
     ({
@@ -693,22 +696,23 @@ let make ?description ?id ?service_role_arn ~api_id ~name ~type_
     json =
       yojson_of_aws_appsync_datasource
         (aws_appsync_datasource ?description ?id ?service_role_arn
-           ~api_id ~name ~type_ ~dynamodb_config
-           ~elasticsearch_config ~event_bridge_config ~http_config
-           ~lambda_config ~opensearchservice_config
-           ~relational_database_config ());
+           ~dynamodb_config ~elasticsearch_config
+           ~event_bridge_config ~http_config ~lambda_config
+           ~opensearchservice_config ~relational_database_config
+           ~api_id ~name ~type_ ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?service_role_arn ~api_id
-    ~name ~type_ ~dynamodb_config ~elasticsearch_config
-    ~event_bridge_config ~http_config ~lambda_config
-    ~opensearchservice_config ~relational_database_config __id =
+let register ?tf_module ?description ?id ?service_role_arn
+    ?(dynamodb_config = []) ?(elasticsearch_config = [])
+    ?(event_bridge_config = []) ?(http_config = [])
+    ?(lambda_config = []) ?(opensearchservice_config = [])
+    ?(relational_database_config = []) ~api_id ~name ~type_ __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?service_role_arn ~api_id ~name ~type_
-      ~dynamodb_config ~elasticsearch_config ~event_bridge_config
-      ~http_config ~lambda_config ~opensearchservice_config
-      ~relational_database_config __id
+    make ?description ?id ?service_role_arn ~dynamodb_config
+      ~elasticsearch_config ~event_bridge_config ~http_config
+      ~lambda_config ~opensearchservice_config
+      ~relational_database_config ~api_id ~name ~type_ __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

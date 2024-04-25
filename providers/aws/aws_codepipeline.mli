@@ -16,9 +16,9 @@ type artifact_store
 
 val artifact_store :
   ?region:string prop ->
+  ?encryption_key:artifact_store__encryption_key list ->
   location:string prop ->
   type_:string prop ->
-  encryption_key:artifact_store__encryption_key list ->
   unit ->
   artifact_store
 
@@ -65,8 +65,8 @@ type trigger__git_configuration__pull_request
 
 val trigger__git_configuration__pull_request :
   ?events:string prop list ->
-  branches:trigger__git_configuration__pull_request__branches list ->
-  file_paths:
+  ?branches:trigger__git_configuration__pull_request__branches list ->
+  ?file_paths:
     trigger__git_configuration__pull_request__file_paths list ->
   unit ->
   trigger__git_configuration__pull_request
@@ -98,18 +98,18 @@ val trigger__git_configuration__push__tags :
 type trigger__git_configuration__push
 
 val trigger__git_configuration__push :
-  branches:trigger__git_configuration__push__branches list ->
-  file_paths:trigger__git_configuration__push__file_paths list ->
-  tags:trigger__git_configuration__push__tags list ->
+  ?branches:trigger__git_configuration__push__branches list ->
+  ?file_paths:trigger__git_configuration__push__file_paths list ->
+  ?tags:trigger__git_configuration__push__tags list ->
   unit ->
   trigger__git_configuration__push
 
 type trigger__git_configuration
 
 val trigger__git_configuration :
+  ?pull_request:trigger__git_configuration__pull_request list ->
+  ?push:trigger__git_configuration__push list ->
   source_action_name:string prop ->
-  pull_request:trigger__git_configuration__pull_request list ->
-  push:trigger__git_configuration__push list ->
   unit ->
   trigger__git_configuration
 
@@ -138,12 +138,12 @@ val aws_codepipeline :
   ?pipeline_type:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?trigger:trigger list ->
+  ?variable:variable list ->
   name:string prop ->
   role_arn:string prop ->
   artifact_store:artifact_store list ->
   stage:stage list ->
-  trigger:trigger list ->
-  variable:variable list ->
   unit ->
   aws_codepipeline
 
@@ -169,12 +169,12 @@ val register :
   ?pipeline_type:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?trigger:trigger list ->
+  ?variable:variable list ->
   name:string prop ->
   role_arn:string prop ->
   artifact_store:artifact_store list ->
   stage:stage list ->
-  trigger:trigger list ->
-  variable:variable list ->
   string ->
   t
 
@@ -184,11 +184,11 @@ val make :
   ?pipeline_type:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?trigger:trigger list ->
+  ?variable:variable list ->
   name:string prop ->
   role_arn:string prop ->
   artifact_store:artifact_store list ->
   stage:stage list ->
-  trigger:trigger list ->
-  variable:variable list ->
   string ->
   t Tf_core.resource

@@ -76,14 +76,14 @@ val azurerm_data_factory_dataset_delimited_text :
   ?parameters:(string * string prop) list ->
   ?quote_character:string prop ->
   ?row_delimiter:string prop ->
+  ?azure_blob_fs_location:azure_blob_fs_location list ->
+  ?azure_blob_storage_location:azure_blob_storage_location list ->
+  ?http_server_location:http_server_location list ->
+  ?schema_column:schema_column list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_name:string prop ->
   name:string prop ->
-  azure_blob_fs_location:azure_blob_fs_location list ->
-  azure_blob_storage_location:azure_blob_storage_location list ->
-  http_server_location:http_server_location list ->
-  schema_column:schema_column list ->
   unit ->
   azurerm_data_factory_dataset_delimited_text
 
@@ -130,14 +130,14 @@ val register :
   ?parameters:(string * string prop) list ->
   ?quote_character:string prop ->
   ?row_delimiter:string prop ->
+  ?azure_blob_fs_location:azure_blob_fs_location list ->
+  ?azure_blob_storage_location:azure_blob_storage_location list ->
+  ?http_server_location:http_server_location list ->
+  ?schema_column:schema_column list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_name:string prop ->
   name:string prop ->
-  azure_blob_fs_location:azure_blob_fs_location list ->
-  azure_blob_storage_location:azure_blob_storage_location list ->
-  http_server_location:http_server_location list ->
-  schema_column:schema_column list ->
   string ->
   t
 
@@ -157,13 +157,13 @@ val make :
   ?parameters:(string * string prop) list ->
   ?quote_character:string prop ->
   ?row_delimiter:string prop ->
+  ?azure_blob_fs_location:azure_blob_fs_location list ->
+  ?azure_blob_storage_location:azure_blob_storage_location list ->
+  ?http_server_location:http_server_location list ->
+  ?schema_column:schema_column list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_name:string prop ->
   name:string prop ->
-  azure_blob_fs_location:azure_blob_fs_location list ->
-  azure_blob_storage_location:azure_blob_storage_location list ->
-  http_server_location:http_server_location list ->
-  schema_column:schema_column list ->
   string ->
   t Tf_core.resource

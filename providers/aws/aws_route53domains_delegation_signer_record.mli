@@ -21,9 +21,9 @@ val timeouts :
 type aws_route53domains_delegation_signer_record
 
 val aws_route53domains_delegation_signer_record :
+  ?signing_attributes:signing_attributes list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
-  signing_attributes:signing_attributes list ->
   unit ->
   aws_route53domains_delegation_signer_record
 
@@ -40,15 +40,15 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?signing_attributes:signing_attributes list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
-  signing_attributes:signing_attributes list ->
   string ->
   t
 
 val make :
+  ?signing_attributes:signing_attributes list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
-  signing_attributes:signing_attributes list ->
   string ->
   t Tf_core.resource

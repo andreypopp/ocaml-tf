@@ -493,9 +493,9 @@ let azurerm_sql_database ?collation ?create_mode ?edition
     ?elastic_pool_name ?id ?max_size_bytes ?max_size_gb ?read_scale
     ?requested_service_objective_id ?requested_service_objective_name
     ?restore_point_in_time ?source_database_deletion_date
-    ?source_database_id ?tags ?zone_redundant ?timeouts ~location
-    ~name ~resource_group_name ~server_name ~import
-    ~threat_detection_policy () : azurerm_sql_database =
+    ?source_database_id ?tags ?zone_redundant ?(import = [])
+    ?(threat_detection_policy = []) ?timeouts ~location ~name
+    ~resource_group_name ~server_name () : azurerm_sql_database =
   {
     collation;
     create_mode;
@@ -550,9 +550,9 @@ let make ?collation ?create_mode ?edition ?elastic_pool_name ?id
     ?max_size_bytes ?max_size_gb ?read_scale
     ?requested_service_objective_id ?requested_service_objective_name
     ?restore_point_in_time ?source_database_deletion_date
-    ?source_database_id ?tags ?zone_redundant ?timeouts ~location
-    ~name ~resource_group_name ~server_name ~import
-    ~threat_detection_policy __id =
+    ?source_database_id ?tags ?zone_redundant ?(import = [])
+    ?(threat_detection_policy = []) ?timeouts ~location ~name
+    ~resource_group_name ~server_name __id =
   let __type = "azurerm_sql_database" in
   let __attrs =
     ({
@@ -599,9 +599,8 @@ let make ?collation ?create_mode ?edition ?elastic_pool_name ?id
            ?read_scale ?requested_service_objective_id
            ?requested_service_objective_name ?restore_point_in_time
            ?source_database_deletion_date ?source_database_id ?tags
-           ?zone_redundant ?timeouts ~location ~name
-           ~resource_group_name ~server_name ~import
-           ~threat_detection_policy ());
+           ?zone_redundant ~import ~threat_detection_policy ?timeouts
+           ~location ~name ~resource_group_name ~server_name ());
     attrs = __attrs;
   }
 
@@ -609,17 +608,17 @@ let register ?tf_module ?collation ?create_mode ?edition
     ?elastic_pool_name ?id ?max_size_bytes ?max_size_gb ?read_scale
     ?requested_service_objective_id ?requested_service_objective_name
     ?restore_point_in_time ?source_database_deletion_date
-    ?source_database_id ?tags ?zone_redundant ?timeouts ~location
-    ~name ~resource_group_name ~server_name ~import
-    ~threat_detection_policy __id =
+    ?source_database_id ?tags ?zone_redundant ?(import = [])
+    ?(threat_detection_policy = []) ?timeouts ~location ~name
+    ~resource_group_name ~server_name __id =
   let (r : _ Tf_core.resource) =
     make ?collation ?create_mode ?edition ?elastic_pool_name ?id
       ?max_size_bytes ?max_size_gb ?read_scale
       ?requested_service_objective_id
       ?requested_service_objective_name ?restore_point_in_time
       ?source_database_deletion_date ?source_database_id ?tags
-      ?zone_redundant ?timeouts ~location ~name ~resource_group_name
-      ~server_name ~import ~threat_detection_policy __id
+      ?zone_redundant ~import ~threat_detection_policy ?timeouts
+      ~location ~name ~resource_group_name ~server_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

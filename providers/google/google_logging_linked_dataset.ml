@@ -143,7 +143,7 @@ let bigquery_dataset () = ()
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let google_logging_linked_dataset ?description ?id ?location ?parent
-    ?timeouts ~bucket ~link_id ~bigquery_dataset () :
+    ?(bigquery_dataset = []) ?timeouts ~bucket ~link_id () :
     google_logging_linked_dataset =
   {
     bucket;
@@ -168,8 +168,8 @@ type t = {
   parent : string prop;
 }
 
-let make ?description ?id ?location ?parent ?timeouts ~bucket
-    ~link_id ~bigquery_dataset __id =
+let make ?description ?id ?location ?parent ?(bigquery_dataset = [])
+    ?timeouts ~bucket ~link_id __id =
   let __type = "google_logging_linked_dataset" in
   let __attrs =
     ({
@@ -191,15 +191,15 @@ let make ?description ?id ?location ?parent ?timeouts ~bucket
     json =
       yojson_of_google_logging_linked_dataset
         (google_logging_linked_dataset ?description ?id ?location
-           ?parent ?timeouts ~bucket ~link_id ~bigquery_dataset ());
+           ?parent ~bigquery_dataset ?timeouts ~bucket ~link_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?location ?parent ?timeouts
-    ~bucket ~link_id ~bigquery_dataset __id =
+let register ?tf_module ?description ?id ?location ?parent
+    ?(bigquery_dataset = []) ?timeouts ~bucket ~link_id __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?location ?parent ?timeouts ~bucket
-      ~link_id ~bigquery_dataset __id
+    make ?description ?id ?location ?parent ~bigquery_dataset
+      ?timeouts ~bucket ~link_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

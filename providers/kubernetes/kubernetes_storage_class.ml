@@ -264,7 +264,7 @@ let allowed_topologies__match_label_expressions ?key ?values () :
     allowed_topologies__match_label_expressions =
   { key; values }
 
-let allowed_topologies ~match_label_expressions () :
+let allowed_topologies ?(match_label_expressions = []) () :
     allowed_topologies =
   { match_label_expressions }
 
@@ -274,7 +274,7 @@ let metadata ?annotations ?generate_name ?labels ?name () : metadata
 
 let kubernetes_storage_class ?allow_volume_expansion ?id
     ?mount_options ?parameters ?reclaim_policy ?volume_binding_mode
-    ~storage_provisioner ~allowed_topologies ~metadata () :
+    ?(allowed_topologies = []) ~storage_provisioner ~metadata () :
     kubernetes_storage_class =
   {
     allow_volume_expansion;
@@ -299,8 +299,8 @@ type t = {
 }
 
 let make ?allow_volume_expansion ?id ?mount_options ?parameters
-    ?reclaim_policy ?volume_binding_mode ~storage_provisioner
-    ~allowed_topologies ~metadata __id =
+    ?reclaim_policy ?volume_binding_mode ?(allowed_topologies = [])
+    ~storage_provisioner ~metadata __id =
   let __type = "kubernetes_storage_class" in
   let __attrs =
     ({
@@ -324,18 +324,18 @@ let make ?allow_volume_expansion ?id ?mount_options ?parameters
       yojson_of_kubernetes_storage_class
         (kubernetes_storage_class ?allow_volume_expansion ?id
            ?mount_options ?parameters ?reclaim_policy
-           ?volume_binding_mode ~storage_provisioner
-           ~allowed_topologies ~metadata ());
+           ?volume_binding_mode ~allowed_topologies
+           ~storage_provisioner ~metadata ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?allow_volume_expansion ?id ?mount_options
     ?parameters ?reclaim_policy ?volume_binding_mode
-    ~storage_provisioner ~allowed_topologies ~metadata __id =
+    ?(allowed_topologies = []) ~storage_provisioner ~metadata __id =
   let (r : _ Tf_core.resource) =
     make ?allow_volume_expansion ?id ?mount_options ?parameters
-      ?reclaim_policy ?volume_binding_mode ~storage_provisioner
-      ~allowed_topologies ~metadata __id
+      ?reclaim_policy ?volume_binding_mode ~allowed_topologies
+      ~storage_provisioner ~metadata __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

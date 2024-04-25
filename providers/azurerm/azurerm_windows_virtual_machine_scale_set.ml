@@ -2103,8 +2103,8 @@ let extension__protected_settings_from_key_vault ~secret_url
 
 let extension ?auto_upgrade_minor_version ?automatic_upgrade_enabled
     ?force_update_tag ?protected_settings ?provision_after_extensions
-    ?settings ~name ~publisher ~type_ ~type_handler_version
-    ~protected_settings_from_key_vault () : extension =
+    ?settings ?(protected_settings_from_key_vault = []) ~name
+    ~publisher ~type_ ~type_handler_version () : extension =
   {
     auto_upgrade_minor_version;
     automatic_upgrade_enabled;
@@ -2142,7 +2142,7 @@ let network_interface__ip_configuration__public_ip_address__ip_tag
 
 let network_interface__ip_configuration__public_ip_address
     ?domain_name_label ?idle_timeout_in_minutes ?public_ip_prefix_id
-    ?version ~name ~ip_tag () :
+    ?version ?(ip_tag = []) ~name () :
     network_interface__ip_configuration__public_ip_address =
   {
     domain_name_label;
@@ -2158,8 +2158,8 @@ let network_interface__ip_configuration
     ?application_security_group_ids
     ?load_balancer_backend_address_pool_ids
     ?load_balancer_inbound_nat_rules_ids ?primary ?subnet_id ?version
-    ~name ~public_ip_address () : network_interface__ip_configuration
-    =
+    ?(public_ip_address = []) ~name () :
+    network_interface__ip_configuration =
   {
     application_gateway_backend_address_pool_ids;
     application_security_group_ids;
@@ -2191,8 +2191,8 @@ let os_disk__diff_disk_settings ?placement ~option_ () :
 
 let os_disk ?disk_encryption_set_id ?disk_size_gb
     ?secure_vm_disk_encryption_set_id ?security_encryption_type
-    ?write_accelerator_enabled ~caching ~storage_account_type
-    ~diff_disk_settings () : os_disk =
+    ?write_accelerator_enabled ?(diff_disk_settings = []) ~caching
+    ~storage_account_type () : os_disk =
   {
     caching;
     disk_encryption_set_id;
@@ -2262,15 +2262,19 @@ let azurerm_windows_virtual_machine_scale_set
     ?proximity_placement_group_id ?scale_in_policy
     ?secure_boot_enabled ?single_placement_group ?source_image_id
     ?tags ?timezone ?upgrade_mode ?user_data ?vtpm_enabled
-    ?zone_balance ?zones ?timeouts ~admin_password ~admin_username
-    ~instances ~location ~name ~resource_group_name ~sku
-    ~additional_capabilities ~additional_unattend_content
-    ~automatic_instance_repair ~automatic_os_upgrade_policy
-    ~boot_diagnostics ~data_disk ~extension ~gallery_application
-    ~gallery_applications ~identity ~network_interface ~os_disk ~plan
-    ~rolling_upgrade_policy ~scale_in ~secret ~source_image_reference
-    ~spot_restore ~terminate_notification ~termination_notification
-    ~winrm_listener () : azurerm_windows_virtual_machine_scale_set =
+    ?zone_balance ?zones ?(additional_capabilities = [])
+    ?(additional_unattend_content = [])
+    ?(automatic_instance_repair = [])
+    ?(automatic_os_upgrade_policy = []) ?(boot_diagnostics = [])
+    ?(data_disk = []) ?(gallery_application = [])
+    ?(gallery_applications = []) ?(identity = []) ?(plan = [])
+    ?(rolling_upgrade_policy = []) ?(scale_in = []) ?(secret = [])
+    ?(source_image_reference = []) ?(spot_restore = [])
+    ?(terminate_notification = []) ?(termination_notification = [])
+    ?timeouts ~admin_password ~admin_username ~instances ~location
+    ~name ~resource_group_name ~sku ~extension ~network_interface
+    ~os_disk ~winrm_listener () :
+    azurerm_windows_virtual_machine_scale_set =
   {
     admin_password;
     admin_username;
@@ -2386,15 +2390,18 @@ let make ?capacity_reservation_group_id ?computer_name_prefix
     ?proximity_placement_group_id ?scale_in_policy
     ?secure_boot_enabled ?single_placement_group ?source_image_id
     ?tags ?timezone ?upgrade_mode ?user_data ?vtpm_enabled
-    ?zone_balance ?zones ?timeouts ~admin_password ~admin_username
-    ~instances ~location ~name ~resource_group_name ~sku
-    ~additional_capabilities ~additional_unattend_content
-    ~automatic_instance_repair ~automatic_os_upgrade_policy
-    ~boot_diagnostics ~data_disk ~extension ~gallery_application
-    ~gallery_applications ~identity ~network_interface ~os_disk ~plan
-    ~rolling_upgrade_policy ~scale_in ~secret ~source_image_reference
-    ~spot_restore ~terminate_notification ~termination_notification
-    ~winrm_listener __id =
+    ?zone_balance ?zones ?(additional_capabilities = [])
+    ?(additional_unattend_content = [])
+    ?(automatic_instance_repair = [])
+    ?(automatic_os_upgrade_policy = []) ?(boot_diagnostics = [])
+    ?(data_disk = []) ?(gallery_application = [])
+    ?(gallery_applications = []) ?(identity = []) ?(plan = [])
+    ?(rolling_upgrade_policy = []) ?(scale_in = []) ?(secret = [])
+    ?(source_image_reference = []) ?(spot_restore = [])
+    ?(terminate_notification = []) ?(termination_notification = [])
+    ?timeouts ~admin_password ~admin_username ~instances ~location
+    ~name ~resource_group_name ~sku ~extension ~network_interface
+    ~os_disk ~winrm_listener __id =
   let __type = "azurerm_windows_virtual_machine_scale_set" in
   let __attrs =
     ({
@@ -2472,17 +2479,17 @@ let make ?capacity_reservation_group_id ?computer_name_prefix
            ?proximity_placement_group_id ?scale_in_policy
            ?secure_boot_enabled ?single_placement_group
            ?source_image_id ?tags ?timezone ?upgrade_mode ?user_data
-           ?vtpm_enabled ?zone_balance ?zones ?timeouts
-           ~admin_password ~admin_username ~instances ~location ~name
-           ~resource_group_name ~sku ~additional_capabilities
-           ~additional_unattend_content ~automatic_instance_repair
-           ~automatic_os_upgrade_policy ~boot_diagnostics ~data_disk
-           ~extension ~gallery_application ~gallery_applications
-           ~identity ~network_interface ~os_disk ~plan
+           ?vtpm_enabled ?zone_balance ?zones
+           ~additional_capabilities ~additional_unattend_content
+           ~automatic_instance_repair ~automatic_os_upgrade_policy
+           ~boot_diagnostics ~data_disk ~gallery_application
+           ~gallery_applications ~identity ~plan
            ~rolling_upgrade_policy ~scale_in ~secret
            ~source_image_reference ~spot_restore
            ~terminate_notification ~termination_notification
-           ~winrm_listener ());
+           ?timeouts ~admin_password ~admin_username ~instances
+           ~location ~name ~resource_group_name ~sku ~extension
+           ~network_interface ~os_disk ~winrm_listener ());
     attrs = __attrs;
   }
 
@@ -2497,15 +2504,18 @@ let register ?tf_module ?capacity_reservation_group_id
     ?proximity_placement_group_id ?scale_in_policy
     ?secure_boot_enabled ?single_placement_group ?source_image_id
     ?tags ?timezone ?upgrade_mode ?user_data ?vtpm_enabled
-    ?zone_balance ?zones ?timeouts ~admin_password ~admin_username
-    ~instances ~location ~name ~resource_group_name ~sku
-    ~additional_capabilities ~additional_unattend_content
-    ~automatic_instance_repair ~automatic_os_upgrade_policy
-    ~boot_diagnostics ~data_disk ~extension ~gallery_application
-    ~gallery_applications ~identity ~network_interface ~os_disk ~plan
-    ~rolling_upgrade_policy ~scale_in ~secret ~source_image_reference
-    ~spot_restore ~terminate_notification ~termination_notification
-    ~winrm_listener __id =
+    ?zone_balance ?zones ?(additional_capabilities = [])
+    ?(additional_unattend_content = [])
+    ?(automatic_instance_repair = [])
+    ?(automatic_os_upgrade_policy = []) ?(boot_diagnostics = [])
+    ?(data_disk = []) ?(gallery_application = [])
+    ?(gallery_applications = []) ?(identity = []) ?(plan = [])
+    ?(rolling_upgrade_policy = []) ?(scale_in = []) ?(secret = [])
+    ?(source_image_reference = []) ?(spot_restore = [])
+    ?(terminate_notification = []) ?(termination_notification = [])
+    ?timeouts ~admin_password ~admin_username ~instances ~location
+    ~name ~resource_group_name ~sku ~extension ~network_interface
+    ~os_disk ~winrm_listener __id =
   let (r : _ Tf_core.resource) =
     make ?capacity_reservation_group_id ?computer_name_prefix
       ?custom_data ?do_not_run_extensions_on_overprovisioned_machines
@@ -2517,15 +2527,16 @@ let register ?tf_module ?capacity_reservation_group_id
       ?priority ?provision_vm_agent ?proximity_placement_group_id
       ?scale_in_policy ?secure_boot_enabled ?single_placement_group
       ?source_image_id ?tags ?timezone ?upgrade_mode ?user_data
-      ?vtpm_enabled ?zone_balance ?zones ?timeouts ~admin_password
-      ~admin_username ~instances ~location ~name ~resource_group_name
-      ~sku ~additional_capabilities ~additional_unattend_content
-      ~automatic_instance_repair ~automatic_os_upgrade_policy
-      ~boot_diagnostics ~data_disk ~extension ~gallery_application
-      ~gallery_applications ~identity ~network_interface ~os_disk
-      ~plan ~rolling_upgrade_policy ~scale_in ~secret
+      ?vtpm_enabled ?zone_balance ?zones ~additional_capabilities
+      ~additional_unattend_content ~automatic_instance_repair
+      ~automatic_os_upgrade_policy ~boot_diagnostics ~data_disk
+      ~gallery_application ~gallery_applications ~identity ~plan
+      ~rolling_upgrade_policy ~scale_in ~secret
       ~source_image_reference ~spot_restore ~terminate_notification
-      ~termination_notification ~winrm_listener __id
+      ~termination_notification ?timeouts ~admin_password
+      ~admin_username ~instances ~location ~name ~resource_group_name
+      ~sku ~extension ~network_interface ~os_disk ~winrm_listener
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

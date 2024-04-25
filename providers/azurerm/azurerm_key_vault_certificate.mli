@@ -80,24 +80,24 @@ type certificate_policy__x509_certificate_properties
 
 val certificate_policy__x509_certificate_properties :
   ?extended_key_usage:string prop list ->
+  ?subject_alternative_names:
+    certificate_policy__x509_certificate_properties__subject_alternative_names
+    list ->
   key_usage:string prop list ->
   subject:string prop ->
   validity_in_months:float prop ->
-  subject_alternative_names:
-    certificate_policy__x509_certificate_properties__subject_alternative_names
-    list ->
   unit ->
   certificate_policy__x509_certificate_properties
 
 type certificate_policy
 
 val certificate_policy :
+  ?lifetime_action:certificate_policy__lifetime_action list ->
+  ?x509_certificate_properties:
+    certificate_policy__x509_certificate_properties list ->
   issuer_parameters:certificate_policy__issuer_parameters list ->
   key_properties:certificate_policy__key_properties list ->
-  lifetime_action:certificate_policy__lifetime_action list ->
   secret_properties:certificate_policy__secret_properties list ->
-  x509_certificate_properties:
-    certificate_policy__x509_certificate_properties list ->
   unit ->
   certificate_policy
 
@@ -116,11 +116,11 @@ type azurerm_key_vault_certificate
 val azurerm_key_vault_certificate :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?certificate:certificate list ->
+  ?certificate_policy:certificate_policy list ->
   ?timeouts:timeouts ->
   key_vault_id:string prop ->
   name:string prop ->
-  certificate:certificate list ->
-  certificate_policy:certificate_policy list ->
   unit ->
   azurerm_key_vault_certificate
 
@@ -150,21 +150,21 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?certificate:certificate list ->
+  ?certificate_policy:certificate_policy list ->
   ?timeouts:timeouts ->
   key_vault_id:string prop ->
   name:string prop ->
-  certificate:certificate list ->
-  certificate_policy:certificate_policy list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?certificate:certificate list ->
+  ?certificate_policy:certificate_policy list ->
   ?timeouts:timeouts ->
   key_vault_id:string prop ->
   name:string prop ->
-  certificate:certificate list ->
-  certificate_policy:certificate_policy list ->
   string ->
   t Tf_core.resource

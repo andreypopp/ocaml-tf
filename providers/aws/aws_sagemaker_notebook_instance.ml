@@ -259,9 +259,9 @@ let aws_sagemaker_notebook_instance ?accelerator_types
     ?additional_code_repositories ?default_code_repository
     ?direct_internet_access ?id ?kms_key_id ?lifecycle_config_name
     ?platform_identifier ?root_access ?security_groups ?subnet_id
-    ?tags ?tags_all ?volume_size ~instance_type ~name ~role_arn
-    ~instance_metadata_service_configuration () :
-    aws_sagemaker_notebook_instance =
+    ?tags ?tags_all ?volume_size
+    ?(instance_metadata_service_configuration = []) ~instance_type
+    ~name ~role_arn () : aws_sagemaker_notebook_instance =
   {
     accelerator_types;
     additional_code_repositories;
@@ -310,8 +310,8 @@ let make ?accelerator_types ?additional_code_repositories
     ?default_code_repository ?direct_internet_access ?id ?kms_key_id
     ?lifecycle_config_name ?platform_identifier ?root_access
     ?security_groups ?subnet_id ?tags ?tags_all ?volume_size
-    ~instance_type ~name ~role_arn
-    ~instance_metadata_service_configuration __id =
+    ?(instance_metadata_service_configuration = []) ~instance_type
+    ~name ~role_arn __id =
   let __type = "aws_sagemaker_notebook_instance" in
   let __attrs =
     ({
@@ -355,8 +355,8 @@ let make ?accelerator_types ?additional_code_repositories
            ?direct_internet_access ?id ?kms_key_id
            ?lifecycle_config_name ?platform_identifier ?root_access
            ?security_groups ?subnet_id ?tags ?tags_all ?volume_size
-           ~instance_type ~name ~role_arn
-           ~instance_metadata_service_configuration ());
+           ~instance_metadata_service_configuration ~instance_type
+           ~name ~role_arn ());
     attrs = __attrs;
   }
 
@@ -364,15 +364,16 @@ let register ?tf_module ?accelerator_types
     ?additional_code_repositories ?default_code_repository
     ?direct_internet_access ?id ?kms_key_id ?lifecycle_config_name
     ?platform_identifier ?root_access ?security_groups ?subnet_id
-    ?tags ?tags_all ?volume_size ~instance_type ~name ~role_arn
-    ~instance_metadata_service_configuration __id =
+    ?tags ?tags_all ?volume_size
+    ?(instance_metadata_service_configuration = []) ~instance_type
+    ~name ~role_arn __id =
   let (r : _ Tf_core.resource) =
     make ?accelerator_types ?additional_code_repositories
       ?default_code_repository ?direct_internet_access ?id
       ?kms_key_id ?lifecycle_config_name ?platform_identifier
       ?root_access ?security_groups ?subnet_id ?tags ?tags_all
-      ?volume_size ~instance_type ~name ~role_arn
-      ~instance_metadata_service_configuration __id
+      ?volume_size ~instance_metadata_service_configuration
+      ~instance_type ~name ~role_arn __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

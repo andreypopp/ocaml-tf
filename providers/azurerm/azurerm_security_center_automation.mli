@@ -32,8 +32,8 @@ val source__rule_set :
 type source
 
 val source :
+  ?rule_set:source__rule_set list ->
   event_source:string prop ->
-  rule_set:source__rule_set list ->
   unit ->
   source
 

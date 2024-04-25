@@ -44,12 +44,12 @@ val azurerm_elastic_san_volume_group :
   ?encryption_type:string prop ->
   ?id:string prop ->
   ?protocol_type:string prop ->
+  ?encryption:encryption list ->
+  ?identity:identity list ->
+  ?network_rule:network_rule list ->
   ?timeouts:timeouts ->
   elastic_san_id:string prop ->
   name:string prop ->
-  encryption:encryption list ->
-  identity:identity list ->
-  network_rule:network_rule list ->
   unit ->
   azurerm_elastic_san_volume_group
 
@@ -71,12 +71,12 @@ val register :
   ?encryption_type:string prop ->
   ?id:string prop ->
   ?protocol_type:string prop ->
+  ?encryption:encryption list ->
+  ?identity:identity list ->
+  ?network_rule:network_rule list ->
   ?timeouts:timeouts ->
   elastic_san_id:string prop ->
   name:string prop ->
-  encryption:encryption list ->
-  identity:identity list ->
-  network_rule:network_rule list ->
   string ->
   t
 
@@ -84,11 +84,11 @@ val make :
   ?encryption_type:string prop ->
   ?id:string prop ->
   ?protocol_type:string prop ->
+  ?encryption:encryption list ->
+  ?identity:identity list ->
+  ?network_rule:network_rule list ->
   ?timeouts:timeouts ->
   elastic_san_id:string prop ->
   name:string prop ->
-  encryption:encryption list ->
-  identity:identity list ->
-  network_rule:network_rule list ->
   string ->
   t Tf_core.resource

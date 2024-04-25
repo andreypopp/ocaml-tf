@@ -95,7 +95,7 @@ val site_config :
   ?use_32_bit_worker_process:bool prop ->
   ?vnet_route_all_enabled:bool prop ->
   ?websockets_enabled:bool prop ->
-  cors:site_config__cors list ->
+  ?cors:site_config__cors list ->
   unit ->
   site_config
 
@@ -124,6 +124,8 @@ val azurerm_logic_app_standard :
   ?use_extension_bundle:bool prop ->
   ?version:string prop ->
   ?virtual_network_subnet_id:string prop ->
+  ?identity:identity list ->
+  ?site_config:site_config list ->
   ?timeouts:timeouts ->
   app_service_plan_id:string prop ->
   location:string prop ->
@@ -132,8 +134,6 @@ val azurerm_logic_app_standard :
   storage_account_access_key:string prop ->
   storage_account_name:string prop ->
   connection_string:connection_string list ->
-  identity:identity list ->
-  site_config:site_config list ->
   unit ->
   azurerm_logic_app_standard
 
@@ -183,6 +183,8 @@ val register :
   ?use_extension_bundle:bool prop ->
   ?version:string prop ->
   ?virtual_network_subnet_id:string prop ->
+  ?identity:identity list ->
+  ?site_config:site_config list ->
   ?timeouts:timeouts ->
   app_service_plan_id:string prop ->
   location:string prop ->
@@ -191,8 +193,6 @@ val register :
   storage_account_access_key:string prop ->
   storage_account_name:string prop ->
   connection_string:connection_string list ->
-  identity:identity list ->
-  site_config:site_config list ->
   string ->
   t
 
@@ -209,6 +209,8 @@ val make :
   ?use_extension_bundle:bool prop ->
   ?version:string prop ->
   ?virtual_network_subnet_id:string prop ->
+  ?identity:identity list ->
+  ?site_config:site_config list ->
   ?timeouts:timeouts ->
   app_service_plan_id:string prop ->
   location:string prop ->
@@ -217,7 +219,5 @@ val make :
   storage_account_access_key:string prop ->
   storage_account_name:string prop ->
   connection_string:connection_string list ->
-  identity:identity list ->
-  site_config:site_config list ->
   string ->
   t Tf_core.resource

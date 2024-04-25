@@ -40,8 +40,8 @@ type source
 
 val source :
   ?source_identifier:string prop ->
+  ?custom_policy_details:source__custom_policy_details list ->
   owner:string prop ->
-  custom_policy_details:source__custom_policy_details list ->
   source_detail:source__source_detail list ->
   unit ->
   source
@@ -55,9 +55,9 @@ val aws_config_config_rule :
   ?maximum_execution_frequency:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?scope:scope list ->
   name:string prop ->
   evaluation_mode:evaluation_mode list ->
-  scope:scope list ->
   source:source list ->
   unit ->
   aws_config_config_rule
@@ -86,9 +86,9 @@ val register :
   ?maximum_execution_frequency:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?scope:scope list ->
   name:string prop ->
   evaluation_mode:evaluation_mode list ->
-  scope:scope list ->
   source:source list ->
   string ->
   t
@@ -100,9 +100,9 @@ val make :
   ?maximum_execution_frequency:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?scope:scope list ->
   name:string prop ->
   evaluation_mode:evaluation_mode list ->
-  scope:scope list ->
   source:source list ->
   string ->
   t Tf_core.resource

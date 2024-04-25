@@ -27,8 +27,8 @@ val action__forward :
 type action
 
 val action :
-  fixed_response:action__fixed_response list ->
-  forward:action__forward list ->
+  ?fixed_response:action__fixed_response list ->
+  ?forward:action__forward list ->
   unit ->
   action
 
@@ -70,14 +70,14 @@ type match__http_match
 
 val match__http_match :
   ?method_:string prop ->
-  header_matches:match__http_match__header_matches list ->
-  path_match:match__http_match__path_match list ->
+  ?header_matches:match__http_match__header_matches list ->
+  ?path_match:match__http_match__path_match list ->
   unit ->
   match__http_match
 
 type match_
 
-val match_ : http_match:match__http_match list -> unit -> match_
+val match_ : ?http_match:match__http_match list -> unit -> match_
 
 type timeouts
 

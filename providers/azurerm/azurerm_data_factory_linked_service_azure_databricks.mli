@@ -60,13 +60,13 @@ val azurerm_data_factory_linked_service_azure_databricks :
   ?integration_runtime_name:string prop ->
   ?msi_work_space_resource_id:string prop ->
   ?parameters:(string * string prop) list ->
+  ?instance_pool:instance_pool list ->
+  ?key_vault_password:key_vault_password list ->
+  ?new_cluster_config:new_cluster_config list ->
   ?timeouts:timeouts ->
   adb_domain:string prop ->
   data_factory_id:string prop ->
   name:string prop ->
-  instance_pool:instance_pool list ->
-  key_vault_password:key_vault_password list ->
-  new_cluster_config:new_cluster_config list ->
   unit ->
   azurerm_data_factory_linked_service_azure_databricks
 
@@ -101,13 +101,13 @@ val register :
   ?integration_runtime_name:string prop ->
   ?msi_work_space_resource_id:string prop ->
   ?parameters:(string * string prop) list ->
+  ?instance_pool:instance_pool list ->
+  ?key_vault_password:key_vault_password list ->
+  ?new_cluster_config:new_cluster_config list ->
   ?timeouts:timeouts ->
   adb_domain:string prop ->
   data_factory_id:string prop ->
   name:string prop ->
-  instance_pool:instance_pool list ->
-  key_vault_password:key_vault_password list ->
-  new_cluster_config:new_cluster_config list ->
   string ->
   t
 
@@ -121,12 +121,12 @@ val make :
   ?integration_runtime_name:string prop ->
   ?msi_work_space_resource_id:string prop ->
   ?parameters:(string * string prop) list ->
+  ?instance_pool:instance_pool list ->
+  ?key_vault_password:key_vault_password list ->
+  ?new_cluster_config:new_cluster_config list ->
   ?timeouts:timeouts ->
   adb_domain:string prop ->
   data_factory_id:string prop ->
   name:string prop ->
-  instance_pool:instance_pool list ->
-  key_vault_password:key_vault_password list ->
-  new_cluster_config:new_cluster_config list ->
   string ->
   t Tf_core.resource

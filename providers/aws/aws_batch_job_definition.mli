@@ -47,14 +47,14 @@ val eks_properties__pod_properties__containers :
   ?command:string prop list ->
   ?image_pull_policy:string prop ->
   ?name:string prop ->
+  ?resources:
+    eks_properties__pod_properties__containers__resources list ->
+  ?security_context:
+    eks_properties__pod_properties__containers__security_context list ->
+  ?volume_mounts:
+    eks_properties__pod_properties__containers__volume_mounts list ->
   image:string prop ->
   env:eks_properties__pod_properties__containers__env list ->
-  resources:
-    eks_properties__pod_properties__containers__resources list ->
-  security_context:
-    eks_properties__pod_properties__containers__security_context list ->
-  volume_mounts:
-    eks_properties__pod_properties__containers__volume_mounts list ->
   unit ->
   eks_properties__pod_properties__containers
 
@@ -92,9 +92,9 @@ type eks_properties__pod_properties__volumes
 
 val eks_properties__pod_properties__volumes :
   ?name:string prop ->
-  empty_dir:eks_properties__pod_properties__volumes__empty_dir list ->
-  host_path:eks_properties__pod_properties__volumes__host_path list ->
-  secret:eks_properties__pod_properties__volumes__secret list ->
+  ?empty_dir:eks_properties__pod_properties__volumes__empty_dir list ->
+  ?host_path:eks_properties__pod_properties__volumes__host_path list ->
+  ?secret:eks_properties__pod_properties__volumes__secret list ->
   unit ->
   eks_properties__pod_properties__volumes
 
@@ -104,9 +104,9 @@ val eks_properties__pod_properties :
   ?dns_policy:string prop ->
   ?host_network:bool prop ->
   ?service_account_name:string prop ->
+  ?metadata:eks_properties__pod_properties__metadata list ->
+  ?volumes:eks_properties__pod_properties__volumes list ->
   containers:eks_properties__pod_properties__containers list ->
-  metadata:eks_properties__pod_properties__metadata list ->
-  volumes:eks_properties__pod_properties__volumes list ->
   unit ->
   eks_properties__pod_properties
 
@@ -131,7 +131,7 @@ type retry_strategy
 
 val retry_strategy :
   ?attempts:float prop ->
-  evaluate_on_exit:retry_strategy__evaluate_on_exit list ->
+  ?evaluate_on_exit:retry_strategy__evaluate_on_exit list ->
   unit ->
   retry_strategy
 
@@ -151,11 +151,11 @@ val aws_batch_job_definition :
   ?scheduling_priority:float prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?eks_properties:eks_properties list ->
+  ?retry_strategy:retry_strategy list ->
+  ?timeout:timeout list ->
   name:string prop ->
   type_:string prop ->
-  eks_properties:eks_properties list ->
-  retry_strategy:retry_strategy list ->
-  timeout:timeout list ->
   unit ->
   aws_batch_job_definition
 
@@ -192,11 +192,11 @@ val register :
   ?scheduling_priority:float prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?eks_properties:eks_properties list ->
+  ?retry_strategy:retry_strategy list ->
+  ?timeout:timeout list ->
   name:string prop ->
   type_:string prop ->
-  eks_properties:eks_properties list ->
-  retry_strategy:retry_strategy list ->
-  timeout:timeout list ->
   string ->
   t
 
@@ -210,10 +210,10 @@ val make :
   ?scheduling_priority:float prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?eks_properties:eks_properties list ->
+  ?retry_strategy:retry_strategy list ->
+  ?timeout:timeout list ->
   name:string prop ->
   type_:string prop ->
-  eks_properties:eks_properties list ->
-  retry_strategy:retry_strategy list ->
-  timeout:timeout list ->
   string ->
   t Tf_core.resource

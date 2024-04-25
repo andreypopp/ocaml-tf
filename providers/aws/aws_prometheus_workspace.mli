@@ -17,7 +17,7 @@ val aws_prometheus_workspace :
   ?kms_key_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  logging_configuration:logging_configuration list ->
+  ?logging_configuration:logging_configuration list ->
   unit ->
   aws_prometheus_workspace
 
@@ -43,7 +43,7 @@ val register :
   ?kms_key_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  logging_configuration:logging_configuration list ->
+  ?logging_configuration:logging_configuration list ->
   string ->
   t
 
@@ -53,6 +53,6 @@ val make :
   ?kms_key_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  logging_configuration:logging_configuration list ->
+  ?logging_configuration:logging_configuration list ->
   string ->
   t Tf_core.resource

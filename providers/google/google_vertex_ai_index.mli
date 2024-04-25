@@ -30,9 +30,9 @@ val metadata__config__algorithm_config__tree_ah_config :
 type metadata__config__algorithm_config
 
 val metadata__config__algorithm_config :
-  brute_force_config:
+  ?brute_force_config:
     metadata__config__algorithm_config__brute_force_config list ->
-  tree_ah_config:
+  ?tree_ah_config:
     metadata__config__algorithm_config__tree_ah_config list ->
   unit ->
   metadata__config__algorithm_config
@@ -44,8 +44,8 @@ val metadata__config :
   ?distance_measure_type:string prop ->
   ?feature_norm_type:string prop ->
   ?shard_size:string prop ->
+  ?algorithm_config:metadata__config__algorithm_config list ->
   dimensions:float prop ->
-  algorithm_config:metadata__config__algorithm_config list ->
   unit ->
   metadata__config
 
@@ -53,8 +53,8 @@ type metadata
 
 val metadata :
   ?is_complete_overwrite:bool prop ->
+  ?config:metadata__config list ->
   contents_delta_uri:string prop ->
-  config:metadata__config list ->
   unit ->
   metadata
 
@@ -76,9 +76,9 @@ val google_vertex_ai_index :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
+  ?metadata:metadata list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
-  metadata:metadata list ->
   unit ->
   google_vertex_ai_index
 
@@ -113,9 +113,9 @@ val register :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
+  ?metadata:metadata list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
-  metadata:metadata list ->
   string ->
   t
 
@@ -126,8 +126,8 @@ val make :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
+  ?metadata:metadata list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
-  metadata:metadata list ->
   string ->
   t Tf_core.resource

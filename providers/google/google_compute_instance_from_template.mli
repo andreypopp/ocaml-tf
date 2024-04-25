@@ -63,7 +63,7 @@ val boot_disk :
   ?kms_key_self_link:string prop ->
   ?mode:string prop ->
   ?source:string prop ->
-  initialize_params:boot_disk__initialize_params list ->
+  ?initialize_params:boot_disk__initialize_params list ->
   unit ->
   boot_disk
 
@@ -110,7 +110,7 @@ val network_interface :
   ?stack_type:string prop ->
   ?subnetwork:string prop ->
   ?subnetwork_project:string prop ->
-  ipv6_access_config:network_interface__ipv6_access_config list ->
+  ?ipv6_access_config:network_interface__ipv6_access_config list ->
   unit ->
   network_interface
 
@@ -139,9 +139,9 @@ val reservation_affinity__specific_reservation :
 type reservation_affinity
 
 val reservation_affinity :
-  type_:string prop ->
-  specific_reservation:
+  ?specific_reservation:
     reservation_affinity__specific_reservation list ->
+  type_:string prop ->
   unit ->
   reservation_affinity
 
@@ -171,7 +171,7 @@ val scheduling :
   ?on_host_maintenance:string prop ->
   ?preemptible:bool prop ->
   ?provisioning_model:string prop ->
-  local_ssd_recovery_timeout:
+  ?local_ssd_recovery_timeout:
     scheduling__local_ssd_recovery_timeout list ->
   node_affinities:scheduling__node_affinities list ->
   unit ->
@@ -219,18 +219,18 @@ val google_compute_instance_from_template :
   ?service_account:service_account list ->
   ?tags:string prop list ->
   ?zone:string prop ->
+  ?advanced_machine_features:advanced_machine_features list ->
+  ?boot_disk:boot_disk list ->
+  ?confidential_instance_config:confidential_instance_config list ->
+  ?network_interface:network_interface list ->
+  ?network_performance_config:network_performance_config list ->
+  ?params:params list ->
+  ?reservation_affinity:reservation_affinity list ->
+  ?scheduling:scheduling list ->
+  ?shielded_instance_config:shielded_instance_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   source_instance_template:string prop ->
-  advanced_machine_features:advanced_machine_features list ->
-  boot_disk:boot_disk list ->
-  confidential_instance_config:confidential_instance_config list ->
-  network_interface:network_interface list ->
-  network_performance_config:network_performance_config list ->
-  params:params list ->
-  reservation_affinity:reservation_affinity list ->
-  scheduling:scheduling list ->
-  shielded_instance_config:shielded_instance_config list ->
   unit ->
   google_compute_instance_from_template
 
@@ -297,18 +297,18 @@ val register :
   ?service_account:service_account list ->
   ?tags:string prop list ->
   ?zone:string prop ->
+  ?advanced_machine_features:advanced_machine_features list ->
+  ?boot_disk:boot_disk list ->
+  ?confidential_instance_config:confidential_instance_config list ->
+  ?network_interface:network_interface list ->
+  ?network_performance_config:network_performance_config list ->
+  ?params:params list ->
+  ?reservation_affinity:reservation_affinity list ->
+  ?scheduling:scheduling list ->
+  ?shielded_instance_config:shielded_instance_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   source_instance_template:string prop ->
-  advanced_machine_features:advanced_machine_features list ->
-  boot_disk:boot_disk list ->
-  confidential_instance_config:confidential_instance_config list ->
-  network_interface:network_interface list ->
-  network_performance_config:network_performance_config list ->
-  params:params list ->
-  reservation_affinity:reservation_affinity list ->
-  scheduling:scheduling list ->
-  shielded_instance_config:shielded_instance_config list ->
   string ->
   t
 
@@ -334,17 +334,17 @@ val make :
   ?service_account:service_account list ->
   ?tags:string prop list ->
   ?zone:string prop ->
+  ?advanced_machine_features:advanced_machine_features list ->
+  ?boot_disk:boot_disk list ->
+  ?confidential_instance_config:confidential_instance_config list ->
+  ?network_interface:network_interface list ->
+  ?network_performance_config:network_performance_config list ->
+  ?params:params list ->
+  ?reservation_affinity:reservation_affinity list ->
+  ?scheduling:scheduling list ->
+  ?shielded_instance_config:shielded_instance_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   source_instance_template:string prop ->
-  advanced_machine_features:advanced_machine_features list ->
-  boot_disk:boot_disk list ->
-  confidential_instance_config:confidential_instance_config list ->
-  network_interface:network_interface list ->
-  network_performance_config:network_performance_config list ->
-  params:params list ->
-  reservation_affinity:reservation_affinity list ->
-  scheduling:scheduling list ->
-  shielded_instance_config:shielded_instance_config list ->
   string ->
   t Tf_core.resource

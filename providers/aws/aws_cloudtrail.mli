@@ -39,7 +39,7 @@ val event_selector :
   ?exclude_management_event_sources:string prop list ->
   ?include_management_events:bool prop ->
   ?read_write_type:string prop ->
-  data_resource:event_selector__data_resource list ->
+  ?data_resource:event_selector__data_resource list ->
   unit ->
   event_selector
 
@@ -64,11 +64,11 @@ val aws_cloudtrail :
   ?sns_topic_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?advanced_event_selector:advanced_event_selector list ->
+  ?event_selector:event_selector list ->
+  ?insight_selector:insight_selector list ->
   name:string prop ->
   s3_bucket_name:string prop ->
-  advanced_event_selector:advanced_event_selector list ->
-  event_selector:event_selector list ->
-  insight_selector:insight_selector list ->
   unit ->
   aws_cloudtrail
 
@@ -111,11 +111,11 @@ val register :
   ?sns_topic_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?advanced_event_selector:advanced_event_selector list ->
+  ?event_selector:event_selector list ->
+  ?insight_selector:insight_selector list ->
   name:string prop ->
   s3_bucket_name:string prop ->
-  advanced_event_selector:advanced_event_selector list ->
-  event_selector:event_selector list ->
-  insight_selector:insight_selector list ->
   string ->
   t
 
@@ -133,10 +133,10 @@ val make :
   ?sns_topic_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?advanced_event_selector:advanced_event_selector list ->
+  ?event_selector:event_selector list ->
+  ?insight_selector:insight_selector list ->
   name:string prop ->
   s3_bucket_name:string prop ->
-  advanced_event_selector:advanced_event_selector list ->
-  event_selector:event_selector list ->
-  insight_selector:insight_selector list ->
   string ->
   t Tf_core.resource

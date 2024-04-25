@@ -620,8 +620,8 @@ let alert_details_override__dynamic_property ~name ~value () :
   { name; value }
 
 let alert_details_override ?description_format ?display_name_format
-    ?severity_column_name ?tactics_column_name ~dynamic_property () :
-    alert_details_override =
+    ?severity_column_name ?tactics_column_name
+    ?(dynamic_property = []) () : alert_details_override =
   {
     description_format;
     display_name_format;
@@ -666,9 +666,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_sentinel_alert_rule_nrt ?alert_rule_template_guid
     ?alert_rule_template_version ?custom_details ?description
     ?enabled ?id ?suppression_duration ?suppression_enabled ?tactics
-    ?techniques ?timeouts ~display_name ~log_analytics_workspace_id
-    ~name ~query ~severity ~alert_details_override ~entity_mapping
-    ~event_grouping ~incident ~sentinel_entity_mapping () :
+    ?techniques ?(alert_details_override = []) ?(entity_mapping = [])
+    ?(event_grouping = []) ?(incident = [])
+    ?(sentinel_entity_mapping = []) ?timeouts ~display_name
+    ~log_analytics_workspace_id ~name ~query ~severity () :
     azurerm_sentinel_alert_rule_nrt =
   {
     alert_rule_template_guid;
@@ -714,10 +715,11 @@ type t = {
 
 let make ?alert_rule_template_guid ?alert_rule_template_version
     ?custom_details ?description ?enabled ?id ?suppression_duration
-    ?suppression_enabled ?tactics ?techniques ?timeouts ~display_name
-    ~log_analytics_workspace_id ~name ~query ~severity
-    ~alert_details_override ~entity_mapping ~event_grouping ~incident
-    ~sentinel_entity_mapping __id =
+    ?suppression_enabled ?tactics ?techniques
+    ?(alert_details_override = []) ?(entity_mapping = [])
+    ?(event_grouping = []) ?(incident = [])
+    ?(sentinel_entity_mapping = []) ?timeouts ~display_name
+    ~log_analytics_workspace_id ~name ~query ~severity __id =
   let __type = "azurerm_sentinel_alert_rule_nrt" in
   let __attrs =
     ({
@@ -752,26 +754,27 @@ let make ?alert_rule_template_guid ?alert_rule_template_version
         (azurerm_sentinel_alert_rule_nrt ?alert_rule_template_guid
            ?alert_rule_template_version ?custom_details ?description
            ?enabled ?id ?suppression_duration ?suppression_enabled
-           ?tactics ?techniques ?timeouts ~display_name
-           ~log_analytics_workspace_id ~name ~query ~severity
-           ~alert_details_override ~entity_mapping ~event_grouping
-           ~incident ~sentinel_entity_mapping ());
+           ?tactics ?techniques ~alert_details_override
+           ~entity_mapping ~event_grouping ~incident
+           ~sentinel_entity_mapping ?timeouts ~display_name
+           ~log_analytics_workspace_id ~name ~query ~severity ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?alert_rule_template_guid
     ?alert_rule_template_version ?custom_details ?description
     ?enabled ?id ?suppression_duration ?suppression_enabled ?tactics
-    ?techniques ?timeouts ~display_name ~log_analytics_workspace_id
-    ~name ~query ~severity ~alert_details_override ~entity_mapping
-    ~event_grouping ~incident ~sentinel_entity_mapping __id =
+    ?techniques ?(alert_details_override = []) ?(entity_mapping = [])
+    ?(event_grouping = []) ?(incident = [])
+    ?(sentinel_entity_mapping = []) ?timeouts ~display_name
+    ~log_analytics_workspace_id ~name ~query ~severity __id =
   let (r : _ Tf_core.resource) =
     make ?alert_rule_template_guid ?alert_rule_template_version
       ?custom_details ?description ?enabled ?id ?suppression_duration
-      ?suppression_enabled ?tactics ?techniques ?timeouts
-      ~display_name ~log_analytics_workspace_id ~name ~query
-      ~severity ~alert_details_override ~entity_mapping
-      ~event_grouping ~incident ~sentinel_entity_mapping __id
+      ?suppression_enabled ?tactics ?techniques
+      ~alert_details_override ~entity_mapping ~event_grouping
+      ~incident ~sentinel_entity_mapping ?timeouts ~display_name
+      ~log_analytics_workspace_id ~name ~query ~severity __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -278,8 +278,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_vpn_gateway_nat_rule ?external_address_space_mappings ?id
     ?internal_address_space_mappings ?ip_configuration_id ?mode
-    ?type_ ?timeouts ~name ~resource_group_name ~vpn_gateway_id
-    ~external_mapping ~internal_mapping () :
+    ?type_ ?(external_mapping = []) ?(internal_mapping = [])
+    ?timeouts ~name ~resource_group_name ~vpn_gateway_id () :
     azurerm_vpn_gateway_nat_rule =
   {
     external_address_space_mappings;
@@ -310,8 +310,8 @@ type t = {
 
 let make ?external_address_space_mappings ?id
     ?internal_address_space_mappings ?ip_configuration_id ?mode
-    ?type_ ?timeouts ~name ~resource_group_name ~vpn_gateway_id
-    ~external_mapping ~internal_mapping __id =
+    ?type_ ?(external_mapping = []) ?(internal_mapping = [])
+    ?timeouts ~name ~resource_group_name ~vpn_gateway_id __id =
   let __type = "azurerm_vpn_gateway_nat_rule" in
   let __attrs =
     ({
@@ -339,20 +339,20 @@ let make ?external_address_space_mappings ?id
         (azurerm_vpn_gateway_nat_rule
            ?external_address_space_mappings ?id
            ?internal_address_space_mappings ?ip_configuration_id
-           ?mode ?type_ ?timeouts ~name ~resource_group_name
-           ~vpn_gateway_id ~external_mapping ~internal_mapping ());
+           ?mode ?type_ ~external_mapping ~internal_mapping ?timeouts
+           ~name ~resource_group_name ~vpn_gateway_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?external_address_space_mappings ?id
     ?internal_address_space_mappings ?ip_configuration_id ?mode
-    ?type_ ?timeouts ~name ~resource_group_name ~vpn_gateway_id
-    ~external_mapping ~internal_mapping __id =
+    ?type_ ?(external_mapping = []) ?(internal_mapping = [])
+    ?timeouts ~name ~resource_group_name ~vpn_gateway_id __id =
   let (r : _ Tf_core.resource) =
     make ?external_address_space_mappings ?id
       ?internal_address_space_mappings ?ip_configuration_id ?mode
-      ?type_ ?timeouts ~name ~resource_group_name ~vpn_gateway_id
-      ~external_mapping ~internal_mapping __id
+      ?type_ ~external_mapping ~internal_mapping ?timeouts ~name
+      ~resource_group_name ~vpn_gateway_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

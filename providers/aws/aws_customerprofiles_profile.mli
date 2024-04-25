@@ -89,11 +89,11 @@ val aws_customerprofiles_profile :
   ?party_type_string:string prop ->
   ?personal_email_address:string prop ->
   ?phone_number:string prop ->
+  ?address:address list ->
+  ?billing_address:billing_address list ->
+  ?mailing_address:mailing_address list ->
+  ?shipping_address:shipping_address list ->
   domain_name:string prop ->
-  address:address list ->
-  billing_address:billing_address list ->
-  mailing_address:mailing_address list ->
-  shipping_address:shipping_address list ->
   unit ->
   aws_customerprofiles_profile
 
@@ -144,11 +144,11 @@ val register :
   ?party_type_string:string prop ->
   ?personal_email_address:string prop ->
   ?phone_number:string prop ->
+  ?address:address list ->
+  ?billing_address:billing_address list ->
+  ?mailing_address:mailing_address list ->
+  ?shipping_address:shipping_address list ->
   domain_name:string prop ->
-  address:address list ->
-  billing_address:billing_address list ->
-  mailing_address:mailing_address list ->
-  shipping_address:shipping_address list ->
   string ->
   t
 
@@ -171,10 +171,10 @@ val make :
   ?party_type_string:string prop ->
   ?personal_email_address:string prop ->
   ?phone_number:string prop ->
+  ?address:address list ->
+  ?billing_address:billing_address list ->
+  ?mailing_address:mailing_address list ->
+  ?shipping_address:shipping_address list ->
   domain_name:string prop ->
-  address:address list ->
-  billing_address:billing_address list ->
-  mailing_address:mailing_address list ->
-  shipping_address:shipping_address list ->
   string ->
   t Tf_core.resource

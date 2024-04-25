@@ -45,12 +45,12 @@ val google_compute_region_network_endpoint_group :
   ?project:string prop ->
   ?psc_target_service:string prop ->
   ?subnetwork:string prop ->
+  ?app_engine:app_engine list ->
+  ?cloud_function:cloud_function list ->
+  ?cloud_run:cloud_run list ->
   ?timeouts:timeouts ->
   name:string prop ->
   region:string prop ->
-  app_engine:app_engine list ->
-  cloud_function:cloud_function list ->
-  cloud_run:cloud_run list ->
   unit ->
   google_compute_region_network_endpoint_group
 
@@ -81,12 +81,12 @@ val register :
   ?project:string prop ->
   ?psc_target_service:string prop ->
   ?subnetwork:string prop ->
+  ?app_engine:app_engine list ->
+  ?cloud_function:cloud_function list ->
+  ?cloud_run:cloud_run list ->
   ?timeouts:timeouts ->
   name:string prop ->
   region:string prop ->
-  app_engine:app_engine list ->
-  cloud_function:cloud_function list ->
-  cloud_run:cloud_run list ->
   string ->
   t
 
@@ -98,11 +98,11 @@ val make :
   ?project:string prop ->
   ?psc_target_service:string prop ->
   ?subnetwork:string prop ->
+  ?app_engine:app_engine list ->
+  ?cloud_function:cloud_function list ->
+  ?cloud_run:cloud_run list ->
   ?timeouts:timeouts ->
   name:string prop ->
   region:string prop ->
-  app_engine:app_engine list ->
-  cloud_function:cloud_function list ->
-  cloud_run:cloud_run list ->
   string ->
   t Tf_core.resource

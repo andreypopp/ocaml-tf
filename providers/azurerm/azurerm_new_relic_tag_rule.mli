@@ -40,10 +40,10 @@ val azurerm_new_relic_tag_rule :
   ?id:string prop ->
   ?metric_enabled:bool prop ->
   ?subscription_log_enabled:bool prop ->
+  ?log_tag_filter:log_tag_filter list ->
+  ?metric_tag_filter:metric_tag_filter list ->
   ?timeouts:timeouts ->
   monitor_id:string prop ->
-  log_tag_filter:log_tag_filter list ->
-  metric_tag_filter:metric_tag_filter list ->
   unit ->
   azurerm_new_relic_tag_rule
 
@@ -68,10 +68,10 @@ val register :
   ?id:string prop ->
   ?metric_enabled:bool prop ->
   ?subscription_log_enabled:bool prop ->
+  ?log_tag_filter:log_tag_filter list ->
+  ?metric_tag_filter:metric_tag_filter list ->
   ?timeouts:timeouts ->
   monitor_id:string prop ->
-  log_tag_filter:log_tag_filter list ->
-  metric_tag_filter:metric_tag_filter list ->
   string ->
   t
 
@@ -81,9 +81,9 @@ val make :
   ?id:string prop ->
   ?metric_enabled:bool prop ->
   ?subscription_log_enabled:bool prop ->
+  ?log_tag_filter:log_tag_filter list ->
+  ?metric_tag_filter:metric_tag_filter list ->
   ?timeouts:timeouts ->
   monitor_id:string prop ->
-  log_tag_filter:log_tag_filter list ->
-  metric_tag_filter:metric_tag_filter list ->
   string ->
   t Tf_core.resource

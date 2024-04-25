@@ -54,10 +54,10 @@ val access_control__workflow_management :
 type access_control
 
 val access_control :
-  action:access_control__action list ->
-  content:access_control__content list ->
-  trigger:access_control__trigger list ->
-  workflow_management:access_control__workflow_management list ->
+  ?action:access_control__action list ->
+  ?content:access_control__content list ->
+  ?trigger:access_control__trigger list ->
+  ?workflow_management:access_control__workflow_management list ->
   unit ->
   access_control
 
@@ -91,12 +91,12 @@ val azurerm_logic_app_workflow :
   ?workflow_parameters:(string * string prop) list ->
   ?workflow_schema:string prop ->
   ?workflow_version:string prop ->
+  ?access_control:access_control list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  access_control:access_control list ->
-  identity:identity list ->
   unit ->
   azurerm_logic_app_workflow
 
@@ -136,12 +136,12 @@ val register :
   ?workflow_parameters:(string * string prop) list ->
   ?workflow_schema:string prop ->
   ?workflow_version:string prop ->
+  ?access_control:access_control list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  access_control:access_control list ->
-  identity:identity list ->
   string ->
   t
 
@@ -155,11 +155,11 @@ val make :
   ?workflow_parameters:(string * string prop) list ->
   ?workflow_schema:string prop ->
   ?workflow_version:string prop ->
+  ?access_control:access_control list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  access_control:access_control list ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

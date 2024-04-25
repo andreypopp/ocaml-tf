@@ -129,9 +129,9 @@ type webhook_receiver
 
 val webhook_receiver :
   ?use_common_alert_schema:bool prop ->
+  ?aad_auth:webhook_receiver__aad_auth list ->
   name:string prop ->
   service_uri:string prop ->
-  aad_auth:webhook_receiver__aad_auth list ->
   unit ->
   webhook_receiver
 
@@ -142,21 +142,21 @@ val azurerm_monitor_action_group :
   ?id:string prop ->
   ?location:string prop ->
   ?tags:(string * string prop) list ->
+  ?arm_role_receiver:arm_role_receiver list ->
+  ?automation_runbook_receiver:automation_runbook_receiver list ->
+  ?azure_app_push_receiver:azure_app_push_receiver list ->
+  ?azure_function_receiver:azure_function_receiver list ->
+  ?email_receiver:email_receiver list ->
+  ?event_hub_receiver:event_hub_receiver list ->
+  ?itsm_receiver:itsm_receiver list ->
+  ?logic_app_receiver:logic_app_receiver list ->
+  ?sms_receiver:sms_receiver list ->
   ?timeouts:timeouts ->
+  ?voice_receiver:voice_receiver list ->
+  ?webhook_receiver:webhook_receiver list ->
   name:string prop ->
   resource_group_name:string prop ->
   short_name:string prop ->
-  arm_role_receiver:arm_role_receiver list ->
-  automation_runbook_receiver:automation_runbook_receiver list ->
-  azure_app_push_receiver:azure_app_push_receiver list ->
-  azure_function_receiver:azure_function_receiver list ->
-  email_receiver:email_receiver list ->
-  event_hub_receiver:event_hub_receiver list ->
-  itsm_receiver:itsm_receiver list ->
-  logic_app_receiver:logic_app_receiver list ->
-  sms_receiver:sms_receiver list ->
-  voice_receiver:voice_receiver list ->
-  webhook_receiver:webhook_receiver list ->
   unit ->
   azurerm_monitor_action_group
 
@@ -181,21 +181,21 @@ val register :
   ?id:string prop ->
   ?location:string prop ->
   ?tags:(string * string prop) list ->
+  ?arm_role_receiver:arm_role_receiver list ->
+  ?automation_runbook_receiver:automation_runbook_receiver list ->
+  ?azure_app_push_receiver:azure_app_push_receiver list ->
+  ?azure_function_receiver:azure_function_receiver list ->
+  ?email_receiver:email_receiver list ->
+  ?event_hub_receiver:event_hub_receiver list ->
+  ?itsm_receiver:itsm_receiver list ->
+  ?logic_app_receiver:logic_app_receiver list ->
+  ?sms_receiver:sms_receiver list ->
   ?timeouts:timeouts ->
+  ?voice_receiver:voice_receiver list ->
+  ?webhook_receiver:webhook_receiver list ->
   name:string prop ->
   resource_group_name:string prop ->
   short_name:string prop ->
-  arm_role_receiver:arm_role_receiver list ->
-  automation_runbook_receiver:automation_runbook_receiver list ->
-  azure_app_push_receiver:azure_app_push_receiver list ->
-  azure_function_receiver:azure_function_receiver list ->
-  email_receiver:email_receiver list ->
-  event_hub_receiver:event_hub_receiver list ->
-  itsm_receiver:itsm_receiver list ->
-  logic_app_receiver:logic_app_receiver list ->
-  sms_receiver:sms_receiver list ->
-  voice_receiver:voice_receiver list ->
-  webhook_receiver:webhook_receiver list ->
   string ->
   t
 
@@ -204,20 +204,20 @@ val make :
   ?id:string prop ->
   ?location:string prop ->
   ?tags:(string * string prop) list ->
+  ?arm_role_receiver:arm_role_receiver list ->
+  ?automation_runbook_receiver:automation_runbook_receiver list ->
+  ?azure_app_push_receiver:azure_app_push_receiver list ->
+  ?azure_function_receiver:azure_function_receiver list ->
+  ?email_receiver:email_receiver list ->
+  ?event_hub_receiver:event_hub_receiver list ->
+  ?itsm_receiver:itsm_receiver list ->
+  ?logic_app_receiver:logic_app_receiver list ->
+  ?sms_receiver:sms_receiver list ->
   ?timeouts:timeouts ->
+  ?voice_receiver:voice_receiver list ->
+  ?webhook_receiver:webhook_receiver list ->
   name:string prop ->
   resource_group_name:string prop ->
   short_name:string prop ->
-  arm_role_receiver:arm_role_receiver list ->
-  automation_runbook_receiver:automation_runbook_receiver list ->
-  azure_app_push_receiver:azure_app_push_receiver list ->
-  azure_function_receiver:azure_function_receiver list ->
-  email_receiver:email_receiver list ->
-  event_hub_receiver:event_hub_receiver list ->
-  itsm_receiver:itsm_receiver list ->
-  logic_app_receiver:logic_app_receiver list ->
-  sms_receiver:sms_receiver list ->
-  voice_receiver:voice_receiver list ->
-  webhook_receiver:webhook_receiver list ->
   string ->
   t Tf_core.resource

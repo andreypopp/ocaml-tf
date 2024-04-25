@@ -355,8 +355,8 @@ let virtual_machine ~tags () : virtual_machine = { tags }
 
 let google_network_connectivity_policy_based_route ?description ?id
     ?labels ?next_hop_ilb_ip ?next_hop_other_routes ?priority
-    ?project ?timeouts ~name ~network ~filter
-    ~interconnect_attachment ~virtual_machine () :
+    ?project ?(interconnect_attachment = []) ?timeouts
+    ?(virtual_machine = []) ~name ~network ~filter () :
     google_network_connectivity_policy_based_route =
   {
     description;
@@ -393,8 +393,9 @@ type t = {
 }
 
 let make ?description ?id ?labels ?next_hop_ilb_ip
-    ?next_hop_other_routes ?priority ?project ?timeouts ~name
-    ~network ~filter ~interconnect_attachment ~virtual_machine __id =
+    ?next_hop_other_routes ?priority ?project
+    ?(interconnect_attachment = []) ?timeouts ?(virtual_machine = [])
+    ~name ~network ~filter __id =
   let __type = "google_network_connectivity_policy_based_route" in
   let __attrs =
     ({
@@ -426,18 +427,20 @@ let make ?description ?id ?labels ?next_hop_ilb_ip
       yojson_of_google_network_connectivity_policy_based_route
         (google_network_connectivity_policy_based_route ?description
            ?id ?labels ?next_hop_ilb_ip ?next_hop_other_routes
-           ?priority ?project ?timeouts ~name ~network ~filter
-           ~interconnect_attachment ~virtual_machine ());
+           ?priority ?project ~interconnect_attachment ?timeouts
+           ~virtual_machine ~name ~network ~filter ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?labels ?next_hop_ilb_ip
-    ?next_hop_other_routes ?priority ?project ?timeouts ~name
-    ~network ~filter ~interconnect_attachment ~virtual_machine __id =
+    ?next_hop_other_routes ?priority ?project
+    ?(interconnect_attachment = []) ?timeouts ?(virtual_machine = [])
+    ~name ~network ~filter __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?labels ?next_hop_ilb_ip
-      ?next_hop_other_routes ?priority ?project ?timeouts ~name
-      ~network ~filter ~interconnect_attachment ~virtual_machine __id
+      ?next_hop_other_routes ?priority ?project
+      ~interconnect_attachment ?timeouts ~virtual_machine ~name
+      ~network ~filter __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

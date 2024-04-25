@@ -292,10 +292,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_sql_managed_instance ?collation ?dns_zone_partner_id ?id
     ?minimum_tls_version ?proxy_override
     ?public_data_endpoint_enabled ?storage_account_type ?tags
-    ?timezone_id ?timeouts ~administrator_login
+    ?timezone_id ?(identity = []) ?timeouts ~administrator_login
     ~administrator_login_password ~license_type ~location ~name
     ~resource_group_name ~sku_name ~storage_size_in_gb ~subnet_id
-    ~vcores ~identity () : azurerm_sql_managed_instance =
+    ~vcores () : azurerm_sql_managed_instance =
   {
     administrator_login;
     administrator_login_password;
@@ -345,10 +345,10 @@ type t = {
 
 let make ?collation ?dns_zone_partner_id ?id ?minimum_tls_version
     ?proxy_override ?public_data_endpoint_enabled
-    ?storage_account_type ?tags ?timezone_id ?timeouts
-    ~administrator_login ~administrator_login_password ~license_type
-    ~location ~name ~resource_group_name ~sku_name
-    ~storage_size_in_gb ~subnet_id ~vcores ~identity __id =
+    ?storage_account_type ?tags ?timezone_id ?(identity = [])
+    ?timeouts ~administrator_login ~administrator_login_password
+    ~license_type ~location ~name ~resource_group_name ~sku_name
+    ~storage_size_in_gb ~subnet_id ~vcores __id =
   let __type = "azurerm_sql_managed_instance" in
   let __attrs =
     ({
@@ -391,27 +391,27 @@ let make ?collation ?dns_zone_partner_id ?id ?minimum_tls_version
         (azurerm_sql_managed_instance ?collation ?dns_zone_partner_id
            ?id ?minimum_tls_version ?proxy_override
            ?public_data_endpoint_enabled ?storage_account_type ?tags
-           ?timezone_id ?timeouts ~administrator_login
+           ?timezone_id ~identity ?timeouts ~administrator_login
            ~administrator_login_password ~license_type ~location
            ~name ~resource_group_name ~sku_name ~storage_size_in_gb
-           ~subnet_id ~vcores ~identity ());
+           ~subnet_id ~vcores ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?collation ?dns_zone_partner_id ?id
     ?minimum_tls_version ?proxy_override
     ?public_data_endpoint_enabled ?storage_account_type ?tags
-    ?timezone_id ?timeouts ~administrator_login
+    ?timezone_id ?(identity = []) ?timeouts ~administrator_login
     ~administrator_login_password ~license_type ~location ~name
     ~resource_group_name ~sku_name ~storage_size_in_gb ~subnet_id
-    ~vcores ~identity __id =
+    ~vcores __id =
   let (r : _ Tf_core.resource) =
     make ?collation ?dns_zone_partner_id ?id ?minimum_tls_version
       ?proxy_override ?public_data_endpoint_enabled
-      ?storage_account_type ?tags ?timezone_id ?timeouts
+      ?storage_account_type ?tags ?timezone_id ~identity ?timeouts
       ~administrator_login ~administrator_login_password
       ~license_type ~location ~name ~resource_group_name ~sku_name
-      ~storage_size_in_gb ~subnet_id ~vcores ~identity __id
+      ~storage_size_in_gb ~subnet_id ~vcores __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

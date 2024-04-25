@@ -12,9 +12,9 @@ val event_trigger__failure_policy :
 type event_trigger
 
 val event_trigger :
+  ?failure_policy:event_trigger__failure_policy list ->
   event_type:string prop ->
   resource:string prop ->
-  failure_policy:event_trigger__failure_policy list ->
   unit ->
   event_trigger
 
@@ -40,9 +40,9 @@ type secret_volumes
 
 val secret_volumes :
   ?project_id:string prop ->
+  ?versions:secret_volumes__versions list ->
   mount_path:string prop ->
   secret:string prop ->
-  versions:secret_volumes__versions list ->
   unit ->
   secret_volumes
 
@@ -88,13 +88,13 @@ val google_cloudfunctions_function :
   ?trigger_http:bool prop ->
   ?vpc_connector:string prop ->
   ?vpc_connector_egress_settings:string prop ->
+  ?event_trigger:event_trigger list ->
+  ?secret_environment_variables:secret_environment_variables list ->
+  ?secret_volumes:secret_volumes list ->
+  ?source_repository:source_repository list ->
   ?timeouts:timeouts ->
   name:string prop ->
   runtime:string prop ->
-  event_trigger:event_trigger list ->
-  secret_environment_variables:secret_environment_variables list ->
-  secret_volumes:secret_volumes list ->
-  source_repository:source_repository list ->
   unit ->
   google_cloudfunctions_function
 
@@ -164,13 +164,13 @@ val register :
   ?trigger_http:bool prop ->
   ?vpc_connector:string prop ->
   ?vpc_connector_egress_settings:string prop ->
+  ?event_trigger:event_trigger list ->
+  ?secret_environment_variables:secret_environment_variables list ->
+  ?secret_volumes:secret_volumes list ->
+  ?source_repository:source_repository list ->
   ?timeouts:timeouts ->
   name:string prop ->
   runtime:string prop ->
-  event_trigger:event_trigger list ->
-  secret_environment_variables:secret_environment_variables list ->
-  secret_volumes:secret_volumes list ->
-  source_repository:source_repository list ->
   string ->
   t
 
@@ -200,12 +200,12 @@ val make :
   ?trigger_http:bool prop ->
   ?vpc_connector:string prop ->
   ?vpc_connector_egress_settings:string prop ->
+  ?event_trigger:event_trigger list ->
+  ?secret_environment_variables:secret_environment_variables list ->
+  ?secret_volumes:secret_volumes list ->
+  ?source_repository:source_repository list ->
   ?timeouts:timeouts ->
   name:string prop ->
   runtime:string prop ->
-  event_trigger:event_trigger list ->
-  secret_environment_variables:secret_environment_variables list ->
-  secret_volumes:secret_volumes list ->
-  source_repository:source_repository list ->
   string ->
   t Tf_core.resource

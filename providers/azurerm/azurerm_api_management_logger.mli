@@ -36,12 +36,12 @@ val azurerm_api_management_logger :
   ?description:string prop ->
   ?id:string prop ->
   ?resource_id:string prop ->
+  ?application_insights:application_insights list ->
+  ?eventhub:eventhub list ->
   ?timeouts:timeouts ->
   api_management_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  application_insights:application_insights list ->
-  eventhub:eventhub list ->
   unit ->
   azurerm_api_management_logger
 
@@ -66,12 +66,12 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?resource_id:string prop ->
+  ?application_insights:application_insights list ->
+  ?eventhub:eventhub list ->
   ?timeouts:timeouts ->
   api_management_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  application_insights:application_insights list ->
-  eventhub:eventhub list ->
   string ->
   t
 
@@ -80,11 +80,11 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?resource_id:string prop ->
+  ?application_insights:application_insights list ->
+  ?eventhub:eventhub list ->
   ?timeouts:timeouts ->
   api_management_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  application_insights:application_insights list ->
-  eventhub:eventhub list ->
   string ->
   t Tf_core.resource

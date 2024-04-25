@@ -614,10 +614,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_redis_cache ?enable_non_ssl_port ?id ?minimum_tls_version
     ?private_static_ip_address ?public_network_access_enabled
     ?redis_version ?replicas_per_master ?replicas_per_primary
-    ?shard_count ?subnet_id ?tags ?tenant_settings ?zones ?timeouts
-    ~capacity ~family ~location ~name ~resource_group_name ~sku_name
-    ~identity ~patch_schedule ~redis_configuration () :
-    azurerm_redis_cache =
+    ?shard_count ?subnet_id ?tags ?tenant_settings ?zones
+    ?(identity = []) ?(patch_schedule = [])
+    ?(redis_configuration = []) ?timeouts ~capacity ~family ~location
+    ~name ~resource_group_name ~sku_name () : azurerm_redis_cache =
   {
     capacity;
     enable_non_ssl_port;
@@ -676,9 +676,10 @@ type t = {
 let make ?enable_non_ssl_port ?id ?minimum_tls_version
     ?private_static_ip_address ?public_network_access_enabled
     ?redis_version ?replicas_per_master ?replicas_per_primary
-    ?shard_count ?subnet_id ?tags ?tenant_settings ?zones ?timeouts
-    ~capacity ~family ~location ~name ~resource_group_name ~sku_name
-    ~identity ~patch_schedule ~redis_configuration __id =
+    ?shard_count ?subnet_id ?tags ?tenant_settings ?zones
+    ?(identity = []) ?(patch_schedule = [])
+    ?(redis_configuration = []) ?timeouts ~capacity ~family ~location
+    ~name ~resource_group_name ~sku_name __id =
   let __type = "azurerm_redis_cache" in
   let __attrs =
     ({
@@ -731,26 +732,26 @@ let make ?enable_non_ssl_port ?id ?minimum_tls_version
            ?minimum_tls_version ?private_static_ip_address
            ?public_network_access_enabled ?redis_version
            ?replicas_per_master ?replicas_per_primary ?shard_count
-           ?subnet_id ?tags ?tenant_settings ?zones ?timeouts
-           ~capacity ~family ~location ~name ~resource_group_name
-           ~sku_name ~identity ~patch_schedule ~redis_configuration
-           ());
+           ?subnet_id ?tags ?tenant_settings ?zones ~identity
+           ~patch_schedule ~redis_configuration ?timeouts ~capacity
+           ~family ~location ~name ~resource_group_name ~sku_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?enable_non_ssl_port ?id ?minimum_tls_version
     ?private_static_ip_address ?public_network_access_enabled
     ?redis_version ?replicas_per_master ?replicas_per_primary
-    ?shard_count ?subnet_id ?tags ?tenant_settings ?zones ?timeouts
-    ~capacity ~family ~location ~name ~resource_group_name ~sku_name
-    ~identity ~patch_schedule ~redis_configuration __id =
+    ?shard_count ?subnet_id ?tags ?tenant_settings ?zones
+    ?(identity = []) ?(patch_schedule = [])
+    ?(redis_configuration = []) ?timeouts ~capacity ~family ~location
+    ~name ~resource_group_name ~sku_name __id =
   let (r : _ Tf_core.resource) =
     make ?enable_non_ssl_port ?id ?minimum_tls_version
       ?private_static_ip_address ?public_network_access_enabled
       ?redis_version ?replicas_per_master ?replicas_per_primary
-      ?shard_count ?subnet_id ?tags ?tenant_settings ?zones ?timeouts
-      ~capacity ~family ~location ~name ~resource_group_name
-      ~sku_name ~identity ~patch_schedule ~redis_configuration __id
+      ?shard_count ?subnet_id ?tags ?tenant_settings ?zones ~identity
+      ~patch_schedule ~redis_configuration ?timeouts ~capacity
+      ~family ~location ~name ~resource_group_name ~sku_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

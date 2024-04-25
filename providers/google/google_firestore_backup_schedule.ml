@@ -174,9 +174,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let weekly_recurrence ?day () : weekly_recurrence = { day }
 
-let google_firestore_backup_schedule ?database ?id ?project ?timeouts
-    ~retention ~daily_recurrence ~weekly_recurrence () :
-    google_firestore_backup_schedule =
+let google_firestore_backup_schedule ?database ?id ?project
+    ?(daily_recurrence = []) ?timeouts ?(weekly_recurrence = [])
+    ~retention () : google_firestore_backup_schedule =
   {
     database;
     id;
@@ -195,8 +195,8 @@ type t = {
   retention : string prop;
 }
 
-let make ?database ?id ?project ?timeouts ~retention
-    ~daily_recurrence ~weekly_recurrence __id =
+let make ?database ?id ?project ?(daily_recurrence = []) ?timeouts
+    ?(weekly_recurrence = []) ~retention __id =
   let __type = "google_firestore_backup_schedule" in
   let __attrs =
     ({
@@ -214,16 +214,17 @@ let make ?database ?id ?project ?timeouts ~retention
     json =
       yojson_of_google_firestore_backup_schedule
         (google_firestore_backup_schedule ?database ?id ?project
-           ?timeouts ~retention ~daily_recurrence ~weekly_recurrence
+           ~daily_recurrence ?timeouts ~weekly_recurrence ~retention
            ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?database ?id ?project ?timeouts ~retention
-    ~daily_recurrence ~weekly_recurrence __id =
+let register ?tf_module ?database ?id ?project
+    ?(daily_recurrence = []) ?timeouts ?(weekly_recurrence = [])
+    ~retention __id =
   let (r : _ Tf_core.resource) =
-    make ?database ?id ?project ?timeouts ~retention
-      ~daily_recurrence ~weekly_recurrence __id
+    make ?database ?id ?project ~daily_recurrence ?timeouts
+      ~weekly_recurrence ~retention __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

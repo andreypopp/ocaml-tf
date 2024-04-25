@@ -35,6 +35,7 @@ val azurerm_cdn_frontdoor_route :
   ?https_redirect_enabled:bool prop ->
   ?id:string prop ->
   ?link_to_default_domain:bool prop ->
+  ?cache:cache list ->
   ?timeouts:timeouts ->
   cdn_frontdoor_endpoint_id:string prop ->
   cdn_frontdoor_origin_group_id:string prop ->
@@ -42,7 +43,6 @@ val azurerm_cdn_frontdoor_route :
   name:string prop ->
   patterns_to_match:string prop list ->
   supported_protocols:string prop list ->
-  cache:cache list ->
   unit ->
   azurerm_cdn_frontdoor_route
 
@@ -78,6 +78,7 @@ val register :
   ?https_redirect_enabled:bool prop ->
   ?id:string prop ->
   ?link_to_default_domain:bool prop ->
+  ?cache:cache list ->
   ?timeouts:timeouts ->
   cdn_frontdoor_endpoint_id:string prop ->
   cdn_frontdoor_origin_group_id:string prop ->
@@ -85,7 +86,6 @@ val register :
   name:string prop ->
   patterns_to_match:string prop list ->
   supported_protocols:string prop list ->
-  cache:cache list ->
   string ->
   t
 
@@ -98,6 +98,7 @@ val make :
   ?https_redirect_enabled:bool prop ->
   ?id:string prop ->
   ?link_to_default_domain:bool prop ->
+  ?cache:cache list ->
   ?timeouts:timeouts ->
   cdn_frontdoor_endpoint_id:string prop ->
   cdn_frontdoor_origin_group_id:string prop ->
@@ -105,6 +106,5 @@ val make :
   name:string prop ->
   patterns_to_match:string prop list ->
   supported_protocols:string prop list ->
-  cache:cache list ->
   string ->
   t Tf_core.resource

@@ -50,7 +50,7 @@ val authorization__admin_users :
 type authorization
 
 val authorization :
-  admin_users:authorization__admin_users list ->
+  ?admin_users:authorization__admin_users list ->
   unit ->
   authorization
 
@@ -75,7 +75,7 @@ val control_plane_node :
   ?cpus:float prop ->
   ?memory:float prop ->
   ?replicas:float prop ->
-  auto_resize_config:control_plane_node__auto_resize_config list ->
+  ?auto_resize_config:control_plane_node__auto_resize_config list ->
   unit ->
   control_plane_node
 
@@ -135,10 +135,10 @@ val load_balancer__vip_config :
 type load_balancer
 
 val load_balancer :
-  f5_config:load_balancer__f5_config list ->
-  manual_lb_config:load_balancer__manual_lb_config list ->
-  metal_lb_config:load_balancer__metal_lb_config list ->
-  vip_config:load_balancer__vip_config list ->
+  ?f5_config:load_balancer__f5_config list ->
+  ?manual_lb_config:load_balancer__manual_lb_config list ->
+  ?metal_lb_config:load_balancer__metal_lb_config list ->
+  ?vip_config:load_balancer__vip_config list ->
   unit ->
   load_balancer
 
@@ -155,7 +155,7 @@ type network_config__control_plane_v2_config__control_plane_ip_block
 val network_config__control_plane_v2_config__control_plane_ip_block :
   ?gateway:string prop ->
   ?netmask:string prop ->
-  ips:
+  ?ips:
     network_config__control_plane_v2_config__control_plane_ip_block__ips
     list ->
   unit ->
@@ -164,7 +164,7 @@ val network_config__control_plane_v2_config__control_plane_ip_block :
 type network_config__control_plane_v2_config
 
 val network_config__control_plane_v2_config :
-  control_plane_ip_block:
+  ?control_plane_ip_block:
     network_config__control_plane_v2_config__control_plane_ip_block
     list ->
   unit ->
@@ -211,13 +211,13 @@ val network_config__static_ip_config :
 type network_config
 
 val network_config :
+  ?control_plane_v2_config:
+    network_config__control_plane_v2_config list ->
+  ?dhcp_ip_config:network_config__dhcp_ip_config list ->
+  ?host_config:network_config__host_config list ->
+  ?static_ip_config:network_config__static_ip_config list ->
   pod_address_cidr_blocks:string prop list ->
   service_address_cidr_blocks:string prop list ->
-  control_plane_v2_config:
-    network_config__control_plane_v2_config list ->
-  dhcp_ip_config:network_config__dhcp_ip_config list ->
-  host_config:network_config__host_config list ->
-  static_ip_config:network_config__static_ip_config list ->
   unit ->
   network_config
 
@@ -261,21 +261,21 @@ val google_gkeonprem_vmware_cluster :
   ?id:string prop ->
   ?project:string prop ->
   ?vm_tracking_enabled:bool prop ->
+  ?anti_affinity_groups:anti_affinity_groups list ->
+  ?authorization:authorization list ->
+  ?auto_repair_config:auto_repair_config list ->
+  ?dataplane_v2:dataplane_v2 list ->
+  ?load_balancer:load_balancer list ->
+  ?network_config:network_config list ->
+  ?storage:storage list ->
   ?timeouts:timeouts ->
+  ?upgrade_policy:upgrade_policy list ->
+  ?vcenter:vcenter list ->
   admin_cluster_membership:string prop ->
   location:string prop ->
   name:string prop ->
   on_prem_version:string prop ->
-  anti_affinity_groups:anti_affinity_groups list ->
-  authorization:authorization list ->
-  auto_repair_config:auto_repair_config list ->
   control_plane_node:control_plane_node list ->
-  dataplane_v2:dataplane_v2 list ->
-  load_balancer:load_balancer list ->
-  network_config:network_config list ->
-  storage:storage list ->
-  upgrade_policy:upgrade_policy list ->
-  vcenter:vcenter list ->
   unit ->
   google_gkeonprem_vmware_cluster
 
@@ -318,21 +318,21 @@ val register :
   ?id:string prop ->
   ?project:string prop ->
   ?vm_tracking_enabled:bool prop ->
+  ?anti_affinity_groups:anti_affinity_groups list ->
+  ?authorization:authorization list ->
+  ?auto_repair_config:auto_repair_config list ->
+  ?dataplane_v2:dataplane_v2 list ->
+  ?load_balancer:load_balancer list ->
+  ?network_config:network_config list ->
+  ?storage:storage list ->
   ?timeouts:timeouts ->
+  ?upgrade_policy:upgrade_policy list ->
+  ?vcenter:vcenter list ->
   admin_cluster_membership:string prop ->
   location:string prop ->
   name:string prop ->
   on_prem_version:string prop ->
-  anti_affinity_groups:anti_affinity_groups list ->
-  authorization:authorization list ->
-  auto_repair_config:auto_repair_config list ->
   control_plane_node:control_plane_node list ->
-  dataplane_v2:dataplane_v2 list ->
-  load_balancer:load_balancer list ->
-  network_config:network_config list ->
-  storage:storage list ->
-  upgrade_policy:upgrade_policy list ->
-  vcenter:vcenter list ->
   string ->
   t
 
@@ -343,20 +343,20 @@ val make :
   ?id:string prop ->
   ?project:string prop ->
   ?vm_tracking_enabled:bool prop ->
+  ?anti_affinity_groups:anti_affinity_groups list ->
+  ?authorization:authorization list ->
+  ?auto_repair_config:auto_repair_config list ->
+  ?dataplane_v2:dataplane_v2 list ->
+  ?load_balancer:load_balancer list ->
+  ?network_config:network_config list ->
+  ?storage:storage list ->
   ?timeouts:timeouts ->
+  ?upgrade_policy:upgrade_policy list ->
+  ?vcenter:vcenter list ->
   admin_cluster_membership:string prop ->
   location:string prop ->
   name:string prop ->
   on_prem_version:string prop ->
-  anti_affinity_groups:anti_affinity_groups list ->
-  authorization:authorization list ->
-  auto_repair_config:auto_repair_config list ->
   control_plane_node:control_plane_node list ->
-  dataplane_v2:dataplane_v2 list ->
-  load_balancer:load_balancer list ->
-  network_config:network_config list ->
-  storage:storage list ->
-  upgrade_policy:upgrade_policy list ->
-  vcenter:vcenter list ->
   string ->
   t Tf_core.resource

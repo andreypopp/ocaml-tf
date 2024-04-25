@@ -366,8 +366,8 @@ let mirrored_resources__subnetworks ~url () :
     mirrored_resources__subnetworks =
   { url }
 
-let mirrored_resources ?tags ~instances ~subnetworks () :
-    mirrored_resources =
+let mirrored_resources ?tags ?(instances = []) ?(subnetworks = []) ()
+    : mirrored_resources =
   { tags; instances; subnetworks }
 
 let network ~url () : network = { url }
@@ -376,7 +376,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_compute_packet_mirroring ?description ?id ?priority
-    ?project ?region ?timeouts ~name ~collector_ilb ~filter
+    ?project ?region ?(filter = []) ?timeouts ~name ~collector_ilb
     ~mirrored_resources ~network () : google_compute_packet_mirroring
     =
   {
@@ -402,8 +402,9 @@ type t = {
   region : string prop;
 }
 
-let make ?description ?id ?priority ?project ?region ?timeouts ~name
-    ~collector_ilb ~filter ~mirrored_resources ~network __id =
+let make ?description ?id ?priority ?project ?region ?(filter = [])
+    ?timeouts ~name ~collector_ilb ~mirrored_resources ~network __id
+    =
   let __type = "google_compute_packet_mirroring" in
   let __attrs =
     ({
@@ -422,17 +423,18 @@ let make ?description ?id ?priority ?project ?region ?timeouts ~name
     json =
       yojson_of_google_compute_packet_mirroring
         (google_compute_packet_mirroring ?description ?id ?priority
-           ?project ?region ?timeouts ~name ~collector_ilb ~filter
+           ?project ?region ~filter ?timeouts ~name ~collector_ilb
            ~mirrored_resources ~network ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?priority ?project ?region
-    ?timeouts ~name ~collector_ilb ~filter ~mirrored_resources
+    ?(filter = []) ?timeouts ~name ~collector_ilb ~mirrored_resources
     ~network __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?priority ?project ?region ?timeouts ~name
-      ~collector_ilb ~filter ~mirrored_resources ~network __id
+    make ?description ?id ?priority ?project ?region ~filter
+      ?timeouts ~name ~collector_ilb ~mirrored_resources ~network
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

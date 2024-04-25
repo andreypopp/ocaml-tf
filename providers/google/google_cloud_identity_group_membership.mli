@@ -20,8 +20,8 @@ val roles__expiry_detail :
 type roles
 
 val roles :
+  ?expiry_detail:roles__expiry_detail list ->
   name:string prop ->
-  expiry_detail:roles__expiry_detail list ->
   unit ->
   roles
 
@@ -38,9 +38,9 @@ type google_cloud_identity_group_membership
 
 val google_cloud_identity_group_membership :
   ?id:string prop ->
+  ?preferred_member_key:preferred_member_key list ->
   ?timeouts:timeouts ->
   group:string prop ->
-  preferred_member_key:preferred_member_key list ->
   roles:roles list ->
   unit ->
   google_cloud_identity_group_membership
@@ -62,18 +62,18 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?preferred_member_key:preferred_member_key list ->
   ?timeouts:timeouts ->
   group:string prop ->
-  preferred_member_key:preferred_member_key list ->
   roles:roles list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?preferred_member_key:preferred_member_key list ->
   ?timeouts:timeouts ->
   group:string prop ->
-  preferred_member_key:preferred_member_key list ->
   roles:roles list ->
   string ->
   t Tf_core.resource

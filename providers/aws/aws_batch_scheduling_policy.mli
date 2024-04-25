@@ -27,8 +27,8 @@ val aws_batch_scheduling_policy :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?fair_share_policy:fair_share_policy list ->
   name:string prop ->
-  fair_share_policy:fair_share_policy list ->
   unit ->
   aws_batch_scheduling_policy
 
@@ -50,8 +50,8 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?fair_share_policy:fair_share_policy list ->
   name:string prop ->
-  fair_share_policy:fair_share_policy list ->
   string ->
   t
 
@@ -59,7 +59,7 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?fair_share_policy:fair_share_policy list ->
   name:string prop ->
-  fair_share_policy:fair_share_policy list ->
   string ->
   t Tf_core.resource

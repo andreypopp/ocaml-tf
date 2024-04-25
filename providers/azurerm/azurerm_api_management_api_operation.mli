@@ -23,10 +23,10 @@ val request__header :
   ?schema_id:string prop ->
   ?type_name:string prop ->
   ?values:string prop list ->
+  ?example:request__header__example list ->
   name:string prop ->
   required:bool prop ->
   type_:string prop ->
-  example:request__header__example list ->
   unit ->
   request__header
 
@@ -49,10 +49,10 @@ val request__query_parameter :
   ?schema_id:string prop ->
   ?type_name:string prop ->
   ?values:string prop list ->
+  ?example:request__query_parameter__example list ->
   name:string prop ->
   required:bool prop ->
   type_:string prop ->
-  example:request__query_parameter__example list ->
   unit ->
   request__query_parameter
 
@@ -86,10 +86,10 @@ val request__representation__form_parameter :
   ?schema_id:string prop ->
   ?type_name:string prop ->
   ?values:string prop list ->
+  ?example:request__representation__form_parameter__example list ->
   name:string prop ->
   required:bool prop ->
   type_:string prop ->
-  example:request__representation__form_parameter__example list ->
   unit ->
   request__representation__form_parameter
 
@@ -98,9 +98,9 @@ type request__representation
 val request__representation :
   ?schema_id:string prop ->
   ?type_name:string prop ->
+  ?example:request__representation__example list ->
+  ?form_parameter:request__representation__form_parameter list ->
   content_type:string prop ->
-  example:request__representation__example list ->
-  form_parameter:request__representation__form_parameter list ->
   unit ->
   request__representation
 
@@ -108,9 +108,9 @@ type request
 
 val request :
   ?description:string prop ->
-  header:request__header list ->
-  query_parameter:request__query_parameter list ->
-  representation:request__representation list ->
+  ?header:request__header list ->
+  ?query_parameter:request__query_parameter list ->
+  ?representation:request__representation list ->
   unit ->
   request
 
@@ -133,10 +133,10 @@ val response__header :
   ?schema_id:string prop ->
   ?type_name:string prop ->
   ?values:string prop list ->
+  ?example:response__header__example list ->
   name:string prop ->
   required:bool prop ->
   type_:string prop ->
-  example:response__header__example list ->
   unit ->
   response__header
 
@@ -170,10 +170,10 @@ val response__representation__form_parameter :
   ?schema_id:string prop ->
   ?type_name:string prop ->
   ?values:string prop list ->
+  ?example:response__representation__form_parameter__example list ->
   name:string prop ->
   required:bool prop ->
   type_:string prop ->
-  example:response__representation__form_parameter__example list ->
   unit ->
   response__representation__form_parameter
 
@@ -182,9 +182,9 @@ type response__representation
 val response__representation :
   ?schema_id:string prop ->
   ?type_name:string prop ->
+  ?example:response__representation__example list ->
+  ?form_parameter:response__representation__form_parameter list ->
   content_type:string prop ->
-  example:response__representation__example list ->
-  form_parameter:response__representation__form_parameter list ->
   unit ->
   response__representation
 
@@ -192,9 +192,9 @@ type response
 
 val response :
   ?description:string prop ->
+  ?header:response__header list ->
+  ?representation:response__representation list ->
   status_code:float prop ->
-  header:response__header list ->
-  representation:response__representation list ->
   unit ->
   response
 
@@ -217,10 +217,10 @@ val template_parameter :
   ?schema_id:string prop ->
   ?type_name:string prop ->
   ?values:string prop list ->
+  ?example:template_parameter__example list ->
   name:string prop ->
   required:bool prop ->
   type_:string prop ->
-  example:template_parameter__example list ->
   unit ->
   template_parameter
 
@@ -239,6 +239,9 @@ type azurerm_api_management_api_operation
 val azurerm_api_management_api_operation :
   ?description:string prop ->
   ?id:string prop ->
+  ?request:request list ->
+  ?response:response list ->
+  ?template_parameter:template_parameter list ->
   ?timeouts:timeouts ->
   api_management_name:string prop ->
   api_name:string prop ->
@@ -247,9 +250,6 @@ val azurerm_api_management_api_operation :
   operation_id:string prop ->
   resource_group_name:string prop ->
   url_template:string prop ->
-  request:request list ->
-  response:response list ->
-  template_parameter:template_parameter list ->
   unit ->
   azurerm_api_management_api_operation
 
@@ -274,6 +274,9 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
+  ?request:request list ->
+  ?response:response list ->
+  ?template_parameter:template_parameter list ->
   ?timeouts:timeouts ->
   api_management_name:string prop ->
   api_name:string prop ->
@@ -282,15 +285,15 @@ val register :
   operation_id:string prop ->
   resource_group_name:string prop ->
   url_template:string prop ->
-  request:request list ->
-  response:response list ->
-  template_parameter:template_parameter list ->
   string ->
   t
 
 val make :
   ?description:string prop ->
   ?id:string prop ->
+  ?request:request list ->
+  ?response:response list ->
+  ?template_parameter:template_parameter list ->
   ?timeouts:timeouts ->
   api_management_name:string prop ->
   api_name:string prop ->
@@ -299,8 +302,5 @@ val make :
   operation_id:string prop ->
   resource_group_name:string prop ->
   url_template:string prop ->
-  request:request list ->
-  response:response list ->
-  template_parameter:template_parameter list ->
   string ->
   t Tf_core.resource

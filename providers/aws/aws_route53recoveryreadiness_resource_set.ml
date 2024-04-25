@@ -374,13 +374,13 @@ let resources__dns_target_resource__target_resource__r53_resource
     resources__dns_target_resource__target_resource__r53_resource =
   { domain_name; record_set_id }
 
-let resources__dns_target_resource__target_resource ~nlb_resource
-    ~r53_resource () :
+let resources__dns_target_resource__target_resource
+    ?(nlb_resource = []) ?(r53_resource = []) () :
     resources__dns_target_resource__target_resource =
   { nlb_resource; r53_resource }
 
 let resources__dns_target_resource ?hosted_zone_arn ?record_set_id
-    ?record_type ~domain_name ~target_resource () :
+    ?record_type ?(target_resource = []) ~domain_name () :
     resources__dns_target_resource =
   {
     domain_name;
@@ -390,8 +390,8 @@ let resources__dns_target_resource ?hosted_zone_arn ?record_set_id
     target_resource;
   }
 
-let resources ?readiness_scopes ?resource_arn ~dns_target_resource ()
-    : resources =
+let resources ?readiness_scopes ?resource_arn
+    ?(dns_target_resource = []) () : resources =
   { readiness_scopes; resource_arn; dns_target_resource }
 
 let timeouts ?delete () : timeouts = { delete }

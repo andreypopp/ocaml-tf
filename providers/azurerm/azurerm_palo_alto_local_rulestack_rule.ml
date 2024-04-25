@@ -487,8 +487,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_palo_alto_local_rulestack_rule ?audit_comment
     ?decryption_rule_type ?description ?enabled ?id
     ?inspection_certificate_id ?logging_enabled ?negate_destination
-    ?negate_source ?protocol ?protocol_ports ?tags ?timeouts ~action
-    ~applications ~name ~priority ~rulestack_id ~category
+    ?negate_source ?protocol ?protocol_ports ?tags ?(category = [])
+    ?timeouts ~action ~applications ~name ~priority ~rulestack_id
     ~destination ~source () : azurerm_palo_alto_local_rulestack_rule
     =
   {
@@ -538,8 +538,8 @@ type t = {
 let make ?audit_comment ?decryption_rule_type ?description ?enabled
     ?id ?inspection_certificate_id ?logging_enabled
     ?negate_destination ?negate_source ?protocol ?protocol_ports
-    ?tags ?timeouts ~action ~applications ~name ~priority
-    ~rulestack_id ~category ~destination ~source __id =
+    ?tags ?(category = []) ?timeouts ~action ~applications ~name
+    ~priority ~rulestack_id ~destination ~source __id =
   let __type = "azurerm_palo_alto_local_rulestack_rule" in
   let __attrs =
     ({
@@ -575,8 +575,8 @@ let make ?audit_comment ?decryption_rule_type ?description ?enabled
            ?decryption_rule_type ?description ?enabled ?id
            ?inspection_certificate_id ?logging_enabled
            ?negate_destination ?negate_source ?protocol
-           ?protocol_ports ?tags ?timeouts ~action ~applications
-           ~name ~priority ~rulestack_id ~category ~destination
+           ?protocol_ports ?tags ~category ?timeouts ~action
+           ~applications ~name ~priority ~rulestack_id ~destination
            ~source ());
     attrs = __attrs;
   }
@@ -584,14 +584,15 @@ let make ?audit_comment ?decryption_rule_type ?description ?enabled
 let register ?tf_module ?audit_comment ?decryption_rule_type
     ?description ?enabled ?id ?inspection_certificate_id
     ?logging_enabled ?negate_destination ?negate_source ?protocol
-    ?protocol_ports ?tags ?timeouts ~action ~applications ~name
-    ~priority ~rulestack_id ~category ~destination ~source __id =
+    ?protocol_ports ?tags ?(category = []) ?timeouts ~action
+    ~applications ~name ~priority ~rulestack_id ~destination ~source
+    __id =
   let (r : _ Tf_core.resource) =
     make ?audit_comment ?decryption_rule_type ?description ?enabled
       ?id ?inspection_certificate_id ?logging_enabled
       ?negate_destination ?negate_source ?protocol ?protocol_ports
-      ?tags ?timeouts ~action ~applications ~name ~priority
-      ~rulestack_id ~category ~destination ~source __id
+      ?tags ~category ?timeouts ~action ~applications ~name ~priority
+      ~rulestack_id ~destination ~source __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

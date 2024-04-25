@@ -122,8 +122,9 @@ let _ = yojson_of_google_compute_disk_iam_member
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_compute_disk_iam_member ?id ?project ?zone ~member ~name
-    ~role ~condition () : google_compute_disk_iam_member =
+let google_compute_disk_iam_member ?id ?project ?zone
+    ?(condition = []) ~member ~name ~role () :
+    google_compute_disk_iam_member =
   { id; member; name; project; role; zone; condition }
 
 type t = {
@@ -136,7 +137,8 @@ type t = {
   zone : string prop;
 }
 
-let make ?id ?project ?zone ~member ~name ~role ~condition __id =
+let make ?id ?project ?zone ?(condition = []) ~member ~name ~role
+    __id =
   let __type = "google_compute_disk_iam_member" in
   let __attrs =
     ({
@@ -155,15 +157,15 @@ let make ?id ?project ?zone ~member ~name ~role ~condition __id =
     type_ = __type;
     json =
       yojson_of_google_compute_disk_iam_member
-        (google_compute_disk_iam_member ?id ?project ?zone ~member
-           ~name ~role ~condition ());
+        (google_compute_disk_iam_member ?id ?project ?zone ~condition
+           ~member ~name ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ?zone ~member ~name ~role
-    ~condition __id =
+let register ?tf_module ?id ?project ?zone ?(condition = []) ~member
+    ~name ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ?zone ~member ~name ~role ~condition __id
+    make ?id ?project ?zone ~condition ~member ~name ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

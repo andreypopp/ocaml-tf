@@ -14,7 +14,7 @@ val override_provider__default_tags :
 type override_provider
 
 val override_provider :
-  default_tags:override_provider__default_tags list ->
+  ?default_tags:override_provider__default_tags list ->
   unit ->
   override_provider
 
@@ -46,9 +46,9 @@ val aws_s3_object :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?website_redirect:string prop ->
+  ?override_provider:override_provider list ->
   bucket:string prop ->
   key:string prop ->
-  override_provider:override_provider list ->
   unit ->
   aws_s3_object
 
@@ -119,9 +119,9 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?website_redirect:string prop ->
+  ?override_provider:override_provider list ->
   bucket:string prop ->
   key:string prop ->
-  override_provider:override_provider list ->
   string ->
   t
 
@@ -151,8 +151,8 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?website_redirect:string prop ->
+  ?override_provider:override_provider list ->
   bucket:string prop ->
   key:string prop ->
-  override_provider:override_provider list ->
   string ->
   t Tf_core.resource

@@ -50,6 +50,9 @@ val azurerm_express_route_port :
   ?billing_type:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?link1:link1 list ->
+  ?link2:link2 list ->
   ?timeouts:timeouts ->
   bandwidth_in_gbps:float prop ->
   encapsulation:string prop ->
@@ -57,9 +60,6 @@ val azurerm_express_route_port :
   name:string prop ->
   peering_location:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
-  link1:link1 list ->
-  link2:link2 list ->
   unit ->
   azurerm_express_route_port
 
@@ -88,6 +88,9 @@ val register :
   ?billing_type:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?link1:link1 list ->
+  ?link2:link2 list ->
   ?timeouts:timeouts ->
   bandwidth_in_gbps:float prop ->
   encapsulation:string prop ->
@@ -95,9 +98,6 @@ val register :
   name:string prop ->
   peering_location:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
-  link1:link1 list ->
-  link2:link2 list ->
   string ->
   t
 
@@ -105,6 +105,9 @@ val make :
   ?billing_type:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?link1:link1 list ->
+  ?link2:link2 list ->
   ?timeouts:timeouts ->
   bandwidth_in_gbps:float prop ->
   encapsulation:string prop ->
@@ -112,8 +115,5 @@ val make :
   name:string prop ->
   peering_location:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
-  link1:link1 list ->
-  link2:link2 list ->
   string ->
   t Tf_core.resource

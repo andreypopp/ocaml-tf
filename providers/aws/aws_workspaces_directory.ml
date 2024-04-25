@@ -408,8 +408,9 @@ let workspace_creation_properties ?custom_security_group_id
   }
 
 let aws_workspaces_directory ?id ?ip_group_ids ?subnet_ids ?tags
-    ?tags_all ~directory_id ~self_service_permissions
-    ~workspace_access_properties ~workspace_creation_properties () :
+    ?tags_all ?(self_service_permissions = [])
+    ?(workspace_access_properties = [])
+    ?(workspace_creation_properties = []) ~directory_id () :
     aws_workspaces_directory =
   {
     directory_id;
@@ -440,9 +441,10 @@ type t = {
   workspace_security_group_id : string prop;
 }
 
-let make ?id ?ip_group_ids ?subnet_ids ?tags ?tags_all ~directory_id
-    ~self_service_permissions ~workspace_access_properties
-    ~workspace_creation_properties __id =
+let make ?id ?ip_group_ids ?subnet_ids ?tags ?tags_all
+    ?(self_service_permissions = [])
+    ?(workspace_access_properties = [])
+    ?(workspace_creation_properties = []) ~directory_id __id =
   let __type = "aws_workspaces_directory" in
   let __attrs =
     ({
@@ -473,20 +475,20 @@ let make ?id ?ip_group_ids ?subnet_ids ?tags ?tags_all ~directory_id
     json =
       yojson_of_aws_workspaces_directory
         (aws_workspaces_directory ?id ?ip_group_ids ?subnet_ids ?tags
-           ?tags_all ~directory_id ~self_service_permissions
+           ?tags_all ~self_service_permissions
            ~workspace_access_properties
-           ~workspace_creation_properties ());
+           ~workspace_creation_properties ~directory_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?ip_group_ids ?subnet_ids ?tags ?tags_all
-    ~directory_id ~self_service_permissions
-    ~workspace_access_properties ~workspace_creation_properties __id
-    =
+    ?(self_service_permissions = [])
+    ?(workspace_access_properties = [])
+    ?(workspace_creation_properties = []) ~directory_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?ip_group_ids ?subnet_ids ?tags ?tags_all ~directory_id
+    make ?id ?ip_group_ids ?subnet_ids ?tags ?tags_all
       ~self_service_permissions ~workspace_access_properties
-      ~workspace_creation_properties __id
+      ~workspace_creation_properties ~directory_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

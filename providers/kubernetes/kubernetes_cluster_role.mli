@@ -17,7 +17,7 @@ type aggregation_rule__cluster_role_selectors
 
 val aggregation_rule__cluster_role_selectors :
   ?match_labels:(string * string prop) list ->
-  match_expressions:
+  ?match_expressions:
     aggregation_rule__cluster_role_selectors__match_expressions list ->
   unit ->
   aggregation_rule__cluster_role_selectors
@@ -25,7 +25,7 @@ val aggregation_rule__cluster_role_selectors :
 type aggregation_rule
 
 val aggregation_rule :
-  cluster_role_selectors:
+  ?cluster_role_selectors:
     aggregation_rule__cluster_role_selectors list ->
   unit ->
   aggregation_rule
@@ -55,9 +55,9 @@ type kubernetes_cluster_role
 
 val kubernetes_cluster_role :
   ?id:string prop ->
-  aggregation_rule:aggregation_rule list ->
+  ?aggregation_rule:aggregation_rule list ->
+  ?rule:rule list ->
   metadata:metadata list ->
-  rule:rule list ->
   unit ->
   kubernetes_cluster_role
 
@@ -71,16 +71,16 @@ type t = private { id : string prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  aggregation_rule:aggregation_rule list ->
+  ?aggregation_rule:aggregation_rule list ->
+  ?rule:rule list ->
   metadata:metadata list ->
-  rule:rule list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  aggregation_rule:aggregation_rule list ->
+  ?aggregation_rule:aggregation_rule list ->
+  ?rule:rule list ->
   metadata:metadata list ->
-  rule:rule list ->
   string ->
   t Tf_core.resource

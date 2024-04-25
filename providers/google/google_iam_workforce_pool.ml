@@ -227,15 +227,15 @@ let access_restrictions__allowed_services ?domain () :
   { domain }
 
 let access_restrictions ?disable_programmatic_signin
-    ~allowed_services () : access_restrictions =
+    ?(allowed_services = []) () : access_restrictions =
   { disable_programmatic_signin; allowed_services }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_iam_workforce_pool ?description ?disabled ?display_name
-    ?id ?session_duration ?timeouts ~location ~parent
-    ~workforce_pool_id ~access_restrictions () :
+    ?id ?session_duration ?(access_restrictions = []) ?timeouts
+    ~location ~parent ~workforce_pool_id () :
     google_iam_workforce_pool =
   {
     description;
@@ -264,8 +264,8 @@ type t = {
 }
 
 let make ?description ?disabled ?display_name ?id ?session_duration
-    ?timeouts ~location ~parent ~workforce_pool_id
-    ~access_restrictions __id =
+    ?(access_restrictions = []) ?timeouts ~location ~parent
+    ~workforce_pool_id __id =
   let __type = "google_iam_workforce_pool" in
   let __attrs =
     ({
@@ -290,18 +290,18 @@ let make ?description ?disabled ?display_name ?id ?session_duration
     json =
       yojson_of_google_iam_workforce_pool
         (google_iam_workforce_pool ?description ?disabled
-           ?display_name ?id ?session_duration ?timeouts ~location
-           ~parent ~workforce_pool_id ~access_restrictions ());
+           ?display_name ?id ?session_duration ~access_restrictions
+           ?timeouts ~location ~parent ~workforce_pool_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?disabled ?display_name ?id
-    ?session_duration ?timeouts ~location ~parent ~workforce_pool_id
-    ~access_restrictions __id =
+    ?session_duration ?(access_restrictions = []) ?timeouts ~location
+    ~parent ~workforce_pool_id __id =
   let (r : _ Tf_core.resource) =
     make ?description ?disabled ?display_name ?id ?session_duration
-      ?timeouts ~location ~parent ~workforce_pool_id
-      ~access_restrictions __id
+      ~access_restrictions ?timeouts ~location ~parent
+      ~workforce_pool_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

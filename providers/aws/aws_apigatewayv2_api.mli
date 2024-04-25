@@ -32,9 +32,9 @@ val aws_apigatewayv2_api :
   ?tags_all:(string * string prop) list ->
   ?target:string prop ->
   ?version:string prop ->
+  ?cors_configuration:cors_configuration list ->
   name:string prop ->
   protocol_type:string prop ->
-  cors_configuration:cors_configuration list ->
   unit ->
   aws_apigatewayv2_api
 
@@ -78,9 +78,9 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?target:string prop ->
   ?version:string prop ->
+  ?cors_configuration:cors_configuration list ->
   name:string prop ->
   protocol_type:string prop ->
-  cors_configuration:cors_configuration list ->
   string ->
   t
 
@@ -98,8 +98,8 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?target:string prop ->
   ?version:string prop ->
+  ?cors_configuration:cors_configuration list ->
   name:string prop ->
   protocol_type:string prop ->
-  cors_configuration:cors_configuration list ->
   string ->
   t Tf_core.resource

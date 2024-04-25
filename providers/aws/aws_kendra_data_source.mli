@@ -24,13 +24,13 @@ val configuration__s3_configuration :
   ?exclusion_patterns:string prop list ->
   ?inclusion_patterns:string prop list ->
   ?inclusion_prefixes:string prop list ->
-  bucket_name:string prop ->
-  access_control_list_configuration:
+  ?access_control_list_configuration:
     configuration__s3_configuration__access_control_list_configuration
     list ->
-  documents_metadata_configuration:
+  ?documents_metadata_configuration:
     configuration__s3_configuration__documents_metadata_configuration
     list ->
+  bucket_name:string prop ->
   unit ->
   configuration__s3_configuration
 
@@ -79,10 +79,10 @@ val configuration__web_crawler_configuration__urls__site_maps_configuration :
 type configuration__web_crawler_configuration__urls
 
 val configuration__web_crawler_configuration__urls :
-  seed_url_configuration:
+  ?seed_url_configuration:
     configuration__web_crawler_configuration__urls__seed_url_configuration
     list ->
-  site_maps_configuration:
+  ?site_maps_configuration:
     configuration__web_crawler_configuration__urls__site_maps_configuration
     list ->
   unit ->
@@ -97,10 +97,10 @@ val configuration__web_crawler_configuration :
   ?max_urls_per_minute_crawl_rate:float prop ->
   ?url_exclusion_patterns:string prop list ->
   ?url_inclusion_patterns:string prop list ->
-  authentication_configuration:
+  ?authentication_configuration:
     configuration__web_crawler_configuration__authentication_configuration
     list ->
-  proxy_configuration:
+  ?proxy_configuration:
     configuration__web_crawler_configuration__proxy_configuration
     list ->
   urls:configuration__web_crawler_configuration__urls list ->
@@ -110,8 +110,8 @@ val configuration__web_crawler_configuration :
 type configuration
 
 val configuration :
-  s3_configuration:configuration__s3_configuration list ->
-  web_crawler_configuration:
+  ?s3_configuration:configuration__s3_configuration list ->
+  ?web_crawler_configuration:
     configuration__web_crawler_configuration list ->
   unit ->
   configuration
@@ -129,11 +129,11 @@ val custom_document_enrichment_configuration__inline_configurations__condition__
 type custom_document_enrichment_configuration__inline_configurations__condition
 
 val custom_document_enrichment_configuration__inline_configurations__condition :
-  condition_document_attribute_key:string prop ->
-  operator:string prop ->
-  condition_on_value:
+  ?condition_on_value:
     custom_document_enrichment_configuration__inline_configurations__condition__condition_on_value
     list ->
+  condition_document_attribute_key:string prop ->
+  operator:string prop ->
   unit ->
   custom_document_enrichment_configuration__inline_configurations__condition
 
@@ -152,7 +152,7 @@ type custom_document_enrichment_configuration__inline_configurations__target
 val custom_document_enrichment_configuration__inline_configurations__target :
   ?target_document_attribute_key:string prop ->
   ?target_document_attribute_value_deletion:bool prop ->
-  target_document_attribute_value:
+  ?target_document_attribute_value:
     custom_document_enrichment_configuration__inline_configurations__target__target_document_attribute_value
     list ->
   unit ->
@@ -162,10 +162,10 @@ type custom_document_enrichment_configuration__inline_configurations
 
 val custom_document_enrichment_configuration__inline_configurations :
   ?document_content_deletion:bool prop ->
-  condition:
+  ?condition:
     custom_document_enrichment_configuration__inline_configurations__condition
     list ->
-  target:
+  ?target:
     custom_document_enrichment_configuration__inline_configurations__target
     list ->
   unit ->
@@ -184,22 +184,22 @@ val custom_document_enrichment_configuration__post_extraction_hook_configuration
 type custom_document_enrichment_configuration__post_extraction_hook_configuration__invocation_condition
 
 val custom_document_enrichment_configuration__post_extraction_hook_configuration__invocation_condition :
-  condition_document_attribute_key:string prop ->
-  operator:string prop ->
-  condition_on_value:
+  ?condition_on_value:
     custom_document_enrichment_configuration__post_extraction_hook_configuration__invocation_condition__condition_on_value
     list ->
+  condition_document_attribute_key:string prop ->
+  operator:string prop ->
   unit ->
   custom_document_enrichment_configuration__post_extraction_hook_configuration__invocation_condition
 
 type custom_document_enrichment_configuration__post_extraction_hook_configuration
 
 val custom_document_enrichment_configuration__post_extraction_hook_configuration :
-  lambda_arn:string prop ->
-  s3_bucket:string prop ->
-  invocation_condition:
+  ?invocation_condition:
     custom_document_enrichment_configuration__post_extraction_hook_configuration__invocation_condition
     list ->
+  lambda_arn:string prop ->
+  s3_bucket:string prop ->
   unit ->
   custom_document_enrichment_configuration__post_extraction_hook_configuration
 
@@ -216,22 +216,22 @@ val custom_document_enrichment_configuration__pre_extraction_hook_configuration_
 type custom_document_enrichment_configuration__pre_extraction_hook_configuration__invocation_condition
 
 val custom_document_enrichment_configuration__pre_extraction_hook_configuration__invocation_condition :
-  condition_document_attribute_key:string prop ->
-  operator:string prop ->
-  condition_on_value:
+  ?condition_on_value:
     custom_document_enrichment_configuration__pre_extraction_hook_configuration__invocation_condition__condition_on_value
     list ->
+  condition_document_attribute_key:string prop ->
+  operator:string prop ->
   unit ->
   custom_document_enrichment_configuration__pre_extraction_hook_configuration__invocation_condition
 
 type custom_document_enrichment_configuration__pre_extraction_hook_configuration
 
 val custom_document_enrichment_configuration__pre_extraction_hook_configuration :
-  lambda_arn:string prop ->
-  s3_bucket:string prop ->
-  invocation_condition:
+  ?invocation_condition:
     custom_document_enrichment_configuration__pre_extraction_hook_configuration__invocation_condition
     list ->
+  lambda_arn:string prop ->
+  s3_bucket:string prop ->
   unit ->
   custom_document_enrichment_configuration__pre_extraction_hook_configuration
 
@@ -239,14 +239,14 @@ type custom_document_enrichment_configuration
 
 val custom_document_enrichment_configuration :
   ?role_arn:string prop ->
-  inline_configurations:
-    custom_document_enrichment_configuration__inline_configurations
-    list ->
-  post_extraction_hook_configuration:
+  ?post_extraction_hook_configuration:
     custom_document_enrichment_configuration__post_extraction_hook_configuration
     list ->
-  pre_extraction_hook_configuration:
+  ?pre_extraction_hook_configuration:
     custom_document_enrichment_configuration__pre_extraction_hook_configuration
+    list ->
+  inline_configurations:
+    custom_document_enrichment_configuration__inline_configurations
     list ->
   unit ->
   custom_document_enrichment_configuration
@@ -270,13 +270,13 @@ val aws_kendra_data_source :
   ?schedule:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?configuration:configuration list ->
+  ?custom_document_enrichment_configuration:
+    custom_document_enrichment_configuration list ->
   ?timeouts:timeouts ->
   index_id:string prop ->
   name:string prop ->
   type_:string prop ->
-  configuration:configuration list ->
-  custom_document_enrichment_configuration:
-    custom_document_enrichment_configuration list ->
   unit ->
   aws_kendra_data_source
 
@@ -312,13 +312,13 @@ val register :
   ?schedule:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?configuration:configuration list ->
+  ?custom_document_enrichment_configuration:
+    custom_document_enrichment_configuration list ->
   ?timeouts:timeouts ->
   index_id:string prop ->
   name:string prop ->
   type_:string prop ->
-  configuration:configuration list ->
-  custom_document_enrichment_configuration:
-    custom_document_enrichment_configuration list ->
   string ->
   t
 
@@ -330,12 +330,12 @@ val make :
   ?schedule:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?configuration:configuration list ->
+  ?custom_document_enrichment_configuration:
+    custom_document_enrichment_configuration list ->
   ?timeouts:timeouts ->
   index_id:string prop ->
   name:string prop ->
   type_:string prop ->
-  configuration:configuration list ->
-  custom_document_enrichment_configuration:
-    custom_document_enrichment_configuration list ->
   string ->
   t Tf_core.resource

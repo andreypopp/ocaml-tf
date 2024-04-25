@@ -241,15 +241,16 @@ let alternate_identifier__unique_attribute ~attribute_path
     ~attribute_value () : alternate_identifier__unique_attribute =
   { attribute_path; attribute_value }
 
-let alternate_identifier ~external_id ~unique_attribute () :
-    alternate_identifier =
+let alternate_identifier ?(external_id = []) ?(unique_attribute = [])
+    () : alternate_identifier =
   { external_id; unique_attribute }
 
 let filter ~attribute_path ~attribute_value () : filter =
   { attribute_path; attribute_value }
 
-let aws_identitystore_group ?group_id ?id ~identity_store_id
-    ~alternate_identifier ~filter () : aws_identitystore_group =
+let aws_identitystore_group ?group_id ?id
+    ?(alternate_identifier = []) ?(filter = []) ~identity_store_id ()
+    : aws_identitystore_group =
   { group_id; id; identity_store_id; alternate_identifier; filter }
 
 type t = {
@@ -261,8 +262,8 @@ type t = {
   identity_store_id : string prop;
 }
 
-let make ?group_id ?id ~identity_store_id ~alternate_identifier
-    ~filter __id =
+let make ?group_id ?id ?(alternate_identifier = []) ?(filter = [])
+    ~identity_store_id __id =
   let __type = "aws_identitystore_group" in
   let __attrs =
     ({
@@ -281,16 +282,16 @@ let make ?group_id ?id ~identity_store_id ~alternate_identifier
     type_ = __type;
     json =
       yojson_of_aws_identitystore_group
-        (aws_identitystore_group ?group_id ?id ~identity_store_id
-           ~alternate_identifier ~filter ());
+        (aws_identitystore_group ?group_id ?id ~alternate_identifier
+           ~filter ~identity_store_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?group_id ?id ~identity_store_id
-    ~alternate_identifier ~filter __id =
+let register ?tf_module ?group_id ?id ?(alternate_identifier = [])
+    ?(filter = []) ~identity_store_id __id =
   let (r : _ Tf_core.resource) =
-    make ?group_id ?id ~identity_store_id ~alternate_identifier
-      ~filter __id
+    make ?group_id ?id ~alternate_identifier ~filter
+      ~identity_store_id __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

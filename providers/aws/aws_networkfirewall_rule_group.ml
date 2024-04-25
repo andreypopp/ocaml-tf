@@ -1464,9 +1464,9 @@ let rule_group__rules_source__stateless_rules_and_custom_actions
     rule_group__rules_source__stateless_rules_and_custom_actions =
   { custom_action; stateless_rule }
 
-let rule_group__rules_source ?rules_string ~rules_source_list
-    ~stateful_rule ~stateless_rules_and_custom_actions () :
-    rule_group__rules_source =
+let rule_group__rules_source ?rules_string ?(rules_source_list = [])
+    ?(stateful_rule = []) ?(stateless_rules_and_custom_actions = [])
+    () : rule_group__rules_source =
   {
     rules_string;
     rules_source_list;
@@ -1478,8 +1478,8 @@ let rule_group__stateful_rule_options ~rule_order () :
     rule_group__stateful_rule_options =
   { rule_order }
 
-let rule_group ~reference_sets ~rule_variables ~rules_source
-    ~stateful_rule_options () : rule_group =
+let rule_group ?(reference_sets = []) ?(rule_variables = [])
+    ?(stateful_rule_options = []) ~rules_source () : rule_group =
   {
     reference_sets;
     rule_variables;
@@ -1488,8 +1488,8 @@ let rule_group ~reference_sets ~rule_variables ~rules_source
   }
 
 let aws_networkfirewall_rule_group ?description ?id ?rules ?tags
-    ?tags_all ~capacity ~name ~type_ ~encryption_configuration
-    ~rule_group () : aws_networkfirewall_rule_group =
+    ?tags_all ?(encryption_configuration = []) ?(rule_group = [])
+    ~capacity ~name ~type_ () : aws_networkfirewall_rule_group =
   {
     capacity;
     description;
@@ -1516,8 +1516,9 @@ type t = {
   update_token : string prop;
 }
 
-let make ?description ?id ?rules ?tags ?tags_all ~capacity ~name
-    ~type_ ~encryption_configuration ~rule_group __id =
+let make ?description ?id ?rules ?tags ?tags_all
+    ?(encryption_configuration = []) ?(rule_group = []) ~capacity
+    ~name ~type_ __id =
   let __type = "aws_networkfirewall_rule_group" in
   let __attrs =
     ({
@@ -1540,17 +1541,18 @@ let make ?description ?id ?rules ?tags ?tags_all ~capacity ~name
     json =
       yojson_of_aws_networkfirewall_rule_group
         (aws_networkfirewall_rule_group ?description ?id ?rules ?tags
-           ?tags_all ~capacity ~name ~type_ ~encryption_configuration
-           ~rule_group ());
+           ?tags_all ~encryption_configuration ~rule_group ~capacity
+           ~name ~type_ ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?rules ?tags ?tags_all
-    ~capacity ~name ~type_ ~encryption_configuration ~rule_group __id
-    =
+    ?(encryption_configuration = []) ?(rule_group = []) ~capacity
+    ~name ~type_ __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?rules ?tags ?tags_all ~capacity ~name
-      ~type_ ~encryption_configuration ~rule_group __id
+    make ?description ?id ?rules ?tags ?tags_all
+      ~encryption_configuration ~rule_group ~capacity ~name ~type_
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

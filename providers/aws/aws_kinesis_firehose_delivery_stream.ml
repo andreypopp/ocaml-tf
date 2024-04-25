@@ -4941,7 +4941,7 @@ let elasticsearch_configuration__processing_configuration__processors
   { type_; parameters }
 
 let elasticsearch_configuration__processing_configuration ?enabled
-    ~processors () :
+    ?(processors = []) () :
     elasticsearch_configuration__processing_configuration =
   { enabled; processors }
 
@@ -4953,8 +4953,8 @@ let elasticsearch_configuration__s3_configuration__cloudwatch_logging_options
 
 let elasticsearch_configuration__s3_configuration ?buffering_interval
     ?buffering_size ?compression_format ?error_output_prefix
-    ?kms_key_arn ?prefix ~bucket_arn ~role_arn
-    ~cloudwatch_logging_options () :
+    ?kms_key_arn ?prefix ?(cloudwatch_logging_options = [])
+    ~bucket_arn ~role_arn () :
     elasticsearch_configuration__s3_configuration =
   {
     bucket_arn;
@@ -4975,9 +4975,10 @@ let elasticsearch_configuration__vpc_config ~role_arn
 
 let elasticsearch_configuration ?buffering_interval ?buffering_size
     ?cluster_endpoint ?domain_arn ?index_rotation_period
-    ?retry_duration ?s3_backup_mode ?type_name ~index_name ~role_arn
-    ~cloudwatch_logging_options ~processing_configuration
-    ~s3_configuration ~vpc_config () : elasticsearch_configuration =
+    ?retry_duration ?s3_backup_mode ?type_name
+    ?(cloudwatch_logging_options = [])
+    ?(processing_configuration = []) ?(vpc_config = []) ~index_name
+    ~role_arn ~s3_configuration () : elasticsearch_configuration =
   {
     buffering_interval;
     buffering_size;
@@ -5018,7 +5019,7 @@ let extended_s3_configuration__data_format_conversion_configuration__input_forma
   }
 
 let extended_s3_configuration__data_format_conversion_configuration__input_format_configuration__deserializer
-    ~hive_json_ser_de ~open_x_json_ser_de () :
+    ?(hive_json_ser_de = []) ?(open_x_json_ser_de = []) () :
     extended_s3_configuration__data_format_conversion_configuration__input_format_configuration__deserializer
     =
   { hive_json_ser_de; open_x_json_ser_de }
@@ -5064,7 +5065,7 @@ let extended_s3_configuration__data_format_conversion_configuration__output_form
   }
 
 let extended_s3_configuration__data_format_conversion_configuration__output_format_configuration__serializer
-    ~orc_ser_de ~parquet_ser_de () :
+    ?(orc_ser_de = []) ?(parquet_ser_de = []) () :
     extended_s3_configuration__data_format_conversion_configuration__output_format_configuration__serializer
     =
   { orc_ser_de; parquet_ser_de }
@@ -5117,7 +5118,7 @@ let extended_s3_configuration__processing_configuration__processors
   { type_; parameters }
 
 let extended_s3_configuration__processing_configuration ?enabled
-    ~processors () :
+    ?(processors = []) () :
     extended_s3_configuration__processing_configuration =
   { enabled; processors }
 
@@ -5129,8 +5130,8 @@ let extended_s3_configuration__s3_backup_configuration__cloudwatch_logging_optio
 
 let extended_s3_configuration__s3_backup_configuration
     ?buffering_interval ?buffering_size ?compression_format
-    ?error_output_prefix ?kms_key_arn ?prefix ~bucket_arn ~role_arn
-    ~cloudwatch_logging_options () :
+    ?error_output_prefix ?kms_key_arn ?prefix
+    ?(cloudwatch_logging_options = []) ~bucket_arn ~role_arn () :
     extended_s3_configuration__s3_backup_configuration =
   {
     bucket_arn;
@@ -5146,11 +5147,12 @@ let extended_s3_configuration__s3_backup_configuration
 
 let extended_s3_configuration ?buffering_interval ?buffering_size
     ?compression_format ?custom_time_zone ?error_output_prefix
-    ?file_extension ?kms_key_arn ?prefix ?s3_backup_mode ~bucket_arn
-    ~role_arn ~cloudwatch_logging_options
-    ~data_format_conversion_configuration
-    ~dynamic_partitioning_configuration ~processing_configuration
-    ~s3_backup_configuration () : extended_s3_configuration =
+    ?file_extension ?kms_key_arn ?prefix ?s3_backup_mode
+    ?(cloudwatch_logging_options = [])
+    ?(data_format_conversion_configuration = [])
+    ?(dynamic_partitioning_configuration = [])
+    ?(processing_configuration = []) ?(s3_backup_configuration = [])
+    ~bucket_arn ~role_arn () : extended_s3_configuration =
   {
     bucket_arn;
     buffering_interval;
@@ -5188,7 +5190,7 @@ let http_endpoint_configuration__processing_configuration__processors
   { type_; parameters }
 
 let http_endpoint_configuration__processing_configuration ?enabled
-    ~processors () :
+    ?(processors = []) () :
     http_endpoint_configuration__processing_configuration =
   { enabled; processors }
 
@@ -5199,7 +5201,7 @@ let http_endpoint_configuration__request_configuration__common_attributes
   { name; value }
 
 let http_endpoint_configuration__request_configuration
-    ?content_encoding ~common_attributes () :
+    ?content_encoding ?(common_attributes = []) () :
     http_endpoint_configuration__request_configuration =
   { content_encoding; common_attributes }
 
@@ -5211,8 +5213,8 @@ let http_endpoint_configuration__s3_configuration__cloudwatch_logging_options
 
 let http_endpoint_configuration__s3_configuration ?buffering_interval
     ?buffering_size ?compression_format ?error_output_prefix
-    ?kms_key_arn ?prefix ~bucket_arn ~role_arn
-    ~cloudwatch_logging_options () :
+    ?kms_key_arn ?prefix ?(cloudwatch_logging_options = [])
+    ~bucket_arn ~role_arn () :
     http_endpoint_configuration__s3_configuration =
   {
     bucket_arn;
@@ -5228,9 +5230,9 @@ let http_endpoint_configuration__s3_configuration ?buffering_interval
 
 let http_endpoint_configuration ?access_key ?buffering_interval
     ?buffering_size ?name ?retry_duration ?role_arn ?s3_backup_mode
-    ~url ~cloudwatch_logging_options ~processing_configuration
-    ~request_configuration ~s3_configuration () :
-    http_endpoint_configuration =
+    ?(cloudwatch_logging_options = [])
+    ?(processing_configuration = []) ?(request_configuration = [])
+    ~url ~s3_configuration () : http_endpoint_configuration =
   {
     access_key;
     buffering_interval;
@@ -5281,7 +5283,7 @@ let opensearch_configuration__processing_configuration__processors
   { type_; parameters }
 
 let opensearch_configuration__processing_configuration ?enabled
-    ~processors () :
+    ?(processors = []) () :
     opensearch_configuration__processing_configuration =
   { enabled; processors }
 
@@ -5293,8 +5295,8 @@ let opensearch_configuration__s3_configuration__cloudwatch_logging_options
 
 let opensearch_configuration__s3_configuration ?buffering_interval
     ?buffering_size ?compression_format ?error_output_prefix
-    ?kms_key_arn ?prefix ~bucket_arn ~role_arn
-    ~cloudwatch_logging_options () :
+    ?kms_key_arn ?prefix ?(cloudwatch_logging_options = [])
+    ~bucket_arn ~role_arn () :
     opensearch_configuration__s3_configuration =
   {
     bucket_arn;
@@ -5315,10 +5317,10 @@ let opensearch_configuration__vpc_config ~role_arn
 
 let opensearch_configuration ?buffering_interval ?buffering_size
     ?cluster_endpoint ?domain_arn ?index_rotation_period
-    ?retry_duration ?s3_backup_mode ?type_name ~index_name ~role_arn
-    ~cloudwatch_logging_options ~document_id_options
-    ~processing_configuration ~s3_configuration ~vpc_config () :
-    opensearch_configuration =
+    ?retry_duration ?s3_backup_mode ?type_name
+    ?(cloudwatch_logging_options = []) ?(document_id_options = [])
+    ?(processing_configuration = []) ?(vpc_config = []) ~index_name
+    ~role_arn ~s3_configuration () : opensearch_configuration =
   {
     buffering_interval;
     buffering_size;
@@ -5355,7 +5357,7 @@ let opensearchserverless_configuration__processing_configuration__processors
   { type_; parameters }
 
 let opensearchserverless_configuration__processing_configuration
-    ?enabled ~processors () :
+    ?enabled ?(processors = []) () :
     opensearchserverless_configuration__processing_configuration =
   { enabled; processors }
 
@@ -5367,8 +5369,8 @@ let opensearchserverless_configuration__s3_configuration__cloudwatch_logging_opt
 
 let opensearchserverless_configuration__s3_configuration
     ?buffering_interval ?buffering_size ?compression_format
-    ?error_output_prefix ?kms_key_arn ?prefix ~bucket_arn ~role_arn
-    ~cloudwatch_logging_options () :
+    ?error_output_prefix ?kms_key_arn ?prefix
+    ?(cloudwatch_logging_options = []) ~bucket_arn ~role_arn () :
     opensearchserverless_configuration__s3_configuration =
   {
     bucket_arn;
@@ -5389,9 +5391,9 @@ let opensearchserverless_configuration__vpc_config ~role_arn
 
 let opensearchserverless_configuration ?buffering_interval
     ?buffering_size ?retry_duration ?s3_backup_mode
-    ~collection_endpoint ~index_name ~role_arn
-    ~cloudwatch_logging_options ~processing_configuration
-    ~s3_configuration ~vpc_config () :
+    ?(cloudwatch_logging_options = [])
+    ?(processing_configuration = []) ?(vpc_config = [])
+    ~collection_endpoint ~index_name ~role_arn ~s3_configuration () :
     opensearchserverless_configuration =
   {
     buffering_interval;
@@ -5424,8 +5426,8 @@ let redshift_configuration__processing_configuration__processors
   { type_; parameters }
 
 let redshift_configuration__processing_configuration ?enabled
-    ~processors () : redshift_configuration__processing_configuration
-    =
+    ?(processors = []) () :
+    redshift_configuration__processing_configuration =
   { enabled; processors }
 
 let redshift_configuration__s3_backup_configuration__cloudwatch_logging_options
@@ -5436,8 +5438,8 @@ let redshift_configuration__s3_backup_configuration__cloudwatch_logging_options
 
 let redshift_configuration__s3_backup_configuration
     ?buffering_interval ?buffering_size ?compression_format
-    ?error_output_prefix ?kms_key_arn ?prefix ~bucket_arn ~role_arn
-    ~cloudwatch_logging_options () :
+    ?error_output_prefix ?kms_key_arn ?prefix
+    ?(cloudwatch_logging_options = []) ~bucket_arn ~role_arn () :
     redshift_configuration__s3_backup_configuration =
   {
     bucket_arn;
@@ -5459,8 +5461,8 @@ let redshift_configuration__s3_configuration__cloudwatch_logging_options
 
 let redshift_configuration__s3_configuration ?buffering_interval
     ?buffering_size ?compression_format ?error_output_prefix
-    ?kms_key_arn ?prefix ~bucket_arn ~role_arn
-    ~cloudwatch_logging_options () :
+    ?kms_key_arn ?prefix ?(cloudwatch_logging_options = [])
+    ~bucket_arn ~role_arn () :
     redshift_configuration__s3_configuration =
   {
     bucket_arn;
@@ -5475,9 +5477,10 @@ let redshift_configuration__s3_configuration ?buffering_interval
   }
 
 let redshift_configuration ?copy_options ?data_table_columns
-    ?retry_duration ?s3_backup_mode ~cluster_jdbcurl ~data_table_name
-    ~password ~role_arn ~username ~cloudwatch_logging_options
-    ~processing_configuration ~s3_backup_configuration
+    ?retry_duration ?s3_backup_mode
+    ?(cloudwatch_logging_options = [])
+    ?(processing_configuration = []) ?(s3_backup_configuration = [])
+    ~cluster_jdbcurl ~data_table_name ~password ~role_arn ~username
     ~s3_configuration () : redshift_configuration =
   {
     cluster_jdbcurl;
@@ -5516,7 +5519,8 @@ let splunk_configuration__processing_configuration__processors ~type_
   { type_; parameters }
 
 let splunk_configuration__processing_configuration ?enabled
-    ~processors () : splunk_configuration__processing_configuration =
+    ?(processors = []) () :
+    splunk_configuration__processing_configuration =
   { enabled; processors }
 
 let splunk_configuration__s3_configuration__cloudwatch_logging_options
@@ -5527,9 +5531,9 @@ let splunk_configuration__s3_configuration__cloudwatch_logging_options
 
 let splunk_configuration__s3_configuration ?buffering_interval
     ?buffering_size ?compression_format ?error_output_prefix
-    ?kms_key_arn ?prefix ~bucket_arn ~role_arn
-    ~cloudwatch_logging_options () :
-    splunk_configuration__s3_configuration =
+    ?kms_key_arn ?prefix ?(cloudwatch_logging_options = [])
+    ~bucket_arn ~role_arn () : splunk_configuration__s3_configuration
+    =
   {
     bucket_arn;
     buffering_interval;
@@ -5544,8 +5548,8 @@ let splunk_configuration__s3_configuration ?buffering_interval
 
 let splunk_configuration ?buffering_interval ?buffering_size
     ?hec_acknowledgment_timeout ?hec_endpoint_type ?retry_duration
-    ?s3_backup_mode ~hec_endpoint ~hec_token
-    ~cloudwatch_logging_options ~processing_configuration
+    ?s3_backup_mode ?(cloudwatch_logging_options = [])
+    ?(processing_configuration = []) ~hec_endpoint ~hec_token
     ~s3_configuration () : splunk_configuration =
   {
     buffering_interval;
@@ -5565,12 +5569,14 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_kinesis_firehose_delivery_stream ?arn ?destination_id ?id
-    ?tags ?tags_all ?version_id ?timeouts ~destination ~name
-    ~elasticsearch_configuration ~extended_s3_configuration
-    ~http_endpoint_configuration ~kinesis_source_configuration
-    ~msk_source_configuration ~opensearch_configuration
-    ~opensearchserverless_configuration ~redshift_configuration
-    ~server_side_encryption ~splunk_configuration () :
+    ?tags ?tags_all ?version_id ?(elasticsearch_configuration = [])
+    ?(extended_s3_configuration = [])
+    ?(http_endpoint_configuration = [])
+    ?(kinesis_source_configuration = [])
+    ?(msk_source_configuration = []) ?(opensearch_configuration = [])
+    ?(opensearchserverless_configuration = [])
+    ?(redshift_configuration = []) ?(server_side_encryption = [])
+    ?(splunk_configuration = []) ?timeouts ~destination ~name () :
     aws_kinesis_firehose_delivery_stream =
   {
     arn;
@@ -5606,12 +5612,14 @@ type t = {
 }
 
 let make ?arn ?destination_id ?id ?tags ?tags_all ?version_id
-    ?timeouts ~destination ~name ~elasticsearch_configuration
-    ~extended_s3_configuration ~http_endpoint_configuration
-    ~kinesis_source_configuration ~msk_source_configuration
-    ~opensearch_configuration ~opensearchserverless_configuration
-    ~redshift_configuration ~server_side_encryption
-    ~splunk_configuration __id =
+    ?(elasticsearch_configuration = [])
+    ?(extended_s3_configuration = [])
+    ?(http_endpoint_configuration = [])
+    ?(kinesis_source_configuration = [])
+    ?(msk_source_configuration = []) ?(opensearch_configuration = [])
+    ?(opensearchserverless_configuration = [])
+    ?(redshift_configuration = []) ?(server_side_encryption = [])
+    ?(splunk_configuration = []) ?timeouts ~destination ~name __id =
   let __type = "aws_kinesis_firehose_delivery_stream" in
   let __attrs =
     ({
@@ -5632,32 +5640,33 @@ let make ?arn ?destination_id ?id ?tags ?tags_all ?version_id
     json =
       yojson_of_aws_kinesis_firehose_delivery_stream
         (aws_kinesis_firehose_delivery_stream ?arn ?destination_id
-           ?id ?tags ?tags_all ?version_id ?timeouts ~destination
-           ~name ~elasticsearch_configuration
-           ~extended_s3_configuration ~http_endpoint_configuration
-           ~kinesis_source_configuration ~msk_source_configuration
-           ~opensearch_configuration
+           ?id ?tags ?tags_all ?version_id
+           ~elasticsearch_configuration ~extended_s3_configuration
+           ~http_endpoint_configuration ~kinesis_source_configuration
+           ~msk_source_configuration ~opensearch_configuration
            ~opensearchserverless_configuration
            ~redshift_configuration ~server_side_encryption
-           ~splunk_configuration ());
+           ~splunk_configuration ?timeouts ~destination ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?arn ?destination_id ?id ?tags ?tags_all
-    ?version_id ?timeouts ~destination ~name
-    ~elasticsearch_configuration ~extended_s3_configuration
-    ~http_endpoint_configuration ~kinesis_source_configuration
-    ~msk_source_configuration ~opensearch_configuration
-    ~opensearchserverless_configuration ~redshift_configuration
-    ~server_side_encryption ~splunk_configuration __id =
+    ?version_id ?(elasticsearch_configuration = [])
+    ?(extended_s3_configuration = [])
+    ?(http_endpoint_configuration = [])
+    ?(kinesis_source_configuration = [])
+    ?(msk_source_configuration = []) ?(opensearch_configuration = [])
+    ?(opensearchserverless_configuration = [])
+    ?(redshift_configuration = []) ?(server_side_encryption = [])
+    ?(splunk_configuration = []) ?timeouts ~destination ~name __id =
   let (r : _ Tf_core.resource) =
     make ?arn ?destination_id ?id ?tags ?tags_all ?version_id
-      ?timeouts ~destination ~name ~elasticsearch_configuration
-      ~extended_s3_configuration ~http_endpoint_configuration
-      ~kinesis_source_configuration ~msk_source_configuration
-      ~opensearch_configuration ~opensearchserverless_configuration
-      ~redshift_configuration ~server_side_encryption
-      ~splunk_configuration __id
+      ~elasticsearch_configuration ~extended_s3_configuration
+      ~http_endpoint_configuration ~kinesis_source_configuration
+      ~msk_source_configuration ~opensearch_configuration
+      ~opensearchserverless_configuration ~redshift_configuration
+      ~server_side_encryption ~splunk_configuration ?timeouts
+      ~destination ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

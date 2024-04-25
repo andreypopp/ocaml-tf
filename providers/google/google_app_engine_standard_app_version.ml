@@ -899,7 +899,7 @@ let automatic_scaling__standard_scheduler_settings ?max_instances
 
 let automatic_scaling ?max_concurrent_requests ?max_idle_instances
     ?max_pending_latency ?min_idle_instances ?min_pending_latency
-    ~standard_scheduler_settings () : automatic_scaling =
+    ?(standard_scheduler_settings = []) () : automatic_scaling =
   {
     max_concurrent_requests;
     max_idle_instances;
@@ -919,7 +919,7 @@ let deployment__files ?sha1_sum ~name ~source_url () :
 let deployment__zip ?files_count ~source_url () : deployment__zip =
   { files_count; source_url }
 
-let deployment ~files ~zip () : deployment = { files; zip }
+let deployment ?(zip = []) ~files () : deployment = { files; zip }
 let entrypoint ~shell () : entrypoint = { shell }
 
 let handlers__script ~script_path () : handlers__script =
@@ -939,7 +939,8 @@ let handlers__static_files ?application_readable ?expiration
   }
 
 let handlers ?auth_fail_action ?login ?redirect_http_response_code
-    ?security_level ?url_regex ~script ~static_files () : handlers =
+    ?security_level ?url_regex ?(script = []) ?(static_files = []) ()
+    : handlers =
   {
     auth_fail_action;
     login;
@@ -963,11 +964,11 @@ let vpc_access_connector ?egress_setting ~name () :
 let google_app_engine_standard_app_version ?app_engine_apis
     ?delete_service_on_destroy ?env_variables ?id ?inbound_services
     ?instance_class ?noop_on_destroy ?project ?runtime_api_version
-    ?service_account ?threadsafe ?version_id ?timeouts ~runtime
-    ~service ~automatic_scaling ~basic_scaling ~deployment
-    ~entrypoint ~handlers ~libraries ~manual_scaling
-    ~vpc_access_connector () : google_app_engine_standard_app_version
-    =
+    ?service_account ?threadsafe ?version_id
+    ?(automatic_scaling = []) ?(basic_scaling = []) ?(handlers = [])
+    ?(libraries = []) ?(manual_scaling = []) ?timeouts
+    ?(vpc_access_connector = []) ~runtime ~service ~deployment
+    ~entrypoint () : google_app_engine_standard_app_version =
   {
     app_engine_apis;
     delete_service_on_destroy;
@@ -1015,9 +1016,10 @@ type t = {
 let make ?app_engine_apis ?delete_service_on_destroy ?env_variables
     ?id ?inbound_services ?instance_class ?noop_on_destroy ?project
     ?runtime_api_version ?service_account ?threadsafe ?version_id
-    ?timeouts ~runtime ~service ~automatic_scaling ~basic_scaling
-    ~deployment ~entrypoint ~handlers ~libraries ~manual_scaling
-    ~vpc_access_connector __id =
+    ?(automatic_scaling = []) ?(basic_scaling = []) ?(handlers = [])
+    ?(libraries = []) ?(manual_scaling = []) ?timeouts
+    ?(vpc_access_connector = []) ~runtime ~service ~deployment
+    ~entrypoint __id =
   let __type = "google_app_engine_standard_app_version" in
   let __attrs =
     ({
@@ -1051,25 +1053,26 @@ let make ?app_engine_apis ?delete_service_on_destroy ?env_variables
            ?delete_service_on_destroy ?env_variables ?id
            ?inbound_services ?instance_class ?noop_on_destroy
            ?project ?runtime_api_version ?service_account ?threadsafe
-           ?version_id ?timeouts ~runtime ~service ~automatic_scaling
-           ~basic_scaling ~deployment ~entrypoint ~handlers
-           ~libraries ~manual_scaling ~vpc_access_connector ());
+           ?version_id ~automatic_scaling ~basic_scaling ~handlers
+           ~libraries ~manual_scaling ?timeouts ~vpc_access_connector
+           ~runtime ~service ~deployment ~entrypoint ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?app_engine_apis ?delete_service_on_destroy
     ?env_variables ?id ?inbound_services ?instance_class
     ?noop_on_destroy ?project ?runtime_api_version ?service_account
-    ?threadsafe ?version_id ?timeouts ~runtime ~service
-    ~automatic_scaling ~basic_scaling ~deployment ~entrypoint
-    ~handlers ~libraries ~manual_scaling ~vpc_access_connector __id =
+    ?threadsafe ?version_id ?(automatic_scaling = [])
+    ?(basic_scaling = []) ?(handlers = []) ?(libraries = [])
+    ?(manual_scaling = []) ?timeouts ?(vpc_access_connector = [])
+    ~runtime ~service ~deployment ~entrypoint __id =
   let (r : _ Tf_core.resource) =
     make ?app_engine_apis ?delete_service_on_destroy ?env_variables
       ?id ?inbound_services ?instance_class ?noop_on_destroy ?project
       ?runtime_api_version ?service_account ?threadsafe ?version_id
-      ?timeouts ~runtime ~service ~automatic_scaling ~basic_scaling
-      ~deployment ~entrypoint ~handlers ~libraries ~manual_scaling
-      ~vpc_access_connector __id
+      ~automatic_scaling ~basic_scaling ~handlers ~libraries
+      ~manual_scaling ?timeouts ~vpc_access_connector ~runtime
+      ~service ~deployment ~entrypoint __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

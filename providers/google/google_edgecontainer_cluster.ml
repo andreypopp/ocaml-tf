@@ -841,7 +841,7 @@ let control_plane__local ?machine_filter ?node_count ?node_location
 let control_plane__remote ?node_location () : control_plane__remote =
   { node_location }
 
-let control_plane ~local ~remote () : control_plane =
+let control_plane ?(local = []) ?(remote = []) () : control_plane =
   { local; remote }
 
 let control_plane_encryption ?kms_key () : control_plane_encryption =
@@ -854,8 +854,9 @@ let maintenance_policy__window__recurring_window__window ?end_time
     maintenance_policy__window__recurring_window__window =
   { end_time; start_time }
 
-let maintenance_policy__window__recurring_window ?recurrence ~window
-    () : maintenance_policy__window__recurring_window =
+let maintenance_policy__window__recurring_window ?recurrence
+    ?(window = []) () : maintenance_policy__window__recurring_window
+    =
   { recurrence; window }
 
 let maintenance_policy__window ~recurring_window () :
@@ -878,7 +879,7 @@ let system_addons_config__ingress ?disabled ?ipv4_vip () :
     system_addons_config__ingress =
   { disabled; ipv4_vip }
 
-let system_addons_config ~ingress () : system_addons_config =
+let system_addons_config ?(ingress = []) () : system_addons_config =
   { ingress }
 
 let timeouts ?create ?delete ?update () : timeouts =
@@ -886,9 +887,10 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_edgecontainer_cluster ?default_max_pods_per_node
     ?external_load_balancer_ipv4_address_pools ?id ?labels ?project
-    ?release_channel ?target_version ?timeouts ~location ~name
-    ~authorization ~control_plane ~control_plane_encryption ~fleet
-    ~maintenance_policy ~networking ~system_addons_config () :
+    ?release_channel ?target_version ?(control_plane = [])
+    ?(control_plane_encryption = []) ?(maintenance_policy = [])
+    ?(system_addons_config = []) ?timeouts ~location ~name
+    ~authorization ~fleet ~networking () :
     google_edgecontainer_cluster =
   {
     default_max_pods_per_node;
@@ -935,9 +937,10 @@ type t = {
 
 let make ?default_max_pods_per_node
     ?external_load_balancer_ipv4_address_pools ?id ?labels ?project
-    ?release_channel ?target_version ?timeouts ~location ~name
-    ~authorization ~control_plane ~control_plane_encryption ~fleet
-    ~maintenance_policy ~networking ~system_addons_config __id =
+    ?release_channel ?target_version ?(control_plane = [])
+    ?(control_plane_encryption = []) ?(maintenance_policy = [])
+    ?(system_addons_config = []) ?timeouts ~location ~name
+    ~authorization ~fleet ~networking __id =
   let __type = "google_edgecontainer_cluster" in
   let __attrs =
     ({
@@ -979,24 +982,26 @@ let make ?default_max_pods_per_node
       yojson_of_google_edgecontainer_cluster
         (google_edgecontainer_cluster ?default_max_pods_per_node
            ?external_load_balancer_ipv4_address_pools ?id ?labels
-           ?project ?release_channel ?target_version ?timeouts
-           ~location ~name ~authorization ~control_plane
-           ~control_plane_encryption ~fleet ~maintenance_policy
-           ~networking ~system_addons_config ());
+           ?project ?release_channel ?target_version ~control_plane
+           ~control_plane_encryption ~maintenance_policy
+           ~system_addons_config ?timeouts ~location ~name
+           ~authorization ~fleet ~networking ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?default_max_pods_per_node
     ?external_load_balancer_ipv4_address_pools ?id ?labels ?project
-    ?release_channel ?target_version ?timeouts ~location ~name
-    ~authorization ~control_plane ~control_plane_encryption ~fleet
-    ~maintenance_policy ~networking ~system_addons_config __id =
+    ?release_channel ?target_version ?(control_plane = [])
+    ?(control_plane_encryption = []) ?(maintenance_policy = [])
+    ?(system_addons_config = []) ?timeouts ~location ~name
+    ~authorization ~fleet ~networking __id =
   let (r : _ Tf_core.resource) =
     make ?default_max_pods_per_node
       ?external_load_balancer_ipv4_address_pools ?id ?labels ?project
-      ?release_channel ?target_version ?timeouts ~location ~name
-      ~authorization ~control_plane ~control_plane_encryption ~fleet
-      ~maintenance_policy ~networking ~system_addons_config __id
+      ?release_channel ?target_version ~control_plane
+      ~control_plane_encryption ~maintenance_policy
+      ~system_addons_config ?timeouts ~location ~name ~authorization
+      ~fleet ~networking __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -37,6 +37,8 @@ val azurerm_network_manager_admin_rule :
   ?destination_port_ranges:string prop list ->
   ?id:string prop ->
   ?source_port_ranges:string prop list ->
+  ?destination:destination list ->
+  ?source:source list ->
   ?timeouts:timeouts ->
   action:string prop ->
   admin_rule_collection_id:string prop ->
@@ -44,8 +46,6 @@ val azurerm_network_manager_admin_rule :
   name:string prop ->
   priority:float prop ->
   protocol:string prop ->
-  destination:destination list ->
-  source:source list ->
   unit ->
   azurerm_network_manager_admin_rule
 
@@ -73,6 +73,8 @@ val register :
   ?destination_port_ranges:string prop list ->
   ?id:string prop ->
   ?source_port_ranges:string prop list ->
+  ?destination:destination list ->
+  ?source:source list ->
   ?timeouts:timeouts ->
   action:string prop ->
   admin_rule_collection_id:string prop ->
@@ -80,8 +82,6 @@ val register :
   name:string prop ->
   priority:float prop ->
   protocol:string prop ->
-  destination:destination list ->
-  source:source list ->
   string ->
   t
 
@@ -90,6 +90,8 @@ val make :
   ?destination_port_ranges:string prop list ->
   ?id:string prop ->
   ?source_port_ranges:string prop list ->
+  ?destination:destination list ->
+  ?source:source list ->
   ?timeouts:timeouts ->
   action:string prop ->
   admin_rule_collection_id:string prop ->
@@ -97,7 +99,5 @@ val make :
   name:string prop ->
   priority:float prop ->
   protocol:string prop ->
-  destination:destination list ->
-  source:source list ->
   string ->
   t Tf_core.resource

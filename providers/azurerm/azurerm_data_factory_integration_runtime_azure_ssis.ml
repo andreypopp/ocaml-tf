@@ -842,8 +842,8 @@ let express_custom_setup__command_key__key_vault_password ?parameters
     express_custom_setup__command_key__key_vault_password =
   { linked_service_name; parameters; secret_name; secret_version }
 
-let express_custom_setup__command_key ?password ~target_name
-    ~user_name ~key_vault_password () :
+let express_custom_setup__command_key ?password
+    ?(key_vault_password = []) ~target_name ~user_name () :
     express_custom_setup__command_key =
   { password; target_name; user_name; key_vault_password }
 
@@ -852,12 +852,13 @@ let express_custom_setup__component__key_vault_license ?parameters
     express_custom_setup__component__key_vault_license =
   { linked_service_name; parameters; secret_name; secret_version }
 
-let express_custom_setup__component ?license ~name ~key_vault_license
-    () : express_custom_setup__component =
+let express_custom_setup__component ?license
+    ?(key_vault_license = []) ~name () :
+    express_custom_setup__component =
   { license; name; key_vault_license }
 
 let express_custom_setup ?environment ?powershell_version
-    ~command_key ~component () : express_custom_setup =
+    ?(command_key = []) ?(component = []) () : express_custom_setup =
   { environment; powershell_version; command_key; component }
 
 let express_vnet_integration ~subnet_id () : express_vnet_integration
@@ -884,11 +885,13 @@ let vnet_integration ?public_ips ?subnet_id ?subnet_name ?vnet_id ()
 
 let azurerm_data_factory_integration_runtime_azure_ssis
     ?credential_name ?description ?edition ?id ?license_type
-    ?max_parallel_executions_per_node ?number_of_nodes ?timeouts
-    ~data_factory_id ~location ~name ~node_size ~catalog_info
-    ~custom_setup_script ~express_custom_setup
-    ~express_vnet_integration ~package_store ~proxy ~vnet_integration
-    () : azurerm_data_factory_integration_runtime_azure_ssis =
+    ?max_parallel_executions_per_node ?number_of_nodes
+    ?(catalog_info = []) ?(custom_setup_script = [])
+    ?(express_custom_setup = []) ?(express_vnet_integration = [])
+    ?(package_store = []) ?(proxy = []) ?timeouts
+    ?(vnet_integration = []) ~data_factory_id ~location ~name
+    ~node_size () :
+    azurerm_data_factory_integration_runtime_azure_ssis =
   {
     credential_name;
     data_factory_id;
@@ -926,11 +929,12 @@ type t = {
 }
 
 let make ?credential_name ?description ?edition ?id ?license_type
-    ?max_parallel_executions_per_node ?number_of_nodes ?timeouts
-    ~data_factory_id ~location ~name ~node_size ~catalog_info
-    ~custom_setup_script ~express_custom_setup
-    ~express_vnet_integration ~package_store ~proxy ~vnet_integration
-    __id =
+    ?max_parallel_executions_per_node ?number_of_nodes
+    ?(catalog_info = []) ?(custom_setup_script = [])
+    ?(express_custom_setup = []) ?(express_vnet_integration = [])
+    ?(package_store = []) ?(proxy = []) ?timeouts
+    ?(vnet_integration = []) ~data_factory_id ~location ~name
+    ~node_size __id =
   let __type =
     "azurerm_data_factory_integration_runtime_azure_ssis"
   in
@@ -959,26 +963,27 @@ let make ?credential_name ?description ?edition ?id ?license_type
         (azurerm_data_factory_integration_runtime_azure_ssis
            ?credential_name ?description ?edition ?id ?license_type
            ?max_parallel_executions_per_node ?number_of_nodes
-           ?timeouts ~data_factory_id ~location ~name ~node_size
            ~catalog_info ~custom_setup_script ~express_custom_setup
-           ~express_vnet_integration ~package_store ~proxy
-           ~vnet_integration ());
+           ~express_vnet_integration ~package_store ~proxy ?timeouts
+           ~vnet_integration ~data_factory_id ~location ~name
+           ~node_size ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?credential_name ?description ?edition ?id
     ?license_type ?max_parallel_executions_per_node ?number_of_nodes
-    ?timeouts ~data_factory_id ~location ~name ~node_size
-    ~catalog_info ~custom_setup_script ~express_custom_setup
-    ~express_vnet_integration ~package_store ~proxy ~vnet_integration
-    __id =
+    ?(catalog_info = []) ?(custom_setup_script = [])
+    ?(express_custom_setup = []) ?(express_vnet_integration = [])
+    ?(package_store = []) ?(proxy = []) ?timeouts
+    ?(vnet_integration = []) ~data_factory_id ~location ~name
+    ~node_size __id =
   let (r : _ Tf_core.resource) =
     make ?credential_name ?description ?edition ?id ?license_type
-      ?max_parallel_executions_per_node ?number_of_nodes ?timeouts
-      ~data_factory_id ~location ~name ~node_size ~catalog_info
-      ~custom_setup_script ~express_custom_setup
-      ~express_vnet_integration ~package_store ~proxy
-      ~vnet_integration __id
+      ?max_parallel_executions_per_node ?number_of_nodes
+      ~catalog_info ~custom_setup_script ~express_custom_setup
+      ~express_vnet_integration ~package_store ~proxy ?timeouts
+      ~vnet_integration ~data_factory_id ~location ~name ~node_size
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

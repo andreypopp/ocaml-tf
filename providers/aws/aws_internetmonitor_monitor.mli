@@ -24,7 +24,7 @@ val internet_measurements_log_delivery__s3_config :
 type internet_measurements_log_delivery
 
 val internet_measurements_log_delivery :
-  s3_config:internet_measurements_log_delivery__s3_config list ->
+  ?s3_config:internet_measurements_log_delivery__s3_config list ->
   unit ->
   internet_measurements_log_delivery
 
@@ -38,10 +38,10 @@ val aws_internetmonitor_monitor :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?traffic_percentage_to_monitor:float prop ->
-  monitor_name:string prop ->
-  health_events_config:health_events_config list ->
-  internet_measurements_log_delivery:
+  ?health_events_config:health_events_config list ->
+  ?internet_measurements_log_delivery:
     internet_measurements_log_delivery list ->
+  monitor_name:string prop ->
   unit ->
   aws_internetmonitor_monitor
 
@@ -71,10 +71,10 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?traffic_percentage_to_monitor:float prop ->
-  monitor_name:string prop ->
-  health_events_config:health_events_config list ->
-  internet_measurements_log_delivery:
+  ?health_events_config:health_events_config list ->
+  ?internet_measurements_log_delivery:
     internet_measurements_log_delivery list ->
+  monitor_name:string prop ->
   string ->
   t
 
@@ -86,9 +86,9 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?traffic_percentage_to_monitor:float prop ->
-  monitor_name:string prop ->
-  health_events_config:health_events_config list ->
-  internet_measurements_log_delivery:
+  ?health_events_config:health_events_config list ->
+  ?internet_measurements_log_delivery:
     internet_measurements_log_delivery list ->
+  monitor_name:string prop ->
   string ->
   t Tf_core.resource

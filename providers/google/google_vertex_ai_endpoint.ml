@@ -540,8 +540,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_vertex_ai_endpoint ?description ?id ?labels ?network
-    ?project ?region ?timeouts ~display_name ~location ~name
-    ~encryption_spec () : google_vertex_ai_endpoint =
+    ?project ?region ?(encryption_spec = []) ?timeouts ~display_name
+    ~location ~name () : google_vertex_ai_endpoint =
   {
     description;
     display_name;
@@ -575,8 +575,9 @@ type t = {
   update_time : string prop;
 }
 
-let make ?description ?id ?labels ?network ?project ?region ?timeouts
-    ~display_name ~location ~name ~encryption_spec __id =
+let make ?description ?id ?labels ?network ?project ?region
+    ?(encryption_spec = []) ?timeouts ~display_name ~location ~name
+    __id =
   let __type = "google_vertex_ai_endpoint" in
   let __attrs =
     ({
@@ -608,17 +609,17 @@ let make ?description ?id ?labels ?network ?project ?region ?timeouts
     json =
       yojson_of_google_vertex_ai_endpoint
         (google_vertex_ai_endpoint ?description ?id ?labels ?network
-           ?project ?region ?timeouts ~display_name ~location ~name
-           ~encryption_spec ());
+           ?project ?region ~encryption_spec ?timeouts ~display_name
+           ~location ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?labels ?network ?project
-    ?region ?timeouts ~display_name ~location ~name ~encryption_spec
-    __id =
+    ?region ?(encryption_spec = []) ?timeouts ~display_name ~location
+    ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?labels ?network ?project ?region ?timeouts
-      ~display_name ~location ~name ~encryption_spec __id
+    make ?description ?id ?labels ?network ?project ?region
+      ~encryption_spec ?timeouts ~display_name ~location ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

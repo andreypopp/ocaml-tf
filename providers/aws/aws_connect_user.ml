@@ -264,9 +264,9 @@ let phone_config ?after_contact_work_time_limit ?auto_accept
   }
 
 let aws_connect_user ?directory_user_id ?hierarchy_group_id ?id
-    ?password ?tags ?tags_all ~instance_id ~name ~routing_profile_id
-    ~security_profile_ids ~identity_info ~phone_config () :
-    aws_connect_user =
+    ?password ?tags ?tags_all ?(identity_info = []) ~instance_id
+    ~name ~routing_profile_id ~security_profile_ids ~phone_config ()
+    : aws_connect_user =
   {
     directory_user_id;
     hierarchy_group_id;
@@ -298,8 +298,8 @@ type t = {
 }
 
 let make ?directory_user_id ?hierarchy_group_id ?id ?password ?tags
-    ?tags_all ~instance_id ~name ~routing_profile_id
-    ~security_profile_ids ~identity_info ~phone_config __id =
+    ?tags_all ?(identity_info = []) ~instance_id ~name
+    ~routing_profile_id ~security_profile_ids ~phone_config __id =
   let __type = "aws_connect_user" in
   let __attrs =
     ({
@@ -328,19 +328,20 @@ let make ?directory_user_id ?hierarchy_group_id ?id ?password ?tags
     json =
       yojson_of_aws_connect_user
         (aws_connect_user ?directory_user_id ?hierarchy_group_id ?id
-           ?password ?tags ?tags_all ~instance_id ~name
-           ~routing_profile_id ~security_profile_ids ~identity_info
+           ?password ?tags ?tags_all ~identity_info ~instance_id
+           ~name ~routing_profile_id ~security_profile_ids
            ~phone_config ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?directory_user_id ?hierarchy_group_id ?id
-    ?password ?tags ?tags_all ~instance_id ~name ~routing_profile_id
-    ~security_profile_ids ~identity_info ~phone_config __id =
+    ?password ?tags ?tags_all ?(identity_info = []) ~instance_id
+    ~name ~routing_profile_id ~security_profile_ids ~phone_config
+    __id =
   let (r : _ Tf_core.resource) =
     make ?directory_user_id ?hierarchy_group_id ?id ?password ?tags
-      ?tags_all ~instance_id ~name ~routing_profile_id
-      ~security_profile_ids ~identity_info ~phone_config __id
+      ?tags_all ~identity_info ~instance_id ~name ~routing_profile_id
+      ~security_profile_ids ~phone_config __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

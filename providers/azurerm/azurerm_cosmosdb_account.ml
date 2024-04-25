@@ -960,9 +960,9 @@ let restore__gremlin_database ?graph_names ~name () :
     restore__gremlin_database =
   { graph_names; name }
 
-let restore ?tables_to_restore ~restore_timestamp_in_utc
-    ~source_cosmosdb_account_id ~database ~gremlin_database () :
-    restore =
+let restore ?tables_to_restore ?(gremlin_database = [])
+    ~restore_timestamp_in_utc ~source_cosmosdb_account_id ~database
+    () : restore =
   {
     restore_timestamp_in_utc;
     source_cosmosdb_account_id;
@@ -986,10 +986,11 @@ let azurerm_cosmosdb_account ?access_key_metadata_writes_enabled
     ?local_authentication_disabled ?minimal_tls_version
     ?mongo_server_version ?network_acl_bypass_for_azure_services
     ?network_acl_bypass_ids ?partition_merge_enabled
-    ?public_network_access_enabled ?tags ?timeouts ~location ~name
-    ~offer_type ~resource_group_name ~analytical_storage ~backup
-    ~capabilities ~capacity ~consistency_policy ~cors_rule
-    ~geo_location ~identity ~restore ~virtual_network_rule () :
+    ?public_network_access_enabled ?tags ?(analytical_storage = [])
+    ?(backup = []) ?(capacity = []) ?(cors_rule = [])
+    ?(identity = []) ?(restore = []) ?timeouts ~location ~name
+    ~offer_type ~resource_group_name ~capabilities
+    ~consistency_policy ~geo_location ~virtual_network_rule () :
     azurerm_cosmosdb_account =
   {
     access_key_metadata_writes_enabled;
@@ -1080,10 +1081,11 @@ let make ?access_key_metadata_writes_enabled
     ?local_authentication_disabled ?minimal_tls_version
     ?mongo_server_version ?network_acl_bypass_for_azure_services
     ?network_acl_bypass_ids ?partition_merge_enabled
-    ?public_network_access_enabled ?tags ?timeouts ~location ~name
-    ~offer_type ~resource_group_name ~analytical_storage ~backup
-    ~capabilities ~capacity ~consistency_policy ~cors_rule
-    ~geo_location ~identity ~restore ~virtual_network_rule __id =
+    ?public_network_access_enabled ?tags ?(analytical_storage = [])
+    ?(backup = []) ?(capacity = []) ?(cors_rule = [])
+    ?(identity = []) ?(restore = []) ?timeouts ~location ~name
+    ~offer_type ~resource_group_name ~capabilities
+    ~consistency_policy ~geo_location ~virtual_network_rule __id =
   let __type = "azurerm_cosmosdb_account" in
   let __attrs =
     ({
@@ -1180,10 +1182,10 @@ let make ?access_key_metadata_writes_enabled
            ?minimal_tls_version ?mongo_server_version
            ?network_acl_bypass_for_azure_services
            ?network_acl_bypass_ids ?partition_merge_enabled
-           ?public_network_access_enabled ?tags ?timeouts ~location
-           ~name ~offer_type ~resource_group_name ~analytical_storage
-           ~backup ~capabilities ~capacity ~consistency_policy
-           ~cors_rule ~geo_location ~identity ~restore
+           ?public_network_access_enabled ?tags ~analytical_storage
+           ~backup ~capacity ~cors_rule ~identity ~restore ?timeouts
+           ~location ~name ~offer_type ~resource_group_name
+           ~capabilities ~consistency_policy ~geo_location
            ~virtual_network_rule ());
     attrs = __attrs;
   }
@@ -1196,10 +1198,11 @@ let register ?tf_module ?access_key_metadata_writes_enabled
     ?local_authentication_disabled ?minimal_tls_version
     ?mongo_server_version ?network_acl_bypass_for_azure_services
     ?network_acl_bypass_ids ?partition_merge_enabled
-    ?public_network_access_enabled ?tags ?timeouts ~location ~name
-    ~offer_type ~resource_group_name ~analytical_storage ~backup
-    ~capabilities ~capacity ~consistency_policy ~cors_rule
-    ~geo_location ~identity ~restore ~virtual_network_rule __id =
+    ?public_network_access_enabled ?tags ?(analytical_storage = [])
+    ?(backup = []) ?(capacity = []) ?(cors_rule = [])
+    ?(identity = []) ?(restore = []) ?timeouts ~location ~name
+    ~offer_type ~resource_group_name ~capabilities
+    ~consistency_policy ~geo_location ~virtual_network_rule __id =
   let (r : _ Tf_core.resource) =
     make ?access_key_metadata_writes_enabled
       ?analytical_storage_enabled ?create_mode ?default_identity_type
@@ -1209,10 +1212,10 @@ let register ?tf_module ?access_key_metadata_writes_enabled
       ?local_authentication_disabled ?minimal_tls_version
       ?mongo_server_version ?network_acl_bypass_for_azure_services
       ?network_acl_bypass_ids ?partition_merge_enabled
-      ?public_network_access_enabled ?tags ?timeouts ~location ~name
-      ~offer_type ~resource_group_name ~analytical_storage ~backup
-      ~capabilities ~capacity ~consistency_policy ~cors_rule
-      ~geo_location ~identity ~restore ~virtual_network_rule __id
+      ?public_network_access_enabled ?tags ~analytical_storage
+      ~backup ~capacity ~cors_rule ~identity ~restore ?timeouts
+      ~location ~name ~offer_type ~resource_group_name ~capabilities
+      ~consistency_policy ~geo_location ~virtual_network_rule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

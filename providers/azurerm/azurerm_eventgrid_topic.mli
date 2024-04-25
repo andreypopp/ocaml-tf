@@ -57,13 +57,13 @@ val azurerm_eventgrid_topic :
   ?local_auth_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?input_mapping_default_values:input_mapping_default_values list ->
+  ?input_mapping_fields:input_mapping_fields list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
-  input_mapping_default_values:input_mapping_default_values list ->
-  input_mapping_fields:input_mapping_fields list ->
   unit ->
   azurerm_eventgrid_topic
 
@@ -95,13 +95,13 @@ val register :
   ?local_auth_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?input_mapping_default_values:input_mapping_default_values list ->
+  ?input_mapping_fields:input_mapping_fields list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
-  input_mapping_default_values:input_mapping_default_values list ->
-  input_mapping_fields:input_mapping_fields list ->
   string ->
   t
 
@@ -112,12 +112,12 @@ val make :
   ?local_auth_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?input_mapping_default_values:input_mapping_default_values list ->
+  ?input_mapping_fields:input_mapping_fields list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
-  input_mapping_default_values:input_mapping_default_values list ->
-  input_mapping_fields:input_mapping_fields list ->
   string ->
   t Tf_core.resource

@@ -191,7 +191,7 @@ let config ?access_client_id ?access_client_secret ?api_url ?auth_url
   }
 
 let cloudflare_device_posture_integration ?id ?identifier ?interval
-    ~account_id ~name ~type_ ~config () :
+    ?(config = []) ~account_id ~name ~type_ () :
     cloudflare_device_posture_integration =
   { account_id; id; identifier; interval; name; type_; config }
 
@@ -204,8 +204,8 @@ type t = {
   type_ : string prop;
 }
 
-let make ?id ?identifier ?interval ~account_id ~name ~type_ ~config
-    __id =
+let make ?id ?identifier ?interval ?(config = []) ~account_id ~name
+    ~type_ __id =
   let __type = "cloudflare_device_posture_integration" in
   let __attrs =
     ({
@@ -224,14 +224,14 @@ let make ?id ?identifier ?interval ~account_id ~name ~type_ ~config
     json =
       yojson_of_cloudflare_device_posture_integration
         (cloudflare_device_posture_integration ?id ?identifier
-           ?interval ~account_id ~name ~type_ ~config ());
+           ?interval ~config ~account_id ~name ~type_ ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?identifier ?interval ~account_id ~name
-    ~type_ ~config __id =
+let register ?tf_module ?id ?identifier ?interval ?(config = [])
+    ~account_id ~name ~type_ __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?identifier ?interval ~account_id ~name ~type_ ~config
+    make ?id ?identifier ?interval ~config ~account_id ~name ~type_
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

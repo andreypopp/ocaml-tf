@@ -387,8 +387,9 @@ let configuration__result_configuration__encryption_configuration
   { encryption_option; kms_key_arn }
 
 let configuration__result_configuration ?expected_bucket_owner
-    ?output_location ~acl_configuration ~encryption_configuration ()
-    : configuration__result_configuration =
+    ?output_location ?(acl_configuration = [])
+    ?(encryption_configuration = []) () :
+    configuration__result_configuration =
   {
     expected_bucket_owner;
     output_location;
@@ -399,7 +400,8 @@ let configuration__result_configuration ?expected_bucket_owner
 let configuration ?bytes_scanned_cutoff_per_query
     ?enforce_workgroup_configuration ?execution_role
     ?publish_cloudwatch_metrics_enabled ?requester_pays_enabled
-    ~engine_version ~result_configuration () : configuration =
+    ?(engine_version = []) ?(result_configuration = []) () :
+    configuration =
   {
     bytes_scanned_cutoff_per_query;
     enforce_workgroup_configuration;
@@ -411,7 +413,7 @@ let configuration ?bytes_scanned_cutoff_per_query
   }
 
 let aws_athena_workgroup ?description ?force_destroy ?id ?state ?tags
-    ?tags_all ~name ~configuration () : aws_athena_workgroup =
+    ?tags_all ?(configuration = []) ~name () : aws_athena_workgroup =
   {
     description;
     force_destroy;
@@ -434,8 +436,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?description ?force_destroy ?id ?state ?tags ?tags_all ~name
-    ~configuration __id =
+let make ?description ?force_destroy ?id ?state ?tags ?tags_all
+    ?(configuration = []) ~name __id =
   let __type = "aws_athena_workgroup" in
   let __attrs =
     ({
@@ -456,15 +458,15 @@ let make ?description ?force_destroy ?id ?state ?tags ?tags_all ~name
     json =
       yojson_of_aws_athena_workgroup
         (aws_athena_workgroup ?description ?force_destroy ?id ?state
-           ?tags ?tags_all ~name ~configuration ());
+           ?tags ?tags_all ~configuration ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?force_destroy ?id ?state ?tags
-    ?tags_all ~name ~configuration __id =
+    ?tags_all ?(configuration = []) ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?force_destroy ?id ?state ?tags ?tags_all ~name
-      ~configuration __id
+    make ?description ?force_destroy ?id ?state ?tags ?tags_all
+      ~configuration ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

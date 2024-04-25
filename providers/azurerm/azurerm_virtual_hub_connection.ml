@@ -324,7 +324,8 @@ let routing__static_vnet_route ?address_prefixes ?name
 
 let routing ?associated_route_table_id ?inbound_route_map_id
     ?outbound_route_map_id ?static_vnet_local_route_override_criteria
-    ~propagated_route_table ~static_vnet_route () : routing =
+    ?(propagated_route_table = []) ?(static_vnet_route = []) () :
+    routing =
   {
     associated_route_table_id;
     inbound_route_map_id;
@@ -338,8 +339,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_virtual_hub_connection ?id ?internet_security_enabled
-    ?timeouts ~name ~remote_virtual_network_id ~virtual_hub_id
-    ~routing () : azurerm_virtual_hub_connection =
+    ?(routing = []) ?timeouts ~name ~remote_virtual_network_id
+    ~virtual_hub_id () : azurerm_virtual_hub_connection =
   {
     id;
     internet_security_enabled;
@@ -358,8 +359,8 @@ type t = {
   virtual_hub_id : string prop;
 }
 
-let make ?id ?internet_security_enabled ?timeouts ~name
-    ~remote_virtual_network_id ~virtual_hub_id ~routing __id =
+let make ?id ?internet_security_enabled ?(routing = []) ?timeouts
+    ~name ~remote_virtual_network_id ~virtual_hub_id __id =
   let __type = "azurerm_virtual_hub_connection" in
   let __attrs =
     ({
@@ -379,16 +380,17 @@ let make ?id ?internet_security_enabled ?timeouts ~name
     json =
       yojson_of_azurerm_virtual_hub_connection
         (azurerm_virtual_hub_connection ?id
-           ?internet_security_enabled ?timeouts ~name
-           ~remote_virtual_network_id ~virtual_hub_id ~routing ());
+           ?internet_security_enabled ~routing ?timeouts ~name
+           ~remote_virtual_network_id ~virtual_hub_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?internet_security_enabled ?timeouts
-    ~name ~remote_virtual_network_id ~virtual_hub_id ~routing __id =
+let register ?tf_module ?id ?internet_security_enabled
+    ?(routing = []) ?timeouts ~name ~remote_virtual_network_id
+    ~virtual_hub_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?internet_security_enabled ?timeouts ~name
-      ~remote_virtual_network_id ~virtual_hub_id ~routing __id
+    make ?id ?internet_security_enabled ~routing ?timeouts ~name
+      ~remote_virtual_network_id ~virtual_hub_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

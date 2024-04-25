@@ -63,13 +63,13 @@ val aws_comprehend_document_classifier :
   ?version_name:string prop ->
   ?version_name_prefix:string prop ->
   ?volume_kms_key_id:string prop ->
+  ?output_data_config:output_data_config list ->
   ?timeouts:timeouts ->
+  ?vpc_config:vpc_config list ->
   data_access_role_arn:string prop ->
   language_code:string prop ->
   name:string prop ->
   input_data_config:input_data_config list ->
-  output_data_config:output_data_config list ->
-  vpc_config:vpc_config list ->
   unit ->
   aws_comprehend_document_classifier
 
@@ -103,13 +103,13 @@ val register :
   ?version_name:string prop ->
   ?version_name_prefix:string prop ->
   ?volume_kms_key_id:string prop ->
+  ?output_data_config:output_data_config list ->
   ?timeouts:timeouts ->
+  ?vpc_config:vpc_config list ->
   data_access_role_arn:string prop ->
   language_code:string prop ->
   name:string prop ->
   input_data_config:input_data_config list ->
-  output_data_config:output_data_config list ->
-  vpc_config:vpc_config list ->
   string ->
   t
 
@@ -122,12 +122,12 @@ val make :
   ?version_name:string prop ->
   ?version_name_prefix:string prop ->
   ?volume_kms_key_id:string prop ->
+  ?output_data_config:output_data_config list ->
   ?timeouts:timeouts ->
+  ?vpc_config:vpc_config list ->
   data_access_role_arn:string prop ->
   language_code:string prop ->
   name:string prop ->
   input_data_config:input_data_config list ->
-  output_data_config:output_data_config list ->
-  vpc_config:vpc_config list ->
   string ->
   t Tf_core.resource

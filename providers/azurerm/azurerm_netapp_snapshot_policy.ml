@@ -372,10 +372,10 @@ let weekly_schedule ~days_of_week ~hour ~minute ~snapshots_to_keep ()
     : weekly_schedule =
   { days_of_week; hour; minute; snapshots_to_keep }
 
-let azurerm_netapp_snapshot_policy ?id ?tags ?timeouts ~account_name
-    ~enabled ~location ~name ~resource_group_name ~daily_schedule
-    ~hourly_schedule ~monthly_schedule ~weekly_schedule () :
-    azurerm_netapp_snapshot_policy =
+let azurerm_netapp_snapshot_policy ?id ?tags ?(daily_schedule = [])
+    ?(hourly_schedule = []) ?(monthly_schedule = []) ?timeouts
+    ?(weekly_schedule = []) ~account_name ~enabled ~location ~name
+    ~resource_group_name () : azurerm_netapp_snapshot_policy =
   {
     account_name;
     enabled;
@@ -401,9 +401,10 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?id ?tags ?timeouts ~account_name ~enabled ~location ~name
-    ~resource_group_name ~daily_schedule ~hourly_schedule
-    ~monthly_schedule ~weekly_schedule __id =
+let make ?id ?tags ?(daily_schedule = []) ?(hourly_schedule = [])
+    ?(monthly_schedule = []) ?timeouts ?(weekly_schedule = [])
+    ~account_name ~enabled ~location ~name ~resource_group_name __id
+    =
   let __type = "azurerm_netapp_snapshot_policy" in
   let __attrs =
     ({
@@ -423,20 +424,21 @@ let make ?id ?tags ?timeouts ~account_name ~enabled ~location ~name
     type_ = __type;
     json =
       yojson_of_azurerm_netapp_snapshot_policy
-        (azurerm_netapp_snapshot_policy ?id ?tags ?timeouts
-           ~account_name ~enabled ~location ~name
-           ~resource_group_name ~daily_schedule ~hourly_schedule
-           ~monthly_schedule ~weekly_schedule ());
+        (azurerm_netapp_snapshot_policy ?id ?tags ~daily_schedule
+           ~hourly_schedule ~monthly_schedule ?timeouts
+           ~weekly_schedule ~account_name ~enabled ~location ~name
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?timeouts ~account_name ~enabled
-    ~location ~name ~resource_group_name ~daily_schedule
-    ~hourly_schedule ~monthly_schedule ~weekly_schedule __id =
+let register ?tf_module ?id ?tags ?(daily_schedule = [])
+    ?(hourly_schedule = []) ?(monthly_schedule = []) ?timeouts
+    ?(weekly_schedule = []) ~account_name ~enabled ~location ~name
+    ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?timeouts ~account_name ~enabled ~location ~name
-      ~resource_group_name ~daily_schedule ~hourly_schedule
-      ~monthly_schedule ~weekly_schedule __id
+    make ?id ?tags ~daily_schedule ~hourly_schedule ~monthly_schedule
+      ?timeouts ~weekly_schedule ~account_name ~enabled ~location
+      ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

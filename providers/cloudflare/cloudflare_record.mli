@@ -67,11 +67,11 @@ val cloudflare_record :
   ?tags:string prop list ->
   ?ttl:float prop ->
   ?value:string prop ->
+  ?data:data list ->
   ?timeouts:timeouts ->
   name:string prop ->
   type_:string prop ->
   zone_id:string prop ->
-  data:data list ->
   unit ->
   cloudflare_record
 
@@ -108,11 +108,11 @@ val register :
   ?tags:string prop list ->
   ?ttl:float prop ->
   ?value:string prop ->
+  ?data:data list ->
   ?timeouts:timeouts ->
   name:string prop ->
   type_:string prop ->
   zone_id:string prop ->
-  data:data list ->
   string ->
   t
 
@@ -125,10 +125,10 @@ val make :
   ?tags:string prop list ->
   ?ttl:float prop ->
   ?value:string prop ->
+  ?data:data list ->
   ?timeouts:timeouts ->
   name:string prop ->
   type_:string prop ->
   zone_id:string prop ->
-  data:data list ->
   string ->
   t Tf_core.resource

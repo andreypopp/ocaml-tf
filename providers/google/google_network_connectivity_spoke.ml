@@ -395,10 +395,10 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_network_connectivity_spoke ?description ?id ?labels
-    ?project ?timeouts ~hub ~location ~name
-    ~linked_interconnect_attachments
-    ~linked_router_appliance_instances ~linked_vpc_network
-    ~linked_vpn_tunnels () : google_network_connectivity_spoke =
+    ?project ?(linked_interconnect_attachments = [])
+    ?(linked_router_appliance_instances = [])
+    ?(linked_vpc_network = []) ?(linked_vpn_tunnels = []) ?timeouts
+    ~hub ~location ~name () : google_network_connectivity_spoke =
   {
     description;
     hub;
@@ -430,10 +430,11 @@ type t = {
   update_time : string prop;
 }
 
-let make ?description ?id ?labels ?project ?timeouts ~hub ~location
-    ~name ~linked_interconnect_attachments
-    ~linked_router_appliance_instances ~linked_vpc_network
-    ~linked_vpn_tunnels __id =
+let make ?description ?id ?labels ?project
+    ?(linked_interconnect_attachments = [])
+    ?(linked_router_appliance_instances = [])
+    ?(linked_vpc_network = []) ?(linked_vpn_tunnels = []) ?timeouts
+    ~hub ~location ~name __id =
   let __type = "google_network_connectivity_spoke" in
   let __attrs =
     ({
@@ -461,22 +462,22 @@ let make ?description ?id ?labels ?project ?timeouts ~hub ~location
     json =
       yojson_of_google_network_connectivity_spoke
         (google_network_connectivity_spoke ?description ?id ?labels
-           ?project ?timeouts ~hub ~location ~name
-           ~linked_interconnect_attachments
+           ?project ~linked_interconnect_attachments
            ~linked_router_appliance_instances ~linked_vpc_network
-           ~linked_vpn_tunnels ());
+           ~linked_vpn_tunnels ?timeouts ~hub ~location ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?labels ?project ?timeouts
-    ~hub ~location ~name ~linked_interconnect_attachments
-    ~linked_router_appliance_instances ~linked_vpc_network
-    ~linked_vpn_tunnels __id =
+let register ?tf_module ?description ?id ?labels ?project
+    ?(linked_interconnect_attachments = [])
+    ?(linked_router_appliance_instances = [])
+    ?(linked_vpc_network = []) ?(linked_vpn_tunnels = []) ?timeouts
+    ~hub ~location ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?labels ?project ?timeouts ~hub ~location
-      ~name ~linked_interconnect_attachments
+    make ?description ?id ?labels ?project
+      ~linked_interconnect_attachments
       ~linked_router_appliance_instances ~linked_vpc_network
-      ~linked_vpn_tunnels __id
+      ~linked_vpn_tunnels ?timeouts ~hub ~location ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

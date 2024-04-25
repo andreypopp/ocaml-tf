@@ -373,9 +373,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_compute_global_forwarding_rule ?description ?id
     ?ip_address ?ip_protocol ?ip_version ?labels
     ?load_balancing_scheme ?network ?no_automate_dns_zone ?port_range
-    ?project ?source_ip_ranges ?subnetwork ?timeouts ~name ~target
-    ~metadata_filters ~service_directory_registrations () :
-    google_compute_global_forwarding_rule =
+    ?project ?source_ip_ranges ?subnetwork ?(metadata_filters = [])
+    ?(service_directory_registrations = []) ?timeouts ~name ~target
+    () : google_compute_global_forwarding_rule =
   {
     description;
     id;
@@ -424,9 +424,9 @@ type t = {
 
 let make ?description ?id ?ip_address ?ip_protocol ?ip_version
     ?labels ?load_balancing_scheme ?network ?no_automate_dns_zone
-    ?port_range ?project ?source_ip_ranges ?subnetwork ?timeouts
-    ~name ~target ~metadata_filters ~service_directory_registrations
-    __id =
+    ?port_range ?project ?source_ip_ranges ?subnetwork
+    ?(metadata_filters = []) ?(service_directory_registrations = [])
+    ?timeouts ~name ~target __id =
   let __type = "google_compute_global_forwarding_rule" in
   let __attrs =
     ({
@@ -473,22 +473,23 @@ let make ?description ?id ?ip_address ?ip_protocol ?ip_version
            ?ip_address ?ip_protocol ?ip_version ?labels
            ?load_balancing_scheme ?network ?no_automate_dns_zone
            ?port_range ?project ?source_ip_ranges ?subnetwork
-           ?timeouts ~name ~target ~metadata_filters
-           ~service_directory_registrations ());
+           ~metadata_filters ~service_directory_registrations
+           ?timeouts ~name ~target ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?ip_address ?ip_protocol
     ?ip_version ?labels ?load_balancing_scheme ?network
     ?no_automate_dns_zone ?port_range ?project ?source_ip_ranges
-    ?subnetwork ?timeouts ~name ~target ~metadata_filters
-    ~service_directory_registrations __id =
+    ?subnetwork ?(metadata_filters = [])
+    ?(service_directory_registrations = []) ?timeouts ~name ~target
+    __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?ip_address ?ip_protocol ?ip_version
       ?labels ?load_balancing_scheme ?network ?no_automate_dns_zone
-      ?port_range ?project ?source_ip_ranges ?subnetwork ?timeouts
-      ~name ~target ~metadata_filters
-      ~service_directory_registrations __id
+      ?port_range ?project ?source_ip_ranges ?subnetwork
+      ~metadata_filters ~service_directory_registrations ?timeouts
+      ~name ~target __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

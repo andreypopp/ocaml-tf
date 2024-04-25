@@ -54,8 +54,8 @@ val revocation_configuration__ocsp_configuration :
 type revocation_configuration
 
 val revocation_configuration :
-  crl_configuration:revocation_configuration__crl_configuration list ->
-  ocsp_configuration:
+  ?crl_configuration:revocation_configuration__crl_configuration list ->
+  ?ocsp_configuration:
     revocation_configuration__ocsp_configuration list ->
   unit ->
   revocation_configuration
@@ -75,10 +75,10 @@ val aws_acmpca_certificate_authority :
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
   ?usage_mode:string prop ->
+  ?revocation_configuration:revocation_configuration list ->
   ?timeouts:timeouts ->
   certificate_authority_configuration:
     certificate_authority_configuration list ->
-  revocation_configuration:revocation_configuration list ->
   unit ->
   aws_acmpca_certificate_authority
 
@@ -115,10 +115,10 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
   ?usage_mode:string prop ->
+  ?revocation_configuration:revocation_configuration list ->
   ?timeouts:timeouts ->
   certificate_authority_configuration:
     certificate_authority_configuration list ->
-  revocation_configuration:revocation_configuration list ->
   string ->
   t
 
@@ -131,9 +131,9 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
   ?usage_mode:string prop ->
+  ?revocation_configuration:revocation_configuration list ->
   ?timeouts:timeouts ->
   certificate_authority_configuration:
     certificate_authority_configuration list ->
-  revocation_configuration:revocation_configuration list ->
   string ->
   t Tf_core.resource

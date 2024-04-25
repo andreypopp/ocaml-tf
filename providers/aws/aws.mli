@@ -356,11 +356,11 @@ val aws :
   ?token_bucket_rate_limiter_capacity:float prop ->
   ?use_dualstack_endpoint:bool prop ->
   ?use_fips_endpoint:bool prop ->
-  assume_role:assume_role list ->
-  assume_role_with_web_identity:assume_role_with_web_identity list ->
-  default_tags:default_tags list ->
+  ?assume_role:assume_role list ->
+  ?assume_role_with_web_identity:assume_role_with_web_identity list ->
+  ?default_tags:default_tags list ->
+  ?ignore_tags:ignore_tags list ->
   endpoints:endpoints list ->
-  ignore_tags:ignore_tags list ->
   unit ->
   aws
 
@@ -398,11 +398,11 @@ val register :
   ?token_bucket_rate_limiter_capacity:float prop ->
   ?use_dualstack_endpoint:bool prop ->
   ?use_fips_endpoint:bool prop ->
-  assume_role:assume_role list ->
-  assume_role_with_web_identity:assume_role_with_web_identity list ->
-  default_tags:default_tags list ->
+  ?assume_role:assume_role list ->
+  ?assume_role_with_web_identity:assume_role_with_web_identity list ->
+  ?default_tags:default_tags list ->
+  ?ignore_tags:ignore_tags list ->
   endpoints:endpoints list ->
-  ignore_tags:ignore_tags list ->
   version:string ->
   unit ->
   unit
@@ -436,10 +436,10 @@ val make :
   ?token_bucket_rate_limiter_capacity:float prop ->
   ?use_dualstack_endpoint:bool prop ->
   ?use_fips_endpoint:bool prop ->
-  assume_role:assume_role list ->
-  assume_role_with_web_identity:assume_role_with_web_identity list ->
-  default_tags:default_tags list ->
+  ?assume_role:assume_role list ->
+  ?assume_role_with_web_identity:assume_role_with_web_identity list ->
+  ?default_tags:default_tags list ->
+  ?ignore_tags:ignore_tags list ->
   endpoints:endpoints list ->
-  ignore_tags:ignore_tags list ->
   unit ->
   Tf_core.provider

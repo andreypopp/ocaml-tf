@@ -54,6 +54,7 @@ val google_apigee_keystores_aliases_self_signed_cert :
   ?cert_validity_in_days:float prop ->
   ?id:string prop ->
   ?key_size:string prop ->
+  ?subject_alternative_dns_names:subject_alternative_dns_names list ->
   ?timeouts:timeouts ->
   alias:string prop ->
   environment:string prop ->
@@ -61,7 +62,6 @@ val google_apigee_keystores_aliases_self_signed_cert :
   org_id:string prop ->
   sig_alg:string prop ->
   subject:subject list ->
-  subject_alternative_dns_names:subject_alternative_dns_names list ->
   unit ->
   google_apigee_keystores_aliases_self_signed_cert
 
@@ -88,6 +88,7 @@ val register :
   ?cert_validity_in_days:float prop ->
   ?id:string prop ->
   ?key_size:string prop ->
+  ?subject_alternative_dns_names:subject_alternative_dns_names list ->
   ?timeouts:timeouts ->
   alias:string prop ->
   environment:string prop ->
@@ -95,7 +96,6 @@ val register :
   org_id:string prop ->
   sig_alg:string prop ->
   subject:subject list ->
-  subject_alternative_dns_names:subject_alternative_dns_names list ->
   string ->
   t
 
@@ -103,6 +103,7 @@ val make :
   ?cert_validity_in_days:float prop ->
   ?id:string prop ->
   ?key_size:string prop ->
+  ?subject_alternative_dns_names:subject_alternative_dns_names list ->
   ?timeouts:timeouts ->
   alias:string prop ->
   environment:string prop ->
@@ -110,6 +111,5 @@ val make :
   org_id:string prop ->
   sig_alg:string prop ->
   subject:subject list ->
-  subject_alternative_dns_names:subject_alternative_dns_names list ->
   string ->
   t Tf_core.resource

@@ -1453,7 +1453,7 @@ let spec__egress_policies__egress_from__sources ?access_level () :
   { access_level }
 
 let spec__egress_policies__egress_from ?identities ?identity_type
-    ?source_restriction ~sources () :
+    ?source_restriction ?(sources = []) () :
     spec__egress_policies__egress_from =
   { identities; identity_type; source_restriction; sources }
 
@@ -1463,15 +1463,15 @@ let spec__egress_policies__egress_to__operations__method_selectors
   { method_; permission }
 
 let spec__egress_policies__egress_to__operations ?service_name
-    ~method_selectors () :
+    ?(method_selectors = []) () :
     spec__egress_policies__egress_to__operations =
   { service_name; method_selectors }
 
 let spec__egress_policies__egress_to ?external_resources ?resources
-    ~operations () : spec__egress_policies__egress_to =
+    ?(operations = []) () : spec__egress_policies__egress_to =
   { external_resources; resources; operations }
 
-let spec__egress_policies ~egress_from ~egress_to () :
+let spec__egress_policies ?(egress_from = []) ?(egress_to = []) () :
     spec__egress_policies =
   { egress_from; egress_to }
 
@@ -1480,7 +1480,7 @@ let spec__ingress_policies__ingress_from__sources ?access_level
   { access_level; resource }
 
 let spec__ingress_policies__ingress_from ?identities ?identity_type
-    ~sources () : spec__ingress_policies__ingress_from =
+    ?(sources = []) () : spec__ingress_policies__ingress_from =
   { identities; identity_type; sources }
 
 let spec__ingress_policies__ingress_to__operations__method_selectors
@@ -1490,16 +1490,16 @@ let spec__ingress_policies__ingress_to__operations__method_selectors
   { method_; permission }
 
 let spec__ingress_policies__ingress_to__operations ?service_name
-    ~method_selectors () :
+    ?(method_selectors = []) () :
     spec__ingress_policies__ingress_to__operations =
   { service_name; method_selectors }
 
-let spec__ingress_policies__ingress_to ?resources ~operations () :
-    spec__ingress_policies__ingress_to =
+let spec__ingress_policies__ingress_to ?resources ?(operations = [])
+    () : spec__ingress_policies__ingress_to =
   { resources; operations }
 
-let spec__ingress_policies ~ingress_from ~ingress_to () :
-    spec__ingress_policies =
+let spec__ingress_policies ?(ingress_from = []) ?(ingress_to = []) ()
+    : spec__ingress_policies =
   { ingress_from; ingress_to }
 
 let spec__vpc_accessible_services ?allowed_services
@@ -1507,8 +1507,8 @@ let spec__vpc_accessible_services ?allowed_services
   { allowed_services; enable_restriction }
 
 let spec ?access_levels ?resources ?restricted_services
-    ~egress_policies ~ingress_policies ~vpc_accessible_services () :
-    spec =
+    ?(egress_policies = []) ?(ingress_policies = [])
+    ?(vpc_accessible_services = []) () : spec =
   {
     access_levels;
     resources;
@@ -1523,7 +1523,7 @@ let status__egress_policies__egress_from__sources ?access_level () :
   { access_level }
 
 let status__egress_policies__egress_from ?identities ?identity_type
-    ?source_restriction ~sources () :
+    ?source_restriction ?(sources = []) () :
     status__egress_policies__egress_from =
   { identities; identity_type; source_restriction; sources }
 
@@ -1534,16 +1534,16 @@ let status__egress_policies__egress_to__operations__method_selectors
   { method_; permission }
 
 let status__egress_policies__egress_to__operations ?service_name
-    ~method_selectors () :
+    ?(method_selectors = []) () :
     status__egress_policies__egress_to__operations =
   { service_name; method_selectors }
 
 let status__egress_policies__egress_to ?external_resources ?resources
-    ~operations () : status__egress_policies__egress_to =
+    ?(operations = []) () : status__egress_policies__egress_to =
   { external_resources; resources; operations }
 
-let status__egress_policies ~egress_from ~egress_to () :
-    status__egress_policies =
+let status__egress_policies ?(egress_from = []) ?(egress_to = []) ()
+    : status__egress_policies =
   { egress_from; egress_to }
 
 let status__ingress_policies__ingress_from__sources ?access_level
@@ -1551,7 +1551,7 @@ let status__ingress_policies__ingress_from__sources ?access_level
   { access_level; resource }
 
 let status__ingress_policies__ingress_from ?identities ?identity_type
-    ~sources () : status__ingress_policies__ingress_from =
+    ?(sources = []) () : status__ingress_policies__ingress_from =
   { identities; identity_type; sources }
 
 let status__ingress_policies__ingress_to__operations__method_selectors
@@ -1561,16 +1561,16 @@ let status__ingress_policies__ingress_to__operations__method_selectors
   { method_; permission }
 
 let status__ingress_policies__ingress_to__operations ?service_name
-    ~method_selectors () :
+    ?(method_selectors = []) () :
     status__ingress_policies__ingress_to__operations =
   { service_name; method_selectors }
 
-let status__ingress_policies__ingress_to ?resources ~operations () :
-    status__ingress_policies__ingress_to =
+let status__ingress_policies__ingress_to ?resources
+    ?(operations = []) () : status__ingress_policies__ingress_to =
   { resources; operations }
 
-let status__ingress_policies ~ingress_from ~ingress_to () :
-    status__ingress_policies =
+let status__ingress_policies ?(ingress_from = []) ?(ingress_to = [])
+    () : status__ingress_policies =
   { ingress_from; ingress_to }
 
 let status__vpc_accessible_services ?allowed_services
@@ -1578,8 +1578,8 @@ let status__vpc_accessible_services ?allowed_services
   { allowed_services; enable_restriction }
 
 let status ?access_levels ?resources ?restricted_services
-    ~egress_policies ~ingress_policies ~vpc_accessible_services () :
-    status =
+    ?(egress_policies = []) ?(ingress_policies = [])
+    ?(vpc_accessible_services = []) () : status =
   {
     access_levels;
     resources;
@@ -1593,8 +1593,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_access_context_manager_service_perimeter ?description ?id
-    ?perimeter_type ?use_explicit_dry_run_spec ?timeouts ~name
-    ~parent ~title ~spec ~status () :
+    ?perimeter_type ?use_explicit_dry_run_spec ?(spec = [])
+    ?(status = []) ?timeouts ~name ~parent ~title () :
     google_access_context_manager_service_perimeter =
   {
     description;
@@ -1622,7 +1622,7 @@ type t = {
 }
 
 let make ?description ?id ?perimeter_type ?use_explicit_dry_run_spec
-    ?timeouts ~name ~parent ~title ~spec ~status __id =
+    ?(spec = []) ?(status = []) ?timeouts ~name ~parent ~title __id =
   let __type = "google_access_context_manager_service_perimeter" in
   let __attrs =
     ({
@@ -1645,17 +1645,17 @@ let make ?description ?id ?perimeter_type ?use_explicit_dry_run_spec
     json =
       yojson_of_google_access_context_manager_service_perimeter
         (google_access_context_manager_service_perimeter ?description
-           ?id ?perimeter_type ?use_explicit_dry_run_spec ?timeouts
-           ~name ~parent ~title ~spec ~status ());
+           ?id ?perimeter_type ?use_explicit_dry_run_spec ~spec
+           ~status ?timeouts ~name ~parent ~title ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?perimeter_type
-    ?use_explicit_dry_run_spec ?timeouts ~name ~parent ~title ~spec
-    ~status __id =
+    ?use_explicit_dry_run_spec ?(spec = []) ?(status = []) ?timeouts
+    ~name ~parent ~title __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?perimeter_type ?use_explicit_dry_run_spec
-      ?timeouts ~name ~parent ~title ~spec ~status __id
+      ~spec ~status ?timeouts ~name ~parent ~title __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

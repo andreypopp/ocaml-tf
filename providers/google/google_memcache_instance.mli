@@ -82,11 +82,11 @@ val google_memcache_instance :
   ?region:string prop ->
   ?reserved_ip_range_id:string prop list ->
   ?zones:string prop list ->
+  ?maintenance_policy:maintenance_policy list ->
+  ?memcache_parameters:memcache_parameters list ->
   ?timeouts:timeouts ->
   name:string prop ->
   node_count:float prop ->
-  maintenance_policy:maintenance_policy list ->
-  memcache_parameters:memcache_parameters list ->
   node_config:node_config list ->
   unit ->
   google_memcache_instance
@@ -128,11 +128,11 @@ val register :
   ?region:string prop ->
   ?reserved_ip_range_id:string prop list ->
   ?zones:string prop list ->
+  ?maintenance_policy:maintenance_policy list ->
+  ?memcache_parameters:memcache_parameters list ->
   ?timeouts:timeouts ->
   name:string prop ->
   node_count:float prop ->
-  maintenance_policy:maintenance_policy list ->
-  memcache_parameters:memcache_parameters list ->
   node_config:node_config list ->
   string ->
   t
@@ -147,11 +147,11 @@ val make :
   ?region:string prop ->
   ?reserved_ip_range_id:string prop list ->
   ?zones:string prop list ->
+  ?maintenance_policy:maintenance_policy list ->
+  ?memcache_parameters:memcache_parameters list ->
   ?timeouts:timeouts ->
   name:string prop ->
   node_count:float prop ->
-  maintenance_policy:maintenance_policy list ->
-  memcache_parameters:memcache_parameters list ->
   node_config:node_config list ->
   string ->
   t Tf_core.resource

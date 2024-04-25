@@ -50,10 +50,10 @@ val storage_descriptor :
   ?output_format:string prop ->
   ?parameters:(string * string prop) list ->
   ?stored_as_sub_directories:bool prop ->
-  columns:storage_descriptor__columns list ->
-  ser_de_info:storage_descriptor__ser_de_info list ->
-  skewed_info:storage_descriptor__skewed_info list ->
-  sort_columns:storage_descriptor__sort_columns list ->
+  ?columns:storage_descriptor__columns list ->
+  ?ser_de_info:storage_descriptor__ser_de_info list ->
+  ?skewed_info:storage_descriptor__skewed_info list ->
+  ?sort_columns:storage_descriptor__sort_columns list ->
   unit ->
   storage_descriptor
 
@@ -63,10 +63,10 @@ val aws_glue_partition :
   ?catalog_id:string prop ->
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
+  ?storage_descriptor:storage_descriptor list ->
   database_name:string prop ->
   partition_values:string prop list ->
   table_name:string prop ->
-  storage_descriptor:storage_descriptor list ->
   unit ->
   aws_glue_partition
 
@@ -91,10 +91,10 @@ val register :
   ?catalog_id:string prop ->
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
+  ?storage_descriptor:storage_descriptor list ->
   database_name:string prop ->
   partition_values:string prop list ->
   table_name:string prop ->
-  storage_descriptor:storage_descriptor list ->
   string ->
   t
 
@@ -102,9 +102,9 @@ val make :
   ?catalog_id:string prop ->
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
+  ?storage_descriptor:storage_descriptor list ->
   database_name:string prop ->
   partition_values:string prop list ->
   table_name:string prop ->
-  storage_descriptor:storage_descriptor list ->
   string ->
   t Tf_core.resource

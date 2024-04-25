@@ -591,8 +591,8 @@ let azurerm_container_registry ?admin_enabled ?anonymous_pull_enabled
     ?network_rule_bypass_option ?network_rule_set
     ?public_network_access_enabled ?quarantine_policy_enabled
     ?retention_policy ?tags ?trust_policy ?zone_redundancy_enabled
-    ?timeouts ~location ~name ~resource_group_name ~sku
-    ~georeplications ~identity () : azurerm_container_registry =
+    ?(georeplications = []) ?(identity = []) ?timeouts ~location
+    ~name ~resource_group_name ~sku () : azurerm_container_registry =
   {
     admin_enabled;
     anonymous_pull_enabled;
@@ -646,8 +646,8 @@ let make ?admin_enabled ?anonymous_pull_enabled
     ?network_rule_bypass_option ?network_rule_set
     ?public_network_access_enabled ?quarantine_policy_enabled
     ?retention_policy ?tags ?trust_policy ?zone_redundancy_enabled
-    ?timeouts ~location ~name ~resource_group_name ~sku
-    ~georeplications ~identity __id =
+    ?(georeplications = []) ?(identity = []) ?timeouts ~location
+    ~name ~resource_group_name ~sku __id =
   let __type = "azurerm_container_registry" in
   let __attrs =
     ({
@@ -695,9 +695,9 @@ let make ?admin_enabled ?anonymous_pull_enabled
            ?export_policy_enabled ?id ?network_rule_bypass_option
            ?network_rule_set ?public_network_access_enabled
            ?quarantine_policy_enabled ?retention_policy ?tags
-           ?trust_policy ?zone_redundancy_enabled ?timeouts ~location
-           ~name ~resource_group_name ~sku ~georeplications ~identity
-           ());
+           ?trust_policy ?zone_redundancy_enabled ~georeplications
+           ~identity ?timeouts ~location ~name ~resource_group_name
+           ~sku ());
     attrs = __attrs;
   }
 
@@ -706,16 +706,16 @@ let register ?tf_module ?admin_enabled ?anonymous_pull_enabled
     ?network_rule_bypass_option ?network_rule_set
     ?public_network_access_enabled ?quarantine_policy_enabled
     ?retention_policy ?tags ?trust_policy ?zone_redundancy_enabled
-    ?timeouts ~location ~name ~resource_group_name ~sku
-    ~georeplications ~identity __id =
+    ?(georeplications = []) ?(identity = []) ?timeouts ~location
+    ~name ~resource_group_name ~sku __id =
   let (r : _ Tf_core.resource) =
     make ?admin_enabled ?anonymous_pull_enabled
       ?data_endpoint_enabled ?encryption ?export_policy_enabled ?id
       ?network_rule_bypass_option ?network_rule_set
       ?public_network_access_enabled ?quarantine_policy_enabled
       ?retention_policy ?tags ?trust_policy ?zone_redundancy_enabled
-      ?timeouts ~location ~name ~resource_group_name ~sku
-      ~georeplications ~identity __id
+      ~georeplications ~identity ?timeouts ~location ~name
+      ~resource_group_name ~sku __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

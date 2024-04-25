@@ -108,8 +108,8 @@ let _ = yojson_of_cloudflare_waiting_room_rules
 let rules ?description ?status ~action ~expression () : rules =
   { action; description; expression; status }
 
-let cloudflare_waiting_room_rules ?id ~waiting_room_id ~zone_id
-    ~rules () : cloudflare_waiting_room_rules =
+let cloudflare_waiting_room_rules ?id ?(rules = []) ~waiting_room_id
+    ~zone_id () : cloudflare_waiting_room_rules =
   { id; waiting_room_id; zone_id; rules }
 
 type t = {
@@ -118,7 +118,7 @@ type t = {
   zone_id : string prop;
 }
 
-let make ?id ~waiting_room_id ~zone_id ~rules __id =
+let make ?id ?(rules = []) ~waiting_room_id ~zone_id __id =
   let __type = "cloudflare_waiting_room_rules" in
   let __attrs =
     ({
@@ -133,14 +133,15 @@ let make ?id ~waiting_room_id ~zone_id ~rules __id =
     type_ = __type;
     json =
       yojson_of_cloudflare_waiting_room_rules
-        (cloudflare_waiting_room_rules ?id ~waiting_room_id ~zone_id
-           ~rules ());
+        (cloudflare_waiting_room_rules ?id ~rules ~waiting_room_id
+           ~zone_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~waiting_room_id ~zone_id ~rules __id =
+let register ?tf_module ?id ?(rules = []) ~waiting_room_id ~zone_id
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~waiting_room_id ~zone_id ~rules __id
+    make ?id ~rules ~waiting_room_id ~zone_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

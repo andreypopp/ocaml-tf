@@ -1704,7 +1704,8 @@ let metastores__oozie ~database_name ~password ~server ~username () :
     metastores__oozie =
   { database_name; password; server; username }
 
-let metastores ~ambari ~hive ~oozie () : metastores =
+let metastores ?(ambari = []) ?(hive = []) ?(oozie = []) () :
+    metastores =
   { ambari; hive; oozie }
 
 let monitor ~log_analytics_workspace_id ~primary_key () : monitor =
@@ -1733,9 +1734,9 @@ let roles__edge_node__uninstall_script_actions ?parameters ~name ~uri
     () : roles__edge_node__uninstall_script_actions =
   { name; parameters; uri }
 
-let roles__edge_node ~target_instance_count ~vm_size ~https_endpoints
-    ~install_script_action ~uninstall_script_actions () :
-    roles__edge_node =
+let roles__edge_node ?(https_endpoints = [])
+    ?(uninstall_script_actions = []) ~target_instance_count ~vm_size
+    ~install_script_action () : roles__edge_node =
   {
     target_instance_count;
     vm_size;
@@ -1749,8 +1750,8 @@ let roles__head_node__script_actions ?parameters ~name ~uri () :
   { name; parameters; uri }
 
 let roles__head_node ?password ?ssh_keys ?subnet_id
-    ?virtual_network_id ~username ~vm_size ~script_actions () :
-    roles__head_node =
+    ?virtual_network_id ?(script_actions = []) ~username ~vm_size ()
+    : roles__head_node =
   {
     password;
     ssh_keys;
@@ -1775,8 +1776,8 @@ let roles__worker_node__autoscale__recurrence ~timezone ~schedule ()
     : roles__worker_node__autoscale__recurrence =
   { timezone; schedule }
 
-let roles__worker_node__autoscale ~capacity ~recurrence () :
-    roles__worker_node__autoscale =
+let roles__worker_node__autoscale ?(capacity = []) ?(recurrence = [])
+    () : roles__worker_node__autoscale =
   { capacity; recurrence }
 
 let roles__worker_node__script_actions ?parameters ~name ~uri () :
@@ -1784,8 +1785,9 @@ let roles__worker_node__script_actions ?parameters ~name ~uri () :
   { name; parameters; uri }
 
 let roles__worker_node ?password ?ssh_keys ?subnet_id
-    ?virtual_network_id ~target_instance_count ~username ~vm_size
-    ~autoscale ~script_actions () : roles__worker_node =
+    ?virtual_network_id ?(autoscale = []) ?(script_actions = [])
+    ~target_instance_count ~username ~vm_size () : roles__worker_node
+    =
   {
     password;
     ssh_keys;
@@ -1803,8 +1805,8 @@ let roles__zookeeper_node__script_actions ?parameters ~name ~uri () :
   { name; parameters; uri }
 
 let roles__zookeeper_node ?password ?ssh_keys ?subnet_id
-    ?virtual_network_id ~username ~vm_size ~script_actions () :
-    roles__zookeeper_node =
+    ?virtual_network_id ?(script_actions = []) ~username ~vm_size ()
+    : roles__zookeeper_node =
   {
     password;
     ssh_keys;
@@ -1815,8 +1817,8 @@ let roles__zookeeper_node ?password ?ssh_keys ?subnet_id
     script_actions;
   }
 
-let roles ~edge_node ~head_node ~worker_node ~zookeeper_node () :
-    roles =
+let roles ?(edge_node = []) ~head_node ~worker_node ~zookeeper_node
+    () : roles =
   { edge_node; head_node; worker_node; zookeeper_node }
 
 let security_profile ?cluster_users_group_dns ~aadds_resource_id
@@ -1855,11 +1857,12 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_hdinsight_hadoop_cluster ?id ?tags ?tls_min_version
-    ?timeouts ~cluster_version ~location ~name ~resource_group_name
-    ~tier ~component_version ~compute_isolation ~disk_encryption
-    ~extension ~gateway ~metastores ~monitor ~network ~roles
-    ~security_profile ~storage_account ~storage_account_gen2 () :
-    azurerm_hdinsight_hadoop_cluster =
+    ?(compute_isolation = []) ?(disk_encryption = [])
+    ?(extension = []) ?(metastores = []) ?(monitor = [])
+    ?(network = []) ?(security_profile = []) ?(storage_account = [])
+    ?(storage_account_gen2 = []) ?timeouts ~cluster_version ~location
+    ~name ~resource_group_name ~tier ~component_version ~gateway
+    ~roles () : azurerm_hdinsight_hadoop_cluster =
   {
     cluster_version;
     id;
@@ -1897,11 +1900,12 @@ type t = {
   tls_min_version : string prop;
 }
 
-let make ?id ?tags ?tls_min_version ?timeouts ~cluster_version
-    ~location ~name ~resource_group_name ~tier ~component_version
-    ~compute_isolation ~disk_encryption ~extension ~gateway
-    ~metastores ~monitor ~network ~roles ~security_profile
-    ~storage_account ~storage_account_gen2 __id =
+let make ?id ?tags ?tls_min_version ?(compute_isolation = [])
+    ?(disk_encryption = []) ?(extension = []) ?(metastores = [])
+    ?(monitor = []) ?(network = []) ?(security_profile = [])
+    ?(storage_account = []) ?(storage_account_gen2 = []) ?timeouts
+    ~cluster_version ~location ~name ~resource_group_name ~tier
+    ~component_version ~gateway ~roles __id =
   let __type = "azurerm_hdinsight_hadoop_cluster" in
   let __attrs =
     ({
@@ -1925,25 +1929,27 @@ let make ?id ?tags ?tls_min_version ?timeouts ~cluster_version
     json =
       yojson_of_azurerm_hdinsight_hadoop_cluster
         (azurerm_hdinsight_hadoop_cluster ?id ?tags ?tls_min_version
-           ?timeouts ~cluster_version ~location ~name
-           ~resource_group_name ~tier ~component_version
-           ~compute_isolation ~disk_encryption ~extension ~gateway
-           ~metastores ~monitor ~network ~roles ~security_profile
-           ~storage_account ~storage_account_gen2 ());
+           ~compute_isolation ~disk_encryption ~extension ~metastores
+           ~monitor ~network ~security_profile ~storage_account
+           ~storage_account_gen2 ?timeouts ~cluster_version ~location
+           ~name ~resource_group_name ~tier ~component_version
+           ~gateway ~roles ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tls_min_version ?timeouts
-    ~cluster_version ~location ~name ~resource_group_name ~tier
-    ~component_version ~compute_isolation ~disk_encryption ~extension
-    ~gateway ~metastores ~monitor ~network ~roles ~security_profile
-    ~storage_account ~storage_account_gen2 __id =
+let register ?tf_module ?id ?tags ?tls_min_version
+    ?(compute_isolation = []) ?(disk_encryption = [])
+    ?(extension = []) ?(metastores = []) ?(monitor = [])
+    ?(network = []) ?(security_profile = []) ?(storage_account = [])
+    ?(storage_account_gen2 = []) ?timeouts ~cluster_version ~location
+    ~name ~resource_group_name ~tier ~component_version ~gateway
+    ~roles __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tls_min_version ?timeouts ~cluster_version
-      ~location ~name ~resource_group_name ~tier ~component_version
-      ~compute_isolation ~disk_encryption ~extension ~gateway
-      ~metastores ~monitor ~network ~roles ~security_profile
-      ~storage_account ~storage_account_gen2 __id
+    make ?id ?tags ?tls_min_version ~compute_isolation
+      ~disk_encryption ~extension ~metastores ~monitor ~network
+      ~security_profile ~storage_account ~storage_account_gen2
+      ?timeouts ~cluster_version ~location ~name ~resource_group_name
+      ~tier ~component_version ~gateway ~roles __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

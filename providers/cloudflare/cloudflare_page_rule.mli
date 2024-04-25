@@ -47,8 +47,8 @@ val actions__cache_key_fields__user :
 type actions__cache_key_fields
 
 val actions__cache_key_fields :
-  cookie:actions__cache_key_fields__cookie list ->
-  header:actions__cache_key_fields__header list ->
+  ?cookie:actions__cache_key_fields__cookie list ->
+  ?header:actions__cache_key_fields__header list ->
   host:actions__cache_key_fields__host list ->
   query_string:actions__cache_key_fields__query_string list ->
   user:actions__cache_key_fields__user list ->
@@ -116,10 +116,10 @@ val actions :
   ?ssl:string prop ->
   ?true_client_ip_header:string prop ->
   ?waf:string prop ->
-  cache_key_fields:actions__cache_key_fields list ->
+  ?cache_key_fields:actions__cache_key_fields list ->
+  ?forwarding_url:actions__forwarding_url list ->
+  ?minify:actions__minify list ->
   cache_ttl_by_status:actions__cache_ttl_by_status list ->
-  forwarding_url:actions__forwarding_url list ->
-  minify:actions__minify list ->
   unit ->
   actions
 

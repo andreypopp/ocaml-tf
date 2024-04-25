@@ -604,8 +604,9 @@ let criteria__dimension ~name ~operator ~values () :
     criteria__dimension =
   { name; operator; values }
 
-let criteria ?skip_metric_validation ~aggregation ~metric_name
-    ~metric_namespace ~operator ~threshold ~dimension () : criteria =
+let criteria ?skip_metric_validation ?(dimension = []) ~aggregation
+    ~metric_name ~metric_namespace ~operator ~threshold () : criteria
+    =
   {
     aggregation;
     metric_name;
@@ -622,8 +623,8 @@ let dynamic_criteria__dimension ~name ~operator ~values () :
 
 let dynamic_criteria ?evaluation_failure_count
     ?evaluation_total_count ?ignore_data_before
-    ?skip_metric_validation ~aggregation ~alert_sensitivity
-    ~metric_name ~metric_namespace ~operator ~dimension () :
+    ?skip_metric_validation ?(dimension = []) ~aggregation
+    ~alert_sensitivity ~metric_name ~metric_namespace ~operator () :
     dynamic_criteria =
   {
     aggregation;
@@ -643,10 +644,11 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_monitor_metric_alert ?auto_mitigate ?description ?enabled
     ?frequency ?id ?severity ?tags ?target_resource_location
-    ?target_resource_type ?window_size ?timeouts ~name
-    ~resource_group_name ~scopes ~action
-    ~application_insights_web_test_location_availability_criteria
-    ~criteria ~dynamic_criteria () : azurerm_monitor_metric_alert =
+    ?target_resource_type ?window_size
+    ?(application_insights_web_test_location_availability_criteria =
+      []) ?(criteria = []) ?(dynamic_criteria = []) ?timeouts ~name
+    ~resource_group_name ~scopes ~action () :
+    azurerm_monitor_metric_alert =
   {
     auto_mitigate;
     description;
@@ -686,9 +688,10 @@ type t = {
 
 let make ?auto_mitigate ?description ?enabled ?frequency ?id
     ?severity ?tags ?target_resource_location ?target_resource_type
-    ?window_size ?timeouts ~name ~resource_group_name ~scopes ~action
-    ~application_insights_web_test_location_availability_criteria
-    ~criteria ~dynamic_criteria __id =
+    ?window_size
+    ?(application_insights_web_test_location_availability_criteria =
+      []) ?(criteria = []) ?(dynamic_criteria = []) ?timeouts ~name
+    ~resource_group_name ~scopes ~action __id =
   let __type = "azurerm_monitor_metric_alert" in
   let __attrs =
     ({
@@ -719,26 +722,26 @@ let make ?auto_mitigate ?description ?enabled ?frequency ?id
         (azurerm_monitor_metric_alert ?auto_mitigate ?description
            ?enabled ?frequency ?id ?severity ?tags
            ?target_resource_location ?target_resource_type
-           ?window_size ?timeouts ~name ~resource_group_name ~scopes
-           ~action
+           ?window_size
            ~application_insights_web_test_location_availability_criteria
-           ~criteria ~dynamic_criteria ());
+           ~criteria ~dynamic_criteria ?timeouts ~name
+           ~resource_group_name ~scopes ~action ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_mitigate ?description ?enabled
     ?frequency ?id ?severity ?tags ?target_resource_location
-    ?target_resource_type ?window_size ?timeouts ~name
-    ~resource_group_name ~scopes ~action
-    ~application_insights_web_test_location_availability_criteria
-    ~criteria ~dynamic_criteria __id =
+    ?target_resource_type ?window_size
+    ?(application_insights_web_test_location_availability_criteria =
+      []) ?(criteria = []) ?(dynamic_criteria = []) ?timeouts ~name
+    ~resource_group_name ~scopes ~action __id =
   let (r : _ Tf_core.resource) =
     make ?auto_mitigate ?description ?enabled ?frequency ?id
       ?severity ?tags ?target_resource_location ?target_resource_type
-      ?window_size ?timeouts ~name ~resource_group_name ~scopes
-      ~action
+      ?window_size
       ~application_insights_web_test_location_availability_criteria
-      ~criteria ~dynamic_criteria __id
+      ~criteria ~dynamic_criteria ?timeouts ~name
+      ~resource_group_name ~scopes ~action __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

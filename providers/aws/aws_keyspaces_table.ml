@@ -577,7 +577,7 @@ let schema_definition__static_column ~name () :
     schema_definition__static_column =
   { name }
 
-let schema_definition ~clustering_key ~column ~partition_key
+let schema_definition ?(clustering_key = []) ~column ~partition_key
     ~static_column () : schema_definition =
   { clustering_key; column; partition_key; static_column }
 
@@ -587,9 +587,10 @@ let timeouts ?create ?delete ?update () : timeouts =
 let ttl ~status () : ttl = { status }
 
 let aws_keyspaces_table ?default_time_to_live ?id ?tags ?tags_all
-    ?timeouts ~keyspace_name ~table_name ~capacity_specification
-    ~client_side_timestamps ~comment ~encryption_specification
-    ~point_in_time_recovery ~schema_definition ~ttl () :
+    ?(capacity_specification = []) ?(client_side_timestamps = [])
+    ?(comment = []) ?(encryption_specification = [])
+    ?(point_in_time_recovery = []) ?timeouts ?(ttl = [])
+    ~keyspace_name ~table_name ~schema_definition () :
     aws_keyspaces_table =
   {
     default_time_to_live;
@@ -618,10 +619,11 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?default_time_to_live ?id ?tags ?tags_all ?timeouts
-    ~keyspace_name ~table_name ~capacity_specification
-    ~client_side_timestamps ~comment ~encryption_specification
-    ~point_in_time_recovery ~schema_definition ~ttl __id =
+let make ?default_time_to_live ?id ?tags ?tags_all
+    ?(capacity_specification = []) ?(client_side_timestamps = [])
+    ?(comment = []) ?(encryption_specification = [])
+    ?(point_in_time_recovery = []) ?timeouts ?(ttl = [])
+    ~keyspace_name ~table_name ~schema_definition __id =
   let __type = "aws_keyspaces_table" in
   let __attrs =
     ({
@@ -642,22 +644,23 @@ let make ?default_time_to_live ?id ?tags ?tags_all ?timeouts
     json =
       yojson_of_aws_keyspaces_table
         (aws_keyspaces_table ?default_time_to_live ?id ?tags
-           ?tags_all ?timeouts ~keyspace_name ~table_name
-           ~capacity_specification ~client_side_timestamps ~comment
-           ~encryption_specification ~point_in_time_recovery
-           ~schema_definition ~ttl ());
+           ?tags_all ~capacity_specification ~client_side_timestamps
+           ~comment ~encryption_specification ~point_in_time_recovery
+           ?timeouts ~ttl ~keyspace_name ~table_name
+           ~schema_definition ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?default_time_to_live ?id ?tags ?tags_all
-    ?timeouts ~keyspace_name ~table_name ~capacity_specification
-    ~client_side_timestamps ~comment ~encryption_specification
-    ~point_in_time_recovery ~schema_definition ~ttl __id =
+    ?(capacity_specification = []) ?(client_side_timestamps = [])
+    ?(comment = []) ?(encryption_specification = [])
+    ?(point_in_time_recovery = []) ?timeouts ?(ttl = [])
+    ~keyspace_name ~table_name ~schema_definition __id =
   let (r : _ Tf_core.resource) =
-    make ?default_time_to_live ?id ?tags ?tags_all ?timeouts
-      ~keyspace_name ~table_name ~capacity_specification
-      ~client_side_timestamps ~comment ~encryption_specification
-      ~point_in_time_recovery ~schema_definition ~ttl __id
+    make ?default_time_to_live ?id ?tags ?tags_all
+      ~capacity_specification ~client_side_timestamps ~comment
+      ~encryption_specification ~point_in_time_recovery ?timeouts
+      ~ttl ~keyspace_name ~table_name ~schema_definition __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

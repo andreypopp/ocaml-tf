@@ -197,8 +197,8 @@ let resource_spec ?instance_type ?lifecycle_config_arn
   }
 
 let aws_sagemaker_app ?id ?space_name ?tags ?tags_all
-    ?user_profile_name ~app_name ~app_type ~domain_id ~resource_spec
-    () : aws_sagemaker_app =
+    ?user_profile_name ?(resource_spec = []) ~app_name ~app_type
+    ~domain_id () : aws_sagemaker_app =
   {
     app_name;
     app_type;
@@ -223,8 +223,8 @@ type t = {
   user_profile_name : string prop;
 }
 
-let make ?id ?space_name ?tags ?tags_all ?user_profile_name ~app_name
-    ~app_type ~domain_id ~resource_spec __id =
+let make ?id ?space_name ?tags ?tags_all ?user_profile_name
+    ?(resource_spec = []) ~app_name ~app_type ~domain_id __id =
   let __type = "aws_sagemaker_app" in
   let __attrs =
     ({
@@ -247,17 +247,17 @@ let make ?id ?space_name ?tags ?tags_all ?user_profile_name ~app_name
     json =
       yojson_of_aws_sagemaker_app
         (aws_sagemaker_app ?id ?space_name ?tags ?tags_all
-           ?user_profile_name ~app_name ~app_type ~domain_id
-           ~resource_spec ());
+           ?user_profile_name ~resource_spec ~app_name ~app_type
+           ~domain_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?space_name ?tags ?tags_all
-    ?user_profile_name ~app_name ~app_type ~domain_id ~resource_spec
-    __id =
+    ?user_profile_name ?(resource_spec = []) ~app_name ~app_type
+    ~domain_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?space_name ?tags ?tags_all ?user_profile_name ~app_name
-      ~app_type ~domain_id ~resource_spec __id
+    make ?id ?space_name ?tags ?tags_all ?user_profile_name
+      ~resource_spec ~app_name ~app_type ~domain_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -134,9 +134,9 @@ let _ = yojson_of_aws_appmesh_mesh
 [@@@deriving.end]
 
 let spec__egress_filter ?type_ () : spec__egress_filter = { type_ }
-let spec ~egress_filter () : spec = { egress_filter }
+let spec ?(egress_filter = []) () : spec = { egress_filter }
 
-let aws_appmesh_mesh ?id ?tags ?tags_all ~name ~spec () :
+let aws_appmesh_mesh ?id ?tags ?tags_all ?(spec = []) ~name () :
     aws_appmesh_mesh =
   { id; name; tags; tags_all; spec }
 
@@ -152,7 +152,7 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?tags ?tags_all ~name ~spec __id =
+let make ?id ?tags ?tags_all ?(spec = []) ~name __id =
   let __type = "aws_appmesh_mesh" in
   let __attrs =
     ({
@@ -174,13 +174,13 @@ let make ?id ?tags ?tags_all ~name ~spec __id =
     type_ = __type;
     json =
       yojson_of_aws_appmesh_mesh
-        (aws_appmesh_mesh ?id ?tags ?tags_all ~name ~spec ());
+        (aws_appmesh_mesh ?id ?tags ?tags_all ~spec ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ~name ~spec __id =
+let register ?tf_module ?id ?tags ?tags_all ?(spec = []) ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~name ~spec __id
+    make ?id ?tags ?tags_all ~spec ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

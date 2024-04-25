@@ -21,7 +21,7 @@ val spec__listener :
 
 type spec
 
-val spec : listener:spec__listener list -> unit -> spec
+val spec : ?listener:spec__listener list -> unit -> spec
 
 type aws_appmesh_virtual_router
 

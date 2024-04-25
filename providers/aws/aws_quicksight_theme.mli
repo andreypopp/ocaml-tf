@@ -25,7 +25,7 @@ val configuration__sheet__tile__border :
 type configuration__sheet__tile
 
 val configuration__sheet__tile :
-    border:configuration__sheet__tile__border list ->
+    ?border:configuration__sheet__tile__border list ->
     unit ->
     configuration__sheet__tile
 
@@ -46,16 +46,16 @@ val configuration__sheet__tile_layout__margin :
 type configuration__sheet__tile_layout
 
 val configuration__sheet__tile_layout :
-    gutter:configuration__sheet__tile_layout__gutter list ->
-    margin:configuration__sheet__tile_layout__margin list ->
+    ?gutter:configuration__sheet__tile_layout__gutter list ->
+    ?margin:configuration__sheet__tile_layout__margin list ->
     unit ->
     configuration__sheet__tile_layout
 
 type configuration__sheet
 
 val configuration__sheet :
-    tile:configuration__sheet__tile list ->
-    tile_layout:configuration__sheet__tile_layout list ->
+    ?tile:configuration__sheet__tile list ->
+    ?tile_layout:configuration__sheet__tile_layout list ->
     unit ->
     configuration__sheet
 
@@ -69,7 +69,7 @@ val configuration__typography__font_families :
 type configuration__typography
 
 val configuration__typography :
-    font_families:configuration__typography__font_families list ->
+    ?font_families:configuration__typography__font_families list ->
     unit ->
     configuration__typography
 
@@ -98,10 +98,10 @@ val configuration__ui_color_palette :
 type configuration
 
 val configuration :
-    data_color_palette:configuration__data_color_palette list ->
-    sheet:configuration__sheet list ->
-    typography:configuration__typography list ->
-    ui_color_palette:configuration__ui_color_palette list ->
+    ?data_color_palette:configuration__data_color_palette list ->
+    ?sheet:configuration__sheet list ->
+    ?typography:configuration__typography list ->
+    ?ui_color_palette:configuration__ui_color_palette list ->
     unit ->
     configuration
 
@@ -130,12 +130,12 @@ val aws_quicksight_theme :
     ?tags:(string * string  prop) list ->
     ?tags_all:(string * string  prop) list ->
     ?version_description:string prop ->
+    ?configuration:configuration list ->
+    ?permissions:permissions list ->
     ?timeouts:timeouts ->
     base_theme_id:string prop ->
     name:string prop ->
     theme_id:string prop ->
-    configuration:configuration list ->
-    permissions:permissions list ->
     unit ->
     aws_quicksight_theme
 
@@ -166,12 +166,12 @@ val register :
     ?tags:(string * string  prop) list ->
     ?tags_all:(string * string  prop) list ->
     ?version_description:string prop ->
+    ?configuration:configuration list ->
+    ?permissions:permissions list ->
     ?timeouts:timeouts ->
     base_theme_id:string prop ->
     name:string prop ->
     theme_id:string prop ->
-    configuration:configuration list ->
-    permissions:permissions list ->
     string ->
     t
 
@@ -181,12 +181,12 @@ val make :
     ?tags:(string * string  prop) list ->
     ?tags_all:(string * string  prop) list ->
     ?version_description:string prop ->
+    ?configuration:configuration list ->
+    ?permissions:permissions list ->
     ?timeouts:timeouts ->
     base_theme_id:string prop ->
     name:string prop ->
     theme_id:string prop ->
-    configuration:configuration list ->
-    permissions:permissions list ->
     string ->
     t Tf_core.resource
 

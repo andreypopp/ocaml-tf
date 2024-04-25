@@ -39,9 +39,9 @@ val digitalocean_database_kafka_topic :
   ?id:string prop ->
   ?partition_count:float prop ->
   ?replication_factor:float prop ->
+  ?config:config list ->
   cluster_id:string prop ->
   name:string prop ->
-  config:config list ->
   unit ->
   digitalocean_database_kafka_topic
 
@@ -64,9 +64,9 @@ val register :
   ?id:string prop ->
   ?partition_count:float prop ->
   ?replication_factor:float prop ->
+  ?config:config list ->
   cluster_id:string prop ->
   name:string prop ->
-  config:config list ->
   string ->
   t
 
@@ -74,8 +74,8 @@ val make :
   ?id:string prop ->
   ?partition_count:float prop ->
   ?replication_factor:float prop ->
+  ?config:config list ->
   cluster_id:string prop ->
   name:string prop ->
-  config:config list ->
   string ->
   t Tf_core.resource

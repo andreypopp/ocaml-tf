@@ -86,9 +86,9 @@ type aws_networkmanager_core_network_policy_document
 val aws_networkmanager_core_network_policy_document :
   ?id:string prop ->
   ?version:string prop ->
-  attachment_policies:attachment_policies list ->
+  ?attachment_policies:attachment_policies list ->
+  ?segment_actions:segment_actions list ->
   core_network_configuration:core_network_configuration list ->
-  segment_actions:segment_actions list ->
   segments:segments list ->
   unit ->
   aws_networkmanager_core_network_policy_document
@@ -108,9 +108,9 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?version:string prop ->
-  attachment_policies:attachment_policies list ->
+  ?attachment_policies:attachment_policies list ->
+  ?segment_actions:segment_actions list ->
   core_network_configuration:core_network_configuration list ->
-  segment_actions:segment_actions list ->
   segments:segments list ->
   string ->
   t
@@ -118,9 +118,9 @@ val register :
 val make :
   ?id:string prop ->
   ?version:string prop ->
-  attachment_policies:attachment_policies list ->
+  ?attachment_policies:attachment_policies list ->
+  ?segment_actions:segment_actions list ->
   core_network_configuration:core_network_configuration list ->
-  segment_actions:segment_actions list ->
   segments:segments list ->
   string ->
   t Tf_core.resource

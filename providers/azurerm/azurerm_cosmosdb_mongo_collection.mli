@@ -37,12 +37,12 @@ val azurerm_cosmosdb_mongo_collection :
   ?id:string prop ->
   ?shard_key:string prop ->
   ?throughput:float prop ->
+  ?autoscale_settings:autoscale_settings list ->
   ?timeouts:timeouts ->
   account_name:string prop ->
   database_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  autoscale_settings:autoscale_settings list ->
   index:index list ->
   unit ->
   azurerm_cosmosdb_mongo_collection
@@ -72,12 +72,12 @@ val register :
   ?id:string prop ->
   ?shard_key:string prop ->
   ?throughput:float prop ->
+  ?autoscale_settings:autoscale_settings list ->
   ?timeouts:timeouts ->
   account_name:string prop ->
   database_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  autoscale_settings:autoscale_settings list ->
   index:index list ->
   string ->
   t
@@ -88,12 +88,12 @@ val make :
   ?id:string prop ->
   ?shard_key:string prop ->
   ?throughput:float prop ->
+  ?autoscale_settings:autoscale_settings list ->
   ?timeouts:timeouts ->
   account_name:string prop ->
   database_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  autoscale_settings:autoscale_settings list ->
   index:index list ->
   string ->
   t Tf_core.resource

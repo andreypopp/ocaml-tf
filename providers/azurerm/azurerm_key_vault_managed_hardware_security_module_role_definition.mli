@@ -30,10 +30,10 @@ val azurerm_key_vault_managed_hardware_security_module_role_definition :
   ?description:string prop ->
   ?id:string prop ->
   ?role_name:string prop ->
+  ?permission:permission list ->
   ?timeouts:timeouts ->
   name:string prop ->
   vault_base_url:string prop ->
-  permission:permission list ->
   unit ->
   azurerm_key_vault_managed_hardware_security_module_role_definition
 
@@ -58,10 +58,10 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?role_name:string prop ->
+  ?permission:permission list ->
   ?timeouts:timeouts ->
   name:string prop ->
   vault_base_url:string prop ->
-  permission:permission list ->
   string ->
   t
 
@@ -69,9 +69,9 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?role_name:string prop ->
+  ?permission:permission list ->
   ?timeouts:timeouts ->
   name:string prop ->
   vault_base_url:string prop ->
-  permission:permission list ->
   string ->
   t Tf_core.resource

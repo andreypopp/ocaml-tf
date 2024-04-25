@@ -326,8 +326,8 @@ let view ~dataset_id ~project_id ~table_id () : view =
 
 let google_bigquery_dataset_access ?domain ?group_by_email
     ?iam_member ?id ?project ?role ?special_group ?user_by_email
-    ?timeouts ~dataset_id ~dataset ~routine ~view () :
-    google_bigquery_dataset_access =
+    ?(dataset = []) ?(routine = []) ?timeouts ?(view = [])
+    ~dataset_id () : google_bigquery_dataset_access =
   {
     dataset_id;
     domain;
@@ -358,8 +358,8 @@ type t = {
 }
 
 let make ?domain ?group_by_email ?iam_member ?id ?project ?role
-    ?special_group ?user_by_email ?timeouts ~dataset_id ~dataset
-    ~routine ~view __id =
+    ?special_group ?user_by_email ?(dataset = []) ?(routine = [])
+    ?timeouts ?(view = []) ~dataset_id __id =
   let __type = "google_bigquery_dataset_access" in
   let __attrs =
     ({
@@ -384,18 +384,18 @@ let make ?domain ?group_by_email ?iam_member ?id ?project ?role
       yojson_of_google_bigquery_dataset_access
         (google_bigquery_dataset_access ?domain ?group_by_email
            ?iam_member ?id ?project ?role ?special_group
-           ?user_by_email ?timeouts ~dataset_id ~dataset ~routine
-           ~view ());
+           ?user_by_email ~dataset ~routine ?timeouts ~view
+           ~dataset_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?domain ?group_by_email ?iam_member ?id
-    ?project ?role ?special_group ?user_by_email ?timeouts
-    ~dataset_id ~dataset ~routine ~view __id =
+    ?project ?role ?special_group ?user_by_email ?(dataset = [])
+    ?(routine = []) ?timeouts ?(view = []) ~dataset_id __id =
   let (r : _ Tf_core.resource) =
     make ?domain ?group_by_email ?iam_member ?id ?project ?role
-      ?special_group ?user_by_email ?timeouts ~dataset_id ~dataset
-      ~routine ~view __id
+      ?special_group ?user_by_email ~dataset ~routine ?timeouts ~view
+      ~dataset_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -193,13 +193,13 @@ let _ = yojson_of_cloudflare_api_token
 let condition__request_ip ?in_ ?not_in () : condition__request_ip =
   { in_; not_in }
 
-let condition ~request_ip () : condition = { request_ip }
+let condition ?(request_ip = []) () : condition = { request_ip }
 
 let policy ?effect ~permission_groups ~resources () : policy =
   { effect; permission_groups; resources }
 
-let cloudflare_api_token ?expires_on ?id ?not_before ~name ~condition
-    ~policy () : cloudflare_api_token =
+let cloudflare_api_token ?expires_on ?id ?not_before
+    ?(condition = []) ~name ~policy () : cloudflare_api_token =
   { expires_on; id; name; not_before; condition; policy }
 
 type t = {
@@ -213,7 +213,8 @@ type t = {
   value : string prop;
 }
 
-let make ?expires_on ?id ?not_before ~name ~condition ~policy __id =
+let make ?expires_on ?id ?not_before ?(condition = []) ~name ~policy
+    __id =
   let __type = "cloudflare_api_token" in
   let __attrs =
     ({
@@ -233,15 +234,15 @@ let make ?expires_on ?id ?not_before ~name ~condition ~policy __id =
     type_ = __type;
     json =
       yojson_of_cloudflare_api_token
-        (cloudflare_api_token ?expires_on ?id ?not_before ~name
-           ~condition ~policy ());
+        (cloudflare_api_token ?expires_on ?id ?not_before ~condition
+           ~name ~policy ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?expires_on ?id ?not_before ~name ~condition
-    ~policy __id =
+let register ?tf_module ?expires_on ?id ?not_before ?(condition = [])
+    ~name ~policy __id =
   let (r : _ Tf_core.resource) =
-    make ?expires_on ?id ?not_before ~name ~condition ~policy __id
+    make ?expires_on ?id ?not_before ~condition ~name ~policy __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

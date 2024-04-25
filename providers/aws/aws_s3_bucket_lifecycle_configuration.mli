@@ -41,8 +41,8 @@ val rule__filter :
   ?object_size_greater_than:string prop ->
   ?object_size_less_than:string prop ->
   ?prefix:string prop ->
-  and_:rule__filter__and list ->
-  tag:rule__filter__tag list ->
+  ?and_:rule__filter__and list ->
+  ?tag:rule__filter__tag list ->
   unit ->
   rule__filter
 
@@ -76,14 +76,14 @@ type rule
 
 val rule :
   ?prefix:string prop ->
+  ?abort_incomplete_multipart_upload:
+    rule__abort_incomplete_multipart_upload list ->
+  ?expiration:rule__expiration list ->
+  ?filter:rule__filter list ->
+  ?noncurrent_version_expiration:
+    rule__noncurrent_version_expiration list ->
   id:string prop ->
   status:string prop ->
-  abort_incomplete_multipart_upload:
-    rule__abort_incomplete_multipart_upload list ->
-  expiration:rule__expiration list ->
-  filter:rule__filter list ->
-  noncurrent_version_expiration:
-    rule__noncurrent_version_expiration list ->
   noncurrent_version_transition:
     rule__noncurrent_version_transition list ->
   transition:rule__transition list ->

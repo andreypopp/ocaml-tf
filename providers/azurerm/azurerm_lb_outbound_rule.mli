@@ -26,12 +26,12 @@ val azurerm_lb_outbound_rule :
   ?enable_tcp_reset:bool prop ->
   ?id:string prop ->
   ?idle_timeout_in_minutes:float prop ->
+  ?frontend_ip_configuration:frontend_ip_configuration list ->
   ?timeouts:timeouts ->
   backend_address_pool_id:string prop ->
   loadbalancer_id:string prop ->
   name:string prop ->
   protocol:string prop ->
-  frontend_ip_configuration:frontend_ip_configuration list ->
   unit ->
   azurerm_lb_outbound_rule
 
@@ -57,12 +57,12 @@ val register :
   ?enable_tcp_reset:bool prop ->
   ?id:string prop ->
   ?idle_timeout_in_minutes:float prop ->
+  ?frontend_ip_configuration:frontend_ip_configuration list ->
   ?timeouts:timeouts ->
   backend_address_pool_id:string prop ->
   loadbalancer_id:string prop ->
   name:string prop ->
   protocol:string prop ->
-  frontend_ip_configuration:frontend_ip_configuration list ->
   string ->
   t
 
@@ -71,11 +71,11 @@ val make :
   ?enable_tcp_reset:bool prop ->
   ?id:string prop ->
   ?idle_timeout_in_minutes:float prop ->
+  ?frontend_ip_configuration:frontend_ip_configuration list ->
   ?timeouts:timeouts ->
   backend_address_pool_id:string prop ->
   loadbalancer_id:string prop ->
   name:string prop ->
   protocol:string prop ->
-  frontend_ip_configuration:frontend_ip_configuration list ->
   string ->
   t Tf_core.resource

@@ -271,8 +271,8 @@ let routing_config__failover_config ~primary ~secondary () :
 let routing_config ~failover_config () : routing_config =
   { failover_config }
 
-let aws_cloudwatch_event_endpoint ?description ?id ?role_arn ~name
-    ~event_bus ~replication_config ~routing_config () :
+let aws_cloudwatch_event_endpoint ?description ?id ?role_arn
+    ?(replication_config = []) ~name ~event_bus ~routing_config () :
     aws_cloudwatch_event_endpoint =
   {
     description;
@@ -293,8 +293,8 @@ type t = {
   role_arn : string prop;
 }
 
-let make ?description ?id ?role_arn ~name ~event_bus
-    ~replication_config ~routing_config __id =
+let make ?description ?id ?role_arn ?(replication_config = []) ~name
+    ~event_bus ~routing_config __id =
   let __type = "aws_cloudwatch_event_endpoint" in
   let __attrs =
     ({
@@ -313,15 +313,16 @@ let make ?description ?id ?role_arn ~name ~event_bus
     json =
       yojson_of_aws_cloudwatch_event_endpoint
         (aws_cloudwatch_event_endpoint ?description ?id ?role_arn
-           ~name ~event_bus ~replication_config ~routing_config ());
+           ~replication_config ~name ~event_bus ~routing_config ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?role_arn ~name ~event_bus
-    ~replication_config ~routing_config __id =
+let register ?tf_module ?description ?id ?role_arn
+    ?(replication_config = []) ~name ~event_bus ~routing_config __id
+    =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?role_arn ~name ~event_bus
-      ~replication_config ~routing_config __id
+    make ?description ?id ?role_arn ~replication_config ~name
+      ~event_bus ~routing_config __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

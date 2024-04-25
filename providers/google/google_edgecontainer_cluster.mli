@@ -47,8 +47,8 @@ val control_plane__remote :
 type control_plane
 
 val control_plane :
-  local:control_plane__local list ->
-  remote:control_plane__remote list ->
+  ?local:control_plane__local list ->
+  ?remote:control_plane__remote list ->
   unit ->
   control_plane
 
@@ -78,7 +78,7 @@ type maintenance_policy__window__recurring_window
 
 val maintenance_policy__window__recurring_window :
   ?recurrence:string prop ->
-  window:maintenance_policy__window__recurring_window__window list ->
+  ?window:maintenance_policy__window__recurring_window__window list ->
   unit ->
   maintenance_policy__window__recurring_window
 
@@ -117,7 +117,7 @@ val system_addons_config__ingress :
 type system_addons_config
 
 val system_addons_config :
-  ingress:system_addons_config__ingress list ->
+  ?ingress:system_addons_config__ingress list ->
   unit ->
   system_addons_config
 
@@ -140,16 +140,16 @@ val google_edgecontainer_cluster :
   ?project:string prop ->
   ?release_channel:string prop ->
   ?target_version:string prop ->
+  ?control_plane:control_plane list ->
+  ?control_plane_encryption:control_plane_encryption list ->
+  ?maintenance_policy:maintenance_policy list ->
+  ?system_addons_config:system_addons_config list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   authorization:authorization list ->
-  control_plane:control_plane list ->
-  control_plane_encryption:control_plane_encryption list ->
   fleet:fleet list ->
-  maintenance_policy:maintenance_policy list ->
   networking:networking list ->
-  system_addons_config:system_addons_config list ->
   unit ->
   google_edgecontainer_cluster
 
@@ -190,16 +190,16 @@ val register :
   ?project:string prop ->
   ?release_channel:string prop ->
   ?target_version:string prop ->
+  ?control_plane:control_plane list ->
+  ?control_plane_encryption:control_plane_encryption list ->
+  ?maintenance_policy:maintenance_policy list ->
+  ?system_addons_config:system_addons_config list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   authorization:authorization list ->
-  control_plane:control_plane list ->
-  control_plane_encryption:control_plane_encryption list ->
   fleet:fleet list ->
-  maintenance_policy:maintenance_policy list ->
   networking:networking list ->
-  system_addons_config:system_addons_config list ->
   string ->
   t
 
@@ -211,15 +211,15 @@ val make :
   ?project:string prop ->
   ?release_channel:string prop ->
   ?target_version:string prop ->
+  ?control_plane:control_plane list ->
+  ?control_plane_encryption:control_plane_encryption list ->
+  ?maintenance_policy:maintenance_policy list ->
+  ?system_addons_config:system_addons_config list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   authorization:authorization list ->
-  control_plane:control_plane list ->
-  control_plane_encryption:control_plane_encryption list ->
   fleet:fleet list ->
-  maintenance_policy:maintenance_policy list ->
   networking:networking list ->
-  system_addons_config:system_addons_config list ->
   string ->
   t Tf_core.resource

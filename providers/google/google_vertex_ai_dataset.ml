@@ -178,9 +178,9 @@ let encryption_spec ?kms_key_name () : encryption_spec =
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_vertex_ai_dataset ?id ?labels ?project ?region ?timeouts
-    ~display_name ~metadata_schema_uri ~encryption_spec () :
-    google_vertex_ai_dataset =
+let google_vertex_ai_dataset ?id ?labels ?project ?region
+    ?(encryption_spec = []) ?timeouts ~display_name
+    ~metadata_schema_uri () : google_vertex_ai_dataset =
   {
     display_name;
     id;
@@ -206,8 +206,8 @@ type t = {
   update_time : string prop;
 }
 
-let make ?id ?labels ?project ?region ?timeouts ~display_name
-    ~metadata_schema_uri ~encryption_spec __id =
+let make ?id ?labels ?project ?region ?(encryption_spec = [])
+    ?timeouts ~display_name ~metadata_schema_uri __id =
   let __type = "google_vertex_ai_dataset" in
   let __attrs =
     ({
@@ -234,16 +234,17 @@ let make ?id ?labels ?project ?region ?timeouts ~display_name
     json =
       yojson_of_google_vertex_ai_dataset
         (google_vertex_ai_dataset ?id ?labels ?project ?region
-           ?timeouts ~display_name ~metadata_schema_uri
-           ~encryption_spec ());
+           ~encryption_spec ?timeouts ~display_name
+           ~metadata_schema_uri ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?labels ?project ?region ?timeouts
-    ~display_name ~metadata_schema_uri ~encryption_spec __id =
+let register ?tf_module ?id ?labels ?project ?region
+    ?(encryption_spec = []) ?timeouts ~display_name
+    ~metadata_schema_uri __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?labels ?project ?region ?timeouts ~display_name
-      ~metadata_schema_uri ~encryption_spec __id
+    make ?id ?labels ?project ?region ~encryption_spec ?timeouts
+      ~display_name ~metadata_schema_uri __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

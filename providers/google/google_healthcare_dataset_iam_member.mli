@@ -17,10 +17,10 @@ type google_healthcare_dataset_iam_member
 
 val google_healthcare_dataset_iam_member :
   ?id:string prop ->
+  ?condition:condition list ->
   dataset_id:string prop ->
   member:string prop ->
   role:string prop ->
-  condition:condition list ->
   unit ->
   google_healthcare_dataset_iam_member
 
@@ -40,18 +40,18 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?condition:condition list ->
   dataset_id:string prop ->
   member:string prop ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?condition:condition list ->
   dataset_id:string prop ->
   member:string prop ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t Tf_core.resource

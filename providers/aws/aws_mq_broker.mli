@@ -89,16 +89,16 @@ val aws_mq_broker :
   ?subnet_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?configuration:configuration list ->
+  ?encryption_options:encryption_options list ->
+  ?ldap_server_metadata:ldap_server_metadata list ->
+  ?logs:logs list ->
+  ?maintenance_window_start_time:maintenance_window_start_time list ->
   ?timeouts:timeouts ->
   broker_name:string prop ->
   engine_type:string prop ->
   engine_version:string prop ->
   host_instance_type:string prop ->
-  configuration:configuration list ->
-  encryption_options:encryption_options list ->
-  ldap_server_metadata:ldap_server_metadata list ->
-  logs:logs list ->
-  maintenance_window_start_time:maintenance_window_start_time list ->
   user:user list ->
   unit ->
   aws_mq_broker
@@ -145,16 +145,16 @@ val register :
   ?subnet_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?configuration:configuration list ->
+  ?encryption_options:encryption_options list ->
+  ?ldap_server_metadata:ldap_server_metadata list ->
+  ?logs:logs list ->
+  ?maintenance_window_start_time:maintenance_window_start_time list ->
   ?timeouts:timeouts ->
   broker_name:string prop ->
   engine_type:string prop ->
   engine_version:string prop ->
   host_instance_type:string prop ->
-  configuration:configuration list ->
-  encryption_options:encryption_options list ->
-  ldap_server_metadata:ldap_server_metadata list ->
-  logs:logs list ->
-  maintenance_window_start_time:maintenance_window_start_time list ->
   user:user list ->
   string ->
   t
@@ -173,16 +173,16 @@ val make :
   ?subnet_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?configuration:configuration list ->
+  ?encryption_options:encryption_options list ->
+  ?ldap_server_metadata:ldap_server_metadata list ->
+  ?logs:logs list ->
+  ?maintenance_window_start_time:maintenance_window_start_time list ->
   ?timeouts:timeouts ->
   broker_name:string prop ->
   engine_type:string prop ->
   engine_version:string prop ->
   host_instance_type:string prop ->
-  configuration:configuration list ->
-  encryption_options:encryption_options list ->
-  ldap_server_metadata:ldap_server_metadata list ->
-  logs:logs list ->
-  maintenance_window_start_time:maintenance_window_start_time list ->
   user:user list ->
   string ->
   t Tf_core.resource

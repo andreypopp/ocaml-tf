@@ -395,9 +395,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_lab_service_plan ?default_network_subnet_id ?id
-    ?shared_gallery_id ?tags ?timeouts ~allowed_regions ~location
-    ~name ~resource_group_name ~default_auto_shutdown
-    ~default_connection ~support () : azurerm_lab_service_plan =
+    ?shared_gallery_id ?tags ?(default_auto_shutdown = [])
+    ?(default_connection = []) ?(support = []) ?timeouts
+    ~allowed_regions ~location ~name ~resource_group_name () :
+    azurerm_lab_service_plan =
   {
     allowed_regions;
     default_network_subnet_id;
@@ -425,8 +426,9 @@ type t = {
 }
 
 let make ?default_network_subnet_id ?id ?shared_gallery_id ?tags
-    ?timeouts ~allowed_regions ~location ~name ~resource_group_name
-    ~default_auto_shutdown ~default_connection ~support __id =
+    ?(default_auto_shutdown = []) ?(default_connection = [])
+    ?(support = []) ?timeouts ~allowed_regions ~location ~name
+    ~resource_group_name __id =
   let __type = "azurerm_lab_service_plan" in
   let __attrs =
     ({
@@ -450,20 +452,20 @@ let make ?default_network_subnet_id ?id ?shared_gallery_id ?tags
     json =
       yojson_of_azurerm_lab_service_plan
         (azurerm_lab_service_plan ?default_network_subnet_id ?id
-           ?shared_gallery_id ?tags ?timeouts ~allowed_regions
-           ~location ~name ~resource_group_name
-           ~default_auto_shutdown ~default_connection ~support ());
+           ?shared_gallery_id ?tags ~default_auto_shutdown
+           ~default_connection ~support ?timeouts ~allowed_regions
+           ~location ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?default_network_subnet_id ?id
-    ?shared_gallery_id ?tags ?timeouts ~allowed_regions ~location
-    ~name ~resource_group_name ~default_auto_shutdown
-    ~default_connection ~support __id =
+    ?shared_gallery_id ?tags ?(default_auto_shutdown = [])
+    ?(default_connection = []) ?(support = []) ?timeouts
+    ~allowed_regions ~location ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?default_network_subnet_id ?id ?shared_gallery_id ?tags
-      ?timeouts ~allowed_regions ~location ~name ~resource_group_name
-      ~default_auto_shutdown ~default_connection ~support __id
+      ~default_auto_shutdown ~default_connection ~support ?timeouts
+      ~allowed_regions ~location ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

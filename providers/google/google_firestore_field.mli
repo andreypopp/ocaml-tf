@@ -37,11 +37,11 @@ val google_firestore_field :
   ?database:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?index_config:index_config list ->
   ?timeouts:timeouts ->
+  ?ttl_config:ttl_config list ->
   collection:string prop ->
   field:string prop ->
-  index_config:index_config list ->
-  ttl_config:ttl_config list ->
   unit ->
   google_firestore_field
 
@@ -63,11 +63,11 @@ val register :
   ?database:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?index_config:index_config list ->
   ?timeouts:timeouts ->
+  ?ttl_config:ttl_config list ->
   collection:string prop ->
   field:string prop ->
-  index_config:index_config list ->
-  ttl_config:ttl_config list ->
   string ->
   t
 
@@ -75,10 +75,10 @@ val make :
   ?database:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?index_config:index_config list ->
   ?timeouts:timeouts ->
+  ?ttl_config:ttl_config list ->
   collection:string prop ->
   field:string prop ->
-  index_config:index_config list ->
-  ttl_config:ttl_config list ->
   string ->
   t Tf_core.resource

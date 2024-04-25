@@ -120,8 +120,9 @@ let _ = yojson_of_google_bigtable_table_iam_binding
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_bigtable_table_iam_binding ?id ?project ~instance ~members
-    ~role ~table ~condition () : google_bigtable_table_iam_binding =
+let google_bigtable_table_iam_binding ?id ?project ?(condition = [])
+    ~instance ~members ~role ~table () :
+    google_bigtable_table_iam_binding =
   { id; instance; members; project; role; table; condition }
 
 type t = {
@@ -134,8 +135,8 @@ type t = {
   table : string prop;
 }
 
-let make ?id ?project ~instance ~members ~role ~table ~condition __id
-    =
+let make ?id ?project ?(condition = []) ~instance ~members ~role
+    ~table __id =
   let __type = "google_bigtable_table_iam_binding" in
   let __attrs =
     ({
@@ -154,15 +155,15 @@ let make ?id ?project ~instance ~members ~role ~table ~condition __id
     type_ = __type;
     json =
       yojson_of_google_bigtable_table_iam_binding
-        (google_bigtable_table_iam_binding ?id ?project ~instance
-           ~members ~role ~table ~condition ());
+        (google_bigtable_table_iam_binding ?id ?project ~condition
+           ~instance ~members ~role ~table ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ~instance ~members ~role ~table
-    ~condition __id =
+let register ?tf_module ?id ?project ?(condition = []) ~instance
+    ~members ~role ~table __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ~instance ~members ~role ~table ~condition __id
+    make ?id ?project ~condition ~instance ~members ~role ~table __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

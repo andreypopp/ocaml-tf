@@ -357,8 +357,8 @@ let steps ~name ~branch () : steps = { name; branch }
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_chaos_studio_experiment ?id ?timeouts ~location ~name
-    ~resource_group_name ~identity ~selectors ~steps () :
+let azurerm_chaos_studio_experiment ?id ?(identity = []) ?timeouts
+    ~location ~name ~resource_group_name ~selectors ~steps () :
     azurerm_chaos_studio_experiment =
   {
     id;
@@ -378,8 +378,8 @@ type t = {
   resource_group_name : string prop;
 }
 
-let make ?id ?timeouts ~location ~name ~resource_group_name ~identity
-    ~selectors ~steps __id =
+let make ?id ?(identity = []) ?timeouts ~location ~name
+    ~resource_group_name ~selectors ~steps __id =
   let __type = "azurerm_chaos_studio_experiment" in
   let __attrs =
     ({
@@ -396,15 +396,15 @@ let make ?id ?timeouts ~location ~name ~resource_group_name ~identity
     type_ = __type;
     json =
       yojson_of_azurerm_chaos_studio_experiment
-        (azurerm_chaos_studio_experiment ?id ?timeouts ~location
-           ~name ~resource_group_name ~identity ~selectors ~steps ());
+        (azurerm_chaos_studio_experiment ?id ~identity ?timeouts
+           ~location ~name ~resource_group_name ~selectors ~steps ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~location ~name
-    ~resource_group_name ~identity ~selectors ~steps __id =
+let register ?tf_module ?id ?(identity = []) ?timeouts ~location
+    ~name ~resource_group_name ~selectors ~steps __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~location ~name ~resource_group_name ~identity
+    make ?id ~identity ?timeouts ~location ~name ~resource_group_name
       ~selectors ~steps __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

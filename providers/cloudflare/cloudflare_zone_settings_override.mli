@@ -178,9 +178,9 @@ val settings :
   ?webp:string prop ->
   ?websockets:string prop ->
   ?zero_rtt:string prop ->
-  minify:settings__minify list ->
-  mobile_redirect:settings__mobile_redirect list ->
-  security_header:settings__security_header list ->
+  ?minify:settings__minify list ->
+  ?mobile_redirect:settings__mobile_redirect list ->
+  ?security_header:settings__security_header list ->
   unit ->
   settings
 
@@ -188,8 +188,8 @@ type cloudflare_zone_settings_override
 
 val cloudflare_zone_settings_override :
   ?id:string prop ->
+  ?settings:settings list ->
   zone_id:string prop ->
-  settings:settings list ->
   unit ->
   cloudflare_zone_settings_override
 
@@ -211,14 +211,14 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?settings:settings list ->
   zone_id:string prop ->
-  settings:settings list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?settings:settings list ->
   zone_id:string prop ->
-  settings:settings list ->
   string ->
   t Tf_core.resource

@@ -44,11 +44,11 @@ val azurerm_data_factory_linked_service_azure_sql_database :
   ?service_principal_key:string prop ->
   ?tenant_id:string prop ->
   ?use_managed_identity:bool prop ->
+  ?key_vault_connection_string:key_vault_connection_string list ->
+  ?key_vault_password:key_vault_password list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
-  key_vault_connection_string:key_vault_connection_string list ->
-  key_vault_password:key_vault_password list ->
   unit ->
   azurerm_data_factory_linked_service_azure_sql_database
 
@@ -86,11 +86,11 @@ val register :
   ?service_principal_key:string prop ->
   ?tenant_id:string prop ->
   ?use_managed_identity:bool prop ->
+  ?key_vault_connection_string:key_vault_connection_string list ->
+  ?key_vault_password:key_vault_password list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
-  key_vault_connection_string:key_vault_connection_string list ->
-  key_vault_password:key_vault_password list ->
   string ->
   t
 
@@ -106,10 +106,10 @@ val make :
   ?service_principal_key:string prop ->
   ?tenant_id:string prop ->
   ?use_managed_identity:bool prop ->
+  ?key_vault_connection_string:key_vault_connection_string list ->
+  ?key_vault_password:key_vault_password list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
-  key_vault_connection_string:key_vault_connection_string list ->
-  key_vault_password:key_vault_password list ->
   string ->
   t Tf_core.resource

@@ -43,10 +43,10 @@ val google_sql_user :
   ?password:string prop ->
   ?project:string prop ->
   ?type_:string prop ->
+  ?password_policy:password_policy list ->
   ?timeouts:timeouts ->
   instance:string prop ->
   name:string prop ->
-  password_policy:password_policy list ->
   unit ->
   google_sql_user
 
@@ -74,10 +74,10 @@ val register :
   ?password:string prop ->
   ?project:string prop ->
   ?type_:string prop ->
+  ?password_policy:password_policy list ->
   ?timeouts:timeouts ->
   instance:string prop ->
   name:string prop ->
-  password_policy:password_policy list ->
   string ->
   t
 
@@ -88,9 +88,9 @@ val make :
   ?password:string prop ->
   ?project:string prop ->
   ?type_:string prop ->
+  ?password_policy:password_policy list ->
   ?timeouts:timeouts ->
   instance:string prop ->
   name:string prop ->
-  password_policy:password_policy list ->
   string ->
   t Tf_core.resource

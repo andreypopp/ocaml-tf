@@ -111,8 +111,8 @@ let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
 let google_endpoints_service_consumers_iam_member ?id
-    ~consumer_project ~member ~role ~service_name ~condition () :
-    google_endpoints_service_consumers_iam_member =
+    ?(condition = []) ~consumer_project ~member ~role ~service_name
+    () : google_endpoints_service_consumers_iam_member =
   { consumer_project; id; member; role; service_name; condition }
 
 type t = {
@@ -124,8 +124,8 @@ type t = {
   service_name : string prop;
 }
 
-let make ?id ~consumer_project ~member ~role ~service_name ~condition
-    __id =
+let make ?id ?(condition = []) ~consumer_project ~member ~role
+    ~service_name __id =
   let __type = "google_endpoints_service_consumers_iam_member" in
   let __attrs =
     ({
@@ -144,16 +144,15 @@ let make ?id ~consumer_project ~member ~role ~service_name ~condition
     type_ = __type;
     json =
       yojson_of_google_endpoints_service_consumers_iam_member
-        (google_endpoints_service_consumers_iam_member ?id
-           ~consumer_project ~member ~role ~service_name ~condition
-           ());
+        (google_endpoints_service_consumers_iam_member ?id ~condition
+           ~consumer_project ~member ~role ~service_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~consumer_project ~member ~role
-    ~service_name ~condition __id =
+let register ?tf_module ?id ?(condition = []) ~consumer_project
+    ~member ~role ~service_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~consumer_project ~member ~role ~service_name ~condition
+    make ?id ~condition ~consumer_project ~member ~role ~service_name
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

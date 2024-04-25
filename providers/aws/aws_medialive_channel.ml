@@ -11076,8 +11076,8 @@ let destinations__settings ?password_param ?stream_name ?url
     ?username () : destinations__settings =
   { password_param; stream_name; url; username }
 
-let destinations ~id ~media_package_settings ~multiplex_settings
-    ~settings () : destinations =
+let destinations ?(multiplex_settings = []) ~id
+    ~media_package_settings ~settings () : destinations =
   { id; media_package_settings; multiplex_settings; settings }
 
 let encoder_settings__audio_descriptions__audio_normalization_settings
@@ -11099,8 +11099,8 @@ let encoder_settings__audio_descriptions__audio_watermark_settings__nielsen_wate
   { check_digit_string; sid }
 
 let encoder_settings__audio_descriptions__audio_watermark_settings__nielsen_watermarks_settings
-    ?nielsen_distribution_type ~nielsen_cbet_settings
-    ~nielsen_naes_ii_nw_settings () :
+    ?nielsen_distribution_type ?(nielsen_cbet_settings = [])
+    ?(nielsen_naes_ii_nw_settings = []) () :
     encoder_settings__audio_descriptions__audio_watermark_settings__nielsen_watermarks_settings
     =
   {
@@ -11110,7 +11110,7 @@ let encoder_settings__audio_descriptions__audio_watermark_settings__nielsen_wate
   }
 
 let encoder_settings__audio_descriptions__audio_watermark_settings
-    ~nielsen_watermarks_settings () :
+    ?(nielsen_watermarks_settings = []) () :
     encoder_settings__audio_descriptions__audio_watermark_settings =
   { nielsen_watermarks_settings }
 
@@ -11210,8 +11210,10 @@ let encoder_settings__audio_descriptions__codec_settings__wav_settings
   { bit_depth; coding_mode; sample_rate }
 
 let encoder_settings__audio_descriptions__codec_settings
-    ~aac_settings ~ac3_settings ~eac3_atmos_settings ~eac3_settings
-    ~mp2_settings ~pass_through_settings ~wav_settings () :
+    ?(aac_settings = []) ?(ac3_settings = [])
+    ?(eac3_atmos_settings = []) ?(eac3_settings = [])
+    ?(mp2_settings = []) ?(pass_through_settings = [])
+    ?(wav_settings = []) () :
     encoder_settings__audio_descriptions__codec_settings =
   {
     aac_settings;
@@ -11242,9 +11244,9 @@ let encoder_settings__audio_descriptions__remix_settings ?channels_in
 
 let encoder_settings__audio_descriptions ?audio_type
     ?audio_type_control ?language_code ?language_code_control
-    ?stream_name ~audio_selector_name ~name
-    ~audio_normalization_settings ~audio_watermark_settings
-    ~codec_settings ~remix_settings () :
+    ?stream_name ?(audio_normalization_settings = [])
+    ?(audio_watermark_settings = []) ?(codec_settings = [])
+    ?(remix_settings = []) ~audio_selector_name ~name () :
     encoder_settings__audio_descriptions =
   {
     audio_selector_name;
@@ -11265,8 +11267,9 @@ let encoder_settings__avail_blanking__avail_blanking_image
     encoder_settings__avail_blanking__avail_blanking_image =
   { password_param; uri; username }
 
-let encoder_settings__avail_blanking ?state ~avail_blanking_image ()
-    : encoder_settings__avail_blanking =
+let encoder_settings__avail_blanking ?state
+    ?(avail_blanking_image = []) () :
+    encoder_settings__avail_blanking =
   { state; avail_blanking_image }
 
 let encoder_settings__caption_descriptions__destination_settings__arib_destination_settings
@@ -11283,8 +11286,8 @@ let encoder_settings__caption_descriptions__destination_settings__burn_in_destin
     ?alignment ?background_color ?background_opacity ?font_color
     ?font_opacity ?font_resolution ?font_size ?outline_size
     ?shadow_color ?shadow_opacity ?shadow_x_offset ?shadow_y_offset
-    ?x_position ?y_position ~outline_color ~teletext_grid_control
-    ~font () :
+    ?x_position ?y_position ?(font = []) ~outline_color
+    ~teletext_grid_control () :
     encoder_settings__caption_descriptions__destination_settings__burn_in_destination_settings
     =
   {
@@ -11318,7 +11321,7 @@ let encoder_settings__caption_descriptions__destination_settings__dvb_sub_destin
     ?font_opacity ?font_resolution ?font_size ?outline_color
     ?outline_size ?shadow_color ?shadow_opacity ?shadow_x_offset
     ?shadow_y_offset ?teletext_grid_control ?x_position ?y_position
-    ~font () :
+    ?(font = []) () :
     encoder_settings__caption_descriptions__destination_settings__dvb_sub_destination_settings
     =
   {
@@ -11388,15 +11391,19 @@ let encoder_settings__caption_descriptions__destination_settings__webvtt_destina
   { style_control }
 
 let encoder_settings__caption_descriptions__destination_settings
-    ~arib_destination_settings ~burn_in_destination_settings
-    ~dvb_sub_destination_settings ~ebu_tt_d_destination_settings
-    ~embedded_destination_settings
-    ~embedded_plus_scte20_destination_settings
-    ~rtmp_caption_info_destination_settings
-    ~scte20_plus_embedded_destination_settings
-    ~scte27_destination_settings ~smpte_tt_destination_settings
-    ~teletext_destination_settings ~ttml_destination_settings
-    ~webvtt_destination_settings () :
+    ?(arib_destination_settings = [])
+    ?(burn_in_destination_settings = [])
+    ?(dvb_sub_destination_settings = [])
+    ?(ebu_tt_d_destination_settings = [])
+    ?(embedded_destination_settings = [])
+    ?(embedded_plus_scte20_destination_settings = [])
+    ?(rtmp_caption_info_destination_settings = [])
+    ?(scte20_plus_embedded_destination_settings = [])
+    ?(scte27_destination_settings = [])
+    ?(smpte_tt_destination_settings = [])
+    ?(teletext_destination_settings = [])
+    ?(ttml_destination_settings = [])
+    ?(webvtt_destination_settings = []) () :
     encoder_settings__caption_descriptions__destination_settings =
   {
     arib_destination_settings;
@@ -11415,9 +11422,9 @@ let encoder_settings__caption_descriptions__destination_settings
   }
 
 let encoder_settings__caption_descriptions ?accessibility
-    ?language_code ?language_description ~caption_selector_name ~name
-    ~destination_settings () : encoder_settings__caption_descriptions
-    =
+    ?language_code ?language_description ?(destination_settings = [])
+    ~caption_selector_name ~name () :
+    encoder_settings__caption_descriptions =
   {
     accessibility;
     caption_selector_name;
@@ -11435,7 +11442,7 @@ let encoder_settings__global_configuration__input_loss_behavior__input_loss_imag
 
 let encoder_settings__global_configuration__input_loss_behavior
     ?black_frame_msec ?input_loss_image_color ?input_loss_image_type
-    ?repeat_frame_msec ~input_loss_image_slate () :
+    ?repeat_frame_msec ?(input_loss_image_slate = []) () :
     encoder_settings__global_configuration__input_loss_behavior =
   {
     black_frame_msec;
@@ -11447,7 +11454,7 @@ let encoder_settings__global_configuration__input_loss_behavior
 
 let encoder_settings__global_configuration ?initial_audio_gain
     ?input_end_action ?output_locking_mode ?output_timing_source
-    ?support_low_framerate_inputs ~input_loss_behavior () :
+    ?support_low_framerate_inputs ?(input_loss_behavior = []) () :
     encoder_settings__global_configuration =
   {
     initial_audio_gain;
@@ -11463,7 +11470,7 @@ let encoder_settings__motion_graphics_configuration__motion_graphics_settings__h
   ()
 
 let encoder_settings__motion_graphics_configuration__motion_graphics_settings
-    ~html_motion_graphics_settings () :
+    ?(html_motion_graphics_settings = []) () :
     encoder_settings__motion_graphics_configuration__motion_graphics_settings
     =
   { html_motion_graphics_settings }
@@ -11485,7 +11492,7 @@ let encoder_settings__output_groups__output_group_settings__archive_group_settin
   { canned_acl }
 
 let encoder_settings__output_groups__output_group_settings__archive_group_settings__archive_cdn_settings
-    ~archive_s3_settings () :
+    ?(archive_s3_settings = []) () :
     encoder_settings__output_groups__output_group_settings__archive_group_settings__archive_cdn_settings
     =
   { archive_s3_settings }
@@ -11497,7 +11504,7 @@ let encoder_settings__output_groups__output_group_settings__archive_group_settin
   { destination_ref_id }
 
 let encoder_settings__output_groups__output_group_settings__archive_group_settings
-    ?rollover_interval ~archive_cdn_settings ~destination () :
+    ?rollover_interval ?(archive_cdn_settings = []) ~destination () :
     encoder_settings__output_groups__output_group_settings__archive_group_settings
     =
   { rollover_interval; archive_cdn_settings; destination }
@@ -11515,13 +11522,13 @@ let encoder_settings__output_groups__output_group_settings__frame_capture_group_
   { canned_acl }
 
 let encoder_settings__output_groups__output_group_settings__frame_capture_group_settings__frame_capture_cdn_settings
-    ~frame_capture_s3_settings () :
+    ?(frame_capture_s3_settings = []) () :
     encoder_settings__output_groups__output_group_settings__frame_capture_group_settings__frame_capture_cdn_settings
     =
   { frame_capture_s3_settings }
 
 let encoder_settings__output_groups__output_group_settings__frame_capture_group_settings
-    ~destination ~frame_capture_cdn_settings () :
+    ?(frame_capture_cdn_settings = []) ~destination () :
     encoder_settings__output_groups__output_group_settings__frame_capture_group_settings
     =
   { destination; frame_capture_cdn_settings }
@@ -11598,9 +11605,9 @@ let encoder_settings__output_groups__output_group_settings__hls_group_settings__
   }
 
 let encoder_settings__output_groups__output_group_settings__hls_group_settings__hls_cdn_settings
-    ~hls_akamai_settings ~hls_basic_put_settings
-    ~hls_media_store_settings ~hls_s3_settings ~hls_webdav_settings
-    () :
+    ?(hls_akamai_settings = []) ?(hls_basic_put_settings = [])
+    ?(hls_media_store_settings = []) ?(hls_s3_settings = [])
+    ?(hls_webdav_settings = []) () :
     encoder_settings__output_groups__output_group_settings__hls_group_settings__hls_cdn_settings
     =
   {
@@ -11618,13 +11625,13 @@ let encoder_settings__output_groups__output_group_settings__hls_group_settings__
   { password_param; uri; username }
 
 let encoder_settings__output_groups__output_group_settings__hls_group_settings__key_provider_settings__static_key_settings
-    ~static_key_value ~key_provider_server () :
+    ?(key_provider_server = []) ~static_key_value () :
     encoder_settings__output_groups__output_group_settings__hls_group_settings__key_provider_settings__static_key_settings
     =
   { static_key_value; key_provider_server }
 
 let encoder_settings__output_groups__output_group_settings__hls_group_settings__key_provider_settings
-    ~static_key_settings () :
+    ?(static_key_settings = []) () :
     encoder_settings__output_groups__output_group_settings__hls_group_settings__key_provider_settings
     =
   { static_key_settings }
@@ -11644,8 +11651,8 @@ let encoder_settings__output_groups__output_group_settings__hls_group_settings
     ?segments_per_subdirectory ?stream_inf_resolution
     ?timed_metadata_id3_frame ?timed_metadata_id3_period
     ?timestamp_delta_milliseconds ?ts_file_mode
-    ~caption_language_mappings ~destination ~hls_cdn_settings
-    ~key_provider_settings () :
+    ?(hls_cdn_settings = []) ?(key_provider_settings = [])
+    ~caption_language_mappings ~destination () :
     encoder_settings__output_groups__output_group_settings__hls_group_settings
     =
   {
@@ -11775,10 +11782,11 @@ let encoder_settings__output_groups__output_group_settings__udp_group_settings
   }
 
 let encoder_settings__output_groups__output_group_settings
-    ~archive_group_settings ~frame_capture_group_settings
-    ~hls_group_settings ~media_package_group_settings
-    ~ms_smooth_group_settings ~multiplex_group_settings
-    ~rtmp_group_settings ~udp_group_settings () :
+    ?(archive_group_settings = [])
+    ?(frame_capture_group_settings = []) ?(hls_group_settings = [])
+    ?(media_package_group_settings = [])
+    ?(ms_smooth_group_settings = []) ?(multiplex_group_settings = [])
+    ?(rtmp_group_settings = []) ?(udp_group_settings = []) () :
     encoder_settings__output_groups__output_group_settings =
   {
     archive_group_settings;
@@ -11823,7 +11831,8 @@ let encoder_settings__output_groups__outputs__output_settings__archive_output_se
     ?scte27_pids ?scte35_control ?scte35_pid ?segmentation_markers
     ?segmentation_style ?segmentation_time ?timed_metadata_behavior
     ?timed_metadata_pid ?transport_stream_id ?video_pid
-    ~dvb_nit_settings ~dvb_sdt_settings ~dvb_tdt_settings () :
+    ?(dvb_nit_settings = []) ?(dvb_sdt_settings = [])
+    ?(dvb_tdt_settings = []) () :
     encoder_settings__output_groups__outputs__output_settings__archive_output_settings__container_settings__m2ts_settings
     =
   {
@@ -11881,13 +11890,13 @@ let encoder_settings__output_groups__outputs__output_settings__archive_output_se
   ()
 
 let encoder_settings__output_groups__outputs__output_settings__archive_output_settings__container_settings
-    ~m2ts_settings ~raw_settings () :
+    ?(m2ts_settings = []) ?(raw_settings = []) () :
     encoder_settings__output_groups__outputs__output_settings__archive_output_settings__container_settings
     =
   { m2ts_settings; raw_settings }
 
 let encoder_settings__output_groups__outputs__output_settings__archive_output_settings
-    ?extension ?name_modifier ~container_settings () :
+    ?extension ?name_modifier ?(container_settings = []) () :
     encoder_settings__output_groups__outputs__output_settings__archive_output_settings
     =
   { extension; name_modifier; container_settings }
@@ -11905,8 +11914,8 @@ let encoder_settings__output_groups__outputs__output_settings__hls_output_settin
   { password_param; uri; username }
 
 let encoder_settings__output_groups__outputs__output_settings__hls_output_settings__hls_settings__audio_only_hls_settings
-    ?audio_group_id ?audio_track_type ?segment_type ~audio_only_image
-    () :
+    ?audio_group_id ?audio_track_type ?segment_type
+    ?(audio_only_image = []) () :
     encoder_settings__output_groups__outputs__output_settings__hls_output_settings__hls_settings__audio_only_hls_settings
     =
   {
@@ -11966,8 +11975,9 @@ let encoder_settings__output_groups__outputs__output_settings__hls_output_settin
   { audio_rendition_sets; m3u8_settings }
 
 let encoder_settings__output_groups__outputs__output_settings__hls_output_settings__hls_settings
-    ~audio_only_hls_settings ~fmp4_hls_settings
-    ~frame_capture_hls_settings ~standard_hls_settings () :
+    ?(audio_only_hls_settings = []) ?(fmp4_hls_settings = [])
+    ?(frame_capture_hls_settings = []) ?(standard_hls_settings = [])
+    () :
     encoder_settings__output_groups__outputs__output_settings__hls_output_settings__hls_settings
     =
   {
@@ -12061,7 +12071,8 @@ let encoder_settings__output_groups__outputs__output_settings__udp_output_settin
     ?scte27_pids ?scte35_control ?scte35_pid ?segmentation_markers
     ?segmentation_style ?segmentation_time ?timed_metadata_behavior
     ?timed_metadata_pid ?transport_stream_id ?video_pid
-    ~dvb_nit_settings ~dvb_sdt_settings ~dvb_tdt_settings () :
+    ?(dvb_nit_settings = []) ?(dvb_sdt_settings = [])
+    ?(dvb_tdt_settings = []) () :
     encoder_settings__output_groups__outputs__output_settings__udp_output_settings__container_settings__m2ts_settings
     =
   {
@@ -12115,7 +12126,7 @@ let encoder_settings__output_groups__outputs__output_settings__udp_output_settin
   }
 
 let encoder_settings__output_groups__outputs__output_settings__udp_output_settings__container_settings
-    ~m2ts_settings () :
+    ?(m2ts_settings = []) () :
     encoder_settings__output_groups__outputs__output_settings__udp_output_settings__container_settings
     =
   { m2ts_settings }
@@ -12133,8 +12144,8 @@ let encoder_settings__output_groups__outputs__output_settings__udp_output_settin
   { column_depth; include_fec; row_length }
 
 let encoder_settings__output_groups__outputs__output_settings__udp_output_settings
-    ?buffer_msec ~container_settings ~destination
-    ~fec_output_settings () :
+    ?buffer_msec ?(fec_output_settings = []) ~container_settings
+    ~destination () :
     encoder_settings__output_groups__outputs__output_settings__udp_output_settings
     =
   {
@@ -12145,10 +12156,12 @@ let encoder_settings__output_groups__outputs__output_settings__udp_output_settin
   }
 
 let encoder_settings__output_groups__outputs__output_settings
-    ~archive_output_settings ~frame_capture_output_settings
-    ~hls_output_settings ~media_package_output_settings
-    ~ms_smooth_output_settings ~multiplex_output_settings
-    ~rtmp_output_settings ~udp_output_settings () :
+    ?(archive_output_settings = [])
+    ?(frame_capture_output_settings = []) ?(hls_output_settings = [])
+    ?(media_package_output_settings = [])
+    ?(ms_smooth_output_settings = [])
+    ?(multiplex_output_settings = []) ?(rtmp_output_settings = [])
+    ?(udp_output_settings = []) () :
     encoder_settings__output_groups__outputs__output_settings =
   {
     archive_output_settings;
@@ -12193,7 +12206,7 @@ let encoder_settings__video_descriptions__codec_settings__h264_settings__filter_
   { post_filter_sharpening; strength }
 
 let encoder_settings__video_descriptions__codec_settings__h264_settings__filter_settings
-    ~temporal_filter_settings () :
+    ?(temporal_filter_settings = []) () :
     encoder_settings__video_descriptions__codec_settings__h264_settings__filter_settings
     =
   { temporal_filter_settings }
@@ -12209,7 +12222,7 @@ let encoder_settings__video_descriptions__codec_settings__h264_settings
     ?profile ?quality_level ?qvbr_quality_level ?rate_control_mode
     ?scan_type ?scene_change_detect ?slices ?softness ?spatial_aq
     ?subgop_length ?syntax ?temporal_aq ?timecode_insertion
-    ~filter_settings () :
+    ?(filter_settings = []) () :
     encoder_settings__video_descriptions__codec_settings__h264_settings
     =
   {
@@ -12278,8 +12291,9 @@ let encoder_settings__video_descriptions__codec_settings__h265_settings__color_s
   ()
 
 let encoder_settings__video_descriptions__codec_settings__h265_settings__color_space_settings
-    ~color_space_passthrough_settings ~dolby_vision81_settings
-    ~hdr10_settings ~rec601_settings ~rec709_settings () :
+    ?(color_space_passthrough_settings = [])
+    ?(dolby_vision81_settings = []) ?(hdr10_settings = [])
+    ?(rec601_settings = []) ?(rec709_settings = []) () :
     encoder_settings__video_descriptions__codec_settings__h265_settings__color_space_settings
     =
   {
@@ -12297,7 +12311,7 @@ let encoder_settings__video_descriptions__codec_settings__h265_settings__filter_
   { post_filter_sharpening; strength }
 
 let encoder_settings__video_descriptions__codec_settings__h265_settings__filter_settings
-    ~temporal_filter_settings () :
+    ?(temporal_filter_settings = []) () :
     encoder_settings__video_descriptions__codec_settings__h265_settings__filter_settings
     =
   { temporal_filter_settings }
@@ -12315,9 +12329,10 @@ let encoder_settings__video_descriptions__codec_settings__h265_settings
     ?gop_size_units ?level ?look_ahead_rate_control ?max_bitrate
     ?min_i_interval ?par_denominator ?par_numerator ?profile
     ?qvbr_quality_level ?rate_control_mode ?scan_type
-    ?scene_change_detect ?slices ?tier ?timecode_insertion ~bitrate
-    ~framerate_denominator ~framerate_numerator ~color_space_settings
-    ~filter_settings ~timecode_burnin_settings () :
+    ?scene_change_detect ?slices ?tier ?timecode_insertion
+    ?(color_space_settings = []) ?(filter_settings = [])
+    ?(timecode_burnin_settings = []) ~bitrate ~framerate_denominator
+    ~framerate_numerator () :
     encoder_settings__video_descriptions__codec_settings__h265_settings
     =
   {
@@ -12354,13 +12369,14 @@ let encoder_settings__video_descriptions__codec_settings__h265_settings
   }
 
 let encoder_settings__video_descriptions__codec_settings
-    ~frame_capture_settings ~h264_settings ~h265_settings () :
+    ?(frame_capture_settings = []) ?(h264_settings = [])
+    ?(h265_settings = []) () :
     encoder_settings__video_descriptions__codec_settings =
   { frame_capture_settings; h264_settings; h265_settings }
 
 let encoder_settings__video_descriptions ?height ?respond_to_afd
-    ?scaling_behavior ?sharpness ?width ~name ~codec_settings () :
-    encoder_settings__video_descriptions =
+    ?scaling_behavior ?sharpness ?width ?(codec_settings = []) ~name
+    () : encoder_settings__video_descriptions =
   {
     height;
     name;
@@ -12371,10 +12387,11 @@ let encoder_settings__video_descriptions ?height ?respond_to_afd
     codec_settings;
   }
 
-let encoder_settings ~audio_descriptions ~avail_blanking
-    ~caption_descriptions ~global_configuration
-    ~motion_graphics_configuration ~nielsen_configuration
-    ~output_groups ~timecode_config ~video_descriptions () :
+let encoder_settings ?(avail_blanking = [])
+    ?(caption_descriptions = []) ?(global_configuration = [])
+    ?(motion_graphics_configuration = [])
+    ?(nielsen_configuration = []) ?(video_descriptions = [])
+    ~audio_descriptions ~output_groups ~timecode_config () :
     encoder_settings =
   {
     audio_descriptions;
@@ -12407,8 +12424,8 @@ let input_attachments__automatic_input_failover_settings__failover_condition__fa
   { black_detect_threshold; video_black_threshold_msec }
 
 let input_attachments__automatic_input_failover_settings__failover_condition__failover_condition_settings
-    ~audio_silence_settings ~input_loss_settings
-    ~video_black_settings () :
+    ?(audio_silence_settings = []) ?(input_loss_settings = [])
+    ?(video_black_settings = []) () :
     input_attachments__automatic_input_failover_settings__failover_condition__failover_condition_settings
     =
   {
@@ -12418,7 +12435,7 @@ let input_attachments__automatic_input_failover_settings__failover_condition__fa
   }
 
 let input_attachments__automatic_input_failover_settings__failover_condition
-    ~failover_condition_settings () :
+    ?(failover_condition_settings = []) () :
     input_attachments__automatic_input_failover_settings__failover_condition
     =
   { failover_condition_settings }
@@ -12465,14 +12482,15 @@ let input_attachments__input_settings__audio_selector__selector_settings__audio_
   { track }
 
 let input_attachments__input_settings__audio_selector__selector_settings__audio_track_selection
-    ~dolby_e_decode ~tracks () :
+    ?(dolby_e_decode = []) ~tracks () :
     input_attachments__input_settings__audio_selector__selector_settings__audio_track_selection
     =
   { dolby_e_decode; tracks }
 
 let input_attachments__input_settings__audio_selector__selector_settings
-    ~audio_hls_rendition_selection ~audio_language_selection
-    ~audio_pid_selection ~audio_track_selection () :
+    ?(audio_hls_rendition_selection = [])
+    ?(audio_language_selection = []) ?(audio_pid_selection = [])
+    ?(audio_track_selection = []) () :
     input_attachments__input_settings__audio_selector__selector_settings
     =
   {
@@ -12482,8 +12500,8 @@ let input_attachments__input_settings__audio_selector__selector_settings
     audio_track_selection;
   }
 
-let input_attachments__input_settings__audio_selector ~name
-    ~selector_settings () :
+let input_attachments__input_settings__audio_selector
+    ?(selector_settings = []) ~name () :
     input_attachments__input_settings__audio_selector =
   { name; selector_settings }
 
@@ -12529,16 +12547,16 @@ let input_attachments__input_settings__caption_selector__selector_settings__tele
   { height; left_offset; top_offset; width }
 
 let input_attachments__input_settings__caption_selector__selector_settings__teletext_source_settings
-    ?page_number ~output_rectangle () :
+    ?page_number ?(output_rectangle = []) () :
     input_attachments__input_settings__caption_selector__selector_settings__teletext_source_settings
     =
   { page_number; output_rectangle }
 
 let input_attachments__input_settings__caption_selector__selector_settings
-    ~ancillary_source_settings ~arib_source_settings
-    ~dvb_sub_source_settings ~embedded_source_settings
-    ~scte20_source_settings ~scte27_source_settings
-    ~teletext_source_settings () :
+    ?(ancillary_source_settings = []) ?(arib_source_settings = [])
+    ?(dvb_sub_source_settings = []) ?(embedded_source_settings = [])
+    ?(scte20_source_settings = []) ?(scte27_source_settings = [])
+    ?(teletext_source_settings = []) () :
     input_attachments__input_settings__caption_selector__selector_settings
     =
   {
@@ -12552,7 +12570,7 @@ let input_attachments__input_settings__caption_selector__selector_settings
   }
 
 let input_attachments__input_settings__caption_selector
-    ?language_code ~name ~selector_settings () :
+    ?language_code ?(selector_settings = []) ~name () :
     input_attachments__input_settings__caption_selector =
   { language_code; name; selector_settings }
 
@@ -12570,7 +12588,7 @@ let input_attachments__input_settings__network_input_settings__hls_input_setting
   }
 
 let input_attachments__input_settings__network_input_settings
-    ?server_validation ~hls_input_settings () :
+    ?server_validation ?(hls_input_settings = []) () :
     input_attachments__input_settings__network_input_settings =
   { server_validation; hls_input_settings }
 
@@ -12581,8 +12599,9 @@ let input_attachments__input_settings__video_selector ?color_space
 
 let input_attachments__input_settings ?deblock_filter ?denoise_filter
     ?filter_strength ?input_filter ?scte35_pid
-    ?smpte2038_data_preference ?source_end_behavior ~audio_selector
-    ~caption_selector ~network_input_settings ~video_selector () :
+    ?smpte2038_data_preference ?source_end_behavior
+    ?(audio_selector = []) ?(caption_selector = [])
+    ?(network_input_settings = []) ?(video_selector = []) () :
     input_attachments__input_settings =
   {
     deblock_filter;
@@ -12598,8 +12617,8 @@ let input_attachments__input_settings ?deblock_filter ?denoise_filter
     video_selector;
   }
 
-let input_attachments ~input_attachment_name ~input_id
-    ~automatic_input_failover_settings ~input_settings () :
+let input_attachments ?(automatic_input_failover_settings = [])
+    ?(input_settings = []) ~input_attachment_name ~input_id () :
     input_attachments =
   {
     input_attachment_name;
@@ -12624,10 +12643,10 @@ let vpc ?security_group_ids ~public_address_allocation_ids
   { public_address_allocation_ids; security_group_ids; subnet_ids }
 
 let aws_medialive_channel ?id ?log_level ?role_arn ?start_channel
-    ?tags ?tags_all ?timeouts ~channel_class ~name
-    ~cdi_input_specification ~destinations ~encoder_settings
-    ~input_attachments ~input_specification ~maintenance ~vpc () :
-    aws_medialive_channel =
+    ?tags ?tags_all ?(cdi_input_specification = [])
+    ?(maintenance = []) ?timeouts ?(vpc = []) ~channel_class ~name
+    ~destinations ~encoder_settings ~input_attachments
+    ~input_specification () : aws_medialive_channel =
   {
     channel_class;
     id;
@@ -12661,9 +12680,9 @@ type t = {
 }
 
 let make ?id ?log_level ?role_arn ?start_channel ?tags ?tags_all
-    ?timeouts ~channel_class ~name ~cdi_input_specification
-    ~destinations ~encoder_settings ~input_attachments
-    ~input_specification ~maintenance ~vpc __id =
+    ?(cdi_input_specification = []) ?(maintenance = []) ?timeouts
+    ?(vpc = []) ~channel_class ~name ~destinations ~encoder_settings
+    ~input_attachments ~input_specification __id =
   let __type = "aws_medialive_channel" in
   let __attrs =
     ({
@@ -12686,22 +12705,22 @@ let make ?id ?log_level ?role_arn ?start_channel ?tags ?tags_all
     json =
       yojson_of_aws_medialive_channel
         (aws_medialive_channel ?id ?log_level ?role_arn
-           ?start_channel ?tags ?tags_all ?timeouts ~channel_class
-           ~name ~cdi_input_specification ~destinations
-           ~encoder_settings ~input_attachments ~input_specification
-           ~maintenance ~vpc ());
+           ?start_channel ?tags ?tags_all ~cdi_input_specification
+           ~maintenance ?timeouts ~vpc ~channel_class ~name
+           ~destinations ~encoder_settings ~input_attachments
+           ~input_specification ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?log_level ?role_arn ?start_channel ?tags
-    ?tags_all ?timeouts ~channel_class ~name ~cdi_input_specification
-    ~destinations ~encoder_settings ~input_attachments
-    ~input_specification ~maintenance ~vpc __id =
+    ?tags_all ?(cdi_input_specification = []) ?(maintenance = [])
+    ?timeouts ?(vpc = []) ~channel_class ~name ~destinations
+    ~encoder_settings ~input_attachments ~input_specification __id =
   let (r : _ Tf_core.resource) =
     make ?id ?log_level ?role_arn ?start_channel ?tags ?tags_all
-      ?timeouts ~channel_class ~name ~cdi_input_specification
-      ~destinations ~encoder_settings ~input_attachments
-      ~input_specification ~maintenance ~vpc __id
+      ~cdi_input_specification ~maintenance ?timeouts ~vpc
+      ~channel_class ~name ~destinations ~encoder_settings
+      ~input_attachments ~input_specification __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

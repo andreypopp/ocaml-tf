@@ -349,8 +349,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let aws_cloudtrail_event_data_store ?id ?kms_key_id
     ?multi_region_enabled ?organization_enabled ?retention_period
-    ?tags ?tags_all ?termination_protection_enabled ?timeouts ~name
-    ~advanced_event_selector () : aws_cloudtrail_event_data_store =
+    ?tags ?tags_all ?termination_protection_enabled
+    ?(advanced_event_selector = []) ?timeouts ~name () :
+    aws_cloudtrail_event_data_store =
   {
     id;
     kms_key_id;
@@ -380,7 +381,7 @@ type t = {
 
 let make ?id ?kms_key_id ?multi_region_enabled ?organization_enabled
     ?retention_period ?tags ?tags_all ?termination_protection_enabled
-    ?timeouts ~name ~advanced_event_selector __id =
+    ?(advanced_event_selector = []) ?timeouts ~name __id =
   let __type = "aws_cloudtrail_event_data_store" in
   let __attrs =
     ({
@@ -409,20 +410,20 @@ let make ?id ?kms_key_id ?multi_region_enabled ?organization_enabled
         (aws_cloudtrail_event_data_store ?id ?kms_key_id
            ?multi_region_enabled ?organization_enabled
            ?retention_period ?tags ?tags_all
-           ?termination_protection_enabled ?timeouts ~name
-           ~advanced_event_selector ());
+           ?termination_protection_enabled ~advanced_event_selector
+           ?timeouts ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?kms_key_id ?multi_region_enabled
     ?organization_enabled ?retention_period ?tags ?tags_all
-    ?termination_protection_enabled ?timeouts ~name
-    ~advanced_event_selector __id =
+    ?termination_protection_enabled ?(advanced_event_selector = [])
+    ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?kms_key_id ?multi_region_enabled ?organization_enabled
       ?retention_period ?tags ?tags_all
-      ?termination_protection_enabled ?timeouts ~name
-      ~advanced_event_selector __id
+      ?termination_protection_enabled ~advanced_event_selector
+      ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

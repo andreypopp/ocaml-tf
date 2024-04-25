@@ -18,7 +18,7 @@ val credentials :
   ?certificate:string prop list ->
   ?header:(string * string prop) list ->
   ?query:(string * string prop) list ->
-  authorization:credentials__authorization list ->
+  ?authorization:credentials__authorization list ->
   unit ->
   credentials
 
@@ -76,16 +76,16 @@ val azurerm_api_management_backend :
   ?id:string prop ->
   ?resource_id:string prop ->
   ?title:string prop ->
+  ?credentials:credentials list ->
+  ?proxy:proxy list ->
+  ?service_fabric_cluster:service_fabric_cluster list ->
   ?timeouts:timeouts ->
+  ?tls:tls list ->
   api_management_name:string prop ->
   name:string prop ->
   protocol:string prop ->
   resource_group_name:string prop ->
   url:string prop ->
-  credentials:credentials list ->
-  proxy:proxy list ->
-  service_fabric_cluster:service_fabric_cluster list ->
-  tls:tls list ->
   unit ->
   azurerm_api_management_backend
 
@@ -112,16 +112,16 @@ val register :
   ?id:string prop ->
   ?resource_id:string prop ->
   ?title:string prop ->
+  ?credentials:credentials list ->
+  ?proxy:proxy list ->
+  ?service_fabric_cluster:service_fabric_cluster list ->
   ?timeouts:timeouts ->
+  ?tls:tls list ->
   api_management_name:string prop ->
   name:string prop ->
   protocol:string prop ->
   resource_group_name:string prop ->
   url:string prop ->
-  credentials:credentials list ->
-  proxy:proxy list ->
-  service_fabric_cluster:service_fabric_cluster list ->
-  tls:tls list ->
   string ->
   t
 
@@ -130,15 +130,15 @@ val make :
   ?id:string prop ->
   ?resource_id:string prop ->
   ?title:string prop ->
+  ?credentials:credentials list ->
+  ?proxy:proxy list ->
+  ?service_fabric_cluster:service_fabric_cluster list ->
   ?timeouts:timeouts ->
+  ?tls:tls list ->
   api_management_name:string prop ->
   name:string prop ->
   protocol:string prop ->
   resource_group_name:string prop ->
   url:string prop ->
-  credentials:credentials list ->
-  proxy:proxy list ->
-  service_fabric_cluster:service_fabric_cluster list ->
-  tls:tls list ->
   string ->
   t Tf_core.resource

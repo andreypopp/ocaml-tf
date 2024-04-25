@@ -381,9 +381,10 @@ let virtual_hub ?public_ip_count ~virtual_hub_id () : virtual_hub =
 
 let azurerm_firewall ?dns_proxy_enabled ?dns_servers
     ?firewall_policy_id ?id ?private_ip_ranges ?tags
-    ?threat_intel_mode ?zones ?timeouts ~location ~name
-    ~resource_group_name ~sku_name ~sku_tier ~ip_configuration
-    ~management_ip_configuration ~virtual_hub () : azurerm_firewall =
+    ?threat_intel_mode ?zones ?(ip_configuration = [])
+    ?(management_ip_configuration = []) ?timeouts ?(virtual_hub = [])
+    ~location ~name ~resource_group_name ~sku_name ~sku_tier () :
+    azurerm_firewall =
   {
     dns_proxy_enabled;
     dns_servers;
@@ -421,10 +422,10 @@ type t = {
 }
 
 let make ?dns_proxy_enabled ?dns_servers ?firewall_policy_id ?id
-    ?private_ip_ranges ?tags ?threat_intel_mode ?zones ?timeouts
-    ~location ~name ~resource_group_name ~sku_name ~sku_tier
-    ~ip_configuration ~management_ip_configuration ~virtual_hub __id
-    =
+    ?private_ip_ranges ?tags ?threat_intel_mode ?zones
+    ?(ip_configuration = []) ?(management_ip_configuration = [])
+    ?timeouts ?(virtual_hub = []) ~location ~name
+    ~resource_group_name ~sku_name ~sku_tier __id =
   let __type = "azurerm_firewall" in
   let __attrs =
     ({
@@ -456,23 +457,24 @@ let make ?dns_proxy_enabled ?dns_servers ?firewall_policy_id ?id
       yojson_of_azurerm_firewall
         (azurerm_firewall ?dns_proxy_enabled ?dns_servers
            ?firewall_policy_id ?id ?private_ip_ranges ?tags
-           ?threat_intel_mode ?zones ?timeouts ~location ~name
-           ~resource_group_name ~sku_name ~sku_tier ~ip_configuration
-           ~management_ip_configuration ~virtual_hub ());
+           ?threat_intel_mode ?zones ~ip_configuration
+           ~management_ip_configuration ?timeouts ~virtual_hub
+           ~location ~name ~resource_group_name ~sku_name ~sku_tier
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?dns_proxy_enabled ?dns_servers
     ?firewall_policy_id ?id ?private_ip_ranges ?tags
-    ?threat_intel_mode ?zones ?timeouts ~location ~name
-    ~resource_group_name ~sku_name ~sku_tier ~ip_configuration
-    ~management_ip_configuration ~virtual_hub __id =
+    ?threat_intel_mode ?zones ?(ip_configuration = [])
+    ?(management_ip_configuration = []) ?timeouts ?(virtual_hub = [])
+    ~location ~name ~resource_group_name ~sku_name ~sku_tier __id =
   let (r : _ Tf_core.resource) =
     make ?dns_proxy_enabled ?dns_servers ?firewall_policy_id ?id
-      ?private_ip_ranges ?tags ?threat_intel_mode ?zones ?timeouts
-      ~location ~name ~resource_group_name ~sku_name ~sku_tier
-      ~ip_configuration ~management_ip_configuration ~virtual_hub
-      __id
+      ?private_ip_ranges ?tags ?threat_intel_mode ?zones
+      ~ip_configuration ~management_ip_configuration ?timeouts
+      ~virtual_hub ~location ~name ~resource_group_name ~sku_name
+      ~sku_tier __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

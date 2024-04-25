@@ -26,10 +26,10 @@ val aws_vpc_peering_connection_accepter :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?accepter:accepter list ->
+  ?requester:requester list ->
   ?timeouts:timeouts ->
   vpc_peering_connection_id:string prop ->
-  accepter:accepter list ->
-  requester:requester list ->
   unit ->
   aws_vpc_peering_connection_accepter
 
@@ -57,10 +57,10 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?accepter:accepter list ->
+  ?requester:requester list ->
   ?timeouts:timeouts ->
   vpc_peering_connection_id:string prop ->
-  accepter:accepter list ->
-  requester:requester list ->
   string ->
   t
 
@@ -69,9 +69,9 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?accepter:accepter list ->
+  ?requester:requester list ->
   ?timeouts:timeouts ->
   vpc_peering_connection_id:string prop ->
-  accepter:accepter list ->
-  requester:requester list ->
   string ->
   t Tf_core.resource

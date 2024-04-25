@@ -604,9 +604,10 @@ let azurerm_postgresql_flexible_server ?administrator_login
     ?create_mode ?delegated_subnet_id ?geo_redundant_backup_enabled
     ?id ?point_in_time_restore_time_in_utc ?private_dns_zone_id
     ?replication_role ?sku_name ?source_server_id ?storage_mb
-    ?storage_tier ?tags ?version ?zone ?timeouts ~location ~name
-    ~resource_group_name ~authentication ~customer_managed_key
-    ~high_availability ~identity ~maintenance_window () :
+    ?storage_tier ?tags ?version ?zone ?(authentication = [])
+    ?(customer_managed_key = []) ?(high_availability = [])
+    ?(identity = []) ?(maintenance_window = []) ?timeouts ~location
+    ~name ~resource_group_name () :
     azurerm_postgresql_flexible_server =
   {
     administrator_login;
@@ -669,9 +670,10 @@ let make ?administrator_login ?administrator_password
     ?delegated_subnet_id ?geo_redundant_backup_enabled ?id
     ?point_in_time_restore_time_in_utc ?private_dns_zone_id
     ?replication_role ?sku_name ?source_server_id ?storage_mb
-    ?storage_tier ?tags ?version ?zone ?timeouts ~location ~name
-    ~resource_group_name ~authentication ~customer_managed_key
-    ~high_availability ~identity ~maintenance_window __id =
+    ?storage_tier ?tags ?version ?zone ?(authentication = [])
+    ?(customer_managed_key = []) ?(high_availability = [])
+    ?(identity = []) ?(maintenance_window = []) ?timeouts ~location
+    ~name ~resource_group_name __id =
   let __type = "azurerm_postgresql_flexible_server" in
   let __attrs =
     ({
@@ -725,10 +727,10 @@ let make ?administrator_login ?administrator_password
            ?geo_redundant_backup_enabled ?id
            ?point_in_time_restore_time_in_utc ?private_dns_zone_id
            ?replication_role ?sku_name ?source_server_id ?storage_mb
-           ?storage_tier ?tags ?version ?zone ?timeouts ~location
-           ~name ~resource_group_name ~authentication
+           ?storage_tier ?tags ?version ?zone ~authentication
            ~customer_managed_key ~high_availability ~identity
-           ~maintenance_window ());
+           ~maintenance_window ?timeouts ~location ~name
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
@@ -737,18 +739,20 @@ let register ?tf_module ?administrator_login ?administrator_password
     ?delegated_subnet_id ?geo_redundant_backup_enabled ?id
     ?point_in_time_restore_time_in_utc ?private_dns_zone_id
     ?replication_role ?sku_name ?source_server_id ?storage_mb
-    ?storage_tier ?tags ?version ?zone ?timeouts ~location ~name
-    ~resource_group_name ~authentication ~customer_managed_key
-    ~high_availability ~identity ~maintenance_window __id =
+    ?storage_tier ?tags ?version ?zone ?(authentication = [])
+    ?(customer_managed_key = []) ?(high_availability = [])
+    ?(identity = []) ?(maintenance_window = []) ?timeouts ~location
+    ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?administrator_login ?administrator_password
       ?auto_grow_enabled ?backup_retention_days ?create_mode
       ?delegated_subnet_id ?geo_redundant_backup_enabled ?id
       ?point_in_time_restore_time_in_utc ?private_dns_zone_id
       ?replication_role ?sku_name ?source_server_id ?storage_mb
-      ?storage_tier ?tags ?version ?zone ?timeouts ~location ~name
-      ~resource_group_name ~authentication ~customer_managed_key
-      ~high_availability ~identity ~maintenance_window __id
+      ?storage_tier ?tags ?version ?zone ~authentication
+      ~customer_managed_key ~high_availability ~identity
+      ~maintenance_window ?timeouts ~location ~name
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

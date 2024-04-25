@@ -716,7 +716,7 @@ let content_matchers__json_path_matcher ?json_matcher ~json_path () :
     content_matchers__json_path_matcher =
   { json_matcher; json_path }
 
-let content_matchers ?matcher ~content ~json_path_matcher () :
+let content_matchers ?matcher ?(json_path_matcher = []) ~content () :
     content_matchers =
   { content; matcher; json_path_matcher }
 
@@ -734,8 +734,8 @@ let http_check__ping_config ~pings_count () : http_check__ping_config
 
 let http_check ?body ?content_type ?custom_content_type ?headers
     ?mask_headers ?path ?port ?request_method ?use_ssl ?validate_ssl
-    ~accepted_response_status_codes ~auth_info ~ping_config () :
-    http_check =
+    ?(accepted_response_status_codes = []) ?(auth_info = [])
+    ?(ping_config = []) () : http_check =
   {
     body;
     content_type;
@@ -768,16 +768,17 @@ let synthetic_monitor ~cloud_function_v2 () : synthetic_monitor =
 let tcp_check__ping_config ~pings_count () : tcp_check__ping_config =
   { pings_count }
 
-let tcp_check ~port ~ping_config () : tcp_check =
+let tcp_check ?(ping_config = []) ~port () : tcp_check =
   { port; ping_config }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_monitoring_uptime_check_config ?checker_type ?id ?period
-    ?project ?selected_regions ?user_labels ?timeouts ~display_name
-    ~timeout ~content_matchers ~http_check ~monitored_resource
-    ~resource_group ~synthetic_monitor ~tcp_check () :
+    ?project ?selected_regions ?user_labels ?(content_matchers = [])
+    ?(http_check = []) ?(monitored_resource = [])
+    ?(resource_group = []) ?(synthetic_monitor = [])
+    ?(tcp_check = []) ?timeouts ~display_name ~timeout () :
     google_monitoring_uptime_check_config =
   {
     checker_type;
@@ -811,9 +812,10 @@ type t = {
 }
 
 let make ?checker_type ?id ?period ?project ?selected_regions
-    ?user_labels ?timeouts ~display_name ~timeout ~content_matchers
-    ~http_check ~monitored_resource ~resource_group
-    ~synthetic_monitor ~tcp_check __id =
+    ?user_labels ?(content_matchers = []) ?(http_check = [])
+    ?(monitored_resource = []) ?(resource_group = [])
+    ?(synthetic_monitor = []) ?(tcp_check = []) ?timeouts
+    ~display_name ~timeout __id =
   let __type = "google_monitoring_uptime_check_config" in
   let __attrs =
     ({
@@ -837,22 +839,23 @@ let make ?checker_type ?id ?period ?project ?selected_regions
     json =
       yojson_of_google_monitoring_uptime_check_config
         (google_monitoring_uptime_check_config ?checker_type ?id
-           ?period ?project ?selected_regions ?user_labels ?timeouts
-           ~display_name ~timeout ~content_matchers ~http_check
-           ~monitored_resource ~resource_group ~synthetic_monitor
-           ~tcp_check ());
+           ?period ?project ?selected_regions ?user_labels
+           ~content_matchers ~http_check ~monitored_resource
+           ~resource_group ~synthetic_monitor ~tcp_check ?timeouts
+           ~display_name ~timeout ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?checker_type ?id ?period ?project
-    ?selected_regions ?user_labels ?timeouts ~display_name ~timeout
-    ~content_matchers ~http_check ~monitored_resource ~resource_group
-    ~synthetic_monitor ~tcp_check __id =
+    ?selected_regions ?user_labels ?(content_matchers = [])
+    ?(http_check = []) ?(monitored_resource = [])
+    ?(resource_group = []) ?(synthetic_monitor = [])
+    ?(tcp_check = []) ?timeouts ~display_name ~timeout __id =
   let (r : _ Tf_core.resource) =
     make ?checker_type ?id ?period ?project ?selected_regions
-      ?user_labels ?timeouts ~display_name ~timeout ~content_matchers
-      ~http_check ~monitored_resource ~resource_group
-      ~synthetic_monitor ~tcp_check __id
+      ?user_labels ~content_matchers ~http_check ~monitored_resource
+      ~resource_group ~synthetic_monitor ~tcp_check ?timeouts
+      ~display_name ~timeout __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

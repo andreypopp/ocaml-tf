@@ -269,8 +269,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_dedicated_hardware_security_module ?id ?stamp_id ?tags
-    ?zones ?timeouts ~location ~name ~resource_group_name ~sku_name
-    ~management_network_profile ~network_profile () :
+    ?zones ?(management_network_profile = []) ?timeouts ~location
+    ~name ~resource_group_name ~sku_name ~network_profile () :
     azurerm_dedicated_hardware_security_module =
   {
     id;
@@ -297,9 +297,9 @@ type t = {
   zones : string list prop;
 }
 
-let make ?id ?stamp_id ?tags ?zones ?timeouts ~location ~name
-    ~resource_group_name ~sku_name ~management_network_profile
-    ~network_profile __id =
+let make ?id ?stamp_id ?tags ?zones
+    ?(management_network_profile = []) ?timeouts ~location ~name
+    ~resource_group_name ~sku_name ~network_profile __id =
   let __type = "azurerm_dedicated_hardware_security_module" in
   let __attrs =
     ({
@@ -321,18 +321,18 @@ let make ?id ?stamp_id ?tags ?zones ?timeouts ~location ~name
     json =
       yojson_of_azurerm_dedicated_hardware_security_module
         (azurerm_dedicated_hardware_security_module ?id ?stamp_id
-           ?tags ?zones ?timeouts ~location ~name
-           ~resource_group_name ~sku_name ~management_network_profile
+           ?tags ?zones ~management_network_profile ?timeouts
+           ~location ~name ~resource_group_name ~sku_name
            ~network_profile ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?stamp_id ?tags ?zones ?timeouts
-    ~location ~name ~resource_group_name ~sku_name
-    ~management_network_profile ~network_profile __id =
+let register ?tf_module ?id ?stamp_id ?tags ?zones
+    ?(management_network_profile = []) ?timeouts ~location ~name
+    ~resource_group_name ~sku_name ~network_profile __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?stamp_id ?tags ?zones ?timeouts ~location ~name
-      ~resource_group_name ~sku_name ~management_network_profile
+    make ?id ?stamp_id ?tags ?zones ~management_network_profile
+      ?timeouts ~location ~name ~resource_group_name ~sku_name
       ~network_profile __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

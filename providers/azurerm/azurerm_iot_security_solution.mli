@@ -56,6 +56,7 @@ val azurerm_iot_security_solution :
   ?query_for_resources:string prop ->
   ?query_subscription_ids:string prop list ->
   ?tags:(string * string prop) list ->
+  ?recommendations_enabled:recommendations_enabled list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   iothub_ids:string prop list ->
@@ -63,7 +64,6 @@ val azurerm_iot_security_solution :
   name:string prop ->
   resource_group_name:string prop ->
   additional_workspace:additional_workspace list ->
-  recommendations_enabled:recommendations_enabled list ->
   unit ->
   azurerm_iot_security_solution
 
@@ -100,6 +100,7 @@ val register :
   ?query_for_resources:string prop ->
   ?query_subscription_ids:string prop list ->
   ?tags:(string * string prop) list ->
+  ?recommendations_enabled:recommendations_enabled list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   iothub_ids:string prop list ->
@@ -107,7 +108,6 @@ val register :
   name:string prop ->
   resource_group_name:string prop ->
   additional_workspace:additional_workspace list ->
-  recommendations_enabled:recommendations_enabled list ->
   string ->
   t
 
@@ -121,6 +121,7 @@ val make :
   ?query_for_resources:string prop ->
   ?query_subscription_ids:string prop list ->
   ?tags:(string * string prop) list ->
+  ?recommendations_enabled:recommendations_enabled list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   iothub_ids:string prop list ->
@@ -128,6 +129,5 @@ val make :
   name:string prop ->
   resource_group_name:string prop ->
   additional_workspace:additional_workspace list ->
-  recommendations_enabled:recommendations_enabled list ->
   string ->
   t Tf_core.resource

@@ -16,8 +16,8 @@ val link :
   ?ip_address:string prop ->
   ?provider_name:string prop ->
   ?speed_in_mbps:float prop ->
+  ?bgp:link__bgp list ->
   name:string prop ->
-  bgp:link__bgp list ->
   unit ->
   link
 
@@ -33,7 +33,7 @@ val o365_policy__traffic_category :
 type o365_policy
 
 val o365_policy :
-  traffic_category:o365_policy__traffic_category list ->
+  ?traffic_category:o365_policy__traffic_category list ->
   unit ->
   o365_policy
 
@@ -55,13 +55,13 @@ val azurerm_vpn_site :
   ?device_vendor:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?link:link list ->
+  ?o365_policy:o365_policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   virtual_wan_id:string prop ->
-  link:link list ->
-  o365_policy:o365_policy list ->
   unit ->
   azurerm_vpn_site
 
@@ -88,13 +88,13 @@ val register :
   ?device_vendor:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?link:link list ->
+  ?o365_policy:o365_policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   virtual_wan_id:string prop ->
-  link:link list ->
-  o365_policy:o365_policy list ->
   string ->
   t
 
@@ -104,12 +104,12 @@ val make :
   ?device_vendor:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?link:link list ->
+  ?o365_policy:o365_policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   virtual_wan_id:string prop ->
-  link:link list ->
-  o365_policy:o365_policy list ->
   string ->
   t Tf_core.resource

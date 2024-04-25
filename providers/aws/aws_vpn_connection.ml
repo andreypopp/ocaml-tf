@@ -929,7 +929,7 @@ let tunnel1_log_options__cloudwatch_log_options ?log_enabled
     tunnel1_log_options__cloudwatch_log_options =
   { log_enabled; log_group_arn; log_output_format }
 
-let tunnel1_log_options ~cloudwatch_log_options () :
+let tunnel1_log_options ?(cloudwatch_log_options = []) () :
     tunnel1_log_options =
   { cloudwatch_log_options }
 
@@ -938,7 +938,7 @@ let tunnel2_log_options__cloudwatch_log_options ?log_enabled
     tunnel2_log_options__cloudwatch_log_options =
   { log_enabled; log_group_arn; log_output_format }
 
-let tunnel2_log_options ~cloudwatch_log_options () :
+let tunnel2_log_options ?(cloudwatch_log_options = []) () :
     tunnel2_log_options =
   { cloudwatch_log_options }
 
@@ -971,9 +971,9 @@ let aws_vpn_connection ?enable_acceleration ?id
     ?tunnel2_phase2_lifetime_seconds ?tunnel2_preshared_key
     ?tunnel2_rekey_fuzz_percentage ?tunnel2_rekey_margin_time_seconds
     ?tunnel2_replay_window_size ?tunnel2_startup_action
-    ?tunnel_inside_ip_version ?vpn_gateway_id ~customer_gateway_id
-    ~type_ ~tunnel1_log_options ~tunnel2_log_options () :
-    aws_vpn_connection =
+    ?tunnel_inside_ip_version ?vpn_gateway_id
+    ?(tunnel1_log_options = []) ?(tunnel2_log_options = [])
+    ~customer_gateway_id ~type_ () : aws_vpn_connection =
   {
     customer_gateway_id;
     enable_acceleration;
@@ -1136,8 +1136,9 @@ let make ?enable_acceleration ?id ?local_ipv4_network_cidr
     ?tunnel2_phase2_lifetime_seconds ?tunnel2_preshared_key
     ?tunnel2_rekey_fuzz_percentage ?tunnel2_rekey_margin_time_seconds
     ?tunnel2_replay_window_size ?tunnel2_startup_action
-    ?tunnel_inside_ip_version ?vpn_gateway_id ~customer_gateway_id
-    ~type_ ~tunnel1_log_options ~tunnel2_log_options __id =
+    ?tunnel_inside_ip_version ?vpn_gateway_id
+    ?(tunnel1_log_options = []) ?(tunnel2_log_options = [])
+    ~customer_gateway_id ~type_ __id =
   let __type = "aws_vpn_connection" in
   let __attrs =
     ({
@@ -1327,8 +1328,8 @@ let make ?enable_acceleration ?id ?local_ipv4_network_cidr
            ?tunnel2_rekey_margin_time_seconds
            ?tunnel2_replay_window_size ?tunnel2_startup_action
            ?tunnel_inside_ip_version ?vpn_gateway_id
-           ~customer_gateway_id ~type_ ~tunnel1_log_options
-           ~tunnel2_log_options ());
+           ~tunnel1_log_options ~tunnel2_log_options
+           ~customer_gateway_id ~type_ ());
     attrs = __attrs;
   }
 
@@ -1361,8 +1362,9 @@ let register ?tf_module ?enable_acceleration ?id
     ?tunnel2_phase2_lifetime_seconds ?tunnel2_preshared_key
     ?tunnel2_rekey_fuzz_percentage ?tunnel2_rekey_margin_time_seconds
     ?tunnel2_replay_window_size ?tunnel2_startup_action
-    ?tunnel_inside_ip_version ?vpn_gateway_id ~customer_gateway_id
-    ~type_ ~tunnel1_log_options ~tunnel2_log_options __id =
+    ?tunnel_inside_ip_version ?vpn_gateway_id
+    ?(tunnel1_log_options = []) ?(tunnel2_log_options = [])
+    ~customer_gateway_id ~type_ __id =
   let (r : _ Tf_core.resource) =
     make ?enable_acceleration ?id ?local_ipv4_network_cidr
       ?local_ipv6_network_cidr ?outside_ip_address_type
@@ -1397,8 +1399,8 @@ let register ?tf_module ?enable_acceleration ?id
       ?tunnel2_rekey_fuzz_percentage
       ?tunnel2_rekey_margin_time_seconds ?tunnel2_replay_window_size
       ?tunnel2_startup_action ?tunnel_inside_ip_version
-      ?vpn_gateway_id ~customer_gateway_id ~type_
-      ~tunnel1_log_options ~tunnel2_log_options __id
+      ?vpn_gateway_id ~tunnel1_log_options ~tunnel2_log_options
+      ~customer_gateway_id ~type_ __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

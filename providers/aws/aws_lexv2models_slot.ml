@@ -3320,7 +3320,7 @@ let value_elicitation_setting__default_value_specification__default_value_list
   { default_value }
 
 let value_elicitation_setting__default_value_specification
-    ~default_value_list () :
+    ?(default_value_list = []) () :
     value_elicitation_setting__default_value_specification =
   { default_value_list }
 
@@ -3337,7 +3337,7 @@ let value_elicitation_setting__prompt_specification__message_group__message__ima
   { text; value }
 
 let value_elicitation_setting__prompt_specification__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     value_elicitation_setting__prompt_specification__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -3355,8 +3355,8 @@ let value_elicitation_setting__prompt_specification__message_group__message__ssm
   { value }
 
 let value_elicitation_setting__prompt_specification__message_group__message
-    ~custom_playload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_playload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     value_elicitation_setting__prompt_specification__message_group__message
     =
   {
@@ -3379,7 +3379,7 @@ let value_elicitation_setting__prompt_specification__message_group__variation__i
   { text; value }
 
 let value_elicitation_setting__prompt_specification__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     value_elicitation_setting__prompt_specification__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -3397,8 +3397,8 @@ let value_elicitation_setting__prompt_specification__message_group__variation__s
   { value }
 
 let value_elicitation_setting__prompt_specification__message_group__variation
-    ~custom_playload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_playload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     value_elicitation_setting__prompt_specification__message_group__variation
     =
   {
@@ -3409,7 +3409,7 @@ let value_elicitation_setting__prompt_specification__message_group__variation
   }
 
 let value_elicitation_setting__prompt_specification__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     value_elicitation_setting__prompt_specification__message_group =
   { message; variation }
 
@@ -3433,7 +3433,8 @@ let value_elicitation_setting__prompt_specification__prompt_attempts_specificati
   { deletion_character; end_character; end_timeout_ms; max_length }
 
 let value_elicitation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification
-    ~start_timeout_ms ~audio_specification ~dtmf_specification () :
+    ?(audio_specification = []) ?(dtmf_specification = [])
+    ~start_timeout_ms () :
     value_elicitation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification
     =
   { start_timeout_ms; audio_specification; dtmf_specification }
@@ -3445,9 +3446,9 @@ let value_elicitation_setting__prompt_specification__prompt_attempts_specificati
   { start_timeout_ms }
 
 let value_elicitation_setting__prompt_specification__prompt_attempts_specification
-    ?allow_interrupt ~map_block_key ~allowed_input_types
-    ~audio_and_dtmf_input_specification ~text_input_specification ()
-    :
+    ?allow_interrupt ?(allowed_input_types = [])
+    ?(audio_and_dtmf_input_specification = [])
+    ?(text_input_specification = []) ~map_block_key () :
     value_elicitation_setting__prompt_specification__prompt_attempts_specification
     =
   {
@@ -3459,7 +3460,7 @@ let value_elicitation_setting__prompt_specification__prompt_attempts_specificati
   }
 
 let value_elicitation_setting__prompt_specification ?allow_interrupt
-    ?message_selection_strategy ~max_retries ~message_group
+    ?message_selection_strategy ?(message_group = []) ~max_retries
     ~prompt_attempts_specification () :
     value_elicitation_setting__prompt_specification =
   {
@@ -3492,7 +3493,7 @@ let value_elicitation_setting__wait_and_continue_specification__continue_respons
   { text; value }
 
 let value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -3510,8 +3511,8 @@ let value_elicitation_setting__wait_and_continue_specification__continue_respons
   { value }
 
 let value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message
-    ~custom_playload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_playload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message
     =
   {
@@ -3534,7 +3535,7 @@ let value_elicitation_setting__wait_and_continue_specification__continue_respons
   { text; value }
 
 let value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -3552,8 +3553,8 @@ let value_elicitation_setting__wait_and_continue_specification__continue_respons
   { value }
 
 let value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation
-    ~custom_playload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_playload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation
     =
   {
@@ -3564,13 +3565,13 @@ let value_elicitation_setting__wait_and_continue_specification__continue_respons
   }
 
 let value_elicitation_setting__wait_and_continue_specification__continue_response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group
     =
   { message; variation }
 
 let value_elicitation_setting__wait_and_continue_specification__continue_response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     value_elicitation_setting__wait_and_continue_specification__continue_response
     =
   { allow_interrupt; message_group }
@@ -3588,7 +3589,7 @@ let value_elicitation_setting__wait_and_continue_specification__still_waiting_re
   { text; value }
 
 let value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -3606,8 +3607,8 @@ let value_elicitation_setting__wait_and_continue_specification__still_waiting_re
   { value }
 
 let value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message
-    ~custom_playload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_playload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message
     =
   {
@@ -3630,7 +3631,7 @@ let value_elicitation_setting__wait_and_continue_specification__still_waiting_re
   { text; value }
 
 let value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -3648,8 +3649,8 @@ let value_elicitation_setting__wait_and_continue_specification__still_waiting_re
   { value }
 
 let value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation
-    ~custom_playload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_playload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation
     =
   {
@@ -3660,14 +3661,14 @@ let value_elicitation_setting__wait_and_continue_specification__still_waiting_re
   }
 
 let value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group
     =
   { message; variation }
 
 let value_elicitation_setting__wait_and_continue_specification__still_waiting_response
-    ?allow_interrupt ~frequency_in_seconds ~timeout_in_seconds
-    ~message_group () :
+    ?allow_interrupt ?(message_group = []) ~frequency_in_seconds
+    ~timeout_in_seconds () :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response
     =
   {
@@ -3690,7 +3691,7 @@ let value_elicitation_setting__wait_and_continue_specification__waiting_response
   { text; value }
 
 let value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -3708,8 +3709,8 @@ let value_elicitation_setting__wait_and_continue_specification__waiting_response
   { value }
 
 let value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message
-    ~custom_playload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_playload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message
     =
   {
@@ -3732,7 +3733,7 @@ let value_elicitation_setting__wait_and_continue_specification__waiting_response
   { text; value }
 
 let value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -3750,8 +3751,8 @@ let value_elicitation_setting__wait_and_continue_specification__waiting_response
   { value }
 
 let value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation
-    ~custom_playload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_playload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation
     =
   {
@@ -3762,20 +3763,20 @@ let value_elicitation_setting__wait_and_continue_specification__waiting_response
   }
 
 let value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group
     =
   { message; variation }
 
 let value_elicitation_setting__wait_and_continue_specification__waiting_response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     value_elicitation_setting__wait_and_continue_specification__waiting_response
     =
   { allow_interrupt; message_group }
 
 let value_elicitation_setting__wait_and_continue_specification
-    ?active ~continue_response ~still_waiting_response
-    ~waiting_response () :
+    ?active ?(continue_response = []) ?(still_waiting_response = [])
+    ?(waiting_response = []) () :
     value_elicitation_setting__wait_and_continue_specification =
   {
     active;
@@ -3784,10 +3785,11 @@ let value_elicitation_setting__wait_and_continue_specification
     waiting_response;
   }
 
-let value_elicitation_setting ~slot_constraint
-    ~default_value_specification ~prompt_specification
-    ~sample_utterance ~slot_resolution_setting
-    ~wait_and_continue_specification () : value_elicitation_setting =
+let value_elicitation_setting ?(default_value_specification = [])
+    ?(prompt_specification = []) ?(sample_utterance = [])
+    ?(slot_resolution_setting = [])
+    ?(wait_and_continue_specification = []) ~slot_constraint () :
+    value_elicitation_setting =
   {
     slot_constraint;
     default_value_specification;
@@ -3797,10 +3799,10 @@ let value_elicitation_setting ~slot_constraint
     wait_and_continue_specification;
   }
 
-let aws_lexv2models_slot ?description ?slot_type_id ?timeouts ~bot_id
-    ~bot_version ~intent_id ~locale_id ~name ~multiple_values_setting
-    ~obfuscation_setting ~value_elicitation_setting () :
-    aws_lexv2models_slot =
+let aws_lexv2models_slot ?description ?slot_type_id
+    ?(multiple_values_setting = []) ?(obfuscation_setting = [])
+    ?timeouts ?(value_elicitation_setting = []) ~bot_id ~bot_version
+    ~intent_id ~locale_id ~name () : aws_lexv2models_slot =
   {
     bot_id;
     bot_version;
@@ -3827,9 +3829,10 @@ type t = {
   slot_type_id : string prop;
 }
 
-let make ?description ?slot_type_id ?timeouts ~bot_id ~bot_version
-    ~intent_id ~locale_id ~name ~multiple_values_setting
-    ~obfuscation_setting ~value_elicitation_setting __id =
+let make ?description ?slot_type_id ?(multiple_values_setting = [])
+    ?(obfuscation_setting = []) ?timeouts
+    ?(value_elicitation_setting = []) ~bot_id ~bot_version ~intent_id
+    ~locale_id ~name __id =
   let __type = "aws_lexv2models_slot" in
   let __attrs =
     ({
@@ -3850,20 +3853,21 @@ let make ?description ?slot_type_id ?timeouts ~bot_id ~bot_version
     type_ = __type;
     json =
       yojson_of_aws_lexv2models_slot
-        (aws_lexv2models_slot ?description ?slot_type_id ?timeouts
-           ~bot_id ~bot_version ~intent_id ~locale_id ~name
-           ~multiple_values_setting ~obfuscation_setting
-           ~value_elicitation_setting ());
+        (aws_lexv2models_slot ?description ?slot_type_id
+           ~multiple_values_setting ~obfuscation_setting ?timeouts
+           ~value_elicitation_setting ~bot_id ~bot_version ~intent_id
+           ~locale_id ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?slot_type_id ?timeouts ~bot_id
-    ~bot_version ~intent_id ~locale_id ~name ~multiple_values_setting
-    ~obfuscation_setting ~value_elicitation_setting __id =
+let register ?tf_module ?description ?slot_type_id
+    ?(multiple_values_setting = []) ?(obfuscation_setting = [])
+    ?timeouts ?(value_elicitation_setting = []) ~bot_id ~bot_version
+    ~intent_id ~locale_id ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?slot_type_id ?timeouts ~bot_id ~bot_version
-      ~intent_id ~locale_id ~name ~multiple_values_setting
-      ~obfuscation_setting ~value_elicitation_setting __id
+    make ?description ?slot_type_id ~multiple_values_setting
+      ~obfuscation_setting ?timeouts ~value_elicitation_setting
+      ~bot_id ~bot_version ~intent_id ~locale_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

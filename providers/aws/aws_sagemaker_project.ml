@@ -199,8 +199,8 @@ let service_catalog_provisioning_details__provisioning_parameter
   { key; value }
 
 let service_catalog_provisioning_details ?path_id
-    ?provisioning_artifact_id ~product_id ~provisioning_parameter ()
-    : service_catalog_provisioning_details =
+    ?provisioning_artifact_id ?(provisioning_parameter = [])
+    ~product_id () : service_catalog_provisioning_details =
   {
     path_id;
     product_id;

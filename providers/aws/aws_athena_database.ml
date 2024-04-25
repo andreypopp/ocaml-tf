@@ -180,8 +180,8 @@ let encryption_configuration ?kms_key ~encryption_option () :
   { encryption_option; kms_key }
 
 let aws_athena_database ?bucket ?comment ?expected_bucket_owner
-    ?force_destroy ?id ?properties ~name ~acl_configuration
-    ~encryption_configuration () : aws_athena_database =
+    ?force_destroy ?id ?properties ?(acl_configuration = [])
+    ?(encryption_configuration = []) ~name () : aws_athena_database =
   {
     bucket;
     comment;
@@ -205,8 +205,8 @@ type t = {
 }
 
 let make ?bucket ?comment ?expected_bucket_owner ?force_destroy ?id
-    ?properties ~name ~acl_configuration ~encryption_configuration
-    __id =
+    ?properties ?(acl_configuration = [])
+    ?(encryption_configuration = []) ~name __id =
   let __type = "aws_athena_database" in
   let __attrs =
     ({
@@ -227,17 +227,17 @@ let make ?bucket ?comment ?expected_bucket_owner ?force_destroy ?id
     json =
       yojson_of_aws_athena_database
         (aws_athena_database ?bucket ?comment ?expected_bucket_owner
-           ?force_destroy ?id ?properties ~name ~acl_configuration
-           ~encryption_configuration ());
+           ?force_destroy ?id ?properties ~acl_configuration
+           ~encryption_configuration ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?bucket ?comment ?expected_bucket_owner
-    ?force_destroy ?id ?properties ~name ~acl_configuration
-    ~encryption_configuration __id =
+    ?force_destroy ?id ?properties ?(acl_configuration = [])
+    ?(encryption_configuration = []) ~name __id =
   let (r : _ Tf_core.resource) =
     make ?bucket ?comment ?expected_bucket_owner ?force_destroy ?id
-      ?properties ~name ~acl_configuration ~encryption_configuration
+      ?properties ~acl_configuration ~encryption_configuration ~name
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

@@ -815,8 +815,8 @@ let adaptive_protection_config__layer_7_ddos_defense_config ?enable
     adaptive_protection_config__layer_7_ddos_defense_config =
   { enable; rule_visibility }
 
-let adaptive_protection_config ~layer_7_ddos_defense_config () :
-    adaptive_protection_config =
+let adaptive_protection_config ?(layer_7_ddos_defense_config = []) ()
+    : adaptive_protection_config =
   { layer_7_ddos_defense_config }
 
 let advanced_options_config__json_custom_config ~content_types () :
@@ -824,7 +824,7 @@ let advanced_options_config__json_custom_config ~content_types () :
   { content_types }
 
 let advanced_options_config ?json_parsing ?log_level
-    ?user_ip_request_headers ~json_custom_config () :
+    ?user_ip_request_headers ?(json_custom_config = []) () :
     advanced_options_config =
   {
     json_parsing;
@@ -851,7 +851,8 @@ let rule__match__config ~src_ip_ranges () : rule__match__config =
 let rule__match__expr ~expression () : rule__match__expr =
   { expression }
 
-let rule__match ?versioned_expr ~config ~expr () : rule__match =
+let rule__match ?versioned_expr ?(config = []) ?(expr = []) () :
+    rule__match =
   { versioned_expr; config; expr }
 
 let rule__rate_limit_options__ban_threshold ~count ~interval_sec () :
@@ -868,9 +869,9 @@ let rule__rate_limit_options__rate_limit_threshold ~count
   { count; interval_sec }
 
 let rule__rate_limit_options ?ban_duration_sec ?enforce_on_key
-    ?enforce_on_key_name ~conform_action ~exceed_action
-    ~ban_threshold ~exceed_redirect_options ~rate_limit_threshold ()
-    : rule__rate_limit_options =
+    ?enforce_on_key_name ?(ban_threshold = [])
+    ?(exceed_redirect_options = []) ~conform_action ~exceed_action
+    ~rate_limit_threshold () : rule__rate_limit_options =
   {
     ban_duration_sec;
     conform_action;
@@ -886,8 +887,9 @@ let rule__redirect_options ?target ~type_ () : rule__redirect_options
     =
   { target; type_ }
 
-let rule ?description ?preview ~action ~priority ~header_action
-    ~match_ ~rate_limit_options ~redirect_options () : rule =
+let rule ?description ?preview ?(header_action = [])
+    ?(rate_limit_options = []) ?(redirect_options = []) ~action
+    ~priority ~match_ () : rule =
   {
     action;
     description;
@@ -903,9 +905,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_compute_security_policy ?description ?id ?project ?type_
-    ?timeouts ~name ~adaptive_protection_config
-    ~advanced_options_config ~recaptcha_options_config ~rule () :
-    google_compute_security_policy =
+    ?(adaptive_protection_config = [])
+    ?(advanced_options_config = []) ?(recaptcha_options_config = [])
+    ?timeouts ~name ~rule () : google_compute_security_policy =
   {
     description;
     id;
@@ -929,9 +931,10 @@ type t = {
   type_ : string prop;
 }
 
-let make ?description ?id ?project ?type_ ?timeouts ~name
-    ~adaptive_protection_config ~advanced_options_config
-    ~recaptcha_options_config ~rule __id =
+let make ?description ?id ?project ?type_
+    ?(adaptive_protection_config = [])
+    ?(advanced_options_config = []) ?(recaptcha_options_config = [])
+    ?timeouts ~name ~rule __id =
   let __type = "google_compute_security_policy" in
   let __attrs =
     ({
@@ -951,19 +954,20 @@ let make ?description ?id ?project ?type_ ?timeouts ~name
     json =
       yojson_of_google_compute_security_policy
         (google_compute_security_policy ?description ?id ?project
-           ?type_ ?timeouts ~name ~adaptive_protection_config
-           ~advanced_options_config ~recaptcha_options_config ~rule
-           ());
+           ?type_ ~adaptive_protection_config
+           ~advanced_options_config ~recaptcha_options_config
+           ?timeouts ~name ~rule ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?project ?type_ ?timeouts
-    ~name ~adaptive_protection_config ~advanced_options_config
-    ~recaptcha_options_config ~rule __id =
+let register ?tf_module ?description ?id ?project ?type_
+    ?(adaptive_protection_config = [])
+    ?(advanced_options_config = []) ?(recaptcha_options_config = [])
+    ?timeouts ~name ~rule __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?project ?type_ ?timeouts ~name
-      ~adaptive_protection_config ~advanced_options_config
-      ~recaptcha_options_config ~rule __id
+    make ?description ?id ?project ?type_ ~adaptive_protection_config
+      ~advanced_options_config ~recaptcha_options_config ?timeouts
+      ~name ~rule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

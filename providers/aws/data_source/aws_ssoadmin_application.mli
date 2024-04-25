@@ -12,15 +12,15 @@ val portal_options__sign_in_options :
 type portal_options
 
 val portal_options :
-  sign_in_options:portal_options__sign_in_options list ->
+  ?sign_in_options:portal_options__sign_in_options list ->
   unit ->
   portal_options
 
 type aws_ssoadmin_application
 
 val aws_ssoadmin_application :
+  ?portal_options:portal_options list ->
   application_arn:string prop ->
-  portal_options:portal_options list ->
   unit ->
   aws_ssoadmin_application
 
@@ -42,13 +42,13 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?portal_options:portal_options list ->
   application_arn:string prop ->
-  portal_options:portal_options list ->
   string ->
   t
 
 val make :
+  ?portal_options:portal_options list ->
   application_arn:string prop ->
-  portal_options:portal_options list ->
   string ->
   t Tf_core.resource

@@ -237,9 +237,8 @@ let metadata ?annotations ?generate_name ?labels ?name () : metadata
 let spec__service ?port ~name ~namespace () : spec__service =
   { name; namespace; port }
 
-let spec ?ca_bundle ?insecure_skip_tls_verify ~group
-    ~group_priority_minimum ~version ~version_priority ~service () :
-    spec =
+let spec ?ca_bundle ?insecure_skip_tls_verify ?(service = []) ~group
+    ~group_priority_minimum ~version ~version_priority () : spec =
   {
     ca_bundle;
     group;

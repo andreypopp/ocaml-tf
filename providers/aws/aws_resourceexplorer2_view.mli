@@ -17,9 +17,9 @@ type aws_resourceexplorer2_view
 val aws_resourceexplorer2_view :
   ?default_view:bool prop ->
   ?tags:(string * string prop) list ->
+  ?filters:filters list ->
+  ?included_property:included_property list ->
   name:string prop ->
-  filters:filters list ->
-  included_property:included_property list ->
   unit ->
   aws_resourceexplorer2_view
 
@@ -41,17 +41,17 @@ val register :
   ?tf_module:tf_module ->
   ?default_view:bool prop ->
   ?tags:(string * string prop) list ->
+  ?filters:filters list ->
+  ?included_property:included_property list ->
   name:string prop ->
-  filters:filters list ->
-  included_property:included_property list ->
   string ->
   t
 
 val make :
   ?default_view:bool prop ->
   ?tags:(string * string prop) list ->
+  ?filters:filters list ->
+  ?included_property:included_property list ->
   name:string prop ->
-  filters:filters list ->
-  included_property:included_property list ->
   string ->
   t Tf_core.resource

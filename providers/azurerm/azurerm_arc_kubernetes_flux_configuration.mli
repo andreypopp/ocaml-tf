@@ -24,8 +24,8 @@ val blob_storage :
   ?sas_token:string prop ->
   ?sync_interval_in_seconds:float prop ->
   ?timeout_in_seconds:float prop ->
+  ?service_principal:blob_storage__service_principal list ->
   container_id:string prop ->
-  service_principal:blob_storage__service_principal list ->
   unit ->
   blob_storage
 
@@ -90,13 +90,13 @@ val azurerm_arc_kubernetes_flux_configuration :
   ?continuous_reconciliation_enabled:bool prop ->
   ?id:string prop ->
   ?scope:string prop ->
+  ?blob_storage:blob_storage list ->
+  ?bucket:bucket list ->
+  ?git_repository:git_repository list ->
   ?timeouts:timeouts ->
   cluster_id:string prop ->
   name:string prop ->
   namespace:string prop ->
-  blob_storage:blob_storage list ->
-  bucket:bucket list ->
-  git_repository:git_repository list ->
   kustomizations:kustomizations list ->
   unit ->
   azurerm_arc_kubernetes_flux_configuration
@@ -120,13 +120,13 @@ val register :
   ?continuous_reconciliation_enabled:bool prop ->
   ?id:string prop ->
   ?scope:string prop ->
+  ?blob_storage:blob_storage list ->
+  ?bucket:bucket list ->
+  ?git_repository:git_repository list ->
   ?timeouts:timeouts ->
   cluster_id:string prop ->
   name:string prop ->
   namespace:string prop ->
-  blob_storage:blob_storage list ->
-  bucket:bucket list ->
-  git_repository:git_repository list ->
   kustomizations:kustomizations list ->
   string ->
   t
@@ -135,13 +135,13 @@ val make :
   ?continuous_reconciliation_enabled:bool prop ->
   ?id:string prop ->
   ?scope:string prop ->
+  ?blob_storage:blob_storage list ->
+  ?bucket:bucket list ->
+  ?git_repository:git_repository list ->
   ?timeouts:timeouts ->
   cluster_id:string prop ->
   name:string prop ->
   namespace:string prop ->
-  blob_storage:blob_storage list ->
-  bucket:bucket list ->
-  git_repository:git_repository list ->
   kustomizations:kustomizations list ->
   string ->
   t Tf_core.resource

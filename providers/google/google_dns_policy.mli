@@ -41,9 +41,9 @@ val google_dns_policy :
   ?enable_logging:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?alternative_name_server_config:alternative_name_server_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  alternative_name_server_config:alternative_name_server_config list ->
   networks:networks list ->
   unit ->
   google_dns_policy
@@ -68,9 +68,9 @@ val register :
   ?enable_logging:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?alternative_name_server_config:alternative_name_server_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  alternative_name_server_config:alternative_name_server_config list ->
   networks:networks list ->
   string ->
   t
@@ -81,9 +81,9 @@ val make :
   ?enable_logging:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?alternative_name_server_config:alternative_name_server_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  alternative_name_server_config:alternative_name_server_config list ->
   networks:networks list ->
   string ->
   t Tf_core.resource

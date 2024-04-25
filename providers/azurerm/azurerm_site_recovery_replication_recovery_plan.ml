@@ -1198,8 +1198,8 @@ let boot_recovery_group__pre_action ?fabric_location
     type_;
   }
 
-let boot_recovery_group ?replicated_protected_items ~post_action
-    ~pre_action () : boot_recovery_group =
+let boot_recovery_group ?replicated_protected_items
+    ?(post_action = []) ?(pre_action = []) () : boot_recovery_group =
   { replicated_protected_items; post_action; pre_action }
 
 let failover_recovery_group__post_action ?fabric_location
@@ -1232,8 +1232,8 @@ let failover_recovery_group__pre_action ?fabric_location
     type_;
   }
 
-let failover_recovery_group ~post_action ~pre_action () :
-    failover_recovery_group =
+let failover_recovery_group ?(post_action = []) ?(pre_action = []) ()
+    : failover_recovery_group =
   { post_action; pre_action }
 
 let recovery_group__post_action ?fabric_location
@@ -1266,8 +1266,8 @@ let recovery_group__pre_action ?fabric_location
     type_;
   }
 
-let recovery_group ?replicated_protected_items ~type_ ~post_action
-    ~pre_action () : recovery_group =
+let recovery_group ?replicated_protected_items ?(post_action = [])
+    ?(pre_action = []) ~type_ () : recovery_group =
   { replicated_protected_items; type_; post_action; pre_action }
 
 let shutdown_recovery_group__post_action ?fabric_location
@@ -1300,18 +1300,18 @@ let shutdown_recovery_group__pre_action ?fabric_location
     type_;
   }
 
-let shutdown_recovery_group ~post_action ~pre_action () :
-    shutdown_recovery_group =
+let shutdown_recovery_group ?(post_action = []) ?(pre_action = []) ()
+    : shutdown_recovery_group =
   { post_action; pre_action }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_site_recovery_replication_recovery_plan ?id ?timeouts
-    ~name ~recovery_vault_id ~source_recovery_fabric_id
-    ~target_recovery_fabric_id ~azure_to_azure_settings
-    ~boot_recovery_group ~failover_recovery_group ~recovery_group
-    ~shutdown_recovery_group () :
+let azurerm_site_recovery_replication_recovery_plan ?id
+    ?(azure_to_azure_settings = []) ?(boot_recovery_group = [])
+    ?(failover_recovery_group = []) ?(shutdown_recovery_group = [])
+    ?timeouts ~name ~recovery_vault_id ~source_recovery_fabric_id
+    ~target_recovery_fabric_id ~recovery_group () :
     azurerm_site_recovery_replication_recovery_plan =
   {
     id;
@@ -1335,11 +1335,11 @@ type t = {
   target_recovery_fabric_id : string prop;
 }
 
-let make ?id ?timeouts ~name ~recovery_vault_id
-    ~source_recovery_fabric_id ~target_recovery_fabric_id
-    ~azure_to_azure_settings ~boot_recovery_group
-    ~failover_recovery_group ~recovery_group ~shutdown_recovery_group
-    __id =
+let make ?id ?(azure_to_azure_settings = [])
+    ?(boot_recovery_group = []) ?(failover_recovery_group = [])
+    ?(shutdown_recovery_group = []) ?timeouts ~name
+    ~recovery_vault_id ~source_recovery_fabric_id
+    ~target_recovery_fabric_id ~recovery_group __id =
   let __type = "azurerm_site_recovery_replication_recovery_plan" in
   let __attrs =
     ({
@@ -1360,25 +1360,24 @@ let make ?id ?timeouts ~name ~recovery_vault_id
     json =
       yojson_of_azurerm_site_recovery_replication_recovery_plan
         (azurerm_site_recovery_replication_recovery_plan ?id
+           ~azure_to_azure_settings ~boot_recovery_group
+           ~failover_recovery_group ~shutdown_recovery_group
            ?timeouts ~name ~recovery_vault_id
            ~source_recovery_fabric_id ~target_recovery_fabric_id
-           ~azure_to_azure_settings ~boot_recovery_group
-           ~failover_recovery_group ~recovery_group
-           ~shutdown_recovery_group ());
+           ~recovery_group ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~name ~recovery_vault_id
-    ~source_recovery_fabric_id ~target_recovery_fabric_id
-    ~azure_to_azure_settings ~boot_recovery_group
-    ~failover_recovery_group ~recovery_group ~shutdown_recovery_group
-    __id =
+let register ?tf_module ?id ?(azure_to_azure_settings = [])
+    ?(boot_recovery_group = []) ?(failover_recovery_group = [])
+    ?(shutdown_recovery_group = []) ?timeouts ~name
+    ~recovery_vault_id ~source_recovery_fabric_id
+    ~target_recovery_fabric_id ~recovery_group __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~name ~recovery_vault_id
-      ~source_recovery_fabric_id ~target_recovery_fabric_id
-      ~azure_to_azure_settings ~boot_recovery_group
-      ~failover_recovery_group ~recovery_group
-      ~shutdown_recovery_group __id
+    make ?id ~azure_to_azure_settings ~boot_recovery_group
+      ~failover_recovery_group ~shutdown_recovery_group ?timeouts
+      ~name ~recovery_vault_id ~source_recovery_fabric_id
+      ~target_recovery_fabric_id ~recovery_group __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

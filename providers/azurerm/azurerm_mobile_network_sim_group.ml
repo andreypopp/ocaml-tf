@@ -193,8 +193,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_mobile_network_sim_group ?encryption_key_url ?id ?tags
-    ?timeouts ~location ~mobile_network_id ~name ~identity () :
-    azurerm_mobile_network_sim_group =
+    ?(identity = []) ?timeouts ~location ~mobile_network_id ~name ()
+    : azurerm_mobile_network_sim_group =
   {
     encryption_key_url;
     id;
@@ -215,8 +215,8 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?encryption_key_url ?id ?tags ?timeouts ~location
-    ~mobile_network_id ~name ~identity __id =
+let make ?encryption_key_url ?id ?tags ?(identity = []) ?timeouts
+    ~location ~mobile_network_id ~name __id =
   let __type = "azurerm_mobile_network_sim_group" in
   let __attrs =
     ({
@@ -237,16 +237,17 @@ let make ?encryption_key_url ?id ?tags ?timeouts ~location
     json =
       yojson_of_azurerm_mobile_network_sim_group
         (azurerm_mobile_network_sim_group ?encryption_key_url ?id
-           ?tags ?timeouts ~location ~mobile_network_id ~name
-           ~identity ());
+           ?tags ~identity ?timeouts ~location ~mobile_network_id
+           ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?encryption_key_url ?id ?tags ?timeouts
-    ~location ~mobile_network_id ~name ~identity __id =
+let register ?tf_module ?encryption_key_url ?id ?tags
+    ?(identity = []) ?timeouts ~location ~mobile_network_id ~name
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?encryption_key_url ?id ?tags ?timeouts ~location
-      ~mobile_network_id ~name ~identity __id
+    make ?encryption_key_url ?id ?tags ~identity ?timeouts ~location
+      ~mobile_network_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

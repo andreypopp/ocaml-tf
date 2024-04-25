@@ -700,9 +700,9 @@ let instance_schedule_policy__vm_stop_schedule ~schedule () :
     instance_schedule_policy__vm_stop_schedule =
   { schedule }
 
-let instance_schedule_policy ?expiration_time ?start_time ~time_zone
-    ~vm_start_schedule ~vm_stop_schedule () :
-    instance_schedule_policy =
+let instance_schedule_policy ?expiration_time ?start_time
+    ?(vm_start_schedule = []) ?(vm_stop_schedule = []) ~time_zone ()
+    : instance_schedule_policy =
   {
     expiration_time;
     start_time;
@@ -736,8 +736,8 @@ let snapshot_schedule_policy__schedule__weekly_schedule ~day_of_weeks
     () : snapshot_schedule_policy__schedule__weekly_schedule =
   { day_of_weeks }
 
-let snapshot_schedule_policy__schedule ~daily_schedule
-    ~hourly_schedule ~weekly_schedule () :
+let snapshot_schedule_policy__schedule ?(daily_schedule = [])
+    ?(hourly_schedule = []) ?(weekly_schedule = []) () :
     snapshot_schedule_policy__schedule =
   { daily_schedule; hourly_schedule; weekly_schedule }
 
@@ -746,16 +746,18 @@ let snapshot_schedule_policy__snapshot_properties ?chain_name
     snapshot_schedule_policy__snapshot_properties =
   { chain_name; guest_flush; labels; storage_locations }
 
-let snapshot_schedule_policy ~retention_policy ~schedule
-    ~snapshot_properties () : snapshot_schedule_policy =
+let snapshot_schedule_policy ?(retention_policy = [])
+    ?(snapshot_properties = []) ~schedule () :
+    snapshot_schedule_policy =
   { retention_policy; schedule; snapshot_properties }
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let google_compute_resource_policy ?description ?id ?project ?region
-    ?timeouts ~name ~disk_consistency_group_policy
-    ~group_placement_policy ~instance_schedule_policy
-    ~snapshot_schedule_policy () : google_compute_resource_policy =
+    ?(disk_consistency_group_policy = [])
+    ?(group_placement_policy = []) ?(instance_schedule_policy = [])
+    ?(snapshot_schedule_policy = []) ?timeouts ~name () :
+    google_compute_resource_policy =
   {
     description;
     id;
@@ -778,9 +780,10 @@ type t = {
   self_link : string prop;
 }
 
-let make ?description ?id ?project ?region ?timeouts ~name
-    ~disk_consistency_group_policy ~group_placement_policy
-    ~instance_schedule_policy ~snapshot_schedule_policy __id =
+let make ?description ?id ?project ?region
+    ?(disk_consistency_group_policy = [])
+    ?(group_placement_policy = []) ?(instance_schedule_policy = [])
+    ?(snapshot_schedule_policy = []) ?timeouts ~name __id =
   let __type = "google_compute_resource_policy" in
   let __attrs =
     ({
@@ -799,19 +802,21 @@ let make ?description ?id ?project ?region ?timeouts ~name
     json =
       yojson_of_google_compute_resource_policy
         (google_compute_resource_policy ?description ?id ?project
-           ?region ?timeouts ~name ~disk_consistency_group_policy
+           ?region ~disk_consistency_group_policy
            ~group_placement_policy ~instance_schedule_policy
-           ~snapshot_schedule_policy ());
+           ~snapshot_schedule_policy ?timeouts ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?project ?region ?timeouts
-    ~name ~disk_consistency_group_policy ~group_placement_policy
-    ~instance_schedule_policy ~snapshot_schedule_policy __id =
+let register ?tf_module ?description ?id ?project ?region
+    ?(disk_consistency_group_policy = [])
+    ?(group_placement_policy = []) ?(instance_schedule_policy = [])
+    ?(snapshot_schedule_policy = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?project ?region ?timeouts ~name
+    make ?description ?id ?project ?region
       ~disk_consistency_group_policy ~group_placement_policy
-      ~instance_schedule_policy ~snapshot_schedule_policy __id
+      ~instance_schedule_policy ~snapshot_schedule_policy ?timeouts
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

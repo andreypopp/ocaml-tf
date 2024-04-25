@@ -3179,9 +3179,10 @@ let auth_settings__twitter ?consumer_secret
 let auth_settings ?additional_login_parameters
     ?allowed_external_redirect_urls ?default_provider ?issuer
     ?runtime_version ?token_refresh_extension_hours
-    ?token_store_enabled ?unauthenticated_client_action ~enabled
-    ~active_directory ~facebook ~github ~google ~microsoft ~twitter
-    () : auth_settings =
+    ?token_store_enabled ?unauthenticated_client_action
+    ?(active_directory = []) ?(facebook = []) ?(github = [])
+    ?(google = []) ?(microsoft = []) ?(twitter = []) ~enabled () :
+    auth_settings =
   {
     additional_login_parameters;
     allowed_external_redirect_urls;
@@ -3305,10 +3306,11 @@ let auth_settings_v2 ?auth_enabled ?config_file_path
     ?forward_proxy_custom_host_header_name
     ?forward_proxy_custom_scheme_header_name ?http_route_api_prefix
     ?require_authentication ?require_https ?runtime_version
-    ?unauthenticated_action ~active_directory_v2 ~apple_v2
-    ~azure_static_web_app_v2 ~custom_oidc_v2 ~facebook_v2 ~github_v2
-    ~google_v2 ~login ~microsoft_v2 ~twitter_v2 () : auth_settings_v2
-    =
+    ?unauthenticated_action ?(active_directory_v2 = [])
+    ?(apple_v2 = []) ?(azure_static_web_app_v2 = [])
+    ?(custom_oidc_v2 = []) ?(facebook_v2 = []) ?(github_v2 = [])
+    ?(google_v2 = []) ?(microsoft_v2 = []) ?(twitter_v2 = []) ~login
+    () : auth_settings_v2 =
   {
     auth_enabled;
     config_file_path;
@@ -3372,8 +3374,8 @@ let site_config__application_stack__docker ?registry_password
 
 let site_config__application_stack ?dotnet_version ?java_version
     ?node_version ?powershell_core_version ?python_version
-    ?use_custom_runtime ?use_dotnet_isolated_runtime ~docker () :
-    site_config__application_stack =
+    ?use_custom_runtime ?use_dotnet_isolated_runtime ?(docker = [])
+    () : site_config__application_stack =
   {
     dotnet_version;
     java_version;
@@ -3431,8 +3433,9 @@ let site_config ?always_on ?api_definition_url ?api_management_api_id
     ?scm_ip_restriction_default_action ?scm_minimum_tls_version
     ?scm_use_main_ip_restriction ?use_32_bit_worker
     ?vnet_route_all_enabled ?websockets_enabled ?worker_count
-    ~app_service_logs ~application_stack ~cors ~ip_restriction
-    ~scm_ip_restriction () : site_config =
+    ?(app_service_logs = []) ?(application_stack = []) ?(cors = [])
+    ?(ip_restriction = []) ?(scm_ip_restriction = []) () :
+    site_config =
   {
     always_on;
     api_definition_url;
@@ -3493,10 +3496,10 @@ let azurerm_linux_function_app ?app_settings ?builtin_logging_enabled
     ?storage_key_vault_secret_id ?storage_uses_managed_identity ?tags
     ?virtual_network_subnet_id
     ?webdeploy_publish_basic_authentication_enabled ?zip_deploy_file
-    ?timeouts ~location ~name ~resource_group_name ~service_plan_id
-    ~auth_settings ~auth_settings_v2 ~backup ~connection_string
-    ~identity ~site_config ~sticky_settings ~storage_account () :
-    azurerm_linux_function_app =
+    ?(auth_settings = []) ?(auth_settings_v2 = []) ?(backup = [])
+    ?(identity = []) ?(sticky_settings = []) ?timeouts ~location
+    ~name ~resource_group_name ~service_plan_id ~connection_string
+    ~site_config ~storage_account () : azurerm_linux_function_app =
   {
     app_settings;
     builtin_logging_enabled;
@@ -3584,9 +3587,10 @@ let make ?app_settings ?builtin_logging_enabled
     ?storage_key_vault_secret_id ?storage_uses_managed_identity ?tags
     ?virtual_network_subnet_id
     ?webdeploy_publish_basic_authentication_enabled ?zip_deploy_file
-    ?timeouts ~location ~name ~resource_group_name ~service_plan_id
-    ~auth_settings ~auth_settings_v2 ~backup ~connection_string
-    ~identity ~site_config ~sticky_settings ~storage_account __id =
+    ?(auth_settings = []) ?(auth_settings_v2 = []) ?(backup = [])
+    ?(identity = []) ?(sticky_settings = []) ?timeouts ~location
+    ~name ~resource_group_name ~service_plan_id ~connection_string
+    ~site_config ~storage_account __id =
   let __type = "azurerm_linux_function_app" in
   let __attrs =
     ({
@@ -3674,10 +3678,10 @@ let make ?app_settings ?builtin_logging_enabled
            ?storage_uses_managed_identity ?tags
            ?virtual_network_subnet_id
            ?webdeploy_publish_basic_authentication_enabled
-           ?zip_deploy_file ?timeouts ~location ~name
-           ~resource_group_name ~service_plan_id ~auth_settings
-           ~auth_settings_v2 ~backup ~connection_string ~identity
-           ~site_config ~sticky_settings ~storage_account ());
+           ?zip_deploy_file ~auth_settings ~auth_settings_v2 ~backup
+           ~identity ~sticky_settings ?timeouts ~location ~name
+           ~resource_group_name ~service_plan_id ~connection_string
+           ~site_config ~storage_account ());
     attrs = __attrs;
   }
 
@@ -3692,9 +3696,10 @@ let register ?tf_module ?app_settings ?builtin_logging_enabled
     ?storage_key_vault_secret_id ?storage_uses_managed_identity ?tags
     ?virtual_network_subnet_id
     ?webdeploy_publish_basic_authentication_enabled ?zip_deploy_file
-    ?timeouts ~location ~name ~resource_group_name ~service_plan_id
-    ~auth_settings ~auth_settings_v2 ~backup ~connection_string
-    ~identity ~site_config ~sticky_settings ~storage_account __id =
+    ?(auth_settings = []) ?(auth_settings_v2 = []) ?(backup = [])
+    ?(identity = []) ?(sticky_settings = []) ?timeouts ~location
+    ~name ~resource_group_name ~service_plan_id ~connection_string
+    ~site_config ~storage_account __id =
   let (r : _ Tf_core.resource) =
     make ?app_settings ?builtin_logging_enabled
       ?client_certificate_enabled ?client_certificate_exclusion_paths
@@ -3707,10 +3712,10 @@ let register ?tf_module ?app_settings ?builtin_logging_enabled
       ?storage_key_vault_secret_id ?storage_uses_managed_identity
       ?tags ?virtual_network_subnet_id
       ?webdeploy_publish_basic_authentication_enabled
-      ?zip_deploy_file ?timeouts ~location ~name ~resource_group_name
-      ~service_plan_id ~auth_settings ~auth_settings_v2 ~backup
-      ~connection_string ~identity ~site_config ~sticky_settings
-      ~storage_account __id
+      ?zip_deploy_file ~auth_settings ~auth_settings_v2 ~backup
+      ~identity ~sticky_settings ?timeouts ~location ~name
+      ~resource_group_name ~service_plan_id ~connection_string
+      ~site_config ~storage_account __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

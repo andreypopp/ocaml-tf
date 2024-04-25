@@ -46,10 +46,10 @@ type fleet_default_member_config__configmanagement__config_sync
 
 val fleet_default_member_config__configmanagement__config_sync :
   ?source_format:string prop ->
-  git:
+  ?git:
     fleet_default_member_config__configmanagement__config_sync__git
     list ->
-  oci:
+  ?oci:
     fleet_default_member_config__configmanagement__config_sync__oci
     list ->
   unit ->
@@ -59,7 +59,7 @@ type fleet_default_member_config__configmanagement
 
 val fleet_default_member_config__configmanagement :
   ?version:string prop ->
-  config_sync:
+  ?config_sync:
     fleet_default_member_config__configmanagement__config_sync list ->
   unit ->
   fleet_default_member_config__configmanagement
@@ -88,10 +88,10 @@ val fleet_default_member_config__policycontroller__policy_controller_hub_config_
 type fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources
 
 val fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources :
-  limits:
+  ?limits:
     fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits
     list ->
-  requests:
+  ?requests:
     fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests
     list ->
   unit ->
@@ -112,13 +112,13 @@ type fleet_default_member_config__policycontroller__policy_controller_hub_config
 val fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs :
   ?pod_affinity:string prop ->
   ?replica_count:float prop ->
-  component:string prop ->
-  container_resources:
+  ?container_resources:
     fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources
     list ->
-  pod_toleration:
+  ?pod_toleration:
     fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__pod_toleration
     list ->
+  component:string prop ->
   unit ->
   fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs
 
@@ -147,11 +147,11 @@ val fleet_default_member_config__policycontroller__policy_controller_hub_config_
 type fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content
 
 val fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content :
+  ?template_library:
+    fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content__template_library
+    list ->
   bundles:
     fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content__bundles
-    list ->
-  template_library:
-    fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content__template_library
     list ->
   unit ->
   fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content
@@ -165,15 +165,15 @@ val fleet_default_member_config__policycontroller__policy_controller_hub_config 
   ?log_denies_enabled:bool prop ->
   ?mutation_enabled:bool prop ->
   ?referential_rules_enabled:bool prop ->
+  ?monitoring:
+    fleet_default_member_config__policycontroller__policy_controller_hub_config__monitoring
+    list ->
+  ?policy_content:
+    fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content
+    list ->
   install_spec:string prop ->
   deployment_configs:
     fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs
-    list ->
-  monitoring:
-    fleet_default_member_config__policycontroller__policy_controller_hub_config__monitoring
-    list ->
-  policy_content:
-    fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content
     list ->
   unit ->
   fleet_default_member_config__policycontroller__policy_controller_hub_config
@@ -191,9 +191,11 @@ val fleet_default_member_config__policycontroller :
 type fleet_default_member_config
 
 val fleet_default_member_config :
-  configmanagement:fleet_default_member_config__configmanagement list ->
-  mesh:fleet_default_member_config__mesh list ->
-  policycontroller:fleet_default_member_config__policycontroller list ->
+  ?configmanagement:
+    fleet_default_member_config__configmanagement list ->
+  ?mesh:fleet_default_member_config__mesh list ->
+  ?policycontroller:
+    fleet_default_member_config__policycontroller list ->
   unit ->
   fleet_default_member_config
 
@@ -231,10 +233,10 @@ val spec__clusterupgrade__post_conditions :
 type spec__clusterupgrade
 
 val spec__clusterupgrade :
-  upstream_fleets:string prop list ->
-  gke_upgrade_overrides:
+  ?gke_upgrade_overrides:
     spec__clusterupgrade__gke_upgrade_overrides list ->
-  post_conditions:spec__clusterupgrade__post_conditions list ->
+  ?post_conditions:spec__clusterupgrade__post_conditions list ->
+  upstream_fleets:string prop list ->
   unit ->
   spec__clusterupgrade
 
@@ -255,9 +257,9 @@ val spec__fleetobservability__logging_config__fleet_scope_logs_config :
 type spec__fleetobservability__logging_config
 
 val spec__fleetobservability__logging_config :
-  default_config:
+  ?default_config:
     spec__fleetobservability__logging_config__default_config list ->
-  fleet_scope_logs_config:
+  ?fleet_scope_logs_config:
     spec__fleetobservability__logging_config__fleet_scope_logs_config
     list ->
   unit ->
@@ -266,7 +268,7 @@ val spec__fleetobservability__logging_config :
 type spec__fleetobservability
 
 val spec__fleetobservability :
-  logging_config:spec__fleetobservability__logging_config list ->
+  ?logging_config:spec__fleetobservability__logging_config list ->
   unit ->
   spec__fleetobservability
 
@@ -278,9 +280,9 @@ val spec__multiclusteringress :
 type spec
 
 val spec :
-  clusterupgrade:spec__clusterupgrade list ->
-  fleetobservability:spec__fleetobservability list ->
-  multiclusteringress:spec__multiclusteringress list ->
+  ?clusterupgrade:spec__clusterupgrade list ->
+  ?fleetobservability:spec__fleetobservability list ->
+  ?multiclusteringress:spec__multiclusteringress list ->
   unit ->
   spec
 
@@ -300,10 +302,10 @@ val google_gke_hub_feature :
   ?labels:(string * string prop) list ->
   ?name:string prop ->
   ?project:string prop ->
+  ?fleet_default_member_config:fleet_default_member_config list ->
+  ?spec:spec list ->
   ?timeouts:timeouts ->
   location:string prop ->
-  fleet_default_member_config:fleet_default_member_config list ->
-  spec:spec list ->
   unit ->
   google_gke_hub_feature
 
@@ -332,10 +334,10 @@ val register :
   ?labels:(string * string prop) list ->
   ?name:string prop ->
   ?project:string prop ->
+  ?fleet_default_member_config:fleet_default_member_config list ->
+  ?spec:spec list ->
   ?timeouts:timeouts ->
   location:string prop ->
-  fleet_default_member_config:fleet_default_member_config list ->
-  spec:spec list ->
   string ->
   t
 
@@ -344,9 +346,9 @@ val make :
   ?labels:(string * string prop) list ->
   ?name:string prop ->
   ?project:string prop ->
+  ?fleet_default_member_config:fleet_default_member_config list ->
+  ?spec:spec list ->
   ?timeouts:timeouts ->
   location:string prop ->
-  fleet_default_member_config:fleet_default_member_config list ->
-  spec:spec list ->
   string ->
   t Tf_core.resource

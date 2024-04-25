@@ -271,12 +271,13 @@ let attestation_authority_note__public_keys__pkix_public_key
   { public_key_pem; signature_algorithm }
 
 let attestation_authority_note__public_keys
-    ?ascii_armored_pgp_public_key ?comment ?id ~pkix_public_key () :
+    ?ascii_armored_pgp_public_key ?comment ?id
+    ?(pkix_public_key = []) () :
     attestation_authority_note__public_keys =
   { ascii_armored_pgp_public_key; comment; id; pkix_public_key }
 
-let attestation_authority_note ~note_reference ~public_keys () :
-    attestation_authority_note =
+let attestation_authority_note ?(public_keys = []) ~note_reference ()
+    : attestation_authority_note =
   { note_reference; public_keys }
 
 let timeouts ?create ?delete ?update () : timeouts =

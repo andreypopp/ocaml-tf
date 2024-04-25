@@ -23,10 +23,10 @@ val aws_codeartifact_repository :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?external_connections:external_connections list ->
+  ?upstream:upstream list ->
   domain:string prop ->
   repository:string prop ->
-  external_connections:external_connections list ->
-  upstream:upstream list ->
   unit ->
   aws_codeartifact_repository
 
@@ -54,10 +54,10 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?external_connections:external_connections list ->
+  ?upstream:upstream list ->
   domain:string prop ->
   repository:string prop ->
-  external_connections:external_connections list ->
-  upstream:upstream list ->
   string ->
   t
 
@@ -67,9 +67,9 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?external_connections:external_connections list ->
+  ?upstream:upstream list ->
   domain:string prop ->
   repository:string prop ->
-  external_connections:external_connections list ->
-  upstream:upstream list ->
   string ->
   t Tf_core.resource

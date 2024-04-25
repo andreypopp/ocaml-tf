@@ -28,9 +28,9 @@ val configuration__user_identity_configuration :
 type configuration
 
 val configuration :
-  content_source_configuration:
+  ?content_source_configuration:
     configuration__content_source_configuration list ->
-  user_identity_configuration:
+  ?user_identity_configuration:
     configuration__user_identity_configuration list ->
   unit ->
   configuration
@@ -49,11 +49,11 @@ type aws_kendra_experience
 val aws_kendra_experience :
   ?description:string prop ->
   ?id:string prop ->
+  ?configuration:configuration list ->
   ?timeouts:timeouts ->
   index_id:string prop ->
   name:string prop ->
   role_arn:string prop ->
-  configuration:configuration list ->
   unit ->
   aws_kendra_experience
 
@@ -77,21 +77,21 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
+  ?configuration:configuration list ->
   ?timeouts:timeouts ->
   index_id:string prop ->
   name:string prop ->
   role_arn:string prop ->
-  configuration:configuration list ->
   string ->
   t
 
 val make :
   ?description:string prop ->
   ?id:string prop ->
+  ?configuration:configuration list ->
   ?timeouts:timeouts ->
   index_id:string prop ->
   name:string prop ->
   role_arn:string prop ->
-  configuration:configuration list ->
   string ->
   t Tf_core.resource

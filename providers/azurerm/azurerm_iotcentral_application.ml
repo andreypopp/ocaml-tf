@@ -218,9 +218,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_iotcentral_application ?display_name ?id
-    ?public_network_access_enabled ?sku ?tags ?template ?timeouts
-    ~location ~name ~resource_group_name ~sub_domain ~identity () :
-    azurerm_iotcentral_application =
+    ?public_network_access_enabled ?sku ?tags ?template
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    ~sub_domain () : azurerm_iotcentral_application =
   {
     display_name;
     id;
@@ -250,8 +250,8 @@ type t = {
 }
 
 let make ?display_name ?id ?public_network_access_enabled ?sku ?tags
-    ?template ?timeouts ~location ~name ~resource_group_name
-    ~sub_domain ~identity __id =
+    ?template ?(identity = []) ?timeouts ~location ~name
+    ~resource_group_name ~sub_domain __id =
   let __type = "azurerm_iotcentral_application" in
   let __attrs =
     ({
@@ -277,18 +277,19 @@ let make ?display_name ?id ?public_network_access_enabled ?sku ?tags
       yojson_of_azurerm_iotcentral_application
         (azurerm_iotcentral_application ?display_name ?id
            ?public_network_access_enabled ?sku ?tags ?template
-           ?timeouts ~location ~name ~resource_group_name ~sub_domain
-           ~identity ());
+           ~identity ?timeouts ~location ~name ~resource_group_name
+           ~sub_domain ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?display_name ?id
-    ?public_network_access_enabled ?sku ?tags ?template ?timeouts
-    ~location ~name ~resource_group_name ~sub_domain ~identity __id =
+    ?public_network_access_enabled ?sku ?tags ?template
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    ~sub_domain __id =
   let (r : _ Tf_core.resource) =
     make ?display_name ?id ?public_network_access_enabled ?sku ?tags
-      ?template ?timeouts ~location ~name ~resource_group_name
-      ~sub_domain ~identity __id
+      ?template ~identity ?timeouts ~location ~name
+      ~resource_group_name ~sub_domain __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

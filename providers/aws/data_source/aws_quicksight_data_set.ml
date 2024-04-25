@@ -1502,7 +1502,7 @@ let _ = yojson_of_aws_quicksight_data_set
 let column_level_permission_rules () = ()
 
 let aws_quicksight_data_set ?aws_account_id ?id ?tags ?tags_all
-    ~data_set_id ~column_level_permission_rules () :
+    ?(column_level_permission_rules = []) ~data_set_id () :
     aws_quicksight_data_set =
   {
     aws_account_id;
@@ -1535,8 +1535,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?aws_account_id ?id ?tags ?tags_all ~data_set_id
-    ~column_level_permission_rules __id =
+let make ?aws_account_id ?id ?tags ?tags_all
+    ?(column_level_permission_rules = []) ~data_set_id __id =
   let __type = "aws_quicksight_data_set" in
   let __attrs =
     ({
@@ -1571,15 +1571,15 @@ let make ?aws_account_id ?id ?tags ?tags_all ~data_set_id
     json =
       yojson_of_aws_quicksight_data_set
         (aws_quicksight_data_set ?aws_account_id ?id ?tags ?tags_all
-           ~data_set_id ~column_level_permission_rules ());
+           ~column_level_permission_rules ~data_set_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?aws_account_id ?id ?tags ?tags_all
-    ~data_set_id ~column_level_permission_rules __id =
+    ?(column_level_permission_rules = []) ~data_set_id __id =
   let (r : _ Tf_core.resource) =
-    make ?aws_account_id ?id ?tags ?tags_all ~data_set_id
-      ~column_level_permission_rules __id
+    make ?aws_account_id ?id ?tags ?tags_all
+      ~column_level_permission_rules ~data_set_id __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

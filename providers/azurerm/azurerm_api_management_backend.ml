@@ -509,8 +509,8 @@ let credentials__authorization ?parameter ?scheme () :
     credentials__authorization =
   { parameter; scheme }
 
-let credentials ?certificate ?header ?query ~authorization () :
-    credentials =
+let credentials ?certificate ?header ?query ?(authorization = []) ()
+    : credentials =
   { certificate; header; query; authorization }
 
 let proxy ?password ~url ~username () : proxy =
@@ -542,10 +542,10 @@ let tls ?validate_certificate_chain ?validate_certificate_name () :
   { validate_certificate_chain; validate_certificate_name }
 
 let azurerm_api_management_backend ?description ?id ?resource_id
-    ?title ?timeouts ~api_management_name ~name ~protocol
-    ~resource_group_name ~url ~credentials ~proxy
-    ~service_fabric_cluster ~tls () : azurerm_api_management_backend
-    =
+    ?title ?(credentials = []) ?(proxy = [])
+    ?(service_fabric_cluster = []) ?timeouts ?(tls = [])
+    ~api_management_name ~name ~protocol ~resource_group_name ~url ()
+    : azurerm_api_management_backend =
   {
     api_management_name;
     description;
@@ -575,9 +575,10 @@ type t = {
   url : string prop;
 }
 
-let make ?description ?id ?resource_id ?title ?timeouts
-    ~api_management_name ~name ~protocol ~resource_group_name ~url
-    ~credentials ~proxy ~service_fabric_cluster ~tls __id =
+let make ?description ?id ?resource_id ?title ?(credentials = [])
+    ?(proxy = []) ?(service_fabric_cluster = []) ?timeouts
+    ?(tls = []) ~api_management_name ~name ~protocol
+    ~resource_group_name ~url __id =
   let __type = "azurerm_api_management_backend" in
   let __attrs =
     ({
@@ -601,20 +602,20 @@ let make ?description ?id ?resource_id ?title ?timeouts
     json =
       yojson_of_azurerm_api_management_backend
         (azurerm_api_management_backend ?description ?id ?resource_id
-           ?title ?timeouts ~api_management_name ~name ~protocol
-           ~resource_group_name ~url ~credentials ~proxy
-           ~service_fabric_cluster ~tls ());
+           ?title ~credentials ~proxy ~service_fabric_cluster
+           ?timeouts ~tls ~api_management_name ~name ~protocol
+           ~resource_group_name ~url ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?resource_id ?title
-    ?timeouts ~api_management_name ~name ~protocol
-    ~resource_group_name ~url ~credentials ~proxy
-    ~service_fabric_cluster ~tls __id =
+    ?(credentials = []) ?(proxy = []) ?(service_fabric_cluster = [])
+    ?timeouts ?(tls = []) ~api_management_name ~name ~protocol
+    ~resource_group_name ~url __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?resource_id ?title ?timeouts
-      ~api_management_name ~name ~protocol ~resource_group_name ~url
-      ~credentials ~proxy ~service_fabric_cluster ~tls __id
+    make ?description ?id ?resource_id ?title ~credentials ~proxy
+      ~service_fabric_cluster ?timeouts ~tls ~api_management_name
+      ~name ~protocol ~resource_group_name ~url __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

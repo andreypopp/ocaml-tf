@@ -2229,14 +2229,14 @@ let rules__action_parameters__cache_key__custom_key__user
     rules__action_parameters__cache_key__custom_key__user =
   { device_type; geo; lang }
 
-let rules__action_parameters__cache_key__custom_key ~cookie ~header
-    ~host ~query_string ~user () :
-    rules__action_parameters__cache_key__custom_key =
+let rules__action_parameters__cache_key__custom_key ?(cookie = [])
+    ?(header = []) ?(host = []) ?(query_string = []) ?(user = []) ()
+    : rules__action_parameters__cache_key__custom_key =
   { cookie; header; host; query_string; user }
 
 let rules__action_parameters__cache_key ?cache_by_device_type
-    ?cache_deception_armor ?ignore_query_strings_order ~custom_key ()
-    : rules__action_parameters__cache_key =
+    ?cache_deception_armor ?ignore_query_strings_order
+    ?(custom_key = []) () : rules__action_parameters__cache_key =
   {
     cache_by_device_type;
     cache_deception_armor;
@@ -2251,12 +2251,13 @@ let rules__action_parameters__edge_ttl__status_code_ttl__status_code_range
   { from; to_ }
 
 let rules__action_parameters__edge_ttl__status_code_ttl ?status_code
-    ?value ~status_code_range () :
+    ?value ?(status_code_range = []) () :
     rules__action_parameters__edge_ttl__status_code_ttl =
   { status_code; value; status_code_range }
 
-let rules__action_parameters__edge_ttl ?default ~mode
-    ~status_code_ttl () : rules__action_parameters__edge_ttl =
+let rules__action_parameters__edge_ttl ?default
+    ?(status_code_ttl = []) ~mode () :
+    rules__action_parameters__edge_ttl =
   { default; mode; status_code_ttl }
 
 let rules__action_parameters__from_list ?key ?name () :
@@ -2268,7 +2269,7 @@ let rules__action_parameters__from_value__target_url ?expression
   { expression; value }
 
 let rules__action_parameters__from_value ?preserve_query_string
-    ?status_code ~target_url () :
+    ?status_code ?(target_url = []) () :
     rules__action_parameters__from_value =
   { preserve_query_string; status_code; target_url }
 
@@ -2294,7 +2295,7 @@ let rules__action_parameters__overrides__rules ?action ?enabled ?id
   { action; enabled; id; score_threshold; sensitivity_level }
 
 let rules__action_parameters__overrides ?action ?enabled
-    ?sensitivity_level ~categories ~rules () :
+    ?sensitivity_level ?(categories = []) ?(rules = []) () :
     rules__action_parameters__overrides =
   { action; enabled; sensitivity_level; categories; rules }
 
@@ -2319,8 +2320,8 @@ let rules__action_parameters__uri__query ?expression ?value () :
     rules__action_parameters__uri__query =
   { expression; value }
 
-let rules__action_parameters__uri ?origin ~path ~query () :
-    rules__action_parameters__uri =
+let rules__action_parameters__uri ?origin ?(path = []) ?(query = [])
+    () : rules__action_parameters__uri =
   { origin; path; query }
 
 let rules__action_parameters ?additional_cacheable_ports
@@ -2332,9 +2333,11 @@ let rules__action_parameters ?additional_cacheable_ports
     ?products ?read_timeout ?request_fields ?respect_strong_etags
     ?response_fields ?rocket_loader ?rules ?ruleset ?rulesets
     ?security_level ?server_side_excludes ?ssl ?status_code ?sxg
-    ?version ~algorithms ~autominify ~browser_ttl ~cache_key
-    ~edge_ttl ~from_list ~from_value ~headers ~matched_data ~origin
-    ~overrides ~response ~serve_stale ~sni ~uri () :
+    ?version ?(algorithms = []) ?(autominify = [])
+    ?(browser_ttl = []) ?(cache_key = []) ?(edge_ttl = [])
+    ?(from_list = []) ?(from_value = []) ?(headers = [])
+    ?(matched_data = []) ?(origin = []) ?(overrides = [])
+    ?(response = []) ?(serve_stale = []) ?(sni = []) ?(uri = []) () :
     rules__action_parameters =
   {
     additional_cacheable_ports;
@@ -2411,9 +2414,9 @@ let rules__ratelimit ?characteristics ?counting_expression
     score_response_header_name;
   }
 
-let rules ?action ?description ?enabled ?ref ~expression
-    ~action_parameters ~exposed_credential_check ~logging ~ratelimit
-    () : rules =
+let rules ?action ?description ?enabled ?ref
+    ?(action_parameters = []) ?(exposed_credential_check = [])
+    ?(logging = []) ?(ratelimit = []) ~expression () : rules =
   {
     action;
     description;
@@ -2426,8 +2429,8 @@ let rules ?action ?description ?enabled ?ref ~expression
     ratelimit;
   }
 
-let cloudflare_ruleset ?account_id ?description ?zone_id ~kind ~name
-    ~phase ~rules () : cloudflare_ruleset =
+let cloudflare_ruleset ?account_id ?description ?zone_id
+    ?(rules = []) ~kind ~name ~phase () : cloudflare_ruleset =
   { account_id; description; kind; name; phase; zone_id; rules }
 
 type t = {
@@ -2440,8 +2443,8 @@ type t = {
   zone_id : string prop;
 }
 
-let make ?account_id ?description ?zone_id ~kind ~name ~phase ~rules
-    __id =
+let make ?account_id ?description ?zone_id ?(rules = []) ~kind ~name
+    ~phase __id =
   let __type = "cloudflare_ruleset" in
   let __attrs =
     ({
@@ -2460,15 +2463,15 @@ let make ?account_id ?description ?zone_id ~kind ~name ~phase ~rules
     type_ = __type;
     json =
       yojson_of_cloudflare_ruleset
-        (cloudflare_ruleset ?account_id ?description ?zone_id ~kind
-           ~name ~phase ~rules ());
+        (cloudflare_ruleset ?account_id ?description ?zone_id ~rules
+           ~kind ~name ~phase ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?account_id ?description ?zone_id ~kind ~name
-    ~phase ~rules __id =
+let register ?tf_module ?account_id ?description ?zone_id
+    ?(rules = []) ~kind ~name ~phase __id =
   let (r : _ Tf_core.resource) =
-    make ?account_id ?description ?zone_id ~kind ~name ~phase ~rules
+    make ?account_id ?description ?zone_id ~rules ~kind ~name ~phase
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

@@ -25,8 +25,8 @@ type custom_actions__include_skaffold_modules
 
 val custom_actions__include_skaffold_modules :
   ?configs:string prop list ->
-  git:custom_actions__include_skaffold_modules__git list ->
-  google_cloud_storage:
+  ?git:custom_actions__include_skaffold_modules__git list ->
+  ?google_cloud_storage:
     custom_actions__include_skaffold_modules__google_cloud_storage
     list ->
   unit ->
@@ -36,9 +36,9 @@ type custom_actions
 
 val custom_actions :
   ?render_action:string prop ->
-  deploy_action:string prop ->
-  include_skaffold_modules:
+  ?include_skaffold_modules:
     custom_actions__include_skaffold_modules list ->
+  deploy_action:string prop ->
   unit ->
   custom_actions
 
@@ -59,10 +59,10 @@ val google_clouddeploy_custom_target_type :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?custom_actions:custom_actions list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  custom_actions:custom_actions list ->
   unit ->
   google_clouddeploy_custom_target_type
 
@@ -96,10 +96,10 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?custom_actions:custom_actions list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  custom_actions:custom_actions list ->
   string ->
   t
 
@@ -109,9 +109,9 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?custom_actions:custom_actions list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  custom_actions:custom_actions list ->
   string ->
   t Tf_core.resource

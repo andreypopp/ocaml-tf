@@ -99,13 +99,13 @@ val node_type :
   ?multiple_availability_zones:bool prop ->
   ?placement_properties:(string * string prop) list ->
   ?reverse_proxy_endpoint_port:float prop ->
+  ?application_ports:node_type__application_ports list ->
+  ?ephemeral_ports:node_type__ephemeral_ports list ->
   client_endpoint_port:float prop ->
   http_endpoint_port:float prop ->
   instance_count:float prop ->
   is_primary:bool prop ->
   name:string prop ->
-  application_ports:node_type__application_ports list ->
-  ephemeral_ports:node_type__ephemeral_ports list ->
   unit ->
   node_type
 
@@ -172,8 +172,8 @@ val upgrade_policy :
   ?upgrade_domain_timeout:string prop ->
   ?upgrade_replica_set_check_timeout:string prop ->
   ?upgrade_timeout:string prop ->
-  delta_health_policy:upgrade_policy__delta_health_policy list ->
-  health_policy:upgrade_policy__health_policy list ->
+  ?delta_health_policy:upgrade_policy__delta_health_policy list ->
+  ?health_policy:upgrade_policy__health_policy list ->
   unit ->
   upgrade_policy
 
@@ -186,7 +186,18 @@ val azurerm_service_fabric_cluster :
   ?service_fabric_zonal_upgrade_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?vmss_zonal_upgrade_mode:string prop ->
+  ?azure_active_directory:azure_active_directory list ->
+  ?certificate:certificate list ->
+  ?certificate_common_names:certificate_common_names list ->
+  ?client_certificate_common_name:client_certificate_common_name list ->
+  ?client_certificate_thumbprint:client_certificate_thumbprint list ->
+  ?diagnostics_config:diagnostics_config list ->
+  ?fabric_settings:fabric_settings list ->
+  ?reverse_proxy_certificate:reverse_proxy_certificate list ->
+  ?reverse_proxy_certificate_common_names:
+    reverse_proxy_certificate_common_names list ->
   ?timeouts:timeouts ->
+  ?upgrade_policy:upgrade_policy list ->
   location:string prop ->
   management_endpoint:string prop ->
   name:string prop ->
@@ -194,18 +205,7 @@ val azurerm_service_fabric_cluster :
   resource_group_name:string prop ->
   upgrade_mode:string prop ->
   vm_image:string prop ->
-  azure_active_directory:azure_active_directory list ->
-  certificate:certificate list ->
-  certificate_common_names:certificate_common_names list ->
-  client_certificate_common_name:client_certificate_common_name list ->
-  client_certificate_thumbprint:client_certificate_thumbprint list ->
-  diagnostics_config:diagnostics_config list ->
-  fabric_settings:fabric_settings list ->
   node_type:node_type list ->
-  reverse_proxy_certificate:reverse_proxy_certificate list ->
-  reverse_proxy_certificate_common_names:
-    reverse_proxy_certificate_common_names list ->
-  upgrade_policy:upgrade_policy list ->
   unit ->
   azurerm_service_fabric_cluster
 
@@ -239,7 +239,18 @@ val register :
   ?service_fabric_zonal_upgrade_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?vmss_zonal_upgrade_mode:string prop ->
+  ?azure_active_directory:azure_active_directory list ->
+  ?certificate:certificate list ->
+  ?certificate_common_names:certificate_common_names list ->
+  ?client_certificate_common_name:client_certificate_common_name list ->
+  ?client_certificate_thumbprint:client_certificate_thumbprint list ->
+  ?diagnostics_config:diagnostics_config list ->
+  ?fabric_settings:fabric_settings list ->
+  ?reverse_proxy_certificate:reverse_proxy_certificate list ->
+  ?reverse_proxy_certificate_common_names:
+    reverse_proxy_certificate_common_names list ->
   ?timeouts:timeouts ->
+  ?upgrade_policy:upgrade_policy list ->
   location:string prop ->
   management_endpoint:string prop ->
   name:string prop ->
@@ -247,18 +258,7 @@ val register :
   resource_group_name:string prop ->
   upgrade_mode:string prop ->
   vm_image:string prop ->
-  azure_active_directory:azure_active_directory list ->
-  certificate:certificate list ->
-  certificate_common_names:certificate_common_names list ->
-  client_certificate_common_name:client_certificate_common_name list ->
-  client_certificate_thumbprint:client_certificate_thumbprint list ->
-  diagnostics_config:diagnostics_config list ->
-  fabric_settings:fabric_settings list ->
   node_type:node_type list ->
-  reverse_proxy_certificate:reverse_proxy_certificate list ->
-  reverse_proxy_certificate_common_names:
-    reverse_proxy_certificate_common_names list ->
-  upgrade_policy:upgrade_policy list ->
   string ->
   t
 
@@ -269,7 +269,18 @@ val make :
   ?service_fabric_zonal_upgrade_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?vmss_zonal_upgrade_mode:string prop ->
+  ?azure_active_directory:azure_active_directory list ->
+  ?certificate:certificate list ->
+  ?certificate_common_names:certificate_common_names list ->
+  ?client_certificate_common_name:client_certificate_common_name list ->
+  ?client_certificate_thumbprint:client_certificate_thumbprint list ->
+  ?diagnostics_config:diagnostics_config list ->
+  ?fabric_settings:fabric_settings list ->
+  ?reverse_proxy_certificate:reverse_proxy_certificate list ->
+  ?reverse_proxy_certificate_common_names:
+    reverse_proxy_certificate_common_names list ->
   ?timeouts:timeouts ->
+  ?upgrade_policy:upgrade_policy list ->
   location:string prop ->
   management_endpoint:string prop ->
   name:string prop ->
@@ -277,17 +288,6 @@ val make :
   resource_group_name:string prop ->
   upgrade_mode:string prop ->
   vm_image:string prop ->
-  azure_active_directory:azure_active_directory list ->
-  certificate:certificate list ->
-  certificate_common_names:certificate_common_names list ->
-  client_certificate_common_name:client_certificate_common_name list ->
-  client_certificate_thumbprint:client_certificate_thumbprint list ->
-  diagnostics_config:diagnostics_config list ->
-  fabric_settings:fabric_settings list ->
   node_type:node_type list ->
-  reverse_proxy_certificate:reverse_proxy_certificate list ->
-  reverse_proxy_certificate_common_names:
-    reverse_proxy_certificate_common_names list ->
-  upgrade_policy:upgrade_policy list ->
   string ->
   t Tf_core.resource

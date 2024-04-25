@@ -213,7 +213,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_monitoring_service ?display_name ?id ?project ?user_labels
-    ?timeouts ~service_id ~basic_service () :
+    ?(basic_service = []) ?timeouts ~service_id () :
     google_monitoring_service =
   {
     display_name;
@@ -235,8 +235,8 @@ type t = {
   user_labels : (string * string) list prop;
 }
 
-let make ?display_name ?id ?project ?user_labels ?timeouts
-    ~service_id ~basic_service __id =
+let make ?display_name ?id ?project ?user_labels
+    ?(basic_service = []) ?timeouts ~service_id __id =
   let __type = "google_monitoring_service" in
   let __attrs =
     ({
@@ -256,15 +256,15 @@ let make ?display_name ?id ?project ?user_labels ?timeouts
     json =
       yojson_of_google_monitoring_service
         (google_monitoring_service ?display_name ?id ?project
-           ?user_labels ?timeouts ~service_id ~basic_service ());
+           ?user_labels ~basic_service ?timeouts ~service_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?display_name ?id ?project ?user_labels
-    ?timeouts ~service_id ~basic_service __id =
+    ?(basic_service = []) ?timeouts ~service_id __id =
   let (r : _ Tf_core.resource) =
-    make ?display_name ?id ?project ?user_labels ?timeouts
-      ~service_id ~basic_service __id
+    make ?display_name ?id ?project ?user_labels ~basic_service
+      ?timeouts ~service_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

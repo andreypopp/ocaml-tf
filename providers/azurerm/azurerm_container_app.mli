@@ -57,9 +57,9 @@ val ingress :
   ?exposed_port:float prop ->
   ?external_enabled:bool prop ->
   ?transport:string prop ->
+  ?custom_domain:ingress__custom_domain list ->
+  ?ip_security_restriction:ingress__ip_security_restriction list ->
   target_port:float prop ->
-  custom_domain:ingress__custom_domain list ->
-  ip_security_restriction:ingress__ip_security_restriction list ->
   traffic_weight:ingress__traffic_weight list ->
   unit ->
   ingress
@@ -123,9 +123,9 @@ val template__container__liveness_probe :
   ?interval_seconds:float prop ->
   ?path:string prop ->
   ?timeout:float prop ->
+  ?header:template__container__liveness_probe__header list ->
   port:float prop ->
   transport:string prop ->
-  header:template__container__liveness_probe__header list ->
   unit ->
   template__container__liveness_probe
 
@@ -146,9 +146,9 @@ val template__container__readiness_probe :
   ?path:string prop ->
   ?success_count_threshold:float prop ->
   ?timeout:float prop ->
+  ?header:template__container__readiness_probe__header list ->
   port:float prop ->
   transport:string prop ->
-  header:template__container__readiness_probe__header list ->
   unit ->
   template__container__readiness_probe
 
@@ -168,9 +168,9 @@ val template__container__startup_probe :
   ?interval_seconds:float prop ->
   ?path:string prop ->
   ?timeout:float prop ->
+  ?header:template__container__startup_probe__header list ->
   port:float prop ->
   transport:string prop ->
-  header:template__container__startup_probe__header list ->
   unit ->
   template__container__startup_probe
 
@@ -187,15 +187,15 @@ type template__container
 val template__container :
   ?args:string prop list ->
   ?command:string prop list ->
+  ?env:template__container__env list ->
+  ?liveness_probe:template__container__liveness_probe list ->
+  ?readiness_probe:template__container__readiness_probe list ->
+  ?startup_probe:template__container__startup_probe list ->
+  ?volume_mounts:template__container__volume_mounts list ->
   cpu:float prop ->
   image:string prop ->
   memory:string prop ->
   name:string prop ->
-  env:template__container__env list ->
-  liveness_probe:template__container__liveness_probe list ->
-  readiness_probe:template__container__readiness_probe list ->
-  startup_probe:template__container__startup_probe list ->
-  volume_mounts:template__container__volume_mounts list ->
   unit ->
   template__container
 
@@ -210,10 +210,10 @@ val template__custom_scale_rule__authentication :
 type template__custom_scale_rule
 
 val template__custom_scale_rule :
+  ?authentication:template__custom_scale_rule__authentication list ->
   custom_rule_type:string prop ->
   metadata:(string * string prop) list ->
   name:string prop ->
-  authentication:template__custom_scale_rule__authentication list ->
   unit ->
   template__custom_scale_rule
 
@@ -228,9 +228,9 @@ val template__http_scale_rule__authentication :
 type template__http_scale_rule
 
 val template__http_scale_rule :
+  ?authentication:template__http_scale_rule__authentication list ->
   concurrent_requests:string prop ->
   name:string prop ->
-  authentication:template__http_scale_rule__authentication list ->
   unit ->
   template__http_scale_rule
 
@@ -258,10 +258,10 @@ val template__init_container :
   ?command:string prop list ->
   ?cpu:float prop ->
   ?memory:string prop ->
+  ?env:template__init_container__env list ->
+  ?volume_mounts:template__init_container__volume_mounts list ->
   image:string prop ->
   name:string prop ->
-  env:template__init_container__env list ->
-  volume_mounts:template__init_container__volume_mounts list ->
   unit ->
   template__init_container
 
@@ -276,9 +276,9 @@ val template__tcp_scale_rule__authentication :
 type template__tcp_scale_rule
 
 val template__tcp_scale_rule :
+  ?authentication:template__tcp_scale_rule__authentication list ->
   concurrent_requests:string prop ->
   name:string prop ->
-  authentication:template__tcp_scale_rule__authentication list ->
   unit ->
   template__tcp_scale_rule
 
@@ -297,13 +297,13 @@ val template :
   ?max_replicas:float prop ->
   ?min_replicas:float prop ->
   ?revision_suffix:string prop ->
-  azure_queue_scale_rule:template__azure_queue_scale_rule list ->
+  ?azure_queue_scale_rule:template__azure_queue_scale_rule list ->
+  ?custom_scale_rule:template__custom_scale_rule list ->
+  ?http_scale_rule:template__http_scale_rule list ->
+  ?init_container:template__init_container list ->
+  ?tcp_scale_rule:template__tcp_scale_rule list ->
+  ?volume:template__volume list ->
   container:template__container list ->
-  custom_scale_rule:template__custom_scale_rule list ->
-  http_scale_rule:template__http_scale_rule list ->
-  init_container:template__init_container list ->
-  tcp_scale_rule:template__tcp_scale_rule list ->
-  volume:template__volume list ->
   unit ->
   template
 
@@ -323,15 +323,15 @@ val azurerm_container_app :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?workload_profile_name:string prop ->
+  ?dapr:dapr list ->
+  ?identity:identity list ->
+  ?ingress:ingress list ->
+  ?registry:registry list ->
   ?timeouts:timeouts ->
   container_app_environment_id:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   revision_mode:string prop ->
-  dapr:dapr list ->
-  identity:identity list ->
-  ingress:ingress list ->
-  registry:registry list ->
   secret:secret list ->
   template:template list ->
   unit ->
@@ -361,15 +361,15 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?workload_profile_name:string prop ->
+  ?dapr:dapr list ->
+  ?identity:identity list ->
+  ?ingress:ingress list ->
+  ?registry:registry list ->
   ?timeouts:timeouts ->
   container_app_environment_id:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   revision_mode:string prop ->
-  dapr:dapr list ->
-  identity:identity list ->
-  ingress:ingress list ->
-  registry:registry list ->
   secret:secret list ->
   template:template list ->
   string ->
@@ -379,15 +379,15 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?workload_profile_name:string prop ->
+  ?dapr:dapr list ->
+  ?identity:identity list ->
+  ?ingress:ingress list ->
+  ?registry:registry list ->
   ?timeouts:timeouts ->
   container_app_environment_id:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   revision_mode:string prop ->
-  dapr:dapr list ->
-  identity:identity list ->
-  ingress:ingress list ->
-  registry:registry list ->
   secret:secret list ->
   template:template list ->
   string ->

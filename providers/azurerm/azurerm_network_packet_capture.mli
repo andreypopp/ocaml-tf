@@ -39,12 +39,12 @@ val azurerm_network_packet_capture :
   ?maximum_bytes_per_packet:float prop ->
   ?maximum_bytes_per_session:float prop ->
   ?maximum_capture_duration:float prop ->
+  ?filter:filter list ->
   ?timeouts:timeouts ->
   name:string prop ->
   network_watcher_name:string prop ->
   resource_group_name:string prop ->
   target_resource_id:string prop ->
-  filter:filter list ->
   storage_location:storage_location list ->
   unit ->
   azurerm_network_packet_capture
@@ -71,12 +71,12 @@ val register :
   ?maximum_bytes_per_packet:float prop ->
   ?maximum_bytes_per_session:float prop ->
   ?maximum_capture_duration:float prop ->
+  ?filter:filter list ->
   ?timeouts:timeouts ->
   name:string prop ->
   network_watcher_name:string prop ->
   resource_group_name:string prop ->
   target_resource_id:string prop ->
-  filter:filter list ->
   storage_location:storage_location list ->
   string ->
   t
@@ -86,12 +86,12 @@ val make :
   ?maximum_bytes_per_packet:float prop ->
   ?maximum_bytes_per_session:float prop ->
   ?maximum_capture_duration:float prop ->
+  ?filter:filter list ->
   ?timeouts:timeouts ->
   name:string prop ->
   network_watcher_name:string prop ->
   resource_group_name:string prop ->
   target_resource_id:string prop ->
-  filter:filter list ->
   storage_location:storage_location list ->
   string ->
   t Tf_core.resource

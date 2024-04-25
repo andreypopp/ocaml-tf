@@ -17,8 +17,8 @@ type source
 
 val source :
   ?enabled:bool prop ->
+  ?sub_type:source__sub_type list ->
   name:string prop ->
-  sub_type:source__sub_type list ->
   unit ->
   source
 
@@ -37,11 +37,11 @@ type azurerm_sentinel_alert_rule_fusion
 val azurerm_sentinel_alert_rule_fusion :
   ?enabled:bool prop ->
   ?id:string prop ->
+  ?source:source list ->
   ?timeouts:timeouts ->
   alert_rule_template_guid:string prop ->
   log_analytics_workspace_id:string prop ->
   name:string prop ->
-  source:source list ->
   unit ->
   azurerm_sentinel_alert_rule_fusion
 
@@ -62,21 +62,21 @@ val register :
   ?tf_module:tf_module ->
   ?enabled:bool prop ->
   ?id:string prop ->
+  ?source:source list ->
   ?timeouts:timeouts ->
   alert_rule_template_guid:string prop ->
   log_analytics_workspace_id:string prop ->
   name:string prop ->
-  source:source list ->
   string ->
   t
 
 val make :
   ?enabled:bool prop ->
   ?id:string prop ->
+  ?source:source list ->
   ?timeouts:timeouts ->
   alert_rule_template_guid:string prop ->
   log_analytics_workspace_id:string prop ->
   name:string prop ->
-  source:source list ->
   string ->
   t Tf_core.resource

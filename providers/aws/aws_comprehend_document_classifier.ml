@@ -468,9 +468,9 @@ let vpc_config ~security_group_ids ~subnets () : vpc_config =
 
 let aws_comprehend_document_classifier ?id ?mode ?model_kms_key_id
     ?tags ?tags_all ?version_name ?version_name_prefix
-    ?volume_kms_key_id ?timeouts ~data_access_role_arn ~language_code
-    ~name ~input_data_config ~output_data_config ~vpc_config () :
-    aws_comprehend_document_classifier =
+    ?volume_kms_key_id ?(output_data_config = []) ?timeouts
+    ?(vpc_config = []) ~data_access_role_arn ~language_code ~name
+    ~input_data_config () : aws_comprehend_document_classifier =
   {
     data_access_role_arn;
     id;
@@ -505,9 +505,10 @@ type t = {
 }
 
 let make ?id ?mode ?model_kms_key_id ?tags ?tags_all ?version_name
-    ?version_name_prefix ?volume_kms_key_id ?timeouts
+    ?version_name_prefix ?volume_kms_key_id
+    ?(output_data_config = []) ?timeouts ?(vpc_config = [])
     ~data_access_role_arn ~language_code ~name ~input_data_config
-    ~output_data_config ~vpc_config __id =
+    __id =
   let __type = "aws_comprehend_document_classifier" in
   let __attrs =
     ({
@@ -537,21 +538,23 @@ let make ?id ?mode ?model_kms_key_id ?tags ?tags_all ?version_name
       yojson_of_aws_comprehend_document_classifier
         (aws_comprehend_document_classifier ?id ?mode
            ?model_kms_key_id ?tags ?tags_all ?version_name
-           ?version_name_prefix ?volume_kms_key_id ?timeouts
+           ?version_name_prefix ?volume_kms_key_id
+           ~output_data_config ?timeouts ~vpc_config
            ~data_access_role_arn ~language_code ~name
-           ~input_data_config ~output_data_config ~vpc_config ());
+           ~input_data_config ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?mode ?model_kms_key_id ?tags ?tags_all
-    ?version_name ?version_name_prefix ?volume_kms_key_id ?timeouts
+    ?version_name ?version_name_prefix ?volume_kms_key_id
+    ?(output_data_config = []) ?timeouts ?(vpc_config = [])
     ~data_access_role_arn ~language_code ~name ~input_data_config
-    ~output_data_config ~vpc_config __id =
+    __id =
   let (r : _ Tf_core.resource) =
     make ?id ?mode ?model_kms_key_id ?tags ?tags_all ?version_name
-      ?version_name_prefix ?volume_kms_key_id ?timeouts
-      ~data_access_role_arn ~language_code ~name ~input_data_config
-      ~output_data_config ~vpc_config __id
+      ?version_name_prefix ?volume_kms_key_id ~output_data_config
+      ?timeouts ~vpc_config ~data_access_role_arn ~language_code
+      ~name ~input_data_config __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

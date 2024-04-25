@@ -53,12 +53,12 @@ val google_compute_global_forwarding_rule :
   ?project:string prop ->
   ?source_ip_ranges:string prop list ->
   ?subnetwork:string prop ->
+  ?metadata_filters:metadata_filters list ->
+  ?service_directory_registrations:
+    service_directory_registrations list ->
   ?timeouts:timeouts ->
   name:string prop ->
   target:string prop ->
-  metadata_filters:metadata_filters list ->
-  service_directory_registrations:
-    service_directory_registrations list ->
   unit ->
   google_compute_global_forwarding_rule
 
@@ -107,12 +107,12 @@ val register :
   ?project:string prop ->
   ?source_ip_ranges:string prop list ->
   ?subnetwork:string prop ->
+  ?metadata_filters:metadata_filters list ->
+  ?service_directory_registrations:
+    service_directory_registrations list ->
   ?timeouts:timeouts ->
   name:string prop ->
   target:string prop ->
-  metadata_filters:metadata_filters list ->
-  service_directory_registrations:
-    service_directory_registrations list ->
   string ->
   t
 
@@ -130,11 +130,11 @@ val make :
   ?project:string prop ->
   ?source_ip_ranges:string prop list ->
   ?subnetwork:string prop ->
+  ?metadata_filters:metadata_filters list ->
+  ?service_directory_registrations:
+    service_directory_registrations list ->
   ?timeouts:timeouts ->
   name:string prop ->
   target:string prop ->
-  metadata_filters:metadata_filters list ->
-  service_directory_registrations:
-    service_directory_registrations list ->
   string ->
   t Tf_core.resource

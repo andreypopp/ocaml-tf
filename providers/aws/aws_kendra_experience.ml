@@ -283,15 +283,15 @@ let configuration__user_identity_configuration
     configuration__user_identity_configuration =
   { identity_attribute_name }
 
-let configuration ~content_source_configuration
-    ~user_identity_configuration () : configuration =
+let configuration ?(content_source_configuration = [])
+    ?(user_identity_configuration = []) () : configuration =
   { content_source_configuration; user_identity_configuration }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let aws_kendra_experience ?description ?id ?timeouts ~index_id ~name
-    ~role_arn ~configuration () : aws_kendra_experience =
+let aws_kendra_experience ?description ?id ?(configuration = [])
+    ?timeouts ~index_id ~name ~role_arn () : aws_kendra_experience =
   {
     description;
     id;
@@ -314,8 +314,8 @@ type t = {
   status : string prop;
 }
 
-let make ?description ?id ?timeouts ~index_id ~name ~role_arn
-    ~configuration __id =
+let make ?description ?id ?(configuration = []) ?timeouts ~index_id
+    ~name ~role_arn __id =
   let __type = "aws_kendra_experience" in
   let __attrs =
     ({
@@ -336,16 +336,16 @@ let make ?description ?id ?timeouts ~index_id ~name ~role_arn
     type_ = __type;
     json =
       yojson_of_aws_kendra_experience
-        (aws_kendra_experience ?description ?id ?timeouts ~index_id
-           ~name ~role_arn ~configuration ());
+        (aws_kendra_experience ?description ?id ~configuration
+           ?timeouts ~index_id ~name ~role_arn ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?timeouts ~index_id ~name
-    ~role_arn ~configuration __id =
+let register ?tf_module ?description ?id ?(configuration = [])
+    ?timeouts ~index_id ~name ~role_arn __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?timeouts ~index_id ~name ~role_arn
-      ~configuration __id
+    make ?description ?id ~configuration ?timeouts ~index_id ~name
+      ~role_arn __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -281,9 +281,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_healthcare_hl7_v2_store ?id ?labels
-    ?reject_duplicate_message ?timeouts ~dataset ~name
-    ~notification_config ~notification_configs ~parser_config () :
-    google_healthcare_hl7_v2_store =
+    ?reject_duplicate_message ?(notification_config = [])
+    ?(notification_configs = []) ?(parser_config = []) ?timeouts
+    ~dataset ~name () : google_healthcare_hl7_v2_store =
   {
     dataset;
     id;
@@ -307,9 +307,9 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let make ?id ?labels ?reject_duplicate_message ?timeouts ~dataset
-    ~name ~notification_config ~notification_configs ~parser_config
-    __id =
+let make ?id ?labels ?reject_duplicate_message
+    ?(notification_config = []) ?(notification_configs = [])
+    ?(parser_config = []) ?timeouts ~dataset ~name __id =
   let __type = "google_healthcare_hl7_v2_store" in
   let __attrs =
     ({
@@ -333,18 +333,18 @@ let make ?id ?labels ?reject_duplicate_message ?timeouts ~dataset
     json =
       yojson_of_google_healthcare_hl7_v2_store
         (google_healthcare_hl7_v2_store ?id ?labels
-           ?reject_duplicate_message ?timeouts ~dataset ~name
-           ~notification_config ~notification_configs ~parser_config
-           ());
+           ?reject_duplicate_message ~notification_config
+           ~notification_configs ~parser_config ?timeouts ~dataset
+           ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?labels ?reject_duplicate_message
-    ?timeouts ~dataset ~name ~notification_config
-    ~notification_configs ~parser_config __id =
+    ?(notification_config = []) ?(notification_configs = [])
+    ?(parser_config = []) ?timeouts ~dataset ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?labels ?reject_duplicate_message ?timeouts ~dataset
-      ~name ~notification_config ~notification_configs ~parser_config
+    make ?id ?labels ?reject_duplicate_message ~notification_config
+      ~notification_configs ~parser_config ?timeouts ~dataset ~name
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

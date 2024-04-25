@@ -22,10 +22,10 @@ val resources__dns_target_resource__target_resource__r53_resource :
 type resources__dns_target_resource__target_resource
 
 val resources__dns_target_resource__target_resource :
-  nlb_resource:
+  ?nlb_resource:
     resources__dns_target_resource__target_resource__nlb_resource
     list ->
-  r53_resource:
+  ?r53_resource:
     resources__dns_target_resource__target_resource__r53_resource
     list ->
   unit ->
@@ -37,9 +37,9 @@ val resources__dns_target_resource :
   ?hosted_zone_arn:string prop ->
   ?record_set_id:string prop ->
   ?record_type:string prop ->
-  domain_name:string prop ->
-  target_resource:
+  ?target_resource:
     resources__dns_target_resource__target_resource list ->
+  domain_name:string prop ->
   unit ->
   resources__dns_target_resource
 
@@ -48,7 +48,7 @@ type resources
 val resources :
   ?readiness_scopes:string prop list ->
   ?resource_arn:string prop ->
-  dns_target_resource:resources__dns_target_resource list ->
+  ?dns_target_resource:resources__dns_target_resource list ->
   unit ->
   resources
 

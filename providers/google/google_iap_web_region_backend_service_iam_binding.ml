@@ -129,8 +129,9 @@ let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
 let google_iap_web_region_backend_service_iam_binding ?id ?project
-    ?region ~members ~role ~web_region_backend_service ~condition ()
-    : google_iap_web_region_backend_service_iam_binding =
+    ?region ?(condition = []) ~members ~role
+    ~web_region_backend_service () :
+    google_iap_web_region_backend_service_iam_binding =
   {
     id;
     members;
@@ -151,8 +152,8 @@ type t = {
   web_region_backend_service : string prop;
 }
 
-let make ?id ?project ?region ~members ~role
-    ~web_region_backend_service ~condition __id =
+let make ?id ?project ?region ?(condition = []) ~members ~role
+    ~web_region_backend_service __id =
   let __type = "google_iap_web_region_backend_service_iam_binding" in
   let __attrs =
     ({
@@ -173,16 +174,16 @@ let make ?id ?project ?region ~members ~role
     json =
       yojson_of_google_iap_web_region_backend_service_iam_binding
         (google_iap_web_region_backend_service_iam_binding ?id
-           ?project ?region ~members ~role
-           ~web_region_backend_service ~condition ());
+           ?project ?region ~condition ~members ~role
+           ~web_region_backend_service ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ?region ~members ~role
-    ~web_region_backend_service ~condition __id =
+let register ?tf_module ?id ?project ?region ?(condition = [])
+    ~members ~role ~web_region_backend_service __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ?region ~members ~role
-      ~web_region_backend_service ~condition __id
+    make ?id ?project ?region ~condition ~members ~role
+      ~web_region_backend_service __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

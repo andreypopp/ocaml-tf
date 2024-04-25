@@ -279,8 +279,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_data_factory_dataset_http ?additional_properties
     ?annotations ?description ?folder ?id ?parameters ?relative_url
-    ?request_body ?request_method ?timeouts ~data_factory_id
-    ~linked_service_name ~name ~schema_column () :
+    ?request_body ?request_method ?(schema_column = []) ?timeouts
+    ~data_factory_id ~linked_service_name ~name () :
     azurerm_data_factory_dataset_http =
   {
     additional_properties;
@@ -315,8 +315,9 @@ type t = {
 }
 
 let make ?additional_properties ?annotations ?description ?folder ?id
-    ?parameters ?relative_url ?request_body ?request_method ?timeouts
-    ~data_factory_id ~linked_service_name ~name ~schema_column __id =
+    ?parameters ?relative_url ?request_body ?request_method
+    ?(schema_column = []) ?timeouts ~data_factory_id
+    ~linked_service_name ~name __id =
   let __type = "azurerm_data_factory_dataset_http" in
   let __attrs =
     ({
@@ -344,21 +345,20 @@ let make ?additional_properties ?annotations ?description ?folder ?id
       yojson_of_azurerm_data_factory_dataset_http
         (azurerm_data_factory_dataset_http ?additional_properties
            ?annotations ?description ?folder ?id ?parameters
-           ?relative_url ?request_body ?request_method ?timeouts
-           ~data_factory_id ~linked_service_name ~name ~schema_column
-           ());
+           ?relative_url ?request_body ?request_method ~schema_column
+           ?timeouts ~data_factory_id ~linked_service_name ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?additional_properties ?annotations
     ?description ?folder ?id ?parameters ?relative_url ?request_body
-    ?request_method ?timeouts ~data_factory_id ~linked_service_name
-    ~name ~schema_column __id =
+    ?request_method ?(schema_column = []) ?timeouts ~data_factory_id
+    ~linked_service_name ~name __id =
   let (r : _ Tf_core.resource) =
     make ?additional_properties ?annotations ?description ?folder ?id
       ?parameters ?relative_url ?request_body ?request_method
-      ?timeouts ~data_factory_id ~linked_service_name ~name
-      ~schema_column __id
+      ~schema_column ?timeouts ~data_factory_id ~linked_service_name
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

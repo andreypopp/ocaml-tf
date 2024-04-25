@@ -18,8 +18,8 @@ val bgp :
   ?advertise_mode:string prop ->
   ?advertised_groups:string prop list ->
   ?keepalive_interval:float prop ->
+  ?advertised_ip_ranges:bgp__advertised_ip_ranges list ->
   asn:float prop ->
-  advertised_ip_ranges:bgp__advertised_ip_ranges list ->
   unit ->
   bgp
 
@@ -40,10 +40,10 @@ val google_compute_router :
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?bgp:bgp list ->
   ?timeouts:timeouts ->
   name:string prop ->
   network:string prop ->
-  bgp:bgp list ->
   unit ->
   google_compute_router
 
@@ -70,10 +70,10 @@ val register :
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?bgp:bgp list ->
   ?timeouts:timeouts ->
   name:string prop ->
   network:string prop ->
-  bgp:bgp list ->
   string ->
   t
 
@@ -83,9 +83,9 @@ val make :
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?bgp:bgp list ->
   ?timeouts:timeouts ->
   name:string prop ->
   network:string prop ->
-  bgp:bgp list ->
   string ->
   t Tf_core.resource

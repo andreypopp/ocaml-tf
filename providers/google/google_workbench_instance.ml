@@ -163,7 +163,7 @@ let gce_setup__vm_image ?family ?name ?project () =
     project;
   } : gce_setup__vm_image);;
 
-let gce_setup ?disable_public_ip ?enable_ip_forwarding ?machine_type ?metadata ?tags ~accelerator_configs ~boot_disk ~container_image ~data_disks ~network_interfaces ~service_accounts ~shielded_instance_config ~vm_image () =
+let gce_setup ?disable_public_ip ?enable_ip_forwarding ?machine_type ?metadata ?tags ?(accelerator_configs=[]) ?(boot_disk=[]) ?(container_image=[]) ?(data_disks=[]) ?(network_interfaces=[]) ?(service_accounts=[]) ?(shielded_instance_config=[]) ?(vm_image=[]) () =
   ({
     disable_public_ip;
     enable_ip_forwarding;
@@ -187,7 +187,7 @@ let timeouts ?create ?delete ?update () =
     update;
   } : timeouts);;
 
-let google_workbench_instance ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners ?labels ?project ?timeouts ~location ~name ~gce_setup () =
+let google_workbench_instance ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners ?labels ?project ?(gce_setup=[]) ?timeouts ~location ~name () =
   ({
     desired_state;
     disable_proxy_access;
@@ -224,7 +224,7 @@ type t = {
   upgrade_history: upgrade_history list prop;
 }
 
-let make ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners ?labels ?project ?timeouts ~location ~name ~gce_setup __id =
+let make ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners ?labels ?project ?(gce_setup=[]) ?timeouts ~location ~name __id =
   let __type = "google_workbench_instance" in
   let __attrs = ({
     create_time = Prop.computed __type __id "create_time";
@@ -250,12 +250,12 @@ let make ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners 
   {Tf_core.
     id=__id;
     type_=__type;
-    json=yojson_of_google_workbench_instance (google_workbench_instance ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners ?labels ?project ?timeouts ~location ~name ~gce_setup ());
+    json=yojson_of_google_workbench_instance (google_workbench_instance ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners ?labels ?project ~gce_setup ?timeouts ~location ~name ());
     attrs=__attrs;
   };;
 
-let register ?tf_module ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners ?labels ?project ?timeouts ~location ~name ~gce_setup __id =
-  let (r : _ Tf_core.resource) = make ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners ?labels ?project ?timeouts ~location ~name ~gce_setup __id in
+let register ?tf_module ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners ?labels ?project ?(gce_setup=[]) ?timeouts ~location ~name __id =
+  let (r : _ Tf_core.resource) = make ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners ?labels ?project ~gce_setup ?timeouts ~location ~name __id in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs;;
 

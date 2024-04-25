@@ -112,8 +112,8 @@ let _ = yojson_of_google_secret_manager_secret_iam_member
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_secret_manager_secret_iam_member ?id ?project ~member
-    ~role ~secret_id ~condition () :
+let google_secret_manager_secret_iam_member ?id ?project
+    ?(condition = []) ~member ~role ~secret_id () :
     google_secret_manager_secret_iam_member =
   { id; member; project; role; secret_id; condition }
 
@@ -126,7 +126,8 @@ type t = {
   secret_id : string prop;
 }
 
-let make ?id ?project ~member ~role ~secret_id ~condition __id =
+let make ?id ?project ?(condition = []) ~member ~role ~secret_id __id
+    =
   let __type = "google_secret_manager_secret_iam_member" in
   let __attrs =
     ({
@@ -144,15 +145,15 @@ let make ?id ?project ~member ~role ~secret_id ~condition __id =
     type_ = __type;
     json =
       yojson_of_google_secret_manager_secret_iam_member
-        (google_secret_manager_secret_iam_member ?id ?project ~member
-           ~role ~secret_id ~condition ());
+        (google_secret_manager_secret_iam_member ?id ?project
+           ~condition ~member ~role ~secret_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ~member ~role ~secret_id
-    ~condition __id =
+let register ?tf_module ?id ?project ?(condition = []) ~member ~role
+    ~secret_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ~member ~role ~secret_id ~condition __id
+    make ?id ?project ~condition ~member ~role ~secret_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

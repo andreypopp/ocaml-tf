@@ -26,8 +26,8 @@ val pcc_rule__qos_policy :
   ?allocation_and_retention_priority_level:float prop ->
   ?preemption_capability:string prop ->
   ?preemption_vulnerability:string prop ->
+  ?guaranteed_bit_rate:pcc_rule__qos_policy__guaranteed_bit_rate list ->
   qos_indicator:float prop ->
-  guaranteed_bit_rate:pcc_rule__qos_policy__guaranteed_bit_rate list ->
   maximum_bit_rate:pcc_rule__qos_policy__maximum_bit_rate list ->
   unit ->
   pcc_rule__qos_policy
@@ -47,9 +47,9 @@ type pcc_rule
 
 val pcc_rule :
   ?traffic_control_enabled:bool prop ->
+  ?qos_policy:pcc_rule__qos_policy list ->
   name:string prop ->
   precedence:float prop ->
-  qos_policy:pcc_rule__qos_policy list ->
   service_data_flow_template:
     pcc_rule__service_data_flow_template list ->
   unit ->
@@ -89,13 +89,13 @@ type azurerm_mobile_network_service
 val azurerm_mobile_network_service :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?service_qos_policy:service_qos_policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
   mobile_network_id:string prop ->
   name:string prop ->
   service_precedence:float prop ->
   pcc_rule:pcc_rule list ->
-  service_qos_policy:service_qos_policy list ->
   unit ->
   azurerm_mobile_network_service
 
@@ -117,25 +117,25 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?service_qos_policy:service_qos_policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
   mobile_network_id:string prop ->
   name:string prop ->
   service_precedence:float prop ->
   pcc_rule:pcc_rule list ->
-  service_qos_policy:service_qos_policy list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?service_qos_policy:service_qos_policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
   mobile_network_id:string prop ->
   name:string prop ->
   service_precedence:float prop ->
   pcc_rule:pcc_rule list ->
-  service_qos_policy:service_qos_policy list ->
   string ->
   t Tf_core.resource

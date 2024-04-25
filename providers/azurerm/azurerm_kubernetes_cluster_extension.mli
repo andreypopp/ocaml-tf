@@ -41,11 +41,11 @@ val azurerm_kubernetes_cluster_extension :
   ?release_train:string prop ->
   ?target_namespace:string prop ->
   ?version:string prop ->
+  ?plan:plan list ->
   ?timeouts:timeouts ->
   cluster_id:string prop ->
   extension_type:string prop ->
   name:string prop ->
-  plan:plan list ->
   unit ->
   azurerm_kubernetes_cluster_extension
 
@@ -78,11 +78,11 @@ val register :
   ?release_train:string prop ->
   ?target_namespace:string prop ->
   ?version:string prop ->
+  ?plan:plan list ->
   ?timeouts:timeouts ->
   cluster_id:string prop ->
   extension_type:string prop ->
   name:string prop ->
-  plan:plan list ->
   string ->
   t
 
@@ -94,10 +94,10 @@ val make :
   ?release_train:string prop ->
   ?target_namespace:string prop ->
   ?version:string prop ->
+  ?plan:plan list ->
   ?timeouts:timeouts ->
   cluster_id:string prop ->
   extension_type:string prop ->
   name:string prop ->
-  plan:plan list ->
   string ->
   t Tf_core.resource

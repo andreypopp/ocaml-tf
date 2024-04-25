@@ -29,14 +29,14 @@ val spec__limit :
 
 type spec
 
-val spec : limit:spec__limit list -> unit -> spec
+val spec : ?limit:spec__limit list -> unit -> spec
 
 type kubernetes_limit_range
 
 val kubernetes_limit_range :
   ?id:string prop ->
+  ?spec:spec list ->
   metadata:metadata list ->
-  spec:spec list ->
   unit ->
   kubernetes_limit_range
 
@@ -49,14 +49,14 @@ type t = private { id : string prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?spec:spec list ->
   metadata:metadata list ->
-  spec:spec list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?spec:spec list ->
   metadata:metadata list ->
-  spec:spec list ->
   string ->
   t Tf_core.resource

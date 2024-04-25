@@ -132,7 +132,7 @@ let data_source_configuration ?intended_use () :
   { intended_use }
 
 let aws_location_place_index ?description ?id ?tags ?tags_all
-    ~data_source ~index_name ~data_source_configuration () :
+    ?(data_source_configuration = []) ~data_source ~index_name () :
     aws_location_place_index =
   {
     data_source;
@@ -156,8 +156,8 @@ type t = {
   update_time : string prop;
 }
 
-let make ?description ?id ?tags ?tags_all ~data_source ~index_name
-    ~data_source_configuration __id =
+let make ?description ?id ?tags ?tags_all
+    ?(data_source_configuration = []) ~data_source ~index_name __id =
   let __type = "aws_location_place_index" in
   let __attrs =
     ({
@@ -179,15 +179,15 @@ let make ?description ?id ?tags ?tags_all ~data_source ~index_name
     json =
       yojson_of_aws_location_place_index
         (aws_location_place_index ?description ?id ?tags ?tags_all
-           ~data_source ~index_name ~data_source_configuration ());
+           ~data_source_configuration ~data_source ~index_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ~data_source
-    ~index_name ~data_source_configuration __id =
+let register ?tf_module ?description ?id ?tags ?tags_all
+    ?(data_source_configuration = []) ~data_source ~index_name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?tags ?tags_all ~data_source ~index_name
-      ~data_source_configuration __id
+    make ?description ?id ?tags ?tags_all ~data_source_configuration
+      ~data_source ~index_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

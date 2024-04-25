@@ -242,9 +242,9 @@ let user_managed_https ?key_vault_certificate_id ?key_vault_secret_id
     ?tls_version () : user_managed_https =
   { key_vault_certificate_id; key_vault_secret_id; tls_version }
 
-let azurerm_cdn_endpoint_custom_domain ?id ?timeouts ~cdn_endpoint_id
-    ~host_name ~name ~cdn_managed_https ~user_managed_https () :
-    azurerm_cdn_endpoint_custom_domain =
+let azurerm_cdn_endpoint_custom_domain ?id ?(cdn_managed_https = [])
+    ?timeouts ?(user_managed_https = []) ~cdn_endpoint_id ~host_name
+    ~name () : azurerm_cdn_endpoint_custom_domain =
   {
     cdn_endpoint_id;
     host_name;
@@ -262,8 +262,9 @@ type t = {
   name : string prop;
 }
 
-let make ?id ?timeouts ~cdn_endpoint_id ~host_name ~name
-    ~cdn_managed_https ~user_managed_https __id =
+let make ?id ?(cdn_managed_https = []) ?timeouts
+    ?(user_managed_https = []) ~cdn_endpoint_id ~host_name ~name __id
+    =
   let __type = "azurerm_cdn_endpoint_custom_domain" in
   let __attrs =
     ({
@@ -279,17 +280,18 @@ let make ?id ?timeouts ~cdn_endpoint_id ~host_name ~name
     type_ = __type;
     json =
       yojson_of_azurerm_cdn_endpoint_custom_domain
-        (azurerm_cdn_endpoint_custom_domain ?id ?timeouts
-           ~cdn_endpoint_id ~host_name ~name ~cdn_managed_https
-           ~user_managed_https ());
+        (azurerm_cdn_endpoint_custom_domain ?id ~cdn_managed_https
+           ?timeouts ~user_managed_https ~cdn_endpoint_id ~host_name
+           ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~cdn_endpoint_id ~host_name
-    ~name ~cdn_managed_https ~user_managed_https __id =
+let register ?tf_module ?id ?(cdn_managed_https = []) ?timeouts
+    ?(user_managed_https = []) ~cdn_endpoint_id ~host_name ~name __id
+    =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~cdn_endpoint_id ~host_name ~name
-      ~cdn_managed_https ~user_managed_https __id
+    make ?id ~cdn_managed_https ?timeouts ~user_managed_https
+      ~cdn_endpoint_id ~host_name ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

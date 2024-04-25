@@ -525,9 +525,9 @@ let azurerm_signalr_service ?aad_auth_enabled
     ?live_trace_enabled ?local_auth_enabled ?messaging_logs_enabled
     ?public_network_access_enabled
     ?serverless_connection_timeout_in_seconds ?service_mode ?tags
-    ?tls_client_cert_enabled ?timeouts ~location ~name
-    ~resource_group_name ~cors ~identity ~live_trace ~sku
-    ~upstream_endpoint () : azurerm_signalr_service =
+    ?tls_client_cert_enabled ?(cors = []) ?(identity = [])
+    ?(live_trace = []) ?timeouts ~location ~name ~resource_group_name
+    ~sku ~upstream_endpoint () : azurerm_signalr_service =
   {
     aad_auth_enabled;
     connectivity_logs_enabled;
@@ -583,9 +583,9 @@ let make ?aad_auth_enabled ?connectivity_logs_enabled
     ?local_auth_enabled ?messaging_logs_enabled
     ?public_network_access_enabled
     ?serverless_connection_timeout_in_seconds ?service_mode ?tags
-    ?tls_client_cert_enabled ?timeouts ~location ~name
-    ~resource_group_name ~cors ~identity ~live_trace ~sku
-    ~upstream_endpoint __id =
+    ?tls_client_cert_enabled ?(cors = []) ?(identity = [])
+    ?(live_trace = []) ?timeouts ~location ~name ~resource_group_name
+    ~sku ~upstream_endpoint __id =
   let __type = "azurerm_signalr_service" in
   let __attrs =
     ({
@@ -640,8 +640,8 @@ let make ?aad_auth_enabled ?connectivity_logs_enabled
            ?live_trace_enabled ?local_auth_enabled
            ?messaging_logs_enabled ?public_network_access_enabled
            ?serverless_connection_timeout_in_seconds ?service_mode
-           ?tags ?tls_client_cert_enabled ?timeouts ~location ~name
-           ~resource_group_name ~cors ~identity ~live_trace ~sku
+           ?tags ?tls_client_cert_enabled ~cors ~identity ~live_trace
+           ?timeouts ~location ~name ~resource_group_name ~sku
            ~upstream_endpoint ());
     attrs = __attrs;
   }
@@ -651,18 +651,18 @@ let register ?tf_module ?aad_auth_enabled ?connectivity_logs_enabled
     ?local_auth_enabled ?messaging_logs_enabled
     ?public_network_access_enabled
     ?serverless_connection_timeout_in_seconds ?service_mode ?tags
-    ?tls_client_cert_enabled ?timeouts ~location ~name
-    ~resource_group_name ~cors ~identity ~live_trace ~sku
-    ~upstream_endpoint __id =
+    ?tls_client_cert_enabled ?(cors = []) ?(identity = [])
+    ?(live_trace = []) ?timeouts ~location ~name ~resource_group_name
+    ~sku ~upstream_endpoint __id =
   let (r : _ Tf_core.resource) =
     make ?aad_auth_enabled ?connectivity_logs_enabled
       ?http_request_logs_enabled ?id ?live_trace_enabled
       ?local_auth_enabled ?messaging_logs_enabled
       ?public_network_access_enabled
       ?serverless_connection_timeout_in_seconds ?service_mode ?tags
-      ?tls_client_cert_enabled ?timeouts ~location ~name
-      ~resource_group_name ~cors ~identity ~live_trace ~sku
-      ~upstream_endpoint __id
+      ?tls_client_cert_enabled ~cors ~identity ~live_trace ?timeouts
+      ~location ~name ~resource_group_name ~sku ~upstream_endpoint
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

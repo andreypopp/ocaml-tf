@@ -42,10 +42,10 @@ val spec__node_affinity__required__node_selector_term__match_fields :
 type spec__node_affinity__required__node_selector_term
 
 val spec__node_affinity__required__node_selector_term :
-  match_expressions:
+  ?match_expressions:
     spec__node_affinity__required__node_selector_term__match_expressions
     list ->
-  match_fields:
+  ?match_fields:
     spec__node_affinity__required__node_selector_term__match_fields
     list ->
   unit ->
@@ -62,7 +62,7 @@ val spec__node_affinity__required :
 type spec__node_affinity
 
 val spec__node_affinity :
-  required:spec__node_affinity__required list ->
+  ?required:spec__node_affinity__required list ->
   unit ->
   spec__node_affinity
 
@@ -113,8 +113,9 @@ val spec__persistent_volume_source__ceph_fs :
   ?read_only:bool prop ->
   ?secret_file:string prop ->
   ?user:string prop ->
+  ?secret_ref:
+    spec__persistent_volume_source__ceph_fs__secret_ref list ->
   monitors:string prop list ->
-  secret_ref:spec__persistent_volume_source__ceph_fs__secret_ref list ->
   unit ->
   spec__persistent_volume_source__ceph_fs
 
@@ -165,18 +166,18 @@ val spec__persistent_volume_source__csi :
   ?fs_type:string prop ->
   ?read_only:bool prop ->
   ?volume_attributes:(string * string prop) list ->
-  driver:string prop ->
-  volume_handle:string prop ->
-  controller_expand_secret_ref:
+  ?controller_expand_secret_ref:
     spec__persistent_volume_source__csi__controller_expand_secret_ref
     list ->
-  controller_publish_secret_ref:
+  ?controller_publish_secret_ref:
     spec__persistent_volume_source__csi__controller_publish_secret_ref
     list ->
-  node_publish_secret_ref:
+  ?node_publish_secret_ref:
     spec__persistent_volume_source__csi__node_publish_secret_ref list ->
-  node_stage_secret_ref:
+  ?node_stage_secret_ref:
     spec__persistent_volume_source__csi__node_stage_secret_ref list ->
+  driver:string prop ->
+  volume_handle:string prop ->
   unit ->
   spec__persistent_volume_source__csi
 
@@ -204,9 +205,9 @@ val spec__persistent_volume_source__flex_volume :
   ?fs_type:string prop ->
   ?options:(string * string prop) list ->
   ?read_only:bool prop ->
-  driver:string prop ->
-  secret_ref:
+  ?secret_ref:
     spec__persistent_volume_source__flex_volume__secret_ref list ->
+  driver:string prop ->
   unit ->
   spec__persistent_volume_source__flex_volume
 
@@ -306,9 +307,9 @@ val spec__persistent_volume_source__rbd :
   ?rados_user:string prop ->
   ?rbd_pool:string prop ->
   ?read_only:bool prop ->
+  ?secret_ref:spec__persistent_volume_source__rbd__secret_ref list ->
   ceph_monitors:string prop list ->
   rbd_image:string prop ->
-  secret_ref:spec__persistent_volume_source__rbd__secret_ref list ->
   unit ->
   spec__persistent_volume_source__rbd
 
@@ -323,28 +324,28 @@ val spec__persistent_volume_source__vsphere_volume :
 type spec__persistent_volume_source
 
 val spec__persistent_volume_source :
-  aws_elastic_block_store:
+  ?aws_elastic_block_store:
     spec__persistent_volume_source__aws_elastic_block_store list ->
-  azure_disk:spec__persistent_volume_source__azure_disk list ->
-  azure_file:spec__persistent_volume_source__azure_file list ->
-  ceph_fs:spec__persistent_volume_source__ceph_fs list ->
-  cinder:spec__persistent_volume_source__cinder list ->
-  csi:spec__persistent_volume_source__csi list ->
-  fc:spec__persistent_volume_source__fc list ->
-  flex_volume:spec__persistent_volume_source__flex_volume list ->
-  flocker:spec__persistent_volume_source__flocker list ->
-  gce_persistent_disk:
+  ?azure_disk:spec__persistent_volume_source__azure_disk list ->
+  ?azure_file:spec__persistent_volume_source__azure_file list ->
+  ?ceph_fs:spec__persistent_volume_source__ceph_fs list ->
+  ?cinder:spec__persistent_volume_source__cinder list ->
+  ?csi:spec__persistent_volume_source__csi list ->
+  ?fc:spec__persistent_volume_source__fc list ->
+  ?flex_volume:spec__persistent_volume_source__flex_volume list ->
+  ?flocker:spec__persistent_volume_source__flocker list ->
+  ?gce_persistent_disk:
     spec__persistent_volume_source__gce_persistent_disk list ->
-  glusterfs:spec__persistent_volume_source__glusterfs list ->
-  host_path:spec__persistent_volume_source__host_path list ->
-  iscsi:spec__persistent_volume_source__iscsi list ->
-  local:spec__persistent_volume_source__local list ->
-  nfs:spec__persistent_volume_source__nfs list ->
-  photon_persistent_disk:
+  ?glusterfs:spec__persistent_volume_source__glusterfs list ->
+  ?host_path:spec__persistent_volume_source__host_path list ->
+  ?iscsi:spec__persistent_volume_source__iscsi list ->
+  ?local:spec__persistent_volume_source__local list ->
+  ?nfs:spec__persistent_volume_source__nfs list ->
+  ?photon_persistent_disk:
     spec__persistent_volume_source__photon_persistent_disk list ->
-  quobyte:spec__persistent_volume_source__quobyte list ->
-  rbd:spec__persistent_volume_source__rbd list ->
-  vsphere_volume:spec__persistent_volume_source__vsphere_volume list ->
+  ?quobyte:spec__persistent_volume_source__quobyte list ->
+  ?rbd:spec__persistent_volume_source__rbd list ->
+  ?vsphere_volume:spec__persistent_volume_source__vsphere_volume list ->
   unit ->
   spec__persistent_volume_source
 
@@ -355,10 +356,10 @@ val spec :
   ?persistent_volume_reclaim_policy:string prop ->
   ?storage_class_name:string prop ->
   ?volume_mode:string prop ->
+  ?claim_ref:spec__claim_ref list ->
+  ?node_affinity:spec__node_affinity list ->
   access_modes:string prop list ->
   capacity:(string * string prop) list ->
-  claim_ref:spec__claim_ref list ->
-  node_affinity:spec__node_affinity list ->
   persistent_volume_source:spec__persistent_volume_source list ->
   unit ->
   spec
@@ -367,8 +368,8 @@ type kubernetes_persistent_volume_v1
 
 val kubernetes_persistent_volume_v1 :
   ?id:string prop ->
+  ?spec:spec list ->
   metadata:metadata list ->
-  spec:spec list ->
   unit ->
   kubernetes_persistent_volume_v1
 
@@ -382,14 +383,14 @@ type t = private { id : string prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?spec:spec list ->
   metadata:metadata list ->
-  spec:spec list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?spec:spec list ->
   metadata:metadata list ->
-  spec:spec list ->
   string ->
   t Tf_core.resource

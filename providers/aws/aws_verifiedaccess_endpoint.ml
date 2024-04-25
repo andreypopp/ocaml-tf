@@ -394,11 +394,11 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_verifiedaccess_endpoint ?description ?id ?policy_document
-    ?security_group_ids ?tags ?tags_all ?timeouts ~application_domain
-    ~attachment_type ~domain_certificate_arn ~endpoint_domain_prefix
-    ~endpoint_type ~verified_access_group_id ~load_balancer_options
-    ~network_interface_options ~sse_specification () :
-    aws_verifiedaccess_endpoint =
+    ?security_group_ids ?tags ?tags_all ?(load_balancer_options = [])
+    ?(network_interface_options = []) ?(sse_specification = [])
+    ?timeouts ~application_domain ~attachment_type
+    ~domain_certificate_arn ~endpoint_domain_prefix ~endpoint_type
+    ~verified_access_group_id () : aws_verifiedaccess_endpoint =
   {
     application_domain;
     attachment_type;
@@ -437,10 +437,11 @@ type t = {
 }
 
 let make ?description ?id ?policy_document ?security_group_ids ?tags
-    ?tags_all ?timeouts ~application_domain ~attachment_type
+    ?tags_all ?(load_balancer_options = [])
+    ?(network_interface_options = []) ?(sse_specification = [])
+    ?timeouts ~application_domain ~attachment_type
     ~domain_certificate_arn ~endpoint_domain_prefix ~endpoint_type
-    ~verified_access_group_id ~load_balancer_options
-    ~network_interface_options ~sse_specification __id =
+    ~verified_access_group_id __id =
   let __type = "aws_verifiedaccess_endpoint" in
   let __attrs =
     ({
@@ -476,25 +477,27 @@ let make ?description ?id ?policy_document ?security_group_ids ?tags
       yojson_of_aws_verifiedaccess_endpoint
         (aws_verifiedaccess_endpoint ?description ?id
            ?policy_document ?security_group_ids ?tags ?tags_all
-           ?timeouts ~application_domain ~attachment_type
-           ~domain_certificate_arn ~endpoint_domain_prefix
-           ~endpoint_type ~verified_access_group_id
            ~load_balancer_options ~network_interface_options
-           ~sse_specification ());
+           ~sse_specification ?timeouts ~application_domain
+           ~attachment_type ~domain_certificate_arn
+           ~endpoint_domain_prefix ~endpoint_type
+           ~verified_access_group_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?policy_document
-    ?security_group_ids ?tags ?tags_all ?timeouts ~application_domain
-    ~attachment_type ~domain_certificate_arn ~endpoint_domain_prefix
-    ~endpoint_type ~verified_access_group_id ~load_balancer_options
-    ~network_interface_options ~sse_specification __id =
+    ?security_group_ids ?tags ?tags_all ?(load_balancer_options = [])
+    ?(network_interface_options = []) ?(sse_specification = [])
+    ?timeouts ~application_domain ~attachment_type
+    ~domain_certificate_arn ~endpoint_domain_prefix ~endpoint_type
+    ~verified_access_group_id __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?policy_document ?security_group_ids ?tags
-      ?tags_all ?timeouts ~application_domain ~attachment_type
-      ~domain_certificate_arn ~endpoint_domain_prefix ~endpoint_type
-      ~verified_access_group_id ~load_balancer_options
-      ~network_interface_options ~sse_specification __id
+      ?tags_all ~load_balancer_options ~network_interface_options
+      ~sse_specification ?timeouts ~application_domain
+      ~attachment_type ~domain_certificate_arn
+      ~endpoint_domain_prefix ~endpoint_type
+      ~verified_access_group_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

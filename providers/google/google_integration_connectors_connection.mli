@@ -46,10 +46,10 @@ val auth_config__additional_variable :
   ?boolean_value:bool prop ->
   ?integer_value:float prop ->
   ?string_value:string prop ->
-  key:string prop ->
-  encryption_key_value:
+  ?encryption_key_value:
     auth_config__additional_variable__encryption_key_value list ->
-  secret_value:auth_config__additional_variable__secret_value list ->
+  ?secret_value:auth_config__additional_variable__secret_value list ->
+  key:string prop ->
   unit ->
   auth_config__additional_variable
 
@@ -67,7 +67,7 @@ val auth_config__oauth2_auth_code_flow :
   ?client_id:string prop ->
   ?enable_pkce:bool prop ->
   ?scopes:string prop list ->
-  client_secret:
+  ?client_secret:
     auth_config__oauth2_auth_code_flow__client_secret list ->
   unit ->
   auth_config__oauth2_auth_code_flow
@@ -82,9 +82,9 @@ val auth_config__oauth2_client_credentials__client_secret :
 type auth_config__oauth2_client_credentials
 
 val auth_config__oauth2_client_credentials :
-  client_id:string prop ->
-  client_secret:
+  ?client_secret:
     auth_config__oauth2_client_credentials__client_secret list ->
+  client_id:string prop ->
   unit ->
   auth_config__oauth2_client_credentials
 
@@ -107,8 +107,8 @@ val auth_config__oauth2_jwt_bearer__jwt_claims :
 type auth_config__oauth2_jwt_bearer
 
 val auth_config__oauth2_jwt_bearer :
-  client_key:auth_config__oauth2_jwt_bearer__client_key list ->
-  jwt_claims:auth_config__oauth2_jwt_bearer__jwt_claims list ->
+  ?client_key:auth_config__oauth2_jwt_bearer__client_key list ->
+  ?jwt_claims:auth_config__oauth2_jwt_bearer__jwt_claims list ->
   unit ->
   auth_config__oauth2_jwt_bearer
 
@@ -130,10 +130,10 @@ type auth_config__ssh_public_key
 
 val auth_config__ssh_public_key :
   ?cert_type:string prop ->
-  username:string prop ->
-  ssh_client_cert:auth_config__ssh_public_key__ssh_client_cert list ->
-  ssh_client_cert_pass:
+  ?ssh_client_cert:auth_config__ssh_public_key__ssh_client_cert list ->
+  ?ssh_client_cert_pass:
     auth_config__ssh_public_key__ssh_client_cert_pass list ->
+  username:string prop ->
   unit ->
   auth_config__ssh_public_key
 
@@ -147,8 +147,8 @@ val auth_config__user_password__password :
 type auth_config__user_password
 
 val auth_config__user_password :
+  ?password:auth_config__user_password__password list ->
   username:string prop ->
-  password:auth_config__user_password__password list ->
   unit ->
   auth_config__user_password
 
@@ -156,14 +156,14 @@ type auth_config
 
 val auth_config :
   ?auth_key:string prop ->
-  auth_type:string prop ->
-  additional_variable:auth_config__additional_variable list ->
-  oauth2_auth_code_flow:auth_config__oauth2_auth_code_flow list ->
-  oauth2_client_credentials:
+  ?additional_variable:auth_config__additional_variable list ->
+  ?oauth2_auth_code_flow:auth_config__oauth2_auth_code_flow list ->
+  ?oauth2_client_credentials:
     auth_config__oauth2_client_credentials list ->
-  oauth2_jwt_bearer:auth_config__oauth2_jwt_bearer list ->
-  ssh_public_key:auth_config__ssh_public_key list ->
-  user_password:auth_config__user_password list ->
+  ?oauth2_jwt_bearer:auth_config__oauth2_jwt_bearer list ->
+  ?ssh_public_key:auth_config__ssh_public_key list ->
+  ?user_password:auth_config__user_password list ->
+  auth_type:string prop ->
   unit ->
   auth_config
 
@@ -186,9 +186,9 @@ val config_variable :
   ?boolean_value:bool prop ->
   ?integer_value:float prop ->
   ?string_value:string prop ->
+  ?encryption_key_value:config_variable__encryption_key_value list ->
+  ?secret_value:config_variable__secret_value list ->
   key:string prop ->
-  encryption_key_value:config_variable__encryption_key_value list ->
-  secret_value:config_variable__secret_value list ->
   unit ->
   config_variable
 
@@ -204,8 +204,8 @@ val destination_config__destination :
 type destination_config
 
 val destination_config :
+  ?destination:destination_config__destination list ->
   key:string prop ->
-  destination:destination_config__destination list ->
   unit ->
   destination_config
 
@@ -230,11 +230,11 @@ val eventing_config__additional_variable :
   ?boolean_value:bool prop ->
   ?integer_value:float prop ->
   ?string_value:string prop ->
-  key:string prop ->
-  encryption_key_value:
+  ?encryption_key_value:
     eventing_config__additional_variable__encryption_key_value list ->
-  secret_value:
+  ?secret_value:
     eventing_config__additional_variable__secret_value list ->
+  key:string prop ->
   unit ->
   eventing_config__additional_variable
 
@@ -259,13 +259,13 @@ val eventing_config__auth_config__additional_variable :
   ?boolean_value:bool prop ->
   ?integer_value:float prop ->
   ?string_value:string prop ->
-  key:string prop ->
-  encryption_key_value:
+  ?encryption_key_value:
     eventing_config__auth_config__additional_variable__encryption_key_value
     list ->
-  secret_value:
+  ?secret_value:
     eventing_config__auth_config__additional_variable__secret_value
     list ->
+  key:string prop ->
   unit ->
   eventing_config__auth_config__additional_variable
 
@@ -280,7 +280,8 @@ type eventing_config__auth_config__user_password
 
 val eventing_config__auth_config__user_password :
   ?username:string prop ->
-  password:eventing_config__auth_config__user_password__password list ->
+  ?password:
+    eventing_config__auth_config__user_password__password list ->
   unit ->
   eventing_config__auth_config__user_password
 
@@ -288,9 +289,9 @@ type eventing_config__auth_config
 
 val eventing_config__auth_config :
   ?auth_key:string prop ->
-  auth_type:string prop ->
-  additional_variable:
+  ?additional_variable:
     eventing_config__auth_config__additional_variable list ->
+  auth_type:string prop ->
   user_password:eventing_config__auth_config__user_password list ->
   unit ->
   eventing_config__auth_config
@@ -308,7 +309,7 @@ type eventing_config__registration_destination_config
 
 val eventing_config__registration_destination_config :
   ?key:string prop ->
-  destination:
+  ?destination:
     eventing_config__registration_destination_config__destination
     list ->
   unit ->
@@ -318,8 +319,8 @@ type eventing_config
 
 val eventing_config :
   ?enrichment_enabled:bool prop ->
-  additional_variable:eventing_config__additional_variable list ->
-  auth_config:eventing_config__auth_config list ->
+  ?additional_variable:eventing_config__additional_variable list ->
+  ?auth_config:eventing_config__auth_config list ->
   registration_destination_config:
     eventing_config__registration_destination_config list ->
   unit ->
@@ -363,10 +364,10 @@ val ssl_config__additional_variable :
   ?boolean_value:bool prop ->
   ?integer_value:float prop ->
   ?string_value:string prop ->
-  key:string prop ->
-  encryption_key_value:
+  ?encryption_key_value:
     ssl_config__additional_variable__encryption_key_value list ->
-  secret_value:ssl_config__additional_variable__secret_value list ->
+  ?secret_value:ssl_config__additional_variable__secret_value list ->
+  key:string prop ->
   unit ->
   ssl_config__additional_variable
 
@@ -405,13 +406,13 @@ val ssl_config :
   ?server_cert_type:string prop ->
   ?trust_model:string prop ->
   ?use_ssl:bool prop ->
-  type_:string prop ->
-  additional_variable:ssl_config__additional_variable list ->
-  client_certificate:ssl_config__client_certificate list ->
-  client_private_key:ssl_config__client_private_key list ->
-  client_private_key_pass:ssl_config__client_private_key_pass list ->
-  private_server_certificate:
+  ?additional_variable:ssl_config__additional_variable list ->
+  ?client_certificate:ssl_config__client_certificate list ->
+  ?client_private_key:ssl_config__client_private_key list ->
+  ?client_private_key_pass:ssl_config__client_private_key_pass list ->
+  ?private_server_certificate:
     ssl_config__private_server_certificate list ->
+  type_:string prop ->
   unit ->
   ssl_config
 
@@ -434,18 +435,18 @@ val google_integration_connectors_connection :
   ?project:string prop ->
   ?service_account:string prop ->
   ?suspended:bool prop ->
+  ?auth_config:auth_config list ->
+  ?config_variable:config_variable list ->
+  ?destination_config:destination_config list ->
+  ?eventing_config:eventing_config list ->
+  ?lock_config:lock_config list ->
+  ?log_config:log_config list ->
+  ?node_config:node_config list ->
+  ?ssl_config:ssl_config list ->
   ?timeouts:timeouts ->
   connector_version:string prop ->
   location:string prop ->
   name:string prop ->
-  auth_config:auth_config list ->
-  config_variable:config_variable list ->
-  destination_config:destination_config list ->
-  eventing_config:eventing_config list ->
-  lock_config:lock_config list ->
-  log_config:log_config list ->
-  node_config:node_config list ->
-  ssl_config:ssl_config list ->
   unit ->
   google_integration_connectors_connection
 
@@ -488,18 +489,18 @@ val register :
   ?project:string prop ->
   ?service_account:string prop ->
   ?suspended:bool prop ->
+  ?auth_config:auth_config list ->
+  ?config_variable:config_variable list ->
+  ?destination_config:destination_config list ->
+  ?eventing_config:eventing_config list ->
+  ?lock_config:lock_config list ->
+  ?log_config:log_config list ->
+  ?node_config:node_config list ->
+  ?ssl_config:ssl_config list ->
   ?timeouts:timeouts ->
   connector_version:string prop ->
   location:string prop ->
   name:string prop ->
-  auth_config:auth_config list ->
-  config_variable:config_variable list ->
-  destination_config:destination_config list ->
-  eventing_config:eventing_config list ->
-  lock_config:lock_config list ->
-  log_config:log_config list ->
-  node_config:node_config list ->
-  ssl_config:ssl_config list ->
   string ->
   t
 
@@ -511,17 +512,17 @@ val make :
   ?project:string prop ->
   ?service_account:string prop ->
   ?suspended:bool prop ->
+  ?auth_config:auth_config list ->
+  ?config_variable:config_variable list ->
+  ?destination_config:destination_config list ->
+  ?eventing_config:eventing_config list ->
+  ?lock_config:lock_config list ->
+  ?log_config:log_config list ->
+  ?node_config:node_config list ->
+  ?ssl_config:ssl_config list ->
   ?timeouts:timeouts ->
   connector_version:string prop ->
   location:string prop ->
   name:string prop ->
-  auth_config:auth_config list ->
-  config_variable:config_variable list ->
-  destination_config:destination_config list ->
-  eventing_config:eventing_config list ->
-  lock_config:lock_config list ->
-  log_config:log_config list ->
-  node_config:node_config list ->
-  ssl_config:ssl_config list ->
   string ->
   t Tf_core.resource

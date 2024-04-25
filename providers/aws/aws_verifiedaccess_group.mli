@@ -20,8 +20,8 @@ val aws_verifiedaccess_group :
   ?policy_document:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?sse_configuration:sse_configuration list ->
   verifiedaccess_instance_id:string prop ->
-  sse_configuration:sse_configuration list ->
   unit ->
   aws_verifiedaccess_group
 
@@ -52,8 +52,8 @@ val register :
   ?policy_document:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?sse_configuration:sse_configuration list ->
   verifiedaccess_instance_id:string prop ->
-  sse_configuration:sse_configuration list ->
   string ->
   t
 
@@ -63,7 +63,7 @@ val make :
   ?policy_document:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?sse_configuration:sse_configuration list ->
   verifiedaccess_instance_id:string prop ->
-  sse_configuration:sse_configuration list ->
   string ->
   t Tf_core.resource

@@ -95,7 +95,7 @@ let agent_orchestration_config ~profiling_enabled () :
   { profiling_enabled }
 
 let aws_codeguruprofiler_profiling_group ?compute_platform ?tags
-    ~name ~agent_orchestration_config () :
+    ?(agent_orchestration_config = []) ~name () :
     aws_codeguruprofiler_profiling_group =
   { compute_platform; name; tags; agent_orchestration_config }
 
@@ -108,8 +108,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?compute_platform ?tags ~name ~agent_orchestration_config
-    __id =
+let make ?compute_platform ?tags ?(agent_orchestration_config = [])
+    ~name __id =
   let __type = "aws_codeguruprofiler_profiling_group" in
   let __attrs =
     ({
@@ -129,14 +129,14 @@ let make ?compute_platform ?tags ~name ~agent_orchestration_config
     json =
       yojson_of_aws_codeguruprofiler_profiling_group
         (aws_codeguruprofiler_profiling_group ?compute_platform ?tags
-           ~name ~agent_orchestration_config ());
+           ~agent_orchestration_config ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?compute_platform ?tags ~name
-    ~agent_orchestration_config __id =
+let register ?tf_module ?compute_platform ?tags
+    ?(agent_orchestration_config = []) ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?compute_platform ?tags ~name ~agent_orchestration_config
+    make ?compute_platform ?tags ~agent_orchestration_config ~name
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

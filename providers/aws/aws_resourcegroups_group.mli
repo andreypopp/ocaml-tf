@@ -37,10 +37,10 @@ val aws_resourcegroups_group :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?resource_query:resource_query list ->
   ?timeouts:timeouts ->
   name:string prop ->
   configuration:configuration list ->
-  resource_query:resource_query list ->
   unit ->
   aws_resourcegroups_group
 
@@ -64,10 +64,10 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?resource_query:resource_query list ->
   ?timeouts:timeouts ->
   name:string prop ->
   configuration:configuration list ->
-  resource_query:resource_query list ->
   string ->
   t
 
@@ -76,9 +76,9 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?resource_query:resource_query list ->
   ?timeouts:timeouts ->
   name:string prop ->
   configuration:configuration list ->
-  resource_query:resource_query list ->
   string ->
   t Tf_core.resource

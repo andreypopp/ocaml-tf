@@ -317,8 +317,8 @@ let track_selection__condition ~operation ~property ~value () :
 let track_selection ~condition () : track_selection = { condition }
 
 let azurerm_media_services_account_filter ?first_quality_bitrate ?id
-    ?timeouts ~media_services_account_name ~name ~resource_group_name
-    ~presentation_time_range ~track_selection () :
+    ?(presentation_time_range = []) ?timeouts ?(track_selection = [])
+    ~media_services_account_name ~name ~resource_group_name () :
     azurerm_media_services_account_filter =
   {
     first_quality_bitrate;
@@ -339,9 +339,9 @@ type t = {
   resource_group_name : string prop;
 }
 
-let make ?first_quality_bitrate ?id ?timeouts
-    ~media_services_account_name ~name ~resource_group_name
-    ~presentation_time_range ~track_selection __id =
+let make ?first_quality_bitrate ?id ?(presentation_time_range = [])
+    ?timeouts ?(track_selection = []) ~media_services_account_name
+    ~name ~resource_group_name __id =
   let __type = "azurerm_media_services_account_filter" in
   let __attrs =
     ({
@@ -362,19 +362,18 @@ let make ?first_quality_bitrate ?id ?timeouts
     json =
       yojson_of_azurerm_media_services_account_filter
         (azurerm_media_services_account_filter ?first_quality_bitrate
-           ?id ?timeouts ~media_services_account_name ~name
-           ~resource_group_name ~presentation_time_range
-           ~track_selection ());
+           ?id ~presentation_time_range ?timeouts ~track_selection
+           ~media_services_account_name ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?first_quality_bitrate ?id ?timeouts
-    ~media_services_account_name ~name ~resource_group_name
-    ~presentation_time_range ~track_selection __id =
+let register ?tf_module ?first_quality_bitrate ?id
+    ?(presentation_time_range = []) ?timeouts ?(track_selection = [])
+    ~media_services_account_name ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?first_quality_bitrate ?id ?timeouts
-      ~media_services_account_name ~name ~resource_group_name
-      ~presentation_time_range ~track_selection __id
+    make ?first_quality_bitrate ?id ~presentation_time_range
+      ?timeouts ~track_selection ~media_services_account_name ~name
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

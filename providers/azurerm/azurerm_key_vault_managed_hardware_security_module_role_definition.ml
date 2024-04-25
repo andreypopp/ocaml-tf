@@ -222,8 +222,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_key_vault_managed_hardware_security_module_role_definition
-    ?description ?id ?role_name ?timeouts ~name ~vault_base_url
-    ~permission () :
+    ?description ?id ?role_name ?(permission = []) ?timeouts ~name
+    ~vault_base_url () :
     azurerm_key_vault_managed_hardware_security_module_role_definition
     =
   {
@@ -246,8 +246,8 @@ type t = {
   vault_base_url : string prop;
 }
 
-let make ?description ?id ?role_name ?timeouts ~name ~vault_base_url
-    ~permission __id =
+let make ?description ?id ?role_name ?(permission = []) ?timeouts
+    ~name ~vault_base_url __id =
   let __type =
     "azurerm_key_vault_managed_hardware_security_module_role_definition"
   in
@@ -270,16 +270,16 @@ let make ?description ?id ?role_name ?timeouts ~name ~vault_base_url
     json =
       yojson_of_azurerm_key_vault_managed_hardware_security_module_role_definition
         (azurerm_key_vault_managed_hardware_security_module_role_definition
-           ?description ?id ?role_name ?timeouts ~name
-           ~vault_base_url ~permission ());
+           ?description ?id ?role_name ~permission ?timeouts ~name
+           ~vault_base_url ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?role_name ?timeouts ~name
-    ~vault_base_url ~permission __id =
+let register ?tf_module ?description ?id ?role_name
+    ?(permission = []) ?timeouts ~name ~vault_base_url __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?role_name ?timeouts ~name ~vault_base_url
-      ~permission __id
+    make ?description ?id ?role_name ~permission ?timeouts ~name
+      ~vault_base_url __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

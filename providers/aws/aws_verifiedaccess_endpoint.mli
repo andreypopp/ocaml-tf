@@ -49,6 +49,9 @@ val aws_verifiedaccess_endpoint :
   ?security_group_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?load_balancer_options:load_balancer_options list ->
+  ?network_interface_options:network_interface_options list ->
+  ?sse_specification:sse_specification list ->
   ?timeouts:timeouts ->
   application_domain:string prop ->
   attachment_type:string prop ->
@@ -56,9 +59,6 @@ val aws_verifiedaccess_endpoint :
   endpoint_domain_prefix:string prop ->
   endpoint_type:string prop ->
   verified_access_group_id:string prop ->
-  load_balancer_options:load_balancer_options list ->
-  network_interface_options:network_interface_options list ->
-  sse_specification:sse_specification list ->
   unit ->
   aws_verifiedaccess_endpoint
 
@@ -93,6 +93,9 @@ val register :
   ?security_group_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?load_balancer_options:load_balancer_options list ->
+  ?network_interface_options:network_interface_options list ->
+  ?sse_specification:sse_specification list ->
   ?timeouts:timeouts ->
   application_domain:string prop ->
   attachment_type:string prop ->
@@ -100,9 +103,6 @@ val register :
   endpoint_domain_prefix:string prop ->
   endpoint_type:string prop ->
   verified_access_group_id:string prop ->
-  load_balancer_options:load_balancer_options list ->
-  network_interface_options:network_interface_options list ->
-  sse_specification:sse_specification list ->
   string ->
   t
 
@@ -113,6 +113,9 @@ val make :
   ?security_group_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?load_balancer_options:load_balancer_options list ->
+  ?network_interface_options:network_interface_options list ->
+  ?sse_specification:sse_specification list ->
   ?timeouts:timeouts ->
   application_domain:string prop ->
   attachment_type:string prop ->
@@ -120,8 +123,5 @@ val make :
   endpoint_domain_prefix:string prop ->
   endpoint_type:string prop ->
   verified_access_group_id:string prop ->
-  load_balancer_options:load_balancer_options list ->
-  network_interface_options:network_interface_options list ->
-  sse_specification:sse_specification list ->
   string ->
   t Tf_core.resource

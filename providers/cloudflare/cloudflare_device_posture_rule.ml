@@ -499,7 +499,7 @@ let input ?active_threats ?certificate_id ?check_disks ?cn
 let match_ ?platform () : match_ = { platform }
 
 let cloudflare_device_posture_rule ?description ?expiration ?id ?name
-    ?schedule ~account_id ~type_ ~input ~match_ () :
+    ?schedule ?(input = []) ?(match_ = []) ~account_id ~type_ () :
     cloudflare_device_posture_rule =
   {
     account_id;
@@ -523,8 +523,8 @@ type t = {
   type_ : string prop;
 }
 
-let make ?description ?expiration ?id ?name ?schedule ~account_id
-    ~type_ ~input ~match_ __id =
+let make ?description ?expiration ?id ?name ?schedule ?(input = [])
+    ?(match_ = []) ~account_id ~type_ __id =
   let __type = "cloudflare_device_posture_rule" in
   let __attrs =
     ({
@@ -544,15 +544,15 @@ let make ?description ?expiration ?id ?name ?schedule ~account_id
     json =
       yojson_of_cloudflare_device_posture_rule
         (cloudflare_device_posture_rule ?description ?expiration ?id
-           ?name ?schedule ~account_id ~type_ ~input ~match_ ());
+           ?name ?schedule ~input ~match_ ~account_id ~type_ ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?expiration ?id ?name ?schedule
-    ~account_id ~type_ ~input ~match_ __id =
+    ?(input = []) ?(match_ = []) ~account_id ~type_ __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?expiration ?id ?name ?schedule ~account_id
-      ~type_ ~input ~match_ __id
+    make ?description ?expiration ?id ?name ?schedule ~input ~match_
+      ~account_id ~type_ __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

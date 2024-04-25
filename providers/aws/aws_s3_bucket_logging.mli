@@ -37,9 +37,9 @@ val target_object_key_format__simple_prefix :
 type target_object_key_format
 
 val target_object_key_format :
-  partitioned_prefix:
+  ?partitioned_prefix:
     target_object_key_format__partitioned_prefix list ->
-  simple_prefix:target_object_key_format__simple_prefix list ->
+  ?simple_prefix:target_object_key_format__simple_prefix list ->
   unit ->
   target_object_key_format
 
@@ -48,11 +48,11 @@ type aws_s3_bucket_logging
 val aws_s3_bucket_logging :
   ?expected_bucket_owner:string prop ->
   ?id:string prop ->
+  ?target_object_key_format:target_object_key_format list ->
   bucket:string prop ->
   target_bucket:string prop ->
   target_prefix:string prop ->
   target_grant:target_grant list ->
-  target_object_key_format:target_object_key_format list ->
   unit ->
   aws_s3_bucket_logging
 
@@ -72,21 +72,21 @@ val register :
   ?tf_module:tf_module ->
   ?expected_bucket_owner:string prop ->
   ?id:string prop ->
+  ?target_object_key_format:target_object_key_format list ->
   bucket:string prop ->
   target_bucket:string prop ->
   target_prefix:string prop ->
   target_grant:target_grant list ->
-  target_object_key_format:target_object_key_format list ->
   string ->
   t
 
 val make :
   ?expected_bucket_owner:string prop ->
   ?id:string prop ->
+  ?target_object_key_format:target_object_key_format list ->
   bucket:string prop ->
   target_bucket:string prop ->
   target_prefix:string prop ->
   target_grant:target_grant list ->
-  target_object_key_format:target_object_key_format list ->
   string ->
   t Tf_core.resource

@@ -21,7 +21,7 @@ val basic__conditions__device_policy :
   ?require_admin_approval:bool prop ->
   ?require_corp_owned:bool prop ->
   ?require_screen_lock:bool prop ->
-  os_constraints:
+  ?os_constraints:
     basic__conditions__device_policy__os_constraints list ->
   unit ->
   basic__conditions__device_policy
@@ -37,7 +37,7 @@ val basic__conditions__vpc_network_sources__vpc_subnetwork :
 type basic__conditions__vpc_network_sources
 
 val basic__conditions__vpc_network_sources :
-  vpc_subnetwork:
+  ?vpc_subnetwork:
     basic__conditions__vpc_network_sources__vpc_subnetwork list ->
   unit ->
   basic__conditions__vpc_network_sources
@@ -50,8 +50,8 @@ val basic__conditions :
   ?negate:bool prop ->
   ?regions:string prop list ->
   ?required_access_levels:string prop list ->
-  device_policy:basic__conditions__device_policy list ->
-  vpc_network_sources:basic__conditions__vpc_network_sources list ->
+  ?device_policy:basic__conditions__device_policy list ->
+  ?vpc_network_sources:basic__conditions__vpc_network_sources list ->
   unit ->
   basic__conditions
 
@@ -91,12 +91,12 @@ type google_access_context_manager_access_level
 val google_access_context_manager_access_level :
   ?description:string prop ->
   ?id:string prop ->
+  ?basic:basic list ->
+  ?custom:custom list ->
   ?timeouts:timeouts ->
   name:string prop ->
   parent:string prop ->
   title:string prop ->
-  basic:basic list ->
-  custom:custom list ->
   unit ->
   google_access_context_manager_access_level
 
@@ -117,23 +117,23 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
+  ?basic:basic list ->
+  ?custom:custom list ->
   ?timeouts:timeouts ->
   name:string prop ->
   parent:string prop ->
   title:string prop ->
-  basic:basic list ->
-  custom:custom list ->
   string ->
   t
 
 val make :
   ?description:string prop ->
   ?id:string prop ->
+  ?basic:basic list ->
+  ?custom:custom list ->
   ?timeouts:timeouts ->
   name:string prop ->
   parent:string prop ->
   title:string prop ->
-  basic:basic list ->
-  custom:custom list ->
   string ->
   t Tf_core.resource

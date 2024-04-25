@@ -18,9 +18,9 @@ type google_iap_web_iam_binding
 val google_iap_web_iam_binding :
   ?id:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   members:string prop list ->
   role:string prop ->
-  condition:condition list ->
   unit ->
   google_iap_web_iam_binding
 
@@ -41,17 +41,17 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   members:string prop list ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   members:string prop list ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t Tf_core.resource

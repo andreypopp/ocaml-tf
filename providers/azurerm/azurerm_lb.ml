@@ -313,9 +313,9 @@ let frontend_ip_configuration
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_lb ?edge_zone ?id ?sku ?sku_tier ?tags ?timeouts
-    ~location ~name ~resource_group_name ~frontend_ip_configuration
-    () : azurerm_lb =
+let azurerm_lb ?edge_zone ?id ?sku ?sku_tier ?tags
+    ?(frontend_ip_configuration = []) ?timeouts ~location ~name
+    ~resource_group_name () : azurerm_lb =
   {
     edge_zone;
     id;
@@ -342,8 +342,9 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?edge_zone ?id ?sku ?sku_tier ?tags ?timeouts ~location
-    ~name ~resource_group_name ~frontend_ip_configuration __id =
+let make ?edge_zone ?id ?sku ?sku_tier ?tags
+    ?(frontend_ip_configuration = []) ?timeouts ~location ~name
+    ~resource_group_name __id =
   let __type = "azurerm_lb" in
   let __attrs =
     ({
@@ -368,18 +369,19 @@ let make ?edge_zone ?id ?sku ?sku_tier ?tags ?timeouts ~location
     type_ = __type;
     json =
       yojson_of_azurerm_lb
-        (azurerm_lb ?edge_zone ?id ?sku ?sku_tier ?tags ?timeouts
-           ~location ~name ~resource_group_name
-           ~frontend_ip_configuration ());
+        (azurerm_lb ?edge_zone ?id ?sku ?sku_tier ?tags
+           ~frontend_ip_configuration ?timeouts ~location ~name
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?edge_zone ?id ?sku ?sku_tier ?tags ?timeouts
-    ~location ~name ~resource_group_name ~frontend_ip_configuration
-    __id =
+let register ?tf_module ?edge_zone ?id ?sku ?sku_tier ?tags
+    ?(frontend_ip_configuration = []) ?timeouts ~location ~name
+    ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?edge_zone ?id ?sku ?sku_tier ?tags ?timeouts ~location
-      ~name ~resource_group_name ~frontend_ip_configuration __id
+    make ?edge_zone ?id ?sku ?sku_tier ?tags
+      ~frontend_ip_configuration ?timeouts ~location ~name
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

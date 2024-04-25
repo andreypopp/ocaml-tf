@@ -344,7 +344,7 @@ let _ = yojson_of_cloudflare_rate_limit
 let action__response ~body ~content_type () : action__response =
   { body; content_type }
 
-let action ?timeout ~mode ~response () : action =
+let action ?timeout ?(response = []) ~mode () : action =
   { mode; timeout; response }
 
 let correlate ?by () : correlate = { by }
@@ -357,11 +357,12 @@ let match__response ?headers ?origin_traffic ?statuses () :
     match__response =
   { headers; origin_traffic; statuses }
 
-let match_ ~request ~response () : match_ = { request; response }
+let match_ ?(request = []) ?(response = []) () : match_ =
+  { request; response }
 
 let cloudflare_rate_limit ?bypass_url_patterns ?description ?disabled
-    ?id ~period ~threshold ~zone_id ~action ~correlate ~match_ () :
-    cloudflare_rate_limit =
+    ?id ?(correlate = []) ?(match_ = []) ~period ~threshold ~zone_id
+    ~action () : cloudflare_rate_limit =
   {
     bypass_url_patterns;
     description;
@@ -385,8 +386,9 @@ type t = {
   zone_id : string prop;
 }
 
-let make ?bypass_url_patterns ?description ?disabled ?id ~period
-    ~threshold ~zone_id ~action ~correlate ~match_ __id =
+let make ?bypass_url_patterns ?description ?disabled ?id
+    ?(correlate = []) ?(match_ = []) ~period ~threshold ~zone_id
+    ~action __id =
   let __type = "cloudflare_rate_limit" in
   let __attrs =
     ({
@@ -407,16 +409,17 @@ let make ?bypass_url_patterns ?description ?disabled ?id ~period
     json =
       yojson_of_cloudflare_rate_limit
         (cloudflare_rate_limit ?bypass_url_patterns ?description
-           ?disabled ?id ~period ~threshold ~zone_id ~action
-           ~correlate ~match_ ());
+           ?disabled ?id ~correlate ~match_ ~period ~threshold
+           ~zone_id ~action ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?bypass_url_patterns ?description ?disabled
-    ?id ~period ~threshold ~zone_id ~action ~correlate ~match_ __id =
+    ?id ?(correlate = []) ?(match_ = []) ~period ~threshold ~zone_id
+    ~action __id =
   let (r : _ Tf_core.resource) =
-    make ?bypass_url_patterns ?description ?disabled ?id ~period
-      ~threshold ~zone_id ~action ~correlate ~match_ __id
+    make ?bypass_url_patterns ?description ?disabled ?id ~correlate
+      ~match_ ~period ~threshold ~zone_id ~action __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

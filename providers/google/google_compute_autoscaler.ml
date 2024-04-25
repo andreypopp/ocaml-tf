@@ -520,8 +520,8 @@ let autoscaling_policy__scale_in_control__max_scaled_in_replicas
   { fixed; percent }
 
 let autoscaling_policy__scale_in_control ?time_window_sec
-    ~max_scaled_in_replicas () : autoscaling_policy__scale_in_control
-    =
+    ?(max_scaled_in_replicas = []) () :
+    autoscaling_policy__scale_in_control =
   { time_window_sec; max_scaled_in_replicas }
 
 let autoscaling_policy__scaling_schedules ?description ?disabled
@@ -537,10 +537,10 @@ let autoscaling_policy__scaling_schedules ?description ?disabled
     time_zone;
   }
 
-let autoscaling_policy ?cooldown_period ?mode ~max_replicas
-    ~min_replicas ~cpu_utilization ~load_balancing_utilization
-    ~metric ~scale_in_control ~scaling_schedules () :
-    autoscaling_policy =
+let autoscaling_policy ?cooldown_period ?mode ?(cpu_utilization = [])
+    ?(load_balancing_utilization = []) ?(metric = [])
+    ?(scale_in_control = []) ~max_replicas ~min_replicas
+    ~scaling_schedules () : autoscaling_policy =
   {
     cooldown_period;
     max_replicas;

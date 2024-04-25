@@ -145,7 +145,7 @@ val default_node_pool__linux_os_config :
   ?swap_file_size_mb:float prop ->
   ?transparent_huge_page_defrag:string prop ->
   ?transparent_huge_page_enabled:string prop ->
-  sysctl_config:
+  ?sysctl_config:
     default_node_pool__linux_os_config__sysctl_config list ->
   unit ->
   default_node_pool__linux_os_config
@@ -164,7 +164,7 @@ type default_node_pool__node_network_profile
 val default_node_pool__node_network_profile :
   ?application_security_group_ids:string prop list ->
   ?node_public_ip_tags:(string * string prop) list ->
-  allowed_host_ports:
+  ?allowed_host_ports:
     default_node_pool__node_network_profile__allowed_host_ports list ->
   unit ->
   default_node_pool__node_network_profile
@@ -212,12 +212,12 @@ val default_node_pool :
   ?vnet_subnet_id:string prop ->
   ?workload_runtime:string prop ->
   ?zones:string prop list ->
+  ?kubelet_config:default_node_pool__kubelet_config list ->
+  ?linux_os_config:default_node_pool__linux_os_config list ->
+  ?node_network_profile:default_node_pool__node_network_profile list ->
+  ?upgrade_settings:default_node_pool__upgrade_settings list ->
   name:string prop ->
   vm_size:string prop ->
-  kubelet_config:default_node_pool__kubelet_config list ->
-  linux_os_config:default_node_pool__linux_os_config list ->
-  node_network_profile:default_node_pool__node_network_profile list ->
-  upgrade_settings:default_node_pool__upgrade_settings list ->
   unit ->
   default_node_pool
 
@@ -424,9 +424,9 @@ val network_profile :
   ?pod_cidrs:string prop list ->
   ?service_cidr:string prop ->
   ?service_cidrs:string prop list ->
+  ?load_balancer_profile:network_profile__load_balancer_profile list ->
+  ?nat_gateway_profile:network_profile__nat_gateway_profile list ->
   network_plugin:string prop ->
-  load_balancer_profile:network_profile__load_balancer_profile list ->
-  nat_gateway_profile:network_profile__nat_gateway_profile list ->
   unit ->
   network_profile
 
@@ -508,8 +508,8 @@ type windows_profile
 val windows_profile :
   ?admin_password:string prop ->
   ?license:string prop ->
+  ?gmsa:windows_profile__gmsa list ->
   admin_username:string prop ->
-  gmsa:windows_profile__gmsa list ->
   unit ->
   windows_profile
 
@@ -553,38 +553,38 @@ val azurerm_kubernetes_cluster :
   ?support_plan:string prop ->
   ?tags:(string * string prop) list ->
   ?workload_identity_enabled:bool prop ->
+  ?aci_connector_linux:aci_connector_linux list ->
+  ?api_server_access_profile:api_server_access_profile list ->
+  ?auto_scaler_profile:auto_scaler_profile list ->
+  ?azure_active_directory_role_based_access_control:
+    azure_active_directory_role_based_access_control list ->
+  ?confidential_computing:confidential_computing list ->
+  ?http_proxy_config:http_proxy_config list ->
+  ?identity:identity list ->
+  ?ingress_application_gateway:ingress_application_gateway list ->
+  ?key_management_service:key_management_service list ->
+  ?key_vault_secrets_provider:key_vault_secrets_provider list ->
+  ?kubelet_identity:kubelet_identity list ->
+  ?linux_profile:linux_profile list ->
+  ?maintenance_window:maintenance_window list ->
+  ?maintenance_window_auto_upgrade:
+    maintenance_window_auto_upgrade list ->
+  ?maintenance_window_node_os:maintenance_window_node_os list ->
+  ?microsoft_defender:microsoft_defender list ->
+  ?monitor_metrics:monitor_metrics list ->
+  ?network_profile:network_profile list ->
+  ?oms_agent:oms_agent list ->
+  ?service_mesh_profile:service_mesh_profile list ->
+  ?service_principal:service_principal list ->
+  ?storage_profile:storage_profile list ->
   ?timeouts:timeouts ->
+  ?web_app_routing:web_app_routing list ->
+  ?windows_profile:windows_profile list ->
+  ?workload_autoscaler_profile:workload_autoscaler_profile list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  aci_connector_linux:aci_connector_linux list ->
-  api_server_access_profile:api_server_access_profile list ->
-  auto_scaler_profile:auto_scaler_profile list ->
-  azure_active_directory_role_based_access_control:
-    azure_active_directory_role_based_access_control list ->
-  confidential_computing:confidential_computing list ->
   default_node_pool:default_node_pool list ->
-  http_proxy_config:http_proxy_config list ->
-  identity:identity list ->
-  ingress_application_gateway:ingress_application_gateway list ->
-  key_management_service:key_management_service list ->
-  key_vault_secrets_provider:key_vault_secrets_provider list ->
-  kubelet_identity:kubelet_identity list ->
-  linux_profile:linux_profile list ->
-  maintenance_window:maintenance_window list ->
-  maintenance_window_auto_upgrade:
-    maintenance_window_auto_upgrade list ->
-  maintenance_window_node_os:maintenance_window_node_os list ->
-  microsoft_defender:microsoft_defender list ->
-  monitor_metrics:monitor_metrics list ->
-  network_profile:network_profile list ->
-  oms_agent:oms_agent list ->
-  service_mesh_profile:service_mesh_profile list ->
-  service_principal:service_principal list ->
-  storage_profile:storage_profile list ->
-  web_app_routing:web_app_routing list ->
-  windows_profile:windows_profile list ->
-  workload_autoscaler_profile:workload_autoscaler_profile list ->
   unit ->
   azurerm_kubernetes_cluster
 
@@ -670,38 +670,38 @@ val register :
   ?support_plan:string prop ->
   ?tags:(string * string prop) list ->
   ?workload_identity_enabled:bool prop ->
+  ?aci_connector_linux:aci_connector_linux list ->
+  ?api_server_access_profile:api_server_access_profile list ->
+  ?auto_scaler_profile:auto_scaler_profile list ->
+  ?azure_active_directory_role_based_access_control:
+    azure_active_directory_role_based_access_control list ->
+  ?confidential_computing:confidential_computing list ->
+  ?http_proxy_config:http_proxy_config list ->
+  ?identity:identity list ->
+  ?ingress_application_gateway:ingress_application_gateway list ->
+  ?key_management_service:key_management_service list ->
+  ?key_vault_secrets_provider:key_vault_secrets_provider list ->
+  ?kubelet_identity:kubelet_identity list ->
+  ?linux_profile:linux_profile list ->
+  ?maintenance_window:maintenance_window list ->
+  ?maintenance_window_auto_upgrade:
+    maintenance_window_auto_upgrade list ->
+  ?maintenance_window_node_os:maintenance_window_node_os list ->
+  ?microsoft_defender:microsoft_defender list ->
+  ?monitor_metrics:monitor_metrics list ->
+  ?network_profile:network_profile list ->
+  ?oms_agent:oms_agent list ->
+  ?service_mesh_profile:service_mesh_profile list ->
+  ?service_principal:service_principal list ->
+  ?storage_profile:storage_profile list ->
   ?timeouts:timeouts ->
+  ?web_app_routing:web_app_routing list ->
+  ?windows_profile:windows_profile list ->
+  ?workload_autoscaler_profile:workload_autoscaler_profile list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  aci_connector_linux:aci_connector_linux list ->
-  api_server_access_profile:api_server_access_profile list ->
-  auto_scaler_profile:auto_scaler_profile list ->
-  azure_active_directory_role_based_access_control:
-    azure_active_directory_role_based_access_control list ->
-  confidential_computing:confidential_computing list ->
   default_node_pool:default_node_pool list ->
-  http_proxy_config:http_proxy_config list ->
-  identity:identity list ->
-  ingress_application_gateway:ingress_application_gateway list ->
-  key_management_service:key_management_service list ->
-  key_vault_secrets_provider:key_vault_secrets_provider list ->
-  kubelet_identity:kubelet_identity list ->
-  linux_profile:linux_profile list ->
-  maintenance_window:maintenance_window list ->
-  maintenance_window_auto_upgrade:
-    maintenance_window_auto_upgrade list ->
-  maintenance_window_node_os:maintenance_window_node_os list ->
-  microsoft_defender:microsoft_defender list ->
-  monitor_metrics:monitor_metrics list ->
-  network_profile:network_profile list ->
-  oms_agent:oms_agent list ->
-  service_mesh_profile:service_mesh_profile list ->
-  service_principal:service_principal list ->
-  storage_profile:storage_profile list ->
-  web_app_routing:web_app_routing list ->
-  windows_profile:windows_profile list ->
-  workload_autoscaler_profile:workload_autoscaler_profile list ->
   string ->
   t
 
@@ -735,37 +735,37 @@ val make :
   ?support_plan:string prop ->
   ?tags:(string * string prop) list ->
   ?workload_identity_enabled:bool prop ->
+  ?aci_connector_linux:aci_connector_linux list ->
+  ?api_server_access_profile:api_server_access_profile list ->
+  ?auto_scaler_profile:auto_scaler_profile list ->
+  ?azure_active_directory_role_based_access_control:
+    azure_active_directory_role_based_access_control list ->
+  ?confidential_computing:confidential_computing list ->
+  ?http_proxy_config:http_proxy_config list ->
+  ?identity:identity list ->
+  ?ingress_application_gateway:ingress_application_gateway list ->
+  ?key_management_service:key_management_service list ->
+  ?key_vault_secrets_provider:key_vault_secrets_provider list ->
+  ?kubelet_identity:kubelet_identity list ->
+  ?linux_profile:linux_profile list ->
+  ?maintenance_window:maintenance_window list ->
+  ?maintenance_window_auto_upgrade:
+    maintenance_window_auto_upgrade list ->
+  ?maintenance_window_node_os:maintenance_window_node_os list ->
+  ?microsoft_defender:microsoft_defender list ->
+  ?monitor_metrics:monitor_metrics list ->
+  ?network_profile:network_profile list ->
+  ?oms_agent:oms_agent list ->
+  ?service_mesh_profile:service_mesh_profile list ->
+  ?service_principal:service_principal list ->
+  ?storage_profile:storage_profile list ->
   ?timeouts:timeouts ->
+  ?web_app_routing:web_app_routing list ->
+  ?windows_profile:windows_profile list ->
+  ?workload_autoscaler_profile:workload_autoscaler_profile list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  aci_connector_linux:aci_connector_linux list ->
-  api_server_access_profile:api_server_access_profile list ->
-  auto_scaler_profile:auto_scaler_profile list ->
-  azure_active_directory_role_based_access_control:
-    azure_active_directory_role_based_access_control list ->
-  confidential_computing:confidential_computing list ->
   default_node_pool:default_node_pool list ->
-  http_proxy_config:http_proxy_config list ->
-  identity:identity list ->
-  ingress_application_gateway:ingress_application_gateway list ->
-  key_management_service:key_management_service list ->
-  key_vault_secrets_provider:key_vault_secrets_provider list ->
-  kubelet_identity:kubelet_identity list ->
-  linux_profile:linux_profile list ->
-  maintenance_window:maintenance_window list ->
-  maintenance_window_auto_upgrade:
-    maintenance_window_auto_upgrade list ->
-  maintenance_window_node_os:maintenance_window_node_os list ->
-  microsoft_defender:microsoft_defender list ->
-  monitor_metrics:monitor_metrics list ->
-  network_profile:network_profile list ->
-  oms_agent:oms_agent list ->
-  service_mesh_profile:service_mesh_profile list ->
-  service_principal:service_principal list ->
-  storage_profile:storage_profile list ->
-  web_app_routing:web_app_routing list ->
-  windows_profile:windows_profile list ->
-  workload_autoscaler_profile:workload_autoscaler_profile list ->
   string ->
   t Tf_core.resource

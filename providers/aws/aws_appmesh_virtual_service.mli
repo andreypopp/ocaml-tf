@@ -21,14 +21,14 @@ val spec__provider__virtual_router :
 type spec__provider
 
 val spec__provider :
-  virtual_node:spec__provider__virtual_node list ->
-  virtual_router:spec__provider__virtual_router list ->
+  ?virtual_node:spec__provider__virtual_node list ->
+  ?virtual_router:spec__provider__virtual_router list ->
   unit ->
   spec__provider
 
 type spec
 
-val spec : provider:spec__provider list -> unit -> spec
+val spec : ?provider:spec__provider list -> unit -> spec
 
 type aws_appmesh_virtual_service
 

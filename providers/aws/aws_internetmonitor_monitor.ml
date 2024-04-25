@@ -264,14 +264,14 @@ let internet_measurements_log_delivery__s3_config ?bucket_prefix
     internet_measurements_log_delivery__s3_config =
   { bucket_name; bucket_prefix; log_delivery_status }
 
-let internet_measurements_log_delivery ~s3_config () :
+let internet_measurements_log_delivery ?(s3_config = []) () :
     internet_measurements_log_delivery =
   { s3_config }
 
 let aws_internetmonitor_monitor ?id ?max_city_networks_to_monitor
     ?resources ?status ?tags ?tags_all ?traffic_percentage_to_monitor
-    ~monitor_name ~health_events_config
-    ~internet_measurements_log_delivery () :
+    ?(health_events_config = [])
+    ?(internet_measurements_log_delivery = []) ~monitor_name () :
     aws_internetmonitor_monitor =
   {
     id;
@@ -299,8 +299,9 @@ type t = {
 }
 
 let make ?id ?max_city_networks_to_monitor ?resources ?status ?tags
-    ?tags_all ?traffic_percentage_to_monitor ~monitor_name
-    ~health_events_config ~internet_measurements_log_delivery __id =
+    ?tags_all ?traffic_percentage_to_monitor
+    ?(health_events_config = [])
+    ?(internet_measurements_log_delivery = []) ~monitor_name __id =
   let __type = "aws_internetmonitor_monitor" in
   let __attrs =
     ({
@@ -325,20 +326,20 @@ let make ?id ?max_city_networks_to_monitor ?resources ?status ?tags
       yojson_of_aws_internetmonitor_monitor
         (aws_internetmonitor_monitor ?id
            ?max_city_networks_to_monitor ?resources ?status ?tags
-           ?tags_all ?traffic_percentage_to_monitor ~monitor_name
+           ?tags_all ?traffic_percentage_to_monitor
            ~health_events_config ~internet_measurements_log_delivery
-           ());
+           ~monitor_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?max_city_networks_to_monitor ?resources
     ?status ?tags ?tags_all ?traffic_percentage_to_monitor
-    ~monitor_name ~health_events_config
-    ~internet_measurements_log_delivery __id =
+    ?(health_events_config = [])
+    ?(internet_measurements_log_delivery = []) ~monitor_name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?max_city_networks_to_monitor ?resources ?status ?tags
-      ?tags_all ?traffic_percentage_to_monitor ~monitor_name
-      ~health_events_config ~internet_measurements_log_delivery __id
+      ?tags_all ?traffic_percentage_to_monitor ~health_events_config
+      ~internet_measurements_log_delivery ~monitor_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -206,8 +206,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_storage_account_network_rules ?bypass ?id ?ip_rules
-    ?virtual_network_subnet_ids ?timeouts ~default_action
-    ~storage_account_id ~private_link_access () :
+    ?virtual_network_subnet_ids ?(private_link_access = []) ?timeouts
+    ~default_action ~storage_account_id () :
     azurerm_storage_account_network_rules =
   {
     bypass;
@@ -229,8 +229,9 @@ type t = {
   virtual_network_subnet_ids : string list prop;
 }
 
-let make ?bypass ?id ?ip_rules ?virtual_network_subnet_ids ?timeouts
-    ~default_action ~storage_account_id ~private_link_access __id =
+let make ?bypass ?id ?ip_rules ?virtual_network_subnet_ids
+    ?(private_link_access = []) ?timeouts ~default_action
+    ~storage_account_id __id =
   let __type = "azurerm_storage_account_network_rules" in
   let __attrs =
     ({
@@ -251,17 +252,18 @@ let make ?bypass ?id ?ip_rules ?virtual_network_subnet_ids ?timeouts
     json =
       yojson_of_azurerm_storage_account_network_rules
         (azurerm_storage_account_network_rules ?bypass ?id ?ip_rules
-           ?virtual_network_subnet_ids ?timeouts ~default_action
-           ~storage_account_id ~private_link_access ());
+           ?virtual_network_subnet_ids ~private_link_access ?timeouts
+           ~default_action ~storage_account_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?bypass ?id ?ip_rules
-    ?virtual_network_subnet_ids ?timeouts ~default_action
-    ~storage_account_id ~private_link_access __id =
+    ?virtual_network_subnet_ids ?(private_link_access = []) ?timeouts
+    ~default_action ~storage_account_id __id =
   let (r : _ Tf_core.resource) =
-    make ?bypass ?id ?ip_rules ?virtual_network_subnet_ids ?timeouts
-      ~default_action ~storage_account_id ~private_link_access __id
+    make ?bypass ?id ?ip_rules ?virtual_network_subnet_ids
+      ~private_link_access ?timeouts ~default_action
+      ~storage_account_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

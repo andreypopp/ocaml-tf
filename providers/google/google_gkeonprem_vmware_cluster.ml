@@ -1570,15 +1570,17 @@ let authorization__admin_users ~username () :
     authorization__admin_users =
   { username }
 
-let authorization ~admin_users () : authorization = { admin_users }
+let authorization ?(admin_users = []) () : authorization =
+  { admin_users }
+
 let auto_repair_config ~enabled () : auto_repair_config = { enabled }
 
 let control_plane_node__auto_resize_config ~enabled () :
     control_plane_node__auto_resize_config =
   { enabled }
 
-let control_plane_node ?cpus ?memory ?replicas ~auto_resize_config ()
-    : control_plane_node =
+let control_plane_node ?cpus ?memory ?replicas
+    ?(auto_resize_config = []) () : control_plane_node =
   { cpus; memory; replicas; auto_resize_config }
 
 let dataplane_v2 ?advanced_networking ?dataplane_v2_enabled
@@ -1617,8 +1619,8 @@ let load_balancer__vip_config ?control_plane_vip ?ingress_vip () :
     load_balancer__vip_config =
   { control_plane_vip; ingress_vip }
 
-let load_balancer ~f5_config ~manual_lb_config ~metal_lb_config
-    ~vip_config () : load_balancer =
+let load_balancer ?(f5_config = []) ?(manual_lb_config = [])
+    ?(metal_lb_config = []) ?(vip_config = []) () : load_balancer =
   { f5_config; manual_lb_config; metal_lb_config; vip_config }
 
 let network_config__control_plane_v2_config__control_plane_ip_block__ips
@@ -1628,12 +1630,13 @@ let network_config__control_plane_v2_config__control_plane_ip_block__ips
   { hostname; ip }
 
 let network_config__control_plane_v2_config__control_plane_ip_block
-    ?gateway ?netmask ~ips () :
+    ?gateway ?netmask ?(ips = []) () :
     network_config__control_plane_v2_config__control_plane_ip_block =
   { gateway; netmask; ips }
 
-let network_config__control_plane_v2_config ~control_plane_ip_block
-    () : network_config__control_plane_v2_config =
+let network_config__control_plane_v2_config
+    ?(control_plane_ip_block = []) () :
+    network_config__control_plane_v2_config =
   { control_plane_ip_block }
 
 let network_config__dhcp_ip_config ~enabled () :
@@ -1656,10 +1659,10 @@ let network_config__static_ip_config ~ip_blocks () :
     network_config__static_ip_config =
   { ip_blocks }
 
-let network_config ~pod_address_cidr_blocks
-    ~service_address_cidr_blocks ~control_plane_v2_config
-    ~dhcp_ip_config ~host_config ~static_ip_config () :
-    network_config =
+let network_config ?(control_plane_v2_config = [])
+    ?(dhcp_ip_config = []) ?(host_config = [])
+    ?(static_ip_config = []) ~pod_address_cidr_blocks
+    ~service_address_cidr_blocks () : network_config =
   {
     pod_address_cidr_blocks;
     service_address_cidr_blocks;
@@ -1692,11 +1695,12 @@ let vcenter ?ca_cert_data ?cluster ?datacenter ?datastore ?folder
 
 let google_gkeonprem_vmware_cluster ?annotations ?description
     ?enable_control_plane_v2 ?id ?project ?vm_tracking_enabled
-    ?timeouts ~admin_cluster_membership ~location ~name
-    ~on_prem_version ~anti_affinity_groups ~authorization
-    ~auto_repair_config ~control_plane_node ~dataplane_v2
-    ~load_balancer ~network_config ~storage ~upgrade_policy ~vcenter
-    () : google_gkeonprem_vmware_cluster =
+    ?(anti_affinity_groups = []) ?(authorization = [])
+    ?(auto_repair_config = []) ?(dataplane_v2 = [])
+    ?(load_balancer = []) ?(network_config = []) ?(storage = [])
+    ?timeouts ?(upgrade_policy = []) ?(vcenter = [])
+    ~admin_cluster_membership ~location ~name ~on_prem_version
+    ~control_plane_node () : google_gkeonprem_vmware_cluster =
   {
     admin_cluster_membership;
     annotations;
@@ -1748,11 +1752,12 @@ type t = {
 }
 
 let make ?annotations ?description ?enable_control_plane_v2 ?id
-    ?project ?vm_tracking_enabled ?timeouts ~admin_cluster_membership
-    ~location ~name ~on_prem_version ~anti_affinity_groups
-    ~authorization ~auto_repair_config ~control_plane_node
-    ~dataplane_v2 ~load_balancer ~network_config ~storage
-    ~upgrade_policy ~vcenter __id =
+    ?project ?vm_tracking_enabled ?(anti_affinity_groups = [])
+    ?(authorization = []) ?(auto_repair_config = [])
+    ?(dataplane_v2 = []) ?(load_balancer = []) ?(network_config = [])
+    ?(storage = []) ?timeouts ?(upgrade_policy = []) ?(vcenter = [])
+    ~admin_cluster_membership ~location ~name ~on_prem_version
+    ~control_plane_node __id =
   let __type = "google_gkeonprem_vmware_cluster" in
   let __attrs =
     ({
@@ -1794,28 +1799,29 @@ let make ?annotations ?description ?enable_control_plane_v2 ?id
       yojson_of_google_gkeonprem_vmware_cluster
         (google_gkeonprem_vmware_cluster ?annotations ?description
            ?enable_control_plane_v2 ?id ?project ?vm_tracking_enabled
-           ?timeouts ~admin_cluster_membership ~location ~name
-           ~on_prem_version ~anti_affinity_groups ~authorization
-           ~auto_repair_config ~control_plane_node ~dataplane_v2
-           ~load_balancer ~network_config ~storage ~upgrade_policy
-           ~vcenter ());
+           ~anti_affinity_groups ~authorization ~auto_repair_config
+           ~dataplane_v2 ~load_balancer ~network_config ~storage
+           ?timeouts ~upgrade_policy ~vcenter
+           ~admin_cluster_membership ~location ~name ~on_prem_version
+           ~control_plane_node ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?description
     ?enable_control_plane_v2 ?id ?project ?vm_tracking_enabled
-    ?timeouts ~admin_cluster_membership ~location ~name
-    ~on_prem_version ~anti_affinity_groups ~authorization
-    ~auto_repair_config ~control_plane_node ~dataplane_v2
-    ~load_balancer ~network_config ~storage ~upgrade_policy ~vcenter
-    __id =
+    ?(anti_affinity_groups = []) ?(authorization = [])
+    ?(auto_repair_config = []) ?(dataplane_v2 = [])
+    ?(load_balancer = []) ?(network_config = []) ?(storage = [])
+    ?timeouts ?(upgrade_policy = []) ?(vcenter = [])
+    ~admin_cluster_membership ~location ~name ~on_prem_version
+    ~control_plane_node __id =
   let (r : _ Tf_core.resource) =
     make ?annotations ?description ?enable_control_plane_v2 ?id
-      ?project ?vm_tracking_enabled ?timeouts
+      ?project ?vm_tracking_enabled ~anti_affinity_groups
+      ~authorization ~auto_repair_config ~dataplane_v2 ~load_balancer
+      ~network_config ~storage ?timeouts ~upgrade_policy ~vcenter
       ~admin_cluster_membership ~location ~name ~on_prem_version
-      ~anti_affinity_groups ~authorization ~auto_repair_config
-      ~control_plane_node ~dataplane_v2 ~load_balancer
-      ~network_config ~storage ~upgrade_policy ~vcenter __id
+      ~control_plane_node __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

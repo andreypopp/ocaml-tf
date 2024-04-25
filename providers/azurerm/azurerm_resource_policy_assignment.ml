@@ -458,7 +458,8 @@ let non_compliance_message ?policy_definition_reference_id ~content
 let overrides__selectors ?in_ ?not_in () : overrides__selectors =
   { in_; not_in }
 
-let overrides ~value ~selectors () : overrides = { value; selectors }
+let overrides ?(selectors = []) ~value () : overrides =
+  { value; selectors }
 
 let resource_selectors__selectors ?in_ ?not_in ~kind () :
     resource_selectors__selectors =
@@ -472,9 +473,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_resource_policy_assignment ?description ?display_name
     ?enforce ?id ?location ?metadata ?not_scopes ?parameters
-    ?timeouts ~name ~policy_definition_id ~resource_id ~identity
-    ~non_compliance_message ~overrides ~resource_selectors () :
-    azurerm_resource_policy_assignment =
+    ?(identity = []) ?(non_compliance_message = []) ?(overrides = [])
+    ?(resource_selectors = []) ?timeouts ~name ~policy_definition_id
+    ~resource_id () : azurerm_resource_policy_assignment =
   {
     description;
     display_name;
@@ -509,9 +510,10 @@ type t = {
 }
 
 let make ?description ?display_name ?enforce ?id ?location ?metadata
-    ?not_scopes ?parameters ?timeouts ~name ~policy_definition_id
-    ~resource_id ~identity ~non_compliance_message ~overrides
-    ~resource_selectors __id =
+    ?not_scopes ?parameters ?(identity = [])
+    ?(non_compliance_message = []) ?(overrides = [])
+    ?(resource_selectors = []) ?timeouts ~name ~policy_definition_id
+    ~resource_id __id =
   let __type = "azurerm_resource_policy_assignment" in
   let __attrs =
     ({
@@ -537,21 +539,22 @@ let make ?description ?display_name ?enforce ?id ?location ?metadata
       yojson_of_azurerm_resource_policy_assignment
         (azurerm_resource_policy_assignment ?description
            ?display_name ?enforce ?id ?location ?metadata ?not_scopes
-           ?parameters ?timeouts ~name ~policy_definition_id
-           ~resource_id ~identity ~non_compliance_message ~overrides
-           ~resource_selectors ());
+           ?parameters ~identity ~non_compliance_message ~overrides
+           ~resource_selectors ?timeouts ~name ~policy_definition_id
+           ~resource_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?display_name ?enforce ?id
-    ?location ?metadata ?not_scopes ?parameters ?timeouts ~name
-    ~policy_definition_id ~resource_id ~identity
-    ~non_compliance_message ~overrides ~resource_selectors __id =
+    ?location ?metadata ?not_scopes ?parameters ?(identity = [])
+    ?(non_compliance_message = []) ?(overrides = [])
+    ?(resource_selectors = []) ?timeouts ~name ~policy_definition_id
+    ~resource_id __id =
   let (r : _ Tf_core.resource) =
     make ?description ?display_name ?enforce ?id ?location ?metadata
-      ?not_scopes ?parameters ?timeouts ~name ~policy_definition_id
-      ~resource_id ~identity ~non_compliance_message ~overrides
-      ~resource_selectors __id
+      ?not_scopes ?parameters ~identity ~non_compliance_message
+      ~overrides ~resource_selectors ?timeouts ~name
+      ~policy_definition_id ~resource_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

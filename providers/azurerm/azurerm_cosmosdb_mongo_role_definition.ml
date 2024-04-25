@@ -212,8 +212,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_cosmosdb_mongo_role_definition ?id ?inherited_role_names
-    ?timeouts ~cosmos_mongo_database_id ~role_name ~privilege () :
-    azurerm_cosmosdb_mongo_role_definition =
+    ?(privilege = []) ?timeouts ~cosmos_mongo_database_id ~role_name
+    () : azurerm_cosmosdb_mongo_role_definition =
   {
     cosmos_mongo_database_id;
     id;
@@ -230,8 +230,8 @@ type t = {
   role_name : string prop;
 }
 
-let make ?id ?inherited_role_names ?timeouts
-    ~cosmos_mongo_database_id ~role_name ~privilege __id =
+let make ?id ?inherited_role_names ?(privilege = []) ?timeouts
+    ~cosmos_mongo_database_id ~role_name __id =
   let __type = "azurerm_cosmosdb_mongo_role_definition" in
   let __attrs =
     ({
@@ -250,16 +250,16 @@ let make ?id ?inherited_role_names ?timeouts
     json =
       yojson_of_azurerm_cosmosdb_mongo_role_definition
         (azurerm_cosmosdb_mongo_role_definition ?id
-           ?inherited_role_names ?timeouts ~cosmos_mongo_database_id
-           ~role_name ~privilege ());
+           ?inherited_role_names ~privilege ?timeouts
+           ~cosmos_mongo_database_id ~role_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?inherited_role_names ?timeouts
-    ~cosmos_mongo_database_id ~role_name ~privilege __id =
+let register ?tf_module ?id ?inherited_role_names ?(privilege = [])
+    ?timeouts ~cosmos_mongo_database_id ~role_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?inherited_role_names ?timeouts
-      ~cosmos_mongo_database_id ~role_name ~privilege __id
+    make ?id ?inherited_role_names ~privilege ?timeouts
+      ~cosmos_mongo_database_id ~role_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

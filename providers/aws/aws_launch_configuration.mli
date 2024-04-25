@@ -65,12 +65,12 @@ val aws_launch_configuration :
   ?spot_price:string prop ->
   ?user_data:string prop ->
   ?user_data_base64:string prop ->
+  ?metadata_options:metadata_options list ->
+  ?root_block_device:root_block_device list ->
   image_id:string prop ->
   instance_type:string prop ->
   ebs_block_device:ebs_block_device list ->
   ephemeral_block_device:ephemeral_block_device list ->
-  metadata_options:metadata_options list ->
-  root_block_device:root_block_device list ->
   unit ->
   aws_launch_configuration
 
@@ -113,12 +113,12 @@ val register :
   ?spot_price:string prop ->
   ?user_data:string prop ->
   ?user_data_base64:string prop ->
+  ?metadata_options:metadata_options list ->
+  ?root_block_device:root_block_device list ->
   image_id:string prop ->
   instance_type:string prop ->
   ebs_block_device:ebs_block_device list ->
   ephemeral_block_device:ephemeral_block_device list ->
-  metadata_options:metadata_options list ->
-  root_block_device:root_block_device list ->
   string ->
   t
 
@@ -136,11 +136,11 @@ val make :
   ?spot_price:string prop ->
   ?user_data:string prop ->
   ?user_data_base64:string prop ->
+  ?metadata_options:metadata_options list ->
+  ?root_block_device:root_block_device list ->
   image_id:string prop ->
   instance_type:string prop ->
   ebs_block_device:ebs_block_device list ->
   ephemeral_block_device:ephemeral_block_device list ->
-  metadata_options:metadata_options list ->
-  root_block_device:root_block_device list ->
   string ->
   t Tf_core.resource

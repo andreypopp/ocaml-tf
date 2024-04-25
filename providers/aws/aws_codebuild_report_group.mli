@@ -18,8 +18,8 @@ val export_config__s3_destination :
 type export_config
 
 val export_config :
+  ?s3_destination:export_config__s3_destination list ->
   type_:string prop ->
-  s3_destination:export_config__s3_destination list ->
   unit ->
   export_config
 

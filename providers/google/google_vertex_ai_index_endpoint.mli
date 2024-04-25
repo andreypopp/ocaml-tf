@@ -31,9 +31,9 @@ val google_vertex_ai_index_endpoint :
   ?project:string prop ->
   ?public_endpoint_enabled:bool prop ->
   ?region:string prop ->
+  ?private_service_connect_config:private_service_connect_config list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
-  private_service_connect_config:private_service_connect_config list ->
   unit ->
   google_vertex_ai_index_endpoint
 
@@ -69,9 +69,9 @@ val register :
   ?project:string prop ->
   ?public_endpoint_enabled:bool prop ->
   ?region:string prop ->
+  ?private_service_connect_config:private_service_connect_config list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
-  private_service_connect_config:private_service_connect_config list ->
   string ->
   t
 
@@ -83,8 +83,8 @@ val make :
   ?project:string prop ->
   ?public_endpoint_enabled:bool prop ->
   ?region:string prop ->
+  ?private_service_connect_config:private_service_connect_config list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
-  private_service_connect_config:private_service_connect_config list ->
   string ->
   t Tf_core.resource

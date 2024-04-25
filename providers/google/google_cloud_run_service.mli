@@ -70,7 +70,7 @@ type template__spec__containers__env
 val template__spec__containers__env :
   ?name:string prop ->
   ?value:string prop ->
-  value_from:template__spec__containers__env__value_from list ->
+  ?value_from:template__spec__containers__env__value_from list ->
   unit ->
   template__spec__containers__env
 
@@ -85,7 +85,7 @@ type template__spec__containers__env_from__config_map_ref
 
 val template__spec__containers__env_from__config_map_ref :
   ?optional:bool prop ->
-  local_object_reference:
+  ?local_object_reference:
     template__spec__containers__env_from__config_map_ref__local_object_reference
     list ->
   unit ->
@@ -102,7 +102,7 @@ type template__spec__containers__env_from__secret_ref
 
 val template__spec__containers__env_from__secret_ref :
   ?optional:bool prop ->
-  local_object_reference:
+  ?local_object_reference:
     template__spec__containers__env_from__secret_ref__local_object_reference
     list ->
   unit ->
@@ -112,9 +112,9 @@ type template__spec__containers__env_from
 
 val template__spec__containers__env_from :
   ?prefix:string prop ->
-  config_map_ref:
+  ?config_map_ref:
     template__spec__containers__env_from__config_map_ref list ->
-  secret_ref:template__spec__containers__env_from__secret_ref list ->
+  ?secret_ref:template__spec__containers__env_from__secret_ref list ->
   unit ->
   template__spec__containers__env_from
 
@@ -139,7 +139,7 @@ type template__spec__containers__liveness_probe__http_get
 val template__spec__containers__liveness_probe__http_get :
   ?path:string prop ->
   ?port:float prop ->
-  http_headers:
+  ?http_headers:
     template__spec__containers__liveness_probe__http_get__http_headers
     list ->
   unit ->
@@ -152,8 +152,8 @@ val template__spec__containers__liveness_probe :
   ?initial_delay_seconds:float prop ->
   ?period_seconds:float prop ->
   ?timeout_seconds:float prop ->
-  grpc:template__spec__containers__liveness_probe__grpc list ->
-  http_get:template__spec__containers__liveness_probe__http_get list ->
+  ?grpc:template__spec__containers__liveness_probe__grpc list ->
+  ?http_get:template__spec__containers__liveness_probe__http_get list ->
   unit ->
   template__spec__containers__liveness_probe
 
@@ -195,7 +195,7 @@ type template__spec__containers__startup_probe__http_get
 val template__spec__containers__startup_probe__http_get :
   ?path:string prop ->
   ?port:float prop ->
-  http_headers:
+  ?http_headers:
     template__spec__containers__startup_probe__http_get__http_headers
     list ->
   unit ->
@@ -215,9 +215,9 @@ val template__spec__containers__startup_probe :
   ?initial_delay_seconds:float prop ->
   ?period_seconds:float prop ->
   ?timeout_seconds:float prop ->
-  grpc:template__spec__containers__startup_probe__grpc list ->
-  http_get:template__spec__containers__startup_probe__http_get list ->
-  tcp_socket:
+  ?grpc:template__spec__containers__startup_probe__grpc list ->
+  ?http_get:template__spec__containers__startup_probe__http_get list ->
+  ?tcp_socket:
     template__spec__containers__startup_probe__tcp_socket list ->
   unit ->
   template__spec__containers__startup_probe
@@ -237,14 +237,14 @@ val template__spec__containers :
   ?command:string prop list ->
   ?name:string prop ->
   ?working_dir:string prop ->
+  ?env_from:template__spec__containers__env_from list ->
+  ?liveness_probe:template__spec__containers__liveness_probe list ->
+  ?ports:template__spec__containers__ports list ->
+  ?resources:template__spec__containers__resources list ->
+  ?startup_probe:template__spec__containers__startup_probe list ->
+  ?volume_mounts:template__spec__containers__volume_mounts list ->
   image:string prop ->
   env:template__spec__containers__env list ->
-  env_from:template__spec__containers__env_from list ->
-  liveness_probe:template__spec__containers__liveness_probe list ->
-  ports:template__spec__containers__ports list ->
-  resources:template__spec__containers__resources list ->
-  startup_probe:template__spec__containers__startup_probe list ->
-  volume_mounts:template__spec__containers__volume_mounts list ->
   unit ->
   template__spec__containers
 
@@ -261,16 +261,16 @@ type template__spec__volumes__secret
 
 val template__spec__volumes__secret :
   ?default_mode:float prop ->
+  ?items:template__spec__volumes__secret__items list ->
   secret_name:string prop ->
-  items:template__spec__volumes__secret__items list ->
   unit ->
   template__spec__volumes__secret
 
 type template__spec__volumes
 
 val template__spec__volumes :
+  ?secret:template__spec__volumes__secret list ->
   name:string prop ->
-  secret:template__spec__volumes__secret list ->
   unit ->
   template__spec__volumes
 
@@ -280,16 +280,16 @@ val template__spec :
   ?container_concurrency:float prop ->
   ?service_account_name:string prop ->
   ?timeout_seconds:float prop ->
-  containers:template__spec__containers list ->
-  volumes:template__spec__volumes list ->
+  ?containers:template__spec__containers list ->
+  ?volumes:template__spec__volumes list ->
   unit ->
   template__spec
 
 type template
 
 val template :
-  metadata:template__metadata list ->
-  spec:template__spec list ->
+  ?metadata:template__metadata list ->
+  ?spec:template__spec list ->
   unit ->
   template
 
@@ -318,12 +318,12 @@ val google_cloud_run_service :
   ?autogenerate_revision_name:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?metadata:metadata list ->
+  ?template:template list ->
   ?timeouts:timeouts ->
+  ?traffic:traffic list ->
   location:string prop ->
   name:string prop ->
-  metadata:metadata list ->
-  template:template list ->
-  traffic:traffic list ->
   unit ->
   google_cloud_run_service
 
@@ -346,12 +346,12 @@ val register :
   ?autogenerate_revision_name:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?metadata:metadata list ->
+  ?template:template list ->
   ?timeouts:timeouts ->
+  ?traffic:traffic list ->
   location:string prop ->
   name:string prop ->
-  metadata:metadata list ->
-  template:template list ->
-  traffic:traffic list ->
   string ->
   t
 
@@ -359,11 +359,11 @@ val make :
   ?autogenerate_revision_name:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?metadata:metadata list ->
+  ?template:template list ->
   ?timeouts:timeouts ->
+  ?traffic:traffic list ->
   location:string prop ->
   name:string prop ->
-  metadata:metadata list ->
-  template:template list ->
-  traffic:traffic list ->
   string ->
   t Tf_core.resource

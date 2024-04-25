@@ -55,11 +55,11 @@ val aws_fsx_ontap_file_system :
   ?throughput_capacity:float prop ->
   ?throughput_capacity_per_ha_pair:float prop ->
   ?weekly_maintenance_start_time:string prop ->
+  ?disk_iops_configuration:disk_iops_configuration list ->
   ?timeouts:timeouts ->
   deployment_type:string prop ->
   preferred_subnet_id:string prop ->
   subnet_ids:string prop list ->
-  disk_iops_configuration:disk_iops_configuration list ->
   unit ->
   aws_fsx_ontap_file_system
 
@@ -114,11 +114,11 @@ val register :
   ?throughput_capacity:float prop ->
   ?throughput_capacity_per_ha_pair:float prop ->
   ?weekly_maintenance_start_time:string prop ->
+  ?disk_iops_configuration:disk_iops_configuration list ->
   ?timeouts:timeouts ->
   deployment_type:string prop ->
   preferred_subnet_id:string prop ->
   subnet_ids:string prop list ->
-  disk_iops_configuration:disk_iops_configuration list ->
   string ->
   t
 
@@ -139,10 +139,10 @@ val make :
   ?throughput_capacity:float prop ->
   ?throughput_capacity_per_ha_pair:float prop ->
   ?weekly_maintenance_start_time:string prop ->
+  ?disk_iops_configuration:disk_iops_configuration list ->
   ?timeouts:timeouts ->
   deployment_type:string prop ->
   preferred_subnet_id:string prop ->
   subnet_ids:string prop list ->
-  disk_iops_configuration:disk_iops_configuration list ->
   string ->
   t Tf_core.resource

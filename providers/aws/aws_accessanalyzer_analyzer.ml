@@ -153,11 +153,12 @@ let configuration__unused_access ?unused_access_age () :
     configuration__unused_access =
   { unused_access_age }
 
-let configuration ~unused_access () : configuration =
+let configuration ?(unused_access = []) () : configuration =
   { unused_access }
 
 let aws_accessanalyzer_analyzer ?id ?tags ?tags_all ?type_
-    ~analyzer_name ~configuration () : aws_accessanalyzer_analyzer =
+    ?(configuration = []) ~analyzer_name () :
+    aws_accessanalyzer_analyzer =
   { analyzer_name; id; tags; tags_all; type_; configuration }
 
 type t = {
@@ -169,8 +170,8 @@ type t = {
   type_ : string prop;
 }
 
-let make ?id ?tags ?tags_all ?type_ ~analyzer_name ~configuration
-    __id =
+let make ?id ?tags ?tags_all ?type_ ?(configuration = [])
+    ~analyzer_name __id =
   let __type = "aws_accessanalyzer_analyzer" in
   let __attrs =
     ({
@@ -189,14 +190,14 @@ let make ?id ?tags ?tags_all ?type_ ~analyzer_name ~configuration
     json =
       yojson_of_aws_accessanalyzer_analyzer
         (aws_accessanalyzer_analyzer ?id ?tags ?tags_all ?type_
-           ~analyzer_name ~configuration ());
+           ~configuration ~analyzer_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ?type_ ~analyzer_name
-    ~configuration __id =
+let register ?tf_module ?id ?tags ?tags_all ?type_
+    ?(configuration = []) ~analyzer_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ?type_ ~analyzer_name ~configuration
+    make ?id ?tags ?tags_all ?type_ ~configuration ~analyzer_name
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

@@ -211,8 +211,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_spring_cloud_java_deployment ?environment_variables ?id
-    ?instance_count ?jvm_options ?runtime_version ?timeouts ~name
-    ~spring_cloud_app_id ~quota () :
+    ?instance_count ?jvm_options ?runtime_version ?(quota = [])
+    ?timeouts ~name ~spring_cloud_app_id () :
     azurerm_spring_cloud_java_deployment =
   {
     environment_variables;
@@ -237,8 +237,8 @@ type t = {
 }
 
 let make ?environment_variables ?id ?instance_count ?jvm_options
-    ?runtime_version ?timeouts ~name ~spring_cloud_app_id ~quota __id
-    =
+    ?runtime_version ?(quota = []) ?timeouts ~name
+    ~spring_cloud_app_id __id =
   let __type = "azurerm_spring_cloud_java_deployment" in
   let __attrs =
     ({
@@ -260,17 +260,17 @@ let make ?environment_variables ?id ?instance_count ?jvm_options
     json =
       yojson_of_azurerm_spring_cloud_java_deployment
         (azurerm_spring_cloud_java_deployment ?environment_variables
-           ?id ?instance_count ?jvm_options ?runtime_version
-           ?timeouts ~name ~spring_cloud_app_id ~quota ());
+           ?id ?instance_count ?jvm_options ?runtime_version ~quota
+           ?timeouts ~name ~spring_cloud_app_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?environment_variables ?id ?instance_count
-    ?jvm_options ?runtime_version ?timeouts ~name
-    ~spring_cloud_app_id ~quota __id =
+    ?jvm_options ?runtime_version ?(quota = []) ?timeouts ~name
+    ~spring_cloud_app_id __id =
   let (r : _ Tf_core.resource) =
     make ?environment_variables ?id ?instance_count ?jvm_options
-      ?runtime_version ?timeouts ~name ~spring_cloud_app_id ~quota
+      ?runtime_version ~quota ?timeouts ~name ~spring_cloud_app_id
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

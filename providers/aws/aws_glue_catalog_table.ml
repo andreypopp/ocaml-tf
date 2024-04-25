@@ -863,7 +863,7 @@ let storage_descriptor__schema_reference__schema_id ?registry_name
   { registry_name; schema_arn; schema_name }
 
 let storage_descriptor__schema_reference ?schema_version_id
-    ~schema_version_number ~schema_id () :
+    ?(schema_id = []) ~schema_version_number () :
     storage_descriptor__schema_reference =
   { schema_version_id; schema_version_number; schema_id }
 
@@ -886,8 +886,9 @@ let storage_descriptor__sort_columns ~column ~sort_order () :
 
 let storage_descriptor ?bucket_columns ?compressed ?input_format
     ?location ?number_of_buckets ?output_format ?parameters
-    ?stored_as_sub_directories ~columns ~schema_reference
-    ~ser_de_info ~skewed_info ~sort_columns () : storage_descriptor =
+    ?stored_as_sub_directories ?(columns = [])
+    ?(schema_reference = []) ?(ser_de_info = []) ?(skewed_info = [])
+    ?(sort_columns = []) () : storage_descriptor =
   {
     bucket_columns;
     compressed;
@@ -910,9 +911,10 @@ let target_table ?region ~catalog_id ~database_name ~name () :
 
 let aws_glue_catalog_table ?catalog_id ?description ?id ?owner
     ?parameters ?retention ?table_type ?view_expanded_text
-    ?view_original_text ~database_name ~name ~open_table_format_input
-    ~partition_index ~partition_keys ~storage_descriptor
-    ~target_table () : aws_glue_catalog_table =
+    ?view_original_text ?(open_table_format_input = [])
+    ?(partition_index = []) ?(partition_keys = [])
+    ?(storage_descriptor = []) ?(target_table = []) ~database_name
+    ~name () : aws_glue_catalog_table =
   {
     catalog_id;
     database_name;
@@ -949,8 +951,9 @@ type t = {
 
 let make ?catalog_id ?description ?id ?owner ?parameters ?retention
     ?table_type ?view_expanded_text ?view_original_text
-    ~database_name ~name ~open_table_format_input ~partition_index
-    ~partition_keys ~storage_descriptor ~target_table __id =
+    ?(open_table_format_input = []) ?(partition_index = [])
+    ?(partition_keys = []) ?(storage_descriptor = [])
+    ?(target_table = []) ~database_name ~name __id =
   let __type = "aws_glue_catalog_table" in
   let __attrs =
     ({
@@ -978,22 +981,23 @@ let make ?catalog_id ?description ?id ?owner ?parameters ?retention
       yojson_of_aws_glue_catalog_table
         (aws_glue_catalog_table ?catalog_id ?description ?id ?owner
            ?parameters ?retention ?table_type ?view_expanded_text
-           ?view_original_text ~database_name ~name
-           ~open_table_format_input ~partition_index ~partition_keys
-           ~storage_descriptor ~target_table ());
+           ?view_original_text ~open_table_format_input
+           ~partition_index ~partition_keys ~storage_descriptor
+           ~target_table ~database_name ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?catalog_id ?description ?id ?owner
     ?parameters ?retention ?table_type ?view_expanded_text
-    ?view_original_text ~database_name ~name ~open_table_format_input
-    ~partition_index ~partition_keys ~storage_descriptor
-    ~target_table __id =
+    ?view_original_text ?(open_table_format_input = [])
+    ?(partition_index = []) ?(partition_keys = [])
+    ?(storage_descriptor = []) ?(target_table = []) ~database_name
+    ~name __id =
   let (r : _ Tf_core.resource) =
     make ?catalog_id ?description ?id ?owner ?parameters ?retention
       ?table_type ?view_expanded_text ?view_original_text
-      ~database_name ~name ~open_table_format_input ~partition_index
-      ~partition_keys ~storage_descriptor ~target_table __id
+      ~open_table_format_input ~partition_index ~partition_keys
+      ~storage_descriptor ~target_table ~database_name ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

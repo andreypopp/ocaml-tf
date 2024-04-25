@@ -45,13 +45,13 @@ val azurerm_mssql_server :
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?transparent_data_encryption_key_vault_key_id:string prop ->
+  ?azuread_administrator:azuread_administrator list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   version:string prop ->
-  azuread_administrator:azuread_administrator list ->
-  identity:identity list ->
   unit ->
   azurerm_mssql_server
 
@@ -90,13 +90,13 @@ val register :
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?transparent_data_encryption_key_vault_key_id:string prop ->
+  ?azuread_administrator:azuread_administrator list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   version:string prop ->
-  azuread_administrator:azuread_administrator list ->
-  identity:identity list ->
   string ->
   t
 
@@ -111,12 +111,12 @@ val make :
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?transparent_data_encryption_key_vault_key_id:string prop ->
+  ?azuread_administrator:azuread_administrator list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   version:string prop ->
-  azuread_administrator:azuread_administrator list ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

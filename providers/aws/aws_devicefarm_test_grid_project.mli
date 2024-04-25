@@ -20,8 +20,8 @@ val aws_devicefarm_test_grid_project :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?vpc_config:vpc_config list ->
   name:string prop ->
-  vpc_config:vpc_config list ->
   unit ->
   aws_devicefarm_test_grid_project
 
@@ -45,8 +45,8 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?vpc_config:vpc_config list ->
   name:string prop ->
-  vpc_config:vpc_config list ->
   string ->
   t
 
@@ -55,7 +55,7 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?vpc_config:vpc_config list ->
   name:string prop ->
-  vpc_config:vpc_config list ->
   string ->
   t Tf_core.resource

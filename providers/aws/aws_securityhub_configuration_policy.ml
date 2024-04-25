@@ -645,8 +645,9 @@ let configuration_policy__security_controls_configuration__security_control_cust
   { value }
 
 let configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter
-    ~name ~value_type ~bool_ ~double ~enum ~enum_list ~int_ ~int_list
-    ~string_ ~string_list () :
+    ?(bool_ = []) ?(double = []) ?(enum = []) ?(enum_list = [])
+    ?(int_ = []) ?(int_list = []) ?(string_ = []) ?(string_list = [])
+    ~name ~value_type () :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter
     =
   {
@@ -670,7 +671,7 @@ let configuration_policy__security_controls_configuration__security_control_cust
 
 let configuration_policy__security_controls_configuration
     ?disabled_control_identifiers ?enabled_control_identifiers
-    ~security_control_custom_parameter () :
+    ?(security_control_custom_parameter = []) () :
     configuration_policy__security_controls_configuration =
   {
     disabled_control_identifiers;
@@ -678,8 +679,9 @@ let configuration_policy__security_controls_configuration
     security_control_custom_parameter;
   }
 
-let configuration_policy ~enabled_standard_arns ~service_enabled
-    ~security_controls_configuration () : configuration_policy =
+let configuration_policy ?(security_controls_configuration = [])
+    ~enabled_standard_arns ~service_enabled () : configuration_policy
+    =
   {
     enabled_standard_arns;
     service_enabled;

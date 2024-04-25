@@ -60,14 +60,14 @@ val google_bigquery_routine :
   ?project:string prop ->
   ?return_table_type:string prop ->
   ?return_type:string prop ->
+  ?arguments:arguments list ->
+  ?remote_function_options:remote_function_options list ->
+  ?spark_options:spark_options list ->
   ?timeouts:timeouts ->
   dataset_id:string prop ->
   definition_body:string prop ->
   routine_id:string prop ->
   routine_type:string prop ->
-  arguments:arguments list ->
-  remote_function_options:remote_function_options list ->
-  spark_options:spark_options list ->
   unit ->
   google_bigquery_routine
 
@@ -103,14 +103,14 @@ val register :
   ?project:string prop ->
   ?return_table_type:string prop ->
   ?return_type:string prop ->
+  ?arguments:arguments list ->
+  ?remote_function_options:remote_function_options list ->
+  ?spark_options:spark_options list ->
   ?timeouts:timeouts ->
   dataset_id:string prop ->
   definition_body:string prop ->
   routine_id:string prop ->
   routine_type:string prop ->
-  arguments:arguments list ->
-  remote_function_options:remote_function_options list ->
-  spark_options:spark_options list ->
   string ->
   t
 
@@ -123,13 +123,13 @@ val make :
   ?project:string prop ->
   ?return_table_type:string prop ->
   ?return_type:string prop ->
+  ?arguments:arguments list ->
+  ?remote_function_options:remote_function_options list ->
+  ?spark_options:spark_options list ->
   ?timeouts:timeouts ->
   dataset_id:string prop ->
   definition_body:string prop ->
   routine_id:string prop ->
   routine_type:string prop ->
-  arguments:arguments list ->
-  remote_function_options:remote_function_options list ->
-  spark_options:spark_options list ->
   string ->
   t Tf_core.resource

@@ -30,9 +30,9 @@ val rule :
   ?labels:(string * string prop) list ->
   ?record:string prop ->
   ?severity:float prop ->
+  ?action:rule__action list ->
+  ?alert_resolution:rule__alert_resolution list ->
   expression:string prop ->
-  action:rule__action list ->
-  alert_resolution:rule__alert_resolution list ->
   unit ->
   rule
 

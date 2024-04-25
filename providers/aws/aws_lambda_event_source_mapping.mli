@@ -21,7 +21,7 @@ val destination_config__on_failure :
 type destination_config
 
 val destination_config :
-  on_failure:destination_config__on_failure list ->
+  ?on_failure:destination_config__on_failure list ->
   unit ->
   destination_config
 
@@ -89,17 +89,17 @@ val aws_lambda_event_source_mapping :
   ?starting_position_timestamp:string prop ->
   ?topics:string prop list ->
   ?tumbling_window_in_seconds:float prop ->
-  function_name:string prop ->
-  amazon_managed_kafka_event_source_config:
+  ?amazon_managed_kafka_event_source_config:
     amazon_managed_kafka_event_source_config list ->
-  destination_config:destination_config list ->
-  document_db_event_source_config:
+  ?destination_config:destination_config list ->
+  ?document_db_event_source_config:
     document_db_event_source_config list ->
-  filter_criteria:filter_criteria list ->
-  scaling_config:scaling_config list ->
-  self_managed_event_source:self_managed_event_source list ->
-  self_managed_kafka_event_source_config:
+  ?filter_criteria:filter_criteria list ->
+  ?scaling_config:scaling_config list ->
+  ?self_managed_event_source:self_managed_event_source list ->
+  ?self_managed_kafka_event_source_config:
     self_managed_kafka_event_source_config list ->
+  function_name:string prop ->
   source_access_configuration:source_access_configuration list ->
   unit ->
   aws_lambda_event_source_mapping
@@ -151,17 +151,17 @@ val register :
   ?starting_position_timestamp:string prop ->
   ?topics:string prop list ->
   ?tumbling_window_in_seconds:float prop ->
-  function_name:string prop ->
-  amazon_managed_kafka_event_source_config:
+  ?amazon_managed_kafka_event_source_config:
     amazon_managed_kafka_event_source_config list ->
-  destination_config:destination_config list ->
-  document_db_event_source_config:
+  ?destination_config:destination_config list ->
+  ?document_db_event_source_config:
     document_db_event_source_config list ->
-  filter_criteria:filter_criteria list ->
-  scaling_config:scaling_config list ->
-  self_managed_event_source:self_managed_event_source list ->
-  self_managed_kafka_event_source_config:
+  ?filter_criteria:filter_criteria list ->
+  ?scaling_config:scaling_config list ->
+  ?self_managed_event_source:self_managed_event_source list ->
+  ?self_managed_kafka_event_source_config:
     self_managed_kafka_event_source_config list ->
+  function_name:string prop ->
   source_access_configuration:source_access_configuration list ->
   string ->
   t
@@ -182,17 +182,17 @@ val make :
   ?starting_position_timestamp:string prop ->
   ?topics:string prop list ->
   ?tumbling_window_in_seconds:float prop ->
-  function_name:string prop ->
-  amazon_managed_kafka_event_source_config:
+  ?amazon_managed_kafka_event_source_config:
     amazon_managed_kafka_event_source_config list ->
-  destination_config:destination_config list ->
-  document_db_event_source_config:
+  ?destination_config:destination_config list ->
+  ?document_db_event_source_config:
     document_db_event_source_config list ->
-  filter_criteria:filter_criteria list ->
-  scaling_config:scaling_config list ->
-  self_managed_event_source:self_managed_event_source list ->
-  self_managed_kafka_event_source_config:
+  ?filter_criteria:filter_criteria list ->
+  ?scaling_config:scaling_config list ->
+  ?self_managed_event_source:self_managed_event_source list ->
+  ?self_managed_kafka_event_source_config:
     self_managed_kafka_event_source_config list ->
+  function_name:string prop ->
   source_access_configuration:source_access_configuration list ->
   string ->
   t Tf_core.resource

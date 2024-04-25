@@ -16,8 +16,8 @@ type content_matchers
 
 val content_matchers :
   ?matcher:string prop ->
+  ?json_path_matcher:content_matchers__json_path_matcher list ->
   content:string prop ->
-  json_path_matcher:content_matchers__json_path_matcher list ->
   unit ->
   content_matchers
 
@@ -55,10 +55,10 @@ val http_check :
   ?request_method:string prop ->
   ?use_ssl:bool prop ->
   ?validate_ssl:bool prop ->
-  accepted_response_status_codes:
+  ?accepted_response_status_codes:
     http_check__accepted_response_status_codes list ->
-  auth_info:http_check__auth_info list ->
-  ping_config:http_check__ping_config list ->
+  ?auth_info:http_check__auth_info list ->
+  ?ping_config:http_check__ping_config list ->
   unit ->
   http_check
 
@@ -98,8 +98,8 @@ val tcp_check__ping_config :
 type tcp_check
 
 val tcp_check :
+  ?ping_config:tcp_check__ping_config list ->
   port:float prop ->
-  ping_config:tcp_check__ping_config list ->
   unit ->
   tcp_check
 
@@ -121,15 +121,15 @@ val google_monitoring_uptime_check_config :
   ?project:string prop ->
   ?selected_regions:string prop list ->
   ?user_labels:(string * string prop) list ->
+  ?content_matchers:content_matchers list ->
+  ?http_check:http_check list ->
+  ?monitored_resource:monitored_resource list ->
+  ?resource_group:resource_group list ->
+  ?synthetic_monitor:synthetic_monitor list ->
+  ?tcp_check:tcp_check list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   timeout:string prop ->
-  content_matchers:content_matchers list ->
-  http_check:http_check list ->
-  monitored_resource:monitored_resource list ->
-  resource_group:resource_group list ->
-  synthetic_monitor:synthetic_monitor list ->
-  tcp_check:tcp_check list ->
   unit ->
   google_monitoring_uptime_check_config
 
@@ -159,15 +159,15 @@ val register :
   ?project:string prop ->
   ?selected_regions:string prop list ->
   ?user_labels:(string * string prop) list ->
+  ?content_matchers:content_matchers list ->
+  ?http_check:http_check list ->
+  ?monitored_resource:monitored_resource list ->
+  ?resource_group:resource_group list ->
+  ?synthetic_monitor:synthetic_monitor list ->
+  ?tcp_check:tcp_check list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   timeout:string prop ->
-  content_matchers:content_matchers list ->
-  http_check:http_check list ->
-  monitored_resource:monitored_resource list ->
-  resource_group:resource_group list ->
-  synthetic_monitor:synthetic_monitor list ->
-  tcp_check:tcp_check list ->
   string ->
   t
 
@@ -178,14 +178,14 @@ val make :
   ?project:string prop ->
   ?selected_regions:string prop list ->
   ?user_labels:(string * string prop) list ->
+  ?content_matchers:content_matchers list ->
+  ?http_check:http_check list ->
+  ?monitored_resource:monitored_resource list ->
+  ?resource_group:resource_group list ->
+  ?synthetic_monitor:synthetic_monitor list ->
+  ?tcp_check:tcp_check list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   timeout:string prop ->
-  content_matchers:content_matchers list ->
-  http_check:http_check list ->
-  monitored_resource:monitored_resource list ->
-  resource_group:resource_group list ->
-  synthetic_monitor:synthetic_monitor list ->
-  tcp_check:tcp_check list ->
   string ->
   t Tf_core.resource

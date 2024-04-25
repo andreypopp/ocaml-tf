@@ -61,6 +61,9 @@ val azurerm_machine_learning_workspace :
   ?sku_name:string prop ->
   ?tags:(string * string prop) list ->
   ?v1_legacy_mode_enabled:bool prop ->
+  ?encryption:encryption list ->
+  ?feature_store:feature_store list ->
+  ?managed_network:managed_network list ->
   ?timeouts:timeouts ->
   application_insights_id:string prop ->
   key_vault_id:string prop ->
@@ -68,10 +71,7 @@ val azurerm_machine_learning_workspace :
   name:string prop ->
   resource_group_name:string prop ->
   storage_account_id:string prop ->
-  encryption:encryption list ->
-  feature_store:feature_store list ->
   identity:identity list ->
-  managed_network:managed_network list ->
   unit ->
   azurerm_machine_learning_workspace
 
@@ -119,6 +119,9 @@ val register :
   ?sku_name:string prop ->
   ?tags:(string * string prop) list ->
   ?v1_legacy_mode_enabled:bool prop ->
+  ?encryption:encryption list ->
+  ?feature_store:feature_store list ->
+  ?managed_network:managed_network list ->
   ?timeouts:timeouts ->
   application_insights_id:string prop ->
   key_vault_id:string prop ->
@@ -126,10 +129,7 @@ val register :
   name:string prop ->
   resource_group_name:string prop ->
   storage_account_id:string prop ->
-  encryption:encryption list ->
-  feature_store:feature_store list ->
   identity:identity list ->
-  managed_network:managed_network list ->
   string ->
   t
 
@@ -147,6 +147,9 @@ val make :
   ?sku_name:string prop ->
   ?tags:(string * string prop) list ->
   ?v1_legacy_mode_enabled:bool prop ->
+  ?encryption:encryption list ->
+  ?feature_store:feature_store list ->
+  ?managed_network:managed_network list ->
   ?timeouts:timeouts ->
   application_insights_id:string prop ->
   key_vault_id:string prop ->
@@ -154,9 +157,6 @@ val make :
   name:string prop ->
   resource_group_name:string prop ->
   storage_account_id:string prop ->
-  encryption:encryption list ->
-  feature_store:feature_store list ->
   identity:identity list ->
-  managed_network:managed_network list ->
   string ->
   t Tf_core.resource

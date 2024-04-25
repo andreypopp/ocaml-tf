@@ -338,16 +338,16 @@ let autoscaling_config__autoscaling_targets
     storage_utilization_percent;
   }
 
-let autoscaling_config ~autoscaling_limits ~autoscaling_targets () :
-    autoscaling_config =
+let autoscaling_config ?(autoscaling_limits = [])
+    ?(autoscaling_targets = []) () : autoscaling_config =
   { autoscaling_limits; autoscaling_targets }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_spanner_instance ?force_destroy ?id ?labels ?name
-    ?num_nodes ?processing_units ?project ?timeouts ~config
-    ~display_name ~autoscaling_config () : google_spanner_instance =
+    ?num_nodes ?processing_units ?project ?(autoscaling_config = [])
+    ?timeouts ~config ~display_name () : google_spanner_instance =
   {
     config;
     display_name;
@@ -378,8 +378,8 @@ type t = {
 }
 
 let make ?force_destroy ?id ?labels ?name ?num_nodes
-    ?processing_units ?project ?timeouts ~config ~display_name
-    ~autoscaling_config __id =
+    ?processing_units ?project ?(autoscaling_config = []) ?timeouts
+    ~config ~display_name __id =
   let __type = "google_spanner_instance" in
   let __attrs =
     ({
@@ -407,18 +407,18 @@ let make ?force_destroy ?id ?labels ?name ?num_nodes
     json =
       yojson_of_google_spanner_instance
         (google_spanner_instance ?force_destroy ?id ?labels ?name
-           ?num_nodes ?processing_units ?project ?timeouts ~config
-           ~display_name ~autoscaling_config ());
+           ?num_nodes ?processing_units ?project ~autoscaling_config
+           ?timeouts ~config ~display_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?force_destroy ?id ?labels ?name ?num_nodes
-    ?processing_units ?project ?timeouts ~config ~display_name
-    ~autoscaling_config __id =
+    ?processing_units ?project ?(autoscaling_config = []) ?timeouts
+    ~config ~display_name __id =
   let (r : _ Tf_core.resource) =
     make ?force_destroy ?id ?labels ?name ?num_nodes
-      ?processing_units ?project ?timeouts ~config ~display_name
-      ~autoscaling_config __id
+      ?processing_units ?project ~autoscaling_config ?timeouts
+      ~config ~display_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

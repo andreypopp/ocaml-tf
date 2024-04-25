@@ -33,7 +33,7 @@ val import_table__input_format_options__csv :
 type import_table__input_format_options
 
 val import_table__input_format_options :
-  csv:import_table__input_format_options__csv list ->
+  ?csv:import_table__input_format_options__csv list ->
   unit ->
   import_table__input_format_options
 
@@ -50,8 +50,8 @@ type import_table
 
 val import_table :
   ?input_compression_type:string prop ->
+  ?input_format_options:import_table__input_format_options list ->
   input_format:string prop ->
-  input_format_options:import_table__input_format_options list ->
   s3_bucket_source:import_table__s3_bucket_source list ->
   unit ->
   import_table
@@ -121,16 +121,16 @@ val aws_dynamodb_table :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?write_capacity:float prop ->
+  ?import_table:import_table list ->
+  ?point_in_time_recovery:point_in_time_recovery list ->
+  ?server_side_encryption:server_side_encryption list ->
   ?timeouts:timeouts ->
+  ?ttl:ttl list ->
   name:string prop ->
   attribute:attribute list ->
   global_secondary_index:global_secondary_index list ->
-  import_table:import_table list ->
   local_secondary_index:local_secondary_index list ->
-  point_in_time_recovery:point_in_time_recovery list ->
   replica:replica list ->
-  server_side_encryption:server_side_encryption list ->
-  ttl:ttl list ->
   unit ->
   aws_dynamodb_table
 
@@ -177,16 +177,16 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?write_capacity:float prop ->
+  ?import_table:import_table list ->
+  ?point_in_time_recovery:point_in_time_recovery list ->
+  ?server_side_encryption:server_side_encryption list ->
   ?timeouts:timeouts ->
+  ?ttl:ttl list ->
   name:string prop ->
   attribute:attribute list ->
   global_secondary_index:global_secondary_index list ->
-  import_table:import_table list ->
   local_secondary_index:local_secondary_index list ->
-  point_in_time_recovery:point_in_time_recovery list ->
   replica:replica list ->
-  server_side_encryption:server_side_encryption list ->
-  ttl:ttl list ->
   string ->
   t
 
@@ -206,15 +206,15 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?write_capacity:float prop ->
+  ?import_table:import_table list ->
+  ?point_in_time_recovery:point_in_time_recovery list ->
+  ?server_side_encryption:server_side_encryption list ->
   ?timeouts:timeouts ->
+  ?ttl:ttl list ->
   name:string prop ->
   attribute:attribute list ->
   global_secondary_index:global_secondary_index list ->
-  import_table:import_table list ->
   local_secondary_index:local_secondary_index list ->
-  point_in_time_recovery:point_in_time_recovery list ->
   replica:replica list ->
-  server_side_encryption:server_side_encryption list ->
-  ttl:ttl list ->
   string ->
   t Tf_core.resource

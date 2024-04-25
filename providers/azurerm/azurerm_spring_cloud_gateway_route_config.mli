@@ -42,10 +42,10 @@ val azurerm_spring_cloud_gateway_route_config :
   ?protocol:string prop ->
   ?spring_cloud_app_id:string prop ->
   ?sso_validation_enabled:bool prop ->
+  ?open_api:open_api list ->
   ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_gateway_id:string prop ->
-  open_api:open_api list ->
   route:route list ->
   unit ->
   azurerm_spring_cloud_gateway_route_config
@@ -74,10 +74,10 @@ val register :
   ?protocol:string prop ->
   ?spring_cloud_app_id:string prop ->
   ?sso_validation_enabled:bool prop ->
+  ?open_api:open_api list ->
   ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_gateway_id:string prop ->
-  open_api:open_api list ->
   route:route list ->
   string ->
   t
@@ -89,10 +89,10 @@ val make :
   ?protocol:string prop ->
   ?spring_cloud_app_id:string prop ->
   ?sso_validation_enabled:bool prop ->
+  ?open_api:open_api list ->
   ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_gateway_id:string prop ->
-  open_api:open_api list ->
   route:route list ->
   string ->
   t Tf_core.resource

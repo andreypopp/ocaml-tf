@@ -228,15 +228,15 @@ let source__sub_type ?enabled ~name ~severities_allowed () :
     source__sub_type =
   { enabled; name; severities_allowed }
 
-let source ?enabled ~name ~sub_type () : source =
+let source ?enabled ?(sub_type = []) ~name () : source =
   { enabled; name; sub_type }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_sentinel_alert_rule_fusion ?enabled ?id ?timeouts
-    ~alert_rule_template_guid ~log_analytics_workspace_id ~name
-    ~source () : azurerm_sentinel_alert_rule_fusion =
+let azurerm_sentinel_alert_rule_fusion ?enabled ?id ?(source = [])
+    ?timeouts ~alert_rule_template_guid ~log_analytics_workspace_id
+    ~name () : azurerm_sentinel_alert_rule_fusion =
   {
     alert_rule_template_guid;
     enabled;
@@ -255,8 +255,9 @@ type t = {
   name : string prop;
 }
 
-let make ?enabled ?id ?timeouts ~alert_rule_template_guid
-    ~log_analytics_workspace_id ~name ~source __id =
+let make ?enabled ?id ?(source = []) ?timeouts
+    ~alert_rule_template_guid ~log_analytics_workspace_id ~name __id
+    =
   let __type = "azurerm_sentinel_alert_rule_fusion" in
   let __attrs =
     ({
@@ -275,18 +276,18 @@ let make ?enabled ?id ?timeouts ~alert_rule_template_guid
     type_ = __type;
     json =
       yojson_of_azurerm_sentinel_alert_rule_fusion
-        (azurerm_sentinel_alert_rule_fusion ?enabled ?id ?timeouts
-           ~alert_rule_template_guid ~log_analytics_workspace_id
-           ~name ~source ());
+        (azurerm_sentinel_alert_rule_fusion ?enabled ?id ~source
+           ?timeouts ~alert_rule_template_guid
+           ~log_analytics_workspace_id ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?enabled ?id ?timeouts
-    ~alert_rule_template_guid ~log_analytics_workspace_id ~name
-    ~source __id =
+let register ?tf_module ?enabled ?id ?(source = []) ?timeouts
+    ~alert_rule_template_guid ~log_analytics_workspace_id ~name __id
+    =
   let (r : _ Tf_core.resource) =
-    make ?enabled ?id ?timeouts ~alert_rule_template_guid
-      ~log_analytics_workspace_id ~name ~source __id
+    make ?enabled ?id ~source ?timeouts ~alert_rule_template_guid
+      ~log_analytics_workspace_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -405,9 +405,10 @@ let azurerm_dashboard_grafana ?api_key_enabled
     ?auto_generated_domain_name_label_scope
     ?deterministic_outbound_ip_enabled ?grafana_major_version ?id
     ?public_network_access_enabled ?sku ?tags
-    ?zone_redundancy_enabled ?timeouts ~location ~name
-    ~resource_group_name ~azure_monitor_workspace_integrations
-    ~identity ~smtp () : azurerm_dashboard_grafana =
+    ?zone_redundancy_enabled
+    ?(azure_monitor_workspace_integrations = []) ?(identity = [])
+    ?(smtp = []) ?timeouts ~location ~name ~resource_group_name () :
+    azurerm_dashboard_grafana =
   {
     api_key_enabled;
     auto_generated_domain_name_label_scope;
@@ -448,9 +449,10 @@ type t = {
 let make ?api_key_enabled ?auto_generated_domain_name_label_scope
     ?deterministic_outbound_ip_enabled ?grafana_major_version ?id
     ?public_network_access_enabled ?sku ?tags
-    ?zone_redundancy_enabled ?timeouts ~location ~name
-    ~resource_group_name ~azure_monitor_workspace_integrations
-    ~identity ~smtp __id =
+    ?zone_redundancy_enabled
+    ?(azure_monitor_workspace_integrations = []) ?(identity = [])
+    ?(smtp = []) ?timeouts ~location ~name ~resource_group_name __id
+    =
   let __type = "azurerm_dashboard_grafana" in
   let __attrs =
     ({
@@ -489,9 +491,9 @@ let make ?api_key_enabled ?auto_generated_domain_name_label_scope
            ?auto_generated_domain_name_label_scope
            ?deterministic_outbound_ip_enabled ?grafana_major_version
            ?id ?public_network_access_enabled ?sku ?tags
-           ?zone_redundancy_enabled ?timeouts ~location ~name
-           ~resource_group_name ~azure_monitor_workspace_integrations
-           ~identity ~smtp ());
+           ?zone_redundancy_enabled
+           ~azure_monitor_workspace_integrations ~identity ~smtp
+           ?timeouts ~location ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
@@ -499,16 +501,17 @@ let register ?tf_module ?api_key_enabled
     ?auto_generated_domain_name_label_scope
     ?deterministic_outbound_ip_enabled ?grafana_major_version ?id
     ?public_network_access_enabled ?sku ?tags
-    ?zone_redundancy_enabled ?timeouts ~location ~name
-    ~resource_group_name ~azure_monitor_workspace_integrations
-    ~identity ~smtp __id =
+    ?zone_redundancy_enabled
+    ?(azure_monitor_workspace_integrations = []) ?(identity = [])
+    ?(smtp = []) ?timeouts ~location ~name ~resource_group_name __id
+    =
   let (r : _ Tf_core.resource) =
     make ?api_key_enabled ?auto_generated_domain_name_label_scope
       ?deterministic_outbound_ip_enabled ?grafana_major_version ?id
       ?public_network_access_enabled ?sku ?tags
-      ?zone_redundancy_enabled ?timeouts ~location ~name
-      ~resource_group_name ~azure_monitor_workspace_integrations
-      ~identity ~smtp __id
+      ?zone_redundancy_enabled ~azure_monitor_workspace_integrations
+      ~identity ~smtp ?timeouts ~location ~name ~resource_group_name
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

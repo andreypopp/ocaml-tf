@@ -47,7 +47,7 @@ type maintenance_policy
 
 val maintenance_policy :
   ?description:string prop ->
-  weekly_maintenance_window:
+  ?weekly_maintenance_window:
     maintenance_policy__weekly_maintenance_window list ->
   unit ->
   maintenance_policy
@@ -92,11 +92,11 @@ val google_redis_instance :
   ?secondary_ip_range:string prop ->
   ?tier:string prop ->
   ?transit_encryption_mode:string prop ->
+  ?maintenance_policy:maintenance_policy list ->
+  ?persistence_config:persistence_config list ->
   ?timeouts:timeouts ->
   memory_size_gb:float prop ->
   name:string prop ->
-  maintenance_policy:maintenance_policy list ->
-  persistence_config:persistence_config list ->
   unit ->
   google_redis_instance
 
@@ -162,11 +162,11 @@ val register :
   ?secondary_ip_range:string prop ->
   ?tier:string prop ->
   ?transit_encryption_mode:string prop ->
+  ?maintenance_policy:maintenance_policy list ->
+  ?persistence_config:persistence_config list ->
   ?timeouts:timeouts ->
   memory_size_gb:float prop ->
   name:string prop ->
-  maintenance_policy:maintenance_policy list ->
-  persistence_config:persistence_config list ->
   string ->
   t
 
@@ -190,10 +190,10 @@ val make :
   ?secondary_ip_range:string prop ->
   ?tier:string prop ->
   ?transit_encryption_mode:string prop ->
+  ?maintenance_policy:maintenance_policy list ->
+  ?persistence_config:persistence_config list ->
   ?timeouts:timeouts ->
   memory_size_gb:float prop ->
   name:string prop ->
-  maintenance_policy:maintenance_policy list ->
-  persistence_config:persistence_config list ->
   string ->
   t Tf_core.resource

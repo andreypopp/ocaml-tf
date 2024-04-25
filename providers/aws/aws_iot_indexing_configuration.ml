@@ -408,8 +408,8 @@ let thing_indexing_configuration__managed_field ?name ?type_ () :
 
 let thing_indexing_configuration ?device_defender_indexing_mode
     ?named_shadow_indexing_mode ?thing_connectivity_indexing_mode
-    ~thing_indexing_mode ~custom_field ~filter ~managed_field () :
-    thing_indexing_configuration =
+    ?(filter = []) ~thing_indexing_mode ~custom_field ~managed_field
+    () : thing_indexing_configuration =
   {
     device_defender_indexing_mode;
     named_shadow_indexing_mode;
@@ -421,8 +421,9 @@ let thing_indexing_configuration ?device_defender_indexing_mode
   }
 
 let aws_iot_indexing_configuration ?id
-    ~thing_group_indexing_configuration ~thing_indexing_configuration
-    () : aws_iot_indexing_configuration =
+    ?(thing_group_indexing_configuration = [])
+    ?(thing_indexing_configuration = []) () :
+    aws_iot_indexing_configuration =
   {
     id;
     thing_group_indexing_configuration;
@@ -431,8 +432,8 @@ let aws_iot_indexing_configuration ?id
 
 type t = { id : string prop }
 
-let make ?id ~thing_group_indexing_configuration
-    ~thing_indexing_configuration __id =
+let make ?id ?(thing_group_indexing_configuration = [])
+    ?(thing_indexing_configuration = []) __id =
   let __type = "aws_iot_indexing_configuration" in
   let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
   {
@@ -446,8 +447,9 @@ let make ?id ~thing_group_indexing_configuration
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~thing_group_indexing_configuration
-    ~thing_indexing_configuration __id =
+let register ?tf_module ?id
+    ?(thing_group_indexing_configuration = [])
+    ?(thing_indexing_configuration = []) __id =
   let (r : _ Tf_core.resource) =
     make ?id ~thing_group_indexing_configuration
       ~thing_indexing_configuration __id

@@ -55,14 +55,14 @@ val google_compute_router_peer :
   ?project:string prop ->
   ?region:string prop ->
   ?router_appliance_instance:string prop ->
+  ?advertised_ip_ranges:advertised_ip_ranges list ->
+  ?bfd:bfd list ->
+  ?md5_authentication_key:md5_authentication_key list ->
   ?timeouts:timeouts ->
   interface:string prop ->
   name:string prop ->
   peer_asn:float prop ->
   router:string prop ->
-  advertised_ip_ranges:advertised_ip_ranges list ->
-  bfd:bfd list ->
-  md5_authentication_key:md5_authentication_key list ->
   unit ->
   google_compute_router_peer
 
@@ -107,14 +107,14 @@ val register :
   ?project:string prop ->
   ?region:string prop ->
   ?router_appliance_instance:string prop ->
+  ?advertised_ip_ranges:advertised_ip_ranges list ->
+  ?bfd:bfd list ->
+  ?md5_authentication_key:md5_authentication_key list ->
   ?timeouts:timeouts ->
   interface:string prop ->
   name:string prop ->
   peer_asn:float prop ->
   router:string prop ->
-  advertised_ip_ranges:advertised_ip_ranges list ->
-  bfd:bfd list ->
-  md5_authentication_key:md5_authentication_key list ->
   string ->
   t
 
@@ -132,13 +132,13 @@ val make :
   ?project:string prop ->
   ?region:string prop ->
   ?router_appliance_instance:string prop ->
+  ?advertised_ip_ranges:advertised_ip_ranges list ->
+  ?bfd:bfd list ->
+  ?md5_authentication_key:md5_authentication_key list ->
   ?timeouts:timeouts ->
   interface:string prop ->
   name:string prop ->
   peer_asn:float prop ->
   router:string prop ->
-  advertised_ip_ranges:advertised_ip_ranges list ->
-  bfd:bfd list ->
-  md5_authentication_key:md5_authentication_key list ->
   string ->
   t Tf_core.resource

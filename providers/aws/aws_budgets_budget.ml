@@ -491,8 +491,8 @@ let auto_adjust_data__historical_options ~budget_adjustment_period ()
     : auto_adjust_data__historical_options =
   { budget_adjustment_period }
 
-let auto_adjust_data ~auto_adjust_type ~historical_options () :
-    auto_adjust_data =
+let auto_adjust_data ?(historical_options = []) ~auto_adjust_type ()
+    : auto_adjust_data =
   { auto_adjust_type; historical_options }
 
 let cost_filter ~name ~values () : cost_filter = { name; values }
@@ -532,9 +532,9 @@ let planned_limit ~amount ~start_time ~unit () : planned_limit =
 
 let aws_budgets_budget ?account_id ?id ?limit_amount ?limit_unit
     ?name ?name_prefix ?time_period_end ?time_period_start
-    ~budget_type ~time_unit ~auto_adjust_data ~cost_filter
-    ~cost_types ~notification ~planned_limit () : aws_budgets_budget
-    =
+    ?(auto_adjust_data = []) ?(cost_types = []) ~budget_type
+    ~time_unit ~cost_filter ~notification ~planned_limit () :
+    aws_budgets_budget =
   {
     account_id;
     budget_type;
@@ -568,9 +568,9 @@ type t = {
 }
 
 let make ?account_id ?id ?limit_amount ?limit_unit ?name ?name_prefix
-    ?time_period_end ?time_period_start ~budget_type ~time_unit
-    ~auto_adjust_data ~cost_filter ~cost_types ~notification
-    ~planned_limit __id =
+    ?time_period_end ?time_period_start ?(auto_adjust_data = [])
+    ?(cost_types = []) ~budget_type ~time_unit ~cost_filter
+    ~notification ~planned_limit __id =
   let __type = "aws_budgets_budget" in
   let __attrs =
     ({
@@ -596,19 +596,19 @@ let make ?account_id ?id ?limit_amount ?limit_unit ?name ?name_prefix
       yojson_of_aws_budgets_budget
         (aws_budgets_budget ?account_id ?id ?limit_amount ?limit_unit
            ?name ?name_prefix ?time_period_end ?time_period_start
-           ~budget_type ~time_unit ~auto_adjust_data ~cost_filter
-           ~cost_types ~notification ~planned_limit ());
+           ~auto_adjust_data ~cost_types ~budget_type ~time_unit
+           ~cost_filter ~notification ~planned_limit ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?account_id ?id ?limit_amount ?limit_unit
     ?name ?name_prefix ?time_period_end ?time_period_start
-    ~budget_type ~time_unit ~auto_adjust_data ~cost_filter
-    ~cost_types ~notification ~planned_limit __id =
+    ?(auto_adjust_data = []) ?(cost_types = []) ~budget_type
+    ~time_unit ~cost_filter ~notification ~planned_limit __id =
   let (r : _ Tf_core.resource) =
     make ?account_id ?id ?limit_amount ?limit_unit ?name ?name_prefix
-      ?time_period_end ?time_period_start ~budget_type ~time_unit
-      ~auto_adjust_data ~cost_filter ~cost_types ~notification
+      ?time_period_end ?time_period_start ~auto_adjust_data
+      ~cost_types ~budget_type ~time_unit ~cost_filter ~notification
       ~planned_limit __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

@@ -169,9 +169,10 @@ let timeouts ?create ?delete ?update () : timeouts =
 let voice_settings ?engine ~voice_id () : voice_settings =
   { engine; voice_id }
 
-let aws_lexv2models_bot_locale ?description ?name ?timeouts ~bot_id
-    ~bot_version ~locale_id ~n_lu_intent_confidence_threshold
-    ~voice_settings () : aws_lexv2models_bot_locale =
+let aws_lexv2models_bot_locale ?description ?name ?timeouts
+    ?(voice_settings = []) ~bot_id ~bot_version ~locale_id
+    ~n_lu_intent_confidence_threshold () : aws_lexv2models_bot_locale
+    =
   {
     bot_id;
     bot_version;
@@ -193,8 +194,8 @@ type t = {
   name : string prop;
 }
 
-let make ?description ?name ?timeouts ~bot_id ~bot_version ~locale_id
-    ~n_lu_intent_confidence_threshold ~voice_settings __id =
+let make ?description ?name ?timeouts ?(voice_settings = []) ~bot_id
+    ~bot_version ~locale_id ~n_lu_intent_confidence_threshold __id =
   let __type = "aws_lexv2models_bot_locale" in
   let __attrs =
     ({
@@ -215,17 +216,17 @@ let make ?description ?name ?timeouts ~bot_id ~bot_version ~locale_id
     json =
       yojson_of_aws_lexv2models_bot_locale
         (aws_lexv2models_bot_locale ?description ?name ?timeouts
-           ~bot_id ~bot_version ~locale_id
-           ~n_lu_intent_confidence_threshold ~voice_settings ());
+           ~voice_settings ~bot_id ~bot_version ~locale_id
+           ~n_lu_intent_confidence_threshold ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?name ?timeouts ~bot_id
-    ~bot_version ~locale_id ~n_lu_intent_confidence_threshold
-    ~voice_settings __id =
+let register ?tf_module ?description ?name ?timeouts
+    ?(voice_settings = []) ~bot_id ~bot_version ~locale_id
+    ~n_lu_intent_confidence_threshold __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?name ?timeouts ~bot_id ~bot_version ~locale_id
-      ~n_lu_intent_confidence_threshold ~voice_settings __id
+    make ?description ?name ?timeouts ~voice_settings ~bot_id
+      ~bot_version ~locale_id ~n_lu_intent_confidence_threshold __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

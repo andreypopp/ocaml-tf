@@ -57,7 +57,7 @@ type cloud_to_device
 val cloud_to_device :
   ?default_ttl:string prop ->
   ?max_delivery_count:float prop ->
-  feedback:cloud_to_device__feedback list ->
+  ?feedback:cloud_to_device__feedback list ->
   unit ->
   cloud_to_device
 
@@ -108,7 +108,7 @@ type network_rule_set
 val network_rule_set :
   ?apply_to_builtin_eventhub_endpoint:bool prop ->
   ?default_action:string prop ->
-  ip_rule:network_rule_set__ip_rule list ->
+  ?ip_rule:network_rule_set__ip_rule list ->
   unit ->
   network_rule_set
 
@@ -139,15 +139,15 @@ val azurerm_iothub :
   ?public_network_access_enabled:bool prop ->
   ?route:route list ->
   ?tags:(string * string prop) list ->
+  ?cloud_to_device:cloud_to_device list ->
+  ?fallback_route:fallback_route list ->
+  ?file_upload:file_upload list ->
+  ?identity:identity list ->
+  ?network_rule_set:network_rule_set list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  cloud_to_device:cloud_to_device list ->
-  fallback_route:fallback_route list ->
-  file_upload:file_upload list ->
-  identity:identity list ->
-  network_rule_set:network_rule_set list ->
   sku:sku list ->
   unit ->
   azurerm_iothub
@@ -192,15 +192,15 @@ val register :
   ?public_network_access_enabled:bool prop ->
   ?route:route list ->
   ?tags:(string * string prop) list ->
+  ?cloud_to_device:cloud_to_device list ->
+  ?fallback_route:fallback_route list ->
+  ?file_upload:file_upload list ->
+  ?identity:identity list ->
+  ?network_rule_set:network_rule_set list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  cloud_to_device:cloud_to_device list ->
-  fallback_route:fallback_route list ->
-  file_upload:file_upload list ->
-  identity:identity list ->
-  network_rule_set:network_rule_set list ->
   sku:sku list ->
   string ->
   t
@@ -216,15 +216,15 @@ val make :
   ?public_network_access_enabled:bool prop ->
   ?route:route list ->
   ?tags:(string * string prop) list ->
+  ?cloud_to_device:cloud_to_device list ->
+  ?fallback_route:fallback_route list ->
+  ?file_upload:file_upload list ->
+  ?identity:identity list ->
+  ?network_rule_set:network_rule_set list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  cloud_to_device:cloud_to_device list ->
-  fallback_route:fallback_route list ->
-  file_upload:file_upload list ->
-  identity:identity list ->
-  network_rule_set:network_rule_set list ->
   sku:sku list ->
   string ->
   t Tf_core.resource

@@ -112,9 +112,9 @@ let _ = yojson_of_google_dns_managed_zone_iam_member
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_dns_managed_zone_iam_member ?id ?project ~managed_zone
-    ~member ~role ~condition () : google_dns_managed_zone_iam_member
-    =
+let google_dns_managed_zone_iam_member ?id ?project ?(condition = [])
+    ~managed_zone ~member ~role () :
+    google_dns_managed_zone_iam_member =
   { id; managed_zone; member; project; role; condition }
 
 type t = {
@@ -126,7 +126,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?project ~managed_zone ~member ~role ~condition __id =
+let make ?id ?project ?(condition = []) ~managed_zone ~member ~role
+    __id =
   let __type = "google_dns_managed_zone_iam_member" in
   let __attrs =
     ({
@@ -144,15 +145,15 @@ let make ?id ?project ~managed_zone ~member ~role ~condition __id =
     type_ = __type;
     json =
       yojson_of_google_dns_managed_zone_iam_member
-        (google_dns_managed_zone_iam_member ?id ?project
-           ~managed_zone ~member ~role ~condition ());
+        (google_dns_managed_zone_iam_member ?id ?project ~condition
+           ~managed_zone ~member ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ~managed_zone ~member ~role
-    ~condition __id =
+let register ?tf_module ?id ?project ?(condition = []) ~managed_zone
+    ~member ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ~managed_zone ~member ~role ~condition __id
+    make ?id ?project ~condition ~managed_zone ~member ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

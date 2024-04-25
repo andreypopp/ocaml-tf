@@ -23,12 +23,12 @@ val policy_details__action__cross_region_copy__retain_rule :
 type policy_details__action__cross_region_copy
 
 val policy_details__action__cross_region_copy :
+  ?retain_rule:
+    policy_details__action__cross_region_copy__retain_rule list ->
   target:string prop ->
   encryption_configuration:
     policy_details__action__cross_region_copy__encryption_configuration
     list ->
-  retain_rule:
-    policy_details__action__cross_region_copy__retain_rule list ->
   unit ->
   policy_details__action__cross_region_copy
 
@@ -97,14 +97,14 @@ type policy_details__schedule__cross_region_copy_rule
 val policy_details__schedule__cross_region_copy_rule :
   ?cmk_arn:string prop ->
   ?copy_tags:bool prop ->
-  encrypted:bool prop ->
-  target:string prop ->
-  deprecate_rule:
+  ?deprecate_rule:
     policy_details__schedule__cross_region_copy_rule__deprecate_rule
     list ->
-  retain_rule:
+  ?retain_rule:
     policy_details__schedule__cross_region_copy_rule__retain_rule
     list ->
+  encrypted:bool prop ->
+  target:string prop ->
   unit ->
   policy_details__schedule__cross_region_copy_rule
 
@@ -151,14 +151,14 @@ val policy_details__schedule :
   ?copy_tags:bool prop ->
   ?tags_to_add:(string * string prop) list ->
   ?variable_tags:(string * string prop) list ->
+  ?deprecate_rule:policy_details__schedule__deprecate_rule list ->
+  ?fast_restore_rule:policy_details__schedule__fast_restore_rule list ->
+  ?share_rule:policy_details__schedule__share_rule list ->
   name:string prop ->
   create_rule:policy_details__schedule__create_rule list ->
   cross_region_copy_rule:
     policy_details__schedule__cross_region_copy_rule list ->
-  deprecate_rule:policy_details__schedule__deprecate_rule list ->
-  fast_restore_rule:policy_details__schedule__fast_restore_rule list ->
   retain_rule:policy_details__schedule__retain_rule list ->
-  share_rule:policy_details__schedule__share_rule list ->
   unit ->
   policy_details__schedule
 
@@ -169,10 +169,10 @@ val policy_details :
   ?resource_locations:string prop list ->
   ?resource_types:string prop list ->
   ?target_tags:(string * string prop) list ->
-  action:policy_details__action list ->
-  event_source:policy_details__event_source list ->
-  parameters:policy_details__parameters list ->
-  schedule:policy_details__schedule list ->
+  ?action:policy_details__action list ->
+  ?event_source:policy_details__event_source list ->
+  ?parameters:policy_details__parameters list ->
+  ?schedule:policy_details__schedule list ->
   unit ->
   policy_details
 

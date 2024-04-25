@@ -156,7 +156,7 @@ let reservation_plan_settings ~commitment ~renewal_type
   { commitment; renewal_type; reserved_slots }
 
 let aws_media_convert_queue ?description ?id ?pricing_plan ?status
-    ?tags ?tags_all ~name ~reservation_plan_settings () :
+    ?tags ?tags_all ?(reservation_plan_settings = []) ~name () :
     aws_media_convert_queue =
   {
     description;
@@ -180,8 +180,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?description ?id ?pricing_plan ?status ?tags ?tags_all ~name
-    ~reservation_plan_settings __id =
+let make ?description ?id ?pricing_plan ?status ?tags ?tags_all
+    ?(reservation_plan_settings = []) ~name __id =
   let __type = "aws_media_convert_queue" in
   let __attrs =
     ({
@@ -202,16 +202,16 @@ let make ?description ?id ?pricing_plan ?status ?tags ?tags_all ~name
     json =
       yojson_of_aws_media_convert_queue
         (aws_media_convert_queue ?description ?id ?pricing_plan
-           ?status ?tags ?tags_all ~name ~reservation_plan_settings
+           ?status ?tags ?tags_all ~reservation_plan_settings ~name
            ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?pricing_plan ?status ?tags
-    ?tags_all ~name ~reservation_plan_settings __id =
+    ?tags_all ?(reservation_plan_settings = []) ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?pricing_plan ?status ?tags ?tags_all ~name
-      ~reservation_plan_settings __id
+    make ?description ?id ?pricing_plan ?status ?tags ?tags_all
+      ~reservation_plan_settings ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -109,13 +109,13 @@ val aws_route53domains_registered_domain :
   ?tags_all:(string * string prop) list ->
   ?tech_privacy:bool prop ->
   ?transfer_lock:bool prop ->
+  ?admin_contact:admin_contact list ->
+  ?billing_contact:billing_contact list ->
+  ?name_server:name_server list ->
+  ?registrant_contact:registrant_contact list ->
+  ?tech_contact:tech_contact list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
-  admin_contact:admin_contact list ->
-  billing_contact:billing_contact list ->
-  name_server:name_server list ->
-  registrant_contact:registrant_contact list ->
-  tech_contact:tech_contact list ->
   unit ->
   aws_route53domains_registered_domain
 
@@ -158,13 +158,13 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?tech_privacy:bool prop ->
   ?transfer_lock:bool prop ->
+  ?admin_contact:admin_contact list ->
+  ?billing_contact:billing_contact list ->
+  ?name_server:name_server list ->
+  ?registrant_contact:registrant_contact list ->
+  ?tech_contact:tech_contact list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
-  admin_contact:admin_contact list ->
-  billing_contact:billing_contact list ->
-  name_server:name_server list ->
-  registrant_contact:registrant_contact list ->
-  tech_contact:tech_contact list ->
   string ->
   t
 
@@ -178,12 +178,12 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?tech_privacy:bool prop ->
   ?transfer_lock:bool prop ->
+  ?admin_contact:admin_contact list ->
+  ?billing_contact:billing_contact list ->
+  ?name_server:name_server list ->
+  ?registrant_contact:registrant_contact list ->
+  ?tech_contact:tech_contact list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
-  admin_contact:admin_contact list ->
-  billing_contact:billing_contact list ->
-  name_server:name_server list ->
-  registrant_contact:registrant_contact list ->
-  tech_contact:tech_contact list ->
   string ->
   t Tf_core.resource

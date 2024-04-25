@@ -307,8 +307,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_vertex_ai_feature_online_store_featureview ?id ?labels
-    ?name ?project ?timeouts ~feature_online_store ~region
-    ~big_query_source ~feature_registry_source ~sync_config () :
+    ?name ?project ?(big_query_source = [])
+    ?(feature_registry_source = []) ?(sync_config = []) ?timeouts
+    ~feature_online_store ~region () :
     google_vertex_ai_feature_online_store_featureview =
   {
     feature_online_store;
@@ -336,9 +337,9 @@ type t = {
   update_time : string prop;
 }
 
-let make ?id ?labels ?name ?project ?timeouts ~feature_online_store
-    ~region ~big_query_source ~feature_registry_source ~sync_config
-    __id =
+let make ?id ?labels ?name ?project ?(big_query_source = [])
+    ?(feature_registry_source = []) ?(sync_config = []) ?timeouts
+    ~feature_online_store ~region __id =
   let __type = "google_vertex_ai_feature_online_store_featureview" in
   let __attrs =
     ({
@@ -364,19 +365,20 @@ let make ?id ?labels ?name ?project ?timeouts ~feature_online_store
     json =
       yojson_of_google_vertex_ai_feature_online_store_featureview
         (google_vertex_ai_feature_online_store_featureview ?id
-           ?labels ?name ?project ?timeouts ~feature_online_store
-           ~region ~big_query_source ~feature_registry_source
-           ~sync_config ());
+           ?labels ?name ?project ~big_query_source
+           ~feature_registry_source ~sync_config ?timeouts
+           ~feature_online_store ~region ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?labels ?name ?project ?timeouts
-    ~feature_online_store ~region ~big_query_source
-    ~feature_registry_source ~sync_config __id =
+let register ?tf_module ?id ?labels ?name ?project
+    ?(big_query_source = []) ?(feature_registry_source = [])
+    ?(sync_config = []) ?timeouts ~feature_online_store ~region __id
+    =
   let (r : _ Tf_core.resource) =
-    make ?id ?labels ?name ?project ?timeouts ~feature_online_store
-      ~region ~big_query_source ~feature_registry_source ~sync_config
-      __id
+    make ?id ?labels ?name ?project ~big_query_source
+      ~feature_registry_source ~sync_config ?timeouts
+      ~feature_online_store ~region __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -108,8 +108,9 @@ let _ = yojson_of_google_iap_web_type_compute_iam_binding
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_iap_web_type_compute_iam_binding ?id ?project ~members
-    ~role ~condition () : google_iap_web_type_compute_iam_binding =
+let google_iap_web_type_compute_iam_binding ?id ?project
+    ?(condition = []) ~members ~role () :
+    google_iap_web_type_compute_iam_binding =
   { id; members; project; role; condition }
 
 type t = {
@@ -120,7 +121,7 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?project ~members ~role ~condition __id =
+let make ?id ?project ?(condition = []) ~members ~role __id =
   let __type = "google_iap_web_type_compute_iam_binding" in
   let __attrs =
     ({
@@ -138,13 +139,14 @@ let make ?id ?project ~members ~role ~condition __id =
     json =
       yojson_of_google_iap_web_type_compute_iam_binding
         (google_iap_web_type_compute_iam_binding ?id ?project
-           ~members ~role ~condition ());
+           ~condition ~members ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ~members ~role ~condition __id =
+let register ?tf_module ?id ?project ?(condition = []) ~members ~role
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ~members ~role ~condition __id
+    make ?id ?project ~condition ~members ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

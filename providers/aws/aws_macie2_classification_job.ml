@@ -1336,17 +1336,17 @@ let s3_job_definition__bucket_criteria__excludes__and__tag_criterion__tag_values
   { key; value }
 
 let s3_job_definition__bucket_criteria__excludes__and__tag_criterion
-    ?comparator ~tag_values () :
+    ?comparator ?(tag_values = []) () :
     s3_job_definition__bucket_criteria__excludes__and__tag_criterion
     =
   { comparator; tag_values }
 
 let s3_job_definition__bucket_criteria__excludes__and
-    ~simple_criterion ~tag_criterion () :
+    ?(simple_criterion = []) ?(tag_criterion = []) () :
     s3_job_definition__bucket_criteria__excludes__and =
   { simple_criterion; tag_criterion }
 
-let s3_job_definition__bucket_criteria__excludes ~and_ () :
+let s3_job_definition__bucket_criteria__excludes ?(and_ = []) () :
     s3_job_definition__bucket_criteria__excludes =
   { and_ }
 
@@ -1363,22 +1363,22 @@ let s3_job_definition__bucket_criteria__includes__and__tag_criterion__tag_values
   { key; value }
 
 let s3_job_definition__bucket_criteria__includes__and__tag_criterion
-    ?comparator ~tag_values () :
+    ?comparator ?(tag_values = []) () :
     s3_job_definition__bucket_criteria__includes__and__tag_criterion
     =
   { comparator; tag_values }
 
 let s3_job_definition__bucket_criteria__includes__and
-    ~simple_criterion ~tag_criterion () :
+    ?(simple_criterion = []) ?(tag_criterion = []) () :
     s3_job_definition__bucket_criteria__includes__and =
   { simple_criterion; tag_criterion }
 
-let s3_job_definition__bucket_criteria__includes ~and_ () :
+let s3_job_definition__bucket_criteria__includes ?(and_ = []) () :
     s3_job_definition__bucket_criteria__includes =
   { and_ }
 
-let s3_job_definition__bucket_criteria ~excludes ~includes () :
-    s3_job_definition__bucket_criteria =
+let s3_job_definition__bucket_criteria ?(excludes = [])
+    ?(includes = []) () : s3_job_definition__bucket_criteria =
   { excludes; includes }
 
 let s3_job_definition__bucket_definitions ~account_id ~buckets () :
@@ -1397,15 +1397,16 @@ let s3_job_definition__scoping__excludes__and__tag_scope_term__tag_values
   { key; value }
 
 let s3_job_definition__scoping__excludes__and__tag_scope_term
-    ?comparator ?key ?target ~tag_values () :
+    ?comparator ?key ?target ?(tag_values = []) () :
     s3_job_definition__scoping__excludes__and__tag_scope_term =
   { comparator; key; target; tag_values }
 
-let s3_job_definition__scoping__excludes__and ~simple_scope_term
-    ~tag_scope_term () : s3_job_definition__scoping__excludes__and =
+let s3_job_definition__scoping__excludes__and
+    ?(simple_scope_term = []) ?(tag_scope_term = []) () :
+    s3_job_definition__scoping__excludes__and =
   { simple_scope_term; tag_scope_term }
 
-let s3_job_definition__scoping__excludes ~and_ () :
+let s3_job_definition__scoping__excludes ?(and_ = []) () :
     s3_job_definition__scoping__excludes =
   { and_ }
 
@@ -1421,24 +1422,26 @@ let s3_job_definition__scoping__includes__and__tag_scope_term__tag_values
   { key; value }
 
 let s3_job_definition__scoping__includes__and__tag_scope_term
-    ?comparator ?key ?target ~tag_values () :
+    ?comparator ?key ?target ?(tag_values = []) () :
     s3_job_definition__scoping__includes__and__tag_scope_term =
   { comparator; key; target; tag_values }
 
-let s3_job_definition__scoping__includes__and ~simple_scope_term
-    ~tag_scope_term () : s3_job_definition__scoping__includes__and =
+let s3_job_definition__scoping__includes__and
+    ?(simple_scope_term = []) ?(tag_scope_term = []) () :
+    s3_job_definition__scoping__includes__and =
   { simple_scope_term; tag_scope_term }
 
-let s3_job_definition__scoping__includes ~and_ () :
+let s3_job_definition__scoping__includes ?(and_ = []) () :
     s3_job_definition__scoping__includes =
   { and_ }
 
-let s3_job_definition__scoping ~excludes ~includes () :
+let s3_job_definition__scoping ?(excludes = []) ?(includes = []) () :
     s3_job_definition__scoping =
   { excludes; includes }
 
-let s3_job_definition ~bucket_criteria ~bucket_definitions ~scoping
-    () : s3_job_definition =
+let s3_job_definition ?(bucket_criteria = [])
+    ?(bucket_definitions = []) ?(scoping = []) () : s3_job_definition
+    =
   { bucket_criteria; bucket_definitions; scoping }
 
 let schedule_frequency ?daily_schedule ?monthly_schedule
@@ -1447,8 +1450,8 @@ let schedule_frequency ?daily_schedule ?monthly_schedule
 
 let aws_macie2_classification_job ?custom_data_identifier_ids
     ?description ?id ?initial_run ?job_status ?name ?name_prefix
-    ?sampling_percentage ?tags ?tags_all ~job_type ~s3_job_definition
-    ~schedule_frequency () : aws_macie2_classification_job =
+    ?sampling_percentage ?tags ?tags_all ?(schedule_frequency = [])
+    ~job_type ~s3_job_definition () : aws_macie2_classification_job =
   {
     custom_data_identifier_ids;
     description;
@@ -1485,7 +1488,8 @@ type t = {
 
 let make ?custom_data_identifier_ids ?description ?id ?initial_run
     ?job_status ?name ?name_prefix ?sampling_percentage ?tags
-    ?tags_all ~job_type ~s3_job_definition ~schedule_frequency __id =
+    ?tags_all ?(schedule_frequency = []) ~job_type ~s3_job_definition
+    __id =
   let __type = "aws_macie2_classification_job" in
   let __attrs =
     ({
@@ -1518,18 +1522,18 @@ let make ?custom_data_identifier_ids ?description ?id ?initial_run
         (aws_macie2_classification_job ?custom_data_identifier_ids
            ?description ?id ?initial_run ?job_status ?name
            ?name_prefix ?sampling_percentage ?tags ?tags_all
-           ~job_type ~s3_job_definition ~schedule_frequency ());
+           ~schedule_frequency ~job_type ~s3_job_definition ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?custom_data_identifier_ids ?description ?id
     ?initial_run ?job_status ?name ?name_prefix ?sampling_percentage
-    ?tags ?tags_all ~job_type ~s3_job_definition ~schedule_frequency
-    __id =
+    ?tags ?tags_all ?(schedule_frequency = []) ~job_type
+    ~s3_job_definition __id =
   let (r : _ Tf_core.resource) =
     make ?custom_data_identifier_ids ?description ?id ?initial_run
       ?job_status ?name ?name_prefix ?sampling_percentage ?tags
-      ?tags_all ~job_type ~s3_job_definition ~schedule_frequency __id
+      ?tags_all ~schedule_frequency ~job_type ~s3_job_definition __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

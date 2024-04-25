@@ -24,9 +24,9 @@ val aws_glue_connection :
   ?match_criteria:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  name:string prop ->
-  physical_connection_requirements:
+  ?physical_connection_requirements:
     physical_connection_requirements list ->
+  name:string prop ->
   unit ->
   aws_glue_connection
 
@@ -57,9 +57,9 @@ val register :
   ?match_criteria:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  name:string prop ->
-  physical_connection_requirements:
+  ?physical_connection_requirements:
     physical_connection_requirements list ->
+  name:string prop ->
   string ->
   t
 
@@ -72,8 +72,8 @@ val make :
   ?match_criteria:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  name:string prop ->
-  physical_connection_requirements:
+  ?physical_connection_requirements:
     physical_connection_requirements list ->
+  name:string prop ->
   string ->
   t Tf_core.resource

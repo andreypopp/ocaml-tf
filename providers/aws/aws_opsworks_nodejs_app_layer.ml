@@ -801,7 +801,7 @@ let cloudwatch_configuration__log_streams ?batch_count ?batch_size
     time_zone;
   }
 
-let cloudwatch_configuration ?enabled ~log_streams () :
+let cloudwatch_configuration ?enabled ?(log_streams = []) () :
     cloudwatch_configuration =
   { enabled; log_streams }
 
@@ -845,8 +845,8 @@ let load_based_auto_scaling__upscaling ?alarms ?cpu_threshold
     thresholds_wait_time;
   }
 
-let load_based_auto_scaling ?enable ~downscaling ~upscaling () :
-    load_based_auto_scaling =
+let load_based_auto_scaling ?enable ?(downscaling = [])
+    ?(upscaling = []) () : load_based_auto_scaling =
   { enable; downscaling; upscaling }
 
 let aws_opsworks_nodejs_app_layer ?auto_assign_elastic_ips
@@ -857,8 +857,8 @@ let aws_opsworks_nodejs_app_layer ?auto_assign_elastic_ips
     ?drain_elb_on_shutdown ?elastic_load_balancer ?id
     ?install_updates_on_boot ?instance_shutdown_timeout ?name
     ?nodejs_version ?system_packages ?tags ?tags_all
-    ?use_ebs_optimized_instances ~stack_id ~cloudwatch_configuration
-    ~ebs_volume ~load_based_auto_scaling () :
+    ?use_ebs_optimized_instances ?(cloudwatch_configuration = [])
+    ?(load_based_auto_scaling = []) ~stack_id ~ebs_volume () :
     aws_opsworks_nodejs_app_layer =
   {
     auto_assign_elastic_ips;
@@ -924,8 +924,8 @@ let make ?auto_assign_elastic_ips ?auto_assign_public_ips
     ?drain_elb_on_shutdown ?elastic_load_balancer ?id
     ?install_updates_on_boot ?instance_shutdown_timeout ?name
     ?nodejs_version ?system_packages ?tags ?tags_all
-    ?use_ebs_optimized_instances ~stack_id ~cloudwatch_configuration
-    ~ebs_volume ~load_based_auto_scaling __id =
+    ?use_ebs_optimized_instances ?(cloudwatch_configuration = [])
+    ?(load_based_auto_scaling = []) ~stack_id ~ebs_volume __id =
   let __type = "aws_opsworks_nodejs_app_layer" in
   let __attrs =
     ({
@@ -984,9 +984,8 @@ let make ?auto_assign_elastic_ips ?auto_assign_public_ips
            ?drain_elb_on_shutdown ?elastic_load_balancer ?id
            ?install_updates_on_boot ?instance_shutdown_timeout ?name
            ?nodejs_version ?system_packages ?tags ?tags_all
-           ?use_ebs_optimized_instances ~stack_id
-           ~cloudwatch_configuration ~ebs_volume
-           ~load_based_auto_scaling ());
+           ?use_ebs_optimized_instances ~cloudwatch_configuration
+           ~load_based_auto_scaling ~stack_id ~ebs_volume ());
     attrs = __attrs;
   }
 
@@ -998,8 +997,8 @@ let register ?tf_module ?auto_assign_elastic_ips
     ?drain_elb_on_shutdown ?elastic_load_balancer ?id
     ?install_updates_on_boot ?instance_shutdown_timeout ?name
     ?nodejs_version ?system_packages ?tags ?tags_all
-    ?use_ebs_optimized_instances ~stack_id ~cloudwatch_configuration
-    ~ebs_volume ~load_based_auto_scaling __id =
+    ?use_ebs_optimized_instances ?(cloudwatch_configuration = [])
+    ?(load_based_auto_scaling = []) ~stack_id ~ebs_volume __id =
   let (r : _ Tf_core.resource) =
     make ?auto_assign_elastic_ips ?auto_assign_public_ips
       ?auto_healing ?custom_configure_recipes ?custom_deploy_recipes
@@ -1009,9 +1008,8 @@ let register ?tf_module ?auto_assign_elastic_ips
       ?drain_elb_on_shutdown ?elastic_load_balancer ?id
       ?install_updates_on_boot ?instance_shutdown_timeout ?name
       ?nodejs_version ?system_packages ?tags ?tags_all
-      ?use_ebs_optimized_instances ~stack_id
-      ~cloudwatch_configuration ~ebs_volume ~load_based_auto_scaling
-      __id
+      ?use_ebs_optimized_instances ~cloudwatch_configuration
+      ~load_based_auto_scaling ~stack_id ~ebs_volume __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

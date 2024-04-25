@@ -17,11 +17,11 @@ type google_scc_source_iam_binding
 
 val google_scc_source_iam_binding :
   ?id:string prop ->
+  ?condition:condition list ->
   members:string prop list ->
   organization:string prop ->
   role:string prop ->
   source:string prop ->
-  condition:condition list ->
   unit ->
   google_scc_source_iam_binding
 
@@ -42,20 +42,20 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?condition:condition list ->
   members:string prop list ->
   organization:string prop ->
   role:string prop ->
   source:string prop ->
-  condition:condition list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?condition:condition list ->
   members:string prop list ->
   organization:string prop ->
   role:string prop ->
   source:string prop ->
-  condition:condition list ->
   string ->
   t Tf_core.resource

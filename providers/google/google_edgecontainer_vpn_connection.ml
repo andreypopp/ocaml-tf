@@ -304,8 +304,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 let vpc_project ?project_id () : vpc_project = { project_id }
 
 let google_edgecontainer_vpn_connection ?enable_high_availability ?id
-    ?labels ?nat_gateway_ip ?project ?router ?vpc ?timeouts ~cluster
-    ~location ~name ~vpc_project () :
+    ?labels ?nat_gateway_ip ?project ?router ?vpc ?timeouts
+    ?(vpc_project = []) ~cluster ~location ~name () :
     google_edgecontainer_vpn_connection =
   {
     cluster;
@@ -341,8 +341,8 @@ type t = {
 }
 
 let make ?enable_high_availability ?id ?labels ?nat_gateway_ip
-    ?project ?router ?vpc ?timeouts ~cluster ~location ~name
-    ~vpc_project __id =
+    ?project ?router ?vpc ?timeouts ?(vpc_project = []) ~cluster
+    ~location ~name __id =
   let __type = "google_edgecontainer_vpn_connection" in
   let __attrs =
     ({
@@ -374,18 +374,18 @@ let make ?enable_high_availability ?id ?labels ?nat_gateway_ip
       yojson_of_google_edgecontainer_vpn_connection
         (google_edgecontainer_vpn_connection
            ?enable_high_availability ?id ?labels ?nat_gateway_ip
-           ?project ?router ?vpc ?timeouts ~cluster ~location ~name
-           ~vpc_project ());
+           ?project ?router ?vpc ?timeouts ~vpc_project ~cluster
+           ~location ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?enable_high_availability ?id ?labels
-    ?nat_gateway_ip ?project ?router ?vpc ?timeouts ~cluster
-    ~location ~name ~vpc_project __id =
+    ?nat_gateway_ip ?project ?router ?vpc ?timeouts
+    ?(vpc_project = []) ~cluster ~location ~name __id =
   let (r : _ Tf_core.resource) =
     make ?enable_high_availability ?id ?labels ?nat_gateway_ip
-      ?project ?router ?vpc ?timeouts ~cluster ~location ~name
-      ~vpc_project __id
+      ?project ?router ?vpc ?timeouts ~vpc_project ~cluster ~location
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

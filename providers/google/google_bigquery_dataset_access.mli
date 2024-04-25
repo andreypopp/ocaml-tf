@@ -54,11 +54,11 @@ val google_bigquery_dataset_access :
   ?role:string prop ->
   ?special_group:string prop ->
   ?user_by_email:string prop ->
+  ?dataset:dataset list ->
+  ?routine:routine list ->
   ?timeouts:timeouts ->
+  ?view:view list ->
   dataset_id:string prop ->
-  dataset:dataset list ->
-  routine:routine list ->
-  view:view list ->
   unit ->
   google_bigquery_dataset_access
 
@@ -90,11 +90,11 @@ val register :
   ?role:string prop ->
   ?special_group:string prop ->
   ?user_by_email:string prop ->
+  ?dataset:dataset list ->
+  ?routine:routine list ->
   ?timeouts:timeouts ->
+  ?view:view list ->
   dataset_id:string prop ->
-  dataset:dataset list ->
-  routine:routine list ->
-  view:view list ->
   string ->
   t
 
@@ -107,10 +107,10 @@ val make :
   ?role:string prop ->
   ?special_group:string prop ->
   ?user_by_email:string prop ->
+  ?dataset:dataset list ->
+  ?routine:routine list ->
   ?timeouts:timeouts ->
+  ?view:view list ->
   dataset_id:string prop ->
-  dataset:dataset list ->
-  routine:routine list ->
-  view:view list ->
   string ->
   t Tf_core.resource

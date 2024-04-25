@@ -24,7 +24,7 @@ val block_device_mapping :
   ?device_name:string prop ->
   ?no_device:bool prop ->
   ?virtual_name:string prop ->
-  ebs:block_device_mapping__ebs list ->
+  ?ebs:block_device_mapping__ebs list ->
   unit ->
   block_device_mapping
 
@@ -58,12 +58,12 @@ val aws_imagebuilder_image_recipe :
   ?tags_all:(string * string prop) list ->
   ?user_data_base64:string prop ->
   ?working_directory:string prop ->
+  ?systems_manager_agent:systems_manager_agent list ->
   name:string prop ->
   parent_image:string prop ->
   version:string prop ->
   block_device_mapping:block_device_mapping list ->
   component:component list ->
-  systems_manager_agent:systems_manager_agent list ->
   unit ->
   aws_imagebuilder_image_recipe
 
@@ -96,12 +96,12 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?user_data_base64:string prop ->
   ?working_directory:string prop ->
+  ?systems_manager_agent:systems_manager_agent list ->
   name:string prop ->
   parent_image:string prop ->
   version:string prop ->
   block_device_mapping:block_device_mapping list ->
   component:component list ->
-  systems_manager_agent:systems_manager_agent list ->
   string ->
   t
 
@@ -112,11 +112,11 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?user_data_base64:string prop ->
   ?working_directory:string prop ->
+  ?systems_manager_agent:systems_manager_agent list ->
   name:string prop ->
   parent_image:string prop ->
   version:string prop ->
   block_device_mapping:block_device_mapping list ->
   component:component list ->
-  systems_manager_agent:systems_manager_agent list ->
   string ->
   t Tf_core.resource

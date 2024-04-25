@@ -54,14 +54,14 @@ val azurerm_sentinel_automation_rule :
   ?id:string prop ->
   ?triggers_on:string prop ->
   ?triggers_when:string prop ->
+  ?action_incident:action_incident list ->
+  ?action_playbook:action_playbook list ->
+  ?condition:condition list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   log_analytics_workspace_id:string prop ->
   name:string prop ->
   order:float prop ->
-  action_incident:action_incident list ->
-  action_playbook:action_playbook list ->
-  condition:condition list ->
   unit ->
   azurerm_sentinel_automation_rule
 
@@ -91,14 +91,14 @@ val register :
   ?id:string prop ->
   ?triggers_on:string prop ->
   ?triggers_when:string prop ->
+  ?action_incident:action_incident list ->
+  ?action_playbook:action_playbook list ->
+  ?condition:condition list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   log_analytics_workspace_id:string prop ->
   name:string prop ->
   order:float prop ->
-  action_incident:action_incident list ->
-  action_playbook:action_playbook list ->
-  condition:condition list ->
   string ->
   t
 
@@ -109,13 +109,13 @@ val make :
   ?id:string prop ->
   ?triggers_on:string prop ->
   ?triggers_when:string prop ->
+  ?action_incident:action_incident list ->
+  ?action_playbook:action_playbook list ->
+  ?condition:condition list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   log_analytics_workspace_id:string prop ->
   name:string prop ->
   order:float prop ->
-  action_incident:action_incident list ->
-  action_playbook:action_playbook list ->
-  condition:condition list ->
   string ->
   t Tf_core.resource

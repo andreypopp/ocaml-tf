@@ -360,7 +360,7 @@ let ssl__settings ?ciphers ?early_hints ?http2 ?min_tls_version
   { ciphers; early_hints; http2; min_tls_version; tls13 }
 
 let ssl ?bundle_method ?certificate_authority ?custom_certificate
-    ?custom_key ?method_ ?type_ ?wildcard ~settings () : ssl =
+    ?custom_key ?method_ ?type_ ?wildcard ?(settings = []) () : ssl =
   {
     bundle_method;
     certificate_authority;
@@ -373,8 +373,8 @@ let ssl ?bundle_method ?certificate_authority ?custom_certificate
   }
 
 let cloudflare_custom_hostname ?custom_metadata ?custom_origin_server
-    ?custom_origin_sni ?id ?wait_for_ssl_pending_validation ~hostname
-    ~zone_id ~ssl () : cloudflare_custom_hostname =
+    ?custom_origin_sni ?id ?wait_for_ssl_pending_validation
+    ?(ssl = []) ~hostname ~zone_id () : cloudflare_custom_hostname =
   {
     custom_metadata;
     custom_origin_server;
@@ -400,8 +400,8 @@ type t = {
 }
 
 let make ?custom_metadata ?custom_origin_server ?custom_origin_sni
-    ?id ?wait_for_ssl_pending_validation ~hostname ~zone_id ~ssl __id
-    =
+    ?id ?wait_for_ssl_pending_validation ?(ssl = []) ~hostname
+    ~zone_id __id =
   let __type = "cloudflare_custom_hostname" in
   let __attrs =
     ({
@@ -430,17 +430,17 @@ let make ?custom_metadata ?custom_origin_server ?custom_origin_sni
       yojson_of_cloudflare_custom_hostname
         (cloudflare_custom_hostname ?custom_metadata
            ?custom_origin_server ?custom_origin_sni ?id
-           ?wait_for_ssl_pending_validation ~hostname ~zone_id ~ssl
+           ?wait_for_ssl_pending_validation ~ssl ~hostname ~zone_id
            ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?custom_metadata ?custom_origin_server
-    ?custom_origin_sni ?id ?wait_for_ssl_pending_validation ~hostname
-    ~zone_id ~ssl __id =
+    ?custom_origin_sni ?id ?wait_for_ssl_pending_validation
+    ?(ssl = []) ~hostname ~zone_id __id =
   let (r : _ Tf_core.resource) =
     make ?custom_metadata ?custom_origin_server ?custom_origin_sni
-      ?id ?wait_for_ssl_pending_validation ~hostname ~zone_id ~ssl
+      ?id ?wait_for_ssl_pending_validation ~ssl ~hostname ~zone_id
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

@@ -31,11 +31,11 @@ val azurerm_data_factory_linked_service_odbc :
   ?id:string prop ->
   ?integration_runtime_name:string prop ->
   ?parameters:(string * string prop) list ->
+  ?basic_authentication:basic_authentication list ->
   ?timeouts:timeouts ->
   connection_string:string prop ->
   data_factory_id:string prop ->
   name:string prop ->
-  basic_authentication:basic_authentication list ->
   unit ->
   azurerm_data_factory_linked_service_odbc
 
@@ -64,11 +64,11 @@ val register :
   ?id:string prop ->
   ?integration_runtime_name:string prop ->
   ?parameters:(string * string prop) list ->
+  ?basic_authentication:basic_authentication list ->
   ?timeouts:timeouts ->
   connection_string:string prop ->
   data_factory_id:string prop ->
   name:string prop ->
-  basic_authentication:basic_authentication list ->
   string ->
   t
 
@@ -79,10 +79,10 @@ val make :
   ?id:string prop ->
   ?integration_runtime_name:string prop ->
   ?parameters:(string * string prop) list ->
+  ?basic_authentication:basic_authentication list ->
   ?timeouts:timeouts ->
   connection_string:string prop ->
   data_factory_id:string prop ->
   name:string prop ->
-  basic_authentication:basic_authentication list ->
   string ->
   t Tf_core.resource

@@ -27,9 +27,9 @@ val google_compute_instance_group :
   ?network:string prop ->
   ?project:string prop ->
   ?zone:string prop ->
+  ?named_port:named_port list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  named_port:named_port list ->
   unit ->
   google_compute_instance_group
 
@@ -58,9 +58,9 @@ val register :
   ?network:string prop ->
   ?project:string prop ->
   ?zone:string prop ->
+  ?named_port:named_port list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  named_port:named_port list ->
   string ->
   t
 
@@ -71,8 +71,8 @@ val make :
   ?network:string prop ->
   ?project:string prop ->
   ?zone:string prop ->
+  ?named_port:named_port list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  named_port:named_port list ->
   string ->
   t Tf_core.resource

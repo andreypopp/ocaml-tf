@@ -40,10 +40,10 @@ val predictive_scaling_configuration__metric_specification__customized_capacity_
   ?expression:string prop ->
   ?label:string prop ->
   ?return_data:bool prop ->
-  id:string prop ->
-  metric_stat:
+  ?metric_stat:
     predictive_scaling_configuration__metric_specification__customized_capacity_metric_specification__metric_data_queries__metric_stat
     list ->
+  id:string prop ->
   unit ->
   predictive_scaling_configuration__metric_specification__customized_capacity_metric_specification__metric_data_queries
 
@@ -92,10 +92,10 @@ val predictive_scaling_configuration__metric_specification__customized_load_metr
   ?expression:string prop ->
   ?label:string prop ->
   ?return_data:bool prop ->
-  id:string prop ->
-  metric_stat:
+  ?metric_stat:
     predictive_scaling_configuration__metric_specification__customized_load_metric_specification__metric_data_queries__metric_stat
     list ->
+  id:string prop ->
   unit ->
   predictive_scaling_configuration__metric_specification__customized_load_metric_specification__metric_data_queries
 
@@ -144,10 +144,10 @@ val predictive_scaling_configuration__metric_specification__customized_scaling_m
   ?expression:string prop ->
   ?label:string prop ->
   ?return_data:bool prop ->
-  id:string prop ->
-  metric_stat:
+  ?metric_stat:
     predictive_scaling_configuration__metric_specification__customized_scaling_metric_specification__metric_data_queries__metric_stat
     list ->
+  id:string prop ->
   unit ->
   predictive_scaling_configuration__metric_specification__customized_scaling_metric_specification__metric_data_queries
 
@@ -187,25 +187,25 @@ val predictive_scaling_configuration__metric_specification__predefined_scaling_m
 type predictive_scaling_configuration__metric_specification
 
 val predictive_scaling_configuration__metric_specification :
-  target_value:float prop ->
-  customized_capacity_metric_specification:
+  ?customized_capacity_metric_specification:
     predictive_scaling_configuration__metric_specification__customized_capacity_metric_specification
     list ->
-  customized_load_metric_specification:
+  ?customized_load_metric_specification:
     predictive_scaling_configuration__metric_specification__customized_load_metric_specification
     list ->
-  customized_scaling_metric_specification:
+  ?customized_scaling_metric_specification:
     predictive_scaling_configuration__metric_specification__customized_scaling_metric_specification
     list ->
-  predefined_load_metric_specification:
+  ?predefined_load_metric_specification:
     predictive_scaling_configuration__metric_specification__predefined_load_metric_specification
     list ->
-  predefined_metric_pair_specification:
+  ?predefined_metric_pair_specification:
     predictive_scaling_configuration__metric_specification__predefined_metric_pair_specification
     list ->
-  predefined_scaling_metric_specification:
+  ?predefined_scaling_metric_specification:
     predictive_scaling_configuration__metric_specification__predefined_scaling_metric_specification
     list ->
+  target_value:float prop ->
   unit ->
   predictive_scaling_configuration__metric_specification
 
@@ -274,10 +274,10 @@ val target_tracking_configuration__customized_metric_specification__metrics :
   ?expression:string prop ->
   ?label:string prop ->
   ?return_data:bool prop ->
-  id:string prop ->
-  metric_stat:
+  ?metric_stat:
     target_tracking_configuration__customized_metric_specification__metrics__metric_stat
     list ->
+  id:string prop ->
   unit ->
   target_tracking_configuration__customized_metric_specification__metrics
 
@@ -288,7 +288,7 @@ val target_tracking_configuration__customized_metric_specification :
   ?namespace:string prop ->
   ?statistic:string prop ->
   ?unit:string prop ->
-  metric_dimension:
+  ?metric_dimension:
     target_tracking_configuration__customized_metric_specification__metric_dimension
     list ->
   metrics:
@@ -309,13 +309,13 @@ type target_tracking_configuration
 
 val target_tracking_configuration :
   ?disable_scale_in:bool prop ->
-  target_value:float prop ->
-  customized_metric_specification:
+  ?customized_metric_specification:
     target_tracking_configuration__customized_metric_specification
     list ->
-  predefined_metric_specification:
+  ?predefined_metric_specification:
     target_tracking_configuration__predefined_metric_specification
     list ->
+  target_value:float prop ->
   unit ->
   target_tracking_configuration
 
@@ -331,12 +331,12 @@ val aws_autoscaling_policy :
   ?min_adjustment_magnitude:float prop ->
   ?policy_type:string prop ->
   ?scaling_adjustment:float prop ->
+  ?predictive_scaling_configuration:
+    predictive_scaling_configuration list ->
+  ?target_tracking_configuration:target_tracking_configuration list ->
   autoscaling_group_name:string prop ->
   name:string prop ->
-  predictive_scaling_configuration:
-    predictive_scaling_configuration list ->
   step_adjustment:step_adjustment list ->
-  target_tracking_configuration:target_tracking_configuration list ->
   unit ->
   aws_autoscaling_policy
 
@@ -370,12 +370,12 @@ val register :
   ?min_adjustment_magnitude:float prop ->
   ?policy_type:string prop ->
   ?scaling_adjustment:float prop ->
+  ?predictive_scaling_configuration:
+    predictive_scaling_configuration list ->
+  ?target_tracking_configuration:target_tracking_configuration list ->
   autoscaling_group_name:string prop ->
   name:string prop ->
-  predictive_scaling_configuration:
-    predictive_scaling_configuration list ->
   step_adjustment:step_adjustment list ->
-  target_tracking_configuration:target_tracking_configuration list ->
   string ->
   t
 
@@ -389,11 +389,11 @@ val make :
   ?min_adjustment_magnitude:float prop ->
   ?policy_type:string prop ->
   ?scaling_adjustment:float prop ->
+  ?predictive_scaling_configuration:
+    predictive_scaling_configuration list ->
+  ?target_tracking_configuration:target_tracking_configuration list ->
   autoscaling_group_name:string prop ->
   name:string prop ->
-  predictive_scaling_configuration:
-    predictive_scaling_configuration list ->
   step_adjustment:step_adjustment list ->
-  target_tracking_configuration:target_tracking_configuration list ->
   string ->
   t Tf_core.resource

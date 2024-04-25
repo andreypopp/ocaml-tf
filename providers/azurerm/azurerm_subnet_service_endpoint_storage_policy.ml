@@ -210,8 +210,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_subnet_service_endpoint_storage_policy ?id ?tags
-    ?timeouts ~location ~name ~resource_group_name ~definition () :
-    azurerm_subnet_service_endpoint_storage_policy =
+    ?(definition = []) ?timeouts ~location ~name ~resource_group_name
+    () : azurerm_subnet_service_endpoint_storage_policy =
   {
     id;
     location;
@@ -230,8 +230,8 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
-    ~definition __id =
+let make ?id ?tags ?(definition = []) ?timeouts ~location ~name
+    ~resource_group_name __id =
   let __type = "azurerm_subnet_service_endpoint_storage_policy" in
   let __attrs =
     ({
@@ -250,16 +250,16 @@ let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
     json =
       yojson_of_azurerm_subnet_service_endpoint_storage_policy
         (azurerm_subnet_service_endpoint_storage_policy ?id ?tags
-           ?timeouts ~location ~name ~resource_group_name ~definition
+           ~definition ?timeouts ~location ~name ~resource_group_name
            ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?timeouts ~location ~name
-    ~resource_group_name ~definition __id =
+let register ?tf_module ?id ?tags ?(definition = []) ?timeouts
+    ~location ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?timeouts ~location ~name ~resource_group_name
-      ~definition __id
+    make ?id ?tags ~definition ?timeouts ~location ~name
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

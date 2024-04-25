@@ -440,9 +440,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_healthcare_fhir_service ?access_policy_object_ids
     ?configuration_export_storage_account_name
-    ?container_registry_login_server_url ?id ?kind ?tags ?timeouts
-    ~location ~name ~resource_group_name ~workspace_id
-    ~authentication ~cors ~identity ~oci_artifact () :
+    ?container_registry_login_server_url ?id ?kind ?tags ?(cors = [])
+    ?(identity = []) ?(oci_artifact = []) ?timeouts ~location ~name
+    ~resource_group_name ~workspace_id ~authentication () :
     azurerm_healthcare_fhir_service =
   {
     access_policy_object_ids;
@@ -478,9 +478,9 @@ type t = {
 
 let make ?access_policy_object_ids
     ?configuration_export_storage_account_name
-    ?container_registry_login_server_url ?id ?kind ?tags ?timeouts
-    ~location ~name ~resource_group_name ~workspace_id
-    ~authentication ~cors ~identity ~oci_artifact __id =
+    ?container_registry_login_server_url ?id ?kind ?tags ?(cors = [])
+    ?(identity = []) ?(oci_artifact = []) ?timeouts ~location ~name
+    ~resource_group_name ~workspace_id ~authentication __id =
   let __type = "azurerm_healthcare_fhir_service" in
   let __attrs =
     ({
@@ -512,24 +512,23 @@ let make ?access_policy_object_ids
       yojson_of_azurerm_healthcare_fhir_service
         (azurerm_healthcare_fhir_service ?access_policy_object_ids
            ?configuration_export_storage_account_name
-           ?container_registry_login_server_url ?id ?kind ?tags
-           ?timeouts ~location ~name ~resource_group_name
-           ~workspace_id ~authentication ~cors ~identity
-           ~oci_artifact ());
+           ?container_registry_login_server_url ?id ?kind ?tags ~cors
+           ~identity ~oci_artifact ?timeouts ~location ~name
+           ~resource_group_name ~workspace_id ~authentication ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?access_policy_object_ids
     ?configuration_export_storage_account_name
-    ?container_registry_login_server_url ?id ?kind ?tags ?timeouts
-    ~location ~name ~resource_group_name ~workspace_id
-    ~authentication ~cors ~identity ~oci_artifact __id =
+    ?container_registry_login_server_url ?id ?kind ?tags ?(cors = [])
+    ?(identity = []) ?(oci_artifact = []) ?timeouts ~location ~name
+    ~resource_group_name ~workspace_id ~authentication __id =
   let (r : _ Tf_core.resource) =
     make ?access_policy_object_ids
       ?configuration_export_storage_account_name
-      ?container_registry_login_server_url ?id ?kind ?tags ?timeouts
-      ~location ~name ~resource_group_name ~workspace_id
-      ~authentication ~cors ~identity ~oci_artifact __id
+      ?container_registry_login_server_url ?id ?kind ?tags ~cors
+      ~identity ~oci_artifact ?timeouts ~location ~name
+      ~resource_group_name ~workspace_id ~authentication __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

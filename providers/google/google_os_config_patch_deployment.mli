@@ -18,7 +18,7 @@ val instance_filter :
   ?instance_name_prefixes:string prop list ->
   ?instances:string prop list ->
   ?zones:string prop list ->
-  group_labels:instance_filter__group_labels list ->
+  ?group_labels:instance_filter__group_labels list ->
   unit ->
   instance_filter
 
@@ -56,7 +56,7 @@ val patch_config__post_step__linux_exec_step_config :
   ?allowed_success_codes:float prop list ->
   ?interpreter:string prop ->
   ?local_path:string prop ->
-  gcs_object:
+  ?gcs_object:
     patch_config__post_step__linux_exec_step_config__gcs_object list ->
   unit ->
   patch_config__post_step__linux_exec_step_config
@@ -76,7 +76,7 @@ val patch_config__post_step__windows_exec_step_config :
   ?allowed_success_codes:float prop list ->
   ?interpreter:string prop ->
   ?local_path:string prop ->
-  gcs_object:
+  ?gcs_object:
     patch_config__post_step__windows_exec_step_config__gcs_object
     list ->
   unit ->
@@ -85,9 +85,9 @@ val patch_config__post_step__windows_exec_step_config :
 type patch_config__post_step
 
 val patch_config__post_step :
-  linux_exec_step_config:
+  ?linux_exec_step_config:
     patch_config__post_step__linux_exec_step_config list ->
-  windows_exec_step_config:
+  ?windows_exec_step_config:
     patch_config__post_step__windows_exec_step_config list ->
   unit ->
   patch_config__post_step
@@ -107,7 +107,7 @@ val patch_config__pre_step__linux_exec_step_config :
   ?allowed_success_codes:float prop list ->
   ?interpreter:string prop ->
   ?local_path:string prop ->
-  gcs_object:
+  ?gcs_object:
     patch_config__pre_step__linux_exec_step_config__gcs_object list ->
   unit ->
   patch_config__pre_step__linux_exec_step_config
@@ -127,7 +127,7 @@ val patch_config__pre_step__windows_exec_step_config :
   ?allowed_success_codes:float prop list ->
   ?interpreter:string prop ->
   ?local_path:string prop ->
-  gcs_object:
+  ?gcs_object:
     patch_config__pre_step__windows_exec_step_config__gcs_object list ->
   unit ->
   patch_config__pre_step__windows_exec_step_config
@@ -135,9 +135,9 @@ val patch_config__pre_step__windows_exec_step_config :
 type patch_config__pre_step
 
 val patch_config__pre_step :
-  linux_exec_step_config:
+  ?linux_exec_step_config:
     patch_config__pre_step__linux_exec_step_config list ->
-  windows_exec_step_config:
+  ?windows_exec_step_config:
     patch_config__pre_step__windows_exec_step_config list ->
   unit ->
   patch_config__pre_step
@@ -178,13 +178,13 @@ type patch_config
 val patch_config :
   ?mig_instances_allowed:bool prop ->
   ?reboot_config:string prop ->
-  apt:patch_config__apt list ->
-  goo:patch_config__goo list ->
-  post_step:patch_config__post_step list ->
-  pre_step:patch_config__pre_step list ->
-  windows_update:patch_config__windows_update list ->
-  yum:patch_config__yum list ->
-  zypper:patch_config__zypper list ->
+  ?apt:patch_config__apt list ->
+  ?goo:patch_config__goo list ->
+  ?post_step:patch_config__post_step list ->
+  ?pre_step:patch_config__pre_step list ->
+  ?windows_update:patch_config__windows_update list ->
+  ?yum:patch_config__yum list ->
+  ?zypper:patch_config__zypper list ->
   unit ->
   patch_config
 
@@ -201,7 +201,7 @@ type recurring_schedule__monthly
 
 val recurring_schedule__monthly :
   ?month_day:float prop ->
-  week_day_of_month:
+  ?week_day_of_month:
     recurring_schedule__monthly__week_day_of_month list ->
   unit ->
   recurring_schedule__monthly
@@ -234,10 +234,10 @@ type recurring_schedule
 val recurring_schedule :
   ?end_time:string prop ->
   ?start_time:string prop ->
-  monthly:recurring_schedule__monthly list ->
+  ?monthly:recurring_schedule__monthly list ->
+  ?weekly:recurring_schedule__weekly list ->
   time_of_day:recurring_schedule__time_of_day list ->
   time_zone:recurring_schedule__time_zone list ->
-  weekly:recurring_schedule__weekly list ->
   unit ->
   recurring_schedule
 
@@ -269,13 +269,13 @@ val google_os_config_patch_deployment :
   ?duration:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?one_time_schedule:one_time_schedule list ->
+  ?patch_config:patch_config list ->
+  ?recurring_schedule:recurring_schedule list ->
+  ?rollout:rollout list ->
   ?timeouts:timeouts ->
   patch_deployment_id:string prop ->
   instance_filter:instance_filter list ->
-  one_time_schedule:one_time_schedule list ->
-  patch_config:patch_config list ->
-  recurring_schedule:recurring_schedule list ->
-  rollout:rollout list ->
   unit ->
   google_os_config_patch_deployment
 
@@ -302,13 +302,13 @@ val register :
   ?duration:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?one_time_schedule:one_time_schedule list ->
+  ?patch_config:patch_config list ->
+  ?recurring_schedule:recurring_schedule list ->
+  ?rollout:rollout list ->
   ?timeouts:timeouts ->
   patch_deployment_id:string prop ->
   instance_filter:instance_filter list ->
-  one_time_schedule:one_time_schedule list ->
-  patch_config:patch_config list ->
-  recurring_schedule:recurring_schedule list ->
-  rollout:rollout list ->
   string ->
   t
 
@@ -317,12 +317,12 @@ val make :
   ?duration:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?one_time_schedule:one_time_schedule list ->
+  ?patch_config:patch_config list ->
+  ?recurring_schedule:recurring_schedule list ->
+  ?rollout:rollout list ->
   ?timeouts:timeouts ->
   patch_deployment_id:string prop ->
   instance_filter:instance_filter list ->
-  one_time_schedule:one_time_schedule list ->
-  patch_config:patch_config list ->
-  recurring_schedule:recurring_schedule list ->
-  rollout:rollout list ->
   string ->
   t Tf_core.resource

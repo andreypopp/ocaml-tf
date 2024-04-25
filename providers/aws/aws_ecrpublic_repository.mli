@@ -27,9 +27,9 @@ val aws_ecrpublic_repository :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?catalog_data:catalog_data list ->
   ?timeouts:timeouts ->
   repository_name:string prop ->
-  catalog_data:catalog_data list ->
   unit ->
   aws_ecrpublic_repository
 
@@ -55,9 +55,9 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?catalog_data:catalog_data list ->
   ?timeouts:timeouts ->
   repository_name:string prop ->
-  catalog_data:catalog_data list ->
   string ->
   t
 
@@ -66,8 +66,8 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?catalog_data:catalog_data list ->
   ?timeouts:timeouts ->
   repository_name:string prop ->
-  catalog_data:catalog_data list ->
   string ->
   t Tf_core.resource

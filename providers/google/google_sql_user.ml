@@ -295,7 +295,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_sql_user ?deletion_policy ?host ?id ?password ?project
-    ?type_ ?timeouts ~instance ~name ~password_policy () :
+    ?type_ ?(password_policy = []) ?timeouts ~instance ~name () :
     google_sql_user =
   {
     deletion_policy;
@@ -323,7 +323,7 @@ type t = {
 }
 
 let make ?deletion_policy ?host ?id ?password ?project ?type_
-    ?timeouts ~instance ~name ~password_policy __id =
+    ?(password_policy = []) ?timeouts ~instance ~name __id =
   let __type = "google_sql_user" in
   let __attrs =
     ({
@@ -346,16 +346,16 @@ let make ?deletion_policy ?host ?id ?password ?project ?type_
     json =
       yojson_of_google_sql_user
         (google_sql_user ?deletion_policy ?host ?id ?password
-           ?project ?type_ ?timeouts ~instance ~name ~password_policy
+           ?project ?type_ ~password_policy ?timeouts ~instance ~name
            ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?deletion_policy ?host ?id ?password ?project
-    ?type_ ?timeouts ~instance ~name ~password_policy __id =
+    ?type_ ?(password_policy = []) ?timeouts ~instance ~name __id =
   let (r : _ Tf_core.resource) =
     make ?deletion_policy ?host ?id ?password ?project ?type_
-      ?timeouts ~instance ~name ~password_policy __id
+      ~password_policy ?timeouts ~instance ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

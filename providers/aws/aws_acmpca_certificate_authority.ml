@@ -559,17 +559,18 @@ let revocation_configuration__ocsp_configuration ?ocsp_custom_cname
     ~enabled () : revocation_configuration__ocsp_configuration =
   { enabled; ocsp_custom_cname }
 
-let revocation_configuration ~crl_configuration ~ocsp_configuration
-    () : revocation_configuration =
+let revocation_configuration ?(crl_configuration = [])
+    ?(ocsp_configuration = []) () : revocation_configuration =
   { crl_configuration; ocsp_configuration }
 
 let timeouts ?create () : timeouts = { create }
 
 let aws_acmpca_certificate_authority ?enabled ?id
     ?key_storage_security_standard ?permanent_deletion_time_in_days
-    ?tags ?tags_all ?type_ ?usage_mode ?timeouts
-    ~certificate_authority_configuration ~revocation_configuration ()
-    : aws_acmpca_certificate_authority =
+    ?tags ?tags_all ?type_ ?usage_mode
+    ?(revocation_configuration = []) ?timeouts
+    ~certificate_authority_configuration () :
+    aws_acmpca_certificate_authority =
   {
     enabled;
     id;
@@ -604,8 +605,8 @@ type t = {
 
 let make ?enabled ?id ?key_storage_security_standard
     ?permanent_deletion_time_in_days ?tags ?tags_all ?type_
-    ?usage_mode ?timeouts ~certificate_authority_configuration
-    ~revocation_configuration __id =
+    ?usage_mode ?(revocation_configuration = []) ?timeouts
+    ~certificate_authority_configuration __id =
   let __type = "aws_acmpca_certificate_authority" in
   let __attrs =
     ({
@@ -639,20 +640,20 @@ let make ?enabled ?id ?key_storage_security_standard
         (aws_acmpca_certificate_authority ?enabled ?id
            ?key_storage_security_standard
            ?permanent_deletion_time_in_days ?tags ?tags_all ?type_
-           ?usage_mode ?timeouts ~certificate_authority_configuration
-           ~revocation_configuration ());
+           ?usage_mode ~revocation_configuration ?timeouts
+           ~certificate_authority_configuration ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?enabled ?id ?key_storage_security_standard
     ?permanent_deletion_time_in_days ?tags ?tags_all ?type_
-    ?usage_mode ?timeouts ~certificate_authority_configuration
-    ~revocation_configuration __id =
+    ?usage_mode ?(revocation_configuration = []) ?timeouts
+    ~certificate_authority_configuration __id =
   let (r : _ Tf_core.resource) =
     make ?enabled ?id ?key_storage_security_standard
       ?permanent_deletion_time_in_days ?tags ?tags_all ?type_
-      ?usage_mode ?timeouts ~certificate_authority_configuration
-      ~revocation_configuration __id
+      ?usage_mode ~revocation_configuration ?timeouts
+      ~certificate_authority_configuration __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

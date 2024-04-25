@@ -269,9 +269,9 @@ let app_monitor_configuration ?allow_cookies ?enable_xray
 
 let custom_events ?status () : custom_events = { status }
 
-let aws_rum_app_monitor ?cw_log_enabled ?id ?tags ?tags_all ~domain
-    ~name ~app_monitor_configuration ~custom_events () :
-    aws_rum_app_monitor =
+let aws_rum_app_monitor ?cw_log_enabled ?id ?tags ?tags_all
+    ?(app_monitor_configuration = []) ?(custom_events = []) ~domain
+    ~name () : aws_rum_app_monitor =
   {
     cw_log_enabled;
     domain;
@@ -295,8 +295,9 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?cw_log_enabled ?id ?tags ?tags_all ~domain ~name
-    ~app_monitor_configuration ~custom_events __id =
+let make ?cw_log_enabled ?id ?tags ?tags_all
+    ?(app_monitor_configuration = []) ?(custom_events = []) ~domain
+    ~name __id =
   let __type = "aws_rum_app_monitor" in
   let __attrs =
     ({
@@ -318,15 +319,16 @@ let make ?cw_log_enabled ?id ?tags ?tags_all ~domain ~name
     json =
       yojson_of_aws_rum_app_monitor
         (aws_rum_app_monitor ?cw_log_enabled ?id ?tags ?tags_all
-           ~domain ~name ~app_monitor_configuration ~custom_events ());
+           ~app_monitor_configuration ~custom_events ~domain ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?cw_log_enabled ?id ?tags ?tags_all ~domain
-    ~name ~app_monitor_configuration ~custom_events __id =
+let register ?tf_module ?cw_log_enabled ?id ?tags ?tags_all
+    ?(app_monitor_configuration = []) ?(custom_events = []) ~domain
+    ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?cw_log_enabled ?id ?tags ?tags_all ~domain ~name
-      ~app_monitor_configuration ~custom_events __id
+    make ?cw_log_enabled ?id ?tags ?tags_all
+      ~app_monitor_configuration ~custom_events ~domain ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

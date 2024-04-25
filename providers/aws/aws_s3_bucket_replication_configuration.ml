@@ -691,7 +691,7 @@ let rule__destination__metrics__event_threshold ~minutes () :
     rule__destination__metrics__event_threshold =
   { minutes }
 
-let rule__destination__metrics ~status ~event_threshold () :
+let rule__destination__metrics ?(event_threshold = []) ~status () :
     rule__destination__metrics =
   { status; event_threshold }
 
@@ -703,9 +703,10 @@ let rule__destination__replication_time ~status ~time () :
     rule__destination__replication_time =
   { status; time }
 
-let rule__destination ?account ?storage_class ~bucket
-    ~access_control_translation ~encryption_configuration ~metrics
-    ~replication_time () : rule__destination =
+let rule__destination ?account ?storage_class
+    ?(access_control_translation = [])
+    ?(encryption_configuration = []) ?(metrics = [])
+    ?(replication_time = []) ~bucket () : rule__destination =
   {
     account;
     bucket;
@@ -726,7 +727,7 @@ let rule__filter__and ?prefix ?tags () : rule__filter__and =
 let rule__filter__tag ~key ~value () : rule__filter__tag =
   { key; value }
 
-let rule__filter ?prefix ~and_ ~tag () : rule__filter =
+let rule__filter ?prefix ?(and_ = []) ?(tag = []) () : rule__filter =
   { prefix; and_; tag }
 
 let rule__source_selection_criteria__replica_modifications ~status ()
@@ -738,13 +739,15 @@ let rule__source_selection_criteria__sse_kms_encrypted_objects
     rule__source_selection_criteria__sse_kms_encrypted_objects =
   { status }
 
-let rule__source_selection_criteria ~replica_modifications
-    ~sse_kms_encrypted_objects () : rule__source_selection_criteria =
+let rule__source_selection_criteria ?(replica_modifications = [])
+    ?(sse_kms_encrypted_objects = []) () :
+    rule__source_selection_criteria =
   { replica_modifications; sse_kms_encrypted_objects }
 
-let rule ?id ?prefix ?priority ~status ~delete_marker_replication
-    ~destination ~existing_object_replication ~filter
-    ~source_selection_criteria () : rule =
+let rule ?id ?prefix ?priority ?(delete_marker_replication = [])
+    ?(existing_object_replication = []) ?(filter = [])
+    ?(source_selection_criteria = []) ~status ~destination () : rule
+    =
   {
     id;
     prefix;

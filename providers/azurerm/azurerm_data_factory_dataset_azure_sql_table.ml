@@ -269,8 +269,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_data_factory_dataset_azure_sql_table
     ?additional_properties ?annotations ?description ?folder ?id
-    ?parameters ?schema ?table ?timeouts ~data_factory_id
-    ~linked_service_id ~name ~schema_column () :
+    ?parameters ?schema ?table ?(schema_column = []) ?timeouts
+    ~data_factory_id ~linked_service_id ~name () :
     azurerm_data_factory_dataset_azure_sql_table =
   {
     additional_properties;
@@ -303,8 +303,8 @@ type t = {
 }
 
 let make ?additional_properties ?annotations ?description ?folder ?id
-    ?parameters ?schema ?table ?timeouts ~data_factory_id
-    ~linked_service_id ~name ~schema_column __id =
+    ?parameters ?schema ?table ?(schema_column = []) ?timeouts
+    ~data_factory_id ~linked_service_id ~name __id =
   let __type = "azurerm_data_factory_dataset_azure_sql_table" in
   let __attrs =
     ({
@@ -331,18 +331,19 @@ let make ?additional_properties ?annotations ?description ?folder ?id
       yojson_of_azurerm_data_factory_dataset_azure_sql_table
         (azurerm_data_factory_dataset_azure_sql_table
            ?additional_properties ?annotations ?description ?folder
-           ?id ?parameters ?schema ?table ?timeouts ~data_factory_id
-           ~linked_service_id ~name ~schema_column ());
+           ?id ?parameters ?schema ?table ~schema_column ?timeouts
+           ~data_factory_id ~linked_service_id ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?additional_properties ?annotations
-    ?description ?folder ?id ?parameters ?schema ?table ?timeouts
-    ~data_factory_id ~linked_service_id ~name ~schema_column __id =
+    ?description ?folder ?id ?parameters ?schema ?table
+    ?(schema_column = []) ?timeouts ~data_factory_id
+    ~linked_service_id ~name __id =
   let (r : _ Tf_core.resource) =
     make ?additional_properties ?annotations ?description ?folder ?id
-      ?parameters ?schema ?table ?timeouts ~data_factory_id
-      ~linked_service_id ~name ~schema_column __id
+      ?parameters ?schema ?table ~schema_column ?timeouts
+      ~data_factory_id ~linked_service_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

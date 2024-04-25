@@ -44,8 +44,8 @@ type instance_refresh
 
 val instance_refresh :
   ?triggers:string prop list ->
+  ?preferences:instance_refresh__preferences list ->
   strategy:string prop ->
-  preferences:instance_refresh__preferences list ->
   unit ->
   instance_refresh
 
@@ -168,31 +168,31 @@ val mixed_instances_policy__launch_template__override__instance_requirements :
   ?on_demand_max_price_percentage_over_lowest_price:float prop ->
   ?require_hibernate_support:bool prop ->
   ?spot_max_price_percentage_over_lowest_price:float prop ->
-  accelerator_count:
+  ?accelerator_count:
     mixed_instances_policy__launch_template__override__instance_requirements__accelerator_count
     list ->
-  accelerator_total_memory_mib:
+  ?accelerator_total_memory_mib:
     mixed_instances_policy__launch_template__override__instance_requirements__accelerator_total_memory_mib
     list ->
-  baseline_ebs_bandwidth_mbps:
+  ?baseline_ebs_bandwidth_mbps:
     mixed_instances_policy__launch_template__override__instance_requirements__baseline_ebs_bandwidth_mbps
     list ->
-  memory_gib_per_vcpu:
+  ?memory_gib_per_vcpu:
     mixed_instances_policy__launch_template__override__instance_requirements__memory_gib_per_vcpu
     list ->
-  memory_mib:
+  ?memory_mib:
     mixed_instances_policy__launch_template__override__instance_requirements__memory_mib
     list ->
-  network_bandwidth_gbps:
+  ?network_bandwidth_gbps:
     mixed_instances_policy__launch_template__override__instance_requirements__network_bandwidth_gbps
     list ->
-  network_interface_count:
+  ?network_interface_count:
     mixed_instances_policy__launch_template__override__instance_requirements__network_interface_count
     list ->
-  total_local_storage_gb:
+  ?total_local_storage_gb:
     mixed_instances_policy__launch_template__override__instance_requirements__total_local_storage_gb
     list ->
-  vcpu_count:
+  ?vcpu_count:
     mixed_instances_policy__launch_template__override__instance_requirements__vcpu_count
     list ->
   unit ->
@@ -212,10 +212,10 @@ type mixed_instances_policy__launch_template__override
 val mixed_instances_policy__launch_template__override :
   ?instance_type:string prop ->
   ?weighted_capacity:string prop ->
-  instance_requirements:
+  ?instance_requirements:
     mixed_instances_policy__launch_template__override__instance_requirements
     list ->
-  launch_template_specification:
+  ?launch_template_specification:
     mixed_instances_policy__launch_template__override__launch_template_specification
     list ->
   unit ->
@@ -224,17 +224,17 @@ val mixed_instances_policy__launch_template__override :
 type mixed_instances_policy__launch_template
 
 val mixed_instances_policy__launch_template :
+  ?override:mixed_instances_policy__launch_template__override list ->
   launch_template_specification:
     mixed_instances_policy__launch_template__launch_template_specification
     list ->
-  override:mixed_instances_policy__launch_template__override list ->
   unit ->
   mixed_instances_policy__launch_template
 
 type mixed_instances_policy
 
 val mixed_instances_policy :
-  instances_distribution:
+  ?instances_distribution:
     mixed_instances_policy__instances_distribution list ->
   launch_template:mixed_instances_policy__launch_template list ->
   unit ->
@@ -275,7 +275,7 @@ val warm_pool :
   ?max_group_prepared_capacity:float prop ->
   ?min_size:float prop ->
   ?pool_state:string prop ->
-  instance_reuse_policy:warm_pool__instance_reuse_policy list ->
+  ?instance_reuse_policy:warm_pool__instance_reuse_policy list ->
   unit ->
   warm_pool
 
@@ -312,17 +312,17 @@ val aws_autoscaling_group :
   ?vpc_zone_identifier:string prop list ->
   ?wait_for_capacity_timeout:string prop ->
   ?wait_for_elb_capacity:float prop ->
+  ?instance_maintenance_policy:instance_maintenance_policy list ->
+  ?instance_refresh:instance_refresh list ->
+  ?launch_template:launch_template list ->
+  ?mixed_instances_policy:mixed_instances_policy list ->
   ?timeouts:timeouts ->
+  ?warm_pool:warm_pool list ->
   max_size:float prop ->
   min_size:float prop ->
   initial_lifecycle_hook:initial_lifecycle_hook list ->
-  instance_maintenance_policy:instance_maintenance_policy list ->
-  instance_refresh:instance_refresh list ->
-  launch_template:launch_template list ->
-  mixed_instances_policy:mixed_instances_policy list ->
   tag:tag list ->
   traffic_source:traffic_source list ->
-  warm_pool:warm_pool list ->
   unit ->
   aws_autoscaling_group
 
@@ -400,17 +400,17 @@ val register :
   ?vpc_zone_identifier:string prop list ->
   ?wait_for_capacity_timeout:string prop ->
   ?wait_for_elb_capacity:float prop ->
+  ?instance_maintenance_policy:instance_maintenance_policy list ->
+  ?instance_refresh:instance_refresh list ->
+  ?launch_template:launch_template list ->
+  ?mixed_instances_policy:mixed_instances_policy list ->
   ?timeouts:timeouts ->
+  ?warm_pool:warm_pool list ->
   max_size:float prop ->
   min_size:float prop ->
   initial_lifecycle_hook:initial_lifecycle_hook list ->
-  instance_maintenance_policy:instance_maintenance_policy list ->
-  instance_refresh:instance_refresh list ->
-  launch_template:launch_template list ->
-  mixed_instances_policy:mixed_instances_policy list ->
   tag:tag list ->
   traffic_source:traffic_source list ->
-  warm_pool:warm_pool list ->
   string ->
   t
 
@@ -445,16 +445,16 @@ val make :
   ?vpc_zone_identifier:string prop list ->
   ?wait_for_capacity_timeout:string prop ->
   ?wait_for_elb_capacity:float prop ->
+  ?instance_maintenance_policy:instance_maintenance_policy list ->
+  ?instance_refresh:instance_refresh list ->
+  ?launch_template:launch_template list ->
+  ?mixed_instances_policy:mixed_instances_policy list ->
   ?timeouts:timeouts ->
+  ?warm_pool:warm_pool list ->
   max_size:float prop ->
   min_size:float prop ->
   initial_lifecycle_hook:initial_lifecycle_hook list ->
-  instance_maintenance_policy:instance_maintenance_policy list ->
-  instance_refresh:instance_refresh list ->
-  launch_template:launch_template list ->
-  mixed_instances_policy:mixed_instances_policy list ->
   tag:tag list ->
   traffic_source:traffic_source list ->
-  warm_pool:warm_pool list ->
   string ->
   t Tf_core.resource

@@ -276,8 +276,9 @@ let topic ?filter_prefix ?filter_suffix ?id ~events ~topic_arn () :
     topic =
   { events; filter_prefix; filter_suffix; id; topic_arn }
 
-let aws_s3_bucket_notification ?eventbridge ?id ~bucket
-    ~lambda_function ~queue ~topic () : aws_s3_bucket_notification =
+let aws_s3_bucket_notification ?eventbridge ?id
+    ?(lambda_function = []) ?(queue = []) ?(topic = []) ~bucket () :
+    aws_s3_bucket_notification =
   { bucket; eventbridge; id; lambda_function; queue; topic }
 
 type t = {
@@ -286,8 +287,8 @@ type t = {
   id : string prop;
 }
 
-let make ?eventbridge ?id ~bucket ~lambda_function ~queue ~topic __id
-    =
+let make ?eventbridge ?id ?(lambda_function = []) ?(queue = [])
+    ?(topic = []) ~bucket __id =
   let __type = "aws_s3_bucket_notification" in
   let __attrs =
     ({
@@ -302,15 +303,15 @@ let make ?eventbridge ?id ~bucket ~lambda_function ~queue ~topic __id
     type_ = __type;
     json =
       yojson_of_aws_s3_bucket_notification
-        (aws_s3_bucket_notification ?eventbridge ?id ~bucket
-           ~lambda_function ~queue ~topic ());
+        (aws_s3_bucket_notification ?eventbridge ?id ~lambda_function
+           ~queue ~topic ~bucket ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?eventbridge ?id ~bucket ~lambda_function
-    ~queue ~topic __id =
+let register ?tf_module ?eventbridge ?id ?(lambda_function = [])
+    ?(queue = []) ?(topic = []) ~bucket __id =
   let (r : _ Tf_core.resource) =
-    make ?eventbridge ?id ~bucket ~lambda_function ~queue ~topic __id
+    make ?eventbridge ?id ~lambda_function ~queue ~topic ~bucket __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

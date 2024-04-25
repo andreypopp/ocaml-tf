@@ -335,9 +335,10 @@ let timeouts ?create ?delete ?read () : timeouts =
   { create; delete; read }
 
 let azurerm_mssql_virtual_machine_availability_group_listener
-    ?availability_group_name ?id ?port ?timeouts ~name
-    ~sql_virtual_machine_group_id ~load_balancer_configuration
-    ~multi_subnet_ip_configuration ~replica () :
+    ?availability_group_name ?id ?port
+    ?(load_balancer_configuration = []) ?timeouts ~name
+    ~sql_virtual_machine_group_id ~multi_subnet_ip_configuration
+    ~replica () :
     azurerm_mssql_virtual_machine_availability_group_listener =
   {
     availability_group_name;
@@ -359,9 +360,10 @@ type t = {
   sql_virtual_machine_group_id : string prop;
 }
 
-let make ?availability_group_name ?id ?port ?timeouts ~name
-    ~sql_virtual_machine_group_id ~load_balancer_configuration
-    ~multi_subnet_ip_configuration ~replica __id =
+let make ?availability_group_name ?id ?port
+    ?(load_balancer_configuration = []) ?timeouts ~name
+    ~sql_virtual_machine_group_id ~multi_subnet_ip_configuration
+    ~replica __id =
   let __type =
     "azurerm_mssql_virtual_machine_availability_group_listener"
   in
@@ -383,19 +385,22 @@ let make ?availability_group_name ?id ?port ?timeouts ~name
     json =
       yojson_of_azurerm_mssql_virtual_machine_availability_group_listener
         (azurerm_mssql_virtual_machine_availability_group_listener
-           ?availability_group_name ?id ?port ?timeouts ~name
-           ~sql_virtual_machine_group_id ~load_balancer_configuration
+           ?availability_group_name ?id ?port
+           ~load_balancer_configuration ?timeouts ~name
+           ~sql_virtual_machine_group_id
            ~multi_subnet_ip_configuration ~replica ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?availability_group_name ?id ?port ?timeouts
-    ~name ~sql_virtual_machine_group_id ~load_balancer_configuration
-    ~multi_subnet_ip_configuration ~replica __id =
+let register ?tf_module ?availability_group_name ?id ?port
+    ?(load_balancer_configuration = []) ?timeouts ~name
+    ~sql_virtual_machine_group_id ~multi_subnet_ip_configuration
+    ~replica __id =
   let (r : _ Tf_core.resource) =
-    make ?availability_group_name ?id ?port ?timeouts ~name
-      ~sql_virtual_machine_group_id ~load_balancer_configuration
-      ~multi_subnet_ip_configuration ~replica __id
+    make ?availability_group_name ?id ?port
+      ~load_balancer_configuration ?timeouts ~name
+      ~sql_virtual_machine_group_id ~multi_subnet_ip_configuration
+      ~replica __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

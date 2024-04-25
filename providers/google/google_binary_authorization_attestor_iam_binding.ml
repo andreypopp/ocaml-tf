@@ -116,7 +116,7 @@ let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
 let google_binary_authorization_attestor_iam_binding ?id ?project
-    ~attestor ~members ~role ~condition () :
+    ?(condition = []) ~attestor ~members ~role () :
     google_binary_authorization_attestor_iam_binding =
   { attestor; id; members; project; role; condition }
 
@@ -129,7 +129,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?project ~attestor ~members ~role ~condition __id =
+let make ?id ?project ?(condition = []) ~attestor ~members ~role __id
+    =
   let __type = "google_binary_authorization_attestor_iam_binding" in
   let __attrs =
     ({
@@ -148,14 +149,14 @@ let make ?id ?project ~attestor ~members ~role ~condition __id =
     json =
       yojson_of_google_binary_authorization_attestor_iam_binding
         (google_binary_authorization_attestor_iam_binding ?id
-           ?project ~attestor ~members ~role ~condition ());
+           ?project ~condition ~attestor ~members ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ~attestor ~members ~role
-    ~condition __id =
+let register ?tf_module ?id ?project ?(condition = []) ~attestor
+    ~members ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ~attestor ~members ~role ~condition __id
+    make ?id ?project ~condition ~attestor ~members ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -48,7 +48,7 @@ type spec__rule__http__path
 
 val spec__rule__http__path :
   ?path:string prop ->
-  backend:spec__rule__http__path__backend list ->
+  ?backend:spec__rule__http__path__backend list ->
   unit ->
   spec__rule__http__path
 
@@ -77,9 +77,9 @@ type spec
 
 val spec :
   ?ingress_class_name:string prop ->
-  backend:spec__backend list ->
-  rule:spec__rule list ->
-  tls:spec__tls list ->
+  ?backend:spec__backend list ->
+  ?rule:spec__rule list ->
+  ?tls:spec__tls list ->
   unit ->
   spec
 

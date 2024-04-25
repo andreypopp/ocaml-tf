@@ -154,8 +154,8 @@ let _ = yojson_of_azurerm_storage_share
 let acl () = ()
 let timeouts ?read () : timeouts = { read }
 
-let azurerm_storage_share ?id ?metadata ?timeouts ~name
-    ~storage_account_name ~acl () : azurerm_storage_share =
+let azurerm_storage_share ?id ?metadata ?(acl = []) ?timeouts ~name
+    ~storage_account_name () : azurerm_storage_share =
   { id; metadata; name; storage_account_name; acl; timeouts }
 
 type t = {
@@ -167,8 +167,8 @@ type t = {
   storage_account_name : string prop;
 }
 
-let make ?id ?metadata ?timeouts ~name ~storage_account_name ~acl
-    __id =
+let make ?id ?metadata ?(acl = []) ?timeouts ~name
+    ~storage_account_name __id =
   let __type = "azurerm_storage_share" in
   let __attrs =
     ({
@@ -188,15 +188,15 @@ let make ?id ?metadata ?timeouts ~name ~storage_account_name ~acl
     type_ = __type;
     json =
       yojson_of_azurerm_storage_share
-        (azurerm_storage_share ?id ?metadata ?timeouts ~name
-           ~storage_account_name ~acl ());
+        (azurerm_storage_share ?id ?metadata ~acl ?timeouts ~name
+           ~storage_account_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?metadata ?timeouts ~name
-    ~storage_account_name ~acl __id =
+let register ?tf_module ?id ?metadata ?(acl = []) ?timeouts ~name
+    ~storage_account_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?metadata ?timeouts ~name ~storage_account_name ~acl
+    make ?id ?metadata ~acl ?timeouts ~name ~storage_account_name
       __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

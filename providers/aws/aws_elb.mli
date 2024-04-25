@@ -60,9 +60,9 @@ val aws_elb :
   ?subnets:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?access_logs:access_logs list ->
+  ?health_check:health_check list ->
   ?timeouts:timeouts ->
-  access_logs:access_logs list ->
-  health_check:health_check list ->
   listener:listener list ->
   unit ->
   aws_elb
@@ -112,9 +112,9 @@ val register :
   ?subnets:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?access_logs:access_logs list ->
+  ?health_check:health_check list ->
   ?timeouts:timeouts ->
-  access_logs:access_logs list ->
-  health_check:health_check list ->
   listener:listener list ->
   string ->
   t
@@ -136,9 +136,9 @@ val make :
   ?subnets:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?access_logs:access_logs list ->
+  ?health_check:health_check list ->
   ?timeouts:timeouts ->
-  access_logs:access_logs list ->
-  health_check:health_check list ->
   listener:listener list ->
   string ->
   t Tf_core.resource

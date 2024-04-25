@@ -34,8 +34,8 @@ val filter__not__tag :
 type filter__not
 
 val filter__not :
-  dimension:filter__not__dimension list ->
-  tag:filter__not__tag list ->
+  ?dimension:filter__not__dimension list ->
+  ?tag:filter__not__tag list ->
   unit ->
   filter__not
 
@@ -51,8 +51,8 @@ val filter__tag :
 type filter
 
 val filter :
+  ?not:filter__not list ->
   dimension:filter__dimension list ->
-  not:filter__not list ->
   tag:filter__tag list ->
   unit ->
   filter
@@ -94,11 +94,11 @@ val azurerm_consumption_budget_subscription :
   ?etag:string prop ->
   ?id:string prop ->
   ?time_grain:string prop ->
+  ?filter:filter list ->
   ?timeouts:timeouts ->
   amount:float prop ->
   name:string prop ->
   subscription_id:string prop ->
-  filter:filter list ->
   notification:notification list ->
   time_period:time_period list ->
   unit ->
@@ -123,11 +123,11 @@ val register :
   ?etag:string prop ->
   ?id:string prop ->
   ?time_grain:string prop ->
+  ?filter:filter list ->
   ?timeouts:timeouts ->
   amount:float prop ->
   name:string prop ->
   subscription_id:string prop ->
-  filter:filter list ->
   notification:notification list ->
   time_period:time_period list ->
   string ->
@@ -137,11 +137,11 @@ val make :
   ?etag:string prop ->
   ?id:string prop ->
   ?time_grain:string prop ->
+  ?filter:filter list ->
   ?timeouts:timeouts ->
   amount:float prop ->
   name:string prop ->
   subscription_id:string prop ->
-  filter:filter list ->
   notification:notification list ->
   time_period:time_period list ->
   string ->

@@ -222,9 +222,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_vertex_ai_index_endpoint ?description ?id ?labels ?network
-    ?project ?public_endpoint_enabled ?region ?timeouts ~display_name
-    ~private_service_connect_config () :
-    google_vertex_ai_index_endpoint =
+    ?project ?public_endpoint_enabled ?region
+    ?(private_service_connect_config = []) ?timeouts ~display_name ()
+    : google_vertex_ai_index_endpoint =
   {
     description;
     display_name;
@@ -257,8 +257,9 @@ type t = {
 }
 
 let make ?description ?id ?labels ?network ?project
-    ?public_endpoint_enabled ?region ?timeouts ~display_name
-    ~private_service_connect_config __id =
+    ?public_endpoint_enabled ?region
+    ?(private_service_connect_config = []) ?timeouts ~display_name
+    __id =
   let __type = "google_vertex_ai_index_endpoint" in
   let __attrs =
     ({
@@ -291,17 +292,18 @@ let make ?description ?id ?labels ?network ?project
       yojson_of_google_vertex_ai_index_endpoint
         (google_vertex_ai_index_endpoint ?description ?id ?labels
            ?network ?project ?public_endpoint_enabled ?region
-           ?timeouts ~display_name ~private_service_connect_config ());
+           ~private_service_connect_config ?timeouts ~display_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?labels ?network ?project
-    ?public_endpoint_enabled ?region ?timeouts ~display_name
-    ~private_service_connect_config __id =
+    ?public_endpoint_enabled ?region
+    ?(private_service_connect_config = []) ?timeouts ~display_name
+    __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?labels ?network ?project
-      ?public_endpoint_enabled ?region ?timeouts ~display_name
-      ~private_service_connect_config __id
+      ?public_endpoint_enabled ?region
+      ~private_service_connect_config ?timeouts ~display_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

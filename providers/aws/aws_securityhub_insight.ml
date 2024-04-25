@@ -4226,7 +4226,7 @@ let filters__created_at__date_range ~unit ~value () :
     filters__created_at__date_range =
   { unit; value }
 
-let filters__created_at ?end_ ?start ~date_range () :
+let filters__created_at ?end_ ?start ?(date_range = []) () :
     filters__created_at =
   { end_; start; date_range }
 
@@ -4271,7 +4271,7 @@ let filters__first_observed_at__date_range ~unit ~value () :
     filters__first_observed_at__date_range =
   { unit; value }
 
-let filters__first_observed_at ?end_ ?start ~date_range () :
+let filters__first_observed_at ?end_ ?start ?(date_range = []) () :
     filters__first_observed_at =
   { end_; start; date_range }
 
@@ -4288,7 +4288,7 @@ let filters__last_observed_at__date_range ~unit ~value () :
     filters__last_observed_at__date_range =
   { unit; value }
 
-let filters__last_observed_at ?end_ ?start ~date_range () :
+let filters__last_observed_at ?end_ ?start ?(date_range = []) () :
     filters__last_observed_at =
   { end_; start; date_range }
 
@@ -4359,7 +4359,7 @@ let filters__note_updated_at__date_range ~unit ~value () :
     filters__note_updated_at__date_range =
   { unit; value }
 
-let filters__note_updated_at ?end_ ?start ~date_range () :
+let filters__note_updated_at ?end_ ?start ?(date_range = []) () :
     filters__note_updated_at =
   { end_; start; date_range }
 
@@ -4371,7 +4371,7 @@ let filters__process_launched_at__date_range ~unit ~value () :
     filters__process_launched_at__date_range =
   { unit; value }
 
-let filters__process_launched_at ?end_ ?start ~date_range () :
+let filters__process_launched_at ?end_ ?start ?(date_range = []) () :
     filters__process_launched_at =
   { end_; start; date_range }
 
@@ -4394,8 +4394,8 @@ let filters__process_terminated_at__date_range ~unit ~value () :
     filters__process_terminated_at__date_range =
   { unit; value }
 
-let filters__process_terminated_at ?end_ ?start ~date_range () :
-    filters__process_terminated_at =
+let filters__process_terminated_at ?end_ ?start ?(date_range = []) ()
+    : filters__process_terminated_at =
   { end_; start; date_range }
 
 let filters__product_arn ~comparison ~value () : filters__product_arn
@@ -4453,7 +4453,8 @@ let filters__resource_aws_ec2_instance_launched_at__date_range ~unit
   { unit; value }
 
 let filters__resource_aws_ec2_instance_launched_at ?end_ ?start
-    ~date_range () : filters__resource_aws_ec2_instance_launched_at =
+    ?(date_range = []) () :
+    filters__resource_aws_ec2_instance_launched_at =
   { end_; start; date_range }
 
 let filters__resource_aws_ec2_instance_subnet_id ~comparison ~value
@@ -4474,8 +4475,8 @@ let filters__resource_aws_iam_access_key_created_at__date_range ~unit
   { unit; value }
 
 let filters__resource_aws_iam_access_key_created_at ?end_ ?start
-    ~date_range () : filters__resource_aws_iam_access_key_created_at
-    =
+    ?(date_range = []) () :
+    filters__resource_aws_iam_access_key_created_at =
   { end_; start; date_range }
 
 let filters__resource_aws_iam_access_key_status ~comparison ~value ()
@@ -4506,8 +4507,8 @@ let filters__resource_container_launched_at__date_range ~unit ~value
     () : filters__resource_container_launched_at__date_range =
   { unit; value }
 
-let filters__resource_container_launched_at ?end_ ?start ~date_range
-    () : filters__resource_container_launched_at =
+let filters__resource_container_launched_at ?end_ ?start
+    ?(date_range = []) () : filters__resource_container_launched_at =
   { end_; start; date_range }
 
 let filters__resource_container_name ~comparison ~value () :
@@ -4555,8 +4556,8 @@ let filters__threat_intel_indicator_last_observed_at__date_range
   { unit; value }
 
 let filters__threat_intel_indicator_last_observed_at ?end_ ?start
-    ~date_range () : filters__threat_intel_indicator_last_observed_at
-    =
+    ?(date_range = []) () :
+    filters__threat_intel_indicator_last_observed_at =
   { end_; start; date_range }
 
 let filters__threat_intel_indicator_source ~comparison ~value () :
@@ -4585,7 +4586,7 @@ let filters__updated_at__date_range ~unit ~value () :
     filters__updated_at__date_range =
   { unit; value }
 
-let filters__updated_at ?end_ ?start ~date_range () :
+let filters__updated_at ?end_ ?start ?(date_range = []) () :
     filters__updated_at =
   { end_; start; date_range }
 

@@ -493,8 +493,8 @@ let destination__network_config ~network_attachment () :
     destination__network_config =
   { network_attachment }
 
-let destination ?workflow ~cloud_run_service ~gke ~http_endpoint
-    ~network_config () : destination =
+let destination ?workflow ?(cloud_run_service = []) ?(gke = [])
+    ?(http_endpoint = []) ?(network_config = []) () : destination =
   { workflow; cloud_run_service; gke; http_endpoint; network_config }
 
 let matching_criteria ?operator ~attribute ~value () :
@@ -505,11 +505,11 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let transport__pubsub ?topic () : transport__pubsub = { topic }
-let transport ~pubsub () : transport = { pubsub }
+let transport ?(pubsub = []) () : transport = { pubsub }
 
 let google_eventarc_trigger ?channel ?event_data_content_type ?id
-    ?labels ?project ?service_account ?timeouts ~location ~name
-    ~destination ~matching_criteria ~transport () :
+    ?labels ?project ?service_account ?timeouts ?(transport = [])
+    ~location ~name ~destination ~matching_criteria () :
     google_eventarc_trigger =
   {
     channel;
@@ -545,8 +545,8 @@ type t = {
 }
 
 let make ?channel ?event_data_content_type ?id ?labels ?project
-    ?service_account ?timeouts ~location ~name ~destination
-    ~matching_criteria ~transport __id =
+    ?service_account ?timeouts ?(transport = []) ~location ~name
+    ~destination ~matching_criteria __id =
   let __type = "google_eventarc_trigger" in
   let __attrs =
     ({
@@ -577,18 +577,18 @@ let make ?channel ?event_data_content_type ?id ?labels ?project
     json =
       yojson_of_google_eventarc_trigger
         (google_eventarc_trigger ?channel ?event_data_content_type
-           ?id ?labels ?project ?service_account ?timeouts ~location
-           ~name ~destination ~matching_criteria ~transport ());
+           ?id ?labels ?project ?service_account ?timeouts ~transport
+           ~location ~name ~destination ~matching_criteria ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?channel ?event_data_content_type ?id ?labels
-    ?project ?service_account ?timeouts ~location ~name ~destination
-    ~matching_criteria ~transport __id =
+    ?project ?service_account ?timeouts ?(transport = []) ~location
+    ~name ~destination ~matching_criteria __id =
   let (r : _ Tf_core.resource) =
     make ?channel ?event_data_content_type ?id ?labels ?project
-      ?service_account ?timeouts ~location ~name ~destination
-      ~matching_criteria ~transport __id
+      ?service_account ?timeouts ~transport ~location ~name
+      ~destination ~matching_criteria __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

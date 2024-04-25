@@ -723,8 +723,8 @@ let authentication__certificate ?common_name ~thumbprint ~type_ () :
     authentication__certificate =
   { common_name; thumbprint; type_ }
 
-let authentication ~active_directory ~certificate () : authentication
-    =
+let authentication ?(active_directory = []) ?(certificate = []) () :
+    authentication =
   { active_directory; certificate }
 
 let custom_fabric_setting ~parameter ~section ~value () :
@@ -751,10 +751,10 @@ let node_type__vm_secrets ~vault_id ~certificates () :
 
 let node_type ?capacities ?data_disk_type
     ?multiple_placement_groups_enabled ?placement_properties ?primary
-    ?stateless ~application_port_range ~data_disk_size_gb
-    ~ephemeral_port_range ~name ~vm_image_offer ~vm_image_publisher
-    ~vm_image_sku ~vm_image_version ~vm_instance_count ~vm_size
-    ~vm_secrets () : node_type =
+    ?stateless ?(vm_secrets = []) ~application_port_range
+    ~data_disk_size_gb ~ephemeral_port_range ~name ~vm_image_offer
+    ~vm_image_publisher ~vm_image_sku ~vm_image_version
+    ~vm_instance_count ~vm_size () : node_type =
   {
     application_port_range;
     capacities;
@@ -780,9 +780,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_service_fabric_managed_cluster ?backup_service_enabled
     ?dns_name ?dns_service_enabled ?id ?password ?sku ?tags
-    ?upgrade_wave ?username ?timeouts ~client_connection_port
-    ~http_gateway_port ~location ~name ~resource_group_name
-    ~authentication ~custom_fabric_setting ~lb_rule ~node_type () :
+    ?upgrade_wave ?username ?(authentication = [])
+    ?(custom_fabric_setting = []) ?(node_type = []) ?timeouts
+    ~client_connection_port ~http_gateway_port ~location ~name
+    ~resource_group_name ~lb_rule () :
     azurerm_service_fabric_managed_cluster =
   {
     backup_service_enabled;
@@ -824,10 +825,11 @@ type t = {
 }
 
 let make ?backup_service_enabled ?dns_name ?dns_service_enabled ?id
-    ?password ?sku ?tags ?upgrade_wave ?username ?timeouts
-    ~client_connection_port ~http_gateway_port ~location ~name
-    ~resource_group_name ~authentication ~custom_fabric_setting
-    ~lb_rule ~node_type __id =
+    ?password ?sku ?tags ?upgrade_wave ?username
+    ?(authentication = []) ?(custom_fabric_setting = [])
+    ?(node_type = []) ?timeouts ~client_connection_port
+    ~http_gateway_port ~location ~name ~resource_group_name ~lb_rule
+    __id =
   let __type = "azurerm_service_fabric_managed_cluster" in
   let __attrs =
     ({
@@ -860,24 +862,25 @@ let make ?backup_service_enabled ?dns_name ?dns_service_enabled ?id
       yojson_of_azurerm_service_fabric_managed_cluster
         (azurerm_service_fabric_managed_cluster
            ?backup_service_enabled ?dns_name ?dns_service_enabled ?id
-           ?password ?sku ?tags ?upgrade_wave ?username ?timeouts
-           ~client_connection_port ~http_gateway_port ~location ~name
-           ~resource_group_name ~authentication
-           ~custom_fabric_setting ~lb_rule ~node_type ());
+           ?password ?sku ?tags ?upgrade_wave ?username
+           ~authentication ~custom_fabric_setting ~node_type
+           ?timeouts ~client_connection_port ~http_gateway_port
+           ~location ~name ~resource_group_name ~lb_rule ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?backup_service_enabled ?dns_name
     ?dns_service_enabled ?id ?password ?sku ?tags ?upgrade_wave
-    ?username ?timeouts ~client_connection_port ~http_gateway_port
-    ~location ~name ~resource_group_name ~authentication
-    ~custom_fabric_setting ~lb_rule ~node_type __id =
+    ?username ?(authentication = []) ?(custom_fabric_setting = [])
+    ?(node_type = []) ?timeouts ~client_connection_port
+    ~http_gateway_port ~location ~name ~resource_group_name ~lb_rule
+    __id =
   let (r : _ Tf_core.resource) =
     make ?backup_service_enabled ?dns_name ?dns_service_enabled ?id
-      ?password ?sku ?tags ?upgrade_wave ?username ?timeouts
+      ?password ?sku ?tags ?upgrade_wave ?username ~authentication
+      ~custom_fabric_setting ~node_type ?timeouts
       ~client_connection_port ~http_gateway_port ~location ~name
-      ~resource_group_name ~authentication ~custom_fabric_setting
-      ~lb_rule ~node_type __id
+      ~resource_group_name ~lb_rule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

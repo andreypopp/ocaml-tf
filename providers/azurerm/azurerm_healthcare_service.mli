@@ -44,12 +44,12 @@ val azurerm_healthcare_service :
   ?kind:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?authentication_configuration:authentication_configuration list ->
+  ?cors_configuration:cors_configuration list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  authentication_configuration:authentication_configuration list ->
-  cors_configuration:cors_configuration list ->
   unit ->
   azurerm_healthcare_service
 
@@ -80,12 +80,12 @@ val register :
   ?kind:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?authentication_configuration:authentication_configuration list ->
+  ?cors_configuration:cors_configuration list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  authentication_configuration:authentication_configuration list ->
-  cors_configuration:cors_configuration list ->
   string ->
   t
 
@@ -97,11 +97,11 @@ val make :
   ?kind:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?authentication_configuration:authentication_configuration list ->
+  ?cors_configuration:cors_configuration list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  authentication_configuration:authentication_configuration list ->
-  cors_configuration:cors_configuration list ->
   string ->
   t Tf_core.resource

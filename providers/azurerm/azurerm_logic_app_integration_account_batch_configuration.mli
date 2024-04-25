@@ -29,9 +29,9 @@ val release_criteria__recurrence :
   ?end_time:string prop ->
   ?start_time:string prop ->
   ?time_zone:string prop ->
+  ?schedule:release_criteria__recurrence__schedule list ->
   frequency:string prop ->
   interval:float prop ->
-  schedule:release_criteria__recurrence__schedule list ->
   unit ->
   release_criteria__recurrence
 
@@ -40,7 +40,7 @@ type release_criteria
 val release_criteria :
   ?batch_size:float prop ->
   ?message_count:float prop ->
-  recurrence:release_criteria__recurrence list ->
+  ?recurrence:release_criteria__recurrence list ->
   unit ->
   release_criteria
 

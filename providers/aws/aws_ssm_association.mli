@@ -34,9 +34,9 @@ val aws_ssm_association :
   ?schedule_expression:string prop ->
   ?sync_compliance:string prop ->
   ?wait_for_success_timeout_seconds:float prop ->
+  ?output_location:output_location list ->
+  ?targets:targets list ->
   name:string prop ->
-  output_location:output_location list ->
-  targets:targets list ->
   unit ->
   aws_ssm_association
 
@@ -78,9 +78,9 @@ val register :
   ?schedule_expression:string prop ->
   ?sync_compliance:string prop ->
   ?wait_for_success_timeout_seconds:float prop ->
+  ?output_location:output_location list ->
+  ?targets:targets list ->
   name:string prop ->
-  output_location:output_location list ->
-  targets:targets list ->
   string ->
   t
 
@@ -98,8 +98,8 @@ val make :
   ?schedule_expression:string prop ->
   ?sync_compliance:string prop ->
   ?wait_for_success_timeout_seconds:float prop ->
+  ?output_location:output_location list ->
+  ?targets:targets list ->
   name:string prop ->
-  output_location:output_location list ->
-  targets:targets list ->
   string ->
   t Tf_core.resource

@@ -15,7 +15,7 @@ val properties__property :
 type properties
 
 val properties :
-  property:properties__property list -> unit -> properties
+  ?property:properties__property list -> unit -> properties
 
 type timeouts
 
@@ -39,9 +39,9 @@ val google_apigee_organization :
   ?retention:string prop ->
   ?runtime_database_encryption_key_name:string prop ->
   ?runtime_type:string prop ->
+  ?properties:properties list ->
   ?timeouts:timeouts ->
   project_id:string prop ->
-  properties:properties list ->
   unit ->
   google_apigee_organization
 
@@ -80,9 +80,9 @@ val register :
   ?retention:string prop ->
   ?runtime_database_encryption_key_name:string prop ->
   ?runtime_type:string prop ->
+  ?properties:properties list ->
   ?timeouts:timeouts ->
   project_id:string prop ->
-  properties:properties list ->
   string ->
   t
 
@@ -97,8 +97,8 @@ val make :
   ?retention:string prop ->
   ?runtime_database_encryption_key_name:string prop ->
   ?runtime_type:string prop ->
+  ?properties:properties list ->
   ?timeouts:timeouts ->
   project_id:string prop ->
-  properties:properties list ->
   string ->
   t Tf_core.resource

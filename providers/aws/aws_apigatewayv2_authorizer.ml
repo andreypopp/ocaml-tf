@@ -171,8 +171,8 @@ let jwt_configuration ?audience ?issuer () : jwt_configuration =
 let aws_apigatewayv2_authorizer ?authorizer_credentials_arn
     ?authorizer_payload_format_version
     ?authorizer_result_ttl_in_seconds ?authorizer_uri
-    ?enable_simple_responses ?id ?identity_sources ~api_id
-    ~authorizer_type ~name ~jwt_configuration () :
+    ?enable_simple_responses ?id ?identity_sources
+    ?(jwt_configuration = []) ~api_id ~authorizer_type ~name () :
     aws_apigatewayv2_authorizer =
   {
     api_id;
@@ -204,8 +204,8 @@ type t = {
 let make ?authorizer_credentials_arn
     ?authorizer_payload_format_version
     ?authorizer_result_ttl_in_seconds ?authorizer_uri
-    ?enable_simple_responses ?id ?identity_sources ~api_id
-    ~authorizer_type ~name ~jwt_configuration __id =
+    ?enable_simple_responses ?id ?identity_sources
+    ?(jwt_configuration = []) ~api_id ~authorizer_type ~name __id =
   let __type = "aws_apigatewayv2_authorizer" in
   let __attrs =
     ({
@@ -236,22 +236,22 @@ let make ?authorizer_credentials_arn
         (aws_apigatewayv2_authorizer ?authorizer_credentials_arn
            ?authorizer_payload_format_version
            ?authorizer_result_ttl_in_seconds ?authorizer_uri
-           ?enable_simple_responses ?id ?identity_sources ~api_id
-           ~authorizer_type ~name ~jwt_configuration ());
+           ?enable_simple_responses ?id ?identity_sources
+           ~jwt_configuration ~api_id ~authorizer_type ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?authorizer_credentials_arn
     ?authorizer_payload_format_version
     ?authorizer_result_ttl_in_seconds ?authorizer_uri
-    ?enable_simple_responses ?id ?identity_sources ~api_id
-    ~authorizer_type ~name ~jwt_configuration __id =
+    ?enable_simple_responses ?id ?identity_sources
+    ?(jwt_configuration = []) ~api_id ~authorizer_type ~name __id =
   let (r : _ Tf_core.resource) =
     make ?authorizer_credentials_arn
       ?authorizer_payload_format_version
       ?authorizer_result_ttl_in_seconds ?authorizer_uri
-      ?enable_simple_responses ?id ?identity_sources ~api_id
-      ~authorizer_type ~name ~jwt_configuration __id
+      ?enable_simple_responses ?id ?identity_sources
+      ~jwt_configuration ~api_id ~authorizer_type ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

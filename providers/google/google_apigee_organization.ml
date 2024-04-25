@@ -254,7 +254,7 @@ let _ = yojson_of_google_apigee_organization
 let properties__property ?name ?value () : properties__property =
   { name; value }
 
-let properties ~property () : properties = { property }
+let properties ?(property = []) () : properties = { property }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
@@ -262,8 +262,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_apigee_organization ?analytics_region ?authorized_network
     ?billing_type ?description ?disable_vpc_peering ?display_name ?id
     ?retention ?runtime_database_encryption_key_name ?runtime_type
-    ?timeouts ~project_id ~properties () : google_apigee_organization
-    =
+    ?(properties = []) ?timeouts ~project_id () :
+    google_apigee_organization =
   {
     analytics_region;
     authorized_network;
@@ -300,8 +300,8 @@ type t = {
 
 let make ?analytics_region ?authorized_network ?billing_type
     ?description ?disable_vpc_peering ?display_name ?id ?retention
-    ?runtime_database_encryption_key_name ?runtime_type ?timeouts
-    ~project_id ~properties __id =
+    ?runtime_database_encryption_key_name ?runtime_type
+    ?(properties = []) ?timeouts ~project_id __id =
   let __type = "google_apigee_organization" in
   let __attrs =
     ({
@@ -339,19 +339,19 @@ let make ?analytics_region ?authorized_network ?billing_type
            ?authorized_network ?billing_type ?description
            ?disable_vpc_peering ?display_name ?id ?retention
            ?runtime_database_encryption_key_name ?runtime_type
-           ?timeouts ~project_id ~properties ());
+           ~properties ?timeouts ~project_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?analytics_region ?authorized_network
     ?billing_type ?description ?disable_vpc_peering ?display_name ?id
     ?retention ?runtime_database_encryption_key_name ?runtime_type
-    ?timeouts ~project_id ~properties __id =
+    ?(properties = []) ?timeouts ~project_id __id =
   let (r : _ Tf_core.resource) =
     make ?analytics_region ?authorized_network ?billing_type
       ?description ?disable_vpc_peering ?display_name ?id ?retention
-      ?runtime_database_encryption_key_name ?runtime_type ?timeouts
-      ~project_id ~properties __id
+      ?runtime_database_encryption_key_name ?runtime_type ~properties
+      ?timeouts ~project_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

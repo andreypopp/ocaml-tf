@@ -28,10 +28,10 @@ val dataset__sorting :
 type dataset
 
 val dataset :
+  ?grouping:dataset__grouping list ->
+  ?sorting:dataset__sorting list ->
   granularity:string prop ->
   aggregation:dataset__aggregation list ->
-  grouping:dataset__grouping list ->
-  sorting:dataset__sorting list ->
   unit ->
   dataset
 
@@ -57,6 +57,8 @@ type azurerm_resource_group_cost_management_view
 
 val azurerm_resource_group_cost_management_view :
   ?id:string prop ->
+  ?kpi:kpi list ->
+  ?pivot:pivot list ->
   ?timeouts:timeouts ->
   accumulated:bool prop ->
   chart_type:string prop ->
@@ -66,8 +68,6 @@ val azurerm_resource_group_cost_management_view :
   resource_group_id:string prop ->
   timeframe:string prop ->
   dataset:dataset list ->
-  kpi:kpi list ->
-  pivot:pivot list ->
   unit ->
   azurerm_resource_group_cost_management_view
 
@@ -90,6 +90,8 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?kpi:kpi list ->
+  ?pivot:pivot list ->
   ?timeouts:timeouts ->
   accumulated:bool prop ->
   chart_type:string prop ->
@@ -99,13 +101,13 @@ val register :
   resource_group_id:string prop ->
   timeframe:string prop ->
   dataset:dataset list ->
-  kpi:kpi list ->
-  pivot:pivot list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?kpi:kpi list ->
+  ?pivot:pivot list ->
   ?timeouts:timeouts ->
   accumulated:bool prop ->
   chart_type:string prop ->
@@ -115,7 +117,5 @@ val make :
   resource_group_id:string prop ->
   timeframe:string prop ->
   dataset:dataset list ->
-  kpi:kpi list ->
-  pivot:pivot list ->
   string ->
   t Tf_core.resource

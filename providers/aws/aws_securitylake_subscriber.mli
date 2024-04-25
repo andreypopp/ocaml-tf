@@ -34,8 +34,8 @@ val source__custom_log_source_resource :
 type source
 
 val source :
-  aws_log_source_resource:source__aws_log_source_resource list ->
-  custom_log_source_resource:source__custom_log_source_resource list ->
+  ?aws_log_source_resource:source__aws_log_source_resource list ->
+  ?custom_log_source_resource:source__custom_log_source_resource list ->
   unit ->
   source
 
@@ -63,9 +63,9 @@ val aws_securitylake_subscriber :
   ?subscriber_description:string prop ->
   ?subscriber_name:string prop ->
   ?tags:(string * string prop) list ->
+  ?source:source list ->
+  ?subscriber_identity:subscriber_identity list ->
   ?timeouts:timeouts ->
-  source:source list ->
-  subscriber_identity:subscriber_identity list ->
   unit ->
   aws_securitylake_subscriber
 
@@ -96,9 +96,9 @@ val register :
   ?subscriber_description:string prop ->
   ?subscriber_name:string prop ->
   ?tags:(string * string prop) list ->
+  ?source:source list ->
+  ?subscriber_identity:subscriber_identity list ->
   ?timeouts:timeouts ->
-  source:source list ->
-  subscriber_identity:subscriber_identity list ->
   string ->
   t
 
@@ -107,8 +107,8 @@ val make :
   ?subscriber_description:string prop ->
   ?subscriber_name:string prop ->
   ?tags:(string * string prop) list ->
+  ?source:source list ->
+  ?subscriber_identity:subscriber_identity list ->
   ?timeouts:timeouts ->
-  source:source list ->
-  subscriber_identity:subscriber_identity list ->
   string ->
   t Tf_core.resource

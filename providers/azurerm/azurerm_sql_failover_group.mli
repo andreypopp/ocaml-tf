@@ -37,6 +37,8 @@ val azurerm_sql_failover_group :
   ?databases:string prop list ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?readonly_endpoint_failover_policy:
+    readonly_endpoint_failover_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -44,8 +46,6 @@ val azurerm_sql_failover_group :
   partner_servers:partner_servers list ->
   read_write_endpoint_failover_policy:
     read_write_endpoint_failover_policy list ->
-  readonly_endpoint_failover_policy:
-    readonly_endpoint_failover_policy list ->
   unit ->
   azurerm_sql_failover_group
 
@@ -70,6 +70,8 @@ val register :
   ?databases:string prop list ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?readonly_endpoint_failover_policy:
+    readonly_endpoint_failover_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -77,8 +79,6 @@ val register :
   partner_servers:partner_servers list ->
   read_write_endpoint_failover_policy:
     read_write_endpoint_failover_policy list ->
-  readonly_endpoint_failover_policy:
-    readonly_endpoint_failover_policy list ->
   string ->
   t
 
@@ -86,6 +86,8 @@ val make :
   ?databases:string prop list ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?readonly_endpoint_failover_policy:
+    readonly_endpoint_failover_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
@@ -93,7 +95,5 @@ val make :
   partner_servers:partner_servers list ->
   read_write_endpoint_failover_policy:
     read_write_endpoint_failover_policy list ->
-  readonly_endpoint_failover_policy:
-    readonly_endpoint_failover_policy list ->
   string ->
   t Tf_core.resource

@@ -269,9 +269,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_container_connected_registry ?audit_log_enabled
     ?client_token_ids ?id ?log_level ?mode ?parent_registry_id
-    ?sync_message_ttl ?sync_schedule ?sync_window ?timeouts
-    ~container_registry_id ~name ~sync_token_id ~notification () :
-    azurerm_container_connected_registry =
+    ?sync_message_ttl ?sync_schedule ?sync_window
+    ?(notification = []) ?timeouts ~container_registry_id ~name
+    ~sync_token_id () : azurerm_container_connected_registry =
   {
     audit_log_enabled;
     client_token_ids;
@@ -306,8 +306,8 @@ type t = {
 
 let make ?audit_log_enabled ?client_token_ids ?id ?log_level ?mode
     ?parent_registry_id ?sync_message_ttl ?sync_schedule ?sync_window
-    ?timeouts ~container_registry_id ~name ~sync_token_id
-    ~notification __id =
+    ?(notification = []) ?timeouts ~container_registry_id ~name
+    ~sync_token_id __id =
   let __type = "azurerm_container_connected_registry" in
   let __attrs =
     ({
@@ -338,21 +338,21 @@ let make ?audit_log_enabled ?client_token_ids ?id ?log_level ?mode
       yojson_of_azurerm_container_connected_registry
         (azurerm_container_connected_registry ?audit_log_enabled
            ?client_token_ids ?id ?log_level ?mode ?parent_registry_id
-           ?sync_message_ttl ?sync_schedule ?sync_window ?timeouts
-           ~container_registry_id ~name ~sync_token_id ~notification
-           ());
+           ?sync_message_ttl ?sync_schedule ?sync_window
+           ~notification ?timeouts ~container_registry_id ~name
+           ~sync_token_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?audit_log_enabled ?client_token_ids ?id
     ?log_level ?mode ?parent_registry_id ?sync_message_ttl
-    ?sync_schedule ?sync_window ?timeouts ~container_registry_id
-    ~name ~sync_token_id ~notification __id =
+    ?sync_schedule ?sync_window ?(notification = []) ?timeouts
+    ~container_registry_id ~name ~sync_token_id __id =
   let (r : _ Tf_core.resource) =
     make ?audit_log_enabled ?client_token_ids ?id ?log_level ?mode
       ?parent_registry_id ?sync_message_ttl ?sync_schedule
-      ?sync_window ?timeouts ~container_registry_id ~name
-      ~sync_token_id ~notification __id
+      ?sync_window ~notification ?timeouts ~container_registry_id
+      ~name ~sync_token_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

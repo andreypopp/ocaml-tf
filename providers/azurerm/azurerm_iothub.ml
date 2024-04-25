@@ -935,8 +935,8 @@ let cloud_to_device__feedback ?lock_duration ?max_delivery_count
     ?time_to_live () : cloud_to_device__feedback =
   { lock_duration; max_delivery_count; time_to_live }
 
-let cloud_to_device ?default_ttl ?max_delivery_count ~feedback () :
-    cloud_to_device =
+let cloud_to_device ?default_ttl ?max_delivery_count ?(feedback = [])
+    () : cloud_to_device =
   { default_ttl; max_delivery_count; feedback }
 
 let fallback_route ?condition ?enabled ?endpoint_names ?source () :
@@ -966,7 +966,7 @@ let network_rule_set__ip_rule ?action ~ip_mask ~name () :
   { action; ip_mask; name }
 
 let network_rule_set ?apply_to_builtin_eventhub_endpoint
-    ?default_action ~ip_rule () : network_rule_set =
+    ?default_action ?(ip_rule = []) () : network_rule_set =
   { apply_to_builtin_eventhub_endpoint; default_action; ip_rule }
 
 let sku ~capacity ~name () : sku = { capacity; name }
@@ -977,9 +977,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_iothub ?endpoint ?enrichment ?event_hub_partition_count
     ?event_hub_retention_in_days ?id ?local_authentication_enabled
     ?min_tls_version ?public_network_access_enabled ?route ?tags
-    ?timeouts ~location ~name ~resource_group_name ~cloud_to_device
-    ~fallback_route ~file_upload ~identity ~network_rule_set ~sku ()
-    : azurerm_iothub =
+    ?(cloud_to_device = []) ?(fallback_route = [])
+    ?(file_upload = []) ?(identity = []) ?(network_rule_set = [])
+    ?timeouts ~location ~name ~resource_group_name ~sku () :
+    azurerm_iothub =
   {
     endpoint;
     enrichment;
@@ -1030,9 +1031,9 @@ type t = {
 let make ?endpoint ?enrichment ?event_hub_partition_count
     ?event_hub_retention_in_days ?id ?local_authentication_enabled
     ?min_tls_version ?public_network_access_enabled ?route ?tags
-    ?timeouts ~location ~name ~resource_group_name ~cloud_to_device
-    ~fallback_route ~file_upload ~identity ~network_rule_set ~sku
-    __id =
+    ?(cloud_to_device = []) ?(fallback_route = [])
+    ?(file_upload = []) ?(identity = []) ?(network_rule_set = [])
+    ?timeouts ~location ~name ~resource_group_name ~sku __id =
   let __type = "azurerm_iothub" in
   let __attrs =
     ({
@@ -1079,26 +1080,27 @@ let make ?endpoint ?enrichment ?event_hub_partition_count
         (azurerm_iothub ?endpoint ?enrichment
            ?event_hub_partition_count ?event_hub_retention_in_days
            ?id ?local_authentication_enabled ?min_tls_version
-           ?public_network_access_enabled ?route ?tags ?timeouts
-           ~location ~name ~resource_group_name ~cloud_to_device
-           ~fallback_route ~file_upload ~identity ~network_rule_set
-           ~sku ());
+           ?public_network_access_enabled ?route ?tags
+           ~cloud_to_device ~fallback_route ~file_upload ~identity
+           ~network_rule_set ?timeouts ~location ~name
+           ~resource_group_name ~sku ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?endpoint ?enrichment
     ?event_hub_partition_count ?event_hub_retention_in_days ?id
     ?local_authentication_enabled ?min_tls_version
-    ?public_network_access_enabled ?route ?tags ?timeouts ~location
-    ~name ~resource_group_name ~cloud_to_device ~fallback_route
-    ~file_upload ~identity ~network_rule_set ~sku __id =
+    ?public_network_access_enabled ?route ?tags
+    ?(cloud_to_device = []) ?(fallback_route = [])
+    ?(file_upload = []) ?(identity = []) ?(network_rule_set = [])
+    ?timeouts ~location ~name ~resource_group_name ~sku __id =
   let (r : _ Tf_core.resource) =
     make ?endpoint ?enrichment ?event_hub_partition_count
       ?event_hub_retention_in_days ?id ?local_authentication_enabled
       ?min_tls_version ?public_network_access_enabled ?route ?tags
-      ?timeouts ~location ~name ~resource_group_name ~cloud_to_device
-      ~fallback_route ~file_upload ~identity ~network_rule_set ~sku
-      __id
+      ~cloud_to_device ~fallback_route ~file_upload ~identity
+      ~network_rule_set ?timeouts ~location ~name
+      ~resource_group_name ~sku __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

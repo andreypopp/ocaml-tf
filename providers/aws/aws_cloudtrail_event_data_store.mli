@@ -45,9 +45,9 @@ val aws_cloudtrail_event_data_store :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?termination_protection_enabled:bool prop ->
+  ?advanced_event_selector:advanced_event_selector list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  advanced_event_selector:advanced_event_selector list ->
   unit ->
   aws_cloudtrail_event_data_store
 
@@ -79,9 +79,9 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?termination_protection_enabled:bool prop ->
+  ?advanced_event_selector:advanced_event_selector list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  advanced_event_selector:advanced_event_selector list ->
   string ->
   t
 
@@ -94,8 +94,8 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?termination_protection_enabled:bool prop ->
+  ?advanced_event_selector:advanced_event_selector list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  advanced_event_selector:advanced_event_selector list ->
   string ->
   t Tf_core.resource

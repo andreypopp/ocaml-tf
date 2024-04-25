@@ -438,9 +438,9 @@ let eligible_authorization__just_in_time_access_policy
     approver;
   }
 
-let eligible_authorization ?principal_display_name ~principal_id
-    ~role_definition_id ~just_in_time_access_policy () :
-    eligible_authorization =
+let eligible_authorization ?principal_display_name
+    ?(just_in_time_access_policy = []) ~principal_id
+    ~role_definition_id () : eligible_authorization =
   {
     principal_display_name;
     principal_id;
@@ -455,9 +455,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_lighthouse_definition ?description ?id
-    ?lighthouse_definition_id ?timeouts ~managing_tenant_id ~name
-    ~scope ~authorization ~eligible_authorization ~plan () :
-    azurerm_lighthouse_definition =
+    ?lighthouse_definition_id ?(plan = []) ?timeouts
+    ~managing_tenant_id ~name ~scope ~authorization
+    ~eligible_authorization () : azurerm_lighthouse_definition =
   {
     description;
     id;
@@ -480,9 +480,9 @@ type t = {
   scope : string prop;
 }
 
-let make ?description ?id ?lighthouse_definition_id ?timeouts
-    ~managing_tenant_id ~name ~scope ~authorization
-    ~eligible_authorization ~plan __id =
+let make ?description ?id ?lighthouse_definition_id ?(plan = [])
+    ?timeouts ~managing_tenant_id ~name ~scope ~authorization
+    ~eligible_authorization __id =
   let __type = "azurerm_lighthouse_definition" in
   let __attrs =
     ({
@@ -503,19 +503,19 @@ let make ?description ?id ?lighthouse_definition_id ?timeouts
     json =
       yojson_of_azurerm_lighthouse_definition
         (azurerm_lighthouse_definition ?description ?id
-           ?lighthouse_definition_id ?timeouts ~managing_tenant_id
-           ~name ~scope ~authorization ~eligible_authorization ~plan
-           ());
+           ?lighthouse_definition_id ~plan ?timeouts
+           ~managing_tenant_id ~name ~scope ~authorization
+           ~eligible_authorization ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?lighthouse_definition_id
-    ?timeouts ~managing_tenant_id ~name ~scope ~authorization
-    ~eligible_authorization ~plan __id =
+    ?(plan = []) ?timeouts ~managing_tenant_id ~name ~scope
+    ~authorization ~eligible_authorization __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?lighthouse_definition_id ?timeouts
+    make ?description ?id ?lighthouse_definition_id ~plan ?timeouts
       ~managing_tenant_id ~name ~scope ~authorization
-      ~eligible_authorization ~plan __id
+      ~eligible_authorization __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

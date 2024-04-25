@@ -16,7 +16,7 @@ val endpoint__gke_cluster :
 type endpoint
 
 val endpoint :
-  gke_cluster:endpoint__gke_cluster list -> unit -> endpoint
+  ?gke_cluster:endpoint__gke_cluster list -> unit -> endpoint
 
 type timeouts
 
@@ -34,10 +34,10 @@ val google_gke_hub_membership :
   ?labels:(string * string prop) list ->
   ?location:string prop ->
   ?project:string prop ->
+  ?authority:authority list ->
+  ?endpoint:endpoint list ->
   ?timeouts:timeouts ->
   membership_id:string prop ->
-  authority:authority list ->
-  endpoint:endpoint list ->
   unit ->
   google_gke_hub_membership
 
@@ -63,10 +63,10 @@ val register :
   ?labels:(string * string prop) list ->
   ?location:string prop ->
   ?project:string prop ->
+  ?authority:authority list ->
+  ?endpoint:endpoint list ->
   ?timeouts:timeouts ->
   membership_id:string prop ->
-  authority:authority list ->
-  endpoint:endpoint list ->
   string ->
   t
 
@@ -75,9 +75,9 @@ val make :
   ?labels:(string * string prop) list ->
   ?location:string prop ->
   ?project:string prop ->
+  ?authority:authority list ->
+  ?endpoint:endpoint list ->
   ?timeouts:timeouts ->
   membership_id:string prop ->
-  authority:authority list ->
-  endpoint:endpoint list ->
   string ->
   t Tf_core.resource

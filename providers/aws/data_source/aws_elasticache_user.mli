@@ -21,8 +21,8 @@ val aws_elasticache_user :
   ?no_password_required:bool prop ->
   ?passwords:string prop list ->
   ?user_name:string prop ->
+  ?authentication_mode:authentication_mode list ->
   user_id:string prop ->
-  authentication_mode:authentication_mode list ->
   unit ->
   aws_elasticache_user
 
@@ -48,8 +48,8 @@ val register :
   ?no_password_required:bool prop ->
   ?passwords:string prop list ->
   ?user_name:string prop ->
+  ?authentication_mode:authentication_mode list ->
   user_id:string prop ->
-  authentication_mode:authentication_mode list ->
   string ->
   t
 
@@ -60,7 +60,7 @@ val make :
   ?no_password_required:bool prop ->
   ?passwords:string prop list ->
   ?user_name:string prop ->
+  ?authentication_mode:authentication_mode list ->
   user_id:string prop ->
-  authentication_mode:authentication_mode list ->
   string ->
   t Tf_core.resource

@@ -430,8 +430,8 @@ let aws_fsx_lustre_file_system ?auto_import_policy
     ?imported_file_chunk_size ?kms_key_id
     ?per_unit_storage_throughput ?security_group_ids
     ?storage_capacity ?storage_type ?tags ?tags_all
-    ?weekly_maintenance_start_time ?timeouts ~subnet_ids
-    ~log_configuration ~root_squash_configuration () :
+    ?weekly_maintenance_start_time ?(log_configuration = [])
+    ?(root_squash_configuration = []) ?timeouts ~subnet_ids () :
     aws_fsx_lustre_file_system =
   {
     auto_import_policy;
@@ -500,8 +500,8 @@ let make ?auto_import_policy ?automatic_backup_retention_days
     ?imported_file_chunk_size ?kms_key_id
     ?per_unit_storage_throughput ?security_group_ids
     ?storage_capacity ?storage_type ?tags ?tags_all
-    ?weekly_maintenance_start_time ?timeouts ~subnet_ids
-    ~log_configuration ~root_squash_configuration __id =
+    ?weekly_maintenance_start_time ?(log_configuration = [])
+    ?(root_squash_configuration = []) ?timeouts ~subnet_ids __id =
   let __type = "aws_fsx_lustre_file_system" in
   let __attrs =
     ({
@@ -563,8 +563,8 @@ let make ?auto_import_policy ?automatic_backup_retention_days
            ?imported_file_chunk_size ?kms_key_id
            ?per_unit_storage_throughput ?security_group_ids
            ?storage_capacity ?storage_type ?tags ?tags_all
-           ?weekly_maintenance_start_time ?timeouts ~subnet_ids
-           ~log_configuration ~root_squash_configuration ());
+           ?weekly_maintenance_start_time ~log_configuration
+           ~root_squash_configuration ?timeouts ~subnet_ids ());
     attrs = __attrs;
   }
 
@@ -576,8 +576,8 @@ let register ?tf_module ?auto_import_policy
     ?imported_file_chunk_size ?kms_key_id
     ?per_unit_storage_throughput ?security_group_ids
     ?storage_capacity ?storage_type ?tags ?tags_all
-    ?weekly_maintenance_start_time ?timeouts ~subnet_ids
-    ~log_configuration ~root_squash_configuration __id =
+    ?weekly_maintenance_start_time ?(log_configuration = [])
+    ?(root_squash_configuration = []) ?timeouts ~subnet_ids __id =
   let (r : _ Tf_core.resource) =
     make ?auto_import_policy ?automatic_backup_retention_days
       ?backup_id ?copy_tags_to_backups
@@ -587,8 +587,8 @@ let register ?tf_module ?auto_import_policy
       ?imported_file_chunk_size ?kms_key_id
       ?per_unit_storage_throughput ?security_group_ids
       ?storage_capacity ?storage_type ?tags ?tags_all
-      ?weekly_maintenance_start_time ?timeouts ~subnet_ids
-      ~log_configuration ~root_squash_configuration __id
+      ?weekly_maintenance_start_time ~log_configuration
+      ~root_squash_configuration ?timeouts ~subnet_ids __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

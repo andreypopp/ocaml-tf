@@ -77,10 +77,10 @@ type control_plane__control_plane_node_pool_config__node_pool_config
 val control_plane__control_plane_node_pool_config__node_pool_config :
   ?labels:(string * string prop) list ->
   ?operating_system:string prop ->
-  node_configs:
+  ?node_configs:
     control_plane__control_plane_node_pool_config__node_pool_config__node_configs
     list ->
-  taints:
+  ?taints:
     control_plane__control_plane_node_pool_config__node_pool_config__taints
     list ->
   unit ->
@@ -98,7 +98,7 @@ val control_plane__control_plane_node_pool_config :
 type control_plane
 
 val control_plane :
-  api_server_args:control_plane__api_server_args list ->
+  ?api_server_args:control_plane__api_server_args list ->
   control_plane_node_pool_config:
     control_plane__control_plane_node_pool_config list ->
   unit ->
@@ -154,13 +154,13 @@ type load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_con
 val load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config :
   ?labels:(string * string prop) list ->
   ?operating_system:string prop ->
-  kubelet_config:
+  ?kubelet_config:
     load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__kubelet_config
     list ->
-  node_configs:
+  ?node_configs:
     load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs
     list ->
-  taints:
+  ?taints:
     load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config__taints
     list ->
   unit ->
@@ -169,7 +169,7 @@ val load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_conf
 type load_balancer__bgp_lb_config__load_balancer_node_pool_config
 
 val load_balancer__bgp_lb_config__load_balancer_node_pool_config :
-  node_pool_config:
+  ?node_pool_config:
     load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config
     list ->
   unit ->
@@ -178,12 +178,12 @@ val load_balancer__bgp_lb_config__load_balancer_node_pool_config :
 type load_balancer__bgp_lb_config
 
 val load_balancer__bgp_lb_config :
+  ?load_balancer_node_pool_config:
+    load_balancer__bgp_lb_config__load_balancer_node_pool_config list ->
   asn:float prop ->
   address_pools:load_balancer__bgp_lb_config__address_pools list ->
   bgp_peer_configs:
     load_balancer__bgp_lb_config__bgp_peer_configs list ->
-  load_balancer_node_pool_config:
-    load_balancer__bgp_lb_config__load_balancer_node_pool_config list ->
   unit ->
   load_balancer__bgp_lb_config
 
@@ -224,10 +224,10 @@ type load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_c
 val load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config :
   ?labels:(string * string prop) list ->
   ?operating_system:string prop ->
-  node_configs:
+  ?node_configs:
     load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__node_configs
     list ->
-  taints:
+  ?taints:
     load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config__taints
     list ->
   unit ->
@@ -236,7 +236,7 @@ val load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_co
 type load_balancer__metal_lb_config__load_balancer_node_pool_config
 
 val load_balancer__metal_lb_config__load_balancer_node_pool_config :
-  node_pool_config:
+  ?node_pool_config:
     load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config
     list ->
   unit ->
@@ -245,10 +245,10 @@ val load_balancer__metal_lb_config__load_balancer_node_pool_config :
 type load_balancer__metal_lb_config
 
 val load_balancer__metal_lb_config :
-  address_pools:load_balancer__metal_lb_config__address_pools list ->
-  load_balancer_node_pool_config:
+  ?load_balancer_node_pool_config:
     load_balancer__metal_lb_config__load_balancer_node_pool_config
     list ->
+  address_pools:load_balancer__metal_lb_config__address_pools list ->
   unit ->
   load_balancer__metal_lb_config
 
@@ -270,9 +270,9 @@ val load_balancer__vip_config :
 type load_balancer
 
 val load_balancer :
-  bgp_lb_config:load_balancer__bgp_lb_config list ->
-  manual_lb_config:load_balancer__manual_lb_config list ->
-  metal_lb_config:load_balancer__metal_lb_config list ->
+  ?bgp_lb_config:load_balancer__bgp_lb_config list ->
+  ?manual_lb_config:load_balancer__manual_lb_config list ->
+  ?metal_lb_config:load_balancer__metal_lb_config list ->
   port_config:load_balancer__port_config list ->
   vip_config:load_balancer__vip_config list ->
   unit ->
@@ -309,10 +309,10 @@ type network_config
 
 val network_config :
   ?advanced_networking:bool prop ->
-  island_mode_cidr:network_config__island_mode_cidr list ->
-  multiple_network_interfaces_config:
+  ?island_mode_cidr:network_config__island_mode_cidr list ->
+  ?multiple_network_interfaces_config:
     network_config__multiple_network_interfaces_config list ->
-  sr_iov_config:network_config__sr_iov_config list ->
+  ?sr_iov_config:network_config__sr_iov_config list ->
   unit ->
   network_config
 
@@ -356,7 +356,7 @@ val security_config__authorization :
 type security_config
 
 val security_config :
-  authorization:security_config__authorization list ->
+  ?authorization:security_config__authorization list ->
   unit ->
   security_config
 
@@ -412,24 +412,24 @@ val google_gkeonprem_bare_metal_cluster :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?binary_authorization:binary_authorization list ->
+  ?cluster_operations:cluster_operations list ->
+  ?maintenance_config:maintenance_config list ->
+  ?node_access_config:node_access_config list ->
+  ?node_config:node_config list ->
+  ?os_environment_config:os_environment_config list ->
+  ?proxy:proxy list ->
+  ?security_config:security_config list ->
   ?timeouts:timeouts ->
+  ?upgrade_policy:upgrade_policy list ->
   admin_cluster_membership:string prop ->
   bare_metal_version:string prop ->
   location:string prop ->
   name:string prop ->
-  binary_authorization:binary_authorization list ->
-  cluster_operations:cluster_operations list ->
   control_plane:control_plane list ->
   load_balancer:load_balancer list ->
-  maintenance_config:maintenance_config list ->
   network_config:network_config list ->
-  node_access_config:node_access_config list ->
-  node_config:node_config list ->
-  os_environment_config:os_environment_config list ->
-  proxy:proxy list ->
-  security_config:security_config list ->
   storage:storage list ->
-  upgrade_policy:upgrade_policy list ->
   unit ->
   google_gkeonprem_bare_metal_cluster
 
@@ -468,24 +468,24 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?binary_authorization:binary_authorization list ->
+  ?cluster_operations:cluster_operations list ->
+  ?maintenance_config:maintenance_config list ->
+  ?node_access_config:node_access_config list ->
+  ?node_config:node_config list ->
+  ?os_environment_config:os_environment_config list ->
+  ?proxy:proxy list ->
+  ?security_config:security_config list ->
   ?timeouts:timeouts ->
+  ?upgrade_policy:upgrade_policy list ->
   admin_cluster_membership:string prop ->
   bare_metal_version:string prop ->
   location:string prop ->
   name:string prop ->
-  binary_authorization:binary_authorization list ->
-  cluster_operations:cluster_operations list ->
   control_plane:control_plane list ->
   load_balancer:load_balancer list ->
-  maintenance_config:maintenance_config list ->
   network_config:network_config list ->
-  node_access_config:node_access_config list ->
-  node_config:node_config list ->
-  os_environment_config:os_environment_config list ->
-  proxy:proxy list ->
-  security_config:security_config list ->
   storage:storage list ->
-  upgrade_policy:upgrade_policy list ->
   string ->
   t
 
@@ -494,23 +494,23 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?binary_authorization:binary_authorization list ->
+  ?cluster_operations:cluster_operations list ->
+  ?maintenance_config:maintenance_config list ->
+  ?node_access_config:node_access_config list ->
+  ?node_config:node_config list ->
+  ?os_environment_config:os_environment_config list ->
+  ?proxy:proxy list ->
+  ?security_config:security_config list ->
   ?timeouts:timeouts ->
+  ?upgrade_policy:upgrade_policy list ->
   admin_cluster_membership:string prop ->
   bare_metal_version:string prop ->
   location:string prop ->
   name:string prop ->
-  binary_authorization:binary_authorization list ->
-  cluster_operations:cluster_operations list ->
   control_plane:control_plane list ->
   load_balancer:load_balancer list ->
-  maintenance_config:maintenance_config list ->
   network_config:network_config list ->
-  node_access_config:node_access_config list ->
-  node_config:node_config list ->
-  os_environment_config:os_environment_config list ->
-  proxy:proxy list ->
-  security_config:security_config list ->
   storage:storage list ->
-  upgrade_policy:upgrade_policy list ->
   string ->
   t Tf_core.resource

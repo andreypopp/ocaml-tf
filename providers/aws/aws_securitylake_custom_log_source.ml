@@ -228,12 +228,12 @@ let configuration__provider_identity ~external_id ~principal () :
     configuration__provider_identity =
   { external_id; principal }
 
-let configuration ~crawler_configuration ~provider_identity () :
-    configuration =
+let configuration ?(crawler_configuration = [])
+    ?(provider_identity = []) () : configuration =
   { crawler_configuration; provider_identity }
 
 let aws_securitylake_custom_log_source ?event_classes ?source_version
-    ~source_name ~configuration () :
+    ?(configuration = []) ~source_name () :
     aws_securitylake_custom_log_source =
   { event_classes; source_name; source_version; configuration }
 
@@ -246,8 +246,8 @@ type t = {
   source_version : string prop;
 }
 
-let make ?event_classes ?source_version ~source_name ~configuration
-    __id =
+let make ?event_classes ?source_version ?(configuration = [])
+    ~source_name __id =
   let __type = "aws_securitylake_custom_log_source" in
   let __attrs =
     ({
@@ -267,14 +267,14 @@ let make ?event_classes ?source_version ~source_name ~configuration
     json =
       yojson_of_aws_securitylake_custom_log_source
         (aws_securitylake_custom_log_source ?event_classes
-           ?source_version ~source_name ~configuration ());
+           ?source_version ~configuration ~source_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?event_classes ?source_version ~source_name
-    ~configuration __id =
+let register ?tf_module ?event_classes ?source_version
+    ?(configuration = []) ~source_name __id =
   let (r : _ Tf_core.resource) =
-    make ?event_classes ?source_version ~source_name ~configuration
+    make ?event_classes ?source_version ~configuration ~source_name
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

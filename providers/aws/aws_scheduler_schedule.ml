@@ -862,9 +862,9 @@ let target__ecs_parameters__placement_strategy ?field ~type_ () :
 let target__ecs_parameters ?enable_ecs_managed_tags
     ?enable_execute_command ?group ?launch_type ?platform_version
     ?propagate_tags ?reference_id ?tags ?task_count
-    ~task_definition_arn ~capacity_provider_strategy
-    ~network_configuration ~placement_constraints ~placement_strategy
-    () : target__ecs_parameters =
+    ?(network_configuration = []) ~task_definition_arn
+    ~capacity_provider_strategy ~placement_constraints
+    ~placement_strategy () : target__ecs_parameters =
   {
     enable_ecs_managed_tags;
     enable_execute_command;
@@ -907,9 +907,10 @@ let target__sqs_parameters ?message_group_id () :
     target__sqs_parameters =
   { message_group_id }
 
-let target ?input ~arn ~role_arn ~dead_letter_config ~ecs_parameters
-    ~eventbridge_parameters ~kinesis_parameters ~retry_policy
-    ~sagemaker_pipeline_parameters ~sqs_parameters () : target =
+let target ?input ?(dead_letter_config = []) ?(ecs_parameters = [])
+    ?(eventbridge_parameters = []) ?(kinesis_parameters = [])
+    ?(retry_policy = []) ?(sagemaker_pipeline_parameters = [])
+    ?(sqs_parameters = []) ~arn ~role_arn () : target =
   {
     arn;
     input;

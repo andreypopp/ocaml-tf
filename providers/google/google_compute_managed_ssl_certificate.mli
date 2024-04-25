@@ -22,8 +22,8 @@ val google_compute_managed_ssl_certificate :
   ?name:string prop ->
   ?project:string prop ->
   ?type_:string prop ->
+  ?managed:managed list ->
   ?timeouts:timeouts ->
-  managed:managed list ->
   unit ->
   google_compute_managed_ssl_certificate
 
@@ -53,8 +53,8 @@ val register :
   ?name:string prop ->
   ?project:string prop ->
   ?type_:string prop ->
+  ?managed:managed list ->
   ?timeouts:timeouts ->
-  managed:managed list ->
   string ->
   t
 
@@ -65,7 +65,7 @@ val make :
   ?name:string prop ->
   ?project:string prop ->
   ?type_:string prop ->
+  ?managed:managed list ->
   ?timeouts:timeouts ->
-  managed:managed list ->
   string ->
   t Tf_core.resource

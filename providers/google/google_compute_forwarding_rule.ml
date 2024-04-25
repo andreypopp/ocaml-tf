@@ -395,9 +395,8 @@ let google_compute_forwarding_rule ?all_ports ?allow_global_access
     ?labels ?load_balancing_scheme ?network ?network_tier
     ?no_automate_dns_zone ?port_range ?ports ?project
     ?recreate_closed_psc ?region ?service_label ?source_ip_ranges
-    ?subnetwork ?target ?timeouts ~name
-    ~service_directory_registrations () :
-    google_compute_forwarding_rule =
+    ?subnetwork ?target ?(service_directory_registrations = [])
+    ?timeouts ~name () : google_compute_forwarding_rule =
   {
     all_ports;
     allow_global_access;
@@ -471,8 +470,8 @@ let make ?all_ports ?allow_global_access ?allow_psc_global_access
     ?load_balancing_scheme ?network ?network_tier
     ?no_automate_dns_zone ?port_range ?ports ?project
     ?recreate_closed_psc ?region ?service_label ?source_ip_ranges
-    ?subnetwork ?target ?timeouts ~name
-    ~service_directory_registrations __id =
+    ?subnetwork ?target ?(service_directory_registrations = [])
+    ?timeouts ~name __id =
   let __type = "google_compute_forwarding_rule" in
   let __attrs =
     ({
@@ -539,8 +538,8 @@ let make ?all_ports ?allow_global_access ?allow_psc_global_access
            ?load_balancing_scheme ?network ?network_tier
            ?no_automate_dns_zone ?port_range ?ports ?project
            ?recreate_closed_psc ?region ?service_label
-           ?source_ip_ranges ?subnetwork ?target ?timeouts ~name
-           ~service_directory_registrations ());
+           ?source_ip_ranges ?subnetwork ?target
+           ~service_directory_registrations ?timeouts ~name ());
     attrs = __attrs;
   }
 
@@ -550,8 +549,8 @@ let register ?tf_module ?all_ports ?allow_global_access
     ?labels ?load_balancing_scheme ?network ?network_tier
     ?no_automate_dns_zone ?port_range ?ports ?project
     ?recreate_closed_psc ?region ?service_label ?source_ip_ranges
-    ?subnetwork ?target ?timeouts ~name
-    ~service_directory_registrations __id =
+    ?subnetwork ?target ?(service_directory_registrations = [])
+    ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
     make ?all_ports ?allow_global_access ?allow_psc_global_access
       ?backend_service ?description ?id ?ip_address ?ip_protocol
@@ -559,8 +558,8 @@ let register ?tf_module ?all_ports ?allow_global_access
       ?load_balancing_scheme ?network ?network_tier
       ?no_automate_dns_zone ?port_range ?ports ?project
       ?recreate_closed_psc ?region ?service_label ?source_ip_ranges
-      ?subnetwork ?target ?timeouts ~name
-      ~service_directory_registrations __id
+      ?subnetwork ?target ~service_directory_registrations ?timeouts
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

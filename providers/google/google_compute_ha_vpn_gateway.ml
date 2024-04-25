@@ -182,7 +182,7 @@ let vpn_interfaces ?id ?interconnect_attachment () : vpn_interfaces =
   { id; interconnect_attachment }
 
 let google_compute_ha_vpn_gateway ?description ?id ?project ?region
-    ?stack_type ?timeouts ~name ~network ~vpn_interfaces () :
+    ?stack_type ?timeouts ?(vpn_interfaces = []) ~name ~network () :
     google_compute_ha_vpn_gateway =
   {
     description;
@@ -208,7 +208,7 @@ type t = {
 }
 
 let make ?description ?id ?project ?region ?stack_type ?timeouts
-    ~name ~network ~vpn_interfaces __id =
+    ?(vpn_interfaces = []) ~name ~network __id =
   let __type = "google_compute_ha_vpn_gateway" in
   let __attrs =
     ({
@@ -229,16 +229,16 @@ let make ?description ?id ?project ?region ?stack_type ?timeouts
     json =
       yojson_of_google_compute_ha_vpn_gateway
         (google_compute_ha_vpn_gateway ?description ?id ?project
-           ?region ?stack_type ?timeouts ~name ~network
-           ~vpn_interfaces ());
+           ?region ?stack_type ?timeouts ~vpn_interfaces ~name
+           ~network ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?project ?region ?stack_type
-    ?timeouts ~name ~network ~vpn_interfaces __id =
+    ?timeouts ?(vpn_interfaces = []) ~name ~network __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?project ?region ?stack_type ?timeouts
-      ~name ~network ~vpn_interfaces __id
+      ~vpn_interfaces ~name ~network __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

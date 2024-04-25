@@ -402,12 +402,12 @@ let release_criteria__recurrence__schedule ?hours ?minutes
   { hours; minutes; month_days; week_days; monthly }
 
 let release_criteria__recurrence ?end_time ?start_time ?time_zone
-    ~frequency ~interval ~schedule () : release_criteria__recurrence
-    =
+    ?(schedule = []) ~frequency ~interval () :
+    release_criteria__recurrence =
   { end_time; frequency; interval; start_time; time_zone; schedule }
 
-let release_criteria ?batch_size ?message_count ~recurrence () :
-    release_criteria =
+let release_criteria ?batch_size ?message_count ?(recurrence = []) ()
+    : release_criteria =
   { batch_size; message_count; recurrence }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =

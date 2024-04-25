@@ -32,7 +32,7 @@ val tunnel1_log_options__cloudwatch_log_options :
 type tunnel1_log_options
 
 val tunnel1_log_options :
-  cloudwatch_log_options:
+  ?cloudwatch_log_options:
     tunnel1_log_options__cloudwatch_log_options list ->
   unit ->
   tunnel1_log_options
@@ -49,7 +49,7 @@ val tunnel2_log_options__cloudwatch_log_options :
 type tunnel2_log_options
 
 val tunnel2_log_options :
-  cloudwatch_log_options:
+  ?cloudwatch_log_options:
     tunnel2_log_options__cloudwatch_log_options list ->
   unit ->
   tunnel2_log_options
@@ -109,10 +109,10 @@ val aws_vpn_connection :
   ?tunnel2_startup_action:string prop ->
   ?tunnel_inside_ip_version:string prop ->
   ?vpn_gateway_id:string prop ->
+  ?tunnel1_log_options:tunnel1_log_options list ->
+  ?tunnel2_log_options:tunnel2_log_options list ->
   customer_gateway_id:string prop ->
   type_:string prop ->
-  tunnel1_log_options:tunnel1_log_options list ->
-  tunnel2_log_options:tunnel2_log_options list ->
   unit ->
   aws_vpn_connection
 
@@ -248,10 +248,10 @@ val register :
   ?tunnel2_startup_action:string prop ->
   ?tunnel_inside_ip_version:string prop ->
   ?vpn_gateway_id:string prop ->
+  ?tunnel1_log_options:tunnel1_log_options list ->
+  ?tunnel2_log_options:tunnel2_log_options list ->
   customer_gateway_id:string prop ->
   type_:string prop ->
-  tunnel1_log_options:tunnel1_log_options list ->
-  tunnel2_log_options:tunnel2_log_options list ->
   string ->
   t
 
@@ -308,9 +308,9 @@ val make :
   ?tunnel2_startup_action:string prop ->
   ?tunnel_inside_ip_version:string prop ->
   ?vpn_gateway_id:string prop ->
+  ?tunnel1_log_options:tunnel1_log_options list ->
+  ?tunnel2_log_options:tunnel2_log_options list ->
   customer_gateway_id:string prop ->
   type_:string prop ->
-  tunnel1_log_options:tunnel1_log_options list ->
-  tunnel2_log_options:tunnel2_log_options list ->
   string ->
   t Tf_core.resource

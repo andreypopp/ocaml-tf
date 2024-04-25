@@ -654,9 +654,10 @@ let rule_settings__untrusted_cert ?action () :
 let rule_settings ?add_headers ?allow_child_bypass
     ?block_page_enabled ?block_page_reason ?bypass_parent_rule
     ?insecure_disable_dnssec_validation ?ip_categories ?override_host
-    ?override_ips ~audit_ssh ~biso_admin_controls ~check_session
-    ~egress ~l4override ~notification_settings ~payload_log
-    ~untrusted_cert () : rule_settings =
+    ?override_ips ?(audit_ssh = []) ?(biso_admin_controls = [])
+    ?(check_session = []) ?(egress = []) ?(l4override = [])
+    ?(notification_settings = []) ?(payload_log = [])
+    ?(untrusted_cert = []) () : rule_settings =
   {
     add_headers;
     allow_child_bypass;
@@ -678,8 +679,8 @@ let rule_settings ?add_headers ?allow_child_bypass
   }
 
 let cloudflare_teams_rule ?device_posture ?enabled ?filters ?id
-    ?identity ?traffic ~account_id ~action ~description ~name
-    ~precedence ~rule_settings () : cloudflare_teams_rule =
+    ?identity ?traffic ?(rule_settings = []) ~account_id ~action
+    ~description ~name ~precedence () : cloudflare_teams_rule =
   {
     account_id;
     action;
@@ -711,8 +712,8 @@ type t = {
 }
 
 let make ?device_posture ?enabled ?filters ?id ?identity ?traffic
-    ~account_id ~action ~description ~name ~precedence ~rule_settings
-    __id =
+    ?(rule_settings = []) ~account_id ~action ~description ~name
+    ~precedence __id =
   let __type = "cloudflare_teams_rule" in
   let __attrs =
     ({
@@ -737,18 +738,18 @@ let make ?device_posture ?enabled ?filters ?id ?identity ?traffic
     json =
       yojson_of_cloudflare_teams_rule
         (cloudflare_teams_rule ?device_posture ?enabled ?filters ?id
-           ?identity ?traffic ~account_id ~action ~description ~name
-           ~precedence ~rule_settings ());
+           ?identity ?traffic ~rule_settings ~account_id ~action
+           ~description ~name ~precedence ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?device_posture ?enabled ?filters ?id
-    ?identity ?traffic ~account_id ~action ~description ~name
-    ~precedence ~rule_settings __id =
+    ?identity ?traffic ?(rule_settings = []) ~account_id ~action
+    ~description ~name ~precedence __id =
   let (r : _ Tf_core.resource) =
     make ?device_posture ?enabled ?filters ?id ?identity ?traffic
-      ~account_id ~action ~description ~name ~precedence
-      ~rule_settings __id
+      ~rule_settings ~account_id ~action ~description ~name
+      ~precedence __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

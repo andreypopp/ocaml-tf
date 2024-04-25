@@ -119,7 +119,7 @@ let configuration__sheet__tile__border ?show () =
     show;
   } : configuration__sheet__tile__border);;
 
-let configuration__sheet__tile ~border () =
+let configuration__sheet__tile ?(border=[]) () =
   ({
     border;
   } : configuration__sheet__tile);;
@@ -134,13 +134,13 @@ let configuration__sheet__tile_layout__margin ?show () =
     show;
   } : configuration__sheet__tile_layout__margin);;
 
-let configuration__sheet__tile_layout ~gutter ~margin () =
+let configuration__sheet__tile_layout ?(gutter=[]) ?(margin=[]) () =
   ({
     gutter;
     margin;
   } : configuration__sheet__tile_layout);;
 
-let configuration__sheet ~tile ~tile_layout () =
+let configuration__sheet ?(tile=[]) ?(tile_layout=[]) () =
   ({
     tile;
     tile_layout;
@@ -151,7 +151,7 @@ let configuration__typography__font_families ?font_family () =
     font_family;
   } : configuration__typography__font_families);;
 
-let configuration__typography ~font_families () =
+let configuration__typography ?(font_families=[]) () =
   ({
     font_families;
   } : configuration__typography);;
@@ -176,7 +176,7 @@ let configuration__ui_color_palette ?accent ?accent_foreground ?danger ?danger_f
     warning_foreground;
   } : configuration__ui_color_palette);;
 
-let configuration ~data_color_palette ~sheet ~typography ~ui_color_palette () =
+let configuration ?(data_color_palette=[]) ?(sheet=[]) ?(typography=[]) ?(ui_color_palette=[]) () =
   ({
     data_color_palette;
     sheet;
@@ -197,7 +197,7 @@ let timeouts ?create ?delete ?update () =
     update;
   } : timeouts);;
 
-let aws_quicksight_theme ?aws_account_id ?id ?tags ?tags_all ?version_description ?timeouts ~base_theme_id ~name ~theme_id ~configuration ~permissions () =
+let aws_quicksight_theme ?aws_account_id ?id ?tags ?tags_all ?version_description ?(configuration=[]) ?(permissions=[]) ?timeouts ~base_theme_id ~name ~theme_id () =
   ({
     aws_account_id;
     base_theme_id;
@@ -228,7 +228,7 @@ type t = {
   version_number: float prop;
 }
 
-let make ?aws_account_id ?id ?tags ?tags_all ?version_description ?timeouts ~base_theme_id ~name ~theme_id ~configuration ~permissions __id =
+let make ?aws_account_id ?id ?tags ?tags_all ?version_description ?(configuration=[]) ?(permissions=[]) ?timeouts ~base_theme_id ~name ~theme_id __id =
   let __type = "aws_quicksight_theme" in
   let __attrs = ({
     arn = Prop.computed __type __id "arn";
@@ -248,12 +248,12 @@ let make ?aws_account_id ?id ?tags ?tags_all ?version_description ?timeouts ~bas
   {Tf_core.
     id=__id;
     type_=__type;
-    json=yojson_of_aws_quicksight_theme (aws_quicksight_theme ?aws_account_id ?id ?tags ?tags_all ?version_description ?timeouts ~base_theme_id ~name ~theme_id ~configuration ~permissions ());
+    json=yojson_of_aws_quicksight_theme (aws_quicksight_theme ?aws_account_id ?id ?tags ?tags_all ?version_description ~configuration ~permissions ?timeouts ~base_theme_id ~name ~theme_id ());
     attrs=__attrs;
   };;
 
-let register ?tf_module ?aws_account_id ?id ?tags ?tags_all ?version_description ?timeouts ~base_theme_id ~name ~theme_id ~configuration ~permissions __id =
-  let (r : _ Tf_core.resource) = make ?aws_account_id ?id ?tags ?tags_all ?version_description ?timeouts ~base_theme_id ~name ~theme_id ~configuration ~permissions __id in
+let register ?tf_module ?aws_account_id ?id ?tags ?tags_all ?version_description ?(configuration=[]) ?(permissions=[]) ?timeouts ~base_theme_id ~name ~theme_id __id =
+  let (r : _ Tf_core.resource) = make ?aws_account_id ?id ?tags ?tags_all ?version_description ~configuration ~permissions ?timeouts ~base_theme_id ~name ~theme_id __id in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs;;
 

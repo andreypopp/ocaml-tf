@@ -48,10 +48,10 @@ val aws_cloudformation_stack_set_instance :
   ?parameter_overrides:(string * string prop) list ->
   ?region:string prop ->
   ?retain_stack:bool prop ->
+  ?deployment_targets:deployment_targets list ->
+  ?operation_preferences:operation_preferences list ->
   ?timeouts:timeouts ->
   stack_set_name:string prop ->
-  deployment_targets:deployment_targets list ->
-  operation_preferences:operation_preferences list ->
   unit ->
   aws_cloudformation_stack_set_instance
 
@@ -81,10 +81,10 @@ val register :
   ?parameter_overrides:(string * string prop) list ->
   ?region:string prop ->
   ?retain_stack:bool prop ->
+  ?deployment_targets:deployment_targets list ->
+  ?operation_preferences:operation_preferences list ->
   ?timeouts:timeouts ->
   stack_set_name:string prop ->
-  deployment_targets:deployment_targets list ->
-  operation_preferences:operation_preferences list ->
   string ->
   t
 
@@ -95,9 +95,9 @@ val make :
   ?parameter_overrides:(string * string prop) list ->
   ?region:string prop ->
   ?retain_stack:bool prop ->
+  ?deployment_targets:deployment_targets list ->
+  ?operation_preferences:operation_preferences list ->
   ?timeouts:timeouts ->
   stack_set_name:string prop ->
-  deployment_targets:deployment_targets list ->
-  operation_preferences:operation_preferences list ->
   string ->
   t Tf_core.resource

@@ -247,7 +247,7 @@ let allowed_topologies__match_label_expressions ?key ?values () :
     allowed_topologies__match_label_expressions =
   { key; values }
 
-let allowed_topologies ~match_label_expressions () :
+let allowed_topologies ?(match_label_expressions = []) () :
     allowed_topologies =
   { match_label_expressions }
 
@@ -256,7 +256,8 @@ let metadata ?annotations ?labels ?name () : metadata =
 
 let kubernetes_storage_class_v1 ?allow_volume_expansion ?id
     ?mount_options ?parameters ?reclaim_policy ?volume_binding_mode
-    ~allowed_topologies ~metadata () : kubernetes_storage_class_v1 =
+    ?(allowed_topologies = []) ~metadata () :
+    kubernetes_storage_class_v1 =
   {
     allow_volume_expansion;
     id;
@@ -279,7 +280,7 @@ type t = {
 }
 
 let make ?allow_volume_expansion ?id ?mount_options ?parameters
-    ?reclaim_policy ?volume_binding_mode ~allowed_topologies
+    ?reclaim_policy ?volume_binding_mode ?(allowed_topologies = [])
     ~metadata __id =
   let __type = "kubernetes_storage_class_v1" in
   let __attrs =
@@ -310,7 +311,7 @@ let make ?allow_volume_expansion ?id ?mount_options ?parameters
 
 let register ?tf_module ?allow_volume_expansion ?id ?mount_options
     ?parameters ?reclaim_policy ?volume_binding_mode
-    ~allowed_topologies ~metadata __id =
+    ?(allowed_topologies = []) ~metadata __id =
   let (r : _ Tf_core.resource) =
     make ?allow_volume_expansion ?id ?mount_options ?parameters
       ?reclaim_policy ?volume_binding_mode ~allowed_topologies

@@ -95,17 +95,17 @@ val condition__target_resource_type :
 type condition
 
 val condition :
-  alert_context:condition__alert_context list ->
-  alert_rule_id:condition__alert_rule_id list ->
-  alert_rule_name:condition__alert_rule_name list ->
-  description:condition__description list ->
-  monitor_condition:condition__monitor_condition list ->
-  monitor_service:condition__monitor_service list ->
-  severity:condition__severity list ->
-  signal_type:condition__signal_type list ->
-  target_resource:condition__target_resource list ->
-  target_resource_group:condition__target_resource_group list ->
-  target_resource_type:condition__target_resource_type list ->
+  ?alert_context:condition__alert_context list ->
+  ?alert_rule_id:condition__alert_rule_id list ->
+  ?alert_rule_name:condition__alert_rule_name list ->
+  ?description:condition__description list ->
+  ?monitor_condition:condition__monitor_condition list ->
+  ?monitor_service:condition__monitor_service list ->
+  ?severity:condition__severity list ->
+  ?signal_type:condition__signal_type list ->
+  ?target_resource:condition__target_resource list ->
+  ?target_resource_group:condition__target_resource_group list ->
+  ?target_resource_type:condition__target_resource_type list ->
   unit ->
   condition
 
@@ -138,9 +138,9 @@ val schedule__recurrence__weekly :
 type schedule__recurrence
 
 val schedule__recurrence :
-  daily:schedule__recurrence__daily list ->
-  monthly:schedule__recurrence__monthly list ->
-  weekly:schedule__recurrence__weekly list ->
+  ?daily:schedule__recurrence__daily list ->
+  ?monthly:schedule__recurrence__monthly list ->
+  ?weekly:schedule__recurrence__weekly list ->
   unit ->
   schedule__recurrence
 
@@ -150,7 +150,7 @@ val schedule :
   ?effective_from:string prop ->
   ?effective_until:string prop ->
   ?time_zone:string prop ->
-  recurrence:schedule__recurrence list ->
+  ?recurrence:schedule__recurrence list ->
   unit ->
   schedule
 
@@ -171,12 +171,12 @@ val azurerm_monitor_alert_processing_rule_suppression :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?condition:condition list ->
+  ?schedule:schedule list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   scopes:string prop list ->
-  condition:condition list ->
-  schedule:schedule list ->
   unit ->
   azurerm_monitor_alert_processing_rule_suppression
 
@@ -201,12 +201,12 @@ val register :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?condition:condition list ->
+  ?schedule:schedule list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   scopes:string prop list ->
-  condition:condition list ->
-  schedule:schedule list ->
   string ->
   t
 
@@ -215,11 +215,11 @@ val make :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?condition:condition list ->
+  ?schedule:schedule list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   scopes:string prop list ->
-  condition:condition list ->
-  schedule:schedule list ->
   string ->
   t Tf_core.resource

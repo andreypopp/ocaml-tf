@@ -494,8 +494,8 @@ let spec__rule__http__path__backend ?service_name ?service_port () :
     spec__rule__http__path__backend =
   { service_name; service_port }
 
-let spec__rule__http__path ?path ~backend () : spec__rule__http__path
-    =
+let spec__rule__http__path ?path ?(backend = []) () :
+    spec__rule__http__path =
   { path; backend }
 
 let spec__rule__http ~path () : spec__rule__http = { path }
@@ -504,7 +504,8 @@ let spec__rule ?host ~http () : spec__rule = { host; http }
 let spec__tls ?hosts ?secret_name () : spec__tls =
   { hosts; secret_name }
 
-let spec ?ingress_class_name ~backend ~rule ~tls () : spec =
+let spec ?ingress_class_name ?(backend = []) ?(rule = []) ?(tls = [])
+    () : spec =
   { ingress_class_name; backend; rule; tls }
 
 let kubernetes_ingress ?id ?wait_for_load_balancer ~metadata ~spec ()

@@ -32,11 +32,11 @@ val aws_connect_user :
   ?password:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?identity_info:identity_info list ->
   instance_id:string prop ->
   name:string prop ->
   routing_profile_id:string prop ->
   security_profile_ids:string prop list ->
-  identity_info:identity_info list ->
   phone_config:phone_config list ->
   unit ->
   aws_connect_user
@@ -68,11 +68,11 @@ val register :
   ?password:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?identity_info:identity_info list ->
   instance_id:string prop ->
   name:string prop ->
   routing_profile_id:string prop ->
   security_profile_ids:string prop list ->
-  identity_info:identity_info list ->
   phone_config:phone_config list ->
   string ->
   t
@@ -84,11 +84,11 @@ val make :
   ?password:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?identity_info:identity_info list ->
   instance_id:string prop ->
   name:string prop ->
   routing_profile_id:string prop ->
   security_profile_ids:string prop list ->
-  identity_info:identity_info list ->
   phone_config:phone_config list ->
   string ->
   t Tf_core.resource

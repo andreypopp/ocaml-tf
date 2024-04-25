@@ -69,14 +69,14 @@ val azurerm_data_factory_dataset_parquet :
   ?folder:string prop ->
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
+  ?azure_blob_fs_location:azure_blob_fs_location list ->
+  ?azure_blob_storage_location:azure_blob_storage_location list ->
+  ?http_server_location:http_server_location list ->
+  ?schema_column:schema_column list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_name:string prop ->
   name:string prop ->
-  azure_blob_fs_location:azure_blob_fs_location list ->
-  azure_blob_storage_location:azure_blob_storage_location list ->
-  http_server_location:http_server_location list ->
-  schema_column:schema_column list ->
   unit ->
   azurerm_data_factory_dataset_parquet
 
@@ -109,14 +109,14 @@ val register :
   ?folder:string prop ->
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
+  ?azure_blob_fs_location:azure_blob_fs_location list ->
+  ?azure_blob_storage_location:azure_blob_storage_location list ->
+  ?http_server_location:http_server_location list ->
+  ?schema_column:schema_column list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_name:string prop ->
   name:string prop ->
-  azure_blob_fs_location:azure_blob_fs_location list ->
-  azure_blob_storage_location:azure_blob_storage_location list ->
-  http_server_location:http_server_location list ->
-  schema_column:schema_column list ->
   string ->
   t
 
@@ -129,13 +129,13 @@ val make :
   ?folder:string prop ->
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
+  ?azure_blob_fs_location:azure_blob_fs_location list ->
+  ?azure_blob_storage_location:azure_blob_storage_location list ->
+  ?http_server_location:http_server_location list ->
+  ?schema_column:schema_column list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_name:string prop ->
   name:string prop ->
-  azure_blob_fs_location:azure_blob_fs_location list ->
-  azure_blob_storage_location:azure_blob_storage_location list ->
-  http_server_location:http_server_location list ->
-  schema_column:schema_column list ->
   string ->
   t Tf_core.resource

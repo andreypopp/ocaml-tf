@@ -397,8 +397,8 @@ let block_device_mapping__ebs ?delete_on_termination ?encrypted ?iops
     volume_type;
   }
 
-let block_device_mapping ?device_name ?no_device ?virtual_name ~ebs
-    () : block_device_mapping =
+let block_device_mapping ?device_name ?no_device ?virtual_name
+    ?(ebs = []) () : block_device_mapping =
   { device_name; no_device; virtual_name; ebs }
 
 let component__parameter ~name ~value () : component__parameter =
@@ -412,8 +412,9 @@ let systems_manager_agent ~uninstall_after_build () :
   { uninstall_after_build }
 
 let aws_imagebuilder_image_recipe ?description ?id ?tags ?tags_all
-    ?user_data_base64 ?working_directory ~name ~parent_image ~version
-    ~block_device_mapping ~component ~systems_manager_agent () :
+    ?user_data_base64 ?working_directory
+    ?(systems_manager_agent = []) ~name ~parent_image ~version
+    ~block_device_mapping ~component () :
     aws_imagebuilder_image_recipe =
   {
     description;
@@ -447,8 +448,8 @@ type t = {
 }
 
 let make ?description ?id ?tags ?tags_all ?user_data_base64
-    ?working_directory ~name ~parent_image ~version
-    ~block_device_mapping ~component ~systems_manager_agent __id =
+    ?working_directory ?(systems_manager_agent = []) ~name
+    ~parent_image ~version ~block_device_mapping ~component __id =
   let __type = "aws_imagebuilder_image_recipe" in
   let __attrs =
     ({
@@ -476,19 +477,20 @@ let make ?description ?id ?tags ?tags_all ?user_data_base64
     json =
       yojson_of_aws_imagebuilder_image_recipe
         (aws_imagebuilder_image_recipe ?description ?id ?tags
-           ?tags_all ?user_data_base64 ?working_directory ~name
-           ~parent_image ~version ~block_device_mapping ~component
-           ~systems_manager_agent ());
+           ?tags_all ?user_data_base64 ?working_directory
+           ~systems_manager_agent ~name ~parent_image ~version
+           ~block_device_mapping ~component ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?tags ?tags_all
-    ?user_data_base64 ?working_directory ~name ~parent_image ~version
-    ~block_device_mapping ~component ~systems_manager_agent __id =
+    ?user_data_base64 ?working_directory
+    ?(systems_manager_agent = []) ~name ~parent_image ~version
+    ~block_device_mapping ~component __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?tags ?tags_all ?user_data_base64
-      ?working_directory ~name ~parent_image ~version
-      ~block_device_mapping ~component ~systems_manager_agent __id
+      ?working_directory ~systems_manager_agent ~name ~parent_image
+      ~version ~block_device_mapping ~component __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

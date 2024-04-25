@@ -376,10 +376,10 @@ let thumbnail_config_permissions ?access ?grantee ?grantee_type () :
   { access; grantee; grantee_type }
 
 let aws_elastictranscoder_pipeline ?aws_kms_key_arn ?id ?name
-    ?output_bucket ~input_bucket ~role ~content_config
-    ~content_config_permissions ~notifications ~thumbnail_config
-    ~thumbnail_config_permissions () : aws_elastictranscoder_pipeline
-    =
+    ?output_bucket ?(content_config = []) ?(notifications = [])
+    ?(thumbnail_config = []) ~input_bucket ~role
+    ~content_config_permissions ~thumbnail_config_permissions () :
+    aws_elastictranscoder_pipeline =
   {
     aws_kms_key_arn;
     id;
@@ -404,9 +404,10 @@ type t = {
   role : string prop;
 }
 
-let make ?aws_kms_key_arn ?id ?name ?output_bucket ~input_bucket
-    ~role ~content_config ~content_config_permissions ~notifications
-    ~thumbnail_config ~thumbnail_config_permissions __id =
+let make ?aws_kms_key_arn ?id ?name ?output_bucket
+    ?(content_config = []) ?(notifications = [])
+    ?(thumbnail_config = []) ~input_bucket ~role
+    ~content_config_permissions ~thumbnail_config_permissions __id =
   let __type = "aws_elastictranscoder_pipeline" in
   let __attrs =
     ({
@@ -426,21 +427,21 @@ let make ?aws_kms_key_arn ?id ?name ?output_bucket ~input_bucket
     json =
       yojson_of_aws_elastictranscoder_pipeline
         (aws_elastictranscoder_pipeline ?aws_kms_key_arn ?id ?name
-           ?output_bucket ~input_bucket ~role ~content_config
-           ~content_config_permissions ~notifications
-           ~thumbnail_config ~thumbnail_config_permissions ());
+           ?output_bucket ~content_config ~notifications
+           ~thumbnail_config ~input_bucket ~role
+           ~content_config_permissions ~thumbnail_config_permissions
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?aws_kms_key_arn ?id ?name ?output_bucket
-    ~input_bucket ~role ~content_config ~content_config_permissions
-    ~notifications ~thumbnail_config ~thumbnail_config_permissions
-    __id =
+    ?(content_config = []) ?(notifications = [])
+    ?(thumbnail_config = []) ~input_bucket ~role
+    ~content_config_permissions ~thumbnail_config_permissions __id =
   let (r : _ Tf_core.resource) =
-    make ?aws_kms_key_arn ?id ?name ?output_bucket ~input_bucket
-      ~role ~content_config ~content_config_permissions
-      ~notifications ~thumbnail_config ~thumbnail_config_permissions
-      __id
+    make ?aws_kms_key_arn ?id ?name ?output_bucket ~content_config
+      ~notifications ~thumbnail_config ~input_bucket ~role
+      ~content_config_permissions ~thumbnail_config_permissions __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

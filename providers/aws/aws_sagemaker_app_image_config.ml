@@ -326,7 +326,7 @@ let jupyter_lab_image_config__container_config ?container_arguments
     container_environment_variables;
   }
 
-let jupyter_lab_image_config ~container_config () :
+let jupyter_lab_image_config ?(container_config = []) () :
     jupyter_lab_image_config =
   { container_config }
 
@@ -339,14 +339,14 @@ let kernel_gateway_image_config__kernel_spec ?display_name ~name () :
     kernel_gateway_image_config__kernel_spec =
   { display_name; name }
 
-let kernel_gateway_image_config ~file_system_config ~kernel_spec () :
-    kernel_gateway_image_config =
+let kernel_gateway_image_config ?(file_system_config = [])
+    ~kernel_spec () : kernel_gateway_image_config =
   { file_system_config; kernel_spec }
 
 let aws_sagemaker_app_image_config ?id ?tags ?tags_all
-    ~app_image_config_name ~jupyter_lab_image_config
-    ~kernel_gateway_image_config () : aws_sagemaker_app_image_config
-    =
+    ?(jupyter_lab_image_config = [])
+    ?(kernel_gateway_image_config = []) ~app_image_config_name () :
+    aws_sagemaker_app_image_config =
   {
     app_image_config_name;
     id;
@@ -364,8 +364,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?tags ?tags_all ~app_image_config_name
-    ~jupyter_lab_image_config ~kernel_gateway_image_config __id =
+let make ?id ?tags ?tags_all ?(jupyter_lab_image_config = [])
+    ?(kernel_gateway_image_config = []) ~app_image_config_name __id =
   let __type = "aws_sagemaker_app_image_config" in
   let __attrs =
     ({
@@ -384,16 +384,17 @@ let make ?id ?tags ?tags_all ~app_image_config_name
     json =
       yojson_of_aws_sagemaker_app_image_config
         (aws_sagemaker_app_image_config ?id ?tags ?tags_all
-           ~app_image_config_name ~jupyter_lab_image_config
-           ~kernel_gateway_image_config ());
+           ~jupyter_lab_image_config ~kernel_gateway_image_config
+           ~app_image_config_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ~app_image_config_name
-    ~jupyter_lab_image_config ~kernel_gateway_image_config __id =
+let register ?tf_module ?id ?tags ?tags_all
+    ?(jupyter_lab_image_config = [])
+    ?(kernel_gateway_image_config = []) ~app_image_config_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~app_image_config_name
-      ~jupyter_lab_image_config ~kernel_gateway_image_config __id
+    make ?id ?tags ?tags_all ~jupyter_lab_image_config
+      ~kernel_gateway_image_config ~app_image_config_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

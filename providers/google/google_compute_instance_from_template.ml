@@ -1513,7 +1513,7 @@ let boot_disk__initialize_params ?enable_confidential_compute ?image
   }
 
 let boot_disk ?auto_delete ?device_name ?disk_encryption_key_raw
-    ?kms_key_self_link ?mode ?source ~initialize_params () :
+    ?kms_key_self_link ?mode ?source ?(initialize_params = []) () :
     boot_disk =
   {
     auto_delete;
@@ -1543,7 +1543,8 @@ let network_interface__ipv6_access_config ?external_ipv6
 let network_interface ?access_config ?alias_ip_range
     ?internal_ipv6_prefix_length ?ipv6_address ?network ?network_ip
     ?nic_type ?queue_count ?stack_type ?subnetwork
-    ?subnetwork_project ~ipv6_access_config () : network_interface =
+    ?subnetwork_project ?(ipv6_access_config = []) () :
+    network_interface =
   {
     access_config;
     alias_ip_range;
@@ -1570,7 +1571,7 @@ let reservation_affinity__specific_reservation ~key ~values () :
     reservation_affinity__specific_reservation =
   { key; values }
 
-let reservation_affinity ~type_ ~specific_reservation () :
+let reservation_affinity ?(specific_reservation = []) ~type_ () :
     reservation_affinity =
   { type_; specific_reservation }
 
@@ -1584,8 +1585,8 @@ let scheduling__node_affinities ~key ~operator ~values () :
 
 let scheduling ?automatic_restart ?instance_termination_action
     ?min_node_cpus ?on_host_maintenance ?preemptible
-    ?provisioning_model ~local_ssd_recovery_timeout ~node_affinities
-    () : scheduling =
+    ?provisioning_model ?(local_ssd_recovery_timeout = [])
+    ~node_affinities () : scheduling =
   {
     automatic_restart;
     instance_termination_action;
@@ -1609,11 +1610,12 @@ let google_compute_instance_from_template ?allow_stopping_for_update
     ?desired_status ?enable_display ?guest_accelerator ?hostname ?id
     ?labels ?machine_type ?metadata ?metadata_startup_script
     ?min_cpu_platform ?project ?resource_policies ?scratch_disk
-    ?service_account ?tags ?zone ?timeouts ~name
-    ~source_instance_template ~advanced_machine_features ~boot_disk
-    ~confidential_instance_config ~network_interface
-    ~network_performance_config ~params ~reservation_affinity
-    ~scheduling ~shielded_instance_config () :
+    ?service_account ?tags ?zone ?(advanced_machine_features = [])
+    ?(boot_disk = []) ?(confidential_instance_config = [])
+    ?(network_interface = []) ?(network_performance_config = [])
+    ?(params = []) ?(reservation_affinity = []) ?(scheduling = [])
+    ?(shielded_instance_config = []) ?timeouts ~name
+    ~source_instance_template () :
     google_compute_instance_from_template =
   {
     allow_stopping_for_update;
@@ -1691,11 +1693,12 @@ let make ?allow_stopping_for_update ?attached_disk ?can_ip_forward
     ?guest_accelerator ?hostname ?id ?labels ?machine_type ?metadata
     ?metadata_startup_script ?min_cpu_platform ?project
     ?resource_policies ?scratch_disk ?service_account ?tags ?zone
-    ?timeouts ~name ~source_instance_template
-    ~advanced_machine_features ~boot_disk
-    ~confidential_instance_config ~network_interface
-    ~network_performance_config ~params ~reservation_affinity
-    ~scheduling ~shielded_instance_config __id =
+    ?(advanced_machine_features = []) ?(boot_disk = [])
+    ?(confidential_instance_config = []) ?(network_interface = [])
+    ?(network_performance_config = []) ?(params = [])
+    ?(reservation_affinity = []) ?(scheduling = [])
+    ?(shielded_instance_config = []) ?timeouts ~name
+    ~source_instance_template __id =
   let __type = "google_compute_instance_from_template" in
   let __attrs =
     ({
@@ -1757,12 +1760,12 @@ let make ?allow_stopping_for_update ?attached_disk ?can_ip_forward
            ?enable_display ?guest_accelerator ?hostname ?id ?labels
            ?machine_type ?metadata ?metadata_startup_script
            ?min_cpu_platform ?project ?resource_policies
-           ?scratch_disk ?service_account ?tags ?zone ?timeouts ~name
-           ~source_instance_template ~advanced_machine_features
-           ~boot_disk ~confidential_instance_config
-           ~network_interface ~network_performance_config ~params
-           ~reservation_affinity ~scheduling
-           ~shielded_instance_config ());
+           ?scratch_disk ?service_account ?tags ?zone
+           ~advanced_machine_features ~boot_disk
+           ~confidential_instance_config ~network_interface
+           ~network_performance_config ~params ~reservation_affinity
+           ~scheduling ~shielded_instance_config ?timeouts ~name
+           ~source_instance_template ());
     attrs = __attrs;
   }
 
@@ -1771,22 +1774,23 @@ let register ?tf_module ?allow_stopping_for_update ?attached_disk
     ?enable_display ?guest_accelerator ?hostname ?id ?labels
     ?machine_type ?metadata ?metadata_startup_script
     ?min_cpu_platform ?project ?resource_policies ?scratch_disk
-    ?service_account ?tags ?zone ?timeouts ~name
-    ~source_instance_template ~advanced_machine_features ~boot_disk
-    ~confidential_instance_config ~network_interface
-    ~network_performance_config ~params ~reservation_affinity
-    ~scheduling ~shielded_instance_config __id =
+    ?service_account ?tags ?zone ?(advanced_machine_features = [])
+    ?(boot_disk = []) ?(confidential_instance_config = [])
+    ?(network_interface = []) ?(network_performance_config = [])
+    ?(params = []) ?(reservation_affinity = []) ?(scheduling = [])
+    ?(shielded_instance_config = []) ?timeouts ~name
+    ~source_instance_template __id =
   let (r : _ Tf_core.resource) =
     make ?allow_stopping_for_update ?attached_disk ?can_ip_forward
       ?deletion_protection ?description ?desired_status
       ?enable_display ?guest_accelerator ?hostname ?id ?labels
       ?machine_type ?metadata ?metadata_startup_script
       ?min_cpu_platform ?project ?resource_policies ?scratch_disk
-      ?service_account ?tags ?zone ?timeouts ~name
-      ~source_instance_template ~advanced_machine_features ~boot_disk
-      ~confidential_instance_config ~network_interface
+      ?service_account ?tags ?zone ~advanced_machine_features
+      ~boot_disk ~confidential_instance_config ~network_interface
       ~network_performance_config ~params ~reservation_affinity
-      ~scheduling ~shielded_instance_config __id
+      ~scheduling ~shielded_instance_config ?timeouts ~name
+      ~source_instance_template __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

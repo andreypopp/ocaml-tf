@@ -1028,7 +1028,7 @@ let async_inference_config__output_config__notification_config
   { error_topic; include_inference_response_in; success_topic }
 
 let async_inference_config__output_config ?kms_key_id
-    ?s3_failure_path ~s3_output_path ~notification_config () :
+    ?s3_failure_path ?(notification_config = []) ~s3_output_path () :
     async_inference_config__output_config =
   {
     kms_key_id;
@@ -1037,7 +1037,7 @@ let async_inference_config__output_config ?kms_key_id
     notification_config;
   }
 
-let async_inference_config ~client_config ~output_config () :
+let async_inference_config ?(client_config = []) ~output_config () :
     async_inference_config =
   { client_config; output_config }
 
@@ -1051,8 +1051,8 @@ let data_capture_config__capture_options ~capture_mode () :
   { capture_mode }
 
 let data_capture_config ?enable_capture ?kms_key_id
-    ~destination_s3_uri ~initial_sampling_percentage
-    ~capture_content_type_header ~capture_options () :
+    ?(capture_content_type_header = []) ~destination_s3_uri
+    ~initial_sampling_percentage ~capture_options () :
     data_capture_config =
   {
     destination_s3_uri;
@@ -1081,8 +1081,9 @@ let production_variants ?accelerator_type
     ?enable_ssm_access ?initial_instance_count
     ?initial_variant_weight ?instance_type
     ?model_data_download_timeout_in_seconds ?variant_name
-    ?volume_size_in_gb ~model_name ~core_dump_config ~routing_config
-    ~serverless_config () : production_variants =
+    ?volume_size_in_gb ?(core_dump_config = [])
+    ?(routing_config = []) ?(serverless_config = []) ~model_name () :
+    production_variants =
   {
     accelerator_type;
     container_startup_health_check_timeout_in_seconds;
@@ -1117,8 +1118,9 @@ let shadow_production_variants ?accelerator_type
     ?enable_ssm_access ?initial_instance_count
     ?initial_variant_weight ?instance_type
     ?model_data_download_timeout_in_seconds ?variant_name
-    ?volume_size_in_gb ~model_name ~core_dump_config ~routing_config
-    ~serverless_config () : shadow_production_variants =
+    ?volume_size_in_gb ?(core_dump_config = [])
+    ?(routing_config = []) ?(serverless_config = []) ~model_name () :
+    shadow_production_variants =
   {
     accelerator_type;
     container_startup_health_check_timeout_in_seconds;
@@ -1136,10 +1138,9 @@ let shadow_production_variants ?accelerator_type
   }
 
 let aws_sagemaker_endpoint_configuration ?id ?kms_key_arn ?name
-    ?name_prefix ?tags ?tags_all ~async_inference_config
-    ~data_capture_config ~production_variants
-    ~shadow_production_variants () :
-    aws_sagemaker_endpoint_configuration =
+    ?name_prefix ?tags ?tags_all ?(async_inference_config = [])
+    ?(data_capture_config = []) ?(shadow_production_variants = [])
+    ~production_variants () : aws_sagemaker_endpoint_configuration =
   {
     id;
     kms_key_arn;
@@ -1164,8 +1165,8 @@ type t = {
 }
 
 let make ?id ?kms_key_arn ?name ?name_prefix ?tags ?tags_all
-    ~async_inference_config ~data_capture_config ~production_variants
-    ~shadow_production_variants __id =
+    ?(async_inference_config = []) ?(data_capture_config = [])
+    ?(shadow_production_variants = []) ~production_variants __id =
   let __type = "aws_sagemaker_endpoint_configuration" in
   let __attrs =
     ({
@@ -1186,18 +1187,19 @@ let make ?id ?kms_key_arn ?name ?name_prefix ?tags ?tags_all
       yojson_of_aws_sagemaker_endpoint_configuration
         (aws_sagemaker_endpoint_configuration ?id ?kms_key_arn ?name
            ?name_prefix ?tags ?tags_all ~async_inference_config
-           ~data_capture_config ~production_variants
-           ~shadow_production_variants ());
+           ~data_capture_config ~shadow_production_variants
+           ~production_variants ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?kms_key_arn ?name ?name_prefix ?tags
-    ?tags_all ~async_inference_config ~data_capture_config
-    ~production_variants ~shadow_production_variants __id =
+    ?tags_all ?(async_inference_config = [])
+    ?(data_capture_config = []) ?(shadow_production_variants = [])
+    ~production_variants __id =
   let (r : _ Tf_core.resource) =
     make ?id ?kms_key_arn ?name ?name_prefix ?tags ?tags_all
       ~async_inference_config ~data_capture_config
-      ~production_variants ~shadow_production_variants __id
+      ~shadow_production_variants ~production_variants __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

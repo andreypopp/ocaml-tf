@@ -37,9 +37,9 @@ val aws_ivs_recording_configuration :
   ?recording_reconnect_window_seconds:float prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?thumbnail_configuration:thumbnail_configuration list ->
   ?timeouts:timeouts ->
   destination_configuration:destination_configuration list ->
-  thumbnail_configuration:thumbnail_configuration list ->
   unit ->
   aws_ivs_recording_configuration
 
@@ -65,9 +65,9 @@ val register :
   ?recording_reconnect_window_seconds:float prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?thumbnail_configuration:thumbnail_configuration list ->
   ?timeouts:timeouts ->
   destination_configuration:destination_configuration list ->
-  thumbnail_configuration:thumbnail_configuration list ->
   string ->
   t
 
@@ -77,8 +77,8 @@ val make :
   ?recording_reconnect_window_seconds:float prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?thumbnail_configuration:thumbnail_configuration list ->
   ?timeouts:timeouts ->
   destination_configuration:destination_configuration list ->
-  thumbnail_configuration:thumbnail_configuration list ->
   string ->
   t Tf_core.resource

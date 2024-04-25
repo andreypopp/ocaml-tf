@@ -406,8 +406,8 @@ let client_connection_config__ssl_config ?ssl_mode () :
     client_connection_config__ssl_config =
   { ssl_mode }
 
-let client_connection_config ?require_connectors ~ssl_config () :
-    client_connection_config =
+let client_connection_config ?require_connectors ?(ssl_config = [])
+    () : client_connection_config =
   { require_connectors; ssl_config }
 
 let machine_config ?cpu_count () : machine_config = { cpu_count }
@@ -429,10 +429,11 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_alloydb_instance ?annotations ?availability_type
-    ?database_flags ?display_name ?gce_zone ?id ?labels ?timeouts
-    ~cluster ~instance_id ~instance_type ~client_connection_config
-    ~machine_config ~query_insights_config ~read_pool_config () :
-    google_alloydb_instance =
+    ?database_flags ?display_name ?gce_zone ?id ?labels
+    ?(client_connection_config = []) ?(machine_config = [])
+    ?(query_insights_config = []) ?(read_pool_config = []) ?timeouts
+    ~cluster ~instance_id ~instance_type () : google_alloydb_instance
+    =
   {
     annotations;
     availability_type;
@@ -475,9 +476,10 @@ type t = {
 }
 
 let make ?annotations ?availability_type ?database_flags
-    ?display_name ?gce_zone ?id ?labels ?timeouts ~cluster
-    ~instance_id ~instance_type ~client_connection_config
-    ~machine_config ~query_insights_config ~read_pool_config __id =
+    ?display_name ?gce_zone ?id ?labels
+    ?(client_connection_config = []) ?(machine_config = [])
+    ?(query_insights_config = []) ?(read_pool_config = []) ?timeouts
+    ~cluster ~instance_id ~instance_type __id =
   let __type = "google_alloydb_instance" in
   let __attrs =
     ({
@@ -515,21 +517,22 @@ let make ?annotations ?availability_type ?database_flags
       yojson_of_google_alloydb_instance
         (google_alloydb_instance ?annotations ?availability_type
            ?database_flags ?display_name ?gce_zone ?id ?labels
-           ?timeouts ~cluster ~instance_id ~instance_type
            ~client_connection_config ~machine_config
-           ~query_insights_config ~read_pool_config ());
+           ~query_insights_config ~read_pool_config ?timeouts
+           ~cluster ~instance_id ~instance_type ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?availability_type
-    ?database_flags ?display_name ?gce_zone ?id ?labels ?timeouts
-    ~cluster ~instance_id ~instance_type ~client_connection_config
-    ~machine_config ~query_insights_config ~read_pool_config __id =
+    ?database_flags ?display_name ?gce_zone ?id ?labels
+    ?(client_connection_config = []) ?(machine_config = [])
+    ?(query_insights_config = []) ?(read_pool_config = []) ?timeouts
+    ~cluster ~instance_id ~instance_type __id =
   let (r : _ Tf_core.resource) =
     make ?annotations ?availability_type ?database_flags
-      ?display_name ?gce_zone ?id ?labels ?timeouts ~cluster
-      ~instance_id ~instance_type ~client_connection_config
-      ~machine_config ~query_insights_config ~read_pool_config __id
+      ?display_name ?gce_zone ?id ?labels ~client_connection_config
+      ~machine_config ~query_insights_config ~read_pool_config
+      ?timeouts ~cluster ~instance_id ~instance_type __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

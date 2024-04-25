@@ -912,11 +912,14 @@ let schema_change_policy ?delete_behavior ?update_behavior () :
 
 let aws_glue_crawler ?classifiers ?configuration ?description ?id
     ?schedule ?security_configuration ?table_prefix ?tags ?tags_all
-    ~database_name ~name ~role ~catalog_target ~delta_target
-    ~dynamodb_target ~hudi_target ~iceberg_target ~jdbc_target
-    ~lake_formation_configuration ~lineage_configuration
-    ~mongodb_target ~recrawl_policy ~s3_target ~schema_change_policy
-    () : aws_glue_crawler =
+    ?(catalog_target = []) ?(delta_target = [])
+    ?(dynamodb_target = []) ?(hudi_target = [])
+    ?(iceberg_target = []) ?(jdbc_target = [])
+    ?(lake_formation_configuration = [])
+    ?(lineage_configuration = []) ?(mongodb_target = [])
+    ?(recrawl_policy = []) ?(s3_target = [])
+    ?(schema_change_policy = []) ~database_name ~name ~role () :
+    aws_glue_crawler =
   {
     classifiers;
     configuration;
@@ -962,11 +965,13 @@ type t = {
 
 let make ?classifiers ?configuration ?description ?id ?schedule
     ?security_configuration ?table_prefix ?tags ?tags_all
-    ~database_name ~name ~role ~catalog_target ~delta_target
-    ~dynamodb_target ~hudi_target ~iceberg_target ~jdbc_target
-    ~lake_formation_configuration ~lineage_configuration
-    ~mongodb_target ~recrawl_policy ~s3_target ~schema_change_policy
-    __id =
+    ?(catalog_target = []) ?(delta_target = [])
+    ?(dynamodb_target = []) ?(hudi_target = [])
+    ?(iceberg_target = []) ?(jdbc_target = [])
+    ?(lake_formation_configuration = [])
+    ?(lineage_configuration = []) ?(mongodb_target = [])
+    ?(recrawl_policy = []) ?(s3_target = [])
+    ?(schema_change_policy = []) ~database_name ~name ~role __id =
   let __type = "aws_glue_crawler" in
   let __attrs =
     ({
@@ -994,29 +999,31 @@ let make ?classifiers ?configuration ?description ?id ?schedule
       yojson_of_aws_glue_crawler
         (aws_glue_crawler ?classifiers ?configuration ?description
            ?id ?schedule ?security_configuration ?table_prefix ?tags
-           ?tags_all ~database_name ~name ~role ~catalog_target
-           ~delta_target ~dynamodb_target ~hudi_target
-           ~iceberg_target ~jdbc_target ~lake_formation_configuration
-           ~lineage_configuration ~mongodb_target ~recrawl_policy
-           ~s3_target ~schema_change_policy ());
+           ?tags_all ~catalog_target ~delta_target ~dynamodb_target
+           ~hudi_target ~iceberg_target ~jdbc_target
+           ~lake_formation_configuration ~lineage_configuration
+           ~mongodb_target ~recrawl_policy ~s3_target
+           ~schema_change_policy ~database_name ~name ~role ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?classifiers ?configuration ?description ?id
     ?schedule ?security_configuration ?table_prefix ?tags ?tags_all
-    ~database_name ~name ~role ~catalog_target ~delta_target
-    ~dynamodb_target ~hudi_target ~iceberg_target ~jdbc_target
-    ~lake_formation_configuration ~lineage_configuration
-    ~mongodb_target ~recrawl_policy ~s3_target ~schema_change_policy
-    __id =
+    ?(catalog_target = []) ?(delta_target = [])
+    ?(dynamodb_target = []) ?(hudi_target = [])
+    ?(iceberg_target = []) ?(jdbc_target = [])
+    ?(lake_formation_configuration = [])
+    ?(lineage_configuration = []) ?(mongodb_target = [])
+    ?(recrawl_policy = []) ?(s3_target = [])
+    ?(schema_change_policy = []) ~database_name ~name ~role __id =
   let (r : _ Tf_core.resource) =
     make ?classifiers ?configuration ?description ?id ?schedule
       ?security_configuration ?table_prefix ?tags ?tags_all
-      ~database_name ~name ~role ~catalog_target ~delta_target
-      ~dynamodb_target ~hudi_target ~iceberg_target ~jdbc_target
-      ~lake_formation_configuration ~lineage_configuration
-      ~mongodb_target ~recrawl_policy ~s3_target
-      ~schema_change_policy __id
+      ~catalog_target ~delta_target ~dynamodb_target ~hudi_target
+      ~iceberg_target ~jdbc_target ~lake_formation_configuration
+      ~lineage_configuration ~mongodb_target ~recrawl_policy
+      ~s3_target ~schema_change_policy ~database_name ~name ~role
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

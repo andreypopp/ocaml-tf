@@ -46,12 +46,12 @@ val azurerm_image :
   ?source_virtual_machine_id:string prop ->
   ?tags:(string * string prop) list ->
   ?zone_resilient:bool prop ->
+  ?data_disk:data_disk list ->
+  ?os_disk:os_disk list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  data_disk:data_disk list ->
-  os_disk:os_disk list ->
   unit ->
   azurerm_image
 
@@ -77,12 +77,12 @@ val register :
   ?source_virtual_machine_id:string prop ->
   ?tags:(string * string prop) list ->
   ?zone_resilient:bool prop ->
+  ?data_disk:data_disk list ->
+  ?os_disk:os_disk list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  data_disk:data_disk list ->
-  os_disk:os_disk list ->
   string ->
   t
 
@@ -92,11 +92,11 @@ val make :
   ?source_virtual_machine_id:string prop ->
   ?tags:(string * string prop) list ->
   ?zone_resilient:bool prop ->
+  ?data_disk:data_disk list ->
+  ?os_disk:os_disk list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  data_disk:data_disk list ->
-  os_disk:os_disk list ->
   string ->
   t Tf_core.resource

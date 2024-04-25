@@ -352,9 +352,10 @@ let azurerm_mssql_server ?administrator_login
     ?administrator_login_password ?connection_policy ?id
     ?minimum_tls_version ?outbound_network_restriction_enabled
     ?primary_user_assigned_identity_id ?public_network_access_enabled
-    ?tags ?transparent_data_encryption_key_vault_key_id ?timeouts
-    ~location ~name ~resource_group_name ~version
-    ~azuread_administrator ~identity () : azurerm_mssql_server =
+    ?tags ?transparent_data_encryption_key_vault_key_id
+    ?(azuread_administrator = []) ?(identity = []) ?timeouts
+    ~location ~name ~resource_group_name ~version () :
+    azurerm_mssql_server =
   {
     administrator_login;
     administrator_login_password;
@@ -398,9 +399,9 @@ let make ?administrator_login ?administrator_login_password
     ?connection_policy ?id ?minimum_tls_version
     ?outbound_network_restriction_enabled
     ?primary_user_assigned_identity_id ?public_network_access_enabled
-    ?tags ?transparent_data_encryption_key_vault_key_id ?timeouts
-    ~location ~name ~resource_group_name ~version
-    ~azuread_administrator ~identity __id =
+    ?tags ?transparent_data_encryption_key_vault_key_id
+    ?(azuread_administrator = []) ?(identity = []) ?timeouts
+    ~location ~name ~resource_group_name ~version __id =
   let __type = "azurerm_mssql_server" in
   let __attrs =
     ({
@@ -447,9 +448,9 @@ let make ?administrator_login ?administrator_login_password
            ?minimum_tls_version ?outbound_network_restriction_enabled
            ?primary_user_assigned_identity_id
            ?public_network_access_enabled ?tags
-           ?transparent_data_encryption_key_vault_key_id ?timeouts
-           ~location ~name ~resource_group_name ~version
-           ~azuread_administrator ~identity ());
+           ?transparent_data_encryption_key_vault_key_id
+           ~azuread_administrator ~identity ?timeouts ~location ~name
+           ~resource_group_name ~version ());
     attrs = __attrs;
   }
 
@@ -457,18 +458,18 @@ let register ?tf_module ?administrator_login
     ?administrator_login_password ?connection_policy ?id
     ?minimum_tls_version ?outbound_network_restriction_enabled
     ?primary_user_assigned_identity_id ?public_network_access_enabled
-    ?tags ?transparent_data_encryption_key_vault_key_id ?timeouts
-    ~location ~name ~resource_group_name ~version
-    ~azuread_administrator ~identity __id =
+    ?tags ?transparent_data_encryption_key_vault_key_id
+    ?(azuread_administrator = []) ?(identity = []) ?timeouts
+    ~location ~name ~resource_group_name ~version __id =
   let (r : _ Tf_core.resource) =
     make ?administrator_login ?administrator_login_password
       ?connection_policy ?id ?minimum_tls_version
       ?outbound_network_restriction_enabled
       ?primary_user_assigned_identity_id
       ?public_network_access_enabled ?tags
-      ?transparent_data_encryption_key_vault_key_id ?timeouts
-      ~location ~name ~resource_group_name ~version
-      ~azuread_administrator ~identity __id
+      ?transparent_data_encryption_key_vault_key_id
+      ~azuread_administrator ~identity ?timeouts ~location ~name
+      ~resource_group_name ~version __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

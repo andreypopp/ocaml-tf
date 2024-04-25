@@ -208,7 +208,7 @@ let binding__condition ?description ~expression ~title () :
     binding__condition =
   { description; expression; title }
 
-let binding ~members ~role ~condition () : binding =
+let binding ?(condition = []) ~members ~role () : binding =
   { members; role; condition }
 
 let google_iam_policy ?id ~audit_config ~binding () :

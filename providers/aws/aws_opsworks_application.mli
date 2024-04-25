@@ -49,12 +49,12 @@ val aws_opsworks_application :
   ?id:string prop ->
   ?rails_env:string prop ->
   ?short_name:string prop ->
+  ?app_source:app_source list ->
+  ?ssl_configuration:ssl_configuration list ->
   name:string prop ->
   stack_id:string prop ->
   type_:string prop ->
-  app_source:app_source list ->
   environment:environment list ->
-  ssl_configuration:ssl_configuration list ->
   unit ->
   aws_opsworks_application
 
@@ -95,12 +95,12 @@ val register :
   ?id:string prop ->
   ?rails_env:string prop ->
   ?short_name:string prop ->
+  ?app_source:app_source list ->
+  ?ssl_configuration:ssl_configuration list ->
   name:string prop ->
   stack_id:string prop ->
   type_:string prop ->
-  app_source:app_source list ->
   environment:environment list ->
-  ssl_configuration:ssl_configuration list ->
   string ->
   t
 
@@ -117,11 +117,11 @@ val make :
   ?id:string prop ->
   ?rails_env:string prop ->
   ?short_name:string prop ->
+  ?app_source:app_source list ->
+  ?ssl_configuration:ssl_configuration list ->
   name:string prop ->
   stack_id:string prop ->
   type_:string prop ->
-  app_source:app_source list ->
   environment:environment list ->
-  ssl_configuration:ssl_configuration list ->
   string ->
   t Tf_core.resource

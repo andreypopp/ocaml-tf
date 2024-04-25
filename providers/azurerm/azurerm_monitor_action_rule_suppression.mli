@@ -63,13 +63,13 @@ val condition__target_resource_type :
 type condition
 
 val condition :
-  alert_context:condition__alert_context list ->
-  alert_rule_id:condition__alert_rule_id list ->
-  description:condition__description list ->
-  monitor:condition__monitor list ->
-  monitor_service:condition__monitor_service list ->
-  severity:condition__severity list ->
-  target_resource_type:condition__target_resource_type list ->
+  ?alert_context:condition__alert_context list ->
+  ?alert_rule_id:condition__alert_rule_id list ->
+  ?description:condition__description list ->
+  ?monitor:condition__monitor list ->
+  ?monitor_service:condition__monitor_service list ->
+  ?severity:condition__severity list ->
+  ?target_resource_type:condition__target_resource_type list ->
   unit ->
   condition
 
@@ -91,8 +91,8 @@ val suppression__schedule :
 type suppression
 
 val suppression :
+  ?schedule:suppression__schedule list ->
   recurrence_type:string prop ->
-  schedule:suppression__schedule list ->
   unit ->
   suppression
 
@@ -113,11 +113,11 @@ val azurerm_monitor_action_rule_suppression :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?condition:condition list ->
+  ?scope:scope list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
-  condition:condition list ->
-  scope:scope list ->
   suppression:suppression list ->
   unit ->
   azurerm_monitor_action_rule_suppression
@@ -142,11 +142,11 @@ val register :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?condition:condition list ->
+  ?scope:scope list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
-  condition:condition list ->
-  scope:scope list ->
   suppression:suppression list ->
   string ->
   t
@@ -156,11 +156,11 @@ val make :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?condition:condition list ->
+  ?scope:scope list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
-  condition:condition list ->
-  scope:scope list ->
   suppression:suppression list ->
   string ->
   t Tf_core.resource

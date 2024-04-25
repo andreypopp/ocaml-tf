@@ -2141,17 +2141,19 @@ let delivery_rule__url_rewrite_action ?preserve_unmatched_path
     delivery_rule__url_rewrite_action =
   { destination; preserve_unmatched_path; source_pattern }
 
-let delivery_rule ~name ~order ~cache_expiration_action
-    ~cache_key_query_string_action ~cookies_condition
-    ~device_condition ~http_version_condition
-    ~modify_request_header_action ~modify_response_header_action
-    ~post_arg_condition ~query_string_condition
-    ~remote_address_condition ~request_body_condition
-    ~request_header_condition ~request_method_condition
-    ~request_scheme_condition ~request_uri_condition
-    ~url_file_extension_condition ~url_file_name_condition
-    ~url_path_condition ~url_redirect_action ~url_rewrite_action () :
-    delivery_rule =
+let delivery_rule ?(cache_expiration_action = [])
+    ?(cache_key_query_string_action = []) ?(cookies_condition = [])
+    ?(device_condition = []) ?(http_version_condition = [])
+    ?(modify_request_header_action = [])
+    ?(modify_response_header_action = []) ?(post_arg_condition = [])
+    ?(query_string_condition = []) ?(remote_address_condition = [])
+    ?(request_body_condition = []) ?(request_header_condition = [])
+    ?(request_method_condition = []) ?(request_scheme_condition = [])
+    ?(request_uri_condition = [])
+    ?(url_file_extension_condition = [])
+    ?(url_file_name_condition = []) ?(url_path_condition = [])
+    ?(url_redirect_action = []) ?(url_rewrite_action = []) ~name
+    ~order () : delivery_rule =
   {
     name;
     order;
@@ -2209,10 +2211,11 @@ let global_delivery_rule__url_rewrite_action ?preserve_unmatched_path
     global_delivery_rule__url_rewrite_action =
   { destination; preserve_unmatched_path; source_pattern }
 
-let global_delivery_rule ~cache_expiration_action
-    ~cache_key_query_string_action ~modify_request_header_action
-    ~modify_response_header_action ~url_redirect_action
-    ~url_rewrite_action () : global_delivery_rule =
+let global_delivery_rule ?(cache_expiration_action = [])
+    ?(cache_key_query_string_action = [])
+    ?(modify_request_header_action = [])
+    ?(modify_response_header_action = []) ?(url_redirect_action = [])
+    ?(url_rewrite_action = []) () : global_delivery_rule =
   {
     cache_expiration_action;
     cache_key_query_string_action;
@@ -2231,9 +2234,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_cdn_endpoint ?content_types_to_compress ?id
     ?is_compression_enabled ?is_http_allowed ?is_https_allowed
     ?optimization_type ?origin_host_header ?origin_path ?probe_path
-    ?querystring_caching_behaviour ?tags ?timeouts ~location ~name
-    ~profile_name ~resource_group_name ~delivery_rule ~geo_filter
-    ~global_delivery_rule ~origin () : azurerm_cdn_endpoint =
+    ?querystring_caching_behaviour ?tags ?(delivery_rule = [])
+    ?(geo_filter = []) ?(global_delivery_rule = []) ?timeouts
+    ~location ~name ~profile_name ~resource_group_name ~origin () :
+    azurerm_cdn_endpoint =
   {
     content_types_to_compress;
     id;
@@ -2279,9 +2283,9 @@ type t = {
 let make ?content_types_to_compress ?id ?is_compression_enabled
     ?is_http_allowed ?is_https_allowed ?optimization_type
     ?origin_host_header ?origin_path ?probe_path
-    ?querystring_caching_behaviour ?tags ?timeouts ~location ~name
-    ~profile_name ~resource_group_name ~delivery_rule ~geo_filter
-    ~global_delivery_rule ~origin __id =
+    ?querystring_caching_behaviour ?tags ?(delivery_rule = [])
+    ?(geo_filter = []) ?(global_delivery_rule = []) ?timeouts
+    ~location ~name ~profile_name ~resource_group_name ~origin __id =
   let __type = "azurerm_cdn_endpoint" in
   let __attrs =
     ({
@@ -2319,9 +2323,9 @@ let make ?content_types_to_compress ?id ?is_compression_enabled
         (azurerm_cdn_endpoint ?content_types_to_compress ?id
            ?is_compression_enabled ?is_http_allowed ?is_https_allowed
            ?optimization_type ?origin_host_header ?origin_path
-           ?probe_path ?querystring_caching_behaviour ?tags ?timeouts
-           ~location ~name ~profile_name ~resource_group_name
-           ~delivery_rule ~geo_filter ~global_delivery_rule ~origin
+           ?probe_path ?querystring_caching_behaviour ?tags
+           ~delivery_rule ~geo_filter ~global_delivery_rule ?timeouts
+           ~location ~name ~profile_name ~resource_group_name ~origin
            ());
     attrs = __attrs;
   }
@@ -2329,16 +2333,16 @@ let make ?content_types_to_compress ?id ?is_compression_enabled
 let register ?tf_module ?content_types_to_compress ?id
     ?is_compression_enabled ?is_http_allowed ?is_https_allowed
     ?optimization_type ?origin_host_header ?origin_path ?probe_path
-    ?querystring_caching_behaviour ?tags ?timeouts ~location ~name
-    ~profile_name ~resource_group_name ~delivery_rule ~geo_filter
-    ~global_delivery_rule ~origin __id =
+    ?querystring_caching_behaviour ?tags ?(delivery_rule = [])
+    ?(geo_filter = []) ?(global_delivery_rule = []) ?timeouts
+    ~location ~name ~profile_name ~resource_group_name ~origin __id =
   let (r : _ Tf_core.resource) =
     make ?content_types_to_compress ?id ?is_compression_enabled
       ?is_http_allowed ?is_https_allowed ?optimization_type
       ?origin_host_header ?origin_path ?probe_path
-      ?querystring_caching_behaviour ?tags ?timeouts ~location ~name
-      ~profile_name ~resource_group_name ~delivery_rule ~geo_filter
-      ~global_delivery_rule ~origin __id
+      ?querystring_caching_behaviour ?tags ~delivery_rule ~geo_filter
+      ~global_delivery_rule ?timeouts ~location ~name ~profile_name
+      ~resource_group_name ~origin __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

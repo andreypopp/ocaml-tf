@@ -29,7 +29,7 @@ type webhook__client_config
 val webhook__client_config :
   ?ca_bundle:string prop ->
   ?url:string prop ->
-  service:webhook__client_config__service list ->
+  ?service:webhook__client_config__service list ->
   unit ->
   webhook__client_config
 
@@ -46,7 +46,7 @@ type webhook__namespace_selector
 
 val webhook__namespace_selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:
+  ?match_expressions:
     webhook__namespace_selector__match_expressions list ->
   unit ->
   webhook__namespace_selector
@@ -64,7 +64,7 @@ type webhook__object_selector
 
 val webhook__object_selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:webhook__object_selector__match_expressions list ->
+  ?match_expressions:webhook__object_selector__match_expressions list ->
   unit ->
   webhook__object_selector
 
@@ -88,11 +88,11 @@ val webhook :
   ?reinvocation_policy:string prop ->
   ?side_effects:string prop ->
   ?timeout_seconds:float prop ->
+  ?namespace_selector:webhook__namespace_selector list ->
+  ?object_selector:webhook__object_selector list ->
+  ?rule:webhook__rule list ->
   name:string prop ->
   client_config:webhook__client_config list ->
-  namespace_selector:webhook__namespace_selector list ->
-  object_selector:webhook__object_selector list ->
-  rule:webhook__rule list ->
   unit ->
   webhook
 

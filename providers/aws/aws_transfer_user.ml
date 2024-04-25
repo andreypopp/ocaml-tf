@@ -245,8 +245,9 @@ let posix_profile ?secondary_gids ~gid ~uid () : posix_profile =
 let timeouts ?delete () : timeouts = { delete }
 
 let aws_transfer_user ?home_directory ?home_directory_type ?id
-    ?policy ?tags ?tags_all ?timeouts ~role ~server_id ~user_name
-    ~home_directory_mappings ~posix_profile () : aws_transfer_user =
+    ?policy ?tags ?tags_all ?(home_directory_mappings = [])
+    ?(posix_profile = []) ?timeouts ~role ~server_id ~user_name () :
+    aws_transfer_user =
   {
     home_directory;
     home_directory_type;
@@ -276,8 +277,8 @@ type t = {
 }
 
 let make ?home_directory ?home_directory_type ?id ?policy ?tags
-    ?tags_all ?timeouts ~role ~server_id ~user_name
-    ~home_directory_mappings ~posix_profile __id =
+    ?tags_all ?(home_directory_mappings = []) ?(posix_profile = [])
+    ?timeouts ~role ~server_id ~user_name __id =
   let __type = "aws_transfer_user" in
   let __attrs =
     ({
@@ -301,18 +302,19 @@ let make ?home_directory ?home_directory_type ?id ?policy ?tags
     json =
       yojson_of_aws_transfer_user
         (aws_transfer_user ?home_directory ?home_directory_type ?id
-           ?policy ?tags ?tags_all ?timeouts ~role ~server_id
-           ~user_name ~home_directory_mappings ~posix_profile ());
+           ?policy ?tags ?tags_all ~home_directory_mappings
+           ~posix_profile ?timeouts ~role ~server_id ~user_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?home_directory ?home_directory_type ?id
-    ?policy ?tags ?tags_all ?timeouts ~role ~server_id ~user_name
-    ~home_directory_mappings ~posix_profile __id =
+    ?policy ?tags ?tags_all ?(home_directory_mappings = [])
+    ?(posix_profile = []) ?timeouts ~role ~server_id ~user_name __id
+    =
   let (r : _ Tf_core.resource) =
     make ?home_directory ?home_directory_type ?id ?policy ?tags
-      ?tags_all ?timeouts ~role ~server_id ~user_name
-      ~home_directory_mappings ~posix_profile __id
+      ?tags_all ~home_directory_mappings ~posix_profile ?timeouts
+      ~role ~server_id ~user_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

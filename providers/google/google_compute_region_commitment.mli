@@ -37,11 +37,11 @@ val google_compute_region_commitment :
   ?project:string prop ->
   ?region:string prop ->
   ?type_:string prop ->
+  ?license_resource:license_resource list ->
+  ?resources:resources list ->
   ?timeouts:timeouts ->
   name:string prop ->
   plan:string prop ->
-  license_resource:license_resource list ->
-  resources:resources list ->
   unit ->
   google_compute_region_commitment
 
@@ -78,11 +78,11 @@ val register :
   ?project:string prop ->
   ?region:string prop ->
   ?type_:string prop ->
+  ?license_resource:license_resource list ->
+  ?resources:resources list ->
   ?timeouts:timeouts ->
   name:string prop ->
   plan:string prop ->
-  license_resource:license_resource list ->
-  resources:resources list ->
   string ->
   t
 
@@ -94,10 +94,10 @@ val make :
   ?project:string prop ->
   ?region:string prop ->
   ?type_:string prop ->
+  ?license_resource:license_resource list ->
+  ?resources:resources list ->
   ?timeouts:timeouts ->
   name:string prop ->
   plan:string prop ->
-  license_resource:license_resource list ->
-  resources:resources list ->
   string ->
   t Tf_core.resource

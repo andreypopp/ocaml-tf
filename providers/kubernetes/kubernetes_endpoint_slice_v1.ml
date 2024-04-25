@@ -395,8 +395,8 @@ let endpoint__target_ref ?field_path ?namespace ?resource_version
     ?uid ~name () : endpoint__target_ref =
   { field_path; name; namespace; resource_version; uid }
 
-let endpoint ?hostname ?node_name ?zone ~addresses ~condition
-    ~target_ref () : endpoint =
+let endpoint ?hostname ?node_name ?zone ?(condition = [])
+    ?(target_ref = []) ~addresses () : endpoint =
   { addresses; hostname; node_name; zone; condition; target_ref }
 
 let metadata ?annotations ?generate_name ?labels ?name ?namespace ()

@@ -383,7 +383,7 @@ let statement__operation__audit__findings_destination__s3 ~bucket ()
   { bucket }
 
 let statement__operation__audit__findings_destination
-    ~cloudwatch_logs ~firehose ~s3 () :
+    ?(cloudwatch_logs = []) ?(firehose = []) ?(s3 = []) () :
     statement__operation__audit__findings_destination =
   { cloudwatch_logs; firehose; s3 }
 
@@ -397,8 +397,8 @@ let statement__operation__deidentify ~mask_config () :
     statement__operation__deidentify =
   { mask_config }
 
-let statement__operation ~audit ~deidentify () : statement__operation
-    =
+let statement__operation ?(audit = []) ?(deidentify = []) () :
+    statement__operation =
   { audit; deidentify }
 
 let statement ?sid ~data_identifiers ~operation () : statement =

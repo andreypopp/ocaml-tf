@@ -31,10 +31,10 @@ val azurerm_spring_cloud_dev_tool_portal :
   ?application_live_view_enabled:bool prop ->
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
+  ?sso:sso list ->
   ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_service_id:string prop ->
-  sso:sso list ->
   unit ->
   azurerm_spring_cloud_dev_tool_portal
 
@@ -58,10 +58,10 @@ val register :
   ?application_live_view_enabled:bool prop ->
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
+  ?sso:sso list ->
   ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_service_id:string prop ->
-  sso:sso list ->
   string ->
   t
 
@@ -70,9 +70,9 @@ val make :
   ?application_live_view_enabled:bool prop ->
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
+  ?sso:sso list ->
   ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_service_id:string prop ->
-  sso:sso list ->
   string ->
   t Tf_core.resource

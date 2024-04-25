@@ -98,8 +98,8 @@ val dns_settings__custom_dns__ds_records :
 type dns_settings__custom_dns
 
 val dns_settings__custom_dns :
+  ?ds_records:dns_settings__custom_dns__ds_records list ->
   name_servers:string prop list ->
-  ds_records:dns_settings__custom_dns__ds_records list ->
   unit ->
   dns_settings__custom_dns
 
@@ -115,8 +115,8 @@ val dns_settings__glue_records :
 type dns_settings
 
 val dns_settings :
-  custom_dns:dns_settings__custom_dns list ->
-  glue_records:dns_settings__glue_records list ->
+  ?custom_dns:dns_settings__custom_dns list ->
+  ?glue_records:dns_settings__glue_records list ->
   unit ->
   dns_settings
 
@@ -153,12 +153,12 @@ val google_clouddomains_registration :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?dns_settings:dns_settings list ->
+  ?management_settings:management_settings list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
   location:string prop ->
   contact_settings:contact_settings list ->
-  dns_settings:dns_settings list ->
-  management_settings:management_settings list ->
   yearly_price:yearly_price list ->
   unit ->
   google_clouddomains_registration
@@ -194,12 +194,12 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?dns_settings:dns_settings list ->
+  ?management_settings:management_settings list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
   location:string prop ->
   contact_settings:contact_settings list ->
-  dns_settings:dns_settings list ->
-  management_settings:management_settings list ->
   yearly_price:yearly_price list ->
   string ->
   t
@@ -210,12 +210,12 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?dns_settings:dns_settings list ->
+  ?management_settings:management_settings list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
   location:string prop ->
   contact_settings:contact_settings list ->
-  dns_settings:dns_settings list ->
-  management_settings:management_settings list ->
   yearly_price:yearly_price list ->
   string ->
   t Tf_core.resource

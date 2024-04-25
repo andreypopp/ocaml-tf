@@ -976,8 +976,8 @@ let fulfillment_activity__code_hook ~message_version ~uri () :
     fulfillment_activity__code_hook =
   { message_version; uri }
 
-let fulfillment_activity ~type_ ~code_hook () : fulfillment_activity
-    =
+let fulfillment_activity ?(code_hook = []) ~type_ () :
+    fulfillment_activity =
   { type_; code_hook }
 
 let rejection_statement__message ?group_number ~content ~content_type
@@ -997,8 +997,8 @@ let slot__value_elicitation_prompt ?response_card ~max_attempts
   { max_attempts; response_card; message }
 
 let slot ?description ?priority ?response_card ?sample_utterances
-    ?slot_type_version ~name ~slot_constraint ~slot_type
-    ~value_elicitation_prompt () : slot =
+    ?slot_type_version ?(value_elicitation_prompt = []) ~name
+    ~slot_constraint ~slot_type () : slot =
   {
     description;
     name;
@@ -1015,9 +1015,10 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_lex_intent ?create_version ?description ?id
-    ?parent_intent_signature ?sample_utterances ?timeouts ~name
-    ~conclusion_statement ~confirmation_prompt ~dialog_code_hook
-    ~follow_up_prompt ~fulfillment_activity ~rejection_statement
+    ?parent_intent_signature ?sample_utterances
+    ?(conclusion_statement = []) ?(confirmation_prompt = [])
+    ?(dialog_code_hook = []) ?(follow_up_prompt = [])
+    ?(rejection_statement = []) ?timeouts ~name ~fulfillment_activity
     ~slot () : aws_lex_intent =
   {
     create_version;
@@ -1051,9 +1052,10 @@ type t = {
 }
 
 let make ?create_version ?description ?id ?parent_intent_signature
-    ?sample_utterances ?timeouts ~name ~conclusion_statement
-    ~confirmation_prompt ~dialog_code_hook ~follow_up_prompt
-    ~fulfillment_activity ~rejection_statement ~slot __id =
+    ?sample_utterances ?(conclusion_statement = [])
+    ?(confirmation_prompt = []) ?(dialog_code_hook = [])
+    ?(follow_up_prompt = []) ?(rejection_statement = []) ?timeouts
+    ~name ~fulfillment_activity ~slot __id =
   let __type = "aws_lex_intent" in
   let __attrs =
     ({
@@ -1080,23 +1082,24 @@ let make ?create_version ?description ?id ?parent_intent_signature
     json =
       yojson_of_aws_lex_intent
         (aws_lex_intent ?create_version ?description ?id
-           ?parent_intent_signature ?sample_utterances ?timeouts
-           ~name ~conclusion_statement ~confirmation_prompt
-           ~dialog_code_hook ~follow_up_prompt ~fulfillment_activity
-           ~rejection_statement ~slot ());
+           ?parent_intent_signature ?sample_utterances
+           ~conclusion_statement ~confirmation_prompt
+           ~dialog_code_hook ~follow_up_prompt ~rejection_statement
+           ?timeouts ~name ~fulfillment_activity ~slot ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?create_version ?description ?id
-    ?parent_intent_signature ?sample_utterances ?timeouts ~name
-    ~conclusion_statement ~confirmation_prompt ~dialog_code_hook
-    ~follow_up_prompt ~fulfillment_activity ~rejection_statement
+    ?parent_intent_signature ?sample_utterances
+    ?(conclusion_statement = []) ?(confirmation_prompt = [])
+    ?(dialog_code_hook = []) ?(follow_up_prompt = [])
+    ?(rejection_statement = []) ?timeouts ~name ~fulfillment_activity
     ~slot __id =
   let (r : _ Tf_core.resource) =
     make ?create_version ?description ?id ?parent_intent_signature
-      ?sample_utterances ?timeouts ~name ~conclusion_statement
-      ~confirmation_prompt ~dialog_code_hook ~follow_up_prompt
-      ~fulfillment_activity ~rejection_statement ~slot __id
+      ?sample_utterances ~conclusion_statement ~confirmation_prompt
+      ~dialog_code_hook ~follow_up_prompt ~rejection_statement
+      ?timeouts ~name ~fulfillment_activity ~slot __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

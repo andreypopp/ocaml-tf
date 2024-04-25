@@ -331,9 +331,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let user ?phone_number ~email ~name () : user =
   { email; name; phone_number }
 
-let azurerm_datadog_monitor ?id ?monitoring_enabled ?tags ?timeouts
-    ~location ~name ~resource_group_name ~sku_name
-    ~datadog_organization ~identity ~user () :
+let azurerm_datadog_monitor ?id ?monitoring_enabled ?tags
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    ~sku_name ~datadog_organization ~user () :
     azurerm_datadog_monitor =
   {
     id;
@@ -360,9 +360,9 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?id ?monitoring_enabled ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku_name ~datadog_organization ~identity
-    ~user __id =
+let make ?id ?monitoring_enabled ?tags ?(identity = []) ?timeouts
+    ~location ~name ~resource_group_name ~sku_name
+    ~datadog_organization ~user __id =
   let __type = "azurerm_datadog_monitor" in
   let __attrs =
     ({
@@ -386,17 +386,17 @@ let make ?id ?monitoring_enabled ?tags ?timeouts ~location ~name
     json =
       yojson_of_azurerm_datadog_monitor
         (azurerm_datadog_monitor ?id ?monitoring_enabled ?tags
-           ?timeouts ~location ~name ~resource_group_name ~sku_name
-           ~datadog_organization ~identity ~user ());
+           ~identity ?timeouts ~location ~name ~resource_group_name
+           ~sku_name ~datadog_organization ~user ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?monitoring_enabled ?tags ?timeouts
-    ~location ~name ~resource_group_name ~sku_name
-    ~datadog_organization ~identity ~user __id =
+let register ?tf_module ?id ?monitoring_enabled ?tags
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    ~sku_name ~datadog_organization ~user __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?monitoring_enabled ?tags ?timeouts ~location ~name
-      ~resource_group_name ~sku_name ~datadog_organization ~identity
+    make ?id ?monitoring_enabled ?tags ~identity ?timeouts ~location
+      ~name ~resource_group_name ~sku_name ~datadog_organization
       ~user __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

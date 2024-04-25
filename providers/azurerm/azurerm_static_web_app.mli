@@ -40,12 +40,12 @@ val azurerm_static_web_app :
   ?sku_size:string prop ->
   ?sku_tier:string prop ->
   ?tags:(string * string prop) list ->
+  ?basic_auth:basic_auth list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  basic_auth:basic_auth list ->
-  identity:identity list ->
   unit ->
   azurerm_static_web_app
 
@@ -77,12 +77,12 @@ val register :
   ?sku_size:string prop ->
   ?sku_tier:string prop ->
   ?tags:(string * string prop) list ->
+  ?basic_auth:basic_auth list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  basic_auth:basic_auth list ->
-  identity:identity list ->
   string ->
   t
 
@@ -94,11 +94,11 @@ val make :
   ?sku_size:string prop ->
   ?sku_tier:string prop ->
   ?tags:(string * string prop) list ->
+  ?basic_auth:basic_auth list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  basic_auth:basic_auth list ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

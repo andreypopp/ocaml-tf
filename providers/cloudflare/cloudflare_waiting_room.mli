@@ -32,13 +32,13 @@ val cloudflare_waiting_room :
   ?queueing_status_code:float prop ->
   ?session_duration:float prop ->
   ?suspended:bool prop ->
+  ?additional_routes:additional_routes list ->
   ?timeouts:timeouts ->
   host:string prop ->
   name:string prop ->
   new_users_per_minute:float prop ->
   total_active_users:float prop ->
   zone_id:string prop ->
-  additional_routes:additional_routes list ->
   unit ->
   cloudflare_waiting_room
 
@@ -83,13 +83,13 @@ val register :
   ?queueing_status_code:float prop ->
   ?session_duration:float prop ->
   ?suspended:bool prop ->
+  ?additional_routes:additional_routes list ->
   ?timeouts:timeouts ->
   host:string prop ->
   name:string prop ->
   new_users_per_minute:float prop ->
   total_active_users:float prop ->
   zone_id:string prop ->
-  additional_routes:additional_routes list ->
   string ->
   t
 
@@ -107,12 +107,12 @@ val make :
   ?queueing_status_code:float prop ->
   ?session_duration:float prop ->
   ?suspended:bool prop ->
+  ?additional_routes:additional_routes list ->
   ?timeouts:timeouts ->
   host:string prop ->
   name:string prop ->
   new_users_per_minute:float prop ->
   total_active_users:float prop ->
   zone_id:string prop ->
-  additional_routes:additional_routes list ->
   string ->
   t Tf_core.resource

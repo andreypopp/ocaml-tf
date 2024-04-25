@@ -45,11 +45,11 @@ type aws_auditmanager_assessment
 val aws_auditmanager_assessment :
   ?description:string prop ->
   ?tags:(string * string prop) list ->
+  ?assessment_reports_destination:assessment_reports_destination list ->
+  ?scope:scope list ->
   framework_id:string prop ->
   name:string prop ->
   roles:roles list ->
-  assessment_reports_destination:assessment_reports_destination list ->
-  scope:scope list ->
   unit ->
   aws_auditmanager_assessment
 
@@ -75,21 +75,21 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?tags:(string * string prop) list ->
+  ?assessment_reports_destination:assessment_reports_destination list ->
+  ?scope:scope list ->
   framework_id:string prop ->
   name:string prop ->
   roles:roles list ->
-  assessment_reports_destination:assessment_reports_destination list ->
-  scope:scope list ->
   string ->
   t
 
 val make :
   ?description:string prop ->
   ?tags:(string * string prop) list ->
+  ?assessment_reports_destination:assessment_reports_destination list ->
+  ?scope:scope list ->
   framework_id:string prop ->
   name:string prop ->
   roles:roles list ->
-  assessment_reports_destination:assessment_reports_destination list ->
-  scope:scope list ->
   string ->
   t Tf_core.resource

@@ -1018,8 +1018,8 @@ let workload__dataflow_flex_template_request__launch_parameter__environment
 
 let workload__dataflow_flex_template_request__launch_parameter
     ?container_spec_gcs_path ?launch_options ?parameters
-    ?transform_name_mappings ?update ~job_name ~environment () :
-    workload__dataflow_flex_template_request__launch_parameter =
+    ?transform_name_mappings ?update ?(environment = []) ~job_name ()
+    : workload__dataflow_flex_template_request__launch_parameter =
   {
     container_spec_gcs_path;
     job_name;
@@ -1063,8 +1063,8 @@ let workload__dataflow_launch_template_request__launch_parameters__environment
   }
 
 let workload__dataflow_launch_template_request__launch_parameters
-    ?parameters ?transform_name_mapping ?update ~job_name
-    ~environment () :
+    ?parameters ?transform_name_mapping ?update ?(environment = [])
+    ~job_name () :
     workload__dataflow_launch_template_request__launch_parameters =
   {
     job_name;
@@ -1075,7 +1075,7 @@ let workload__dataflow_launch_template_request__launch_parameters
   }
 
 let workload__dataflow_launch_template_request ?gcs_path ?location
-    ?validate_only ~project_id ~launch_parameters () :
+    ?validate_only ?(launch_parameters = []) ~project_id () :
     workload__dataflow_launch_template_request =
   {
     gcs_path;
@@ -1085,17 +1085,17 @@ let workload__dataflow_launch_template_request ?gcs_path ?location
     launch_parameters;
   }
 
-let workload ~dataflow_flex_template_request
-    ~dataflow_launch_template_request () : workload =
+let workload ?(dataflow_flex_template_request = [])
+    ?(dataflow_launch_template_request = []) () : workload =
   {
     dataflow_flex_template_request;
     dataflow_launch_template_request;
   }
 
 let google_data_pipeline_pipeline ?display_name ?id ?pipeline_sources
-    ?project ?region ?scheduler_service_account_email ?timeouts ~name
-    ~state ~type_ ~schedule_info ~workload () :
-    google_data_pipeline_pipeline =
+    ?project ?region ?scheduler_service_account_email
+    ?(schedule_info = []) ?timeouts ?(workload = []) ~name ~state
+    ~type_ () : google_data_pipeline_pipeline =
   {
     display_name;
     id;
@@ -1127,8 +1127,8 @@ type t = {
 }
 
 let make ?display_name ?id ?pipeline_sources ?project ?region
-    ?scheduler_service_account_email ?timeouts ~name ~state ~type_
-    ~schedule_info ~workload __id =
+    ?scheduler_service_account_email ?(schedule_info = []) ?timeouts
+    ?(workload = []) ~name ~state ~type_ __id =
   let __type = "google_data_pipeline_pipeline" in
   let __attrs =
     ({
@@ -1157,18 +1157,18 @@ let make ?display_name ?id ?pipeline_sources ?project ?region
       yojson_of_google_data_pipeline_pipeline
         (google_data_pipeline_pipeline ?display_name ?id
            ?pipeline_sources ?project ?region
-           ?scheduler_service_account_email ?timeouts ~name ~state
-           ~type_ ~schedule_info ~workload ());
+           ?scheduler_service_account_email ~schedule_info ?timeouts
+           ~workload ~name ~state ~type_ ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?display_name ?id ?pipeline_sources ?project
-    ?region ?scheduler_service_account_email ?timeouts ~name ~state
-    ~type_ ~schedule_info ~workload __id =
+    ?region ?scheduler_service_account_email ?(schedule_info = [])
+    ?timeouts ?(workload = []) ~name ~state ~type_ __id =
   let (r : _ Tf_core.resource) =
     make ?display_name ?id ?pipeline_sources ?project ?region
-      ?scheduler_service_account_email ?timeouts ~name ~state ~type_
-      ~schedule_info ~workload __id
+      ?scheduler_service_account_email ~schedule_info ?timeouts
+      ~workload ~name ~state ~type_ __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

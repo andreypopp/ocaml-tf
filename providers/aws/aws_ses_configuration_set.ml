@@ -137,8 +137,8 @@ let tracking_options ?custom_redirect_domain () : tracking_options =
   { custom_redirect_domain }
 
 let aws_ses_configuration_set ?id ?reputation_metrics_enabled
-    ?sending_enabled ~name ~delivery_options ~tracking_options () :
-    aws_ses_configuration_set =
+    ?sending_enabled ?(delivery_options = [])
+    ?(tracking_options = []) ~name () : aws_ses_configuration_set =
   {
     id;
     name;
@@ -157,8 +157,8 @@ type t = {
   sending_enabled : bool prop;
 }
 
-let make ?id ?reputation_metrics_enabled ?sending_enabled ~name
-    ~delivery_options ~tracking_options __id =
+let make ?id ?reputation_metrics_enabled ?sending_enabled
+    ?(delivery_options = []) ?(tracking_options = []) ~name __id =
   let __type = "aws_ses_configuration_set" in
   let __attrs =
     ({
@@ -179,16 +179,17 @@ let make ?id ?reputation_metrics_enabled ?sending_enabled ~name
     json =
       yojson_of_aws_ses_configuration_set
         (aws_ses_configuration_set ?id ?reputation_metrics_enabled
-           ?sending_enabled ~name ~delivery_options ~tracking_options
+           ?sending_enabled ~delivery_options ~tracking_options ~name
            ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?reputation_metrics_enabled
-    ?sending_enabled ~name ~delivery_options ~tracking_options __id =
+    ?sending_enabled ?(delivery_options = [])
+    ?(tracking_options = []) ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?reputation_metrics_enabled ?sending_enabled ~name
-      ~delivery_options ~tracking_options __id
+    make ?id ?reputation_metrics_enabled ?sending_enabled
+      ~delivery_options ~tracking_options ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

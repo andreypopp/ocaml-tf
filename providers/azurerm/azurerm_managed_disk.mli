@@ -24,8 +24,8 @@ type encryption_settings
 
 val encryption_settings :
   ?enabled:bool prop ->
-  disk_encryption_key:encryption_settings__disk_encryption_key list ->
-  key_encryption_key:encryption_settings__key_encryption_key list ->
+  ?disk_encryption_key:encryption_settings__disk_encryption_key list ->
+  ?key_encryption_key:encryption_settings__key_encryption_key list ->
   unit ->
   encryption_settings
 
@@ -72,13 +72,13 @@ val azurerm_managed_disk :
   ?trusted_launch_enabled:bool prop ->
   ?upload_size_bytes:float prop ->
   ?zone:string prop ->
+  ?encryption_settings:encryption_settings list ->
   ?timeouts:timeouts ->
   create_option:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   storage_account_type:string prop ->
-  encryption_settings:encryption_settings list ->
   unit ->
   azurerm_managed_disk
 
@@ -156,13 +156,13 @@ val register :
   ?trusted_launch_enabled:bool prop ->
   ?upload_size_bytes:float prop ->
   ?zone:string prop ->
+  ?encryption_settings:encryption_settings list ->
   ?timeouts:timeouts ->
   create_option:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   storage_account_type:string prop ->
-  encryption_settings:encryption_settings list ->
   string ->
   t
 
@@ -197,12 +197,12 @@ val make :
   ?trusted_launch_enabled:bool prop ->
   ?upload_size_bytes:float prop ->
   ?zone:string prop ->
+  ?encryption_settings:encryption_settings list ->
   ?timeouts:timeouts ->
   create_option:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   storage_account_type:string prop ->
-  encryption_settings:encryption_settings list ->
   string ->
   t Tf_core.resource

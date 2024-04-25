@@ -14,9 +14,9 @@ val container__image_config__repository_auth_config :
 type container__image_config
 
 val container__image_config :
-  repository_access_mode:string prop ->
-  repository_auth_config:
+  ?repository_auth_config:
     container__image_config__repository_auth_config list ->
+  repository_access_mode:string prop ->
   unit ->
   container__image_config
 
@@ -45,8 +45,8 @@ val container :
   ?mode:string prop ->
   ?model_data_url:string prop ->
   ?model_package_name:string prop ->
-  image_config:container__image_config list ->
-  model_data_source:container__model_data_source list ->
+  ?image_config:container__image_config list ->
+  ?model_data_source:container__model_data_source list ->
   unit ->
   container
 
@@ -65,9 +65,9 @@ val primary_container__image_config__repository_auth_config :
 type primary_container__image_config
 
 val primary_container__image_config :
-  repository_access_mode:string prop ->
-  repository_auth_config:
+  ?repository_auth_config:
     primary_container__image_config__repository_auth_config list ->
+  repository_access_mode:string prop ->
   unit ->
   primary_container__image_config
 
@@ -97,8 +97,8 @@ val primary_container :
   ?mode:string prop ->
   ?model_data_url:string prop ->
   ?model_package_name:string prop ->
-  image_config:primary_container__image_config list ->
-  model_data_source:primary_container__model_data_source list ->
+  ?image_config:primary_container__image_config list ->
+  ?model_data_source:primary_container__model_data_source list ->
   unit ->
   primary_container
 
@@ -118,11 +118,11 @@ val aws_sagemaker_model :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?container:container list ->
+  ?inference_execution_config:inference_execution_config list ->
+  ?primary_container:primary_container list ->
+  ?vpc_config:vpc_config list ->
   execution_role_arn:string prop ->
-  container:container list ->
-  inference_execution_config:inference_execution_config list ->
-  primary_container:primary_container list ->
-  vpc_config:vpc_config list ->
   unit ->
   aws_sagemaker_model
 
@@ -147,11 +147,11 @@ val register :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?container:container list ->
+  ?inference_execution_config:inference_execution_config list ->
+  ?primary_container:primary_container list ->
+  ?vpc_config:vpc_config list ->
   execution_role_arn:string prop ->
-  container:container list ->
-  inference_execution_config:inference_execution_config list ->
-  primary_container:primary_container list ->
-  vpc_config:vpc_config list ->
   string ->
   t
 
@@ -161,10 +161,10 @@ val make :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?container:container list ->
+  ?inference_execution_config:inference_execution_config list ->
+  ?primary_container:primary_container list ->
+  ?vpc_config:vpc_config list ->
   execution_role_arn:string prop ->
-  container:container list ->
-  inference_execution_config:inference_execution_config list ->
-  primary_container:primary_container list ->
-  vpc_config:vpc_config list ->
   string ->
   t Tf_core.resource

@@ -119,8 +119,8 @@ type version
 
 val version :
   ?name:string prop ->
+  ?target_size:version__target_size list ->
   instance_template:string prop ->
-  target_size:version__target_size list ->
   unit ->
   version
 
@@ -138,17 +138,17 @@ val google_compute_region_instance_group_manager :
   ?target_size:float prop ->
   ?wait_for_instances:bool prop ->
   ?wait_for_instances_status:string prop ->
+  ?all_instances_config:all_instances_config list ->
+  ?auto_healing_policies:auto_healing_policies list ->
+  ?instance_lifecycle_policy:instance_lifecycle_policy list ->
+  ?stateful_external_ip:stateful_external_ip list ->
+  ?stateful_internal_ip:stateful_internal_ip list ->
   ?timeouts:timeouts ->
+  ?update_policy:update_policy list ->
   base_instance_name:string prop ->
   name:string prop ->
-  all_instances_config:all_instances_config list ->
-  auto_healing_policies:auto_healing_policies list ->
-  instance_lifecycle_policy:instance_lifecycle_policy list ->
   named_port:named_port list ->
   stateful_disk:stateful_disk list ->
-  stateful_external_ip:stateful_external_ip list ->
-  stateful_internal_ip:stateful_internal_ip list ->
-  update_policy:update_policy list ->
   version:version list ->
   unit ->
   google_compute_region_instance_group_manager
@@ -192,17 +192,17 @@ val register :
   ?target_size:float prop ->
   ?wait_for_instances:bool prop ->
   ?wait_for_instances_status:string prop ->
+  ?all_instances_config:all_instances_config list ->
+  ?auto_healing_policies:auto_healing_policies list ->
+  ?instance_lifecycle_policy:instance_lifecycle_policy list ->
+  ?stateful_external_ip:stateful_external_ip list ->
+  ?stateful_internal_ip:stateful_internal_ip list ->
   ?timeouts:timeouts ->
+  ?update_policy:update_policy list ->
   base_instance_name:string prop ->
   name:string prop ->
-  all_instances_config:all_instances_config list ->
-  auto_healing_policies:auto_healing_policies list ->
-  instance_lifecycle_policy:instance_lifecycle_policy list ->
   named_port:named_port list ->
   stateful_disk:stateful_disk list ->
-  stateful_external_ip:stateful_external_ip list ->
-  stateful_internal_ip:stateful_internal_ip list ->
-  update_policy:update_policy list ->
   version:version list ->
   string ->
   t
@@ -219,17 +219,17 @@ val make :
   ?target_size:float prop ->
   ?wait_for_instances:bool prop ->
   ?wait_for_instances_status:string prop ->
+  ?all_instances_config:all_instances_config list ->
+  ?auto_healing_policies:auto_healing_policies list ->
+  ?instance_lifecycle_policy:instance_lifecycle_policy list ->
+  ?stateful_external_ip:stateful_external_ip list ->
+  ?stateful_internal_ip:stateful_internal_ip list ->
   ?timeouts:timeouts ->
+  ?update_policy:update_policy list ->
   base_instance_name:string prop ->
   name:string prop ->
-  all_instances_config:all_instances_config list ->
-  auto_healing_policies:auto_healing_policies list ->
-  instance_lifecycle_policy:instance_lifecycle_policy list ->
   named_port:named_port list ->
   stateful_disk:stateful_disk list ->
-  stateful_external_ip:stateful_external_ip list ->
-  stateful_internal_ip:stateful_internal_ip list ->
-  update_policy:update_policy list ->
   version:version list ->
   string ->
   t Tf_core.resource

@@ -19,8 +19,8 @@ val aws_config_delivery_channel :
   ?s3_key_prefix:string prop ->
   ?s3_kms_key_arn:string prop ->
   ?sns_topic_arn:string prop ->
+  ?snapshot_delivery_properties:snapshot_delivery_properties list ->
   s3_bucket_name:string prop ->
-  snapshot_delivery_properties:snapshot_delivery_properties list ->
   unit ->
   aws_config_delivery_channel
 
@@ -45,8 +45,8 @@ val register :
   ?s3_key_prefix:string prop ->
   ?s3_kms_key_arn:string prop ->
   ?sns_topic_arn:string prop ->
+  ?snapshot_delivery_properties:snapshot_delivery_properties list ->
   s3_bucket_name:string prop ->
-  snapshot_delivery_properties:snapshot_delivery_properties list ->
   string ->
   t
 
@@ -56,7 +56,7 @@ val make :
   ?s3_key_prefix:string prop ->
   ?s3_kms_key_arn:string prop ->
   ?sns_topic_arn:string prop ->
+  ?snapshot_delivery_properties:snapshot_delivery_properties list ->
   s3_bucket_name:string prop ->
-  snapshot_delivery_properties:snapshot_delivery_properties list ->
   string ->
   t Tf_core.resource

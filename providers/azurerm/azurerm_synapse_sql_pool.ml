@@ -244,8 +244,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_synapse_sql_pool ?collation ?create_mode ?data_encrypted
     ?geo_backup_policy_enabled ?id ?recovery_database_id
-    ?storage_account_type ?tags ?timeouts ~name ~sku_name
-    ~synapse_workspace_id ~restore () : azurerm_synapse_sql_pool =
+    ?storage_account_type ?tags ?(restore = []) ?timeouts ~name
+    ~sku_name ~synapse_workspace_id () : azurerm_synapse_sql_pool =
   {
     collation;
     create_mode;
@@ -278,8 +278,8 @@ type t = {
 
 let make ?collation ?create_mode ?data_encrypted
     ?geo_backup_policy_enabled ?id ?recovery_database_id
-    ?storage_account_type ?tags ?timeouts ~name ~sku_name
-    ~synapse_workspace_id ~restore __id =
+    ?storage_account_type ?tags ?(restore = []) ?timeouts ~name
+    ~sku_name ~synapse_workspace_id __id =
   let __type = "azurerm_synapse_sql_pool" in
   let __attrs =
     ({
@@ -308,21 +308,20 @@ let make ?collation ?create_mode ?data_encrypted
       yojson_of_azurerm_synapse_sql_pool
         (azurerm_synapse_sql_pool ?collation ?create_mode
            ?data_encrypted ?geo_backup_policy_enabled ?id
-           ?recovery_database_id ?storage_account_type ?tags
-           ?timeouts ~name ~sku_name ~synapse_workspace_id ~restore
-           ());
+           ?recovery_database_id ?storage_account_type ?tags ~restore
+           ?timeouts ~name ~sku_name ~synapse_workspace_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?collation ?create_mode ?data_encrypted
     ?geo_backup_policy_enabled ?id ?recovery_database_id
-    ?storage_account_type ?tags ?timeouts ~name ~sku_name
-    ~synapse_workspace_id ~restore __id =
+    ?storage_account_type ?tags ?(restore = []) ?timeouts ~name
+    ~sku_name ~synapse_workspace_id __id =
   let (r : _ Tf_core.resource) =
     make ?collation ?create_mode ?data_encrypted
       ?geo_backup_policy_enabled ?id ?recovery_database_id
-      ?storage_account_type ?tags ?timeouts ~name ~sku_name
-      ~synapse_workspace_id ~restore __id
+      ?storage_account_type ?tags ~restore ?timeouts ~name ~sku_name
+      ~synapse_workspace_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

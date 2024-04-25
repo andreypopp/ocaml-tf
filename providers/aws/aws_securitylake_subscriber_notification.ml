@@ -181,15 +181,15 @@ let configuration__https_notification_configuration
 
 let configuration__sqs_notification_configuration () = ()
 
-let configuration ~https_notification_configuration
-    ~sqs_notification_configuration () : configuration =
+let configuration ?(https_notification_configuration = [])
+    ?(sqs_notification_configuration = []) () : configuration =
   {
     https_notification_configuration;
     sqs_notification_configuration;
   }
 
-let aws_securitylake_subscriber_notification ~subscriber_id
-    ~configuration () : aws_securitylake_subscriber_notification =
+let aws_securitylake_subscriber_notification ?(configuration = [])
+    ~subscriber_id () : aws_securitylake_subscriber_notification =
   { subscriber_id; configuration }
 
 type t = {
@@ -198,7 +198,7 @@ type t = {
   subscriber_id : string prop;
 }
 
-let make ~subscriber_id ~configuration __id =
+let make ?(configuration = []) ~subscriber_id __id =
   let __type = "aws_securitylake_subscriber_notification" in
   let __attrs =
     ({
@@ -213,14 +213,14 @@ let make ~subscriber_id ~configuration __id =
     type_ = __type;
     json =
       yojson_of_aws_securitylake_subscriber_notification
-        (aws_securitylake_subscriber_notification ~subscriber_id
-           ~configuration ());
+        (aws_securitylake_subscriber_notification ~configuration
+           ~subscriber_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ~subscriber_id ~configuration __id =
+let register ?tf_module ?(configuration = []) ~subscriber_id __id =
   let (r : _ Tf_core.resource) =
-    make ~subscriber_id ~configuration __id
+    make ~configuration ~subscriber_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

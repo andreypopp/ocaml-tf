@@ -146,7 +146,8 @@ let target_table ?catalog_id ~database_name ~table_name () :
   { catalog_id; database_name; table_name }
 
 let aws_glue_data_quality_ruleset ?description ?id ?tags ?tags_all
-    ~name ~ruleset ~target_table () : aws_glue_data_quality_ruleset =
+    ?(target_table = []) ~name ~ruleset () :
+    aws_glue_data_quality_ruleset =
   { description; id; name; ruleset; tags; tags_all; target_table }
 
 type t = {
@@ -162,8 +163,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?description ?id ?tags ?tags_all ~name ~ruleset
-    ~target_table __id =
+let make ?description ?id ?tags ?tags_all ?(target_table = []) ~name
+    ~ruleset __id =
   let __type = "aws_glue_data_quality_ruleset" in
   let __attrs =
     ({
@@ -188,15 +189,15 @@ let make ?description ?id ?tags ?tags_all ~name ~ruleset
     json =
       yojson_of_aws_glue_data_quality_ruleset
         (aws_glue_data_quality_ruleset ?description ?id ?tags
-           ?tags_all ~name ~ruleset ~target_table ());
+           ?tags_all ~target_table ~name ~ruleset ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ~name
-    ~ruleset ~target_table __id =
+let register ?tf_module ?description ?id ?tags ?tags_all
+    ?(target_table = []) ~name ~ruleset __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?tags ?tags_all ~name ~ruleset
-      ~target_table __id
+    make ?description ?id ?tags ?tags_all ~target_table ~name
+      ~ruleset __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -360,8 +360,8 @@ let file_shares__nfs_export_options ?access_mode ?anon_gid ?anon_uid
     ?ip_ranges ?squash_mode () : file_shares__nfs_export_options =
   { access_mode; anon_gid; anon_uid; ip_ranges; squash_mode }
 
-let file_shares ?source_backup ~capacity_gb ~name ~nfs_export_options
-    () : file_shares =
+let file_shares ?source_backup ?(nfs_export_options = [])
+    ~capacity_gb ~name () : file_shares =
   { capacity_gb; name; source_backup; nfs_export_options }
 
 let networks ?connect_mode ?reserved_ip_range ~modes ~network () :

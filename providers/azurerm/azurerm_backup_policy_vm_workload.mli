@@ -58,13 +58,13 @@ val protection_policy__simple_retention :
 type protection_policy
 
 val protection_policy :
+  ?retention_daily:protection_policy__retention_daily list ->
+  ?retention_monthly:protection_policy__retention_monthly list ->
+  ?retention_weekly:protection_policy__retention_weekly list ->
+  ?retention_yearly:protection_policy__retention_yearly list ->
+  ?simple_retention:protection_policy__simple_retention list ->
   policy_type:string prop ->
   backup:protection_policy__backup list ->
-  retention_daily:protection_policy__retention_daily list ->
-  retention_monthly:protection_policy__retention_monthly list ->
-  retention_weekly:protection_policy__retention_weekly list ->
-  retention_yearly:protection_policy__retention_yearly list ->
-  simple_retention:protection_policy__simple_retention list ->
   unit ->
   protection_policy
 

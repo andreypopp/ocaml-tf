@@ -63,7 +63,7 @@ val action__forward__target_group :
 type action__forward
 
 val action__forward :
-  stickiness:action__forward__stickiness list ->
+  ?stickiness:action__forward__stickiness list ->
   target_group:action__forward__target_group list ->
   unit ->
   action__forward
@@ -85,12 +85,12 @@ type action
 val action :
   ?order:float prop ->
   ?target_group_arn:string prop ->
+  ?authenticate_cognito:action__authenticate_cognito list ->
+  ?authenticate_oidc:action__authenticate_oidc list ->
+  ?fixed_response:action__fixed_response list ->
+  ?forward:action__forward list ->
+  ?redirect:action__redirect list ->
   type_:string prop ->
-  authenticate_cognito:action__authenticate_cognito list ->
-  authenticate_oidc:action__authenticate_oidc list ->
-  fixed_response:action__fixed_response list ->
-  forward:action__forward list ->
-  redirect:action__redirect list ->
   unit ->
   action
 
@@ -133,12 +133,12 @@ val condition__source_ip :
 type condition
 
 val condition :
-  host_header:condition__host_header list ->
-  http_header:condition__http_header list ->
-  http_request_method:condition__http_request_method list ->
-  path_pattern:condition__path_pattern list ->
+  ?host_header:condition__host_header list ->
+  ?http_header:condition__http_header list ->
+  ?http_request_method:condition__http_request_method list ->
+  ?path_pattern:condition__path_pattern list ->
+  ?source_ip:condition__source_ip list ->
   query_string:condition__query_string list ->
-  source_ip:condition__source_ip list ->
   unit ->
   condition
 

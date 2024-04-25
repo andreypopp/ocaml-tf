@@ -1711,7 +1711,7 @@ let predictive_scaling_configuration__metric_specification__customized_capacity_
   { stat; unit; metric }
 
 let predictive_scaling_configuration__metric_specification__customized_capacity_metric_specification__metric_data_queries
-    ?expression ?label ?return_data ~id ~metric_stat () :
+    ?expression ?label ?return_data ?(metric_stat = []) ~id () :
     predictive_scaling_configuration__metric_specification__customized_capacity_metric_specification__metric_data_queries
     =
   { expression; id; label; return_data; metric_stat }
@@ -1741,7 +1741,7 @@ let predictive_scaling_configuration__metric_specification__customized_load_metr
   { stat; unit; metric }
 
 let predictive_scaling_configuration__metric_specification__customized_load_metric_specification__metric_data_queries
-    ?expression ?label ?return_data ~id ~metric_stat () :
+    ?expression ?label ?return_data ?(metric_stat = []) ~id () :
     predictive_scaling_configuration__metric_specification__customized_load_metric_specification__metric_data_queries
     =
   { expression; id; label; return_data; metric_stat }
@@ -1771,7 +1771,7 @@ let predictive_scaling_configuration__metric_specification__customized_scaling_m
   { stat; unit; metric }
 
 let predictive_scaling_configuration__metric_specification__customized_scaling_metric_specification__metric_data_queries
-    ?expression ?label ?return_data ~id ~metric_stat () :
+    ?expression ?label ?return_data ?(metric_stat = []) ~id () :
     predictive_scaling_configuration__metric_specification__customized_scaling_metric_specification__metric_data_queries
     =
   { expression; id; label; return_data; metric_stat }
@@ -1801,13 +1801,13 @@ let predictive_scaling_configuration__metric_specification__predefined_scaling_m
   { predefined_metric_type; resource_label }
 
 let predictive_scaling_configuration__metric_specification
-    ~target_value ~customized_capacity_metric_specification
-    ~customized_load_metric_specification
-    ~customized_scaling_metric_specification
-    ~predefined_load_metric_specification
-    ~predefined_metric_pair_specification
-    ~predefined_scaling_metric_specification () :
-    predictive_scaling_configuration__metric_specification =
+    ?(customized_capacity_metric_specification = [])
+    ?(customized_load_metric_specification = [])
+    ?(customized_scaling_metric_specification = [])
+    ?(predefined_load_metric_specification = [])
+    ?(predefined_metric_pair_specification = [])
+    ?(predefined_scaling_metric_specification = []) ~target_value ()
+    : predictive_scaling_configuration__metric_specification =
   {
     target_value;
     customized_capacity_metric_specification;
@@ -1863,13 +1863,13 @@ let target_tracking_configuration__customized_metric_specification__metrics__met
   { stat; unit; metric }
 
 let target_tracking_configuration__customized_metric_specification__metrics
-    ?expression ?label ?return_data ~id ~metric_stat () :
+    ?expression ?label ?return_data ?(metric_stat = []) ~id () :
     target_tracking_configuration__customized_metric_specification__metrics
     =
   { expression; id; label; return_data; metric_stat }
 
 let target_tracking_configuration__customized_metric_specification
-    ?metric_name ?namespace ?statistic ?unit ~metric_dimension
+    ?metric_name ?namespace ?statistic ?unit ?(metric_dimension = [])
     ~metrics () :
     target_tracking_configuration__customized_metric_specification =
   {
@@ -1886,9 +1886,10 @@ let target_tracking_configuration__predefined_metric_specification
     target_tracking_configuration__predefined_metric_specification =
   { predefined_metric_type; resource_label }
 
-let target_tracking_configuration ?disable_scale_in ~target_value
-    ~customized_metric_specification ~predefined_metric_specification
-    () : target_tracking_configuration =
+let target_tracking_configuration ?disable_scale_in
+    ?(customized_metric_specification = [])
+    ?(predefined_metric_specification = []) ~target_value () :
+    target_tracking_configuration =
   {
     disable_scale_in;
     target_value;
@@ -1899,9 +1900,9 @@ let target_tracking_configuration ?disable_scale_in ~target_value
 let aws_autoscaling_policy ?adjustment_type ?cooldown ?enabled
     ?estimated_instance_warmup ?id ?metric_aggregation_type
     ?min_adjustment_magnitude ?policy_type ?scaling_adjustment
-    ~autoscaling_group_name ~name ~predictive_scaling_configuration
-    ~step_adjustment ~target_tracking_configuration () :
-    aws_autoscaling_policy =
+    ?(predictive_scaling_configuration = [])
+    ?(target_tracking_configuration = []) ~autoscaling_group_name
+    ~name ~step_adjustment () : aws_autoscaling_policy =
   {
     adjustment_type;
     autoscaling_group_name;
@@ -1937,8 +1938,9 @@ type t = {
 let make ?adjustment_type ?cooldown ?enabled
     ?estimated_instance_warmup ?id ?metric_aggregation_type
     ?min_adjustment_magnitude ?policy_type ?scaling_adjustment
-    ~autoscaling_group_name ~name ~predictive_scaling_configuration
-    ~step_adjustment ~target_tracking_configuration __id =
+    ?(predictive_scaling_configuration = [])
+    ?(target_tracking_configuration = []) ~autoscaling_group_name
+    ~name ~step_adjustment __id =
   let __type = "aws_autoscaling_policy" in
   let __attrs =
     ({
@@ -1970,23 +1972,25 @@ let make ?adjustment_type ?cooldown ?enabled
         (aws_autoscaling_policy ?adjustment_type ?cooldown ?enabled
            ?estimated_instance_warmup ?id ?metric_aggregation_type
            ?min_adjustment_magnitude ?policy_type ?scaling_adjustment
-           ~autoscaling_group_name ~name
-           ~predictive_scaling_configuration ~step_adjustment
-           ~target_tracking_configuration ());
+           ~predictive_scaling_configuration
+           ~target_tracking_configuration ~autoscaling_group_name
+           ~name ~step_adjustment ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?adjustment_type ?cooldown ?enabled
     ?estimated_instance_warmup ?id ?metric_aggregation_type
     ?min_adjustment_magnitude ?policy_type ?scaling_adjustment
-    ~autoscaling_group_name ~name ~predictive_scaling_configuration
-    ~step_adjustment ~target_tracking_configuration __id =
+    ?(predictive_scaling_configuration = [])
+    ?(target_tracking_configuration = []) ~autoscaling_group_name
+    ~name ~step_adjustment __id =
   let (r : _ Tf_core.resource) =
     make ?adjustment_type ?cooldown ?enabled
       ?estimated_instance_warmup ?id ?metric_aggregation_type
       ?min_adjustment_magnitude ?policy_type ?scaling_adjustment
-      ~autoscaling_group_name ~name ~predictive_scaling_configuration
-      ~step_adjustment ~target_tracking_configuration __id
+      ~predictive_scaling_configuration
+      ~target_tracking_configuration ~autoscaling_group_name ~name
+      ~step_adjustment __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

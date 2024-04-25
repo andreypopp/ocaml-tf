@@ -430,10 +430,11 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_spring_cloud_app ?addon_json ?https_only ?id ?is_public
-    ?public_endpoint_enabled ?tls_enabled ?timeouts ~name
-    ~resource_group_name ~service_name ~custom_persistent_disk
-    ~identity ~ingress_settings ~persistent_disk () :
-    azurerm_spring_cloud_app =
+    ?public_endpoint_enabled ?tls_enabled
+    ?(custom_persistent_disk = []) ?(identity = [])
+    ?(ingress_settings = []) ?(persistent_disk = []) ?timeouts ~name
+    ~resource_group_name ~service_name () : azurerm_spring_cloud_app
+    =
   {
     addon_json;
     https_only;
@@ -466,9 +467,10 @@ type t = {
 }
 
 let make ?addon_json ?https_only ?id ?is_public
-    ?public_endpoint_enabled ?tls_enabled ?timeouts ~name
-    ~resource_group_name ~service_name ~custom_persistent_disk
-    ~identity ~ingress_settings ~persistent_disk __id =
+    ?public_endpoint_enabled ?tls_enabled
+    ?(custom_persistent_disk = []) ?(identity = [])
+    ?(ingress_settings = []) ?(persistent_disk = []) ?timeouts ~name
+    ~resource_group_name ~service_name __id =
   let __type = "azurerm_spring_cloud_app" in
   let __attrs =
     ({
@@ -494,22 +496,23 @@ let make ?addon_json ?https_only ?id ?is_public
     json =
       yojson_of_azurerm_spring_cloud_app
         (azurerm_spring_cloud_app ?addon_json ?https_only ?id
-           ?is_public ?public_endpoint_enabled ?tls_enabled ?timeouts
-           ~name ~resource_group_name ~service_name
+           ?is_public ?public_endpoint_enabled ?tls_enabled
            ~custom_persistent_disk ~identity ~ingress_settings
-           ~persistent_disk ());
+           ~persistent_disk ?timeouts ~name ~resource_group_name
+           ~service_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?addon_json ?https_only ?id ?is_public
-    ?public_endpoint_enabled ?tls_enabled ?timeouts ~name
-    ~resource_group_name ~service_name ~custom_persistent_disk
-    ~identity ~ingress_settings ~persistent_disk __id =
+    ?public_endpoint_enabled ?tls_enabled
+    ?(custom_persistent_disk = []) ?(identity = [])
+    ?(ingress_settings = []) ?(persistent_disk = []) ?timeouts ~name
+    ~resource_group_name ~service_name __id =
   let (r : _ Tf_core.resource) =
     make ?addon_json ?https_only ?id ?is_public
-      ?public_endpoint_enabled ?tls_enabled ?timeouts ~name
-      ~resource_group_name ~service_name ~custom_persistent_disk
-      ~identity ~ingress_settings ~persistent_disk __id
+      ?public_endpoint_enabled ?tls_enabled ~custom_persistent_disk
+      ~identity ~ingress_settings ~persistent_disk ?timeouts ~name
+      ~resource_group_name ~service_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

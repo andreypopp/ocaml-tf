@@ -350,8 +350,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_compute_firewall ?description ?destination_ranges
     ?direction ?disabled ?enable_logging ?id ?priority ?project
     ?source_ranges ?source_service_accounts ?source_tags
-    ?target_service_accounts ?target_tags ?timeouts ~name ~network
-    ~allow ~deny ~log_config () : google_compute_firewall =
+    ?target_service_accounts ?target_tags ?(log_config = [])
+    ?timeouts ~name ~network ~allow ~deny () :
+    google_compute_firewall =
   {
     description;
     destination_ranges;
@@ -397,8 +398,8 @@ type t = {
 let make ?description ?destination_ranges ?direction ?disabled
     ?enable_logging ?id ?priority ?project ?source_ranges
     ?source_service_accounts ?source_tags ?target_service_accounts
-    ?target_tags ?timeouts ~name ~network ~allow ~deny ~log_config
-    __id =
+    ?target_tags ?(log_config = []) ?timeouts ~name ~network ~allow
+    ~deny __id =
   let __type = "google_compute_firewall" in
   let __attrs =
     ({
@@ -435,20 +436,20 @@ let make ?description ?destination_ranges ?direction ?disabled
            ?direction ?disabled ?enable_logging ?id ?priority
            ?project ?source_ranges ?source_service_accounts
            ?source_tags ?target_service_accounts ?target_tags
-           ?timeouts ~name ~network ~allow ~deny ~log_config ());
+           ~log_config ?timeouts ~name ~network ~allow ~deny ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?destination_ranges ?direction
     ?disabled ?enable_logging ?id ?priority ?project ?source_ranges
     ?source_service_accounts ?source_tags ?target_service_accounts
-    ?target_tags ?timeouts ~name ~network ~allow ~deny ~log_config
-    __id =
+    ?target_tags ?(log_config = []) ?timeouts ~name ~network ~allow
+    ~deny __id =
   let (r : _ Tf_core.resource) =
     make ?description ?destination_ranges ?direction ?disabled
       ?enable_logging ?id ?priority ?project ?source_ranges
       ?source_service_accounts ?source_tags ?target_service_accounts
-      ?target_tags ?timeouts ~name ~network ~allow ~deny ~log_config
+      ?target_tags ~log_config ?timeouts ~name ~network ~allow ~deny
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

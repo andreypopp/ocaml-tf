@@ -321,9 +321,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_storage_account_local_user ?home_directory ?id
-    ?ssh_key_enabled ?ssh_password_enabled ?timeouts ~name
-    ~storage_account_id ~permission_scope ~ssh_authorized_key () :
-    azurerm_storage_account_local_user =
+    ?ssh_key_enabled ?ssh_password_enabled ?(permission_scope = [])
+    ?(ssh_authorized_key = []) ?timeouts ~name ~storage_account_id ()
+    : azurerm_storage_account_local_user =
   {
     home_directory;
     id;
@@ -348,8 +348,8 @@ type t = {
 }
 
 let make ?home_directory ?id ?ssh_key_enabled ?ssh_password_enabled
-    ?timeouts ~name ~storage_account_id ~permission_scope
-    ~ssh_authorized_key __id =
+    ?(permission_scope = []) ?(ssh_authorized_key = []) ?timeouts
+    ~name ~storage_account_id __id =
   let __type = "azurerm_storage_account_local_user" in
   let __attrs =
     ({
@@ -372,19 +372,19 @@ let make ?home_directory ?id ?ssh_key_enabled ?ssh_password_enabled
     json =
       yojson_of_azurerm_storage_account_local_user
         (azurerm_storage_account_local_user ?home_directory ?id
-           ?ssh_key_enabled ?ssh_password_enabled ?timeouts ~name
-           ~storage_account_id ~permission_scope ~ssh_authorized_key
-           ());
+           ?ssh_key_enabled ?ssh_password_enabled ~permission_scope
+           ~ssh_authorized_key ?timeouts ~name ~storage_account_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?home_directory ?id ?ssh_key_enabled
-    ?ssh_password_enabled ?timeouts ~name ~storage_account_id
-    ~permission_scope ~ssh_authorized_key __id =
+    ?ssh_password_enabled ?(permission_scope = [])
+    ?(ssh_authorized_key = []) ?timeouts ~name ~storage_account_id
+    __id =
   let (r : _ Tf_core.resource) =
     make ?home_directory ?id ?ssh_key_enabled ?ssh_password_enabled
-      ?timeouts ~name ~storage_account_id ~permission_scope
-      ~ssh_authorized_key __id
+      ~permission_scope ~ssh_authorized_key ?timeouts ~name
+      ~storage_account_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

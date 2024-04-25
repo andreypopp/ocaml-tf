@@ -39,11 +39,11 @@ val aws_verifiedaccess_trust_provider :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?user_trust_provider_type:string prop ->
+  ?device_options:device_options list ->
+  ?oidc_options:oidc_options list ->
   ?timeouts:timeouts ->
   policy_reference_name:string prop ->
   trust_provider_type:string prop ->
-  device_options:device_options list ->
-  oidc_options:oidc_options list ->
   unit ->
   aws_verifiedaccess_trust_provider
 
@@ -71,11 +71,11 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?user_trust_provider_type:string prop ->
+  ?device_options:device_options list ->
+  ?oidc_options:oidc_options list ->
   ?timeouts:timeouts ->
   policy_reference_name:string prop ->
   trust_provider_type:string prop ->
-  device_options:device_options list ->
-  oidc_options:oidc_options list ->
   string ->
   t
 
@@ -86,10 +86,10 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?user_trust_provider_type:string prop ->
+  ?device_options:device_options list ->
+  ?oidc_options:oidc_options list ->
   ?timeouts:timeouts ->
   policy_reference_name:string prop ->
   trust_provider_type:string prop ->
-  device_options:device_options list ->
-  oidc_options:oidc_options list ->
   string ->
   t Tf_core.resource

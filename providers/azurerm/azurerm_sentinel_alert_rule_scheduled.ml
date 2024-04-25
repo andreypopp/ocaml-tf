@@ -661,8 +661,8 @@ let alert_details_override__dynamic_property ~name ~value () :
   { name; value }
 
 let alert_details_override ?description_format ?display_name_format
-    ?severity_column_name ?tactics_column_name ~dynamic_property () :
-    alert_details_override =
+    ?severity_column_name ?tactics_column_name
+    ?(dynamic_property = []) () : alert_details_override =
   {
     description_format;
     display_name_format;
@@ -710,11 +710,11 @@ let azurerm_sentinel_alert_rule_scheduled ?alert_rule_template_guid
     ?alert_rule_template_version ?custom_details ?description
     ?enabled ?id ?query_frequency ?query_period ?suppression_duration
     ?suppression_enabled ?tactics ?techniques ?trigger_operator
-    ?trigger_threshold ?timeouts ~display_name
-    ~log_analytics_workspace_id ~name ~query ~severity
-    ~alert_details_override ~entity_mapping ~event_grouping
-    ~incident_configuration ~sentinel_entity_mapping () :
-    azurerm_sentinel_alert_rule_scheduled =
+    ?trigger_threshold ?(alert_details_override = [])
+    ?(entity_mapping = []) ?(event_grouping = [])
+    ?(incident_configuration = []) ?(sentinel_entity_mapping = [])
+    ?timeouts ~display_name ~log_analytics_workspace_id ~name ~query
+    ~severity () : azurerm_sentinel_alert_rule_scheduled =
   {
     alert_rule_template_guid;
     alert_rule_template_version;
@@ -768,10 +768,11 @@ type t = {
 let make ?alert_rule_template_guid ?alert_rule_template_version
     ?custom_details ?description ?enabled ?id ?query_frequency
     ?query_period ?suppression_duration ?suppression_enabled ?tactics
-    ?techniques ?trigger_operator ?trigger_threshold ?timeouts
-    ~display_name ~log_analytics_workspace_id ~name ~query ~severity
-    ~alert_details_override ~entity_mapping ~event_grouping
-    ~incident_configuration ~sentinel_entity_mapping __id =
+    ?techniques ?trigger_operator ?trigger_threshold
+    ?(alert_details_override = []) ?(entity_mapping = [])
+    ?(event_grouping = []) ?(incident_configuration = [])
+    ?(sentinel_entity_mapping = []) ?timeouts ~display_name
+    ~log_analytics_workspace_id ~name ~query ~severity __id =
   let __type = "azurerm_sentinel_alert_rule_scheduled" in
   let __attrs =
     ({
@@ -814,10 +815,10 @@ let make ?alert_rule_template_guid ?alert_rule_template_version
            ?custom_details ?description ?enabled ?id ?query_frequency
            ?query_period ?suppression_duration ?suppression_enabled
            ?tactics ?techniques ?trigger_operator ?trigger_threshold
-           ?timeouts ~display_name ~log_analytics_workspace_id ~name
-           ~query ~severity ~alert_details_override ~entity_mapping
-           ~event_grouping ~incident_configuration
-           ~sentinel_entity_mapping ());
+           ~alert_details_override ~entity_mapping ~event_grouping
+           ~incident_configuration ~sentinel_entity_mapping ?timeouts
+           ~display_name ~log_analytics_workspace_id ~name ~query
+           ~severity ());
     attrs = __attrs;
   }
 
@@ -825,19 +826,20 @@ let register ?tf_module ?alert_rule_template_guid
     ?alert_rule_template_version ?custom_details ?description
     ?enabled ?id ?query_frequency ?query_period ?suppression_duration
     ?suppression_enabled ?tactics ?techniques ?trigger_operator
-    ?trigger_threshold ?timeouts ~display_name
-    ~log_analytics_workspace_id ~name ~query ~severity
-    ~alert_details_override ~entity_mapping ~event_grouping
-    ~incident_configuration ~sentinel_entity_mapping __id =
+    ?trigger_threshold ?(alert_details_override = [])
+    ?(entity_mapping = []) ?(event_grouping = [])
+    ?(incident_configuration = []) ?(sentinel_entity_mapping = [])
+    ?timeouts ~display_name ~log_analytics_workspace_id ~name ~query
+    ~severity __id =
   let (r : _ Tf_core.resource) =
     make ?alert_rule_template_guid ?alert_rule_template_version
       ?custom_details ?description ?enabled ?id ?query_frequency
       ?query_period ?suppression_duration ?suppression_enabled
       ?tactics ?techniques ?trigger_operator ?trigger_threshold
-      ?timeouts ~display_name ~log_analytics_workspace_id ~name
-      ~query ~severity ~alert_details_override ~entity_mapping
-      ~event_grouping ~incident_configuration
-      ~sentinel_entity_mapping __id
+      ~alert_details_override ~entity_mapping ~event_grouping
+      ~incident_configuration ~sentinel_entity_mapping ?timeouts
+      ~display_name ~log_analytics_workspace_id ~name ~query
+      ~severity __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

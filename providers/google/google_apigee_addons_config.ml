@@ -335,9 +335,10 @@ let addons_config__monetization_config ?enabled () :
     addons_config__monetization_config =
   { enabled }
 
-let addons_config ~advanced_api_ops_config ~api_security_config
-    ~connectors_platform_config ~integration_config
-    ~monetization_config () : addons_config =
+let addons_config ?(advanced_api_ops_config = [])
+    ?(api_security_config = []) ?(connectors_platform_config = [])
+    ?(integration_config = []) ?(monetization_config = []) () :
+    addons_config =
   {
     advanced_api_ops_config;
     api_security_config;
@@ -349,13 +350,13 @@ let addons_config ~advanced_api_ops_config ~api_security_config
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_apigee_addons_config ?id ?timeouts ~org ~addons_config ()
-    : google_apigee_addons_config =
+let google_apigee_addons_config ?id ?(addons_config = []) ?timeouts
+    ~org () : google_apigee_addons_config =
   { id; org; addons_config; timeouts }
 
 type t = { id : string prop; org : string prop }
 
-let make ?id ?timeouts ~org ~addons_config __id =
+let make ?id ?(addons_config = []) ?timeouts ~org __id =
   let __type = "google_apigee_addons_config" in
   let __attrs =
     ({
@@ -369,14 +370,15 @@ let make ?id ?timeouts ~org ~addons_config __id =
     type_ = __type;
     json =
       yojson_of_google_apigee_addons_config
-        (google_apigee_addons_config ?id ?timeouts ~org
-           ~addons_config ());
+        (google_apigee_addons_config ?id ~addons_config ?timeouts
+           ~org ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~org ~addons_config __id =
+let register ?tf_module ?id ?(addons_config = []) ?timeouts ~org __id
+    =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~org ~addons_config __id
+    make ?id ~addons_config ?timeouts ~org __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

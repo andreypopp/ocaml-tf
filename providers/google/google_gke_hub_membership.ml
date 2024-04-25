@@ -214,13 +214,13 @@ let authority ~issuer () : authority = { issuer }
 let endpoint__gke_cluster ~resource_link () : endpoint__gke_cluster =
   { resource_link }
 
-let endpoint ~gke_cluster () : endpoint = { gke_cluster }
+let endpoint ?(gke_cluster = []) () : endpoint = { gke_cluster }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_gke_hub_membership ?id ?labels ?location ?project
-    ?timeouts ~membership_id ~authority ~endpoint () :
+    ?(authority = []) ?(endpoint = []) ?timeouts ~membership_id () :
     google_gke_hub_membership =
   {
     id;
@@ -244,8 +244,8 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let make ?id ?labels ?location ?project ?timeouts ~membership_id
-    ~authority ~endpoint __id =
+let make ?id ?labels ?location ?project ?(authority = [])
+    ?(endpoint = []) ?timeouts ~membership_id __id =
   let __type = "google_gke_hub_membership" in
   let __attrs =
     ({
@@ -268,15 +268,16 @@ let make ?id ?labels ?location ?project ?timeouts ~membership_id
     json =
       yojson_of_google_gke_hub_membership
         (google_gke_hub_membership ?id ?labels ?location ?project
-           ?timeouts ~membership_id ~authority ~endpoint ());
+           ~authority ~endpoint ?timeouts ~membership_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?labels ?location ?project ?timeouts
-    ~membership_id ~authority ~endpoint __id =
+let register ?tf_module ?id ?labels ?location ?project
+    ?(authority = []) ?(endpoint = []) ?timeouts ~membership_id __id
+    =
   let (r : _ Tf_core.resource) =
-    make ?id ?labels ?location ?project ?timeouts ~membership_id
-      ~authority ~endpoint __id
+    make ?id ?labels ?location ?project ~authority ~endpoint
+      ?timeouts ~membership_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

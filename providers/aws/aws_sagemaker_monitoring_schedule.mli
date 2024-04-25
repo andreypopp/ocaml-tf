@@ -14,9 +14,9 @@ val monitoring_schedule_config__schedule_config :
 type monitoring_schedule_config
 
 val monitoring_schedule_config :
+  ?schedule_config:monitoring_schedule_config__schedule_config list ->
   monitoring_job_definition_name:string prop ->
   monitoring_type:string prop ->
-  schedule_config:monitoring_schedule_config__schedule_config list ->
   unit ->
   monitoring_schedule_config
 

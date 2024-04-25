@@ -19,9 +19,9 @@ type ipv6
 val ipv6 :
   ?enabled:bool prop ->
   ?route_filter_id:string prop ->
+  ?microsoft_peering:ipv6__microsoft_peering list ->
   primary_peer_address_prefix:string prop ->
   secondary_peer_address_prefix:string prop ->
-  microsoft_peering:ipv6__microsoft_peering list ->
   unit ->
   ipv6
 
@@ -55,13 +55,13 @@ val azurerm_express_route_circuit_peering :
   ?route_filter_id:string prop ->
   ?secondary_peer_address_prefix:string prop ->
   ?shared_key:string prop ->
+  ?ipv6:ipv6 list ->
+  ?microsoft_peering_config:microsoft_peering_config list ->
   ?timeouts:timeouts ->
   express_route_circuit_name:string prop ->
   peering_type:string prop ->
   resource_group_name:string prop ->
   vlan_id:float prop ->
-  ipv6:ipv6 list ->
-  microsoft_peering_config:microsoft_peering_config list ->
   unit ->
   azurerm_express_route_circuit_peering
 
@@ -97,13 +97,13 @@ val register :
   ?route_filter_id:string prop ->
   ?secondary_peer_address_prefix:string prop ->
   ?shared_key:string prop ->
+  ?ipv6:ipv6 list ->
+  ?microsoft_peering_config:microsoft_peering_config list ->
   ?timeouts:timeouts ->
   express_route_circuit_name:string prop ->
   peering_type:string prop ->
   resource_group_name:string prop ->
   vlan_id:float prop ->
-  ipv6:ipv6 list ->
-  microsoft_peering_config:microsoft_peering_config list ->
   string ->
   t
 
@@ -115,12 +115,12 @@ val make :
   ?route_filter_id:string prop ->
   ?secondary_peer_address_prefix:string prop ->
   ?shared_key:string prop ->
+  ?ipv6:ipv6 list ->
+  ?microsoft_peering_config:microsoft_peering_config list ->
   ?timeouts:timeouts ->
   express_route_circuit_name:string prop ->
   peering_type:string prop ->
   resource_group_name:string prop ->
   vlan_id:float prop ->
-  ipv6:ipv6 list ->
-  microsoft_peering_config:microsoft_peering_config list ->
   string ->
   t Tf_core.resource

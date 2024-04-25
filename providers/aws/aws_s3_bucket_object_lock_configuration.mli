@@ -25,8 +25,8 @@ val aws_s3_bucket_object_lock_configuration :
   ?id:string prop ->
   ?object_lock_enabled:string prop ->
   ?token:string prop ->
+  ?rule:rule list ->
   bucket:string prop ->
-  rule:rule list ->
   unit ->
   aws_s3_bucket_object_lock_configuration
 
@@ -49,8 +49,8 @@ val register :
   ?id:string prop ->
   ?object_lock_enabled:string prop ->
   ?token:string prop ->
+  ?rule:rule list ->
   bucket:string prop ->
-  rule:rule list ->
   string ->
   t
 
@@ -59,7 +59,7 @@ val make :
   ?id:string prop ->
   ?object_lock_enabled:string prop ->
   ?token:string prop ->
+  ?rule:rule list ->
   bucket:string prop ->
-  rule:rule list ->
   string ->
   t Tf_core.resource

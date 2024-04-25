@@ -41,7 +41,7 @@ type runtime_configuration
 val runtime_configuration :
   ?game_session_activation_timeout_seconds:float prop ->
   ?max_concurrent_game_session_activations:float prop ->
-  server_process:runtime_configuration__server_process list ->
+  ?server_process:runtime_configuration__server_process list ->
   unit ->
   runtime_configuration
 
@@ -63,13 +63,13 @@ val aws_gamelift_fleet :
   ?script_id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?certificate_configuration:certificate_configuration list ->
+  ?resource_creation_limit_policy:resource_creation_limit_policy list ->
+  ?runtime_configuration:runtime_configuration list ->
   ?timeouts:timeouts ->
   ec2_instance_type:string prop ->
   name:string prop ->
-  certificate_configuration:certificate_configuration list ->
   ec2_inbound_permission:ec2_inbound_permission list ->
-  resource_creation_limit_policy:resource_creation_limit_policy list ->
-  runtime_configuration:runtime_configuration list ->
   unit ->
   aws_gamelift_fleet
 
@@ -109,13 +109,13 @@ val register :
   ?script_id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?certificate_configuration:certificate_configuration list ->
+  ?resource_creation_limit_policy:resource_creation_limit_policy list ->
+  ?runtime_configuration:runtime_configuration list ->
   ?timeouts:timeouts ->
   ec2_instance_type:string prop ->
   name:string prop ->
-  certificate_configuration:certificate_configuration list ->
   ec2_inbound_permission:ec2_inbound_permission list ->
-  resource_creation_limit_policy:resource_creation_limit_policy list ->
-  runtime_configuration:runtime_configuration list ->
   string ->
   t
 
@@ -130,12 +130,12 @@ val make :
   ?script_id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?certificate_configuration:certificate_configuration list ->
+  ?resource_creation_limit_policy:resource_creation_limit_policy list ->
+  ?runtime_configuration:runtime_configuration list ->
   ?timeouts:timeouts ->
   ec2_instance_type:string prop ->
   name:string prop ->
-  certificate_configuration:certificate_configuration list ->
   ec2_inbound_permission:ec2_inbound_permission list ->
-  resource_creation_limit_policy:resource_creation_limit_policy list ->
-  runtime_configuration:runtime_configuration list ->
   string ->
   t Tf_core.resource

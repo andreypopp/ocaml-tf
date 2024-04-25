@@ -285,7 +285,7 @@ let partition_config__capacity ~publish_mib_per_sec
     ~subscribe_mib_per_sec () : partition_config__capacity =
   { publish_mib_per_sec; subscribe_mib_per_sec }
 
-let partition_config ~count ~capacity () : partition_config =
+let partition_config ?(capacity = []) ~count () : partition_config =
   { count; capacity }
 
 let reservation_config ?throughput_reservation () :
@@ -299,9 +299,10 @@ let retention_config ?period ~per_partition_bytes () :
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_pubsub_lite_topic ?id ?project ?region ?zone ?timeouts
-    ~name ~partition_config ~reservation_config ~retention_config ()
-    : google_pubsub_lite_topic =
+let google_pubsub_lite_topic ?id ?project ?region ?zone
+    ?(partition_config = []) ?(reservation_config = [])
+    ?(retention_config = []) ?timeouts ~name () :
+    google_pubsub_lite_topic =
   {
     id;
     name;
@@ -322,8 +323,9 @@ type t = {
   zone : string prop;
 }
 
-let make ?id ?project ?region ?zone ?timeouts ~name ~partition_config
-    ~reservation_config ~retention_config __id =
+let make ?id ?project ?region ?zone ?(partition_config = [])
+    ?(reservation_config = []) ?(retention_config = []) ?timeouts
+    ~name __id =
   let __type = "google_pubsub_lite_topic" in
   let __attrs =
     ({
@@ -341,16 +343,17 @@ let make ?id ?project ?region ?zone ?timeouts ~name ~partition_config
     json =
       yojson_of_google_pubsub_lite_topic
         (google_pubsub_lite_topic ?id ?project ?region ?zone
-           ?timeouts ~name ~partition_config ~reservation_config
-           ~retention_config ());
+           ~partition_config ~reservation_config ~retention_config
+           ?timeouts ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ?region ?zone ?timeouts ~name
-    ~partition_config ~reservation_config ~retention_config __id =
+let register ?tf_module ?id ?project ?region ?zone
+    ?(partition_config = []) ?(reservation_config = [])
+    ?(retention_config = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ?region ?zone ?timeouts ~name ~partition_config
-      ~reservation_config ~retention_config __id
+    make ?id ?project ?region ?zone ~partition_config
+      ~reservation_config ~retention_config ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

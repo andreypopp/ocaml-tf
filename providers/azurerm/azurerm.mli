@@ -113,20 +113,20 @@ val features__virtual_machine_scale_set :
 type features
 
 val features :
-  api_management:features__api_management list ->
-  app_configuration:features__app_configuration list ->
-  application_insights:features__application_insights list ->
-  cognitive_account:features__cognitive_account list ->
-  key_vault:features__key_vault list ->
-  log_analytics_workspace:features__log_analytics_workspace list ->
-  managed_disk:features__managed_disk list ->
-  postgresql_flexible_server:
+  ?api_management:features__api_management list ->
+  ?app_configuration:features__app_configuration list ->
+  ?application_insights:features__application_insights list ->
+  ?cognitive_account:features__cognitive_account list ->
+  ?key_vault:features__key_vault list ->
+  ?log_analytics_workspace:features__log_analytics_workspace list ->
+  ?managed_disk:features__managed_disk list ->
+  ?postgresql_flexible_server:
     features__postgresql_flexible_server list ->
-  resource_group:features__resource_group list ->
-  subscription:features__subscription list ->
-  template_deployment:features__template_deployment list ->
-  virtual_machine:features__virtual_machine list ->
-  virtual_machine_scale_set:features__virtual_machine_scale_set list ->
+  ?resource_group:features__resource_group list ->
+  ?subscription:features__subscription list ->
+  ?template_deployment:features__template_deployment list ->
+  ?virtual_machine:features__virtual_machine list ->
+  ?virtual_machine_scale_set:features__virtual_machine_scale_set list ->
   unit ->
   features
 

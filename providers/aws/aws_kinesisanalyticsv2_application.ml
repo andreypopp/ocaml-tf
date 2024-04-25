@@ -2190,13 +2190,13 @@ let application_configuration__application_code_configuration__code_content__s3_
   { bucket_arn; file_key; object_version }
 
 let application_configuration__application_code_configuration__code_content
-    ?text_content ~s3_content_location () :
+    ?text_content ?(s3_content_location = []) () :
     application_configuration__application_code_configuration__code_content
     =
   { text_content; s3_content_location }
 
 let application_configuration__application_code_configuration
-    ~code_content_type ~code_content () :
+    ?(code_content = []) ~code_content_type () :
     application_configuration__application_code_configuration =
   { code_content_type; code_content }
 
@@ -2246,8 +2246,8 @@ let application_configuration__flink_application_configuration__parallelism_conf
   }
 
 let application_configuration__flink_application_configuration
-    ~checkpoint_configuration ~monitoring_configuration
-    ~parallelism_configuration () :
+    ?(checkpoint_configuration = []) ?(monitoring_configuration = [])
+    ?(parallelism_configuration = []) () :
     application_configuration__flink_application_configuration =
   {
     checkpoint_configuration;
@@ -2268,7 +2268,8 @@ let application_configuration__run_configuration__flink_run_configuration
   { allow_non_restored_state }
 
 let application_configuration__run_configuration
-    ~application_restore_configuration ~flink_run_configuration () :
+    ?(application_restore_configuration = [])
+    ?(flink_run_configuration = []) () :
     application_configuration__run_configuration =
   { application_restore_configuration; flink_run_configuration }
 
@@ -2309,7 +2310,8 @@ let application_configuration__sql_application_configuration__input__input_schem
   { record_row_path }
 
 let application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters
-    ~csv_mapping_parameters ~json_mapping_parameters () :
+    ?(csv_mapping_parameters = []) ?(json_mapping_parameters = []) ()
+    :
     application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters
     =
   { csv_mapping_parameters; json_mapping_parameters }
@@ -2345,9 +2347,10 @@ let application_configuration__sql_application_configuration__input__kinesis_str
   { resource_arn }
 
 let application_configuration__sql_application_configuration__input
-    ~name_prefix ~input_parallelism ~input_processing_configuration
-    ~input_schema ~input_starting_position_configuration
-    ~kinesis_firehose_input ~kinesis_streams_input () :
+    ?(input_parallelism = []) ?(input_processing_configuration = [])
+    ?(input_starting_position_configuration = [])
+    ?(kinesis_firehose_input = []) ?(kinesis_streams_input = [])
+    ~name_prefix ~input_schema () :
     application_configuration__sql_application_configuration__input =
   {
     name_prefix;
@@ -2384,8 +2387,8 @@ let application_configuration__sql_application_configuration__output__lambda_out
   { resource_arn }
 
 let application_configuration__sql_application_configuration__output
-    ~name ~destination_schema ~kinesis_firehose_output
-    ~kinesis_streams_output ~lambda_output () :
+    ?(kinesis_firehose_output = []) ?(kinesis_streams_output = [])
+    ?(lambda_output = []) ~name ~destination_schema () :
     application_configuration__sql_application_configuration__output
     =
   {
@@ -2415,7 +2418,8 @@ let application_configuration__sql_application_configuration__reference_data_sou
   { record_row_path }
 
 let application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters
-    ~csv_mapping_parameters ~json_mapping_parameters () :
+    ?(csv_mapping_parameters = []) ?(json_mapping_parameters = []) ()
+    :
     application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters
     =
   { csv_mapping_parameters; json_mapping_parameters }
@@ -2444,8 +2448,8 @@ let application_configuration__sql_application_configuration__reference_data_sou
     =
   { table_name; reference_schema; s3_reference_data_source }
 
-let application_configuration__sql_application_configuration ~input
-    ~output ~reference_data_source () :
+let application_configuration__sql_application_configuration
+    ?(input = []) ?(reference_data_source = []) ~output () :
     application_configuration__sql_application_configuration =
   { input; output; reference_data_source }
 
@@ -2453,11 +2457,12 @@ let application_configuration__vpc_configuration ~security_group_ids
     ~subnet_ids () : application_configuration__vpc_configuration =
   { security_group_ids; subnet_ids }
 
-let application_configuration ~application_code_configuration
-    ~application_snapshot_configuration ~environment_properties
-    ~flink_application_configuration ~run_configuration
-    ~sql_application_configuration ~vpc_configuration () :
-    application_configuration =
+let application_configuration
+    ?(application_snapshot_configuration = [])
+    ?(environment_properties = [])
+    ?(flink_application_configuration = []) ?(run_configuration = [])
+    ?(sql_application_configuration = []) ?(vpc_configuration = [])
+    ~application_code_configuration () : application_configuration =
   {
     application_code_configuration;
     application_snapshot_configuration;
@@ -2476,9 +2481,10 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_kinesisanalyticsv2_application ?description ?force_stop ?id
-    ?start_application ?tags ?tags_all ?timeouts ~name
-    ~runtime_environment ~service_execution_role
-    ~application_configuration ~cloudwatch_logging_options () :
+    ?start_application ?tags ?tags_all
+    ?(application_configuration = [])
+    ?(cloudwatch_logging_options = []) ?timeouts ~name
+    ~runtime_environment ~service_execution_role () :
     aws_kinesisanalyticsv2_application =
   {
     description;
@@ -2513,9 +2519,9 @@ type t = {
 }
 
 let make ?description ?force_stop ?id ?start_application ?tags
-    ?tags_all ?timeouts ~name ~runtime_environment
-    ~service_execution_role ~application_configuration
-    ~cloudwatch_logging_options __id =
+    ?tags_all ?(application_configuration = [])
+    ?(cloudwatch_logging_options = []) ?timeouts ~name
+    ~runtime_environment ~service_execution_role __id =
   let __type = "aws_kinesisanalyticsv2_application" in
   let __attrs =
     ({
@@ -2547,21 +2553,23 @@ let make ?description ?force_stop ?id ?start_application ?tags
     json =
       yojson_of_aws_kinesisanalyticsv2_application
         (aws_kinesisanalyticsv2_application ?description ?force_stop
-           ?id ?start_application ?tags ?tags_all ?timeouts ~name
-           ~runtime_environment ~service_execution_role
-           ~application_configuration ~cloudwatch_logging_options ());
+           ?id ?start_application ?tags ?tags_all
+           ~application_configuration ~cloudwatch_logging_options
+           ?timeouts ~name ~runtime_environment
+           ~service_execution_role ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?force_stop ?id
-    ?start_application ?tags ?tags_all ?timeouts ~name
-    ~runtime_environment ~service_execution_role
-    ~application_configuration ~cloudwatch_logging_options __id =
+    ?start_application ?tags ?tags_all
+    ?(application_configuration = [])
+    ?(cloudwatch_logging_options = []) ?timeouts ~name
+    ~runtime_environment ~service_execution_role __id =
   let (r : _ Tf_core.resource) =
     make ?description ?force_stop ?id ?start_application ?tags
-      ?tags_all ?timeouts ~name ~runtime_environment
-      ~service_execution_role ~application_configuration
-      ~cloudwatch_logging_options __id
+      ?tags_all ~application_configuration
+      ~cloudwatch_logging_options ?timeouts ~name
+      ~runtime_environment ~service_execution_role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

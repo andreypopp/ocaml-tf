@@ -27,7 +27,7 @@ val action__ssm_automation :
 type action
 
 val action :
-  ssm_automation:action__ssm_automation list -> unit -> action
+  ?ssm_automation:action__ssm_automation list -> unit -> action
 
 type incident_template__notification_target
 
@@ -60,7 +60,7 @@ val integration__pagerduty :
 type integration
 
 val integration :
-  pagerduty:integration__pagerduty list -> unit -> integration
+  ?pagerduty:integration__pagerduty list -> unit -> integration
 
 type aws_ssmincidents_response_plan
 
@@ -71,10 +71,10 @@ val aws_ssmincidents_response_plan :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?action:action list ->
+  ?integration:integration list ->
   name:string prop ->
-  action:action list ->
   incident_template:incident_template list ->
-  integration:integration list ->
   unit ->
   aws_ssmincidents_response_plan
 
@@ -102,10 +102,10 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?action:action list ->
+  ?integration:integration list ->
   name:string prop ->
-  action:action list ->
   incident_template:incident_template list ->
-  integration:integration list ->
   string ->
   t
 
@@ -116,9 +116,9 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?action:action list ->
+  ?integration:integration list ->
   name:string prop ->
-  action:action list ->
   incident_template:incident_template list ->
-  integration:integration list ->
   string ->
   t Tf_core.resource

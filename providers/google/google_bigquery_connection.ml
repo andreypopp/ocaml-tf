@@ -560,17 +560,17 @@ let spark__spark_history_server_config ?dataproc_cluster () :
     spark__spark_history_server_config =
   { dataproc_cluster }
 
-let spark ~metastore_service_config ~spark_history_server_config () :
-    spark =
+let spark ?(metastore_service_config = [])
+    ?(spark_history_server_config = []) () : spark =
   { metastore_service_config; spark_history_server_config }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_bigquery_connection ?connection_id ?description
-    ?friendly_name ?id ?location ?project ?timeouts ~aws ~azure
-    ~cloud_resource ~cloud_spanner ~cloud_sql ~spark () :
-    google_bigquery_connection =
+    ?friendly_name ?id ?location ?project ?(aws = []) ?(azure = [])
+    ?(cloud_resource = []) ?(cloud_spanner = []) ?(cloud_sql = [])
+    ?(spark = []) ?timeouts () : google_bigquery_connection =
   {
     connection_id;
     description;
@@ -599,8 +599,9 @@ type t = {
 }
 
 let make ?connection_id ?description ?friendly_name ?id ?location
-    ?project ?timeouts ~aws ~azure ~cloud_resource ~cloud_spanner
-    ~cloud_sql ~spark __id =
+    ?project ?(aws = []) ?(azure = []) ?(cloud_resource = [])
+    ?(cloud_spanner = []) ?(cloud_sql = []) ?(spark = []) ?timeouts
+    __id =
   let __type = "google_bigquery_connection" in
   let __attrs =
     ({
@@ -621,18 +622,20 @@ let make ?connection_id ?description ?friendly_name ?id ?location
     json =
       yojson_of_google_bigquery_connection
         (google_bigquery_connection ?connection_id ?description
-           ?friendly_name ?id ?location ?project ?timeouts ~aws
-           ~azure ~cloud_resource ~cloud_spanner ~cloud_sql ~spark ());
+           ?friendly_name ?id ?location ?project ~aws ~azure
+           ~cloud_resource ~cloud_spanner ~cloud_sql ~spark ?timeouts
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?connection_id ?description ?friendly_name
-    ?id ?location ?project ?timeouts ~aws ~azure ~cloud_resource
-    ~cloud_spanner ~cloud_sql ~spark __id =
+    ?id ?location ?project ?(aws = []) ?(azure = [])
+    ?(cloud_resource = []) ?(cloud_spanner = []) ?(cloud_sql = [])
+    ?(spark = []) ?timeouts __id =
   let (r : _ Tf_core.resource) =
     make ?connection_id ?description ?friendly_name ?id ?location
-      ?project ?timeouts ~aws ~azure ~cloud_resource ~cloud_spanner
-      ~cloud_sql ~spark __id
+      ?project ~aws ~azure ~cloud_resource ~cloud_spanner ~cloud_sql
+      ~spark ?timeouts __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

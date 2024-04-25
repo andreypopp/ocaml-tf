@@ -258,8 +258,9 @@ let range_rule ~duration ~max ~min ~type_ () : range_rule =
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_iot_security_device_group ?id ?timeouts ~iothub_id ~name
-    ~allow_rule ~range_rule () : azurerm_iot_security_device_group =
+let azurerm_iot_security_device_group ?id ?(allow_rule = [])
+    ?timeouts ~iothub_id ~name ~range_rule () :
+    azurerm_iot_security_device_group =
   { id; iothub_id; name; allow_rule; range_rule; timeouts }
 
 type t = {
@@ -268,8 +269,8 @@ type t = {
   name : string prop;
 }
 
-let make ?id ?timeouts ~iothub_id ~name ~allow_rule ~range_rule __id
-    =
+let make ?id ?(allow_rule = []) ?timeouts ~iothub_id ~name
+    ~range_rule __id =
   let __type = "azurerm_iot_security_device_group" in
   let __attrs =
     ({
@@ -284,15 +285,15 @@ let make ?id ?timeouts ~iothub_id ~name ~allow_rule ~range_rule __id
     type_ = __type;
     json =
       yojson_of_azurerm_iot_security_device_group
-        (azurerm_iot_security_device_group ?id ?timeouts ~iothub_id
-           ~name ~allow_rule ~range_rule ());
+        (azurerm_iot_security_device_group ?id ~allow_rule ?timeouts
+           ~iothub_id ~name ~range_rule ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~iothub_id ~name ~allow_rule
-    ~range_rule __id =
+let register ?tf_module ?id ?(allow_rule = []) ?timeouts ~iothub_id
+    ~name ~range_rule __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~iothub_id ~name ~allow_rule ~range_rule __id
+    make ?id ~allow_rule ?timeouts ~iothub_id ~name ~range_rule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

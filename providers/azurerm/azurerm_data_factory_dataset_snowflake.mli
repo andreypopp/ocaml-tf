@@ -35,11 +35,11 @@ val azurerm_data_factory_dataset_snowflake :
   ?parameters:(string * string prop) list ->
   ?schema_name:string prop ->
   ?table_name:string prop ->
+  ?schema_column:schema_column list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_name:string prop ->
   name:string prop ->
-  schema_column:schema_column list ->
   unit ->
   azurerm_data_factory_dataset_snowflake
 
@@ -72,11 +72,11 @@ val register :
   ?parameters:(string * string prop) list ->
   ?schema_name:string prop ->
   ?table_name:string prop ->
+  ?schema_column:schema_column list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_name:string prop ->
   name:string prop ->
-  schema_column:schema_column list ->
   string ->
   t
 
@@ -89,10 +89,10 @@ val make :
   ?parameters:(string * string prop) list ->
   ?schema_name:string prop ->
   ?table_name:string prop ->
+  ?schema_column:schema_column list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_name:string prop ->
   name:string prop ->
-  schema_column:schema_column list ->
   string ->
   t Tf_core.resource

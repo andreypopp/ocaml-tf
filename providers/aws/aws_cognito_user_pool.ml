@@ -1297,7 +1297,7 @@ let admin_create_user_config__invite_message_template ?email_message
   { email_message; email_subject; sms_message }
 
 let admin_create_user_config ?allow_admin_create_user_only
-    ~invite_message_template () : admin_create_user_config =
+    ?(invite_message_template = []) () : admin_create_user_config =
   { allow_admin_create_user_only; invite_message_template }
 
 let device_configuration ?challenge_required_on_new_device
@@ -1335,9 +1335,9 @@ let lambda_config ?create_auth_challenge ?custom_message
     ?define_auth_challenge ?kms_key_id ?post_authentication
     ?post_confirmation ?pre_authentication ?pre_sign_up
     ?pre_token_generation ?user_migration
-    ?verify_auth_challenge_response ~custom_email_sender
-    ~custom_sms_sender ~pre_token_generation_config () :
-    lambda_config =
+    ?verify_auth_challenge_response ?(custom_email_sender = [])
+    ?(custom_sms_sender = []) ?(pre_token_generation_config = []) ()
+    : lambda_config =
   {
     create_auth_challenge;
     custom_message;
@@ -1376,8 +1376,9 @@ let schema__string_attribute_constraints ?max_length ?min_length () :
   { max_length; min_length }
 
 let schema ?developer_only_attribute ?mutable_ ?required
-    ~attribute_data_type ~name ~number_attribute_constraints
-    ~string_attribute_constraints () : schema =
+    ?(number_attribute_constraints = [])
+    ?(string_attribute_constraints = []) ~attribute_data_type ~name
+    () : schema =
   {
     attribute_data_type;
     developer_only_attribute;
@@ -1426,12 +1427,14 @@ let aws_cognito_user_pool ?alias_attributes ?auto_verified_attributes
     ?deletion_protection ?email_verification_message
     ?email_verification_subject ?id ?mfa_configuration
     ?sms_authentication_message ?sms_verification_message ?tags
-    ?tags_all ?username_attributes ~name ~account_recovery_setting
-    ~admin_create_user_config ~device_configuration
-    ~email_configuration ~lambda_config ~password_policy ~schema
-    ~sms_configuration ~software_token_mfa_configuration
-    ~user_attribute_update_settings ~user_pool_add_ons
-    ~username_configuration ~verification_message_template () :
+    ?tags_all ?username_attributes ?(account_recovery_setting = [])
+    ?(admin_create_user_config = []) ?(device_configuration = [])
+    ?(email_configuration = []) ?(lambda_config = [])
+    ?(password_policy = []) ?(sms_configuration = [])
+    ?(software_token_mfa_configuration = [])
+    ?(user_attribute_update_settings = []) ?(user_pool_add_ons = [])
+    ?(username_configuration = [])
+    ?(verification_message_template = []) ~name ~schema () :
     aws_cognito_user_pool =
   {
     alias_attributes;
@@ -1489,12 +1492,14 @@ let make ?alias_attributes ?auto_verified_attributes
     ?deletion_protection ?email_verification_message
     ?email_verification_subject ?id ?mfa_configuration
     ?sms_authentication_message ?sms_verification_message ?tags
-    ?tags_all ?username_attributes ~name ~account_recovery_setting
-    ~admin_create_user_config ~device_configuration
-    ~email_configuration ~lambda_config ~password_policy ~schema
-    ~sms_configuration ~software_token_mfa_configuration
-    ~user_attribute_update_settings ~user_pool_add_ons
-    ~username_configuration ~verification_message_template __id =
+    ?tags_all ?username_attributes ?(account_recovery_setting = [])
+    ?(admin_create_user_config = []) ?(device_configuration = [])
+    ?(email_configuration = []) ?(lambda_config = [])
+    ?(password_policy = []) ?(sms_configuration = [])
+    ?(software_token_mfa_configuration = [])
+    ?(user_attribute_update_settings = []) ?(user_pool_add_ons = [])
+    ?(username_configuration = [])
+    ?(verification_message_template = []) ~name ~schema __id =
   let __type = "aws_cognito_user_pool" in
   let __attrs =
     ({
@@ -1542,13 +1547,13 @@ let make ?alias_attributes ?auto_verified_attributes
            ?email_verification_message ?email_verification_subject
            ?id ?mfa_configuration ?sms_authentication_message
            ?sms_verification_message ?tags ?tags_all
-           ?username_attributes ~name ~account_recovery_setting
+           ?username_attributes ~account_recovery_setting
            ~admin_create_user_config ~device_configuration
            ~email_configuration ~lambda_config ~password_policy
-           ~schema ~sms_configuration
-           ~software_token_mfa_configuration
+           ~sms_configuration ~software_token_mfa_configuration
            ~user_attribute_update_settings ~user_pool_add_ons
-           ~username_configuration ~verification_message_template ());
+           ~username_configuration ~verification_message_template
+           ~name ~schema ());
     attrs = __attrs;
   }
 
@@ -1556,23 +1561,26 @@ let register ?tf_module ?alias_attributes ?auto_verified_attributes
     ?deletion_protection ?email_verification_message
     ?email_verification_subject ?id ?mfa_configuration
     ?sms_authentication_message ?sms_verification_message ?tags
-    ?tags_all ?username_attributes ~name ~account_recovery_setting
-    ~admin_create_user_config ~device_configuration
-    ~email_configuration ~lambda_config ~password_policy ~schema
-    ~sms_configuration ~software_token_mfa_configuration
-    ~user_attribute_update_settings ~user_pool_add_ons
-    ~username_configuration ~verification_message_template __id =
+    ?tags_all ?username_attributes ?(account_recovery_setting = [])
+    ?(admin_create_user_config = []) ?(device_configuration = [])
+    ?(email_configuration = []) ?(lambda_config = [])
+    ?(password_policy = []) ?(sms_configuration = [])
+    ?(software_token_mfa_configuration = [])
+    ?(user_attribute_update_settings = []) ?(user_pool_add_ons = [])
+    ?(username_configuration = [])
+    ?(verification_message_template = []) ~name ~schema __id =
   let (r : _ Tf_core.resource) =
     make ?alias_attributes ?auto_verified_attributes
       ?deletion_protection ?email_verification_message
       ?email_verification_subject ?id ?mfa_configuration
       ?sms_authentication_message ?sms_verification_message ?tags
-      ?tags_all ?username_attributes ~name ~account_recovery_setting
+      ?tags_all ?username_attributes ~account_recovery_setting
       ~admin_create_user_config ~device_configuration
-      ~email_configuration ~lambda_config ~password_policy ~schema
+      ~email_configuration ~lambda_config ~password_policy
       ~sms_configuration ~software_token_mfa_configuration
       ~user_attribute_update_settings ~user_pool_add_ons
-      ~username_configuration ~verification_message_template __id
+      ~username_configuration ~verification_message_template ~name
+      ~schema __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

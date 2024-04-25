@@ -367,8 +367,9 @@ let worker_config ?min_instances ?weight ~max_instances () :
   { max_instances; min_instances; weight }
 
 let google_dataproc_autoscaling_policy ?id ?location ?project
-    ?timeouts ~policy_id ~basic_algorithm ~secondary_worker_config
-    ~worker_config () : google_dataproc_autoscaling_policy =
+    ?(basic_algorithm = []) ?(secondary_worker_config = []) ?timeouts
+    ?(worker_config = []) ~policy_id () :
+    google_dataproc_autoscaling_policy =
   {
     id;
     location;
@@ -388,8 +389,9 @@ type t = {
   project : string prop;
 }
 
-let make ?id ?location ?project ?timeouts ~policy_id ~basic_algorithm
-    ~secondary_worker_config ~worker_config __id =
+let make ?id ?location ?project ?(basic_algorithm = [])
+    ?(secondary_worker_config = []) ?timeouts ?(worker_config = [])
+    ~policy_id __id =
   let __type = "google_dataproc_autoscaling_policy" in
   let __attrs =
     ({
@@ -407,16 +409,18 @@ let make ?id ?location ?project ?timeouts ~policy_id ~basic_algorithm
     json =
       yojson_of_google_dataproc_autoscaling_policy
         (google_dataproc_autoscaling_policy ?id ?location ?project
-           ?timeouts ~policy_id ~basic_algorithm
-           ~secondary_worker_config ~worker_config ());
+           ~basic_algorithm ~secondary_worker_config ?timeouts
+           ~worker_config ~policy_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?location ?project ?timeouts ~policy_id
-    ~basic_algorithm ~secondary_worker_config ~worker_config __id =
+let register ?tf_module ?id ?location ?project
+    ?(basic_algorithm = []) ?(secondary_worker_config = []) ?timeouts
+    ?(worker_config = []) ~policy_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?location ?project ?timeouts ~policy_id ~basic_algorithm
-      ~secondary_worker_config ~worker_config __id
+    make ?id ?location ?project ~basic_algorithm
+      ~secondary_worker_config ?timeouts ~worker_config ~policy_id
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

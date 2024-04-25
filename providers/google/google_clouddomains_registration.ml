@@ -1001,7 +1001,7 @@ let dns_settings__custom_dns__ds_records ?algorithm ?digest
     ?digest_type ?key_tag () : dns_settings__custom_dns__ds_records =
   { algorithm; digest; digest_type; key_tag }
 
-let dns_settings__custom_dns ~name_servers ~ds_records () :
+let dns_settings__custom_dns ?(ds_records = []) ~name_servers () :
     dns_settings__custom_dns =
   { name_servers; ds_records }
 
@@ -1009,7 +1009,8 @@ let dns_settings__glue_records ?ipv4_addresses ?ipv6_addresses
     ~host_name () : dns_settings__glue_records =
   { host_name; ipv4_addresses; ipv6_addresses }
 
-let dns_settings ~custom_dns ~glue_records () : dns_settings =
+let dns_settings ?(custom_dns = []) ?(glue_records = []) () :
+    dns_settings =
   { custom_dns; glue_records }
 
 let management_settings ?preferred_renewal_method
@@ -1023,9 +1024,10 @@ let yearly_price ?currency_code ?units () : yearly_price =
   { currency_code; units }
 
 let google_clouddomains_registration ?contact_notices ?domain_notices
-    ?id ?labels ?project ?timeouts ~domain_name ~location
-    ~contact_settings ~dns_settings ~management_settings
-    ~yearly_price () : google_clouddomains_registration =
+    ?id ?labels ?project ?(dns_settings = [])
+    ?(management_settings = []) ?timeouts ~domain_name ~location
+    ~contact_settings ~yearly_price () :
+    google_clouddomains_registration =
   {
     contact_notices;
     domain_name;
@@ -1061,8 +1063,8 @@ type t = {
 }
 
 let make ?contact_notices ?domain_notices ?id ?labels ?project
-    ?timeouts ~domain_name ~location ~contact_settings ~dns_settings
-    ~management_settings ~yearly_price __id =
+    ?(dns_settings = []) ?(management_settings = []) ?timeouts
+    ~domain_name ~location ~contact_settings ~yearly_price __id =
   let __type = "google_clouddomains_registration" in
   let __attrs =
     ({
@@ -1095,19 +1097,20 @@ let make ?contact_notices ?domain_notices ?id ?labels ?project
     json =
       yojson_of_google_clouddomains_registration
         (google_clouddomains_registration ?contact_notices
-           ?domain_notices ?id ?labels ?project ?timeouts
-           ~domain_name ~location ~contact_settings ~dns_settings
-           ~management_settings ~yearly_price ());
+           ?domain_notices ?id ?labels ?project ~dns_settings
+           ~management_settings ?timeouts ~domain_name ~location
+           ~contact_settings ~yearly_price ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?contact_notices ?domain_notices ?id ?labels
-    ?project ?timeouts ~domain_name ~location ~contact_settings
-    ~dns_settings ~management_settings ~yearly_price __id =
+    ?project ?(dns_settings = []) ?(management_settings = [])
+    ?timeouts ~domain_name ~location ~contact_settings ~yearly_price
+    __id =
   let (r : _ Tf_core.resource) =
     make ?contact_notices ?domain_notices ?id ?labels ?project
-      ?timeouts ~domain_name ~location ~contact_settings
-      ~dns_settings ~management_settings ~yearly_price __id
+      ~dns_settings ~management_settings ?timeouts ~domain_name
+      ~location ~contact_settings ~yearly_price __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

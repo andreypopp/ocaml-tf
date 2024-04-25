@@ -62,12 +62,12 @@ val aws_fsx_windows_file_system :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?weekly_maintenance_start_time:string prop ->
+  ?audit_log_configuration:audit_log_configuration list ->
+  ?disk_iops_configuration:disk_iops_configuration list ->
+  ?self_managed_active_directory:self_managed_active_directory list ->
   ?timeouts:timeouts ->
   subnet_ids:string prop list ->
   throughput_capacity:float prop ->
-  audit_log_configuration:audit_log_configuration list ->
-  disk_iops_configuration:disk_iops_configuration list ->
-  self_managed_active_directory:self_managed_active_directory list ->
   unit ->
   aws_fsx_windows_file_system
 
@@ -124,12 +124,12 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?weekly_maintenance_start_time:string prop ->
+  ?audit_log_configuration:audit_log_configuration list ->
+  ?disk_iops_configuration:disk_iops_configuration list ->
+  ?self_managed_active_directory:self_managed_active_directory list ->
   ?timeouts:timeouts ->
   subnet_ids:string prop list ->
   throughput_capacity:float prop ->
-  audit_log_configuration:audit_log_configuration list ->
-  disk_iops_configuration:disk_iops_configuration list ->
-  self_managed_active_directory:self_managed_active_directory list ->
   string ->
   t
 
@@ -151,11 +151,11 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?weekly_maintenance_start_time:string prop ->
+  ?audit_log_configuration:audit_log_configuration list ->
+  ?disk_iops_configuration:disk_iops_configuration list ->
+  ?self_managed_active_directory:self_managed_active_directory list ->
   ?timeouts:timeouts ->
   subnet_ids:string prop list ->
   throughput_capacity:float prop ->
-  audit_log_configuration:audit_log_configuration list ->
-  disk_iops_configuration:disk_iops_configuration list ->
-  self_managed_active_directory:self_managed_active_directory list ->
   string ->
   t Tf_core.resource

@@ -34,19 +34,19 @@ val initial_capacity__initial_capacity_config__worker_configuration :
 type initial_capacity__initial_capacity_config
 
 val initial_capacity__initial_capacity_config :
-  worker_count:float prop ->
-  worker_configuration:
+  ?worker_configuration:
     initial_capacity__initial_capacity_config__worker_configuration
     list ->
+  worker_count:float prop ->
   unit ->
   initial_capacity__initial_capacity_config
 
 type initial_capacity
 
 val initial_capacity :
-  initial_capacity_type:string prop ->
-  initial_capacity_config:
+  ?initial_capacity_config:
     initial_capacity__initial_capacity_config list ->
+  initial_capacity_type:string prop ->
   unit ->
   initial_capacity
 
@@ -74,15 +74,15 @@ val aws_emrserverless_application :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?auto_start_configuration:auto_start_configuration list ->
+  ?auto_stop_configuration:auto_stop_configuration list ->
+  ?image_configuration:image_configuration list ->
+  ?maximum_capacity:maximum_capacity list ->
+  ?network_configuration:network_configuration list ->
   name:string prop ->
   release_label:string prop ->
   type_:string prop ->
-  auto_start_configuration:auto_start_configuration list ->
-  auto_stop_configuration:auto_stop_configuration list ->
-  image_configuration:image_configuration list ->
   initial_capacity:initial_capacity list ->
-  maximum_capacity:maximum_capacity list ->
-  network_configuration:network_configuration list ->
   unit ->
   aws_emrserverless_application
 
@@ -108,15 +108,15 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?auto_start_configuration:auto_start_configuration list ->
+  ?auto_stop_configuration:auto_stop_configuration list ->
+  ?image_configuration:image_configuration list ->
+  ?maximum_capacity:maximum_capacity list ->
+  ?network_configuration:network_configuration list ->
   name:string prop ->
   release_label:string prop ->
   type_:string prop ->
-  auto_start_configuration:auto_start_configuration list ->
-  auto_stop_configuration:auto_stop_configuration list ->
-  image_configuration:image_configuration list ->
   initial_capacity:initial_capacity list ->
-  maximum_capacity:maximum_capacity list ->
-  network_configuration:network_configuration list ->
   string ->
   t
 
@@ -125,14 +125,14 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?auto_start_configuration:auto_start_configuration list ->
+  ?auto_stop_configuration:auto_stop_configuration list ->
+  ?image_configuration:image_configuration list ->
+  ?maximum_capacity:maximum_capacity list ->
+  ?network_configuration:network_configuration list ->
   name:string prop ->
   release_label:string prop ->
   type_:string prop ->
-  auto_start_configuration:auto_start_configuration list ->
-  auto_stop_configuration:auto_stop_configuration list ->
-  image_configuration:image_configuration list ->
   initial_capacity:initial_capacity list ->
-  maximum_capacity:maximum_capacity list ->
-  network_configuration:network_configuration list ->
   string ->
   t Tf_core.resource

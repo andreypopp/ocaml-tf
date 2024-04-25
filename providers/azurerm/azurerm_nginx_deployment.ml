@@ -418,10 +418,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_nginx_deployment ?automatic_upgrade_channel ?capacity
     ?diagnose_support_enabled ?email ?id ?managed_resource_group
-    ?tags ?timeouts ~location ~name ~resource_group_name ~sku
-    ~frontend_private ~frontend_public ~identity
-    ~logging_storage_account ~network_interface () :
-    azurerm_nginx_deployment =
+    ?tags ?(frontend_private = []) ?(frontend_public = [])
+    ?(identity = []) ?(logging_storage_account = [])
+    ?(network_interface = []) ?timeouts ~location ~name
+    ~resource_group_name ~sku () : azurerm_nginx_deployment =
   {
     automatic_upgrade_channel;
     capacity;
@@ -460,9 +460,10 @@ type t = {
 
 let make ?automatic_upgrade_channel ?capacity
     ?diagnose_support_enabled ?email ?id ?managed_resource_group
-    ?tags ?timeouts ~location ~name ~resource_group_name ~sku
-    ~frontend_private ~frontend_public ~identity
-    ~logging_storage_account ~network_interface __id =
+    ?tags ?(frontend_private = []) ?(frontend_public = [])
+    ?(identity = []) ?(logging_storage_account = [])
+    ?(network_interface = []) ?timeouts ~location ~name
+    ~resource_group_name ~sku __id =
   let __type = "azurerm_nginx_deployment" in
   let __attrs =
     ({
@@ -493,24 +494,25 @@ let make ?automatic_upgrade_channel ?capacity
       yojson_of_azurerm_nginx_deployment
         (azurerm_nginx_deployment ?automatic_upgrade_channel
            ?capacity ?diagnose_support_enabled ?email ?id
-           ?managed_resource_group ?tags ?timeouts ~location ~name
-           ~resource_group_name ~sku ~frontend_private
+           ?managed_resource_group ?tags ~frontend_private
            ~frontend_public ~identity ~logging_storage_account
-           ~network_interface ());
+           ~network_interface ?timeouts ~location ~name
+           ~resource_group_name ~sku ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?automatic_upgrade_channel ?capacity
     ?diagnose_support_enabled ?email ?id ?managed_resource_group
-    ?tags ?timeouts ~location ~name ~resource_group_name ~sku
-    ~frontend_private ~frontend_public ~identity
-    ~logging_storage_account ~network_interface __id =
+    ?tags ?(frontend_private = []) ?(frontend_public = [])
+    ?(identity = []) ?(logging_storage_account = [])
+    ?(network_interface = []) ?timeouts ~location ~name
+    ~resource_group_name ~sku __id =
   let (r : _ Tf_core.resource) =
     make ?automatic_upgrade_channel ?capacity
       ?diagnose_support_enabled ?email ?id ?managed_resource_group
-      ?tags ?timeouts ~location ~name ~resource_group_name ~sku
-      ~frontend_private ~frontend_public ~identity
-      ~logging_storage_account ~network_interface __id
+      ?tags ~frontend_private ~frontend_public ~identity
+      ~logging_storage_account ~network_interface ?timeouts ~location
+      ~name ~resource_group_name ~sku __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

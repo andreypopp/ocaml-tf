@@ -274,21 +274,23 @@ let _ = yojson_of_aws_cloudfront_origin_request_policy
 let cookies_config__cookies ?items () : cookies_config__cookies =
   { items }
 
-let cookies_config ~cookie_behavior ~cookies () : cookies_config =
+let cookies_config ?(cookies = []) ~cookie_behavior () :
+    cookies_config =
   { cookie_behavior; cookies }
 
 let headers_config__headers ?items () : headers_config__headers =
   { items }
 
-let headers_config ?header_behavior ~headers () : headers_config =
+let headers_config ?header_behavior ?(headers = []) () :
+    headers_config =
   { header_behavior; headers }
 
 let query_strings_config__query_strings ?items () :
     query_strings_config__query_strings =
   { items }
 
-let query_strings_config ~query_string_behavior ~query_strings () :
-    query_strings_config =
+let query_strings_config ?(query_strings = []) ~query_string_behavior
+    () : query_strings_config =
   { query_string_behavior; query_strings }
 
 let aws_cloudfront_origin_request_policy ?comment ?id ~name

@@ -284,9 +284,9 @@ let timeouts ?create ?delete ?read () : timeouts =
   { create; delete; read }
 
 let azurerm_network_packet_capture ?id ?maximum_bytes_per_packet
-    ?maximum_bytes_per_session ?maximum_capture_duration ?timeouts
-    ~name ~network_watcher_name ~resource_group_name
-    ~target_resource_id ~filter ~storage_location () :
+    ?maximum_bytes_per_session ?maximum_capture_duration
+    ?(filter = []) ?timeouts ~name ~network_watcher_name
+    ~resource_group_name ~target_resource_id ~storage_location () :
     azurerm_network_packet_capture =
   {
     id;
@@ -314,8 +314,8 @@ type t = {
 }
 
 let make ?id ?maximum_bytes_per_packet ?maximum_bytes_per_session
-    ?maximum_capture_duration ?timeouts ~name ~network_watcher_name
-    ~resource_group_name ~target_resource_id ~filter
+    ?maximum_capture_duration ?(filter = []) ?timeouts ~name
+    ~network_watcher_name ~resource_group_name ~target_resource_id
     ~storage_location __id =
   let __type = "azurerm_network_packet_capture" in
   let __attrs =
@@ -344,19 +344,20 @@ let make ?id ?maximum_bytes_per_packet ?maximum_bytes_per_session
       yojson_of_azurerm_network_packet_capture
         (azurerm_network_packet_capture ?id ?maximum_bytes_per_packet
            ?maximum_bytes_per_session ?maximum_capture_duration
-           ?timeouts ~name ~network_watcher_name ~resource_group_name
-           ~target_resource_id ~filter ~storage_location ());
+           ~filter ?timeouts ~name ~network_watcher_name
+           ~resource_group_name ~target_resource_id ~storage_location
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?maximum_bytes_per_packet
-    ?maximum_bytes_per_session ?maximum_capture_duration ?timeouts
-    ~name ~network_watcher_name ~resource_group_name
-    ~target_resource_id ~filter ~storage_location __id =
+    ?maximum_bytes_per_session ?maximum_capture_duration
+    ?(filter = []) ?timeouts ~name ~network_watcher_name
+    ~resource_group_name ~target_resource_id ~storage_location __id =
   let (r : _ Tf_core.resource) =
     make ?id ?maximum_bytes_per_packet ?maximum_bytes_per_session
-      ?maximum_capture_duration ?timeouts ~name ~network_watcher_name
-      ~resource_group_name ~target_resource_id ~filter
+      ?maximum_capture_duration ~filter ?timeouts ~name
+      ~network_watcher_name ~resource_group_name ~target_resource_id
       ~storage_location __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

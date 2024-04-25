@@ -434,9 +434,10 @@ let aws_storagegateway_gateway ?activation_key
     ?cloudwatch_log_group_arn ?gateway_ip_address ?gateway_type
     ?gateway_vpc_endpoint ?id ?medium_changer_type
     ?smb_file_share_visibility ?smb_guest_password
-    ?smb_security_strategy ?tags ?tags_all ?tape_drive_type ?timeouts
-    ~gateway_name ~gateway_timezone ~maintenance_start_time
-    ~smb_active_directory_settings () : aws_storagegateway_gateway =
+    ?smb_security_strategy ?tags ?tags_all ?tape_drive_type
+    ?(maintenance_start_time = [])
+    ?(smb_active_directory_settings = []) ?timeouts ~gateway_name
+    ~gateway_timezone () : aws_storagegateway_gateway =
   {
     activation_key;
     average_download_rate_limit_in_bits_per_sec;
@@ -491,9 +492,10 @@ let make ?activation_key ?average_download_rate_limit_in_bits_per_sec
     ?cloudwatch_log_group_arn ?gateway_ip_address ?gateway_type
     ?gateway_vpc_endpoint ?id ?medium_changer_type
     ?smb_file_share_visibility ?smb_guest_password
-    ?smb_security_strategy ?tags ?tags_all ?tape_drive_type ?timeouts
-    ~gateway_name ~gateway_timezone ~maintenance_start_time
-    ~smb_active_directory_settings __id =
+    ?smb_security_strategy ?tags ?tags_all ?tape_drive_type
+    ?(maintenance_start_time = [])
+    ?(smb_active_directory_settings = []) ?timeouts ~gateway_name
+    ~gateway_timezone __id =
   let __type = "aws_storagegateway_gateway" in
   let __attrs =
     ({
@@ -549,8 +551,9 @@ let make ?activation_key ?average_download_rate_limit_in_bits_per_sec
            ?gateway_type ?gateway_vpc_endpoint ?id
            ?medium_changer_type ?smb_file_share_visibility
            ?smb_guest_password ?smb_security_strategy ?tags ?tags_all
-           ?tape_drive_type ?timeouts ~gateway_name ~gateway_timezone
-           ~maintenance_start_time ~smb_active_directory_settings ());
+           ?tape_drive_type ~maintenance_start_time
+           ~smb_active_directory_settings ?timeouts ~gateway_name
+           ~gateway_timezone ());
     attrs = __attrs;
   }
 
@@ -560,9 +563,10 @@ let register ?tf_module ?activation_key
     ?cloudwatch_log_group_arn ?gateway_ip_address ?gateway_type
     ?gateway_vpc_endpoint ?id ?medium_changer_type
     ?smb_file_share_visibility ?smb_guest_password
-    ?smb_security_strategy ?tags ?tags_all ?tape_drive_type ?timeouts
-    ~gateway_name ~gateway_timezone ~maintenance_start_time
-    ~smb_active_directory_settings __id =
+    ?smb_security_strategy ?tags ?tags_all ?tape_drive_type
+    ?(maintenance_start_time = [])
+    ?(smb_active_directory_settings = []) ?timeouts ~gateway_name
+    ~gateway_timezone __id =
   let (r : _ Tf_core.resource) =
     make ?activation_key ?average_download_rate_limit_in_bits_per_sec
       ?average_upload_rate_limit_in_bits_per_sec
@@ -570,8 +574,8 @@ let register ?tf_module ?activation_key
       ?gateway_vpc_endpoint ?id ?medium_changer_type
       ?smb_file_share_visibility ?smb_guest_password
       ?smb_security_strategy ?tags ?tags_all ?tape_drive_type
-      ?timeouts ~gateway_name ~gateway_timezone
-      ~maintenance_start_time ~smb_active_directory_settings __id
+      ~maintenance_start_time ~smb_active_directory_settings
+      ?timeouts ~gateway_name ~gateway_timezone __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

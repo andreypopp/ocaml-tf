@@ -38,10 +38,10 @@ type azurerm_iot_security_device_group
 
 val azurerm_iot_security_device_group :
   ?id:string prop ->
+  ?allow_rule:allow_rule list ->
   ?timeouts:timeouts ->
   iothub_id:string prop ->
   name:string prop ->
-  allow_rule:allow_rule list ->
   range_rule:range_rule list ->
   unit ->
   azurerm_iot_security_device_group
@@ -60,20 +60,20 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?allow_rule:allow_rule list ->
   ?timeouts:timeouts ->
   iothub_id:string prop ->
   name:string prop ->
-  allow_rule:allow_rule list ->
   range_rule:range_rule list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?allow_rule:allow_rule list ->
   ?timeouts:timeouts ->
   iothub_id:string prop ->
   name:string prop ->
-  allow_rule:allow_rule list ->
   range_rule:range_rule list ->
   string ->
   t Tf_core.resource

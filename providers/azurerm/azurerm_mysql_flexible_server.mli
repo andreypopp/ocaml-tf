@@ -77,15 +77,15 @@ val azurerm_mysql_flexible_server :
   ?tags:(string * string prop) list ->
   ?version:string prop ->
   ?zone:string prop ->
+  ?customer_managed_key:customer_managed_key list ->
+  ?high_availability:high_availability list ->
+  ?identity:identity list ->
+  ?maintenance_window:maintenance_window list ->
+  ?storage:storage list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  customer_managed_key:customer_managed_key list ->
-  high_availability:high_availability list ->
-  identity:identity list ->
-  maintenance_window:maintenance_window list ->
-  storage:storage list ->
   unit ->
   azurerm_mysql_flexible_server
 
@@ -135,15 +135,15 @@ val register :
   ?tags:(string * string prop) list ->
   ?version:string prop ->
   ?zone:string prop ->
+  ?customer_managed_key:customer_managed_key list ->
+  ?high_availability:high_availability list ->
+  ?identity:identity list ->
+  ?maintenance_window:maintenance_window list ->
+  ?storage:storage list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  customer_managed_key:customer_managed_key list ->
-  high_availability:high_availability list ->
-  identity:identity list ->
-  maintenance_window:maintenance_window list ->
-  storage:storage list ->
   string ->
   t
 
@@ -163,14 +163,14 @@ val make :
   ?tags:(string * string prop) list ->
   ?version:string prop ->
   ?zone:string prop ->
+  ?customer_managed_key:customer_managed_key list ->
+  ?high_availability:high_availability list ->
+  ?identity:identity list ->
+  ?maintenance_window:maintenance_window list ->
+  ?storage:storage list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  customer_managed_key:customer_managed_key list ->
-  high_availability:high_availability list ->
-  identity:identity list ->
-  maintenance_window:maintenance_window list ->
-  storage:storage list ->
   string ->
   t Tf_core.resource

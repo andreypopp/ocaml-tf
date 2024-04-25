@@ -167,9 +167,9 @@ let monitoring_schedule_config__schedule_config ~schedule_expression
     () : monitoring_schedule_config__schedule_config =
   { schedule_expression }
 
-let monitoring_schedule_config ~monitoring_job_definition_name
-    ~monitoring_type ~schedule_config () : monitoring_schedule_config
-    =
+let monitoring_schedule_config ?(schedule_config = [])
+    ~monitoring_job_definition_name ~monitoring_type () :
+    monitoring_schedule_config =
   {
     monitoring_job_definition_name;
     monitoring_type;

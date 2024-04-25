@@ -14,7 +14,7 @@ val private_registry_access__ecr_image_puller_role :
 type private_registry_access
 
 val private_registry_access :
-  ecr_image_puller_role:
+  ?ecr_image_puller_role:
     private_registry_access__ecr_image_puller_role list ->
   unit ->
   private_registry_access
@@ -50,12 +50,12 @@ val aws_lightsail_container_service :
   ?is_disabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?private_registry_access:private_registry_access list ->
+  ?public_domain_names:public_domain_names list ->
   ?timeouts:timeouts ->
   name:string prop ->
   power:string prop ->
   scale:float prop ->
-  private_registry_access:private_registry_access list ->
-  public_domain_names:public_domain_names list ->
   unit ->
   aws_lightsail_container_service
 
@@ -89,12 +89,12 @@ val register :
   ?is_disabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?private_registry_access:private_registry_access list ->
+  ?public_domain_names:public_domain_names list ->
   ?timeouts:timeouts ->
   name:string prop ->
   power:string prop ->
   scale:float prop ->
-  private_registry_access:private_registry_access list ->
-  public_domain_names:public_domain_names list ->
   string ->
   t
 
@@ -103,11 +103,11 @@ val make :
   ?is_disabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?private_registry_access:private_registry_access list ->
+  ?public_domain_names:public_domain_names list ->
   ?timeouts:timeouts ->
   name:string prop ->
   power:string prop ->
   scale:float prop ->
-  private_registry_access:private_registry_access list ->
-  public_domain_names:public_domain_names list ->
   string ->
   t Tf_core.resource

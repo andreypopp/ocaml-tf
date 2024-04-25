@@ -284,15 +284,15 @@ let spec__limit ?default ?default_request ?max
     type_;
   }
 
-let spec ~limit () : spec = { limit }
+let spec ?(limit = []) () : spec = { limit }
 
-let kubernetes_limit_range ?id ~metadata ~spec () :
+let kubernetes_limit_range ?id ?(spec = []) ~metadata () :
     kubernetes_limit_range =
   { id; metadata; spec }
 
 type t = { id : string prop }
 
-let make ?id ~metadata ~spec __id =
+let make ?id ?(spec = []) ~metadata __id =
   let __type = "kubernetes_limit_range" in
   let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
   {
@@ -300,11 +300,11 @@ let make ?id ~metadata ~spec __id =
     type_ = __type;
     json =
       yojson_of_kubernetes_limit_range
-        (kubernetes_limit_range ?id ~metadata ~spec ());
+        (kubernetes_limit_range ?id ~spec ~metadata ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~metadata ~spec __id =
-  let (r : _ Tf_core.resource) = make ?id ~metadata ~spec __id in
+let register ?tf_module ?id ?(spec = []) ~metadata __id =
+  let (r : _ Tf_core.resource) = make ?id ~spec ~metadata __id in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

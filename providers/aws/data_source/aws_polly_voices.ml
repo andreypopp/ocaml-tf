@@ -73,7 +73,7 @@ let _ = yojson_of_aws_polly_voices
 let voices () = ()
 
 let aws_polly_voices ?engine ?include_additional_language_codes
-    ?language_code ~voices () : aws_polly_voices =
+    ?language_code ?(voices = []) () : aws_polly_voices =
   {
     engine;
     include_additional_language_codes;
@@ -89,7 +89,7 @@ type t = {
 }
 
 let make ?engine ?include_additional_language_codes ?language_code
-    ~voices __id =
+    ?(voices = []) __id =
   let __type = "aws_polly_voices" in
   let __attrs =
     ({
@@ -113,7 +113,7 @@ let make ?engine ?include_additional_language_codes ?language_code
   }
 
 let register ?tf_module ?engine ?include_additional_language_codes
-    ?language_code ~voices __id =
+    ?language_code ?(voices = []) __id =
   let (r : _ Tf_core.resource) =
     make ?engine ?include_additional_language_codes ?language_code
       ~voices __id

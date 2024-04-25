@@ -143,7 +143,7 @@ let filter ?prefix ?tags () : filter = { prefix; tags }
 let tiering ~access_tier ~days () : tiering = { access_tier; days }
 
 let aws_s3_bucket_intelligent_tiering_configuration ?id ?status
-    ~bucket ~name ~filter ~tiering () :
+    ?(filter = []) ~bucket ~name ~tiering () :
     aws_s3_bucket_intelligent_tiering_configuration =
   { bucket; id; name; status; filter; tiering }
 
@@ -154,7 +154,7 @@ type t = {
   status : string prop;
 }
 
-let make ?id ?status ~bucket ~name ~filter ~tiering __id =
+let make ?id ?status ?(filter = []) ~bucket ~name ~tiering __id =
   let __type = "aws_s3_bucket_intelligent_tiering_configuration" in
   let __attrs =
     ({
@@ -171,14 +171,14 @@ let make ?id ?status ~bucket ~name ~filter ~tiering __id =
     json =
       yojson_of_aws_s3_bucket_intelligent_tiering_configuration
         (aws_s3_bucket_intelligent_tiering_configuration ?id ?status
-           ~bucket ~name ~filter ~tiering ());
+           ~filter ~bucket ~name ~tiering ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?status ~bucket ~name ~filter ~tiering
-    __id =
+let register ?tf_module ?id ?status ?(filter = []) ~bucket ~name
+    ~tiering __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?status ~bucket ~name ~filter ~tiering __id
+    make ?id ?status ~filter ~bucket ~name ~tiering __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

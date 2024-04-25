@@ -185,9 +185,9 @@ let authentication_configuration ?allowed_ip_range ?secret_token () :
 let filter ~json_path ~match_equals () : filter =
   { json_path; match_equals }
 
-let aws_codepipeline_webhook ?id ?tags ?tags_all ~authentication
-    ~name ~target_action ~target_pipeline
-    ~authentication_configuration ~filter () :
+let aws_codepipeline_webhook ?id ?tags ?tags_all
+    ?(authentication_configuration = []) ~authentication ~name
+    ~target_action ~target_pipeline ~filter () :
     aws_codepipeline_webhook =
   {
     authentication;
@@ -213,8 +213,9 @@ type t = {
   url : string prop;
 }
 
-let make ?id ?tags ?tags_all ~authentication ~name ~target_action
-    ~target_pipeline ~authentication_configuration ~filter __id =
+let make ?id ?tags ?tags_all ?(authentication_configuration = [])
+    ~authentication ~name ~target_action ~target_pipeline ~filter
+    __id =
   let __type = "aws_codepipeline_webhook" in
   let __attrs =
     ({
@@ -235,18 +236,19 @@ let make ?id ?tags ?tags_all ~authentication ~name ~target_action
     type_ = __type;
     json =
       yojson_of_aws_codepipeline_webhook
-        (aws_codepipeline_webhook ?id ?tags ?tags_all ~authentication
-           ~name ~target_action ~target_pipeline
-           ~authentication_configuration ~filter ());
+        (aws_codepipeline_webhook ?id ?tags ?tags_all
+           ~authentication_configuration ~authentication ~name
+           ~target_action ~target_pipeline ~filter ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ~authentication ~name
-    ~target_action ~target_pipeline ~authentication_configuration
-    ~filter __id =
+let register ?tf_module ?id ?tags ?tags_all
+    ?(authentication_configuration = []) ~authentication ~name
+    ~target_action ~target_pipeline ~filter __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~authentication ~name ~target_action
-      ~target_pipeline ~authentication_configuration ~filter __id
+    make ?id ?tags ?tags_all ~authentication_configuration
+      ~authentication ~name ~target_action ~target_pipeline ~filter
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

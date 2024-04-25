@@ -239,9 +239,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_attestation_provider ?id ?open_enclave_policy_base64
     ?policy_signing_certificate_data ?sev_snp_policy_base64
-    ?sgx_enclave_policy_base64 ?tags ?tpm_policy_base64 ?timeouts
-    ~location ~name ~resource_group_name ~policy () :
-    azurerm_attestation_provider =
+    ?sgx_enclave_policy_base64 ?tags ?tpm_policy_base64
+    ?(policy = []) ?timeouts ~location ~name ~resource_group_name ()
+    : azurerm_attestation_provider =
   {
     id;
     location;
@@ -274,8 +274,9 @@ type t = {
 
 let make ?id ?open_enclave_policy_base64
     ?policy_signing_certificate_data ?sev_snp_policy_base64
-    ?sgx_enclave_policy_base64 ?tags ?tpm_policy_base64 ?timeouts
-    ~location ~name ~resource_group_name ~policy __id =
+    ?sgx_enclave_policy_base64 ?tags ?tpm_policy_base64
+    ?(policy = []) ?timeouts ~location ~name ~resource_group_name
+    __id =
   let __type = "azurerm_attestation_provider" in
   let __attrs =
     ({
@@ -308,19 +309,20 @@ let make ?id ?open_enclave_policy_base64
         (azurerm_attestation_provider ?id ?open_enclave_policy_base64
            ?policy_signing_certificate_data ?sev_snp_policy_base64
            ?sgx_enclave_policy_base64 ?tags ?tpm_policy_base64
-           ?timeouts ~location ~name ~resource_group_name ~policy ());
+           ~policy ?timeouts ~location ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?open_enclave_policy_base64
     ?policy_signing_certificate_data ?sev_snp_policy_base64
-    ?sgx_enclave_policy_base64 ?tags ?tpm_policy_base64 ?timeouts
-    ~location ~name ~resource_group_name ~policy __id =
+    ?sgx_enclave_policy_base64 ?tags ?tpm_policy_base64
+    ?(policy = []) ?timeouts ~location ~name ~resource_group_name
+    __id =
   let (r : _ Tf_core.resource) =
     make ?id ?open_enclave_policy_base64
       ?policy_signing_certificate_data ?sev_snp_policy_base64
-      ?sgx_enclave_policy_base64 ?tags ?tpm_policy_base64 ?timeouts
-      ~location ~name ~resource_group_name ~policy __id
+      ?sgx_enclave_policy_base64 ?tags ?tpm_policy_base64 ~policy
+      ?timeouts ~location ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

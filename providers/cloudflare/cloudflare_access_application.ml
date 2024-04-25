@@ -803,7 +803,7 @@ let saas_app__custom_attribute ?friendly_name ?name ?name_format
 let saas_app ?app_launcher_url ?auth_type ?consumer_service_url
     ?default_relay_state ?grant_types ?group_filter_regex
     ?name_id_format ?name_id_transform_jsonata ?redirect_uris ?scopes
-    ?sp_entity_id ~custom_attribute () : saas_app =
+    ?sp_entity_id ?(custom_attribute = []) () : saas_app =
   {
     app_launcher_url;
     auth_type;
@@ -828,9 +828,9 @@ let cloudflare_access_application ?account_id
     ?http_only_cookie_attribute ?id ?logo_url ?name
     ?same_site_cookie_attribute ?self_hosted_domains
     ?service_auth_401_redirect ?session_duration ?skip_interstitial
-    ?tags ?type_ ?zone_id ~cors_headers ~footer_links
-    ~landing_page_design ~saas_app () : cloudflare_access_application
-    =
+    ?tags ?type_ ?zone_id ?(cors_headers = [])
+    ?(landing_page_design = []) ?(saas_app = []) ~footer_links () :
+    cloudflare_access_application =
   {
     account_id;
     allow_authenticate_via_warp;
@@ -902,8 +902,8 @@ let make ?account_id ?allow_authenticate_via_warp ?allowed_idps
     ?http_only_cookie_attribute ?id ?logo_url ?name
     ?same_site_cookie_attribute ?self_hosted_domains
     ?service_auth_401_redirect ?session_duration ?skip_interstitial
-    ?tags ?type_ ?zone_id ~cors_headers ~footer_links
-    ~landing_page_design ~saas_app __id =
+    ?tags ?type_ ?zone_id ?(cors_headers = [])
+    ?(landing_page_design = []) ?(saas_app = []) ~footer_links __id =
   let __type = "cloudflare_access_application" in
   let __attrs =
     ({
@@ -965,7 +965,7 @@ let make ?account_id ?allow_authenticate_via_warp ?allowed_idps
            ?name ?same_site_cookie_attribute ?self_hosted_domains
            ?service_auth_401_redirect ?session_duration
            ?skip_interstitial ?tags ?type_ ?zone_id ~cors_headers
-           ~footer_links ~landing_page_design ~saas_app ());
+           ~landing_page_design ~saas_app ~footer_links ());
     attrs = __attrs;
   }
 
@@ -977,8 +977,8 @@ let register ?tf_module ?account_id ?allow_authenticate_via_warp
     ?http_only_cookie_attribute ?id ?logo_url ?name
     ?same_site_cookie_attribute ?self_hosted_domains
     ?service_auth_401_redirect ?session_duration ?skip_interstitial
-    ?tags ?type_ ?zone_id ~cors_headers ~footer_links
-    ~landing_page_design ~saas_app __id =
+    ?tags ?type_ ?zone_id ?(cors_headers = [])
+    ?(landing_page_design = []) ?(saas_app = []) ~footer_links __id =
   let (r : _ Tf_core.resource) =
     make ?account_id ?allow_authenticate_via_warp ?allowed_idps
       ?app_launcher_logo_url ?app_launcher_visible
@@ -988,8 +988,8 @@ let register ?tf_module ?account_id ?allow_authenticate_via_warp
       ?http_only_cookie_attribute ?id ?logo_url ?name
       ?same_site_cookie_attribute ?self_hosted_domains
       ?service_auth_401_redirect ?session_duration ?skip_interstitial
-      ?tags ?type_ ?zone_id ~cors_headers ~footer_links
-      ~landing_page_design ~saas_app __id
+      ?tags ?type_ ?zone_id ~cors_headers ~landing_page_design
+      ~saas_app ~footer_links __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

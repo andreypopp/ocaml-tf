@@ -670,7 +670,7 @@ let hive_metastore_config__kerberos_config ~krb5_config_gcs_uri
   { krb5_config_gcs_uri; principal; keytab }
 
 let hive_metastore_config ?config_overrides ?endpoint_protocol
-    ~version ~auxiliary_versions ~kerberos_config () :
+    ?(kerberos_config = []) ~version ~auxiliary_versions () :
     hive_metastore_config =
   {
     config_overrides;
@@ -710,9 +710,10 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_dataproc_metastore_service ?database_type ?id ?labels
     ?location ?network ?port ?project ?release_channel ?tier
-    ?timeouts ~service_id ~encryption_config ~hive_metastore_config
-    ~maintenance_window ~metadata_integration ~network_config
-    ~scaling_config ~telemetry_config () :
+    ?(encryption_config = []) ?(hive_metastore_config = [])
+    ?(maintenance_window = []) ?(metadata_integration = [])
+    ?(network_config = []) ?(scaling_config = [])
+    ?(telemetry_config = []) ?timeouts ~service_id () :
     google_dataproc_metastore_service =
   {
     database_type;
@@ -757,9 +758,11 @@ type t = {
 }
 
 let make ?database_type ?id ?labels ?location ?network ?port ?project
-    ?release_channel ?tier ?timeouts ~service_id ~encryption_config
-    ~hive_metastore_config ~maintenance_window ~metadata_integration
-    ~network_config ~scaling_config ~telemetry_config __id =
+    ?release_channel ?tier ?(encryption_config = [])
+    ?(hive_metastore_config = []) ?(maintenance_window = [])
+    ?(metadata_integration = []) ?(network_config = [])
+    ?(scaling_config = []) ?(telemetry_config = []) ?timeouts
+    ~service_id __id =
   let __type = "google_dataproc_metastore_service" in
   let __attrs =
     ({
@@ -794,24 +797,24 @@ let make ?database_type ?id ?labels ?location ?network ?port ?project
       yojson_of_google_dataproc_metastore_service
         (google_dataproc_metastore_service ?database_type ?id ?labels
            ?location ?network ?port ?project ?release_channel ?tier
-           ?timeouts ~service_id ~encryption_config
-           ~hive_metastore_config ~maintenance_window
-           ~metadata_integration ~network_config ~scaling_config
-           ~telemetry_config ());
+           ~encryption_config ~hive_metastore_config
+           ~maintenance_window ~metadata_integration ~network_config
+           ~scaling_config ~telemetry_config ?timeouts ~service_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?database_type ?id ?labels ?location ?network
-    ?port ?project ?release_channel ?tier ?timeouts ~service_id
-    ~encryption_config ~hive_metastore_config ~maintenance_window
-    ~metadata_integration ~network_config ~scaling_config
-    ~telemetry_config __id =
+    ?port ?project ?release_channel ?tier ?(encryption_config = [])
+    ?(hive_metastore_config = []) ?(maintenance_window = [])
+    ?(metadata_integration = []) ?(network_config = [])
+    ?(scaling_config = []) ?(telemetry_config = []) ?timeouts
+    ~service_id __id =
   let (r : _ Tf_core.resource) =
     make ?database_type ?id ?labels ?location ?network ?port ?project
-      ?release_channel ?tier ?timeouts ~service_id ~encryption_config
+      ?release_channel ?tier ~encryption_config
       ~hive_metastore_config ~maintenance_window
       ~metadata_integration ~network_config ~scaling_config
-      ~telemetry_config __id
+      ~telemetry_config ?timeouts ~service_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

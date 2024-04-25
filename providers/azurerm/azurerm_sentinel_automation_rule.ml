@@ -391,10 +391,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_sentinel_automation_rule ?condition_json ?enabled
-    ?expiration ?id ?triggers_on ?triggers_when ?timeouts
-    ~display_name ~log_analytics_workspace_id ~name ~order
-    ~action_incident ~action_playbook ~condition () :
-    azurerm_sentinel_automation_rule =
+    ?expiration ?id ?triggers_on ?triggers_when
+    ?(action_incident = []) ?(action_playbook = []) ?(condition = [])
+    ?timeouts ~display_name ~log_analytics_workspace_id ~name ~order
+    () : azurerm_sentinel_automation_rule =
   {
     condition_json;
     display_name;
@@ -426,9 +426,9 @@ type t = {
 }
 
 let make ?condition_json ?enabled ?expiration ?id ?triggers_on
-    ?triggers_when ?timeouts ~display_name
-    ~log_analytics_workspace_id ~name ~order ~action_incident
-    ~action_playbook ~condition __id =
+    ?triggers_when ?(action_incident = []) ?(action_playbook = [])
+    ?(condition = []) ?timeouts ~display_name
+    ~log_analytics_workspace_id ~name ~order __id =
   let __type = "azurerm_sentinel_automation_rule" in
   let __attrs =
     ({
@@ -452,21 +452,21 @@ let make ?condition_json ?enabled ?expiration ?id ?triggers_on
     json =
       yojson_of_azurerm_sentinel_automation_rule
         (azurerm_sentinel_automation_rule ?condition_json ?enabled
-           ?expiration ?id ?triggers_on ?triggers_when ?timeouts
-           ~display_name ~log_analytics_workspace_id ~name ~order
-           ~action_incident ~action_playbook ~condition ());
+           ?expiration ?id ?triggers_on ?triggers_when
+           ~action_incident ~action_playbook ~condition ?timeouts
+           ~display_name ~log_analytics_workspace_id ~name ~order ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?condition_json ?enabled ?expiration ?id
-    ?triggers_on ?triggers_when ?timeouts ~display_name
-    ~log_analytics_workspace_id ~name ~order ~action_incident
-    ~action_playbook ~condition __id =
+    ?triggers_on ?triggers_when ?(action_incident = [])
+    ?(action_playbook = []) ?(condition = []) ?timeouts ~display_name
+    ~log_analytics_workspace_id ~name ~order __id =
   let (r : _ Tf_core.resource) =
     make ?condition_json ?enabled ?expiration ?id ?triggers_on
-      ?triggers_when ?timeouts ~display_name
-      ~log_analytics_workspace_id ~name ~order ~action_incident
-      ~action_playbook ~condition __id
+      ?triggers_when ~action_incident ~action_playbook ~condition
+      ?timeouts ~display_name ~log_analytics_workspace_id ~name
+      ~order __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

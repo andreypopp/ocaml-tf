@@ -509,7 +509,7 @@ let composite_slot_type_setting__subslots ~name ~slot_type_id () :
     composite_slot_type_setting__subslots =
   { name; slot_type_id }
 
-let composite_slot_type_setting ~subslots () :
+let composite_slot_type_setting ?(subslots = []) () :
     composite_slot_type_setting =
   { subslots }
 
@@ -518,11 +518,11 @@ let external_source_setting__grammar_slot_type_setting__source
     external_source_setting__grammar_slot_type_setting__source =
   { kms_key_arn; s3_bucket_name; s3_object_key }
 
-let external_source_setting__grammar_slot_type_setting ~source () :
-    external_source_setting__grammar_slot_type_setting =
+let external_source_setting__grammar_slot_type_setting ?(source = [])
+    () : external_source_setting__grammar_slot_type_setting =
   { source }
 
-let external_source_setting ~grammar_slot_type_setting () :
+let external_source_setting ?(grammar_slot_type_setting = []) () :
     external_source_setting =
   { grammar_slot_type_setting }
 
@@ -534,8 +534,8 @@ let slot_type_values__synonyms ~value () : slot_type_values__synonyms
     =
   { value }
 
-let slot_type_values ~slot_type_value ~synonyms () : slot_type_values
-    =
+let slot_type_values ?(slot_type_value = []) ?(synonyms = []) () :
+    slot_type_values =
   { slot_type_value; synonyms }
 
 let timeouts ?create ?delete ?update () : timeouts =
@@ -550,16 +550,16 @@ let value_selection_setting__regex_filter ~pattern () :
     value_selection_setting__regex_filter =
   { pattern }
 
-let value_selection_setting ~resolution_strategy
-    ~advanced_recognition_setting ~regex_filter () :
+let value_selection_setting ?(advanced_recognition_setting = [])
+    ?(regex_filter = []) ~resolution_strategy () :
     value_selection_setting =
   { resolution_strategy; advanced_recognition_setting; regex_filter }
 
 let aws_lexv2models_slot_type ?description
-    ?parent_slot_type_signature ?timeouts ~bot_id ~bot_version
-    ~locale_id ~name ~composite_slot_type_setting
-    ~external_source_setting ~slot_type_values
-    ~value_selection_setting () : aws_lexv2models_slot_type =
+    ?parent_slot_type_signature ?(composite_slot_type_setting = [])
+    ?(external_source_setting = []) ?(slot_type_values = [])
+    ?timeouts ?(value_selection_setting = []) ~bot_id ~bot_version
+    ~locale_id ~name () : aws_lexv2models_slot_type =
   {
     bot_id;
     bot_version;
@@ -585,10 +585,11 @@ type t = {
   slot_type_id : string prop;
 }
 
-let make ?description ?parent_slot_type_signature ?timeouts ~bot_id
-    ~bot_version ~locale_id ~name ~composite_slot_type_setting
-    ~external_source_setting ~slot_type_values
-    ~value_selection_setting __id =
+let make ?description ?parent_slot_type_signature
+    ?(composite_slot_type_setting = [])
+    ?(external_source_setting = []) ?(slot_type_values = [])
+    ?timeouts ?(value_selection_setting = []) ~bot_id ~bot_version
+    ~locale_id ~name __id =
   let __type = "aws_lexv2models_slot_type" in
   let __attrs =
     ({
@@ -610,22 +611,23 @@ let make ?description ?parent_slot_type_signature ?timeouts ~bot_id
     json =
       yojson_of_aws_lexv2models_slot_type
         (aws_lexv2models_slot_type ?description
-           ?parent_slot_type_signature ?timeouts ~bot_id ~bot_version
-           ~locale_id ~name ~composite_slot_type_setting
-           ~external_source_setting ~slot_type_values
-           ~value_selection_setting ());
+           ?parent_slot_type_signature ~composite_slot_type_setting
+           ~external_source_setting ~slot_type_values ?timeouts
+           ~value_selection_setting ~bot_id ~bot_version ~locale_id
+           ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?parent_slot_type_signature
-    ?timeouts ~bot_id ~bot_version ~locale_id ~name
-    ~composite_slot_type_setting ~external_source_setting
-    ~slot_type_values ~value_selection_setting __id =
+    ?(composite_slot_type_setting = [])
+    ?(external_source_setting = []) ?(slot_type_values = [])
+    ?timeouts ?(value_selection_setting = []) ~bot_id ~bot_version
+    ~locale_id ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?parent_slot_type_signature ?timeouts ~bot_id
-      ~bot_version ~locale_id ~name ~composite_slot_type_setting
-      ~external_source_setting ~slot_type_values
-      ~value_selection_setting __id
+    make ?description ?parent_slot_type_signature
+      ~composite_slot_type_setting ~external_source_setting
+      ~slot_type_values ?timeouts ~value_selection_setting ~bot_id
+      ~bot_version ~locale_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

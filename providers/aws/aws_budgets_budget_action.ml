@@ -428,8 +428,9 @@ let definition__ssm_action_definition ~action_sub_type ~instance_ids
     ~region () : definition__ssm_action_definition =
   { action_sub_type; instance_ids; region }
 
-let definition ~iam_action_definition ~scp_action_definition
-    ~ssm_action_definition () : definition =
+let definition ?(iam_action_definition = [])
+    ?(scp_action_definition = []) ?(ssm_action_definition = []) () :
+    definition =
   {
     iam_action_definition;
     scp_action_definition;

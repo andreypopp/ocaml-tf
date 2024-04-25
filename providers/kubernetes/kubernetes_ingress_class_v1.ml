@@ -222,7 +222,7 @@ let spec__parameters ?api_group ?namespace ?scope ~kind ~name () :
     spec__parameters =
   { api_group; kind; name; namespace; scope }
 
-let spec ?controller ~parameters () : spec =
+let spec ?controller ?(parameters = []) () : spec =
   { controller; parameters }
 
 let kubernetes_ingress_class_v1 ?id ~metadata ~spec () :

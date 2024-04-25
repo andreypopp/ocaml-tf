@@ -218,8 +218,8 @@ let tls_config ?security_policy () : tls_config = { security_policy }
 
 let aws_iot_domain_configuration ?domain_name ?id
     ?server_certificate_arns ?service_type ?status ?tags ?tags_all
-    ?validation_certificate_arn ~name ~authorizer_config ~tls_config
-    () : aws_iot_domain_configuration =
+    ?validation_certificate_arn ?(authorizer_config = [])
+    ?(tls_config = []) ~name () : aws_iot_domain_configuration =
   {
     domain_name;
     id;
@@ -249,8 +249,8 @@ type t = {
 }
 
 let make ?domain_name ?id ?server_certificate_arns ?service_type
-    ?status ?tags ?tags_all ?validation_certificate_arn ~name
-    ~authorizer_config ~tls_config __id =
+    ?status ?tags ?tags_all ?validation_certificate_arn
+    ?(authorizer_config = []) ?(tls_config = []) ~name __id =
   let __type = "aws_iot_domain_configuration" in
   let __attrs =
     ({
@@ -277,18 +277,18 @@ let make ?domain_name ?id ?server_certificate_arns ?service_type
       yojson_of_aws_iot_domain_configuration
         (aws_iot_domain_configuration ?domain_name ?id
            ?server_certificate_arns ?service_type ?status ?tags
-           ?tags_all ?validation_certificate_arn ~name
-           ~authorizer_config ~tls_config ());
+           ?tags_all ?validation_certificate_arn ~authorizer_config
+           ~tls_config ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?domain_name ?id ?server_certificate_arns
     ?service_type ?status ?tags ?tags_all ?validation_certificate_arn
-    ~name ~authorizer_config ~tls_config __id =
+    ?(authorizer_config = []) ?(tls_config = []) ~name __id =
   let (r : _ Tf_core.resource) =
     make ?domain_name ?id ?server_certificate_arns ?service_type
-      ?status ?tags ?tags_all ?validation_certificate_arn ~name
-      ~authorizer_config ~tls_config __id
+      ?status ?tags ?tags_all ?validation_certificate_arn
+      ~authorizer_config ~tls_config ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

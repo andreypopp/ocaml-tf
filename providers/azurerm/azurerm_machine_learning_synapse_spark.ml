@@ -201,9 +201,9 @@ let timeouts ?create ?delete ?read () : timeouts =
   { create; delete; read }
 
 let azurerm_machine_learning_synapse_spark ?description ?id
-    ?local_auth_enabled ?tags ?timeouts ~location
-    ~machine_learning_workspace_id ~name ~synapse_spark_pool_id
-    ~identity () : azurerm_machine_learning_synapse_spark =
+    ?local_auth_enabled ?tags ?(identity = []) ?timeouts ~location
+    ~machine_learning_workspace_id ~name ~synapse_spark_pool_id () :
+    azurerm_machine_learning_synapse_spark =
   {
     description;
     id;
@@ -228,9 +228,9 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?description ?id ?local_auth_enabled ?tags ?timeouts
-    ~location ~machine_learning_workspace_id ~name
-    ~synapse_spark_pool_id ~identity __id =
+let make ?description ?id ?local_auth_enabled ?tags ?(identity = [])
+    ?timeouts ~location ~machine_learning_workspace_id ~name
+    ~synapse_spark_pool_id __id =
   let __type = "azurerm_machine_learning_synapse_spark" in
   let __attrs =
     ({
@@ -254,19 +254,20 @@ let make ?description ?id ?local_auth_enabled ?tags ?timeouts
     json =
       yojson_of_azurerm_machine_learning_synapse_spark
         (azurerm_machine_learning_synapse_spark ?description ?id
-           ?local_auth_enabled ?tags ?timeouts ~location
+           ?local_auth_enabled ?tags ~identity ?timeouts ~location
            ~machine_learning_workspace_id ~name
-           ~synapse_spark_pool_id ~identity ());
+           ~synapse_spark_pool_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?local_auth_enabled ?tags
-    ?timeouts ~location ~machine_learning_workspace_id ~name
-    ~synapse_spark_pool_id ~identity __id =
+    ?(identity = []) ?timeouts ~location
+    ~machine_learning_workspace_id ~name ~synapse_spark_pool_id __id
+    =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?local_auth_enabled ?tags ?timeouts
-      ~location ~machine_learning_workspace_id ~name
-      ~synapse_spark_pool_id ~identity __id
+    make ?description ?id ?local_auth_enabled ?tags ~identity
+      ?timeouts ~location ~machine_learning_workspace_id ~name
+      ~synapse_spark_pool_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

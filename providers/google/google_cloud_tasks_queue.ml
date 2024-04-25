@@ -352,9 +352,10 @@ let stackdriver_logging_config ~sampling_ratio () :
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_cloud_tasks_queue ?id ?name ?project ?timeouts ~location
-    ~app_engine_routing_override ~rate_limits ~retry_config
-    ~stackdriver_logging_config () : google_cloud_tasks_queue =
+let google_cloud_tasks_queue ?id ?name ?project
+    ?(app_engine_routing_override = []) ?(rate_limits = [])
+    ?(retry_config = []) ?(stackdriver_logging_config = []) ?timeouts
+    ~location () : google_cloud_tasks_queue =
   {
     id;
     location;
@@ -374,9 +375,9 @@ type t = {
   project : string prop;
 }
 
-let make ?id ?name ?project ?timeouts ~location
-    ~app_engine_routing_override ~rate_limits ~retry_config
-    ~stackdriver_logging_config __id =
+let make ?id ?name ?project ?(app_engine_routing_override = [])
+    ?(rate_limits = []) ?(retry_config = [])
+    ?(stackdriver_logging_config = []) ?timeouts ~location __id =
   let __type = "google_cloud_tasks_queue" in
   let __attrs =
     ({
@@ -392,19 +393,20 @@ let make ?id ?name ?project ?timeouts ~location
     type_ = __type;
     json =
       yojson_of_google_cloud_tasks_queue
-        (google_cloud_tasks_queue ?id ?name ?project ?timeouts
-           ~location ~app_engine_routing_override ~rate_limits
-           ~retry_config ~stackdriver_logging_config ());
+        (google_cloud_tasks_queue ?id ?name ?project
+           ~app_engine_routing_override ~rate_limits ~retry_config
+           ~stackdriver_logging_config ?timeouts ~location ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?name ?project ?timeouts ~location
-    ~app_engine_routing_override ~rate_limits ~retry_config
-    ~stackdriver_logging_config __id =
+let register ?tf_module ?id ?name ?project
+    ?(app_engine_routing_override = []) ?(rate_limits = [])
+    ?(retry_config = []) ?(stackdriver_logging_config = []) ?timeouts
+    ~location __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?name ?project ?timeouts ~location
-      ~app_engine_routing_override ~rate_limits ~retry_config
-      ~stackdriver_logging_config __id
+    make ?id ?name ?project ~app_engine_routing_override ~rate_limits
+      ~retry_config ~stackdriver_logging_config ?timeouts ~location
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

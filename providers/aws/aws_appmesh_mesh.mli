@@ -11,7 +11,7 @@ val spec__egress_filter :
 
 type spec
 
-val spec : egress_filter:spec__egress_filter list -> unit -> spec
+val spec : ?egress_filter:spec__egress_filter list -> unit -> spec
 
 type aws_appmesh_mesh
 
@@ -19,8 +19,8 @@ val aws_appmesh_mesh :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?spec:spec list ->
   name:string prop ->
-  spec:spec list ->
   unit ->
   aws_appmesh_mesh
 
@@ -45,8 +45,8 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?spec:spec list ->
   name:string prop ->
-  spec:spec list ->
   string ->
   t
 
@@ -54,7 +54,7 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?spec:spec list ->
   name:string prop ->
-  spec:spec list ->
   string ->
   t Tf_core.resource

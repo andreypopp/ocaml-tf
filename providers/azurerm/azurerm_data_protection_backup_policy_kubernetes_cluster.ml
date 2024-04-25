@@ -398,9 +398,9 @@ let timeouts ?create ?delete ?read () : timeouts =
   { create; delete; read }
 
 let azurerm_data_protection_backup_policy_kubernetes_cluster ?id
-    ?time_zone ?timeouts ~backup_repeating_time_intervals ~name
-    ~resource_group_name ~vault_name ~default_retention_rule
-    ~retention_rule () :
+    ?time_zone ?(retention_rule = []) ?timeouts
+    ~backup_repeating_time_intervals ~name ~resource_group_name
+    ~vault_name ~default_retention_rule () :
     azurerm_data_protection_backup_policy_kubernetes_cluster =
   {
     backup_repeating_time_intervals;
@@ -423,9 +423,9 @@ type t = {
   vault_name : string prop;
 }
 
-let make ?id ?time_zone ?timeouts ~backup_repeating_time_intervals
-    ~name ~resource_group_name ~vault_name ~default_retention_rule
-    ~retention_rule __id =
+let make ?id ?time_zone ?(retention_rule = []) ?timeouts
+    ~backup_repeating_time_intervals ~name ~resource_group_name
+    ~vault_name ~default_retention_rule __id =
   let __type =
     "azurerm_data_protection_backup_policy_kubernetes_cluster"
   in
@@ -448,19 +448,20 @@ let make ?id ?time_zone ?timeouts ~backup_repeating_time_intervals
     json =
       yojson_of_azurerm_data_protection_backup_policy_kubernetes_cluster
         (azurerm_data_protection_backup_policy_kubernetes_cluster ?id
-           ?time_zone ?timeouts ~backup_repeating_time_intervals
-           ~name ~resource_group_name ~vault_name
-           ~default_retention_rule ~retention_rule ());
+           ?time_zone ~retention_rule ?timeouts
+           ~backup_repeating_time_intervals ~name
+           ~resource_group_name ~vault_name ~default_retention_rule
+           ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?time_zone ?timeouts
-    ~backup_repeating_time_intervals ~name ~resource_group_name
-    ~vault_name ~default_retention_rule ~retention_rule __id =
+let register ?tf_module ?id ?time_zone ?(retention_rule = [])
+    ?timeouts ~backup_repeating_time_intervals ~name
+    ~resource_group_name ~vault_name ~default_retention_rule __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?time_zone ?timeouts ~backup_repeating_time_intervals
-      ~name ~resource_group_name ~vault_name ~default_retention_rule
-      ~retention_rule __id
+    make ?id ?time_zone ~retention_rule ?timeouts
+      ~backup_repeating_time_intervals ~name ~resource_group_name
+      ~vault_name ~default_retention_rule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

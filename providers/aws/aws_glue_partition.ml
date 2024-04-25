@@ -458,8 +458,9 @@ let storage_descriptor__sort_columns ~column ~sort_order () :
 
 let storage_descriptor ?bucket_columns ?compressed ?input_format
     ?location ?number_of_buckets ?output_format ?parameters
-    ?stored_as_sub_directories ~columns ~ser_de_info ~skewed_info
-    ~sort_columns () : storage_descriptor =
+    ?stored_as_sub_directories ?(columns = []) ?(ser_de_info = [])
+    ?(skewed_info = []) ?(sort_columns = []) () : storage_descriptor
+    =
   {
     bucket_columns;
     compressed;
@@ -475,9 +476,9 @@ let storage_descriptor ?bucket_columns ?compressed ?input_format
     sort_columns;
   }
 
-let aws_glue_partition ?catalog_id ?id ?parameters ~database_name
-    ~partition_values ~table_name ~storage_descriptor () :
-    aws_glue_partition =
+let aws_glue_partition ?catalog_id ?id ?parameters
+    ?(storage_descriptor = []) ~database_name ~partition_values
+    ~table_name () : aws_glue_partition =
   {
     catalog_id;
     database_name;
@@ -500,8 +501,8 @@ type t = {
   table_name : string prop;
 }
 
-let make ?catalog_id ?id ?parameters ~database_name ~partition_values
-    ~table_name ~storage_descriptor __id =
+let make ?catalog_id ?id ?parameters ?(storage_descriptor = [])
+    ~database_name ~partition_values ~table_name __id =
   let __type = "aws_glue_partition" in
   let __attrs =
     ({
@@ -526,16 +527,17 @@ let make ?catalog_id ?id ?parameters ~database_name ~partition_values
     json =
       yojson_of_aws_glue_partition
         (aws_glue_partition ?catalog_id ?id ?parameters
-           ~database_name ~partition_values ~table_name
-           ~storage_descriptor ());
+           ~storage_descriptor ~database_name ~partition_values
+           ~table_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?catalog_id ?id ?parameters ~database_name
-    ~partition_values ~table_name ~storage_descriptor __id =
+let register ?tf_module ?catalog_id ?id ?parameters
+    ?(storage_descriptor = []) ~database_name ~partition_values
+    ~table_name __id =
   let (r : _ Tf_core.resource) =
-    make ?catalog_id ?id ?parameters ~database_name ~partition_values
-      ~table_name ~storage_descriptor __id
+    make ?catalog_id ?id ?parameters ~storage_descriptor
+      ~database_name ~partition_values ~table_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

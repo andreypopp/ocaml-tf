@@ -34,13 +34,13 @@ type azurerm_notification_hub
 val azurerm_notification_hub :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?apns_credential:apns_credential list ->
+  ?gcm_credential:gcm_credential list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   namespace_name:string prop ->
   resource_group_name:string prop ->
-  apns_credential:apns_credential list ->
-  gcm_credential:gcm_credential list ->
   unit ->
   azurerm_notification_hub
 
@@ -62,25 +62,25 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?apns_credential:apns_credential list ->
+  ?gcm_credential:gcm_credential list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   namespace_name:string prop ->
   resource_group_name:string prop ->
-  apns_credential:apns_credential list ->
-  gcm_credential:gcm_credential list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?apns_credential:apns_credential list ->
+  ?gcm_credential:gcm_credential list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   namespace_name:string prop ->
   resource_group_name:string prop ->
-  apns_credential:apns_credential list ->
-  gcm_credential:gcm_credential list ->
   string ->
   t Tf_core.resource

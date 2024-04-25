@@ -575,9 +575,9 @@ let update_config ?max_unavailable ?max_unavailable_percentage () :
 let aws_eks_node_group ?ami_type ?capacity_type ?disk_size
     ?force_update_version ?id ?instance_types ?labels
     ?node_group_name ?node_group_name_prefix ?release_version ?tags
-    ?tags_all ?version ?timeouts ~cluster_name ~node_role_arn
-    ~subnet_ids ~launch_template ~remote_access ~scaling_config
-    ~taint ~update_config () : aws_eks_node_group =
+    ?tags_all ?version ?(launch_template = []) ?(remote_access = [])
+    ?timeouts ?(update_config = []) ~cluster_name ~node_role_arn
+    ~subnet_ids ~scaling_config ~taint () : aws_eks_node_group =
   {
     ami_type;
     capacity_type;
@@ -628,9 +628,9 @@ type t = {
 let make ?ami_type ?capacity_type ?disk_size ?force_update_version
     ?id ?instance_types ?labels ?node_group_name
     ?node_group_name_prefix ?release_version ?tags ?tags_all ?version
-    ?timeouts ~cluster_name ~node_role_arn ~subnet_ids
-    ~launch_template ~remote_access ~scaling_config ~taint
-    ~update_config __id =
+    ?(launch_template = []) ?(remote_access = []) ?timeouts
+    ?(update_config = []) ~cluster_name ~node_role_arn ~subnet_ids
+    ~scaling_config ~taint __id =
   let __type = "aws_eks_node_group" in
   let __attrs =
     ({
@@ -666,25 +666,25 @@ let make ?ami_type ?capacity_type ?disk_size ?force_update_version
         (aws_eks_node_group ?ami_type ?capacity_type ?disk_size
            ?force_update_version ?id ?instance_types ?labels
            ?node_group_name ?node_group_name_prefix ?release_version
-           ?tags ?tags_all ?version ?timeouts ~cluster_name
-           ~node_role_arn ~subnet_ids ~launch_template ~remote_access
-           ~scaling_config ~taint ~update_config ());
+           ?tags ?tags_all ?version ~launch_template ~remote_access
+           ?timeouts ~update_config ~cluster_name ~node_role_arn
+           ~subnet_ids ~scaling_config ~taint ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?ami_type ?capacity_type ?disk_size
     ?force_update_version ?id ?instance_types ?labels
     ?node_group_name ?node_group_name_prefix ?release_version ?tags
-    ?tags_all ?version ?timeouts ~cluster_name ~node_role_arn
-    ~subnet_ids ~launch_template ~remote_access ~scaling_config
-    ~taint ~update_config __id =
+    ?tags_all ?version ?(launch_template = []) ?(remote_access = [])
+    ?timeouts ?(update_config = []) ~cluster_name ~node_role_arn
+    ~subnet_ids ~scaling_config ~taint __id =
   let (r : _ Tf_core.resource) =
     make ?ami_type ?capacity_type ?disk_size ?force_update_version
       ?id ?instance_types ?labels ?node_group_name
       ?node_group_name_prefix ?release_version ?tags ?tags_all
-      ?version ?timeouts ~cluster_name ~node_role_arn ~subnet_ids
-      ~launch_template ~remote_access ~scaling_config ~taint
-      ~update_config __id
+      ?version ~launch_template ~remote_access ?timeouts
+      ~update_config ~cluster_name ~node_role_arn ~subnet_ids
+      ~scaling_config ~taint __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

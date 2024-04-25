@@ -52,13 +52,13 @@ val aws_medialive_input :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?timeouts:timeouts ->
+  ?vpc:vpc list ->
   name:string prop ->
   type_:string prop ->
   destinations:destinations list ->
   input_devices:input_devices list ->
   media_connect_flows:media_connect_flows list ->
   sources:sources list ->
-  vpc:vpc list ->
   unit ->
   aws_medialive_input
 
@@ -89,13 +89,13 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?timeouts:timeouts ->
+  ?vpc:vpc list ->
   name:string prop ->
   type_:string prop ->
   destinations:destinations list ->
   input_devices:input_devices list ->
   media_connect_flows:media_connect_flows list ->
   sources:sources list ->
-  vpc:vpc list ->
   string ->
   t
 
@@ -106,12 +106,12 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?timeouts:timeouts ->
+  ?vpc:vpc list ->
   name:string prop ->
   type_:string prop ->
   destinations:destinations list ->
   input_devices:input_devices list ->
   media_connect_flows:media_connect_flows list ->
   sources:sources list ->
-  vpc:vpc list ->
   string ->
   t Tf_core.resource

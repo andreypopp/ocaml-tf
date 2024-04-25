@@ -362,8 +362,8 @@ let cache_usage_limits__ecpu_per_second ~maximum () :
     cache_usage_limits__ecpu_per_second =
   { maximum }
 
-let cache_usage_limits ~data_storage ~ecpu_per_second () :
-    cache_usage_limits =
+let cache_usage_limits ?(data_storage = []) ?(ecpu_per_second = [])
+    () : cache_usage_limits =
   { data_storage; ecpu_per_second }
 
 let timeouts ?create ?delete ?update () : timeouts =
@@ -373,7 +373,7 @@ let aws_elasticache_serverless_cache ?daily_snapshot_time
     ?description ?kms_key_id ?major_engine_version
     ?security_group_ids ?snapshot_arns_to_restore
     ?snapshot_retention_limit ?subnet_ids ?tags ?user_group_id
-    ?timeouts ~engine ~name ~cache_usage_limits () :
+    ?(cache_usage_limits = []) ?timeouts ~engine ~name () :
     aws_elasticache_serverless_cache =
   {
     daily_snapshot_time;
@@ -418,8 +418,8 @@ type t = {
 let make ?daily_snapshot_time ?description ?kms_key_id
     ?major_engine_version ?security_group_ids
     ?snapshot_arns_to_restore ?snapshot_retention_limit ?subnet_ids
-    ?tags ?user_group_id ?timeouts ~engine ~name ~cache_usage_limits
-    __id =
+    ?tags ?user_group_id ?(cache_usage_limits = []) ?timeouts ~engine
+    ~name __id =
   let __type = "aws_elasticache_serverless_cache" in
   let __attrs =
     ({
@@ -461,21 +461,21 @@ let make ?daily_snapshot_time ?description ?kms_key_id
            ?description ?kms_key_id ?major_engine_version
            ?security_group_ids ?snapshot_arns_to_restore
            ?snapshot_retention_limit ?subnet_ids ?tags ?user_group_id
-           ?timeouts ~engine ~name ~cache_usage_limits ());
+           ~cache_usage_limits ?timeouts ~engine ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?daily_snapshot_time ?description ?kms_key_id
     ?major_engine_version ?security_group_ids
     ?snapshot_arns_to_restore ?snapshot_retention_limit ?subnet_ids
-    ?tags ?user_group_id ?timeouts ~engine ~name ~cache_usage_limits
-    __id =
+    ?tags ?user_group_id ?(cache_usage_limits = []) ?timeouts ~engine
+    ~name __id =
   let (r : _ Tf_core.resource) =
     make ?daily_snapshot_time ?description ?kms_key_id
       ?major_engine_version ?security_group_ids
       ?snapshot_arns_to_restore ?snapshot_retention_limit ?subnet_ids
-      ?tags ?user_group_id ?timeouts ~engine ~name
-      ~cache_usage_limits __id
+      ?tags ?user_group_id ~cache_usage_limits ?timeouts ~engine
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

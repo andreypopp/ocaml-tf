@@ -17,8 +17,8 @@ val access_control_policy__grant__grantee :
 type access_control_policy__grant
 
 val access_control_policy__grant :
+  ?grantee:access_control_policy__grant__grantee list ->
   permission:string prop ->
-  grantee:access_control_policy__grant__grantee list ->
   unit ->
   access_control_policy__grant
 
@@ -44,8 +44,8 @@ val aws_s3_bucket_acl :
   ?acl:string prop ->
   ?expected_bucket_owner:string prop ->
   ?id:string prop ->
+  ?access_control_policy:access_control_policy list ->
   bucket:string prop ->
-  access_control_policy:access_control_policy list ->
   unit ->
   aws_s3_bucket_acl
 
@@ -65,8 +65,8 @@ val register :
   ?acl:string prop ->
   ?expected_bucket_owner:string prop ->
   ?id:string prop ->
+  ?access_control_policy:access_control_policy list ->
   bucket:string prop ->
-  access_control_policy:access_control_policy list ->
   string ->
   t
 
@@ -74,7 +74,7 @@ val make :
   ?acl:string prop ->
   ?expected_bucket_owner:string prop ->
   ?id:string prop ->
+  ?access_control_policy:access_control_policy list ->
   bucket:string prop ->
-  access_control_policy:access_control_policy list ->
   string ->
   t Tf_core.resource

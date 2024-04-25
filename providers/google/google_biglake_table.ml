@@ -230,15 +230,15 @@ let hive_options__storage_descriptor ?input_format ?location_uri
     ?output_format () : hive_options__storage_descriptor =
   { input_format; location_uri; output_format }
 
-let hive_options ?parameters ?table_type ~storage_descriptor () :
-    hive_options =
+let hive_options ?parameters ?table_type ?(storage_descriptor = [])
+    () : hive_options =
   { parameters; table_type; storage_descriptor }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_biglake_table ?database ?id ?type_ ?timeouts ~name
-    ~hive_options () : google_biglake_table =
+let google_biglake_table ?database ?id ?type_ ?(hive_options = [])
+    ?timeouts ~name () : google_biglake_table =
   { database; id; name; type_; hive_options; timeouts }
 
 type t = {
@@ -253,7 +253,8 @@ type t = {
   update_time : string prop;
 }
 
-let make ?database ?id ?type_ ?timeouts ~name ~hive_options __id =
+let make ?database ?id ?type_ ?(hive_options = []) ?timeouts ~name
+    __id =
   let __type = "google_biglake_table" in
   let __attrs =
     ({
@@ -274,15 +275,15 @@ let make ?database ?id ?type_ ?timeouts ~name ~hive_options __id =
     type_ = __type;
     json =
       yojson_of_google_biglake_table
-        (google_biglake_table ?database ?id ?type_ ?timeouts ~name
-           ~hive_options ());
+        (google_biglake_table ?database ?id ?type_ ~hive_options
+           ?timeouts ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?database ?id ?type_ ?timeouts ~name
-    ~hive_options __id =
+let register ?tf_module ?database ?id ?type_ ?(hive_options = [])
+    ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?database ?id ?type_ ?timeouts ~name ~hive_options __id
+    make ?database ?id ?type_ ~hive_options ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

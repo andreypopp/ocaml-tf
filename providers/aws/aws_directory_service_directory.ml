@@ -330,8 +330,8 @@ let vpc_settings ~subnet_ids ~vpc_id () : vpc_settings =
 
 let aws_directory_service_directory ?alias ?description
     ?desired_number_of_domain_controllers ?edition ?enable_sso ?id
-    ?short_name ?size ?tags ?tags_all ?type_ ?timeouts ~name
-    ~password ~connect_settings ~vpc_settings () :
+    ?short_name ?size ?tags ?tags_all ?type_ ?(connect_settings = [])
+    ?timeouts ?(vpc_settings = []) ~name ~password () :
     aws_directory_service_directory =
   {
     alias;
@@ -373,7 +373,8 @@ type t = {
 
 let make ?alias ?description ?desired_number_of_domain_controllers
     ?edition ?enable_sso ?id ?short_name ?size ?tags ?tags_all ?type_
-    ?timeouts ~name ~password ~connect_settings ~vpc_settings __id =
+    ?(connect_settings = []) ?timeouts ?(vpc_settings = []) ~name
+    ~password __id =
   let __type = "aws_directory_service_directory" in
   let __attrs =
     ({
@@ -407,20 +408,21 @@ let make ?alias ?description ?desired_number_of_domain_controllers
       yojson_of_aws_directory_service_directory
         (aws_directory_service_directory ?alias ?description
            ?desired_number_of_domain_controllers ?edition ?enable_sso
-           ?id ?short_name ?size ?tags ?tags_all ?type_ ?timeouts
-           ~name ~password ~connect_settings ~vpc_settings ());
+           ?id ?short_name ?size ?tags ?tags_all ?type_
+           ~connect_settings ?timeouts ~vpc_settings ~name ~password
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?alias ?description
     ?desired_number_of_domain_controllers ?edition ?enable_sso ?id
-    ?short_name ?size ?tags ?tags_all ?type_ ?timeouts ~name
-    ~password ~connect_settings ~vpc_settings __id =
+    ?short_name ?size ?tags ?tags_all ?type_ ?(connect_settings = [])
+    ?timeouts ?(vpc_settings = []) ~name ~password __id =
   let (r : _ Tf_core.resource) =
     make ?alias ?description ?desired_number_of_domain_controllers
       ?edition ?enable_sso ?id ?short_name ?size ?tags ?tags_all
-      ?type_ ?timeouts ~name ~password ~connect_settings
-      ~vpc_settings __id
+      ?type_ ~connect_settings ?timeouts ~vpc_settings ~name
+      ~password __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

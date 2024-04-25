@@ -2277,7 +2277,7 @@ let config__subject_config__subject_alt_name ?dns_names
     config__subject_config__subject_alt_name =
   { dns_names; email_addresses; ip_addresses; uris }
 
-let config__subject_config ~subject ~subject_alt_name () :
+let config__subject_config ?(subject_alt_name = []) ~subject () :
     config__subject_config =
   { subject; subject_alt_name }
 
@@ -2335,9 +2335,9 @@ let config__x509_config__key_usage__unknown_extended_key_usages
     config__x509_config__key_usage__unknown_extended_key_usages =
   { object_id_path }
 
-let config__x509_config__key_usage ~base_key_usage
-    ~extended_key_usage ~unknown_extended_key_usages () :
-    config__x509_config__key_usage =
+let config__x509_config__key_usage
+    ?(unknown_extended_key_usages = []) ~base_key_usage
+    ~extended_key_usage () : config__x509_config__key_usage =
   { base_key_usage; extended_key_usage; unknown_extended_key_usages }
 
 let config__x509_config__name_constraints ?excluded_dns_names
@@ -2361,8 +2361,9 @@ let config__x509_config__policy_ids ~object_id_path () :
     config__x509_config__policy_ids =
   { object_id_path }
 
-let config__x509_config ?aia_ocsp_servers ~additional_extensions
-    ~ca_options ~key_usage ~name_constraints ~policy_ids () :
+let config__x509_config ?aia_ocsp_servers
+    ?(additional_extensions = []) ?(ca_options = [])
+    ?(name_constraints = []) ?(policy_ids = []) ~key_usage () :
     config__x509_config =
   {
     aia_ocsp_servers;
@@ -2381,7 +2382,7 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_privateca_certificate ?certificate_authority
     ?certificate_template ?id ?labels ?lifetime ?pem_csr ?project
-    ?timeouts ~location ~name ~pool ~config () :
+    ?(config = []) ?timeouts ~location ~name ~pool () :
     google_privateca_certificate =
   {
     certificate_authority;
@@ -2421,8 +2422,8 @@ type t = {
 }
 
 let make ?certificate_authority ?certificate_template ?id ?labels
-    ?lifetime ?pem_csr ?project ?timeouts ~location ~name ~pool
-    ~config __id =
+    ?lifetime ?pem_csr ?project ?(config = []) ?timeouts ~location
+    ~name ~pool __id =
   let __type = "google_privateca_certificate" in
   let __attrs =
     ({
@@ -2463,17 +2464,17 @@ let make ?certificate_authority ?certificate_template ?id ?labels
       yojson_of_google_privateca_certificate
         (google_privateca_certificate ?certificate_authority
            ?certificate_template ?id ?labels ?lifetime ?pem_csr
-           ?project ?timeouts ~location ~name ~pool ~config ());
+           ?project ~config ?timeouts ~location ~name ~pool ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?certificate_authority ?certificate_template
-    ?id ?labels ?lifetime ?pem_csr ?project ?timeouts ~location ~name
-    ~pool ~config __id =
+    ?id ?labels ?lifetime ?pem_csr ?project ?(config = []) ?timeouts
+    ~location ~name ~pool __id =
   let (r : _ Tf_core.resource) =
     make ?certificate_authority ?certificate_template ?id ?labels
-      ?lifetime ?pem_csr ?project ?timeouts ~location ~name ~pool
-      ~config __id
+      ?lifetime ?pem_csr ?project ~config ?timeouts ~location ~name
+      ~pool __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -864,8 +864,8 @@ let actions__cache_key_fields__user ?device_type ?geo ?lang () :
     actions__cache_key_fields__user =
   { device_type; geo; lang }
 
-let actions__cache_key_fields ~cookie ~header ~host ~query_string
-    ~user () : actions__cache_key_fields =
+let actions__cache_key_fields ?(cookie = []) ?(header = []) ~host
+    ~query_string ~user () : actions__cache_key_fields =
   { cookie; header; host; query_string; user }
 
 let actions__cache_ttl_by_status ~codes ~ttl () :
@@ -889,8 +889,9 @@ let actions ?always_use_https ?automatic_https_rewrites
     ?origin_error_page_pass_thru ?polish ?resolve_override
     ?respect_strong_etag ?response_buffering ?rocket_loader
     ?security_level ?server_side_exclude ?sort_query_string_for_cache
-    ?ssl ?true_client_ip_header ?waf ~cache_key_fields
-    ~cache_ttl_by_status ~forwarding_url ~minify () : actions =
+    ?ssl ?true_client_ip_header ?waf ?(cache_key_fields = [])
+    ?(forwarding_url = []) ?(minify = []) ~cache_ttl_by_status () :
+    actions =
   {
     always_use_https;
     automatic_https_rewrites;

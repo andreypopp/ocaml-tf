@@ -25,11 +25,11 @@ val aws_api_gateway_integration :
   ?request_templates:(string * string prop) list ->
   ?timeout_milliseconds:float prop ->
   ?uri:string prop ->
+  ?tls_config:tls_config list ->
   http_method:string prop ->
   resource_id:string prop ->
   rest_api_id:string prop ->
   type_:string prop ->
-  tls_config:tls_config list ->
   unit ->
   aws_api_gateway_integration
 
@@ -73,11 +73,11 @@ val register :
   ?request_templates:(string * string prop) list ->
   ?timeout_milliseconds:float prop ->
   ?uri:string prop ->
+  ?tls_config:tls_config list ->
   http_method:string prop ->
   resource_id:string prop ->
   rest_api_id:string prop ->
   type_:string prop ->
-  tls_config:tls_config list ->
   string ->
   t
 
@@ -95,10 +95,10 @@ val make :
   ?request_templates:(string * string prop) list ->
   ?timeout_milliseconds:float prop ->
   ?uri:string prop ->
+  ?tls_config:tls_config list ->
   http_method:string prop ->
   resource_id:string prop ->
   rest_api_id:string prop ->
   type_:string prop ->
-  tls_config:tls_config list ->
   string ->
   t Tf_core.resource

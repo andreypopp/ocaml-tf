@@ -42,11 +42,11 @@ val google_cloud_asset_folder_feed :
   ?asset_types:string prop list ->
   ?content_type:string prop ->
   ?id:string prop ->
+  ?condition:condition list ->
   ?timeouts:timeouts ->
   billing_project:string prop ->
   feed_id:string prop ->
   folder:string prop ->
-  condition:condition list ->
   feed_output_config:feed_output_config list ->
   unit ->
   google_cloud_asset_folder_feed
@@ -74,11 +74,11 @@ val register :
   ?asset_types:string prop list ->
   ?content_type:string prop ->
   ?id:string prop ->
+  ?condition:condition list ->
   ?timeouts:timeouts ->
   billing_project:string prop ->
   feed_id:string prop ->
   folder:string prop ->
-  condition:condition list ->
   feed_output_config:feed_output_config list ->
   string ->
   t
@@ -88,11 +88,11 @@ val make :
   ?asset_types:string prop list ->
   ?content_type:string prop ->
   ?id:string prop ->
+  ?condition:condition list ->
   ?timeouts:timeouts ->
   billing_project:string prop ->
   feed_id:string prop ->
   folder:string prop ->
-  condition:condition list ->
   feed_output_config:feed_output_config list ->
   string ->
   t Tf_core.resource

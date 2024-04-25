@@ -34,11 +34,11 @@ val google_dialogflow_cx_entity_type :
   ?language_code:string prop ->
   ?parent:string prop ->
   ?redact:bool prop ->
+  ?excluded_phrases:excluded_phrases list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   kind:string prop ->
   entities:entities list ->
-  excluded_phrases:excluded_phrases list ->
   unit ->
   google_dialogflow_cx_entity_type
 
@@ -67,11 +67,11 @@ val register :
   ?language_code:string prop ->
   ?parent:string prop ->
   ?redact:bool prop ->
+  ?excluded_phrases:excluded_phrases list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   kind:string prop ->
   entities:entities list ->
-  excluded_phrases:excluded_phrases list ->
   string ->
   t
 
@@ -82,10 +82,10 @@ val make :
   ?language_code:string prop ->
   ?parent:string prop ->
   ?redact:bool prop ->
+  ?excluded_phrases:excluded_phrases list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   kind:string prop ->
   entities:entities list ->
-  excluded_phrases:excluded_phrases list ->
   string ->
   t Tf_core.resource

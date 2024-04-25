@@ -48,9 +48,9 @@ val aws_cloudwatch_event_endpoint :
   ?description:string prop ->
   ?id:string prop ->
   ?role_arn:string prop ->
+  ?replication_config:replication_config list ->
   name:string prop ->
   event_bus:event_bus list ->
-  replication_config:replication_config list ->
   routing_config:routing_config list ->
   unit ->
   aws_cloudwatch_event_endpoint
@@ -74,9 +74,9 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?role_arn:string prop ->
+  ?replication_config:replication_config list ->
   name:string prop ->
   event_bus:event_bus list ->
-  replication_config:replication_config list ->
   routing_config:routing_config list ->
   string ->
   t
@@ -85,9 +85,9 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?role_arn:string prop ->
+  ?replication_config:replication_config list ->
   name:string prop ->
   event_bus:event_bus list ->
-  replication_config:replication_config list ->
   routing_config:routing_config list ->
   string ->
   t Tf_core.resource

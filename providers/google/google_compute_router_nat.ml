@@ -448,7 +448,8 @@ let rules__action ?source_nat_active_ips ?source_nat_drain_ips () :
     rules__action =
   { source_nat_active_ips; source_nat_drain_ips }
 
-let rules ?description ~match_ ~rule_number ~action () : rules =
+let rules ?description ?(action = []) ~match_ ~rule_number () : rules
+    =
   { description; match_; rule_number; action }
 
 let subnetwork ?secondary_ip_range_names ~name
@@ -464,9 +465,9 @@ let google_compute_router_nat ?drain_nat_ips
     ?max_ports_per_vm ?min_ports_per_vm ?nat_ip_allocate_option
     ?nat_ips ?project ?region ?tcp_established_idle_timeout_sec
     ?tcp_time_wait_timeout_sec ?tcp_transitory_idle_timeout_sec
-    ?udp_idle_timeout_sec ?timeouts ~name ~router
-    ~source_subnetwork_ip_ranges_to_nat ~log_config ~rules
-    ~subnetwork () : google_compute_router_nat =
+    ?udp_idle_timeout_sec ?(log_config = []) ?timeouts ~name ~router
+    ~source_subnetwork_ip_ranges_to_nat ~rules ~subnetwork () :
+    google_compute_router_nat =
   {
     drain_nat_ips;
     enable_dynamic_port_allocation;
@@ -518,9 +519,8 @@ let make ?drain_nat_ips ?enable_dynamic_port_allocation
     ?max_ports_per_vm ?min_ports_per_vm ?nat_ip_allocate_option
     ?nat_ips ?project ?region ?tcp_established_idle_timeout_sec
     ?tcp_time_wait_timeout_sec ?tcp_transitory_idle_timeout_sec
-    ?udp_idle_timeout_sec ?timeouts ~name ~router
-    ~source_subnetwork_ip_ranges_to_nat ~log_config ~rules
-    ~subnetwork __id =
+    ?udp_idle_timeout_sec ?(log_config = []) ?timeouts ~name ~router
+    ~source_subnetwork_ip_ranges_to_nat ~rules ~subnetwork __id =
   let __type = "google_compute_router_nat" in
   let __attrs =
     ({
@@ -571,9 +571,8 @@ let make ?drain_nat_ips ?enable_dynamic_port_allocation
            ?project ?region ?tcp_established_idle_timeout_sec
            ?tcp_time_wait_timeout_sec
            ?tcp_transitory_idle_timeout_sec ?udp_idle_timeout_sec
-           ?timeouts ~name ~router
-           ~source_subnetwork_ip_ranges_to_nat ~log_config ~rules
-           ~subnetwork ());
+           ~log_config ?timeouts ~name ~router
+           ~source_subnetwork_ip_ranges_to_nat ~rules ~subnetwork ());
     attrs = __attrs;
   }
 
@@ -583,18 +582,16 @@ let register ?tf_module ?drain_nat_ips
     ?max_ports_per_vm ?min_ports_per_vm ?nat_ip_allocate_option
     ?nat_ips ?project ?region ?tcp_established_idle_timeout_sec
     ?tcp_time_wait_timeout_sec ?tcp_transitory_idle_timeout_sec
-    ?udp_idle_timeout_sec ?timeouts ~name ~router
-    ~source_subnetwork_ip_ranges_to_nat ~log_config ~rules
-    ~subnetwork __id =
+    ?udp_idle_timeout_sec ?(log_config = []) ?timeouts ~name ~router
+    ~source_subnetwork_ip_ranges_to_nat ~rules ~subnetwork __id =
   let (r : _ Tf_core.resource) =
     make ?drain_nat_ips ?enable_dynamic_port_allocation
       ?enable_endpoint_independent_mapping ?icmp_idle_timeout_sec ?id
       ?max_ports_per_vm ?min_ports_per_vm ?nat_ip_allocate_option
       ?nat_ips ?project ?region ?tcp_established_idle_timeout_sec
       ?tcp_time_wait_timeout_sec ?tcp_transitory_idle_timeout_sec
-      ?udp_idle_timeout_sec ?timeouts ~name ~router
-      ~source_subnetwork_ip_ranges_to_nat ~log_config ~rules
-      ~subnetwork __id
+      ?udp_idle_timeout_sec ~log_config ?timeouts ~name ~router
+      ~source_subnetwork_ip_ranges_to_nat ~rules ~subnetwork __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

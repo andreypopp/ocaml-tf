@@ -125,7 +125,7 @@ let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
 let google_privateca_ca_pool_iam_binding ?id ?location ?project
-    ~ca_pool ~members ~role ~condition () :
+    ?(condition = []) ~ca_pool ~members ~role () :
     google_privateca_ca_pool_iam_binding =
   { ca_pool; id; location; members; project; role; condition }
 
@@ -139,8 +139,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?location ?project ~ca_pool ~members ~role ~condition
-    __id =
+let make ?id ?location ?project ?(condition = []) ~ca_pool ~members
+    ~role __id =
   let __type = "google_privateca_ca_pool_iam_binding" in
   let __attrs =
     ({
@@ -160,14 +160,14 @@ let make ?id ?location ?project ~ca_pool ~members ~role ~condition
     json =
       yojson_of_google_privateca_ca_pool_iam_binding
         (google_privateca_ca_pool_iam_binding ?id ?location ?project
-           ~ca_pool ~members ~role ~condition ());
+           ~condition ~ca_pool ~members ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?location ?project ~ca_pool ~members
-    ~role ~condition __id =
+let register ?tf_module ?id ?location ?project ?(condition = [])
+    ~ca_pool ~members ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?location ?project ~ca_pool ~members ~role ~condition
+    make ?id ?location ?project ~condition ~ca_pool ~members ~role
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

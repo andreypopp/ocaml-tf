@@ -713,8 +713,9 @@ let auth_parameters__invocation_http_parameters__query_string
     auth_parameters__invocation_http_parameters__query_string =
   { is_value_secret; key; value }
 
-let auth_parameters__invocation_http_parameters ~body ~header
-    ~query_string () : auth_parameters__invocation_http_parameters =
+let auth_parameters__invocation_http_parameters ?(body = [])
+    ?(header = []) ?(query_string = []) () :
+    auth_parameters__invocation_http_parameters =
   { body; header; query_string }
 
 let auth_parameters__oauth__client_parameters ~client_id
@@ -736,13 +737,13 @@ let auth_parameters__oauth__oauth_http_parameters__query_string
     auth_parameters__oauth__oauth_http_parameters__query_string =
   { is_value_secret; key; value }
 
-let auth_parameters__oauth__oauth_http_parameters ~body ~header
-    ~query_string () : auth_parameters__oauth__oauth_http_parameters
-    =
+let auth_parameters__oauth__oauth_http_parameters ?(body = [])
+    ?(header = []) ?(query_string = []) () :
+    auth_parameters__oauth__oauth_http_parameters =
   { body; header; query_string }
 
-let auth_parameters__oauth ~authorization_endpoint ~http_method
-    ~client_parameters ~oauth_http_parameters () :
+let auth_parameters__oauth ?(client_parameters = [])
+    ~authorization_endpoint ~http_method ~oauth_http_parameters () :
     auth_parameters__oauth =
   {
     authorization_endpoint;
@@ -751,8 +752,9 @@ let auth_parameters__oauth ~authorization_endpoint ~http_method
     oauth_http_parameters;
   }
 
-let auth_parameters ~api_key ~basic ~invocation_http_parameters
-    ~oauth () : auth_parameters =
+let auth_parameters ?(api_key = []) ?(basic = [])
+    ?(invocation_http_parameters = []) ?(oauth = []) () :
+    auth_parameters =
   { api_key; basic; invocation_http_parameters; oauth }
 
 let aws_cloudwatch_event_connection ?description ?id

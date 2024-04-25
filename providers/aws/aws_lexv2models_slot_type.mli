@@ -15,7 +15,7 @@ val composite_slot_type_setting__subslots :
 type composite_slot_type_setting
 
 val composite_slot_type_setting :
-  subslots:composite_slot_type_setting__subslots list ->
+  ?subslots:composite_slot_type_setting__subslots list ->
   unit ->
   composite_slot_type_setting
 
@@ -31,7 +31,7 @@ val external_source_setting__grammar_slot_type_setting__source :
 type external_source_setting__grammar_slot_type_setting
 
 val external_source_setting__grammar_slot_type_setting :
-  source:
+  ?source:
     external_source_setting__grammar_slot_type_setting__source list ->
   unit ->
   external_source_setting__grammar_slot_type_setting
@@ -39,7 +39,7 @@ val external_source_setting__grammar_slot_type_setting :
 type external_source_setting
 
 val external_source_setting :
-  grammar_slot_type_setting:
+  ?grammar_slot_type_setting:
     external_source_setting__grammar_slot_type_setting list ->
   unit ->
   external_source_setting
@@ -57,8 +57,8 @@ val slot_type_values__synonyms :
 type slot_type_values
 
 val slot_type_values :
-  slot_type_value:slot_type_values__slot_type_value list ->
-  synonyms:slot_type_values__synonyms list ->
+  ?slot_type_value:slot_type_values__slot_type_value list ->
+  ?synonyms:slot_type_values__synonyms list ->
   unit ->
   slot_type_values
 
@@ -88,10 +88,10 @@ val value_selection_setting__regex_filter :
 type value_selection_setting
 
 val value_selection_setting :
-  resolution_strategy:string prop ->
-  advanced_recognition_setting:
+  ?advanced_recognition_setting:
     value_selection_setting__advanced_recognition_setting list ->
-  regex_filter:value_selection_setting__regex_filter list ->
+  ?regex_filter:value_selection_setting__regex_filter list ->
+  resolution_strategy:string prop ->
   unit ->
   value_selection_setting
 
@@ -100,15 +100,15 @@ type aws_lexv2models_slot_type
 val aws_lexv2models_slot_type :
   ?description:string prop ->
   ?parent_slot_type_signature:string prop ->
+  ?composite_slot_type_setting:composite_slot_type_setting list ->
+  ?external_source_setting:external_source_setting list ->
+  ?slot_type_values:slot_type_values list ->
   ?timeouts:timeouts ->
+  ?value_selection_setting:value_selection_setting list ->
   bot_id:string prop ->
   bot_version:string prop ->
   locale_id:string prop ->
   name:string prop ->
-  composite_slot_type_setting:composite_slot_type_setting list ->
-  external_source_setting:external_source_setting list ->
-  slot_type_values:slot_type_values list ->
-  value_selection_setting:value_selection_setting list ->
   unit ->
   aws_lexv2models_slot_type
 
@@ -132,29 +132,29 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?parent_slot_type_signature:string prop ->
+  ?composite_slot_type_setting:composite_slot_type_setting list ->
+  ?external_source_setting:external_source_setting list ->
+  ?slot_type_values:slot_type_values list ->
   ?timeouts:timeouts ->
+  ?value_selection_setting:value_selection_setting list ->
   bot_id:string prop ->
   bot_version:string prop ->
   locale_id:string prop ->
   name:string prop ->
-  composite_slot_type_setting:composite_slot_type_setting list ->
-  external_source_setting:external_source_setting list ->
-  slot_type_values:slot_type_values list ->
-  value_selection_setting:value_selection_setting list ->
   string ->
   t
 
 val make :
   ?description:string prop ->
   ?parent_slot_type_signature:string prop ->
+  ?composite_slot_type_setting:composite_slot_type_setting list ->
+  ?external_source_setting:external_source_setting list ->
+  ?slot_type_values:slot_type_values list ->
   ?timeouts:timeouts ->
+  ?value_selection_setting:value_selection_setting list ->
   bot_id:string prop ->
   bot_version:string prop ->
   locale_id:string prop ->
   name:string prop ->
-  composite_slot_type_setting:composite_slot_type_setting list ->
-  external_source_setting:external_source_setting list ->
-  slot_type_values:slot_type_values list ->
-  value_selection_setting:value_selection_setting list ->
   string ->
   t Tf_core.resource

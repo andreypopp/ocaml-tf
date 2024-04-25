@@ -75,12 +75,13 @@ let _ = yojson_of_aws_emr_release_labels
 let filters ?application ?prefix () : filters =
   { application; prefix }
 
-let aws_emr_release_labels ?id ~filters () : aws_emr_release_labels =
+let aws_emr_release_labels ?id ?(filters = []) () :
+    aws_emr_release_labels =
   { id; filters }
 
 type t = { id : string prop; release_labels : string list prop }
 
-let make ?id ~filters __id =
+let make ?id ?(filters = []) __id =
   let __type = "aws_emr_release_labels" in
   let __attrs =
     ({
@@ -98,7 +99,7 @@ let make ?id ~filters __id =
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~filters __id =
+let register ?tf_module ?id ?(filters = []) __id =
   let (r : _ Tf_core.resource) = make ?id ~filters __id in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

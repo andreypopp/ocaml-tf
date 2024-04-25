@@ -1202,8 +1202,8 @@ let issuance_policy__allowed_key_types__rsa ?max_modulus_size
     ?min_modulus_size () : issuance_policy__allowed_key_types__rsa =
   { max_modulus_size; min_modulus_size }
 
-let issuance_policy__allowed_key_types ~elliptic_curve ~rsa () :
-    issuance_policy__allowed_key_types =
+let issuance_policy__allowed_key_types ?(elliptic_curve = [])
+    ?(rsa = []) () : issuance_policy__allowed_key_types =
   { elliptic_curve; rsa }
 
 let issuance_policy__baseline_values__additional_extensions__object_id
@@ -1263,8 +1263,9 @@ let issuance_policy__baseline_values__key_usage__unknown_extended_key_usages
     =
   { object_id_path }
 
-let issuance_policy__baseline_values__key_usage ~base_key_usage
-    ~extended_key_usage ~unknown_extended_key_usages () :
+let issuance_policy__baseline_values__key_usage
+    ?(unknown_extended_key_usages = []) ~base_key_usage
+    ~extended_key_usage () :
     issuance_policy__baseline_values__key_usage =
   { base_key_usage; extended_key_usage; unknown_extended_key_usages }
 
@@ -1290,8 +1291,9 @@ let issuance_policy__baseline_values__policy_ids ~object_id_path () :
   { object_id_path }
 
 let issuance_policy__baseline_values ?aia_ocsp_servers
-    ~additional_extensions ~ca_options ~key_usage ~name_constraints
-    ~policy_ids () : issuance_policy__baseline_values =
+    ?(additional_extensions = []) ?(name_constraints = [])
+    ?(policy_ids = []) ~ca_options ~key_usage () :
+    issuance_policy__baseline_values =
   {
     aia_ocsp_servers;
     additional_extensions;
@@ -1306,18 +1308,18 @@ let issuance_policy__identity_constraints__cel_expression
     issuance_policy__identity_constraints__cel_expression =
   { description; expression; location; title }
 
-let issuance_policy__identity_constraints
+let issuance_policy__identity_constraints ?(cel_expression = [])
     ~allow_subject_alt_names_passthrough ~allow_subject_passthrough
-    ~cel_expression () : issuance_policy__identity_constraints =
+    () : issuance_policy__identity_constraints =
   {
     allow_subject_alt_names_passthrough;
     allow_subject_passthrough;
     cel_expression;
   }
 
-let issuance_policy ?maximum_lifetime ~allowed_issuance_modes
-    ~allowed_key_types ~baseline_values ~identity_constraints () :
-    issuance_policy =
+let issuance_policy ?maximum_lifetime ?(allowed_issuance_modes = [])
+    ?(allowed_key_types = []) ?(baseline_values = [])
+    ?(identity_constraints = []) () : issuance_policy =
   {
     maximum_lifetime;
     allowed_issuance_modes;
@@ -1333,9 +1335,9 @@ let publishing_options ?encoding_format ~publish_ca_cert ~publish_crl
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_privateca_ca_pool ?id ?labels ?project ?timeouts ~location
-    ~name ~tier ~issuance_policy ~publishing_options () :
-    google_privateca_ca_pool =
+let google_privateca_ca_pool ?id ?labels ?project
+    ?(issuance_policy = []) ?(publishing_options = []) ?timeouts
+    ~location ~name ~tier () : google_privateca_ca_pool =
   {
     id;
     labels;
@@ -1359,8 +1361,8 @@ type t = {
   tier : string prop;
 }
 
-let make ?id ?labels ?project ?timeouts ~location ~name ~tier
-    ~issuance_policy ~publishing_options __id =
+let make ?id ?labels ?project ?(issuance_policy = [])
+    ?(publishing_options = []) ?timeouts ~location ~name ~tier __id =
   let __type = "google_privateca_ca_pool" in
   let __attrs =
     ({
@@ -1382,17 +1384,17 @@ let make ?id ?labels ?project ?timeouts ~location ~name ~tier
     type_ = __type;
     json =
       yojson_of_google_privateca_ca_pool
-        (google_privateca_ca_pool ?id ?labels ?project ?timeouts
-           ~location ~name ~tier ~issuance_policy ~publishing_options
-           ());
+        (google_privateca_ca_pool ?id ?labels ?project
+           ~issuance_policy ~publishing_options ?timeouts ~location
+           ~name ~tier ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?labels ?project ?timeouts ~location
-    ~name ~tier ~issuance_policy ~publishing_options __id =
+let register ?tf_module ?id ?labels ?project ?(issuance_policy = [])
+    ?(publishing_options = []) ?timeouts ~location ~name ~tier __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?labels ?project ?timeouts ~location ~name ~tier
-      ~issuance_policy ~publishing_options __id
+    make ?id ?labels ?project ~issuance_policy ~publishing_options
+      ?timeouts ~location ~name ~tier __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

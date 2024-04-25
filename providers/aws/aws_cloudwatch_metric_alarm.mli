@@ -24,8 +24,8 @@ val metric_query :
   ?label:string prop ->
   ?period:float prop ->
   ?return_data:bool prop ->
+  ?metric:metric_query__metric list ->
   id:string prop ->
-  metric:metric_query__metric list ->
   unit ->
   metric_query
 

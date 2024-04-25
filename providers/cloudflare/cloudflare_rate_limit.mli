@@ -21,8 +21,8 @@ type action
 
 val action :
   ?timeout:float prop ->
+  ?response:action__response list ->
   mode:string prop ->
-  response:action__response list ->
   unit ->
   action
 
@@ -51,8 +51,8 @@ val match__response :
 type match_
 
 val match_ :
-  request:match__request list ->
-  response:match__response list ->
+  ?request:match__request list ->
+  ?response:match__response list ->
   unit ->
   match_
 
@@ -63,12 +63,12 @@ val cloudflare_rate_limit :
   ?description:string prop ->
   ?disabled:bool prop ->
   ?id:string prop ->
+  ?correlate:correlate list ->
+  ?match_:match_ list ->
   period:float prop ->
   threshold:float prop ->
   zone_id:string prop ->
   action:action list ->
-  correlate:correlate list ->
-  match_:match_ list ->
   unit ->
   cloudflare_rate_limit
 
@@ -92,12 +92,12 @@ val register :
   ?description:string prop ->
   ?disabled:bool prop ->
   ?id:string prop ->
+  ?correlate:correlate list ->
+  ?match_:match_ list ->
   period:float prop ->
   threshold:float prop ->
   zone_id:string prop ->
   action:action list ->
-  correlate:correlate list ->
-  match_:match_ list ->
   string ->
   t
 
@@ -106,11 +106,11 @@ val make :
   ?description:string prop ->
   ?disabled:bool prop ->
   ?id:string prop ->
+  ?correlate:correlate list ->
+  ?match_:match_ list ->
   period:float prop ->
   threshold:float prop ->
   zone_id:string prop ->
   action:action list ->
-  correlate:correlate list ->
-  match_:match_ list ->
   string ->
   t Tf_core.resource

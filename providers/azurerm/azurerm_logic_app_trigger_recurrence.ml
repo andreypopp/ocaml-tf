@@ -213,8 +213,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_logic_app_trigger_recurrence ?id ?start_time ?time_zone
-    ?timeouts ~frequency ~interval ~logic_app_id ~name ~schedule () :
-    azurerm_logic_app_trigger_recurrence =
+    ?(schedule = []) ?timeouts ~frequency ~interval ~logic_app_id
+    ~name () : azurerm_logic_app_trigger_recurrence =
   {
     frequency;
     id;
@@ -237,8 +237,8 @@ type t = {
   time_zone : string prop;
 }
 
-let make ?id ?start_time ?time_zone ?timeouts ~frequency ~interval
-    ~logic_app_id ~name ~schedule __id =
+let make ?id ?start_time ?time_zone ?(schedule = []) ?timeouts
+    ~frequency ~interval ~logic_app_id ~name __id =
   let __type = "azurerm_logic_app_trigger_recurrence" in
   let __attrs =
     ({
@@ -258,16 +258,16 @@ let make ?id ?start_time ?time_zone ?timeouts ~frequency ~interval
     json =
       yojson_of_azurerm_logic_app_trigger_recurrence
         (azurerm_logic_app_trigger_recurrence ?id ?start_time
-           ?time_zone ?timeouts ~frequency ~interval ~logic_app_id
-           ~name ~schedule ());
+           ?time_zone ~schedule ?timeouts ~frequency ~interval
+           ~logic_app_id ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?start_time ?time_zone ?timeouts
-    ~frequency ~interval ~logic_app_id ~name ~schedule __id =
+let register ?tf_module ?id ?start_time ?time_zone ?(schedule = [])
+    ?timeouts ~frequency ~interval ~logic_app_id ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?start_time ?time_zone ?timeouts ~frequency ~interval
-      ~logic_app_id ~name ~schedule __id
+    make ?id ?start_time ?time_zone ~schedule ?timeouts ~frequency
+      ~interval ~logic_app_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

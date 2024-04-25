@@ -279,7 +279,7 @@ let spec__selector__match_expressions ?key ?operator ?values () :
     spec__selector__match_expressions =
   { key; operator; values }
 
-let spec__selector ?match_labels ~match_expressions () :
+let spec__selector ?match_labels ?(match_expressions = []) () :
     spec__selector =
   { match_labels; match_expressions }
 

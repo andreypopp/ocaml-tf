@@ -14,7 +14,7 @@ val connection_properties__cross_cluster_search :
 type connection_properties
 
 val connection_properties :
-  cross_cluster_search:
+  ?cross_cluster_search:
     connection_properties__cross_cluster_search list ->
   unit ->
   connection_properties
@@ -48,9 +48,9 @@ val aws_opensearch_outbound_connection :
   ?accept_connection:bool prop ->
   ?connection_mode:string prop ->
   ?id:string prop ->
+  ?connection_properties:connection_properties list ->
   ?timeouts:timeouts ->
   connection_alias:string prop ->
-  connection_properties:connection_properties list ->
   local_domain_info:local_domain_info list ->
   remote_domain_info:remote_domain_info list ->
   unit ->
@@ -74,9 +74,9 @@ val register :
   ?accept_connection:bool prop ->
   ?connection_mode:string prop ->
   ?id:string prop ->
+  ?connection_properties:connection_properties list ->
   ?timeouts:timeouts ->
   connection_alias:string prop ->
-  connection_properties:connection_properties list ->
   local_domain_info:local_domain_info list ->
   remote_domain_info:remote_domain_info list ->
   string ->
@@ -86,9 +86,9 @@ val make :
   ?accept_connection:bool prop ->
   ?connection_mode:string prop ->
   ?id:string prop ->
+  ?connection_properties:connection_properties list ->
   ?timeouts:timeouts ->
   connection_alias:string prop ->
-  connection_properties:connection_properties list ->
   local_domain_info:local_domain_info list ->
   remote_domain_info:remote_domain_info list ->
   string ->

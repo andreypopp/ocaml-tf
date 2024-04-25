@@ -270,7 +270,7 @@ let rules__access_boundary_rule__availability_condition ?description
   { description; expression; location; title }
 
 let rules__access_boundary_rule ?available_permissions
-    ?available_resource ~availability_condition () :
+    ?available_resource ?(availability_condition = []) () :
     rules__access_boundary_rule =
   {
     available_permissions;
@@ -278,7 +278,7 @@ let rules__access_boundary_rule ?available_permissions
     availability_condition;
   }
 
-let rules ?description ~access_boundary_rule () : rules =
+let rules ?description ?(access_boundary_rule = []) () : rules =
   { description; access_boundary_rule }
 
 let timeouts ?create ?delete ?update () : timeouts =

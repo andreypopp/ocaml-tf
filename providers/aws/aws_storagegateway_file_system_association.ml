@@ -148,8 +148,8 @@ let cache_attributes ?cache_stale_timeout_in_seconds () :
   { cache_stale_timeout_in_seconds }
 
 let aws_storagegateway_file_system_association ?audit_destination_arn
-    ?id ?tags ?tags_all ~gateway_arn ~location_arn ~password
-    ~username ~cache_attributes () :
+    ?id ?tags ?tags_all ?(cache_attributes = []) ~gateway_arn
+    ~location_arn ~password ~username () :
     aws_storagegateway_file_system_association =
   {
     audit_destination_arn;
@@ -175,8 +175,9 @@ type t = {
   username : string prop;
 }
 
-let make ?audit_destination_arn ?id ?tags ?tags_all ~gateway_arn
-    ~location_arn ~password ~username ~cache_attributes __id =
+let make ?audit_destination_arn ?id ?tags ?tags_all
+    ?(cache_attributes = []) ~gateway_arn ~location_arn ~password
+    ~username __id =
   let __type = "aws_storagegateway_file_system_association" in
   let __attrs =
     ({
@@ -199,17 +200,18 @@ let make ?audit_destination_arn ?id ?tags ?tags_all ~gateway_arn
     json =
       yojson_of_aws_storagegateway_file_system_association
         (aws_storagegateway_file_system_association
-           ?audit_destination_arn ?id ?tags ?tags_all ~gateway_arn
-           ~location_arn ~password ~username ~cache_attributes ());
+           ?audit_destination_arn ?id ?tags ?tags_all
+           ~cache_attributes ~gateway_arn ~location_arn ~password
+           ~username ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?audit_destination_arn ?id ?tags ?tags_all
-    ~gateway_arn ~location_arn ~password ~username ~cache_attributes
-    __id =
+    ?(cache_attributes = []) ~gateway_arn ~location_arn ~password
+    ~username __id =
   let (r : _ Tf_core.resource) =
-    make ?audit_destination_arn ?id ?tags ?tags_all ~gateway_arn
-      ~location_arn ~password ~username ~cache_attributes __id
+    make ?audit_destination_arn ?id ?tags ?tags_all ~cache_attributes
+      ~gateway_arn ~location_arn ~password ~username __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

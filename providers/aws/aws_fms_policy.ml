@@ -449,20 +449,21 @@ let security_service_policy_data__policy_option__third_party_firewall_policy
   { firewall_deployment_model }
 
 let security_service_policy_data__policy_option
-    ~network_firewall_policy ~third_party_firewall_policy () :
+    ?(network_firewall_policy = [])
+    ?(third_party_firewall_policy = []) () :
     security_service_policy_data__policy_option =
   { network_firewall_policy; third_party_firewall_policy }
 
-let security_service_policy_data ?managed_service_data ~type_
-    ~policy_option () : security_service_policy_data =
+let security_service_policy_data ?managed_service_data
+    ?(policy_option = []) ~type_ () : security_service_policy_data =
   { managed_service_data; type_; policy_option }
 
 let aws_fms_policy ?delete_all_policy_resources
     ?delete_unused_fm_managed_resources ?description ?id
     ?remediation_enabled ?resource_tags ?resource_type
-    ?resource_type_list ?tags ?tags_all ~exclude_resource_tags ~name
-    ~exclude_map ~include_map ~security_service_policy_data () :
-    aws_fms_policy =
+    ?resource_type_list ?tags ?tags_all ?(exclude_map = [])
+    ?(include_map = []) ~exclude_resource_tags ~name
+    ~security_service_policy_data () : aws_fms_policy =
   {
     delete_all_policy_resources;
     delete_unused_fm_managed_resources;
@@ -501,8 +502,9 @@ type t = {
 let make ?delete_all_policy_resources
     ?delete_unused_fm_managed_resources ?description ?id
     ?remediation_enabled ?resource_tags ?resource_type
-    ?resource_type_list ?tags ?tags_all ~exclude_resource_tags ~name
-    ~exclude_map ~include_map ~security_service_policy_data __id =
+    ?resource_type_list ?tags ?tags_all ?(exclude_map = [])
+    ?(include_map = []) ~exclude_resource_tags ~name
+    ~security_service_policy_data __id =
   let __type = "aws_fms_policy" in
   let __attrs =
     ({
@@ -538,8 +540,8 @@ let make ?delete_all_policy_resources
         (aws_fms_policy ?delete_all_policy_resources
            ?delete_unused_fm_managed_resources ?description ?id
            ?remediation_enabled ?resource_tags ?resource_type
-           ?resource_type_list ?tags ?tags_all ~exclude_resource_tags
-           ~name ~exclude_map ~include_map
+           ?resource_type_list ?tags ?tags_all ~exclude_map
+           ~include_map ~exclude_resource_tags ~name
            ~security_service_policy_data ());
     attrs = __attrs;
   }
@@ -547,15 +549,15 @@ let make ?delete_all_policy_resources
 let register ?tf_module ?delete_all_policy_resources
     ?delete_unused_fm_managed_resources ?description ?id
     ?remediation_enabled ?resource_tags ?resource_type
-    ?resource_type_list ?tags ?tags_all ~exclude_resource_tags ~name
-    ~exclude_map ~include_map ~security_service_policy_data __id =
+    ?resource_type_list ?tags ?tags_all ?(exclude_map = [])
+    ?(include_map = []) ~exclude_resource_tags ~name
+    ~security_service_policy_data __id =
   let (r : _ Tf_core.resource) =
     make ?delete_all_policy_resources
       ?delete_unused_fm_managed_resources ?description ?id
       ?remediation_enabled ?resource_tags ?resource_type
-      ?resource_type_list ?tags ?tags_all ~exclude_resource_tags
-      ~name ~exclude_map ~include_map ~security_service_policy_data
-      __id
+      ?resource_type_list ?tags ?tags_all ~exclude_map ~include_map
+      ~exclude_resource_tags ~name ~security_service_policy_data __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

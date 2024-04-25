@@ -71,11 +71,11 @@ val digitalocean_kubernetes_cluster :
   ?surge_upgrade:bool prop ->
   ?tags:string prop list ->
   ?vpc_uuid:string prop ->
+  ?maintenance_policy:maintenance_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
   region:string prop ->
   version:string prop ->
-  maintenance_policy:maintenance_policy list ->
   node_pool:node_pool list ->
   unit ->
   digitalocean_kubernetes_cluster
@@ -118,11 +118,11 @@ val register :
   ?surge_upgrade:bool prop ->
   ?tags:string prop list ->
   ?vpc_uuid:string prop ->
+  ?maintenance_policy:maintenance_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
   region:string prop ->
   version:string prop ->
-  maintenance_policy:maintenance_policy list ->
   node_pool:node_pool list ->
   string ->
   t
@@ -136,11 +136,11 @@ val make :
   ?surge_upgrade:bool prop ->
   ?tags:string prop list ->
   ?vpc_uuid:string prop ->
+  ?maintenance_policy:maintenance_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
   region:string prop ->
   version:string prop ->
-  maintenance_policy:maintenance_policy list ->
   node_pool:node_pool list ->
   string ->
   t Tf_core.resource

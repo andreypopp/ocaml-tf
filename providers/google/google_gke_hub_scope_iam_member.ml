@@ -112,8 +112,8 @@ let _ = yojson_of_google_gke_hub_scope_iam_member
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_gke_hub_scope_iam_member ?id ?project ~member ~role
-    ~scope_id ~condition () : google_gke_hub_scope_iam_member =
+let google_gke_hub_scope_iam_member ?id ?project ?(condition = [])
+    ~member ~role ~scope_id () : google_gke_hub_scope_iam_member =
   { id; member; project; role; scope_id; condition }
 
 type t = {
@@ -125,7 +125,8 @@ type t = {
   scope_id : string prop;
 }
 
-let make ?id ?project ~member ~role ~scope_id ~condition __id =
+let make ?id ?project ?(condition = []) ~member ~role ~scope_id __id
+    =
   let __type = "google_gke_hub_scope_iam_member" in
   let __attrs =
     ({
@@ -143,15 +144,15 @@ let make ?id ?project ~member ~role ~scope_id ~condition __id =
     type_ = __type;
     json =
       yojson_of_google_gke_hub_scope_iam_member
-        (google_gke_hub_scope_iam_member ?id ?project ~member ~role
-           ~scope_id ~condition ());
+        (google_gke_hub_scope_iam_member ?id ?project ~condition
+           ~member ~role ~scope_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ~member ~role ~scope_id
-    ~condition __id =
+let register ?tf_module ?id ?project ?(condition = []) ~member ~role
+    ~scope_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ~member ~role ~scope_id ~condition __id
+    make ?id ?project ~condition ~member ~role ~scope_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

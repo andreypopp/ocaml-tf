@@ -78,14 +78,14 @@ val rule_settings :
   ?ip_categories:bool prop ->
   ?override_host:string prop ->
   ?override_ips:string prop list ->
-  audit_ssh:rule_settings__audit_ssh list ->
-  biso_admin_controls:rule_settings__biso_admin_controls list ->
-  check_session:rule_settings__check_session list ->
-  egress:rule_settings__egress list ->
-  l4override:rule_settings__l4override list ->
-  notification_settings:rule_settings__notification_settings list ->
-  payload_log:rule_settings__payload_log list ->
-  untrusted_cert:rule_settings__untrusted_cert list ->
+  ?audit_ssh:rule_settings__audit_ssh list ->
+  ?biso_admin_controls:rule_settings__biso_admin_controls list ->
+  ?check_session:rule_settings__check_session list ->
+  ?egress:rule_settings__egress list ->
+  ?l4override:rule_settings__l4override list ->
+  ?notification_settings:rule_settings__notification_settings list ->
+  ?payload_log:rule_settings__payload_log list ->
+  ?untrusted_cert:rule_settings__untrusted_cert list ->
   unit ->
   rule_settings
 
@@ -98,12 +98,12 @@ val cloudflare_teams_rule :
   ?id:string prop ->
   ?identity:string prop ->
   ?traffic:string prop ->
+  ?rule_settings:rule_settings list ->
   account_id:string prop ->
   action:string prop ->
   description:string prop ->
   name:string prop ->
   precedence:float prop ->
-  rule_settings:rule_settings list ->
   unit ->
   cloudflare_teams_rule
 
@@ -134,12 +134,12 @@ val register :
   ?id:string prop ->
   ?identity:string prop ->
   ?traffic:string prop ->
+  ?rule_settings:rule_settings list ->
   account_id:string prop ->
   action:string prop ->
   description:string prop ->
   name:string prop ->
   precedence:float prop ->
-  rule_settings:rule_settings list ->
   string ->
   t
 
@@ -150,11 +150,11 @@ val make :
   ?id:string prop ->
   ?identity:string prop ->
   ?traffic:string prop ->
+  ?rule_settings:rule_settings list ->
   account_id:string prop ->
   action:string prop ->
   description:string prop ->
   name:string prop ->
   precedence:float prop ->
-  rule_settings:rule_settings list ->
   string ->
   t Tf_core.resource

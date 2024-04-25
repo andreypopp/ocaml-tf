@@ -29,8 +29,8 @@ val build_config__source__storage_source :
 type build_config__source
 
 val build_config__source :
-  repo_source:build_config__source__repo_source list ->
-  storage_source:build_config__source__storage_source list ->
+  ?repo_source:build_config__source__repo_source list ->
+  ?storage_source:build_config__source__storage_source list ->
   unit ->
   build_config__source
 
@@ -42,7 +42,7 @@ val build_config :
   ?environment_variables:(string * string prop) list ->
   ?runtime:string prop ->
   ?worker_pool:string prop ->
-  source:build_config__source list ->
+  ?source:build_config__source list ->
   unit ->
   build_config
 
@@ -88,10 +88,10 @@ val service_config__secret_volumes__versions :
 type service_config__secret_volumes
 
 val service_config__secret_volumes :
+  ?versions:service_config__secret_volumes__versions list ->
   mount_path:string prop ->
   project_id:string prop ->
   secret:string prop ->
-  versions:service_config__secret_volumes__versions list ->
   unit ->
   service_config__secret_volumes
 
@@ -111,9 +111,9 @@ val service_config :
   ?timeout_seconds:float prop ->
   ?vpc_connector:string prop ->
   ?vpc_connector_egress_settings:string prop ->
-  secret_environment_variables:
+  ?secret_environment_variables:
     service_config__secret_environment_variables list ->
-  secret_volumes:service_config__secret_volumes list ->
+  ?secret_volumes:service_config__secret_volumes list ->
   unit ->
   service_config
 
@@ -134,12 +134,12 @@ val google_cloudfunctions2_function :
   ?kms_key_name:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?build_config:build_config list ->
+  ?event_trigger:event_trigger list ->
+  ?service_config:service_config list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  build_config:build_config list ->
-  event_trigger:event_trigger list ->
-  service_config:service_config list ->
   unit ->
   google_cloudfunctions2_function
 
@@ -171,12 +171,12 @@ val register :
   ?kms_key_name:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?build_config:build_config list ->
+  ?event_trigger:event_trigger list ->
+  ?service_config:service_config list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  build_config:build_config list ->
-  event_trigger:event_trigger list ->
-  service_config:service_config list ->
   string ->
   t
 
@@ -186,11 +186,11 @@ val make :
   ?kms_key_name:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?build_config:build_config list ->
+  ?event_trigger:event_trigger list ->
+  ?service_config:service_config list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  build_config:build_config list ->
-  event_trigger:event_trigger list ->
-  service_config:service_config list ->
   string ->
   t Tf_core.resource

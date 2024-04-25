@@ -358,8 +358,8 @@ let aws_opsworks_application ?auto_bundle_on_deploy
     ?aws_flow_ruby_settings ?data_source_arn
     ?data_source_database_name ?data_source_type ?description
     ?document_root ?domains ?enable_ssl ?id ?rails_env ?short_name
-    ~name ~stack_id ~type_ ~app_source ~environment
-    ~ssl_configuration () : aws_opsworks_application =
+    ?(app_source = []) ?(ssl_configuration = []) ~name ~stack_id
+    ~type_ ~environment () : aws_opsworks_application =
   {
     auto_bundle_on_deploy;
     aws_flow_ruby_settings;
@@ -402,8 +402,8 @@ type t = {
 let make ?auto_bundle_on_deploy ?aws_flow_ruby_settings
     ?data_source_arn ?data_source_database_name ?data_source_type
     ?description ?document_root ?domains ?enable_ssl ?id ?rails_env
-    ?short_name ~name ~stack_id ~type_ ~app_source ~environment
-    ~ssl_configuration __id =
+    ?short_name ?(app_source = []) ?(ssl_configuration = []) ~name
+    ~stack_id ~type_ ~environment __id =
   let __type = "aws_opsworks_application" in
   let __attrs =
     ({
@@ -438,8 +438,8 @@ let make ?auto_bundle_on_deploy ?aws_flow_ruby_settings
            ?aws_flow_ruby_settings ?data_source_arn
            ?data_source_database_name ?data_source_type ?description
            ?document_root ?domains ?enable_ssl ?id ?rails_env
-           ?short_name ~name ~stack_id ~type_ ~app_source
-           ~environment ~ssl_configuration ());
+           ?short_name ~app_source ~ssl_configuration ~name ~stack_id
+           ~type_ ~environment ());
     attrs = __attrs;
   }
 
@@ -447,14 +447,14 @@ let register ?tf_module ?auto_bundle_on_deploy
     ?aws_flow_ruby_settings ?data_source_arn
     ?data_source_database_name ?data_source_type ?description
     ?document_root ?domains ?enable_ssl ?id ?rails_env ?short_name
-    ~name ~stack_id ~type_ ~app_source ~environment
-    ~ssl_configuration __id =
+    ?(app_source = []) ?(ssl_configuration = []) ~name ~stack_id
+    ~type_ ~environment __id =
   let (r : _ Tf_core.resource) =
     make ?auto_bundle_on_deploy ?aws_flow_ruby_settings
       ?data_source_arn ?data_source_database_name ?data_source_type
       ?description ?document_root ?domains ?enable_ssl ?id ?rails_env
-      ?short_name ~name ~stack_id ~type_ ~app_source ~environment
-      ~ssl_configuration __id
+      ?short_name ~app_source ~ssl_configuration ~name ~stack_id
+      ~type_ ~environment __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

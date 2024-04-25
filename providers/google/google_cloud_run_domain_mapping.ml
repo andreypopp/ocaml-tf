@@ -357,8 +357,9 @@ let spec ?certificate_mode ?force_override ~route_name () : spec =
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
-let google_cloud_run_domain_mapping ?id ?project ?timeouts ~location
-    ~name ~metadata ~spec () : google_cloud_run_domain_mapping =
+let google_cloud_run_domain_mapping ?id ?project ?(metadata = [])
+    ?timeouts ~location ~name ~spec () :
+    google_cloud_run_domain_mapping =
   { id; location; name; project; metadata; spec; timeouts }
 
 type t = {
@@ -369,8 +370,8 @@ type t = {
   status : status list prop;
 }
 
-let make ?id ?project ?timeouts ~location ~name ~metadata ~spec __id
-    =
+let make ?id ?project ?(metadata = []) ?timeouts ~location ~name
+    ~spec __id =
   let __type = "google_cloud_run_domain_mapping" in
   let __attrs =
     ({
@@ -387,15 +388,15 @@ let make ?id ?project ?timeouts ~location ~name ~metadata ~spec __id
     type_ = __type;
     json =
       yojson_of_google_cloud_run_domain_mapping
-        (google_cloud_run_domain_mapping ?id ?project ?timeouts
-           ~location ~name ~metadata ~spec ());
+        (google_cloud_run_domain_mapping ?id ?project ~metadata
+           ?timeouts ~location ~name ~spec ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ?timeouts ~location ~name
-    ~metadata ~spec __id =
+let register ?tf_module ?id ?project ?(metadata = []) ?timeouts
+    ~location ~name ~spec __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ?timeouts ~location ~name ~metadata ~spec __id
+    make ?id ?project ~metadata ?timeouts ~location ~name ~spec __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

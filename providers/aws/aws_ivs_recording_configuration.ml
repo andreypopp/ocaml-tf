@@ -255,9 +255,9 @@ let thumbnail_configuration ?recording_mode ?target_interval_seconds
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let aws_ivs_recording_configuration ?id ?name
-    ?recording_reconnect_window_seconds ?tags ?tags_all ?timeouts
-    ~destination_configuration ~thumbnail_configuration () :
-    aws_ivs_recording_configuration =
+    ?recording_reconnect_window_seconds ?tags ?tags_all
+    ?(thumbnail_configuration = []) ?timeouts
+    ~destination_configuration () : aws_ivs_recording_configuration =
   {
     id;
     name;
@@ -280,8 +280,8 @@ type t = {
 }
 
 let make ?id ?name ?recording_reconnect_window_seconds ?tags
-    ?tags_all ?timeouts ~destination_configuration
-    ~thumbnail_configuration __id =
+    ?tags_all ?(thumbnail_configuration = []) ?timeouts
+    ~destination_configuration __id =
   let __type = "aws_ivs_recording_configuration" in
   let __attrs =
     ({
@@ -304,18 +304,18 @@ let make ?id ?name ?recording_reconnect_window_seconds ?tags
       yojson_of_aws_ivs_recording_configuration
         (aws_ivs_recording_configuration ?id ?name
            ?recording_reconnect_window_seconds ?tags ?tags_all
-           ?timeouts ~destination_configuration
-           ~thumbnail_configuration ());
+           ~thumbnail_configuration ?timeouts
+           ~destination_configuration ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?name ?recording_reconnect_window_seconds
-    ?tags ?tags_all ?timeouts ~destination_configuration
-    ~thumbnail_configuration __id =
+    ?tags ?tags_all ?(thumbnail_configuration = []) ?timeouts
+    ~destination_configuration __id =
   let (r : _ Tf_core.resource) =
     make ?id ?name ?recording_reconnect_window_seconds ?tags
-      ?tags_all ?timeouts ~destination_configuration
-      ~thumbnail_configuration __id
+      ?tags_all ~thumbnail_configuration ?timeouts
+      ~destination_configuration __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

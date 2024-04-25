@@ -167,13 +167,13 @@ let destination_config__on_success ~destination () :
     destination_config__on_success =
   { destination }
 
-let destination_config ~on_failure ~on_success () :
+let destination_config ?(on_failure = []) ?(on_success = []) () :
     destination_config =
   { on_failure; on_success }
 
 let aws_lambda_function_event_invoke_config ?id
     ?maximum_event_age_in_seconds ?maximum_retry_attempts ?qualifier
-    ~function_name ~destination_config () :
+    ?(destination_config = []) ~function_name () :
     aws_lambda_function_event_invoke_config =
   {
     function_name;
@@ -193,7 +193,7 @@ type t = {
 }
 
 let make ?id ?maximum_event_age_in_seconds ?maximum_retry_attempts
-    ?qualifier ~function_name ~destination_config __id =
+    ?qualifier ?(destination_config = []) ~function_name __id =
   let __type = "aws_lambda_function_event_invoke_config" in
   let __attrs =
     ({
@@ -214,16 +214,16 @@ let make ?id ?maximum_event_age_in_seconds ?maximum_retry_attempts
       yojson_of_aws_lambda_function_event_invoke_config
         (aws_lambda_function_event_invoke_config ?id
            ?maximum_event_age_in_seconds ?maximum_retry_attempts
-           ?qualifier ~function_name ~destination_config ());
+           ?qualifier ~destination_config ~function_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?maximum_event_age_in_seconds
-    ?maximum_retry_attempts ?qualifier ~function_name
-    ~destination_config __id =
+    ?maximum_retry_attempts ?qualifier ?(destination_config = [])
+    ~function_name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?maximum_event_age_in_seconds ?maximum_retry_attempts
-      ?qualifier ~function_name ~destination_config __id
+      ?qualifier ~destination_config ~function_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

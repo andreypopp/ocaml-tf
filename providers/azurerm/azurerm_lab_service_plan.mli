@@ -51,14 +51,14 @@ val azurerm_lab_service_plan :
   ?id:string prop ->
   ?shared_gallery_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?default_auto_shutdown:default_auto_shutdown list ->
+  ?default_connection:default_connection list ->
+  ?support:support list ->
   ?timeouts:timeouts ->
   allowed_regions:string prop list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  default_auto_shutdown:default_auto_shutdown list ->
-  default_connection:default_connection list ->
-  support:support list ->
   unit ->
   azurerm_lab_service_plan
 
@@ -84,14 +84,14 @@ val register :
   ?id:string prop ->
   ?shared_gallery_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?default_auto_shutdown:default_auto_shutdown list ->
+  ?default_connection:default_connection list ->
+  ?support:support list ->
   ?timeouts:timeouts ->
   allowed_regions:string prop list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  default_auto_shutdown:default_auto_shutdown list ->
-  default_connection:default_connection list ->
-  support:support list ->
   string ->
   t
 
@@ -100,13 +100,13 @@ val make :
   ?id:string prop ->
   ?shared_gallery_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?default_auto_shutdown:default_auto_shutdown list ->
+  ?default_connection:default_connection list ->
+  ?support:support list ->
   ?timeouts:timeouts ->
   allowed_regions:string prop list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  default_auto_shutdown:default_auto_shutdown list ->
-  default_connection:default_connection list ->
-  support:support list ->
   string ->
   t Tf_core.resource

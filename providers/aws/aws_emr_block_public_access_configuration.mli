@@ -16,9 +16,9 @@ type aws_emr_block_public_access_configuration
 
 val aws_emr_block_public_access_configuration :
   ?id:string prop ->
-  block_public_security_group_rules:bool prop ->
-  permitted_public_security_group_rule_range:
+  ?permitted_public_security_group_rule_range:
     permitted_public_security_group_rule_range list ->
+  block_public_security_group_rules:bool prop ->
   unit ->
   aws_emr_block_public_access_configuration
 
@@ -35,16 +35,16 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  block_public_security_group_rules:bool prop ->
-  permitted_public_security_group_rule_range:
+  ?permitted_public_security_group_rule_range:
     permitted_public_security_group_rule_range list ->
+  block_public_security_group_rules:bool prop ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  block_public_security_group_rules:bool prop ->
-  permitted_public_security_group_rule_range:
+  ?permitted_public_security_group_rule_range:
     permitted_public_security_group_rule_range list ->
+  block_public_security_group_rules:bool prop ->
   string ->
   t Tf_core.resource

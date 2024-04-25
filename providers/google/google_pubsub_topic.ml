@@ -228,9 +228,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_pubsub_topic ?id ?kms_key_name ?labels
-    ?message_retention_duration ?project ?timeouts ~name
-    ~message_storage_policy ~schema_settings () : google_pubsub_topic
-    =
+    ?message_retention_duration ?project
+    ?(message_storage_policy = []) ?(schema_settings = []) ?timeouts
+    ~name () : google_pubsub_topic =
   {
     id;
     kms_key_name;
@@ -255,8 +255,8 @@ type t = {
 }
 
 let make ?id ?kms_key_name ?labels ?message_retention_duration
-    ?project ?timeouts ~name ~message_storage_policy ~schema_settings
-    __id =
+    ?project ?(message_storage_policy = []) ?(schema_settings = [])
+    ?timeouts ~name __id =
   let __type = "google_pubsub_topic" in
   let __attrs =
     ({
@@ -280,18 +280,20 @@ let make ?id ?kms_key_name ?labels ?message_retention_duration
     json =
       yojson_of_google_pubsub_topic
         (google_pubsub_topic ?id ?kms_key_name ?labels
-           ?message_retention_duration ?project ?timeouts ~name
-           ~message_storage_policy ~schema_settings ());
+           ?message_retention_duration ?project
+           ~message_storage_policy ~schema_settings ?timeouts ~name
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?kms_key_name ?labels
-    ?message_retention_duration ?project ?timeouts ~name
-    ~message_storage_policy ~schema_settings __id =
+    ?message_retention_duration ?project
+    ?(message_storage_policy = []) ?(schema_settings = []) ?timeouts
+    ~name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?kms_key_name ?labels ?message_retention_duration
-      ?project ?timeouts ~name ~message_storage_policy
-      ~schema_settings __id
+      ?project ~message_storage_policy ~schema_settings ?timeouts
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

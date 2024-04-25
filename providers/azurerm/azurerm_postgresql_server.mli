@@ -48,6 +48,8 @@ val azurerm_postgresql_server :
   ?ssl_minimal_tls_version_enforced:string prop ->
   ?storage_mb:float prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?threat_detection_policy:threat_detection_policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -55,8 +57,6 @@ val azurerm_postgresql_server :
   sku_name:string prop ->
   ssl_enforcement_enabled:bool prop ->
   version:string prop ->
-  identity:identity list ->
-  threat_detection_policy:threat_detection_policy list ->
   unit ->
   azurerm_postgresql_server
 
@@ -105,6 +105,8 @@ val register :
   ?ssl_minimal_tls_version_enforced:string prop ->
   ?storage_mb:float prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?threat_detection_policy:threat_detection_policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -112,8 +114,6 @@ val register :
   sku_name:string prop ->
   ssl_enforcement_enabled:bool prop ->
   version:string prop ->
-  identity:identity list ->
-  threat_detection_policy:threat_detection_policy list ->
   string ->
   t
 
@@ -132,6 +132,8 @@ val make :
   ?ssl_minimal_tls_version_enforced:string prop ->
   ?storage_mb:float prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?threat_detection_policy:threat_detection_policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -139,7 +141,5 @@ val make :
   sku_name:string prop ->
   ssl_enforcement_enabled:bool prop ->
   version:string prop ->
-  identity:identity list ->
-  threat_detection_policy:threat_detection_policy list ->
   string ->
   t Tf_core.resource

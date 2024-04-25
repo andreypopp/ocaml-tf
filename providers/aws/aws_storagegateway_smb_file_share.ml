@@ -398,9 +398,9 @@ let aws_storagegateway_smb_file_share ?access_based_enumeration
     ?file_share_name ?guess_mime_type_enabled ?id ?invalid_user_list
     ?kms_encrypted ?kms_key_arn ?notification_policy ?object_acl
     ?oplocks_enabled ?read_only ?requester_pays ?smb_acl_enabled
-    ?tags ?tags_all ?valid_user_list ?vpc_endpoint_dns_name ?timeouts
-    ~gateway_arn ~location_arn ~role_arn ~cache_attributes () :
-    aws_storagegateway_smb_file_share =
+    ?tags ?tags_all ?valid_user_list ?vpc_endpoint_dns_name
+    ?(cache_attributes = []) ?timeouts ~gateway_arn ~location_arn
+    ~role_arn () : aws_storagegateway_smb_file_share =
   {
     access_based_enumeration;
     admin_user_list;
@@ -470,8 +470,8 @@ let make ?access_based_enumeration ?admin_user_list
     ?guess_mime_type_enabled ?id ?invalid_user_list ?kms_encrypted
     ?kms_key_arn ?notification_policy ?object_acl ?oplocks_enabled
     ?read_only ?requester_pays ?smb_acl_enabled ?tags ?tags_all
-    ?valid_user_list ?vpc_endpoint_dns_name ?timeouts ~gateway_arn
-    ~location_arn ~role_arn ~cache_attributes __id =
+    ?valid_user_list ?vpc_endpoint_dns_name ?(cache_attributes = [])
+    ?timeouts ~gateway_arn ~location_arn ~role_arn __id =
   let __type = "aws_storagegateway_smb_file_share" in
   let __attrs =
     ({
@@ -528,8 +528,8 @@ let make ?access_based_enumeration ?admin_user_list
            ?notification_policy ?object_acl ?oplocks_enabled
            ?read_only ?requester_pays ?smb_acl_enabled ?tags
            ?tags_all ?valid_user_list ?vpc_endpoint_dns_name
-           ?timeouts ~gateway_arn ~location_arn ~role_arn
-           ~cache_attributes ());
+           ~cache_attributes ?timeouts ~gateway_arn ~location_arn
+           ~role_arn ());
     attrs = __attrs;
   }
 
@@ -539,8 +539,8 @@ let register ?tf_module ?access_based_enumeration ?admin_user_list
     ?guess_mime_type_enabled ?id ?invalid_user_list ?kms_encrypted
     ?kms_key_arn ?notification_policy ?object_acl ?oplocks_enabled
     ?read_only ?requester_pays ?smb_acl_enabled ?tags ?tags_all
-    ?valid_user_list ?vpc_endpoint_dns_name ?timeouts ~gateway_arn
-    ~location_arn ~role_arn ~cache_attributes __id =
+    ?valid_user_list ?vpc_endpoint_dns_name ?(cache_attributes = [])
+    ?timeouts ~gateway_arn ~location_arn ~role_arn __id =
   let (r : _ Tf_core.resource) =
     make ?access_based_enumeration ?admin_user_list
       ?audit_destination_arn ?authentication ?bucket_region
@@ -548,8 +548,8 @@ let register ?tf_module ?access_based_enumeration ?admin_user_list
       ?guess_mime_type_enabled ?id ?invalid_user_list ?kms_encrypted
       ?kms_key_arn ?notification_policy ?object_acl ?oplocks_enabled
       ?read_only ?requester_pays ?smb_acl_enabled ?tags ?tags_all
-      ?valid_user_list ?vpc_endpoint_dns_name ?timeouts ~gateway_arn
-      ~location_arn ~role_arn ~cache_attributes __id
+      ?valid_user_list ?vpc_endpoint_dns_name ~cache_attributes
+      ?timeouts ~gateway_arn ~location_arn ~role_arn __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

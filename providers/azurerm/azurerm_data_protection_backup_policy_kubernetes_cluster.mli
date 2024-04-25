@@ -62,13 +62,13 @@ type azurerm_data_protection_backup_policy_kubernetes_cluster
 val azurerm_data_protection_backup_policy_kubernetes_cluster :
   ?id:string prop ->
   ?time_zone:string prop ->
+  ?retention_rule:retention_rule list ->
   ?timeouts:timeouts ->
   backup_repeating_time_intervals:string prop list ->
   name:string prop ->
   resource_group_name:string prop ->
   vault_name:string prop ->
   default_retention_rule:default_retention_rule list ->
-  retention_rule:retention_rule list ->
   unit ->
   azurerm_data_protection_backup_policy_kubernetes_cluster
 
@@ -90,25 +90,25 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?time_zone:string prop ->
+  ?retention_rule:retention_rule list ->
   ?timeouts:timeouts ->
   backup_repeating_time_intervals:string prop list ->
   name:string prop ->
   resource_group_name:string prop ->
   vault_name:string prop ->
   default_retention_rule:default_retention_rule list ->
-  retention_rule:retention_rule list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?time_zone:string prop ->
+  ?retention_rule:retention_rule list ->
   ?timeouts:timeouts ->
   backup_repeating_time_intervals:string prop list ->
   name:string prop ->
   resource_group_name:string prop ->
   vault_name:string prop ->
   default_retention_rule:default_retention_rule list ->
-  retention_rule:retention_rule list ->
   string ->
   t Tf_core.resource

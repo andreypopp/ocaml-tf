@@ -333,7 +333,7 @@ let sync_config__lambda_conflict_handler_config
   { lambda_conflict_handler_arn }
 
 let sync_config ?conflict_detection ?conflict_handler
-    ~lambda_conflict_handler_config () : sync_config =
+    ?(lambda_conflict_handler_config = []) () : sync_config =
   {
     conflict_detection;
     conflict_handler;
@@ -341,9 +341,9 @@ let sync_config ?conflict_detection ?conflict_handler
   }
 
 let aws_appsync_resolver ?code ?data_source ?id ?kind ?max_batch_size
-    ?request_template ?response_template ~api_id ~field ~type_
-    ~caching_config ~pipeline_config ~runtime ~sync_config () :
-    aws_appsync_resolver =
+    ?request_template ?response_template ?(caching_config = [])
+    ?(pipeline_config = []) ?(runtime = []) ?(sync_config = [])
+    ~api_id ~field ~type_ () : aws_appsync_resolver =
   {
     api_id;
     code;
@@ -376,8 +376,9 @@ type t = {
 }
 
 let make ?code ?data_source ?id ?kind ?max_batch_size
-    ?request_template ?response_template ~api_id ~field ~type_
-    ~caching_config ~pipeline_config ~runtime ~sync_config __id =
+    ?request_template ?response_template ?(caching_config = [])
+    ?(pipeline_config = []) ?(runtime = []) ?(sync_config = [])
+    ~api_id ~field ~type_ __id =
   let __type = "aws_appsync_resolver" in
   let __attrs =
     ({
@@ -404,18 +405,20 @@ let make ?code ?data_source ?id ?kind ?max_batch_size
       yojson_of_aws_appsync_resolver
         (aws_appsync_resolver ?code ?data_source ?id ?kind
            ?max_batch_size ?request_template ?response_template
-           ~api_id ~field ~type_ ~caching_config ~pipeline_config
-           ~runtime ~sync_config ());
+           ~caching_config ~pipeline_config ~runtime ~sync_config
+           ~api_id ~field ~type_ ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?code ?data_source ?id ?kind ?max_batch_size
-    ?request_template ?response_template ~api_id ~field ~type_
-    ~caching_config ~pipeline_config ~runtime ~sync_config __id =
+    ?request_template ?response_template ?(caching_config = [])
+    ?(pipeline_config = []) ?(runtime = []) ?(sync_config = [])
+    ~api_id ~field ~type_ __id =
   let (r : _ Tf_core.resource) =
     make ?code ?data_source ?id ?kind ?max_batch_size
-      ?request_template ?response_template ~api_id ~field ~type_
-      ~caching_config ~pipeline_config ~runtime ~sync_config __id
+      ?request_template ?response_template ~caching_config
+      ~pipeline_config ~runtime ~sync_config ~api_id ~field ~type_
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

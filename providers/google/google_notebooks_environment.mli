@@ -38,11 +38,11 @@ val google_notebooks_environment :
   ?id:string prop ->
   ?post_startup_script:string prop ->
   ?project:string prop ->
+  ?container_image:container_image list ->
   ?timeouts:timeouts ->
+  ?vm_image:vm_image list ->
   location:string prop ->
   name:string prop ->
-  container_image:container_image list ->
-  vm_image:vm_image list ->
   unit ->
   google_notebooks_environment
 
@@ -69,11 +69,11 @@ val register :
   ?id:string prop ->
   ?post_startup_script:string prop ->
   ?project:string prop ->
+  ?container_image:container_image list ->
   ?timeouts:timeouts ->
+  ?vm_image:vm_image list ->
   location:string prop ->
   name:string prop ->
-  container_image:container_image list ->
-  vm_image:vm_image list ->
   string ->
   t
 
@@ -83,10 +83,10 @@ val make :
   ?id:string prop ->
   ?post_startup_script:string prop ->
   ?project:string prop ->
+  ?container_image:container_image list ->
   ?timeouts:timeouts ->
+  ?vm_image:vm_image list ->
   location:string prop ->
   name:string prop ->
-  container_image:container_image list ->
-  vm_image:vm_image list ->
   string ->
   t Tf_core.resource

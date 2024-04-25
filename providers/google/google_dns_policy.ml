@@ -252,9 +252,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_dns_policy ?description ?enable_inbound_forwarding
-    ?enable_logging ?id ?project ?timeouts ~name
-    ~alternative_name_server_config ~networks () : google_dns_policy
-    =
+    ?enable_logging ?id ?project
+    ?(alternative_name_server_config = []) ?timeouts ~name ~networks
+    () : google_dns_policy =
   {
     description;
     enable_inbound_forwarding;
@@ -277,7 +277,7 @@ type t = {
 }
 
 let make ?description ?enable_inbound_forwarding ?enable_logging ?id
-    ?project ?timeouts ~name ~alternative_name_server_config
+    ?project ?(alternative_name_server_config = []) ?timeouts ~name
     ~networks __id =
   let __type = "google_dns_policy" in
   let __attrs =
@@ -298,17 +298,19 @@ let make ?description ?enable_inbound_forwarding ?enable_logging ?id
     json =
       yojson_of_google_dns_policy
         (google_dns_policy ?description ?enable_inbound_forwarding
-           ?enable_logging ?id ?project ?timeouts ~name
-           ~alternative_name_server_config ~networks ());
+           ?enable_logging ?id ?project
+           ~alternative_name_server_config ?timeouts ~name ~networks
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?enable_inbound_forwarding
-    ?enable_logging ?id ?project ?timeouts ~name
-    ~alternative_name_server_config ~networks __id =
+    ?enable_logging ?id ?project
+    ?(alternative_name_server_config = []) ?timeouts ~name ~networks
+    __id =
   let (r : _ Tf_core.resource) =
     make ?description ?enable_inbound_forwarding ?enable_logging ?id
-      ?project ?timeouts ~name ~alternative_name_server_config
+      ?project ~alternative_name_server_config ?timeouts ~name
       ~networks __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

@@ -910,10 +910,12 @@ let condition__target_resource_type ~operator ~values () :
     condition__target_resource_type =
   { operator; values }
 
-let condition ~alert_context ~alert_rule_id ~alert_rule_name
-    ~description ~monitor_condition ~monitor_service ~severity
-    ~signal_type ~target_resource ~target_resource_group
-    ~target_resource_type () : condition =
+let condition ?(alert_context = []) ?(alert_rule_id = [])
+    ?(alert_rule_name = []) ?(description = [])
+    ?(monitor_condition = []) ?(monitor_service = [])
+    ?(severity = []) ?(signal_type = []) ?(target_resource = [])
+    ?(target_resource_group = []) ?(target_resource_type = []) () :
+    condition =
   {
     alert_context;
     alert_rule_id;
@@ -940,20 +942,20 @@ let schedule__recurrence__weekly ?end_time ?start_time ~days_of_week
     () : schedule__recurrence__weekly =
   { days_of_week; end_time; start_time }
 
-let schedule__recurrence ~daily ~monthly ~weekly () :
-    schedule__recurrence =
+let schedule__recurrence ?(daily = []) ?(monthly = []) ?(weekly = [])
+    () : schedule__recurrence =
   { daily; monthly; weekly }
 
-let schedule ?effective_from ?effective_until ?time_zone ~recurrence
-    () : schedule =
+let schedule ?effective_from ?effective_until ?time_zone
+    ?(recurrence = []) () : schedule =
   { effective_from; effective_until; time_zone; recurrence }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_monitor_alert_processing_rule_suppression ?description
-    ?enabled ?id ?tags ?timeouts ~name ~resource_group_name ~scopes
-    ~condition ~schedule () :
+    ?enabled ?id ?tags ?(condition = []) ?(schedule = []) ?timeouts
+    ~name ~resource_group_name ~scopes () :
     azurerm_monitor_alert_processing_rule_suppression =
   {
     description;
@@ -978,8 +980,9 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?description ?enabled ?id ?tags ?timeouts ~name
-    ~resource_group_name ~scopes ~condition ~schedule __id =
+let make ?description ?enabled ?id ?tags ?(condition = [])
+    ?(schedule = []) ?timeouts ~name ~resource_group_name ~scopes
+    __id =
   let __type = "azurerm_monitor_alert_processing_rule_suppression" in
   let __attrs =
     ({
@@ -1000,16 +1003,17 @@ let make ?description ?enabled ?id ?tags ?timeouts ~name
     json =
       yojson_of_azurerm_monitor_alert_processing_rule_suppression
         (azurerm_monitor_alert_processing_rule_suppression
-           ?description ?enabled ?id ?tags ?timeouts ~name
-           ~resource_group_name ~scopes ~condition ~schedule ());
+           ?description ?enabled ?id ?tags ~condition ~schedule
+           ?timeouts ~name ~resource_group_name ~scopes ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?enabled ?id ?tags ?timeouts
-    ~name ~resource_group_name ~scopes ~condition ~schedule __id =
+let register ?tf_module ?description ?enabled ?id ?tags
+    ?(condition = []) ?(schedule = []) ?timeouts ~name
+    ~resource_group_name ~scopes __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?enabled ?id ?tags ?timeouts ~name
-      ~resource_group_name ~scopes ~condition ~schedule __id
+    make ?description ?enabled ?id ?tags ~condition ~schedule
+      ?timeouts ~name ~resource_group_name ~scopes __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

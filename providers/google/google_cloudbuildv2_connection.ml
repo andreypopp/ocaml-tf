@@ -558,8 +558,8 @@ let github_config__authorizer_credential ?oauth_token_secret_version
     () : github_config__authorizer_credential =
   { oauth_token_secret_version }
 
-let github_config ?app_installation_id ~authorizer_credential () :
-    github_config =
+let github_config ?app_installation_id ?(authorizer_credential = [])
+    () : github_config =
   { app_installation_id; authorizer_credential }
 
 let github_enterprise_config__service_directory_config ~service () :
@@ -568,8 +568,8 @@ let github_enterprise_config__service_directory_config ~service () :
 
 let github_enterprise_config ?app_id ?app_installation_id ?app_slug
     ?private_key_secret_version ?ssl_ca
-    ?webhook_secret_secret_version ~host_uri
-    ~service_directory_config () : github_enterprise_config =
+    ?webhook_secret_secret_version ?(service_directory_config = [])
+    ~host_uri () : github_enterprise_config =
   {
     app_id;
     app_installation_id;
@@ -594,9 +594,9 @@ let gitlab_config__service_directory_config ~service () :
     gitlab_config__service_directory_config =
   { service }
 
-let gitlab_config ?host_uri ?ssl_ca ~webhook_secret_secret_version
-    ~authorizer_credential ~read_authorizer_credential
-    ~service_directory_config () : gitlab_config =
+let gitlab_config ?host_uri ?ssl_ca ?(service_directory_config = [])
+    ~webhook_secret_secret_version ~authorizer_credential
+    ~read_authorizer_credential () : gitlab_config =
   {
     host_uri;
     ssl_ca;
@@ -610,8 +610,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_cloudbuildv2_connection ?annotations ?disabled ?id
-    ?project ?timeouts ~location ~name ~github_config
-    ~github_enterprise_config ~gitlab_config () :
+    ?project ?(github_config = []) ?(github_enterprise_config = [])
+    ?(gitlab_config = []) ?timeouts ~location ~name () :
     google_cloudbuildv2_connection =
   {
     annotations;
@@ -641,9 +641,9 @@ type t = {
   update_time : string prop;
 }
 
-let make ?annotations ?disabled ?id ?project ?timeouts ~location
-    ~name ~github_config ~github_enterprise_config ~gitlab_config
-    __id =
+let make ?annotations ?disabled ?id ?project ?(github_config = [])
+    ?(github_enterprise_config = []) ?(gitlab_config = []) ?timeouts
+    ~location ~name __id =
   let __type = "google_cloudbuildv2_connection" in
   let __attrs =
     ({
@@ -670,18 +670,18 @@ let make ?annotations ?disabled ?id ?project ?timeouts ~location
     json =
       yojson_of_google_cloudbuildv2_connection
         (google_cloudbuildv2_connection ?annotations ?disabled ?id
-           ?project ?timeouts ~location ~name ~github_config
-           ~github_enterprise_config ~gitlab_config ());
+           ?project ~github_config ~github_enterprise_config
+           ~gitlab_config ?timeouts ~location ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?annotations ?disabled ?id ?project ?timeouts
-    ~location ~name ~github_config ~github_enterprise_config
-    ~gitlab_config __id =
+let register ?tf_module ?annotations ?disabled ?id ?project
+    ?(github_config = []) ?(github_enterprise_config = [])
+    ?(gitlab_config = []) ?timeouts ~location ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?annotations ?disabled ?id ?project ?timeouts ~location
-      ~name ~github_config ~github_enterprise_config ~gitlab_config
-      __id
+    make ?annotations ?disabled ?id ?project ~github_config
+      ~github_enterprise_config ~gitlab_config ?timeouts ~location
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

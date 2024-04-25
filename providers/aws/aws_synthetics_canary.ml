@@ -479,7 +479,7 @@ let artifact_config__s3_encryption ?encryption_mode ?kms_key_arn () :
     artifact_config__s3_encryption =
   { encryption_mode; kms_key_arn }
 
-let artifact_config ~s3_encryption () : artifact_config =
+let artifact_config ?(s3_encryption = []) () : artifact_config =
   { s3_encryption }
 
 let run_config ?active_tracing ?environment_variables ?memory_in_mb
@@ -500,9 +500,9 @@ let vpc_config ?security_group_ids ?subnet_ids () : vpc_config =
 let aws_synthetics_canary ?delete_lambda ?failure_retention_period
     ?id ?s3_bucket ?s3_key ?s3_version ?start_canary
     ?success_retention_period ?tags ?tags_all ?zip_file
+    ?(artifact_config = []) ?(run_config = []) ?(vpc_config = [])
     ~artifact_s3_location ~execution_role_arn ~handler ~name
-    ~runtime_version ~artifact_config ~run_config ~schedule
-    ~vpc_config () : aws_synthetics_canary =
+    ~runtime_version ~schedule () : aws_synthetics_canary =
   {
     artifact_s3_location;
     delete_lambda;
@@ -552,9 +552,9 @@ type t = {
 
 let make ?delete_lambda ?failure_retention_period ?id ?s3_bucket
     ?s3_key ?s3_version ?start_canary ?success_retention_period ?tags
-    ?tags_all ?zip_file ~artifact_s3_location ~execution_role_arn
-    ~handler ~name ~runtime_version ~artifact_config ~run_config
-    ~schedule ~vpc_config __id =
+    ?tags_all ?zip_file ?(artifact_config = []) ?(run_config = [])
+    ?(vpc_config = []) ~artifact_s3_location ~execution_role_arn
+    ~handler ~name ~runtime_version ~schedule __id =
   let __type = "aws_synthetics_canary" in
   let __attrs =
     ({
@@ -595,24 +595,24 @@ let make ?delete_lambda ?failure_retention_period ?id ?s3_bucket
         (aws_synthetics_canary ?delete_lambda
            ?failure_retention_period ?id ?s3_bucket ?s3_key
            ?s3_version ?start_canary ?success_retention_period ?tags
-           ?tags_all ?zip_file ~artifact_s3_location
-           ~execution_role_arn ~handler ~name ~runtime_version
-           ~artifact_config ~run_config ~schedule ~vpc_config ());
+           ?tags_all ?zip_file ~artifact_config ~run_config
+           ~vpc_config ~artifact_s3_location ~execution_role_arn
+           ~handler ~name ~runtime_version ~schedule ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?delete_lambda ?failure_retention_period ?id
     ?s3_bucket ?s3_key ?s3_version ?start_canary
     ?success_retention_period ?tags ?tags_all ?zip_file
+    ?(artifact_config = []) ?(run_config = []) ?(vpc_config = [])
     ~artifact_s3_location ~execution_role_arn ~handler ~name
-    ~runtime_version ~artifact_config ~run_config ~schedule
-    ~vpc_config __id =
+    ~runtime_version ~schedule __id =
   let (r : _ Tf_core.resource) =
     make ?delete_lambda ?failure_retention_period ?id ?s3_bucket
       ?s3_key ?s3_version ?start_canary ?success_retention_period
-      ?tags ?tags_all ?zip_file ~artifact_s3_location
-      ~execution_role_arn ~handler ~name ~runtime_version
-      ~artifact_config ~run_config ~schedule ~vpc_config __id
+      ?tags ?tags_all ?zip_file ~artifact_config ~run_config
+      ~vpc_config ~artifact_s3_location ~execution_role_arn ~handler
+      ~name ~runtime_version ~schedule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

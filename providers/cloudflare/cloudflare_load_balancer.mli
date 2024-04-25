@@ -148,9 +148,9 @@ val rules :
   ?disabled:bool prop ->
   ?priority:float prop ->
   ?terminates:bool prop ->
+  ?fixed_response:rules__fixed_response list ->
+  ?overrides:rules__overrides list ->
   name:string prop ->
-  fixed_response:rules__fixed_response list ->
-  overrides:rules__overrides list ->
   unit ->
   rules
 
@@ -177,6 +177,7 @@ val cloudflare_load_balancer :
   ?session_affinity_ttl:float prop ->
   ?steering_policy:string prop ->
   ?ttl:float prop ->
+  ?rules:rules list ->
   default_pool_ids:string prop list ->
   fallback_pool_id:string prop ->
   name:string prop ->
@@ -187,7 +188,6 @@ val cloudflare_load_balancer :
   pop_pools:pop_pools list ->
   random_steering:random_steering list ->
   region_pools:region_pools list ->
-  rules:rules list ->
   session_affinity_attributes:session_affinity_attributes list ->
   unit ->
   cloudflare_load_balancer
@@ -224,6 +224,7 @@ val register :
   ?session_affinity_ttl:float prop ->
   ?steering_policy:string prop ->
   ?ttl:float prop ->
+  ?rules:rules list ->
   default_pool_ids:string prop list ->
   fallback_pool_id:string prop ->
   name:string prop ->
@@ -234,7 +235,6 @@ val register :
   pop_pools:pop_pools list ->
   random_steering:random_steering list ->
   region_pools:region_pools list ->
-  rules:rules list ->
   session_affinity_attributes:session_affinity_attributes list ->
   string ->
   t
@@ -248,6 +248,7 @@ val make :
   ?session_affinity_ttl:float prop ->
   ?steering_policy:string prop ->
   ?ttl:float prop ->
+  ?rules:rules list ->
   default_pool_ids:string prop list ->
   fallback_pool_id:string prop ->
   name:string prop ->
@@ -258,7 +259,6 @@ val make :
   pop_pools:pop_pools list ->
   random_steering:random_steering list ->
   region_pools:region_pools list ->
-  rules:rules list ->
   session_affinity_attributes:session_affinity_attributes list ->
   string ->
   t Tf_core.resource

@@ -221,9 +221,9 @@ let generic_web_service ?password ?request_headers ?username ~uri ()
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_dialogflow_fulfillment ?enabled ?id ?project ?timeouts
-    ~display_name ~features ~generic_web_service () :
-    google_dialogflow_fulfillment =
+let google_dialogflow_fulfillment ?enabled ?id ?project
+    ?(features = []) ?(generic_web_service = []) ?timeouts
+    ~display_name () : google_dialogflow_fulfillment =
   {
     display_name;
     enabled;
@@ -242,8 +242,8 @@ type t = {
   project : string prop;
 }
 
-let make ?enabled ?id ?project ?timeouts ~display_name ~features
-    ~generic_web_service __id =
+let make ?enabled ?id ?project ?(features = [])
+    ?(generic_web_service = []) ?timeouts ~display_name __id =
   let __type = "google_dialogflow_fulfillment" in
   let __attrs =
     ({
@@ -261,15 +261,15 @@ let make ?enabled ?id ?project ?timeouts ~display_name ~features
     json =
       yojson_of_google_dialogflow_fulfillment
         (google_dialogflow_fulfillment ?enabled ?id ?project
-           ?timeouts ~display_name ~features ~generic_web_service ());
+           ~features ~generic_web_service ?timeouts ~display_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?enabled ?id ?project ?timeouts ~display_name
-    ~features ~generic_web_service __id =
+let register ?tf_module ?enabled ?id ?project ?(features = [])
+    ?(generic_web_service = []) ?timeouts ~display_name __id =
   let (r : _ Tf_core.resource) =
-    make ?enabled ?id ?project ?timeouts ~display_name ~features
-      ~generic_web_service __id
+    make ?enabled ?id ?project ~features ~generic_web_service
+      ?timeouts ~display_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

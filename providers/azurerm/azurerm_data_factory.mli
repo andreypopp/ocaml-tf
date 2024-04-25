@@ -66,14 +66,14 @@ val azurerm_data_factory :
   ?public_network_enabled:bool prop ->
   ?purview_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?github_configuration:github_configuration list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
+  ?vsts_configuration:vsts_configuration list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  github_configuration:github_configuration list ->
   global_parameter:global_parameter list ->
-  identity:identity list ->
-  vsts_configuration:vsts_configuration list ->
   unit ->
   azurerm_data_factory
 
@@ -103,14 +103,14 @@ val register :
   ?public_network_enabled:bool prop ->
   ?purview_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?github_configuration:github_configuration list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
+  ?vsts_configuration:vsts_configuration list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  github_configuration:github_configuration list ->
   global_parameter:global_parameter list ->
-  identity:identity list ->
-  vsts_configuration:vsts_configuration list ->
   string ->
   t
 
@@ -122,13 +122,13 @@ val make :
   ?public_network_enabled:bool prop ->
   ?purview_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?github_configuration:github_configuration list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
+  ?vsts_configuration:vsts_configuration list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  github_configuration:github_configuration list ->
   global_parameter:global_parameter list ->
-  identity:identity list ->
-  vsts_configuration:vsts_configuration list ->
   string ->
   t Tf_core.resource

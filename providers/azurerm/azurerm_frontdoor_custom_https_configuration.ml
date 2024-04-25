@@ -211,9 +211,9 @@ let custom_https_configuration
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_frontdoor_custom_https_configuration ?id ?timeouts
-    ~custom_https_provisioning_enabled ~frontend_endpoint_id
-    ~custom_https_configuration () :
+let azurerm_frontdoor_custom_https_configuration ?id
+    ?(custom_https_configuration = []) ?timeouts
+    ~custom_https_provisioning_enabled ~frontend_endpoint_id () :
     azurerm_frontdoor_custom_https_configuration =
   {
     custom_https_provisioning_enabled;
@@ -229,8 +229,8 @@ type t = {
   id : string prop;
 }
 
-let make ?id ?timeouts ~custom_https_provisioning_enabled
-    ~frontend_endpoint_id ~custom_https_configuration __id =
+let make ?id ?(custom_https_configuration = []) ?timeouts
+    ~custom_https_provisioning_enabled ~frontend_endpoint_id __id =
   let __type = "azurerm_frontdoor_custom_https_configuration" in
   let __attrs =
     ({
@@ -248,18 +248,19 @@ let make ?id ?timeouts ~custom_https_provisioning_enabled
     type_ = __type;
     json =
       yojson_of_azurerm_frontdoor_custom_https_configuration
-        (azurerm_frontdoor_custom_https_configuration ?id ?timeouts
+        (azurerm_frontdoor_custom_https_configuration ?id
+           ~custom_https_configuration ?timeouts
            ~custom_https_provisioning_enabled ~frontend_endpoint_id
-           ~custom_https_configuration ());
+           ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts
-    ~custom_https_provisioning_enabled ~frontend_endpoint_id
-    ~custom_https_configuration __id =
+let register ?tf_module ?id ?(custom_https_configuration = [])
+    ?timeouts ~custom_https_provisioning_enabled
+    ~frontend_endpoint_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~custom_https_provisioning_enabled
-      ~frontend_endpoint_id ~custom_https_configuration __id
+    make ?id ~custom_https_configuration ?timeouts
+      ~custom_https_provisioning_enabled ~frontend_endpoint_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

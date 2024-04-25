@@ -28,7 +28,7 @@ type spec__selector
 
 val spec__selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:spec__selector__match_expressions list ->
+  ?match_expressions:spec__selector__match_expressions list ->
   unit ->
   spec__selector
 

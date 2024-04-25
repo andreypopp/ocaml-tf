@@ -1148,7 +1148,7 @@ let storage_lens_configuration__account_level__bucket_level__prefix_level__stora
   { delimiter; max_depth; min_storage_bytes_percentage }
 
 let storage_lens_configuration__account_level__bucket_level__prefix_level__storage_metrics
-    ?enabled ~selection_criteria () :
+    ?enabled ?(selection_criteria = []) () :
     storage_lens_configuration__account_level__bucket_level__prefix_level__storage_metrics
     =
   { enabled; selection_criteria }
@@ -1160,9 +1160,10 @@ let storage_lens_configuration__account_level__bucket_level__prefix_level
   { storage_metrics }
 
 let storage_lens_configuration__account_level__bucket_level
-    ~activity_metrics ~advanced_cost_optimization_metrics
-    ~advanced_data_protection_metrics ~detailed_status_code_metrics
-    ~prefix_level () :
+    ?(activity_metrics = [])
+    ?(advanced_cost_optimization_metrics = [])
+    ?(advanced_data_protection_metrics = [])
+    ?(detailed_status_code_metrics = []) ?(prefix_level = []) () :
     storage_lens_configuration__account_level__bucket_level =
   {
     activity_metrics;
@@ -1178,10 +1179,11 @@ let storage_lens_configuration__account_level__detailed_status_code_metrics
     =
   { enabled }
 
-let storage_lens_configuration__account_level ~activity_metrics
-    ~advanced_cost_optimization_metrics
-    ~advanced_data_protection_metrics ~bucket_level
-    ~detailed_status_code_metrics () :
+let storage_lens_configuration__account_level
+    ?(activity_metrics = [])
+    ?(advanced_cost_optimization_metrics = [])
+    ?(advanced_data_protection_metrics = [])
+    ?(detailed_status_code_metrics = []) ~bucket_level () :
     storage_lens_configuration__account_level =
   {
     activity_metrics;
@@ -1211,14 +1213,14 @@ let storage_lens_configuration__data_export__s3_bucket_destination__encryption__
   ()
 
 let storage_lens_configuration__data_export__s3_bucket_destination__encryption
-    ~sse_kms ~sse_s3 () :
+    ?(sse_kms = []) ?(sse_s3 = []) () :
     storage_lens_configuration__data_export__s3_bucket_destination__encryption
     =
   { sse_kms; sse_s3 }
 
 let storage_lens_configuration__data_export__s3_bucket_destination
-    ?prefix ~account_id ~arn ~format ~output_schema_version
-    ~encryption () :
+    ?prefix ?(encryption = []) ~account_id ~arn ~format
+    ~output_schema_version () :
     storage_lens_configuration__data_export__s3_bucket_destination =
   {
     account_id;
@@ -1229,8 +1231,8 @@ let storage_lens_configuration__data_export__s3_bucket_destination
     encryption;
   }
 
-let storage_lens_configuration__data_export ~cloud_watch_metrics
-    ~s3_bucket_destination () :
+let storage_lens_configuration__data_export
+    ?(cloud_watch_metrics = []) ?(s3_bucket_destination = []) () :
     storage_lens_configuration__data_export =
   { cloud_watch_metrics; s3_bucket_destination }
 
@@ -1242,8 +1244,9 @@ let storage_lens_configuration__include ?buckets ?regions () :
     storage_lens_configuration__include =
   { buckets; regions }
 
-let storage_lens_configuration ~enabled ~account_level ~aws_org
-    ~data_export ~exclude ~include_ () : storage_lens_configuration =
+let storage_lens_configuration ?(aws_org = []) ?(data_export = [])
+    ?(exclude = []) ?(include_ = []) ~enabled ~account_level () :
+    storage_lens_configuration =
   { enabled; account_level; aws_org; data_export; exclude; include_ }
 
 let aws_s3control_storage_lens_configuration ?account_id ?id ?tags

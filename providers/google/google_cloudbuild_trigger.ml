@@ -2203,8 +2203,8 @@ let bitbucket_server_trigger_config__push ?branch ?invert_regex ?tag
     () : bitbucket_server_trigger_config__push =
   { branch; invert_regex; tag }
 
-let bitbucket_server_trigger_config ~bitbucket_server_config_resource
-    ~project_key ~repo_slug ~pull_request ~push () :
+let bitbucket_server_trigger_config ?(pull_request = []) ?(push = [])
+    ~bitbucket_server_config_resource ~project_key ~repo_slug () :
     bitbucket_server_trigger_config =
   {
     bitbucket_server_config_resource;
@@ -2230,8 +2230,9 @@ let build__artifacts__python_packages ?paths ?repository () :
     build__artifacts__python_packages =
   { paths; repository }
 
-let build__artifacts ?images ~maven_artifacts ~npm_packages ~objects
-    ~python_packages () : build__artifacts =
+let build__artifacts ?images ?(maven_artifacts = [])
+    ?(npm_packages = []) ?(objects = []) ?(python_packages = []) () :
+    build__artifacts =
   { images; maven_artifacts; npm_packages; objects; python_packages }
 
 let build__available_secrets__secret_manager ~env ~version_name () :
@@ -2249,7 +2250,8 @@ let build__options__volumes ?name ?path () : build__options__volumes
 let build__options ?disk_size_gb ?dynamic_substitutions ?env
     ?log_streaming_option ?logging ?machine_type
     ?requested_verify_option ?secret_env ?source_provenance_hash
-    ?substitution_option ?worker_pool ~volumes () : build__options =
+    ?substitution_option ?worker_pool ?(volumes = []) () :
+    build__options =
   {
     disk_size_gb;
     dynamic_substitutions;
@@ -2286,7 +2288,8 @@ let build__source__storage_source ?generation ~bucket ~object_ () :
     build__source__storage_source =
   { bucket; generation; object_ }
 
-let build__source ~repo_source ~storage_source () : build__source =
+let build__source ?(repo_source = []) ?(storage_source = []) () :
+    build__source =
   { repo_source; storage_source }
 
 let build__step__volumes ~name ~path () : build__step__volumes =
@@ -2294,7 +2297,7 @@ let build__step__volumes ~name ~path () : build__step__volumes =
 
 let build__step ?allow_exit_codes ?allow_failure ?args ?dir
     ?entrypoint ?env ?id ?script ?secret_env ?timeout ?timing
-    ?wait_for ~name ~volumes () : build__step =
+    ?wait_for ?(volumes = []) ~name () : build__step =
   {
     allow_exit_codes;
     allow_failure;
@@ -2313,8 +2316,8 @@ let build__step ?allow_exit_codes ?allow_failure ?args ?dir
   }
 
 let build ?images ?logs_bucket ?queue_ttl ?substitutions ?tags
-    ?timeout ~artifacts ~available_secrets ~options ~secret ~source
-    ~step () : build =
+    ?timeout ?(artifacts = []) ?(available_secrets = [])
+    ?(options = []) ?(secret = []) ?(source = []) ~step () : build =
   {
     images;
     logs_bucket;
@@ -2351,7 +2354,7 @@ let github__push ?branch ?invert_regex ?tag () : github__push =
   { branch; invert_regex; tag }
 
 let github ?enterprise_config_resource_name ?name ?owner
-    ~pull_request ~push () : github =
+    ?(pull_request = []) ?(push = []) () : github =
   {
     enterprise_config_resource_name;
     name;
@@ -2371,8 +2374,8 @@ let repository_event_config__push ?branch ?invert_regex ?tag () :
     repository_event_config__push =
   { branch; invert_regex; tag }
 
-let repository_event_config ?repository ~pull_request ~push () :
-    repository_event_config =
+let repository_event_config ?repository ?(pull_request = [])
+    ?(push = []) () : repository_event_config =
   { repository; pull_request; push }
 
 let source_to_build ?bitbucket_server_config
@@ -2407,10 +2410,11 @@ let webhook_config ~secret () : webhook_config = { secret }
 let google_cloudbuild_trigger ?description ?disabled ?filename
     ?filter ?id ?ignored_files ?include_build_logs ?included_files
     ?location ?name ?project ?service_account ?substitutions ?tags
-    ?timeouts ~approval_config ~bitbucket_server_trigger_config
-    ~build ~git_file_source ~github ~pubsub_config
-    ~repository_event_config ~source_to_build ~trigger_template
-    ~webhook_config () : google_cloudbuild_trigger =
+    ?(approval_config = []) ?(bitbucket_server_trigger_config = [])
+    ?(build = []) ?(git_file_source = []) ?(github = [])
+    ?(pubsub_config = []) ?(repository_event_config = [])
+    ?(source_to_build = []) ?timeouts ?(trigger_template = [])
+    ?(webhook_config = []) () : google_cloudbuild_trigger =
   {
     description;
     disabled;
@@ -2460,10 +2464,11 @@ type t = {
 
 let make ?description ?disabled ?filename ?filter ?id ?ignored_files
     ?include_build_logs ?included_files ?location ?name ?project
-    ?service_account ?substitutions ?tags ?timeouts ~approval_config
-    ~bitbucket_server_trigger_config ~build ~git_file_source ~github
-    ~pubsub_config ~repository_event_config ~source_to_build
-    ~trigger_template ~webhook_config __id =
+    ?service_account ?substitutions ?tags ?(approval_config = [])
+    ?(bitbucket_server_trigger_config = []) ?(build = [])
+    ?(git_file_source = []) ?(github = []) ?(pubsub_config = [])
+    ?(repository_event_config = []) ?(source_to_build = []) ?timeouts
+    ?(trigger_template = []) ?(webhook_config = []) __id =
   let __type = "google_cloudbuild_trigger" in
   let __attrs =
     ({
@@ -2495,27 +2500,30 @@ let make ?description ?disabled ?filename ?filter ?id ?ignored_files
         (google_cloudbuild_trigger ?description ?disabled ?filename
            ?filter ?id ?ignored_files ?include_build_logs
            ?included_files ?location ?name ?project ?service_account
-           ?substitutions ?tags ?timeouts ~approval_config
+           ?substitutions ?tags ~approval_config
            ~bitbucket_server_trigger_config ~build ~git_file_source
            ~github ~pubsub_config ~repository_event_config
-           ~source_to_build ~trigger_template ~webhook_config ());
+           ~source_to_build ?timeouts ~trigger_template
+           ~webhook_config ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?disabled ?filename ?filter ?id
     ?ignored_files ?include_build_logs ?included_files ?location
-    ?name ?project ?service_account ?substitutions ?tags ?timeouts
-    ~approval_config ~bitbucket_server_trigger_config ~build
-    ~git_file_source ~github ~pubsub_config ~repository_event_config
-    ~source_to_build ~trigger_template ~webhook_config __id =
+    ?name ?project ?service_account ?substitutions ?tags
+    ?(approval_config = []) ?(bitbucket_server_trigger_config = [])
+    ?(build = []) ?(git_file_source = []) ?(github = [])
+    ?(pubsub_config = []) ?(repository_event_config = [])
+    ?(source_to_build = []) ?timeouts ?(trigger_template = [])
+    ?(webhook_config = []) __id =
   let (r : _ Tf_core.resource) =
     make ?description ?disabled ?filename ?filter ?id ?ignored_files
       ?include_build_logs ?included_files ?location ?name ?project
-      ?service_account ?substitutions ?tags ?timeouts
-      ~approval_config ~bitbucket_server_trigger_config ~build
-      ~git_file_source ~github ~pubsub_config
-      ~repository_event_config ~source_to_build ~trigger_template
-      ~webhook_config __id
+      ?service_account ?substitutions ?tags ~approval_config
+      ~bitbucket_server_trigger_config ~build ~git_file_source
+      ~github ~pubsub_config ~repository_event_config
+      ~source_to_build ?timeouts ~trigger_template ~webhook_config
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

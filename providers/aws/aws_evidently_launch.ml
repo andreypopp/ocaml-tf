@@ -484,8 +484,8 @@ let scheduled_splits_config__steps__segment_overrides
     scheduled_splits_config__steps__segment_overrides =
   { evaluation_order; segment; weights }
 
-let scheduled_splits_config__steps ~group_weights ~start_time
-    ~segment_overrides () : scheduled_splits_config__steps =
+let scheduled_splits_config__steps ?(segment_overrides = [])
+    ~group_weights ~start_time () : scheduled_splits_config__steps =
   { group_weights; start_time; segment_overrides }
 
 let scheduled_splits_config ~steps () : scheduled_splits_config =
@@ -495,8 +495,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_evidently_launch ?description ?id ?randomization_salt ?tags
-    ?tags_all ?timeouts ~name ~project ~groups ~metric_monitors
-    ~scheduled_splits_config () : aws_evidently_launch =
+    ?tags_all ?(metric_monitors = []) ?(scheduled_splits_config = [])
+    ?timeouts ~name ~project ~groups () : aws_evidently_launch =
   {
     description;
     id;
@@ -529,8 +529,8 @@ type t = {
 }
 
 let make ?description ?id ?randomization_salt ?tags ?tags_all
-    ?timeouts ~name ~project ~groups ~metric_monitors
-    ~scheduled_splits_config __id =
+    ?(metric_monitors = []) ?(scheduled_splits_config = []) ?timeouts
+    ~name ~project ~groups __id =
   let __type = "aws_evidently_launch" in
   let __attrs =
     ({
@@ -559,18 +559,18 @@ let make ?description ?id ?randomization_salt ?tags ?tags_all
     json =
       yojson_of_aws_evidently_launch
         (aws_evidently_launch ?description ?id ?randomization_salt
-           ?tags ?tags_all ?timeouts ~name ~project ~groups
-           ~metric_monitors ~scheduled_splits_config ());
+           ?tags ?tags_all ~metric_monitors ~scheduled_splits_config
+           ?timeouts ~name ~project ~groups ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?randomization_salt ?tags
-    ?tags_all ?timeouts ~name ~project ~groups ~metric_monitors
-    ~scheduled_splits_config __id =
+    ?tags_all ?(metric_monitors = []) ?(scheduled_splits_config = [])
+    ?timeouts ~name ~project ~groups __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?randomization_salt ?tags ?tags_all
-      ?timeouts ~name ~project ~groups ~metric_monitors
-      ~scheduled_splits_config __id
+      ~metric_monitors ~scheduled_splits_config ?timeouts ~name
+      ~project ~groups __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

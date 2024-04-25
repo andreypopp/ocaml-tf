@@ -1184,7 +1184,7 @@ let service_connect_configuration__log_configuration__secret_option
   { name; value_from }
 
 let service_connect_configuration__log_configuration ?options
-    ~log_driver ~secret_option () :
+    ?(secret_option = []) ~log_driver () :
     service_connect_configuration__log_configuration =
   { log_driver; options; secret_option }
 
@@ -1209,8 +1209,9 @@ let service_connect_configuration__service__tls ?kms_key ?role_arn
   { kms_key; role_arn; issuer_cert_authority }
 
 let service_connect_configuration__service ?discovery_name
-    ?ingress_port_override ~port_name ~client_alias ~timeout ~tls ()
-    : service_connect_configuration__service =
+    ?ingress_port_override ?(client_alias = []) ?(timeout = [])
+    ?(tls = []) ~port_name () :
+    service_connect_configuration__service =
   {
     discovery_name;
     ingress_port_override;
@@ -1220,8 +1221,9 @@ let service_connect_configuration__service ?discovery_name
     tls;
   }
 
-let service_connect_configuration ?namespace ~enabled
-    ~log_configuration ~service () : service_connect_configuration =
+let service_connect_configuration ?namespace
+    ?(log_configuration = []) ?(service = []) ~enabled () :
+    service_connect_configuration =
   { enabled; namespace; log_configuration; service }
 
 let service_registries ?container_name ?container_port ?port
@@ -1237,12 +1239,12 @@ let aws_ecs_service ?cluster ?deployment_maximum_percent
     ?force_new_deployment ?health_check_grace_period_seconds
     ?iam_role ?id ?launch_type ?platform_version ?propagate_tags
     ?scheduling_strategy ?tags ?tags_all ?task_definition ?triggers
-    ?wait_for_steady_state ?timeouts ~name ~alarms
-    ~capacity_provider_strategy ~deployment_circuit_breaker
-    ~deployment_controller ~load_balancer ~network_configuration
-    ~ordered_placement_strategy ~placement_constraints
-    ~service_connect_configuration ~service_registries () :
-    aws_ecs_service =
+    ?wait_for_steady_state ?(alarms = [])
+    ?(deployment_circuit_breaker = []) ?(deployment_controller = [])
+    ?(network_configuration = []) ?(ordered_placement_strategy = [])
+    ?(service_connect_configuration = []) ?(service_registries = [])
+    ?timeouts ~name ~capacity_provider_strategy ~load_balancer
+    ~placement_constraints () : aws_ecs_service =
   {
     cluster;
     deployment_maximum_percent;
@@ -1306,11 +1308,12 @@ let make ?cluster ?deployment_maximum_percent
     ?force_new_deployment ?health_check_grace_period_seconds
     ?iam_role ?id ?launch_type ?platform_version ?propagate_tags
     ?scheduling_strategy ?tags ?tags_all ?task_definition ?triggers
-    ?wait_for_steady_state ?timeouts ~name ~alarms
-    ~capacity_provider_strategy ~deployment_circuit_breaker
-    ~deployment_controller ~load_balancer ~network_configuration
-    ~ordered_placement_strategy ~placement_constraints
-    ~service_connect_configuration ~service_registries __id =
+    ?wait_for_steady_state ?(alarms = [])
+    ?(deployment_circuit_breaker = []) ?(deployment_controller = [])
+    ?(network_configuration = []) ?(ordered_placement_strategy = [])
+    ?(service_connect_configuration = []) ?(service_registries = [])
+    ?timeouts ~name ~capacity_provider_strategy ~load_balancer
+    ~placement_constraints __id =
   let __type = "aws_ecs_service" in
   let __attrs =
     ({
@@ -1359,12 +1362,12 @@ let make ?cluster ?deployment_maximum_percent
            ?force_new_deployment ?health_check_grace_period_seconds
            ?iam_role ?id ?launch_type ?platform_version
            ?propagate_tags ?scheduling_strategy ?tags ?tags_all
-           ?task_definition ?triggers ?wait_for_steady_state
-           ?timeouts ~name ~alarms ~capacity_provider_strategy
+           ?task_definition ?triggers ?wait_for_steady_state ~alarms
            ~deployment_circuit_breaker ~deployment_controller
-           ~load_balancer ~network_configuration
-           ~ordered_placement_strategy ~placement_constraints
-           ~service_connect_configuration ~service_registries ());
+           ~network_configuration ~ordered_placement_strategy
+           ~service_connect_configuration ~service_registries
+           ?timeouts ~name ~capacity_provider_strategy ~load_balancer
+           ~placement_constraints ());
     attrs = __attrs;
   }
 
@@ -1374,11 +1377,12 @@ let register ?tf_module ?cluster ?deployment_maximum_percent
     ?force_new_deployment ?health_check_grace_period_seconds
     ?iam_role ?id ?launch_type ?platform_version ?propagate_tags
     ?scheduling_strategy ?tags ?tags_all ?task_definition ?triggers
-    ?wait_for_steady_state ?timeouts ~name ~alarms
-    ~capacity_provider_strategy ~deployment_circuit_breaker
-    ~deployment_controller ~load_balancer ~network_configuration
-    ~ordered_placement_strategy ~placement_constraints
-    ~service_connect_configuration ~service_registries __id =
+    ?wait_for_steady_state ?(alarms = [])
+    ?(deployment_circuit_breaker = []) ?(deployment_controller = [])
+    ?(network_configuration = []) ?(ordered_placement_strategy = [])
+    ?(service_connect_configuration = []) ?(service_registries = [])
+    ?timeouts ~name ~capacity_provider_strategy ~load_balancer
+    ~placement_constraints __id =
   let (r : _ Tf_core.resource) =
     make ?cluster ?deployment_maximum_percent
       ?deployment_minimum_healthy_percent ?desired_count
@@ -1386,11 +1390,11 @@ let register ?tf_module ?cluster ?deployment_maximum_percent
       ?force_new_deployment ?health_check_grace_period_seconds
       ?iam_role ?id ?launch_type ?platform_version ?propagate_tags
       ?scheduling_strategy ?tags ?tags_all ?task_definition ?triggers
-      ?wait_for_steady_state ?timeouts ~name ~alarms
-      ~capacity_provider_strategy ~deployment_circuit_breaker
-      ~deployment_controller ~load_balancer ~network_configuration
-      ~ordered_placement_strategy ~placement_constraints
-      ~service_connect_configuration ~service_registries __id
+      ?wait_for_steady_state ~alarms ~deployment_circuit_breaker
+      ~deployment_controller ~network_configuration
+      ~ordered_placement_strategy ~service_connect_configuration
+      ~service_registries ?timeouts ~name ~capacity_provider_strategy
+      ~load_balancer ~placement_constraints __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

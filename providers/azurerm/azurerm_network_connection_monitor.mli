@@ -29,8 +29,8 @@ val endpoint :
   ?included_ip_addresses:string prop list ->
   ?target_resource_id:string prop ->
   ?target_resource_type:string prop ->
+  ?filter:endpoint__filter list ->
   name:string prop ->
-  filter:endpoint__filter list ->
   unit ->
   endpoint
 
@@ -84,12 +84,12 @@ type test_configuration
 val test_configuration :
   ?preferred_ip_version:string prop ->
   ?test_frequency_in_seconds:float prop ->
+  ?http_configuration:test_configuration__http_configuration list ->
+  ?icmp_configuration:test_configuration__icmp_configuration list ->
+  ?success_threshold:test_configuration__success_threshold list ->
+  ?tcp_configuration:test_configuration__tcp_configuration list ->
   name:string prop ->
   protocol:string prop ->
-  http_configuration:test_configuration__http_configuration list ->
-  icmp_configuration:test_configuration__icmp_configuration list ->
-  success_threshold:test_configuration__success_threshold list ->
-  tcp_configuration:test_configuration__tcp_configuration list ->
   unit ->
   test_configuration
 

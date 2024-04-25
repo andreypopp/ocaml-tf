@@ -405,9 +405,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_resource_deployment_script_azure_power_shell
     ?cleanup_preference ?command_line ?force_update_tag ?id
     ?primary_script_uri ?script_content ?supporting_script_uris ?tags
-    ?timeout ?timeouts ~location ~name ~resource_group_name
-    ~retention_interval ~version ~container ~environment_variable
-    ~identity ~storage_account () :
+    ?timeout ?(container = []) ?(identity = [])
+    ?(storage_account = []) ?timeouts ~location ~name
+    ~resource_group_name ~retention_interval ~version
+    ~environment_variable () :
     azurerm_resource_deployment_script_azure_power_shell =
   {
     cleanup_preference;
@@ -451,9 +452,10 @@ type t = {
 
 let make ?cleanup_preference ?command_line ?force_update_tag ?id
     ?primary_script_uri ?script_content ?supporting_script_uris ?tags
-    ?timeout ?timeouts ~location ~name ~resource_group_name
-    ~retention_interval ~version ~container ~environment_variable
-    ~identity ~storage_account __id =
+    ?timeout ?(container = []) ?(identity = [])
+    ?(storage_account = []) ?timeouts ~location ~name
+    ~resource_group_name ~retention_interval ~version
+    ~environment_variable __id =
   let __type =
     "azurerm_resource_deployment_script_azure_power_shell"
   in
@@ -491,24 +493,25 @@ let make ?cleanup_preference ?command_line ?force_update_tag ?id
         (azurerm_resource_deployment_script_azure_power_shell
            ?cleanup_preference ?command_line ?force_update_tag ?id
            ?primary_script_uri ?script_content
-           ?supporting_script_uris ?tags ?timeout ?timeouts ~location
-           ~name ~resource_group_name ~retention_interval ~version
-           ~container ~environment_variable ~identity
-           ~storage_account ());
+           ?supporting_script_uris ?tags ?timeout ~container
+           ~identity ~storage_account ?timeouts ~location ~name
+           ~resource_group_name ~retention_interval ~version
+           ~environment_variable ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?cleanup_preference ?command_line
     ?force_update_tag ?id ?primary_script_uri ?script_content
-    ?supporting_script_uris ?tags ?timeout ?timeouts ~location ~name
-    ~resource_group_name ~retention_interval ~version ~container
-    ~environment_variable ~identity ~storage_account __id =
+    ?supporting_script_uris ?tags ?timeout ?(container = [])
+    ?(identity = []) ?(storage_account = []) ?timeouts ~location
+    ~name ~resource_group_name ~retention_interval ~version
+    ~environment_variable __id =
   let (r : _ Tf_core.resource) =
     make ?cleanup_preference ?command_line ?force_update_tag ?id
       ?primary_script_uri ?script_content ?supporting_script_uris
-      ?tags ?timeout ?timeouts ~location ~name ~resource_group_name
-      ~retention_interval ~version ~container ~environment_variable
-      ~identity ~storage_account __id
+      ?tags ?timeout ~container ~identity ~storage_account ?timeouts
+      ~location ~name ~resource_group_name ~retention_interval
+      ~version ~environment_variable __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

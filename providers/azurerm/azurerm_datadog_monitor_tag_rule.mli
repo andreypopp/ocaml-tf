@@ -19,7 +19,7 @@ val log :
   ?aad_log_enabled:bool prop ->
   ?resource_log_enabled:bool prop ->
   ?subscription_log_enabled:bool prop ->
-  filter:log__filter list ->
+  ?filter:log__filter list ->
   unit ->
   log
 
@@ -34,7 +34,7 @@ val metric__filter :
 
 type metric
 
-val metric : filter:metric__filter list -> unit -> metric
+val metric : ?filter:metric__filter list -> unit -> metric
 
 type timeouts
 
@@ -51,10 +51,10 @@ type azurerm_datadog_monitor_tag_rule
 val azurerm_datadog_monitor_tag_rule :
   ?id:string prop ->
   ?name:string prop ->
+  ?log:log list ->
+  ?metric:metric list ->
   ?timeouts:timeouts ->
   datadog_monitor_id:string prop ->
-  log:log list ->
-  metric:metric list ->
   unit ->
   azurerm_datadog_monitor_tag_rule
 
@@ -73,19 +73,19 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?name:string prop ->
+  ?log:log list ->
+  ?metric:metric list ->
   ?timeouts:timeouts ->
   datadog_monitor_id:string prop ->
-  log:log list ->
-  metric:metric list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?name:string prop ->
+  ?log:log list ->
+  ?metric:metric list ->
   ?timeouts:timeouts ->
   datadog_monitor_id:string prop ->
-  log:log list ->
-  metric:metric list ->
   string ->
   t Tf_core.resource

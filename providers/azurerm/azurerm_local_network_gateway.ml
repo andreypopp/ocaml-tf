@@ -229,9 +229,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_local_network_gateway ?address_space ?gateway_address
-    ?gateway_fqdn ?id ?tags ?timeouts ~location ~name
-    ~resource_group_name ~bgp_settings () :
-    azurerm_local_network_gateway =
+    ?gateway_fqdn ?id ?tags ?(bgp_settings = []) ?timeouts ~location
+    ~name ~resource_group_name () : azurerm_local_network_gateway =
   {
     address_space;
     gateway_address;
@@ -257,8 +256,8 @@ type t = {
 }
 
 let make ?address_space ?gateway_address ?gateway_fqdn ?id ?tags
-    ?timeouts ~location ~name ~resource_group_name ~bgp_settings __id
-    =
+    ?(bgp_settings = []) ?timeouts ~location ~name
+    ~resource_group_name __id =
   let __type = "azurerm_local_network_gateway" in
   let __attrs =
     ({
@@ -280,17 +279,17 @@ let make ?address_space ?gateway_address ?gateway_fqdn ?id ?tags
     json =
       yojson_of_azurerm_local_network_gateway
         (azurerm_local_network_gateway ?address_space
-           ?gateway_address ?gateway_fqdn ?id ?tags ?timeouts
-           ~location ~name ~resource_group_name ~bgp_settings ());
+           ?gateway_address ?gateway_fqdn ?id ?tags ~bgp_settings
+           ?timeouts ~location ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?address_space ?gateway_address ?gateway_fqdn
-    ?id ?tags ?timeouts ~location ~name ~resource_group_name
-    ~bgp_settings __id =
+    ?id ?tags ?(bgp_settings = []) ?timeouts ~location ~name
+    ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?address_space ?gateway_address ?gateway_fqdn ?id ?tags
-      ?timeouts ~location ~name ~resource_group_name ~bgp_settings
+      ~bgp_settings ?timeouts ~location ~name ~resource_group_name
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

@@ -268,7 +268,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_dataplex_lake ?description ?display_name ?id ?labels
-    ?project ?timeouts ~location ~name ~metastore () :
+    ?project ?(metastore = []) ?timeouts ~location ~name () :
     google_dataplex_lake =
   {
     description;
@@ -301,8 +301,8 @@ type t = {
   update_time : string prop;
 }
 
-let make ?description ?display_name ?id ?labels ?project ?timeouts
-    ~location ~name ~metastore __id =
+let make ?description ?display_name ?id ?labels ?project
+    ?(metastore = []) ?timeouts ~location ~name __id =
   let __type = "google_dataplex_lake" in
   let __attrs =
     ({
@@ -334,15 +334,15 @@ let make ?description ?display_name ?id ?labels ?project ?timeouts
     json =
       yojson_of_google_dataplex_lake
         (google_dataplex_lake ?description ?display_name ?id ?labels
-           ?project ?timeouts ~location ~name ~metastore ());
+           ?project ~metastore ?timeouts ~location ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?display_name ?id ?labels
-    ?project ?timeouts ~location ~name ~metastore __id =
+    ?project ?(metastore = []) ?timeouts ~location ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?display_name ?id ?labels ?project ?timeouts
-      ~location ~name ~metastore __id
+    make ?description ?display_name ?id ?labels ?project ~metastore
+      ?timeouts ~location ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

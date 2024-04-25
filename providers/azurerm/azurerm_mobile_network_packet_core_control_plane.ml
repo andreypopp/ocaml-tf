@@ -421,10 +421,10 @@ let azurerm_mobile_network_packet_core_control_plane
     ?control_plane_access_ipv4_gateway
     ?control_plane_access_ipv4_subnet ?control_plane_access_name
     ?core_network_technology ?id ?interoperability_settings_json
-    ?software_version ?tags ?user_equipment_mtu_in_bytes ?timeouts
-    ~location ~name ~resource_group_name ~site_ids ~sku ~identity
-    ~local_diagnostics_access ~platform () :
-    azurerm_mobile_network_packet_core_control_plane =
+    ?software_version ?tags ?user_equipment_mtu_in_bytes
+    ?(identity = []) ?(platform = []) ?timeouts ~location ~name
+    ~resource_group_name ~site_ids ~sku ~local_diagnostics_access ()
+    : azurerm_mobile_network_packet_core_control_plane =
   {
     control_plane_access_ipv4_address;
     control_plane_access_ipv4_gateway;
@@ -469,9 +469,10 @@ let make ?control_plane_access_ipv4_address
     ?control_plane_access_ipv4_gateway
     ?control_plane_access_ipv4_subnet ?control_plane_access_name
     ?core_network_technology ?id ?interoperability_settings_json
-    ?software_version ?tags ?user_equipment_mtu_in_bytes ?timeouts
-    ~location ~name ~resource_group_name ~site_ids ~sku ~identity
-    ~local_diagnostics_access ~platform __id =
+    ?software_version ?tags ?user_equipment_mtu_in_bytes
+    ?(identity = []) ?(platform = []) ?timeouts ~location ~name
+    ~resource_group_name ~site_ids ~sku ~local_diagnostics_access
+    __id =
   let __type = "azurerm_mobile_network_packet_core_control_plane" in
   let __attrs =
     ({
@@ -515,9 +516,9 @@ let make ?control_plane_access_ipv4_address
            ?control_plane_access_ipv4_subnet
            ?control_plane_access_name ?core_network_technology ?id
            ?interoperability_settings_json ?software_version ?tags
-           ?user_equipment_mtu_in_bytes ?timeouts ~location ~name
-           ~resource_group_name ~site_ids ~sku ~identity
-           ~local_diagnostics_access ~platform ());
+           ?user_equipment_mtu_in_bytes ~identity ~platform ?timeouts
+           ~location ~name ~resource_group_name ~site_ids ~sku
+           ~local_diagnostics_access ());
     attrs = __attrs;
   }
 
@@ -525,17 +526,18 @@ let register ?tf_module ?control_plane_access_ipv4_address
     ?control_plane_access_ipv4_gateway
     ?control_plane_access_ipv4_subnet ?control_plane_access_name
     ?core_network_technology ?id ?interoperability_settings_json
-    ?software_version ?tags ?user_equipment_mtu_in_bytes ?timeouts
-    ~location ~name ~resource_group_name ~site_ids ~sku ~identity
-    ~local_diagnostics_access ~platform __id =
+    ?software_version ?tags ?user_equipment_mtu_in_bytes
+    ?(identity = []) ?(platform = []) ?timeouts ~location ~name
+    ~resource_group_name ~site_ids ~sku ~local_diagnostics_access
+    __id =
   let (r : _ Tf_core.resource) =
     make ?control_plane_access_ipv4_address
       ?control_plane_access_ipv4_gateway
       ?control_plane_access_ipv4_subnet ?control_plane_access_name
       ?core_network_technology ?id ?interoperability_settings_json
-      ?software_version ?tags ?user_equipment_mtu_in_bytes ?timeouts
-      ~location ~name ~resource_group_name ~site_ids ~sku ~identity
-      ~local_diagnostics_access ~platform __id
+      ?software_version ?tags ?user_equipment_mtu_in_bytes ~identity
+      ~platform ?timeouts ~location ~name ~resource_group_name
+      ~site_ids ~sku ~local_diagnostics_access __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

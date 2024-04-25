@@ -32,9 +32,9 @@ val target_action__resume_cluster :
 type target_action
 
 val target_action :
-  pause_cluster:target_action__pause_cluster list ->
-  resize_cluster:target_action__resize_cluster list ->
-  resume_cluster:target_action__resume_cluster list ->
+  ?pause_cluster:target_action__pause_cluster list ->
+  ?resize_cluster:target_action__resize_cluster list ->
+  ?resume_cluster:target_action__resume_cluster list ->
   unit ->
   target_action
 

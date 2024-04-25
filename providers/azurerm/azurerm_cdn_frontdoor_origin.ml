@@ -272,9 +272,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_cdn_frontdoor_origin ?enabled ?health_probes_enabled
     ?http_port ?https_port ?id ?origin_host_header ?priority ?weight
-    ?timeouts ~cdn_frontdoor_origin_group_id
-    ~certificate_name_check_enabled ~host_name ~name ~private_link ()
-    : azurerm_cdn_frontdoor_origin =
+    ?(private_link = []) ?timeouts ~cdn_frontdoor_origin_group_id
+    ~certificate_name_check_enabled ~host_name ~name () :
+    azurerm_cdn_frontdoor_origin =
   {
     cdn_frontdoor_origin_group_id;
     certificate_name_check_enabled;
@@ -308,9 +308,9 @@ type t = {
 }
 
 let make ?enabled ?health_probes_enabled ?http_port ?https_port ?id
-    ?origin_host_header ?priority ?weight ?timeouts
-    ~cdn_frontdoor_origin_group_id ~certificate_name_check_enabled
-    ~host_name ~name ~private_link __id =
+    ?origin_host_header ?priority ?weight ?(private_link = [])
+    ?timeouts ~cdn_frontdoor_origin_group_id
+    ~certificate_name_check_enabled ~host_name ~name __id =
   let __type = "azurerm_cdn_frontdoor_origin" in
   let __attrs =
     ({
@@ -340,21 +340,21 @@ let make ?enabled ?health_probes_enabled ?http_port ?https_port ?id
       yojson_of_azurerm_cdn_frontdoor_origin
         (azurerm_cdn_frontdoor_origin ?enabled ?health_probes_enabled
            ?http_port ?https_port ?id ?origin_host_header ?priority
-           ?weight ?timeouts ~cdn_frontdoor_origin_group_id
-           ~certificate_name_check_enabled ~host_name ~name
-           ~private_link ());
+           ?weight ~private_link ?timeouts
+           ~cdn_frontdoor_origin_group_id
+           ~certificate_name_check_enabled ~host_name ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?enabled ?health_probes_enabled ?http_port
-    ?https_port ?id ?origin_host_header ?priority ?weight ?timeouts
-    ~cdn_frontdoor_origin_group_id ~certificate_name_check_enabled
-    ~host_name ~name ~private_link __id =
+    ?https_port ?id ?origin_host_header ?priority ?weight
+    ?(private_link = []) ?timeouts ~cdn_frontdoor_origin_group_id
+    ~certificate_name_check_enabled ~host_name ~name __id =
   let (r : _ Tf_core.resource) =
     make ?enabled ?health_probes_enabled ?http_port ?https_port ?id
-      ?origin_host_header ?priority ?weight ?timeouts
+      ?origin_host_header ?priority ?weight ~private_link ?timeouts
       ~cdn_frontdoor_origin_group_id ~certificate_name_check_enabled
-      ~host_name ~name ~private_link __id
+      ~host_name ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

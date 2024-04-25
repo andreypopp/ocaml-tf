@@ -19,10 +19,10 @@ val google_data_catalog_entry_group_iam_binding :
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?condition:condition list ->
   entry_group:string prop ->
   members:string prop list ->
   role:string prop ->
-  condition:condition list ->
   unit ->
   google_data_catalog_entry_group_iam_binding
 
@@ -46,10 +46,10 @@ val register :
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?condition:condition list ->
   entry_group:string prop ->
   members:string prop list ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t
 
@@ -57,9 +57,9 @@ val make :
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?condition:condition list ->
   entry_group:string prop ->
   members:string prop list ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t Tf_core.resource

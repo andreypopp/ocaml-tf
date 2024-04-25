@@ -258,8 +258,9 @@ let quick_connect_config__user_config ~contact_flow_id ~user_id () :
     quick_connect_config__user_config =
   { contact_flow_id; user_id }
 
-let quick_connect_config ~quick_connect_type ~phone_config
-    ~queue_config ~user_config () : quick_connect_config =
+let quick_connect_config ?(phone_config = []) ?(queue_config = [])
+    ?(user_config = []) ~quick_connect_type () : quick_connect_config
+    =
   { quick_connect_type; phone_config; queue_config; user_config }
 
 let aws_connect_quick_connect ?description ?id ?tags ?tags_all

@@ -47,7 +47,7 @@ val aws_acm_certificate :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?validation_method:string prop ->
-  options:options list ->
+  ?options:options list ->
   validation_option:validation_option list ->
   unit ->
   aws_acm_certificate
@@ -95,7 +95,7 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?validation_method:string prop ->
-  options:options list ->
+  ?options:options list ->
   validation_option:validation_option list ->
   string ->
   t
@@ -113,7 +113,7 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?validation_method:string prop ->
-  options:options list ->
+  ?options:options list ->
   validation_option:validation_option list ->
   string ->
   t Tf_core.resource

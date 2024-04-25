@@ -32,7 +32,7 @@ type s3_job_definition__bucket_criteria__excludes__and__tag_criterion
 
 val s3_job_definition__bucket_criteria__excludes__and__tag_criterion :
   ?comparator:string prop ->
-  tag_values:
+  ?tag_values:
     s3_job_definition__bucket_criteria__excludes__and__tag_criterion__tag_values
     list ->
   unit ->
@@ -41,10 +41,10 @@ val s3_job_definition__bucket_criteria__excludes__and__tag_criterion :
 type s3_job_definition__bucket_criteria__excludes__and
 
 val s3_job_definition__bucket_criteria__excludes__and :
-  simple_criterion:
+  ?simple_criterion:
     s3_job_definition__bucket_criteria__excludes__and__simple_criterion
     list ->
-  tag_criterion:
+  ?tag_criterion:
     s3_job_definition__bucket_criteria__excludes__and__tag_criterion
     list ->
   unit ->
@@ -53,7 +53,7 @@ val s3_job_definition__bucket_criteria__excludes__and :
 type s3_job_definition__bucket_criteria__excludes
 
 val s3_job_definition__bucket_criteria__excludes :
-  and_:s3_job_definition__bucket_criteria__excludes__and list ->
+  ?and_:s3_job_definition__bucket_criteria__excludes__and list ->
   unit ->
   s3_job_definition__bucket_criteria__excludes
 
@@ -78,7 +78,7 @@ type s3_job_definition__bucket_criteria__includes__and__tag_criterion
 
 val s3_job_definition__bucket_criteria__includes__and__tag_criterion :
   ?comparator:string prop ->
-  tag_values:
+  ?tag_values:
     s3_job_definition__bucket_criteria__includes__and__tag_criterion__tag_values
     list ->
   unit ->
@@ -87,10 +87,10 @@ val s3_job_definition__bucket_criteria__includes__and__tag_criterion :
 type s3_job_definition__bucket_criteria__includes__and
 
 val s3_job_definition__bucket_criteria__includes__and :
-  simple_criterion:
+  ?simple_criterion:
     s3_job_definition__bucket_criteria__includes__and__simple_criterion
     list ->
-  tag_criterion:
+  ?tag_criterion:
     s3_job_definition__bucket_criteria__includes__and__tag_criterion
     list ->
   unit ->
@@ -99,15 +99,15 @@ val s3_job_definition__bucket_criteria__includes__and :
 type s3_job_definition__bucket_criteria__includes
 
 val s3_job_definition__bucket_criteria__includes :
-  and_:s3_job_definition__bucket_criteria__includes__and list ->
+  ?and_:s3_job_definition__bucket_criteria__includes__and list ->
   unit ->
   s3_job_definition__bucket_criteria__includes
 
 type s3_job_definition__bucket_criteria
 
 val s3_job_definition__bucket_criteria :
-  excludes:s3_job_definition__bucket_criteria__excludes list ->
-  includes:s3_job_definition__bucket_criteria__includes list ->
+  ?excludes:s3_job_definition__bucket_criteria__excludes list ->
+  ?includes:s3_job_definition__bucket_criteria__includes list ->
   unit ->
   s3_job_definition__bucket_criteria
 
@@ -142,7 +142,7 @@ val s3_job_definition__scoping__excludes__and__tag_scope_term :
   ?comparator:string prop ->
   ?key:string prop ->
   ?target:string prop ->
-  tag_values:
+  ?tag_values:
     s3_job_definition__scoping__excludes__and__tag_scope_term__tag_values
     list ->
   unit ->
@@ -151,9 +151,9 @@ val s3_job_definition__scoping__excludes__and__tag_scope_term :
 type s3_job_definition__scoping__excludes__and
 
 val s3_job_definition__scoping__excludes__and :
-  simple_scope_term:
+  ?simple_scope_term:
     s3_job_definition__scoping__excludes__and__simple_scope_term list ->
-  tag_scope_term:
+  ?tag_scope_term:
     s3_job_definition__scoping__excludes__and__tag_scope_term list ->
   unit ->
   s3_job_definition__scoping__excludes__and
@@ -161,7 +161,7 @@ val s3_job_definition__scoping__excludes__and :
 type s3_job_definition__scoping__excludes
 
 val s3_job_definition__scoping__excludes :
-  and_:s3_job_definition__scoping__excludes__and list ->
+  ?and_:s3_job_definition__scoping__excludes__and list ->
   unit ->
   s3_job_definition__scoping__excludes
 
@@ -188,7 +188,7 @@ val s3_job_definition__scoping__includes__and__tag_scope_term :
   ?comparator:string prop ->
   ?key:string prop ->
   ?target:string prop ->
-  tag_values:
+  ?tag_values:
     s3_job_definition__scoping__includes__and__tag_scope_term__tag_values
     list ->
   unit ->
@@ -197,9 +197,9 @@ val s3_job_definition__scoping__includes__and__tag_scope_term :
 type s3_job_definition__scoping__includes__and
 
 val s3_job_definition__scoping__includes__and :
-  simple_scope_term:
+  ?simple_scope_term:
     s3_job_definition__scoping__includes__and__simple_scope_term list ->
-  tag_scope_term:
+  ?tag_scope_term:
     s3_job_definition__scoping__includes__and__tag_scope_term list ->
   unit ->
   s3_job_definition__scoping__includes__and
@@ -207,24 +207,24 @@ val s3_job_definition__scoping__includes__and :
 type s3_job_definition__scoping__includes
 
 val s3_job_definition__scoping__includes :
-  and_:s3_job_definition__scoping__includes__and list ->
+  ?and_:s3_job_definition__scoping__includes__and list ->
   unit ->
   s3_job_definition__scoping__includes
 
 type s3_job_definition__scoping
 
 val s3_job_definition__scoping :
-  excludes:s3_job_definition__scoping__excludes list ->
-  includes:s3_job_definition__scoping__includes list ->
+  ?excludes:s3_job_definition__scoping__excludes list ->
+  ?includes:s3_job_definition__scoping__includes list ->
   unit ->
   s3_job_definition__scoping
 
 type s3_job_definition
 
 val s3_job_definition :
-  bucket_criteria:s3_job_definition__bucket_criteria list ->
-  bucket_definitions:s3_job_definition__bucket_definitions list ->
-  scoping:s3_job_definition__scoping list ->
+  ?bucket_criteria:s3_job_definition__bucket_criteria list ->
+  ?bucket_definitions:s3_job_definition__bucket_definitions list ->
+  ?scoping:s3_job_definition__scoping list ->
   unit ->
   s3_job_definition
 
@@ -250,9 +250,9 @@ val aws_macie2_classification_job :
   ?sampling_percentage:float prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?schedule_frequency:schedule_frequency list ->
   job_type:string prop ->
   s3_job_definition:s3_job_definition list ->
-  schedule_frequency:schedule_frequency list ->
   unit ->
   aws_macie2_classification_job
 
@@ -291,9 +291,9 @@ val register :
   ?sampling_percentage:float prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?schedule_frequency:schedule_frequency list ->
   job_type:string prop ->
   s3_job_definition:s3_job_definition list ->
-  schedule_frequency:schedule_frequency list ->
   string ->
   t
 
@@ -308,8 +308,8 @@ val make :
   ?sampling_percentage:float prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?schedule_frequency:schedule_frequency list ->
   job_type:string prop ->
   s3_job_definition:s3_job_definition list ->
-  schedule_frequency:schedule_frequency list ->
   string ->
   t Tf_core.resource

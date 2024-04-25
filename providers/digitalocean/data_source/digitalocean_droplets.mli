@@ -50,8 +50,8 @@ type digitalocean_droplets
 
 val digitalocean_droplets :
   ?id:string prop ->
+  ?sort:sort list ->
   filter:filter list ->
-  sort:sort list ->
   unit ->
   digitalocean_droplets
 
@@ -64,14 +64,14 @@ type t = private { droplets : droplets list prop; id : string prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?sort:sort list ->
   filter:filter list ->
-  sort:sort list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?sort:sort list ->
   filter:filter list ->
-  sort:sort list ->
   string ->
   t Tf_core.resource

@@ -31,11 +31,11 @@ val azurerm_key_vault_certificate_issuer :
   ?id:string prop ->
   ?org_id:string prop ->
   ?password:string prop ->
+  ?admin:admin list ->
   ?timeouts:timeouts ->
   key_vault_id:string prop ->
   name:string prop ->
   provider_name:string prop ->
-  admin:admin list ->
   unit ->
   azurerm_key_vault_certificate_issuer
 
@@ -60,11 +60,11 @@ val register :
   ?id:string prop ->
   ?org_id:string prop ->
   ?password:string prop ->
+  ?admin:admin list ->
   ?timeouts:timeouts ->
   key_vault_id:string prop ->
   name:string prop ->
   provider_name:string prop ->
-  admin:admin list ->
   string ->
   t
 
@@ -73,10 +73,10 @@ val make :
   ?id:string prop ->
   ?org_id:string prop ->
   ?password:string prop ->
+  ?admin:admin list ->
   ?timeouts:timeouts ->
   key_vault_id:string prop ->
   name:string prop ->
   provider_name:string prop ->
-  admin:admin list ->
   string ->
   t Tf_core.resource

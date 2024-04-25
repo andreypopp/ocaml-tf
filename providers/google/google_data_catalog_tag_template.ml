@@ -309,7 +309,8 @@ let fields__type__enum_type ~allowed_values () :
     fields__type__enum_type =
   { allowed_values }
 
-let fields__type ?primitive_type ~enum_type () : fields__type =
+let fields__type ?primitive_type ?(enum_type = []) () : fields__type
+    =
   { primitive_type; enum_type }
 
 let fields ?description ?display_name ?is_required ?order ~field_id

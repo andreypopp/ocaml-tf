@@ -463,8 +463,8 @@ let actions__notification_property ?notify_delay_after () :
   { notify_delay_after }
 
 let actions ?arguments ?crawler_name ?job_name
-    ?security_configuration ?timeout ~notification_property () :
-    actions =
+    ?security_configuration ?timeout ?(notification_property = []) ()
+    : actions =
   {
     arguments;
     crawler_name;
@@ -489,9 +489,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_glue_trigger ?description ?enabled ?id ?schedule
-    ?start_on_creation ?tags ?tags_all ?workflow_name ?timeouts ~name
-    ~type_ ~actions ~event_batching_condition ~predicate () :
-    aws_glue_trigger =
+    ?start_on_creation ?tags ?tags_all ?workflow_name
+    ?(event_batching_condition = []) ?(predicate = []) ?timeouts
+    ~name ~type_ ~actions () : aws_glue_trigger =
   {
     description;
     enabled;
@@ -525,8 +525,8 @@ type t = {
 }
 
 let make ?description ?enabled ?id ?schedule ?start_on_creation ?tags
-    ?tags_all ?workflow_name ?timeouts ~name ~type_ ~actions
-    ~event_batching_condition ~predicate __id =
+    ?tags_all ?workflow_name ?(event_batching_condition = [])
+    ?(predicate = []) ?timeouts ~name ~type_ ~actions __id =
   let __type = "aws_glue_trigger" in
   let __attrs =
     ({
@@ -553,18 +553,19 @@ let make ?description ?enabled ?id ?schedule ?start_on_creation ?tags
       yojson_of_aws_glue_trigger
         (aws_glue_trigger ?description ?enabled ?id ?schedule
            ?start_on_creation ?tags ?tags_all ?workflow_name
-           ?timeouts ~name ~type_ ~actions ~event_batching_condition
-           ~predicate ());
+           ~event_batching_condition ~predicate ?timeouts ~name
+           ~type_ ~actions ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?enabled ?id ?schedule
-    ?start_on_creation ?tags ?tags_all ?workflow_name ?timeouts ~name
-    ~type_ ~actions ~event_batching_condition ~predicate __id =
+    ?start_on_creation ?tags ?tags_all ?workflow_name
+    ?(event_batching_condition = []) ?(predicate = []) ?timeouts
+    ~name ~type_ ~actions __id =
   let (r : _ Tf_core.resource) =
     make ?description ?enabled ?id ?schedule ?start_on_creation ?tags
-      ?tags_all ?workflow_name ?timeouts ~name ~type_ ~actions
-      ~event_batching_condition ~predicate __id
+      ?tags_all ?workflow_name ~event_batching_condition ~predicate
+      ?timeouts ~name ~type_ ~actions __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

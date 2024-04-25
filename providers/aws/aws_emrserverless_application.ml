@@ -460,13 +460,13 @@ let initial_capacity__initial_capacity_config__worker_configuration
     initial_capacity__initial_capacity_config__worker_configuration =
   { cpu; disk; memory }
 
-let initial_capacity__initial_capacity_config ~worker_count
-    ~worker_configuration () :
+let initial_capacity__initial_capacity_config
+    ?(worker_configuration = []) ~worker_count () :
     initial_capacity__initial_capacity_config =
   { worker_count; worker_configuration }
 
-let initial_capacity ~initial_capacity_type ~initial_capacity_config
-    () : initial_capacity =
+let initial_capacity ?(initial_capacity_config = [])
+    ~initial_capacity_type () : initial_capacity =
   { initial_capacity_type; initial_capacity_config }
 
 let maximum_capacity ?disk ~cpu ~memory () : maximum_capacity =
@@ -477,10 +477,10 @@ let network_configuration ?security_group_ids ?subnet_ids () :
   { security_group_ids; subnet_ids }
 
 let aws_emrserverless_application ?architecture ?id ?tags ?tags_all
-    ~name ~release_label ~type_ ~auto_start_configuration
-    ~auto_stop_configuration ~image_configuration ~initial_capacity
-    ~maximum_capacity ~network_configuration () :
-    aws_emrserverless_application =
+    ?(auto_start_configuration = []) ?(auto_stop_configuration = [])
+    ?(image_configuration = []) ?(maximum_capacity = [])
+    ?(network_configuration = []) ~name ~release_label ~type_
+    ~initial_capacity () : aws_emrserverless_application =
   {
     architecture;
     id;
@@ -508,10 +508,11 @@ type t = {
   type_ : string prop;
 }
 
-let make ?architecture ?id ?tags ?tags_all ~name ~release_label
-    ~type_ ~auto_start_configuration ~auto_stop_configuration
-    ~image_configuration ~initial_capacity ~maximum_capacity
-    ~network_configuration __id =
+let make ?architecture ?id ?tags ?tags_all
+    ?(auto_start_configuration = []) ?(auto_stop_configuration = [])
+    ?(image_configuration = []) ?(maximum_capacity = [])
+    ?(network_configuration = []) ~name ~release_label ~type_
+    ~initial_capacity __id =
   let __type = "aws_emrserverless_application" in
   let __attrs =
     ({
@@ -532,22 +533,23 @@ let make ?architecture ?id ?tags ?tags_all ~name ~release_label
     json =
       yojson_of_aws_emrserverless_application
         (aws_emrserverless_application ?architecture ?id ?tags
-           ?tags_all ~name ~release_label ~type_
-           ~auto_start_configuration ~auto_stop_configuration
-           ~image_configuration ~initial_capacity ~maximum_capacity
-           ~network_configuration ());
+           ?tags_all ~auto_start_configuration
+           ~auto_stop_configuration ~image_configuration
+           ~maximum_capacity ~network_configuration ~name
+           ~release_label ~type_ ~initial_capacity ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?architecture ?id ?tags ?tags_all ~name
-    ~release_label ~type_ ~auto_start_configuration
-    ~auto_stop_configuration ~image_configuration ~initial_capacity
-    ~maximum_capacity ~network_configuration __id =
+let register ?tf_module ?architecture ?id ?tags ?tags_all
+    ?(auto_start_configuration = []) ?(auto_stop_configuration = [])
+    ?(image_configuration = []) ?(maximum_capacity = [])
+    ?(network_configuration = []) ~name ~release_label ~type_
+    ~initial_capacity __id =
   let (r : _ Tf_core.resource) =
-    make ?architecture ?id ?tags ?tags_all ~name ~release_label
-      ~type_ ~auto_start_configuration ~auto_stop_configuration
-      ~image_configuration ~initial_capacity ~maximum_capacity
-      ~network_configuration __id
+    make ?architecture ?id ?tags ?tags_all ~auto_start_configuration
+      ~auto_stop_configuration ~image_configuration ~maximum_capacity
+      ~network_configuration ~name ~release_label ~type_
+      ~initial_capacity __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -342,8 +342,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_cloudformation_stack_set_instance ?account_id ?call_as ?id
-    ?parameter_overrides ?region ?retain_stack ?timeouts
-    ~stack_set_name ~deployment_targets ~operation_preferences () :
+    ?parameter_overrides ?region ?retain_stack
+    ?(deployment_targets = []) ?(operation_preferences = [])
+    ?timeouts ~stack_set_name () :
     aws_cloudformation_stack_set_instance =
   {
     account_id;
@@ -372,8 +373,8 @@ type t = {
 }
 
 let make ?account_id ?call_as ?id ?parameter_overrides ?region
-    ?retain_stack ?timeouts ~stack_set_name ~deployment_targets
-    ~operation_preferences __id =
+    ?retain_stack ?(deployment_targets = [])
+    ?(operation_preferences = []) ?timeouts ~stack_set_name __id =
   let __type = "aws_cloudformation_stack_set_instance" in
   let __attrs =
     ({
@@ -399,19 +400,19 @@ let make ?account_id ?call_as ?id ?parameter_overrides ?region
     json =
       yojson_of_aws_cloudformation_stack_set_instance
         (aws_cloudformation_stack_set_instance ?account_id ?call_as
-           ?id ?parameter_overrides ?region ?retain_stack ?timeouts
-           ~stack_set_name ~deployment_targets ~operation_preferences
-           ());
+           ?id ?parameter_overrides ?region ?retain_stack
+           ~deployment_targets ~operation_preferences ?timeouts
+           ~stack_set_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?account_id ?call_as ?id ?parameter_overrides
-    ?region ?retain_stack ?timeouts ~stack_set_name
-    ~deployment_targets ~operation_preferences __id =
+    ?region ?retain_stack ?(deployment_targets = [])
+    ?(operation_preferences = []) ?timeouts ~stack_set_name __id =
   let (r : _ Tf_core.resource) =
     make ?account_id ?call_as ?id ?parameter_overrides ?region
-      ?retain_stack ?timeouts ~stack_set_name ~deployment_targets
-      ~operation_preferences __id
+      ?retain_stack ~deployment_targets ~operation_preferences
+      ?timeouts ~stack_set_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

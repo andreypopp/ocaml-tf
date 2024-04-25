@@ -245,8 +245,8 @@ let version_template ?protection_level ~algorithm () :
 
 let google_kms_crypto_key ?destroy_scheduled_duration ?id
     ?import_only ?labels ?purpose ?rotation_period
-    ?skip_initial_version_creation ?timeouts ~key_ring ~name
-    ~version_template () : google_kms_crypto_key =
+    ?skip_initial_version_creation ?timeouts ?(version_template = [])
+    ~key_ring ~name () : google_kms_crypto_key =
   {
     destroy_scheduled_duration;
     id;
@@ -278,7 +278,7 @@ type t = {
 
 let make ?destroy_scheduled_duration ?id ?import_only ?labels
     ?purpose ?rotation_period ?skip_initial_version_creation
-    ?timeouts ~key_ring ~name ~version_template __id =
+    ?timeouts ?(version_template = []) ~key_ring ~name __id =
   let __type = "google_kms_crypto_key" in
   let __attrs =
     ({
@@ -308,18 +308,18 @@ let make ?destroy_scheduled_duration ?id ?import_only ?labels
       yojson_of_google_kms_crypto_key
         (google_kms_crypto_key ?destroy_scheduled_duration ?id
            ?import_only ?labels ?purpose ?rotation_period
-           ?skip_initial_version_creation ?timeouts ~key_ring ~name
-           ~version_template ());
+           ?skip_initial_version_creation ?timeouts ~version_template
+           ~key_ring ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?destroy_scheduled_duration ?id ?import_only
     ?labels ?purpose ?rotation_period ?skip_initial_version_creation
-    ?timeouts ~key_ring ~name ~version_template __id =
+    ?timeouts ?(version_template = []) ~key_ring ~name __id =
   let (r : _ Tf_core.resource) =
     make ?destroy_scheduled_duration ?id ?import_only ?labels
       ?purpose ?rotation_period ?skip_initial_version_creation
-      ?timeouts ~key_ring ~name ~version_template __id
+      ?timeouts ~version_template ~key_ring ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

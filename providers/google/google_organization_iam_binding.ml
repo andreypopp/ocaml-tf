@@ -104,8 +104,8 @@ let _ = yojson_of_google_organization_iam_binding
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_organization_iam_binding ?id ~members ~org_id ~role
-    ~condition () : google_organization_iam_binding =
+let google_organization_iam_binding ?id ?(condition = []) ~members
+    ~org_id ~role () : google_organization_iam_binding =
   { id; members; org_id; role; condition }
 
 type t = {
@@ -116,7 +116,7 @@ type t = {
   role : string prop;
 }
 
-let make ?id ~members ~org_id ~role ~condition __id =
+let make ?id ?(condition = []) ~members ~org_id ~role __id =
   let __type = "google_organization_iam_binding" in
   let __attrs =
     ({
@@ -133,14 +133,15 @@ let make ?id ~members ~org_id ~role ~condition __id =
     type_ = __type;
     json =
       yojson_of_google_organization_iam_binding
-        (google_organization_iam_binding ?id ~members ~org_id ~role
-           ~condition ());
+        (google_organization_iam_binding ?id ~condition ~members
+           ~org_id ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~members ~org_id ~role ~condition __id =
+let register ?tf_module ?id ?(condition = []) ~members ~org_id ~role
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~members ~org_id ~role ~condition __id
+    make ?id ~condition ~members ~org_id ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

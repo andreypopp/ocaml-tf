@@ -587,7 +587,7 @@ let rule__filter__tag ~key ~value () : rule__filter__tag =
   { key; value }
 
 let rule__filter ?object_size_greater_than ?object_size_less_than
-    ?prefix ~and_ ~tag () : rule__filter =
+    ?prefix ?(and_ = []) ?(tag = []) () : rule__filter =
   {
     object_size_greater_than;
     object_size_less_than;
@@ -609,8 +609,9 @@ let rule__transition ?date ?days ~storage_class () : rule__transition
     =
   { date; days; storage_class }
 
-let rule ?prefix ~id ~status ~abort_incomplete_multipart_upload
-    ~expiration ~filter ~noncurrent_version_expiration
+let rule ?prefix ?(abort_incomplete_multipart_upload = [])
+    ?(expiration = []) ?(filter = [])
+    ?(noncurrent_version_expiration = []) ~id ~status
     ~noncurrent_version_transition ~transition () : rule =
   {
     id;

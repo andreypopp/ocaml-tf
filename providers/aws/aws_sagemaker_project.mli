@@ -17,9 +17,9 @@ type service_catalog_provisioning_details
 val service_catalog_provisioning_details :
   ?path_id:string prop ->
   ?provisioning_artifact_id:string prop ->
-  product_id:string prop ->
-  provisioning_parameter:
+  ?provisioning_parameter:
     service_catalog_provisioning_details__provisioning_parameter list ->
+  product_id:string prop ->
   unit ->
   service_catalog_provisioning_details
 

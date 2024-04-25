@@ -35,7 +35,7 @@ val spec__grpc_route__match__metadata__match :
   ?prefix:string prop ->
   ?regex:string prop ->
   ?suffix:string prop ->
-  range:spec__grpc_route__match__metadata__match__range list ->
+  ?range:spec__grpc_route__match__metadata__match__range list ->
   unit ->
   spec__grpc_route__match__metadata__match
 
@@ -43,8 +43,8 @@ type spec__grpc_route__match__metadata
 
 val spec__grpc_route__match__metadata :
   ?invert:bool prop ->
+  ?match_:spec__grpc_route__match__metadata__match list ->
   name:string prop ->
-  match_:spec__grpc_route__match__metadata__match list ->
   unit ->
   spec__grpc_route__match__metadata
 
@@ -98,18 +98,18 @@ val spec__grpc_route__timeout__per_request :
 type spec__grpc_route__timeout
 
 val spec__grpc_route__timeout :
-  idle:spec__grpc_route__timeout__idle list ->
-  per_request:spec__grpc_route__timeout__per_request list ->
+  ?idle:spec__grpc_route__timeout__idle list ->
+  ?per_request:spec__grpc_route__timeout__per_request list ->
   unit ->
   spec__grpc_route__timeout
 
 type spec__grpc_route
 
 val spec__grpc_route :
+  ?match_:spec__grpc_route__match list ->
+  ?retry_policy:spec__grpc_route__retry_policy list ->
+  ?timeout:spec__grpc_route__timeout list ->
   action:spec__grpc_route__action list ->
-  match_:spec__grpc_route__match list ->
-  retry_policy:spec__grpc_route__retry_policy list ->
-  timeout:spec__grpc_route__timeout list ->
   unit ->
   spec__grpc_route
 
@@ -144,7 +144,7 @@ val spec__http2_route__match__header__match :
   ?prefix:string prop ->
   ?regex:string prop ->
   ?suffix:string prop ->
-  range:spec__http2_route__match__header__match__range list ->
+  ?range:spec__http2_route__match__header__match__range list ->
   unit ->
   spec__http2_route__match__header__match
 
@@ -152,8 +152,8 @@ type spec__http2_route__match__header
 
 val spec__http2_route__match__header :
   ?invert:bool prop ->
+  ?match_:spec__http2_route__match__header__match list ->
   name:string prop ->
-  match_:spec__http2_route__match__header__match list ->
   unit ->
   spec__http2_route__match__header
 
@@ -175,8 +175,8 @@ val spec__http2_route__match__query_parameter__match :
 type spec__http2_route__match__query_parameter
 
 val spec__http2_route__match__query_parameter :
+  ?match_:spec__http2_route__match__query_parameter__match list ->
   name:string prop ->
-  match_:spec__http2_route__match__query_parameter__match list ->
   unit ->
   spec__http2_route__match__query_parameter
 
@@ -187,8 +187,8 @@ val spec__http2_route__match :
   ?port:float prop ->
   ?prefix:string prop ->
   ?scheme:string prop ->
+  ?path:spec__http2_route__match__path list ->
   header:spec__http2_route__match__header list ->
-  path:spec__http2_route__match__path list ->
   query_parameter:spec__http2_route__match__query_parameter list ->
   unit ->
   spec__http2_route__match
@@ -231,18 +231,18 @@ val spec__http2_route__timeout__per_request :
 type spec__http2_route__timeout
 
 val spec__http2_route__timeout :
-  idle:spec__http2_route__timeout__idle list ->
-  per_request:spec__http2_route__timeout__per_request list ->
+  ?idle:spec__http2_route__timeout__idle list ->
+  ?per_request:spec__http2_route__timeout__per_request list ->
   unit ->
   spec__http2_route__timeout
 
 type spec__http2_route
 
 val spec__http2_route :
+  ?retry_policy:spec__http2_route__retry_policy list ->
+  ?timeout:spec__http2_route__timeout list ->
   action:spec__http2_route__action list ->
   match_:spec__http2_route__match list ->
-  retry_policy:spec__http2_route__retry_policy list ->
-  timeout:spec__http2_route__timeout list ->
   unit ->
   spec__http2_route
 
@@ -277,7 +277,7 @@ val spec__http_route__match__header__match :
   ?prefix:string prop ->
   ?regex:string prop ->
   ?suffix:string prop ->
-  range:spec__http_route__match__header__match__range list ->
+  ?range:spec__http_route__match__header__match__range list ->
   unit ->
   spec__http_route__match__header__match
 
@@ -285,8 +285,8 @@ type spec__http_route__match__header
 
 val spec__http_route__match__header :
   ?invert:bool prop ->
+  ?match_:spec__http_route__match__header__match list ->
   name:string prop ->
-  match_:spec__http_route__match__header__match list ->
   unit ->
   spec__http_route__match__header
 
@@ -308,8 +308,8 @@ val spec__http_route__match__query_parameter__match :
 type spec__http_route__match__query_parameter
 
 val spec__http_route__match__query_parameter :
+  ?match_:spec__http_route__match__query_parameter__match list ->
   name:string prop ->
-  match_:spec__http_route__match__query_parameter__match list ->
   unit ->
   spec__http_route__match__query_parameter
 
@@ -320,8 +320,8 @@ val spec__http_route__match :
   ?port:float prop ->
   ?prefix:string prop ->
   ?scheme:string prop ->
+  ?path:spec__http_route__match__path list ->
   header:spec__http_route__match__header list ->
-  path:spec__http_route__match__path list ->
   query_parameter:spec__http_route__match__query_parameter list ->
   unit ->
   spec__http_route__match
@@ -364,18 +364,18 @@ val spec__http_route__timeout__per_request :
 type spec__http_route__timeout
 
 val spec__http_route__timeout :
-  idle:spec__http_route__timeout__idle list ->
-  per_request:spec__http_route__timeout__per_request list ->
+  ?idle:spec__http_route__timeout__idle list ->
+  ?per_request:spec__http_route__timeout__per_request list ->
   unit ->
   spec__http_route__timeout
 
 type spec__http_route
 
 val spec__http_route :
+  ?retry_policy:spec__http_route__retry_policy list ->
+  ?timeout:spec__http_route__timeout list ->
   action:spec__http_route__action list ->
   match_:spec__http_route__match list ->
-  retry_policy:spec__http_route__retry_policy list ->
-  timeout:spec__http_route__timeout list ->
   unit ->
   spec__http_route
 
@@ -411,16 +411,16 @@ val spec__tcp_route__timeout__idle :
 type spec__tcp_route__timeout
 
 val spec__tcp_route__timeout :
-  idle:spec__tcp_route__timeout__idle list ->
+  ?idle:spec__tcp_route__timeout__idle list ->
   unit ->
   spec__tcp_route__timeout
 
 type spec__tcp_route
 
 val spec__tcp_route :
+  ?match_:spec__tcp_route__match list ->
+  ?timeout:spec__tcp_route__timeout list ->
   action:spec__tcp_route__action list ->
-  match_:spec__tcp_route__match list ->
-  timeout:spec__tcp_route__timeout list ->
   unit ->
   spec__tcp_route
 
@@ -428,10 +428,10 @@ type spec
 
 val spec :
   ?priority:float prop ->
-  grpc_route:spec__grpc_route list ->
-  http2_route:spec__http2_route list ->
-  http_route:spec__http_route list ->
-  tcp_route:spec__tcp_route list ->
+  ?grpc_route:spec__grpc_route list ->
+  ?http2_route:spec__http2_route list ->
+  ?http_route:spec__http_route list ->
+  ?tcp_route:spec__tcp_route list ->
   unit ->
   spec
 

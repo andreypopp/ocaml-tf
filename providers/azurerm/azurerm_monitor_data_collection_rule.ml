@@ -1491,8 +1491,8 @@ let data_sources__log_file__settings ~text () :
     data_sources__log_file__settings =
   { text }
 
-let data_sources__log_file ~file_patterns ~format ~name ~streams
-    ~settings () : data_sources__log_file =
+let data_sources__log_file ?(settings = []) ~file_patterns ~format
+    ~name ~streams () : data_sources__log_file =
   { file_patterns; format; name; streams; settings }
 
 let data_sources__performance_counter ~counter_specifiers ~name
@@ -1530,10 +1530,11 @@ let data_sources__windows_firewall_log ~name ~streams () :
     data_sources__windows_firewall_log =
   { name; streams }
 
-let data_sources ~data_import ~extension ~iis_log ~log_file
-    ~performance_counter ~platform_telemetry ~prometheus_forwarder
-    ~syslog ~windows_event_log ~windows_firewall_log () :
-    data_sources =
+let data_sources ?(data_import = []) ?(extension = [])
+    ?(iis_log = []) ?(log_file = []) ?(performance_counter = [])
+    ?(platform_telemetry = []) ?(prometheus_forwarder = [])
+    ?(syslog = []) ?(windows_event_log = [])
+    ?(windows_firewall_log = []) () : data_sources =
   {
     data_import;
     extension;
@@ -1579,9 +1580,11 @@ let destinations__storage_table_direct ~name ~storage_account_id
     ~table_name () : destinations__storage_table_direct =
   { name; storage_account_id; table_name }
 
-let destinations ~azure_monitor_metrics ~event_hub ~event_hub_direct
-    ~log_analytics ~monitor_account ~storage_blob
-    ~storage_blob_direct ~storage_table_direct () : destinations =
+let destinations ?(azure_monitor_metrics = []) ?(event_hub = [])
+    ?(event_hub_direct = []) ?(log_analytics = [])
+    ?(monitor_account = []) ?(storage_blob = [])
+    ?(storage_blob_direct = []) ?(storage_table_direct = []) () :
+    destinations =
   {
     azure_monitor_metrics;
     event_hub;
@@ -1607,9 +1610,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_monitor_data_collection_rule ?data_collection_endpoint_id
-    ?description ?id ?kind ?tags ?timeouts ~location ~name
-    ~resource_group_name ~data_flow ~data_sources ~destinations
-    ~identity ~stream_declaration () :
+    ?description ?id ?kind ?tags ?(data_sources = [])
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    ~data_flow ~destinations ~stream_declaration () :
     azurerm_monitor_data_collection_rule =
   {
     data_collection_endpoint_id;
@@ -1641,8 +1644,9 @@ type t = {
 }
 
 let make ?data_collection_endpoint_id ?description ?id ?kind ?tags
-    ?timeouts ~location ~name ~resource_group_name ~data_flow
-    ~data_sources ~destinations ~identity ~stream_declaration __id =
+    ?(data_sources = []) ?(identity = []) ?timeouts ~location ~name
+    ~resource_group_name ~data_flow ~destinations ~stream_declaration
+    __id =
   let __type = "azurerm_monitor_data_collection_rule" in
   let __attrs =
     ({
@@ -1667,20 +1671,21 @@ let make ?data_collection_endpoint_id ?description ?id ?kind ?tags
       yojson_of_azurerm_monitor_data_collection_rule
         (azurerm_monitor_data_collection_rule
            ?data_collection_endpoint_id ?description ?id ?kind ?tags
-           ?timeouts ~location ~name ~resource_group_name ~data_flow
-           ~data_sources ~destinations ~identity ~stream_declaration
-           ());
+           ~data_sources ~identity ?timeouts ~location ~name
+           ~resource_group_name ~data_flow ~destinations
+           ~stream_declaration ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?data_collection_endpoint_id ?description ?id
-    ?kind ?tags ?timeouts ~location ~name ~resource_group_name
-    ~data_flow ~data_sources ~destinations ~identity
+    ?kind ?tags ?(data_sources = []) ?(identity = []) ?timeouts
+    ~location ~name ~resource_group_name ~data_flow ~destinations
     ~stream_declaration __id =
   let (r : _ Tf_core.resource) =
     make ?data_collection_endpoint_id ?description ?id ?kind ?tags
-      ?timeouts ~location ~name ~resource_group_name ~data_flow
-      ~data_sources ~destinations ~identity ~stream_declaration __id
+      ~data_sources ~identity ?timeouts ~location ~name
+      ~resource_group_name ~data_flow ~destinations
+      ~stream_declaration __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

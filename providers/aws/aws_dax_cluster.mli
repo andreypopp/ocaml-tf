@@ -39,12 +39,12 @@ val aws_dax_cluster :
   ?subnet_group_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?server_side_encryption:server_side_encryption list ->
   ?timeouts:timeouts ->
   cluster_name:string prop ->
   iam_role_arn:string prop ->
   node_type:string prop ->
   replication_factor:float prop ->
-  server_side_encryption:server_side_encryption list ->
   unit ->
   aws_dax_cluster
 
@@ -88,12 +88,12 @@ val register :
   ?subnet_group_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?server_side_encryption:server_side_encryption list ->
   ?timeouts:timeouts ->
   cluster_name:string prop ->
   iam_role_arn:string prop ->
   node_type:string prop ->
   replication_factor:float prop ->
-  server_side_encryption:server_side_encryption list ->
   string ->
   t
 
@@ -109,11 +109,11 @@ val make :
   ?subnet_group_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?server_side_encryption:server_side_encryption list ->
   ?timeouts:timeouts ->
   cluster_name:string prop ->
   iam_role_arn:string prop ->
   node_type:string prop ->
   replication_factor:float prop ->
-  server_side_encryption:server_side_encryption list ->
   string ->
   t Tf_core.resource

@@ -57,12 +57,12 @@ val network_profile__ip_configuration :
   ?application_security_group_ids:string prop list ->
   ?load_balancer_backend_address_pool_ids:string prop list ->
   ?load_balancer_inbound_nat_rules_ids:string prop list ->
+  ?public_ip_address_configuration:
+    network_profile__ip_configuration__public_ip_address_configuration
+    list ->
   name:string prop ->
   primary:bool prop ->
   subnet_id:string prop ->
-  public_ip_address_configuration:
-    network_profile__ip_configuration__public_ip_address_configuration
-    list ->
   unit ->
   network_profile__ip_configuration
 
@@ -72,9 +72,9 @@ val network_profile :
   ?accelerated_networking:bool prop ->
   ?ip_forwarding:bool prop ->
   ?network_security_group_id:string prop ->
+  ?dns_settings:network_profile__dns_settings list ->
   name:string prop ->
   primary:bool prop ->
-  dns_settings:network_profile__dns_settings list ->
   ip_configuration:network_profile__ip_configuration list ->
   unit ->
   network_profile
@@ -101,7 +101,7 @@ type os_profile_linux_config
 
 val os_profile_linux_config :
   ?disable_password_authentication:bool prop ->
-  ssh_keys:os_profile_linux_config__ssh_keys list ->
+  ?ssh_keys:os_profile_linux_config__ssh_keys list ->
   unit ->
   os_profile_linux_config
 
@@ -116,8 +116,8 @@ val os_profile_secrets__vault_certificates :
 type os_profile_secrets
 
 val os_profile_secrets :
+  ?vault_certificates:os_profile_secrets__vault_certificates list ->
   source_vault_id:string prop ->
-  vault_certificates:os_profile_secrets__vault_certificates list ->
   unit ->
   os_profile_secrets
 
@@ -144,9 +144,9 @@ type os_profile_windows_config
 val os_profile_windows_config :
   ?enable_automatic_upgrades:bool prop ->
   ?provision_vm_agent:bool prop ->
-  additional_unattend_config:
+  ?additional_unattend_config:
     os_profile_windows_config__additional_unattend_config list ->
-  winrm:os_profile_windows_config__winrm list ->
+  ?winrm:os_profile_windows_config__winrm list ->
   unit ->
   os_profile_windows_config
 
@@ -237,23 +237,23 @@ val azurerm_virtual_machine_scale_set :
   ?single_placement_group:bool prop ->
   ?tags:(string * string prop) list ->
   ?zones:string prop list ->
+  ?boot_diagnostics:boot_diagnostics list ->
+  ?identity:identity list ->
+  ?rolling_upgrade_policy:rolling_upgrade_policy list ->
+  ?storage_profile_data_disk:storage_profile_data_disk list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   upgrade_policy_mode:string prop ->
-  boot_diagnostics:boot_diagnostics list ->
   extension:extension list ->
-  identity:identity list ->
   network_profile:network_profile list ->
   os_profile:os_profile list ->
   os_profile_linux_config:os_profile_linux_config list ->
   os_profile_secrets:os_profile_secrets list ->
   os_profile_windows_config:os_profile_windows_config list ->
   plan:plan list ->
-  rolling_upgrade_policy:rolling_upgrade_policy list ->
   sku:sku list ->
-  storage_profile_data_disk:storage_profile_data_disk list ->
   storage_profile_image_reference:
     storage_profile_image_reference list ->
   storage_profile_os_disk:storage_profile_os_disk list ->
@@ -296,23 +296,23 @@ val register :
   ?single_placement_group:bool prop ->
   ?tags:(string * string prop) list ->
   ?zones:string prop list ->
+  ?boot_diagnostics:boot_diagnostics list ->
+  ?identity:identity list ->
+  ?rolling_upgrade_policy:rolling_upgrade_policy list ->
+  ?storage_profile_data_disk:storage_profile_data_disk list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   upgrade_policy_mode:string prop ->
-  boot_diagnostics:boot_diagnostics list ->
   extension:extension list ->
-  identity:identity list ->
   network_profile:network_profile list ->
   os_profile:os_profile list ->
   os_profile_linux_config:os_profile_linux_config list ->
   os_profile_secrets:os_profile_secrets list ->
   os_profile_windows_config:os_profile_windows_config list ->
   plan:plan list ->
-  rolling_upgrade_policy:rolling_upgrade_policy list ->
   sku:sku list ->
-  storage_profile_data_disk:storage_profile_data_disk list ->
   storage_profile_image_reference:
     storage_profile_image_reference list ->
   storage_profile_os_disk:storage_profile_os_disk list ->
@@ -331,23 +331,23 @@ val make :
   ?single_placement_group:bool prop ->
   ?tags:(string * string prop) list ->
   ?zones:string prop list ->
+  ?boot_diagnostics:boot_diagnostics list ->
+  ?identity:identity list ->
+  ?rolling_upgrade_policy:rolling_upgrade_policy list ->
+  ?storage_profile_data_disk:storage_profile_data_disk list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   upgrade_policy_mode:string prop ->
-  boot_diagnostics:boot_diagnostics list ->
   extension:extension list ->
-  identity:identity list ->
   network_profile:network_profile list ->
   os_profile:os_profile list ->
   os_profile_linux_config:os_profile_linux_config list ->
   os_profile_secrets:os_profile_secrets list ->
   os_profile_windows_config:os_profile_windows_config list ->
   plan:plan list ->
-  rolling_upgrade_policy:rolling_upgrade_policy list ->
   sku:sku list ->
-  storage_profile_data_disk:storage_profile_data_disk list ->
   storage_profile_image_reference:
     storage_profile_image_reference list ->
   storage_profile_os_disk:storage_profile_os_disk list ->

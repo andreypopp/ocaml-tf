@@ -723,7 +723,7 @@ let target_tracking_scaling_policy_configuration__customized_metric_specificatio
   { stat; unit; metric }
 
 let target_tracking_scaling_policy_configuration__customized_metric_specification__metrics
-    ?expression ?label ?return_data ~id ~metric_stat () :
+    ?expression ?label ?return_data ?(metric_stat = []) ~id () :
     target_tracking_scaling_policy_configuration__customized_metric_specification__metrics
     =
   { expression; id; label; return_data; metric_stat }
@@ -742,9 +742,10 @@ let target_tracking_scaling_policy_configuration__predefined_metric_specificatio
   { predefined_metric_type; resource_label }
 
 let target_tracking_scaling_policy_configuration ?disable_scale_in
-    ?scale_in_cooldown ?scale_out_cooldown ~target_value
-    ~customized_metric_specification ~predefined_metric_specification
-    () : target_tracking_scaling_policy_configuration =
+    ?scale_in_cooldown ?scale_out_cooldown
+    ?(customized_metric_specification = [])
+    ?(predefined_metric_specification = []) ~target_value () :
+    target_tracking_scaling_policy_configuration =
   {
     disable_scale_in;
     scale_in_cooldown;
@@ -754,10 +755,10 @@ let target_tracking_scaling_policy_configuration ?disable_scale_in
     predefined_metric_specification;
   }
 
-let aws_appautoscaling_policy ?id ?policy_type ~name ~resource_id
-    ~scalable_dimension ~service_namespace
-    ~step_scaling_policy_configuration
-    ~target_tracking_scaling_policy_configuration () :
+let aws_appautoscaling_policy ?id ?policy_type
+    ?(step_scaling_policy_configuration = [])
+    ?(target_tracking_scaling_policy_configuration = []) ~name
+    ~resource_id ~scalable_dimension ~service_namespace () :
     aws_appautoscaling_policy =
   {
     id;
@@ -781,9 +782,9 @@ type t = {
   service_namespace : string prop;
 }
 
-let make ?id ?policy_type ~name ~resource_id ~scalable_dimension
-    ~service_namespace ~step_scaling_policy_configuration
-    ~target_tracking_scaling_policy_configuration __id =
+let make ?id ?policy_type ?(step_scaling_policy_configuration = [])
+    ?(target_tracking_scaling_policy_configuration = []) ~name
+    ~resource_id ~scalable_dimension ~service_namespace __id =
   let __type = "aws_appautoscaling_policy" in
   let __attrs =
     ({
@@ -805,21 +806,21 @@ let make ?id ?policy_type ~name ~resource_id ~scalable_dimension
     type_ = __type;
     json =
       yojson_of_aws_appautoscaling_policy
-        (aws_appautoscaling_policy ?id ?policy_type ~name
-           ~resource_id ~scalable_dimension ~service_namespace
+        (aws_appautoscaling_policy ?id ?policy_type
            ~step_scaling_policy_configuration
-           ~target_tracking_scaling_policy_configuration ());
+           ~target_tracking_scaling_policy_configuration ~name
+           ~resource_id ~scalable_dimension ~service_namespace ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?policy_type ~name ~resource_id
-    ~scalable_dimension ~service_namespace
-    ~step_scaling_policy_configuration
-    ~target_tracking_scaling_policy_configuration __id =
+let register ?tf_module ?id ?policy_type
+    ?(step_scaling_policy_configuration = [])
+    ?(target_tracking_scaling_policy_configuration = []) ~name
+    ~resource_id ~scalable_dimension ~service_namespace __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?policy_type ~name ~resource_id ~scalable_dimension
-      ~service_namespace ~step_scaling_policy_configuration
-      ~target_tracking_scaling_policy_configuration __id
+    make ?id ?policy_type ~step_scaling_policy_configuration
+      ~target_tracking_scaling_policy_configuration ~name
+      ~resource_id ~scalable_dimension ~service_namespace __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

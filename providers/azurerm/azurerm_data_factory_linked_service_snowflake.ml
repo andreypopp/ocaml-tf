@@ -242,9 +242,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_data_factory_linked_service_snowflake
     ?additional_properties ?annotations ?description ?id
-    ?integration_runtime_name ?parameters ?timeouts
-    ~connection_string ~data_factory_id ~name ~key_vault_password ()
-    : azurerm_data_factory_linked_service_snowflake =
+    ?integration_runtime_name ?parameters ?(key_vault_password = [])
+    ?timeouts ~connection_string ~data_factory_id ~name () :
+    azurerm_data_factory_linked_service_snowflake =
   {
     additional_properties;
     annotations;
@@ -272,9 +272,8 @@ type t = {
 }
 
 let make ?additional_properties ?annotations ?description ?id
-    ?integration_runtime_name ?parameters ?timeouts
-    ~connection_string ~data_factory_id ~name ~key_vault_password
-    __id =
+    ?integration_runtime_name ?parameters ?(key_vault_password = [])
+    ?timeouts ~connection_string ~data_factory_id ~name __id =
   let __type = "azurerm_data_factory_linked_service_snowflake" in
   let __attrs =
     ({
@@ -300,21 +299,19 @@ let make ?additional_properties ?annotations ?description ?id
       yojson_of_azurerm_data_factory_linked_service_snowflake
         (azurerm_data_factory_linked_service_snowflake
            ?additional_properties ?annotations ?description ?id
-           ?integration_runtime_name ?parameters ?timeouts
-           ~connection_string ~data_factory_id ~name
-           ~key_vault_password ());
+           ?integration_runtime_name ?parameters ~key_vault_password
+           ?timeouts ~connection_string ~data_factory_id ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?additional_properties ?annotations
-    ?description ?id ?integration_runtime_name ?parameters ?timeouts
-    ~connection_string ~data_factory_id ~name ~key_vault_password
-    __id =
+    ?description ?id ?integration_runtime_name ?parameters
+    ?(key_vault_password = []) ?timeouts ~connection_string
+    ~data_factory_id ~name __id =
   let (r : _ Tf_core.resource) =
     make ?additional_properties ?annotations ?description ?id
-      ?integration_runtime_name ?parameters ?timeouts
-      ~connection_string ~data_factory_id ~name ~key_vault_password
-      __id
+      ?integration_runtime_name ?parameters ~key_vault_password
+      ?timeouts ~connection_string ~data_factory_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

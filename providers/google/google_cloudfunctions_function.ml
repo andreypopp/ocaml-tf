@@ -631,7 +631,7 @@ let event_trigger__failure_policy ~retry () :
     event_trigger__failure_policy =
   { retry }
 
-let event_trigger ~event_type ~resource ~failure_policy () :
+let event_trigger ?(failure_policy = []) ~event_type ~resource () :
     event_trigger =
   { event_type; resource; failure_policy }
 
@@ -643,8 +643,8 @@ let secret_volumes__versions ~path ~version () :
     secret_volumes__versions =
   { path; version }
 
-let secret_volumes ?project_id ~mount_path ~secret ~versions () :
-    secret_volumes =
+let secret_volumes ?project_id ?(versions = []) ~mount_path ~secret
+    () : secret_volumes =
   { mount_path; project_id; secret; versions }
 
 let source_repository ~url () : source_repository = { url }
@@ -660,9 +660,10 @@ let google_cloudfunctions_function ?available_memory_mb
     ?max_instances ?min_instances ?project ?region
     ?service_account_email ?source_archive_bucket
     ?source_archive_object ?timeout ?trigger_http ?vpc_connector
-    ?vpc_connector_egress_settings ?timeouts ~name ~runtime
-    ~event_trigger ~secret_environment_variables ~secret_volumes
-    ~source_repository () : google_cloudfunctions_function =
+    ?vpc_connector_egress_settings ?(event_trigger = [])
+    ?(secret_environment_variables = []) ?(secret_volumes = [])
+    ?(source_repository = []) ?timeouts ~name ~runtime () :
+    google_cloudfunctions_function =
   {
     available_memory_mb;
     build_environment_variables;
@@ -740,9 +741,9 @@ let make ?available_memory_mb ?build_environment_variables
     ?min_instances ?project ?region ?service_account_email
     ?source_archive_bucket ?source_archive_object ?timeout
     ?trigger_http ?vpc_connector ?vpc_connector_egress_settings
-    ?timeouts ~name ~runtime ~event_trigger
-    ~secret_environment_variables ~secret_volumes ~source_repository
-    __id =
+    ?(event_trigger = []) ?(secret_environment_variables = [])
+    ?(secret_volumes = []) ?(source_repository = []) ?timeouts ~name
+    ~runtime __id =
   let __type = "google_cloudfunctions_function" in
   let __attrs =
     ({
@@ -808,9 +809,9 @@ let make ?available_memory_mb ?build_environment_variables
            ?min_instances ?project ?region ?service_account_email
            ?source_archive_bucket ?source_archive_object ?timeout
            ?trigger_http ?vpc_connector
-           ?vpc_connector_egress_settings ?timeouts ~name ~runtime
-           ~event_trigger ~secret_environment_variables
-           ~secret_volumes ~source_repository ());
+           ?vpc_connector_egress_settings ~event_trigger
+           ~secret_environment_variables ~secret_volumes
+           ~source_repository ?timeouts ~name ~runtime ());
     attrs = __attrs;
   }
 
@@ -822,9 +823,9 @@ let register ?tf_module ?available_memory_mb
     ?max_instances ?min_instances ?project ?region
     ?service_account_email ?source_archive_bucket
     ?source_archive_object ?timeout ?trigger_http ?vpc_connector
-    ?vpc_connector_egress_settings ?timeouts ~name ~runtime
-    ~event_trigger ~secret_environment_variables ~secret_volumes
-    ~source_repository __id =
+    ?vpc_connector_egress_settings ?(event_trigger = [])
+    ?(secret_environment_variables = []) ?(secret_volumes = [])
+    ?(source_repository = []) ?timeouts ~name ~runtime __id =
   let (r : _ Tf_core.resource) =
     make ?available_memory_mb ?build_environment_variables
       ?build_worker_pool ?description ?docker_registry
@@ -834,9 +835,8 @@ let register ?tf_module ?available_memory_mb
       ?min_instances ?project ?region ?service_account_email
       ?source_archive_bucket ?source_archive_object ?timeout
       ?trigger_http ?vpc_connector ?vpc_connector_egress_settings
-      ?timeouts ~name ~runtime ~event_trigger
-      ~secret_environment_variables ~secret_volumes
-      ~source_repository __id
+      ~event_trigger ~secret_environment_variables ~secret_volumes
+      ~source_repository ?timeouts ~name ~runtime __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

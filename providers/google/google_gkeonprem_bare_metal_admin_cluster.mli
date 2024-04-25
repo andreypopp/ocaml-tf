@@ -72,10 +72,10 @@ type control_plane__control_plane_node_pool_config__node_pool_config
 val control_plane__control_plane_node_pool_config__node_pool_config :
   ?labels:(string * string prop) list ->
   ?operating_system:string prop ->
-  node_configs:
+  ?node_configs:
     control_plane__control_plane_node_pool_config__node_pool_config__node_configs
     list ->
-  taints:
+  ?taints:
     control_plane__control_plane_node_pool_config__node_pool_config__taints
     list ->
   unit ->
@@ -93,7 +93,7 @@ val control_plane__control_plane_node_pool_config :
 type control_plane
 
 val control_plane :
-  api_server_args:control_plane__api_server_args list ->
+  ?api_server_args:control_plane__api_server_args list ->
   control_plane_node_pool_config:
     control_plane__control_plane_node_pool_config list ->
   unit ->
@@ -119,7 +119,7 @@ val load_balancer__vip_config :
 type load_balancer
 
 val load_balancer :
-  manual_lb_config:load_balancer__manual_lb_config list ->
+  ?manual_lb_config:load_balancer__manual_lb_config list ->
   port_config:load_balancer__port_config list ->
   vip_config:load_balancer__vip_config list ->
   unit ->
@@ -143,7 +143,7 @@ val network_config__island_mode_cidr :
 type network_config
 
 val network_config :
-  island_mode_cidr:network_config__island_mode_cidr list ->
+  ?island_mode_cidr:network_config__island_mode_cidr list ->
   unit ->
   network_config
 
@@ -179,7 +179,7 @@ val security_config__authorization :
 type security_config
 
 val security_config :
-  authorization:security_config__authorization list ->
+  ?authorization:security_config__authorization list ->
   unit ->
   security_config
 
@@ -232,19 +232,19 @@ val google_gkeonprem_bare_metal_admin_cluster :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?cluster_operations:cluster_operations list ->
+  ?control_plane:control_plane list ->
+  ?load_balancer:load_balancer list ->
+  ?maintenance_config:maintenance_config list ->
+  ?network_config:network_config list ->
+  ?node_access_config:node_access_config list ->
+  ?node_config:node_config list ->
+  ?proxy:proxy list ->
+  ?security_config:security_config list ->
+  ?storage:storage list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  cluster_operations:cluster_operations list ->
-  control_plane:control_plane list ->
-  load_balancer:load_balancer list ->
-  maintenance_config:maintenance_config list ->
-  network_config:network_config list ->
-  node_access_config:node_access_config list ->
-  node_config:node_config list ->
-  proxy:proxy list ->
-  security_config:security_config list ->
-  storage:storage list ->
   unit ->
   google_gkeonprem_bare_metal_admin_cluster
 
@@ -283,19 +283,19 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?cluster_operations:cluster_operations list ->
+  ?control_plane:control_plane list ->
+  ?load_balancer:load_balancer list ->
+  ?maintenance_config:maintenance_config list ->
+  ?network_config:network_config list ->
+  ?node_access_config:node_access_config list ->
+  ?node_config:node_config list ->
+  ?proxy:proxy list ->
+  ?security_config:security_config list ->
+  ?storage:storage list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  cluster_operations:cluster_operations list ->
-  control_plane:control_plane list ->
-  load_balancer:load_balancer list ->
-  maintenance_config:maintenance_config list ->
-  network_config:network_config list ->
-  node_access_config:node_access_config list ->
-  node_config:node_config list ->
-  proxy:proxy list ->
-  security_config:security_config list ->
-  storage:storage list ->
   string ->
   t
 
@@ -305,18 +305,18 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?cluster_operations:cluster_operations list ->
+  ?control_plane:control_plane list ->
+  ?load_balancer:load_balancer list ->
+  ?maintenance_config:maintenance_config list ->
+  ?network_config:network_config list ->
+  ?node_access_config:node_access_config list ->
+  ?node_config:node_config list ->
+  ?proxy:proxy list ->
+  ?security_config:security_config list ->
+  ?storage:storage list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  cluster_operations:cluster_operations list ->
-  control_plane:control_plane list ->
-  load_balancer:load_balancer list ->
-  maintenance_config:maintenance_config list ->
-  network_config:network_config list ->
-  node_access_config:node_access_config list ->
-  node_config:node_config list ->
-  proxy:proxy list ->
-  security_config:security_config list ->
-  storage:storage list ->
   string ->
   t Tf_core.resource

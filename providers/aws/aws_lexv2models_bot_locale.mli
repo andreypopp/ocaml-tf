@@ -27,11 +27,11 @@ val aws_lexv2models_bot_locale :
   ?description:string prop ->
   ?name:string prop ->
   ?timeouts:timeouts ->
+  ?voice_settings:voice_settings list ->
   bot_id:string prop ->
   bot_version:string prop ->
   locale_id:string prop ->
   n_lu_intent_confidence_threshold:float prop ->
-  voice_settings:voice_settings list ->
   unit ->
   aws_lexv2models_bot_locale
 
@@ -55,11 +55,11 @@ val register :
   ?description:string prop ->
   ?name:string prop ->
   ?timeouts:timeouts ->
+  ?voice_settings:voice_settings list ->
   bot_id:string prop ->
   bot_version:string prop ->
   locale_id:string prop ->
   n_lu_intent_confidence_threshold:float prop ->
-  voice_settings:voice_settings list ->
   string ->
   t
 
@@ -67,10 +67,10 @@ val make :
   ?description:string prop ->
   ?name:string prop ->
   ?timeouts:timeouts ->
+  ?voice_settings:voice_settings list ->
   bot_id:string prop ->
   bot_version:string prop ->
   locale_id:string prop ->
   n_lu_intent_confidence_threshold:float prop ->
-  voice_settings:voice_settings list ->
   string ->
   t Tf_core.resource

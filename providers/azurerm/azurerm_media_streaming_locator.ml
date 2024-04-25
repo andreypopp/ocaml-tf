@@ -279,9 +279,9 @@ let timeouts ?create ?delete ?read () : timeouts =
 
 let azurerm_media_streaming_locator ?alternative_media_id
     ?default_content_key_policy_name ?end_time ?filter_names ?id
-    ?start_time ?streaming_locator_id ?timeouts ~asset_name
-    ~media_services_account_name ~name ~resource_group_name
-    ~streaming_policy_name ~content_key () :
+    ?start_time ?streaming_locator_id ?(content_key = []) ?timeouts
+    ~asset_name ~media_services_account_name ~name
+    ~resource_group_name ~streaming_policy_name () :
     azurerm_media_streaming_locator =
   {
     alternative_media_id;
@@ -317,8 +317,9 @@ type t = {
 
 let make ?alternative_media_id ?default_content_key_policy_name
     ?end_time ?filter_names ?id ?start_time ?streaming_locator_id
-    ?timeouts ~asset_name ~media_services_account_name ~name
-    ~resource_group_name ~streaming_policy_name ~content_key __id =
+    ?(content_key = []) ?timeouts ~asset_name
+    ~media_services_account_name ~name ~resource_group_name
+    ~streaming_policy_name __id =
   let __type = "azurerm_media_streaming_locator" in
   let __attrs =
     ({
@@ -350,23 +351,22 @@ let make ?alternative_media_id ?default_content_key_policy_name
       yojson_of_azurerm_media_streaming_locator
         (azurerm_media_streaming_locator ?alternative_media_id
            ?default_content_key_policy_name ?end_time ?filter_names
-           ?id ?start_time ?streaming_locator_id ?timeouts
-           ~asset_name ~media_services_account_name ~name
-           ~resource_group_name ~streaming_policy_name ~content_key
-           ());
+           ?id ?start_time ?streaming_locator_id ~content_key
+           ?timeouts ~asset_name ~media_services_account_name ~name
+           ~resource_group_name ~streaming_policy_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?alternative_media_id
     ?default_content_key_policy_name ?end_time ?filter_names ?id
-    ?start_time ?streaming_locator_id ?timeouts ~asset_name
-    ~media_services_account_name ~name ~resource_group_name
-    ~streaming_policy_name ~content_key __id =
+    ?start_time ?streaming_locator_id ?(content_key = []) ?timeouts
+    ~asset_name ~media_services_account_name ~name
+    ~resource_group_name ~streaming_policy_name __id =
   let (r : _ Tf_core.resource) =
     make ?alternative_media_id ?default_content_key_policy_name
       ?end_time ?filter_names ?id ?start_time ?streaming_locator_id
-      ?timeouts ~asset_name ~media_services_account_name ~name
-      ~resource_group_name ~streaming_policy_name ~content_key __id
+      ~content_key ?timeouts ~asset_name ~media_services_account_name
+      ~name ~resource_group_name ~streaming_policy_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

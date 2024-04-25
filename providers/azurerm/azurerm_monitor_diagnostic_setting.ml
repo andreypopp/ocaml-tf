@@ -452,22 +452,22 @@ let enabled_log__retention_policy ?days ~enabled () :
     enabled_log__retention_policy =
   { days; enabled }
 
-let enabled_log ?category ?category_group ~retention_policy () :
-    enabled_log =
+let enabled_log ?category ?category_group ?(retention_policy = []) ()
+    : enabled_log =
   { category; category_group; retention_policy }
 
 let log__retention_policy ?days ~enabled () : log__retention_policy =
   { days; enabled }
 
-let log ?category ?category_group ?enabled ~retention_policy () : log
-    =
+let log ?category ?category_group ?enabled ?(retention_policy = [])
+    () : log =
   { category; category_group; enabled; retention_policy }
 
 let metric__retention_policy ?days ~enabled () :
     metric__retention_policy =
   { days; enabled }
 
-let metric ?enabled ~category ~retention_policy () : metric =
+let metric ?enabled ?(retention_policy = []) ~category () : metric =
   { category; enabled; retention_policy }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =

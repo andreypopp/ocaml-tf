@@ -31,8 +31,8 @@ val aws_ivschat_room :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?message_review_handler:message_review_handler list ->
   ?timeouts:timeouts ->
-  message_review_handler:message_review_handler list ->
   unit ->
   aws_ivschat_room
 
@@ -60,8 +60,8 @@ val register :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?message_review_handler:message_review_handler list ->
   ?timeouts:timeouts ->
-  message_review_handler:message_review_handler list ->
   string ->
   t
 
@@ -73,7 +73,7 @@ val make :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?message_review_handler:message_review_handler list ->
   ?timeouts:timeouts ->
-  message_review_handler:message_review_handler list ->
   string ->
   t Tf_core.resource

@@ -42,11 +42,11 @@ val aws_glue_job :
   ?tags_all:(string * string prop) list ->
   ?timeout:float prop ->
   ?worker_type:string prop ->
+  ?execution_property:execution_property list ->
+  ?notification_property:notification_property list ->
   name:string prop ->
   role_arn:string prop ->
   command:command list ->
-  execution_property:execution_property list ->
-  notification_property:notification_property list ->
   unit ->
   aws_glue_job
 
@@ -92,11 +92,11 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?timeout:float prop ->
   ?worker_type:string prop ->
+  ?execution_property:execution_property list ->
+  ?notification_property:notification_property list ->
   name:string prop ->
   role_arn:string prop ->
   command:command list ->
-  execution_property:execution_property list ->
-  notification_property:notification_property list ->
   string ->
   t
 
@@ -116,10 +116,10 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?timeout:float prop ->
   ?worker_type:string prop ->
+  ?execution_property:execution_property list ->
+  ?notification_property:notification_property list ->
   name:string prop ->
   role_arn:string prop ->
   command:command list ->
-  execution_property:execution_property list ->
-  notification_property:notification_property list ->
   string ->
   t Tf_core.resource

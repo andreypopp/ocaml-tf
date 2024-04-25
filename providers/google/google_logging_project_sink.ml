@@ -206,8 +206,8 @@ let exclusions ?description ?disabled ~filter ~name () : exclusions =
 
 let google_logging_project_sink ?custom_writer_identity ?description
     ?disabled ?filter ?id ?project ?unique_writer_identity
-    ~destination ~name ~bigquery_options ~exclusions () :
-    google_logging_project_sink =
+    ?(bigquery_options = []) ?(exclusions = []) ~destination ~name ()
+    : google_logging_project_sink =
   {
     custom_writer_identity;
     description;
@@ -236,8 +236,8 @@ type t = {
 }
 
 let make ?custom_writer_identity ?description ?disabled ?filter ?id
-    ?project ?unique_writer_identity ~destination ~name
-    ~bigquery_options ~exclusions __id =
+    ?project ?unique_writer_identity ?(bigquery_options = [])
+    ?(exclusions = []) ~destination ~name __id =
   let __type = "google_logging_project_sink" in
   let __attrs =
     ({
@@ -263,18 +263,19 @@ let make ?custom_writer_identity ?description ?disabled ?filter ?id
       yojson_of_google_logging_project_sink
         (google_logging_project_sink ?custom_writer_identity
            ?description ?disabled ?filter ?id ?project
-           ?unique_writer_identity ~destination ~name
-           ~bigquery_options ~exclusions ());
+           ?unique_writer_identity ~bigquery_options ~exclusions
+           ~destination ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?custom_writer_identity ?description
     ?disabled ?filter ?id ?project ?unique_writer_identity
-    ~destination ~name ~bigquery_options ~exclusions __id =
+    ?(bigquery_options = []) ?(exclusions = []) ~destination ~name
+    __id =
   let (r : _ Tf_core.resource) =
     make ?custom_writer_identity ?description ?disabled ?filter ?id
-      ?project ?unique_writer_identity ~destination ~name
-      ~bigquery_options ~exclusions __id
+      ?project ?unique_writer_identity ~bigquery_options ~exclusions
+      ~destination ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

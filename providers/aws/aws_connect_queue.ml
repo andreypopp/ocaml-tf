@@ -199,9 +199,9 @@ let outbound_caller_config ?outbound_caller_id_name
   }
 
 let aws_connect_queue ?description ?id ?max_contacts
-    ?quick_connect_ids ?status ?tags ?tags_all ~hours_of_operation_id
-    ~instance_id ~name ~outbound_caller_config () : aws_connect_queue
-    =
+    ?quick_connect_ids ?status ?tags ?tags_all
+    ?(outbound_caller_config = []) ~hours_of_operation_id
+    ~instance_id ~name () : aws_connect_queue =
   {
     description;
     hours_of_operation_id;
@@ -232,8 +232,8 @@ type t = {
 }
 
 let make ?description ?id ?max_contacts ?quick_connect_ids ?status
-    ?tags ?tags_all ~hours_of_operation_id ~instance_id ~name
-    ~outbound_caller_config __id =
+    ?tags ?tags_all ?(outbound_caller_config = [])
+    ~hours_of_operation_id ~instance_id ~name __id =
   let __type = "aws_connect_queue" in
   let __attrs =
     ({
@@ -261,18 +261,19 @@ let make ?description ?id ?max_contacts ?quick_connect_ids ?status
       yojson_of_aws_connect_queue
         (aws_connect_queue ?description ?id ?max_contacts
            ?quick_connect_ids ?status ?tags ?tags_all
-           ~hours_of_operation_id ~instance_id ~name
-           ~outbound_caller_config ());
+           ~outbound_caller_config ~hours_of_operation_id
+           ~instance_id ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?max_contacts
-    ?quick_connect_ids ?status ?tags ?tags_all ~hours_of_operation_id
-    ~instance_id ~name ~outbound_caller_config __id =
+    ?quick_connect_ids ?status ?tags ?tags_all
+    ?(outbound_caller_config = []) ~hours_of_operation_id
+    ~instance_id ~name __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?max_contacts ?quick_connect_ids ?status
-      ?tags ?tags_all ~hours_of_operation_id ~instance_id ~name
-      ~outbound_caller_config __id
+      ?tags ?tags_all ~outbound_caller_config ~hours_of_operation_id
+      ~instance_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

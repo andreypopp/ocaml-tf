@@ -277,15 +277,15 @@ let destination_configuration__s3 ~bucket_name () :
     destination_configuration__s3 =
   { bucket_name }
 
-let destination_configuration ~cloudwatch_logs ~firehose ~s3 () :
-    destination_configuration =
+let destination_configuration ?(cloudwatch_logs = [])
+    ?(firehose = []) ?(s3 = []) () : destination_configuration =
   { cloudwatch_logs; firehose; s3 }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_ivschat_logging_configuration ?id ?name ?tags ?tags_all
-    ?timeouts ~destination_configuration () :
+    ?(destination_configuration = []) ?timeouts () :
     aws_ivschat_logging_configuration =
   { id; name; tags; tags_all; destination_configuration; timeouts }
 
@@ -298,8 +298,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?name ?tags ?tags_all ?timeouts
-    ~destination_configuration __id =
+let make ?id ?name ?tags ?tags_all ?(destination_configuration = [])
+    ?timeouts __id =
   let __type = "aws_ivschat_logging_configuration" in
   let __attrs =
     ({
@@ -318,15 +318,15 @@ let make ?id ?name ?tags ?tags_all ?timeouts
     json =
       yojson_of_aws_ivschat_logging_configuration
         (aws_ivschat_logging_configuration ?id ?name ?tags ?tags_all
-           ?timeouts ~destination_configuration ());
+           ~destination_configuration ?timeouts ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?name ?tags ?tags_all ?timeouts
-    ~destination_configuration __id =
+let register ?tf_module ?id ?name ?tags ?tags_all
+    ?(destination_configuration = []) ?timeouts __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?name ?tags ?tags_all ?timeouts
-      ~destination_configuration __id
+    make ?id ?name ?tags ?tags_all ~destination_configuration
+      ?timeouts __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

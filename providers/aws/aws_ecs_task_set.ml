@@ -459,9 +459,10 @@ let service_registries ?container_name ?container_port ?port
 
 let aws_ecs_task_set ?external_id ?force_delete ?id ?launch_type
     ?platform_version ?tags ?tags_all ?wait_until_stable
-    ?wait_until_stable_timeout ~cluster ~service ~task_definition
-    ~capacity_provider_strategy ~load_balancer ~network_configuration
-    ~scale ~service_registries () : aws_ecs_task_set =
+    ?wait_until_stable_timeout ?(network_configuration = [])
+    ?(scale = []) ?(service_registries = []) ~cluster ~service
+    ~task_definition ~capacity_provider_strategy ~load_balancer () :
+    aws_ecs_task_set =
   {
     cluster;
     external_id;
@@ -503,9 +504,10 @@ type t = {
 
 let make ?external_id ?force_delete ?id ?launch_type
     ?platform_version ?tags ?tags_all ?wait_until_stable
-    ?wait_until_stable_timeout ~cluster ~service ~task_definition
-    ~capacity_provider_strategy ~load_balancer ~network_configuration
-    ~scale ~service_registries __id =
+    ?wait_until_stable_timeout ?(network_configuration = [])
+    ?(scale = []) ?(service_registries = []) ~cluster ~service
+    ~task_definition ~capacity_provider_strategy ~load_balancer __id
+    =
   let __type = "aws_ecs_task_set" in
   let __attrs =
     ({
@@ -539,24 +541,24 @@ let make ?external_id ?force_delete ?id ?launch_type
       yojson_of_aws_ecs_task_set
         (aws_ecs_task_set ?external_id ?force_delete ?id ?launch_type
            ?platform_version ?tags ?tags_all ?wait_until_stable
-           ?wait_until_stable_timeout ~cluster ~service
-           ~task_definition ~capacity_provider_strategy
-           ~load_balancer ~network_configuration ~scale
-           ~service_registries ());
+           ?wait_until_stable_timeout ~network_configuration ~scale
+           ~service_registries ~cluster ~service ~task_definition
+           ~capacity_provider_strategy ~load_balancer ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?external_id ?force_delete ?id ?launch_type
     ?platform_version ?tags ?tags_all ?wait_until_stable
-    ?wait_until_stable_timeout ~cluster ~service ~task_definition
-    ~capacity_provider_strategy ~load_balancer ~network_configuration
-    ~scale ~service_registries __id =
+    ?wait_until_stable_timeout ?(network_configuration = [])
+    ?(scale = []) ?(service_registries = []) ~cluster ~service
+    ~task_definition ~capacity_provider_strategy ~load_balancer __id
+    =
   let (r : _ Tf_core.resource) =
     make ?external_id ?force_delete ?id ?launch_type
       ?platform_version ?tags ?tags_all ?wait_until_stable
-      ?wait_until_stable_timeout ~cluster ~service ~task_definition
-      ~capacity_provider_strategy ~load_balancer
-      ~network_configuration ~scale ~service_registries __id
+      ?wait_until_stable_timeout ~network_configuration ~scale
+      ~service_registries ~cluster ~service ~task_definition
+      ~capacity_provider_strategy ~load_balancer __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

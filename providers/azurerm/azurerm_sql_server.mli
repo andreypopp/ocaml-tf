@@ -37,6 +37,8 @@ val azurerm_sql_server :
   ?connection_policy:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?threat_detection_policy:threat_detection_policy list ->
   ?timeouts:timeouts ->
   administrator_login:string prop ->
   administrator_login_password:string prop ->
@@ -44,8 +46,6 @@ val azurerm_sql_server :
   name:string prop ->
   resource_group_name:string prop ->
   version:string prop ->
-  identity:identity list ->
-  threat_detection_policy:threat_detection_policy list ->
   unit ->
   azurerm_sql_server
 
@@ -71,6 +71,8 @@ val register :
   ?connection_policy:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?threat_detection_policy:threat_detection_policy list ->
   ?timeouts:timeouts ->
   administrator_login:string prop ->
   administrator_login_password:string prop ->
@@ -78,8 +80,6 @@ val register :
   name:string prop ->
   resource_group_name:string prop ->
   version:string prop ->
-  identity:identity list ->
-  threat_detection_policy:threat_detection_policy list ->
   string ->
   t
 
@@ -87,6 +87,8 @@ val make :
   ?connection_policy:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?threat_detection_policy:threat_detection_policy list ->
   ?timeouts:timeouts ->
   administrator_login:string prop ->
   administrator_login_password:string prop ->
@@ -94,7 +96,5 @@ val make :
   name:string prop ->
   resource_group_name:string prop ->
   version:string prop ->
-  identity:identity list ->
-  threat_detection_policy:threat_detection_policy list ->
   string ->
   t Tf_core.resource

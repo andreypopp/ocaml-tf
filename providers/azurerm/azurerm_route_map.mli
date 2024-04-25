@@ -35,9 +35,9 @@ type rule
 
 val rule :
   ?next_step_if_matched:string prop ->
+  ?action:rule__action list ->
+  ?match_criterion:rule__match_criterion list ->
   name:string prop ->
-  action:rule__action list ->
-  match_criterion:rule__match_criterion list ->
   unit ->
   rule
 
@@ -55,10 +55,10 @@ type azurerm_route_map
 
 val azurerm_route_map :
   ?id:string prop ->
+  ?rule:rule list ->
   ?timeouts:timeouts ->
   name:string prop ->
   virtual_hub_id:string prop ->
-  rule:rule list ->
   unit ->
   azurerm_route_map
 
@@ -75,18 +75,18 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?rule:rule list ->
   ?timeouts:timeouts ->
   name:string prop ->
   virtual_hub_id:string prop ->
-  rule:rule list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?rule:rule list ->
   ?timeouts:timeouts ->
   name:string prop ->
   virtual_hub_id:string prop ->
-  rule:rule list ->
   string ->
   t Tf_core.resource

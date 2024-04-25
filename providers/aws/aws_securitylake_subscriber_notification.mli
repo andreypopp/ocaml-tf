@@ -23,9 +23,9 @@ val configuration__sqs_notification_configuration :
 type configuration
 
 val configuration :
-  https_notification_configuration:
+  ?https_notification_configuration:
     configuration__https_notification_configuration list ->
-  sqs_notification_configuration:
+  ?sqs_notification_configuration:
     configuration__sqs_notification_configuration list ->
   unit ->
   configuration
@@ -33,8 +33,8 @@ val configuration :
 type aws_securitylake_subscriber_notification
 
 val aws_securitylake_subscriber_notification :
+  ?configuration:configuration list ->
   subscriber_id:string prop ->
-  configuration:configuration list ->
   unit ->
   aws_securitylake_subscriber_notification
 
@@ -51,13 +51,13 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?configuration:configuration list ->
   subscriber_id:string prop ->
-  configuration:configuration list ->
   string ->
   t
 
 val make :
+  ?configuration:configuration list ->
   subscriber_id:string prop ->
-  configuration:configuration list ->
   string ->
   t Tf_core.resource

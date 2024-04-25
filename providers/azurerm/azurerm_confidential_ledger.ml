@@ -255,11 +255,11 @@ let certificate_based_security_principal ~ledger_role_name
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_confidential_ledger ?id ?tags ?timeouts ~ledger_type
-    ~location ~name ~resource_group_name
-    ~azuread_based_service_principal
-    ~certificate_based_security_principal () :
-    azurerm_confidential_ledger =
+let azurerm_confidential_ledger ?id ?tags
+    ?(certificate_based_security_principal = []) ?timeouts
+    ~ledger_type ~location ~name ~resource_group_name
+    ~azuread_based_service_principal () : azurerm_confidential_ledger
+    =
   {
     id;
     ledger_type;
@@ -283,9 +283,9 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?id ?tags ?timeouts ~ledger_type ~location ~name
-    ~resource_group_name ~azuread_based_service_principal
-    ~certificate_based_security_principal __id =
+let make ?id ?tags ?(certificate_based_security_principal = [])
+    ?timeouts ~ledger_type ~location ~name ~resource_group_name
+    ~azuread_based_service_principal __id =
   let __type = "azurerm_confidential_ledger" in
   let __attrs =
     ({
@@ -307,20 +307,21 @@ let make ?id ?tags ?timeouts ~ledger_type ~location ~name
     type_ = __type;
     json =
       yojson_of_azurerm_confidential_ledger
-        (azurerm_confidential_ledger ?id ?tags ?timeouts ~ledger_type
-           ~location ~name ~resource_group_name
-           ~azuread_based_service_principal
-           ~certificate_based_security_principal ());
+        (azurerm_confidential_ledger ?id ?tags
+           ~certificate_based_security_principal ?timeouts
+           ~ledger_type ~location ~name ~resource_group_name
+           ~azuread_based_service_principal ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?timeouts ~ledger_type ~location
-    ~name ~resource_group_name ~azuread_based_service_principal
-    ~certificate_based_security_principal __id =
+let register ?tf_module ?id ?tags
+    ?(certificate_based_security_principal = []) ?timeouts
+    ~ledger_type ~location ~name ~resource_group_name
+    ~azuread_based_service_principal __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?timeouts ~ledger_type ~location ~name
-      ~resource_group_name ~azuread_based_service_principal
-      ~certificate_based_security_principal __id
+    make ?id ?tags ~certificate_based_security_principal ?timeouts
+      ~ledger_type ~location ~name ~resource_group_name
+      ~azuread_based_service_principal __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

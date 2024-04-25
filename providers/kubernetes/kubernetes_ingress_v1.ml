@@ -763,7 +763,7 @@ let spec__default_backend__service ~name ~port () :
     spec__default_backend__service =
   { name; port }
 
-let spec__default_backend ~resource ~service () :
+let spec__default_backend ?(resource = []) ?(service = []) () :
     spec__default_backend =
   { resource; service }
 
@@ -779,21 +779,22 @@ let spec__rule__http__path__backend__service ~name ~port () :
     spec__rule__http__path__backend__service =
   { name; port }
 
-let spec__rule__http__path__backend ~resource ~service () :
-    spec__rule__http__path__backend =
+let spec__rule__http__path__backend ?(resource = []) ?(service = [])
+    () : spec__rule__http__path__backend =
   { resource; service }
 
-let spec__rule__http__path ?path ?path_type ~backend () :
+let spec__rule__http__path ?path ?path_type ?(backend = []) () :
     spec__rule__http__path =
   { path; path_type; backend }
 
 let spec__rule__http ~path () : spec__rule__http = { path }
-let spec__rule ?host ~http () : spec__rule = { host; http }
+let spec__rule ?host ?(http = []) () : spec__rule = { host; http }
 
 let spec__tls ?hosts ?secret_name () : spec__tls =
   { hosts; secret_name }
 
-let spec ?ingress_class_name ~default_backend ~rule ~tls () : spec =
+let spec ?ingress_class_name ?(default_backend = []) ?(rule = [])
+    ?(tls = []) () : spec =
   { ingress_class_name; default_backend; rule; tls }
 
 let timeouts ?create ?delete () : timeouts = { create; delete }

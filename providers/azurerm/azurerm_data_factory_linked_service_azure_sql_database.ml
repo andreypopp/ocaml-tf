@@ -338,8 +338,8 @@ let azurerm_data_factory_linked_service_azure_sql_database
     ?additional_properties ?annotations ?connection_string
     ?description ?id ?integration_runtime_name ?parameters
     ?service_principal_id ?service_principal_key ?tenant_id
-    ?use_managed_identity ?timeouts ~data_factory_id ~name
-    ~key_vault_connection_string ~key_vault_password () :
+    ?use_managed_identity ?(key_vault_connection_string = [])
+    ?(key_vault_password = []) ?timeouts ~data_factory_id ~name () :
     azurerm_data_factory_linked_service_azure_sql_database =
   {
     additional_properties;
@@ -379,8 +379,9 @@ type t = {
 let make ?additional_properties ?annotations ?connection_string
     ?description ?id ?integration_runtime_name ?parameters
     ?service_principal_id ?service_principal_key ?tenant_id
-    ?use_managed_identity ?timeouts ~data_factory_id ~name
-    ~key_vault_connection_string ~key_vault_password __id =
+    ?use_managed_identity ?(key_vault_connection_string = [])
+    ?(key_vault_password = []) ?timeouts ~data_factory_id ~name __id
+    =
   let __type =
     "azurerm_data_factory_linked_service_azure_sql_database"
   in
@@ -417,22 +418,23 @@ let make ?additional_properties ?annotations ?connection_string
            ?additional_properties ?annotations ?connection_string
            ?description ?id ?integration_runtime_name ?parameters
            ?service_principal_id ?service_principal_key ?tenant_id
-           ?use_managed_identity ?timeouts ~data_factory_id ~name
-           ~key_vault_connection_string ~key_vault_password ());
+           ?use_managed_identity ~key_vault_connection_string
+           ~key_vault_password ?timeouts ~data_factory_id ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?additional_properties ?annotations
     ?connection_string ?description ?id ?integration_runtime_name
     ?parameters ?service_principal_id ?service_principal_key
-    ?tenant_id ?use_managed_identity ?timeouts ~data_factory_id ~name
-    ~key_vault_connection_string ~key_vault_password __id =
+    ?tenant_id ?use_managed_identity
+    ?(key_vault_connection_string = []) ?(key_vault_password = [])
+    ?timeouts ~data_factory_id ~name __id =
   let (r : _ Tf_core.resource) =
     make ?additional_properties ?annotations ?connection_string
       ?description ?id ?integration_runtime_name ?parameters
       ?service_principal_id ?service_principal_key ?tenant_id
-      ?use_managed_identity ?timeouts ~data_factory_id ~name
-      ~key_vault_connection_string ~key_vault_password __id
+      ?use_managed_identity ~key_vault_connection_string
+      ~key_vault_password ?timeouts ~data_factory_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -22,8 +22,8 @@ val aws_gamelift_game_session_queue :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?timeout_in_seconds:float prop ->
+  ?player_latency_policy:player_latency_policy list ->
   name:string prop ->
-  player_latency_policy:player_latency_policy list ->
   unit ->
   aws_gamelift_game_session_queue
 
@@ -53,8 +53,8 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?timeout_in_seconds:float prop ->
+  ?player_latency_policy:player_latency_policy list ->
   name:string prop ->
-  player_latency_policy:player_latency_policy list ->
   string ->
   t
 
@@ -66,7 +66,7 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?timeout_in_seconds:float prop ->
+  ?player_latency_policy:player_latency_policy list ->
   name:string prop ->
-  player_latency_policy:player_latency_policy list ->
   string ->
   t Tf_core.resource

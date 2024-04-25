@@ -220,7 +220,7 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let aws_ivschat_room ?id ?logging_configuration_identifiers
     ?maximum_message_length ?maximum_message_rate_per_second ?name
-    ?tags ?tags_all ?timeouts ~message_review_handler () :
+    ?tags ?tags_all ?(message_review_handler = []) ?timeouts () :
     aws_ivschat_room =
   {
     id;
@@ -247,7 +247,7 @@ type t = {
 
 let make ?id ?logging_configuration_identifiers
     ?maximum_message_length ?maximum_message_rate_per_second ?name
-    ?tags ?tags_all ?timeouts ~message_review_handler __id =
+    ?tags ?tags_all ?(message_review_handler = []) ?timeouts __id =
   let __type = "aws_ivschat_room" in
   let __attrs =
     ({
@@ -273,17 +273,17 @@ let make ?id ?logging_configuration_identifiers
       yojson_of_aws_ivschat_room
         (aws_ivschat_room ?id ?logging_configuration_identifiers
            ?maximum_message_length ?maximum_message_rate_per_second
-           ?name ?tags ?tags_all ?timeouts ~message_review_handler ());
+           ?name ?tags ?tags_all ~message_review_handler ?timeouts ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?logging_configuration_identifiers
     ?maximum_message_length ?maximum_message_rate_per_second ?name
-    ?tags ?tags_all ?timeouts ~message_review_handler __id =
+    ?tags ?tags_all ?(message_review_handler = []) ?timeouts __id =
   let (r : _ Tf_core.resource) =
     make ?id ?logging_configuration_identifiers
       ?maximum_message_length ?maximum_message_rate_per_second ?name
-      ?tags ?tags_all ?timeouts ~message_review_handler __id
+      ?tags ?tags_all ~message_review_handler ?timeouts __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

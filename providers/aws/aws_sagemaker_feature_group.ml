@@ -475,8 +475,8 @@ let offline_store_config__s3_storage_config ?kms_key_id
   { kms_key_id; resolved_output_s3_uri; s3_uri }
 
 let offline_store_config ?disable_glue_table_creation ?table_format
-    ~data_catalog_config ~s3_storage_config () : offline_store_config
-    =
+    ?(data_catalog_config = []) ~s3_storage_config () :
+    offline_store_config =
   {
     disable_glue_table_creation;
     table_format;
@@ -493,7 +493,8 @@ let online_store_config__ttl_duration ?unit ?value () :
   { unit; value }
 
 let online_store_config ?enable_online_store ?storage_type
-    ~security_config ~ttl_duration () : online_store_config =
+    ?(security_config = []) ?(ttl_duration = []) () :
+    online_store_config =
   {
     enable_online_store;
     storage_type;
@@ -502,10 +503,10 @@ let online_store_config ?enable_online_store ?storage_type
   }
 
 let aws_sagemaker_feature_group ?description ?id ?tags ?tags_all
+    ?(offline_store_config = []) ?(online_store_config = [])
     ~event_time_feature_name ~feature_group_name
-    ~record_identifier_feature_name ~role_arn ~feature_definition
-    ~offline_store_config ~online_store_config () :
-    aws_sagemaker_feature_group =
+    ~record_identifier_feature_name ~role_arn ~feature_definition ()
+    : aws_sagemaker_feature_group =
   {
     description;
     event_time_feature_name;
@@ -532,9 +533,10 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?description ?id ?tags ?tags_all ~event_time_feature_name
-    ~feature_group_name ~record_identifier_feature_name ~role_arn
-    ~feature_definition ~offline_store_config ~online_store_config
+let make ?description ?id ?tags ?tags_all
+    ?(offline_store_config = []) ?(online_store_config = [])
+    ~event_time_feature_name ~feature_group_name
+    ~record_identifier_feature_name ~role_arn ~feature_definition
     __id =
   let __type = "aws_sagemaker_feature_group" in
   let __attrs =
@@ -560,22 +562,23 @@ let make ?description ?id ?tags ?tags_all ~event_time_feature_name
     json =
       yojson_of_aws_sagemaker_feature_group
         (aws_sagemaker_feature_group ?description ?id ?tags ?tags_all
+           ~offline_store_config ~online_store_config
            ~event_time_feature_name ~feature_group_name
            ~record_identifier_feature_name ~role_arn
-           ~feature_definition ~offline_store_config
-           ~online_store_config ());
+           ~feature_definition ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?tags ?tags_all
+    ?(offline_store_config = []) ?(online_store_config = [])
     ~event_time_feature_name ~feature_group_name
     ~record_identifier_feature_name ~role_arn ~feature_definition
-    ~offline_store_config ~online_store_config __id =
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?tags ?tags_all ~event_time_feature_name
+    make ?description ?id ?tags ?tags_all ~offline_store_config
+      ~online_store_config ~event_time_feature_name
       ~feature_group_name ~record_identifier_feature_name ~role_arn
-      ~feature_definition ~offline_store_config ~online_store_config
-      __id
+      ~feature_definition __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

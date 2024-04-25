@@ -135,9 +135,9 @@ type test_case_conversation_turns__user_input__input
 
 val test_case_conversation_turns__user_input__input :
   ?language_code:string prop ->
-  dtmf:test_case_conversation_turns__user_input__input__dtmf list ->
-  event:test_case_conversation_turns__user_input__input__event list ->
-  text:test_case_conversation_turns__user_input__input__text list ->
+  ?dtmf:test_case_conversation_turns__user_input__input__dtmf list ->
+  ?event:test_case_conversation_turns__user_input__input__event list ->
+  ?text:test_case_conversation_turns__user_input__input__text list ->
   unit ->
   test_case_conversation_turns__user_input__input
 
@@ -147,7 +147,7 @@ val test_case_conversation_turns__user_input :
   ?enable_sentiment_analysis:bool prop ->
   ?injected_parameters:string prop ->
   ?is_webhook_enabled:bool prop ->
-  input:test_case_conversation_turns__user_input__input list ->
+  ?input:test_case_conversation_turns__user_input__input list ->
   unit ->
   test_case_conversation_turns__user_input
 
@@ -176,13 +176,13 @@ type test_case_conversation_turns__virtual_agent_output
 
 val test_case_conversation_turns__virtual_agent_output :
   ?session_parameters:string prop ->
-  current_page:
+  ?current_page:
     test_case_conversation_turns__virtual_agent_output__current_page
     list ->
-  text_responses:
+  ?text_responses:
     test_case_conversation_turns__virtual_agent_output__text_responses
     list ->
-  triggered_intent:
+  ?triggered_intent:
     test_case_conversation_turns__virtual_agent_output__triggered_intent
     list ->
   unit ->
@@ -191,8 +191,8 @@ val test_case_conversation_turns__virtual_agent_output :
 type test_case_conversation_turns
 
 val test_case_conversation_turns :
-  user_input:test_case_conversation_turns__user_input list ->
-  virtual_agent_output:
+  ?user_input:test_case_conversation_turns__user_input list ->
+  ?virtual_agent_output:
     test_case_conversation_turns__virtual_agent_output list ->
   unit ->
   test_case_conversation_turns
@@ -222,10 +222,10 @@ val google_dialogflow_cx_test_case :
   ?notes:string prop ->
   ?parent:string prop ->
   ?tags:string prop list ->
+  ?test_case_conversation_turns:test_case_conversation_turns list ->
+  ?test_config:test_config list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
-  test_case_conversation_turns:test_case_conversation_turns list ->
-  test_config:test_config list ->
   unit ->
   google_dialogflow_cx_test_case
 
@@ -251,10 +251,10 @@ val register :
   ?notes:string prop ->
   ?parent:string prop ->
   ?tags:string prop list ->
+  ?test_case_conversation_turns:test_case_conversation_turns list ->
+  ?test_config:test_config list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
-  test_case_conversation_turns:test_case_conversation_turns list ->
-  test_config:test_config list ->
   string ->
   t
 
@@ -263,9 +263,9 @@ val make :
   ?notes:string prop ->
   ?parent:string prop ->
   ?tags:string prop list ->
+  ?test_case_conversation_turns:test_case_conversation_turns list ->
+  ?test_config:test_config list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
-  test_case_conversation_turns:test_case_conversation_turns list ->
-  test_config:test_config list ->
   string ->
   t Tf_core.resource

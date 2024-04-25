@@ -123,7 +123,7 @@ let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
 let google_bigquery_connection_iam_member ?id ?location ?project
-    ~connection_id ~member ~role ~condition () :
+    ?(condition = []) ~connection_id ~member ~role () :
     google_bigquery_connection_iam_member =
   { connection_id; id; location; member; project; role; condition }
 
@@ -137,8 +137,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?location ?project ~connection_id ~member ~role
-    ~condition __id =
+let make ?id ?location ?project ?(condition = []) ~connection_id
+    ~member ~role __id =
   let __type = "google_bigquery_connection_iam_member" in
   let __attrs =
     ({
@@ -158,15 +158,15 @@ let make ?id ?location ?project ~connection_id ~member ~role
     json =
       yojson_of_google_bigquery_connection_iam_member
         (google_bigquery_connection_iam_member ?id ?location ?project
-           ~connection_id ~member ~role ~condition ());
+           ~condition ~connection_id ~member ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?location ?project ~connection_id ~member
-    ~role ~condition __id =
+let register ?tf_module ?id ?location ?project ?(condition = [])
+    ~connection_id ~member ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?location ?project ~connection_id ~member ~role
-      ~condition __id
+    make ?id ?location ?project ~condition ~connection_id ~member
+      ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

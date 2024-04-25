@@ -281,7 +281,7 @@ let column_groups__geo_spatial_column_group ~columns ~country_code ~name () =
     name;
   } : column_groups__geo_spatial_column_group);;
 
-let column_groups ~geo_spatial_column_group () =
+let column_groups ?(geo_spatial_column_group=[]) () =
   ({
     geo_spatial_column_group;
   } : column_groups);;
@@ -345,7 +345,7 @@ let logical_table_map__data_transforms__tag_column_operation__tags__column_descr
     text;
   } : logical_table_map__data_transforms__tag_column_operation__tags__column_description);;
 
-let logical_table_map__data_transforms__tag_column_operation__tags ?column_geographic_role ~column_description () =
+let logical_table_map__data_transforms__tag_column_operation__tags ?column_geographic_role ?(column_description=[]) () =
   ({
     column_geographic_role;
     column_description;
@@ -363,7 +363,7 @@ let logical_table_map__data_transforms__untag_column_operation ~column_name ~tag
     tag_names;
   } : logical_table_map__data_transforms__untag_column_operation);;
 
-let logical_table_map__data_transforms ~cast_column_type_operation ~create_columns_operation ~filter_operation ~project_operation ~rename_column_operation ~tag_column_operation ~untag_column_operation () =
+let logical_table_map__data_transforms ?(cast_column_type_operation=[]) ?(create_columns_operation=[]) ?(filter_operation=[]) ?(project_operation=[]) ?(rename_column_operation=[]) ?(tag_column_operation=[]) ?(untag_column_operation=[]) () =
   ({
     cast_column_type_operation;
     create_columns_operation;
@@ -384,7 +384,7 @@ let logical_table_map__source__join_instruction__right_join_key_properties ?uniq
     unique_key;
   } : logical_table_map__source__join_instruction__right_join_key_properties);;
 
-let logical_table_map__source__join_instruction ~left_operand ~on_clause ~right_operand ~type_ ~left_join_key_properties ~right_join_key_properties () =
+let logical_table_map__source__join_instruction ?(left_join_key_properties=[]) ?(right_join_key_properties=[]) ~left_operand ~on_clause ~right_operand ~type_ () =
   ({
     left_operand;
     on_clause;
@@ -394,14 +394,14 @@ let logical_table_map__source__join_instruction ~left_operand ~on_clause ~right_
     right_join_key_properties;
   } : logical_table_map__source__join_instruction);;
 
-let logical_table_map__source ?data_set_arn ?physical_table_id ~join_instruction () =
+let logical_table_map__source ?data_set_arn ?physical_table_id ?(join_instruction=[]) () =
   ({
     data_set_arn;
     physical_table_id;
     join_instruction;
   } : logical_table_map__source);;
 
-let logical_table_map ~alias ~logical_table_map_id ~data_transforms ~source () =
+let logical_table_map ?(data_transforms=[]) ~alias ~logical_table_map_id ~source () =
   ({
     alias;
     logical_table_map_id;
@@ -421,7 +421,7 @@ let physical_table_map__custom_sql__columns ~name ~type_ () =
     type_;
   } : physical_table_map__custom_sql__columns);;
 
-let physical_table_map__custom_sql ~data_source_arn ~name ~sql_query ~columns () =
+let physical_table_map__custom_sql ?(columns=[]) ~data_source_arn ~name ~sql_query () =
   ({
     data_source_arn;
     name;
@@ -466,7 +466,7 @@ let physical_table_map__s3_source ~data_source_arn ~input_columns ~upload_settin
     upload_settings;
   } : physical_table_map__s3_source);;
 
-let physical_table_map ~physical_table_map_id ~custom_sql ~relational_table ~s3_source () =
+let physical_table_map ?(custom_sql=[]) ?(relational_table=[]) ?(s3_source=[]) ~physical_table_map_id () =
   ({
     physical_table_map_id;
     custom_sql;
@@ -519,7 +519,7 @@ let row_level_permission_tag_configuration ?status ~tag_rules () =
     tag_rules;
   } : row_level_permission_tag_configuration);;
 
-let aws_quicksight_data_set ?aws_account_id ?id ?tags ?tags_all ~data_set_id ~import_mode ~name ~column_groups ~column_level_permission_rules ~data_set_usage_configuration ~field_folders ~logical_table_map ~permissions ~physical_table_map ~refresh_properties ~row_level_permission_data_set ~row_level_permission_tag_configuration () =
+let aws_quicksight_data_set ?aws_account_id ?id ?tags ?tags_all ?(column_groups=[]) ?(column_level_permission_rules=[]) ?(data_set_usage_configuration=[]) ?(refresh_properties=[]) ?(row_level_permission_data_set=[]) ?(row_level_permission_tag_configuration=[]) ~data_set_id ~import_mode ~name ~field_folders ~logical_table_map ~permissions ~physical_table_map () =
   ({
     aws_account_id;
     data_set_id;
@@ -552,7 +552,7 @@ type t = {
   tags_all: (string * string) list prop;
 }
 
-let make ?aws_account_id ?id ?tags ?tags_all ~data_set_id ~import_mode ~name ~column_groups ~column_level_permission_rules ~data_set_usage_configuration ~field_folders ~logical_table_map ~permissions ~physical_table_map ~refresh_properties ~row_level_permission_data_set ~row_level_permission_tag_configuration __id =
+let make ?aws_account_id ?id ?tags ?tags_all ?(column_groups=[]) ?(column_level_permission_rules=[]) ?(data_set_usage_configuration=[]) ?(refresh_properties=[]) ?(row_level_permission_data_set=[]) ?(row_level_permission_tag_configuration=[]) ~data_set_id ~import_mode ~name ~field_folders ~logical_table_map ~permissions ~physical_table_map __id =
   let __type = "aws_quicksight_data_set" in
   let __attrs = ({
     arn = Prop.computed __type __id "arn";
@@ -568,12 +568,12 @@ let make ?aws_account_id ?id ?tags ?tags_all ~data_set_id ~import_mode ~name ~co
   {Tf_core.
     id=__id;
     type_=__type;
-    json=yojson_of_aws_quicksight_data_set (aws_quicksight_data_set ?aws_account_id ?id ?tags ?tags_all ~data_set_id ~import_mode ~name ~column_groups ~column_level_permission_rules ~data_set_usage_configuration ~field_folders ~logical_table_map ~permissions ~physical_table_map ~refresh_properties ~row_level_permission_data_set ~row_level_permission_tag_configuration ());
+    json=yojson_of_aws_quicksight_data_set (aws_quicksight_data_set ?aws_account_id ?id ?tags ?tags_all ~column_groups ~column_level_permission_rules ~data_set_usage_configuration ~refresh_properties ~row_level_permission_data_set ~row_level_permission_tag_configuration ~data_set_id ~import_mode ~name ~field_folders ~logical_table_map ~permissions ~physical_table_map ());
     attrs=__attrs;
   };;
 
-let register ?tf_module ?aws_account_id ?id ?tags ?tags_all ~data_set_id ~import_mode ~name ~column_groups ~column_level_permission_rules ~data_set_usage_configuration ~field_folders ~logical_table_map ~permissions ~physical_table_map ~refresh_properties ~row_level_permission_data_set ~row_level_permission_tag_configuration __id =
-  let (r : _ Tf_core.resource) = make ?aws_account_id ?id ?tags ?tags_all ~data_set_id ~import_mode ~name ~column_groups ~column_level_permission_rules ~data_set_usage_configuration ~field_folders ~logical_table_map ~permissions ~physical_table_map ~refresh_properties ~row_level_permission_data_set ~row_level_permission_tag_configuration __id in
+let register ?tf_module ?aws_account_id ?id ?tags ?tags_all ?(column_groups=[]) ?(column_level_permission_rules=[]) ?(data_set_usage_configuration=[]) ?(refresh_properties=[]) ?(row_level_permission_data_set=[]) ?(row_level_permission_tag_configuration=[]) ~data_set_id ~import_mode ~name ~field_folders ~logical_table_map ~permissions ~physical_table_map __id =
+  let (r : _ Tf_core.resource) = make ?aws_account_id ?id ?tags ?tags_all ~column_groups ~column_level_permission_rules ~data_set_usage_configuration ~refresh_properties ~row_level_permission_data_set ~row_level_permission_tag_configuration ~data_set_id ~import_mode ~name ~field_folders ~logical_table_map ~permissions ~physical_table_map __id in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs;;
 

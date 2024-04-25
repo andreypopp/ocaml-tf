@@ -796,7 +796,7 @@ let config__ingress_rule__origin_request ?bastion_mode ?ca_pool
     ?http_host_header ?keep_alive_connections ?keep_alive_timeout
     ?no_happy_eyeballs ?no_tls_verify ?origin_server_name
     ?proxy_address ?proxy_port ?proxy_type ?tcp_keep_alive
-    ?tls_timeout ~access ~ip_rules () :
+    ?tls_timeout ?(access = []) ~ip_rules () :
     config__ingress_rule__origin_request =
   {
     bastion_mode;
@@ -819,8 +819,8 @@ let config__ingress_rule__origin_request ?bastion_mode ?ca_pool
     ip_rules;
   }
 
-let config__ingress_rule ?hostname ?path ~service ~origin_request ()
-    : config__ingress_rule =
+let config__ingress_rule ?hostname ?path ?(origin_request = [])
+    ~service () : config__ingress_rule =
   { hostname; path; service; origin_request }
 
 let config__origin_request__access ?aud_tag ?required ?team_name () :
@@ -835,8 +835,8 @@ let config__origin_request ?bastion_mode ?ca_pool ?connect_timeout
     ?disable_chunked_encoding ?http2_origin ?http_host_header
     ?keep_alive_connections ?keep_alive_timeout ?no_happy_eyeballs
     ?no_tls_verify ?origin_server_name ?proxy_address ?proxy_port
-    ?proxy_type ?tcp_keep_alive ?tls_timeout ~access ~ip_rules () :
-    config__origin_request =
+    ?proxy_type ?tcp_keep_alive ?tls_timeout ?(access = []) ~ip_rules
+    () : config__origin_request =
   {
     bastion_mode;
     ca_pool;
@@ -861,7 +861,8 @@ let config__origin_request ?bastion_mode ?ca_pool ?connect_timeout
 let config__warp_routing ?enabled () : config__warp_routing =
   { enabled }
 
-let config ~ingress_rule ~origin_request ~warp_routing () : config =
+let config ?(origin_request = []) ?(warp_routing = []) ~ingress_rule
+    () : config =
   { ingress_rule; origin_request; warp_routing }
 
 let cloudflare_tunnel_config ?id ~account_id ~tunnel_id ~config () :

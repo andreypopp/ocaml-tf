@@ -653,9 +653,9 @@ let azurerm_synapse_workspace ?aad_admin ?azuread_authentication_only
     ?managed_virtual_network_enabled ?public_network_access_enabled
     ?purview_id ?sql_aad_admin ?sql_administrator_login
     ?sql_administrator_login_password ?sql_identity_control_enabled
-    ?tags ?timeouts ~location ~name ~resource_group_name
-    ~storage_data_lake_gen2_filesystem_id ~azure_devops_repo
-    ~customer_managed_key ~github_repo ~identity () :
+    ?tags ?(azure_devops_repo = []) ?(customer_managed_key = [])
+    ?(github_repo = []) ?(identity = []) ?timeouts ~location ~name
+    ~resource_group_name ~storage_data_lake_gen2_filesystem_id () :
     azurerm_synapse_workspace =
   {
     aad_admin;
@@ -713,9 +713,9 @@ let make ?aad_admin ?azuread_authentication_only ?compute_subnet_id
     ?managed_virtual_network_enabled ?public_network_access_enabled
     ?purview_id ?sql_aad_admin ?sql_administrator_login
     ?sql_administrator_login_password ?sql_identity_control_enabled
-    ?tags ?timeouts ~location ~name ~resource_group_name
-    ~storage_data_lake_gen2_filesystem_id ~azure_devops_repo
-    ~customer_managed_key ~github_repo ~identity __id =
+    ?tags ?(azure_devops_repo = []) ?(customer_managed_key = [])
+    ?(github_repo = []) ?(identity = []) ?timeouts ~location ~name
+    ~resource_group_name ~storage_data_lake_gen2_filesystem_id __id =
   let __type = "azurerm_synapse_workspace" in
   let __attrs =
     ({
@@ -771,10 +771,10 @@ let make ?aad_admin ?azuread_authentication_only ?compute_subnet_id
            ?managed_virtual_network_enabled
            ?public_network_access_enabled ?purview_id ?sql_aad_admin
            ?sql_administrator_login ?sql_administrator_login_password
-           ?sql_identity_control_enabled ?tags ?timeouts ~location
-           ~name ~resource_group_name
-           ~storage_data_lake_gen2_filesystem_id ~azure_devops_repo
-           ~customer_managed_key ~github_repo ~identity ());
+           ?sql_identity_control_enabled ?tags ~azure_devops_repo
+           ~customer_managed_key ~github_repo ~identity ?timeouts
+           ~location ~name ~resource_group_name
+           ~storage_data_lake_gen2_filesystem_id ());
     attrs = __attrs;
   }
 
@@ -784,9 +784,9 @@ let register ?tf_module ?aad_admin ?azuread_authentication_only
     ?managed_virtual_network_enabled ?public_network_access_enabled
     ?purview_id ?sql_aad_admin ?sql_administrator_login
     ?sql_administrator_login_password ?sql_identity_control_enabled
-    ?tags ?timeouts ~location ~name ~resource_group_name
-    ~storage_data_lake_gen2_filesystem_id ~azure_devops_repo
-    ~customer_managed_key ~github_repo ~identity __id =
+    ?tags ?(azure_devops_repo = []) ?(customer_managed_key = [])
+    ?(github_repo = []) ?(identity = []) ?timeouts ~location ~name
+    ~resource_group_name ~storage_data_lake_gen2_filesystem_id __id =
   let (r : _ Tf_core.resource) =
     make ?aad_admin ?azuread_authentication_only ?compute_subnet_id
       ?data_exfiltration_protection_enabled ?id
@@ -794,10 +794,10 @@ let register ?tf_module ?aad_admin ?azuread_authentication_only
       ?managed_resource_group_name ?managed_virtual_network_enabled
       ?public_network_access_enabled ?purview_id ?sql_aad_admin
       ?sql_administrator_login ?sql_administrator_login_password
-      ?sql_identity_control_enabled ?tags ?timeouts ~location ~name
-      ~resource_group_name ~storage_data_lake_gen2_filesystem_id
-      ~azure_devops_repo ~customer_managed_key ~github_repo ~identity
-      __id
+      ?sql_identity_control_enabled ?tags ~azure_devops_repo
+      ~customer_managed_key ~github_repo ~identity ?timeouts
+      ~location ~name ~resource_group_name
+      ~storage_data_lake_gen2_filesystem_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

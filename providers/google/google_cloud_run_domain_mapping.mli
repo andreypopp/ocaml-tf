@@ -53,10 +53,10 @@ type google_cloud_run_domain_mapping
 val google_cloud_run_domain_mapping :
   ?id:string prop ->
   ?project:string prop ->
+  ?metadata:metadata list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  metadata:metadata list ->
   spec:spec list ->
   unit ->
   google_cloud_run_domain_mapping
@@ -78,10 +78,10 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
+  ?metadata:metadata list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  metadata:metadata list ->
   spec:spec list ->
   string ->
   t
@@ -89,10 +89,10 @@ val register :
 val make :
   ?id:string prop ->
   ?project:string prop ->
+  ?metadata:metadata list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  metadata:metadata list ->
   spec:spec list ->
   string ->
   t Tf_core.resource

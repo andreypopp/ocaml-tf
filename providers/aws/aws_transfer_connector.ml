@@ -250,7 +250,7 @@ let sftp_config ?trusted_host_keys ?user_secret_id () : sftp_config =
   { trusted_host_keys; user_secret_id }
 
 let aws_transfer_connector ?id ?logging_role ?tags ?tags_all
-    ~access_role ~url ~as2_config ~sftp_config () :
+    ?(as2_config = []) ?(sftp_config = []) ~access_role ~url () :
     aws_transfer_connector =
   {
     access_role;
@@ -274,8 +274,8 @@ type t = {
   url : string prop;
 }
 
-let make ?id ?logging_role ?tags ?tags_all ~access_role ~url
-    ~as2_config ~sftp_config __id =
+let make ?id ?logging_role ?tags ?tags_all ?(as2_config = [])
+    ?(sftp_config = []) ~access_role ~url __id =
   let __type = "aws_transfer_connector" in
   let __attrs =
     ({
@@ -296,15 +296,15 @@ let make ?id ?logging_role ?tags ?tags_all ~access_role ~url
     json =
       yojson_of_aws_transfer_connector
         (aws_transfer_connector ?id ?logging_role ?tags ?tags_all
-           ~access_role ~url ~as2_config ~sftp_config ());
+           ~as2_config ~sftp_config ~access_role ~url ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?logging_role ?tags ?tags_all
-    ~access_role ~url ~as2_config ~sftp_config __id =
+    ?(as2_config = []) ?(sftp_config = []) ~access_role ~url __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?logging_role ?tags ?tags_all ~access_role ~url
-      ~as2_config ~sftp_config __id
+    make ?id ?logging_role ?tags ?tags_all ~as2_config ~sftp_config
+      ~access_role ~url __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

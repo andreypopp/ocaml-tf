@@ -626,8 +626,8 @@ let account_takeover_risk_configuration__actions__medium_action
     account_takeover_risk_configuration__actions__medium_action =
   { event_action; notify }
 
-let account_takeover_risk_configuration__actions ~high_action
-    ~low_action ~medium_action () :
+let account_takeover_risk_configuration__actions ?(high_action = [])
+    ?(low_action = []) ?(medium_action = []) () :
     account_takeover_risk_configuration__actions =
   { high_action; low_action; medium_action }
 
@@ -650,8 +650,9 @@ let account_takeover_risk_configuration__notify_configuration__no_action_email
   { html_body; subject; text_body }
 
 let account_takeover_risk_configuration__notify_configuration ?from
-    ?reply_to ~source_arn ~block_email ~mfa_email ~no_action_email ()
-    : account_takeover_risk_configuration__notify_configuration =
+    ?reply_to ?(block_email = []) ?(mfa_email = [])
+    ?(no_action_email = []) ~source_arn () :
+    account_takeover_risk_configuration__notify_configuration =
   {
     from;
     reply_to;
@@ -677,11 +678,11 @@ let risk_exception_configuration ?blocked_ip_range_list
     ?skipped_ip_range_list () : risk_exception_configuration =
   { blocked_ip_range_list; skipped_ip_range_list }
 
-let aws_cognito_risk_configuration ?client_id ?id ~user_pool_id
-    ~account_takeover_risk_configuration
-    ~compromised_credentials_risk_configuration
-    ~risk_exception_configuration () : aws_cognito_risk_configuration
-    =
+let aws_cognito_risk_configuration ?client_id ?id
+    ?(account_takeover_risk_configuration = [])
+    ?(compromised_credentials_risk_configuration = [])
+    ?(risk_exception_configuration = []) ~user_pool_id () :
+    aws_cognito_risk_configuration =
   {
     client_id;
     id;
@@ -697,10 +698,9 @@ type t = {
   user_pool_id : string prop;
 }
 
-let make ?client_id ?id ~user_pool_id
-    ~account_takeover_risk_configuration
-    ~compromised_credentials_risk_configuration
-    ~risk_exception_configuration __id =
+let make ?client_id ?id ?(account_takeover_risk_configuration = [])
+    ?(compromised_credentials_risk_configuration = [])
+    ?(risk_exception_configuration = []) ~user_pool_id __id =
   let __type = "aws_cognito_risk_configuration" in
   let __attrs =
     ({
@@ -715,22 +715,21 @@ let make ?client_id ?id ~user_pool_id
     type_ = __type;
     json =
       yojson_of_aws_cognito_risk_configuration
-        (aws_cognito_risk_configuration ?client_id ?id ~user_pool_id
+        (aws_cognito_risk_configuration ?client_id ?id
            ~account_takeover_risk_configuration
            ~compromised_credentials_risk_configuration
-           ~risk_exception_configuration ());
+           ~risk_exception_configuration ~user_pool_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?client_id ?id ~user_pool_id
-    ~account_takeover_risk_configuration
-    ~compromised_credentials_risk_configuration
-    ~risk_exception_configuration __id =
+let register ?tf_module ?client_id ?id
+    ?(account_takeover_risk_configuration = [])
+    ?(compromised_credentials_risk_configuration = [])
+    ?(risk_exception_configuration = []) ~user_pool_id __id =
   let (r : _ Tf_core.resource) =
-    make ?client_id ?id ~user_pool_id
-      ~account_takeover_risk_configuration
+    make ?client_id ?id ~account_takeover_risk_configuration
       ~compromised_credentials_risk_configuration
-      ~risk_exception_configuration __id
+      ~risk_exception_configuration ~user_pool_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

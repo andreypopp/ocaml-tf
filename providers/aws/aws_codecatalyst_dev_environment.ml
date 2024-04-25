@@ -253,9 +253,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_codecatalyst_dev_environment ?alias ?id
-    ?inactivity_timeout_minutes ?timeouts ~instance_type
-    ~project_name ~space_name ~ides ~persistent_storage ~repositories
-    () : aws_codecatalyst_dev_environment =
+    ?inactivity_timeout_minutes ?(repositories = []) ?timeouts
+    ~instance_type ~project_name ~space_name ~ides
+    ~persistent_storage () : aws_codecatalyst_dev_environment =
   {
     alias;
     id;
@@ -278,9 +278,9 @@ type t = {
   space_name : string prop;
 }
 
-let make ?alias ?id ?inactivity_timeout_minutes ?timeouts
-    ~instance_type ~project_name ~space_name ~ides
-    ~persistent_storage ~repositories __id =
+let make ?alias ?id ?inactivity_timeout_minutes ?(repositories = [])
+    ?timeouts ~instance_type ~project_name ~space_name ~ides
+    ~persistent_storage __id =
   let __type = "aws_codecatalyst_dev_environment" in
   let __attrs =
     ({
@@ -300,19 +300,19 @@ let make ?alias ?id ?inactivity_timeout_minutes ?timeouts
     json =
       yojson_of_aws_codecatalyst_dev_environment
         (aws_codecatalyst_dev_environment ?alias ?id
-           ?inactivity_timeout_minutes ?timeouts ~instance_type
-           ~project_name ~space_name ~ides ~persistent_storage
-           ~repositories ());
+           ?inactivity_timeout_minutes ~repositories ?timeouts
+           ~instance_type ~project_name ~space_name ~ides
+           ~persistent_storage ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?alias ?id ?inactivity_timeout_minutes
-    ?timeouts ~instance_type ~project_name ~space_name ~ides
-    ~persistent_storage ~repositories __id =
+    ?(repositories = []) ?timeouts ~instance_type ~project_name
+    ~space_name ~ides ~persistent_storage __id =
   let (r : _ Tf_core.resource) =
-    make ?alias ?id ?inactivity_timeout_minutes ?timeouts
-      ~instance_type ~project_name ~space_name ~ides
-      ~persistent_storage ~repositories __id
+    make ?alias ?id ?inactivity_timeout_minutes ~repositories
+      ?timeouts ~instance_type ~project_name ~space_name ~ides
+      ~persistent_storage __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

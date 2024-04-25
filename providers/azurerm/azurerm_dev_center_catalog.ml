@@ -237,9 +237,9 @@ let catalog_github ~branch ~key_vault_key_url ~path ~uri () :
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_dev_center_catalog ?id ?timeouts ~dev_center_id ~name
-    ~resource_group_name ~catalog_adogit ~catalog_github () :
-    azurerm_dev_center_catalog =
+let azurerm_dev_center_catalog ?id ?(catalog_adogit = [])
+    ?(catalog_github = []) ?timeouts ~dev_center_id ~name
+    ~resource_group_name () : azurerm_dev_center_catalog =
   {
     dev_center_id;
     id;
@@ -257,8 +257,8 @@ type t = {
   resource_group_name : string prop;
 }
 
-let make ?id ?timeouts ~dev_center_id ~name ~resource_group_name
-    ~catalog_adogit ~catalog_github __id =
+let make ?id ?(catalog_adogit = []) ?(catalog_github = []) ?timeouts
+    ~dev_center_id ~name ~resource_group_name __id =
   let __type = "azurerm_dev_center_catalog" in
   let __attrs =
     ({
@@ -275,17 +275,18 @@ let make ?id ?timeouts ~dev_center_id ~name ~resource_group_name
     type_ = __type;
     json =
       yojson_of_azurerm_dev_center_catalog
-        (azurerm_dev_center_catalog ?id ?timeouts ~dev_center_id
-           ~name ~resource_group_name ~catalog_adogit ~catalog_github
-           ());
+        (azurerm_dev_center_catalog ?id ~catalog_adogit
+           ~catalog_github ?timeouts ~dev_center_id ~name
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~dev_center_id ~name
-    ~resource_group_name ~catalog_adogit ~catalog_github __id =
+let register ?tf_module ?id ?(catalog_adogit = [])
+    ?(catalog_github = []) ?timeouts ~dev_center_id ~name
+    ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~dev_center_id ~name ~resource_group_name
-      ~catalog_adogit ~catalog_github __id
+    make ?id ~catalog_adogit ~catalog_github ?timeouts ~dev_center_id
+      ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

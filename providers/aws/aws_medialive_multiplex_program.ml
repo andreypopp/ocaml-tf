@@ -243,13 +243,13 @@ let multiplex_program_settings__video_settings__statmux_settings
   { maximum_bitrate; minimum_bitrate; priority }
 
 let multiplex_program_settings__video_settings ?constant_bitrate
-    ~statmux_settings () : multiplex_program_settings__video_settings
-    =
+    ?(statmux_settings = []) () :
+    multiplex_program_settings__video_settings =
   { constant_bitrate; statmux_settings }
 
-let multiplex_program_settings ~preferred_channel_pipeline
-    ~program_number ~service_descriptor ~video_settings () :
-    multiplex_program_settings =
+let multiplex_program_settings ?(service_descriptor = [])
+    ?(video_settings = []) ~preferred_channel_pipeline
+    ~program_number () : multiplex_program_settings =
   {
     preferred_channel_pipeline;
     program_number;
@@ -257,9 +257,9 @@ let multiplex_program_settings ~preferred_channel_pipeline
     video_settings;
   }
 
-let aws_medialive_multiplex_program ~multiplex_id ~program_name
-    ~multiplex_program_settings () : aws_medialive_multiplex_program
-    =
+let aws_medialive_multiplex_program
+    ?(multiplex_program_settings = []) ~multiplex_id ~program_name ()
+    : aws_medialive_multiplex_program =
   { multiplex_id; program_name; multiplex_program_settings }
 
 type t = {
@@ -268,8 +268,8 @@ type t = {
   program_name : string prop;
 }
 
-let make ~multiplex_id ~program_name ~multiplex_program_settings __id
-    =
+let make ?(multiplex_program_settings = []) ~multiplex_id
+    ~program_name __id =
   let __type = "aws_medialive_multiplex_program" in
   let __attrs =
     ({
@@ -284,15 +284,15 @@ let make ~multiplex_id ~program_name ~multiplex_program_settings __id
     type_ = __type;
     json =
       yojson_of_aws_medialive_multiplex_program
-        (aws_medialive_multiplex_program ~multiplex_id ~program_name
-           ~multiplex_program_settings ());
+        (aws_medialive_multiplex_program ~multiplex_program_settings
+           ~multiplex_id ~program_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ~multiplex_id ~program_name
-    ~multiplex_program_settings __id =
+let register ?tf_module ?(multiplex_program_settings = [])
+    ~multiplex_id ~program_name __id =
   let (r : _ Tf_core.resource) =
-    make ~multiplex_id ~program_name ~multiplex_program_settings __id
+    make ~multiplex_program_settings ~multiplex_id ~program_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

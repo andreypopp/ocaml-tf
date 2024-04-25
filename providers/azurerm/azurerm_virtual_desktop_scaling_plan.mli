@@ -54,12 +54,12 @@ val azurerm_virtual_desktop_scaling_plan :
   ?friendly_name:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?host_pool:host_pool list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   time_zone:string prop ->
-  host_pool:host_pool list ->
   schedule:schedule list ->
   unit ->
   azurerm_virtual_desktop_scaling_plan
@@ -88,12 +88,12 @@ val register :
   ?friendly_name:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?host_pool:host_pool list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   time_zone:string prop ->
-  host_pool:host_pool list ->
   schedule:schedule list ->
   string ->
   t
@@ -104,12 +104,12 @@ val make :
   ?friendly_name:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?host_pool:host_pool list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   time_zone:string prop ->
-  host_pool:host_pool list ->
   schedule:schedule list ->
   string ->
   t Tf_core.resource

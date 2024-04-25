@@ -440,7 +440,8 @@ let ethereum_details__validator_config ?mev_relay_urls () :
 
 let ethereum_details ?api_enable_admin ?api_enable_debug
     ?consensus_client ?execution_client ?network ?node_type
-    ~geth_details ~validator_config () : ethereum_details =
+    ?(geth_details = []) ?(validator_config = []) () :
+    ethereum_details =
   {
     api_enable_admin;
     api_enable_debug;
@@ -456,8 +457,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_blockchain_node_engine_blockchain_nodes ?blockchain_type
-    ?id ?labels ?project ?timeouts ~blockchain_node_id ~location
-    ~ethereum_details () :
+    ?id ?labels ?project ?(ethereum_details = []) ?timeouts
+    ~blockchain_node_id ~location () :
     google_blockchain_node_engine_blockchain_nodes =
   {
     blockchain_node_id;
@@ -485,8 +486,9 @@ type t = {
   update_time : string prop;
 }
 
-let make ?blockchain_type ?id ?labels ?project ?timeouts
-    ~blockchain_node_id ~location ~ethereum_details __id =
+let make ?blockchain_type ?id ?labels ?project
+    ?(ethereum_details = []) ?timeouts ~blockchain_node_id ~location
+    __id =
   let __type = "google_blockchain_node_engine_blockchain_nodes" in
   let __attrs =
     ({
@@ -514,16 +516,17 @@ let make ?blockchain_type ?id ?labels ?project ?timeouts
     json =
       yojson_of_google_blockchain_node_engine_blockchain_nodes
         (google_blockchain_node_engine_blockchain_nodes
-           ?blockchain_type ?id ?labels ?project ?timeouts
-           ~blockchain_node_id ~location ~ethereum_details ());
+           ?blockchain_type ?id ?labels ?project ~ethereum_details
+           ?timeouts ~blockchain_node_id ~location ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?blockchain_type ?id ?labels ?project
-    ?timeouts ~blockchain_node_id ~location ~ethereum_details __id =
+    ?(ethereum_details = []) ?timeouts ~blockchain_node_id ~location
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?blockchain_type ?id ?labels ?project ?timeouts
-      ~blockchain_node_id ~location ~ethereum_details __id
+    make ?blockchain_type ?id ?labels ?project ~ethereum_details
+      ?timeouts ~blockchain_node_id ~location __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -279,8 +279,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_app_service_environment_v3
     ?allow_new_private_endpoint_connections ?dedicated_host_count ?id
     ?internal_load_balancing_mode ?remote_debugging_enabled ?tags
-    ?zone_redundant ?timeouts ~name ~resource_group_name ~subnet_id
-    ~cluster_setting () : azurerm_app_service_environment_v3 =
+    ?zone_redundant ?(cluster_setting = []) ?timeouts ~name
+    ~resource_group_name ~subnet_id () :
+    azurerm_app_service_environment_v3 =
   {
     allow_new_private_endpoint_connections;
     dedicated_host_count;
@@ -321,8 +322,9 @@ type t = {
 
 let make ?allow_new_private_endpoint_connections
     ?dedicated_host_count ?id ?internal_load_balancing_mode
-    ?remote_debugging_enabled ?tags ?zone_redundant ?timeouts ~name
-    ~resource_group_name ~subnet_id ~cluster_setting __id =
+    ?remote_debugging_enabled ?tags ?zone_redundant
+    ?(cluster_setting = []) ?timeouts ~name ~resource_group_name
+    ~subnet_id __id =
   let __type = "azurerm_app_service_environment_v3" in
   let __attrs =
     ({
@@ -368,20 +370,23 @@ let make ?allow_new_private_endpoint_connections
         (azurerm_app_service_environment_v3
            ?allow_new_private_endpoint_connections
            ?dedicated_host_count ?id ?internal_load_balancing_mode
-           ?remote_debugging_enabled ?tags ?zone_redundant ?timeouts
-           ~name ~resource_group_name ~subnet_id ~cluster_setting ());
+           ?remote_debugging_enabled ?tags ?zone_redundant
+           ~cluster_setting ?timeouts ~name ~resource_group_name
+           ~subnet_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?allow_new_private_endpoint_connections
     ?dedicated_host_count ?id ?internal_load_balancing_mode
-    ?remote_debugging_enabled ?tags ?zone_redundant ?timeouts ~name
-    ~resource_group_name ~subnet_id ~cluster_setting __id =
+    ?remote_debugging_enabled ?tags ?zone_redundant
+    ?(cluster_setting = []) ?timeouts ~name ~resource_group_name
+    ~subnet_id __id =
   let (r : _ Tf_core.resource) =
     make ?allow_new_private_endpoint_connections
       ?dedicated_host_count ?id ?internal_load_balancing_mode
-      ?remote_debugging_enabled ?tags ?zone_redundant ?timeouts ~name
-      ~resource_group_name ~subnet_id ~cluster_setting __id
+      ?remote_debugging_enabled ?tags ?zone_redundant
+      ~cluster_setting ?timeouts ~name ~resource_group_name
+      ~subnet_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

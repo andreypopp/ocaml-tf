@@ -1435,8 +1435,8 @@ let copy__source_tables ?dataset_id ?project_id ~table_id () :
   { dataset_id; project_id; table_id }
 
 let copy ?create_disposition ?write_disposition
-    ~destination_encryption_configuration ~destination_table
-    ~source_tables () : copy =
+    ?(destination_encryption_configuration = [])
+    ?(destination_table = []) ~source_tables () : copy =
   {
     create_disposition;
     write_disposition;
@@ -1454,8 +1454,8 @@ let extract__source_table ?dataset_id ?project_id ~table_id () :
   { dataset_id; project_id; table_id }
 
 let extract ?compression ?destination_format ?field_delimiter
-    ?print_header ?use_avro_logical_types ~destination_uris
-    ~source_model ~source_table () : extract =
+    ?print_header ?use_avro_logical_types ?(source_model = [])
+    ?(source_table = []) ~destination_uris () : extract =
   {
     compression;
     destination_format;
@@ -1487,9 +1487,10 @@ let load ?allow_jagged_rows ?allow_quoted_newlines ?autodetect
     ?create_disposition ?encoding ?field_delimiter
     ?ignore_unknown_values ?json_extension ?max_bad_records
     ?null_marker ?projection_fields ?quote ?schema_update_options
-    ?skip_leading_rows ?source_format ?write_disposition ~source_uris
-    ~destination_encryption_configuration ~destination_table
-    ~parquet_options ~time_partitioning () : load =
+    ?skip_leading_rows ?source_format ?write_disposition
+    ?(destination_encryption_configuration = [])
+    ?(parquet_options = []) ?(time_partitioning = []) ~source_uris
+    ~destination_table () : load =
   {
     allow_jagged_rows;
     allow_quoted_newlines;
@@ -1542,9 +1543,10 @@ let query__user_defined_function_resources ?inline_code ?resource_uri
 let query ?allow_large_results ?create_disposition ?flatten_results
     ?maximum_billing_tier ?maximum_bytes_billed ?parameter_mode
     ?priority ?schema_update_options ?use_legacy_sql ?use_query_cache
-    ?write_disposition ~query ~default_dataset
-    ~destination_encryption_configuration ~destination_table
-    ~script_options ~user_defined_function_resources () : query =
+    ?write_disposition ?(default_dataset = [])
+    ?(destination_encryption_configuration = [])
+    ?(destination_table = []) ?(script_options = [])
+    ?(user_defined_function_resources = []) ~query () : query =
   {
     allow_large_results;
     create_disposition;
@@ -1569,8 +1571,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_bigquery_job ?id ?job_timeout_ms ?labels ?location
-    ?project ?timeouts ~job_id ~copy ~extract ~load ~query () :
-    google_bigquery_job =
+    ?project ?(copy = []) ?(extract = []) ?(load = []) ?(query = [])
+    ?timeouts ~job_id () : google_bigquery_job =
   {
     id;
     job_id;
@@ -1599,8 +1601,9 @@ type t = {
   user_email : string prop;
 }
 
-let make ?id ?job_timeout_ms ?labels ?location ?project ?timeouts
-    ~job_id ~copy ~extract ~load ~query __id =
+let make ?id ?job_timeout_ms ?labels ?location ?project ?(copy = [])
+    ?(extract = []) ?(load = []) ?(query = []) ?timeouts ~job_id __id
+    =
   let __type = "google_bigquery_job" in
   let __attrs =
     ({
@@ -1626,15 +1629,16 @@ let make ?id ?job_timeout_ms ?labels ?location ?project ?timeouts
     json =
       yojson_of_google_bigquery_job
         (google_bigquery_job ?id ?job_timeout_ms ?labels ?location
-           ?project ?timeouts ~job_id ~copy ~extract ~load ~query ());
+           ?project ~copy ~extract ~load ~query ?timeouts ~job_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?job_timeout_ms ?labels ?location
-    ?project ?timeouts ~job_id ~copy ~extract ~load ~query __id =
+    ?project ?(copy = []) ?(extract = []) ?(load = []) ?(query = [])
+    ?timeouts ~job_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?job_timeout_ms ?labels ?location ?project ?timeouts
-      ~job_id ~copy ~extract ~load ~query __id
+    make ?id ?job_timeout_ms ?labels ?location ?project ~copy
+      ~extract ~load ~query ?timeouts ~job_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

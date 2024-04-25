@@ -54,9 +54,9 @@ val launch_specifications__spot_specification :
 type launch_specifications
 
 val launch_specifications :
-  on_demand_specification:
+  ?on_demand_specification:
     launch_specifications__on_demand_specification list ->
-  spot_specification:launch_specifications__spot_specification list ->
+  ?spot_specification:launch_specifications__spot_specification list ->
   unit ->
   launch_specifications
 
@@ -67,9 +67,9 @@ val aws_emr_instance_fleet :
   ?name:string prop ->
   ?target_on_demand_capacity:float prop ->
   ?target_spot_capacity:float prop ->
+  ?launch_specifications:launch_specifications list ->
   cluster_id:string prop ->
   instance_type_configs:instance_type_configs list ->
-  launch_specifications:launch_specifications list ->
   unit ->
   aws_emr_instance_fleet
 
@@ -93,9 +93,9 @@ val register :
   ?name:string prop ->
   ?target_on_demand_capacity:float prop ->
   ?target_spot_capacity:float prop ->
+  ?launch_specifications:launch_specifications list ->
   cluster_id:string prop ->
   instance_type_configs:instance_type_configs list ->
-  launch_specifications:launch_specifications list ->
   string ->
   t
 
@@ -104,8 +104,8 @@ val make :
   ?name:string prop ->
   ?target_on_demand_capacity:float prop ->
   ?target_spot_capacity:float prop ->
+  ?launch_specifications:launch_specifications list ->
   cluster_id:string prop ->
   instance_type_configs:instance_type_configs list ->
-  launch_specifications:launch_specifications list ->
   string ->
   t Tf_core.resource

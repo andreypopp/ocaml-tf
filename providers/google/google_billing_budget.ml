@@ -574,7 +574,7 @@ let amount__specified_amount ?currency_code ?nanos ?units () :
     amount__specified_amount =
   { currency_code; nanos; units }
 
-let amount ?last_period_amount ~specified_amount () : amount =
+let amount ?last_period_amount ?(specified_amount = []) () : amount =
   { last_period_amount; specified_amount }
 
 let budget_filter__custom_period__end_date ~day ~month ~year () :
@@ -585,13 +585,13 @@ let budget_filter__custom_period__start_date ~day ~month ~year () :
     budget_filter__custom_period__start_date =
   { day; month; year }
 
-let budget_filter__custom_period ~end_date ~start_date () :
+let budget_filter__custom_period ?(end_date = []) ~start_date () :
     budget_filter__custom_period =
   { end_date; start_date }
 
 let budget_filter ?calendar_period ?credit_types
     ?credit_types_treatment ?labels ?projects ?resource_ancestors
-    ?services ?subaccounts ~custom_period () : budget_filter =
+    ?services ?subaccounts ?(custom_period = []) () : budget_filter =
   {
     calendar_period;
     credit_types;
@@ -611,9 +611,9 @@ let threshold_rules ?spend_basis ~threshold_percent () :
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_billing_budget ?display_name ?id ?timeouts
-    ~billing_account ~all_updates_rule ~amount ~budget_filter
-    ~threshold_rules () : google_billing_budget =
+let google_billing_budget ?display_name ?id ?(all_updates_rule = [])
+    ?(budget_filter = []) ?(threshold_rules = []) ?timeouts
+    ~billing_account ~amount () : google_billing_budget =
   {
     billing_account;
     display_name;
@@ -632,8 +632,9 @@ type t = {
   name : string prop;
 }
 
-let make ?display_name ?id ?timeouts ~billing_account
-    ~all_updates_rule ~amount ~budget_filter ~threshold_rules __id =
+let make ?display_name ?id ?(all_updates_rule = [])
+    ?(budget_filter = []) ?(threshold_rules = []) ?timeouts
+    ~billing_account ~amount __id =
   let __type = "google_billing_budget" in
   let __attrs =
     ({
@@ -649,17 +650,18 @@ let make ?display_name ?id ?timeouts ~billing_account
     type_ = __type;
     json =
       yojson_of_google_billing_budget
-        (google_billing_budget ?display_name ?id ?timeouts
-           ~billing_account ~all_updates_rule ~amount ~budget_filter
-           ~threshold_rules ());
+        (google_billing_budget ?display_name ?id ~all_updates_rule
+           ~budget_filter ~threshold_rules ?timeouts ~billing_account
+           ~amount ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?display_name ?id ?timeouts ~billing_account
-    ~all_updates_rule ~amount ~budget_filter ~threshold_rules __id =
+let register ?tf_module ?display_name ?id ?(all_updates_rule = [])
+    ?(budget_filter = []) ?(threshold_rules = []) ?timeouts
+    ~billing_account ~amount __id =
   let (r : _ Tf_core.resource) =
-    make ?display_name ?id ?timeouts ~billing_account
-      ~all_updates_rule ~amount ~budget_filter ~threshold_rules __id
+    make ?display_name ?id ~all_updates_rule ~budget_filter
+      ~threshold_rules ?timeouts ~billing_account ~amount __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

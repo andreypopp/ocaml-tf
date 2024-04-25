@@ -277,8 +277,8 @@ let rules__filter ?exclude_prefixes ?include_blob_versions
     prefix_match;
   }
 
-let rules ~format ~name ~schedule ~schema_fields ~scope
-    ~storage_container_name ~filter () : rules =
+let rules ?(filter = []) ~format ~name ~schedule ~schema_fields
+    ~scope ~storage_container_name () : rules =
   {
     format;
     name;

@@ -30,6 +30,7 @@ val azurerm_sql_managed_instance :
   ?storage_account_type:string prop ->
   ?tags:(string * string prop) list ->
   ?timezone_id:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   administrator_login:string prop ->
   administrator_login_password:string prop ->
@@ -41,7 +42,6 @@ val azurerm_sql_managed_instance :
   storage_size_in_gb:float prop ->
   subnet_id:string prop ->
   vcores:float prop ->
-  identity:identity list ->
   unit ->
   azurerm_sql_managed_instance
 
@@ -84,6 +84,7 @@ val register :
   ?storage_account_type:string prop ->
   ?tags:(string * string prop) list ->
   ?timezone_id:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   administrator_login:string prop ->
   administrator_login_password:string prop ->
@@ -95,7 +96,6 @@ val register :
   storage_size_in_gb:float prop ->
   subnet_id:string prop ->
   vcores:float prop ->
-  identity:identity list ->
   string ->
   t
 
@@ -109,6 +109,7 @@ val make :
   ?storage_account_type:string prop ->
   ?tags:(string * string prop) list ->
   ?timezone_id:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   administrator_login:string prop ->
   administrator_login_password:string prop ->
@@ -120,6 +121,5 @@ val make :
   storage_size_in_gb:float prop ->
   subnet_id:string prop ->
   vcores:float prop ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

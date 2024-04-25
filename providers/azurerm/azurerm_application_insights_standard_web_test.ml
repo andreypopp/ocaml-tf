@@ -431,7 +431,8 @@ let request__header ~name ~value () : request__header =
   { name; value }
 
 let request ?body ?follow_redirects_enabled ?http_verb
-    ?parse_dependent_requests_enabled ~url ~header () : request =
+    ?parse_dependent_requests_enabled ?(header = []) ~url () :
+    request =
   {
     body;
     follow_redirects_enabled;
@@ -449,8 +450,8 @@ let validation_rules__content ?ignore_case ?pass_if_text_found
   { content_match; ignore_case; pass_if_text_found }
 
 let validation_rules ?expected_status_code
-    ?ssl_cert_remaining_lifetime ?ssl_check_enabled ~content () :
-    validation_rules =
+    ?ssl_cert_remaining_lifetime ?ssl_check_enabled ?(content = [])
+    () : validation_rules =
   {
     expected_status_code;
     ssl_cert_remaining_lifetime;
@@ -460,8 +461,8 @@ let validation_rules ?expected_status_code
 
 let azurerm_application_insights_standard_web_test ?description
     ?enabled ?frequency ?id ?retry_enabled ?tags ?timeout ?timeouts
-    ~application_insights_id ~geo_locations ~location ~name
-    ~resource_group_name ~request ~validation_rules () :
+    ?(validation_rules = []) ~application_insights_id ~geo_locations
+    ~location ~name ~resource_group_name ~request () :
     azurerm_application_insights_standard_web_test =
   {
     application_insights_id;
@@ -498,9 +499,9 @@ type t = {
 }
 
 let make ?description ?enabled ?frequency ?id ?retry_enabled ?tags
-    ?timeout ?timeouts ~application_insights_id ~geo_locations
-    ~location ~name ~resource_group_name ~request ~validation_rules
-    __id =
+    ?timeout ?timeouts ?(validation_rules = [])
+    ~application_insights_id ~geo_locations ~location ~name
+    ~resource_group_name ~request __id =
   let __type = "azurerm_application_insights_standard_web_test" in
   let __attrs =
     ({
@@ -530,20 +531,20 @@ let make ?description ?enabled ?frequency ?id ?retry_enabled ?tags
       yojson_of_azurerm_application_insights_standard_web_test
         (azurerm_application_insights_standard_web_test ?description
            ?enabled ?frequency ?id ?retry_enabled ?tags ?timeout
-           ?timeouts ~application_insights_id ~geo_locations
-           ~location ~name ~resource_group_name ~request
-           ~validation_rules ());
+           ?timeouts ~validation_rules ~application_insights_id
+           ~geo_locations ~location ~name ~resource_group_name
+           ~request ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?enabled ?frequency ?id
-    ?retry_enabled ?tags ?timeout ?timeouts ~application_insights_id
-    ~geo_locations ~location ~name ~resource_group_name ~request
-    ~validation_rules __id =
+    ?retry_enabled ?tags ?timeout ?timeouts ?(validation_rules = [])
+    ~application_insights_id ~geo_locations ~location ~name
+    ~resource_group_name ~request __id =
   let (r : _ Tf_core.resource) =
     make ?description ?enabled ?frequency ?id ?retry_enabled ?tags
-      ?timeout ?timeouts ~application_insights_id ~geo_locations
-      ~location ~name ~resource_group_name ~request ~validation_rules
+      ?timeout ?timeouts ~validation_rules ~application_insights_id
+      ~geo_locations ~location ~name ~resource_group_name ~request
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

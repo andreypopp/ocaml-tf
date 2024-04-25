@@ -264,8 +264,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_api_management_logger ?buffered ?description ?id
-    ?resource_id ?timeouts ~api_management_name ~name
-    ~resource_group_name ~application_insights ~eventhub () :
+    ?resource_id ?(application_insights = []) ?(eventhub = [])
+    ?timeouts ~api_management_name ~name ~resource_group_name () :
     azurerm_api_management_logger =
   {
     api_management_name;
@@ -290,9 +290,9 @@ type t = {
   resource_id : string prop;
 }
 
-let make ?buffered ?description ?id ?resource_id ?timeouts
-    ~api_management_name ~name ~resource_group_name
-    ~application_insights ~eventhub __id =
+let make ?buffered ?description ?id ?resource_id
+    ?(application_insights = []) ?(eventhub = []) ?timeouts
+    ~api_management_name ~name ~resource_group_name __id =
   let __type = "azurerm_api_management_logger" in
   let __attrs =
     ({
@@ -314,18 +314,18 @@ let make ?buffered ?description ?id ?resource_id ?timeouts
     json =
       yojson_of_azurerm_api_management_logger
         (azurerm_api_management_logger ?buffered ?description ?id
-           ?resource_id ?timeouts ~api_management_name ~name
-           ~resource_group_name ~application_insights ~eventhub ());
+           ?resource_id ~application_insights ~eventhub ?timeouts
+           ~api_management_name ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?buffered ?description ?id ?resource_id
-    ?timeouts ~api_management_name ~name ~resource_group_name
-    ~application_insights ~eventhub __id =
+    ?(application_insights = []) ?(eventhub = []) ?timeouts
+    ~api_management_name ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?buffered ?description ?id ?resource_id ?timeouts
-      ~api_management_name ~name ~resource_group_name
-      ~application_insights ~eventhub __id
+    make ?buffered ?description ?id ?resource_id
+      ~application_insights ~eventhub ?timeouts ~api_management_name
+      ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

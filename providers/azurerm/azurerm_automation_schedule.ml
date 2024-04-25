@@ -246,9 +246,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_automation_schedule ?description ?expiry_time ?id
-    ?interval ?month_days ?start_time ?timezone ?week_days ?timeouts
-    ~automation_account_name ~frequency ~name ~resource_group_name
-    ~monthly_occurrence () : azurerm_automation_schedule =
+    ?interval ?month_days ?start_time ?timezone ?week_days
+    ?(monthly_occurrence = []) ?timeouts ~automation_account_name
+    ~frequency ~name ~resource_group_name () :
+    azurerm_automation_schedule =
   {
     automation_account_name;
     description;
@@ -282,9 +283,9 @@ type t = {
 }
 
 let make ?description ?expiry_time ?id ?interval ?month_days
-    ?start_time ?timezone ?week_days ?timeouts
-    ~automation_account_name ~frequency ~name ~resource_group_name
-    ~monthly_occurrence __id =
+    ?start_time ?timezone ?week_days ?(monthly_occurrence = [])
+    ?timeouts ~automation_account_name ~frequency ~name
+    ~resource_group_name __id =
   let __type = "azurerm_automation_schedule" in
   let __attrs =
     ({
@@ -312,20 +313,20 @@ let make ?description ?expiry_time ?id ?interval ?month_days
       yojson_of_azurerm_automation_schedule
         (azurerm_automation_schedule ?description ?expiry_time ?id
            ?interval ?month_days ?start_time ?timezone ?week_days
-           ?timeouts ~automation_account_name ~frequency ~name
-           ~resource_group_name ~monthly_occurrence ());
+           ~monthly_occurrence ?timeouts ~automation_account_name
+           ~frequency ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?expiry_time ?id ?interval
-    ?month_days ?start_time ?timezone ?week_days ?timeouts
-    ~automation_account_name ~frequency ~name ~resource_group_name
-    ~monthly_occurrence __id =
+    ?month_days ?start_time ?timezone ?week_days
+    ?(monthly_occurrence = []) ?timeouts ~automation_account_name
+    ~frequency ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?description ?expiry_time ?id ?interval ?month_days
-      ?start_time ?timezone ?week_days ?timeouts
+      ?start_time ?timezone ?week_days ~monthly_occurrence ?timeouts
       ~automation_account_name ~frequency ~name ~resource_group_name
-      ~monthly_occurrence __id
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

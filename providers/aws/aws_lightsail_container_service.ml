@@ -296,7 +296,7 @@ let private_registry_access__ecr_image_puller_role ?is_active () :
     private_registry_access__ecr_image_puller_role =
   { is_active }
 
-let private_registry_access ~ecr_image_puller_role () :
+let private_registry_access ?(ecr_image_puller_role = []) () :
     private_registry_access =
   { ecr_image_puller_role }
 
@@ -311,8 +311,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_lightsail_container_service ?id ?is_disabled ?tags ?tags_all
-    ?timeouts ~name ~power ~scale ~private_registry_access
-    ~public_domain_names () : aws_lightsail_container_service =
+    ?(private_registry_access = []) ?(public_domain_names = [])
+    ?timeouts ~name ~power ~scale () :
+    aws_lightsail_container_service =
   {
     id;
     is_disabled;
@@ -345,8 +346,9 @@ type t = {
   url : string prop;
 }
 
-let make ?id ?is_disabled ?tags ?tags_all ?timeouts ~name ~power
-    ~scale ~private_registry_access ~public_domain_names __id =
+let make ?id ?is_disabled ?tags ?tags_all
+    ?(private_registry_access = []) ?(public_domain_names = [])
+    ?timeouts ~name ~power ~scale __id =
   let __type = "aws_lightsail_container_service" in
   let __attrs =
     ({
@@ -377,17 +379,17 @@ let make ?id ?is_disabled ?tags ?tags_all ?timeouts ~name ~power
     json =
       yojson_of_aws_lightsail_container_service
         (aws_lightsail_container_service ?id ?is_disabled ?tags
-           ?tags_all ?timeouts ~name ~power ~scale
-           ~private_registry_access ~public_domain_names ());
+           ?tags_all ~private_registry_access ~public_domain_names
+           ?timeouts ~name ~power ~scale ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?is_disabled ?tags ?tags_all ?timeouts
-    ~name ~power ~scale ~private_registry_access ~public_domain_names
-    __id =
+let register ?tf_module ?id ?is_disabled ?tags ?tags_all
+    ?(private_registry_access = []) ?(public_domain_names = [])
+    ?timeouts ~name ~power ~scale __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?is_disabled ?tags ?tags_all ?timeouts ~name ~power
-      ~scale ~private_registry_access ~public_domain_names __id
+    make ?id ?is_disabled ?tags ?tags_all ~private_registry_access
+      ~public_domain_names ?timeouts ~name ~power ~scale __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

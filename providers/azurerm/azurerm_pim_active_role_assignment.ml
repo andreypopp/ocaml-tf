@@ -256,7 +256,7 @@ let schedule__expiration ?duration_days ?duration_hours
     ?end_date_time () : schedule__expiration =
   { duration_days; duration_hours; end_date_time }
 
-let schedule ?start_date_time ~expiration () : schedule =
+let schedule ?start_date_time ?(expiration = []) () : schedule =
   { start_date_time; expiration }
 
 let ticket ?number ?system () : ticket = { number; system }
@@ -264,8 +264,9 @@ let ticket ?number ?system () : ticket = { number; system }
 let timeouts ?create ?delete ?read () : timeouts =
   { create; delete; read }
 
-let azurerm_pim_active_role_assignment ?id ?justification ?timeouts
-    ~principal_id ~role_definition_id ~scope ~schedule ~ticket () :
+let azurerm_pim_active_role_assignment ?id ?justification
+    ?(schedule = []) ?(ticket = []) ?timeouts ~principal_id
+    ~role_definition_id ~scope () :
     azurerm_pim_active_role_assignment =
   {
     id;
@@ -287,8 +288,8 @@ type t = {
   scope : string prop;
 }
 
-let make ?id ?justification ?timeouts ~principal_id
-    ~role_definition_id ~scope ~schedule ~ticket __id =
+let make ?id ?justification ?(schedule = []) ?(ticket = []) ?timeouts
+    ~principal_id ~role_definition_id ~scope __id =
   let __type = "azurerm_pim_active_role_assignment" in
   let __attrs =
     ({
@@ -308,16 +309,17 @@ let make ?id ?justification ?timeouts ~principal_id
     json =
       yojson_of_azurerm_pim_active_role_assignment
         (azurerm_pim_active_role_assignment ?id ?justification
-           ?timeouts ~principal_id ~role_definition_id ~scope
-           ~schedule ~ticket ());
+           ~schedule ~ticket ?timeouts ~principal_id
+           ~role_definition_id ~scope ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?justification ?timeouts ~principal_id
-    ~role_definition_id ~scope ~schedule ~ticket __id =
+let register ?tf_module ?id ?justification ?(schedule = [])
+    ?(ticket = []) ?timeouts ~principal_id ~role_definition_id ~scope
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?justification ?timeouts ~principal_id
-      ~role_definition_id ~scope ~schedule ~ticket __id
+    make ?id ?justification ~schedule ~ticket ?timeouts ~principal_id
+      ~role_definition_id ~scope __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

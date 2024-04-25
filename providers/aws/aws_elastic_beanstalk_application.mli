@@ -21,8 +21,8 @@ val aws_elastic_beanstalk_application :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?appversion_lifecycle:appversion_lifecycle list ->
   name:string prop ->
-  appversion_lifecycle:appversion_lifecycle list ->
   unit ->
   aws_elastic_beanstalk_application
 
@@ -46,8 +46,8 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?appversion_lifecycle:appversion_lifecycle list ->
   name:string prop ->
-  appversion_lifecycle:appversion_lifecycle list ->
   string ->
   t
 
@@ -56,7 +56,7 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?appversion_lifecycle:appversion_lifecycle list ->
   name:string prop ->
-  appversion_lifecycle:appversion_lifecycle list ->
   string ->
   t Tf_core.resource

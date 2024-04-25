@@ -543,8 +543,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_memcache_instance ?authorized_network ?display_name ?id
     ?labels ?memcache_version ?project ?region ?reserved_ip_range_id
-    ?zones ?timeouts ~name ~node_count ~maintenance_policy
-    ~memcache_parameters ~node_config () : google_memcache_instance =
+    ?zones ?(maintenance_policy = []) ?(memcache_parameters = [])
+    ?timeouts ~name ~node_count ~node_config () :
+    google_memcache_instance =
   {
     authorized_network;
     display_name;
@@ -586,8 +587,8 @@ type t = {
 
 let make ?authorized_network ?display_name ?id ?labels
     ?memcache_version ?project ?region ?reserved_ip_range_id ?zones
-    ?timeouts ~name ~node_count ~maintenance_policy
-    ~memcache_parameters ~node_config __id =
+    ?(maintenance_policy = []) ?(memcache_parameters = []) ?timeouts
+    ~name ~node_count ~node_config __id =
   let __type = "google_memcache_instance" in
   let __attrs =
     ({
@@ -627,20 +628,21 @@ let make ?authorized_network ?display_name ?id ?labels
       yojson_of_google_memcache_instance
         (google_memcache_instance ?authorized_network ?display_name
            ?id ?labels ?memcache_version ?project ?region
-           ?reserved_ip_range_id ?zones ?timeouts ~name ~node_count
-           ~maintenance_policy ~memcache_parameters ~node_config ());
+           ?reserved_ip_range_id ?zones ~maintenance_policy
+           ~memcache_parameters ?timeouts ~name ~node_count
+           ~node_config ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?authorized_network ?display_name ?id ?labels
     ?memcache_version ?project ?region ?reserved_ip_range_id ?zones
-    ?timeouts ~name ~node_count ~maintenance_policy
-    ~memcache_parameters ~node_config __id =
+    ?(maintenance_policy = []) ?(memcache_parameters = []) ?timeouts
+    ~name ~node_count ~node_config __id =
   let (r : _ Tf_core.resource) =
     make ?authorized_network ?display_name ?id ?labels
       ?memcache_version ?project ?region ?reserved_ip_range_id ?zones
-      ?timeouts ~name ~node_count ~maintenance_policy
-      ~memcache_parameters ~node_config __id
+      ~maintenance_policy ~memcache_parameters ?timeouts ~name
+      ~node_count ~node_config __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

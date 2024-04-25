@@ -18,10 +18,10 @@ type google_secret_manager_secret_iam_binding
 val google_secret_manager_secret_iam_binding :
   ?id:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   members:string prop list ->
   role:string prop ->
   secret_id:string prop ->
-  condition:condition list ->
   unit ->
   google_secret_manager_secret_iam_binding
 
@@ -43,19 +43,19 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   members:string prop list ->
   role:string prop ->
   secret_id:string prop ->
-  condition:condition list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   members:string prop list ->
   role:string prop ->
   secret_id:string prop ->
-  condition:condition list ->
   string ->
   t Tf_core.resource

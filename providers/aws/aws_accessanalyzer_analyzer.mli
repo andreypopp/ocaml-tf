@@ -14,7 +14,7 @@ val configuration__unused_access :
 type configuration
 
 val configuration :
-  unused_access:configuration__unused_access list ->
+  ?unused_access:configuration__unused_access list ->
   unit ->
   configuration
 
@@ -25,8 +25,8 @@ val aws_accessanalyzer_analyzer :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
+  ?configuration:configuration list ->
   analyzer_name:string prop ->
-  configuration:configuration list ->
   unit ->
   aws_accessanalyzer_analyzer
 
@@ -50,8 +50,8 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
+  ?configuration:configuration list ->
   analyzer_name:string prop ->
-  configuration:configuration list ->
   string ->
   t
 
@@ -60,7 +60,7 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
+  ?configuration:configuration list ->
   analyzer_name:string prop ->
-  configuration:configuration list ->
   string ->
   t Tf_core.resource

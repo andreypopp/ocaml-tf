@@ -30,12 +30,12 @@ val azurerm_data_factory_linked_custom_service :
   ?description:string prop ->
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
+  ?integration_runtime:integration_runtime list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
   type_:string prop ->
   type_properties_json:string prop ->
-  integration_runtime:integration_runtime list ->
   unit ->
   azurerm_data_factory_linked_custom_service
 
@@ -63,12 +63,12 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
+  ?integration_runtime:integration_runtime list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
   type_:string prop ->
   type_properties_json:string prop ->
-  integration_runtime:integration_runtime list ->
   string ->
   t
 
@@ -78,11 +78,11 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
+  ?integration_runtime:integration_runtime list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
   type_:string prop ->
   type_properties_json:string prop ->
-  integration_runtime:integration_runtime list ->
   string ->
   t Tf_core.resource

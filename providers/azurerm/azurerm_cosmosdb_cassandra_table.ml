@@ -320,15 +320,15 @@ let schema__cluster_key ~name ~order_by () : schema__cluster_key =
 let schema__column ~name ~type_ () : schema__column = { name; type_ }
 let schema__partition_key ~name () : schema__partition_key = { name }
 
-let schema ~cluster_key ~column ~partition_key () : schema =
+let schema ?(cluster_key = []) ~column ~partition_key () : schema =
   { cluster_key; column; partition_key }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_cosmosdb_cassandra_table ?analytical_storage_ttl
-    ?default_ttl ?id ?throughput ?timeouts ~cassandra_keyspace_id
-    ~name ~autoscale_settings ~schema () :
+    ?default_ttl ?id ?throughput ?(autoscale_settings = []) ?timeouts
+    ~cassandra_keyspace_id ~name ~schema () :
     azurerm_cosmosdb_cassandra_table =
   {
     analytical_storage_ttl;
@@ -352,7 +352,7 @@ type t = {
 }
 
 let make ?analytical_storage_ttl ?default_ttl ?id ?throughput
-    ?timeouts ~cassandra_keyspace_id ~name ~autoscale_settings
+    ?(autoscale_settings = []) ?timeouts ~cassandra_keyspace_id ~name
     ~schema __id =
   let __type = "azurerm_cosmosdb_cassandra_table" in
   let __attrs =
@@ -374,18 +374,17 @@ let make ?analytical_storage_ttl ?default_ttl ?id ?throughput
     json =
       yojson_of_azurerm_cosmosdb_cassandra_table
         (azurerm_cosmosdb_cassandra_table ?analytical_storage_ttl
-           ?default_ttl ?id ?throughput ?timeouts
-           ~cassandra_keyspace_id ~name ~autoscale_settings ~schema
-           ());
+           ?default_ttl ?id ?throughput ~autoscale_settings ?timeouts
+           ~cassandra_keyspace_id ~name ~schema ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?analytical_storage_ttl ?default_ttl ?id
-    ?throughput ?timeouts ~cassandra_keyspace_id ~name
-    ~autoscale_settings ~schema __id =
+    ?throughput ?(autoscale_settings = []) ?timeouts
+    ~cassandra_keyspace_id ~name ~schema __id =
   let (r : _ Tf_core.resource) =
     make ?analytical_storage_ttl ?default_ttl ?id ?throughput
-      ?timeouts ~cassandra_keyspace_id ~name ~autoscale_settings
+      ~autoscale_settings ?timeouts ~cassandra_keyspace_id ~name
       ~schema __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

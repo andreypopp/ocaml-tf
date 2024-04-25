@@ -51,15 +51,15 @@ val azurerm_firewall :
   ?tags:(string * string prop) list ->
   ?threat_intel_mode:string prop ->
   ?zones:string prop list ->
+  ?ip_configuration:ip_configuration list ->
+  ?management_ip_configuration:management_ip_configuration list ->
   ?timeouts:timeouts ->
+  ?virtual_hub:virtual_hub list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
   sku_tier:string prop ->
-  ip_configuration:ip_configuration list ->
-  management_ip_configuration:management_ip_configuration list ->
-  virtual_hub:virtual_hub list ->
   unit ->
   azurerm_firewall
 
@@ -93,15 +93,15 @@ val register :
   ?tags:(string * string prop) list ->
   ?threat_intel_mode:string prop ->
   ?zones:string prop list ->
+  ?ip_configuration:ip_configuration list ->
+  ?management_ip_configuration:management_ip_configuration list ->
   ?timeouts:timeouts ->
+  ?virtual_hub:virtual_hub list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
   sku_tier:string prop ->
-  ip_configuration:ip_configuration list ->
-  management_ip_configuration:management_ip_configuration list ->
-  virtual_hub:virtual_hub list ->
   string ->
   t
 
@@ -114,14 +114,14 @@ val make :
   ?tags:(string * string prop) list ->
   ?threat_intel_mode:string prop ->
   ?zones:string prop list ->
+  ?ip_configuration:ip_configuration list ->
+  ?management_ip_configuration:management_ip_configuration list ->
   ?timeouts:timeouts ->
+  ?virtual_hub:virtual_hub list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
   sku_tier:string prop ->
-  ip_configuration:ip_configuration list ->
-  management_ip_configuration:management_ip_configuration list ->
-  virtual_hub:virtual_hub list ->
   string ->
   t Tf_core.resource

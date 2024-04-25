@@ -20,9 +20,9 @@ val google_datastore_index :
   ?ancestor:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?properties:properties list ->
   ?timeouts:timeouts ->
   kind:string prop ->
-  properties:properties list ->
   unit ->
   google_datastore_index
 
@@ -43,9 +43,9 @@ val register :
   ?ancestor:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?properties:properties list ->
   ?timeouts:timeouts ->
   kind:string prop ->
-  properties:properties list ->
   string ->
   t
 
@@ -53,8 +53,8 @@ val make :
   ?ancestor:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?properties:properties list ->
   ?timeouts:timeouts ->
   kind:string prop ->
-  properties:properties list ->
   string ->
   t Tf_core.resource

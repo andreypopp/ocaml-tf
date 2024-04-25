@@ -152,8 +152,9 @@ let notification_config ~pubsub_topic () : notification_config =
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_healthcare_dicom_store ?id ?labels ?timeouts ~dataset
-    ~name ~notification_config () : google_healthcare_dicom_store =
+let google_healthcare_dicom_store ?id ?labels
+    ?(notification_config = []) ?timeouts ~dataset ~name () :
+    google_healthcare_dicom_store =
   { dataset; id; labels; name; notification_config; timeouts }
 
 type t = {
@@ -166,8 +167,8 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let make ?id ?labels ?timeouts ~dataset ~name ~notification_config
-    __id =
+let make ?id ?labels ?(notification_config = []) ?timeouts ~dataset
+    ~name __id =
   let __type = "google_healthcare_dicom_store" in
   let __attrs =
     ({
@@ -188,15 +189,15 @@ let make ?id ?labels ?timeouts ~dataset ~name ~notification_config
     type_ = __type;
     json =
       yojson_of_google_healthcare_dicom_store
-        (google_healthcare_dicom_store ?id ?labels ?timeouts ~dataset
-           ~name ~notification_config ());
+        (google_healthcare_dicom_store ?id ?labels
+           ~notification_config ?timeouts ~dataset ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?labels ?timeouts ~dataset ~name
-    ~notification_config __id =
+let register ?tf_module ?id ?labels ?(notification_config = [])
+    ?timeouts ~dataset ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?labels ?timeouts ~dataset ~name ~notification_config
+    make ?id ?labels ~notification_config ?timeouts ~dataset ~name
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

@@ -420,7 +420,7 @@ let parameters_in_cache_key_and_forwarded_to_origin__cookies_config__cookies
   { items }
 
 let parameters_in_cache_key_and_forwarded_to_origin__cookies_config
-    ~cookie_behavior ~cookies () :
+    ?(cookies = []) ~cookie_behavior () :
     parameters_in_cache_key_and_forwarded_to_origin__cookies_config =
   { cookie_behavior; cookies }
 
@@ -431,7 +431,7 @@ let parameters_in_cache_key_and_forwarded_to_origin__headers_config__headers
   { items }
 
 let parameters_in_cache_key_and_forwarded_to_origin__headers_config
-    ?header_behavior ~headers () :
+    ?header_behavior ?(headers = []) () :
     parameters_in_cache_key_and_forwarded_to_origin__headers_config =
   { header_behavior; headers }
 
@@ -442,7 +442,7 @@ let parameters_in_cache_key_and_forwarded_to_origin__query_strings_config__query
   { items }
 
 let parameters_in_cache_key_and_forwarded_to_origin__query_strings_config
-    ~query_string_behavior ~query_strings () :
+    ?(query_strings = []) ~query_string_behavior () :
     parameters_in_cache_key_and_forwarded_to_origin__query_strings_config
     =
   { query_string_behavior; query_strings }

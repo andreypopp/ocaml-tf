@@ -106,9 +106,9 @@ let _ = yojson_of_google_service_account_iam_binding
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_service_account_iam_binding ?id ~members ~role
-    ~service_account_id ~condition () :
-    google_service_account_iam_binding =
+let google_service_account_iam_binding ?id ?(condition = []) ~members
+    ~role ~service_account_id () : google_service_account_iam_binding
+    =
   { id; members; role; service_account_id; condition }
 
 type t = {
@@ -119,7 +119,8 @@ type t = {
   service_account_id : string prop;
 }
 
-let make ?id ~members ~role ~service_account_id ~condition __id =
+let make ?id ?(condition = []) ~members ~role ~service_account_id
+    __id =
   let __type = "google_service_account_iam_binding" in
   let __attrs =
     ({
@@ -137,15 +138,15 @@ let make ?id ~members ~role ~service_account_id ~condition __id =
     type_ = __type;
     json =
       yojson_of_google_service_account_iam_binding
-        (google_service_account_iam_binding ?id ~members ~role
-           ~service_account_id ~condition ());
+        (google_service_account_iam_binding ?id ~condition ~members
+           ~role ~service_account_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~members ~role ~service_account_id
-    ~condition __id =
+let register ?tf_module ?id ?(condition = []) ~members ~role
+    ~service_account_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~members ~role ~service_account_id ~condition __id
+    make ?id ~condition ~members ~role ~service_account_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

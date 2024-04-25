@@ -2018,7 +2018,7 @@ let instance_refresh__preferences ?auto_rollback ?checkpoint_delay
     standby_instances;
   }
 
-let instance_refresh ?triggers ~strategy ~preferences () :
+let instance_refresh ?triggers ?(preferences = []) ~strategy () :
     instance_refresh =
   { strategy; triggers; preferences }
 
@@ -2106,10 +2106,12 @@ let mixed_instances_policy__launch_template__override__instance_requirements
     ?local_storage ?local_storage_types
     ?on_demand_max_price_percentage_over_lowest_price
     ?require_hibernate_support
-    ?spot_max_price_percentage_over_lowest_price ~accelerator_count
-    ~accelerator_total_memory_mib ~baseline_ebs_bandwidth_mbps
-    ~memory_gib_per_vcpu ~memory_mib ~network_bandwidth_gbps
-    ~network_interface_count ~total_local_storage_gb ~vcpu_count () :
+    ?spot_max_price_percentage_over_lowest_price
+    ?(accelerator_count = []) ?(accelerator_total_memory_mib = [])
+    ?(baseline_ebs_bandwidth_mbps = []) ?(memory_gib_per_vcpu = [])
+    ?(memory_mib = []) ?(network_bandwidth_gbps = [])
+    ?(network_interface_count = []) ?(total_local_storage_gb = [])
+    ?(vcpu_count = []) () :
     mixed_instances_policy__launch_template__override__instance_requirements
     =
   {
@@ -2145,8 +2147,8 @@ let mixed_instances_policy__launch_template__override__launch_template_specifica
   { launch_template_id; launch_template_name; version }
 
 let mixed_instances_policy__launch_template__override ?instance_type
-    ?weighted_capacity ~instance_requirements
-    ~launch_template_specification () :
+    ?weighted_capacity ?(instance_requirements = [])
+    ?(launch_template_specification = []) () :
     mixed_instances_policy__launch_template__override =
   {
     instance_type;
@@ -2155,13 +2157,13 @@ let mixed_instances_policy__launch_template__override ?instance_type
     launch_template_specification;
   }
 
-let mixed_instances_policy__launch_template
-    ~launch_template_specification ~override () :
+let mixed_instances_policy__launch_template ?(override = [])
+    ~launch_template_specification () :
     mixed_instances_policy__launch_template =
   { launch_template_specification; override }
 
-let mixed_instances_policy ~instances_distribution ~launch_template
-    () : mixed_instances_policy =
+let mixed_instances_policy ?(instances_distribution = [])
+    ~launch_template () : mixed_instances_policy =
   { instances_distribution; launch_template }
 
 let tag ~key ~propagate_at_launch ~value () : tag =
@@ -2177,7 +2179,7 @@ let warm_pool__instance_reuse_policy ?reuse_on_scale_in () :
   { reuse_on_scale_in }
 
 let warm_pool ?max_group_prepared_capacity ?min_size ?pool_state
-    ~instance_reuse_policy () : warm_pool =
+    ?(instance_reuse_policy = []) () : warm_pool =
   {
     max_group_prepared_capacity;
     min_size;
@@ -2195,10 +2197,11 @@ let aws_autoscaling_group ?availability_zones ?capacity_rebalance
     ?placement_group ?protect_from_scale_in ?service_linked_role_arn
     ?suspended_processes ?target_group_arns ?termination_policies
     ?vpc_zone_identifier ?wait_for_capacity_timeout
-    ?wait_for_elb_capacity ?timeouts ~max_size ~min_size
-    ~initial_lifecycle_hook ~instance_maintenance_policy
-    ~instance_refresh ~launch_template ~mixed_instances_policy ~tag
-    ~traffic_source ~warm_pool () : aws_autoscaling_group =
+    ?wait_for_elb_capacity ?(instance_maintenance_policy = [])
+    ?(instance_refresh = []) ?(launch_template = [])
+    ?(mixed_instances_policy = []) ?timeouts ?(warm_pool = [])
+    ~max_size ~min_size ~initial_lifecycle_hook ~tag ~traffic_source
+    () : aws_autoscaling_group =
   {
     availability_zones;
     capacity_rebalance;
@@ -2291,10 +2294,11 @@ let make ?availability_zones ?capacity_rebalance ?context
     ?placement_group ?protect_from_scale_in ?service_linked_role_arn
     ?suspended_processes ?target_group_arns ?termination_policies
     ?vpc_zone_identifier ?wait_for_capacity_timeout
-    ?wait_for_elb_capacity ?timeouts ~max_size ~min_size
-    ~initial_lifecycle_hook ~instance_maintenance_policy
-    ~instance_refresh ~launch_template ~mixed_instances_policy ~tag
-    ~traffic_source ~warm_pool __id =
+    ?wait_for_elb_capacity ?(instance_maintenance_policy = [])
+    ?(instance_refresh = []) ?(launch_template = [])
+    ?(mixed_instances_policy = []) ?timeouts ?(warm_pool = [])
+    ~max_size ~min_size ~initial_lifecycle_hook ~tag ~traffic_source
+    __id =
   let __type = "aws_autoscaling_group" in
   let __attrs =
     ({
@@ -2377,10 +2381,10 @@ let make ?availability_zones ?capacity_rebalance ?context
            ?suspended_processes ?target_group_arns
            ?termination_policies ?vpc_zone_identifier
            ?wait_for_capacity_timeout ?wait_for_elb_capacity
-           ?timeouts ~max_size ~min_size ~initial_lifecycle_hook
            ~instance_maintenance_policy ~instance_refresh
-           ~launch_template ~mixed_instances_policy ~tag
-           ~traffic_source ~warm_pool ());
+           ~launch_template ~mixed_instances_policy ?timeouts
+           ~warm_pool ~max_size ~min_size ~initial_lifecycle_hook
+           ~tag ~traffic_source ());
     attrs = __attrs;
   }
 
@@ -2394,10 +2398,11 @@ let register ?tf_module ?availability_zones ?capacity_rebalance
     ?placement_group ?protect_from_scale_in ?service_linked_role_arn
     ?suspended_processes ?target_group_arns ?termination_policies
     ?vpc_zone_identifier ?wait_for_capacity_timeout
-    ?wait_for_elb_capacity ?timeouts ~max_size ~min_size
-    ~initial_lifecycle_hook ~instance_maintenance_policy
-    ~instance_refresh ~launch_template ~mixed_instances_policy ~tag
-    ~traffic_source ~warm_pool __id =
+    ?wait_for_elb_capacity ?(instance_maintenance_policy = [])
+    ?(instance_refresh = []) ?(launch_template = [])
+    ?(mixed_instances_policy = []) ?timeouts ?(warm_pool = [])
+    ~max_size ~min_size ~initial_lifecycle_hook ~tag ~traffic_source
+    __id =
   let (r : _ Tf_core.resource) =
     make ?availability_zones ?capacity_rebalance ?context
       ?default_cooldown ?default_instance_warmup ?desired_capacity
@@ -2409,10 +2414,10 @@ let register ?tf_module ?availability_zones ?capacity_rebalance
       ?placement_group ?protect_from_scale_in
       ?service_linked_role_arn ?suspended_processes
       ?target_group_arns ?termination_policies ?vpc_zone_identifier
-      ?wait_for_capacity_timeout ?wait_for_elb_capacity ?timeouts
-      ~max_size ~min_size ~initial_lifecycle_hook
+      ?wait_for_capacity_timeout ?wait_for_elb_capacity
       ~instance_maintenance_policy ~instance_refresh ~launch_template
-      ~mixed_instances_policy ~tag ~traffic_source ~warm_pool __id
+      ~mixed_instances_policy ?timeouts ~warm_pool ~max_size
+      ~min_size ~initial_lifecycle_hook ~tag ~traffic_source __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -1611,12 +1611,13 @@ let fleet_default_member_config__configmanagement__config_sync__oci
   }
 
 let fleet_default_member_config__configmanagement__config_sync
-    ?source_format ~git ~oci () :
+    ?source_format ?(git = []) ?(oci = []) () :
     fleet_default_member_config__configmanagement__config_sync =
   { source_format; git; oci }
 
 let fleet_default_member_config__configmanagement ?version
-    ~config_sync () : fleet_default_member_config__configmanagement =
+    ?(config_sync = []) () :
+    fleet_default_member_config__configmanagement =
   { version; config_sync }
 
 let fleet_default_member_config__mesh ~management () :
@@ -1636,7 +1637,7 @@ let fleet_default_member_config__policycontroller__policy_controller_hub_config_
   { cpu; memory }
 
 let fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources
-    ~limits ~requests () :
+    ?(limits = []) ?(requests = []) () :
     fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources
     =
   { limits; requests }
@@ -1648,8 +1649,8 @@ let fleet_default_member_config__policycontroller__policy_controller_hub_config_
   { effect; key; operator; value }
 
 let fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs
-    ?pod_affinity ?replica_count ~component ~container_resources
-    ~pod_toleration () :
+    ?pod_affinity ?replica_count ?(container_resources = [])
+    ?(pod_toleration = []) ~component () :
     fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs
     =
   {
@@ -1679,7 +1680,7 @@ let fleet_default_member_config__policycontroller__policy_controller_hub_config_
   { installation }
 
 let fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content
-    ~bundles ~template_library () :
+    ?(template_library = []) ~bundles () :
     fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content
     =
   { bundles; template_library }
@@ -1687,8 +1688,8 @@ let fleet_default_member_config__policycontroller__policy_controller_hub_config_
 let fleet_default_member_config__policycontroller__policy_controller_hub_config
     ?audit_interval_seconds ?constraint_violation_limit
     ?exemptable_namespaces ?log_denies_enabled ?mutation_enabled
-    ?referential_rules_enabled ~install_spec ~deployment_configs
-    ~monitoring ~policy_content () :
+    ?referential_rules_enabled ?(monitoring = [])
+    ?(policy_content = []) ~install_spec ~deployment_configs () :
     fleet_default_member_config__policycontroller__policy_controller_hub_config
     =
   {
@@ -1709,8 +1710,8 @@ let fleet_default_member_config__policycontroller ?version
     fleet_default_member_config__policycontroller =
   { version; policy_controller_hub_config }
 
-let fleet_default_member_config ~configmanagement ~mesh
-    ~policycontroller () : fleet_default_member_config =
+let fleet_default_member_config ?(configmanagement = []) ?(mesh = [])
+    ?(policycontroller = []) () : fleet_default_member_config =
   { configmanagement; mesh; policycontroller }
 
 let spec__clusterupgrade__gke_upgrade_overrides__post_conditions
@@ -1731,8 +1732,9 @@ let spec__clusterupgrade__post_conditions ~soaking () :
     spec__clusterupgrade__post_conditions =
   { soaking }
 
-let spec__clusterupgrade ~upstream_fleets ~gke_upgrade_overrides
-    ~post_conditions () : spec__clusterupgrade =
+let spec__clusterupgrade ?(gke_upgrade_overrides = [])
+    ?(post_conditions = []) ~upstream_fleets () :
+    spec__clusterupgrade =
   { upstream_fleets; gke_upgrade_overrides; post_conditions }
 
 let spec__fleetobservability__logging_config__default_config ?mode ()
@@ -1745,12 +1747,12 @@ let spec__fleetobservability__logging_config__fleet_scope_logs_config
     =
   { mode }
 
-let spec__fleetobservability__logging_config ~default_config
-    ~fleet_scope_logs_config () :
+let spec__fleetobservability__logging_config ?(default_config = [])
+    ?(fleet_scope_logs_config = []) () :
     spec__fleetobservability__logging_config =
   { default_config; fleet_scope_logs_config }
 
-let spec__fleetobservability ~logging_config () :
+let spec__fleetobservability ?(logging_config = []) () :
     spec__fleetobservability =
   { logging_config }
 
@@ -1758,16 +1760,16 @@ let spec__multiclusteringress ~config_membership () :
     spec__multiclusteringress =
   { config_membership }
 
-let spec ~clusterupgrade ~fleetobservability ~multiclusteringress ()
-    : spec =
+let spec ?(clusterupgrade = []) ?(fleetobservability = [])
+    ?(multiclusteringress = []) () : spec =
   { clusterupgrade; fleetobservability; multiclusteringress }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_gke_hub_feature ?id ?labels ?name ?project ?timeouts
-    ~location ~fleet_default_member_config ~spec () :
-    google_gke_hub_feature =
+let google_gke_hub_feature ?id ?labels ?name ?project
+    ?(fleet_default_member_config = []) ?(spec = []) ?timeouts
+    ~location () : google_gke_hub_feature =
   {
     id;
     labels;
@@ -1794,8 +1796,9 @@ type t = {
   update_time : string prop;
 }
 
-let make ?id ?labels ?name ?project ?timeouts ~location
-    ~fleet_default_member_config ~spec __id =
+let make ?id ?labels ?name ?project
+    ?(fleet_default_member_config = []) ?(spec = []) ?timeouts
+    ~location __id =
   let __type = "google_gke_hub_feature" in
   let __attrs =
     ({
@@ -1821,16 +1824,17 @@ let make ?id ?labels ?name ?project ?timeouts ~location
     type_ = __type;
     json =
       yojson_of_google_gke_hub_feature
-        (google_gke_hub_feature ?id ?labels ?name ?project ?timeouts
-           ~location ~fleet_default_member_config ~spec ());
+        (google_gke_hub_feature ?id ?labels ?name ?project
+           ~fleet_default_member_config ~spec ?timeouts ~location ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?labels ?name ?project ?timeouts
-    ~location ~fleet_default_member_config ~spec __id =
+let register ?tf_module ?id ?labels ?name ?project
+    ?(fleet_default_member_config = []) ?(spec = []) ?timeouts
+    ~location __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?labels ?name ?project ?timeouts ~location
-      ~fleet_default_member_config ~spec __id
+    make ?id ?labels ?name ?project ~fleet_default_member_config
+      ~spec ?timeouts ~location __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

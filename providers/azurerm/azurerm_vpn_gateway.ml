@@ -307,8 +307,9 @@ let bgp_settings__instance_1_bgp_peering_address ~custom_ips () :
     bgp_settings__instance_1_bgp_peering_address =
   { custom_ips }
 
-let bgp_settings ~asn ~peer_weight ~instance_0_bgp_peering_address
-    ~instance_1_bgp_peering_address () : bgp_settings =
+let bgp_settings ?(instance_0_bgp_peering_address = [])
+    ?(instance_1_bgp_peering_address = []) ~asn ~peer_weight () :
+    bgp_settings =
   {
     asn;
     peer_weight;
@@ -320,9 +321,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_vpn_gateway ?bgp_route_translation_for_nat_enabled ?id
-    ?routing_preference ?scale_unit ?tags ?timeouts ~location ~name
-    ~resource_group_name ~virtual_hub_id ~bgp_settings () :
-    azurerm_vpn_gateway =
+    ?routing_preference ?scale_unit ?tags ?(bgp_settings = [])
+    ?timeouts ~location ~name ~resource_group_name ~virtual_hub_id ()
+    : azurerm_vpn_gateway =
   {
     bgp_route_translation_for_nat_enabled;
     id;
@@ -350,8 +351,9 @@ type t = {
 }
 
 let make ?bgp_route_translation_for_nat_enabled ?id
-    ?routing_preference ?scale_unit ?tags ?timeouts ~location ~name
-    ~resource_group_name ~virtual_hub_id ~bgp_settings __id =
+    ?routing_preference ?scale_unit ?tags ?(bgp_settings = [])
+    ?timeouts ~location ~name ~resource_group_name ~virtual_hub_id
+    __id =
   let __type = "azurerm_vpn_gateway" in
   let __attrs =
     ({
@@ -377,19 +379,20 @@ let make ?bgp_route_translation_for_nat_enabled ?id
     json =
       yojson_of_azurerm_vpn_gateway
         (azurerm_vpn_gateway ?bgp_route_translation_for_nat_enabled
-           ?id ?routing_preference ?scale_unit ?tags ?timeouts
-           ~location ~name ~resource_group_name ~virtual_hub_id
-           ~bgp_settings ());
+           ?id ?routing_preference ?scale_unit ?tags ~bgp_settings
+           ?timeouts ~location ~name ~resource_group_name
+           ~virtual_hub_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?bgp_route_translation_for_nat_enabled ?id
-    ?routing_preference ?scale_unit ?tags ?timeouts ~location ~name
-    ~resource_group_name ~virtual_hub_id ~bgp_settings __id =
+    ?routing_preference ?scale_unit ?tags ?(bgp_settings = [])
+    ?timeouts ~location ~name ~resource_group_name ~virtual_hub_id
+    __id =
   let (r : _ Tf_core.resource) =
     make ?bgp_route_translation_for_nat_enabled ?id
-      ?routing_preference ?scale_unit ?tags ?timeouts ~location ~name
-      ~resource_group_name ~virtual_hub_id ~bgp_settings __id
+      ?routing_preference ?scale_unit ?tags ~bgp_settings ?timeouts
+      ~location ~name ~resource_group_name ~virtual_hub_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

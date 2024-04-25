@@ -201,8 +201,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_apigee_environment ?api_proxy_type ?deployment_type
-    ?description ?display_name ?id ?type_ ?timeouts ~name ~org_id
-    ~node_config () : google_apigee_environment =
+    ?description ?display_name ?id ?type_ ?(node_config = [])
+    ?timeouts ~name ~org_id () : google_apigee_environment =
   {
     api_proxy_type;
     deployment_type;
@@ -228,7 +228,7 @@ type t = {
 }
 
 let make ?api_proxy_type ?deployment_type ?description ?display_name
-    ?id ?type_ ?timeouts ~name ~org_id ~node_config __id =
+    ?id ?type_ ?(node_config = []) ?timeouts ~name ~org_id __id =
   let __type = "google_apigee_environment" in
   let __attrs =
     ({
@@ -249,17 +249,17 @@ let make ?api_proxy_type ?deployment_type ?description ?display_name
     json =
       yojson_of_google_apigee_environment
         (google_apigee_environment ?api_proxy_type ?deployment_type
-           ?description ?display_name ?id ?type_ ?timeouts ~name
-           ~org_id ~node_config ());
+           ?description ?display_name ?id ?type_ ~node_config
+           ?timeouts ~name ~org_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?api_proxy_type ?deployment_type ?description
-    ?display_name ?id ?type_ ?timeouts ~name ~org_id ~node_config
-    __id =
+    ?display_name ?id ?type_ ?(node_config = []) ?timeouts ~name
+    ~org_id __id =
   let (r : _ Tf_core.resource) =
     make ?api_proxy_type ?deployment_type ?description ?display_name
-      ?id ?type_ ?timeouts ~name ~org_id ~node_config __id
+      ?id ?type_ ~node_config ?timeouts ~name ~org_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -126,7 +126,7 @@ let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
 let google_bigquery_datapolicy_data_policy_iam_member ?id ?location
-    ?project ~data_policy_id ~member ~role ~condition () :
+    ?project ?(condition = []) ~data_policy_id ~member ~role () :
     google_bigquery_datapolicy_data_policy_iam_member =
   { data_policy_id; id; location; member; project; role; condition }
 
@@ -140,8 +140,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?location ?project ~data_policy_id ~member ~role
-    ~condition __id =
+let make ?id ?location ?project ?(condition = []) ~data_policy_id
+    ~member ~role __id =
   let __type = "google_bigquery_datapolicy_data_policy_iam_member" in
   let __attrs =
     ({
@@ -161,16 +161,16 @@ let make ?id ?location ?project ~data_policy_id ~member ~role
     json =
       yojson_of_google_bigquery_datapolicy_data_policy_iam_member
         (google_bigquery_datapolicy_data_policy_iam_member ?id
-           ?location ?project ~data_policy_id ~member ~role
-           ~condition ());
+           ?location ?project ~condition ~data_policy_id ~member
+           ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?location ?project ~data_policy_id
-    ~member ~role ~condition __id =
+let register ?tf_module ?id ?location ?project ?(condition = [])
+    ~data_policy_id ~member ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?location ?project ~data_policy_id ~member ~role
-      ~condition __id
+    make ?id ?location ?project ~condition ~data_policy_id ~member
+      ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

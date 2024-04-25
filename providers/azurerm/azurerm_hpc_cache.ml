@@ -685,8 +685,8 @@ let directory_ldap__bind ~dn ~password () : directory_ldap__bind =
   { dn; password }
 
 let directory_ldap ?certificate_validation_uri
-    ?download_certificate_automatically ?encrypted ~base_dn ~server
-    ~bind () : directory_ldap =
+    ?download_certificate_automatically ?encrypted ?(bind = [])
+    ~base_dn ~server () : directory_ldap =
   {
     base_dn;
     certificate_validation_uri;
@@ -705,11 +705,12 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_hpc_cache ?automatically_rotate_key_to_latest_enabled ?id
-    ?key_vault_key_id ?mtu ?ntp_server ?tags ?timeouts
-    ~cache_size_in_gb ~location ~name ~resource_group_name ~sku_name
-    ~subnet_id ~default_access_policy ~directory_active_directory
-    ~directory_flat_file ~directory_ldap ~dns ~identity () :
-    azurerm_hpc_cache =
+    ?key_vault_key_id ?mtu ?ntp_server ?tags
+    ?(default_access_policy = []) ?(directory_active_directory = [])
+    ?(directory_flat_file = []) ?(directory_ldap = []) ?(dns = [])
+    ?(identity = []) ?timeouts ~cache_size_in_gb ~location ~name
+    ~resource_group_name ~sku_name ~subnet_id () : azurerm_hpc_cache
+    =
   {
     automatically_rotate_key_to_latest_enabled;
     cache_size_in_gb;
@@ -749,10 +750,11 @@ type t = {
 }
 
 let make ?automatically_rotate_key_to_latest_enabled ?id
-    ?key_vault_key_id ?mtu ?ntp_server ?tags ?timeouts
-    ~cache_size_in_gb ~location ~name ~resource_group_name ~sku_name
-    ~subnet_id ~default_access_policy ~directory_active_directory
-    ~directory_flat_file ~directory_ldap ~dns ~identity __id =
+    ?key_vault_key_id ?mtu ?ntp_server ?tags
+    ?(default_access_policy = []) ?(directory_active_directory = [])
+    ?(directory_flat_file = []) ?(directory_ldap = []) ?(dns = [])
+    ?(identity = []) ?timeouts ~cache_size_in_gb ~location ~name
+    ~resource_group_name ~sku_name ~subnet_id __id =
   let __type = "azurerm_hpc_cache" in
   let __attrs =
     ({
@@ -784,26 +786,26 @@ let make ?automatically_rotate_key_to_latest_enabled ?id
       yojson_of_azurerm_hpc_cache
         (azurerm_hpc_cache
            ?automatically_rotate_key_to_latest_enabled ?id
-           ?key_vault_key_id ?mtu ?ntp_server ?tags ?timeouts
-           ~cache_size_in_gb ~location ~name ~resource_group_name
-           ~sku_name ~subnet_id ~default_access_policy
-           ~directory_active_directory ~directory_flat_file
-           ~directory_ldap ~dns ~identity ());
+           ?key_vault_key_id ?mtu ?ntp_server ?tags
+           ~default_access_policy ~directory_active_directory
+           ~directory_flat_file ~directory_ldap ~dns ~identity
+           ?timeouts ~cache_size_in_gb ~location ~name
+           ~resource_group_name ~sku_name ~subnet_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?automatically_rotate_key_to_latest_enabled
-    ?id ?key_vault_key_id ?mtu ?ntp_server ?tags ?timeouts
-    ~cache_size_in_gb ~location ~name ~resource_group_name ~sku_name
-    ~subnet_id ~default_access_policy ~directory_active_directory
-    ~directory_flat_file ~directory_ldap ~dns ~identity __id =
+    ?id ?key_vault_key_id ?mtu ?ntp_server ?tags
+    ?(default_access_policy = []) ?(directory_active_directory = [])
+    ?(directory_flat_file = []) ?(directory_ldap = []) ?(dns = [])
+    ?(identity = []) ?timeouts ~cache_size_in_gb ~location ~name
+    ~resource_group_name ~sku_name ~subnet_id __id =
   let (r : _ Tf_core.resource) =
     make ?automatically_rotate_key_to_latest_enabled ?id
-      ?key_vault_key_id ?mtu ?ntp_server ?tags ?timeouts
-      ~cache_size_in_gb ~location ~name ~resource_group_name
-      ~sku_name ~subnet_id ~default_access_policy
+      ?key_vault_key_id ?mtu ?ntp_server ?tags ~default_access_policy
       ~directory_active_directory ~directory_flat_file
-      ~directory_ldap ~dns ~identity __id
+      ~directory_ldap ~dns ~identity ?timeouts ~cache_size_in_gb
+      ~location ~name ~resource_group_name ~sku_name ~subnet_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -16,8 +16,8 @@ type targeting_filter
 
 val targeting_filter :
   ?users:string prop list ->
+  ?groups:targeting_filter__groups list ->
   default_rollout_percentage:float prop ->
-  groups:targeting_filter__groups list ->
   unit ->
   targeting_filter
 
@@ -51,11 +51,11 @@ val azurerm_app_configuration_feature :
   ?locked:bool prop ->
   ?percentage_filter_value:float prop ->
   ?tags:(string * string prop) list ->
+  ?targeting_filter:targeting_filter list ->
   ?timeouts:timeouts ->
+  ?timewindow_filter:timewindow_filter list ->
   configuration_store_id:string prop ->
   name:string prop ->
-  targeting_filter:targeting_filter list ->
-  timewindow_filter:timewindow_filter list ->
   unit ->
   azurerm_app_configuration_feature
 
@@ -89,11 +89,11 @@ val register :
   ?locked:bool prop ->
   ?percentage_filter_value:float prop ->
   ?tags:(string * string prop) list ->
+  ?targeting_filter:targeting_filter list ->
   ?timeouts:timeouts ->
+  ?timewindow_filter:timewindow_filter list ->
   configuration_store_id:string prop ->
   name:string prop ->
-  targeting_filter:targeting_filter list ->
-  timewindow_filter:timewindow_filter list ->
   string ->
   t
 
@@ -107,10 +107,10 @@ val make :
   ?locked:bool prop ->
   ?percentage_filter_value:float prop ->
   ?tags:(string * string prop) list ->
+  ?targeting_filter:targeting_filter list ->
   ?timeouts:timeouts ->
+  ?timewindow_filter:timewindow_filter list ->
   configuration_store_id:string prop ->
   name:string prop ->
-  targeting_filter:targeting_filter list ->
-  timewindow_filter:timewindow_filter list ->
   string ->
   t Tf_core.resource

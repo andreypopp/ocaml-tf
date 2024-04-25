@@ -31,10 +31,10 @@ val azurerm_role_definition :
   ?description:string prop ->
   ?id:string prop ->
   ?role_definition_id:string prop ->
+  ?permissions:permissions list ->
   ?timeouts:timeouts ->
   name:string prop ->
   scope:string prop ->
-  permissions:permissions list ->
   unit ->
   azurerm_role_definition
 
@@ -59,10 +59,10 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?role_definition_id:string prop ->
+  ?permissions:permissions list ->
   ?timeouts:timeouts ->
   name:string prop ->
   scope:string prop ->
-  permissions:permissions list ->
   string ->
   t
 
@@ -71,9 +71,9 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?role_definition_id:string prop ->
+  ?permissions:permissions list ->
   ?timeouts:timeouts ->
   name:string prop ->
   scope:string prop ->
-  permissions:permissions list ->
   string ->
   t Tf_core.resource

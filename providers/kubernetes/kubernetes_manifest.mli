@@ -38,7 +38,7 @@ type wait
 val wait :
   ?fields:(string * string prop) list ->
   ?rollout:bool prop ->
-  condition:wait__condition list ->
+  ?condition:wait__condition list ->
   unit ->
   wait
 
@@ -48,10 +48,10 @@ val kubernetes_manifest :
   ?computed_fields:string prop list ->
   ?object_:json prop ->
   ?wait_for:wait_for ->
+  ?field_manager:field_manager list ->
+  ?timeouts:timeouts list ->
+  ?wait:wait list ->
   manifest:json prop ->
-  field_manager:field_manager list ->
-  timeouts:timeouts list ->
-  wait:wait list ->
   unit ->
   kubernetes_manifest
 
@@ -71,10 +71,10 @@ val register :
   ?computed_fields:string prop list ->
   ?object_:json prop ->
   ?wait_for:wait_for ->
+  ?field_manager:field_manager list ->
+  ?timeouts:timeouts list ->
+  ?wait:wait list ->
   manifest:json prop ->
-  field_manager:field_manager list ->
-  timeouts:timeouts list ->
-  wait:wait list ->
   string ->
   t
 
@@ -82,9 +82,9 @@ val make :
   ?computed_fields:string prop list ->
   ?object_:json prop ->
   ?wait_for:wait_for ->
+  ?field_manager:field_manager list ->
+  ?timeouts:timeouts list ->
+  ?wait:wait list ->
   manifest:json prop ->
-  field_manager:field_manager list ->
-  timeouts:timeouts list ->
-  wait:wait list ->
   string ->
   t Tf_core.resource

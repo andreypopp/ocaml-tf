@@ -336,9 +336,9 @@ let timeouts ?create ?delete ?read () : timeouts =
 
 let azurerm_virtual_machine_scale_set_packet_capture ?id
     ?maximum_bytes_per_packet ?maximum_bytes_per_session
-    ?maximum_capture_duration_in_seconds ?timeouts ~name
-    ~network_watcher_id ~virtual_machine_scale_set_id ~filter
-    ~machine_scope ~storage_location () :
+    ?maximum_capture_duration_in_seconds ?(filter = [])
+    ?(machine_scope = []) ?timeouts ~name ~network_watcher_id
+    ~virtual_machine_scale_set_id ~storage_location () :
     azurerm_virtual_machine_scale_set_packet_capture =
   {
     id;
@@ -365,9 +365,9 @@ type t = {
 }
 
 let make ?id ?maximum_bytes_per_packet ?maximum_bytes_per_session
-    ?maximum_capture_duration_in_seconds ?timeouts ~name
-    ~network_watcher_id ~virtual_machine_scale_set_id ~filter
-    ~machine_scope ~storage_location __id =
+    ?maximum_capture_duration_in_seconds ?(filter = [])
+    ?(machine_scope = []) ?timeouts ~name ~network_watcher_id
+    ~virtual_machine_scale_set_id ~storage_location __id =
   let __type = "azurerm_virtual_machine_scale_set_packet_capture" in
   let __attrs =
     ({
@@ -394,21 +394,22 @@ let make ?id ?maximum_bytes_per_packet ?maximum_bytes_per_session
       yojson_of_azurerm_virtual_machine_scale_set_packet_capture
         (azurerm_virtual_machine_scale_set_packet_capture ?id
            ?maximum_bytes_per_packet ?maximum_bytes_per_session
-           ?maximum_capture_duration_in_seconds ?timeouts ~name
-           ~network_watcher_id ~virtual_machine_scale_set_id ~filter
-           ~machine_scope ~storage_location ());
+           ?maximum_capture_duration_in_seconds ~filter
+           ~machine_scope ?timeouts ~name ~network_watcher_id
+           ~virtual_machine_scale_set_id ~storage_location ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?maximum_bytes_per_packet
     ?maximum_bytes_per_session ?maximum_capture_duration_in_seconds
-    ?timeouts ~name ~network_watcher_id ~virtual_machine_scale_set_id
-    ~filter ~machine_scope ~storage_location __id =
+    ?(filter = []) ?(machine_scope = []) ?timeouts ~name
+    ~network_watcher_id ~virtual_machine_scale_set_id
+    ~storage_location __id =
   let (r : _ Tf_core.resource) =
     make ?id ?maximum_bytes_per_packet ?maximum_bytes_per_session
-      ?maximum_capture_duration_in_seconds ?timeouts ~name
-      ~network_watcher_id ~virtual_machine_scale_set_id ~filter
-      ~machine_scope ~storage_location __id
+      ?maximum_capture_duration_in_seconds ~filter ~machine_scope
+      ?timeouts ~name ~network_watcher_id
+      ~virtual_machine_scale_set_id ~storage_location __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

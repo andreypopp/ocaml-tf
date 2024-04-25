@@ -47,12 +47,12 @@ val google_vertex_ai_feature_online_store_featureview :
   ?labels:(string * string prop) list ->
   ?name:string prop ->
   ?project:string prop ->
+  ?big_query_source:big_query_source list ->
+  ?feature_registry_source:feature_registry_source list ->
+  ?sync_config:sync_config list ->
   ?timeouts:timeouts ->
   feature_online_store:string prop ->
   region:string prop ->
-  big_query_source:big_query_source list ->
-  feature_registry_source:feature_registry_source list ->
-  sync_config:sync_config list ->
   unit ->
   google_vertex_ai_feature_online_store_featureview
 
@@ -80,12 +80,12 @@ val register :
   ?labels:(string * string prop) list ->
   ?name:string prop ->
   ?project:string prop ->
+  ?big_query_source:big_query_source list ->
+  ?feature_registry_source:feature_registry_source list ->
+  ?sync_config:sync_config list ->
   ?timeouts:timeouts ->
   feature_online_store:string prop ->
   region:string prop ->
-  big_query_source:big_query_source list ->
-  feature_registry_source:feature_registry_source list ->
-  sync_config:sync_config list ->
   string ->
   t
 
@@ -94,11 +94,11 @@ val make :
   ?labels:(string * string prop) list ->
   ?name:string prop ->
   ?project:string prop ->
+  ?big_query_source:big_query_source list ->
+  ?feature_registry_source:feature_registry_source list ->
+  ?sync_config:sync_config list ->
   ?timeouts:timeouts ->
   feature_online_store:string prop ->
   region:string prop ->
-  big_query_source:big_query_source list ->
-  feature_registry_source:feature_registry_source list ->
-  sync_config:sync_config list ->
   string ->
   t Tf_core.resource

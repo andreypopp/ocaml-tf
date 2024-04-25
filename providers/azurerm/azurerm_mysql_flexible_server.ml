@@ -582,9 +582,10 @@ let azurerm_mysql_flexible_server ?administrator_login
     ?delegated_subnet_id ?geo_redundant_backup_enabled ?id
     ?point_in_time_restore_time_in_utc ?private_dns_zone_id
     ?replication_role ?sku_name ?source_server_id ?tags ?version
-    ?zone ?timeouts ~location ~name ~resource_group_name
-    ~customer_managed_key ~high_availability ~identity
-    ~maintenance_window ~storage () : azurerm_mysql_flexible_server =
+    ?zone ?(customer_managed_key = []) ?(high_availability = [])
+    ?(identity = []) ?(maintenance_window = []) ?(storage = [])
+    ?timeouts ~location ~name ~resource_group_name () :
+    azurerm_mysql_flexible_server =
   {
     administrator_login;
     administrator_password;
@@ -641,9 +642,9 @@ let make ?administrator_login ?administrator_password
     ?geo_redundant_backup_enabled ?id
     ?point_in_time_restore_time_in_utc ?private_dns_zone_id
     ?replication_role ?sku_name ?source_server_id ?tags ?version
-    ?zone ?timeouts ~location ~name ~resource_group_name
-    ~customer_managed_key ~high_availability ~identity
-    ~maintenance_window ~storage __id =
+    ?zone ?(customer_managed_key = []) ?(high_availability = [])
+    ?(identity = []) ?(maintenance_window = []) ?(storage = [])
+    ?timeouts ~location ~name ~resource_group_name __id =
   let __type = "azurerm_mysql_flexible_server" in
   let __attrs =
     ({
@@ -695,10 +696,9 @@ let make ?administrator_login ?administrator_password
            ?geo_redundant_backup_enabled ?id
            ?point_in_time_restore_time_in_utc ?private_dns_zone_id
            ?replication_role ?sku_name ?source_server_id ?tags
-           ?version ?zone ?timeouts ~location ~name
-           ~resource_group_name ~customer_managed_key
-           ~high_availability ~identity ~maintenance_window ~storage
-           ());
+           ?version ?zone ~customer_managed_key ~high_availability
+           ~identity ~maintenance_window ~storage ?timeouts ~location
+           ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
@@ -707,18 +707,18 @@ let register ?tf_module ?administrator_login ?administrator_password
     ?geo_redundant_backup_enabled ?id
     ?point_in_time_restore_time_in_utc ?private_dns_zone_id
     ?replication_role ?sku_name ?source_server_id ?tags ?version
-    ?zone ?timeouts ~location ~name ~resource_group_name
-    ~customer_managed_key ~high_availability ~identity
-    ~maintenance_window ~storage __id =
+    ?zone ?(customer_managed_key = []) ?(high_availability = [])
+    ?(identity = []) ?(maintenance_window = []) ?(storage = [])
+    ?timeouts ~location ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?administrator_login ?administrator_password
       ?backup_retention_days ?create_mode ?delegated_subnet_id
       ?geo_redundant_backup_enabled ?id
       ?point_in_time_restore_time_in_utc ?private_dns_zone_id
       ?replication_role ?sku_name ?source_server_id ?tags ?version
-      ?zone ?timeouts ~location ~name ~resource_group_name
-      ~customer_managed_key ~high_availability ~identity
-      ~maintenance_window ~storage __id
+      ?zone ~customer_managed_key ~high_availability ~identity
+      ~maintenance_window ~storage ?timeouts ~location ~name
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

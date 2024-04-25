@@ -456,8 +456,9 @@ let bucket_options__linear_buckets ~num_finite_buckets ~offset ~width
     () : bucket_options__linear_buckets =
   { num_finite_buckets; offset; width }
 
-let bucket_options ~explicit_buckets ~exponential_buckets
-    ~linear_buckets () : bucket_options =
+let bucket_options ?(explicit_buckets = [])
+    ?(exponential_buckets = []) ?(linear_buckets = []) () :
+    bucket_options =
   { explicit_buckets; exponential_buckets; linear_buckets }
 
 let metric_descriptor__labels ?description ?value_type ~key () :
@@ -472,9 +473,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_logging_metric ?bucket_name ?description ?disabled ?id
-    ?label_extractors ?project ?value_extractor ?timeouts ~filter
-    ~name ~bucket_options ~metric_descriptor () :
-    google_logging_metric =
+    ?label_extractors ?project ?value_extractor
+    ?(bucket_options = []) ?(metric_descriptor = []) ?timeouts
+    ~filter ~name () : google_logging_metric =
   {
     bucket_name;
     description;
@@ -503,8 +504,8 @@ type t = {
 }
 
 let make ?bucket_name ?description ?disabled ?id ?label_extractors
-    ?project ?value_extractor ?timeouts ~filter ~name ~bucket_options
-    ~metric_descriptor __id =
+    ?project ?value_extractor ?(bucket_options = [])
+    ?(metric_descriptor = []) ?timeouts ~filter ~name __id =
   let __type = "google_logging_metric" in
   let __attrs =
     ({
@@ -527,18 +528,20 @@ let make ?bucket_name ?description ?disabled ?id ?label_extractors
     json =
       yojson_of_google_logging_metric
         (google_logging_metric ?bucket_name ?description ?disabled
-           ?id ?label_extractors ?project ?value_extractor ?timeouts
-           ~filter ~name ~bucket_options ~metric_descriptor ());
+           ?id ?label_extractors ?project ?value_extractor
+           ~bucket_options ~metric_descriptor ?timeouts ~filter ~name
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?bucket_name ?description ?disabled ?id
-    ?label_extractors ?project ?value_extractor ?timeouts ~filter
-    ~name ~bucket_options ~metric_descriptor __id =
+    ?label_extractors ?project ?value_extractor
+    ?(bucket_options = []) ?(metric_descriptor = []) ?timeouts
+    ~filter ~name __id =
   let (r : _ Tf_core.resource) =
     make ?bucket_name ?description ?disabled ?id ?label_extractors
-      ?project ?value_extractor ?timeouts ~filter ~name
-      ~bucket_options ~metric_descriptor __id
+      ?project ?value_extractor ~bucket_options ~metric_descriptor
+      ?timeouts ~filter ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

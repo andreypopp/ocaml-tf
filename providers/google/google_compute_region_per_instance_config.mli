@@ -25,8 +25,8 @@ type preserved_state__external_ip
 
 val preserved_state__external_ip :
   ?auto_delete:string prop ->
+  ?ip_address:preserved_state__external_ip__ip_address list ->
   interface_name:string prop ->
-  ip_address:preserved_state__external_ip__ip_address list ->
   unit ->
   preserved_state__external_ip
 
@@ -41,8 +41,8 @@ type preserved_state__internal_ip
 
 val preserved_state__internal_ip :
   ?auto_delete:string prop ->
+  ?ip_address:preserved_state__internal_ip__ip_address list ->
   interface_name:string prop ->
-  ip_address:preserved_state__internal_ip__ip_address list ->
   unit ->
   preserved_state__internal_ip
 
@@ -75,10 +75,10 @@ val google_compute_region_per_instance_config :
   ?region:string prop ->
   ?remove_instance_on_destroy:bool prop ->
   ?remove_instance_state_on_destroy:bool prop ->
+  ?preserved_state:preserved_state list ->
   ?timeouts:timeouts ->
   name:string prop ->
   region_instance_group_manager:string prop ->
-  preserved_state:preserved_state list ->
   unit ->
   google_compute_region_per_instance_config
 
@@ -108,10 +108,10 @@ val register :
   ?region:string prop ->
   ?remove_instance_on_destroy:bool prop ->
   ?remove_instance_state_on_destroy:bool prop ->
+  ?preserved_state:preserved_state list ->
   ?timeouts:timeouts ->
   name:string prop ->
   region_instance_group_manager:string prop ->
-  preserved_state:preserved_state list ->
   string ->
   t
 
@@ -123,9 +123,9 @@ val make :
   ?region:string prop ->
   ?remove_instance_on_destroy:bool prop ->
   ?remove_instance_state_on_destroy:bool prop ->
+  ?preserved_state:preserved_state list ->
   ?timeouts:timeouts ->
   name:string prop ->
   region_instance_group_manager:string prop ->
-  preserved_state:preserved_state list ->
   string ->
   t Tf_core.resource

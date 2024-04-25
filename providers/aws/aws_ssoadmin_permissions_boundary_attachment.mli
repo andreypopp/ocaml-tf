@@ -16,7 +16,7 @@ type permissions_boundary
 
 val permissions_boundary :
   ?managed_policy_arn:string prop ->
-  customer_managed_policy_reference:
+  ?customer_managed_policy_reference:
     permissions_boundary__customer_managed_policy_reference list ->
   unit ->
   permissions_boundary

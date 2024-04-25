@@ -62,9 +62,10 @@ val notebook__infrastructure_spec__vpc_network :
 type notebook__infrastructure_spec
 
 val notebook__infrastructure_spec :
-  batch:notebook__infrastructure_spec__batch list ->
-  container_image:notebook__infrastructure_spec__container_image list ->
-  vpc_network:notebook__infrastructure_spec__vpc_network list ->
+  ?batch:notebook__infrastructure_spec__batch list ->
+  ?container_image:
+    notebook__infrastructure_spec__container_image list ->
+  ?vpc_network:notebook__infrastructure_spec__vpc_network list ->
   unit ->
   notebook__infrastructure_spec
 
@@ -73,8 +74,8 @@ type notebook
 val notebook :
   ?archive_uris:string prop list ->
   ?file_uris:string prop list ->
+  ?infrastructure_spec:notebook__infrastructure_spec list ->
   notebook:string prop ->
-  infrastructure_spec:notebook__infrastructure_spec list ->
   unit ->
   notebook
 
@@ -108,9 +109,9 @@ val spark__infrastructure_spec__vpc_network :
 type spark__infrastructure_spec
 
 val spark__infrastructure_spec :
-  batch:spark__infrastructure_spec__batch list ->
-  container_image:spark__infrastructure_spec__container_image list ->
-  vpc_network:spark__infrastructure_spec__vpc_network list ->
+  ?batch:spark__infrastructure_spec__batch list ->
+  ?container_image:spark__infrastructure_spec__container_image list ->
+  ?vpc_network:spark__infrastructure_spec__vpc_network list ->
   unit ->
   spark__infrastructure_spec
 
@@ -124,7 +125,7 @@ val spark :
   ?python_script_file:string prop ->
   ?sql_script:string prop ->
   ?sql_script_file:string prop ->
-  infrastructure_spec:spark__infrastructure_spec list ->
+  ?infrastructure_spec:spark__infrastructure_spec list ->
   unit ->
   spark
 
@@ -159,10 +160,10 @@ val google_dataplex_task :
   ?location:string prop ->
   ?project:string prop ->
   ?task_id:string prop ->
+  ?notebook:notebook list ->
+  ?spark:spark list ->
   ?timeouts:timeouts ->
   execution_spec:execution_spec list ->
-  notebook:notebook list ->
-  spark:spark list ->
   trigger_spec:trigger_spec list ->
   unit ->
   google_dataplex_task
@@ -200,10 +201,10 @@ val register :
   ?location:string prop ->
   ?project:string prop ->
   ?task_id:string prop ->
+  ?notebook:notebook list ->
+  ?spark:spark list ->
   ?timeouts:timeouts ->
   execution_spec:execution_spec list ->
-  notebook:notebook list ->
-  spark:spark list ->
   trigger_spec:trigger_spec list ->
   string ->
   t
@@ -217,10 +218,10 @@ val make :
   ?location:string prop ->
   ?project:string prop ->
   ?task_id:string prop ->
+  ?notebook:notebook list ->
+  ?spark:spark list ->
   ?timeouts:timeouts ->
   execution_spec:execution_spec list ->
-  notebook:notebook list ->
-  spark:spark list ->
   trigger_spec:trigger_spec list ->
   string ->
   t Tf_core.resource

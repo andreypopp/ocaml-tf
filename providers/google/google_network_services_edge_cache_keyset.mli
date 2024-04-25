@@ -34,10 +34,10 @@ val google_network_services_edge_cache_keyset :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?public_key:public_key list ->
   ?timeouts:timeouts ->
+  ?validation_shared_keys:validation_shared_keys list ->
   name:string prop ->
-  public_key:public_key list ->
-  validation_shared_keys:validation_shared_keys list ->
   unit ->
   google_network_services_edge_cache_keyset
 
@@ -62,10 +62,10 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?public_key:public_key list ->
   ?timeouts:timeouts ->
+  ?validation_shared_keys:validation_shared_keys list ->
   name:string prop ->
-  public_key:public_key list ->
-  validation_shared_keys:validation_shared_keys list ->
   string ->
   t
 
@@ -74,9 +74,9 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?public_key:public_key list ->
   ?timeouts:timeouts ->
+  ?validation_shared_keys:validation_shared_keys list ->
   name:string prop ->
-  public_key:public_key list ->
-  validation_shared_keys:validation_shared_keys list ->
   string ->
   t Tf_core.resource

@@ -397,8 +397,9 @@ let aws_fsx_openzfs_volume ?copy_tags_to_snapshots
     ?data_compression_type ?delete_volume_options ?id ?read_only
     ?record_size_kib ?storage_capacity_quota_gib
     ?storage_capacity_reservation_gib ?tags ?tags_all ?volume_type
-    ?timeouts ~name ~parent_volume_id ~nfs_exports ~origin_snapshot
-    ~user_and_group_quotas () : aws_fsx_openzfs_volume =
+    ?(nfs_exports = []) ?(origin_snapshot = []) ?timeouts ~name
+    ~parent_volume_id ~user_and_group_quotas () :
+    aws_fsx_openzfs_volume =
   {
     copy_tags_to_snapshots;
     data_compression_type;
@@ -439,8 +440,9 @@ type t = {
 let make ?copy_tags_to_snapshots ?data_compression_type
     ?delete_volume_options ?id ?read_only ?record_size_kib
     ?storage_capacity_quota_gib ?storage_capacity_reservation_gib
-    ?tags ?tags_all ?volume_type ?timeouts ~name ~parent_volume_id
-    ~nfs_exports ~origin_snapshot ~user_and_group_quotas __id =
+    ?tags ?tags_all ?volume_type ?(nfs_exports = [])
+    ?(origin_snapshot = []) ?timeouts ~name ~parent_volume_id
+    ~user_and_group_quotas __id =
   let __type = "aws_fsx_openzfs_volume" in
   let __attrs =
     ({
@@ -476,8 +478,8 @@ let make ?copy_tags_to_snapshots ?data_compression_type
            ?data_compression_type ?delete_volume_options ?id
            ?read_only ?record_size_kib ?storage_capacity_quota_gib
            ?storage_capacity_reservation_gib ?tags ?tags_all
-           ?volume_type ?timeouts ~name ~parent_volume_id
-           ~nfs_exports ~origin_snapshot ~user_and_group_quotas ());
+           ?volume_type ~nfs_exports ~origin_snapshot ?timeouts ~name
+           ~parent_volume_id ~user_and_group_quotas ());
     attrs = __attrs;
   }
 
@@ -485,14 +487,14 @@ let register ?tf_module ?copy_tags_to_snapshots
     ?data_compression_type ?delete_volume_options ?id ?read_only
     ?record_size_kib ?storage_capacity_quota_gib
     ?storage_capacity_reservation_gib ?tags ?tags_all ?volume_type
-    ?timeouts ~name ~parent_volume_id ~nfs_exports ~origin_snapshot
-    ~user_and_group_quotas __id =
+    ?(nfs_exports = []) ?(origin_snapshot = []) ?timeouts ~name
+    ~parent_volume_id ~user_and_group_quotas __id =
   let (r : _ Tf_core.resource) =
     make ?copy_tags_to_snapshots ?data_compression_type
       ?delete_volume_options ?id ?read_only ?record_size_kib
       ?storage_capacity_quota_gib ?storage_capacity_reservation_gib
-      ?tags ?tags_all ?volume_type ?timeouts ~name ~parent_volume_id
-      ~nfs_exports ~origin_snapshot ~user_and_group_quotas __id
+      ?tags ?tags_all ?volume_type ~nfs_exports ~origin_snapshot
+      ?timeouts ~name ~parent_volume_id ~user_and_group_quotas __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

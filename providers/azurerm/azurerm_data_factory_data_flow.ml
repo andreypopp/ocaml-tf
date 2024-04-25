@@ -1002,8 +1002,9 @@ let sink__schema_linked_service ?parameters ~name () :
     sink__schema_linked_service =
   { name; parameters }
 
-let sink ?description ~name ~dataset ~flowlet ~linked_service
-    ~rejected_linked_service ~schema_linked_service () : sink =
+let sink ?description ?(dataset = []) ?(flowlet = [])
+    ?(linked_service = []) ?(rejected_linked_service = [])
+    ?(schema_linked_service = []) ~name () : sink =
   {
     description;
     name;
@@ -1033,8 +1034,9 @@ let source__schema_linked_service ?parameters ~name () :
     source__schema_linked_service =
   { name; parameters }
 
-let source ?description ~name ~dataset ~flowlet ~linked_service
-    ~rejected_linked_service ~schema_linked_service () : source =
+let source ?description ?(dataset = []) ?(flowlet = [])
+    ?(linked_service = []) ?(rejected_linked_service = [])
+    ?(schema_linked_service = []) ~name () : source =
   {
     description;
     name;
@@ -1060,13 +1062,14 @@ let transformation__linked_service ?parameters ~name () :
     transformation__linked_service =
   { name; parameters }
 
-let transformation ?description ~name ~dataset ~flowlet
-    ~linked_service () : transformation =
+let transformation ?description ?(dataset = []) ?(flowlet = [])
+    ?(linked_service = []) ~name () : transformation =
   { description; name; dataset; flowlet; linked_service }
 
 let azurerm_data_factory_data_flow ?annotations ?description ?folder
-    ?id ?script ?script_lines ?timeouts ~data_factory_id ~name ~sink
-    ~source ~transformation () : azurerm_data_factory_data_flow =
+    ?id ?script ?script_lines ?timeouts ?(transformation = [])
+    ~data_factory_id ~name ~sink ~source () :
+    azurerm_data_factory_data_flow =
   {
     annotations;
     data_factory_id;
@@ -1094,8 +1097,8 @@ type t = {
 }
 
 let make ?annotations ?description ?folder ?id ?script ?script_lines
-    ?timeouts ~data_factory_id ~name ~sink ~source ~transformation
-    __id =
+    ?timeouts ?(transformation = []) ~data_factory_id ~name ~sink
+    ~source __id =
   let __type = "azurerm_data_factory_data_flow" in
   let __attrs =
     ({
@@ -1117,16 +1120,16 @@ let make ?annotations ?description ?folder ?id ?script ?script_lines
       yojson_of_azurerm_data_factory_data_flow
         (azurerm_data_factory_data_flow ?annotations ?description
            ?folder ?id ?script ?script_lines ?timeouts
-           ~data_factory_id ~name ~sink ~source ~transformation ());
+           ~transformation ~data_factory_id ~name ~sink ~source ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?description ?folder ?id ?script
-    ?script_lines ?timeouts ~data_factory_id ~name ~sink ~source
-    ~transformation __id =
+    ?script_lines ?timeouts ?(transformation = []) ~data_factory_id
+    ~name ~sink ~source __id =
   let (r : _ Tf_core.resource) =
     make ?annotations ?description ?folder ?id ?script ?script_lines
-      ?timeouts ~data_factory_id ~name ~sink ~source ~transformation
+      ?timeouts ~transformation ~data_factory_id ~name ~sink ~source
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

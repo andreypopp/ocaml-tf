@@ -63,11 +63,11 @@ val target__ecs_parameters :
   ?reference_id:string prop ->
   ?tags:(string * string prop) list ->
   ?task_count:float prop ->
+  ?network_configuration:
+    target__ecs_parameters__network_configuration list ->
   task_definition_arn:string prop ->
   capacity_provider_strategy:
     target__ecs_parameters__capacity_provider_strategy list ->
-  network_configuration:
-    target__ecs_parameters__network_configuration list ->
   placement_constraints:
     target__ecs_parameters__placement_constraints list ->
   placement_strategy:target__ecs_parameters__placement_strategy list ->
@@ -120,16 +120,16 @@ type target
 
 val target :
   ?input:string prop ->
+  ?dead_letter_config:target__dead_letter_config list ->
+  ?ecs_parameters:target__ecs_parameters list ->
+  ?eventbridge_parameters:target__eventbridge_parameters list ->
+  ?kinesis_parameters:target__kinesis_parameters list ->
+  ?retry_policy:target__retry_policy list ->
+  ?sagemaker_pipeline_parameters:
+    target__sagemaker_pipeline_parameters list ->
+  ?sqs_parameters:target__sqs_parameters list ->
   arn:string prop ->
   role_arn:string prop ->
-  dead_letter_config:target__dead_letter_config list ->
-  ecs_parameters:target__ecs_parameters list ->
-  eventbridge_parameters:target__eventbridge_parameters list ->
-  kinesis_parameters:target__kinesis_parameters list ->
-  retry_policy:target__retry_policy list ->
-  sagemaker_pipeline_parameters:
-    target__sagemaker_pipeline_parameters list ->
-  sqs_parameters:target__sqs_parameters list ->
   unit ->
   target
 

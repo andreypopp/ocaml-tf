@@ -18,9 +18,9 @@ val aws_xray_group :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?insights_configuration:insights_configuration list ->
   filter_expression:string prop ->
   group_name:string prop ->
-  insights_configuration:insights_configuration list ->
   unit ->
   aws_xray_group
 
@@ -42,9 +42,9 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?insights_configuration:insights_configuration list ->
   filter_expression:string prop ->
   group_name:string prop ->
-  insights_configuration:insights_configuration list ->
   string ->
   t
 
@@ -52,8 +52,8 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?insights_configuration:insights_configuration list ->
   filter_expression:string prop ->
   group_name:string prop ->
-  insights_configuration:insights_configuration list ->
   string ->
   t Tf_core.resource

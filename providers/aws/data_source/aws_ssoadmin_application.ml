@@ -81,11 +81,11 @@ let _ = yojson_of_aws_ssoadmin_application
 
 let portal_options__sign_in_options () = ()
 
-let portal_options ~sign_in_options () : portal_options =
+let portal_options ?(sign_in_options = []) () : portal_options =
   { sign_in_options }
 
-let aws_ssoadmin_application ~application_arn ~portal_options () :
-    aws_ssoadmin_application =
+let aws_ssoadmin_application ?(portal_options = []) ~application_arn
+    () : aws_ssoadmin_application =
   { application_arn; portal_options }
 
 type t = {
@@ -99,7 +99,7 @@ type t = {
   status : string prop;
 }
 
-let make ~application_arn ~portal_options __id =
+let make ?(portal_options = []) ~application_arn __id =
   let __type = "aws_ssoadmin_application" in
   let __attrs =
     ({
@@ -121,13 +121,14 @@ let make ~application_arn ~portal_options __id =
     type_ = __type;
     json =
       yojson_of_aws_ssoadmin_application
-        (aws_ssoadmin_application ~application_arn ~portal_options ());
+        (aws_ssoadmin_application ~portal_options ~application_arn ());
     attrs = __attrs;
   }
 
-let register ?tf_module ~application_arn ~portal_options __id =
+let register ?tf_module ?(portal_options = []) ~application_arn __id
+    =
   let (r : _ Tf_core.resource) =
-    make ~application_arn ~portal_options __id
+    make ~portal_options ~application_arn __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

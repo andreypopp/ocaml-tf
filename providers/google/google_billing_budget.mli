@@ -27,7 +27,7 @@ type amount
 
 val amount :
   ?last_period_amount:bool prop ->
-  specified_amount:amount__specified_amount list ->
+  ?specified_amount:amount__specified_amount list ->
   unit ->
   amount
 
@@ -52,7 +52,7 @@ val budget_filter__custom_period__start_date :
 type budget_filter__custom_period
 
 val budget_filter__custom_period :
-  end_date:budget_filter__custom_period__end_date list ->
+  ?end_date:budget_filter__custom_period__end_date list ->
   start_date:budget_filter__custom_period__start_date list ->
   unit ->
   budget_filter__custom_period
@@ -68,7 +68,7 @@ val budget_filter :
   ?resource_ancestors:string prop list ->
   ?services:string prop list ->
   ?subaccounts:string prop list ->
-  custom_period:budget_filter__custom_period list ->
+  ?custom_period:budget_filter__custom_period list ->
   unit ->
   budget_filter
 
@@ -94,12 +94,12 @@ type google_billing_budget
 val google_billing_budget :
   ?display_name:string prop ->
   ?id:string prop ->
+  ?all_updates_rule:all_updates_rule list ->
+  ?budget_filter:budget_filter list ->
+  ?threshold_rules:threshold_rules list ->
   ?timeouts:timeouts ->
   billing_account:string prop ->
-  all_updates_rule:all_updates_rule list ->
   amount:amount list ->
-  budget_filter:budget_filter list ->
-  threshold_rules:threshold_rules list ->
   unit ->
   google_billing_budget
 
@@ -118,23 +118,23 @@ val register :
   ?tf_module:tf_module ->
   ?display_name:string prop ->
   ?id:string prop ->
+  ?all_updates_rule:all_updates_rule list ->
+  ?budget_filter:budget_filter list ->
+  ?threshold_rules:threshold_rules list ->
   ?timeouts:timeouts ->
   billing_account:string prop ->
-  all_updates_rule:all_updates_rule list ->
   amount:amount list ->
-  budget_filter:budget_filter list ->
-  threshold_rules:threshold_rules list ->
   string ->
   t
 
 val make :
   ?display_name:string prop ->
   ?id:string prop ->
+  ?all_updates_rule:all_updates_rule list ->
+  ?budget_filter:budget_filter list ->
+  ?threshold_rules:threshold_rules list ->
   ?timeouts:timeouts ->
   billing_account:string prop ->
-  all_updates_rule:all_updates_rule list ->
   amount:amount list ->
-  budget_filter:budget_filter list ->
-  threshold_rules:threshold_rules list ->
   string ->
   t Tf_core.resource

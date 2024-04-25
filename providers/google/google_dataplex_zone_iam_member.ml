@@ -129,7 +129,7 @@ let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
 let google_dataplex_zone_iam_member ?id ?location ?project
-    ~dataplex_zone ~lake ~member ~role ~condition () :
+    ?(condition = []) ~dataplex_zone ~lake ~member ~role () :
     google_dataplex_zone_iam_member =
   {
     dataplex_zone;
@@ -153,8 +153,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?location ?project ~dataplex_zone ~lake ~member ~role
-    ~condition __id =
+let make ?id ?location ?project ?(condition = []) ~dataplex_zone
+    ~lake ~member ~role __id =
   let __type = "google_dataplex_zone_iam_member" in
   let __attrs =
     ({
@@ -175,15 +175,15 @@ let make ?id ?location ?project ~dataplex_zone ~lake ~member ~role
     json =
       yojson_of_google_dataplex_zone_iam_member
         (google_dataplex_zone_iam_member ?id ?location ?project
-           ~dataplex_zone ~lake ~member ~role ~condition ());
+           ~condition ~dataplex_zone ~lake ~member ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?location ?project ~dataplex_zone ~lake
-    ~member ~role ~condition __id =
+let register ?tf_module ?id ?location ?project ?(condition = [])
+    ~dataplex_zone ~lake ~member ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?location ?project ~dataplex_zone ~lake ~member ~role
-      ~condition __id
+    make ?id ?location ?project ~condition ~dataplex_zone ~lake
+      ~member ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

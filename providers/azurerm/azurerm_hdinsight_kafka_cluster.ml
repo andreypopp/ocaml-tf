@@ -1514,7 +1514,8 @@ let metastores__oozie ~database_name ~password ~server ~username () :
     metastores__oozie =
   { database_name; password; server; username }
 
-let metastores ~ambari ~hive ~oozie () : metastores =
+let metastores ?(ambari = []) ?(hive = []) ?(oozie = []) () :
+    metastores =
   { ambari; hive; oozie }
 
 let monitor ~log_analytics_workspace_id ~primary_key () : monitor =
@@ -1533,8 +1534,8 @@ let roles__head_node__script_actions ?parameters ~name ~uri () :
   { name; parameters; uri }
 
 let roles__head_node ?password ?ssh_keys ?subnet_id
-    ?virtual_network_id ~username ~vm_size ~script_actions () :
-    roles__head_node =
+    ?virtual_network_id ?(script_actions = []) ~username ~vm_size ()
+    : roles__head_node =
   {
     password;
     ssh_keys;
@@ -1550,8 +1551,8 @@ let roles__kafka_management_node__script_actions ?parameters ~name
   { name; parameters; uri }
 
 let roles__kafka_management_node ?password ?ssh_keys ?subnet_id
-    ?virtual_network_id ~username ~vm_size ~script_actions () :
-    roles__kafka_management_node =
+    ?virtual_network_id ?(script_actions = []) ~username ~vm_size ()
+    : roles__kafka_management_node =
   {
     password;
     ssh_keys;
@@ -1567,9 +1568,9 @@ let roles__worker_node__script_actions ?parameters ~name ~uri () :
   { name; parameters; uri }
 
 let roles__worker_node ?password ?ssh_keys ?subnet_id
-    ?virtual_network_id ~number_of_disks_per_node
-    ~target_instance_count ~username ~vm_size ~script_actions () :
-    roles__worker_node =
+    ?virtual_network_id ?(script_actions = [])
+    ~number_of_disks_per_node ~target_instance_count ~username
+    ~vm_size () : roles__worker_node =
   {
     number_of_disks_per_node;
     password;
@@ -1587,8 +1588,8 @@ let roles__zookeeper_node__script_actions ?parameters ~name ~uri () :
   { name; parameters; uri }
 
 let roles__zookeeper_node ?password ?ssh_keys ?subnet_id
-    ?virtual_network_id ~username ~vm_size ~script_actions () :
-    roles__zookeeper_node =
+    ?virtual_network_id ?(script_actions = []) ~username ~vm_size ()
+    : roles__zookeeper_node =
   {
     password;
     ssh_keys;
@@ -1599,7 +1600,7 @@ let roles__zookeeper_node ?password ?ssh_keys ?subnet_id
     script_actions;
   }
 
-let roles ~head_node ~kafka_management_node ~worker_node
+let roles ?(kafka_management_node = []) ~head_node ~worker_node
     ~zookeeper_node () : roles =
   { head_node; kafka_management_node; worker_node; zookeeper_node }
 
@@ -1639,12 +1640,13 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_hdinsight_kafka_cluster ?encryption_in_transit_enabled
-    ?id ?tags ?tls_min_version ?timeouts ~cluster_version ~location
-    ~name ~resource_group_name ~tier ~component_version
-    ~compute_isolation ~disk_encryption ~extension ~gateway
-    ~metastores ~monitor ~network ~rest_proxy ~roles
-    ~security_profile ~storage_account ~storage_account_gen2 () :
-    azurerm_hdinsight_kafka_cluster =
+    ?id ?tags ?tls_min_version ?(compute_isolation = [])
+    ?(disk_encryption = []) ?(extension = []) ?(metastores = [])
+    ?(monitor = []) ?(network = []) ?(rest_proxy = [])
+    ?(security_profile = []) ?(storage_account = [])
+    ?(storage_account_gen2 = []) ?timeouts ~cluster_version ~location
+    ~name ~resource_group_name ~tier ~component_version ~gateway
+    ~roles () : azurerm_hdinsight_kafka_cluster =
   {
     cluster_version;
     encryption_in_transit_enabled;
@@ -1687,11 +1689,12 @@ type t = {
 }
 
 let make ?encryption_in_transit_enabled ?id ?tags ?tls_min_version
-    ?timeouts ~cluster_version ~location ~name ~resource_group_name
-    ~tier ~component_version ~compute_isolation ~disk_encryption
-    ~extension ~gateway ~metastores ~monitor ~network ~rest_proxy
-    ~roles ~security_profile ~storage_account ~storage_account_gen2
-    __id =
+    ?(compute_isolation = []) ?(disk_encryption = [])
+    ?(extension = []) ?(metastores = []) ?(monitor = [])
+    ?(network = []) ?(rest_proxy = []) ?(security_profile = [])
+    ?(storage_account = []) ?(storage_account_gen2 = []) ?timeouts
+    ~cluster_version ~location ~name ~resource_group_name ~tier
+    ~component_version ~gateway ~roles __id =
   let __type = "azurerm_hdinsight_kafka_cluster" in
   let __attrs =
     ({
@@ -1720,28 +1723,29 @@ let make ?encryption_in_transit_enabled ?id ?tags ?tls_min_version
       yojson_of_azurerm_hdinsight_kafka_cluster
         (azurerm_hdinsight_kafka_cluster
            ?encryption_in_transit_enabled ?id ?tags ?tls_min_version
-           ?timeouts ~cluster_version ~location ~name
-           ~resource_group_name ~tier ~component_version
-           ~compute_isolation ~disk_encryption ~extension ~gateway
-           ~metastores ~monitor ~network ~rest_proxy ~roles
-           ~security_profile ~storage_account ~storage_account_gen2
-           ());
+           ~compute_isolation ~disk_encryption ~extension ~metastores
+           ~monitor ~network ~rest_proxy ~security_profile
+           ~storage_account ~storage_account_gen2 ?timeouts
+           ~cluster_version ~location ~name ~resource_group_name
+           ~tier ~component_version ~gateway ~roles ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?encryption_in_transit_enabled ?id ?tags
-    ?tls_min_version ?timeouts ~cluster_version ~location ~name
-    ~resource_group_name ~tier ~component_version ~compute_isolation
-    ~disk_encryption ~extension ~gateway ~metastores ~monitor
-    ~network ~rest_proxy ~roles ~security_profile ~storage_account
-    ~storage_account_gen2 __id =
+    ?tls_min_version ?(compute_isolation = [])
+    ?(disk_encryption = []) ?(extension = []) ?(metastores = [])
+    ?(monitor = []) ?(network = []) ?(rest_proxy = [])
+    ?(security_profile = []) ?(storage_account = [])
+    ?(storage_account_gen2 = []) ?timeouts ~cluster_version ~location
+    ~name ~resource_group_name ~tier ~component_version ~gateway
+    ~roles __id =
   let (r : _ Tf_core.resource) =
     make ?encryption_in_transit_enabled ?id ?tags ?tls_min_version
-      ?timeouts ~cluster_version ~location ~name ~resource_group_name
-      ~tier ~component_version ~compute_isolation ~disk_encryption
-      ~extension ~gateway ~metastores ~monitor ~network ~rest_proxy
-      ~roles ~security_profile ~storage_account ~storage_account_gen2
-      __id
+      ~compute_isolation ~disk_encryption ~extension ~metastores
+      ~monitor ~network ~rest_proxy ~security_profile
+      ~storage_account ~storage_account_gen2 ?timeouts
+      ~cluster_version ~location ~name ~resource_group_name ~tier
+      ~component_version ~gateway ~roles __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

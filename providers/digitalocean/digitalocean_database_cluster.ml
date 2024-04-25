@@ -257,8 +257,8 @@ let timeouts ?create () : timeouts = { create }
 
 let digitalocean_database_cluster ?eviction_policy ?id
     ?private_network_uuid ?project_id ?sql_mode ?storage_size_mib
-    ?tags ?version ?timeouts ~engine ~name ~node_count ~region ~size
-    ~backup_restore ~maintenance_window () :
+    ?tags ?version ?(backup_restore = []) ?(maintenance_window = [])
+    ?timeouts ~engine ~name ~node_count ~region ~size () :
     digitalocean_database_cluster =
   {
     engine;
@@ -305,9 +305,9 @@ type t = {
 }
 
 let make ?eviction_policy ?id ?private_network_uuid ?project_id
-    ?sql_mode ?storage_size_mib ?tags ?version ?timeouts ~engine
-    ~name ~node_count ~region ~size ~backup_restore
-    ~maintenance_window __id =
+    ?sql_mode ?storage_size_mib ?tags ?version ?(backup_restore = [])
+    ?(maintenance_window = []) ?timeouts ~engine ~name ~node_count
+    ~region ~size __id =
   let __type = "digitalocean_database_cluster" in
   let __attrs =
     ({
@@ -345,21 +345,21 @@ let make ?eviction_policy ?id ?private_network_uuid ?project_id
       yojson_of_digitalocean_database_cluster
         (digitalocean_database_cluster ?eviction_policy ?id
            ?private_network_uuid ?project_id ?sql_mode
-           ?storage_size_mib ?tags ?version ?timeouts ~engine ~name
-           ~node_count ~region ~size ~backup_restore
-           ~maintenance_window ());
+           ?storage_size_mib ?tags ?version ~backup_restore
+           ~maintenance_window ?timeouts ~engine ~name ~node_count
+           ~region ~size ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?eviction_policy ?id ?private_network_uuid
-    ?project_id ?sql_mode ?storage_size_mib ?tags ?version ?timeouts
-    ~engine ~name ~node_count ~region ~size ~backup_restore
-    ~maintenance_window __id =
+    ?project_id ?sql_mode ?storage_size_mib ?tags ?version
+    ?(backup_restore = []) ?(maintenance_window = []) ?timeouts
+    ~engine ~name ~node_count ~region ~size __id =
   let (r : _ Tf_core.resource) =
     make ?eviction_policy ?id ?private_network_uuid ?project_id
-      ?sql_mode ?storage_size_mib ?tags ?version ?timeouts ~engine
-      ~name ~node_count ~region ~size ~backup_restore
-      ~maintenance_window __id
+      ?sql_mode ?storage_size_mib ?tags ?version ~backup_restore
+      ~maintenance_window ?timeouts ~engine ~name ~node_count ~region
+      ~size __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

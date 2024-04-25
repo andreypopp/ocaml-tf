@@ -36,9 +36,9 @@ type digitalocean_records
 
 val digitalocean_records :
   ?id:string prop ->
+  ?sort:sort list ->
   domain:string prop ->
   filter:filter list ->
-  sort:sort list ->
   unit ->
   digitalocean_records
 
@@ -55,16 +55,16 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?sort:sort list ->
   domain:string prop ->
   filter:filter list ->
-  sort:sort list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?sort:sort list ->
   domain:string prop ->
   filter:filter list ->
-  sort:sort list ->
   string ->
   t Tf_core.resource

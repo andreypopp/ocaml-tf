@@ -22,7 +22,7 @@ val distribution__ami_distribution_configuration :
   ?kms_key_id:string prop ->
   ?name:string prop ->
   ?target_account_ids:string prop list ->
-  launch_permission:
+  ?launch_permission:
     distribution__ami_distribution_configuration__launch_permission
     list ->
   unit ->
@@ -67,13 +67,13 @@ type distribution__fast_launch_configuration
 
 val distribution__fast_launch_configuration :
   ?max_parallel_launches:float prop ->
-  account_id:string prop ->
-  enabled:bool prop ->
-  launch_template:
+  ?launch_template:
     distribution__fast_launch_configuration__launch_template list ->
-  snapshot_configuration:
+  ?snapshot_configuration:
     distribution__fast_launch_configuration__snapshot_configuration
     list ->
+  account_id:string prop ->
+  enabled:bool prop ->
   unit ->
   distribution__fast_launch_configuration
 
@@ -90,11 +90,11 @@ type distribution
 
 val distribution :
   ?license_configuration_arns:string prop list ->
-  region:string prop ->
-  ami_distribution_configuration:
+  ?ami_distribution_configuration:
     distribution__ami_distribution_configuration list ->
-  container_distribution_configuration:
+  ?container_distribution_configuration:
     distribution__container_distribution_configuration list ->
+  region:string prop ->
   fast_launch_configuration:
     distribution__fast_launch_configuration list ->
   launch_template_configuration:

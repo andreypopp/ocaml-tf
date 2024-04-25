@@ -535,8 +535,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_private_endpoint ?custom_network_interface_name ?id ?tags
-    ?timeouts ~location ~name ~resource_group_name ~subnet_id
-    ~ip_configuration ~private_dns_zone_group
+    ?(ip_configuration = []) ?(private_dns_zone_group = []) ?timeouts
+    ~location ~name ~resource_group_name ~subnet_id
     ~private_service_connection () : azurerm_private_endpoint =
   {
     custom_network_interface_name;
@@ -565,9 +565,10 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?custom_network_interface_name ?id ?tags ?timeouts ~location
-    ~name ~resource_group_name ~subnet_id ~ip_configuration
-    ~private_dns_zone_group ~private_service_connection __id =
+let make ?custom_network_interface_name ?id ?tags
+    ?(ip_configuration = []) ?(private_dns_zone_group = []) ?timeouts
+    ~location ~name ~resource_group_name ~subnet_id
+    ~private_service_connection __id =
   let __type = "azurerm_private_endpoint" in
   let __attrs =
     ({
@@ -595,20 +596,21 @@ let make ?custom_network_interface_name ?id ?tags ?timeouts ~location
     json =
       yojson_of_azurerm_private_endpoint
         (azurerm_private_endpoint ?custom_network_interface_name ?id
-           ?tags ?timeouts ~location ~name ~resource_group_name
-           ~subnet_id ~ip_configuration ~private_dns_zone_group
+           ?tags ~ip_configuration ~private_dns_zone_group ?timeouts
+           ~location ~name ~resource_group_name ~subnet_id
            ~private_service_connection ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?custom_network_interface_name ?id ?tags
-    ?timeouts ~location ~name ~resource_group_name ~subnet_id
-    ~ip_configuration ~private_dns_zone_group
+    ?(ip_configuration = []) ?(private_dns_zone_group = []) ?timeouts
+    ~location ~name ~resource_group_name ~subnet_id
     ~private_service_connection __id =
   let (r : _ Tf_core.resource) =
-    make ?custom_network_interface_name ?id ?tags ?timeouts ~location
-      ~name ~resource_group_name ~subnet_id ~ip_configuration
-      ~private_dns_zone_group ~private_service_connection __id
+    make ?custom_network_interface_name ?id ?tags ~ip_configuration
+      ~private_dns_zone_group ?timeouts ~location ~name
+      ~resource_group_name ~subnet_id ~private_service_connection
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

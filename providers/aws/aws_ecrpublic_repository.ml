@@ -225,7 +225,7 @@ let catalog_data ?about_text ?architectures ?description
 let timeouts ?delete () : timeouts = { delete }
 
 let aws_ecrpublic_repository ?force_destroy ?id ?tags ?tags_all
-    ?timeouts ~repository_name ~catalog_data () :
+    ?(catalog_data = []) ?timeouts ~repository_name () :
     aws_ecrpublic_repository =
   {
     force_destroy;
@@ -248,8 +248,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?force_destroy ?id ?tags ?tags_all ?timeouts
-    ~repository_name ~catalog_data __id =
+let make ?force_destroy ?id ?tags ?tags_all ?(catalog_data = [])
+    ?timeouts ~repository_name __id =
   let __type = "aws_ecrpublic_repository" in
   let __attrs =
     ({
@@ -270,15 +270,15 @@ let make ?force_destroy ?id ?tags ?tags_all ?timeouts
     json =
       yojson_of_aws_ecrpublic_repository
         (aws_ecrpublic_repository ?force_destroy ?id ?tags ?tags_all
-           ?timeouts ~repository_name ~catalog_data ());
+           ~catalog_data ?timeouts ~repository_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?force_destroy ?id ?tags ?tags_all ?timeouts
-    ~repository_name ~catalog_data __id =
+let register ?tf_module ?force_destroy ?id ?tags ?tags_all
+    ?(catalog_data = []) ?timeouts ~repository_name __id =
   let (r : _ Tf_core.resource) =
-    make ?force_destroy ?id ?tags ?tags_all ?timeouts
-      ~repository_name ~catalog_data __id
+    make ?force_destroy ?id ?tags ?tags_all ~catalog_data ?timeouts
+      ~repository_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

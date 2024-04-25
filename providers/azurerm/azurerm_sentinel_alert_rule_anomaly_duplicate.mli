@@ -56,17 +56,17 @@ type azurerm_sentinel_alert_rule_anomaly_duplicate
 
 val azurerm_sentinel_alert_rule_anomaly_duplicate :
   ?id:string prop ->
+  ?multi_select_observation:multi_select_observation list ->
+  ?prioritized_exclude_observation:
+    prioritized_exclude_observation list ->
+  ?single_select_observation:single_select_observation list ->
+  ?threshold_observation:threshold_observation list ->
   ?timeouts:timeouts ->
   built_in_rule_id:string prop ->
   display_name:string prop ->
   enabled:bool prop ->
   log_analytics_workspace_id:string prop ->
   mode:string prop ->
-  multi_select_observation:multi_select_observation list ->
-  prioritized_exclude_observation:
-    prioritized_exclude_observation list ->
-  single_select_observation:single_select_observation list ->
-  threshold_observation:threshold_observation list ->
   unit ->
   azurerm_sentinel_alert_rule_anomaly_duplicate
 
@@ -97,32 +97,32 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?multi_select_observation:multi_select_observation list ->
+  ?prioritized_exclude_observation:
+    prioritized_exclude_observation list ->
+  ?single_select_observation:single_select_observation list ->
+  ?threshold_observation:threshold_observation list ->
   ?timeouts:timeouts ->
   built_in_rule_id:string prop ->
   display_name:string prop ->
   enabled:bool prop ->
   log_analytics_workspace_id:string prop ->
   mode:string prop ->
-  multi_select_observation:multi_select_observation list ->
-  prioritized_exclude_observation:
-    prioritized_exclude_observation list ->
-  single_select_observation:single_select_observation list ->
-  threshold_observation:threshold_observation list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?multi_select_observation:multi_select_observation list ->
+  ?prioritized_exclude_observation:
+    prioritized_exclude_observation list ->
+  ?single_select_observation:single_select_observation list ->
+  ?threshold_observation:threshold_observation list ->
   ?timeouts:timeouts ->
   built_in_rule_id:string prop ->
   display_name:string prop ->
   enabled:bool prop ->
   log_analytics_workspace_id:string prop ->
   mode:string prop ->
-  multi_select_observation:multi_select_observation list ->
-  prioritized_exclude_observation:
-    prioritized_exclude_observation list ->
-  single_select_observation:single_select_observation list ->
-  threshold_observation:threshold_observation list ->
   string ->
   t Tf_core.resource

@@ -40,13 +40,13 @@ val azurerm_virtual_network :
   ?id:string prop ->
   ?subnet:subnet list ->
   ?tags:(string * string prop) list ->
+  ?ddos_protection_plan:ddos_protection_plan list ->
+  ?encryption:encryption list ->
   ?timeouts:timeouts ->
   address_space:string prop list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  ddos_protection_plan:ddos_protection_plan list ->
-  encryption:encryption list ->
   unit ->
   azurerm_virtual_network
 
@@ -79,13 +79,13 @@ val register :
   ?id:string prop ->
   ?subnet:subnet list ->
   ?tags:(string * string prop) list ->
+  ?ddos_protection_plan:ddos_protection_plan list ->
+  ?encryption:encryption list ->
   ?timeouts:timeouts ->
   address_space:string prop list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  ddos_protection_plan:ddos_protection_plan list ->
-  encryption:encryption list ->
   string ->
   t
 
@@ -97,12 +97,12 @@ val make :
   ?id:string prop ->
   ?subnet:subnet list ->
   ?tags:(string * string prop) list ->
+  ?ddos_protection_plan:ddos_protection_plan list ->
+  ?encryption:encryption list ->
   ?timeouts:timeouts ->
   address_space:string prop list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  ddos_protection_plan:ddos_protection_plan list ->
-  encryption:encryption list ->
   string ->
   t Tf_core.resource

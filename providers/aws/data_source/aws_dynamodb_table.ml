@@ -305,8 +305,8 @@ let _ = yojson_of_aws_dynamodb_table
 
 let server_side_encryption () = ()
 
-let aws_dynamodb_table ?id ?tags ~name ~server_side_encryption () :
-    aws_dynamodb_table =
+let aws_dynamodb_table ?id ?tags ?(server_side_encryption = []) ~name
+    () : aws_dynamodb_table =
   { id; name; tags; server_side_encryption }
 
 type t = {
@@ -333,7 +333,7 @@ type t = {
   write_capacity : float prop;
 }
 
-let make ?id ?tags ~name ~server_side_encryption __id =
+let make ?id ?tags ?(server_side_encryption = []) ~name __id =
   let __type = "aws_dynamodb_table" in
   let __attrs =
     ({
@@ -371,15 +371,15 @@ let make ?id ?tags ~name ~server_side_encryption __id =
     type_ = __type;
     json =
       yojson_of_aws_dynamodb_table
-        (aws_dynamodb_table ?id ?tags ~name ~server_side_encryption
+        (aws_dynamodb_table ?id ?tags ~server_side_encryption ~name
            ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ~name ~server_side_encryption __id
-    =
+let register ?tf_module ?id ?tags ?(server_side_encryption = [])
+    ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ~name ~server_side_encryption __id
+    make ?id ?tags ~server_side_encryption ~name __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

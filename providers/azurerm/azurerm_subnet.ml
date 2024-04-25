@@ -300,9 +300,9 @@ let azurerm_subnet ?enforce_private_link_endpoint_network_policies
     ?enforce_private_link_service_network_policies ?id
     ?private_endpoint_network_policies_enabled
     ?private_link_service_network_policies_enabled
-    ?service_endpoint_policy_ids ?service_endpoints ?timeouts
-    ~address_prefixes ~name ~resource_group_name
-    ~virtual_network_name ~delegation () : azurerm_subnet =
+    ?service_endpoint_policy_ids ?service_endpoints
+    ?(delegation = []) ?timeouts ~address_prefixes ~name
+    ~resource_group_name ~virtual_network_name () : azurerm_subnet =
   {
     address_prefixes;
     enforce_private_link_endpoint_network_policies;
@@ -337,9 +337,9 @@ let make ?enforce_private_link_endpoint_network_policies
     ?enforce_private_link_service_network_policies ?id
     ?private_endpoint_network_policies_enabled
     ?private_link_service_network_policies_enabled
-    ?service_endpoint_policy_ids ?service_endpoints ?timeouts
-    ~address_prefixes ~name ~resource_group_name
-    ~virtual_network_name ~delegation __id =
+    ?service_endpoint_policy_ids ?service_endpoints
+    ?(delegation = []) ?timeouts ~address_prefixes ~name
+    ~resource_group_name ~virtual_network_name __id =
   let __type = "azurerm_subnet" in
   let __attrs =
     ({
@@ -380,9 +380,9 @@ let make ?enforce_private_link_endpoint_network_policies
            ?enforce_private_link_service_network_policies ?id
            ?private_endpoint_network_policies_enabled
            ?private_link_service_network_policies_enabled
-           ?service_endpoint_policy_ids ?service_endpoints ?timeouts
-           ~address_prefixes ~name ~resource_group_name
-           ~virtual_network_name ~delegation ());
+           ?service_endpoint_policy_ids ?service_endpoints
+           ~delegation ?timeouts ~address_prefixes ~name
+           ~resource_group_name ~virtual_network_name ());
     attrs = __attrs;
   }
 
@@ -391,17 +391,17 @@ let register ?tf_module
     ?enforce_private_link_service_network_policies ?id
     ?private_endpoint_network_policies_enabled
     ?private_link_service_network_policies_enabled
-    ?service_endpoint_policy_ids ?service_endpoints ?timeouts
-    ~address_prefixes ~name ~resource_group_name
-    ~virtual_network_name ~delegation __id =
+    ?service_endpoint_policy_ids ?service_endpoints
+    ?(delegation = []) ?timeouts ~address_prefixes ~name
+    ~resource_group_name ~virtual_network_name __id =
   let (r : _ Tf_core.resource) =
     make ?enforce_private_link_endpoint_network_policies
       ?enforce_private_link_service_network_policies ?id
       ?private_endpoint_network_policies_enabled
       ?private_link_service_network_policies_enabled
-      ?service_endpoint_policy_ids ?service_endpoints ?timeouts
-      ~address_prefixes ~name ~resource_group_name
-      ~virtual_network_name ~delegation __id
+      ?service_endpoint_policy_ids ?service_endpoints ~delegation
+      ?timeouts ~address_prefixes ~name ~resource_group_name
+      ~virtual_network_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

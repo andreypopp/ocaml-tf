@@ -27,10 +27,10 @@ type azurerm_spring_cloud_build_pack_binding
 val azurerm_spring_cloud_build_pack_binding :
   ?binding_type:string prop ->
   ?id:string prop ->
+  ?launch:launch list ->
   ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_builder_id:string prop ->
-  launch:launch list ->
   unit ->
   azurerm_spring_cloud_build_pack_binding
 
@@ -50,19 +50,19 @@ val register :
   ?tf_module:tf_module ->
   ?binding_type:string prop ->
   ?id:string prop ->
+  ?launch:launch list ->
   ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_builder_id:string prop ->
-  launch:launch list ->
   string ->
   t
 
 val make :
   ?binding_type:string prop ->
   ?id:string prop ->
+  ?launch:launch list ->
   ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_builder_id:string prop ->
-  launch:launch list ->
   string ->
   t Tf_core.resource

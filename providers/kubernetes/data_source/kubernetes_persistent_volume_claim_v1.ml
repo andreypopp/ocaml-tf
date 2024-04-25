@@ -334,21 +334,21 @@ let spec__selector__match_expressions ?key ?operator ?values () :
     spec__selector__match_expressions =
   { key; operator; values }
 
-let spec__selector ?match_labels ~match_expressions () :
+let spec__selector ?match_labels ?(match_expressions = []) () :
     spec__selector =
   { match_labels; match_expressions }
 
-let spec ?storage_class_name ?volume_mode ?volume_name ~selector () :
-    spec =
+let spec ?storage_class_name ?volume_mode ?volume_name
+    ?(selector = []) () : spec =
   { storage_class_name; volume_mode; volume_name; selector }
 
-let kubernetes_persistent_volume_claim_v1 ?id ~metadata ~spec () :
-    kubernetes_persistent_volume_claim_v1 =
+let kubernetes_persistent_volume_claim_v1 ?id ?(spec = []) ~metadata
+    () : kubernetes_persistent_volume_claim_v1 =
   { id; metadata; spec }
 
 type t = { id : string prop }
 
-let make ?id ~metadata ~spec __id =
+let make ?id ?(spec = []) ~metadata __id =
   let __type = "kubernetes_persistent_volume_claim_v1" in
   let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
   {
@@ -356,11 +356,11 @@ let make ?id ~metadata ~spec __id =
     type_ = __type;
     json =
       yojson_of_kubernetes_persistent_volume_claim_v1
-        (kubernetes_persistent_volume_claim_v1 ?id ~metadata ~spec ());
+        (kubernetes_persistent_volume_claim_v1 ?id ~spec ~metadata ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~metadata ~spec __id =
-  let (r : _ Tf_core.resource) = make ?id ~metadata ~spec __id in
+let register ?tf_module ?id ?(spec = []) ~metadata __id =
+  let (r : _ Tf_core.resource) = make ?id ~spec ~metadata __id in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

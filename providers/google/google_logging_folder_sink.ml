@@ -190,8 +190,8 @@ let exclusions ?description ?disabled ~filter ~name () : exclusions =
   { description; disabled; filter; name }
 
 let google_logging_folder_sink ?description ?disabled ?filter ?id
-    ?include_children ~destination ~folder ~name ~bigquery_options
-    ~exclusions () : google_logging_folder_sink =
+    ?include_children ?(bigquery_options = []) ?(exclusions = [])
+    ~destination ~folder ~name () : google_logging_folder_sink =
   {
     description;
     destination;
@@ -218,7 +218,8 @@ type t = {
 }
 
 let make ?description ?disabled ?filter ?id ?include_children
-    ~destination ~folder ~name ~bigquery_options ~exclusions __id =
+    ?(bigquery_options = []) ?(exclusions = []) ~destination ~folder
+    ~name __id =
   let __type = "google_logging_folder_sink" in
   let __attrs =
     ({
@@ -241,17 +242,17 @@ let make ?description ?disabled ?filter ?id ?include_children
     json =
       yojson_of_google_logging_folder_sink
         (google_logging_folder_sink ?description ?disabled ?filter
-           ?id ?include_children ~destination ~folder ~name
-           ~bigquery_options ~exclusions ());
+           ?id ?include_children ~bigquery_options ~exclusions
+           ~destination ~folder ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?disabled ?filter ?id
-    ?include_children ~destination ~folder ~name ~bigquery_options
-    ~exclusions __id =
+    ?include_children ?(bigquery_options = []) ?(exclusions = [])
+    ~destination ~folder ~name __id =
   let (r : _ Tf_core.resource) =
     make ?description ?disabled ?filter ?id ?include_children
-      ~destination ~folder ~name ~bigquery_options ~exclusions __id
+      ~bigquery_options ~exclusions ~destination ~folder ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

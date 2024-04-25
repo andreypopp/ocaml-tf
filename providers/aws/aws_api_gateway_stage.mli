@@ -34,11 +34,11 @@ val aws_api_gateway_stage :
   ?tags_all:(string * string prop) list ->
   ?variables:(string * string prop) list ->
   ?xray_tracing_enabled:bool prop ->
+  ?access_log_settings:access_log_settings list ->
+  ?canary_settings:canary_settings list ->
   deployment_id:string prop ->
   rest_api_id:string prop ->
   stage_name:string prop ->
-  access_log_settings:access_log_settings list ->
-  canary_settings:canary_settings list ->
   unit ->
   aws_api_gateway_stage
 
@@ -78,11 +78,11 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?variables:(string * string prop) list ->
   ?xray_tracing_enabled:bool prop ->
+  ?access_log_settings:access_log_settings list ->
+  ?canary_settings:canary_settings list ->
   deployment_id:string prop ->
   rest_api_id:string prop ->
   stage_name:string prop ->
-  access_log_settings:access_log_settings list ->
-  canary_settings:canary_settings list ->
   string ->
   t
 
@@ -97,10 +97,10 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?variables:(string * string prop) list ->
   ?xray_tracing_enabled:bool prop ->
+  ?access_log_settings:access_log_settings list ->
+  ?canary_settings:canary_settings list ->
   deployment_id:string prop ->
   rest_api_id:string prop ->
   stage_name:string prop ->
-  access_log_settings:access_log_settings list ->
-  canary_settings:canary_settings list ->
   string ->
   t Tf_core.resource

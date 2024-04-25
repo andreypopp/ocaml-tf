@@ -237,8 +237,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let aws_kinesis_stream ?arn ?encryption_type
     ?enforce_consumer_deletion ?id ?kms_key_id ?retention_period
-    ?shard_count ?shard_level_metrics ?tags ?tags_all ?timeouts ~name
-    ~stream_mode_details () : aws_kinesis_stream =
+    ?shard_count ?shard_level_metrics ?tags ?tags_all
+    ?(stream_mode_details = []) ?timeouts ~name () :
+    aws_kinesis_stream =
   {
     arn;
     encryption_type;
@@ -271,7 +272,8 @@ type t = {
 
 let make ?arn ?encryption_type ?enforce_consumer_deletion ?id
     ?kms_key_id ?retention_period ?shard_count ?shard_level_metrics
-    ?tags ?tags_all ?timeouts ~name ~stream_mode_details __id =
+    ?tags ?tags_all ?(stream_mode_details = []) ?timeouts ~name __id
+    =
   let __type = "aws_kinesis_stream" in
   let __attrs =
     ({
@@ -300,18 +302,18 @@ let make ?arn ?encryption_type ?enforce_consumer_deletion ?id
         (aws_kinesis_stream ?arn ?encryption_type
            ?enforce_consumer_deletion ?id ?kms_key_id
            ?retention_period ?shard_count ?shard_level_metrics ?tags
-           ?tags_all ?timeouts ~name ~stream_mode_details ());
+           ?tags_all ~stream_mode_details ?timeouts ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?arn ?encryption_type
     ?enforce_consumer_deletion ?id ?kms_key_id ?retention_period
-    ?shard_count ?shard_level_metrics ?tags ?tags_all ?timeouts ~name
-    ~stream_mode_details __id =
+    ?shard_count ?shard_level_metrics ?tags ?tags_all
+    ?(stream_mode_details = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
     make ?arn ?encryption_type ?enforce_consumer_deletion ?id
       ?kms_key_id ?retention_period ?shard_count ?shard_level_metrics
-      ?tags ?tags_all ?timeouts ~name ~stream_mode_details __id
+      ?tags ?tags_all ~stream_mode_details ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

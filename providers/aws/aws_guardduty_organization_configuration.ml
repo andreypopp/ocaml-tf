@@ -314,13 +314,13 @@ let datasources__malware_protection ~scan_ec2_instance_with_findings
 let datasources__s3_logs ~auto_enable () : datasources__s3_logs =
   { auto_enable }
 
-let datasources ~kubernetes ~malware_protection ~s3_logs () :
-    datasources =
+let datasources ?(kubernetes = []) ?(malware_protection = [])
+    ?(s3_logs = []) () : datasources =
   { kubernetes; malware_protection; s3_logs }
 
 let aws_guardduty_organization_configuration ?auto_enable
-    ?auto_enable_organization_members ?id ~detector_id ~datasources
-    () : aws_guardduty_organization_configuration =
+    ?auto_enable_organization_members ?id ?(datasources = [])
+    ~detector_id () : aws_guardduty_organization_configuration =
   {
     auto_enable;
     auto_enable_organization_members;
@@ -337,7 +337,7 @@ type t = {
 }
 
 let make ?auto_enable ?auto_enable_organization_members ?id
-    ~detector_id ~datasources __id =
+    ?(datasources = []) ~detector_id __id =
   let __type = "aws_guardduty_organization_configuration" in
   let __attrs =
     ({
@@ -355,17 +355,17 @@ let make ?auto_enable ?auto_enable_organization_members ?id
     json =
       yojson_of_aws_guardduty_organization_configuration
         (aws_guardduty_organization_configuration ?auto_enable
-           ?auto_enable_organization_members ?id ~detector_id
-           ~datasources ());
+           ?auto_enable_organization_members ?id ~datasources
+           ~detector_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_enable
-    ?auto_enable_organization_members ?id ~detector_id ~datasources
-    __id =
+    ?auto_enable_organization_members ?id ?(datasources = [])
+    ~detector_id __id =
   let (r : _ Tf_core.resource) =
     make ?auto_enable ?auto_enable_organization_members ?id
-      ~detector_id ~datasources __id
+      ~datasources ~detector_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

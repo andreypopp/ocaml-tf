@@ -155,7 +155,7 @@ let dkim_signing_attributes ?domain_signing_private_key
   }
 
 let aws_sesv2_email_identity ?configuration_set_name ?id ?tags
-    ?tags_all ~email_identity ~dkim_signing_attributes () :
+    ?tags_all ?(dkim_signing_attributes = []) ~email_identity () :
     aws_sesv2_email_identity =
   {
     configuration_set_name;
@@ -177,8 +177,8 @@ type t = {
   verified_for_sending_status : bool prop;
 }
 
-let make ?configuration_set_name ?id ?tags ?tags_all ~email_identity
-    ~dkim_signing_attributes __id =
+let make ?configuration_set_name ?id ?tags ?tags_all
+    ?(dkim_signing_attributes = []) ~email_identity __id =
   let __type = "aws_sesv2_email_identity" in
   let __attrs =
     ({
@@ -201,15 +201,15 @@ let make ?configuration_set_name ?id ?tags ?tags_all ~email_identity
     json =
       yojson_of_aws_sesv2_email_identity
         (aws_sesv2_email_identity ?configuration_set_name ?id ?tags
-           ?tags_all ~email_identity ~dkim_signing_attributes ());
+           ?tags_all ~dkim_signing_attributes ~email_identity ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?configuration_set_name ?id ?tags ?tags_all
-    ~email_identity ~dkim_signing_attributes __id =
+    ?(dkim_signing_attributes = []) ~email_identity __id =
   let (r : _ Tf_core.resource) =
-    make ?configuration_set_name ?id ?tags ?tags_all ~email_identity
-      ~dkim_signing_attributes __id
+    make ?configuration_set_name ?id ?tags ?tags_all
+      ~dkim_signing_attributes ~email_identity __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

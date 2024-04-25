@@ -126,7 +126,7 @@ let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
 let google_dataproc_autoscaling_policy_iam_binding ?id ?location
-    ?project ~members ~policy_id ~role ~condition () :
+    ?project ?(condition = []) ~members ~policy_id ~role () :
     google_dataproc_autoscaling_policy_iam_binding =
   { id; location; members; policy_id; project; role; condition }
 
@@ -140,8 +140,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?location ?project ~members ~policy_id ~role ~condition
-    __id =
+let make ?id ?location ?project ?(condition = []) ~members ~policy_id
+    ~role __id =
   let __type = "google_dataproc_autoscaling_policy_iam_binding" in
   let __attrs =
     ({
@@ -161,14 +161,14 @@ let make ?id ?location ?project ~members ~policy_id ~role ~condition
     json =
       yojson_of_google_dataproc_autoscaling_policy_iam_binding
         (google_dataproc_autoscaling_policy_iam_binding ?id ?location
-           ?project ~members ~policy_id ~role ~condition ());
+           ?project ~condition ~members ~policy_id ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?location ?project ~members ~policy_id
-    ~role ~condition __id =
+let register ?tf_module ?id ?location ?project ?(condition = [])
+    ~members ~policy_id ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?location ?project ~members ~policy_id ~role ~condition
+    make ?id ?location ?project ~condition ~members ~policy_id ~role
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

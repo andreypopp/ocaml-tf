@@ -153,27 +153,28 @@ val advanced_filter__string_not_in :
 type advanced_filter
 
 val advanced_filter :
-  bool_equals:advanced_filter__bool_equals list ->
-  is_not_null:advanced_filter__is_not_null list ->
-  is_null_or_undefined:advanced_filter__is_null_or_undefined list ->
-  number_greater_than:advanced_filter__number_greater_than list ->
-  number_greater_than_or_equals:
+  ?bool_equals:advanced_filter__bool_equals list ->
+  ?is_not_null:advanced_filter__is_not_null list ->
+  ?is_null_or_undefined:advanced_filter__is_null_or_undefined list ->
+  ?number_greater_than:advanced_filter__number_greater_than list ->
+  ?number_greater_than_or_equals:
     advanced_filter__number_greater_than_or_equals list ->
-  number_in:advanced_filter__number_in list ->
-  number_in_range:advanced_filter__number_in_range list ->
-  number_less_than:advanced_filter__number_less_than list ->
-  number_less_than_or_equals:
+  ?number_in:advanced_filter__number_in list ->
+  ?number_in_range:advanced_filter__number_in_range list ->
+  ?number_less_than:advanced_filter__number_less_than list ->
+  ?number_less_than_or_equals:
     advanced_filter__number_less_than_or_equals list ->
-  number_not_in:advanced_filter__number_not_in list ->
-  number_not_in_range:advanced_filter__number_not_in_range list ->
-  string_begins_with:advanced_filter__string_begins_with list ->
-  string_contains:advanced_filter__string_contains list ->
-  string_ends_with:advanced_filter__string_ends_with list ->
-  string_in:advanced_filter__string_in list ->
-  string_not_begins_with:advanced_filter__string_not_begins_with list ->
-  string_not_contains:advanced_filter__string_not_contains list ->
-  string_not_ends_with:advanced_filter__string_not_ends_with list ->
-  string_not_in:advanced_filter__string_not_in list ->
+  ?number_not_in:advanced_filter__number_not_in list ->
+  ?number_not_in_range:advanced_filter__number_not_in_range list ->
+  ?string_begins_with:advanced_filter__string_begins_with list ->
+  ?string_contains:advanced_filter__string_contains list ->
+  ?string_ends_with:advanced_filter__string_ends_with list ->
+  ?string_in:advanced_filter__string_in list ->
+  ?string_not_begins_with:
+    advanced_filter__string_not_begins_with list ->
+  ?string_not_contains:advanced_filter__string_not_contains list ->
+  ?string_not_ends_with:advanced_filter__string_not_ends_with list ->
+  ?string_not_in:advanced_filter__string_not_in list ->
   unit ->
   advanced_filter
 
@@ -281,21 +282,21 @@ val azurerm_eventgrid_system_topic_event_subscription :
   ?labels:string prop list ->
   ?service_bus_queue_endpoint_id:string prop ->
   ?service_bus_topic_endpoint_id:string prop ->
+  ?advanced_filter:advanced_filter list ->
+  ?azure_function_endpoint:azure_function_endpoint list ->
+  ?dead_letter_identity:dead_letter_identity list ->
+  ?delivery_identity:delivery_identity list ->
+  ?delivery_property:delivery_property list ->
+  ?retry_policy:retry_policy list ->
+  ?storage_blob_dead_letter_destination:
+    storage_blob_dead_letter_destination list ->
+  ?storage_queue_endpoint:storage_queue_endpoint list ->
+  ?subject_filter:subject_filter list ->
   ?timeouts:timeouts ->
+  ?webhook_endpoint:webhook_endpoint list ->
   name:string prop ->
   resource_group_name:string prop ->
   system_topic:string prop ->
-  advanced_filter:advanced_filter list ->
-  azure_function_endpoint:azure_function_endpoint list ->
-  dead_letter_identity:dead_letter_identity list ->
-  delivery_identity:delivery_identity list ->
-  delivery_property:delivery_property list ->
-  retry_policy:retry_policy list ->
-  storage_blob_dead_letter_destination:
-    storage_blob_dead_letter_destination list ->
-  storage_queue_endpoint:storage_queue_endpoint list ->
-  subject_filter:subject_filter list ->
-  webhook_endpoint:webhook_endpoint list ->
   unit ->
   azurerm_eventgrid_system_topic_event_subscription
 
@@ -332,21 +333,21 @@ val register :
   ?labels:string prop list ->
   ?service_bus_queue_endpoint_id:string prop ->
   ?service_bus_topic_endpoint_id:string prop ->
+  ?advanced_filter:advanced_filter list ->
+  ?azure_function_endpoint:azure_function_endpoint list ->
+  ?dead_letter_identity:dead_letter_identity list ->
+  ?delivery_identity:delivery_identity list ->
+  ?delivery_property:delivery_property list ->
+  ?retry_policy:retry_policy list ->
+  ?storage_blob_dead_letter_destination:
+    storage_blob_dead_letter_destination list ->
+  ?storage_queue_endpoint:storage_queue_endpoint list ->
+  ?subject_filter:subject_filter list ->
   ?timeouts:timeouts ->
+  ?webhook_endpoint:webhook_endpoint list ->
   name:string prop ->
   resource_group_name:string prop ->
   system_topic:string prop ->
-  advanced_filter:advanced_filter list ->
-  azure_function_endpoint:azure_function_endpoint list ->
-  dead_letter_identity:dead_letter_identity list ->
-  delivery_identity:delivery_identity list ->
-  delivery_property:delivery_property list ->
-  retry_policy:retry_policy list ->
-  storage_blob_dead_letter_destination:
-    storage_blob_dead_letter_destination list ->
-  storage_queue_endpoint:storage_queue_endpoint list ->
-  subject_filter:subject_filter list ->
-  webhook_endpoint:webhook_endpoint list ->
   string ->
   t
 
@@ -361,20 +362,20 @@ val make :
   ?labels:string prop list ->
   ?service_bus_queue_endpoint_id:string prop ->
   ?service_bus_topic_endpoint_id:string prop ->
+  ?advanced_filter:advanced_filter list ->
+  ?azure_function_endpoint:azure_function_endpoint list ->
+  ?dead_letter_identity:dead_letter_identity list ->
+  ?delivery_identity:delivery_identity list ->
+  ?delivery_property:delivery_property list ->
+  ?retry_policy:retry_policy list ->
+  ?storage_blob_dead_letter_destination:
+    storage_blob_dead_letter_destination list ->
+  ?storage_queue_endpoint:storage_queue_endpoint list ->
+  ?subject_filter:subject_filter list ->
   ?timeouts:timeouts ->
+  ?webhook_endpoint:webhook_endpoint list ->
   name:string prop ->
   resource_group_name:string prop ->
   system_topic:string prop ->
-  advanced_filter:advanced_filter list ->
-  azure_function_endpoint:azure_function_endpoint list ->
-  dead_letter_identity:dead_letter_identity list ->
-  delivery_identity:delivery_identity list ->
-  delivery_property:delivery_property list ->
-  retry_policy:retry_policy list ->
-  storage_blob_dead_letter_destination:
-    storage_blob_dead_letter_destination list ->
-  storage_queue_endpoint:storage_queue_endpoint list ->
-  subject_filter:subject_filter list ->
-  webhook_endpoint:webhook_endpoint list ->
   string ->
   t Tf_core.resource

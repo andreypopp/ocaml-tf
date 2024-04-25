@@ -197,10 +197,10 @@ let source_port_range ?from_port ?to_port () : source_port_range =
   { from_port; to_port }
 
 let aws_ec2_traffic_mirror_filter_rule ?description ?id ?protocol
+    ?(destination_port_range = []) ?(source_port_range = [])
     ~destination_cidr_block ~rule_action ~rule_number
     ~source_cidr_block ~traffic_direction ~traffic_mirror_filter_id
-    ~destination_port_range ~source_port_range () :
-    aws_ec2_traffic_mirror_filter_rule =
+    () : aws_ec2_traffic_mirror_filter_rule =
   {
     description;
     destination_cidr_block;
@@ -228,10 +228,10 @@ type t = {
   traffic_mirror_filter_id : string prop;
 }
 
-let make ?description ?id ?protocol ~destination_cidr_block
-    ~rule_action ~rule_number ~source_cidr_block ~traffic_direction
-    ~traffic_mirror_filter_id ~destination_port_range
-    ~source_port_range __id =
+let make ?description ?id ?protocol ?(destination_port_range = [])
+    ?(source_port_range = []) ~destination_cidr_block ~rule_action
+    ~rule_number ~source_cidr_block ~traffic_direction
+    ~traffic_mirror_filter_id __id =
   let __type = "aws_ec2_traffic_mirror_filter_rule" in
   let __attrs =
     ({
@@ -258,22 +258,23 @@ let make ?description ?id ?protocol ~destination_cidr_block
     json =
       yojson_of_aws_ec2_traffic_mirror_filter_rule
         (aws_ec2_traffic_mirror_filter_rule ?description ?id
-           ?protocol ~destination_cidr_block ~rule_action
-           ~rule_number ~source_cidr_block ~traffic_direction
-           ~traffic_mirror_filter_id ~destination_port_range
-           ~source_port_range ());
+           ?protocol ~destination_port_range ~source_port_range
+           ~destination_cidr_block ~rule_action ~rule_number
+           ~source_cidr_block ~traffic_direction
+           ~traffic_mirror_filter_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?protocol
+    ?(destination_port_range = []) ?(source_port_range = [])
     ~destination_cidr_block ~rule_action ~rule_number
     ~source_cidr_block ~traffic_direction ~traffic_mirror_filter_id
-    ~destination_port_range ~source_port_range __id =
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?protocol ~destination_cidr_block
-      ~rule_action ~rule_number ~source_cidr_block ~traffic_direction
-      ~traffic_mirror_filter_id ~destination_port_range
-      ~source_port_range __id
+    make ?description ?id ?protocol ~destination_port_range
+      ~source_port_range ~destination_cidr_block ~rule_action
+      ~rule_number ~source_cidr_block ~traffic_direction
+      ~traffic_mirror_filter_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

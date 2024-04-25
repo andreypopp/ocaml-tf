@@ -327,8 +327,8 @@ let encryption_settings__key_encryption_key ~key_url ~source_vault_id
     () : encryption_settings__key_encryption_key =
   { key_url; source_vault_id }
 
-let encryption_settings ?enabled ~disk_encryption_key
-    ~key_encryption_key () : encryption_settings =
+let encryption_settings ?enabled ?(disk_encryption_key = [])
+    ?(key_encryption_key = []) () : encryption_settings =
   { enabled; disk_encryption_key; key_encryption_key }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
@@ -336,8 +336,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_snapshot ?disk_size_gb ?id ?incremental_enabled
     ?source_resource_id ?source_uri ?storage_account_id ?tags
-    ?timeouts ~create_option ~location ~name ~resource_group_name
-    ~encryption_settings () : azurerm_snapshot =
+    ?(encryption_settings = []) ?timeouts ~create_option ~location
+    ~name ~resource_group_name () : azurerm_snapshot =
   {
     create_option;
     disk_size_gb;
@@ -370,8 +370,9 @@ type t = {
 }
 
 let make ?disk_size_gb ?id ?incremental_enabled ?source_resource_id
-    ?source_uri ?storage_account_id ?tags ?timeouts ~create_option
-    ~location ~name ~resource_group_name ~encryption_settings __id =
+    ?source_uri ?storage_account_id ?tags ?(encryption_settings = [])
+    ?timeouts ~create_option ~location ~name ~resource_group_name
+    __id =
   let __type = "azurerm_snapshot" in
   let __attrs =
     ({
@@ -402,19 +403,20 @@ let make ?disk_size_gb ?id ?incremental_enabled ?source_resource_id
       yojson_of_azurerm_snapshot
         (azurerm_snapshot ?disk_size_gb ?id ?incremental_enabled
            ?source_resource_id ?source_uri ?storage_account_id ?tags
-           ?timeouts ~create_option ~location ~name
-           ~resource_group_name ~encryption_settings ());
+           ~encryption_settings ?timeouts ~create_option ~location
+           ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?disk_size_gb ?id ?incremental_enabled
     ?source_resource_id ?source_uri ?storage_account_id ?tags
-    ?timeouts ~create_option ~location ~name ~resource_group_name
-    ~encryption_settings __id =
+    ?(encryption_settings = []) ?timeouts ~create_option ~location
+    ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?disk_size_gb ?id ?incremental_enabled ?source_resource_id
-      ?source_uri ?storage_account_id ?tags ?timeouts ~create_option
-      ~location ~name ~resource_group_name ~encryption_settings __id
+      ?source_uri ?storage_account_id ?tags ~encryption_settings
+      ?timeouts ~create_option ~location ~name ~resource_group_name
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

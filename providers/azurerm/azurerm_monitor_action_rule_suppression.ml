@@ -621,8 +621,9 @@ let condition__target_resource_type ~operator ~values () :
     condition__target_resource_type =
   { operator; values }
 
-let condition ~alert_context ~alert_rule_id ~description ~monitor
-    ~monitor_service ~severity ~target_resource_type () : condition =
+let condition ?(alert_context = []) ?(alert_rule_id = [])
+    ?(description = []) ?(monitor = []) ?(monitor_service = [])
+    ?(severity = []) ?(target_resource_type = []) () : condition =
   {
     alert_context;
     alert_rule_id;
@@ -644,15 +645,16 @@ let suppression__schedule ?recurrence_monthly ?recurrence_weekly
     start_date_utc;
   }
 
-let suppression ~recurrence_type ~schedule () : suppression =
+let suppression ?(schedule = []) ~recurrence_type () : suppression =
   { recurrence_type; schedule }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_monitor_action_rule_suppression ?description ?enabled ?id
-    ?tags ?timeouts ~name ~resource_group_name ~condition ~scope
-    ~suppression () : azurerm_monitor_action_rule_suppression =
+    ?tags ?(condition = []) ?(scope = []) ?timeouts ~name
+    ~resource_group_name ~suppression () :
+    azurerm_monitor_action_rule_suppression =
   {
     description;
     enabled;
@@ -675,8 +677,9 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?description ?enabled ?id ?tags ?timeouts ~name
-    ~resource_group_name ~condition ~scope ~suppression __id =
+let make ?description ?enabled ?id ?tags ?(condition = [])
+    ?(scope = []) ?timeouts ~name ~resource_group_name ~suppression
+    __id =
   let __type = "azurerm_monitor_action_rule_suppression" in
   let __attrs =
     ({
@@ -696,16 +699,17 @@ let make ?description ?enabled ?id ?tags ?timeouts ~name
     json =
       yojson_of_azurerm_monitor_action_rule_suppression
         (azurerm_monitor_action_rule_suppression ?description
-           ?enabled ?id ?tags ?timeouts ~name ~resource_group_name
-           ~condition ~scope ~suppression ());
+           ?enabled ?id ?tags ~condition ~scope ?timeouts ~name
+           ~resource_group_name ~suppression ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?enabled ?id ?tags ?timeouts
-    ~name ~resource_group_name ~condition ~scope ~suppression __id =
+let register ?tf_module ?description ?enabled ?id ?tags
+    ?(condition = []) ?(scope = []) ?timeouts ~name
+    ~resource_group_name ~suppression __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?enabled ?id ?tags ?timeouts ~name
-      ~resource_group_name ~condition ~scope ~suppression __id
+    make ?description ?enabled ?id ?tags ~condition ~scope ?timeouts
+      ~name ~resource_group_name ~suppression __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -53,10 +53,10 @@ val google_certificate_manager_certificate :
   ?location:string prop ->
   ?project:string prop ->
   ?scope:string prop ->
+  ?managed:managed list ->
+  ?self_managed:self_managed list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  managed:managed list ->
-  self_managed:self_managed list ->
   unit ->
   google_certificate_manager_certificate
 
@@ -85,10 +85,10 @@ val register :
   ?location:string prop ->
   ?project:string prop ->
   ?scope:string prop ->
+  ?managed:managed list ->
+  ?self_managed:self_managed list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  managed:managed list ->
-  self_managed:self_managed list ->
   string ->
   t
 
@@ -99,9 +99,9 @@ val make :
   ?location:string prop ->
   ?project:string prop ->
   ?scope:string prop ->
+  ?managed:managed list ->
+  ?self_managed:self_managed list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  managed:managed list ->
-  self_managed:self_managed list ->
   string ->
   t Tf_core.resource

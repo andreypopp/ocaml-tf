@@ -60,9 +60,9 @@ val directory_ldap :
   ?certificate_validation_uri:string prop ->
   ?download_certificate_automatically:bool prop ->
   ?encrypted:bool prop ->
+  ?bind:directory_ldap__bind list ->
   base_dn:string prop ->
   server:string prop ->
-  bind:directory_ldap__bind list ->
   unit ->
   directory_ldap
 
@@ -101,6 +101,12 @@ val azurerm_hpc_cache :
   ?mtu:float prop ->
   ?ntp_server:string prop ->
   ?tags:(string * string prop) list ->
+  ?default_access_policy:default_access_policy list ->
+  ?directory_active_directory:directory_active_directory list ->
+  ?directory_flat_file:directory_flat_file list ->
+  ?directory_ldap:directory_ldap list ->
+  ?dns:dns list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   cache_size_in_gb:float prop ->
   location:string prop ->
@@ -108,12 +114,6 @@ val azurerm_hpc_cache :
   resource_group_name:string prop ->
   sku_name:string prop ->
   subnet_id:string prop ->
-  default_access_policy:default_access_policy list ->
-  directory_active_directory:directory_active_directory list ->
-  directory_flat_file:directory_flat_file list ->
-  directory_ldap:directory_ldap list ->
-  dns:dns list ->
-  identity:identity list ->
   unit ->
   azurerm_hpc_cache
 
@@ -145,6 +145,12 @@ val register :
   ?mtu:float prop ->
   ?ntp_server:string prop ->
   ?tags:(string * string prop) list ->
+  ?default_access_policy:default_access_policy list ->
+  ?directory_active_directory:directory_active_directory list ->
+  ?directory_flat_file:directory_flat_file list ->
+  ?directory_ldap:directory_ldap list ->
+  ?dns:dns list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   cache_size_in_gb:float prop ->
   location:string prop ->
@@ -152,12 +158,6 @@ val register :
   resource_group_name:string prop ->
   sku_name:string prop ->
   subnet_id:string prop ->
-  default_access_policy:default_access_policy list ->
-  directory_active_directory:directory_active_directory list ->
-  directory_flat_file:directory_flat_file list ->
-  directory_ldap:directory_ldap list ->
-  dns:dns list ->
-  identity:identity list ->
   string ->
   t
 
@@ -168,6 +168,12 @@ val make :
   ?mtu:float prop ->
   ?ntp_server:string prop ->
   ?tags:(string * string prop) list ->
+  ?default_access_policy:default_access_policy list ->
+  ?directory_active_directory:directory_active_directory list ->
+  ?directory_flat_file:directory_flat_file list ->
+  ?directory_ldap:directory_ldap list ->
+  ?dns:dns list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   cache_size_in_gb:float prop ->
   location:string prop ->
@@ -175,11 +181,5 @@ val make :
   resource_group_name:string prop ->
   sku_name:string prop ->
   subnet_id:string prop ->
-  default_access_policy:default_access_policy list ->
-  directory_active_directory:directory_active_directory list ->
-  directory_flat_file:directory_flat_file list ->
-  directory_ldap:directory_ldap list ->
-  dns:dns list ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

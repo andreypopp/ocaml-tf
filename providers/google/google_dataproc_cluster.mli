@@ -34,11 +34,11 @@ val cluster_config__auxiliary_node_groups__node_group__node_group_config :
   ?machine_type:string prop ->
   ?min_cpu_platform:string prop ->
   ?num_instances:float prop ->
+  ?disk_config:
+    cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config
+    list ->
   accelerators:
     cluster_config__auxiliary_node_groups__node_group__node_group_config__accelerators
-    list ->
-  disk_config:
-    cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config
     list ->
   unit ->
   cluster_config__auxiliary_node_groups__node_group__node_group_config
@@ -46,10 +46,10 @@ val cluster_config__auxiliary_node_groups__node_group__node_group_config :
 type cluster_config__auxiliary_node_groups__node_group
 
 val cluster_config__auxiliary_node_groups__node_group :
-  roles:string prop list ->
-  node_group_config:
+  ?node_group_config:
     cluster_config__auxiliary_node_groups__node_group__node_group_config
     list ->
+  roles:string prop list ->
   unit ->
   cluster_config__auxiliary_node_groups__node_group
 
@@ -126,11 +126,11 @@ val cluster_config__gce_cluster_config :
   ?subnetwork:string prop ->
   ?tags:string prop list ->
   ?zone:string prop ->
-  node_group_affinity:
+  ?node_group_affinity:
     cluster_config__gce_cluster_config__node_group_affinity list ->
-  reservation_affinity:
+  ?reservation_affinity:
     cluster_config__gce_cluster_config__reservation_affinity list ->
-  shielded_instance_config:
+  ?shielded_instance_config:
     cluster_config__gce_cluster_config__shielded_instance_config list ->
   unit ->
   cluster_config__gce_cluster_config
@@ -175,8 +175,8 @@ val cluster_config__master_config :
   ?machine_type:string prop ->
   ?min_cpu_platform:string prop ->
   ?num_instances:float prop ->
+  ?disk_config:cluster_config__master_config__disk_config list ->
   accelerators:cluster_config__master_config__accelerators list ->
-  disk_config:cluster_config__master_config__disk_config list ->
   unit ->
   cluster_config__master_config
 
@@ -212,7 +212,7 @@ val cluster_config__preemptible_worker_config__instance_flexibility_policy__inst
 type cluster_config__preemptible_worker_config__instance_flexibility_policy
 
 val cluster_config__preemptible_worker_config__instance_flexibility_policy :
-  instance_selection_list:
+  ?instance_selection_list:
     cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_list
     list ->
   unit ->
@@ -223,9 +223,9 @@ type cluster_config__preemptible_worker_config
 val cluster_config__preemptible_worker_config :
   ?num_instances:float prop ->
   ?preemptibility:string prop ->
-  disk_config:
+  ?disk_config:
     cluster_config__preemptible_worker_config__disk_config list ->
-  instance_flexibility_policy:
+  ?instance_flexibility_policy:
     cluster_config__preemptible_worker_config__instance_flexibility_policy
     list ->
   unit ->
@@ -294,8 +294,8 @@ val cluster_config__worker_config :
   ?min_cpu_platform:string prop ->
   ?min_num_instances:float prop ->
   ?num_instances:float prop ->
+  ?disk_config:cluster_config__worker_config__disk_config list ->
   accelerators:cluster_config__worker_config__accelerators list ->
-  disk_config:cluster_config__worker_config__disk_config list ->
   unit ->
   cluster_config__worker_config
 
@@ -304,21 +304,21 @@ type cluster_config
 val cluster_config :
   ?staging_bucket:string prop ->
   ?temp_bucket:string prop ->
-  autoscaling_config:cluster_config__autoscaling_config list ->
-  auxiliary_node_groups:cluster_config__auxiliary_node_groups list ->
-  dataproc_metric_config:cluster_config__dataproc_metric_config list ->
-  encryption_config:cluster_config__encryption_config list ->
-  endpoint_config:cluster_config__endpoint_config list ->
-  gce_cluster_config:cluster_config__gce_cluster_config list ->
-  initialization_action:cluster_config__initialization_action list ->
-  lifecycle_config:cluster_config__lifecycle_config list ->
-  master_config:cluster_config__master_config list ->
-  metastore_config:cluster_config__metastore_config list ->
-  preemptible_worker_config:
+  ?autoscaling_config:cluster_config__autoscaling_config list ->
+  ?auxiliary_node_groups:cluster_config__auxiliary_node_groups list ->
+  ?dataproc_metric_config:cluster_config__dataproc_metric_config list ->
+  ?encryption_config:cluster_config__encryption_config list ->
+  ?endpoint_config:cluster_config__endpoint_config list ->
+  ?gce_cluster_config:cluster_config__gce_cluster_config list ->
+  ?initialization_action:cluster_config__initialization_action list ->
+  ?lifecycle_config:cluster_config__lifecycle_config list ->
+  ?master_config:cluster_config__master_config list ->
+  ?metastore_config:cluster_config__metastore_config list ->
+  ?preemptible_worker_config:
     cluster_config__preemptible_worker_config list ->
-  security_config:cluster_config__security_config list ->
-  software_config:cluster_config__software_config list ->
-  worker_config:cluster_config__worker_config list ->
+  ?security_config:cluster_config__security_config list ->
+  ?software_config:cluster_config__software_config list ->
+  ?worker_config:cluster_config__worker_config list ->
   unit ->
   cluster_config
 
@@ -348,10 +348,10 @@ val virtual_cluster_config__auxiliary_services_config__spark_history_server_conf
 type virtual_cluster_config__auxiliary_services_config
 
 val virtual_cluster_config__auxiliary_services_config :
-  metastore_config:
+  ?metastore_config:
     virtual_cluster_config__auxiliary_services_config__metastore_config
     list ->
-  spark_history_server_config:
+  ?spark_history_server_config:
     virtual_cluster_config__auxiliary_services_config__spark_history_server_config
     list ->
   unit ->
@@ -379,24 +379,24 @@ val virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_
 type virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config
 
 val virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config :
-  locations:string prop list ->
-  autoscaling:
+  ?autoscaling:
     virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__autoscaling
     list ->
-  config:
+  ?config:
     virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__config
     list ->
+  locations:string prop list ->
   unit ->
   virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config
 
 type virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target
 
 val virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target :
-  node_pool:string prop ->
-  roles:string prop list ->
-  node_pool_config:
+  ?node_pool_config:
     virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config
     list ->
+  node_pool:string prop ->
+  roles:string prop list ->
   unit ->
   virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target
 
@@ -404,7 +404,7 @@ type virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config
 
 val virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config :
   ?gke_cluster_target:string prop ->
-  node_pool_target:
+  ?node_pool_target:
     virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target
     list ->
   unit ->
@@ -435,9 +435,9 @@ type virtual_cluster_config
 
 val virtual_cluster_config :
   ?staging_bucket:string prop ->
-  auxiliary_services_config:
+  ?auxiliary_services_config:
     virtual_cluster_config__auxiliary_services_config list ->
-  kubernetes_cluster_config:
+  ?kubernetes_cluster_config:
     virtual_cluster_config__kubernetes_cluster_config list ->
   unit ->
   virtual_cluster_config
@@ -450,10 +450,10 @@ val google_dataproc_cluster :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
+  ?cluster_config:cluster_config list ->
   ?timeouts:timeouts ->
+  ?virtual_cluster_config:virtual_cluster_config list ->
   name:string prop ->
-  cluster_config:cluster_config list ->
-  virtual_cluster_config:virtual_cluster_config list ->
   unit ->
   google_dataproc_cluster
 
@@ -480,10 +480,10 @@ val register :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
+  ?cluster_config:cluster_config list ->
   ?timeouts:timeouts ->
+  ?virtual_cluster_config:virtual_cluster_config list ->
   name:string prop ->
-  cluster_config:cluster_config list ->
-  virtual_cluster_config:virtual_cluster_config list ->
   string ->
   t
 
@@ -493,9 +493,9 @@ val make :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
+  ?cluster_config:cluster_config list ->
   ?timeouts:timeouts ->
+  ?virtual_cluster_config:virtual_cluster_config list ->
   name:string prop ->
-  cluster_config:cluster_config list ->
-  virtual_cluster_config:virtual_cluster_config list ->
   string ->
   t Tf_core.resource

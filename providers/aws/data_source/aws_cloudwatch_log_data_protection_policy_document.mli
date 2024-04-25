@@ -28,12 +28,12 @@ val statement__operation__audit__findings_destination__s3 :
 type statement__operation__audit__findings_destination
 
 val statement__operation__audit__findings_destination :
-  cloudwatch_logs:
+  ?cloudwatch_logs:
     statement__operation__audit__findings_destination__cloudwatch_logs
     list ->
-  firehose:
+  ?firehose:
     statement__operation__audit__findings_destination__firehose list ->
-  s3:statement__operation__audit__findings_destination__s3 list ->
+  ?s3:statement__operation__audit__findings_destination__s3 list ->
   unit ->
   statement__operation__audit__findings_destination
 
@@ -60,8 +60,8 @@ val statement__operation__deidentify :
 type statement__operation
 
 val statement__operation :
-  audit:statement__operation__audit list ->
-  deidentify:statement__operation__deidentify list ->
+  ?audit:statement__operation__audit list ->
+  ?deidentify:statement__operation__deidentify list ->
   unit ->
   statement__operation
 

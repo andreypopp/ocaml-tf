@@ -157,8 +157,8 @@ let _ = yojson_of_aws_datasync_location_azure_blob
 let sas_configuration ~token () : sas_configuration = { token }
 
 let aws_datasync_location_azure_blob ?access_tier ?blob_type ?id
-    ?subdirectory ?tags ?tags_all ~agent_arns ~authentication_type
-    ~container_url ~sas_configuration () :
+    ?subdirectory ?tags ?tags_all ?(sas_configuration = [])
+    ~agent_arns ~authentication_type ~container_url () :
     aws_datasync_location_azure_blob =
   {
     access_tier;
@@ -188,8 +188,8 @@ type t = {
 }
 
 let make ?access_tier ?blob_type ?id ?subdirectory ?tags ?tags_all
-    ~agent_arns ~authentication_type ~container_url
-    ~sas_configuration __id =
+    ?(sas_configuration = []) ~agent_arns ~authentication_type
+    ~container_url __id =
   let __type = "aws_datasync_location_azure_blob" in
   let __attrs =
     ({
@@ -214,18 +214,18 @@ let make ?access_tier ?blob_type ?id ?subdirectory ?tags ?tags_all
     json =
       yojson_of_aws_datasync_location_azure_blob
         (aws_datasync_location_azure_blob ?access_tier ?blob_type ?id
-           ?subdirectory ?tags ?tags_all ~agent_arns
-           ~authentication_type ~container_url ~sas_configuration ());
+           ?subdirectory ?tags ?tags_all ~sas_configuration
+           ~agent_arns ~authentication_type ~container_url ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?access_tier ?blob_type ?id ?subdirectory
-    ?tags ?tags_all ~agent_arns ~authentication_type ~container_url
-    ~sas_configuration __id =
+    ?tags ?tags_all ?(sas_configuration = []) ~agent_arns
+    ~authentication_type ~container_url __id =
   let (r : _ Tf_core.resource) =
     make ?access_tier ?blob_type ?id ?subdirectory ?tags ?tags_all
-      ~agent_arns ~authentication_type ~container_url
-      ~sas_configuration __id
+      ~sas_configuration ~agent_arns ~authentication_type
+      ~container_url __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

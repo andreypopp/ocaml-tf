@@ -328,10 +328,10 @@ let azurerm_mssql_managed_instance ?collation ?dns_zone_partner_id
     ?id ?maintenance_configuration_name ?minimum_tls_version
     ?proxy_override ?public_data_endpoint_enabled
     ?storage_account_type ?tags ?timezone_id ?zone_redundant_enabled
-    ?timeouts ~administrator_login ~administrator_login_password
-    ~license_type ~location ~name ~resource_group_name ~sku_name
-    ~storage_size_in_gb ~subnet_id ~vcores ~identity () :
-    azurerm_mssql_managed_instance =
+    ?(identity = []) ?timeouts ~administrator_login
+    ~administrator_login_password ~license_type ~location ~name
+    ~resource_group_name ~sku_name ~storage_size_in_gb ~subnet_id
+    ~vcores () : azurerm_mssql_managed_instance =
   {
     administrator_login;
     administrator_login_password;
@@ -388,9 +388,10 @@ let make ?collation ?dns_zone_partner_id ?id
     ?maintenance_configuration_name ?minimum_tls_version
     ?proxy_override ?public_data_endpoint_enabled
     ?storage_account_type ?tags ?timezone_id ?zone_redundant_enabled
-    ?timeouts ~administrator_login ~administrator_login_password
-    ~license_type ~location ~name ~resource_group_name ~sku_name
-    ~storage_size_in_gb ~subnet_id ~vcores ~identity __id =
+    ?(identity = []) ?timeouts ~administrator_login
+    ~administrator_login_password ~license_type ~location ~name
+    ~resource_group_name ~sku_name ~storage_size_in_gb ~subnet_id
+    ~vcores __id =
   let __type = "azurerm_mssql_managed_instance" in
   let __attrs =
     ({
@@ -439,11 +440,10 @@ let make ?collation ?dns_zone_partner_id ?id
            ?dns_zone_partner_id ?id ?maintenance_configuration_name
            ?minimum_tls_version ?proxy_override
            ?public_data_endpoint_enabled ?storage_account_type ?tags
-           ?timezone_id ?zone_redundant_enabled ?timeouts
+           ?timezone_id ?zone_redundant_enabled ~identity ?timeouts
            ~administrator_login ~administrator_login_password
            ~license_type ~location ~name ~resource_group_name
-           ~sku_name ~storage_size_in_gb ~subnet_id ~vcores ~identity
-           ());
+           ~sku_name ~storage_size_in_gb ~subnet_id ~vcores ());
     attrs = __attrs;
   }
 
@@ -451,18 +451,19 @@ let register ?tf_module ?collation ?dns_zone_partner_id ?id
     ?maintenance_configuration_name ?minimum_tls_version
     ?proxy_override ?public_data_endpoint_enabled
     ?storage_account_type ?tags ?timezone_id ?zone_redundant_enabled
-    ?timeouts ~administrator_login ~administrator_login_password
-    ~license_type ~location ~name ~resource_group_name ~sku_name
-    ~storage_size_in_gb ~subnet_id ~vcores ~identity __id =
+    ?(identity = []) ?timeouts ~administrator_login
+    ~administrator_login_password ~license_type ~location ~name
+    ~resource_group_name ~sku_name ~storage_size_in_gb ~subnet_id
+    ~vcores __id =
   let (r : _ Tf_core.resource) =
     make ?collation ?dns_zone_partner_id ?id
       ?maintenance_configuration_name ?minimum_tls_version
       ?proxy_override ?public_data_endpoint_enabled
       ?storage_account_type ?tags ?timezone_id
-      ?zone_redundant_enabled ?timeouts ~administrator_login
-      ~administrator_login_password ~license_type ~location ~name
-      ~resource_group_name ~sku_name ~storage_size_in_gb ~subnet_id
-      ~vcores ~identity __id
+      ?zone_redundant_enabled ~identity ?timeouts
+      ~administrator_login ~administrator_login_password
+      ~license_type ~location ~name ~resource_group_name ~sku_name
+      ~storage_size_in_gb ~subnet_id ~vcores __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

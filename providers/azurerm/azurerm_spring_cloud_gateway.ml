@@ -701,10 +701,11 @@ let azurerm_spring_cloud_gateway
     ?application_performance_monitoring_ids
     ?application_performance_monitoring_types ?environment_variables
     ?https_only ?id ?instance_count ?public_network_access_enabled
-    ?sensitive_environment_variables ?timeouts ~name
-    ~spring_cloud_service_id ~api_metadata ~client_authorization
-    ~cors ~local_response_cache_per_instance
-    ~local_response_cache_per_route ~quota ~sso () :
+    ?sensitive_environment_variables ?(api_metadata = [])
+    ?(client_authorization = []) ?(cors = [])
+    ?(local_response_cache_per_instance = [])
+    ?(local_response_cache_per_route = []) ?(quota = []) ?(sso = [])
+    ?timeouts ~name ~spring_cloud_service_id () :
     azurerm_spring_cloud_gateway =
   {
     application_performance_monitoring_ids;
@@ -744,10 +745,11 @@ type t = {
 let make ?application_performance_monitoring_ids
     ?application_performance_monitoring_types ?environment_variables
     ?https_only ?id ?instance_count ?public_network_access_enabled
-    ?sensitive_environment_variables ?timeouts ~name
-    ~spring_cloud_service_id ~api_metadata ~client_authorization
-    ~cors ~local_response_cache_per_instance
-    ~local_response_cache_per_route ~quota ~sso __id =
+    ?sensitive_environment_variables ?(api_metadata = [])
+    ?(client_authorization = []) ?(cors = [])
+    ?(local_response_cache_per_instance = [])
+    ?(local_response_cache_per_route = []) ?(quota = []) ?(sso = [])
+    ?timeouts ~name ~spring_cloud_service_id __id =
   let __type = "azurerm_spring_cloud_gateway" in
   let __attrs =
     ({
@@ -783,29 +785,31 @@ let make ?application_performance_monitoring_ids
            ?application_performance_monitoring_types
            ?environment_variables ?https_only ?id ?instance_count
            ?public_network_access_enabled
-           ?sensitive_environment_variables ?timeouts ~name
-           ~spring_cloud_service_id ~api_metadata
+           ?sensitive_environment_variables ~api_metadata
            ~client_authorization ~cors
            ~local_response_cache_per_instance
-           ~local_response_cache_per_route ~quota ~sso ());
+           ~local_response_cache_per_route ~quota ~sso ?timeouts
+           ~name ~spring_cloud_service_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?application_performance_monitoring_ids
     ?application_performance_monitoring_types ?environment_variables
     ?https_only ?id ?instance_count ?public_network_access_enabled
-    ?sensitive_environment_variables ?timeouts ~name
-    ~spring_cloud_service_id ~api_metadata ~client_authorization
-    ~cors ~local_response_cache_per_instance
-    ~local_response_cache_per_route ~quota ~sso __id =
+    ?sensitive_environment_variables ?(api_metadata = [])
+    ?(client_authorization = []) ?(cors = [])
+    ?(local_response_cache_per_instance = [])
+    ?(local_response_cache_per_route = []) ?(quota = []) ?(sso = [])
+    ?timeouts ~name ~spring_cloud_service_id __id =
   let (r : _ Tf_core.resource) =
     make ?application_performance_monitoring_ids
       ?application_performance_monitoring_types
       ?environment_variables ?https_only ?id ?instance_count
       ?public_network_access_enabled ?sensitive_environment_variables
-      ?timeouts ~name ~spring_cloud_service_id ~api_metadata
-      ~client_authorization ~cors ~local_response_cache_per_instance
-      ~local_response_cache_per_route ~quota ~sso __id
+      ~api_metadata ~client_authorization ~cors
+      ~local_response_cache_per_instance
+      ~local_response_cache_per_route ~quota ~sso ?timeouts ~name
+      ~spring_cloud_service_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

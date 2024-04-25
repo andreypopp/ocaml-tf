@@ -50,10 +50,10 @@ val aws_ssm_patch_baseline :
   ?rejected_patches_action:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?approval_rule:approval_rule list ->
+  ?global_filter:global_filter list ->
+  ?source:source list ->
   name:string prop ->
-  approval_rule:approval_rule list ->
-  global_filter:global_filter list ->
-  source:source list ->
   unit ->
   aws_ssm_patch_baseline
 
@@ -89,10 +89,10 @@ val register :
   ?rejected_patches_action:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?approval_rule:approval_rule list ->
+  ?global_filter:global_filter list ->
+  ?source:source list ->
   name:string prop ->
-  approval_rule:approval_rule list ->
-  global_filter:global_filter list ->
-  source:source list ->
   string ->
   t
 
@@ -107,9 +107,9 @@ val make :
   ?rejected_patches_action:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?approval_rule:approval_rule list ->
+  ?global_filter:global_filter list ->
+  ?source:source list ->
   name:string prop ->
-  approval_rule:approval_rule list ->
-  global_filter:global_filter list ->
-  source:source list ->
   string ->
   t Tf_core.resource

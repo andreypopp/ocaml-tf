@@ -211,8 +211,9 @@ let max_version ~number () : max_version = { number }
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let google_bigtable_gc_policy ?deletion_policy ?gc_rules ?id ?mode
-    ?project ?timeouts ~column_family ~instance_name ~table ~max_age
-    ~max_version () : google_bigtable_gc_policy =
+    ?project ?(max_age = []) ?(max_version = []) ?timeouts
+    ~column_family ~instance_name ~table () :
+    google_bigtable_gc_policy =
   {
     column_family;
     deletion_policy;
@@ -238,8 +239,9 @@ type t = {
   table : string prop;
 }
 
-let make ?deletion_policy ?gc_rules ?id ?mode ?project ?timeouts
-    ~column_family ~instance_name ~table ~max_age ~max_version __id =
+let make ?deletion_policy ?gc_rules ?id ?mode ?project
+    ?(max_age = []) ?(max_version = []) ?timeouts ~column_family
+    ~instance_name ~table __id =
   let __type = "google_bigtable_gc_policy" in
   let __attrs =
     ({
@@ -260,17 +262,18 @@ let make ?deletion_policy ?gc_rules ?id ?mode ?project ?timeouts
     json =
       yojson_of_google_bigtable_gc_policy
         (google_bigtable_gc_policy ?deletion_policy ?gc_rules ?id
-           ?mode ?project ?timeouts ~column_family ~instance_name
-           ~table ~max_age ~max_version ());
+           ?mode ?project ~max_age ~max_version ?timeouts
+           ~column_family ~instance_name ~table ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?deletion_policy ?gc_rules ?id ?mode ?project
-    ?timeouts ~column_family ~instance_name ~table ~max_age
-    ~max_version __id =
+    ?(max_age = []) ?(max_version = []) ?timeouts ~column_family
+    ~instance_name ~table __id =
   let (r : _ Tf_core.resource) =
-    make ?deletion_policy ?gc_rules ?id ?mode ?project ?timeouts
-      ~column_family ~instance_name ~table ~max_age ~max_version __id
+    make ?deletion_policy ?gc_rules ?id ?mode ?project ~max_age
+      ~max_version ?timeouts ~column_family ~instance_name ~table
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

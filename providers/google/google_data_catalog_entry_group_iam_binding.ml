@@ -125,7 +125,7 @@ let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
 let google_data_catalog_entry_group_iam_binding ?id ?project ?region
-    ~entry_group ~members ~role ~condition () :
+    ?(condition = []) ~entry_group ~members ~role () :
     google_data_catalog_entry_group_iam_binding =
   { entry_group; id; members; project; region; role; condition }
 
@@ -139,8 +139,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?project ?region ~entry_group ~members ~role ~condition
-    __id =
+let make ?id ?project ?region ?(condition = []) ~entry_group ~members
+    ~role __id =
   let __type = "google_data_catalog_entry_group_iam_binding" in
   let __attrs =
     ({
@@ -160,14 +160,14 @@ let make ?id ?project ?region ~entry_group ~members ~role ~condition
     json =
       yojson_of_google_data_catalog_entry_group_iam_binding
         (google_data_catalog_entry_group_iam_binding ?id ?project
-           ?region ~entry_group ~members ~role ~condition ());
+           ?region ~condition ~entry_group ~members ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ?region ~entry_group ~members
-    ~role ~condition __id =
+let register ?tf_module ?id ?project ?region ?(condition = [])
+    ~entry_group ~members ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ?region ~entry_group ~members ~role ~condition
+    make ?id ?project ?region ~condition ~entry_group ~members ~role
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

@@ -1490,8 +1490,9 @@ let additional_location__virtual_network_configuration ~subnet_id ()
   { subnet_id }
 
 let additional_location ?capacity ?gateway_disabled
-    ?public_ip_address_id ?zones ~location
-    ~virtual_network_configuration () : additional_location =
+    ?public_ip_address_id ?zones
+    ?(virtual_network_configuration = []) ~location () :
+    additional_location =
   {
     capacity;
     gateway_disabled;
@@ -1580,8 +1581,9 @@ let hostname_configuration__scm ?certificate ?certificate_password
     ssl_keyvault_identity_client_id;
   }
 
-let hostname_configuration ~developer_portal ~management ~portal
-    ~proxy ~scm () : hostname_configuration =
+let hostname_configuration ?(developer_portal = [])
+    ?(management = []) ?(portal = []) ?(proxy = []) ?(scm = []) () :
+    hostname_configuration =
   { developer_portal; management; portal; proxy; scm }
 
 let identity ?identity_ids ~type_ () : identity =
@@ -1644,12 +1646,14 @@ let virtual_network_configuration ~subnet_id () :
 let azurerm_api_management ?client_certificate_enabled
     ?gateway_disabled ?id ?min_api_version ?notification_sender_email
     ?policy ?public_ip_address_id ?public_network_access_enabled
-    ?tags ?virtual_network_type ?zones ?timeouts ~location ~name
+    ?tags ?virtual_network_type ?zones ?(additional_location = [])
+    ?(certificate = []) ?(delegation = [])
+    ?(hostname_configuration = []) ?(identity = []) ?(protocols = [])
+    ?(security = []) ?(sign_in = []) ?(sign_up = [])
+    ?(tenant_access = []) ?timeouts
+    ?(virtual_network_configuration = []) ~location ~name
     ~publisher_email ~publisher_name ~resource_group_name ~sku_name
-    ~additional_location ~certificate ~delegation
-    ~hostname_configuration ~identity ~protocols ~security ~sign_in
-    ~sign_up ~tenant_access ~virtual_network_configuration () :
-    azurerm_api_management =
+    () : azurerm_api_management =
   {
     client_certificate_enabled;
     gateway_disabled;
@@ -1713,11 +1717,14 @@ type t = {
 let make ?client_certificate_enabled ?gateway_disabled ?id
     ?min_api_version ?notification_sender_email ?policy
     ?public_ip_address_id ?public_network_access_enabled ?tags
-    ?virtual_network_type ?zones ?timeouts ~location ~name
+    ?virtual_network_type ?zones ?(additional_location = [])
+    ?(certificate = []) ?(delegation = [])
+    ?(hostname_configuration = []) ?(identity = []) ?(protocols = [])
+    ?(security = []) ?(sign_in = []) ?(sign_up = [])
+    ?(tenant_access = []) ?timeouts
+    ?(virtual_network_configuration = []) ~location ~name
     ~publisher_email ~publisher_name ~resource_group_name ~sku_name
-    ~additional_location ~certificate ~delegation
-    ~hostname_configuration ~identity ~protocols ~security ~sign_in
-    ~sign_up ~tenant_access ~virtual_network_configuration __id =
+    __id =
   let __type = "azurerm_api_management" in
   let __attrs =
     ({
@@ -1770,32 +1777,35 @@ let make ?client_certificate_enabled ?gateway_disabled ?id
            ?gateway_disabled ?id ?min_api_version
            ?notification_sender_email ?policy ?public_ip_address_id
            ?public_network_access_enabled ?tags ?virtual_network_type
-           ?zones ?timeouts ~location ~name ~publisher_email
-           ~publisher_name ~resource_group_name ~sku_name
-           ~additional_location ~certificate ~delegation
+           ?zones ~additional_location ~certificate ~delegation
            ~hostname_configuration ~identity ~protocols ~security
-           ~sign_in ~sign_up ~tenant_access
-           ~virtual_network_configuration ());
+           ~sign_in ~sign_up ~tenant_access ?timeouts
+           ~virtual_network_configuration ~location ~name
+           ~publisher_email ~publisher_name ~resource_group_name
+           ~sku_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?client_certificate_enabled ?gateway_disabled
     ?id ?min_api_version ?notification_sender_email ?policy
     ?public_ip_address_id ?public_network_access_enabled ?tags
-    ?virtual_network_type ?zones ?timeouts ~location ~name
+    ?virtual_network_type ?zones ?(additional_location = [])
+    ?(certificate = []) ?(delegation = [])
+    ?(hostname_configuration = []) ?(identity = []) ?(protocols = [])
+    ?(security = []) ?(sign_in = []) ?(sign_up = [])
+    ?(tenant_access = []) ?timeouts
+    ?(virtual_network_configuration = []) ~location ~name
     ~publisher_email ~publisher_name ~resource_group_name ~sku_name
-    ~additional_location ~certificate ~delegation
-    ~hostname_configuration ~identity ~protocols ~security ~sign_in
-    ~sign_up ~tenant_access ~virtual_network_configuration __id =
+    __id =
   let (r : _ Tf_core.resource) =
     make ?client_certificate_enabled ?gateway_disabled ?id
       ?min_api_version ?notification_sender_email ?policy
       ?public_ip_address_id ?public_network_access_enabled ?tags
-      ?virtual_network_type ?zones ?timeouts ~location ~name
-      ~publisher_email ~publisher_name ~resource_group_name ~sku_name
-      ~additional_location ~certificate ~delegation
-      ~hostname_configuration ~identity ~protocols ~security ~sign_in
-      ~sign_up ~tenant_access ~virtual_network_configuration __id
+      ?virtual_network_type ?zones ~additional_location ~certificate
+      ~delegation ~hostname_configuration ~identity ~protocols
+      ~security ~sign_in ~sign_up ~tenant_access ?timeouts
+      ~virtual_network_configuration ~location ~name ~publisher_email
+      ~publisher_name ~resource_group_name ~sku_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

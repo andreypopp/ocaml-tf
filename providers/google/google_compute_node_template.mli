@@ -32,9 +32,9 @@ val google_compute_node_template :
   ?node_type:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?node_type_flexibility:node_type_flexibility list ->
+  ?server_binding:server_binding list ->
   ?timeouts:timeouts ->
-  node_type_flexibility:node_type_flexibility list ->
-  server_binding:server_binding list ->
   unit ->
   google_compute_node_template
 
@@ -66,9 +66,9 @@ val register :
   ?node_type:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?node_type_flexibility:node_type_flexibility list ->
+  ?server_binding:server_binding list ->
   ?timeouts:timeouts ->
-  node_type_flexibility:node_type_flexibility list ->
-  server_binding:server_binding list ->
   string ->
   t
 
@@ -81,8 +81,8 @@ val make :
   ?node_type:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?node_type_flexibility:node_type_flexibility list ->
+  ?server_binding:server_binding list ->
   ?timeouts:timeouts ->
-  node_type_flexibility:node_type_flexibility list ->
-  server_binding:server_binding list ->
   string ->
   t Tf_core.resource

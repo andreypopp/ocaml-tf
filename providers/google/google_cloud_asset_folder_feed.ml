@@ -276,8 +276,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_cloud_asset_folder_feed ?asset_names ?asset_types
-    ?content_type ?id ?timeouts ~billing_project ~feed_id ~folder
-    ~condition ~feed_output_config () :
+    ?content_type ?id ?(condition = []) ?timeouts ~billing_project
+    ~feed_id ~folder ~feed_output_config () :
     google_cloud_asset_folder_feed =
   {
     asset_names;
@@ -304,9 +304,9 @@ type t = {
   name : string prop;
 }
 
-let make ?asset_names ?asset_types ?content_type ?id ?timeouts
-    ~billing_project ~feed_id ~folder ~condition ~feed_output_config
-    __id =
+let make ?asset_names ?asset_types ?content_type ?id
+    ?(condition = []) ?timeouts ~billing_project ~feed_id ~folder
+    ~feed_output_config __id =
   let __type = "google_cloud_asset_folder_feed" in
   let __attrs =
     ({
@@ -328,18 +328,18 @@ let make ?asset_names ?asset_types ?content_type ?id ?timeouts
     json =
       yojson_of_google_cloud_asset_folder_feed
         (google_cloud_asset_folder_feed ?asset_names ?asset_types
-           ?content_type ?id ?timeouts ~billing_project ~feed_id
-           ~folder ~condition ~feed_output_config ());
+           ?content_type ?id ~condition ?timeouts ~billing_project
+           ~feed_id ~folder ~feed_output_config ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?asset_names ?asset_types ?content_type ?id
-    ?timeouts ~billing_project ~feed_id ~folder ~condition
+    ?(condition = []) ?timeouts ~billing_project ~feed_id ~folder
     ~feed_output_config __id =
   let (r : _ Tf_core.resource) =
-    make ?asset_names ?asset_types ?content_type ?id ?timeouts
-      ~billing_project ~feed_id ~folder ~condition
-      ~feed_output_config __id
+    make ?asset_names ?asset_types ?content_type ?id ~condition
+      ?timeouts ~billing_project ~feed_id ~folder ~feed_output_config
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

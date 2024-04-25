@@ -383,9 +383,9 @@ let aws_opsworks_stack ?agent_version ?berkshelf_version ?color
     ?default_root_device_type ?default_ssh_key_name
     ?default_subnet_id ?hostname_theme ?id ?manage_berkshelf ?tags
     ?tags_all ?use_custom_cookbooks ?use_opsworks_security_groups
-    ?vpc_id ?timeouts ~default_instance_profile_arn ~name ~region
-    ~service_role_arn ~custom_cookbooks_source () :
-    aws_opsworks_stack =
+    ?vpc_id ?(custom_cookbooks_source = []) ?timeouts
+    ~default_instance_profile_arn ~name ~region ~service_role_arn ()
+    : aws_opsworks_stack =
   {
     agent_version;
     berkshelf_version;
@@ -448,8 +448,9 @@ let make ?agent_version ?berkshelf_version ?color
     ?default_root_device_type ?default_ssh_key_name
     ?default_subnet_id ?hostname_theme ?id ?manage_berkshelf ?tags
     ?tags_all ?use_custom_cookbooks ?use_opsworks_security_groups
-    ?vpc_id ?timeouts ~default_instance_profile_arn ~name ~region
-    ~service_role_arn ~custom_cookbooks_source __id =
+    ?vpc_id ?(custom_cookbooks_source = []) ?timeouts
+    ~default_instance_profile_arn ~name ~region ~service_role_arn
+    __id =
   let __type = "aws_opsworks_stack" in
   let __attrs =
     ({
@@ -504,9 +505,10 @@ let make ?agent_version ?berkshelf_version ?color
            ?default_root_device_type ?default_ssh_key_name
            ?default_subnet_id ?hostname_theme ?id ?manage_berkshelf
            ?tags ?tags_all ?use_custom_cookbooks
-           ?use_opsworks_security_groups ?vpc_id ?timeouts
+           ?use_opsworks_security_groups ?vpc_id
+           ~custom_cookbooks_source ?timeouts
            ~default_instance_profile_arn ~name ~region
-           ~service_role_arn ~custom_cookbooks_source ());
+           ~service_role_arn ());
     attrs = __attrs;
   }
 
@@ -516,8 +518,9 @@ let register ?tf_module ?agent_version ?berkshelf_version ?color
     ?default_root_device_type ?default_ssh_key_name
     ?default_subnet_id ?hostname_theme ?id ?manage_berkshelf ?tags
     ?tags_all ?use_custom_cookbooks ?use_opsworks_security_groups
-    ?vpc_id ?timeouts ~default_instance_profile_arn ~name ~region
-    ~service_role_arn ~custom_cookbooks_source __id =
+    ?vpc_id ?(custom_cookbooks_source = []) ?timeouts
+    ~default_instance_profile_arn ~name ~region ~service_role_arn
+    __id =
   let (r : _ Tf_core.resource) =
     make ?agent_version ?berkshelf_version ?color
       ?configuration_manager_name ?configuration_manager_version
@@ -525,8 +528,9 @@ let register ?tf_module ?agent_version ?berkshelf_version ?color
       ?default_root_device_type ?default_ssh_key_name
       ?default_subnet_id ?hostname_theme ?id ?manage_berkshelf ?tags
       ?tags_all ?use_custom_cookbooks ?use_opsworks_security_groups
-      ?vpc_id ?timeouts ~default_instance_profile_arn ~name ~region
-      ~service_role_arn ~custom_cookbooks_source __id
+      ?vpc_id ~custom_cookbooks_source ?timeouts
+      ~default_instance_profile_arn ~name ~region ~service_role_arn
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -212,8 +212,8 @@ let value_from_key_vault ?identity_client_id ~secret_id () :
   { identity_client_id; secret_id }
 
 let azurerm_api_management_named_value ?id ?secret ?tags ?value
-    ?timeouts ~api_management_name ~display_name ~name
-    ~resource_group_name ~value_from_key_vault () :
+    ?timeouts ?(value_from_key_vault = []) ~api_management_name
+    ~display_name ~name ~resource_group_name () :
     azurerm_api_management_named_value =
   {
     api_management_name;
@@ -239,9 +239,9 @@ type t = {
   value : string prop;
 }
 
-let make ?id ?secret ?tags ?value ?timeouts ~api_management_name
-    ~display_name ~name ~resource_group_name ~value_from_key_vault
-    __id =
+let make ?id ?secret ?tags ?value ?timeouts
+    ?(value_from_key_vault = []) ~api_management_name ~display_name
+    ~name ~resource_group_name __id =
   let __type = "azurerm_api_management_named_value" in
   let __attrs =
     ({
@@ -264,17 +264,17 @@ let make ?id ?secret ?tags ?value ?timeouts ~api_management_name
     json =
       yojson_of_azurerm_api_management_named_value
         (azurerm_api_management_named_value ?id ?secret ?tags ?value
-           ?timeouts ~api_management_name ~display_name ~name
-           ~resource_group_name ~value_from_key_vault ());
+           ?timeouts ~value_from_key_vault ~api_management_name
+           ~display_name ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?secret ?tags ?value ?timeouts
-    ~api_management_name ~display_name ~name ~resource_group_name
-    ~value_from_key_vault __id =
+    ?(value_from_key_vault = []) ~api_management_name ~display_name
+    ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?secret ?tags ?value ?timeouts ~api_management_name
-      ~display_name ~name ~resource_group_name ~value_from_key_vault
+    make ?id ?secret ?tags ?value ?timeouts ~value_from_key_vault
+      ~api_management_name ~display_name ~name ~resource_group_name
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

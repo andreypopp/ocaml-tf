@@ -1847,9 +1847,11 @@ let actions__url_rewrite_action ?preserve_unmatched_path ~destination
     ~source_pattern () : actions__url_rewrite_action =
   { destination; preserve_unmatched_path; source_pattern }
 
-let actions ~request_header_action ~response_header_action
-    ~route_configuration_override_action ~url_redirect_action
-    ~url_rewrite_action () : actions =
+let actions ?(request_header_action = [])
+    ?(response_header_action = [])
+    ?(route_configuration_override_action = [])
+    ?(url_redirect_action = []) ?(url_rewrite_action = []) () :
+    actions =
   {
     request_header_action;
     response_header_action;
@@ -1961,15 +1963,18 @@ let conditions__url_path_condition ?match_values ?negate_condition
     ?transforms ~operator () : conditions__url_path_condition =
   { match_values; negate_condition; operator; transforms }
 
-let conditions ~client_port_condition ~cookies_condition
-    ~host_name_condition ~http_version_condition ~is_device_condition
-    ~post_args_condition ~query_string_condition
-    ~remote_address_condition ~request_body_condition
-    ~request_header_condition ~request_method_condition
-    ~request_scheme_condition ~request_uri_condition
-    ~server_port_condition ~socket_address_condition
-    ~ssl_protocol_condition ~url_file_extension_condition
-    ~url_filename_condition ~url_path_condition () : conditions =
+let conditions ?(client_port_condition = [])
+    ?(cookies_condition = []) ?(host_name_condition = [])
+    ?(http_version_condition = []) ?(is_device_condition = [])
+    ?(post_args_condition = []) ?(query_string_condition = [])
+    ?(remote_address_condition = []) ?(request_body_condition = [])
+    ?(request_header_condition = []) ?(request_method_condition = [])
+    ?(request_scheme_condition = []) ?(request_uri_condition = [])
+    ?(server_port_condition = []) ?(socket_address_condition = [])
+    ?(ssl_protocol_condition = [])
+    ?(url_file_extension_condition = [])
+    ?(url_filename_condition = []) ?(url_path_condition = []) () :
+    conditions =
   {
     client_port_condition;
     cookies_condition;
@@ -1995,9 +2000,9 @@ let conditions ~client_port_condition ~cookies_condition
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_cdn_frontdoor_rule ?behavior_on_match ?id ?timeouts
-    ~cdn_frontdoor_rule_set_id ~name ~order ~actions ~conditions () :
-    azurerm_cdn_frontdoor_rule =
+let azurerm_cdn_frontdoor_rule ?behavior_on_match ?id
+    ?(conditions = []) ?timeouts ~cdn_frontdoor_rule_set_id ~name
+    ~order ~actions () : azurerm_cdn_frontdoor_rule =
   {
     behavior_on_match;
     cdn_frontdoor_rule_set_id;
@@ -2018,8 +2023,8 @@ type t = {
   order : float prop;
 }
 
-let make ?behavior_on_match ?id ?timeouts ~cdn_frontdoor_rule_set_id
-    ~name ~order ~actions ~conditions __id =
+let make ?behavior_on_match ?id ?(conditions = []) ?timeouts
+    ~cdn_frontdoor_rule_set_id ~name ~order ~actions __id =
   let __type = "azurerm_cdn_frontdoor_rule" in
   let __attrs =
     ({
@@ -2040,18 +2045,17 @@ let make ?behavior_on_match ?id ?timeouts ~cdn_frontdoor_rule_set_id
     type_ = __type;
     json =
       yojson_of_azurerm_cdn_frontdoor_rule
-        (azurerm_cdn_frontdoor_rule ?behavior_on_match ?id ?timeouts
-           ~cdn_frontdoor_rule_set_id ~name ~order ~actions
-           ~conditions ());
+        (azurerm_cdn_frontdoor_rule ?behavior_on_match ?id
+           ~conditions ?timeouts ~cdn_frontdoor_rule_set_id ~name
+           ~order ~actions ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?behavior_on_match ?id ?timeouts
-    ~cdn_frontdoor_rule_set_id ~name ~order ~actions ~conditions __id
-    =
+let register ?tf_module ?behavior_on_match ?id ?(conditions = [])
+    ?timeouts ~cdn_frontdoor_rule_set_id ~name ~order ~actions __id =
   let (r : _ Tf_core.resource) =
-    make ?behavior_on_match ?id ?timeouts ~cdn_frontdoor_rule_set_id
-      ~name ~order ~actions ~conditions __id
+    make ?behavior_on_match ?id ~conditions ?timeouts
+      ~cdn_frontdoor_rule_set_id ~name ~order ~actions __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

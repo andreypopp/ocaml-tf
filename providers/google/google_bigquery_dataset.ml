@@ -520,7 +520,8 @@ let access__view ~dataset_id ~project_id ~table_id () : access__view
   { dataset_id; project_id; table_id }
 
 let access ?domain ?group_by_email ?iam_member ?role ?special_group
-    ?user_by_email ~dataset ~routine ~view () : access =
+    ?user_by_email ?(dataset = []) ?(routine = []) ?(view = []) () :
+    access =
   {
     domain;
     group_by_email;
@@ -544,8 +545,9 @@ let google_bigquery_dataset ?default_collation
     ?default_partition_expiration_ms ?default_table_expiration_ms
     ?delete_contents_on_destroy ?description ?friendly_name ?id
     ?is_case_insensitive ?labels ?location ?max_time_travel_hours
-    ?project ?storage_billing_model ?timeouts ~dataset_id ~access
-    ~default_encryption_configuration () : google_bigquery_dataset =
+    ?project ?storage_billing_model
+    ?(default_encryption_configuration = []) ?timeouts ~dataset_id
+    ~access () : google_bigquery_dataset =
   {
     dataset_id;
     default_collation;
@@ -593,8 +595,8 @@ let make ?default_collation ?default_partition_expiration_ms
     ?default_table_expiration_ms ?delete_contents_on_destroy
     ?description ?friendly_name ?id ?is_case_insensitive ?labels
     ?location ?max_time_travel_hours ?project ?storage_billing_model
-    ?timeouts ~dataset_id ~access ~default_encryption_configuration
-    __id =
+    ?(default_encryption_configuration = []) ?timeouts ~dataset_id
+    ~access __id =
   let __type = "google_bigquery_dataset" in
   let __attrs =
     ({
@@ -641,8 +643,8 @@ let make ?default_collation ?default_partition_expiration_ms
            ?default_table_expiration_ms ?delete_contents_on_destroy
            ?description ?friendly_name ?id ?is_case_insensitive
            ?labels ?location ?max_time_travel_hours ?project
-           ?storage_billing_model ?timeouts ~dataset_id ~access
-           ~default_encryption_configuration ());
+           ?storage_billing_model ~default_encryption_configuration
+           ?timeouts ~dataset_id ~access ());
     attrs = __attrs;
   }
 
@@ -650,15 +652,16 @@ let register ?tf_module ?default_collation
     ?default_partition_expiration_ms ?default_table_expiration_ms
     ?delete_contents_on_destroy ?description ?friendly_name ?id
     ?is_case_insensitive ?labels ?location ?max_time_travel_hours
-    ?project ?storage_billing_model ?timeouts ~dataset_id ~access
-    ~default_encryption_configuration __id =
+    ?project ?storage_billing_model
+    ?(default_encryption_configuration = []) ?timeouts ~dataset_id
+    ~access __id =
   let (r : _ Tf_core.resource) =
     make ?default_collation ?default_partition_expiration_ms
       ?default_table_expiration_ms ?delete_contents_on_destroy
       ?description ?friendly_name ?id ?is_case_insensitive ?labels
       ?location ?max_time_travel_hours ?project
-      ?storage_billing_model ?timeouts ~dataset_id ~access
-      ~default_encryption_configuration __id
+      ?storage_billing_model ~default_encryption_configuration
+      ?timeouts ~dataset_id ~access __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -268,10 +268,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_network_manager_admin_rule ?description
-    ?destination_port_ranges ?id ?source_port_ranges ?timeouts
-    ~action ~admin_rule_collection_id ~direction ~name ~priority
-    ~protocol ~destination ~source () :
-    azurerm_network_manager_admin_rule =
+    ?destination_port_ranges ?id ?source_port_ranges
+    ?(destination = []) ?(source = []) ?timeouts ~action
+    ~admin_rule_collection_id ~direction ~name ~priority ~protocol ()
+    : azurerm_network_manager_admin_rule =
   {
     action;
     admin_rule_collection_id;
@@ -302,8 +302,9 @@ type t = {
 }
 
 let make ?description ?destination_port_ranges ?id
-    ?source_port_ranges ?timeouts ~action ~admin_rule_collection_id
-    ~direction ~name ~priority ~protocol ~destination ~source __id =
+    ?source_port_ranges ?(destination = []) ?(source = []) ?timeouts
+    ~action ~admin_rule_collection_id ~direction ~name ~priority
+    ~protocol __id =
   let __type = "azurerm_network_manager_admin_rule" in
   let __attrs =
     ({
@@ -329,19 +330,22 @@ let make ?description ?destination_port_ranges ?id
     json =
       yojson_of_azurerm_network_manager_admin_rule
         (azurerm_network_manager_admin_rule ?description
-           ?destination_port_ranges ?id ?source_port_ranges ?timeouts
-           ~action ~admin_rule_collection_id ~direction ~name
-           ~priority ~protocol ~destination ~source ());
+           ?destination_port_ranges ?id ?source_port_ranges
+           ~destination ~source ?timeouts ~action
+           ~admin_rule_collection_id ~direction ~name ~priority
+           ~protocol ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?destination_port_ranges ?id
-    ?source_port_ranges ?timeouts ~action ~admin_rule_collection_id
-    ~direction ~name ~priority ~protocol ~destination ~source __id =
+    ?source_port_ranges ?(destination = []) ?(source = []) ?timeouts
+    ~action ~admin_rule_collection_id ~direction ~name ~priority
+    ~protocol __id =
   let (r : _ Tf_core.resource) =
     make ?description ?destination_port_ranges ?id
-      ?source_port_ranges ?timeouts ~action ~admin_rule_collection_id
-      ~direction ~name ~priority ~protocol ~destination ~source __id
+      ?source_port_ranges ~destination ~source ?timeouts ~action
+      ~admin_rule_collection_id ~direction ~name ~priority ~protocol
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

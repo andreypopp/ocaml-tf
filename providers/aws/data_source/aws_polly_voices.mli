@@ -14,7 +14,7 @@ val aws_polly_voices :
   ?engine:string prop ->
   ?include_additional_language_codes:bool prop ->
   ?language_code:string prop ->
-  voices:voices list ->
+  ?voices:voices list ->
   unit ->
   aws_polly_voices
 
@@ -34,7 +34,7 @@ val register :
   ?engine:string prop ->
   ?include_additional_language_codes:bool prop ->
   ?language_code:string prop ->
-  voices:voices list ->
+  ?voices:voices list ->
   string ->
   t
 
@@ -42,6 +42,6 @@ val make :
   ?engine:string prop ->
   ?include_additional_language_codes:bool prop ->
   ?language_code:string prop ->
-  voices:voices list ->
+  ?voices:voices list ->
   string ->
   t Tf_core.resource

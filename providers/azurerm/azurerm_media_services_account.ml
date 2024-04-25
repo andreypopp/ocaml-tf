@@ -447,8 +447,8 @@ let encryption__managed_identity ?use_system_assigned_identity
     ?user_assigned_identity_id () : encryption__managed_identity =
   { use_system_assigned_identity; user_assigned_identity_id }
 
-let encryption ?key_vault_key_identifier ?type_ ~managed_identity ()
-    : encryption =
+let encryption ?key_vault_key_identifier ?type_
+    ?(managed_identity = []) () : encryption =
   { key_vault_key_identifier; type_; managed_identity }
 
 let identity ?identity_ids ~type_ () : identity =
@@ -463,7 +463,7 @@ let storage_account__managed_identity ?use_system_assigned_identity
     =
   { use_system_assigned_identity; user_assigned_identity_id }
 
-let storage_account ?is_primary ~id ~managed_identity () :
+let storage_account ?is_primary ?(managed_identity = []) ~id () :
     storage_account =
   { id; is_primary; managed_identity }
 
@@ -471,9 +471,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_media_services_account ?id ?public_network_access_enabled
-    ?storage_authentication_type ?tags ?timeouts ~location ~name
-    ~resource_group_name ~encryption ~identity
-    ~key_delivery_access_control ~storage_account () :
+    ?storage_authentication_type ?tags ?(encryption = [])
+    ?(identity = []) ?(key_delivery_access_control = []) ?timeouts
+    ~location ~name ~resource_group_name ~storage_account () :
     azurerm_media_services_account =
   {
     id;
@@ -501,9 +501,9 @@ type t = {
 }
 
 let make ?id ?public_network_access_enabled
-    ?storage_authentication_type ?tags ?timeouts ~location ~name
-    ~resource_group_name ~encryption ~identity
-    ~key_delivery_access_control ~storage_account __id =
+    ?storage_authentication_type ?tags ?(encryption = [])
+    ?(identity = []) ?(key_delivery_access_control = []) ?timeouts
+    ~location ~name ~resource_group_name ~storage_account __id =
   let __type = "azurerm_media_services_account" in
   let __attrs =
     ({
@@ -527,21 +527,21 @@ let make ?id ?public_network_access_enabled
       yojson_of_azurerm_media_services_account
         (azurerm_media_services_account ?id
            ?public_network_access_enabled
-           ?storage_authentication_type ?tags ?timeouts ~location
-           ~name ~resource_group_name ~encryption ~identity
-           ~key_delivery_access_control ~storage_account ());
+           ?storage_authentication_type ?tags ~encryption ~identity
+           ~key_delivery_access_control ?timeouts ~location ~name
+           ~resource_group_name ~storage_account ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?public_network_access_enabled
-    ?storage_authentication_type ?tags ?timeouts ~location ~name
-    ~resource_group_name ~encryption ~identity
-    ~key_delivery_access_control ~storage_account __id =
+    ?storage_authentication_type ?tags ?(encryption = [])
+    ?(identity = []) ?(key_delivery_access_control = []) ?timeouts
+    ~location ~name ~resource_group_name ~storage_account __id =
   let (r : _ Tf_core.resource) =
     make ?id ?public_network_access_enabled
-      ?storage_authentication_type ?tags ?timeouts ~location ~name
-      ~resource_group_name ~encryption ~identity
-      ~key_delivery_access_control ~storage_account __id
+      ?storage_authentication_type ?tags ~encryption ~identity
+      ~key_delivery_access_control ?timeouts ~location ~name
+      ~resource_group_name ~storage_account __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

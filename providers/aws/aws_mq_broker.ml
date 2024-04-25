@@ -734,10 +734,11 @@ let aws_mq_broker ?apply_immediately ?authentication_strategy
     ?auto_minor_version_upgrade ?data_replication_mode
     ?data_replication_primary_broker_arn ?deployment_mode ?id
     ?publicly_accessible ?security_groups ?storage_type ?subnet_ids
-    ?tags ?tags_all ?timeouts ~broker_name ~engine_type
-    ~engine_version ~host_instance_type ~configuration
-    ~encryption_options ~ldap_server_metadata ~logs
-    ~maintenance_window_start_time ~user () : aws_mq_broker =
+    ?tags ?tags_all ?(configuration = []) ?(encryption_options = [])
+    ?(ldap_server_metadata = []) ?(logs = [])
+    ?(maintenance_window_start_time = []) ?timeouts ~broker_name
+    ~engine_type ~engine_version ~host_instance_type ~user () :
+    aws_mq_broker =
   {
     apply_immediately;
     authentication_strategy;
@@ -792,10 +793,10 @@ let make ?apply_immediately ?authentication_strategy
     ?auto_minor_version_upgrade ?data_replication_mode
     ?data_replication_primary_broker_arn ?deployment_mode ?id
     ?publicly_accessible ?security_groups ?storage_type ?subnet_ids
-    ?tags ?tags_all ?timeouts ~broker_name ~engine_type
-    ~engine_version ~host_instance_type ~configuration
-    ~encryption_options ~ldap_server_metadata ~logs
-    ~maintenance_window_start_time ~user __id =
+    ?tags ?tags_all ?(configuration = []) ?(encryption_options = [])
+    ?(ldap_server_metadata = []) ?(logs = [])
+    ?(maintenance_window_start_time = []) ?timeouts ~broker_name
+    ~engine_type ~engine_version ~host_instance_type ~user __id =
   let __type = "aws_mq_broker" in
   let __attrs =
     ({
@@ -840,10 +841,10 @@ let make ?apply_immediately ?authentication_strategy
            ?auto_minor_version_upgrade ?data_replication_mode
            ?data_replication_primary_broker_arn ?deployment_mode ?id
            ?publicly_accessible ?security_groups ?storage_type
-           ?subnet_ids ?tags ?tags_all ?timeouts ~broker_name
-           ~engine_type ~engine_version ~host_instance_type
-           ~configuration ~encryption_options ~ldap_server_metadata
-           ~logs ~maintenance_window_start_time ~user ());
+           ?subnet_ids ?tags ?tags_all ~configuration
+           ~encryption_options ~ldap_server_metadata ~logs
+           ~maintenance_window_start_time ?timeouts ~broker_name
+           ~engine_type ~engine_version ~host_instance_type ~user ());
     attrs = __attrs;
   }
 
@@ -851,19 +852,19 @@ let register ?tf_module ?apply_immediately ?authentication_strategy
     ?auto_minor_version_upgrade ?data_replication_mode
     ?data_replication_primary_broker_arn ?deployment_mode ?id
     ?publicly_accessible ?security_groups ?storage_type ?subnet_ids
-    ?tags ?tags_all ?timeouts ~broker_name ~engine_type
-    ~engine_version ~host_instance_type ~configuration
-    ~encryption_options ~ldap_server_metadata ~logs
-    ~maintenance_window_start_time ~user __id =
+    ?tags ?tags_all ?(configuration = []) ?(encryption_options = [])
+    ?(ldap_server_metadata = []) ?(logs = [])
+    ?(maintenance_window_start_time = []) ?timeouts ~broker_name
+    ~engine_type ~engine_version ~host_instance_type ~user __id =
   let (r : _ Tf_core.resource) =
     make ?apply_immediately ?authentication_strategy
       ?auto_minor_version_upgrade ?data_replication_mode
       ?data_replication_primary_broker_arn ?deployment_mode ?id
       ?publicly_accessible ?security_groups ?storage_type ?subnet_ids
-      ?tags ?tags_all ?timeouts ~broker_name ~engine_type
-      ~engine_version ~host_instance_type ~configuration
-      ~encryption_options ~ldap_server_metadata ~logs
-      ~maintenance_window_start_time ~user __id
+      ?tags ?tags_all ~configuration ~encryption_options
+      ~ldap_server_metadata ~logs ~maintenance_window_start_time
+      ?timeouts ~broker_name ~engine_type ~engine_version
+      ~host_instance_type ~user __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -21,7 +21,7 @@ val network_address_port_translation :
   ?tcp_port_reuse_minimum_hold_time_in_seconds:float prop ->
   ?udp_pinhole_timeout_in_seconds:float prop ->
   ?udp_port_reuse_minimum_hold_time_in_seconds:float prop ->
-  port_range:network_address_port_translation__port_range list ->
+  ?port_range:network_address_port_translation__port_range list ->
   unit ->
   network_address_port_translation
 
@@ -46,13 +46,13 @@ val azurerm_mobile_network_attached_data_network :
   ?user_plane_access_ipv4_gateway:string prop ->
   ?user_plane_access_ipv4_subnet:string prop ->
   ?user_plane_access_name:string prop ->
+  ?network_address_port_translation:
+    network_address_port_translation list ->
   ?timeouts:timeouts ->
   dns_addresses:string prop list ->
   location:string prop ->
   mobile_network_data_network_name:string prop ->
   mobile_network_packet_core_data_plane_id:string prop ->
-  network_address_port_translation:
-    network_address_port_translation list ->
   unit ->
   azurerm_mobile_network_attached_data_network
 
@@ -86,13 +86,13 @@ val register :
   ?user_plane_access_ipv4_gateway:string prop ->
   ?user_plane_access_ipv4_subnet:string prop ->
   ?user_plane_access_name:string prop ->
+  ?network_address_port_translation:
+    network_address_port_translation list ->
   ?timeouts:timeouts ->
   dns_addresses:string prop list ->
   location:string prop ->
   mobile_network_data_network_name:string prop ->
   mobile_network_packet_core_data_plane_id:string prop ->
-  network_address_port_translation:
-    network_address_port_translation list ->
   string ->
   t
 
@@ -105,12 +105,12 @@ val make :
   ?user_plane_access_ipv4_gateway:string prop ->
   ?user_plane_access_ipv4_subnet:string prop ->
   ?user_plane_access_name:string prop ->
+  ?network_address_port_translation:
+    network_address_port_translation list ->
   ?timeouts:timeouts ->
   dns_addresses:string prop list ->
   location:string prop ->
   mobile_network_data_network_name:string prop ->
   mobile_network_packet_core_data_plane_id:string prop ->
-  network_address_port_translation:
-    network_address_port_translation list ->
   string ->
   t Tf_core.resource

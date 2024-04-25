@@ -122,8 +122,9 @@ let _ = yojson_of_google_dataplex_lake_iam_member
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_dataplex_lake_iam_member ?id ?location ?project ~lake
-    ~member ~role ~condition () : google_dataplex_lake_iam_member =
+let google_dataplex_lake_iam_member ?id ?location ?project
+    ?(condition = []) ~lake ~member ~role () :
+    google_dataplex_lake_iam_member =
   { id; lake; location; member; project; role; condition }
 
 type t = {
@@ -136,7 +137,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?location ?project ~lake ~member ~role ~condition __id =
+let make ?id ?location ?project ?(condition = []) ~lake ~member ~role
+    __id =
   let __type = "google_dataplex_lake_iam_member" in
   let __attrs =
     ({
@@ -155,15 +157,15 @@ let make ?id ?location ?project ~lake ~member ~role ~condition __id =
     type_ = __type;
     json =
       yojson_of_google_dataplex_lake_iam_member
-        (google_dataplex_lake_iam_member ?id ?location ?project ~lake
-           ~member ~role ~condition ());
+        (google_dataplex_lake_iam_member ?id ?location ?project
+           ~condition ~lake ~member ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?location ?project ~lake ~member ~role
-    ~condition __id =
+let register ?tf_module ?id ?location ?project ?(condition = [])
+    ~lake ~member ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?location ?project ~lake ~member ~role ~condition __id
+    make ?id ?location ?project ~condition ~lake ~member ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -21,9 +21,9 @@ type rules
 
 val rules :
   ?description:string prop ->
+  ?action:rules__action list ->
   match_:string prop ->
   rule_number:float prop ->
-  action:rules__action list ->
   unit ->
   rules
 
@@ -63,11 +63,11 @@ val google_compute_router_nat :
   ?tcp_time_wait_timeout_sec:float prop ->
   ?tcp_transitory_idle_timeout_sec:float prop ->
   ?udp_idle_timeout_sec:float prop ->
+  ?log_config:log_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   router:string prop ->
   source_subnetwork_ip_ranges_to_nat:string prop ->
-  log_config:log_config list ->
   rules:rules list ->
   subnetwork:subnetwork list ->
   unit ->
@@ -116,11 +116,11 @@ val register :
   ?tcp_time_wait_timeout_sec:float prop ->
   ?tcp_transitory_idle_timeout_sec:float prop ->
   ?udp_idle_timeout_sec:float prop ->
+  ?log_config:log_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   router:string prop ->
   source_subnetwork_ip_ranges_to_nat:string prop ->
-  log_config:log_config list ->
   rules:rules list ->
   subnetwork:subnetwork list ->
   string ->
@@ -142,11 +142,11 @@ val make :
   ?tcp_time_wait_timeout_sec:float prop ->
   ?tcp_transitory_idle_timeout_sec:float prop ->
   ?udp_idle_timeout_sec:float prop ->
+  ?log_config:log_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   router:string prop ->
   source_subnetwork_ip_ranges_to_nat:string prop ->
-  log_config:log_config list ->
   rules:rules list ->
   subnetwork:subnetwork list ->
   string ->

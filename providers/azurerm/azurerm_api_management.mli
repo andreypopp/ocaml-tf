@@ -23,9 +23,9 @@ val additional_location :
   ?gateway_disabled:bool prop ->
   ?public_ip_address_id:string prop ->
   ?zones:string prop list ->
-  location:string prop ->
-  virtual_network_configuration:
+  ?virtual_network_configuration:
     additional_location__virtual_network_configuration list ->
+  location:string prop ->
   unit ->
   additional_location
 
@@ -112,11 +112,11 @@ val hostname_configuration__scm :
 type hostname_configuration
 
 val hostname_configuration :
-  developer_portal:hostname_configuration__developer_portal list ->
-  management:hostname_configuration__management list ->
-  portal:hostname_configuration__portal list ->
-  proxy:hostname_configuration__proxy list ->
-  scm:hostname_configuration__scm list ->
+  ?developer_portal:hostname_configuration__developer_portal list ->
+  ?management:hostname_configuration__management list ->
+  ?portal:hostname_configuration__portal list ->
+  ?proxy:hostname_configuration__proxy list ->
+  ?scm:hostname_configuration__scm list ->
   unit ->
   hostname_configuration
 
@@ -209,24 +209,24 @@ val azurerm_api_management :
   ?tags:(string * string prop) list ->
   ?virtual_network_type:string prop ->
   ?zones:string prop list ->
+  ?additional_location:additional_location list ->
+  ?certificate:certificate list ->
+  ?delegation:delegation list ->
+  ?hostname_configuration:hostname_configuration list ->
+  ?identity:identity list ->
+  ?protocols:protocols list ->
+  ?security:security list ->
+  ?sign_in:sign_in list ->
+  ?sign_up:sign_up list ->
+  ?tenant_access:tenant_access list ->
   ?timeouts:timeouts ->
+  ?virtual_network_configuration:virtual_network_configuration list ->
   location:string prop ->
   name:string prop ->
   publisher_email:string prop ->
   publisher_name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  additional_location:additional_location list ->
-  certificate:certificate list ->
-  delegation:delegation list ->
-  hostname_configuration:hostname_configuration list ->
-  identity:identity list ->
-  protocols:protocols list ->
-  security:security list ->
-  sign_in:sign_in list ->
-  sign_up:sign_up list ->
-  tenant_access:tenant_access list ->
-  virtual_network_configuration:virtual_network_configuration list ->
   unit ->
   azurerm_api_management
 
@@ -275,24 +275,24 @@ val register :
   ?tags:(string * string prop) list ->
   ?virtual_network_type:string prop ->
   ?zones:string prop list ->
+  ?additional_location:additional_location list ->
+  ?certificate:certificate list ->
+  ?delegation:delegation list ->
+  ?hostname_configuration:hostname_configuration list ->
+  ?identity:identity list ->
+  ?protocols:protocols list ->
+  ?security:security list ->
+  ?sign_in:sign_in list ->
+  ?sign_up:sign_up list ->
+  ?tenant_access:tenant_access list ->
   ?timeouts:timeouts ->
+  ?virtual_network_configuration:virtual_network_configuration list ->
   location:string prop ->
   name:string prop ->
   publisher_email:string prop ->
   publisher_name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  additional_location:additional_location list ->
-  certificate:certificate list ->
-  delegation:delegation list ->
-  hostname_configuration:hostname_configuration list ->
-  identity:identity list ->
-  protocols:protocols list ->
-  security:security list ->
-  sign_in:sign_in list ->
-  sign_up:sign_up list ->
-  tenant_access:tenant_access list ->
-  virtual_network_configuration:virtual_network_configuration list ->
   string ->
   t
 
@@ -308,23 +308,23 @@ val make :
   ?tags:(string * string prop) list ->
   ?virtual_network_type:string prop ->
   ?zones:string prop list ->
+  ?additional_location:additional_location list ->
+  ?certificate:certificate list ->
+  ?delegation:delegation list ->
+  ?hostname_configuration:hostname_configuration list ->
+  ?identity:identity list ->
+  ?protocols:protocols list ->
+  ?security:security list ->
+  ?sign_in:sign_in list ->
+  ?sign_up:sign_up list ->
+  ?tenant_access:tenant_access list ->
   ?timeouts:timeouts ->
+  ?virtual_network_configuration:virtual_network_configuration list ->
   location:string prop ->
   name:string prop ->
   publisher_email:string prop ->
   publisher_name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  additional_location:additional_location list ->
-  certificate:certificate list ->
-  delegation:delegation list ->
-  hostname_configuration:hostname_configuration list ->
-  identity:identity list ->
-  protocols:protocols list ->
-  security:security list ->
-  sign_in:sign_in list ->
-  sign_up:sign_up list ->
-  tenant_access:tenant_access list ->
-  virtual_network_configuration:virtual_network_configuration list ->
   string ->
   t Tf_core.resource

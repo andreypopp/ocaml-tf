@@ -20,8 +20,8 @@ val data_delivery__s3_destination :
 type data_delivery
 
 val data_delivery :
-  cloudwatch_logs:data_delivery__cloudwatch_logs list ->
-  s3_destination:data_delivery__s3_destination list ->
+  ?cloudwatch_logs:data_delivery__cloudwatch_logs list ->
+  ?s3_destination:data_delivery__s3_destination list ->
   unit ->
   data_delivery
 
@@ -41,9 +41,9 @@ val aws_evidently_project :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?data_delivery:data_delivery list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  data_delivery:data_delivery list ->
   unit ->
   aws_evidently_project
 
@@ -74,9 +74,9 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?data_delivery:data_delivery list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  data_delivery:data_delivery list ->
   string ->
   t
 
@@ -85,8 +85,8 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?data_delivery:data_delivery list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  data_delivery:data_delivery list ->
   string ->
   t Tf_core.resource

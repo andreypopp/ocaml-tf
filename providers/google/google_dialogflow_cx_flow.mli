@@ -23,9 +23,9 @@ val advanced_settings__dtmf_settings :
 type advanced_settings
 
 val advanced_settings :
-  audio_export_gcs_destination:
+  ?audio_export_gcs_destination:
     advanced_settings__audio_export_gcs_destination list ->
-  dtmf_settings:advanced_settings__dtmf_settings list ->
+  ?dtmf_settings:advanced_settings__dtmf_settings list ->
   unit ->
   advanced_settings
 
@@ -84,21 +84,21 @@ type event_handlers__trigger_fulfillment__messages
 val event_handlers__trigger_fulfillment__messages :
   ?channel:string prop ->
   ?payload:string prop ->
-  conversation_success:
+  ?conversation_success:
     event_handlers__trigger_fulfillment__messages__conversation_success
     list ->
-  live_agent_handoff:
+  ?live_agent_handoff:
     event_handlers__trigger_fulfillment__messages__live_agent_handoff
     list ->
-  output_audio_text:
+  ?output_audio_text:
     event_handlers__trigger_fulfillment__messages__output_audio_text
     list ->
-  play_audio:
+  ?play_audio:
     event_handlers__trigger_fulfillment__messages__play_audio list ->
-  telephony_transfer_call:
+  ?telephony_transfer_call:
     event_handlers__trigger_fulfillment__messages__telephony_transfer_call
     list ->
-  text:event_handlers__trigger_fulfillment__messages__text list ->
+  ?text:event_handlers__trigger_fulfillment__messages__text list ->
   unit ->
   event_handlers__trigger_fulfillment__messages
 
@@ -116,10 +116,10 @@ val event_handlers__trigger_fulfillment :
   ?return_partial_responses:bool prop ->
   ?tag:string prop ->
   ?webhook:string prop ->
-  conditional_cases:
+  ?conditional_cases:
     event_handlers__trigger_fulfillment__conditional_cases list ->
-  messages:event_handlers__trigger_fulfillment__messages list ->
-  set_parameter_actions:
+  ?messages:event_handlers__trigger_fulfillment__messages list ->
+  ?set_parameter_actions:
     event_handlers__trigger_fulfillment__set_parameter_actions list ->
   unit ->
   event_handlers__trigger_fulfillment
@@ -130,7 +130,7 @@ val event_handlers :
   ?event:string prop ->
   ?target_flow:string prop ->
   ?target_page:string prop ->
-  trigger_fulfillment:event_handlers__trigger_fulfillment list ->
+  ?trigger_fulfillment:event_handlers__trigger_fulfillment list ->
   unit ->
   event_handlers
 
@@ -207,21 +207,21 @@ type transition_routes__trigger_fulfillment__messages
 val transition_routes__trigger_fulfillment__messages :
   ?channel:string prop ->
   ?payload:string prop ->
-  conversation_success:
+  ?conversation_success:
     transition_routes__trigger_fulfillment__messages__conversation_success
     list ->
-  live_agent_handoff:
+  ?live_agent_handoff:
     transition_routes__trigger_fulfillment__messages__live_agent_handoff
     list ->
-  output_audio_text:
+  ?output_audio_text:
     transition_routes__trigger_fulfillment__messages__output_audio_text
     list ->
-  play_audio:
+  ?play_audio:
     transition_routes__trigger_fulfillment__messages__play_audio list ->
-  telephony_transfer_call:
+  ?telephony_transfer_call:
     transition_routes__trigger_fulfillment__messages__telephony_transfer_call
     list ->
-  text:transition_routes__trigger_fulfillment__messages__text list ->
+  ?text:transition_routes__trigger_fulfillment__messages__text list ->
   unit ->
   transition_routes__trigger_fulfillment__messages
 
@@ -239,10 +239,10 @@ val transition_routes__trigger_fulfillment :
   ?return_partial_responses:bool prop ->
   ?tag:string prop ->
   ?webhook:string prop ->
-  conditional_cases:
+  ?conditional_cases:
     transition_routes__trigger_fulfillment__conditional_cases list ->
-  messages:transition_routes__trigger_fulfillment__messages list ->
-  set_parameter_actions:
+  ?messages:transition_routes__trigger_fulfillment__messages list ->
+  ?set_parameter_actions:
     transition_routes__trigger_fulfillment__set_parameter_actions
     list ->
   unit ->
@@ -255,7 +255,7 @@ val transition_routes :
   ?intent:string prop ->
   ?target_flow:string prop ->
   ?target_page:string prop ->
-  trigger_fulfillment:transition_routes__trigger_fulfillment list ->
+  ?trigger_fulfillment:transition_routes__trigger_fulfillment list ->
   unit ->
   transition_routes
 
@@ -268,12 +268,12 @@ val google_dialogflow_cx_flow :
   ?language_code:string prop ->
   ?parent:string prop ->
   ?transition_route_groups:string prop list ->
+  ?advanced_settings:advanced_settings list ->
+  ?event_handlers:event_handlers list ->
+  ?nlu_settings:nlu_settings list ->
   ?timeouts:timeouts ->
+  ?transition_routes:transition_routes list ->
   display_name:string prop ->
-  advanced_settings:advanced_settings list ->
-  event_handlers:event_handlers list ->
-  nlu_settings:nlu_settings list ->
-  transition_routes:transition_routes list ->
   unit ->
   google_dialogflow_cx_flow
 
@@ -301,12 +301,12 @@ val register :
   ?language_code:string prop ->
   ?parent:string prop ->
   ?transition_route_groups:string prop list ->
+  ?advanced_settings:advanced_settings list ->
+  ?event_handlers:event_handlers list ->
+  ?nlu_settings:nlu_settings list ->
   ?timeouts:timeouts ->
+  ?transition_routes:transition_routes list ->
   display_name:string prop ->
-  advanced_settings:advanced_settings list ->
-  event_handlers:event_handlers list ->
-  nlu_settings:nlu_settings list ->
-  transition_routes:transition_routes list ->
   string ->
   t
 
@@ -317,11 +317,11 @@ val make :
   ?language_code:string prop ->
   ?parent:string prop ->
   ?transition_route_groups:string prop list ->
+  ?advanced_settings:advanced_settings list ->
+  ?event_handlers:event_handlers list ->
+  ?nlu_settings:nlu_settings list ->
   ?timeouts:timeouts ->
+  ?transition_routes:transition_routes list ->
   display_name:string prop ->
-  advanced_settings:advanced_settings list ->
-  event_handlers:event_handlers list ->
-  nlu_settings:nlu_settings list ->
-  transition_routes:transition_routes list ->
   string ->
   t Tf_core.resource

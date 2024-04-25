@@ -358,9 +358,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_healthcare_service ?access_policy_object_ids
     ?cosmosdb_key_vault_key_versionless_id ?cosmosdb_throughput ?id
-    ?kind ?public_network_access_enabled ?tags ?timeouts ~location
-    ~name ~resource_group_name ~authentication_configuration
-    ~cors_configuration () : azurerm_healthcare_service =
+    ?kind ?public_network_access_enabled ?tags
+    ?(authentication_configuration = []) ?(cors_configuration = [])
+    ?timeouts ~location ~name ~resource_group_name () :
+    azurerm_healthcare_service =
   {
     access_policy_object_ids;
     cosmosdb_key_vault_key_versionless_id;
@@ -392,9 +393,9 @@ type t = {
 
 let make ?access_policy_object_ids
     ?cosmosdb_key_vault_key_versionless_id ?cosmosdb_throughput ?id
-    ?kind ?public_network_access_enabled ?tags ?timeouts ~location
-    ~name ~resource_group_name ~authentication_configuration
-    ~cors_configuration __id =
+    ?kind ?public_network_access_enabled ?tags
+    ?(authentication_configuration = []) ?(cors_configuration = [])
+    ?timeouts ~location ~name ~resource_group_name __id =
   let __type = "azurerm_healthcare_service" in
   let __attrs =
     ({
@@ -425,23 +426,23 @@ let make ?access_policy_object_ids
         (azurerm_healthcare_service ?access_policy_object_ids
            ?cosmosdb_key_vault_key_versionless_id
            ?cosmosdb_throughput ?id ?kind
-           ?public_network_access_enabled ?tags ?timeouts ~location
-           ~name ~resource_group_name ~authentication_configuration
-           ~cors_configuration ());
+           ?public_network_access_enabled ?tags
+           ~authentication_configuration ~cors_configuration
+           ?timeouts ~location ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?access_policy_object_ids
     ?cosmosdb_key_vault_key_versionless_id ?cosmosdb_throughput ?id
-    ?kind ?public_network_access_enabled ?tags ?timeouts ~location
-    ~name ~resource_group_name ~authentication_configuration
-    ~cors_configuration __id =
+    ?kind ?public_network_access_enabled ?tags
+    ?(authentication_configuration = []) ?(cors_configuration = [])
+    ?timeouts ~location ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?access_policy_object_ids
       ?cosmosdb_key_vault_key_versionless_id ?cosmosdb_throughput ?id
-      ?kind ?public_network_access_enabled ?tags ?timeouts ~location
-      ~name ~resource_group_name ~authentication_configuration
-      ~cors_configuration __id
+      ?kind ?public_network_access_enabled ?tags
+      ~authentication_configuration ~cors_configuration ?timeouts
+      ~location ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

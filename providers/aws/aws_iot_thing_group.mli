@@ -27,7 +27,7 @@ type properties
 
 val properties :
   ?description:string prop ->
-  attribute_payload:properties__attribute_payload list ->
+  ?attribute_payload:properties__attribute_payload list ->
   unit ->
   properties
 
@@ -38,8 +38,8 @@ val aws_iot_thing_group :
   ?parent_group_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?properties:properties list ->
   name:string prop ->
-  properties:properties list ->
   unit ->
   aws_iot_thing_group
 
@@ -64,8 +64,8 @@ val register :
   ?parent_group_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?properties:properties list ->
   name:string prop ->
-  properties:properties list ->
   string ->
   t
 
@@ -74,7 +74,7 @@ val make :
   ?parent_group_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?properties:properties list ->
   name:string prop ->
-  properties:properties list ->
   string ->
   t Tf_core.resource

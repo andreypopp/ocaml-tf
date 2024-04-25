@@ -981,7 +981,7 @@ let policy_option__fairplay_configuration__offline_rental_configuration
 
 let policy_option__fairplay_configuration ?ask ?pfx ?pfx_password
     ?rental_and_lease_key_type ?rental_duration_seconds
-    ~offline_rental_configuration () :
+    ?(offline_rental_configuration = []) () :
     policy_option__fairplay_configuration =
   {
     ask;
@@ -1007,7 +1007,7 @@ let policy_option__playready_configuration_license__play_right
     ?image_constraint_for_analog_computer_monitor_restriction
     ?scms_restriction ?uncompressed_digital_audio_opl
     ?uncompressed_digital_video_opl
-    ~explicit_analog_television_output_restriction () :
+    ?(explicit_analog_television_output_restriction = []) () :
     policy_option__playready_configuration_license__play_right =
   {
     agc_and_color_stripe_restriction;
@@ -1030,7 +1030,7 @@ let policy_option__playready_configuration_license
     ?content_key_location_from_header_enabled
     ?content_key_location_from_key_id ?content_type ?expiration_date
     ?grace_period ?license_type ?relative_begin_date
-    ?relative_expiration_date ?security_level ~play_right () :
+    ?relative_expiration_date ?security_level ?(play_right = []) () :
     policy_option__playready_configuration_license =
   {
     allow_test_devices;
@@ -1066,7 +1066,7 @@ let policy_option__token_restriction ?audience ?issuer
     ?open_id_connect_discovery_document
     ?primary_rsa_token_key_exponent ?primary_rsa_token_key_modulus
     ?primary_symmetric_token_key ?primary_x509_token_key_raw
-    ?token_type ~alternate_key ~required_claim () :
+    ?token_type ?(alternate_key = []) ?(required_claim = []) () :
     policy_option__token_restriction =
   {
     audience;
@@ -1083,9 +1083,9 @@ let policy_option__token_restriction ?audience ?issuer
 
 let policy_option ?clear_key_configuration_enabled
     ?open_restriction_enabled ?playready_response_custom_data
-    ?widevine_configuration_template ~name ~fairplay_configuration
-    ~playready_configuration_license ~token_restriction () :
-    policy_option =
+    ?widevine_configuration_template ?(fairplay_configuration = [])
+    ?(playready_configuration_license = []) ?(token_restriction = [])
+    ~name () : policy_option =
   {
     clear_key_configuration_enabled;
     name;

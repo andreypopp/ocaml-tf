@@ -94,31 +94,31 @@ val property_definitions__property_type_options__property_definitions :
   ?is_required:bool prop ->
   ?is_searchable:bool prop ->
   ?retrieval_importance:string prop ->
-  name:string prop ->
-  date_time_type_options:
+  ?date_time_type_options:
     property_definitions__property_type_options__property_definitions__date_time_type_options
     list ->
-  enum_type_options:
+  ?enum_type_options:
     property_definitions__property_type_options__property_definitions__enum_type_options
     list ->
-  float_type_options:
+  ?float_type_options:
     property_definitions__property_type_options__property_definitions__float_type_options
     list ->
-  integer_type_options:
+  ?integer_type_options:
     property_definitions__property_type_options__property_definitions__integer_type_options
     list ->
-  map_type_options:
+  ?map_type_options:
     property_definitions__property_type_options__property_definitions__map_type_options
     list ->
-  schema_sources:
+  ?schema_sources:
     property_definitions__property_type_options__property_definitions__schema_sources
     list ->
-  text_type_options:
+  ?text_type_options:
     property_definitions__property_type_options__property_definitions__text_type_options
     list ->
-  timestamp_type_options:
+  ?timestamp_type_options:
     property_definitions__property_type_options__property_definitions__timestamp_type_options
     list ->
+  name:string prop ->
   unit ->
   property_definitions__property_type_options__property_definitions
 
@@ -159,20 +159,20 @@ val property_definitions :
   ?is_required:bool prop ->
   ?is_searchable:bool prop ->
   ?retrieval_importance:string prop ->
-  name:string prop ->
-  date_time_type_options:
+  ?date_time_type_options:
     property_definitions__date_time_type_options list ->
-  enum_type_options:property_definitions__enum_type_options list ->
-  float_type_options:property_definitions__float_type_options list ->
-  integer_type_options:
+  ?enum_type_options:property_definitions__enum_type_options list ->
+  ?float_type_options:property_definitions__float_type_options list ->
+  ?integer_type_options:
     property_definitions__integer_type_options list ->
-  map_type_options:property_definitions__map_type_options list ->
-  property_type_options:
+  ?map_type_options:property_definitions__map_type_options list ->
+  ?property_type_options:
     property_definitions__property_type_options list ->
-  schema_sources:property_definitions__schema_sources list ->
-  text_type_options:property_definitions__text_type_options list ->
-  timestamp_type_options:
+  ?schema_sources:property_definitions__schema_sources list ->
+  ?text_type_options:property_definitions__text_type_options list ->
+  ?timestamp_type_options:
     property_definitions__timestamp_type_options list ->
+  name:string prop ->
   unit ->
   property_definitions
 

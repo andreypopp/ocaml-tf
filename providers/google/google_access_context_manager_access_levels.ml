@@ -596,7 +596,7 @@ let access_levels__basic__conditions__device_policy__os_constraints
 let access_levels__basic__conditions__device_policy
     ?allowed_device_management_levels ?allowed_encryption_statuses
     ?require_admin_approval ?require_corp_owned ?require_screen_lock
-    ~os_constraints () :
+    ?(os_constraints = []) () :
     access_levels__basic__conditions__device_policy =
   {
     allowed_device_management_levels;
@@ -614,13 +614,14 @@ let access_levels__basic__conditions__vpc_network_sources__vpc_subnetwork
   { network; vpc_ip_subnetworks }
 
 let access_levels__basic__conditions__vpc_network_sources
-    ~vpc_subnetwork () :
+    ?(vpc_subnetwork = []) () :
     access_levels__basic__conditions__vpc_network_sources =
   { vpc_subnetwork }
 
 let access_levels__basic__conditions ?ip_subnetworks ?members ?negate
-    ?regions ?required_access_levels ~device_policy
-    ~vpc_network_sources () : access_levels__basic__conditions =
+    ?regions ?required_access_levels ?(device_policy = [])
+    ?(vpc_network_sources = []) () : access_levels__basic__conditions
+    =
   {
     ip_subnetworks;
     members;
@@ -641,8 +642,8 @@ let access_levels__custom__expr ?description ?location ?title
 
 let access_levels__custom ~expr () : access_levels__custom = { expr }
 
-let access_levels ?description ~name ~title ~basic ~custom () :
-    access_levels =
+let access_levels ?description ?(basic = []) ?(custom = []) ~name
+    ~title () : access_levels =
   { description; name; title; basic; custom }
 
 let timeouts ?create ?delete ?update () : timeouts =

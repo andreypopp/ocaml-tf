@@ -137,8 +137,8 @@ let _ = yojson_of_aws_iot_thing_type
 let properties ?description ?searchable_attributes () : properties =
   { description; searchable_attributes }
 
-let aws_iot_thing_type ?deprecated ?id ?tags ?tags_all ~name
-    ~properties () : aws_iot_thing_type =
+let aws_iot_thing_type ?deprecated ?id ?tags ?tags_all
+    ?(properties = []) ~name () : aws_iot_thing_type =
   { deprecated; id; name; tags; tags_all; properties }
 
 type t = {
@@ -150,7 +150,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?deprecated ?id ?tags ?tags_all ~name ~properties __id =
+let make ?deprecated ?id ?tags ?tags_all ?(properties = []) ~name
+    __id =
   let __type = "aws_iot_thing_type" in
   let __attrs =
     ({
@@ -168,15 +169,15 @@ let make ?deprecated ?id ?tags ?tags_all ~name ~properties __id =
     type_ = __type;
     json =
       yojson_of_aws_iot_thing_type
-        (aws_iot_thing_type ?deprecated ?id ?tags ?tags_all ~name
-           ~properties ());
+        (aws_iot_thing_type ?deprecated ?id ?tags ?tags_all
+           ~properties ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?deprecated ?id ?tags ?tags_all ~name
-    ~properties __id =
+let register ?tf_module ?deprecated ?id ?tags ?tags_all
+    ?(properties = []) ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?deprecated ?id ?tags ?tags_all ~name ~properties __id
+    make ?deprecated ?id ?tags ?tags_all ~properties ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

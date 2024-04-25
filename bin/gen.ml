@@ -353,44 +353,47 @@ and gen_block_types_ml ~is_mli ppf (name, (block : block)) =
       gen_block_type_ml ~input_only:true ~is_mli ppf
         (name, block_type.block))
 
-let gen_block_args (block : block) =
-  let collect_args f =
-    List.filter_map block.attributes ~f:(fun (attr_name, attr) ->
-        match f attr_name attr with
-        | false -> None
-        | true -> Some (to_ocaml_name attr_name))
+let partition_block_args block =
+  let reg, opt =
+    List.partition_filter_map block.attributes
+      ~f:(fun (attr_name, attr) ->
+        let name = to_ocaml_name attr_name in
+        let ty = `attr (attr_name, attr) in
+        if not (is_input_attribute attr) then `Drop
+        else if attr.optional then `Right (name, None, ty)
+        else if attr.required then `Left (name, ty)
+        else `Drop)
   in
-  let opt_args =
-    collect_args (fun _ attr ->
-        is_input_attribute attr && attr.optional)
-    |> List.map ~f:(fun x -> Printf.sprintf "?%s" x)
+  let reg', opt' =
+    List.partition_filter_map block.block_types
+      ~f:(fun (block_name, block) ->
+        let name = to_ocaml_name block_name in
+        let ty = `block (block_name, block) in
+        match block_name, block.nesting_mode, block.min_items with
+        | "timeouts", Single, _ -> `Right (name, None, ty)
+        | _, List, None -> `Right (name, Some "[]", ty)
+        | _ -> `Left (name, ty))
   in
-  let opt_block_args =
-    List.filter_map block.block_types ~f:(fun (block_name, block) ->
-        match block_name, block.nesting_mode with
-        | "timeouts", Single -> Some (to_ocaml_name block_name)
-        | _ -> None)
-    |> List.map ~f:(fun x -> Printf.sprintf "?%s" x)
+  reg @ reg', opt @ opt'
+
+let gen_block_args ~mode (block : block) =
+  let as_arg (name, _ty) = Printf.sprintf "~%s" name in
+  let as_opt_arg (name, default, _ty) =
+    match mode, default with
+    | `app, None | `decl, None -> Printf.sprintf "?%s" name
+    | `app, Some _ -> Printf.sprintf "~%s" name
+    | `decl, Some default -> Printf.sprintf "?(%s=%s)" name default
   in
-  let args =
-    collect_args (fun _ attr ->
-        is_input_attribute attr && attr.required)
-    |> List.map ~f:(fun x -> Printf.sprintf "~%s" x)
-  in
-  let block_args =
-    List.filter_map block.block_types ~f:(fun (block_name, block) ->
-        match block_name, block.nesting_mode with
-        | "timeouts", Single -> None
-        | _ -> Some (to_ocaml_name block_name))
-    |> List.map ~f:(fun x -> Printf.sprintf "~%s" x)
-  in
-  List.flatten [ opt_args; opt_block_args; args; block_args ]
+  let args, opt_args = partition_block_args block in
+  let args = List.map args ~f:as_arg in
+  let opt_args = List.map opt_args ~f:as_opt_arg in
+  List.flatten [ opt_args; args ]
 
 let rec gen_block_constructor ?(is_resource = false) ppf
     (name, (block : block)) =
   gen_block_constructors ppf
     ((if is_resource then None else Some name), block);
-  let args = concat_space (gen_block_args block) in
+  let args = concat_space (gen_block_args ~mode:`decl block) in
   Format.fprintf ppf "let %s %s () =@." (to_ocaml_name name) args;
   let attributes =
     get_attributes ~input_only:true block.attributes
@@ -424,7 +427,12 @@ and gen_block_constructors ppf (name, (block : block)) =
       gen_block_constructor ppf (name, block_type.block))
 
 let gen_resource_constructor ppf kind (name, (schema : schema)) =
-  let args = concat_space (gen_block_args schema.block) in
+  let args =
+    concat_space (gen_block_args ~mode:`decl schema.block)
+  in
+  let args' =
+    concat_space (gen_block_args ~mode:`app schema.block)
+  in
   Format.fprintf ppf "let make %s __id =@." args;
   Format.fprintf ppf "  let __type = %S in@." name;
   Format.fprintf ppf "  let __attrs = ({@.";
@@ -439,12 +447,12 @@ let gen_resource_constructor ppf kind (name, (schema : schema)) =
   Format.fprintf ppf "    id=__id;@.";
   Format.fprintf ppf "    type_=__type;@.";
   Format.fprintf ppf "    json=yojson_of_%s (%s %s ());@." name name
-    args;
+    args';
   Format.fprintf ppf "    attrs=__attrs;@.";
   Format.fprintf ppf "  };;@.@.";
   Format.fprintf ppf "let register ?tf_module %s __id =@." args;
   Format.fprintf ppf
-    "  let (r : _ Tf_core.resource) = make %s __id in@." args;
+    "  let (r : _ Tf_core.resource) = make %s __id in@." args';
   let () =
     let collection =
       match kind with
@@ -468,61 +476,42 @@ let gen_resource_attributes_ty ~is_mli ppf (_name, (schema : schema))
   Format.fprintf ppf "}@.@."
 
 let gen_block_args_sig basename block =
-  let collect_args f =
-    List.filter_map block.attributes ~f:(fun (attr_name, attr) ->
-        match f attr_name attr with
-        | false -> None
-        | true -> Some (to_ocaml_name attr_name, attr))
-  in
+  let args, opt_args = partition_block_args block in
   let opt_args =
-    collect_args (fun _ attr ->
-        is_input_attribute attr && attr.optional)
-    |> List.map ~f:(fun (attr_name, attr) ->
-           Format.asprintf "?%s:%a" attr_name
-             (gen_attribute_type_name
-                (match basename with
-                | None -> [ attr_name ]
-                | Some name -> [ attr_name; name ]))
-             attr.type_)
-  in
-  let opt_block_args =
-    List.filter block.block_types ~f:(fun (block_name, block) ->
-        match block_name, block.nesting_mode with
-        | "timeouts", Single -> true
-        | _ -> false)
-    |> List.map ~f:(fun (block_name, block) ->
-           let arg = to_ocaml_name block_name in
-           let ty =
-             gen_block_type_name ~kind:`arg basename
-               (block_name, block)
-           in
-           Printf.sprintf "?%s:%s" arg ty)
+    List.map opt_args ~f:(fun (name, _default, ty) ->
+        match ty with
+        | `attr (attr_name, attr) ->
+            Format.asprintf "?%s:%a" name
+              (gen_attribute_type_name
+                 (match basename with
+                 | None -> [ attr_name ]
+                 | Some name -> [ attr_name; name ]))
+              attr.type_
+        | `block (block_name, block) ->
+            let ty =
+              gen_block_type_name ~kind:`arg basename
+                (block_name, block)
+            in
+            Printf.sprintf "?%s:%s" name ty)
   in
   let args =
-    collect_args (fun _ attr ->
-        is_input_attribute attr && attr.required)
-    |> List.map ~f:(fun (attr_name, attr) ->
-           Format.asprintf "%s:%a" attr_name
-             (gen_attribute_type_name
-                (match basename with
-                | None -> [ attr_name ]
-                | Some name -> [ attr_name; name ]))
-             attr.type_)
+    List.map args ~f:(fun (name, ty) ->
+        match ty with
+        | `attr (attr_name, attr) ->
+            Format.asprintf "%s:%a" name
+              (gen_attribute_type_name
+                 (match basename with
+                 | None -> [ attr_name ]
+                 | Some name -> [ attr_name; name ]))
+              attr.type_
+        | `block (block_name, block) ->
+            let ty =
+              gen_block_type_name ~kind:`arg basename
+                (block_name, block)
+            in
+            Printf.sprintf "%s:%s" name ty)
   in
-  let block_args =
-    List.filter block.block_types ~f:(fun (block_name, block) ->
-        match block_name, block.nesting_mode, basename with
-        | "timeouts", Single, None -> false
-        | _ -> true)
-    |> List.map ~f:(fun (block_name, block) ->
-           let arg = to_ocaml_name block_name in
-           let ty =
-             gen_block_type_name ~kind:`arg basename
-               (block_name, block)
-           in
-           Printf.sprintf "%s:%s" arg ty)
-  in
-  List.flatten [ opt_args; opt_block_args; args; block_args ]
+  List.flatten [ opt_args; args ]
 
 let rec gen_block_constructor_sig ?(is_resource = false) ppf
     (name, (block : block)) =
@@ -590,15 +579,16 @@ let gen_resource_iface ppf (name, (resource : schema)) =
 [@@@ocamlformat "disable"]
 let gen_provider_constructor ppf (source, (schema : schema)) =
   let name = Filename.basename source in
-  let args = concat_space (gen_block_args schema.block) in
+  let args = concat_space (gen_block_args ~mode:`decl schema.block) in
+  let args' = concat_space (gen_block_args ~mode:`app schema.block) in
   let p fmt = Format.fprintf ppf fmt in
   p "let make %s () =@." args;
   p "  {Tf_core.@.";
   p "    id=%S;@." name;
-  p "    json=yojson_of_%s (%s %s ());@." name name args;
+  p "    json=yojson_of_%s (%s %s ());@." name name args';
   p "  };;@.@.";
   p "let register ?tf_module %s ~version () =@." args;
-  p "  let (p : Tf_core.provider) = make %s () in@." args;
+  p "  let (p : Tf_core.provider) = make %s () in@." args';
   p "  Provider.add ?tf_module ~id:p.id p.json;";
   p "  Required_providers.add ?tf_module ~id:p.id (`Assoc [";
   p "    %S, `String %S;" "source" source;

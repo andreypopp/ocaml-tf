@@ -52,9 +52,9 @@ type copy
 val copy :
   ?create_disposition:string prop ->
   ?write_disposition:string prop ->
-  destination_encryption_configuration:
+  ?destination_encryption_configuration:
     copy__destination_encryption_configuration list ->
-  destination_table:copy__destination_table list ->
+  ?destination_table:copy__destination_table list ->
   source_tables:copy__source_tables list ->
   unit ->
   copy
@@ -85,9 +85,9 @@ val extract :
   ?field_delimiter:string prop ->
   ?print_header:bool prop ->
   ?use_avro_logical_types:bool prop ->
+  ?source_model:extract__source_model list ->
+  ?source_table:extract__source_table list ->
   destination_uris:string prop list ->
-  source_model:extract__source_model list ->
-  source_table:extract__source_table list ->
   unit ->
   extract
 
@@ -143,12 +143,12 @@ val load :
   ?skip_leading_rows:float prop ->
   ?source_format:string prop ->
   ?write_disposition:string prop ->
-  source_uris:string prop list ->
-  destination_encryption_configuration:
+  ?destination_encryption_configuration:
     load__destination_encryption_configuration list ->
+  ?parquet_options:load__parquet_options list ->
+  ?time_partitioning:load__time_partitioning list ->
+  source_uris:string prop list ->
   destination_table:load__destination_table list ->
-  parquet_options:load__parquet_options list ->
-  time_partitioning:load__time_partitioning list ->
   unit ->
   load
 
@@ -207,14 +207,14 @@ val query :
   ?use_legacy_sql:bool prop ->
   ?use_query_cache:bool prop ->
   ?write_disposition:string prop ->
-  query:string prop ->
-  default_dataset:query__default_dataset list ->
-  destination_encryption_configuration:
+  ?default_dataset:query__default_dataset list ->
+  ?destination_encryption_configuration:
     query__destination_encryption_configuration list ->
-  destination_table:query__destination_table list ->
-  script_options:query__script_options list ->
-  user_defined_function_resources:
+  ?destination_table:query__destination_table list ->
+  ?script_options:query__script_options list ->
+  ?user_defined_function_resources:
     query__user_defined_function_resources list ->
+  query:string prop ->
   unit ->
   query
 
@@ -235,12 +235,12 @@ val google_bigquery_job :
   ?labels:(string * string prop) list ->
   ?location:string prop ->
   ?project:string prop ->
+  ?copy:copy list ->
+  ?extract:extract list ->
+  ?load:load list ->
+  ?query:query list ->
   ?timeouts:timeouts ->
   job_id:string prop ->
-  copy:copy list ->
-  extract:extract list ->
-  load:load list ->
-  query:query list ->
   unit ->
   google_bigquery_job
 
@@ -269,12 +269,12 @@ val register :
   ?labels:(string * string prop) list ->
   ?location:string prop ->
   ?project:string prop ->
+  ?copy:copy list ->
+  ?extract:extract list ->
+  ?load:load list ->
+  ?query:query list ->
   ?timeouts:timeouts ->
   job_id:string prop ->
-  copy:copy list ->
-  extract:extract list ->
-  load:load list ->
-  query:query list ->
   string ->
   t
 
@@ -284,11 +284,11 @@ val make :
   ?labels:(string * string prop) list ->
   ?location:string prop ->
   ?project:string prop ->
+  ?copy:copy list ->
+  ?extract:extract list ->
+  ?load:load list ->
+  ?query:query list ->
   ?timeouts:timeouts ->
   job_id:string prop ->
-  copy:copy list ->
-  extract:extract list ->
-  load:load list ->
-  query:query list ->
   string ->
   t Tf_core.resource

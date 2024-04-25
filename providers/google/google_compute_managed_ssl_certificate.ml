@@ -160,8 +160,8 @@ let managed ~domains () : managed = { domains }
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let google_compute_managed_ssl_certificate ?certificate_id
-    ?description ?id ?name ?project ?type_ ?timeouts ~managed () :
-    google_compute_managed_ssl_certificate =
+    ?description ?id ?name ?project ?type_ ?(managed = []) ?timeouts
+    () : google_compute_managed_ssl_certificate =
   {
     certificate_id;
     description;
@@ -187,7 +187,7 @@ type t = {
 }
 
 let make ?certificate_id ?description ?id ?name ?project ?type_
-    ?timeouts ~managed __id =
+    ?(managed = []) ?timeouts __id =
   let __type = "google_compute_managed_ssl_certificate" in
   let __attrs =
     ({
@@ -212,16 +212,16 @@ let make ?certificate_id ?description ?id ?name ?project ?type_
     json =
       yojson_of_google_compute_managed_ssl_certificate
         (google_compute_managed_ssl_certificate ?certificate_id
-           ?description ?id ?name ?project ?type_ ?timeouts ~managed
+           ?description ?id ?name ?project ?type_ ~managed ?timeouts
            ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?certificate_id ?description ?id ?name
-    ?project ?type_ ?timeouts ~managed __id =
+    ?project ?type_ ?(managed = []) ?timeouts __id =
   let (r : _ Tf_core.resource) =
     make ?certificate_id ?description ?id ?name ?project ?type_
-      ?timeouts ~managed __id
+      ~managed ?timeouts __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

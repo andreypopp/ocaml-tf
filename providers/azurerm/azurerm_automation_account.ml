@@ -301,9 +301,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_automation_account ?id ?local_authentication_enabled
-    ?public_network_access_enabled ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku_name ~encryption ~identity () :
-    azurerm_automation_account =
+    ?public_network_access_enabled ?tags ?(encryption = [])
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    ~sku_name () : azurerm_automation_account =
   {
     id;
     local_authentication_enabled;
@@ -336,8 +336,9 @@ type t = {
 }
 
 let make ?id ?local_authentication_enabled
-    ?public_network_access_enabled ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku_name ~encryption ~identity __id =
+    ?public_network_access_enabled ?tags ?(encryption = [])
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    ~sku_name __id =
   let __type = "azurerm_automation_account" in
   let __attrs =
     ({
@@ -371,19 +372,20 @@ let make ?id ?local_authentication_enabled
     json =
       yojson_of_azurerm_automation_account
         (azurerm_automation_account ?id ?local_authentication_enabled
-           ?public_network_access_enabled ?tags ?timeouts ~location
-           ~name ~resource_group_name ~sku_name ~encryption ~identity
+           ?public_network_access_enabled ?tags ~encryption ~identity
+           ?timeouts ~location ~name ~resource_group_name ~sku_name
            ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?local_authentication_enabled
-    ?public_network_access_enabled ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku_name ~encryption ~identity __id =
+    ?public_network_access_enabled ?tags ?(encryption = [])
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    ~sku_name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?local_authentication_enabled
-      ?public_network_access_enabled ?tags ?timeouts ~location ~name
-      ~resource_group_name ~sku_name ~encryption ~identity __id
+      ?public_network_access_enabled ?tags ~encryption ~identity
+      ?timeouts ~location ~name ~resource_group_name ~sku_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

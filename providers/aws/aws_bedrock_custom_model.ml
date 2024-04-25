@@ -370,17 +370,19 @@ let validation_data_config__validator ~s3_uri () :
     validation_data_config__validator =
   { s3_uri }
 
-let validation_data_config ~validator () : validation_data_config =
+let validation_data_config ?(validator = []) () :
+    validation_data_config =
   { validator }
 
 let vpc_config ~security_group_ids ~subnet_ids () : vpc_config =
   { security_group_ids; subnet_ids }
 
 let aws_bedrock_custom_model ?custom_model_kms_key_id
-    ?customization_type ?tags ?timeouts ~base_model_identifier
-    ~custom_model_name ~hyperparameters ~job_name ~role_arn
-    ~output_data_config ~training_data_config ~validation_data_config
-    ~vpc_config () : aws_bedrock_custom_model =
+    ?customization_type ?tags ?(output_data_config = []) ?timeouts
+    ?(training_data_config = []) ?(validation_data_config = [])
+    ?(vpc_config = []) ~base_model_identifier ~custom_model_name
+    ~hyperparameters ~job_name ~role_arn () :
+    aws_bedrock_custom_model =
   {
     base_model_identifier;
     custom_model_kms_key_id;
@@ -415,10 +417,11 @@ type t = {
   validation_metrics : validation_metrics list prop;
 }
 
-let make ?custom_model_kms_key_id ?customization_type ?tags ?timeouts
+let make ?custom_model_kms_key_id ?customization_type ?tags
+    ?(output_data_config = []) ?timeouts ?(training_data_config = [])
+    ?(validation_data_config = []) ?(vpc_config = [])
     ~base_model_identifier ~custom_model_name ~hyperparameters
-    ~job_name ~role_arn ~output_data_config ~training_data_config
-    ~validation_data_config ~vpc_config __id =
+    ~job_name ~role_arn __id =
   let __type = "aws_bedrock_custom_model" in
   let __attrs =
     ({
@@ -453,22 +456,23 @@ let make ?custom_model_kms_key_id ?customization_type ?tags ?timeouts
     json =
       yojson_of_aws_bedrock_custom_model
         (aws_bedrock_custom_model ?custom_model_kms_key_id
-           ?customization_type ?tags ?timeouts ~base_model_identifier
-           ~custom_model_name ~hyperparameters ~job_name ~role_arn
-           ~output_data_config ~training_data_config
-           ~validation_data_config ~vpc_config ());
+           ?customization_type ?tags ~output_data_config ?timeouts
+           ~training_data_config ~validation_data_config ~vpc_config
+           ~base_model_identifier ~custom_model_name ~hyperparameters
+           ~job_name ~role_arn ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?custom_model_kms_key_id ?customization_type
-    ?tags ?timeouts ~base_model_identifier ~custom_model_name
-    ~hyperparameters ~job_name ~role_arn ~output_data_config
-    ~training_data_config ~validation_data_config ~vpc_config __id =
+    ?tags ?(output_data_config = []) ?timeouts
+    ?(training_data_config = []) ?(validation_data_config = [])
+    ?(vpc_config = []) ~base_model_identifier ~custom_model_name
+    ~hyperparameters ~job_name ~role_arn __id =
   let (r : _ Tf_core.resource) =
-    make ?custom_model_kms_key_id ?customization_type ?tags ?timeouts
-      ~base_model_identifier ~custom_model_name ~hyperparameters
-      ~job_name ~role_arn ~output_data_config ~training_data_config
-      ~validation_data_config ~vpc_config __id
+    make ?custom_model_kms_key_id ?customization_type ?tags
+      ~output_data_config ?timeouts ~training_data_config
+      ~validation_data_config ~vpc_config ~base_model_identifier
+      ~custom_model_name ~hyperparameters ~job_name ~role_arn __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

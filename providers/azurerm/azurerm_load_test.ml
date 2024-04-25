@@ -193,8 +193,9 @@ let identity ?identity_ids ~type_ () : identity =
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_load_test ?description ?id ?tags ?timeouts ~location
-    ~name ~resource_group_name ~identity () : azurerm_load_test =
+let azurerm_load_test ?description ?id ?tags ?(identity = [])
+    ?timeouts ~location ~name ~resource_group_name () :
+    azurerm_load_test =
   {
     description;
     id;
@@ -216,8 +217,8 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?description ?id ?tags ?timeouts ~location ~name
-    ~resource_group_name ~identity __id =
+let make ?description ?id ?tags ?(identity = []) ?timeouts ~location
+    ~name ~resource_group_name __id =
   let __type = "azurerm_load_test" in
   let __attrs =
     ({
@@ -237,16 +238,16 @@ let make ?description ?id ?tags ?timeouts ~location ~name
     type_ = __type;
     json =
       yojson_of_azurerm_load_test
-        (azurerm_load_test ?description ?id ?tags ?timeouts ~location
-           ~name ~resource_group_name ~identity ());
+        (azurerm_load_test ?description ?id ?tags ~identity ?timeouts
+           ~location ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?tags ?timeouts ~location
-    ~name ~resource_group_name ~identity __id =
+let register ?tf_module ?description ?id ?tags ?(identity = [])
+    ?timeouts ~location ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?tags ?timeouts ~location ~name
-      ~resource_group_name ~identity __id
+    make ?description ?id ?tags ~identity ?timeouts ~location ~name
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

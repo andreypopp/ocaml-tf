@@ -579,7 +579,8 @@ let routing__propagated_route_table ?labels ~route_table_ids () :
   { labels; route_table_ids }
 
 let routing ?inbound_route_map_id ?outbound_route_map_id
-    ~associated_route_table ~propagated_route_table () : routing =
+    ?(propagated_route_table = []) ~associated_route_table () :
+    routing =
   {
     associated_route_table;
     inbound_route_map_id;
@@ -617,9 +618,8 @@ let vpn_link ?bandwidth_mbps ?bgp_enabled ?connection_mode
     ?egress_nat_rule_ids ?ingress_nat_rule_ids
     ?local_azure_ip_address_enabled
     ?policy_based_traffic_selector_enabled ?protocol
-    ?ratelimit_enabled ?route_weight ?shared_key ~name
-    ~vpn_site_link_id ~custom_bgp_address ~ipsec_policy () : vpn_link
-    =
+    ?ratelimit_enabled ?route_weight ?shared_key ?(ipsec_policy = [])
+    ~name ~vpn_site_link_id ~custom_bgp_address () : vpn_link =
   {
     bandwidth_mbps;
     bgp_enabled;
@@ -639,8 +639,8 @@ let vpn_link ?bandwidth_mbps ?bgp_enabled ?connection_mode
   }
 
 let azurerm_vpn_gateway_connection ?id ?internet_security_enabled
-    ?timeouts ~name ~remote_vpn_site_id ~vpn_gateway_id ~routing
-    ~traffic_selector_policy ~vpn_link () :
+    ?(routing = []) ?timeouts ~name ~remote_vpn_site_id
+    ~vpn_gateway_id ~traffic_selector_policy ~vpn_link () :
     azurerm_vpn_gateway_connection =
   {
     id;
@@ -662,8 +662,8 @@ type t = {
   vpn_gateway_id : string prop;
 }
 
-let make ?id ?internet_security_enabled ?timeouts ~name
-    ~remote_vpn_site_id ~vpn_gateway_id ~routing
+let make ?id ?internet_security_enabled ?(routing = []) ?timeouts
+    ~name ~remote_vpn_site_id ~vpn_gateway_id
     ~traffic_selector_policy ~vpn_link __id =
   let __type = "azurerm_vpn_gateway_connection" in
   let __attrs =
@@ -684,19 +684,19 @@ let make ?id ?internet_security_enabled ?timeouts ~name
     json =
       yojson_of_azurerm_vpn_gateway_connection
         (azurerm_vpn_gateway_connection ?id
-           ?internet_security_enabled ?timeouts ~name
-           ~remote_vpn_site_id ~vpn_gateway_id ~routing
+           ?internet_security_enabled ~routing ?timeouts ~name
+           ~remote_vpn_site_id ~vpn_gateway_id
            ~traffic_selector_policy ~vpn_link ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?internet_security_enabled ?timeouts
-    ~name ~remote_vpn_site_id ~vpn_gateway_id ~routing
-    ~traffic_selector_policy ~vpn_link __id =
+let register ?tf_module ?id ?internet_security_enabled
+    ?(routing = []) ?timeouts ~name ~remote_vpn_site_id
+    ~vpn_gateway_id ~traffic_selector_policy ~vpn_link __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?internet_security_enabled ?timeouts ~name
-      ~remote_vpn_site_id ~vpn_gateway_id ~routing
-      ~traffic_selector_policy ~vpn_link __id
+    make ?id ?internet_security_enabled ~routing ?timeouts ~name
+      ~remote_vpn_site_id ~vpn_gateway_id ~traffic_selector_policy
+      ~vpn_link __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

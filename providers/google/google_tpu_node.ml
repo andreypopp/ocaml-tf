@@ -251,9 +251,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_tpu_node ?cidr_block ?description ?id ?labels ?network
-    ?project ?use_service_networking ?zone ?timeouts
-    ~accelerator_type ~name ~tensorflow_version ~scheduling_config ()
-    : google_tpu_node =
+    ?project ?use_service_networking ?zone ?(scheduling_config = [])
+    ?timeouts ~accelerator_type ~name ~tensorflow_version () :
+    google_tpu_node =
   {
     accelerator_type;
     cidr_block;
@@ -289,8 +289,8 @@ type t = {
 }
 
 let make ?cidr_block ?description ?id ?labels ?network ?project
-    ?use_service_networking ?zone ?timeouts ~accelerator_type ~name
-    ~tensorflow_version ~scheduling_config __id =
+    ?use_service_networking ?zone ?(scheduling_config = []) ?timeouts
+    ~accelerator_type ~name ~tensorflow_version __id =
   let __type = "google_tpu_node" in
   let __attrs =
     ({
@@ -324,20 +324,19 @@ let make ?cidr_block ?description ?id ?labels ?network ?project
     json =
       yojson_of_google_tpu_node
         (google_tpu_node ?cidr_block ?description ?id ?labels
-           ?network ?project ?use_service_networking ?zone ?timeouts
-           ~accelerator_type ~name ~tensorflow_version
-           ~scheduling_config ());
+           ?network ?project ?use_service_networking ?zone
+           ~scheduling_config ?timeouts ~accelerator_type ~name
+           ~tensorflow_version ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?cidr_block ?description ?id ?labels ?network
-    ?project ?use_service_networking ?zone ?timeouts
-    ~accelerator_type ~name ~tensorflow_version ~scheduling_config
-    __id =
+    ?project ?use_service_networking ?zone ?(scheduling_config = [])
+    ?timeouts ~accelerator_type ~name ~tensorflow_version __id =
   let (r : _ Tf_core.resource) =
     make ?cidr_block ?description ?id ?labels ?network ?project
-      ?use_service_networking ?zone ?timeouts ~accelerator_type ~name
-      ~tensorflow_version ~scheduling_config __id
+      ?use_service_networking ?zone ~scheduling_config ?timeouts
+      ~accelerator_type ~name ~tensorflow_version __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

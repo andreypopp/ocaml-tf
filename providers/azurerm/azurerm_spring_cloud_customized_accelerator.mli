@@ -30,9 +30,9 @@ val git_repository :
   ?git_tag:string prop ->
   ?interval_in_seconds:float prop ->
   ?path:string prop ->
+  ?basic_auth:git_repository__basic_auth list ->
+  ?ssh_auth:git_repository__ssh_auth list ->
   url:string prop ->
-  basic_auth:git_repository__basic_auth list ->
-  ssh_auth:git_repository__ssh_auth list ->
   unit ->
   git_repository
 

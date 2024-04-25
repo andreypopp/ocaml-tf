@@ -1840,13 +1840,13 @@ let core_instance_fleet__launch_specifications__spot_specification
   }
 
 let core_instance_fleet__launch_specifications
-    ~on_demand_specification ~spot_specification () :
+    ?(on_demand_specification = []) ?(spot_specification = []) () :
     core_instance_fleet__launch_specifications =
   { on_demand_specification; spot_specification }
 
 let core_instance_fleet ?name ?target_on_demand_capacity
-    ?target_spot_capacity ~instance_type_configs
-    ~launch_specifications () : core_instance_fleet =
+    ?target_spot_capacity ?(launch_specifications = [])
+    ~instance_type_configs () : core_instance_fleet =
   {
     name;
     target_on_demand_capacity;
@@ -1943,13 +1943,13 @@ let master_instance_fleet__launch_specifications__spot_specification
   }
 
 let master_instance_fleet__launch_specifications
-    ~on_demand_specification ~spot_specification () :
+    ?(on_demand_specification = []) ?(spot_specification = []) () :
     master_instance_fleet__launch_specifications =
   { on_demand_specification; spot_specification }
 
 let master_instance_fleet ?name ?target_on_demand_capacity
-    ?target_spot_capacity ~instance_type_configs
-    ~launch_specifications () : master_instance_fleet =
+    ?target_spot_capacity ?(launch_specifications = [])
+    ~instance_type_configs () : master_instance_fleet =
   {
     name;
     target_on_demand_capacity;
@@ -1973,11 +1973,12 @@ let aws_emr_cluster ?additional_info ?applications ?autoscaling_role
     ?list_steps_states ?log_encryption_kms_key_id ?log_uri
     ?placement_group_config ?scale_down_behavior
     ?security_configuration ?step ?step_concurrency_level ?tags
-    ?tags_all ?termination_protection ?visible_to_all_users ~name
-    ~release_label ~service_role ~auto_termination_policy
-    ~bootstrap_action ~core_instance_fleet ~core_instance_group
-    ~ec2_attributes ~kerberos_attributes ~master_instance_fleet
-    ~master_instance_group () : aws_emr_cluster =
+    ?tags_all ?termination_protection ?visible_to_all_users
+    ?(auto_termination_policy = []) ?(bootstrap_action = [])
+    ?(core_instance_fleet = []) ?(core_instance_group = [])
+    ?(ec2_attributes = []) ?(kerberos_attributes = [])
+    ?(master_instance_fleet = []) ?(master_instance_group = []) ~name
+    ~release_label ~service_role () : aws_emr_cluster =
   {
     additional_info;
     applications;
@@ -2049,11 +2050,12 @@ let make ?additional_info ?applications ?autoscaling_role
     ?list_steps_states ?log_encryption_kms_key_id ?log_uri
     ?placement_group_config ?scale_down_behavior
     ?security_configuration ?step ?step_concurrency_level ?tags
-    ?tags_all ?termination_protection ?visible_to_all_users ~name
-    ~release_label ~service_role ~auto_termination_policy
-    ~bootstrap_action ~core_instance_fleet ~core_instance_group
-    ~ec2_attributes ~kerberos_attributes ~master_instance_fleet
-    ~master_instance_group __id =
+    ?tags_all ?termination_protection ?visible_to_all_users
+    ?(auto_termination_policy = []) ?(bootstrap_action = [])
+    ?(core_instance_fleet = []) ?(core_instance_group = [])
+    ?(ec2_attributes = []) ?(kerberos_attributes = [])
+    ?(master_instance_fleet = []) ?(master_instance_group = []) ~name
+    ~release_label ~service_role __id =
   let __type = "aws_emr_cluster" in
   let __attrs =
     ({
@@ -2114,11 +2116,11 @@ let make ?additional_info ?applications ?autoscaling_role
            ?placement_group_config ?scale_down_behavior
            ?security_configuration ?step ?step_concurrency_level
            ?tags ?tags_all ?termination_protection
-           ?visible_to_all_users ~name ~release_label ~service_role
-           ~auto_termination_policy ~bootstrap_action
-           ~core_instance_fleet ~core_instance_group ~ec2_attributes
-           ~kerberos_attributes ~master_instance_fleet
-           ~master_instance_group ());
+           ?visible_to_all_users ~auto_termination_policy
+           ~bootstrap_action ~core_instance_fleet
+           ~core_instance_group ~ec2_attributes ~kerberos_attributes
+           ~master_instance_fleet ~master_instance_group ~name
+           ~release_label ~service_role ());
     attrs = __attrs;
   }
 
@@ -2129,10 +2131,12 @@ let register ?tf_module ?additional_info ?applications
     ?log_encryption_kms_key_id ?log_uri ?placement_group_config
     ?scale_down_behavior ?security_configuration ?step
     ?step_concurrency_level ?tags ?tags_all ?termination_protection
-    ?visible_to_all_users ~name ~release_label ~service_role
-    ~auto_termination_policy ~bootstrap_action ~core_instance_fleet
-    ~core_instance_group ~ec2_attributes ~kerberos_attributes
-    ~master_instance_fleet ~master_instance_group __id =
+    ?visible_to_all_users ?(auto_termination_policy = [])
+    ?(bootstrap_action = []) ?(core_instance_fleet = [])
+    ?(core_instance_group = []) ?(ec2_attributes = [])
+    ?(kerberos_attributes = []) ?(master_instance_fleet = [])
+    ?(master_instance_group = []) ~name ~release_label ~service_role
+    __id =
   let (r : _ Tf_core.resource) =
     make ?additional_info ?applications ?autoscaling_role
       ?configurations ?configurations_json ?custom_ami_id
@@ -2140,11 +2144,11 @@ let register ?tf_module ?additional_info ?applications
       ?list_steps_states ?log_encryption_kms_key_id ?log_uri
       ?placement_group_config ?scale_down_behavior
       ?security_configuration ?step ?step_concurrency_level ?tags
-      ?tags_all ?termination_protection ?visible_to_all_users ~name
-      ~release_label ~service_role ~auto_termination_policy
-      ~bootstrap_action ~core_instance_fleet ~core_instance_group
-      ~ec2_attributes ~kerberos_attributes ~master_instance_fleet
-      ~master_instance_group __id
+      ?tags_all ?termination_protection ?visible_to_all_users
+      ~auto_termination_policy ~bootstrap_action ~core_instance_fleet
+      ~core_instance_group ~ec2_attributes ~kerberos_attributes
+      ~master_instance_fleet ~master_instance_group ~name
+      ~release_label ~service_role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

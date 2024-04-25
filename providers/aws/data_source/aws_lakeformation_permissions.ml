@@ -507,8 +507,9 @@ let table_with_columns ?catalog_id ?column_names
   }
 
 let aws_lakeformation_permissions ?catalog_id ?catalog_resource ?id
-    ~principal ~data_cells_filter ~data_location ~database ~lf_tag
-    ~lf_tag_policy ~table ~table_with_columns () :
+    ?(data_cells_filter = []) ?(data_location = []) ?(database = [])
+    ?(lf_tag = []) ?(lf_tag_policy = []) ?(table = [])
+    ?(table_with_columns = []) ~principal () :
     aws_lakeformation_permissions =
   {
     catalog_id;
@@ -533,9 +534,10 @@ type t = {
   principal : string prop;
 }
 
-let make ?catalog_id ?catalog_resource ?id ~principal
-    ~data_cells_filter ~data_location ~database ~lf_tag
-    ~lf_tag_policy ~table ~table_with_columns __id =
+let make ?catalog_id ?catalog_resource ?id ?(data_cells_filter = [])
+    ?(data_location = []) ?(database = []) ?(lf_tag = [])
+    ?(lf_tag_policy = []) ?(table = []) ?(table_with_columns = [])
+    ~principal __id =
   let __type = "aws_lakeformation_permissions" in
   let __attrs =
     ({
@@ -556,18 +558,19 @@ let make ?catalog_id ?catalog_resource ?id ~principal
     json =
       yojson_of_aws_lakeformation_permissions
         (aws_lakeformation_permissions ?catalog_id ?catalog_resource
-           ?id ~principal ~data_cells_filter ~data_location ~database
-           ~lf_tag ~lf_tag_policy ~table ~table_with_columns ());
+           ?id ~data_cells_filter ~data_location ~database ~lf_tag
+           ~lf_tag_policy ~table ~table_with_columns ~principal ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?catalog_id ?catalog_resource ?id ~principal
-    ~data_cells_filter ~data_location ~database ~lf_tag
-    ~lf_tag_policy ~table ~table_with_columns __id =
+let register ?tf_module ?catalog_id ?catalog_resource ?id
+    ?(data_cells_filter = []) ?(data_location = []) ?(database = [])
+    ?(lf_tag = []) ?(lf_tag_policy = []) ?(table = [])
+    ?(table_with_columns = []) ~principal __id =
   let (r : _ Tf_core.resource) =
-    make ?catalog_id ?catalog_resource ?id ~principal
-      ~data_cells_filter ~data_location ~database ~lf_tag
-      ~lf_tag_policy ~table ~table_with_columns __id
+    make ?catalog_id ?catalog_resource ?id ~data_cells_filter
+      ~data_location ~database ~lf_tag ~lf_tag_policy ~table
+      ~table_with_columns ~principal __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

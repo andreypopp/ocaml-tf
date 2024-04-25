@@ -22,10 +22,10 @@ type capacity__autoscaling
 
 val capacity__autoscaling :
   ?mcu_count:float prop ->
+  ?scale_in_policy:capacity__autoscaling__scale_in_policy list ->
+  ?scale_out_policy:capacity__autoscaling__scale_out_policy list ->
   max_worker_count:float prop ->
   min_worker_count:float prop ->
-  scale_in_policy:capacity__autoscaling__scale_in_policy list ->
-  scale_out_policy:capacity__autoscaling__scale_out_policy list ->
   unit ->
   capacity__autoscaling
 
@@ -40,8 +40,8 @@ val capacity__provisioned_capacity :
 type capacity
 
 val capacity :
-  autoscaling:capacity__autoscaling list ->
-  provisioned_capacity:capacity__provisioned_capacity list ->
+  ?autoscaling:capacity__autoscaling list ->
+  ?provisioned_capacity:capacity__provisioned_capacity list ->
   unit ->
   capacity
 
@@ -110,10 +110,10 @@ val log_delivery__worker_log_delivery__s3 :
 type log_delivery__worker_log_delivery
 
 val log_delivery__worker_log_delivery :
-  cloudwatch_logs:
+  ?cloudwatch_logs:
     log_delivery__worker_log_delivery__cloudwatch_logs list ->
-  firehose:log_delivery__worker_log_delivery__firehose list ->
-  s3:log_delivery__worker_log_delivery__s3 list ->
+  ?firehose:log_delivery__worker_log_delivery__firehose list ->
+  ?s3:log_delivery__worker_log_delivery__s3 list ->
   unit ->
   log_delivery__worker_log_delivery
 
@@ -159,7 +159,9 @@ type aws_mskconnect_connector
 val aws_mskconnect_connector :
   ?description:string prop ->
   ?id:string prop ->
+  ?log_delivery:log_delivery list ->
   ?timeouts:timeouts ->
+  ?worker_configuration:worker_configuration list ->
   connector_configuration:(string * string prop) list ->
   kafkaconnect_version:string prop ->
   name:string prop ->
@@ -170,9 +172,7 @@ val aws_mskconnect_connector :
     kafka_cluster_client_authentication list ->
   kafka_cluster_encryption_in_transit:
     kafka_cluster_encryption_in_transit list ->
-  log_delivery:log_delivery list ->
   plugin:plugin list ->
-  worker_configuration:worker_configuration list ->
   unit ->
   aws_mskconnect_connector
 
@@ -196,7 +196,9 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
+  ?log_delivery:log_delivery list ->
   ?timeouts:timeouts ->
+  ?worker_configuration:worker_configuration list ->
   connector_configuration:(string * string prop) list ->
   kafkaconnect_version:string prop ->
   name:string prop ->
@@ -207,16 +209,16 @@ val register :
     kafka_cluster_client_authentication list ->
   kafka_cluster_encryption_in_transit:
     kafka_cluster_encryption_in_transit list ->
-  log_delivery:log_delivery list ->
   plugin:plugin list ->
-  worker_configuration:worker_configuration list ->
   string ->
   t
 
 val make :
   ?description:string prop ->
   ?id:string prop ->
+  ?log_delivery:log_delivery list ->
   ?timeouts:timeouts ->
+  ?worker_configuration:worker_configuration list ->
   connector_configuration:(string * string prop) list ->
   kafkaconnect_version:string prop ->
   name:string prop ->
@@ -227,8 +229,6 @@ val make :
     kafka_cluster_client_authentication list ->
   kafka_cluster_encryption_in_transit:
     kafka_cluster_encryption_in_transit list ->
-  log_delivery:log_delivery list ->
   plugin:plugin list ->
-  worker_configuration:worker_configuration list ->
   string ->
   t Tf_core.resource

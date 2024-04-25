@@ -244,7 +244,7 @@ let certificate_authority_config__certificate_authority_service_config
   { ca_pool }
 
 let certificate_authority_config
-    ~certificate_authority_service_config () :
+    ?(certificate_authority_service_config = []) () :
     certificate_authority_config =
   { certificate_authority_service_config }
 

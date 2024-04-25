@@ -36,6 +36,7 @@ val azurerm_mssql_managed_instance :
   ?tags:(string * string prop) list ->
   ?timezone_id:string prop ->
   ?zone_redundant_enabled:bool prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   administrator_login:string prop ->
   administrator_login_password:string prop ->
@@ -47,7 +48,6 @@ val azurerm_mssql_managed_instance :
   storage_size_in_gb:float prop ->
   subnet_id:string prop ->
   vcores:float prop ->
-  identity:identity list ->
   unit ->
   azurerm_mssql_managed_instance
 
@@ -95,6 +95,7 @@ val register :
   ?tags:(string * string prop) list ->
   ?timezone_id:string prop ->
   ?zone_redundant_enabled:bool prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   administrator_login:string prop ->
   administrator_login_password:string prop ->
@@ -106,7 +107,6 @@ val register :
   storage_size_in_gb:float prop ->
   subnet_id:string prop ->
   vcores:float prop ->
-  identity:identity list ->
   string ->
   t
 
@@ -122,6 +122,7 @@ val make :
   ?tags:(string * string prop) list ->
   ?timezone_id:string prop ->
   ?zone_redundant_enabled:bool prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   administrator_login:string prop ->
   administrator_login_password:string prop ->
@@ -133,6 +134,5 @@ val make :
   storage_size_in_gb:float prop ->
   subnet_id:string prop ->
   vcores:float prop ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

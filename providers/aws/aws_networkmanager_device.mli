@@ -42,10 +42,10 @@ val aws_networkmanager_device :
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
   ?vendor:string prop ->
+  ?aws_location:aws_location list ->
+  ?location:location list ->
   ?timeouts:timeouts ->
   global_network_id:string prop ->
-  aws_location:aws_location list ->
-  location:location list ->
   unit ->
   aws_networkmanager_device
 
@@ -79,10 +79,10 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
   ?vendor:string prop ->
+  ?aws_location:aws_location list ->
+  ?location:location list ->
   ?timeouts:timeouts ->
   global_network_id:string prop ->
-  aws_location:aws_location list ->
-  location:location list ->
   string ->
   t
 
@@ -96,9 +96,9 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
   ?vendor:string prop ->
+  ?aws_location:aws_location list ->
+  ?location:location list ->
   ?timeouts:timeouts ->
   global_network_id:string prop ->
-  aws_location:aws_location list ->
-  location:location list ->
   string ->
   t Tf_core.resource

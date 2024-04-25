@@ -17,7 +17,7 @@ type bgp_settings
 val bgp_settings :
   ?asn:float prop ->
   ?peer_weight:float prop ->
-  peering_addresses:bgp_settings__peering_addresses list ->
+  ?peering_addresses:bgp_settings__peering_addresses list ->
   unit ->
   bgp_settings
 
@@ -123,15 +123,15 @@ val vpn_client_configuration :
   ?radius_server_secret:string prop ->
   ?vpn_auth_types:string prop list ->
   ?vpn_client_protocols:string prop list ->
+  ?ipsec_policy:vpn_client_configuration__ipsec_policy list ->
+  ?radius_server:vpn_client_configuration__radius_server list ->
+  ?virtual_network_gateway_client_connection:
+    vpn_client_configuration__virtual_network_gateway_client_connection
+    list ->
   address_space:string prop list ->
-  ipsec_policy:vpn_client_configuration__ipsec_policy list ->
-  radius_server:vpn_client_configuration__radius_server list ->
   revoked_certificate:
     vpn_client_configuration__revoked_certificate list ->
   root_certificate:vpn_client_configuration__root_certificate list ->
-  virtual_network_gateway_client_connection:
-    vpn_client_configuration__virtual_network_gateway_client_connection
-    list ->
   unit ->
   vpn_client_configuration
 
@@ -152,17 +152,17 @@ val azurerm_virtual_network_gateway :
   ?tags:(string * string prop) list ->
   ?virtual_wan_traffic_enabled:bool prop ->
   ?vpn_type:string prop ->
+  ?bgp_settings:bgp_settings list ->
+  ?custom_route:custom_route list ->
+  ?policy_group:policy_group list ->
   ?timeouts:timeouts ->
+  ?vpn_client_configuration:vpn_client_configuration list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
   type_:string prop ->
-  bgp_settings:bgp_settings list ->
-  custom_route:custom_route list ->
   ip_configuration:ip_configuration list ->
-  policy_group:policy_group list ->
-  vpn_client_configuration:vpn_client_configuration list ->
   unit ->
   azurerm_virtual_network_gateway
 
@@ -209,17 +209,17 @@ val register :
   ?tags:(string * string prop) list ->
   ?virtual_wan_traffic_enabled:bool prop ->
   ?vpn_type:string prop ->
+  ?bgp_settings:bgp_settings list ->
+  ?custom_route:custom_route list ->
+  ?policy_group:policy_group list ->
   ?timeouts:timeouts ->
+  ?vpn_client_configuration:vpn_client_configuration list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
   type_:string prop ->
-  bgp_settings:bgp_settings list ->
-  custom_route:custom_route list ->
   ip_configuration:ip_configuration list ->
-  policy_group:policy_group list ->
-  vpn_client_configuration:vpn_client_configuration list ->
   string ->
   t
 
@@ -238,16 +238,16 @@ val make :
   ?tags:(string * string prop) list ->
   ?virtual_wan_traffic_enabled:bool prop ->
   ?vpn_type:string prop ->
+  ?bgp_settings:bgp_settings list ->
+  ?custom_route:custom_route list ->
+  ?policy_group:policy_group list ->
   ?timeouts:timeouts ->
+  ?vpn_client_configuration:vpn_client_configuration list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
   type_:string prop ->
-  bgp_settings:bgp_settings list ->
-  custom_route:custom_route list ->
   ip_configuration:ip_configuration list ->
-  policy_group:policy_group list ->
-  vpn_client_configuration:vpn_client_configuration list ->
   string ->
   t Tf_core.resource

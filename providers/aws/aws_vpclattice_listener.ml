@@ -304,11 +304,12 @@ let default_action__forward__target_groups ?target_group_identifier
     ?weight () : default_action__forward__target_groups =
   { target_group_identifier; weight }
 
-let default_action__forward ~target_groups () :
+let default_action__forward ?(target_groups = []) () :
     default_action__forward =
   { target_groups }
 
-let default_action ~fixed_response ~forward () : default_action =
+let default_action ?(fixed_response = []) ?(forward = []) () :
+    default_action =
   { fixed_response; forward }
 
 let timeouts ?create ?delete ?update () : timeouts =

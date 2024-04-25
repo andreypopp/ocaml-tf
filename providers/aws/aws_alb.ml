@@ -533,8 +533,9 @@ let aws_alb ?customer_owned_ipv4_pool ?desync_mitigation_mode
     ?enforce_security_group_inbound_rules_on_private_link_traffic ?id
     ?idle_timeout ?internal ?ip_address_type ?load_balancer_type
     ?name ?name_prefix ?preserve_host_header ?security_groups
-    ?subnets ?tags ?tags_all ?xff_header_processing_mode ?timeouts
-    ~access_logs ~connection_logs ~subnet_mapping () : aws_alb =
+    ?subnets ?tags ?tags_all ?xff_header_processing_mode
+    ?(access_logs = []) ?(connection_logs = []) ?timeouts
+    ~subnet_mapping () : aws_alb =
   {
     customer_owned_ipv4_pool;
     desync_mitigation_mode;
@@ -607,8 +608,9 @@ let make ?customer_owned_ipv4_pool ?desync_mitigation_mode
     ?enforce_security_group_inbound_rules_on_private_link_traffic ?id
     ?idle_timeout ?internal ?ip_address_type ?load_balancer_type
     ?name ?name_prefix ?preserve_host_header ?security_groups
-    ?subnets ?tags ?tags_all ?xff_header_processing_mode ?timeouts
-    ~access_logs ~connection_logs ~subnet_mapping __id =
+    ?subnets ?tags ?tags_all ?xff_header_processing_mode
+    ?(access_logs = []) ?(connection_logs = []) ?timeouts
+    ~subnet_mapping __id =
   let __type = "aws_alb" in
   let __attrs =
     ({
@@ -675,8 +677,8 @@ let make ?customer_owned_ipv4_pool ?desync_mitigation_mode
            ?id ?idle_timeout ?internal ?ip_address_type
            ?load_balancer_type ?name ?name_prefix
            ?preserve_host_header ?security_groups ?subnets ?tags
-           ?tags_all ?xff_header_processing_mode ?timeouts
-           ~access_logs ~connection_logs ~subnet_mapping ());
+           ?tags_all ?xff_header_processing_mode ~access_logs
+           ~connection_logs ?timeouts ~subnet_mapping ());
     attrs = __attrs;
   }
 
@@ -689,8 +691,9 @@ let register ?tf_module ?customer_owned_ipv4_pool
     ?enforce_security_group_inbound_rules_on_private_link_traffic ?id
     ?idle_timeout ?internal ?ip_address_type ?load_balancer_type
     ?name ?name_prefix ?preserve_host_header ?security_groups
-    ?subnets ?tags ?tags_all ?xff_header_processing_mode ?timeouts
-    ~access_logs ~connection_logs ~subnet_mapping __id =
+    ?subnets ?tags ?tags_all ?xff_header_processing_mode
+    ?(access_logs = []) ?(connection_logs = []) ?timeouts
+    ~subnet_mapping __id =
   let (r : _ Tf_core.resource) =
     make ?customer_owned_ipv4_pool ?desync_mitigation_mode
       ?dns_record_client_routing_policy ?drop_invalid_header_fields
@@ -701,8 +704,8 @@ let register ?tf_module ?customer_owned_ipv4_pool
       ?id ?idle_timeout ?internal ?ip_address_type
       ?load_balancer_type ?name ?name_prefix ?preserve_host_header
       ?security_groups ?subnets ?tags ?tags_all
-      ?xff_header_processing_mode ?timeouts ~access_logs
-      ~connection_logs ~subnet_mapping __id
+      ?xff_header_processing_mode ~access_logs ~connection_logs
+      ?timeouts ~subnet_mapping __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

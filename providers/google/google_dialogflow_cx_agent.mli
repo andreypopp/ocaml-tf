@@ -23,9 +23,9 @@ val advanced_settings__dtmf_settings :
 type advanced_settings
 
 val advanced_settings :
-  audio_export_gcs_destination:
+  ?audio_export_gcs_destination:
     advanced_settings__audio_export_gcs_destination list ->
-  dtmf_settings:advanced_settings__dtmf_settings list ->
+  ?dtmf_settings:advanced_settings__dtmf_settings list ->
   unit ->
   advanced_settings
 
@@ -43,7 +43,7 @@ val git_integration_settings__github_settings :
 type git_integration_settings
 
 val git_integration_settings :
-  github_settings:git_integration_settings__github_settings list ->
+  ?github_settings:git_integration_settings__github_settings list ->
   unit ->
   git_integration_settings
 
@@ -81,15 +81,15 @@ val google_dialogflow_cx_agent :
   ?project:string prop ->
   ?security_settings:string prop ->
   ?supported_language_codes:string prop list ->
+  ?advanced_settings:advanced_settings list ->
+  ?git_integration_settings:git_integration_settings list ->
+  ?speech_to_text_settings:speech_to_text_settings list ->
+  ?text_to_speech_settings:text_to_speech_settings list ->
   ?timeouts:timeouts ->
   default_language_code:string prop ->
   display_name:string prop ->
   location:string prop ->
   time_zone:string prop ->
-  advanced_settings:advanced_settings list ->
-  git_integration_settings:git_integration_settings list ->
-  speech_to_text_settings:speech_to_text_settings list ->
-  text_to_speech_settings:text_to_speech_settings list ->
   unit ->
   google_dialogflow_cx_agent
 
@@ -125,15 +125,15 @@ val register :
   ?project:string prop ->
   ?security_settings:string prop ->
   ?supported_language_codes:string prop list ->
+  ?advanced_settings:advanced_settings list ->
+  ?git_integration_settings:git_integration_settings list ->
+  ?speech_to_text_settings:speech_to_text_settings list ->
+  ?text_to_speech_settings:text_to_speech_settings list ->
   ?timeouts:timeouts ->
   default_language_code:string prop ->
   display_name:string prop ->
   location:string prop ->
   time_zone:string prop ->
-  advanced_settings:advanced_settings list ->
-  git_integration_settings:git_integration_settings list ->
-  speech_to_text_settings:speech_to_text_settings list ->
-  text_to_speech_settings:text_to_speech_settings list ->
   string ->
   t
 
@@ -146,14 +146,14 @@ val make :
   ?project:string prop ->
   ?security_settings:string prop ->
   ?supported_language_codes:string prop list ->
+  ?advanced_settings:advanced_settings list ->
+  ?git_integration_settings:git_integration_settings list ->
+  ?speech_to_text_settings:speech_to_text_settings list ->
+  ?text_to_speech_settings:text_to_speech_settings list ->
   ?timeouts:timeouts ->
   default_language_code:string prop ->
   display_name:string prop ->
   location:string prop ->
   time_zone:string prop ->
-  advanced_settings:advanced_settings list ->
-  git_integration_settings:git_integration_settings list ->
-  speech_to_text_settings:speech_to_text_settings list ->
-  text_to_speech_settings:text_to_speech_settings list ->
   string ->
   t Tf_core.resource

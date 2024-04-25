@@ -25,9 +25,9 @@ val monitor_config :
   ?path:string prop ->
   ?timeout_in_seconds:float prop ->
   ?tolerated_number_of_failures:float prop ->
+  ?custom_header:monitor_config__custom_header list ->
   port:float prop ->
   protocol:string prop ->
-  custom_header:monitor_config__custom_header list ->
   unit ->
   monitor_config
 

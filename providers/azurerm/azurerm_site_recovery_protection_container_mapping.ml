@@ -226,11 +226,12 @@ let automatic_update ?authentication_type ?automation_account_id
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_site_recovery_protection_container_mapping ?id ?timeouts
-    ~name ~recovery_fabric_name ~recovery_replication_policy_id
+let azurerm_site_recovery_protection_container_mapping ?id
+    ?(automatic_update = []) ?timeouts ~name ~recovery_fabric_name
+    ~recovery_replication_policy_id
     ~recovery_source_protection_container_name
     ~recovery_target_protection_container_id ~recovery_vault_name
-    ~resource_group_name ~automatic_update () :
+    ~resource_group_name () :
     azurerm_site_recovery_protection_container_mapping =
   {
     id;
@@ -256,11 +257,11 @@ type t = {
   resource_group_name : string prop;
 }
 
-let make ?id ?timeouts ~name ~recovery_fabric_name
-    ~recovery_replication_policy_id
+let make ?id ?(automatic_update = []) ?timeouts ~name
+    ~recovery_fabric_name ~recovery_replication_policy_id
     ~recovery_source_protection_container_name
     ~recovery_target_protection_container_id ~recovery_vault_name
-    ~resource_group_name ~automatic_update __id =
+    ~resource_group_name __id =
   let __type =
     "azurerm_site_recovery_protection_container_mapping"
   in
@@ -291,26 +292,25 @@ let make ?id ?timeouts ~name ~recovery_fabric_name
     json =
       yojson_of_azurerm_site_recovery_protection_container_mapping
         (azurerm_site_recovery_protection_container_mapping ?id
-           ?timeouts ~name ~recovery_fabric_name
+           ~automatic_update ?timeouts ~name ~recovery_fabric_name
            ~recovery_replication_policy_id
            ~recovery_source_protection_container_name
            ~recovery_target_protection_container_id
-           ~recovery_vault_name ~resource_group_name
-           ~automatic_update ());
+           ~recovery_vault_name ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~name ~recovery_fabric_name
-    ~recovery_replication_policy_id
+let register ?tf_module ?id ?(automatic_update = []) ?timeouts ~name
+    ~recovery_fabric_name ~recovery_replication_policy_id
     ~recovery_source_protection_container_name
     ~recovery_target_protection_container_id ~recovery_vault_name
-    ~resource_group_name ~automatic_update __id =
+    ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~name ~recovery_fabric_name
+    make ?id ~automatic_update ?timeouts ~name ~recovery_fabric_name
       ~recovery_replication_policy_id
       ~recovery_source_protection_container_name
       ~recovery_target_protection_container_id ~recovery_vault_name
-      ~resource_group_name ~automatic_update __id
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

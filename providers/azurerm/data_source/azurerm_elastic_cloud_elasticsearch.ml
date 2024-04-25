@@ -133,8 +133,8 @@ let _ = yojson_of_azurerm_elastic_cloud_elasticsearch
 let logs () = ()
 let timeouts ?read () : timeouts = { read }
 
-let azurerm_elastic_cloud_elasticsearch ?id ?timeouts ~name
-    ~resource_group_name ~logs () :
+let azurerm_elastic_cloud_elasticsearch ?id ?(logs = []) ?timeouts
+    ~name ~resource_group_name () :
     azurerm_elastic_cloud_elasticsearch =
   { id; name; resource_group_name; logs; timeouts }
 
@@ -155,7 +155,7 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?id ?timeouts ~name ~resource_group_name ~logs __id =
+let make ?id ?(logs = []) ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_elastic_cloud_elasticsearch" in
   let __attrs =
     ({
@@ -189,15 +189,15 @@ let make ?id ?timeouts ~name ~resource_group_name ~logs __id =
     type_ = __type;
     json =
       yojson_of_azurerm_elastic_cloud_elasticsearch
-        (azurerm_elastic_cloud_elasticsearch ?id ?timeouts ~name
-           ~resource_group_name ~logs ());
+        (azurerm_elastic_cloud_elasticsearch ?id ~logs ?timeouts
+           ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~name ~resource_group_name
-    ~logs __id =
+let register ?tf_module ?id ?(logs = []) ?timeouts ~name
+    ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~name ~resource_group_name ~logs __id
+    make ?id ~logs ?timeouts ~name ~resource_group_name __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

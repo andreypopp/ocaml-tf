@@ -54,15 +54,15 @@ val azurerm_synapse_spark_pool :
   ?spark_log_folder:string prop ->
   ?spark_version:string prop ->
   ?tags:(string * string prop) list ->
+  ?auto_pause:auto_pause list ->
+  ?auto_scale:auto_scale list ->
+  ?library_requirement:library_requirement list ->
+  ?spark_config:spark_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   node_size:string prop ->
   node_size_family:string prop ->
   synapse_workspace_id:string prop ->
-  auto_pause:auto_pause list ->
-  auto_scale:auto_scale list ->
-  library_requirement:library_requirement list ->
-  spark_config:spark_config list ->
   unit ->
   azurerm_synapse_spark_pool
 
@@ -104,15 +104,15 @@ val register :
   ?spark_log_folder:string prop ->
   ?spark_version:string prop ->
   ?tags:(string * string prop) list ->
+  ?auto_pause:auto_pause list ->
+  ?auto_scale:auto_scale list ->
+  ?library_requirement:library_requirement list ->
+  ?spark_config:spark_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   node_size:string prop ->
   node_size_family:string prop ->
   synapse_workspace_id:string prop ->
-  auto_pause:auto_pause list ->
-  auto_scale:auto_scale list ->
-  library_requirement:library_requirement list ->
-  spark_config:spark_config list ->
   string ->
   t
 
@@ -129,14 +129,14 @@ val make :
   ?spark_log_folder:string prop ->
   ?spark_version:string prop ->
   ?tags:(string * string prop) list ->
+  ?auto_pause:auto_pause list ->
+  ?auto_scale:auto_scale list ->
+  ?library_requirement:library_requirement list ->
+  ?spark_config:spark_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   node_size:string prop ->
   node_size_family:string prop ->
   synapse_workspace_id:string prop ->
-  auto_pause:auto_pause list ->
-  auto_scale:auto_scale list ->
-  library_requirement:library_requirement list ->
-  spark_config:spark_config list ->
   string ->
   t Tf_core.resource

@@ -726,8 +726,8 @@ let aws_redshift_cluster ?allow_version_upgrade ?apply_immediately
     ?preferred_maintenance_window ?publicly_accessible
     ?skip_final_snapshot ?snapshot_arn ?snapshot_cluster_identifier
     ?snapshot_identifier ?tags ?tags_all ?vpc_security_group_ids
-    ?timeouts ~cluster_identifier ~node_type ~logging ~snapshot_copy
-    () : aws_redshift_cluster =
+    ?(logging = []) ?(snapshot_copy = []) ?timeouts
+    ~cluster_identifier ~node_type () : aws_redshift_cluster =
   {
     allow_version_upgrade;
     apply_immediately;
@@ -843,8 +843,8 @@ let make ?allow_version_upgrade ?apply_immediately
     ?preferred_maintenance_window ?publicly_accessible
     ?skip_final_snapshot ?snapshot_arn ?snapshot_cluster_identifier
     ?snapshot_identifier ?tags ?tags_all ?vpc_security_group_ids
-    ?timeouts ~cluster_identifier ~node_type ~logging ~snapshot_copy
-    __id =
+    ?(logging = []) ?(snapshot_copy = []) ?timeouts
+    ~cluster_identifier ~node_type __id =
   let __type = "aws_redshift_cluster" in
   let __attrs =
     ({
@@ -949,8 +949,8 @@ let make ?allow_version_upgrade ?apply_immediately
            ?port ?preferred_maintenance_window ?publicly_accessible
            ?skip_final_snapshot ?snapshot_arn
            ?snapshot_cluster_identifier ?snapshot_identifier ?tags
-           ?tags_all ?vpc_security_group_ids ?timeouts
-           ~cluster_identifier ~node_type ~logging ~snapshot_copy ());
+           ?tags_all ?vpc_security_group_ids ~logging ~snapshot_copy
+           ?timeouts ~cluster_identifier ~node_type ());
     attrs = __attrs;
   }
 
@@ -969,8 +969,8 @@ let register ?tf_module ?allow_version_upgrade ?apply_immediately
     ?preferred_maintenance_window ?publicly_accessible
     ?skip_final_snapshot ?snapshot_arn ?snapshot_cluster_identifier
     ?snapshot_identifier ?tags ?tags_all ?vpc_security_group_ids
-    ?timeouts ~cluster_identifier ~node_type ~logging ~snapshot_copy
-    __id =
+    ?(logging = []) ?(snapshot_copy = []) ?timeouts
+    ~cluster_identifier ~node_type __id =
   let (r : _ Tf_core.resource) =
     make ?allow_version_upgrade ?apply_immediately
       ?aqua_configuration_status ?automated_snapshot_retention_period
@@ -987,8 +987,8 @@ let register ?tf_module ?allow_version_upgrade ?apply_immediately
       ?preferred_maintenance_window ?publicly_accessible
       ?skip_final_snapshot ?snapshot_arn ?snapshot_cluster_identifier
       ?snapshot_identifier ?tags ?tags_all ?vpc_security_group_ids
-      ?timeouts ~cluster_identifier ~node_type ~logging
-      ~snapshot_copy __id
+      ~logging ~snapshot_copy ?timeouts ~cluster_identifier
+      ~node_type __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

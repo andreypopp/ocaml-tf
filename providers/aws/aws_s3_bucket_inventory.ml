@@ -310,21 +310,21 @@ let destination__bucket__encryption__sse_kms ~key_id () :
 
 let destination__bucket__encryption__sse_s3 () = ()
 
-let destination__bucket__encryption ~sse_kms ~sse_s3 () :
-    destination__bucket__encryption =
+let destination__bucket__encryption ?(sse_kms = []) ?(sse_s3 = []) ()
+    : destination__bucket__encryption =
   { sse_kms; sse_s3 }
 
-let destination__bucket ?account_id ?prefix ~bucket_arn ~format
-    ~encryption () : destination__bucket =
+let destination__bucket ?account_id ?prefix ?(encryption = [])
+    ~bucket_arn ~format () : destination__bucket =
   { account_id; bucket_arn; format; prefix; encryption }
 
 let destination ~bucket () : destination = { bucket }
 let filter ?prefix () : filter = { prefix }
 let schedule ~frequency () : schedule = { frequency }
 
-let aws_s3_bucket_inventory ?enabled ?id ?optional_fields ~bucket
-    ~included_object_versions ~name ~destination ~filter ~schedule ()
-    : aws_s3_bucket_inventory =
+let aws_s3_bucket_inventory ?enabled ?id ?optional_fields
+    ?(filter = []) ~bucket ~included_object_versions ~name
+    ~destination ~schedule () : aws_s3_bucket_inventory =
   {
     bucket;
     enabled;
@@ -346,9 +346,8 @@ type t = {
   optional_fields : string list prop;
 }
 
-let make ?enabled ?id ?optional_fields ~bucket
-    ~included_object_versions ~name ~destination ~filter ~schedule
-    __id =
+let make ?enabled ?id ?optional_fields ?(filter = []) ~bucket
+    ~included_object_versions ~name ~destination ~schedule __id =
   let __type = "aws_s3_bucket_inventory" in
   let __attrs =
     ({
@@ -368,18 +367,17 @@ let make ?enabled ?id ?optional_fields ~bucket
     json =
       yojson_of_aws_s3_bucket_inventory
         (aws_s3_bucket_inventory ?enabled ?id ?optional_fields
-           ~bucket ~included_object_versions ~name ~destination
-           ~filter ~schedule ());
+           ~filter ~bucket ~included_object_versions ~name
+           ~destination ~schedule ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?enabled ?id ?optional_fields ~bucket
-    ~included_object_versions ~name ~destination ~filter ~schedule
+let register ?tf_module ?enabled ?id ?optional_fields ?(filter = [])
+    ~bucket ~included_object_versions ~name ~destination ~schedule
     __id =
   let (r : _ Tf_core.resource) =
-    make ?enabled ?id ?optional_fields ~bucket
-      ~included_object_versions ~name ~destination ~filter ~schedule
-      __id
+    make ?enabled ?id ?optional_fields ~filter ~bucket
+      ~included_object_versions ~name ~destination ~schedule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

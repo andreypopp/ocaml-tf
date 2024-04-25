@@ -19,7 +19,7 @@ val logs :
   ?send_activity_logs:bool prop ->
   ?send_azuread_logs:bool prop ->
   ?send_subscription_logs:bool prop ->
-  filtering_tag:logs__filtering_tag list ->
+  ?filtering_tag:logs__filtering_tag list ->
   unit ->
   logs
 
@@ -39,13 +39,13 @@ val azurerm_elastic_cloud_elasticsearch :
   ?id:string prop ->
   ?monitoring_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?logs:logs list ->
   ?timeouts:timeouts ->
   elastic_cloud_email_address:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  logs:logs list ->
   unit ->
   azurerm_elastic_cloud_elasticsearch
 
@@ -76,13 +76,13 @@ val register :
   ?id:string prop ->
   ?monitoring_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?logs:logs list ->
   ?timeouts:timeouts ->
   elastic_cloud_email_address:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  logs:logs list ->
   string ->
   t
 
@@ -90,12 +90,12 @@ val make :
   ?id:string prop ->
   ?monitoring_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?logs:logs list ->
   ?timeouts:timeouts ->
   elastic_cloud_email_address:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  logs:logs list ->
   string ->
   t Tf_core.resource

@@ -252,8 +252,9 @@ let access_logs__s3 ?bucket_name ?bucket_owner ?prefix ~enabled () :
     access_logs__s3 =
   { bucket_name; bucket_owner; enabled; prefix }
 
-let access_logs ?include_trust_context ?log_version ~cloudwatch_logs
-    ~kinesis_data_firehose ~s3 () : access_logs =
+let access_logs ?include_trust_context ?log_version
+    ?(cloudwatch_logs = []) ?(kinesis_data_firehose = []) ?(s3 = [])
+    () : access_logs =
   {
     include_trust_context;
     log_version;

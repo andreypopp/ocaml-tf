@@ -144,8 +144,9 @@ let index_configs ~field_path ~type_ () : index_configs =
   { field_path; type_ }
 
 let google_logging_folder_bucket_config ?description ?id
-    ?retention_days ~bucket_id ~folder ~location ~cmek_settings
-    ~index_configs () : google_logging_folder_bucket_config =
+    ?retention_days ?(cmek_settings = []) ~bucket_id ~folder
+    ~location ~index_configs () : google_logging_folder_bucket_config
+    =
   {
     bucket_id;
     description;
@@ -168,8 +169,8 @@ type t = {
   retention_days : float prop;
 }
 
-let make ?description ?id ?retention_days ~bucket_id ~folder
-    ~location ~cmek_settings ~index_configs __id =
+let make ?description ?id ?retention_days ?(cmek_settings = [])
+    ~bucket_id ~folder ~location ~index_configs __id =
   let __type = "google_logging_folder_bucket_config" in
   let __attrs =
     ({
@@ -190,16 +191,17 @@ let make ?description ?id ?retention_days ~bucket_id ~folder
     json =
       yojson_of_google_logging_folder_bucket_config
         (google_logging_folder_bucket_config ?description ?id
-           ?retention_days ~bucket_id ~folder ~location
-           ~cmek_settings ~index_configs ());
+           ?retention_days ~cmek_settings ~bucket_id ~folder
+           ~location ~index_configs ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?retention_days ~bucket_id
-    ~folder ~location ~cmek_settings ~index_configs __id =
+let register ?tf_module ?description ?id ?retention_days
+    ?(cmek_settings = []) ~bucket_id ~folder ~location ~index_configs
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?retention_days ~bucket_id ~folder
-      ~location ~cmek_settings ~index_configs __id
+    make ?description ?id ?retention_days ~cmek_settings ~bucket_id
+      ~folder ~location ~index_configs __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

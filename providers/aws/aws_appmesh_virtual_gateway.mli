@@ -22,10 +22,10 @@ val spec__backend_defaults__client_policy__tls__certificate__sds :
 type spec__backend_defaults__client_policy__tls__certificate
 
 val spec__backend_defaults__client_policy__tls__certificate :
-  file:
+  ?file:
     spec__backend_defaults__client_policy__tls__certificate__file
     list ->
-  sds:
+  ?sds:
     spec__backend_defaults__client_policy__tls__certificate__sds list ->
   unit ->
   spec__backend_defaults__client_policy__tls__certificate
@@ -70,13 +70,13 @@ val spec__backend_defaults__client_policy__tls__validation__trust__sds :
 type spec__backend_defaults__client_policy__tls__validation__trust
 
 val spec__backend_defaults__client_policy__tls__validation__trust :
-  acm:
+  ?acm:
     spec__backend_defaults__client_policy__tls__validation__trust__acm
     list ->
-  file:
+  ?file:
     spec__backend_defaults__client_policy__tls__validation__trust__file
     list ->
-  sds:
+  ?sds:
     spec__backend_defaults__client_policy__tls__validation__trust__sds
     list ->
   unit ->
@@ -85,7 +85,7 @@ val spec__backend_defaults__client_policy__tls__validation__trust :
 type spec__backend_defaults__client_policy__tls__validation
 
 val spec__backend_defaults__client_policy__tls__validation :
-  subject_alternative_names:
+  ?subject_alternative_names:
     spec__backend_defaults__client_policy__tls__validation__subject_alternative_names
     list ->
   trust:
@@ -99,7 +99,7 @@ type spec__backend_defaults__client_policy__tls
 val spec__backend_defaults__client_policy__tls :
   ?enforce:bool prop ->
   ?ports:float prop list ->
-  certificate:
+  ?certificate:
     spec__backend_defaults__client_policy__tls__certificate list ->
   validation:
     spec__backend_defaults__client_policy__tls__validation list ->
@@ -109,14 +109,14 @@ val spec__backend_defaults__client_policy__tls :
 type spec__backend_defaults__client_policy
 
 val spec__backend_defaults__client_policy :
-  tls:spec__backend_defaults__client_policy__tls list ->
+  ?tls:spec__backend_defaults__client_policy__tls list ->
   unit ->
   spec__backend_defaults__client_policy
 
 type spec__backend_defaults
 
 val spec__backend_defaults :
-  client_policy:spec__backend_defaults__client_policy list ->
+  ?client_policy:spec__backend_defaults__client_policy list ->
   unit ->
   spec__backend_defaults
 
@@ -145,9 +145,9 @@ val spec__listener__connection_pool__http2 :
 type spec__listener__connection_pool
 
 val spec__listener__connection_pool :
-  grpc:spec__listener__connection_pool__grpc list ->
-  http:spec__listener__connection_pool__http list ->
-  http2:spec__listener__connection_pool__http2 list ->
+  ?grpc:spec__listener__connection_pool__grpc list ->
+  ?http:spec__listener__connection_pool__http list ->
+  ?http2:spec__listener__connection_pool__http2 list ->
   unit ->
   spec__listener__connection_pool
 
@@ -197,9 +197,9 @@ val spec__listener__tls__certificate__sds :
 type spec__listener__tls__certificate
 
 val spec__listener__tls__certificate :
-  acm:spec__listener__tls__certificate__acm list ->
-  file:spec__listener__tls__certificate__file list ->
-  sds:spec__listener__tls__certificate__sds list ->
+  ?acm:spec__listener__tls__certificate__acm list ->
+  ?file:spec__listener__tls__certificate__file list ->
+  ?sds:spec__listener__tls__certificate__sds list ->
   unit ->
   spec__listener__tls__certificate
 
@@ -236,15 +236,15 @@ val spec__listener__tls__validation__trust__sds :
 type spec__listener__tls__validation__trust
 
 val spec__listener__tls__validation__trust :
-  file:spec__listener__tls__validation__trust__file list ->
-  sds:spec__listener__tls__validation__trust__sds list ->
+  ?file:spec__listener__tls__validation__trust__file list ->
+  ?sds:spec__listener__tls__validation__trust__sds list ->
   unit ->
   spec__listener__tls__validation__trust
 
 type spec__listener__tls__validation
 
 val spec__listener__tls__validation :
-  subject_alternative_names:
+  ?subject_alternative_names:
     spec__listener__tls__validation__subject_alternative_names list ->
   trust:spec__listener__tls__validation__trust list ->
   unit ->
@@ -253,19 +253,19 @@ val spec__listener__tls__validation :
 type spec__listener__tls
 
 val spec__listener__tls :
+  ?validation:spec__listener__tls__validation list ->
   mode:string prop ->
   certificate:spec__listener__tls__certificate list ->
-  validation:spec__listener__tls__validation list ->
   unit ->
   spec__listener__tls
 
 type spec__listener
 
 val spec__listener :
-  connection_pool:spec__listener__connection_pool list ->
-  health_check:spec__listener__health_check list ->
+  ?connection_pool:spec__listener__connection_pool list ->
+  ?health_check:spec__listener__health_check list ->
+  ?tls:spec__listener__tls list ->
   port_mapping:spec__listener__port_mapping list ->
-  tls:spec__listener__tls list ->
   unit ->
   spec__listener
 
@@ -281,36 +281,36 @@ type spec__logging__access_log__file__format
 
 val spec__logging__access_log__file__format :
   ?text:string prop ->
-  json:spec__logging__access_log__file__format__json list ->
+  ?json:spec__logging__access_log__file__format__json list ->
   unit ->
   spec__logging__access_log__file__format
 
 type spec__logging__access_log__file
 
 val spec__logging__access_log__file :
+  ?format:spec__logging__access_log__file__format list ->
   path:string prop ->
-  format:spec__logging__access_log__file__format list ->
   unit ->
   spec__logging__access_log__file
 
 type spec__logging__access_log
 
 val spec__logging__access_log :
-  file:spec__logging__access_log__file list ->
+  ?file:spec__logging__access_log__file list ->
   unit ->
   spec__logging__access_log
 
 type spec__logging
 
 val spec__logging :
-  access_log:spec__logging__access_log list -> unit -> spec__logging
+  ?access_log:spec__logging__access_log list -> unit -> spec__logging
 
 type spec
 
 val spec :
-  backend_defaults:spec__backend_defaults list ->
+  ?backend_defaults:spec__backend_defaults list ->
+  ?logging:spec__logging list ->
   listener:spec__listener list ->
-  logging:spec__logging list ->
   unit ->
   spec
 

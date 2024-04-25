@@ -88,13 +88,13 @@ let auth_id_characteristics ?name ?type_ () : auth_id_characteristics
     =
   { name; type_ }
 
-let cloudflare_api_shield ?id ~zone_id ~auth_id_characteristics () :
-    cloudflare_api_shield =
+let cloudflare_api_shield ?id ?(auth_id_characteristics = [])
+    ~zone_id () : cloudflare_api_shield =
   { id; zone_id; auth_id_characteristics }
 
 type t = { id : string prop; zone_id : string prop }
 
-let make ?id ~zone_id ~auth_id_characteristics __id =
+let make ?id ?(auth_id_characteristics = []) ~zone_id __id =
   let __type = "cloudflare_api_shield" in
   let __attrs =
     ({
@@ -108,14 +108,15 @@ let make ?id ~zone_id ~auth_id_characteristics __id =
     type_ = __type;
     json =
       yojson_of_cloudflare_api_shield
-        (cloudflare_api_shield ?id ~zone_id ~auth_id_characteristics
+        (cloudflare_api_shield ?id ~auth_id_characteristics ~zone_id
            ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~zone_id ~auth_id_characteristics __id =
+let register ?tf_module ?id ?(auth_id_characteristics = []) ~zone_id
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~zone_id ~auth_id_characteristics __id
+    make ?id ~auth_id_characteristics ~zone_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

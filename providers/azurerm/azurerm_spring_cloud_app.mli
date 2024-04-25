@@ -61,14 +61,14 @@ val azurerm_spring_cloud_app :
   ?is_public:bool prop ->
   ?public_endpoint_enabled:bool prop ->
   ?tls_enabled:bool prop ->
+  ?custom_persistent_disk:custom_persistent_disk list ->
+  ?identity:identity list ->
+  ?ingress_settings:ingress_settings list ->
+  ?persistent_disk:persistent_disk list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   service_name:string prop ->
-  custom_persistent_disk:custom_persistent_disk list ->
-  identity:identity list ->
-  ingress_settings:ingress_settings list ->
-  persistent_disk:persistent_disk list ->
   unit ->
   azurerm_spring_cloud_app
 
@@ -99,14 +99,14 @@ val register :
   ?is_public:bool prop ->
   ?public_endpoint_enabled:bool prop ->
   ?tls_enabled:bool prop ->
+  ?custom_persistent_disk:custom_persistent_disk list ->
+  ?identity:identity list ->
+  ?ingress_settings:ingress_settings list ->
+  ?persistent_disk:persistent_disk list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   service_name:string prop ->
-  custom_persistent_disk:custom_persistent_disk list ->
-  identity:identity list ->
-  ingress_settings:ingress_settings list ->
-  persistent_disk:persistent_disk list ->
   string ->
   t
 
@@ -117,13 +117,13 @@ val make :
   ?is_public:bool prop ->
   ?public_endpoint_enabled:bool prop ->
   ?tls_enabled:bool prop ->
+  ?custom_persistent_disk:custom_persistent_disk list ->
+  ?identity:identity list ->
+  ?ingress_settings:ingress_settings list ->
+  ?persistent_disk:persistent_disk list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   service_name:string prop ->
-  custom_persistent_disk:custom_persistent_disk list ->
-  identity:identity list ->
-  ingress_settings:ingress_settings list ->
-  persistent_disk:persistent_disk list ->
   string ->
   t Tf_core.resource

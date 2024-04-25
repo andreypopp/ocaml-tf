@@ -971,32 +971,33 @@ let blocking_functions__triggers ~event_type ~function_uri () :
     blocking_functions__triggers =
   { event_type; function_uri }
 
-let blocking_functions ~forward_inbound_credentials ~triggers () :
-    blocking_functions =
+let blocking_functions ?(forward_inbound_credentials = []) ~triggers
+    () : blocking_functions =
   { forward_inbound_credentials; triggers }
 
 let client__permissions ?disabled_user_deletion ?disabled_user_signup
     () : client__permissions =
   { disabled_user_deletion; disabled_user_signup }
 
-let client ~permissions () : client = { permissions }
+let client ?(permissions = []) () : client = { permissions }
 
 let mfa__provider_configs__totp_provider_config ?adjacent_intervals
     () : mfa__provider_configs__totp_provider_config =
   { adjacent_intervals }
 
-let mfa__provider_configs ?state ~totp_provider_config () :
+let mfa__provider_configs ?state ?(totp_provider_config = []) () :
     mfa__provider_configs =
   { state; totp_provider_config }
 
-let mfa ?enabled_providers ?state ~provider_configs () : mfa =
+let mfa ?enabled_providers ?state ?(provider_configs = []) () : mfa =
   { enabled_providers; state; provider_configs }
 
 let monitoring__request_logging ?enabled () :
     monitoring__request_logging =
   { enabled }
 
-let monitoring ~request_logging () : monitoring = { request_logging }
+let monitoring ?(request_logging = []) () : monitoring =
+  { request_logging }
 
 let multi_tenant ?allow_tenants ?default_tenant_location () :
     multi_tenant =
@@ -1006,7 +1007,9 @@ let quota__sign_up_quota_config ?quota ?quota_duration ?start_time ()
     : quota__sign_up_quota_config =
   { quota; quota_duration; start_time }
 
-let quota ~sign_up_quota_config () : quota = { sign_up_quota_config }
+let quota ?(sign_up_quota_config = []) () : quota =
+  { sign_up_quota_config }
+
 let sign_in__anonymous ~enabled () : sign_in__anonymous = { enabled }
 
 let sign_in__email ?password_required ~enabled () : sign_in__email =
@@ -1016,8 +1019,8 @@ let sign_in__phone_number ?test_phone_numbers ~enabled () :
     sign_in__phone_number =
   { enabled; test_phone_numbers }
 
-let sign_in ?allow_duplicate_emails ~anonymous ~email ~phone_number
-    () : sign_in =
+let sign_in ?allow_duplicate_emails ?(anonymous = []) ?(email = [])
+    ?(phone_number = []) () : sign_in =
   { allow_duplicate_emails; anonymous; email; phone_number }
 
 let sms_region_config__allow_by_default ?disallowed_regions () :
@@ -1028,18 +1031,19 @@ let sms_region_config__allowlist_only ?allowed_regions () :
     sms_region_config__allowlist_only =
   { allowed_regions }
 
-let sms_region_config ~allow_by_default ~allowlist_only () :
-    sms_region_config =
+let sms_region_config ?(allow_by_default = []) ?(allowlist_only = [])
+    () : sms_region_config =
   { allow_by_default; allowlist_only }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_identity_platform_config ?authorized_domains
-    ?autodelete_anonymous_users ?id ?project ?timeouts
-    ~blocking_functions ~client ~mfa ~monitoring ~multi_tenant ~quota
-    ~sign_in ~sms_region_config () : google_identity_platform_config
-    =
+    ?autodelete_anonymous_users ?id ?project
+    ?(blocking_functions = []) ?(client = []) ?(mfa = [])
+    ?(monitoring = []) ?(multi_tenant = []) ?(quota = [])
+    ?(sign_in = []) ?(sms_region_config = []) ?timeouts () :
+    google_identity_platform_config =
   {
     authorized_domains;
     autodelete_anonymous_users;
@@ -1065,8 +1069,9 @@ type t = {
 }
 
 let make ?authorized_domains ?autodelete_anonymous_users ?id ?project
-    ?timeouts ~blocking_functions ~client ~mfa ~monitoring
-    ~multi_tenant ~quota ~sign_in ~sms_region_config __id =
+    ?(blocking_functions = []) ?(client = []) ?(mfa = [])
+    ?(monitoring = []) ?(multi_tenant = []) ?(quota = [])
+    ?(sign_in = []) ?(sms_region_config = []) ?timeouts __id =
   let __type = "google_identity_platform_config" in
   let __attrs =
     ({
@@ -1086,20 +1091,21 @@ let make ?authorized_domains ?autodelete_anonymous_users ?id ?project
     json =
       yojson_of_google_identity_platform_config
         (google_identity_platform_config ?authorized_domains
-           ?autodelete_anonymous_users ?id ?project ?timeouts
+           ?autodelete_anonymous_users ?id ?project
            ~blocking_functions ~client ~mfa ~monitoring ~multi_tenant
-           ~quota ~sign_in ~sms_region_config ());
+           ~quota ~sign_in ~sms_region_config ?timeouts ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?authorized_domains
-    ?autodelete_anonymous_users ?id ?project ?timeouts
-    ~blocking_functions ~client ~mfa ~monitoring ~multi_tenant ~quota
-    ~sign_in ~sms_region_config __id =
+    ?autodelete_anonymous_users ?id ?project
+    ?(blocking_functions = []) ?(client = []) ?(mfa = [])
+    ?(monitoring = []) ?(multi_tenant = []) ?(quota = [])
+    ?(sign_in = []) ?(sms_region_config = []) ?timeouts __id =
   let (r : _ Tf_core.resource) =
     make ?authorized_domains ?autodelete_anonymous_users ?id ?project
-      ?timeouts ~blocking_functions ~client ~mfa ~monitoring
-      ~multi_tenant ~quota ~sign_in ~sms_region_config __id
+      ~blocking_functions ~client ~mfa ~monitoring ~multi_tenant
+      ~quota ~sign_in ~sms_region_config ?timeouts __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -17,10 +17,10 @@ type google_access_context_manager_access_policy_iam_binding
 
 val google_access_context_manager_access_policy_iam_binding :
   ?id:string prop ->
+  ?condition:condition list ->
   members:string prop list ->
   name:string prop ->
   role:string prop ->
-  condition:condition list ->
   unit ->
   google_access_context_manager_access_policy_iam_binding
 
@@ -40,18 +40,18 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?condition:condition list ->
   members:string prop list ->
   name:string prop ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?condition:condition list ->
   members:string prop list ->
   name:string prop ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t Tf_core.resource

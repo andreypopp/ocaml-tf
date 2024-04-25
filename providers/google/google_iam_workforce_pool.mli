@@ -15,7 +15,7 @@ type access_restrictions
 
 val access_restrictions :
   ?disable_programmatic_signin:bool prop ->
-  allowed_services:access_restrictions__allowed_services list ->
+  ?allowed_services:access_restrictions__allowed_services list ->
   unit ->
   access_restrictions
 
@@ -36,11 +36,11 @@ val google_iam_workforce_pool :
   ?display_name:string prop ->
   ?id:string prop ->
   ?session_duration:string prop ->
+  ?access_restrictions:access_restrictions list ->
   ?timeouts:timeouts ->
   location:string prop ->
   parent:string prop ->
   workforce_pool_id:string prop ->
-  access_restrictions:access_restrictions list ->
   unit ->
   google_iam_workforce_pool
 
@@ -69,11 +69,11 @@ val register :
   ?display_name:string prop ->
   ?id:string prop ->
   ?session_duration:string prop ->
+  ?access_restrictions:access_restrictions list ->
   ?timeouts:timeouts ->
   location:string prop ->
   parent:string prop ->
   workforce_pool_id:string prop ->
-  access_restrictions:access_restrictions list ->
   string ->
   t
 
@@ -83,10 +83,10 @@ val make :
   ?display_name:string prop ->
   ?id:string prop ->
   ?session_duration:string prop ->
+  ?access_restrictions:access_restrictions list ->
   ?timeouts:timeouts ->
   location:string prop ->
   parent:string prop ->
   workforce_pool_id:string prop ->
-  access_restrictions:access_restrictions list ->
   string ->
   t Tf_core.resource

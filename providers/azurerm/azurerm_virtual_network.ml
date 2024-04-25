@@ -320,9 +320,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_virtual_network ?bgp_community ?dns_servers ?edge_zone
-    ?flow_timeout_in_minutes ?id ?subnet ?tags ?timeouts
-    ~address_space ~location ~name ~resource_group_name
-    ~ddos_protection_plan ~encryption () : azurerm_virtual_network =
+    ?flow_timeout_in_minutes ?id ?subnet ?tags
+    ?(ddos_protection_plan = []) ?(encryption = []) ?timeouts
+    ~address_space ~location ~name ~resource_group_name () :
+    azurerm_virtual_network =
   {
     address_space;
     bgp_community;
@@ -356,9 +357,9 @@ type t = {
 }
 
 let make ?bgp_community ?dns_servers ?edge_zone
-    ?flow_timeout_in_minutes ?id ?subnet ?tags ?timeouts
-    ~address_space ~location ~name ~resource_group_name
-    ~ddos_protection_plan ~encryption __id =
+    ?flow_timeout_in_minutes ?id ?subnet ?tags
+    ?(ddos_protection_plan = []) ?(encryption = []) ?timeouts
+    ~address_space ~location ~name ~resource_group_name __id =
   let __type = "azurerm_virtual_network" in
   let __attrs =
     ({
@@ -386,20 +387,20 @@ let make ?bgp_community ?dns_servers ?edge_zone
       yojson_of_azurerm_virtual_network
         (azurerm_virtual_network ?bgp_community ?dns_servers
            ?edge_zone ?flow_timeout_in_minutes ?id ?subnet ?tags
-           ?timeouts ~address_space ~location ~name
-           ~resource_group_name ~ddos_protection_plan ~encryption ());
+           ~ddos_protection_plan ~encryption ?timeouts ~address_space
+           ~location ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?bgp_community ?dns_servers ?edge_zone
-    ?flow_timeout_in_minutes ?id ?subnet ?tags ?timeouts
-    ~address_space ~location ~name ~resource_group_name
-    ~ddos_protection_plan ~encryption __id =
+    ?flow_timeout_in_minutes ?id ?subnet ?tags
+    ?(ddos_protection_plan = []) ?(encryption = []) ?timeouts
+    ~address_space ~location ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?bgp_community ?dns_servers ?edge_zone
-      ?flow_timeout_in_minutes ?id ?subnet ?tags ?timeouts
-      ~address_space ~location ~name ~resource_group_name
-      ~ddos_protection_plan ~encryption __id
+      ?flow_timeout_in_minutes ?id ?subnet ?tags
+      ~ddos_protection_plan ~encryption ?timeouts ~address_space
+      ~location ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

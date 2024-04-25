@@ -29,8 +29,8 @@ type list_policy
 val list_policy :
   ?inherit_from_parent:bool prop ->
   ?suggested_value:string prop ->
-  allow:list_policy__allow list ->
-  deny:list_policy__deny list ->
+  ?allow:list_policy__allow list ->
+  ?deny:list_policy__deny list ->
   unit ->
   list_policy
 
@@ -53,12 +53,12 @@ type google_organization_policy
 val google_organization_policy :
   ?id:string prop ->
   ?version:float prop ->
+  ?boolean_policy:boolean_policy list ->
+  ?list_policy:list_policy list ->
+  ?restore_policy:restore_policy list ->
   ?timeouts:timeouts ->
   constraint_:string prop ->
   org_id:string prop ->
-  boolean_policy:boolean_policy list ->
-  list_policy:list_policy list ->
-  restore_policy:restore_policy list ->
   unit ->
   google_organization_policy
 
@@ -80,23 +80,23 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?version:float prop ->
+  ?boolean_policy:boolean_policy list ->
+  ?list_policy:list_policy list ->
+  ?restore_policy:restore_policy list ->
   ?timeouts:timeouts ->
   constraint_:string prop ->
   org_id:string prop ->
-  boolean_policy:boolean_policy list ->
-  list_policy:list_policy list ->
-  restore_policy:restore_policy list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?version:float prop ->
+  ?boolean_policy:boolean_policy list ->
+  ?list_policy:list_policy list ->
+  ?restore_policy:restore_policy list ->
   ?timeouts:timeouts ->
   constraint_:string prop ->
   org_id:string prop ->
-  boolean_policy:boolean_policy list ->
-  list_policy:list_policy list ->
-  restore_policy:restore_policy list ->
   string ->
   t Tf_core.resource

@@ -309,9 +309,9 @@ let timeouts ?create ?delete ?read () : timeouts =
 
 let azurerm_machine_learning_compute_instance ?authorization_type
     ?description ?id ?local_auth_enabled ?node_public_ip_enabled
-    ?subnet_resource_id ?tags ?timeouts ~location
-    ~machine_learning_workspace_id ~name ~virtual_machine_size
-    ~assign_to_user ~identity ~ssh () :
+    ?subnet_resource_id ?tags ?(assign_to_user = []) ?(identity = [])
+    ?(ssh = []) ?timeouts ~location ~machine_learning_workspace_id
+    ~name ~virtual_machine_size () :
     azurerm_machine_learning_compute_instance =
   {
     authorization_type;
@@ -346,9 +346,10 @@ type t = {
 }
 
 let make ?authorization_type ?description ?id ?local_auth_enabled
-    ?node_public_ip_enabled ?subnet_resource_id ?tags ?timeouts
+    ?node_public_ip_enabled ?subnet_resource_id ?tags
+    ?(assign_to_user = []) ?(identity = []) ?(ssh = []) ?timeouts
     ~location ~machine_learning_workspace_id ~name
-    ~virtual_machine_size ~assign_to_user ~identity ~ssh __id =
+    ~virtual_machine_size __id =
   let __type = "azurerm_machine_learning_compute_instance" in
   let __attrs =
     ({
@@ -380,20 +381,22 @@ let make ?authorization_type ?description ?id ?local_auth_enabled
         (azurerm_machine_learning_compute_instance
            ?authorization_type ?description ?id ?local_auth_enabled
            ?node_public_ip_enabled ?subnet_resource_id ?tags
-           ?timeouts ~location ~machine_learning_workspace_id ~name
-           ~virtual_machine_size ~assign_to_user ~identity ~ssh ());
+           ~assign_to_user ~identity ~ssh ?timeouts ~location
+           ~machine_learning_workspace_id ~name ~virtual_machine_size
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?authorization_type ?description ?id
     ?local_auth_enabled ?node_public_ip_enabled ?subnet_resource_id
-    ?tags ?timeouts ~location ~machine_learning_workspace_id ~name
-    ~virtual_machine_size ~assign_to_user ~identity ~ssh __id =
+    ?tags ?(assign_to_user = []) ?(identity = []) ?(ssh = [])
+    ?timeouts ~location ~machine_learning_workspace_id ~name
+    ~virtual_machine_size __id =
   let (r : _ Tf_core.resource) =
     make ?authorization_type ?description ?id ?local_auth_enabled
-      ?node_public_ip_enabled ?subnet_resource_id ?tags ?timeouts
-      ~location ~machine_learning_workspace_id ~name
-      ~virtual_machine_size ~assign_to_user ~identity ~ssh __id
+      ?node_public_ip_enabled ?subnet_resource_id ?tags
+      ~assign_to_user ~identity ~ssh ?timeouts ~location
+      ~machine_learning_workspace_id ~name ~virtual_machine_size __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

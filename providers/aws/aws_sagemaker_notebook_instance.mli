@@ -28,11 +28,11 @@ val aws_sagemaker_notebook_instance :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?volume_size:float prop ->
+  ?instance_metadata_service_configuration:
+    instance_metadata_service_configuration list ->
   instance_type:string prop ->
   name:string prop ->
   role_arn:string prop ->
-  instance_metadata_service_configuration:
-    instance_metadata_service_configuration list ->
   unit ->
   aws_sagemaker_notebook_instance
 
@@ -80,11 +80,11 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?volume_size:float prop ->
+  ?instance_metadata_service_configuration:
+    instance_metadata_service_configuration list ->
   instance_type:string prop ->
   name:string prop ->
   role_arn:string prop ->
-  instance_metadata_service_configuration:
-    instance_metadata_service_configuration list ->
   string ->
   t
 
@@ -103,10 +103,10 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?volume_size:float prop ->
+  ?instance_metadata_service_configuration:
+    instance_metadata_service_configuration list ->
   instance_type:string prop ->
   name:string prop ->
   role_arn:string prop ->
-  instance_metadata_service_configuration:
-    instance_metadata_service_configuration list ->
   string ->
   t Tf_core.resource

@@ -742,7 +742,7 @@ let antimalware__exclusions ?extensions ?paths ?processes () :
 
 let antimalware ?real_time_protection_enabled ?scheduled_scan_day
     ?scheduled_scan_enabled ?scheduled_scan_time_in_minutes
-    ?scheduled_scan_type ~exclusions () : antimalware =
+    ?scheduled_scan_type ?(exclusions = []) () : antimalware =
   {
     real_time_protection_enabled;
     scheduled_scan_day;
@@ -762,8 +762,8 @@ let backup__retention_policy__daily_schedule__retention_duration
   { count; duration_type }
 
 let backup__retention_policy__daily_schedule ?retention_times
-    ~retention_duration () : backup__retention_policy__daily_schedule
-    =
+    ?(retention_duration = []) () :
+    backup__retention_policy__daily_schedule =
   { retention_times; retention_duration }
 
 let backup__retention_policy__weekly_schedule__retention_duration
@@ -772,12 +772,13 @@ let backup__retention_policy__weekly_schedule__retention_duration
   { count; duration_type }
 
 let backup__retention_policy__weekly_schedule ?retention_times
-    ~retention_duration () :
+    ?(retention_duration = []) () :
     backup__retention_policy__weekly_schedule =
   { retention_times; retention_duration }
 
-let backup__retention_policy ?retention_policy_type ~daily_schedule
-    ~weekly_schedule () : backup__retention_policy =
+let backup__retention_policy ?retention_policy_type
+    ?(daily_schedule = []) ?(weekly_schedule = []) () :
+    backup__retention_policy =
   { retention_policy_type; daily_schedule; weekly_schedule }
 
 let backup__schedule_policy ?schedule_policy_type ?schedule_run_days
@@ -791,7 +792,8 @@ let backup__schedule_policy ?schedule_policy_type ?schedule_run_days
   }
 
 let backup ?instant_rp_retention_range_in_days ?policy_name
-    ?time_zone ~retention_policy ~schedule_policy () : backup =
+    ?time_zone ?(retention_policy = []) ?(schedule_policy = []) () :
+    backup =
   {
     instant_rp_retention_range_in_days;
     policy_name;
@@ -806,9 +808,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_automanage_configuration ?automation_account_enabled
     ?boot_diagnostics_enabled ?defender_for_cloud_enabled
     ?guest_configuration_enabled ?id ?log_analytics_enabled
-    ?status_change_alert_enabled ?tags ?timeouts ~location ~name
-    ~resource_group_name ~antimalware ~azure_security_baseline
-    ~backup () : azurerm_automanage_configuration =
+    ?status_change_alert_enabled ?tags ?(antimalware = [])
+    ?(azure_security_baseline = []) ?(backup = []) ?timeouts
+    ~location ~name ~resource_group_name () :
+    azurerm_automanage_configuration =
   {
     automation_account_enabled;
     boot_diagnostics_enabled;
@@ -844,8 +847,9 @@ type t = {
 let make ?automation_account_enabled ?boot_diagnostics_enabled
     ?defender_for_cloud_enabled ?guest_configuration_enabled ?id
     ?log_analytics_enabled ?status_change_alert_enabled ?tags
-    ?timeouts ~location ~name ~resource_group_name ~antimalware
-    ~azure_security_baseline ~backup __id =
+    ?(antimalware = []) ?(azure_security_baseline = [])
+    ?(backup = []) ?timeouts ~location ~name ~resource_group_name
+    __id =
   let __type = "azurerm_automanage_configuration" in
   let __attrs =
     ({
@@ -878,24 +882,24 @@ let make ?automation_account_enabled ?boot_diagnostics_enabled
         (azurerm_automanage_configuration ?automation_account_enabled
            ?boot_diagnostics_enabled ?defender_for_cloud_enabled
            ?guest_configuration_enabled ?id ?log_analytics_enabled
-           ?status_change_alert_enabled ?tags ?timeouts ~location
-           ~name ~resource_group_name ~antimalware
-           ~azure_security_baseline ~backup ());
+           ?status_change_alert_enabled ?tags ~antimalware
+           ~azure_security_baseline ~backup ?timeouts ~location ~name
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?automation_account_enabled
     ?boot_diagnostics_enabled ?defender_for_cloud_enabled
     ?guest_configuration_enabled ?id ?log_analytics_enabled
-    ?status_change_alert_enabled ?tags ?timeouts ~location ~name
-    ~resource_group_name ~antimalware ~azure_security_baseline
-    ~backup __id =
+    ?status_change_alert_enabled ?tags ?(antimalware = [])
+    ?(azure_security_baseline = []) ?(backup = []) ?timeouts
+    ~location ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?automation_account_enabled ?boot_diagnostics_enabled
       ?defender_for_cloud_enabled ?guest_configuration_enabled ?id
       ?log_analytics_enabled ?status_change_alert_enabled ?tags
-      ?timeouts ~location ~name ~resource_group_name ~antimalware
-      ~azure_security_baseline ~backup __id
+      ~antimalware ~azure_security_baseline ~backup ?timeouts
+      ~location ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -1243,9 +1243,9 @@ let node_type__ephemeral_ports ~end_port ~start_port () :
 
 let node_type ?capacities ?durability_level ?is_stateless
     ?multiple_availability_zones ?placement_properties
-    ?reverse_proxy_endpoint_port ~client_endpoint_port
-    ~http_endpoint_port ~instance_count ~is_primary ~name
-    ~application_ports ~ephemeral_ports () : node_type =
+    ?reverse_proxy_endpoint_port ?(application_ports = [])
+    ?(ephemeral_ports = []) ~client_endpoint_port ~http_endpoint_port
+    ~instance_count ~is_primary ~name () : node_type =
   {
     capacities;
     client_endpoint_port;
@@ -1296,8 +1296,8 @@ let upgrade_policy__health_policy ?max_unhealthy_applications_percent
 let upgrade_policy ?force_restart_enabled ?health_check_retry_timeout
     ?health_check_stable_duration ?health_check_wait_duration
     ?upgrade_domain_timeout ?upgrade_replica_set_check_timeout
-    ?upgrade_timeout ~delta_health_policy ~health_policy () :
-    upgrade_policy =
+    ?upgrade_timeout ?(delta_health_policy = [])
+    ?(health_policy = []) () : upgrade_policy =
   {
     force_restart_enabled;
     health_check_retry_timeout;
@@ -1312,15 +1312,15 @@ let upgrade_policy ?force_restart_enabled ?health_check_retry_timeout
 
 let azurerm_service_fabric_cluster ?add_on_features
     ?cluster_code_version ?id ?service_fabric_zonal_upgrade_mode
-    ?tags ?vmss_zonal_upgrade_mode ?timeouts ~location
-    ~management_endpoint ~name ~reliability_level
-    ~resource_group_name ~upgrade_mode ~vm_image
-    ~azure_active_directory ~certificate ~certificate_common_names
-    ~client_certificate_common_name ~client_certificate_thumbprint
-    ~diagnostics_config ~fabric_settings ~node_type
-    ~reverse_proxy_certificate
-    ~reverse_proxy_certificate_common_names ~upgrade_policy () :
-    azurerm_service_fabric_cluster =
+    ?tags ?vmss_zonal_upgrade_mode ?(azure_active_directory = [])
+    ?(certificate = []) ?(certificate_common_names = [])
+    ?(client_certificate_common_name = [])
+    ?(client_certificate_thumbprint = []) ?(diagnostics_config = [])
+    ?(fabric_settings = []) ?(reverse_proxy_certificate = [])
+    ?(reverse_proxy_certificate_common_names = []) ?timeouts
+    ?(upgrade_policy = []) ~location ~management_endpoint ~name
+    ~reliability_level ~resource_group_name ~upgrade_mode ~vm_image
+    ~node_type () : azurerm_service_fabric_cluster =
   {
     add_on_features;
     cluster_code_version;
@@ -1368,13 +1368,15 @@ type t = {
 
 let make ?add_on_features ?cluster_code_version ?id
     ?service_fabric_zonal_upgrade_mode ?tags ?vmss_zonal_upgrade_mode
-    ?timeouts ~location ~management_endpoint ~name ~reliability_level
-    ~resource_group_name ~upgrade_mode ~vm_image
-    ~azure_active_directory ~certificate ~certificate_common_names
-    ~client_certificate_common_name ~client_certificate_thumbprint
-    ~diagnostics_config ~fabric_settings ~node_type
-    ~reverse_proxy_certificate
-    ~reverse_proxy_certificate_common_names ~upgrade_policy __id =
+    ?(azure_active_directory = []) ?(certificate = [])
+    ?(certificate_common_names = [])
+    ?(client_certificate_common_name = [])
+    ?(client_certificate_thumbprint = []) ?(diagnostics_config = [])
+    ?(fabric_settings = []) ?(reverse_proxy_certificate = [])
+    ?(reverse_proxy_certificate_common_names = []) ?timeouts
+    ?(upgrade_policy = []) ~location ~management_endpoint ~name
+    ~reliability_level ~resource_group_name ~upgrade_mode ~vm_image
+    ~node_type __id =
   let __type = "azurerm_service_fabric_cluster" in
   let __attrs =
     ({
@@ -1411,37 +1413,40 @@ let make ?add_on_features ?cluster_code_version ?id
         (azurerm_service_fabric_cluster ?add_on_features
            ?cluster_code_version ?id
            ?service_fabric_zonal_upgrade_mode ?tags
-           ?vmss_zonal_upgrade_mode ?timeouts ~location
-           ~management_endpoint ~name ~reliability_level
-           ~resource_group_name ~upgrade_mode ~vm_image
-           ~azure_active_directory ~certificate
-           ~certificate_common_names ~client_certificate_common_name
+           ?vmss_zonal_upgrade_mode ~azure_active_directory
+           ~certificate ~certificate_common_names
+           ~client_certificate_common_name
            ~client_certificate_thumbprint ~diagnostics_config
-           ~fabric_settings ~node_type ~reverse_proxy_certificate
-           ~reverse_proxy_certificate_common_names ~upgrade_policy ());
+           ~fabric_settings ~reverse_proxy_certificate
+           ~reverse_proxy_certificate_common_names ?timeouts
+           ~upgrade_policy ~location ~management_endpoint ~name
+           ~reliability_level ~resource_group_name ~upgrade_mode
+           ~vm_image ~node_type ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?add_on_features ?cluster_code_version ?id
     ?service_fabric_zonal_upgrade_mode ?tags ?vmss_zonal_upgrade_mode
-    ?timeouts ~location ~management_endpoint ~name ~reliability_level
-    ~resource_group_name ~upgrade_mode ~vm_image
-    ~azure_active_directory ~certificate ~certificate_common_names
-    ~client_certificate_common_name ~client_certificate_thumbprint
-    ~diagnostics_config ~fabric_settings ~node_type
-    ~reverse_proxy_certificate
-    ~reverse_proxy_certificate_common_names ~upgrade_policy __id =
+    ?(azure_active_directory = []) ?(certificate = [])
+    ?(certificate_common_names = [])
+    ?(client_certificate_common_name = [])
+    ?(client_certificate_thumbprint = []) ?(diagnostics_config = [])
+    ?(fabric_settings = []) ?(reverse_proxy_certificate = [])
+    ?(reverse_proxy_certificate_common_names = []) ?timeouts
+    ?(upgrade_policy = []) ~location ~management_endpoint ~name
+    ~reliability_level ~resource_group_name ~upgrade_mode ~vm_image
+    ~node_type __id =
   let (r : _ Tf_core.resource) =
     make ?add_on_features ?cluster_code_version ?id
       ?service_fabric_zonal_upgrade_mode ?tags
-      ?vmss_zonal_upgrade_mode ?timeouts ~location
-      ~management_endpoint ~name ~reliability_level
-      ~resource_group_name ~upgrade_mode ~vm_image
-      ~azure_active_directory ~certificate ~certificate_common_names
-      ~client_certificate_common_name ~client_certificate_thumbprint
-      ~diagnostics_config ~fabric_settings ~node_type
-      ~reverse_proxy_certificate
-      ~reverse_proxy_certificate_common_names ~upgrade_policy __id
+      ?vmss_zonal_upgrade_mode ~azure_active_directory ~certificate
+      ~certificate_common_names ~client_certificate_common_name
+      ~client_certificate_thumbprint ~diagnostics_config
+      ~fabric_settings ~reverse_proxy_certificate
+      ~reverse_proxy_certificate_common_names ?timeouts
+      ~upgrade_policy ~location ~management_endpoint ~name
+      ~reliability_level ~resource_group_name ~upgrade_mode ~vm_image
+      ~node_type __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

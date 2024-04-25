@@ -467,8 +467,8 @@ let aws_elb ?availability_zones ?connection_draining
     ?connection_draining_timeout ?cross_zone_load_balancing
     ?desync_mitigation_mode ?id ?idle_timeout ?instances ?internal
     ?name ?name_prefix ?security_groups ?source_security_group
-    ?subnets ?tags ?tags_all ?timeouts ~access_logs ~health_check
-    ~listener () : aws_elb =
+    ?subnets ?tags ?tags_all ?(access_logs = []) ?(health_check = [])
+    ?timeouts ~listener () : aws_elb =
   {
     availability_zones;
     connection_draining;
@@ -519,8 +519,8 @@ let make ?availability_zones ?connection_draining
     ?connection_draining_timeout ?cross_zone_load_balancing
     ?desync_mitigation_mode ?id ?idle_timeout ?instances ?internal
     ?name ?name_prefix ?security_groups ?source_security_group
-    ?subnets ?tags ?tags_all ?timeouts ~access_logs ~health_check
-    ~listener __id =
+    ?subnets ?tags ?tags_all ?(access_logs = []) ?(health_check = [])
+    ?timeouts ~listener __id =
   let __type = "aws_elb" in
   let __attrs =
     ({
@@ -563,8 +563,8 @@ let make ?availability_zones ?connection_draining
            ?connection_draining_timeout ?cross_zone_load_balancing
            ?desync_mitigation_mode ?id ?idle_timeout ?instances
            ?internal ?name ?name_prefix ?security_groups
-           ?source_security_group ?subnets ?tags ?tags_all ?timeouts
-           ~access_logs ~health_check ~listener ());
+           ?source_security_group ?subnets ?tags ?tags_all
+           ~access_logs ~health_check ?timeouts ~listener ());
     attrs = __attrs;
   }
 
@@ -572,14 +572,14 @@ let register ?tf_module ?availability_zones ?connection_draining
     ?connection_draining_timeout ?cross_zone_load_balancing
     ?desync_mitigation_mode ?id ?idle_timeout ?instances ?internal
     ?name ?name_prefix ?security_groups ?source_security_group
-    ?subnets ?tags ?tags_all ?timeouts ~access_logs ~health_check
-    ~listener __id =
+    ?subnets ?tags ?tags_all ?(access_logs = []) ?(health_check = [])
+    ?timeouts ~listener __id =
   let (r : _ Tf_core.resource) =
     make ?availability_zones ?connection_draining
       ?connection_draining_timeout ?cross_zone_load_balancing
       ?desync_mitigation_mode ?id ?idle_timeout ?instances ?internal
       ?name ?name_prefix ?security_groups ?source_security_group
-      ?subnets ?tags ?tags_all ?timeouts ~access_logs ~health_check
+      ?subnets ?tags ?tags_all ~access_logs ~health_check ?timeouts
       ~listener __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

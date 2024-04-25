@@ -147,7 +147,8 @@ let _ = yojson_of_digitalocean_uptime_alert
 let notifications__slack ~channel ~url () : notifications__slack =
   { channel; url }
 
-let notifications ?email ~slack () : notifications = { email; slack }
+let notifications ?email ?(slack = []) () : notifications =
+  { email; slack }
 
 let digitalocean_uptime_alert ?comparison ?period ?threshold
     ~check_id ~name ~type_ ~notifications () :

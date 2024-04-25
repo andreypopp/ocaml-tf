@@ -601,9 +601,10 @@ let scm ?certificate ?certificate_password ?key_vault_id
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_api_management_custom_domain ?id ?timeouts
-    ~api_management_id ~developer_portal ~gateway ~management ~portal
-    ~scm () : azurerm_api_management_custom_domain =
+let azurerm_api_management_custom_domain ?id ?(developer_portal = [])
+    ?(gateway = []) ?(management = []) ?(portal = []) ?(scm = [])
+    ?timeouts ~api_management_id () :
+    azurerm_api_management_custom_domain =
   {
     api_management_id;
     id;
@@ -617,8 +618,9 @@ let azurerm_api_management_custom_domain ?id ?timeouts
 
 type t = { api_management_id : string prop; id : string prop }
 
-let make ?id ?timeouts ~api_management_id ~developer_portal ~gateway
-    ~management ~portal ~scm __id =
+let make ?id ?(developer_portal = []) ?(gateway = [])
+    ?(management = []) ?(portal = []) ?(scm = []) ?timeouts
+    ~api_management_id __id =
   let __type = "azurerm_api_management_custom_domain" in
   let __attrs =
     ({
@@ -633,17 +635,18 @@ let make ?id ?timeouts ~api_management_id ~developer_portal ~gateway
     type_ = __type;
     json =
       yojson_of_azurerm_api_management_custom_domain
-        (azurerm_api_management_custom_domain ?id ?timeouts
-           ~api_management_id ~developer_portal ~gateway ~management
-           ~portal ~scm ());
+        (azurerm_api_management_custom_domain ?id ~developer_portal
+           ~gateway ~management ~portal ~scm ?timeouts
+           ~api_management_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~api_management_id
-    ~developer_portal ~gateway ~management ~portal ~scm __id =
+let register ?tf_module ?id ?(developer_portal = []) ?(gateway = [])
+    ?(management = []) ?(portal = []) ?(scm = []) ?timeouts
+    ~api_management_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~api_management_id ~developer_portal ~gateway
-      ~management ~portal ~scm __id
+    make ?id ~developer_portal ~gateway ~management ~portal ~scm
+      ?timeouts ~api_management_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -28,8 +28,8 @@ val dry_run_spec__rules :
   ?allow_all:string prop ->
   ?deny_all:string prop ->
   ?enforce:string prop ->
-  condition:dry_run_spec__rules__condition list ->
-  values:dry_run_spec__rules__values list ->
+  ?condition:dry_run_spec__rules__condition list ->
+  ?values:dry_run_spec__rules__values list ->
   unit ->
   dry_run_spec__rules
 
@@ -38,7 +38,7 @@ type dry_run_spec
 val dry_run_spec :
   ?inherit_from_parent:bool prop ->
   ?reset:bool prop ->
-  rules:dry_run_spec__rules list ->
+  ?rules:dry_run_spec__rules list ->
   unit ->
   dry_run_spec
 
@@ -66,8 +66,8 @@ val spec__rules :
   ?allow_all:string prop ->
   ?deny_all:string prop ->
   ?enforce:string prop ->
-  condition:spec__rules__condition list ->
-  values:spec__rules__values list ->
+  ?condition:spec__rules__condition list ->
+  ?values:spec__rules__values list ->
   unit ->
   spec__rules
 
@@ -76,7 +76,7 @@ type spec
 val spec :
   ?inherit_from_parent:bool prop ->
   ?reset:bool prop ->
-  rules:spec__rules list ->
+  ?rules:spec__rules list ->
   unit ->
   spec
 
@@ -93,11 +93,11 @@ type google_org_policy_policy
 
 val google_org_policy_policy :
   ?id:string prop ->
+  ?dry_run_spec:dry_run_spec list ->
+  ?spec:spec list ->
   ?timeouts:timeouts ->
   name:string prop ->
   parent:string prop ->
-  dry_run_spec:dry_run_spec list ->
-  spec:spec list ->
   unit ->
   google_org_policy_policy
 
@@ -116,20 +116,20 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?dry_run_spec:dry_run_spec list ->
+  ?spec:spec list ->
   ?timeouts:timeouts ->
   name:string prop ->
   parent:string prop ->
-  dry_run_spec:dry_run_spec list ->
-  spec:spec list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?dry_run_spec:dry_run_spec list ->
+  ?spec:spec list ->
   ?timeouts:timeouts ->
   name:string prop ->
   parent:string prop ->
-  dry_run_spec:dry_run_spec list ->
-  spec:spec list ->
   string ->
   t Tf_core.resource

@@ -224,7 +224,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_vertex_ai_feature_group ?description ?id ?labels ?name
-    ?project ?region ?timeouts ~big_query () :
+    ?project ?region ?(big_query = []) ?timeouts () :
     google_vertex_ai_feature_group =
   {
     description;
@@ -251,8 +251,8 @@ type t = {
   update_time : string prop;
 }
 
-let make ?description ?id ?labels ?name ?project ?region ?timeouts
-    ~big_query __id =
+let make ?description ?id ?labels ?name ?project ?region
+    ?(big_query = []) ?timeouts __id =
   let __type = "google_vertex_ai_feature_group" in
   let __attrs =
     ({
@@ -278,15 +278,15 @@ let make ?description ?id ?labels ?name ?project ?region ?timeouts
     json =
       yojson_of_google_vertex_ai_feature_group
         (google_vertex_ai_feature_group ?description ?id ?labels
-           ?name ?project ?region ?timeouts ~big_query ());
+           ?name ?project ?region ~big_query ?timeouts ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?labels ?name ?project
-    ?region ?timeouts ~big_query __id =
+    ?region ?(big_query = []) ?timeouts __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?labels ?name ?project ?region ?timeouts
-      ~big_query __id
+    make ?description ?id ?labels ?name ?project ?region ~big_query
+      ?timeouts __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

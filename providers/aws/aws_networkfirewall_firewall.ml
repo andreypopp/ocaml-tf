@@ -374,8 +374,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let aws_networkfirewall_firewall ?delete_protection ?description
     ?firewall_policy_change_protection ?id ?subnet_change_protection
-    ?tags ?tags_all ?timeouts ~firewall_policy_arn ~name ~vpc_id
-    ~encryption_configuration ~subnet_mapping () :
+    ?tags ?tags_all ?(encryption_configuration = []) ?timeouts
+    ~firewall_policy_arn ~name ~vpc_id ~subnet_mapping () :
     aws_networkfirewall_firewall =
   {
     delete_protection;
@@ -411,8 +411,8 @@ type t = {
 
 let make ?delete_protection ?description
     ?firewall_policy_change_protection ?id ?subnet_change_protection
-    ?tags ?tags_all ?timeouts ~firewall_policy_arn ~name ~vpc_id
-    ~encryption_configuration ~subnet_mapping __id =
+    ?tags ?tags_all ?(encryption_configuration = []) ?timeouts
+    ~firewall_policy_arn ~name ~vpc_id ~subnet_mapping __id =
   let __type = "aws_networkfirewall_firewall" in
   let __attrs =
     ({
@@ -444,22 +444,22 @@ let make ?delete_protection ?description
       yojson_of_aws_networkfirewall_firewall
         (aws_networkfirewall_firewall ?delete_protection ?description
            ?firewall_policy_change_protection ?id
-           ?subnet_change_protection ?tags ?tags_all ?timeouts
-           ~firewall_policy_arn ~name ~vpc_id
-           ~encryption_configuration ~subnet_mapping ());
+           ?subnet_change_protection ?tags ?tags_all
+           ~encryption_configuration ?timeouts ~firewall_policy_arn
+           ~name ~vpc_id ~subnet_mapping ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?delete_protection ?description
     ?firewall_policy_change_protection ?id ?subnet_change_protection
-    ?tags ?tags_all ?timeouts ~firewall_policy_arn ~name ~vpc_id
-    ~encryption_configuration ~subnet_mapping __id =
+    ?tags ?tags_all ?(encryption_configuration = []) ?timeouts
+    ~firewall_policy_arn ~name ~vpc_id ~subnet_mapping __id =
   let (r : _ Tf_core.resource) =
     make ?delete_protection ?description
       ?firewall_policy_change_protection ?id
-      ?subnet_change_protection ?tags ?tags_all ?timeouts
-      ~firewall_policy_arn ~name ~vpc_id ~encryption_configuration
-      ~subnet_mapping __id
+      ?subnet_change_protection ?tags ?tags_all
+      ~encryption_configuration ?timeouts ~firewall_policy_arn ~name
+      ~vpc_id ~subnet_mapping __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -23,10 +23,10 @@ val destination_nat__frontend_config :
 type destination_nat
 
 val destination_nat :
+  ?backend_config:destination_nat__backend_config list ->
+  ?frontend_config:destination_nat__frontend_config list ->
   name:string prop ->
   protocol:string prop ->
-  backend_config:destination_nat__backend_config list ->
-  frontend_config:destination_nat__frontend_config list ->
   unit ->
   destination_nat
 
@@ -72,12 +72,12 @@ type azurerm_palo_alto_next_generation_firewall_virtual_network_local_rulestack
 val azurerm_palo_alto_next_generation_firewall_virtual_network_local_rulestack :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?destination_nat:destination_nat list ->
+  ?dns_settings:dns_settings list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   rulestack_id:string prop ->
-  destination_nat:destination_nat list ->
-  dns_settings:dns_settings list ->
   network_profile:network_profile list ->
   unit ->
   azurerm_palo_alto_next_generation_firewall_virtual_network_local_rulestack
@@ -100,12 +100,12 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?destination_nat:destination_nat list ->
+  ?dns_settings:dns_settings list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   rulestack_id:string prop ->
-  destination_nat:destination_nat list ->
-  dns_settings:dns_settings list ->
   network_profile:network_profile list ->
   string ->
   t
@@ -113,12 +113,12 @@ val register :
 val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?destination_nat:destination_nat list ->
+  ?dns_settings:dns_settings list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   rulestack_id:string prop ->
-  destination_nat:destination_nat list ->
-  dns_settings:dns_settings list ->
   network_profile:network_profile list ->
   string ->
   t Tf_core.resource

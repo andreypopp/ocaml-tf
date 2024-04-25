@@ -190,8 +190,9 @@ let public_access_block_configuration ?block_public_acls
 let vpc_configuration ~vpc_id () : vpc_configuration = { vpc_id }
 
 let aws_s3_access_point ?account_id ?bucket_account_id ?id ?policy
-    ~bucket ~name ~public_access_block_configuration
-    ~vpc_configuration () : aws_s3_access_point =
+    ?(public_access_block_configuration = [])
+    ?(vpc_configuration = []) ~bucket ~name () : aws_s3_access_point
+    =
   {
     account_id;
     bucket;
@@ -218,8 +219,9 @@ type t = {
   policy : string prop;
 }
 
-let make ?account_id ?bucket_account_id ?id ?policy ~bucket ~name
-    ~public_access_block_configuration ~vpc_configuration __id =
+let make ?account_id ?bucket_account_id ?id ?policy
+    ?(public_access_block_configuration = [])
+    ?(vpc_configuration = []) ~bucket ~name __id =
   let __type = "aws_s3_access_point" in
   let __attrs =
     ({
@@ -246,17 +248,18 @@ let make ?account_id ?bucket_account_id ?id ?policy ~bucket ~name
     json =
       yojson_of_aws_s3_access_point
         (aws_s3_access_point ?account_id ?bucket_account_id ?id
-           ?policy ~bucket ~name ~public_access_block_configuration
-           ~vpc_configuration ());
+           ?policy ~public_access_block_configuration
+           ~vpc_configuration ~bucket ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?account_id ?bucket_account_id ?id ?policy
-    ~bucket ~name ~public_access_block_configuration
-    ~vpc_configuration __id =
+    ?(public_access_block_configuration = [])
+    ?(vpc_configuration = []) ~bucket ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?account_id ?bucket_account_id ?id ?policy ~bucket ~name
-      ~public_access_block_configuration ~vpc_configuration __id
+    make ?account_id ?bucket_account_id ?id ?policy
+      ~public_access_block_configuration ~vpc_configuration ~bucket
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

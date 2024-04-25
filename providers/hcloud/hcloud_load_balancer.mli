@@ -25,9 +25,9 @@ val hcloud_load_balancer :
   ?labels:(string * string prop) list ->
   ?location:string prop ->
   ?network_zone:string prop ->
+  ?algorithm:algorithm list ->
   load_balancer_type:string prop ->
   name:string prop ->
-  algorithm:algorithm list ->
   target:target list ->
   unit ->
   hcloud_load_balancer
@@ -57,9 +57,9 @@ val register :
   ?labels:(string * string prop) list ->
   ?location:string prop ->
   ?network_zone:string prop ->
+  ?algorithm:algorithm list ->
   load_balancer_type:string prop ->
   name:string prop ->
-  algorithm:algorithm list ->
   target:target list ->
   string ->
   t
@@ -70,9 +70,9 @@ val make :
   ?labels:(string * string prop) list ->
   ?location:string prop ->
   ?network_zone:string prop ->
+  ?algorithm:algorithm list ->
   load_balancer_type:string prop ->
   name:string prop ->
-  algorithm:algorithm list ->
   target:target list ->
   string ->
   t Tf_core.resource

@@ -85,13 +85,13 @@ val exclude :
   ?ip_list:string prop list ->
   ?login_method:string prop list ->
   ?service_token:string prop list ->
-  auth_context:exclude__auth_context list ->
-  azure:exclude__azure list ->
-  external_evaluation:exclude__external_evaluation list ->
-  github:exclude__github list ->
-  gsuite:exclude__gsuite list ->
-  okta:exclude__okta list ->
-  saml:exclude__saml list ->
+  ?auth_context:exclude__auth_context list ->
+  ?azure:exclude__azure list ->
+  ?external_evaluation:exclude__external_evaluation list ->
+  ?github:exclude__github list ->
+  ?gsuite:exclude__gsuite list ->
+  ?okta:exclude__okta list ->
+  ?saml:exclude__saml list ->
   unit ->
   exclude
 
@@ -171,13 +171,13 @@ val include_ :
   ?ip_list:string prop list ->
   ?login_method:string prop list ->
   ?service_token:string prop list ->
-  auth_context:include__auth_context list ->
-  azure:include__azure list ->
-  external_evaluation:include__external_evaluation list ->
-  github:include__github list ->
-  gsuite:include__gsuite list ->
-  okta:include__okta list ->
-  saml:include__saml list ->
+  ?auth_context:include__auth_context list ->
+  ?azure:include__azure list ->
+  ?external_evaluation:include__external_evaluation list ->
+  ?github:include__github list ->
+  ?gsuite:include__gsuite list ->
+  ?okta:include__okta list ->
+  ?saml:include__saml list ->
   unit ->
   include_
 
@@ -257,13 +257,13 @@ val require :
   ?ip_list:string prop list ->
   ?login_method:string prop list ->
   ?service_token:string prop list ->
-  auth_context:require__auth_context list ->
-  azure:require__azure list ->
-  external_evaluation:require__external_evaluation list ->
-  github:require__github list ->
-  gsuite:require__gsuite list ->
-  okta:require__okta list ->
-  saml:require__saml list ->
+  ?auth_context:require__auth_context list ->
+  ?azure:require__azure list ->
+  ?external_evaluation:require__external_evaluation list ->
+  ?github:require__github list ->
+  ?gsuite:require__gsuite list ->
+  ?okta:require__okta list ->
+  ?saml:require__saml list ->
   unit ->
   require
 
@@ -273,10 +273,10 @@ val cloudflare_access_group :
   ?account_id:string prop ->
   ?id:string prop ->
   ?zone_id:string prop ->
+  ?exclude:exclude list ->
+  ?require:require list ->
   name:string prop ->
-  exclude:exclude list ->
   include_:include_ list ->
-  require:require list ->
   unit ->
   cloudflare_access_group
 
@@ -297,10 +297,10 @@ val register :
   ?account_id:string prop ->
   ?id:string prop ->
   ?zone_id:string prop ->
+  ?exclude:exclude list ->
+  ?require:require list ->
   name:string prop ->
-  exclude:exclude list ->
   include_:include_ list ->
-  require:require list ->
   string ->
   t
 
@@ -308,9 +308,9 @@ val make :
   ?account_id:string prop ->
   ?id:string prop ->
   ?zone_id:string prop ->
+  ?exclude:exclude list ->
+  ?require:require list ->
   name:string prop ->
-  exclude:exclude list ->
   include_:include_ list ->
-  require:require list ->
   string ->
   t Tf_core.resource

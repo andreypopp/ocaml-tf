@@ -57,7 +57,7 @@ val source :
   ?command_id:string prop ->
   ?script:string prop ->
   ?script_uri:string prop ->
-  script_uri_managed_identity:
+  ?script_uri_managed_identity:
     source__script_uri_managed_identity list ->
   unit ->
   source
@@ -81,14 +81,14 @@ val azurerm_virtual_machine_run_command :
   ?run_as_password:string prop ->
   ?run_as_user:string prop ->
   ?tags:(string * string prop) list ->
+  ?error_blob_managed_identity:error_blob_managed_identity list ->
+  ?output_blob_managed_identity:output_blob_managed_identity list ->
+  ?parameter:parameter list ->
+  ?protected_parameter:protected_parameter list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   virtual_machine_id:string prop ->
-  error_blob_managed_identity:error_blob_managed_identity list ->
-  output_blob_managed_identity:output_blob_managed_identity list ->
-  parameter:parameter list ->
-  protected_parameter:protected_parameter list ->
   source:source list ->
   unit ->
   azurerm_virtual_machine_run_command
@@ -119,14 +119,14 @@ val register :
   ?run_as_password:string prop ->
   ?run_as_user:string prop ->
   ?tags:(string * string prop) list ->
+  ?error_blob_managed_identity:error_blob_managed_identity list ->
+  ?output_blob_managed_identity:output_blob_managed_identity list ->
+  ?parameter:parameter list ->
+  ?protected_parameter:protected_parameter list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   virtual_machine_id:string prop ->
-  error_blob_managed_identity:error_blob_managed_identity list ->
-  output_blob_managed_identity:output_blob_managed_identity list ->
-  parameter:parameter list ->
-  protected_parameter:protected_parameter list ->
   source:source list ->
   string ->
   t
@@ -138,14 +138,14 @@ val make :
   ?run_as_password:string prop ->
   ?run_as_user:string prop ->
   ?tags:(string * string prop) list ->
+  ?error_blob_managed_identity:error_blob_managed_identity list ->
+  ?output_blob_managed_identity:output_blob_managed_identity list ->
+  ?parameter:parameter list ->
+  ?protected_parameter:protected_parameter list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   virtual_machine_id:string prop ->
-  error_blob_managed_identity:error_blob_managed_identity list ->
-  output_blob_managed_identity:output_blob_managed_identity list ->
-  parameter:parameter list ->
-  protected_parameter:protected_parameter list ->
   source:source list ->
   string ->
   t Tf_core.resource

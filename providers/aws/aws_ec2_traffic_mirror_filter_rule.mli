@@ -26,14 +26,14 @@ val aws_ec2_traffic_mirror_filter_rule :
   ?description:string prop ->
   ?id:string prop ->
   ?protocol:float prop ->
+  ?destination_port_range:destination_port_range list ->
+  ?source_port_range:source_port_range list ->
   destination_cidr_block:string prop ->
   rule_action:string prop ->
   rule_number:float prop ->
   source_cidr_block:string prop ->
   traffic_direction:string prop ->
   traffic_mirror_filter_id:string prop ->
-  destination_port_range:destination_port_range list ->
-  source_port_range:source_port_range list ->
   unit ->
   aws_ec2_traffic_mirror_filter_rule
 
@@ -60,14 +60,14 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?protocol:float prop ->
+  ?destination_port_range:destination_port_range list ->
+  ?source_port_range:source_port_range list ->
   destination_cidr_block:string prop ->
   rule_action:string prop ->
   rule_number:float prop ->
   source_cidr_block:string prop ->
   traffic_direction:string prop ->
   traffic_mirror_filter_id:string prop ->
-  destination_port_range:destination_port_range list ->
-  source_port_range:source_port_range list ->
   string ->
   t
 
@@ -75,13 +75,13 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?protocol:float prop ->
+  ?destination_port_range:destination_port_range list ->
+  ?source_port_range:source_port_range list ->
   destination_cidr_block:string prop ->
   rule_action:string prop ->
   rule_number:float prop ->
   source_cidr_block:string prop ->
   traffic_direction:string prop ->
   traffic_mirror_filter_id:string prop ->
-  destination_port_range:destination_port_range list ->
-  source_port_range:source_port_range list ->
   string ->
   t Tf_core.resource

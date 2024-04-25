@@ -315,9 +315,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let aws_verifiedaccess_trust_provider ?description
     ?device_trust_provider_type ?id ?tags ?tags_all
-    ?user_trust_provider_type ?timeouts ~policy_reference_name
-    ~trust_provider_type ~device_options ~oidc_options () :
-    aws_verifiedaccess_trust_provider =
+    ?user_trust_provider_type ?(device_options = [])
+    ?(oidc_options = []) ?timeouts ~policy_reference_name
+    ~trust_provider_type () : aws_verifiedaccess_trust_provider =
   {
     description;
     device_trust_provider_type;
@@ -344,8 +344,9 @@ type t = {
 }
 
 let make ?description ?device_trust_provider_type ?id ?tags ?tags_all
-    ?user_trust_provider_type ?timeouts ~policy_reference_name
-    ~trust_provider_type ~device_options ~oidc_options __id =
+    ?user_trust_provider_type ?(device_options = [])
+    ?(oidc_options = []) ?timeouts ~policy_reference_name
+    ~trust_provider_type __id =
   let __type = "aws_verifiedaccess_trust_provider" in
   let __attrs =
     ({
@@ -371,19 +372,19 @@ let make ?description ?device_trust_provider_type ?id ?tags ?tags_all
       yojson_of_aws_verifiedaccess_trust_provider
         (aws_verifiedaccess_trust_provider ?description
            ?device_trust_provider_type ?id ?tags ?tags_all
-           ?user_trust_provider_type ?timeouts ~policy_reference_name
-           ~trust_provider_type ~device_options ~oidc_options ());
+           ?user_trust_provider_type ~device_options ~oidc_options
+           ?timeouts ~policy_reference_name ~trust_provider_type ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?device_trust_provider_type ?id
-    ?tags ?tags_all ?user_trust_provider_type ?timeouts
-    ~policy_reference_name ~trust_provider_type ~device_options
-    ~oidc_options __id =
+    ?tags ?tags_all ?user_trust_provider_type ?(device_options = [])
+    ?(oidc_options = []) ?timeouts ~policy_reference_name
+    ~trust_provider_type __id =
   let (r : _ Tf_core.resource) =
     make ?description ?device_trust_provider_type ?id ?tags ?tags_all
-      ?user_trust_provider_type ?timeouts ~policy_reference_name
-      ~trust_provider_type ~device_options ~oidc_options __id
+      ?user_trust_provider_type ~device_options ~oidc_options
+      ?timeouts ~policy_reference_name ~trust_provider_type __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

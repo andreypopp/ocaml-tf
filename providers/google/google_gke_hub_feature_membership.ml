@@ -1349,7 +1349,7 @@ let configmanagement__config_sync__oci ?gcp_service_account_email
   }
 
 let configmanagement__config_sync ?metrics_gcp_service_account_email
-    ?prevent_drift ?source_format ~git ~oci () :
+    ?prevent_drift ?source_format ?(git = []) ?(oci = []) () :
     configmanagement__config_sync =
   {
     metrics_gcp_service_account_email;
@@ -1375,7 +1375,7 @@ let configmanagement__policy_controller__monitoring ?backends () :
 let configmanagement__policy_controller ?audit_interval_seconds
     ?enabled ?exemptable_namespaces ?log_denies_enabled
     ?mutation_enabled ?referential_rules_enabled
-    ?template_library_installed ~monitoring () :
+    ?template_library_installed ?(monitoring = []) () :
     configmanagement__policy_controller =
   {
     audit_interval_seconds;
@@ -1388,8 +1388,9 @@ let configmanagement__policy_controller ?audit_interval_seconds
     monitoring;
   }
 
-let configmanagement ?version ~binauthz ~config_sync
-    ~hierarchy_controller ~policy_controller () : configmanagement =
+let configmanagement ?version ?(binauthz = []) ?(config_sync = [])
+    ?(hierarchy_controller = []) ?(policy_controller = []) () :
+    configmanagement =
   {
     version;
     binauthz;
@@ -1414,7 +1415,7 @@ let policycontroller__policy_controller_hub_config__deployment_configs__containe
   { cpu; memory }
 
 let policycontroller__policy_controller_hub_config__deployment_configs__container_resources
-    ~limits ~requests () :
+    ?(limits = []) ?(requests = []) () :
     policycontroller__policy_controller_hub_config__deployment_configs__container_resources
     =
   { limits; requests }
@@ -1426,8 +1427,8 @@ let policycontroller__policy_controller_hub_config__deployment_configs__pod_tole
   { effect; key; operator; value }
 
 let policycontroller__policy_controller_hub_config__deployment_configs
-    ?pod_affinity ?replica_count ~component_name ~container_resources
-    ~pod_tolerations () :
+    ?pod_affinity ?replica_count ?(container_resources = [])
+    ?(pod_tolerations = []) ~component_name () :
     policycontroller__policy_controller_hub_config__deployment_configs
     =
   {
@@ -1456,15 +1457,15 @@ let policycontroller__policy_controller_hub_config__policy_content__template_lib
   { installation }
 
 let policycontroller__policy_controller_hub_config__policy_content
-    ~bundles ~template_library () :
+    ?(template_library = []) ~bundles () :
     policycontroller__policy_controller_hub_config__policy_content =
   { bundles; template_library }
 
 let policycontroller__policy_controller_hub_config
     ?audit_interval_seconds ?constraint_violation_limit
     ?exemptable_namespaces ?install_spec ?log_denies_enabled
-    ?mutation_enabled ?referential_rules_enabled ~deployment_configs
-    ~monitoring ~policy_content () :
+    ?mutation_enabled ?referential_rules_enabled ?(monitoring = [])
+    ?(policy_content = []) ~deployment_configs () :
     policycontroller__policy_controller_hub_config =
   {
     audit_interval_seconds;
@@ -1487,9 +1488,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_gke_hub_feature_membership ?id ?membership_location
-    ?project ?timeouts ~feature ~location ~membership
-    ~configmanagement ~mesh ~policycontroller () :
-    google_gke_hub_feature_membership =
+    ?project ?(configmanagement = []) ?(mesh = [])
+    ?(policycontroller = []) ?timeouts ~feature ~location ~membership
+    () : google_gke_hub_feature_membership =
   {
     feature;
     id;
@@ -1512,9 +1513,9 @@ type t = {
   project : string prop;
 }
 
-let make ?id ?membership_location ?project ?timeouts ~feature
-    ~location ~membership ~configmanagement ~mesh ~policycontroller
-    __id =
+let make ?id ?membership_location ?project ?(configmanagement = [])
+    ?(mesh = []) ?(policycontroller = []) ?timeouts ~feature
+    ~location ~membership __id =
   let __type = "google_gke_hub_feature_membership" in
   let __attrs =
     ({
@@ -1534,18 +1535,17 @@ let make ?id ?membership_location ?project ?timeouts ~feature
     json =
       yojson_of_google_gke_hub_feature_membership
         (google_gke_hub_feature_membership ?id ?membership_location
-           ?project ?timeouts ~feature ~location ~membership
-           ~configmanagement ~mesh ~policycontroller ());
+           ?project ~configmanagement ~mesh ~policycontroller
+           ?timeouts ~feature ~location ~membership ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?membership_location ?project ?timeouts
-    ~feature ~location ~membership ~configmanagement ~mesh
-    ~policycontroller __id =
+let register ?tf_module ?id ?membership_location ?project
+    ?(configmanagement = []) ?(mesh = []) ?(policycontroller = [])
+    ?timeouts ~feature ~location ~membership __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?membership_location ?project ?timeouts ~feature
-      ~location ~membership ~configmanagement ~mesh ~policycontroller
-      __id
+    make ?id ?membership_location ?project ~configmanagement ~mesh
+      ~policycontroller ?timeouts ~feature ~location ~membership __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

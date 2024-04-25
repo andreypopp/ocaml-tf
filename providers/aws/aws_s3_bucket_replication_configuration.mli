@@ -33,8 +33,8 @@ val rule__destination__metrics__event_threshold :
 type rule__destination__metrics
 
 val rule__destination__metrics :
+  ?event_threshold:rule__destination__metrics__event_threshold list ->
   status:string prop ->
-  event_threshold:rule__destination__metrics__event_threshold list ->
   unit ->
   rule__destination__metrics
 
@@ -58,13 +58,13 @@ type rule__destination
 val rule__destination :
   ?account:string prop ->
   ?storage_class:string prop ->
-  bucket:string prop ->
-  access_control_translation:
+  ?access_control_translation:
     rule__destination__access_control_translation list ->
-  encryption_configuration:
+  ?encryption_configuration:
     rule__destination__encryption_configuration list ->
-  metrics:rule__destination__metrics list ->
-  replication_time:rule__destination__replication_time list ->
+  ?metrics:rule__destination__metrics list ->
+  ?replication_time:rule__destination__replication_time list ->
+  bucket:string prop ->
   unit ->
   rule__destination
 
@@ -90,8 +90,8 @@ type rule__filter
 
 val rule__filter :
   ?prefix:string prop ->
-  and_:rule__filter__and list ->
-  tag:rule__filter__tag list ->
+  ?and_:rule__filter__and list ->
+  ?tag:rule__filter__tag list ->
   unit ->
   rule__filter
 
@@ -112,9 +112,9 @@ val rule__source_selection_criteria__sse_kms_encrypted_objects :
 type rule__source_selection_criteria
 
 val rule__source_selection_criteria :
-  replica_modifications:
+  ?replica_modifications:
     rule__source_selection_criteria__replica_modifications list ->
-  sse_kms_encrypted_objects:
+  ?sse_kms_encrypted_objects:
     rule__source_selection_criteria__sse_kms_encrypted_objects list ->
   unit ->
   rule__source_selection_criteria
@@ -125,12 +125,12 @@ val rule :
   ?id:string prop ->
   ?prefix:string prop ->
   ?priority:float prop ->
+  ?delete_marker_replication:rule__delete_marker_replication list ->
+  ?existing_object_replication:rule__existing_object_replication list ->
+  ?filter:rule__filter list ->
+  ?source_selection_criteria:rule__source_selection_criteria list ->
   status:string prop ->
-  delete_marker_replication:rule__delete_marker_replication list ->
   destination:rule__destination list ->
-  existing_object_replication:rule__existing_object_replication list ->
-  filter:rule__filter list ->
-  source_selection_criteria:rule__source_selection_criteria list ->
   unit ->
   rule
 

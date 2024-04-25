@@ -30,10 +30,10 @@ val aws_medialive_multiplex :
   ?start_multiplex:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?multiplex_settings:multiplex_settings list ->
   ?timeouts:timeouts ->
   availability_zones:string prop list ->
   name:string prop ->
-  multiplex_settings:multiplex_settings list ->
   unit ->
   aws_medialive_multiplex
 
@@ -58,10 +58,10 @@ val register :
   ?start_multiplex:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?multiplex_settings:multiplex_settings list ->
   ?timeouts:timeouts ->
   availability_zones:string prop list ->
   name:string prop ->
-  multiplex_settings:multiplex_settings list ->
   string ->
   t
 
@@ -70,9 +70,9 @@ val make :
   ?start_multiplex:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?multiplex_settings:multiplex_settings list ->
   ?timeouts:timeouts ->
   availability_zones:string prop list ->
   name:string prop ->
-  multiplex_settings:multiplex_settings list ->
   string ->
   t Tf_core.resource

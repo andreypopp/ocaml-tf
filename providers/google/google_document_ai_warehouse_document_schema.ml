@@ -955,10 +955,12 @@ let property_definitions__property_type_options__property_definitions__timestamp
 
 let property_definitions__property_type_options__property_definitions
     ?display_name ?is_filterable ?is_metadata ?is_repeatable
-    ?is_required ?is_searchable ?retrieval_importance ~name
-    ~date_time_type_options ~enum_type_options ~float_type_options
-    ~integer_type_options ~map_type_options ~schema_sources
-    ~text_type_options ~timestamp_type_options () :
+    ?is_required ?is_searchable ?retrieval_importance
+    ?(date_time_type_options = []) ?(enum_type_options = [])
+    ?(float_type_options = []) ?(integer_type_options = [])
+    ?(map_type_options = []) ?(schema_sources = [])
+    ?(text_type_options = []) ?(timestamp_type_options = []) ~name ()
+    :
     property_definitions__property_type_options__property_definitions
     =
   {
@@ -993,10 +995,11 @@ let property_definitions__timestamp_type_options () = ()
 
 let property_definitions ?display_name ?is_filterable ?is_metadata
     ?is_repeatable ?is_required ?is_searchable ?retrieval_importance
-    ~name ~date_time_type_options ~enum_type_options
-    ~float_type_options ~integer_type_options ~map_type_options
-    ~property_type_options ~schema_sources ~text_type_options
-    ~timestamp_type_options () : property_definitions =
+    ?(date_time_type_options = []) ?(enum_type_options = [])
+    ?(float_type_options = []) ?(integer_type_options = [])
+    ?(map_type_options = []) ?(property_type_options = [])
+    ?(schema_sources = []) ?(text_type_options = [])
+    ?(timestamp_type_options = []) ~name () : property_definitions =
   {
     display_name;
     is_filterable;

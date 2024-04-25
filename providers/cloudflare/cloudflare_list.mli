@@ -31,8 +31,8 @@ type item__value
 val item__value :
   ?asn:float prop ->
   ?ip:string prop ->
-  hostname:item__value__hostname list ->
-  redirect:item__value__redirect list ->
+  ?hostname:item__value__hostname list ->
+  ?redirect:item__value__redirect list ->
   unit ->
   item__value
 

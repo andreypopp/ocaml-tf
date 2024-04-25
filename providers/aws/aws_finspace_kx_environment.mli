@@ -40,27 +40,27 @@ val transit_gateway_configuration__attachment_network_acl_configuration__port_ra
 type transit_gateway_configuration__attachment_network_acl_configuration
 
 val transit_gateway_configuration__attachment_network_acl_configuration :
+  ?icmp_type_code:
+    transit_gateway_configuration__attachment_network_acl_configuration__icmp_type_code
+    list ->
+  ?port_range:
+    transit_gateway_configuration__attachment_network_acl_configuration__port_range
+    list ->
   cidr_block:string prop ->
   protocol:string prop ->
   rule_action:string prop ->
   rule_number:float prop ->
-  icmp_type_code:
-    transit_gateway_configuration__attachment_network_acl_configuration__icmp_type_code
-    list ->
-  port_range:
-    transit_gateway_configuration__attachment_network_acl_configuration__port_range
-    list ->
   unit ->
   transit_gateway_configuration__attachment_network_acl_configuration
 
 type transit_gateway_configuration
 
 val transit_gateway_configuration :
-  routable_cidr_space:string prop ->
-  transit_gateway_id:string prop ->
-  attachment_network_acl_configuration:
+  ?attachment_network_acl_configuration:
     transit_gateway_configuration__attachment_network_acl_configuration
     list ->
+  routable_cidr_space:string prop ->
+  transit_gateway_id:string prop ->
   unit ->
   transit_gateway_configuration
 
@@ -70,11 +70,11 @@ val aws_finspace_kx_environment :
   ?description:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?custom_dns_configuration:custom_dns_configuration list ->
   ?timeouts:timeouts ->
+  ?transit_gateway_configuration:transit_gateway_configuration list ->
   kms_key_id:string prop ->
   name:string prop ->
-  custom_dns_configuration:custom_dns_configuration list ->
-  transit_gateway_configuration:transit_gateway_configuration list ->
   unit ->
   aws_finspace_kx_environment
 
@@ -103,11 +103,11 @@ val register :
   ?description:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?custom_dns_configuration:custom_dns_configuration list ->
   ?timeouts:timeouts ->
+  ?transit_gateway_configuration:transit_gateway_configuration list ->
   kms_key_id:string prop ->
   name:string prop ->
-  custom_dns_configuration:custom_dns_configuration list ->
-  transit_gateway_configuration:transit_gateway_configuration list ->
   string ->
   t
 
@@ -115,10 +115,10 @@ val make :
   ?description:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?custom_dns_configuration:custom_dns_configuration list ->
   ?timeouts:timeouts ->
+  ?transit_gateway_configuration:transit_gateway_configuration list ->
   kms_key_id:string prop ->
   name:string prop ->
-  custom_dns_configuration:custom_dns_configuration list ->
-  transit_gateway_configuration:transit_gateway_configuration list ->
   string ->
   t Tf_core.resource

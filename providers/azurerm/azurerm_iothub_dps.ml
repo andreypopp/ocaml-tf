@@ -336,9 +336,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_iothub_dps ?allocation_policy ?data_residency_enabled ?id
-    ?public_network_access_enabled ?tags ?timeouts ~location ~name
-    ~resource_group_name ~ip_filter_rule ~linked_hub ~sku () :
-    azurerm_iothub_dps =
+    ?public_network_access_enabled ?tags ?(ip_filter_rule = [])
+    ?(linked_hub = []) ?timeouts ~location ~name ~resource_group_name
+    ~sku () : azurerm_iothub_dps =
   {
     allocation_policy;
     data_residency_enabled;
@@ -369,8 +369,9 @@ type t = {
 }
 
 let make ?allocation_policy ?data_residency_enabled ?id
-    ?public_network_access_enabled ?tags ?timeouts ~location ~name
-    ~resource_group_name ~ip_filter_rule ~linked_hub ~sku __id =
+    ?public_network_access_enabled ?tags ?(ip_filter_rule = [])
+    ?(linked_hub = []) ?timeouts ~location ~name ~resource_group_name
+    ~sku __id =
   let __type = "azurerm_iothub_dps" in
   let __attrs =
     ({
@@ -401,19 +402,20 @@ let make ?allocation_policy ?data_residency_enabled ?id
       yojson_of_azurerm_iothub_dps
         (azurerm_iothub_dps ?allocation_policy
            ?data_residency_enabled ?id ?public_network_access_enabled
-           ?tags ?timeouts ~location ~name ~resource_group_name
-           ~ip_filter_rule ~linked_hub ~sku ());
+           ?tags ~ip_filter_rule ~linked_hub ?timeouts ~location
+           ~name ~resource_group_name ~sku ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?allocation_policy ?data_residency_enabled
-    ?id ?public_network_access_enabled ?tags ?timeouts ~location
-    ~name ~resource_group_name ~ip_filter_rule ~linked_hub ~sku __id
-    =
+    ?id ?public_network_access_enabled ?tags ?(ip_filter_rule = [])
+    ?(linked_hub = []) ?timeouts ~location ~name ~resource_group_name
+    ~sku __id =
   let (r : _ Tf_core.resource) =
     make ?allocation_policy ?data_residency_enabled ?id
-      ?public_network_access_enabled ?tags ?timeouts ~location ~name
-      ~resource_group_name ~ip_filter_rule ~linked_hub ~sku __id
+      ?public_network_access_enabled ?tags ~ip_filter_rule
+      ~linked_hub ?timeouts ~location ~name ~resource_group_name ~sku
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

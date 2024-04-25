@@ -52,12 +52,12 @@ val google_cloud_tasks_queue :
   ?id:string prop ->
   ?name:string prop ->
   ?project:string prop ->
+  ?app_engine_routing_override:app_engine_routing_override list ->
+  ?rate_limits:rate_limits list ->
+  ?retry_config:retry_config list ->
+  ?stackdriver_logging_config:stackdriver_logging_config list ->
   ?timeouts:timeouts ->
   location:string prop ->
-  app_engine_routing_override:app_engine_routing_override list ->
-  rate_limits:rate_limits list ->
-  retry_config:retry_config list ->
-  stackdriver_logging_config:stackdriver_logging_config list ->
   unit ->
   google_cloud_tasks_queue
 
@@ -78,12 +78,12 @@ val register :
   ?id:string prop ->
   ?name:string prop ->
   ?project:string prop ->
+  ?app_engine_routing_override:app_engine_routing_override list ->
+  ?rate_limits:rate_limits list ->
+  ?retry_config:retry_config list ->
+  ?stackdriver_logging_config:stackdriver_logging_config list ->
   ?timeouts:timeouts ->
   location:string prop ->
-  app_engine_routing_override:app_engine_routing_override list ->
-  rate_limits:rate_limits list ->
-  retry_config:retry_config list ->
-  stackdriver_logging_config:stackdriver_logging_config list ->
   string ->
   t
 
@@ -91,11 +91,11 @@ val make :
   ?id:string prop ->
   ?name:string prop ->
   ?project:string prop ->
+  ?app_engine_routing_override:app_engine_routing_override list ->
+  ?rate_limits:rate_limits list ->
+  ?retry_config:retry_config list ->
+  ?stackdriver_logging_config:stackdriver_logging_config list ->
   ?timeouts:timeouts ->
   location:string prop ->
-  app_engine_routing_override:app_engine_routing_override list ->
-  rate_limits:rate_limits list ->
-  retry_config:retry_config list ->
-  stackdriver_logging_config:stackdriver_logging_config list ->
   string ->
   t Tf_core.resource

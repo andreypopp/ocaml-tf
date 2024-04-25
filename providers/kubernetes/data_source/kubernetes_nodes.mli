@@ -67,7 +67,7 @@ type kubernetes_nodes
 
 val kubernetes_nodes :
   ?id:string prop ->
-  metadata:metadata list ->
+  ?metadata:metadata list ->
   unit ->
   kubernetes_nodes
 
@@ -80,12 +80,12 @@ type t = private { id : string prop; nodes : nodes list prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  metadata:metadata list ->
+  ?metadata:metadata list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  metadata:metadata list ->
+  ?metadata:metadata list ->
   string ->
   t Tf_core.resource

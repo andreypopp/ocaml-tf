@@ -228,9 +228,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let ttl_config () = ()
 
-let google_firestore_field ?database ?id ?project ?timeouts
-    ~collection ~field ~index_config ~ttl_config () :
-    google_firestore_field =
+let google_firestore_field ?database ?id ?project
+    ?(index_config = []) ?timeouts ?(ttl_config = []) ~collection
+    ~field () : google_firestore_field =
   {
     collection;
     database;
@@ -251,8 +251,8 @@ type t = {
   project : string prop;
 }
 
-let make ?database ?id ?project ?timeouts ~collection ~field
-    ~index_config ~ttl_config __id =
+let make ?database ?id ?project ?(index_config = []) ?timeouts
+    ?(ttl_config = []) ~collection ~field __id =
   let __type = "google_firestore_field" in
   let __attrs =
     ({
@@ -270,16 +270,16 @@ let make ?database ?id ?project ?timeouts ~collection ~field
     type_ = __type;
     json =
       yojson_of_google_firestore_field
-        (google_firestore_field ?database ?id ?project ?timeouts
-           ~collection ~field ~index_config ~ttl_config ());
+        (google_firestore_field ?database ?id ?project ~index_config
+           ?timeouts ~ttl_config ~collection ~field ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?database ?id ?project ?timeouts ~collection
-    ~field ~index_config ~ttl_config __id =
+let register ?tf_module ?database ?id ?project ?(index_config = [])
+    ?timeouts ?(ttl_config = []) ~collection ~field __id =
   let (r : _ Tf_core.resource) =
-    make ?database ?id ?project ?timeouts ~collection ~field
-      ~index_config ~ttl_config __id
+    make ?database ?id ?project ~index_config ?timeouts ~ttl_config
+      ~collection ~field __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

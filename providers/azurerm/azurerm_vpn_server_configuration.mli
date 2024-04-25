@@ -71,8 +71,8 @@ val radius__server_root_certificate :
 type radius
 
 val radius :
+  ?server:radius__server list ->
   client_root_certificate:radius__client_root_certificate list ->
-  server:radius__server list ->
   server_root_certificate:radius__server_root_certificate list ->
   unit ->
   radius
@@ -93,17 +93,17 @@ val azurerm_vpn_server_configuration :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?vpn_protocols:string prop list ->
+  ?azure_active_directory_authentication:
+    azure_active_directory_authentication list ->
+  ?ipsec_policy:ipsec_policy list ->
+  ?radius:radius list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   vpn_authentication_types:string prop list ->
-  azure_active_directory_authentication:
-    azure_active_directory_authentication list ->
   client_revoked_certificate:client_revoked_certificate list ->
   client_root_certificate:client_root_certificate list ->
-  ipsec_policy:ipsec_policy list ->
-  radius:radius list ->
   unit ->
   azurerm_vpn_server_configuration
 
@@ -127,17 +127,17 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?vpn_protocols:string prop list ->
+  ?azure_active_directory_authentication:
+    azure_active_directory_authentication list ->
+  ?ipsec_policy:ipsec_policy list ->
+  ?radius:radius list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   vpn_authentication_types:string prop list ->
-  azure_active_directory_authentication:
-    azure_active_directory_authentication list ->
   client_revoked_certificate:client_revoked_certificate list ->
   client_root_certificate:client_root_certificate list ->
-  ipsec_policy:ipsec_policy list ->
-  radius:radius list ->
   string ->
   t
 
@@ -145,16 +145,16 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?vpn_protocols:string prop list ->
+  ?azure_active_directory_authentication:
+    azure_active_directory_authentication list ->
+  ?ipsec_policy:ipsec_policy list ->
+  ?radius:radius list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   vpn_authentication_types:string prop list ->
-  azure_active_directory_authentication:
-    azure_active_directory_authentication list ->
   client_revoked_certificate:client_revoked_certificate list ->
   client_root_certificate:client_root_certificate list ->
-  ipsec_policy:ipsec_policy list ->
-  radius:radius list ->
   string ->
   t Tf_core.resource

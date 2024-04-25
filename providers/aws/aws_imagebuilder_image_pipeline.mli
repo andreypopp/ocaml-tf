@@ -16,7 +16,7 @@ type image_scanning_configuration
 
 val image_scanning_configuration :
   ?image_scanning_enabled:bool prop ->
-  ecr_configuration:
+  ?ecr_configuration:
     image_scanning_configuration__ecr_configuration list ->
   unit ->
   image_scanning_configuration
@@ -50,11 +50,11 @@ val aws_imagebuilder_image_pipeline :
   ?status:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?image_scanning_configuration:image_scanning_configuration list ->
+  ?image_tests_configuration:image_tests_configuration list ->
+  ?schedule:schedule list ->
   infrastructure_configuration_arn:string prop ->
   name:string prop ->
-  image_scanning_configuration:image_scanning_configuration list ->
-  image_tests_configuration:image_tests_configuration list ->
-  schedule:schedule list ->
   unit ->
   aws_imagebuilder_image_pipeline
 
@@ -94,11 +94,11 @@ val register :
   ?status:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?image_scanning_configuration:image_scanning_configuration list ->
+  ?image_tests_configuration:image_tests_configuration list ->
+  ?schedule:schedule list ->
   infrastructure_configuration_arn:string prop ->
   name:string prop ->
-  image_scanning_configuration:image_scanning_configuration list ->
-  image_tests_configuration:image_tests_configuration list ->
-  schedule:schedule list ->
   string ->
   t
 
@@ -112,10 +112,10 @@ val make :
   ?status:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?image_scanning_configuration:image_scanning_configuration list ->
+  ?image_tests_configuration:image_tests_configuration list ->
+  ?schedule:schedule list ->
   infrastructure_configuration_arn:string prop ->
   name:string prop ->
-  image_scanning_configuration:image_scanning_configuration list ->
-  image_tests_configuration:image_tests_configuration list ->
-  schedule:schedule list ->
   string ->
   t Tf_core.resource

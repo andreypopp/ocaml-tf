@@ -164,8 +164,8 @@ let role_mapping__mapping_rule ~claim ~match_type ~role_arn ~value ()
     : role_mapping__mapping_rule =
   { claim; match_type; role_arn; value }
 
-let role_mapping ?ambiguous_role_resolution ~identity_provider ~type_
-    ~mapping_rule () : role_mapping =
+let role_mapping ?ambiguous_role_resolution ?(mapping_rule = [])
+    ~identity_provider ~type_ () : role_mapping =
   {
     ambiguous_role_resolution;
     identity_provider;

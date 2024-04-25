@@ -293,8 +293,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_spring_cloud_configuration_service ?generation ?id
-    ?refresh_interval_in_seconds ?timeouts ~name
-    ~spring_cloud_service_id ~repository () :
+    ?refresh_interval_in_seconds ?(repository = []) ?timeouts ~name
+    ~spring_cloud_service_id () :
     azurerm_spring_cloud_configuration_service =
   {
     generation;
@@ -314,8 +314,9 @@ type t = {
   spring_cloud_service_id : string prop;
 }
 
-let make ?generation ?id ?refresh_interval_in_seconds ?timeouts ~name
-    ~spring_cloud_service_id ~repository __id =
+let make ?generation ?id ?refresh_interval_in_seconds
+    ?(repository = []) ?timeouts ~name ~spring_cloud_service_id __id
+    =
   let __type = "azurerm_spring_cloud_configuration_service" in
   let __attrs =
     ({
@@ -335,16 +336,17 @@ let make ?generation ?id ?refresh_interval_in_seconds ?timeouts ~name
     json =
       yojson_of_azurerm_spring_cloud_configuration_service
         (azurerm_spring_cloud_configuration_service ?generation ?id
-           ?refresh_interval_in_seconds ?timeouts ~name
-           ~spring_cloud_service_id ~repository ());
+           ?refresh_interval_in_seconds ~repository ?timeouts ~name
+           ~spring_cloud_service_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?generation ?id ?refresh_interval_in_seconds
-    ?timeouts ~name ~spring_cloud_service_id ~repository __id =
+    ?(repository = []) ?timeouts ~name ~spring_cloud_service_id __id
+    =
   let (r : _ Tf_core.resource) =
-    make ?generation ?id ?refresh_interval_in_seconds ?timeouts ~name
-      ~spring_cloud_service_id ~repository __id
+    make ?generation ?id ?refresh_interval_in_seconds ~repository
+      ?timeouts ~name ~spring_cloud_service_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

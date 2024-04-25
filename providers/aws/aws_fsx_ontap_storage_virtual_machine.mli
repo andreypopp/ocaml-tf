@@ -47,7 +47,7 @@ type active_directory_configuration
 
 val active_directory_configuration :
   ?netbios_name:string prop ->
-  self_managed_active_directory_configuration:
+  ?self_managed_active_directory_configuration:
     active_directory_configuration__self_managed_active_directory_configuration
     list ->
   unit ->
@@ -70,10 +70,10 @@ val aws_fsx_ontap_storage_virtual_machine :
   ?svm_admin_password:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?active_directory_configuration:active_directory_configuration list ->
   ?timeouts:timeouts ->
   file_system_id:string prop ->
   name:string prop ->
-  active_directory_configuration:active_directory_configuration list ->
   unit ->
   aws_fsx_ontap_storage_virtual_machine
 
@@ -103,10 +103,10 @@ val register :
   ?svm_admin_password:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?active_directory_configuration:active_directory_configuration list ->
   ?timeouts:timeouts ->
   file_system_id:string prop ->
   name:string prop ->
-  active_directory_configuration:active_directory_configuration list ->
   string ->
   t
 
@@ -116,9 +116,9 @@ val make :
   ?svm_admin_password:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?active_directory_configuration:active_directory_configuration list ->
   ?timeouts:timeouts ->
   file_system_id:string prop ->
   name:string prop ->
-  active_directory_configuration:active_directory_configuration list ->
   string ->
   t Tf_core.resource

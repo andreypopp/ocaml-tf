@@ -263,9 +263,10 @@ let azurerm_virtual_machine_scale_set_extension
     ?auto_upgrade_minor_version ?automatic_upgrade_enabled
     ?failure_suppression_enabled ?force_update_tag ?id
     ?protected_settings ?provision_after_extensions ?settings
-    ?timeouts ~name ~publisher ~type_ ~type_handler_version
-    ~virtual_machine_scale_set_id ~protected_settings_from_key_vault
-    () : azurerm_virtual_machine_scale_set_extension =
+    ?(protected_settings_from_key_vault = []) ?timeouts ~name
+    ~publisher ~type_ ~type_handler_version
+    ~virtual_machine_scale_set_id () :
+    azurerm_virtual_machine_scale_set_extension =
   {
     auto_upgrade_minor_version;
     automatic_upgrade_enabled;
@@ -303,9 +304,9 @@ type t = {
 let make ?auto_upgrade_minor_version ?automatic_upgrade_enabled
     ?failure_suppression_enabled ?force_update_tag ?id
     ?protected_settings ?provision_after_extensions ?settings
-    ?timeouts ~name ~publisher ~type_ ~type_handler_version
-    ~virtual_machine_scale_set_id ~protected_settings_from_key_vault
-    __id =
+    ?(protected_settings_from_key_vault = []) ?timeouts ~name
+    ~publisher ~type_ ~type_handler_version
+    ~virtual_machine_scale_set_id __id =
   let __type = "azurerm_virtual_machine_scale_set_extension" in
   let __attrs =
     ({
@@ -342,25 +343,25 @@ let make ?auto_upgrade_minor_version ?automatic_upgrade_enabled
            ?auto_upgrade_minor_version ?automatic_upgrade_enabled
            ?failure_suppression_enabled ?force_update_tag ?id
            ?protected_settings ?provision_after_extensions ?settings
-           ?timeouts ~name ~publisher ~type_ ~type_handler_version
-           ~virtual_machine_scale_set_id
-           ~protected_settings_from_key_vault ());
+           ~protected_settings_from_key_vault ?timeouts ~name
+           ~publisher ~type_ ~type_handler_version
+           ~virtual_machine_scale_set_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_upgrade_minor_version
     ?automatic_upgrade_enabled ?failure_suppression_enabled
     ?force_update_tag ?id ?protected_settings
-    ?provision_after_extensions ?settings ?timeouts ~name ~publisher
-    ~type_ ~type_handler_version ~virtual_machine_scale_set_id
-    ~protected_settings_from_key_vault __id =
+    ?provision_after_extensions ?settings
+    ?(protected_settings_from_key_vault = []) ?timeouts ~name
+    ~publisher ~type_ ~type_handler_version
+    ~virtual_machine_scale_set_id __id =
   let (r : _ Tf_core.resource) =
     make ?auto_upgrade_minor_version ?automatic_upgrade_enabled
       ?failure_suppression_enabled ?force_update_tag ?id
       ?protected_settings ?provision_after_extensions ?settings
-      ?timeouts ~name ~publisher ~type_ ~type_handler_version
-      ~virtual_machine_scale_set_id
-      ~protected_settings_from_key_vault __id
+      ~protected_settings_from_key_vault ?timeouts ~name ~publisher
+      ~type_ ~type_handler_version ~virtual_machine_scale_set_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

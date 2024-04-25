@@ -831,9 +831,10 @@ let website ?main_page_suffix ?not_found_page () : website =
 let google_storage_bucket ?default_event_based_hold
     ?enable_object_retention ?force_destroy ?id ?labels ?project
     ?public_access_prevention ?requester_pays ?rpo ?storage_class
-    ?uniform_bucket_level_access ?timeouts ~location ~name ~autoclass
-    ~cors ~custom_placement_config ~encryption ~lifecycle_rule
-    ~logging ~retention_policy ~versioning ~website () :
+    ?uniform_bucket_level_access ?(autoclass = []) ?(cors = [])
+    ?(custom_placement_config = []) ?(encryption = [])
+    ?(lifecycle_rule = []) ?(logging = []) ?(retention_policy = [])
+    ?timeouts ?(versioning = []) ?(website = []) ~location ~name () :
     google_storage_bucket =
   {
     default_event_based_hold;
@@ -884,9 +885,10 @@ type t = {
 let make ?default_event_based_hold ?enable_object_retention
     ?force_destroy ?id ?labels ?project ?public_access_prevention
     ?requester_pays ?rpo ?storage_class ?uniform_bucket_level_access
-    ?timeouts ~location ~name ~autoclass ~cors
-    ~custom_placement_config ~encryption ~lifecycle_rule ~logging
-    ~retention_policy ~versioning ~website __id =
+    ?(autoclass = []) ?(cors = []) ?(custom_placement_config = [])
+    ?(encryption = []) ?(lifecycle_rule = []) ?(logging = [])
+    ?(retention_policy = []) ?timeouts ?(versioning = [])
+    ?(website = []) ~location ~name __id =
   let __type = "google_storage_bucket" in
   let __attrs =
     ({
@@ -924,27 +926,29 @@ let make ?default_event_based_hold ?enable_object_retention
         (google_storage_bucket ?default_event_based_hold
            ?enable_object_retention ?force_destroy ?id ?labels
            ?project ?public_access_prevention ?requester_pays ?rpo
-           ?storage_class ?uniform_bucket_level_access ?timeouts
-           ~location ~name ~autoclass ~cors ~custom_placement_config
-           ~encryption ~lifecycle_rule ~logging ~retention_policy
-           ~versioning ~website ());
+           ?storage_class ?uniform_bucket_level_access ~autoclass
+           ~cors ~custom_placement_config ~encryption ~lifecycle_rule
+           ~logging ~retention_policy ?timeouts ~versioning ~website
+           ~location ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?default_event_based_hold
     ?enable_object_retention ?force_destroy ?id ?labels ?project
     ?public_access_prevention ?requester_pays ?rpo ?storage_class
-    ?uniform_bucket_level_access ?timeouts ~location ~name ~autoclass
-    ~cors ~custom_placement_config ~encryption ~lifecycle_rule
-    ~logging ~retention_policy ~versioning ~website __id =
+    ?uniform_bucket_level_access ?(autoclass = []) ?(cors = [])
+    ?(custom_placement_config = []) ?(encryption = [])
+    ?(lifecycle_rule = []) ?(logging = []) ?(retention_policy = [])
+    ?timeouts ?(versioning = []) ?(website = []) ~location ~name __id
+    =
   let (r : _ Tf_core.resource) =
     make ?default_event_based_hold ?enable_object_retention
       ?force_destroy ?id ?labels ?project ?public_access_prevention
       ?requester_pays ?rpo ?storage_class
-      ?uniform_bucket_level_access ?timeouts ~location ~name
-      ~autoclass ~cors ~custom_placement_config ~encryption
-      ~lifecycle_rule ~logging ~retention_policy ~versioning ~website
-      __id
+      ?uniform_bucket_level_access ~autoclass ~cors
+      ~custom_placement_config ~encryption ~lifecycle_rule ~logging
+      ~retention_policy ?timeouts ~versioning ~website ~location
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

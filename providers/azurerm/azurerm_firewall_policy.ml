@@ -791,8 +791,8 @@ let insights__log_analytics_workspace ~firewall_location ~id () :
     insights__log_analytics_workspace =
   { firewall_location; id }
 
-let insights ?retention_in_days ~default_log_analytics_workspace_id
-    ~enabled ~log_analytics_workspace () : insights =
+let insights ?retention_in_days ?(log_analytics_workspace = [])
+    ~default_log_analytics_workspace_id ~enabled () : insights =
   {
     default_log_analytics_workspace_id;
     enabled;
@@ -819,8 +819,9 @@ let intrusion_detection__traffic_bypass ?description
     source_ip_groups;
   }
 
-let intrusion_detection ?mode ?private_ranges ~signature_overrides
-    ~traffic_bypass () : intrusion_detection =
+let intrusion_detection ?mode ?private_ranges
+    ?(signature_overrides = []) ?(traffic_bypass = []) () :
+    intrusion_detection =
   { mode; private_ranges; signature_overrides; traffic_bypass }
 
 let threat_intelligence_allowlist ?fqdns ?ip_addresses () :
@@ -835,10 +836,11 @@ let tls_certificate ~key_vault_secret_id ~name () : tls_certificate =
 
 let azurerm_firewall_policy ?auto_learn_private_ranges_enabled
     ?base_policy_id ?id ?private_ip_ranges ?sku ?sql_redirect_allowed
-    ?tags ?threat_intelligence_mode ?timeouts ~location ~name
-    ~resource_group_name ~dns ~explicit_proxy ~identity ~insights
-    ~intrusion_detection ~threat_intelligence_allowlist
-    ~tls_certificate () : azurerm_firewall_policy =
+    ?tags ?threat_intelligence_mode ?(dns = [])
+    ?(explicit_proxy = []) ?(identity = []) ?(insights = [])
+    ?(intrusion_detection = []) ?(threat_intelligence_allowlist = [])
+    ?timeouts ?(tls_certificate = []) ~location ~name
+    ~resource_group_name () : azurerm_firewall_policy =
   {
     auto_learn_private_ranges_enabled;
     base_policy_id;
@@ -880,10 +882,11 @@ type t = {
 
 let make ?auto_learn_private_ranges_enabled ?base_policy_id ?id
     ?private_ip_ranges ?sku ?sql_redirect_allowed ?tags
-    ?threat_intelligence_mode ?timeouts ~location ~name
-    ~resource_group_name ~dns ~explicit_proxy ~identity ~insights
-    ~intrusion_detection ~threat_intelligence_allowlist
-    ~tls_certificate __id =
+    ?threat_intelligence_mode ?(dns = []) ?(explicit_proxy = [])
+    ?(identity = []) ?(insights = []) ?(intrusion_detection = [])
+    ?(threat_intelligence_allowlist = []) ?timeouts
+    ?(tls_certificate = []) ~location ~name ~resource_group_name __id
+    =
   let __type = "azurerm_firewall_policy" in
   let __attrs =
     ({
@@ -918,26 +921,27 @@ let make ?auto_learn_private_ranges_enabled ?base_policy_id ?id
       yojson_of_azurerm_firewall_policy
         (azurerm_firewall_policy ?auto_learn_private_ranges_enabled
            ?base_policy_id ?id ?private_ip_ranges ?sku
-           ?sql_redirect_allowed ?tags ?threat_intelligence_mode
-           ?timeouts ~location ~name ~resource_group_name ~dns
+           ?sql_redirect_allowed ?tags ?threat_intelligence_mode ~dns
            ~explicit_proxy ~identity ~insights ~intrusion_detection
-           ~threat_intelligence_allowlist ~tls_certificate ());
+           ~threat_intelligence_allowlist ?timeouts ~tls_certificate
+           ~location ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_learn_private_ranges_enabled
     ?base_policy_id ?id ?private_ip_ranges ?sku ?sql_redirect_allowed
-    ?tags ?threat_intelligence_mode ?timeouts ~location ~name
-    ~resource_group_name ~dns ~explicit_proxy ~identity ~insights
-    ~intrusion_detection ~threat_intelligence_allowlist
-    ~tls_certificate __id =
+    ?tags ?threat_intelligence_mode ?(dns = [])
+    ?(explicit_proxy = []) ?(identity = []) ?(insights = [])
+    ?(intrusion_detection = []) ?(threat_intelligence_allowlist = [])
+    ?timeouts ?(tls_certificate = []) ~location ~name
+    ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?auto_learn_private_ranges_enabled ?base_policy_id ?id
       ?private_ip_ranges ?sku ?sql_redirect_allowed ?tags
-      ?threat_intelligence_mode ?timeouts ~location ~name
-      ~resource_group_name ~dns ~explicit_proxy ~identity ~insights
-      ~intrusion_detection ~threat_intelligence_allowlist
-      ~tls_certificate __id
+      ?threat_intelligence_mode ~dns ~explicit_proxy ~identity
+      ~insights ~intrusion_detection ~threat_intelligence_allowlist
+      ?timeouts ~tls_certificate ~location ~name ~resource_group_name
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

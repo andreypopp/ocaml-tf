@@ -85,13 +85,13 @@ let source ?accounts ?source_version ~regions ~source_name () :
     source =
   { accounts; regions; source_name; source_version }
 
-let aws_securitylake_aws_log_source ~source () :
+let aws_securitylake_aws_log_source ?(source = []) () :
     aws_securitylake_aws_log_source =
   { source }
 
 type t = { id : string prop }
 
-let make ~source __id =
+let make ?(source = []) __id =
   let __type = "aws_securitylake_aws_log_source" in
   let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
   {
@@ -103,7 +103,7 @@ let make ~source __id =
     attrs = __attrs;
   }
 
-let register ?tf_module ~source __id =
+let register ?tf_module ?(source = []) __id =
   let (r : _ Tf_core.resource) = make ~source __id in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -814,8 +814,8 @@ let artifact_store__encryption_key ~id ~type_ () :
     artifact_store__encryption_key =
   { id; type_ }
 
-let artifact_store ?region ~location ~type_ ~encryption_key () :
-    artifact_store =
+let artifact_store ?region ?(encryption_key = []) ~location ~type_ ()
+    : artifact_store =
   { location; region; type_; encryption_key }
 
 let stage__action ?configuration ?input_artifacts ?namespace
@@ -848,8 +848,9 @@ let trigger__git_configuration__pull_request__file_paths ?excludes
     trigger__git_configuration__pull_request__file_paths =
   { excludes; includes }
 
-let trigger__git_configuration__pull_request ?events ~branches
-    ~file_paths () : trigger__git_configuration__pull_request =
+let trigger__git_configuration__pull_request ?events ?(branches = [])
+    ?(file_paths = []) () : trigger__git_configuration__pull_request
+    =
   { events; branches; file_paths }
 
 let trigger__git_configuration__push__branches ?excludes ?includes ()
@@ -864,12 +865,13 @@ let trigger__git_configuration__push__tags ?excludes ?includes () :
     trigger__git_configuration__push__tags =
   { excludes; includes }
 
-let trigger__git_configuration__push ~branches ~file_paths ~tags () :
+let trigger__git_configuration__push ?(branches = [])
+    ?(file_paths = []) ?(tags = []) () :
     trigger__git_configuration__push =
   { branches; file_paths; tags }
 
-let trigger__git_configuration ~source_action_name ~pull_request
-    ~push () : trigger__git_configuration =
+let trigger__git_configuration ?(pull_request = []) ?(push = [])
+    ~source_action_name () : trigger__git_configuration =
   { source_action_name; pull_request; push }
 
 let trigger ~provider_type ~git_configuration () : trigger =
@@ -879,8 +881,8 @@ let variable ?default_value ?description ~name () : variable =
   { default_value; description; name }
 
 let aws_codepipeline ?execution_mode ?id ?pipeline_type ?tags
-    ?tags_all ~name ~role_arn ~artifact_store ~stage ~trigger
-    ~variable () : aws_codepipeline =
+    ?tags_all ?(trigger = []) ?(variable = []) ~name ~role_arn
+    ~artifact_store ~stage () : aws_codepipeline =
   {
     execution_mode;
     id;
@@ -906,8 +908,9 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?execution_mode ?id ?pipeline_type ?tags ?tags_all ~name
-    ~role_arn ~artifact_store ~stage ~trigger ~variable __id =
+let make ?execution_mode ?id ?pipeline_type ?tags ?tags_all
+    ?(trigger = []) ?(variable = []) ~name ~role_arn ~artifact_store
+    ~stage __id =
   let __type = "aws_codepipeline" in
   let __attrs =
     ({
@@ -928,17 +931,17 @@ let make ?execution_mode ?id ?pipeline_type ?tags ?tags_all ~name
     json =
       yojson_of_aws_codepipeline
         (aws_codepipeline ?execution_mode ?id ?pipeline_type ?tags
-           ?tags_all ~name ~role_arn ~artifact_store ~stage ~trigger
-           ~variable ());
+           ?tags_all ~trigger ~variable ~name ~role_arn
+           ~artifact_store ~stage ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?execution_mode ?id ?pipeline_type ?tags
-    ?tags_all ~name ~role_arn ~artifact_store ~stage ~trigger
-    ~variable __id =
+    ?tags_all ?(trigger = []) ?(variable = []) ~name ~role_arn
+    ~artifact_store ~stage __id =
   let (r : _ Tf_core.resource) =
-    make ?execution_mode ?id ?pipeline_type ?tags ?tags_all ~name
-      ~role_arn ~artifact_store ~stage ~trigger ~variable __id
+    make ?execution_mode ?id ?pipeline_type ?tags ?tags_all ~trigger
+      ~variable ~name ~role_arn ~artifact_store ~stage __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

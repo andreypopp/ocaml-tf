@@ -1505,9 +1505,9 @@ let configuration__s3_configuration__documents_metadata_configuration
   { s3_prefix }
 
 let configuration__s3_configuration ?exclusion_patterns
-    ?inclusion_patterns ?inclusion_prefixes ~bucket_name
-    ~access_control_list_configuration
-    ~documents_metadata_configuration () :
+    ?inclusion_patterns ?inclusion_prefixes
+    ?(access_control_list_configuration = [])
+    ?(documents_metadata_configuration = []) ~bucket_name () :
     configuration__s3_configuration =
   {
     bucket_name;
@@ -1548,15 +1548,15 @@ let configuration__web_crawler_configuration__urls__site_maps_configuration
   { site_maps }
 
 let configuration__web_crawler_configuration__urls
-    ~seed_url_configuration ~site_maps_configuration () :
-    configuration__web_crawler_configuration__urls =
+    ?(seed_url_configuration = []) ?(site_maps_configuration = []) ()
+    : configuration__web_crawler_configuration__urls =
   { seed_url_configuration; site_maps_configuration }
 
 let configuration__web_crawler_configuration ?crawl_depth
     ?max_content_size_per_page_in_mega_bytes ?max_links_per_page
     ?max_urls_per_minute_crawl_rate ?url_exclusion_patterns
-    ?url_inclusion_patterns ~authentication_configuration
-    ~proxy_configuration ~urls () :
+    ?url_inclusion_patterns ?(authentication_configuration = [])
+    ?(proxy_configuration = []) ~urls () :
     configuration__web_crawler_configuration =
   {
     crawl_depth;
@@ -1570,8 +1570,8 @@ let configuration__web_crawler_configuration ?crawl_depth
     urls;
   }
 
-let configuration ~s3_configuration ~web_crawler_configuration () :
-    configuration =
+let configuration ?(s3_configuration = [])
+    ?(web_crawler_configuration = []) () : configuration =
   { s3_configuration; web_crawler_configuration }
 
 let custom_document_enrichment_configuration__inline_configurations__condition__condition_on_value
@@ -1581,8 +1581,8 @@ let custom_document_enrichment_configuration__inline_configurations__condition__
   { date_value; long_value; string_list_value; string_value }
 
 let custom_document_enrichment_configuration__inline_configurations__condition
-    ~condition_document_attribute_key ~operator ~condition_on_value
-    () :
+    ?(condition_on_value = []) ~condition_document_attribute_key
+    ~operator () :
     custom_document_enrichment_configuration__inline_configurations__condition
     =
   { condition_document_attribute_key; operator; condition_on_value }
@@ -1596,7 +1596,7 @@ let custom_document_enrichment_configuration__inline_configurations__target__tar
 let custom_document_enrichment_configuration__inline_configurations__target
     ?target_document_attribute_key
     ?target_document_attribute_value_deletion
-    ~target_document_attribute_value () :
+    ?(target_document_attribute_value = []) () :
     custom_document_enrichment_configuration__inline_configurations__target
     =
   {
@@ -1606,7 +1606,7 @@ let custom_document_enrichment_configuration__inline_configurations__target
   }
 
 let custom_document_enrichment_configuration__inline_configurations
-    ?document_content_deletion ~condition ~target () :
+    ?document_content_deletion ?(condition = []) ?(target = []) () :
     custom_document_enrichment_configuration__inline_configurations =
   { document_content_deletion; condition; target }
 
@@ -1617,14 +1617,14 @@ let custom_document_enrichment_configuration__post_extraction_hook_configuration
   { date_value; long_value; string_list_value; string_value }
 
 let custom_document_enrichment_configuration__post_extraction_hook_configuration__invocation_condition
-    ~condition_document_attribute_key ~operator ~condition_on_value
-    () :
+    ?(condition_on_value = []) ~condition_document_attribute_key
+    ~operator () :
     custom_document_enrichment_configuration__post_extraction_hook_configuration__invocation_condition
     =
   { condition_document_attribute_key; operator; condition_on_value }
 
 let custom_document_enrichment_configuration__post_extraction_hook_configuration
-    ~lambda_arn ~s3_bucket ~invocation_condition () :
+    ?(invocation_condition = []) ~lambda_arn ~s3_bucket () :
     custom_document_enrichment_configuration__post_extraction_hook_configuration
     =
   { lambda_arn; s3_bucket; invocation_condition }
@@ -1636,22 +1636,22 @@ let custom_document_enrichment_configuration__pre_extraction_hook_configuration_
   { date_value; long_value; string_list_value; string_value }
 
 let custom_document_enrichment_configuration__pre_extraction_hook_configuration__invocation_condition
-    ~condition_document_attribute_key ~operator ~condition_on_value
-    () :
+    ?(condition_on_value = []) ~condition_document_attribute_key
+    ~operator () :
     custom_document_enrichment_configuration__pre_extraction_hook_configuration__invocation_condition
     =
   { condition_document_attribute_key; operator; condition_on_value }
 
 let custom_document_enrichment_configuration__pre_extraction_hook_configuration
-    ~lambda_arn ~s3_bucket ~invocation_condition () :
+    ?(invocation_condition = []) ~lambda_arn ~s3_bucket () :
     custom_document_enrichment_configuration__pre_extraction_hook_configuration
     =
   { lambda_arn; s3_bucket; invocation_condition }
 
 let custom_document_enrichment_configuration ?role_arn
-    ~inline_configurations ~post_extraction_hook_configuration
-    ~pre_extraction_hook_configuration () :
-    custom_document_enrichment_configuration =
+    ?(post_extraction_hook_configuration = [])
+    ?(pre_extraction_hook_configuration = []) ~inline_configurations
+    () : custom_document_enrichment_configuration =
   {
     role_arn;
     inline_configurations;
@@ -1663,9 +1663,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_kendra_data_source ?description ?id ?language_code ?role_arn
-    ?schedule ?tags ?tags_all ?timeouts ~index_id ~name ~type_
-    ~configuration ~custom_document_enrichment_configuration () :
-    aws_kendra_data_source =
+    ?schedule ?tags ?tags_all ?(configuration = [])
+    ?(custom_document_enrichment_configuration = []) ?timeouts
+    ~index_id ~name ~type_ () : aws_kendra_data_source =
   {
     description;
     id;
@@ -1702,8 +1702,9 @@ type t = {
 }
 
 let make ?description ?id ?language_code ?role_arn ?schedule ?tags
-    ?tags_all ?timeouts ~index_id ~name ~type_ ~configuration
-    ~custom_document_enrichment_configuration __id =
+    ?tags_all ?(configuration = [])
+    ?(custom_document_enrichment_configuration = []) ?timeouts
+    ~index_id ~name ~type_ __id =
   let __type = "aws_kendra_data_source" in
   let __attrs =
     ({
@@ -1732,19 +1733,21 @@ let make ?description ?id ?language_code ?role_arn ?schedule ?tags
     json =
       yojson_of_aws_kendra_data_source
         (aws_kendra_data_source ?description ?id ?language_code
-           ?role_arn ?schedule ?tags ?tags_all ?timeouts ~index_id
-           ~name ~type_ ~configuration
-           ~custom_document_enrichment_configuration ());
+           ?role_arn ?schedule ?tags ?tags_all ~configuration
+           ~custom_document_enrichment_configuration ?timeouts
+           ~index_id ~name ~type_ ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?language_code ?role_arn
-    ?schedule ?tags ?tags_all ?timeouts ~index_id ~name ~type_
-    ~configuration ~custom_document_enrichment_configuration __id =
+    ?schedule ?tags ?tags_all ?(configuration = [])
+    ?(custom_document_enrichment_configuration = []) ?timeouts
+    ~index_id ~name ~type_ __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?language_code ?role_arn ?schedule ?tags
-      ?tags_all ?timeouts ~index_id ~name ~type_ ~configuration
-      ~custom_document_enrichment_configuration __id
+      ?tags_all ~configuration
+      ~custom_document_enrichment_configuration ?timeouts ~index_id
+      ~name ~type_ __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

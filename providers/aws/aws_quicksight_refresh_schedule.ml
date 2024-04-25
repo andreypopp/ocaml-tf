@@ -37,7 +37,7 @@ let schedule__schedule_frequency__refresh_on_day ?day_of_month ?day_of_week () =
     day_of_week;
   } : schedule__schedule_frequency__refresh_on_day);;
 
-let schedule__schedule_frequency ?time_of_the_day ?timezone ~interval ~refresh_on_day () =
+let schedule__schedule_frequency ?time_of_the_day ?timezone ?(refresh_on_day=[]) ~interval () =
   ({
     interval;
     time_of_the_day;
@@ -45,14 +45,14 @@ let schedule__schedule_frequency ?time_of_the_day ?timezone ~interval ~refresh_o
     refresh_on_day;
   } : schedule__schedule_frequency);;
 
-let schedule ?start_after_date_time ~refresh_type ~schedule_frequency () =
+let schedule ?start_after_date_time ?(schedule_frequency=[]) ~refresh_type () =
   ({
     refresh_type;
     start_after_date_time;
     schedule_frequency;
   } : schedule);;
 
-let aws_quicksight_refresh_schedule ?aws_account_id ~data_set_id ~schedule_id ~schedule () =
+let aws_quicksight_refresh_schedule ?aws_account_id ?(schedule=[]) ~data_set_id ~schedule_id () =
   ({
     aws_account_id;
     data_set_id;
@@ -68,7 +68,7 @@ type t = {
   schedule_id: string prop;
 }
 
-let make ?aws_account_id ~data_set_id ~schedule_id ~schedule __id =
+let make ?aws_account_id ?(schedule=[]) ~data_set_id ~schedule_id __id =
   let __type = "aws_quicksight_refresh_schedule" in
   let __attrs = ({
     arn = Prop.computed __type __id "arn";
@@ -80,12 +80,12 @@ let make ?aws_account_id ~data_set_id ~schedule_id ~schedule __id =
   {Tf_core.
     id=__id;
     type_=__type;
-    json=yojson_of_aws_quicksight_refresh_schedule (aws_quicksight_refresh_schedule ?aws_account_id ~data_set_id ~schedule_id ~schedule ());
+    json=yojson_of_aws_quicksight_refresh_schedule (aws_quicksight_refresh_schedule ?aws_account_id ~schedule ~data_set_id ~schedule_id ());
     attrs=__attrs;
   };;
 
-let register ?tf_module ?aws_account_id ~data_set_id ~schedule_id ~schedule __id =
-  let (r : _ Tf_core.resource) = make ?aws_account_id ~data_set_id ~schedule_id ~schedule __id in
+let register ?tf_module ?aws_account_id ?(schedule=[]) ~data_set_id ~schedule_id __id =
+  let (r : _ Tf_core.resource) = make ?aws_account_id ~schedule ~data_set_id ~schedule_id __id in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs;;
 

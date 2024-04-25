@@ -23,9 +23,9 @@ val member_definition__oidc_member_definition :
 type member_definition
 
 val member_definition :
-  cognito_member_definition:
+  ?cognito_member_definition:
     member_definition__cognito_member_definition list ->
-  oidc_member_definition:
+  ?oidc_member_definition:
     member_definition__oidc_member_definition list ->
   unit ->
   member_definition
@@ -43,11 +43,11 @@ val aws_sagemaker_workteam :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?notification_configuration:notification_configuration list ->
   description:string prop ->
   workforce_name:string prop ->
   workteam_name:string prop ->
   member_definition:member_definition list ->
-  notification_configuration:notification_configuration list ->
   unit ->
   aws_sagemaker_workteam
 
@@ -71,11 +71,11 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?notification_configuration:notification_configuration list ->
   description:string prop ->
   workforce_name:string prop ->
   workteam_name:string prop ->
   member_definition:member_definition list ->
-  notification_configuration:notification_configuration list ->
   string ->
   t
 
@@ -83,10 +83,10 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?notification_configuration:notification_configuration list ->
   description:string prop ->
   workforce_name:string prop ->
   workteam_name:string prop ->
   member_definition:member_definition list ->
-  notification_configuration:notification_configuration list ->
   string ->
   t Tf_core.resource

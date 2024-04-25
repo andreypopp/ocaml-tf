@@ -53,16 +53,16 @@ val azurerm_resource_deployment_script_azure_power_shell :
   ?supporting_script_uris:string prop list ->
   ?tags:(string * string prop) list ->
   ?timeout:string prop ->
+  ?container:container list ->
+  ?identity:identity list ->
+  ?storage_account:storage_account list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   retention_interval:string prop ->
   version:string prop ->
-  container:container list ->
   environment_variable:environment_variable list ->
-  identity:identity list ->
-  storage_account:storage_account list ->
   unit ->
   azurerm_resource_deployment_script_azure_power_shell
 
@@ -100,16 +100,16 @@ val register :
   ?supporting_script_uris:string prop list ->
   ?tags:(string * string prop) list ->
   ?timeout:string prop ->
+  ?container:container list ->
+  ?identity:identity list ->
+  ?storage_account:storage_account list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   retention_interval:string prop ->
   version:string prop ->
-  container:container list ->
   environment_variable:environment_variable list ->
-  identity:identity list ->
-  storage_account:storage_account list ->
   string ->
   t
 
@@ -123,15 +123,15 @@ val make :
   ?supporting_script_uris:string prop list ->
   ?tags:(string * string prop) list ->
   ?timeout:string prop ->
+  ?container:container list ->
+  ?identity:identity list ->
+  ?storage_account:storage_account list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   retention_interval:string prop ->
   version:string prop ->
-  container:container list ->
   environment_variable:environment_variable list ->
-  identity:identity list ->
-  storage_account:storage_account list ->
   string ->
   t Tf_core.resource

@@ -387,7 +387,7 @@ let override_provider__default_tags ?tags () :
     override_provider__default_tags =
   { tags }
 
-let override_provider ~default_tags () : override_provider =
+let override_provider ?(default_tags = []) () : override_provider =
   { default_tags }
 
 let aws_s3_object ?acl ?bucket_key_enabled ?cache_control
@@ -397,7 +397,7 @@ let aws_s3_object ?acl ?bucket_key_enabled ?cache_control
     ?object_lock_legal_hold_status ?object_lock_mode
     ?object_lock_retain_until_date ?server_side_encryption ?source
     ?source_hash ?storage_class ?tags ?tags_all ?website_redirect
-    ~bucket ~key ~override_provider () : aws_s3_object =
+    ?(override_provider = []) ~bucket ~key () : aws_s3_object =
   {
     acl;
     bucket;
@@ -471,8 +471,8 @@ let make ?acl ?bucket_key_enabled ?cache_control ?checksum_algorithm
     ?kms_key_id ?metadata ?object_lock_legal_hold_status
     ?object_lock_mode ?object_lock_retain_until_date
     ?server_side_encryption ?source ?source_hash ?storage_class ?tags
-    ?tags_all ?website_redirect ~bucket ~key ~override_provider __id
-    =
+    ?tags_all ?website_redirect ?(override_provider = []) ~bucket
+    ~key __id =
   let __type = "aws_s3_object" in
   let __attrs =
     ({
@@ -534,7 +534,7 @@ let make ?acl ?bucket_key_enabled ?cache_control ?checksum_algorithm
            ?metadata ?object_lock_legal_hold_status ?object_lock_mode
            ?object_lock_retain_until_date ?server_side_encryption
            ?source ?source_hash ?storage_class ?tags ?tags_all
-           ?website_redirect ~bucket ~key ~override_provider ());
+           ?website_redirect ~override_provider ~bucket ~key ());
     attrs = __attrs;
   }
 
@@ -545,7 +545,7 @@ let register ?tf_module ?acl ?bucket_key_enabled ?cache_control
     ?object_lock_legal_hold_status ?object_lock_mode
     ?object_lock_retain_until_date ?server_side_encryption ?source
     ?source_hash ?storage_class ?tags ?tags_all ?website_redirect
-    ~bucket ~key ~override_provider __id =
+    ?(override_provider = []) ~bucket ~key __id =
   let (r : _ Tf_core.resource) =
     make ?acl ?bucket_key_enabled ?cache_control ?checksum_algorithm
       ?content ?content_base64 ?content_disposition ?content_encoding
@@ -553,8 +553,8 @@ let register ?tf_module ?acl ?bucket_key_enabled ?cache_control
       ?kms_key_id ?metadata ?object_lock_legal_hold_status
       ?object_lock_mode ?object_lock_retain_until_date
       ?server_side_encryption ?source ?source_hash ?storage_class
-      ?tags ?tags_all ?website_redirect ~bucket ~key
-      ~override_provider __id
+      ?tags ?tags_all ?website_redirect ~override_provider ~bucket
+      ~key __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

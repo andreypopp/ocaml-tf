@@ -230,8 +230,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_medialive_multiplex ?id ?start_multiplex ?tags ?tags_all
-    ?timeouts ~availability_zones ~name ~multiplex_settings () :
-    aws_medialive_multiplex =
+    ?(multiplex_settings = []) ?timeouts ~availability_zones ~name ()
+    : aws_medialive_multiplex =
   {
     availability_zones;
     id;
@@ -253,8 +253,9 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?start_multiplex ?tags ?tags_all ?timeouts
-    ~availability_zones ~name ~multiplex_settings __id =
+let make ?id ?start_multiplex ?tags ?tags_all
+    ?(multiplex_settings = []) ?timeouts ~availability_zones ~name
+    __id =
   let __type = "aws_medialive_multiplex" in
   let __attrs =
     ({
@@ -275,15 +276,16 @@ let make ?id ?start_multiplex ?tags ?tags_all ?timeouts
     json =
       yojson_of_aws_medialive_multiplex
         (aws_medialive_multiplex ?id ?start_multiplex ?tags ?tags_all
-           ?timeouts ~availability_zones ~name ~multiplex_settings ());
+           ~multiplex_settings ?timeouts ~availability_zones ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?start_multiplex ?tags ?tags_all
-    ?timeouts ~availability_zones ~name ~multiplex_settings __id =
+    ?(multiplex_settings = []) ?timeouts ~availability_zones ~name
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?start_multiplex ?tags ?tags_all ?timeouts
-      ~availability_zones ~name ~multiplex_settings __id
+    make ?id ?start_multiplex ?tags ?tags_all ~multiplex_settings
+      ?timeouts ~availability_zones ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

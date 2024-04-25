@@ -51,7 +51,7 @@ val template__template__containers__env__value_source__secret_key_ref :
 type template__template__containers__env__value_source
 
 val template__template__containers__env__value_source :
-  secret_key_ref:
+  ?secret_key_ref:
     template__template__containers__env__value_source__secret_key_ref
     list ->
   unit ->
@@ -61,8 +61,9 @@ type template__template__containers__env
 
 val template__template__containers__env :
   ?value:string prop ->
+  ?value_source:
+    template__template__containers__env__value_source list ->
   name:string prop ->
-  value_source:template__template__containers__env__value_source list ->
   unit ->
   template__template__containers__env
 
@@ -96,11 +97,11 @@ val template__template__containers :
   ?command:string prop list ->
   ?name:string prop ->
   ?working_dir:string prop ->
+  ?env:template__template__containers__env list ->
+  ?ports:template__template__containers__ports list ->
+  ?resources:template__template__containers__resources list ->
+  ?volume_mounts:template__template__containers__volume_mounts list ->
   image:string prop ->
-  env:template__template__containers__env list ->
-  ports:template__template__containers__ports list ->
-  resources:template__template__containers__resources list ->
-  volume_mounts:template__template__containers__volume_mounts list ->
   unit ->
   template__template__containers
 
@@ -124,18 +125,18 @@ type template__template__volumes__secret
 
 val template__template__volumes__secret :
   ?default_mode:float prop ->
+  ?items:template__template__volumes__secret__items list ->
   secret:string prop ->
-  items:template__template__volumes__secret__items list ->
   unit ->
   template__template__volumes__secret
 
 type template__template__volumes
 
 val template__template__volumes :
-  name:string prop ->
-  cloud_sql_instance:
+  ?cloud_sql_instance:
     template__template__volumes__cloud_sql_instance list ->
-  secret:template__template__volumes__secret list ->
+  ?secret:template__template__volumes__secret list ->
+  name:string prop ->
   unit ->
   template__template__volumes
 
@@ -153,7 +154,7 @@ type template__template__vpc_access
 val template__template__vpc_access :
   ?connector:string prop ->
   ?egress:string prop ->
-  network_interfaces:
+  ?network_interfaces:
     template__template__vpc_access__network_interfaces list ->
   unit ->
   template__template__vpc_access
@@ -166,9 +167,9 @@ val template__template :
   ?max_retries:float prop ->
   ?service_account:string prop ->
   ?timeout:string prop ->
-  containers:template__template__containers list ->
-  volumes:template__template__volumes list ->
-  vpc_access:template__template__vpc_access list ->
+  ?containers:template__template__containers list ->
+  ?volumes:template__template__volumes list ->
+  ?vpc_access:template__template__vpc_access list ->
   unit ->
   template__template
 
@@ -202,10 +203,10 @@ val google_cloud_run_v2_job :
   ?labels:(string * string prop) list ->
   ?launch_stage:string prop ->
   ?project:string prop ->
+  ?binary_authorization:binary_authorization list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  binary_authorization:binary_authorization list ->
   template:template list ->
   unit ->
   google_cloud_run_v2_job
@@ -254,10 +255,10 @@ val register :
   ?labels:(string * string prop) list ->
   ?launch_stage:string prop ->
   ?project:string prop ->
+  ?binary_authorization:binary_authorization list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  binary_authorization:binary_authorization list ->
   template:template list ->
   string ->
   t
@@ -270,10 +271,10 @@ val make :
   ?labels:(string * string prop) list ->
   ?launch_stage:string prop ->
   ?project:string prop ->
+  ?binary_authorization:binary_authorization list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  binary_authorization:binary_authorization list ->
   template:template list ->
   string ->
   t Tf_core.resource

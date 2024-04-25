@@ -371,8 +371,8 @@ let azurerm_stream_analytics_job ?compatibility_level
     ?events_out_of_order_max_delay_in_seconds
     ?events_out_of_order_policy ?id ?output_error_policy ?sku_name
     ?stream_analytics_cluster_id ?streaming_units ?tags ?type_
-    ?timeouts ~location ~name ~resource_group_name
-    ~transformation_query ~identity ~job_storage_account () :
+    ?(identity = []) ?(job_storage_account = []) ?timeouts ~location
+    ~name ~resource_group_name ~transformation_query () :
     azurerm_stream_analytics_job =
   {
     compatibility_level;
@@ -423,8 +423,8 @@ let make ?compatibility_level ?content_storage_policy ?data_locale
     ?events_out_of_order_max_delay_in_seconds
     ?events_out_of_order_policy ?id ?output_error_policy ?sku_name
     ?stream_analytics_cluster_id ?streaming_units ?tags ?type_
-    ?timeouts ~location ~name ~resource_group_name
-    ~transformation_query ~identity ~job_storage_account __id =
+    ?(identity = []) ?(job_storage_account = []) ?timeouts ~location
+    ~name ~resource_group_name ~transformation_query __id =
   let __type = "azurerm_stream_analytics_job" in
   let __attrs =
     ({
@@ -471,9 +471,9 @@ let make ?compatibility_level ?content_storage_policy ?data_locale
            ?events_out_of_order_max_delay_in_seconds
            ?events_out_of_order_policy ?id ?output_error_policy
            ?sku_name ?stream_analytics_cluster_id ?streaming_units
-           ?tags ?type_ ?timeouts ~location ~name
-           ~resource_group_name ~transformation_query ~identity
-           ~job_storage_account ());
+           ?tags ?type_ ~identity ~job_storage_account ?timeouts
+           ~location ~name ~resource_group_name ~transformation_query
+           ());
     attrs = __attrs;
   }
 
@@ -482,16 +482,16 @@ let register ?tf_module ?compatibility_level ?content_storage_policy
     ?events_out_of_order_max_delay_in_seconds
     ?events_out_of_order_policy ?id ?output_error_policy ?sku_name
     ?stream_analytics_cluster_id ?streaming_units ?tags ?type_
-    ?timeouts ~location ~name ~resource_group_name
-    ~transformation_query ~identity ~job_storage_account __id =
+    ?(identity = []) ?(job_storage_account = []) ?timeouts ~location
+    ~name ~resource_group_name ~transformation_query __id =
   let (r : _ Tf_core.resource) =
     make ?compatibility_level ?content_storage_policy ?data_locale
       ?events_late_arrival_max_delay_in_seconds
       ?events_out_of_order_max_delay_in_seconds
       ?events_out_of_order_policy ?id ?output_error_policy ?sku_name
       ?stream_analytics_cluster_id ?streaming_units ?tags ?type_
-      ?timeouts ~location ~name ~resource_group_name
-      ~transformation_query ~identity ~job_storage_account __id
+      ~identity ~job_storage_account ?timeouts ~location ~name
+      ~resource_group_name ~transformation_query __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

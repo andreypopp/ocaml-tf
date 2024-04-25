@@ -24,7 +24,7 @@ val blocking_functions__triggers :
 type blocking_functions
 
 val blocking_functions :
-  forward_inbound_credentials:
+  ?forward_inbound_credentials:
     blocking_functions__forward_inbound_credentials list ->
   triggers:blocking_functions__triggers list ->
   unit ->
@@ -40,7 +40,7 @@ val client__permissions :
 
 type client
 
-val client : permissions:client__permissions list -> unit -> client
+val client : ?permissions:client__permissions list -> unit -> client
 
 type mfa__provider_configs__totp_provider_config
 
@@ -53,7 +53,7 @@ type mfa__provider_configs
 
 val mfa__provider_configs :
   ?state:string prop ->
-  totp_provider_config:
+  ?totp_provider_config:
     mfa__provider_configs__totp_provider_config list ->
   unit ->
   mfa__provider_configs
@@ -63,7 +63,7 @@ type mfa
 val mfa :
   ?enabled_providers:string prop list ->
   ?state:string prop ->
-  provider_configs:mfa__provider_configs list ->
+  ?provider_configs:mfa__provider_configs list ->
   unit ->
   mfa
 
@@ -75,7 +75,7 @@ val monitoring__request_logging :
 type monitoring
 
 val monitoring :
-  request_logging:monitoring__request_logging list ->
+  ?request_logging:monitoring__request_logging list ->
   unit ->
   monitoring
 
@@ -99,7 +99,7 @@ val quota__sign_up_quota_config :
 type quota
 
 val quota :
-  sign_up_quota_config:quota__sign_up_quota_config list ->
+  ?sign_up_quota_config:quota__sign_up_quota_config list ->
   unit ->
   quota
 
@@ -136,9 +136,9 @@ type sign_in
 
 val sign_in :
   ?allow_duplicate_emails:bool prop ->
-  anonymous:sign_in__anonymous list ->
-  email:sign_in__email list ->
-  phone_number:sign_in__phone_number list ->
+  ?anonymous:sign_in__anonymous list ->
+  ?email:sign_in__email list ->
+  ?phone_number:sign_in__phone_number list ->
   unit ->
   sign_in
 
@@ -159,8 +159,8 @@ val sms_region_config__allowlist_only :
 type sms_region_config
 
 val sms_region_config :
-  allow_by_default:sms_region_config__allow_by_default list ->
-  allowlist_only:sms_region_config__allowlist_only list ->
+  ?allow_by_default:sms_region_config__allow_by_default list ->
+  ?allowlist_only:sms_region_config__allowlist_only list ->
   unit ->
   sms_region_config
 
@@ -180,15 +180,15 @@ val google_identity_platform_config :
   ?autodelete_anonymous_users:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?blocking_functions:blocking_functions list ->
+  ?client:client list ->
+  ?mfa:mfa list ->
+  ?monitoring:monitoring list ->
+  ?multi_tenant:multi_tenant list ->
+  ?quota:quota list ->
+  ?sign_in:sign_in list ->
+  ?sms_region_config:sms_region_config list ->
   ?timeouts:timeouts ->
-  blocking_functions:blocking_functions list ->
-  client:client list ->
-  mfa:mfa list ->
-  monitoring:monitoring list ->
-  multi_tenant:multi_tenant list ->
-  quota:quota list ->
-  sign_in:sign_in list ->
-  sms_region_config:sms_region_config list ->
   unit ->
   google_identity_platform_config
 
@@ -211,15 +211,15 @@ val register :
   ?autodelete_anonymous_users:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?blocking_functions:blocking_functions list ->
+  ?client:client list ->
+  ?mfa:mfa list ->
+  ?monitoring:monitoring list ->
+  ?multi_tenant:multi_tenant list ->
+  ?quota:quota list ->
+  ?sign_in:sign_in list ->
+  ?sms_region_config:sms_region_config list ->
   ?timeouts:timeouts ->
-  blocking_functions:blocking_functions list ->
-  client:client list ->
-  mfa:mfa list ->
-  monitoring:monitoring list ->
-  multi_tenant:multi_tenant list ->
-  quota:quota list ->
-  sign_in:sign_in list ->
-  sms_region_config:sms_region_config list ->
   string ->
   t
 
@@ -228,14 +228,14 @@ val make :
   ?autodelete_anonymous_users:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?blocking_functions:blocking_functions list ->
+  ?client:client list ->
+  ?mfa:mfa list ->
+  ?monitoring:monitoring list ->
+  ?multi_tenant:multi_tenant list ->
+  ?quota:quota list ->
+  ?sign_in:sign_in list ->
+  ?sms_region_config:sms_region_config list ->
   ?timeouts:timeouts ->
-  blocking_functions:blocking_functions list ->
-  client:client list ->
-  mfa:mfa list ->
-  monitoring:monitoring list ->
-  multi_tenant:multi_tenant list ->
-  quota:quota list ->
-  sign_in:sign_in list ->
-  sms_region_config:sms_region_config list ->
   string ->
   t Tf_core.resource

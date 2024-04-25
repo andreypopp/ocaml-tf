@@ -1007,8 +1007,8 @@ let cleanup_policies__most_recent_versions ?keep_count
     cleanup_policies__most_recent_versions =
   { keep_count; package_name_prefixes }
 
-let cleanup_policies ?action ~id ~condition ~most_recent_versions ()
-    : cleanup_policies =
+let cleanup_policies ?action ?(condition = [])
+    ?(most_recent_versions = []) ~id () : cleanup_policies =
   { action; id; condition; most_recent_versions }
 
 let docker_config ?immutable_tags () : docker_config =
@@ -1023,7 +1023,8 @@ let remote_repository_config__apt_repository__public_repository
     remote_repository_config__apt_repository__public_repository =
   { repository_base; repository_path }
 
-let remote_repository_config__apt_repository ~public_repository () :
+let remote_repository_config__apt_repository
+    ?(public_repository = []) () :
     remote_repository_config__apt_repository =
   { public_repository }
 
@@ -1050,7 +1051,7 @@ let remote_repository_config__upstream_credentials__username_password_credential
   { password_secret_version; username }
 
 let remote_repository_config__upstream_credentials
-    ~username_password_credentials () :
+    ?(username_password_credentials = []) () :
     remote_repository_config__upstream_credentials =
   { username_password_credentials }
 
@@ -1059,13 +1060,15 @@ let remote_repository_config__yum_repository__public_repository
     remote_repository_config__yum_repository__public_repository =
   { repository_base; repository_path }
 
-let remote_repository_config__yum_repository ~public_repository () :
+let remote_repository_config__yum_repository
+    ?(public_repository = []) () :
     remote_repository_config__yum_repository =
   { public_repository }
 
-let remote_repository_config ?description ~apt_repository
-    ~docker_repository ~maven_repository ~npm_repository
-    ~python_repository ~upstream_credentials ~yum_repository () :
+let remote_repository_config ?description ?(apt_repository = [])
+    ?(docker_repository = []) ?(maven_repository = [])
+    ?(npm_repository = []) ?(python_repository = [])
+    ?(upstream_credentials = []) ?(yum_repository = []) () :
     remote_repository_config =
   {
     description;
@@ -1085,16 +1088,16 @@ let virtual_repository_config__upstream_policies ?id ?priority
     ?repository () : virtual_repository_config__upstream_policies =
   { id; priority; repository }
 
-let virtual_repository_config ~upstream_policies () :
+let virtual_repository_config ?(upstream_policies = []) () :
     virtual_repository_config =
   { upstream_policies }
 
 let google_artifact_registry_repository ?cleanup_policy_dry_run
     ?description ?id ?kms_key_name ?labels ?location ?mode ?project
-    ?timeouts ~format ~repository_id ~cleanup_policies ~docker_config
-    ~maven_config ~remote_repository_config
-    ~virtual_repository_config () :
-    google_artifact_registry_repository =
+    ?(docker_config = []) ?(maven_config = [])
+    ?(remote_repository_config = []) ?timeouts
+    ?(virtual_repository_config = []) ~format ~repository_id
+    ~cleanup_policies () : google_artifact_registry_repository =
   {
     cleanup_policy_dry_run;
     description;
@@ -1133,9 +1136,10 @@ type t = {
 }
 
 let make ?cleanup_policy_dry_run ?description ?id ?kms_key_name
-    ?labels ?location ?mode ?project ?timeouts ~format ~repository_id
-    ~cleanup_policies ~docker_config ~maven_config
-    ~remote_repository_config ~virtual_repository_config __id =
+    ?labels ?location ?mode ?project ?(docker_config = [])
+    ?(maven_config = []) ?(remote_repository_config = []) ?timeouts
+    ?(virtual_repository_config = []) ~format ~repository_id
+    ~cleanup_policies __id =
   let __type = "google_artifact_registry_repository" in
   let __attrs =
     ({
@@ -1167,21 +1171,24 @@ let make ?cleanup_policy_dry_run ?description ?id ?kms_key_name
       yojson_of_google_artifact_registry_repository
         (google_artifact_registry_repository ?cleanup_policy_dry_run
            ?description ?id ?kms_key_name ?labels ?location ?mode
-           ?project ?timeouts ~format ~repository_id
-           ~cleanup_policies ~docker_config ~maven_config
-           ~remote_repository_config ~virtual_repository_config ());
+           ?project ~docker_config ~maven_config
+           ~remote_repository_config ?timeouts
+           ~virtual_repository_config ~format ~repository_id
+           ~cleanup_policies ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?cleanup_policy_dry_run ?description ?id
-    ?kms_key_name ?labels ?location ?mode ?project ?timeouts ~format
-    ~repository_id ~cleanup_policies ~docker_config ~maven_config
-    ~remote_repository_config ~virtual_repository_config __id =
+    ?kms_key_name ?labels ?location ?mode ?project
+    ?(docker_config = []) ?(maven_config = [])
+    ?(remote_repository_config = []) ?timeouts
+    ?(virtual_repository_config = []) ~format ~repository_id
+    ~cleanup_policies __id =
   let (r : _ Tf_core.resource) =
     make ?cleanup_policy_dry_run ?description ?id ?kms_key_name
-      ?labels ?location ?mode ?project ?timeouts ~format
-      ~repository_id ~cleanup_policies ~docker_config ~maven_config
-      ~remote_repository_config ~virtual_repository_config __id
+      ?labels ?location ?mode ?project ~docker_config ~maven_config
+      ~remote_repository_config ?timeouts ~virtual_repository_config
+      ~format ~repository_id ~cleanup_policies __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

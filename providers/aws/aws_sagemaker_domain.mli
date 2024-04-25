@@ -26,11 +26,11 @@ type default_space_settings__jupyter_server_app_settings
 
 val default_space_settings__jupyter_server_app_settings :
   ?lifecycle_config_arns:string prop list ->
+  ?default_resource_spec:
+    default_space_settings__jupyter_server_app_settings__default_resource_spec
+    list ->
   code_repository:
     default_space_settings__jupyter_server_app_settings__code_repository
-    list ->
-  default_resource_spec:
-    default_space_settings__jupyter_server_app_settings__default_resource_spec
     list ->
   unit ->
   default_space_settings__jupyter_server_app_settings
@@ -59,10 +59,10 @@ type default_space_settings__kernel_gateway_app_settings
 
 val default_space_settings__kernel_gateway_app_settings :
   ?lifecycle_config_arns:string prop list ->
-  custom_image:
+  ?custom_image:
     default_space_settings__kernel_gateway_app_settings__custom_image
     list ->
-  default_resource_spec:
+  ?default_resource_spec:
     default_space_settings__kernel_gateway_app_settings__default_resource_spec
     list ->
   unit ->
@@ -72,11 +72,11 @@ type default_space_settings
 
 val default_space_settings :
   ?security_groups:string prop list ->
-  execution_role:string prop ->
-  jupyter_server_app_settings:
+  ?jupyter_server_app_settings:
     default_space_settings__jupyter_server_app_settings list ->
-  kernel_gateway_app_settings:
+  ?kernel_gateway_app_settings:
     default_space_settings__kernel_gateway_app_settings list ->
+  execution_role:string prop ->
   unit ->
   default_space_settings
 
@@ -130,21 +130,21 @@ val default_user_settings__canvas_app_settings__workspace_settings :
 type default_user_settings__canvas_app_settings
 
 val default_user_settings__canvas_app_settings :
-  direct_deploy_settings:
+  ?direct_deploy_settings:
     default_user_settings__canvas_app_settings__direct_deploy_settings
     list ->
-  identity_provider_oauth_settings:
+  ?identity_provider_oauth_settings:
     default_user_settings__canvas_app_settings__identity_provider_oauth_settings
     list ->
-  kendra_settings:
+  ?kendra_settings:
     default_user_settings__canvas_app_settings__kendra_settings list ->
-  model_register_settings:
+  ?model_register_settings:
     default_user_settings__canvas_app_settings__model_register_settings
     list ->
-  time_series_forecasting_settings:
+  ?time_series_forecasting_settings:
     default_user_settings__canvas_app_settings__time_series_forecasting_settings
     list ->
-  workspace_settings:
+  ?workspace_settings:
     default_user_settings__canvas_app_settings__workspace_settings
     list ->
   unit ->
@@ -165,7 +165,7 @@ type default_user_settings__code_editor_app_settings
 
 val default_user_settings__code_editor_app_settings :
   ?lifecycle_config_arns:string prop list ->
-  default_resource_spec:
+  ?default_resource_spec:
     default_user_settings__code_editor_app_settings__default_resource_spec
     list ->
   unit ->
@@ -182,7 +182,7 @@ val default_user_settings__custom_file_system_config__efs_file_system_config :
 type default_user_settings__custom_file_system_config
 
 val default_user_settings__custom_file_system_config :
-  efs_file_system_config:
+  ?efs_file_system_config:
     default_user_settings__custom_file_system_config__efs_file_system_config
     list ->
   unit ->
@@ -227,14 +227,14 @@ type default_user_settings__jupyter_lab_app_settings
 
 val default_user_settings__jupyter_lab_app_settings :
   ?lifecycle_config_arns:string prop list ->
-  code_repository:
-    default_user_settings__jupyter_lab_app_settings__code_repository
-    list ->
-  custom_image:
+  ?custom_image:
     default_user_settings__jupyter_lab_app_settings__custom_image
     list ->
-  default_resource_spec:
+  ?default_resource_spec:
     default_user_settings__jupyter_lab_app_settings__default_resource_spec
+    list ->
+  code_repository:
+    default_user_settings__jupyter_lab_app_settings__code_repository
     list ->
   unit ->
   default_user_settings__jupyter_lab_app_settings
@@ -261,11 +261,11 @@ type default_user_settings__jupyter_server_app_settings
 
 val default_user_settings__jupyter_server_app_settings :
   ?lifecycle_config_arns:string prop list ->
+  ?default_resource_spec:
+    default_user_settings__jupyter_server_app_settings__default_resource_spec
+    list ->
   code_repository:
     default_user_settings__jupyter_server_app_settings__code_repository
-    list ->
-  default_resource_spec:
-    default_user_settings__jupyter_server_app_settings__default_resource_spec
     list ->
   unit ->
   default_user_settings__jupyter_server_app_settings
@@ -294,10 +294,10 @@ type default_user_settings__kernel_gateway_app_settings
 
 val default_user_settings__kernel_gateway_app_settings :
   ?lifecycle_config_arns:string prop list ->
-  custom_image:
+  ?custom_image:
     default_user_settings__kernel_gateway_app_settings__custom_image
     list ->
-  default_resource_spec:
+  ?default_resource_spec:
     default_user_settings__kernel_gateway_app_settings__default_resource_spec
     list ->
   unit ->
@@ -326,9 +326,9 @@ val default_user_settings__r_session_app_settings__default_resource_spec :
 type default_user_settings__r_session_app_settings
 
 val default_user_settings__r_session_app_settings :
-  custom_image:
+  ?custom_image:
     default_user_settings__r_session_app_settings__custom_image list ->
-  default_resource_spec:
+  ?default_resource_spec:
     default_user_settings__r_session_app_settings__default_resource_spec
     list ->
   unit ->
@@ -362,7 +362,7 @@ val default_user_settings__space_storage_settings__default_ebs_storage_settings 
 type default_user_settings__space_storage_settings
 
 val default_user_settings__space_storage_settings :
-  default_ebs_storage_settings:
+  ?default_ebs_storage_settings:
     default_user_settings__space_storage_settings__default_ebs_storage_settings
     list ->
   unit ->
@@ -382,7 +382,7 @@ val default_user_settings__tensor_board_app_settings__default_resource_spec :
 type default_user_settings__tensor_board_app_settings
 
 val default_user_settings__tensor_board_app_settings :
-  default_resource_spec:
+  ?default_resource_spec:
     default_user_settings__tensor_board_app_settings__default_resource_spec
     list ->
   unit ->
@@ -394,29 +394,30 @@ val default_user_settings :
   ?default_landing_uri:string prop ->
   ?security_groups:string prop list ->
   ?studio_web_portal:string prop ->
-  execution_role:string prop ->
-  canvas_app_settings:default_user_settings__canvas_app_settings list ->
-  code_editor_app_settings:
+  ?canvas_app_settings:
+    default_user_settings__canvas_app_settings list ->
+  ?code_editor_app_settings:
     default_user_settings__code_editor_app_settings list ->
-  custom_file_system_config:
+  ?custom_file_system_config:
     default_user_settings__custom_file_system_config list ->
-  custom_posix_user_config:
+  ?custom_posix_user_config:
     default_user_settings__custom_posix_user_config list ->
-  jupyter_lab_app_settings:
+  ?jupyter_lab_app_settings:
     default_user_settings__jupyter_lab_app_settings list ->
-  jupyter_server_app_settings:
+  ?jupyter_server_app_settings:
     default_user_settings__jupyter_server_app_settings list ->
-  kernel_gateway_app_settings:
+  ?kernel_gateway_app_settings:
     default_user_settings__kernel_gateway_app_settings list ->
-  r_session_app_settings:
+  ?r_session_app_settings:
     default_user_settings__r_session_app_settings list ->
-  r_studio_server_pro_app_settings:
+  ?r_studio_server_pro_app_settings:
     default_user_settings__r_studio_server_pro_app_settings list ->
-  sharing_settings:default_user_settings__sharing_settings list ->
-  space_storage_settings:
+  ?sharing_settings:default_user_settings__sharing_settings list ->
+  ?space_storage_settings:
     default_user_settings__space_storage_settings list ->
-  tensor_board_app_settings:
+  ?tensor_board_app_settings:
     default_user_settings__tensor_board_app_settings list ->
+  execution_role:string prop ->
   unit ->
   default_user_settings
 
@@ -436,10 +437,10 @@ type domain_settings__r_studio_server_pro_domain_settings
 val domain_settings__r_studio_server_pro_domain_settings :
   ?r_studio_connect_url:string prop ->
   ?r_studio_package_manager_url:string prop ->
-  domain_execution_role_arn:string prop ->
-  default_resource_spec:
+  ?default_resource_spec:
     domain_settings__r_studio_server_pro_domain_settings__default_resource_spec
     list ->
+  domain_execution_role_arn:string prop ->
   unit ->
   domain_settings__r_studio_server_pro_domain_settings
 
@@ -448,7 +449,7 @@ type domain_settings
 val domain_settings :
   ?execution_role_identity_config:string prop ->
   ?security_group_ids:string prop list ->
-  r_studio_server_pro_domain_settings:
+  ?r_studio_server_pro_domain_settings:
     domain_settings__r_studio_server_pro_domain_settings list ->
   unit ->
   domain_settings
@@ -467,14 +468,14 @@ val aws_sagemaker_domain :
   ?kms_key_id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?default_space_settings:default_space_settings list ->
+  ?domain_settings:domain_settings list ->
+  ?retention_policy:retention_policy list ->
   auth_mode:string prop ->
   domain_name:string prop ->
   subnet_ids:string prop list ->
   vpc_id:string prop ->
-  default_space_settings:default_space_settings list ->
   default_user_settings:default_user_settings list ->
-  domain_settings:domain_settings list ->
-  retention_policy:retention_policy list ->
   unit ->
   aws_sagemaker_domain
 
@@ -509,14 +510,14 @@ val register :
   ?kms_key_id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?default_space_settings:default_space_settings list ->
+  ?domain_settings:domain_settings list ->
+  ?retention_policy:retention_policy list ->
   auth_mode:string prop ->
   domain_name:string prop ->
   subnet_ids:string prop list ->
   vpc_id:string prop ->
-  default_space_settings:default_space_settings list ->
   default_user_settings:default_user_settings list ->
-  domain_settings:domain_settings list ->
-  retention_policy:retention_policy list ->
   string ->
   t
 
@@ -527,13 +528,13 @@ val make :
   ?kms_key_id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?default_space_settings:default_space_settings list ->
+  ?domain_settings:domain_settings list ->
+  ?retention_policy:retention_policy list ->
   auth_mode:string prop ->
   domain_name:string prop ->
   subnet_ids:string prop list ->
   vpc_id:string prop ->
-  default_space_settings:default_space_settings list ->
   default_user_settings:default_user_settings list ->
-  domain_settings:domain_settings list ->
-  retention_policy:retention_policy list ->
   string ->
   t Tf_core.resource

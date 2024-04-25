@@ -1945,7 +1945,7 @@ let three_tier_configuration__resource_names__application_server__virtual_machin
   }
 
 let three_tier_configuration__resource_names__application_server
-    ?availability_set_name ~virtual_machine () :
+    ?availability_set_name ?(virtual_machine = []) () :
     three_tier_configuration__resource_names__application_server =
   { availability_set_name; virtual_machine }
 
@@ -1981,7 +1981,8 @@ let three_tier_configuration__resource_names__central_server__virtual_machine
   }
 
 let three_tier_configuration__resource_names__central_server
-    ?availability_set_name ~load_balancer ~virtual_machine () :
+    ?availability_set_name ?(load_balancer = [])
+    ?(virtual_machine = []) () :
     three_tier_configuration__resource_names__central_server =
   { availability_set_name; load_balancer; virtual_machine }
 
@@ -2017,7 +2018,8 @@ let three_tier_configuration__resource_names__database_server__virtual_machine
   }
 
 let three_tier_configuration__resource_names__database_server
-    ?availability_set_name ~load_balancer ~virtual_machine () :
+    ?availability_set_name ?(load_balancer = [])
+    ?(virtual_machine = []) () :
     three_tier_configuration__resource_names__database_server =
   { availability_set_name; load_balancer; virtual_machine }
 
@@ -2026,8 +2028,9 @@ let three_tier_configuration__resource_names__shared_storage
     three_tier_configuration__resource_names__shared_storage =
   { account_name; private_endpoint_name }
 
-let three_tier_configuration__resource_names ~application_server
-    ~central_server ~database_server ~shared_storage () :
+let three_tier_configuration__resource_names
+    ?(application_server = []) ?(central_server = [])
+    ?(database_server = []) ?(shared_storage = []) () :
     three_tier_configuration__resource_names =
   {
     application_server;
@@ -2042,10 +2045,10 @@ let three_tier_configuration__transport_create_and_mount
   { resource_group_id; storage_account_name }
 
 let three_tier_configuration ?high_availability_type
-    ?secondary_ip_enabled ~app_resource_group_name
+    ?secondary_ip_enabled ?(resource_names = [])
+    ?(transport_create_and_mount = []) ~app_resource_group_name
     ~application_server_configuration ~central_server_configuration
-    ~database_server_configuration ~resource_names
-    ~transport_create_and_mount () : three_tier_configuration =
+    ~database_server_configuration () : three_tier_configuration =
   {
     app_resource_group_name;
     high_availability_type;
@@ -2061,9 +2064,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_workloads_sap_three_tier_virtual_instance ?id
-    ?managed_resource_group_name ?tags ?timeouts ~app_location
-    ~environment ~location ~name ~resource_group_name ~sap_fqdn
-    ~sap_product ~identity ~three_tier_configuration () :
+    ?managed_resource_group_name ?tags ?(identity = []) ?timeouts
+    ~app_location ~environment ~location ~name ~resource_group_name
+    ~sap_fqdn ~sap_product ~three_tier_configuration () :
     azurerm_workloads_sap_three_tier_virtual_instance =
   {
     app_location;
@@ -2094,9 +2097,10 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?id ?managed_resource_group_name ?tags ?timeouts
-    ~app_location ~environment ~location ~name ~resource_group_name
-    ~sap_fqdn ~sap_product ~identity ~three_tier_configuration __id =
+let make ?id ?managed_resource_group_name ?tags ?(identity = [])
+    ?timeouts ~app_location ~environment ~location ~name
+    ~resource_group_name ~sap_fqdn ~sap_product
+    ~three_tier_configuration __id =
   let __type = "azurerm_workloads_sap_three_tier_virtual_instance" in
   let __attrs =
     ({
@@ -2121,21 +2125,21 @@ let make ?id ?managed_resource_group_name ?tags ?timeouts
     json =
       yojson_of_azurerm_workloads_sap_three_tier_virtual_instance
         (azurerm_workloads_sap_three_tier_virtual_instance ?id
-           ?managed_resource_group_name ?tags ?timeouts ~app_location
-           ~environment ~location ~name ~resource_group_name
-           ~sap_fqdn ~sap_product ~identity ~three_tier_configuration
-           ());
+           ?managed_resource_group_name ?tags ~identity ?timeouts
+           ~app_location ~environment ~location ~name
+           ~resource_group_name ~sap_fqdn ~sap_product
+           ~three_tier_configuration ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?managed_resource_group_name ?tags
-    ?timeouts ~app_location ~environment ~location ~name
-    ~resource_group_name ~sap_fqdn ~sap_product ~identity
+    ?(identity = []) ?timeouts ~app_location ~environment ~location
+    ~name ~resource_group_name ~sap_fqdn ~sap_product
     ~three_tier_configuration __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?managed_resource_group_name ?tags ?timeouts
+    make ?id ?managed_resource_group_name ?tags ~identity ?timeouts
       ~app_location ~environment ~location ~name ~resource_group_name
-      ~sap_fqdn ~sap_product ~identity ~three_tier_configuration __id
+      ~sap_fqdn ~sap_product ~three_tier_configuration __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

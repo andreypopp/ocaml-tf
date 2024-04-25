@@ -403,8 +403,8 @@ let stream_configs__bigquery_destination__schema_config__last_updated_partition_
   { expiration_ms; type_ }
 
 let stream_configs__bigquery_destination__schema_config ?schema_type
-    ~recursive_structure_depth ~last_updated_partition_config () :
-    stream_configs__bigquery_destination__schema_config =
+    ?(last_updated_partition_config = []) ~recursive_structure_depth
+    () : stream_configs__bigquery_destination__schema_config =
   {
     recursive_structure_depth;
     schema_type;
@@ -425,8 +425,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_healthcare_fhir_store ?complex_data_type_reference_parsing
     ?default_search_handling_strict ?disable_referential_integrity
     ?disable_resource_versioning ?enable_history_import
-    ?enable_update_create ?id ?labels ?timeouts ~dataset ~name
-    ~version ~notification_config ~stream_configs () :
+    ?enable_update_create ?id ?labels ?(notification_config = [])
+    ?(stream_configs = []) ?timeouts ~dataset ~name ~version () :
     google_healthcare_fhir_store =
   {
     complex_data_type_reference_parsing;
@@ -465,8 +465,8 @@ type t = {
 let make ?complex_data_type_reference_parsing
     ?default_search_handling_strict ?disable_referential_integrity
     ?disable_resource_versioning ?enable_history_import
-    ?enable_update_create ?id ?labels ?timeouts ~dataset ~name
-    ~version ~notification_config ~stream_configs __id =
+    ?enable_update_create ?id ?labels ?(notification_config = [])
+    ?(stream_configs = []) ?timeouts ~dataset ~name ~version __id =
   let __type = "google_healthcare_fhir_store" in
   let __attrs =
     ({
@@ -506,22 +506,22 @@ let make ?complex_data_type_reference_parsing
            ?default_search_handling_strict
            ?disable_referential_integrity
            ?disable_resource_versioning ?enable_history_import
-           ?enable_update_create ?id ?labels ?timeouts ~dataset ~name
-           ~version ~notification_config ~stream_configs ());
+           ?enable_update_create ?id ?labels ~notification_config
+           ~stream_configs ?timeouts ~dataset ~name ~version ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?complex_data_type_reference_parsing
     ?default_search_handling_strict ?disable_referential_integrity
     ?disable_resource_versioning ?enable_history_import
-    ?enable_update_create ?id ?labels ?timeouts ~dataset ~name
-    ~version ~notification_config ~stream_configs __id =
+    ?enable_update_create ?id ?labels ?(notification_config = [])
+    ?(stream_configs = []) ?timeouts ~dataset ~name ~version __id =
   let (r : _ Tf_core.resource) =
     make ?complex_data_type_reference_parsing
       ?default_search_handling_strict ?disable_referential_integrity
       ?disable_resource_versioning ?enable_history_import
-      ?enable_update_create ?id ?labels ?timeouts ~dataset ~name
-      ~version ~notification_config ~stream_configs __id
+      ?enable_update_create ?id ?labels ~notification_config
+      ~stream_configs ?timeouts ~dataset ~name ~version __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

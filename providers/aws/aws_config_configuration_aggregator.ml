@@ -204,8 +204,9 @@ let organization_aggregation_source ?all_regions ?regions ~role_arn
     () : organization_aggregation_source =
   { all_regions; regions; role_arn }
 
-let aws_config_configuration_aggregator ?id ?tags ?tags_all ~name
-    ~account_aggregation_source ~organization_aggregation_source () :
+let aws_config_configuration_aggregator ?id ?tags ?tags_all
+    ?(account_aggregation_source = [])
+    ?(organization_aggregation_source = []) ~name () :
     aws_config_configuration_aggregator =
   {
     id;
@@ -224,8 +225,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?tags ?tags_all ~name ~account_aggregation_source
-    ~organization_aggregation_source __id =
+let make ?id ?tags ?tags_all ?(account_aggregation_source = [])
+    ?(organization_aggregation_source = []) ~name __id =
   let __type = "aws_config_configuration_aggregator" in
   let __attrs =
     ({
@@ -243,17 +244,17 @@ let make ?id ?tags ?tags_all ~name ~account_aggregation_source
     json =
       yojson_of_aws_config_configuration_aggregator
         (aws_config_configuration_aggregator ?id ?tags ?tags_all
-           ~name ~account_aggregation_source
-           ~organization_aggregation_source ());
+           ~account_aggregation_source
+           ~organization_aggregation_source ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ~name
-    ~account_aggregation_source ~organization_aggregation_source __id
-    =
+let register ?tf_module ?id ?tags ?tags_all
+    ?(account_aggregation_source = [])
+    ?(organization_aggregation_source = []) ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~name ~account_aggregation_source
-      ~organization_aggregation_source __id
+    make ?id ?tags ?tags_all ~account_aggregation_source
+      ~organization_aggregation_source ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

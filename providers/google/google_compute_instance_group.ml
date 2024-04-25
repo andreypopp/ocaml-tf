@@ -183,7 +183,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_compute_instance_group ?description ?id ?instances
-    ?network ?project ?zone ?timeouts ~name ~named_port () :
+    ?network ?project ?zone ?(named_port = []) ?timeouts ~name () :
     google_compute_instance_group =
   {
     description;
@@ -210,7 +210,7 @@ type t = {
 }
 
 let make ?description ?id ?instances ?network ?project ?zone
-    ?timeouts ~name ~named_port __id =
+    ?(named_port = []) ?timeouts ~name __id =
   let __type = "google_compute_instance_group" in
   let __attrs =
     ({
@@ -232,15 +232,15 @@ let make ?description ?id ?instances ?network ?project ?zone
     json =
       yojson_of_google_compute_instance_group
         (google_compute_instance_group ?description ?id ?instances
-           ?network ?project ?zone ?timeouts ~name ~named_port ());
+           ?network ?project ?zone ~named_port ?timeouts ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?instances ?network ?project
-    ?zone ?timeouts ~name ~named_port __id =
+    ?zone ?(named_port = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?instances ?network ?project ?zone
-      ?timeouts ~name ~named_port __id
+      ~named_port ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

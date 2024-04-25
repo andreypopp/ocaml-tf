@@ -29,6 +29,7 @@ val azurerm_mobile_network_sim :
   ?device_type:string prop ->
   ?id:string prop ->
   ?sim_policy_id:string prop ->
+  ?static_ip_configuration:static_ip_configuration list ->
   ?timeouts:timeouts ->
   authentication_key:string prop ->
   integrated_circuit_card_identifier:string prop ->
@@ -36,7 +37,6 @@ val azurerm_mobile_network_sim :
   mobile_network_sim_group_id:string prop ->
   name:string prop ->
   operator_key_code:string prop ->
-  static_ip_configuration:static_ip_configuration list ->
   unit ->
   azurerm_mobile_network_sim
 
@@ -65,6 +65,7 @@ val register :
   ?device_type:string prop ->
   ?id:string prop ->
   ?sim_policy_id:string prop ->
+  ?static_ip_configuration:static_ip_configuration list ->
   ?timeouts:timeouts ->
   authentication_key:string prop ->
   integrated_circuit_card_identifier:string prop ->
@@ -72,7 +73,6 @@ val register :
   mobile_network_sim_group_id:string prop ->
   name:string prop ->
   operator_key_code:string prop ->
-  static_ip_configuration:static_ip_configuration list ->
   string ->
   t
 
@@ -80,6 +80,7 @@ val make :
   ?device_type:string prop ->
   ?id:string prop ->
   ?sim_policy_id:string prop ->
+  ?static_ip_configuration:static_ip_configuration list ->
   ?timeouts:timeouts ->
   authentication_key:string prop ->
   integrated_circuit_card_identifier:string prop ->
@@ -87,6 +88,5 @@ val make :
   mobile_network_sim_group_id:string prop ->
   name:string prop ->
   operator_key_code:string prop ->
-  static_ip_configuration:static_ip_configuration list ->
   string ->
   t Tf_core.resource

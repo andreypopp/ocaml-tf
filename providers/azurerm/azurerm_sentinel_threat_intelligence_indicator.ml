@@ -511,10 +511,11 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_sentinel_threat_intelligence_indicator ?confidence
     ?created_by ?description ?extension ?id ?language
     ?object_marking_refs ?pattern_version ?revoked ?tags
-    ?threat_types ?validate_until_utc ?timeouts ~display_name
-    ~pattern ~pattern_type ~source ~validate_from_utc ~workspace_id
-    ~external_reference ~granular_marking ~kill_chain_phase () :
-    azurerm_sentinel_threat_intelligence_indicator =
+    ?threat_types ?validate_until_utc ?(external_reference = [])
+    ?(granular_marking = []) ?(kill_chain_phase = []) ?timeouts
+    ~display_name ~pattern ~pattern_type ~source ~validate_from_utc
+    ~workspace_id () : azurerm_sentinel_threat_intelligence_indicator
+    =
   {
     confidence;
     created_by;
@@ -571,9 +572,10 @@ type t = {
 
 let make ?confidence ?created_by ?description ?extension ?id
     ?language ?object_marking_refs ?pattern_version ?revoked ?tags
-    ?threat_types ?validate_until_utc ?timeouts ~display_name
-    ~pattern ~pattern_type ~source ~validate_from_utc ~workspace_id
-    ~external_reference ~granular_marking ~kill_chain_phase __id =
+    ?threat_types ?validate_until_utc ?(external_reference = [])
+    ?(granular_marking = []) ?(kill_chain_phase = []) ?timeouts
+    ~display_name ~pattern ~pattern_type ~source ~validate_from_utc
+    ~workspace_id __id =
   let __type = "azurerm_sentinel_threat_intelligence_indicator" in
   let __attrs =
     ({
@@ -619,25 +621,26 @@ let make ?confidence ?created_by ?description ?extension ?id
         (azurerm_sentinel_threat_intelligence_indicator ?confidence
            ?created_by ?description ?extension ?id ?language
            ?object_marking_refs ?pattern_version ?revoked ?tags
-           ?threat_types ?validate_until_utc ?timeouts ~display_name
-           ~pattern ~pattern_type ~source ~validate_from_utc
-           ~workspace_id ~external_reference ~granular_marking
-           ~kill_chain_phase ());
+           ?threat_types ?validate_until_utc ~external_reference
+           ~granular_marking ~kill_chain_phase ?timeouts
+           ~display_name ~pattern ~pattern_type ~source
+           ~validate_from_utc ~workspace_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?confidence ?created_by ?description
     ?extension ?id ?language ?object_marking_refs ?pattern_version
-    ?revoked ?tags ?threat_types ?validate_until_utc ?timeouts
-    ~display_name ~pattern ~pattern_type ~source ~validate_from_utc
-    ~workspace_id ~external_reference ~granular_marking
-    ~kill_chain_phase __id =
+    ?revoked ?tags ?threat_types ?validate_until_utc
+    ?(external_reference = []) ?(granular_marking = [])
+    ?(kill_chain_phase = []) ?timeouts ~display_name ~pattern
+    ~pattern_type ~source ~validate_from_utc ~workspace_id __id =
   let (r : _ Tf_core.resource) =
     make ?confidence ?created_by ?description ?extension ?id
       ?language ?object_marking_refs ?pattern_version ?revoked ?tags
-      ?threat_types ?validate_until_utc ?timeouts ~display_name
+      ?threat_types ?validate_until_utc ~external_reference
+      ~granular_marking ~kill_chain_phase ?timeouts ~display_name
       ~pattern ~pattern_type ~source ~validate_from_utc ~workspace_id
-      ~external_reference ~granular_marking ~kill_chain_phase __id
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

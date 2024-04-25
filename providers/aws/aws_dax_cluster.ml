@@ -323,9 +323,10 @@ let timeouts ?create ?delete ?update () : timeouts =
 let aws_dax_cluster ?availability_zones
     ?cluster_endpoint_encryption_type ?description ?id
     ?maintenance_window ?notification_topic_arn ?parameter_group_name
-    ?security_group_ids ?subnet_group_name ?tags ?tags_all ?timeouts
-    ~cluster_name ~iam_role_arn ~node_type ~replication_factor
-    ~server_side_encryption () : aws_dax_cluster =
+    ?security_group_ids ?subnet_group_name ?tags ?tags_all
+    ?(server_side_encryption = []) ?timeouts ~cluster_name
+    ~iam_role_arn ~node_type ~replication_factor () : aws_dax_cluster
+    =
   {
     availability_zones;
     cluster_endpoint_encryption_type;
@@ -372,8 +373,8 @@ type t = {
 let make ?availability_zones ?cluster_endpoint_encryption_type
     ?description ?id ?maintenance_window ?notification_topic_arn
     ?parameter_group_name ?security_group_ids ?subnet_group_name
-    ?tags ?tags_all ?timeouts ~cluster_name ~iam_role_arn ~node_type
-    ~replication_factor ~server_side_encryption __id =
+    ?tags ?tags_all ?(server_side_encryption = []) ?timeouts
+    ~cluster_name ~iam_role_arn ~node_type ~replication_factor __id =
   let __type = "aws_dax_cluster" in
   let __attrs =
     ({
@@ -418,24 +419,24 @@ let make ?availability_zones ?cluster_endpoint_encryption_type
            ?cluster_endpoint_encryption_type ?description ?id
            ?maintenance_window ?notification_topic_arn
            ?parameter_group_name ?security_group_ids
-           ?subnet_group_name ?tags ?tags_all ?timeouts ~cluster_name
-           ~iam_role_arn ~node_type ~replication_factor
-           ~server_side_encryption ());
+           ?subnet_group_name ?tags ?tags_all ~server_side_encryption
+           ?timeouts ~cluster_name ~iam_role_arn ~node_type
+           ~replication_factor ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?availability_zones
     ?cluster_endpoint_encryption_type ?description ?id
     ?maintenance_window ?notification_topic_arn ?parameter_group_name
-    ?security_group_ids ?subnet_group_name ?tags ?tags_all ?timeouts
-    ~cluster_name ~iam_role_arn ~node_type ~replication_factor
-    ~server_side_encryption __id =
+    ?security_group_ids ?subnet_group_name ?tags ?tags_all
+    ?(server_side_encryption = []) ?timeouts ~cluster_name
+    ~iam_role_arn ~node_type ~replication_factor __id =
   let (r : _ Tf_core.resource) =
     make ?availability_zones ?cluster_endpoint_encryption_type
       ?description ?id ?maintenance_window ?notification_topic_arn
       ?parameter_group_name ?security_group_ids ?subnet_group_name
-      ?tags ?tags_all ?timeouts ~cluster_name ~iam_role_arn
-      ~node_type ~replication_factor ~server_side_encryption __id
+      ?tags ?tags_all ~server_side_encryption ?timeouts ~cluster_name
+      ~iam_role_arn ~node_type ~replication_factor __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

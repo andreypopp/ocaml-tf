@@ -374,13 +374,13 @@ let magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_c
   { bucket_name; encryption_option; kms_key_id; object_key_prefix }
 
 let magnetic_store_write_properties__magnetic_store_rejected_data_location
-    ~s3_configuration () :
+    ?(s3_configuration = []) () :
     magnetic_store_write_properties__magnetic_store_rejected_data_location
     =
   { s3_configuration }
 
 let magnetic_store_write_properties ?enable_magnetic_store_writes
-    ~magnetic_store_rejected_data_location () :
+    ?(magnetic_store_rejected_data_location = []) () :
     magnetic_store_write_properties =
   {
     enable_magnetic_store_writes;
@@ -399,12 +399,13 @@ let schema__composite_partition_key ?enforcement_in_record ?name
     ~type_ () : schema__composite_partition_key =
   { enforcement_in_record; name; type_ }
 
-let schema ~composite_partition_key () : schema =
+let schema ?(composite_partition_key = []) () : schema =
   { composite_partition_key }
 
-let aws_timestreamwrite_table ?id ?tags ?tags_all ~database_name
-    ~table_name ~magnetic_store_write_properties
-    ~retention_properties ~schema () : aws_timestreamwrite_table =
+let aws_timestreamwrite_table ?id ?tags ?tags_all
+    ?(magnetic_store_write_properties = [])
+    ?(retention_properties = []) ?(schema = []) ~database_name
+    ~table_name () : aws_timestreamwrite_table =
   {
     database_name;
     id;
@@ -425,9 +426,9 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?tags ?tags_all ~database_name ~table_name
-    ~magnetic_store_write_properties ~retention_properties ~schema
-    __id =
+let make ?id ?tags ?tags_all ?(magnetic_store_write_properties = [])
+    ?(retention_properties = []) ?(schema = []) ~database_name
+    ~table_name __id =
   let __type = "aws_timestreamwrite_table" in
   let __attrs =
     ({
@@ -445,19 +446,19 @@ let make ?id ?tags ?tags_all ~database_name ~table_name
     type_ = __type;
     json =
       yojson_of_aws_timestreamwrite_table
-        (aws_timestreamwrite_table ?id ?tags ?tags_all ~database_name
-           ~table_name ~magnetic_store_write_properties
-           ~retention_properties ~schema ());
+        (aws_timestreamwrite_table ?id ?tags ?tags_all
+           ~magnetic_store_write_properties ~retention_properties
+           ~schema ~database_name ~table_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ~database_name
-    ~table_name ~magnetic_store_write_properties
-    ~retention_properties ~schema __id =
+let register ?tf_module ?id ?tags ?tags_all
+    ?(magnetic_store_write_properties = [])
+    ?(retention_properties = []) ?(schema = []) ~database_name
+    ~table_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~database_name ~table_name
-      ~magnetic_store_write_properties ~retention_properties ~schema
-      __id
+    make ?id ?tags ?tags_all ~magnetic_store_write_properties
+      ~retention_properties ~schema ~database_name ~table_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -289,9 +289,10 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_binary_authorization_policy ?description
-    ?global_policy_evaluation_mode ?id ?project ?timeouts
-    ~admission_whitelist_patterns ~cluster_admission_rules
-    ~default_admission_rule () : google_binary_authorization_policy =
+    ?global_policy_evaluation_mode ?id ?project
+    ?(admission_whitelist_patterns = []) ?timeouts
+    ~cluster_admission_rules ~default_admission_rule () :
+    google_binary_authorization_policy =
   {
     description;
     global_policy_evaluation_mode;
@@ -311,8 +312,8 @@ type t = {
 }
 
 let make ?description ?global_policy_evaluation_mode ?id ?project
-    ?timeouts ~admission_whitelist_patterns ~cluster_admission_rules
-    ~default_admission_rule __id =
+    ?(admission_whitelist_patterns = []) ?timeouts
+    ~cluster_admission_rules ~default_admission_rule __id =
   let __type = "google_binary_authorization_policy" in
   let __attrs =
     ({
@@ -330,18 +331,18 @@ let make ?description ?global_policy_evaluation_mode ?id ?project
     json =
       yojson_of_google_binary_authorization_policy
         (google_binary_authorization_policy ?description
-           ?global_policy_evaluation_mode ?id ?project ?timeouts
-           ~admission_whitelist_patterns ~cluster_admission_rules
-           ~default_admission_rule ());
+           ?global_policy_evaluation_mode ?id ?project
+           ~admission_whitelist_patterns ?timeouts
+           ~cluster_admission_rules ~default_admission_rule ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?global_policy_evaluation_mode
-    ?id ?project ?timeouts ~admission_whitelist_patterns
+    ?id ?project ?(admission_whitelist_patterns = []) ?timeouts
     ~cluster_admission_rules ~default_admission_rule __id =
   let (r : _ Tf_core.resource) =
     make ?description ?global_policy_evaluation_mode ?id ?project
-      ?timeouts ~admission_whitelist_patterns
+      ~admission_whitelist_patterns ?timeouts
       ~cluster_admission_rules ~default_admission_rule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

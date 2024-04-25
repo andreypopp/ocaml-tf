@@ -67,9 +67,9 @@ val volume__efs_volume_configuration :
   ?root_directory:string prop ->
   ?transit_encryption:string prop ->
   ?transit_encryption_port:float prop ->
-  file_system_id:string prop ->
-  authorization_config:
+  ?authorization_config:
     volume__efs_volume_configuration__authorization_config list ->
+  file_system_id:string prop ->
   unit ->
   volume__efs_volume_configuration
 
@@ -96,12 +96,12 @@ type volume
 
 val volume :
   ?host_path:string prop ->
-  name:string prop ->
-  docker_volume_configuration:
+  ?docker_volume_configuration:
     volume__docker_volume_configuration list ->
-  efs_volume_configuration:volume__efs_volume_configuration list ->
-  fsx_windows_file_server_volume_configuration:
+  ?efs_volume_configuration:volume__efs_volume_configuration list ->
+  ?fsx_windows_file_server_volume_configuration:
     volume__fsx_windows_file_server_volume_configuration list ->
+  name:string prop ->
   unit ->
   volume
 
@@ -121,13 +121,13 @@ val aws_ecs_task_definition :
   ?tags_all:(string * string prop) list ->
   ?task_role_arn:string prop ->
   ?track_latest:bool prop ->
+  ?ephemeral_storage:ephemeral_storage list ->
+  ?proxy_configuration:proxy_configuration list ->
+  ?runtime_platform:runtime_platform list ->
   container_definitions:string prop ->
   family:string prop ->
-  ephemeral_storage:ephemeral_storage list ->
   inference_accelerator:inference_accelerator list ->
   placement_constraints:placement_constraints list ->
-  proxy_configuration:proxy_configuration list ->
-  runtime_platform:runtime_platform list ->
   volume:volume list ->
   unit ->
   aws_ecs_task_definition
@@ -173,13 +173,13 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?task_role_arn:string prop ->
   ?track_latest:bool prop ->
+  ?ephemeral_storage:ephemeral_storage list ->
+  ?proxy_configuration:proxy_configuration list ->
+  ?runtime_platform:runtime_platform list ->
   container_definitions:string prop ->
   family:string prop ->
-  ephemeral_storage:ephemeral_storage list ->
   inference_accelerator:inference_accelerator list ->
   placement_constraints:placement_constraints list ->
-  proxy_configuration:proxy_configuration list ->
-  runtime_platform:runtime_platform list ->
   volume:volume list ->
   string ->
   t
@@ -198,13 +198,13 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?task_role_arn:string prop ->
   ?track_latest:bool prop ->
+  ?ephemeral_storage:ephemeral_storage list ->
+  ?proxy_configuration:proxy_configuration list ->
+  ?runtime_platform:runtime_platform list ->
   container_definitions:string prop ->
   family:string prop ->
-  ephemeral_storage:ephemeral_storage list ->
   inference_accelerator:inference_accelerator list ->
   placement_constraints:placement_constraints list ->
-  proxy_configuration:proxy_configuration list ->
-  runtime_platform:runtime_platform list ->
   volume:volume list ->
   string ->
   t Tf_core.resource

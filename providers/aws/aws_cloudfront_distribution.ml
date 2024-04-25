@@ -1801,8 +1801,8 @@ let default_cache_behavior ?cache_policy_id ?compress ?default_ttl
     ?field_level_encryption_id ?max_ttl ?min_ttl
     ?origin_request_policy_id ?realtime_log_config_arn
     ?response_headers_policy_id ?smooth_streaming ?trusted_key_groups
-    ?trusted_signers ~allowed_methods ~cached_methods
-    ~target_origin_id ~viewer_protocol_policy ~forwarded_values
+    ?trusted_signers ?(forwarded_values = []) ~allowed_methods
+    ~cached_methods ~target_origin_id ~viewer_protocol_policy
     ~function_association ~lambda_function_association () :
     default_cache_behavior =
   {
@@ -1854,10 +1854,10 @@ let ordered_cache_behavior ?cache_policy_id ?compress ?default_ttl
     ?field_level_encryption_id ?max_ttl ?min_ttl
     ?origin_request_policy_id ?realtime_log_config_arn
     ?response_headers_policy_id ?smooth_streaming ?trusted_key_groups
-    ?trusted_signers ~allowed_methods ~cached_methods ~path_pattern
-    ~target_origin_id ~viewer_protocol_policy ~forwarded_values
-    ~function_association ~lambda_function_association () :
-    ordered_cache_behavior =
+    ?trusted_signers ?(forwarded_values = []) ~allowed_methods
+    ~cached_methods ~path_pattern ~target_origin_id
+    ~viewer_protocol_policy ~function_association
+    ~lambda_function_association () : ordered_cache_behavior =
   {
     allowed_methods;
     cache_policy_id;
@@ -1906,9 +1906,10 @@ let origin__s3_origin_config ~origin_access_identity () :
   { origin_access_identity }
 
 let origin ?connection_attempts ?connection_timeout
-    ?origin_access_control_id ?origin_path ~domain_name ~origin_id
-    ~custom_header ~custom_origin_config ~origin_shield
-    ~s3_origin_config () : origin =
+    ?origin_access_control_id ?origin_path
+    ?(custom_origin_config = []) ?(origin_shield = [])
+    ?(s3_origin_config = []) ~domain_name ~origin_id ~custom_header
+    () : origin =
   {
     connection_attempts;
     connection_timeout;
@@ -1956,9 +1957,9 @@ let aws_cloudfront_distribution ?aliases ?comment
     ?continuous_deployment_policy_id ?default_root_object
     ?http_version ?id ?is_ipv6_enabled ?price_class ?retain_on_delete
     ?staging ?tags ?tags_all ?wait_for_deployment ?web_acl_id
-    ~enabled ~custom_error_response ~default_cache_behavior
-    ~logging_config ~ordered_cache_behavior ~origin ~origin_group
-    ~restrictions ~viewer_certificate () :
+    ?(logging_config = []) ?(ordered_cache_behavior = []) ~enabled
+    ~custom_error_response ~default_cache_behavior ~origin
+    ~origin_group ~restrictions ~viewer_certificate () :
     aws_cloudfront_distribution =
   {
     aliases;
@@ -2017,9 +2018,10 @@ type t = {
 let make ?aliases ?comment ?continuous_deployment_policy_id
     ?default_root_object ?http_version ?id ?is_ipv6_enabled
     ?price_class ?retain_on_delete ?staging ?tags ?tags_all
-    ?wait_for_deployment ?web_acl_id ~enabled ~custom_error_response
-    ~default_cache_behavior ~logging_config ~ordered_cache_behavior
-    ~origin ~origin_group ~restrictions ~viewer_certificate __id =
+    ?wait_for_deployment ?web_acl_id ?(logging_config = [])
+    ?(ordered_cache_behavior = []) ~enabled ~custom_error_response
+    ~default_cache_behavior ~origin ~origin_group ~restrictions
+    ~viewer_certificate __id =
   let __type = "aws_cloudfront_distribution" in
   let __attrs =
     ({
@@ -2068,10 +2070,10 @@ let make ?aliases ?comment ?continuous_deployment_policy_id
            ?continuous_deployment_policy_id ?default_root_object
            ?http_version ?id ?is_ipv6_enabled ?price_class
            ?retain_on_delete ?staging ?tags ?tags_all
-           ?wait_for_deployment ?web_acl_id ~enabled
-           ~custom_error_response ~default_cache_behavior
-           ~logging_config ~ordered_cache_behavior ~origin
-           ~origin_group ~restrictions ~viewer_certificate ());
+           ?wait_for_deployment ?web_acl_id ~logging_config
+           ~ordered_cache_behavior ~enabled ~custom_error_response
+           ~default_cache_behavior ~origin ~origin_group
+           ~restrictions ~viewer_certificate ());
     attrs = __attrs;
   }
 
@@ -2079,16 +2081,16 @@ let register ?tf_module ?aliases ?comment
     ?continuous_deployment_policy_id ?default_root_object
     ?http_version ?id ?is_ipv6_enabled ?price_class ?retain_on_delete
     ?staging ?tags ?tags_all ?wait_for_deployment ?web_acl_id
-    ~enabled ~custom_error_response ~default_cache_behavior
-    ~logging_config ~ordered_cache_behavior ~origin ~origin_group
-    ~restrictions ~viewer_certificate __id =
+    ?(logging_config = []) ?(ordered_cache_behavior = []) ~enabled
+    ~custom_error_response ~default_cache_behavior ~origin
+    ~origin_group ~restrictions ~viewer_certificate __id =
   let (r : _ Tf_core.resource) =
     make ?aliases ?comment ?continuous_deployment_policy_id
       ?default_root_object ?http_version ?id ?is_ipv6_enabled
       ?price_class ?retain_on_delete ?staging ?tags ?tags_all
-      ?wait_for_deployment ?web_acl_id ~enabled
-      ~custom_error_response ~default_cache_behavior ~logging_config
-      ~ordered_cache_behavior ~origin ~origin_group ~restrictions
+      ?wait_for_deployment ?web_acl_id ~logging_config
+      ~ordered_cache_behavior ~enabled ~custom_error_response
+      ~default_cache_behavior ~origin ~origin_group ~restrictions
       ~viewer_certificate __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

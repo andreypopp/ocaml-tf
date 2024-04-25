@@ -45,11 +45,11 @@ val aws_directory_service_directory :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
+  ?connect_settings:connect_settings list ->
   ?timeouts:timeouts ->
+  ?vpc_settings:vpc_settings list ->
   name:string prop ->
   password:string prop ->
-  connect_settings:connect_settings list ->
-  vpc_settings:vpc_settings list ->
   unit ->
   aws_directory_service_directory
 
@@ -90,11 +90,11 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
+  ?connect_settings:connect_settings list ->
   ?timeouts:timeouts ->
+  ?vpc_settings:vpc_settings list ->
   name:string prop ->
   password:string prop ->
-  connect_settings:connect_settings list ->
-  vpc_settings:vpc_settings list ->
   string ->
   t
 
@@ -110,10 +110,10 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
+  ?connect_settings:connect_settings list ->
   ?timeouts:timeouts ->
+  ?vpc_settings:vpc_settings list ->
   name:string prop ->
   password:string prop ->
-  connect_settings:connect_settings list ->
-  vpc_settings:vpc_settings list ->
   string ->
   t Tf_core.resource

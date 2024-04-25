@@ -312,10 +312,10 @@ let azurerm_api_management_authorization_server
     ?bearer_token_sending_methods ?client_authentication_method
     ?client_secret ?default_scope ?description ?id
     ?resource_owner_password ?resource_owner_username ?support_state
-    ?token_endpoint ?timeouts ~api_management_name
-    ~authorization_endpoint ~authorization_methods ~client_id
-    ~client_registration_endpoint ~display_name ~grant_types ~name
-    ~resource_group_name ~token_body_parameter () :
+    ?token_endpoint ?timeouts ?(token_body_parameter = [])
+    ~api_management_name ~authorization_endpoint
+    ~authorization_methods ~client_id ~client_registration_endpoint
+    ~display_name ~grant_types ~name ~resource_group_name () :
     azurerm_api_management_authorization_server =
   {
     api_management_name;
@@ -366,10 +366,10 @@ type t = {
 let make ?bearer_token_sending_methods ?client_authentication_method
     ?client_secret ?default_scope ?description ?id
     ?resource_owner_password ?resource_owner_username ?support_state
-    ?token_endpoint ?timeouts ~api_management_name
-    ~authorization_endpoint ~authorization_methods ~client_id
-    ~client_registration_endpoint ~display_name ~grant_types ~name
-    ~resource_group_name ~token_body_parameter __id =
+    ?token_endpoint ?timeouts ?(token_body_parameter = [])
+    ~api_management_name ~authorization_endpoint
+    ~authorization_methods ~client_id ~client_registration_endpoint
+    ~display_name ~grant_types ~name ~resource_group_name __id =
   let __type = "azurerm_api_management_authorization_server" in
   let __attrs =
     ({
@@ -414,10 +414,10 @@ let make ?bearer_token_sending_methods ?client_authentication_method
            ?client_authentication_method ?client_secret
            ?default_scope ?description ?id ?resource_owner_password
            ?resource_owner_username ?support_state ?token_endpoint
-           ?timeouts ~api_management_name ~authorization_endpoint
-           ~authorization_methods ~client_id
+           ?timeouts ~token_body_parameter ~api_management_name
+           ~authorization_endpoint ~authorization_methods ~client_id
            ~client_registration_endpoint ~display_name ~grant_types
-           ~name ~resource_group_name ~token_body_parameter ());
+           ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
@@ -425,18 +425,18 @@ let register ?tf_module ?bearer_token_sending_methods
     ?client_authentication_method ?client_secret ?default_scope
     ?description ?id ?resource_owner_password
     ?resource_owner_username ?support_state ?token_endpoint ?timeouts
-    ~api_management_name ~authorization_endpoint
-    ~authorization_methods ~client_id ~client_registration_endpoint
-    ~display_name ~grant_types ~name ~resource_group_name
-    ~token_body_parameter __id =
+    ?(token_body_parameter = []) ~api_management_name
+    ~authorization_endpoint ~authorization_methods ~client_id
+    ~client_registration_endpoint ~display_name ~grant_types ~name
+    ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?bearer_token_sending_methods ?client_authentication_method
       ?client_secret ?default_scope ?description ?id
       ?resource_owner_password ?resource_owner_username
-      ?support_state ?token_endpoint ?timeouts ~api_management_name
-      ~authorization_endpoint ~authorization_methods ~client_id
-      ~client_registration_endpoint ~display_name ~grant_types ~name
-      ~resource_group_name ~token_body_parameter __id
+      ?support_state ?token_endpoint ?timeouts ~token_body_parameter
+      ~api_management_name ~authorization_endpoint
+      ~authorization_methods ~client_id ~client_registration_endpoint
+      ~display_name ~grant_types ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -31,8 +31,8 @@ val overrides__selectors :
 type overrides
 
 val overrides :
+  ?selectors:overrides__selectors list ->
   value:string prop ->
-  selectors:overrides__selectors list ->
   unit ->
   overrides
 
@@ -74,14 +74,14 @@ val azurerm_resource_group_policy_assignment :
   ?metadata:string prop ->
   ?not_scopes:string prop list ->
   ?parameters:string prop ->
+  ?identity:identity list ->
+  ?non_compliance_message:non_compliance_message list ->
+  ?overrides:overrides list ->
+  ?resource_selectors:resource_selectors list ->
   ?timeouts:timeouts ->
   name:string prop ->
   policy_definition_id:string prop ->
   resource_group_id:string prop ->
-  identity:identity list ->
-  non_compliance_message:non_compliance_message list ->
-  overrides:overrides list ->
-  resource_selectors:resource_selectors list ->
   unit ->
   azurerm_resource_group_policy_assignment
 
@@ -114,14 +114,14 @@ val register :
   ?metadata:string prop ->
   ?not_scopes:string prop list ->
   ?parameters:string prop ->
+  ?identity:identity list ->
+  ?non_compliance_message:non_compliance_message list ->
+  ?overrides:overrides list ->
+  ?resource_selectors:resource_selectors list ->
   ?timeouts:timeouts ->
   name:string prop ->
   policy_definition_id:string prop ->
   resource_group_id:string prop ->
-  identity:identity list ->
-  non_compliance_message:non_compliance_message list ->
-  overrides:overrides list ->
-  resource_selectors:resource_selectors list ->
   string ->
   t
 
@@ -134,13 +134,13 @@ val make :
   ?metadata:string prop ->
   ?not_scopes:string prop list ->
   ?parameters:string prop ->
+  ?identity:identity list ->
+  ?non_compliance_message:non_compliance_message list ->
+  ?overrides:overrides list ->
+  ?resource_selectors:resource_selectors list ->
   ?timeouts:timeouts ->
   name:string prop ->
   policy_definition_id:string prop ->
   resource_group_id:string prop ->
-  identity:identity list ->
-  non_compliance_message:non_compliance_message list ->
-  overrides:overrides list ->
-  resource_selectors:resource_selectors list ->
   string ->
   t Tf_core.resource

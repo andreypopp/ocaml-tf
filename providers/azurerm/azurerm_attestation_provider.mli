@@ -32,11 +32,11 @@ val azurerm_attestation_provider :
   ?sgx_enclave_policy_base64:string prop ->
   ?tags:(string * string prop) list ->
   ?tpm_policy_base64:string prop ->
+  ?policy:policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  policy:policy list ->
   unit ->
   azurerm_attestation_provider
 
@@ -69,11 +69,11 @@ val register :
   ?sgx_enclave_policy_base64:string prop ->
   ?tags:(string * string prop) list ->
   ?tpm_policy_base64:string prop ->
+  ?policy:policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  policy:policy list ->
   string ->
   t
 
@@ -85,10 +85,10 @@ val make :
   ?sgx_enclave_policy_base64:string prop ->
   ?tags:(string * string prop) list ->
   ?tpm_policy_base64:string prop ->
+  ?policy:policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  policy:policy list ->
   string ->
   t Tf_core.resource

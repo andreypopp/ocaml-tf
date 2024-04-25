@@ -43,14 +43,14 @@ val azurerm_machine_learning_compute_instance :
   ?node_public_ip_enabled:bool prop ->
   ?subnet_resource_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?assign_to_user:assign_to_user list ->
+  ?identity:identity list ->
+  ?ssh:ssh list ->
   ?timeouts:timeouts ->
   location:string prop ->
   machine_learning_workspace_id:string prop ->
   name:string prop ->
   virtual_machine_size:string prop ->
-  assign_to_user:assign_to_user list ->
-  identity:identity list ->
-  ssh:ssh list ->
   unit ->
   azurerm_machine_learning_compute_instance
 
@@ -82,14 +82,14 @@ val register :
   ?node_public_ip_enabled:bool prop ->
   ?subnet_resource_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?assign_to_user:assign_to_user list ->
+  ?identity:identity list ->
+  ?ssh:ssh list ->
   ?timeouts:timeouts ->
   location:string prop ->
   machine_learning_workspace_id:string prop ->
   name:string prop ->
   virtual_machine_size:string prop ->
-  assign_to_user:assign_to_user list ->
-  identity:identity list ->
-  ssh:ssh list ->
   string ->
   t
 
@@ -101,13 +101,13 @@ val make :
   ?node_public_ip_enabled:bool prop ->
   ?subnet_resource_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?assign_to_user:assign_to_user list ->
+  ?identity:identity list ->
+  ?ssh:ssh list ->
   ?timeouts:timeouts ->
   location:string prop ->
   machine_learning_workspace_id:string prop ->
   name:string prop ->
   virtual_machine_size:string prop ->
-  assign_to_user:assign_to_user list ->
-  identity:identity list ->
-  ssh:ssh list ->
   string ->
   t Tf_core.resource

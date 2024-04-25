@@ -1165,8 +1165,8 @@ let alert_strategy__notification_rate_limit ?period () :
     alert_strategy__notification_rate_limit =
   { period }
 
-let alert_strategy ?auto_close ~notification_channel_strategy
-    ~notification_rate_limit () : alert_strategy =
+let alert_strategy ?auto_close ?(notification_channel_strategy = [])
+    ?(notification_rate_limit = []) () : alert_strategy =
   {
     auto_close;
     notification_channel_strategy;
@@ -1187,8 +1187,8 @@ let conditions__condition_absent__trigger ?count ?percent () :
     conditions__condition_absent__trigger =
   { count; percent }
 
-let conditions__condition_absent ?filter ~duration ~aggregations
-    ~trigger () : conditions__condition_absent =
+let conditions__condition_absent ?filter ?(aggregations = [])
+    ?(trigger = []) ~duration () : conditions__condition_absent =
   { duration; filter; aggregations; trigger }
 
 let conditions__condition_matched_log ?label_extractors ~filter () :
@@ -1201,7 +1201,7 @@ let conditions__condition_monitoring_query_language__trigger ?count
   { count; percent }
 
 let conditions__condition_monitoring_query_language
-    ?evaluation_missing_data ~duration ~query ~trigger () :
+    ?evaluation_missing_data ?(trigger = []) ~duration ~query () :
     conditions__condition_monitoring_query_language =
   { duration; evaluation_missing_data; query; trigger }
 
@@ -1248,9 +1248,10 @@ let conditions__condition_threshold__trigger ?count ?percent () :
   { count; percent }
 
 let conditions__condition_threshold ?denominator_filter
-    ?evaluation_missing_data ?filter ?threshold_value ~comparison
-    ~duration ~aggregations ~denominator_aggregations
-    ~forecast_options ~trigger () : conditions__condition_threshold =
+    ?evaluation_missing_data ?filter ?threshold_value
+    ?(aggregations = []) ?(denominator_aggregations = [])
+    ?(forecast_options = []) ?(trigger = []) ~comparison ~duration ()
+    : conditions__condition_threshold =
   {
     comparison;
     denominator_filter;
@@ -1264,10 +1265,10 @@ let conditions__condition_threshold ?denominator_filter
     trigger;
   }
 
-let conditions ~display_name ~condition_absent ~condition_matched_log
-    ~condition_monitoring_query_language
-    ~condition_prometheus_query_language ~condition_threshold () :
-    conditions =
+let conditions ?(condition_absent = []) ?(condition_matched_log = [])
+    ?(condition_monitoring_query_language = [])
+    ?(condition_prometheus_query_language = [])
+    ?(condition_threshold = []) ~display_name () : conditions =
   {
     display_name;
     condition_absent;
@@ -1284,9 +1285,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_monitoring_alert_policy ?enabled ?id
-    ?notification_channels ?project ?severity ?user_labels ?timeouts
-    ~combiner ~display_name ~alert_strategy ~conditions
-    ~documentation () : google_monitoring_alert_policy =
+    ?notification_channels ?project ?severity ?user_labels
+    ?(alert_strategy = []) ?(documentation = []) ?timeouts ~combiner
+    ~display_name ~conditions () : google_monitoring_alert_policy =
   {
     combiner;
     display_name;
@@ -1316,8 +1317,8 @@ type t = {
 }
 
 let make ?enabled ?id ?notification_channels ?project ?severity
-    ?user_labels ?timeouts ~combiner ~display_name ~alert_strategy
-    ~conditions ~documentation __id =
+    ?user_labels ?(alert_strategy = []) ?(documentation = [])
+    ?timeouts ~combiner ~display_name ~conditions __id =
   let __type = "google_monitoring_alert_policy" in
   let __attrs =
     ({
@@ -1342,18 +1343,19 @@ let make ?enabled ?id ?notification_channels ?project ?severity
       yojson_of_google_monitoring_alert_policy
         (google_monitoring_alert_policy ?enabled ?id
            ?notification_channels ?project ?severity ?user_labels
-           ?timeouts ~combiner ~display_name ~alert_strategy
-           ~conditions ~documentation ());
+           ~alert_strategy ~documentation ?timeouts ~combiner
+           ~display_name ~conditions ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?enabled ?id ?notification_channels ?project
-    ?severity ?user_labels ?timeouts ~combiner ~display_name
-    ~alert_strategy ~conditions ~documentation __id =
+    ?severity ?user_labels ?(alert_strategy = [])
+    ?(documentation = []) ?timeouts ~combiner ~display_name
+    ~conditions __id =
   let (r : _ Tf_core.resource) =
     make ?enabled ?id ?notification_channels ?project ?severity
-      ?user_labels ?timeouts ~combiner ~display_name ~alert_strategy
-      ~conditions ~documentation __id
+      ?user_labels ~alert_strategy ~documentation ?timeouts ~combiner
+      ~display_name ~conditions __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

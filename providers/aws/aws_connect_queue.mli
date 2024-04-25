@@ -23,10 +23,10 @@ val aws_connect_queue :
   ?status:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?outbound_caller_config:outbound_caller_config list ->
   hours_of_operation_id:string prop ->
   instance_id:string prop ->
   name:string prop ->
-  outbound_caller_config:outbound_caller_config list ->
   unit ->
   aws_connect_queue
 
@@ -58,10 +58,10 @@ val register :
   ?status:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?outbound_caller_config:outbound_caller_config list ->
   hours_of_operation_id:string prop ->
   instance_id:string prop ->
   name:string prop ->
-  outbound_caller_config:outbound_caller_config list ->
   string ->
   t
 
@@ -73,9 +73,9 @@ val make :
   ?status:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?outbound_caller_config:outbound_caller_config list ->
   hours_of_operation_id:string prop ->
   instance_id:string prop ->
   name:string prop ->
-  outbound_caller_config:outbound_caller_config list ->
   string ->
   t Tf_core.resource

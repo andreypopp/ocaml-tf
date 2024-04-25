@@ -15,8 +15,8 @@ val partition_config__capacity :
 type partition_config
 
 val partition_config :
+  ?capacity:partition_config__capacity list ->
   count:float prop ->
-  capacity:partition_config__capacity list ->
   unit ->
   partition_config
 
@@ -49,11 +49,11 @@ val google_pubsub_lite_topic :
   ?project:string prop ->
   ?region:string prop ->
   ?zone:string prop ->
+  ?partition_config:partition_config list ->
+  ?reservation_config:reservation_config list ->
+  ?retention_config:retention_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  partition_config:partition_config list ->
-  reservation_config:reservation_config list ->
-  retention_config:retention_config list ->
   unit ->
   google_pubsub_lite_topic
 
@@ -76,11 +76,11 @@ val register :
   ?project:string prop ->
   ?region:string prop ->
   ?zone:string prop ->
+  ?partition_config:partition_config list ->
+  ?reservation_config:reservation_config list ->
+  ?retention_config:retention_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  partition_config:partition_config list ->
-  reservation_config:reservation_config list ->
-  retention_config:retention_config list ->
   string ->
   t
 
@@ -89,10 +89,10 @@ val make :
   ?project:string prop ->
   ?region:string prop ->
   ?zone:string prop ->
+  ?partition_config:partition_config list ->
+  ?reservation_config:reservation_config list ->
+  ?retention_config:retention_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  partition_config:partition_config list ->
-  reservation_config:reservation_config list ->
-  retention_config:retention_config list ->
   string ->
   t Tf_core.resource

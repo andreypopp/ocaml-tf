@@ -3254,9 +3254,9 @@ let inspect_job__actions__deidentify__transformation_details_storage_config
   { table }
 
 let inspect_job__actions__deidentify ?file_types_to_transform
-    ~cloud_storage_output ~transformation_config
-    ~transformation_details_storage_config () :
-    inspect_job__actions__deidentify =
+    ?(transformation_config = [])
+    ?(transformation_details_storage_config = [])
+    ~cloud_storage_output () : inspect_job__actions__deidentify =
   {
     cloud_storage_output;
     file_types_to_transform;
@@ -3289,10 +3289,11 @@ let inspect_job__actions__save_findings ~output_config () :
     inspect_job__actions__save_findings =
   { output_config }
 
-let inspect_job__actions ~deidentify ~job_notification_emails
-    ~pub_sub ~publish_findings_to_cloud_data_catalog
-    ~publish_summary_to_cscc ~publish_to_stackdriver ~save_findings
-    () : inspect_job__actions =
+let inspect_job__actions ?(deidentify = [])
+    ?(job_notification_emails = []) ?(pub_sub = [])
+    ?(publish_findings_to_cloud_data_catalog = [])
+    ?(publish_summary_to_cscc = []) ?(publish_to_stackdriver = [])
+    ?(save_findings = []) () : inspect_job__actions =
   {
     deidentify;
     job_notification_emails;
@@ -3316,7 +3317,7 @@ let inspect_job__inspect_config__custom_info_types__dictionary__word_list
   { words }
 
 let inspect_job__inspect_config__custom_info_types__dictionary
-    ~cloud_storage_path ~word_list () :
+    ?(cloud_storage_path = []) ?(word_list = []) () :
     inspect_job__inspect_config__custom_info_types__dictionary =
   { cloud_storage_path; word_list }
 
@@ -3327,7 +3328,7 @@ let inspect_job__inspect_config__custom_info_types__info_type__sensitivity_score
   { score }
 
 let inspect_job__inspect_config__custom_info_types__info_type
-    ?version ~name ~sensitivity_score () :
+    ?version ?(sensitivity_score = []) ~name () :
     inspect_job__inspect_config__custom_info_types__info_type =
   { name; version; sensitivity_score }
 
@@ -3352,8 +3353,9 @@ let inspect_job__inspect_config__custom_info_types__surrogate_type ()
   ()
 
 let inspect_job__inspect_config__custom_info_types ?exclusion_type
-    ?likelihood ~dictionary ~info_type ~regex ~sensitivity_score
-    ~stored_type ~surrogate_type () :
+    ?likelihood ?(dictionary = []) ?(regex = [])
+    ?(sensitivity_score = []) ?(stored_type = [])
+    ?(surrogate_type = []) ~info_type () :
     inspect_job__inspect_config__custom_info_types =
   {
     exclusion_type;
@@ -3370,8 +3372,9 @@ let inspect_job__inspect_config__info_types__sensitivity_score ~score
     () : inspect_job__inspect_config__info_types__sensitivity_score =
   { score }
 
-let inspect_job__inspect_config__info_types ?version ~name
-    ~sensitivity_score () : inspect_job__inspect_config__info_types =
+let inspect_job__inspect_config__info_types ?version
+    ?(sensitivity_score = []) ~name () :
+    inspect_job__inspect_config__info_types =
   { name; version; sensitivity_score }
 
 let inspect_job__inspect_config__limits__max_findings_per_info_type__info_type__sensitivity_score
@@ -3381,18 +3384,18 @@ let inspect_job__inspect_config__limits__max_findings_per_info_type__info_type__
   { score }
 
 let inspect_job__inspect_config__limits__max_findings_per_info_type__info_type
-    ?version ~name ~sensitivity_score () :
+    ?version ?(sensitivity_score = []) ~name () :
     inspect_job__inspect_config__limits__max_findings_per_info_type__info_type
     =
   { name; version; sensitivity_score }
 
 let inspect_job__inspect_config__limits__max_findings_per_info_type
-    ?max_findings ~info_type () :
+    ?max_findings ?(info_type = []) () :
     inspect_job__inspect_config__limits__max_findings_per_info_type =
   { max_findings; info_type }
 
 let inspect_job__inspect_config__limits ?max_findings_per_item
-    ?max_findings_per_request ~max_findings_per_info_type () :
+    ?max_findings_per_request ?(max_findings_per_info_type = []) () :
     inspect_job__inspect_config__limits =
   {
     max_findings_per_item;
@@ -3406,8 +3409,8 @@ let inspect_job__inspect_config__rule_set__info_types__sensitivity_score
     =
   { score }
 
-let inspect_job__inspect_config__rule_set__info_types ?version ~name
-    ~sensitivity_score () :
+let inspect_job__inspect_config__rule_set__info_types ?version
+    ?(sensitivity_score = []) ~name () :
     inspect_job__inspect_config__rule_set__info_types =
   { name; version; sensitivity_score }
 
@@ -3424,7 +3427,7 @@ let inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__wo
   { words }
 
 let inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary
-    ~cloud_storage_path ~word_list () :
+    ?(cloud_storage_path = []) ?(word_list = []) () :
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary
     =
   { cloud_storage_path; word_list }
@@ -3442,7 +3445,7 @@ let inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hot
   { window_after; window_before }
 
 let inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword
-    ~hotword_regex ~proximity () :
+    ?(hotword_regex = []) ?(proximity = []) () :
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword
     =
   { hotword_regex; proximity }
@@ -3454,7 +3457,7 @@ let inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_t
   { score }
 
 let inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types
-    ?version ~name ~sensitivity_score () :
+    ?version ?(sensitivity_score = []) ~name () :
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types
     =
   { name; version; sensitivity_score }
@@ -3472,8 +3475,8 @@ let inspect_job__inspect_config__rule_set__rules__exclusion_rule__regex
   { group_indexes; pattern }
 
 let inspect_job__inspect_config__rule_set__rules__exclusion_rule
-    ~matching_type ~dictionary ~exclude_by_hotword
-    ~exclude_info_types ~regex () :
+    ?(dictionary = []) ?(exclude_by_hotword = [])
+    ?(exclude_info_types = []) ?(regex = []) ~matching_type () :
     inspect_job__inspect_config__rule_set__rules__exclusion_rule =
   {
     matching_type;
@@ -3502,21 +3505,24 @@ let inspect_job__inspect_config__rule_set__rules__hotword_rule__proximity
   { window_after; window_before }
 
 let inspect_job__inspect_config__rule_set__rules__hotword_rule
-    ~hotword_regex ~likelihood_adjustment ~proximity () :
+    ?(hotword_regex = []) ?(likelihood_adjustment = [])
+    ?(proximity = []) () :
     inspect_job__inspect_config__rule_set__rules__hotword_rule =
   { hotword_regex; likelihood_adjustment; proximity }
 
-let inspect_job__inspect_config__rule_set__rules ~exclusion_rule
-    ~hotword_rule () : inspect_job__inspect_config__rule_set__rules =
+let inspect_job__inspect_config__rule_set__rules
+    ?(exclusion_rule = []) ?(hotword_rule = []) () :
+    inspect_job__inspect_config__rule_set__rules =
   { exclusion_rule; hotword_rule }
 
-let inspect_job__inspect_config__rule_set ~info_types ~rules () :
-    inspect_job__inspect_config__rule_set =
+let inspect_job__inspect_config__rule_set ?(info_types = []) ~rules
+    () : inspect_job__inspect_config__rule_set =
   { info_types; rules }
 
 let inspect_job__inspect_config ?exclude_info_types ?include_quote
-    ?min_likelihood ~custom_info_types ~info_types ~limits ~rule_set
-    () : inspect_job__inspect_config =
+    ?min_likelihood ?(custom_info_types = []) ?(info_types = [])
+    ?(limits = []) ?(rule_set = []) () : inspect_job__inspect_config
+    =
   {
     exclude_info_types;
     include_quote;
@@ -3549,8 +3555,9 @@ let inspect_job__storage_config__big_query_options__table_reference
   { dataset_id; project_id; table_id }
 
 let inspect_job__storage_config__big_query_options ?rows_limit
-    ?rows_limit_percent ?sample_method ~excluded_fields
-    ~identifying_fields ~included_fields ~table_reference () :
+    ?rows_limit_percent ?sample_method ?(excluded_fields = [])
+    ?(identifying_fields = []) ?(included_fields = [])
+    ~table_reference () :
     inspect_job__storage_config__big_query_options =
   {
     rows_limit;
@@ -3569,7 +3576,7 @@ let inspect_job__storage_config__cloud_storage_options__file_set__regex_file_set
   { bucket_name; exclude_regex; include_regex }
 
 let inspect_job__storage_config__cloud_storage_options__file_set ?url
-    ~regex_file_set () :
+    ?(regex_file_set = []) () :
     inspect_job__storage_config__cloud_storage_options__file_set =
   { url; regex_file_set }
 
@@ -3607,12 +3614,12 @@ let inspect_job__storage_config__hybrid_options__table_options__identifying_fiel
   { name }
 
 let inspect_job__storage_config__hybrid_options__table_options
-    ~identifying_fields () :
+    ?(identifying_fields = []) () :
     inspect_job__storage_config__hybrid_options__table_options =
   { identifying_fields }
 
 let inspect_job__storage_config__hybrid_options ?description ?labels
-    ?required_finding_label_keys ~table_options () :
+    ?required_finding_label_keys ?(table_options = []) () :
     inspect_job__storage_config__hybrid_options =
   { description; labels; required_finding_label_keys; table_options }
 
@@ -3623,7 +3630,7 @@ let inspect_job__storage_config__timespan_config__timestamp_field
 
 let inspect_job__storage_config__timespan_config
     ?enable_auto_population_of_timespan_config ?end_time ?start_time
-    ~timestamp_field () :
+    ?(timestamp_field = []) () :
     inspect_job__storage_config__timespan_config =
   {
     enable_auto_population_of_timespan_config;
@@ -3632,9 +3639,10 @@ let inspect_job__storage_config__timespan_config
     timestamp_field;
   }
 
-let inspect_job__storage_config ~big_query_options
-    ~cloud_storage_options ~datastore_options ~hybrid_options
-    ~timespan_config () : inspect_job__storage_config =
+let inspect_job__storage_config ?(big_query_options = [])
+    ?(cloud_storage_options = []) ?(datastore_options = [])
+    ?(hybrid_options = []) ?(timespan_config = []) () :
+    inspect_job__storage_config =
   {
     big_query_options;
     cloud_storage_options;
@@ -3643,8 +3651,8 @@ let inspect_job__storage_config ~big_query_options
     timespan_config;
   }
 
-let inspect_job ?inspect_template_name ~actions ~inspect_config
-    ~storage_config () : inspect_job =
+let inspect_job ?inspect_template_name ?(actions = [])
+    ?(inspect_config = []) ~storage_config () : inspect_job =
   { inspect_template_name; actions; inspect_config; storage_config }
 
 let timeouts ?create ?delete ?update () : timeouts =
@@ -3656,11 +3664,12 @@ let triggers__schedule ?recurrence_period_duration () :
     triggers__schedule =
   { recurrence_period_duration }
 
-let triggers ~manual ~schedule () : triggers = { manual; schedule }
+let triggers ?(manual = []) ?(schedule = []) () : triggers =
+  { manual; schedule }
 
 let google_data_loss_prevention_job_trigger ?description
-    ?display_name ?id ?status ?trigger_id ?timeouts ~parent
-    ~inspect_job ~triggers () :
+    ?display_name ?id ?status ?trigger_id ?(inspect_job = [])
+    ?timeouts ~parent ~triggers () :
     google_data_loss_prevention_job_trigger =
   {
     description;
@@ -3687,8 +3696,8 @@ type t = {
   update_time : string prop;
 }
 
-let make ?description ?display_name ?id ?status ?trigger_id ?timeouts
-    ~parent ~inspect_job ~triggers __id =
+let make ?description ?display_name ?id ?status ?trigger_id
+    ?(inspect_job = []) ?timeouts ~parent ~triggers __id =
   let __type = "google_data_loss_prevention_job_trigger" in
   let __attrs =
     ({
@@ -3711,16 +3720,17 @@ let make ?description ?display_name ?id ?status ?trigger_id ?timeouts
     json =
       yojson_of_google_data_loss_prevention_job_trigger
         (google_data_loss_prevention_job_trigger ?description
-           ?display_name ?id ?status ?trigger_id ?timeouts ~parent
-           ~inspect_job ~triggers ());
+           ?display_name ?id ?status ?trigger_id ~inspect_job
+           ?timeouts ~parent ~triggers ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?display_name ?id ?status
-    ?trigger_id ?timeouts ~parent ~inspect_job ~triggers __id =
+    ?trigger_id ?(inspect_job = []) ?timeouts ~parent ~triggers __id
+    =
   let (r : _ Tf_core.resource) =
-    make ?description ?display_name ?id ?status ?trigger_id ?timeouts
-      ~parent ~inspect_job ~triggers __id
+    make ?description ?display_name ?id ?status ?trigger_id
+      ~inspect_job ?timeouts ~parent ~triggers __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

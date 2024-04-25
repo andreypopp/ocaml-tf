@@ -24,9 +24,9 @@ val aws_cloudwatch_composite_alarm :
   ?ok_actions:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?actions_suppressor:actions_suppressor list ->
   alarm_name:string prop ->
   alarm_rule:string prop ->
-  actions_suppressor:actions_suppressor list ->
   unit ->
   aws_cloudwatch_composite_alarm
 
@@ -59,9 +59,9 @@ val register :
   ?ok_actions:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?actions_suppressor:actions_suppressor list ->
   alarm_name:string prop ->
   alarm_rule:string prop ->
-  actions_suppressor:actions_suppressor list ->
   string ->
   t
 
@@ -74,8 +74,8 @@ val make :
   ?ok_actions:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?actions_suppressor:actions_suppressor list ->
   alarm_name:string prop ->
   alarm_rule:string prop ->
-  actions_suppressor:actions_suppressor list ->
   string ->
   t Tf_core.resource

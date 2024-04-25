@@ -27,13 +27,13 @@ type azurerm_eventgrid_system_topic
 val azurerm_eventgrid_system_topic :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   source_arm_resource_id:string prop ->
   topic_type:string prop ->
-  identity:identity list ->
   unit ->
   azurerm_eventgrid_system_topic
 
@@ -57,25 +57,25 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   source_arm_resource_id:string prop ->
   topic_type:string prop ->
-  identity:identity list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   source_arm_resource_id:string prop ->
   topic_type:string prop ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

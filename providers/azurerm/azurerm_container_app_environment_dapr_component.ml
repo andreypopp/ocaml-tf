@@ -251,9 +251,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_container_app_environment_dapr_component ?id
-    ?ignore_errors ?init_timeout ?scopes ?timeouts ~component_type
-    ~container_app_environment_id ~name ~version ~metadata ~secret ()
-    : azurerm_container_app_environment_dapr_component =
+    ?ignore_errors ?init_timeout ?scopes ?(metadata = []) ?timeouts
+    ~component_type ~container_app_environment_id ~name ~version
+    ~secret () : azurerm_container_app_environment_dapr_component =
   {
     component_type;
     container_app_environment_id;
@@ -279,9 +279,9 @@ type t = {
   version : string prop;
 }
 
-let make ?id ?ignore_errors ?init_timeout ?scopes ?timeouts
-    ~component_type ~container_app_environment_id ~name ~version
-    ~metadata ~secret __id =
+let make ?id ?ignore_errors ?init_timeout ?scopes ?(metadata = [])
+    ?timeouts ~component_type ~container_app_environment_id ~name
+    ~version ~secret __id =
   let __type = "azurerm_container_app_environment_dapr_component" in
   let __attrs =
     ({
@@ -303,19 +303,19 @@ let make ?id ?ignore_errors ?init_timeout ?scopes ?timeouts
     json =
       yojson_of_azurerm_container_app_environment_dapr_component
         (azurerm_container_app_environment_dapr_component ?id
-           ?ignore_errors ?init_timeout ?scopes ?timeouts
+           ?ignore_errors ?init_timeout ?scopes ~metadata ?timeouts
            ~component_type ~container_app_environment_id ~name
-           ~version ~metadata ~secret ());
+           ~version ~secret ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?ignore_errors ?init_timeout ?scopes
-    ?timeouts ~component_type ~container_app_environment_id ~name
-    ~version ~metadata ~secret __id =
+    ?(metadata = []) ?timeouts ~component_type
+    ~container_app_environment_id ~name ~version ~secret __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?ignore_errors ?init_timeout ?scopes ?timeouts
+    make ?id ?ignore_errors ?init_timeout ?scopes ~metadata ?timeouts
       ~component_type ~container_app_environment_id ~name ~version
-      ~metadata ~secret __id
+      ~secret __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

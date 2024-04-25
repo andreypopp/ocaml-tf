@@ -215,8 +215,9 @@ let image_scanning_configuration ~scan_on_push () :
 let timeouts ?delete () : timeouts = { delete }
 
 let aws_ecr_repository ?force_delete ?id ?image_tag_mutability ?tags
-    ?tags_all ?timeouts ~name ~encryption_configuration
-    ~image_scanning_configuration () : aws_ecr_repository =
+    ?tags_all ?(encryption_configuration = [])
+    ?(image_scanning_configuration = []) ?timeouts ~name () :
+    aws_ecr_repository =
   {
     force_delete;
     id;
@@ -242,8 +243,8 @@ type t = {
 }
 
 let make ?force_delete ?id ?image_tag_mutability ?tags ?tags_all
-    ?timeouts ~name ~encryption_configuration
-    ~image_scanning_configuration __id =
+    ?(encryption_configuration = [])
+    ?(image_scanning_configuration = []) ?timeouts ~name __id =
   let __type = "aws_ecr_repository" in
   let __attrs =
     ({
@@ -266,18 +267,18 @@ let make ?force_delete ?id ?image_tag_mutability ?tags ?tags_all
     json =
       yojson_of_aws_ecr_repository
         (aws_ecr_repository ?force_delete ?id ?image_tag_mutability
-           ?tags ?tags_all ?timeouts ~name ~encryption_configuration
-           ~image_scanning_configuration ());
+           ?tags ?tags_all ~encryption_configuration
+           ~image_scanning_configuration ?timeouts ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?force_delete ?id ?image_tag_mutability ?tags
-    ?tags_all ?timeouts ~name ~encryption_configuration
-    ~image_scanning_configuration __id =
+    ?tags_all ?(encryption_configuration = [])
+    ?(image_scanning_configuration = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
     make ?force_delete ?id ?image_tag_mutability ?tags ?tags_all
-      ?timeouts ~name ~encryption_configuration
-      ~image_scanning_configuration __id
+      ~encryption_configuration ~image_scanning_configuration
+      ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

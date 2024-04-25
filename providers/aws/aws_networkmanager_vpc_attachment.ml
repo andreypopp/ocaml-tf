@@ -197,9 +197,9 @@ let options ?appliance_mode_support ?ipv6_support () : options =
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let aws_networkmanager_vpc_attachment ?id ?tags ?tags_all ?timeouts
-    ~core_network_id ~subnet_arns ~vpc_arn ~options () :
-    aws_networkmanager_vpc_attachment =
+let aws_networkmanager_vpc_attachment ?id ?tags ?tags_all
+    ?(options = []) ?timeouts ~core_network_id ~subnet_arns ~vpc_arn
+    () : aws_networkmanager_vpc_attachment =
   {
     core_network_id;
     id;
@@ -229,8 +229,8 @@ type t = {
   vpc_arn : string prop;
 }
 
-let make ?id ?tags ?tags_all ?timeouts ~core_network_id ~subnet_arns
-    ~vpc_arn ~options __id =
+let make ?id ?tags ?tags_all ?(options = []) ?timeouts
+    ~core_network_id ~subnet_arns ~vpc_arn __id =
   let __type = "aws_networkmanager_vpc_attachment" in
   let __attrs =
     ({
@@ -261,16 +261,16 @@ let make ?id ?tags ?tags_all ?timeouts ~core_network_id ~subnet_arns
     json =
       yojson_of_aws_networkmanager_vpc_attachment
         (aws_networkmanager_vpc_attachment ?id ?tags ?tags_all
-           ?timeouts ~core_network_id ~subnet_arns ~vpc_arn ~options
+           ~options ?timeouts ~core_network_id ~subnet_arns ~vpc_arn
            ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ?timeouts
-    ~core_network_id ~subnet_arns ~vpc_arn ~options __id =
+let register ?tf_module ?id ?tags ?tags_all ?(options = []) ?timeouts
+    ~core_network_id ~subnet_arns ~vpc_arn __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ?timeouts ~core_network_id ~subnet_arns
-      ~vpc_arn ~options __id
+    make ?id ?tags ?tags_all ~options ?timeouts ~core_network_id
+      ~subnet_arns ~vpc_arn __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

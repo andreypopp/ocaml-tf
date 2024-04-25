@@ -34,9 +34,9 @@ val filter__and__tags :
 type filter__and
 
 val filter__and :
-  cost_category:filter__and__cost_category list ->
-  dimension:filter__and__dimension list ->
-  tags:filter__and__tags list ->
+  ?cost_category:filter__and__cost_category list ->
+  ?dimension:filter__and__dimension list ->
+  ?tags:filter__and__tags list ->
   unit ->
   filter__and
 
@@ -88,9 +88,9 @@ val filter__not__tags :
 type filter__not
 
 val filter__not :
-  cost_category:filter__not__cost_category list ->
-  dimension:filter__not__dimension list ->
-  tags:filter__not__tags list ->
+  ?cost_category:filter__not__cost_category list ->
+  ?dimension:filter__not__dimension list ->
+  ?tags:filter__not__tags list ->
   unit ->
   filter__not
 
@@ -124,9 +124,9 @@ val filter__or__tags :
 type filter__or
 
 val filter__or :
-  cost_category:filter__or__cost_category list ->
-  dimension:filter__or__dimension list ->
-  tags:filter__or__tags list ->
+  ?cost_category:filter__or__cost_category list ->
+  ?dimension:filter__or__dimension list ->
+  ?tags:filter__or__tags list ->
   unit ->
   filter__or
 
@@ -142,12 +142,12 @@ val filter__tags :
 type filter
 
 val filter :
+  ?cost_category:filter__cost_category list ->
+  ?dimension:filter__dimension list ->
+  ?not:filter__not list ->
+  ?tags:filter__tags list ->
   and_:filter__and list ->
-  cost_category:filter__cost_category list ->
-  dimension:filter__dimension list ->
-  not:filter__not list ->
   or_:filter__or list ->
-  tags:filter__tags list ->
   unit ->
   filter
 
@@ -167,8 +167,8 @@ val aws_ce_tags :
   ?id:string prop ->
   ?search_string:string prop ->
   ?tag_key:string prop ->
-  filter:filter list ->
-  sort_by:sort_by list ->
+  ?filter:filter list ->
+  ?sort_by:sort_by list ->
   time_period:time_period list ->
   unit ->
   aws_ce_tags
@@ -189,8 +189,8 @@ val register :
   ?id:string prop ->
   ?search_string:string prop ->
   ?tag_key:string prop ->
-  filter:filter list ->
-  sort_by:sort_by list ->
+  ?filter:filter list ->
+  ?sort_by:sort_by list ->
   time_period:time_period list ->
   string ->
   t
@@ -199,8 +199,8 @@ val make :
   ?id:string prop ->
   ?search_string:string prop ->
   ?tag_key:string prop ->
-  filter:filter list ->
-  sort_by:sort_by list ->
+  ?filter:filter list ->
+  ?sort_by:sort_by list ->
   time_period:time_period list ->
   string ->
   t Tf_core.resource

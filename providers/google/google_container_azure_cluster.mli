@@ -23,7 +23,7 @@ val authorization__admin_users :
 type authorization
 
 val authorization :
-  admin_groups:authorization__admin_groups list ->
+  ?admin_groups:authorization__admin_groups list ->
   admin_users:authorization__admin_users list ->
   unit ->
   authorization
@@ -77,13 +77,13 @@ type control_plane
 val control_plane :
   ?tags:(string * string prop) list ->
   ?vm_size:string prop ->
+  ?database_encryption:control_plane__database_encryption list ->
+  ?main_volume:control_plane__main_volume list ->
+  ?proxy_config:control_plane__proxy_config list ->
+  ?replica_placements:control_plane__replica_placements list ->
+  ?root_volume:control_plane__root_volume list ->
   subnet_id:string prop ->
   version:string prop ->
-  database_encryption:control_plane__database_encryption list ->
-  main_volume:control_plane__main_volume list ->
-  proxy_config:control_plane__proxy_config list ->
-  replica_placements:control_plane__replica_placements list ->
-  root_volume:control_plane__root_volume list ->
   ssh_config:control_plane__ssh_config list ->
   unit ->
   control_plane
@@ -118,13 +118,13 @@ val google_container_azure_cluster :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?azure_services_authentication:azure_services_authentication list ->
   ?timeouts:timeouts ->
   azure_region:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_id:string prop ->
   authorization:authorization list ->
-  azure_services_authentication:azure_services_authentication list ->
   control_plane:control_plane list ->
   fleet:fleet list ->
   networking:networking list ->
@@ -164,13 +164,13 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?azure_services_authentication:azure_services_authentication list ->
   ?timeouts:timeouts ->
   azure_region:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_id:string prop ->
   authorization:authorization list ->
-  azure_services_authentication:azure_services_authentication list ->
   control_plane:control_plane list ->
   fleet:fleet list ->
   networking:networking list ->
@@ -183,13 +183,13 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?azure_services_authentication:azure_services_authentication list ->
   ?timeouts:timeouts ->
   azure_region:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_id:string prop ->
   authorization:authorization list ->
-  azure_services_authentication:azure_services_authentication list ->
   control_plane:control_plane list ->
   fleet:fleet list ->
   networking:networking list ->

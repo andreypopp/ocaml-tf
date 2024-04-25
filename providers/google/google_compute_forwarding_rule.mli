@@ -48,10 +48,10 @@ val google_compute_forwarding_rule :
   ?source_ip_ranges:string prop list ->
   ?subnetwork:string prop ->
   ?target:string prop ->
+  ?service_directory_registrations:
+    service_directory_registrations list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  service_directory_registrations:
-    service_directory_registrations list ->
   unit ->
   google_compute_forwarding_rule
 
@@ -123,10 +123,10 @@ val register :
   ?source_ip_ranges:string prop list ->
   ?subnetwork:string prop ->
   ?target:string prop ->
+  ?service_directory_registrations:
+    service_directory_registrations list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  service_directory_registrations:
-    service_directory_registrations list ->
   string ->
   t
 
@@ -155,9 +155,9 @@ val make :
   ?source_ip_ranges:string prop list ->
   ?subnetwork:string prop ->
   ?target:string prop ->
+  ?service_directory_registrations:
+    service_directory_registrations list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  service_directory_registrations:
-    service_directory_registrations list ->
   string ->
   t Tf_core.resource

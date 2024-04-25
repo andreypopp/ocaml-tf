@@ -52,13 +52,13 @@ let _ = yojson_of_aws_emr_supported_instance_types
 
 let supported_instance_types () = ()
 
-let aws_emr_supported_instance_types ~release_label
-    ~supported_instance_types () : aws_emr_supported_instance_types =
+let aws_emr_supported_instance_types ?(supported_instance_types = [])
+    ~release_label () : aws_emr_supported_instance_types =
   { release_label; supported_instance_types }
 
 type t = { id : string prop; release_label : string prop }
 
-let make ~release_label ~supported_instance_types __id =
+let make ?(supported_instance_types = []) ~release_label __id =
   let __type = "aws_emr_supported_instance_types" in
   let __attrs =
     ({
@@ -72,15 +72,15 @@ let make ~release_label ~supported_instance_types __id =
     type_ = __type;
     json =
       yojson_of_aws_emr_supported_instance_types
-        (aws_emr_supported_instance_types ~release_label
-           ~supported_instance_types ());
+        (aws_emr_supported_instance_types ~supported_instance_types
+           ~release_label ());
     attrs = __attrs;
   }
 
-let register ?tf_module ~release_label ~supported_instance_types __id
-    =
+let register ?tf_module ?(supported_instance_types = [])
+    ~release_label __id =
   let (r : _ Tf_core.resource) =
-    make ~release_label ~supported_instance_types __id
+    make ~supported_instance_types ~release_label __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

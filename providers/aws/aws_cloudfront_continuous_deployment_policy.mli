@@ -31,28 +31,28 @@ val traffic_config__single_weight_config__session_stickiness_config :
 type traffic_config__single_weight_config
 
 val traffic_config__single_weight_config :
-  weight:float prop ->
-  session_stickiness_config:
+  ?session_stickiness_config:
     traffic_config__single_weight_config__session_stickiness_config
     list ->
+  weight:float prop ->
   unit ->
   traffic_config__single_weight_config
 
 type traffic_config
 
 val traffic_config :
+  ?single_header_config:traffic_config__single_header_config list ->
+  ?single_weight_config:traffic_config__single_weight_config list ->
   type_:string prop ->
-  single_header_config:traffic_config__single_header_config list ->
-  single_weight_config:traffic_config__single_weight_config list ->
   unit ->
   traffic_config
 
 type aws_cloudfront_continuous_deployment_policy
 
 val aws_cloudfront_continuous_deployment_policy :
+  ?staging_distribution_dns_names:staging_distribution_dns_names list ->
+  ?traffic_config:traffic_config list ->
   enabled:bool prop ->
-  staging_distribution_dns_names:staging_distribution_dns_names list ->
-  traffic_config:traffic_config list ->
   unit ->
   aws_cloudfront_continuous_deployment_policy
 
@@ -70,15 +70,15 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?staging_distribution_dns_names:staging_distribution_dns_names list ->
+  ?traffic_config:traffic_config list ->
   enabled:bool prop ->
-  staging_distribution_dns_names:staging_distribution_dns_names list ->
-  traffic_config:traffic_config list ->
   string ->
   t
 
 val make :
+  ?staging_distribution_dns_names:staging_distribution_dns_names list ->
+  ?traffic_config:traffic_config list ->
   enabled:bool prop ->
-  staging_distribution_dns_names:staging_distribution_dns_names list ->
-  traffic_config:traffic_config list ->
   string ->
   t Tf_core.resource

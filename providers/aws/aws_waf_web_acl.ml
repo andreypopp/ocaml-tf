@@ -343,8 +343,8 @@ let logging_configuration__redacted_fields ~field_to_match () :
     logging_configuration__redacted_fields =
   { field_to_match }
 
-let logging_configuration ~log_destination ~redacted_fields () :
-    logging_configuration =
+let logging_configuration ?(redacted_fields = []) ~log_destination ()
+    : logging_configuration =
   { log_destination; redacted_fields }
 
 let rules__action ~type_ () : rules__action = { type_ }
@@ -352,13 +352,12 @@ let rules__action ~type_ () : rules__action = { type_ }
 let rules__override_action ~type_ () : rules__override_action =
   { type_ }
 
-let rules ?type_ ~priority ~rule_id ~action ~override_action () :
-    rules =
+let rules ?type_ ?(action = []) ?(override_action = []) ~priority
+    ~rule_id () : rules =
   { priority; rule_id; type_; action; override_action }
 
-let aws_waf_web_acl ?id ?tags ?tags_all ~metric_name ~name
-    ~default_action ~logging_configuration ~rules () :
-    aws_waf_web_acl =
+let aws_waf_web_acl ?id ?tags ?tags_all ?(logging_configuration = [])
+    ~metric_name ~name ~default_action ~rules () : aws_waf_web_acl =
   {
     id;
     metric_name;
@@ -379,8 +378,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?tags ?tags_all ~metric_name ~name ~default_action
-    ~logging_configuration ~rules __id =
+let make ?id ?tags ?tags_all ?(logging_configuration = [])
+    ~metric_name ~name ~default_action ~rules __id =
   let __type = "aws_waf_web_acl" in
   let __attrs =
     ({
@@ -398,16 +397,17 @@ let make ?id ?tags ?tags_all ~metric_name ~name ~default_action
     type_ = __type;
     json =
       yojson_of_aws_waf_web_acl
-        (aws_waf_web_acl ?id ?tags ?tags_all ~metric_name ~name
-           ~default_action ~logging_configuration ~rules ());
+        (aws_waf_web_acl ?id ?tags ?tags_all ~logging_configuration
+           ~metric_name ~name ~default_action ~rules ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ~metric_name ~name
-    ~default_action ~logging_configuration ~rules __id =
+let register ?tf_module ?id ?tags ?tags_all
+    ?(logging_configuration = []) ~metric_name ~name ~default_action
+    ~rules __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~metric_name ~name ~default_action
-      ~logging_configuration ~rules __id
+    make ?id ?tags ?tags_all ~logging_configuration ~metric_name
+      ~name ~default_action ~rules __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

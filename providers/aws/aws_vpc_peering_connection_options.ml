@@ -122,8 +122,9 @@ let accepter ?allow_remote_vpc_dns_resolution () : accepter =
 let requester ?allow_remote_vpc_dns_resolution () : requester =
   { allow_remote_vpc_dns_resolution }
 
-let aws_vpc_peering_connection_options ?id ~vpc_peering_connection_id
-    ~accepter ~requester () : aws_vpc_peering_connection_options =
+let aws_vpc_peering_connection_options ?id ?(accepter = [])
+    ?(requester = []) ~vpc_peering_connection_id () :
+    aws_vpc_peering_connection_options =
   { id; vpc_peering_connection_id; accepter; requester }
 
 type t = {
@@ -131,7 +132,8 @@ type t = {
   vpc_peering_connection_id : string prop;
 }
 
-let make ?id ~vpc_peering_connection_id ~accepter ~requester __id =
+let make ?id ?(accepter = []) ?(requester = [])
+    ~vpc_peering_connection_id __id =
   let __type = "aws_vpc_peering_connection_options" in
   let __attrs =
     ({
@@ -146,15 +148,15 @@ let make ?id ~vpc_peering_connection_id ~accepter ~requester __id =
     type_ = __type;
     json =
       yojson_of_aws_vpc_peering_connection_options
-        (aws_vpc_peering_connection_options ?id
-           ~vpc_peering_connection_id ~accepter ~requester ());
+        (aws_vpc_peering_connection_options ?id ~accepter ~requester
+           ~vpc_peering_connection_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~vpc_peering_connection_id ~accepter
-    ~requester __id =
+let register ?tf_module ?id ?(accepter = []) ?(requester = [])
+    ~vpc_peering_connection_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~vpc_peering_connection_id ~accepter ~requester __id
+    make ?id ~accepter ~requester ~vpc_peering_connection_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

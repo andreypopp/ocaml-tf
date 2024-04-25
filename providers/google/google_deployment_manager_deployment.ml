@@ -288,7 +288,7 @@ let target__config ~content () : target__config = { content }
 let target__imports ?content ?name () : target__imports =
   { content; name }
 
-let target ~config ~imports () : target = { config; imports }
+let target ?(imports = []) ~config () : target = { config; imports }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

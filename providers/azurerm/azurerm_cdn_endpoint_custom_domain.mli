@@ -36,12 +36,12 @@ type azurerm_cdn_endpoint_custom_domain
 
 val azurerm_cdn_endpoint_custom_domain :
   ?id:string prop ->
+  ?cdn_managed_https:cdn_managed_https list ->
   ?timeouts:timeouts ->
+  ?user_managed_https:user_managed_https list ->
   cdn_endpoint_id:string prop ->
   host_name:string prop ->
   name:string prop ->
-  cdn_managed_https:cdn_managed_https list ->
-  user_managed_https:user_managed_https list ->
   unit ->
   azurerm_cdn_endpoint_custom_domain
 
@@ -60,22 +60,22 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?cdn_managed_https:cdn_managed_https list ->
   ?timeouts:timeouts ->
+  ?user_managed_https:user_managed_https list ->
   cdn_endpoint_id:string prop ->
   host_name:string prop ->
   name:string prop ->
-  cdn_managed_https:cdn_managed_https list ->
-  user_managed_https:user_managed_https list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?cdn_managed_https:cdn_managed_https list ->
   ?timeouts:timeouts ->
+  ?user_managed_https:user_managed_https list ->
   cdn_endpoint_id:string prop ->
   host_name:string prop ->
   name:string prop ->
-  cdn_managed_https:cdn_managed_https list ->
-  user_managed_https:user_managed_https list ->
   string ->
   t Tf_core.resource

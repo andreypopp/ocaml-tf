@@ -29,12 +29,12 @@ val azurerm_logic_app_trigger_recurrence :
   ?id:string prop ->
   ?start_time:string prop ->
   ?time_zone:string prop ->
+  ?schedule:schedule list ->
   ?timeouts:timeouts ->
   frequency:string prop ->
   interval:float prop ->
   logic_app_id:string prop ->
   name:string prop ->
-  schedule:schedule list ->
   unit ->
   azurerm_logic_app_trigger_recurrence
 
@@ -58,12 +58,12 @@ val register :
   ?id:string prop ->
   ?start_time:string prop ->
   ?time_zone:string prop ->
+  ?schedule:schedule list ->
   ?timeouts:timeouts ->
   frequency:string prop ->
   interval:float prop ->
   logic_app_id:string prop ->
   name:string prop ->
-  schedule:schedule list ->
   string ->
   t
 
@@ -71,11 +71,11 @@ val make :
   ?id:string prop ->
   ?start_time:string prop ->
   ?time_zone:string prop ->
+  ?schedule:schedule list ->
   ?timeouts:timeouts ->
   frequency:string prop ->
   interval:float prop ->
   logic_app_id:string prop ->
   name:string prop ->
-  schedule:schedule list ->
   string ->
   t Tf_core.resource

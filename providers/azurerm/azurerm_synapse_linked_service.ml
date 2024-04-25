@@ -243,9 +243,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_synapse_linked_service ?additional_properties
-    ?annotations ?description ?id ?parameters ?timeouts ~name
-    ~synapse_workspace_id ~type_ ~type_properties_json
-    ~integration_runtime () : azurerm_synapse_linked_service =
+    ?annotations ?description ?id ?parameters
+    ?(integration_runtime = []) ?timeouts ~name ~synapse_workspace_id
+    ~type_ ~type_properties_json () : azurerm_synapse_linked_service
+    =
   {
     additional_properties;
     annotations;
@@ -273,8 +274,8 @@ type t = {
 }
 
 let make ?additional_properties ?annotations ?description ?id
-    ?parameters ?timeouts ~name ~synapse_workspace_id ~type_
-    ~type_properties_json ~integration_runtime __id =
+    ?parameters ?(integration_runtime = []) ?timeouts ~name
+    ~synapse_workspace_id ~type_ ~type_properties_json __id =
   let __type = "azurerm_synapse_linked_service" in
   let __attrs =
     ({
@@ -299,20 +300,20 @@ let make ?additional_properties ?annotations ?description ?id
     json =
       yojson_of_azurerm_synapse_linked_service
         (azurerm_synapse_linked_service ?additional_properties
-           ?annotations ?description ?id ?parameters ?timeouts ~name
-           ~synapse_workspace_id ~type_ ~type_properties_json
-           ~integration_runtime ());
+           ?annotations ?description ?id ?parameters
+           ~integration_runtime ?timeouts ~name ~synapse_workspace_id
+           ~type_ ~type_properties_json ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?additional_properties ?annotations
-    ?description ?id ?parameters ?timeouts ~name
-    ~synapse_workspace_id ~type_ ~type_properties_json
-    ~integration_runtime __id =
+    ?description ?id ?parameters ?(integration_runtime = [])
+    ?timeouts ~name ~synapse_workspace_id ~type_
+    ~type_properties_json __id =
   let (r : _ Tf_core.resource) =
     make ?additional_properties ?annotations ?description ?id
-      ?parameters ?timeouts ~name ~synapse_workspace_id ~type_
-      ~type_properties_json ~integration_runtime __id
+      ?parameters ~integration_runtime ?timeouts ~name
+      ~synapse_workspace_id ~type_ ~type_properties_json __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -198,7 +198,7 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_ml_engine_model ?description ?id ?labels
     ?online_prediction_console_logging ?online_prediction_logging
-    ?project ?regions ?timeouts ~name ~default_version () :
+    ?project ?regions ?(default_version = []) ?timeouts ~name () :
     google_ml_engine_model =
   {
     description;
@@ -227,8 +227,8 @@ type t = {
 }
 
 let make ?description ?id ?labels ?online_prediction_console_logging
-    ?online_prediction_logging ?project ?regions ?timeouts ~name
-    ~default_version __id =
+    ?online_prediction_logging ?project ?regions
+    ?(default_version = []) ?timeouts ~name __id =
   let __type = "google_ml_engine_model" in
   let __attrs =
     ({
@@ -257,18 +257,18 @@ let make ?description ?id ?labels ?online_prediction_console_logging
       yojson_of_google_ml_engine_model
         (google_ml_engine_model ?description ?id ?labels
            ?online_prediction_console_logging
-           ?online_prediction_logging ?project ?regions ?timeouts
-           ~name ~default_version ());
+           ?online_prediction_logging ?project ?regions
+           ~default_version ?timeouts ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?labels
     ?online_prediction_console_logging ?online_prediction_logging
-    ?project ?regions ?timeouts ~name ~default_version __id =
+    ?project ?regions ?(default_version = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?labels ?online_prediction_console_logging
-      ?online_prediction_logging ?project ?regions ?timeouts ~name
-      ~default_version __id
+      ?online_prediction_logging ?project ?regions ~default_version
+      ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -23,8 +23,8 @@ type draft__content_link
 
 val draft__content_link :
   ?version:string prop ->
+  ?hash:draft__content_link__hash list ->
   uri:string prop ->
-  hash:draft__content_link__hash list ->
   unit ->
   draft__content_link
 
@@ -44,8 +44,8 @@ type draft
 val draft :
   ?edit_mode_enabled:bool prop ->
   ?output_types:string prop list ->
-  content_link:draft__content_link list ->
-  parameters:draft__parameters list ->
+  ?content_link:draft__content_link list ->
+  ?parameters:draft__parameters list ->
   unit ->
   draft
 
@@ -61,8 +61,8 @@ type publish_content_link
 
 val publish_content_link :
   ?version:string prop ->
+  ?hash:publish_content_link__hash list ->
   uri:string prop ->
-  hash:publish_content_link__hash list ->
   unit ->
   publish_content_link
 
@@ -85,6 +85,8 @@ val azurerm_automation_runbook :
   ?job_schedule:job_schedule list ->
   ?log_activity_trace_level:float prop ->
   ?tags:(string * string prop) list ->
+  ?draft:draft list ->
+  ?publish_content_link:publish_content_link list ->
   ?timeouts:timeouts ->
   automation_account_name:string prop ->
   location:string prop ->
@@ -93,8 +95,6 @@ val azurerm_automation_runbook :
   name:string prop ->
   resource_group_name:string prop ->
   runbook_type:string prop ->
-  draft:draft list ->
-  publish_content_link:publish_content_link list ->
   unit ->
   azurerm_automation_runbook
 
@@ -127,6 +127,8 @@ val register :
   ?job_schedule:job_schedule list ->
   ?log_activity_trace_level:float prop ->
   ?tags:(string * string prop) list ->
+  ?draft:draft list ->
+  ?publish_content_link:publish_content_link list ->
   ?timeouts:timeouts ->
   automation_account_name:string prop ->
   location:string prop ->
@@ -135,8 +137,6 @@ val register :
   name:string prop ->
   resource_group_name:string prop ->
   runbook_type:string prop ->
-  draft:draft list ->
-  publish_content_link:publish_content_link list ->
   string ->
   t
 
@@ -147,6 +147,8 @@ val make :
   ?job_schedule:job_schedule list ->
   ?log_activity_trace_level:float prop ->
   ?tags:(string * string prop) list ->
+  ?draft:draft list ->
+  ?publish_content_link:publish_content_link list ->
   ?timeouts:timeouts ->
   automation_account_name:string prop ->
   location:string prop ->
@@ -155,7 +157,5 @@ val make :
   name:string prop ->
   resource_group_name:string prop ->
   runbook_type:string prop ->
-  draft:draft list ->
-  publish_content_link:publish_content_link list ->
   string ->
   t Tf_core.resource

@@ -122,8 +122,9 @@ let _ = yojson_of_google_gke_hub_feature_iam_member
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_gke_hub_feature_iam_member ?id ?location ?project ~member
-    ~name ~role ~condition () : google_gke_hub_feature_iam_member =
+let google_gke_hub_feature_iam_member ?id ?location ?project
+    ?(condition = []) ~member ~name ~role () :
+    google_gke_hub_feature_iam_member =
   { id; location; member; name; project; role; condition }
 
 type t = {
@@ -136,7 +137,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?location ?project ~member ~name ~role ~condition __id =
+let make ?id ?location ?project ?(condition = []) ~member ~name ~role
+    __id =
   let __type = "google_gke_hub_feature_iam_member" in
   let __attrs =
     ({
@@ -156,14 +158,14 @@ let make ?id ?location ?project ~member ~name ~role ~condition __id =
     json =
       yojson_of_google_gke_hub_feature_iam_member
         (google_gke_hub_feature_iam_member ?id ?location ?project
-           ~member ~name ~role ~condition ());
+           ~condition ~member ~name ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?location ?project ~member ~name ~role
-    ~condition __id =
+let register ?tf_module ?id ?location ?project ?(condition = [])
+    ~member ~name ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?location ?project ~member ~name ~role ~condition __id
+    make ?id ?location ?project ~condition ~member ~name ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

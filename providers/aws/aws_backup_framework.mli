@@ -24,9 +24,9 @@ val control__scope :
 type control
 
 val control :
+  ?scope:control__scope list ->
   name:string prop ->
   input_parameter:control__input_parameter list ->
-  scope:control__scope list ->
   unit ->
   control
 

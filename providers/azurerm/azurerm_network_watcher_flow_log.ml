@@ -301,9 +301,9 @@ let traffic_analytics ?interval_in_minutes ~enabled ~workspace_id
   }
 
 let azurerm_network_watcher_flow_log ?id ?location ?tags ?version
-    ?timeouts ~enabled ~name ~network_security_group_id
-    ~network_watcher_name ~resource_group_name ~storage_account_id
-    ~retention_policy ~traffic_analytics () :
+    ?timeouts ?(traffic_analytics = []) ~enabled ~name
+    ~network_security_group_id ~network_watcher_name
+    ~resource_group_name ~storage_account_id ~retention_policy () :
     azurerm_network_watcher_flow_log =
   {
     enabled;
@@ -334,10 +334,10 @@ type t = {
   version : float prop;
 }
 
-let make ?id ?location ?tags ?version ?timeouts ~enabled ~name
+let make ?id ?location ?tags ?version ?timeouts
+    ?(traffic_analytics = []) ~enabled ~name
     ~network_security_group_id ~network_watcher_name
-    ~resource_group_name ~storage_account_id ~retention_policy
-    ~traffic_analytics __id =
+    ~resource_group_name ~storage_account_id ~retention_policy __id =
   let __type = "azurerm_network_watcher_flow_log" in
   let __attrs =
     ({
@@ -364,22 +364,21 @@ let make ?id ?location ?tags ?version ?timeouts ~enabled ~name
     json =
       yojson_of_azurerm_network_watcher_flow_log
         (azurerm_network_watcher_flow_log ?id ?location ?tags
-           ?version ?timeouts ~enabled ~name
+           ?version ?timeouts ~traffic_analytics ~enabled ~name
            ~network_security_group_id ~network_watcher_name
            ~resource_group_name ~storage_account_id ~retention_policy
-           ~traffic_analytics ());
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?location ?tags ?version ?timeouts
-    ~enabled ~name ~network_security_group_id ~network_watcher_name
-    ~resource_group_name ~storage_account_id ~retention_policy
-    ~traffic_analytics __id =
+    ?(traffic_analytics = []) ~enabled ~name
+    ~network_security_group_id ~network_watcher_name
+    ~resource_group_name ~storage_account_id ~retention_policy __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?location ?tags ?version ?timeouts ~enabled ~name
-      ~network_security_group_id ~network_watcher_name
-      ~resource_group_name ~storage_account_id ~retention_policy
-      ~traffic_analytics __id
+    make ?id ?location ?tags ?version ?timeouts ~traffic_analytics
+      ~enabled ~name ~network_security_group_id ~network_watcher_name
+      ~resource_group_name ~storage_account_id ~retention_policy __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -123,7 +123,7 @@ let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
 let google_compute_instance_iam_member ?id ?project ?zone
-    ~instance_name ~member ~role ~condition () :
+    ?(condition = []) ~instance_name ~member ~role () :
     google_compute_instance_iam_member =
   { id; instance_name; member; project; role; zone; condition }
 
@@ -137,8 +137,8 @@ type t = {
   zone : string prop;
 }
 
-let make ?id ?project ?zone ~instance_name ~member ~role ~condition
-    __id =
+let make ?id ?project ?zone ?(condition = []) ~instance_name ~member
+    ~role __id =
   let __type = "google_compute_instance_iam_member" in
   let __attrs =
     ({
@@ -158,14 +158,14 @@ let make ?id ?project ?zone ~instance_name ~member ~role ~condition
     json =
       yojson_of_google_compute_instance_iam_member
         (google_compute_instance_iam_member ?id ?project ?zone
-           ~instance_name ~member ~role ~condition ());
+           ~condition ~instance_name ~member ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ?zone ~instance_name ~member
-    ~role ~condition __id =
+let register ?tf_module ?id ?project ?zone ?(condition = [])
+    ~instance_name ~member ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ?zone ~instance_name ~member ~role ~condition
+    make ?id ?project ?zone ~condition ~instance_name ~member ~role
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

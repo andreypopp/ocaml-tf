@@ -78,13 +78,13 @@ val azurerm_container_registry :
   ?tags:(string * string prop) list ->
   ?trust_policy:trust_policy list ->
   ?zone_redundancy_enabled:bool prop ->
+  ?georeplications:georeplications list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  georeplications:georeplications list ->
-  identity:identity list ->
   unit ->
   azurerm_container_registry
 
@@ -133,13 +133,13 @@ val register :
   ?tags:(string * string prop) list ->
   ?trust_policy:trust_policy list ->
   ?zone_redundancy_enabled:bool prop ->
+  ?georeplications:georeplications list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  georeplications:georeplications list ->
-  identity:identity list ->
   string ->
   t
 
@@ -158,12 +158,12 @@ val make :
   ?tags:(string * string prop) list ->
   ?trust_policy:trust_policy list ->
   ?zone_redundancy_enabled:bool prop ->
+  ?georeplications:georeplications list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  georeplications:georeplications list ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

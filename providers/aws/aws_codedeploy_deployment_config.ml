@@ -243,13 +243,13 @@ let traffic_routing_config__time_based_linear ?interval ?percentage
     () : traffic_routing_config__time_based_linear =
   { interval; percentage }
 
-let traffic_routing_config ?type_ ~time_based_canary
-    ~time_based_linear () : traffic_routing_config =
+let traffic_routing_config ?type_ ?(time_based_canary = [])
+    ?(time_based_linear = []) () : traffic_routing_config =
   { type_; time_based_canary; time_based_linear }
 
 let aws_codedeploy_deployment_config ?compute_platform ?id
-    ~deployment_config_name ~minimum_healthy_hosts
-    ~traffic_routing_config () : aws_codedeploy_deployment_config =
+    ?(minimum_healthy_hosts = []) ?(traffic_routing_config = [])
+    ~deployment_config_name () : aws_codedeploy_deployment_config =
   {
     compute_platform;
     deployment_config_name;
@@ -266,8 +266,8 @@ type t = {
   id : string prop;
 }
 
-let make ?compute_platform ?id ~deployment_config_name
-    ~minimum_healthy_hosts ~traffic_routing_config __id =
+let make ?compute_platform ?id ?(minimum_healthy_hosts = [])
+    ?(traffic_routing_config = []) ~deployment_config_name __id =
   let __type = "aws_codedeploy_deployment_config" in
   let __attrs =
     ({
@@ -288,16 +288,17 @@ let make ?compute_platform ?id ~deployment_config_name
     json =
       yojson_of_aws_codedeploy_deployment_config
         (aws_codedeploy_deployment_config ?compute_platform ?id
-           ~deployment_config_name ~minimum_healthy_hosts
-           ~traffic_routing_config ());
+           ~minimum_healthy_hosts ~traffic_routing_config
+           ~deployment_config_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?compute_platform ?id ~deployment_config_name
-    ~minimum_healthy_hosts ~traffic_routing_config __id =
+let register ?tf_module ?compute_platform ?id
+    ?(minimum_healthy_hosts = []) ?(traffic_routing_config = [])
+    ~deployment_config_name __id =
   let (r : _ Tf_core.resource) =
-    make ?compute_platform ?id ~deployment_config_name
-      ~minimum_healthy_hosts ~traffic_routing_config __id
+    make ?compute_platform ?id ~minimum_healthy_hosts
+      ~traffic_routing_config ~deployment_config_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

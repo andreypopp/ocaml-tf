@@ -58,12 +58,12 @@ val azurerm_eventhub_namespace :
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundant:bool prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  identity:identity list ->
   unit ->
   azurerm_eventhub_namespace
 
@@ -109,12 +109,12 @@ val register :
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundant:bool prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  identity:identity list ->
   string ->
   t
 
@@ -130,11 +130,11 @@ val make :
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundant:bool prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

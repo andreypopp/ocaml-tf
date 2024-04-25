@@ -14,8 +14,8 @@ type aws_codeguruprofiler_profiling_group
 val aws_codeguruprofiler_profiling_group :
   ?compute_platform:string prop ->
   ?tags:(string * string prop) list ->
+  ?agent_orchestration_config:agent_orchestration_config list ->
   name:string prop ->
-  agent_orchestration_config:agent_orchestration_config list ->
   unit ->
   aws_codeguruprofiler_profiling_group
 
@@ -37,15 +37,15 @@ val register :
   ?tf_module:tf_module ->
   ?compute_platform:string prop ->
   ?tags:(string * string prop) list ->
+  ?agent_orchestration_config:agent_orchestration_config list ->
   name:string prop ->
-  agent_orchestration_config:agent_orchestration_config list ->
   string ->
   t
 
 val make :
   ?compute_platform:string prop ->
   ?tags:(string * string prop) list ->
+  ?agent_orchestration_config:agent_orchestration_config list ->
   name:string prop ->
-  agent_orchestration_config:agent_orchestration_config list ->
   string ->
   t Tf_core.resource

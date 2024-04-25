@@ -24,8 +24,8 @@ val notification__webhook :
 type notification
 
 val notification :
-  email:notification__email list ->
-  webhook:notification__webhook list ->
+  ?email:notification__email list ->
+  ?webhook:notification__webhook list ->
   unit ->
   notification
 
@@ -79,6 +79,7 @@ type profile__rule__metric_trigger
 val profile__rule__metric_trigger :
   ?divide_by_instance_count:bool prop ->
   ?metric_namespace:string prop ->
+  ?dimensions:profile__rule__metric_trigger__dimensions list ->
   metric_name:string prop ->
   metric_resource_id:string prop ->
   operator:string prop ->
@@ -87,7 +88,6 @@ val profile__rule__metric_trigger :
   time_aggregation:string prop ->
   time_grain:string prop ->
   time_window:string prop ->
-  dimensions:profile__rule__metric_trigger__dimensions list ->
   unit ->
   profile__rule__metric_trigger
 
@@ -112,11 +112,11 @@ val profile__rule :
 type profile
 
 val profile :
+  ?fixed_date:profile__fixed_date list ->
+  ?recurrence:profile__recurrence list ->
+  ?rule:profile__rule list ->
   name:string prop ->
   capacity:profile__capacity list ->
-  fixed_date:profile__fixed_date list ->
-  recurrence:profile__recurrence list ->
-  rule:profile__rule list ->
   unit ->
   profile
 
@@ -136,13 +136,13 @@ val azurerm_monitor_autoscale_setting :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?notification:notification list ->
+  ?predictive:predictive list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   target_resource_id:string prop ->
-  notification:notification list ->
-  predictive:predictive list ->
   profile:profile list ->
   unit ->
   azurerm_monitor_autoscale_setting
@@ -167,13 +167,13 @@ val register :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?notification:notification list ->
+  ?predictive:predictive list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   target_resource_id:string prop ->
-  notification:notification list ->
-  predictive:predictive list ->
   profile:profile list ->
   string ->
   t
@@ -182,13 +182,13 @@ val make :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?notification:notification list ->
+  ?predictive:predictive list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   target_resource_id:string prop ->
-  notification:notification list ->
-  predictive:predictive list ->
   profile:profile list ->
   string ->
   t Tf_core.resource

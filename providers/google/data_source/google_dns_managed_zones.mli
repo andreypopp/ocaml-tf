@@ -14,7 +14,7 @@ type google_dns_managed_zones
 
 val google_dns_managed_zones :
   ?project:string prop ->
-  managed_zones:managed_zones list ->
+  ?managed_zones:managed_zones list ->
   unit ->
   google_dns_managed_zones
 
@@ -28,12 +28,12 @@ type t = private { id : string prop; project : string prop }
 val register :
   ?tf_module:tf_module ->
   ?project:string prop ->
-  managed_zones:managed_zones list ->
+  ?managed_zones:managed_zones list ->
   string ->
   t
 
 val make :
   ?project:string prop ->
-  managed_zones:managed_zones list ->
+  ?managed_zones:managed_zones list ->
   string ->
   t Tf_core.resource

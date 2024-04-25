@@ -2647,8 +2647,8 @@ let output__builtin_preset__preset_configuration ?complexity
     min_height;
   }
 
-let output__builtin_preset ~preset_name ~preset_configuration () :
-    output__builtin_preset =
+let output__builtin_preset ?(preset_configuration = []) ~preset_name
+    () : output__builtin_preset =
   { preset_name; preset_configuration }
 
 let output__custom_preset__codec__aac_audio ?bitrate ?channels ?label
@@ -2693,8 +2693,8 @@ let output__custom_preset__codec__h264_video__layer
 
 let output__custom_preset__codec__h264_video ?complexity
     ?key_frame_interval ?label ?rate_control_mode
-    ?scene_change_detection_enabled ?stretch_mode ?sync_mode ~layer
-    () : output__custom_preset__codec__h264_video =
+    ?scene_change_detection_enabled ?stretch_mode ?sync_mode
+    ?(layer = []) () : output__custom_preset__codec__h264_video =
   {
     complexity;
     key_frame_interval;
@@ -2730,7 +2730,7 @@ let output__custom_preset__codec__h265_video__layer
 
 let output__custom_preset__codec__h265_video ?complexity
     ?key_frame_interval ?label ?scene_change_detection_enabled
-    ?stretch_mode ?sync_mode ~layer () :
+    ?stretch_mode ?sync_mode ?(layer = []) () :
     output__custom_preset__codec__h265_video =
   {
     complexity;
@@ -2749,7 +2749,8 @@ let output__custom_preset__codec__jpg_image__layer ?height ?label
 
 let output__custom_preset__codec__jpg_image ?key_frame_interval
     ?label ?range ?sprite_column ?step ?stretch_mode ?sync_mode
-    ~start ~layer () : output__custom_preset__codec__jpg_image =
+    ?(layer = []) ~start () : output__custom_preset__codec__jpg_image
+    =
   {
     key_frame_interval;
     label;
@@ -2767,8 +2768,8 @@ let output__custom_preset__codec__png_image__layer ?height ?label
   { height; label; width }
 
 let output__custom_preset__codec__png_image ?key_frame_interval
-    ?label ?range ?step ?stretch_mode ?sync_mode ~start ~layer () :
-    output__custom_preset__codec__png_image =
+    ?label ?range ?step ?stretch_mode ?sync_mode ?(layer = []) ~start
+    () : output__custom_preset__codec__png_image =
   {
     key_frame_interval;
     label;
@@ -2780,8 +2781,9 @@ let output__custom_preset__codec__png_image ?key_frame_interval
     layer;
   }
 
-let output__custom_preset__codec ~aac_audio ~copy_audio ~copy_video
-    ~dd_audio ~h264_video ~h265_video ~jpg_image ~png_image () :
+let output__custom_preset__codec ?(aac_audio = []) ?(copy_audio = [])
+    ?(copy_video = []) ?(dd_audio = []) ?(h264_video = [])
+    ?(h265_video = []) ?(jpg_image = []) ?(png_image = []) () :
     output__custom_preset__codec =
   {
     aac_audio;
@@ -2834,7 +2836,7 @@ let output__custom_preset__filter__overlay__video__position ?height
 
 let output__custom_preset__filter__overlay__video ?audio_gain_level
     ?end_ ?fade_in_duration ?fade_out_duration ?opacity ?start
-    ~input_label ~crop_rectangle ~position () :
+    ?(crop_rectangle = []) ?(position = []) ~input_label () :
     output__custom_preset__filter__overlay__video =
   {
     audio_gain_level;
@@ -2848,13 +2850,13 @@ let output__custom_preset__filter__overlay__video ?audio_gain_level
     position;
   }
 
-let output__custom_preset__filter__overlay ~audio ~video () :
-    output__custom_preset__filter__overlay =
+let output__custom_preset__filter__overlay ?(audio = [])
+    ?(video = []) () : output__custom_preset__filter__overlay =
   { audio; video }
 
-let output__custom_preset__filter ?rotation ~crop_rectangle
-    ~deinterlace ~fade_in ~fade_out ~overlay () :
-    output__custom_preset__filter =
+let output__custom_preset__filter ?rotation ?(crop_rectangle = [])
+    ?(deinterlace = []) ?(fade_in = []) ?(fade_out = [])
+    ?(overlay = []) () : output__custom_preset__filter =
   {
     rotation;
     crop_rectangle;
@@ -2872,8 +2874,8 @@ let output__custom_preset__format__mp4__output_file ~labels () :
     output__custom_preset__format__mp4__output_file =
   { labels }
 
-let output__custom_preset__format__mp4 ~filename_pattern ~output_file
-    () : output__custom_preset__format__mp4 =
+let output__custom_preset__format__mp4 ?(output_file = [])
+    ~filename_pattern () : output__custom_preset__format__mp4 =
   { filename_pattern; output_file }
 
 let output__custom_preset__format__png ~filename_pattern () :
@@ -2885,16 +2887,16 @@ let output__custom_preset__format__transport_stream__output_file
     output__custom_preset__format__transport_stream__output_file =
   { labels }
 
-let output__custom_preset__format__transport_stream ~filename_pattern
-    ~output_file () : output__custom_preset__format__transport_stream
-    =
+let output__custom_preset__format__transport_stream
+    ?(output_file = []) ~filename_pattern () :
+    output__custom_preset__format__transport_stream =
   { filename_pattern; output_file }
 
-let output__custom_preset__format ~jpg ~mp4 ~png ~transport_stream ()
-    : output__custom_preset__format =
+let output__custom_preset__format ?(jpg = []) ?(mp4 = []) ?(png = [])
+    ?(transport_stream = []) () : output__custom_preset__format =
   { jpg; mp4; png; transport_stream }
 
-let output__custom_preset ?experimental_options ~codec ~filter
+let output__custom_preset ?experimental_options ?(filter = []) ~codec
     ~format () : output__custom_preset =
   { experimental_options; codec; filter; format }
 
@@ -2918,9 +2920,10 @@ let output__video_analyzer_preset ?audio_analysis_mode
     insights_type;
   }
 
-let output ?on_error_action ?relative_priority ~audio_analyzer_preset
-    ~builtin_preset ~custom_preset ~face_detector_preset
-    ~video_analyzer_preset () : output =
+let output ?on_error_action ?relative_priority
+    ?(audio_analyzer_preset = []) ?(builtin_preset = [])
+    ?(custom_preset = []) ?(face_detector_preset = [])
+    ?(video_analyzer_preset = []) () : output =
   {
     on_error_action;
     relative_priority;
@@ -2934,9 +2937,9 @@ let output ?on_error_action ?relative_priority ~audio_analyzer_preset
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_media_transform ?description ?id ?timeouts
-    ~media_services_account_name ~name ~resource_group_name ~output
-    () : azurerm_media_transform =
+let azurerm_media_transform ?description ?id ?(output = []) ?timeouts
+    ~media_services_account_name ~name ~resource_group_name () :
+    azurerm_media_transform =
   {
     description;
     id;
@@ -2955,8 +2958,8 @@ type t = {
   resource_group_name : string prop;
 }
 
-let make ?description ?id ?timeouts ~media_services_account_name
-    ~name ~resource_group_name ~output __id =
+let make ?description ?id ?(output = []) ?timeouts
+    ~media_services_account_name ~name ~resource_group_name __id =
   let __type = "azurerm_media_transform" in
   let __attrs =
     ({
@@ -2975,18 +2978,16 @@ let make ?description ?id ?timeouts ~media_services_account_name
     type_ = __type;
     json =
       yojson_of_azurerm_media_transform
-        (azurerm_media_transform ?description ?id ?timeouts
-           ~media_services_account_name ~name ~resource_group_name
-           ~output ());
+        (azurerm_media_transform ?description ?id ~output ?timeouts
+           ~media_services_account_name ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?timeouts
-    ~media_services_account_name ~name ~resource_group_name ~output
-    __id =
+let register ?tf_module ?description ?id ?(output = []) ?timeouts
+    ~media_services_account_name ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?timeouts ~media_services_account_name
-      ~name ~resource_group_name ~output __id
+    make ?description ?id ~output ?timeouts
+      ~media_services_account_name ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -190,8 +190,9 @@ let snapshot_schedule ~name ~recurrence ~start_time () :
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_data_share ?description ?id ?terms ?timeouts ~account_id
-    ~kind ~name ~snapshot_schedule () : azurerm_data_share =
+let azurerm_data_share ?description ?id ?terms
+    ?(snapshot_schedule = []) ?timeouts ~account_id ~kind ~name () :
+    azurerm_data_share =
   {
     account_id;
     description;
@@ -212,8 +213,8 @@ type t = {
   terms : string prop;
 }
 
-let make ?description ?id ?terms ?timeouts ~account_id ~kind ~name
-    ~snapshot_schedule __id =
+let make ?description ?id ?terms ?(snapshot_schedule = []) ?timeouts
+    ~account_id ~kind ~name __id =
   let __type = "azurerm_data_share" in
   let __attrs =
     ({
@@ -231,16 +232,17 @@ let make ?description ?id ?terms ?timeouts ~account_id ~kind ~name
     type_ = __type;
     json =
       yojson_of_azurerm_data_share
-        (azurerm_data_share ?description ?id ?terms ?timeouts
-           ~account_id ~kind ~name ~snapshot_schedule ());
+        (azurerm_data_share ?description ?id ?terms
+           ~snapshot_schedule ?timeouts ~account_id ~kind ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?terms ?timeouts ~account_id
-    ~kind ~name ~snapshot_schedule __id =
+let register ?tf_module ?description ?id ?terms
+    ?(snapshot_schedule = []) ?timeouts ~account_id ~kind ~name __id
+    =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?terms ?timeouts ~account_id ~kind ~name
-      ~snapshot_schedule __id
+    make ?description ?id ?terms ~snapshot_schedule ?timeouts
+      ~account_id ~kind ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

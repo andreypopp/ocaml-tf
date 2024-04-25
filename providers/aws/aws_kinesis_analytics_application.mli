@@ -75,15 +75,15 @@ val inputs__schema__record_format__mapping_parameters__json :
 type inputs__schema__record_format__mapping_parameters
 
 val inputs__schema__record_format__mapping_parameters :
-  csv:inputs__schema__record_format__mapping_parameters__csv list ->
-  json:inputs__schema__record_format__mapping_parameters__json list ->
+  ?csv:inputs__schema__record_format__mapping_parameters__csv list ->
+  ?json:inputs__schema__record_format__mapping_parameters__json list ->
   unit ->
   inputs__schema__record_format__mapping_parameters
 
 type inputs__schema__record_format
 
 val inputs__schema__record_format :
-  mapping_parameters:
+  ?mapping_parameters:
     inputs__schema__record_format__mapping_parameters list ->
   unit ->
   inputs__schema__record_format
@@ -107,14 +107,14 @@ val inputs__starting_position_configuration :
 type inputs
 
 val inputs :
-  name_prefix:string prop ->
-  kinesis_firehose:inputs__kinesis_firehose list ->
-  kinesis_stream:inputs__kinesis_stream list ->
-  parallelism:inputs__parallelism list ->
-  processing_configuration:inputs__processing_configuration list ->
-  schema:inputs__schema list ->
-  starting_position_configuration:
+  ?kinesis_firehose:inputs__kinesis_firehose list ->
+  ?kinesis_stream:inputs__kinesis_stream list ->
+  ?parallelism:inputs__parallelism list ->
+  ?processing_configuration:inputs__processing_configuration list ->
+  ?starting_position_configuration:
     inputs__starting_position_configuration list ->
+  name_prefix:string prop ->
+  schema:inputs__schema list ->
   unit ->
   inputs
 
@@ -150,10 +150,10 @@ val outputs__schema :
 type outputs
 
 val outputs :
+  ?kinesis_firehose:outputs__kinesis_firehose list ->
+  ?kinesis_stream:outputs__kinesis_stream list ->
+  ?lambda:outputs__lambda list ->
   name:string prop ->
-  kinesis_firehose:outputs__kinesis_firehose list ->
-  kinesis_stream:outputs__kinesis_stream list ->
-  lambda:outputs__lambda list ->
   schema:outputs__schema list ->
   unit ->
   outputs
@@ -194,10 +194,10 @@ val reference_data_sources__schema__record_format__mapping_parameters__json :
 type reference_data_sources__schema__record_format__mapping_parameters
 
 val reference_data_sources__schema__record_format__mapping_parameters :
-  csv:
+  ?csv:
     reference_data_sources__schema__record_format__mapping_parameters__csv
     list ->
-  json:
+  ?json:
     reference_data_sources__schema__record_format__mapping_parameters__json
     list ->
   unit ->
@@ -206,7 +206,7 @@ val reference_data_sources__schema__record_format__mapping_parameters :
 type reference_data_sources__schema__record_format
 
 val reference_data_sources__schema__record_format :
-  mapping_parameters:
+  ?mapping_parameters:
     reference_data_sources__schema__record_format__mapping_parameters
     list ->
   unit ->
@@ -239,11 +239,11 @@ val aws_kinesis_analytics_application :
   ?start_application:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?cloudwatch_logging_options:cloudwatch_logging_options list ->
+  ?inputs:inputs list ->
+  ?reference_data_sources:reference_data_sources list ->
   name:string prop ->
-  cloudwatch_logging_options:cloudwatch_logging_options list ->
-  inputs:inputs list ->
   outputs:outputs list ->
-  reference_data_sources:reference_data_sources list ->
   unit ->
   aws_kinesis_analytics_application
 
@@ -275,11 +275,11 @@ val register :
   ?start_application:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?cloudwatch_logging_options:cloudwatch_logging_options list ->
+  ?inputs:inputs list ->
+  ?reference_data_sources:reference_data_sources list ->
   name:string prop ->
-  cloudwatch_logging_options:cloudwatch_logging_options list ->
-  inputs:inputs list ->
   outputs:outputs list ->
-  reference_data_sources:reference_data_sources list ->
   string ->
   t
 
@@ -290,10 +290,10 @@ val make :
   ?start_application:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?cloudwatch_logging_options:cloudwatch_logging_options list ->
+  ?inputs:inputs list ->
+  ?reference_data_sources:reference_data_sources list ->
   name:string prop ->
-  cloudwatch_logging_options:cloudwatch_logging_options list ->
-  inputs:inputs list ->
   outputs:outputs list ->
-  reference_data_sources:reference_data_sources list ->
   string ->
   t Tf_core.resource

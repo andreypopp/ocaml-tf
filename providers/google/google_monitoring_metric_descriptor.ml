@@ -253,8 +253,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_monitoring_metric_descriptor ?id ?launch_stage ?project
-    ?unit ?timeouts ~description ~display_name ~metric_kind ~type_
-    ~value_type ~labels ~metadata () :
+    ?unit ?(metadata = []) ?timeouts ~description ~display_name
+    ~metric_kind ~type_ ~value_type ~labels () :
     google_monitoring_metric_descriptor =
   {
     description;
@@ -285,9 +285,9 @@ type t = {
   value_type : string prop;
 }
 
-let make ?id ?launch_stage ?project ?unit ?timeouts ~description
-    ~display_name ~metric_kind ~type_ ~value_type ~labels ~metadata
-    __id =
+let make ?id ?launch_stage ?project ?unit ?(metadata = []) ?timeouts
+    ~description ~display_name ~metric_kind ~type_ ~value_type
+    ~labels __id =
   let __type = "google_monitoring_metric_descriptor" in
   let __attrs =
     ({
@@ -312,18 +312,18 @@ let make ?id ?launch_stage ?project ?unit ?timeouts ~description
     json =
       yojson_of_google_monitoring_metric_descriptor
         (google_monitoring_metric_descriptor ?id ?launch_stage
-           ?project ?unit ?timeouts ~description ~display_name
-           ~metric_kind ~type_ ~value_type ~labels ~metadata ());
+           ?project ?unit ~metadata ?timeouts ~description
+           ~display_name ~metric_kind ~type_ ~value_type ~labels ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?launch_stage ?project ?unit ?timeouts
-    ~description ~display_name ~metric_kind ~type_ ~value_type
-    ~labels ~metadata __id =
+let register ?tf_module ?id ?launch_stage ?project ?unit
+    ?(metadata = []) ?timeouts ~description ~display_name
+    ~metric_kind ~type_ ~value_type ~labels __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?launch_stage ?project ?unit ?timeouts ~description
-      ~display_name ~metric_kind ~type_ ~value_type ~labels ~metadata
-      __id
+    make ?id ?launch_stage ?project ?unit ~metadata ?timeouts
+      ~description ~display_name ~metric_kind ~type_ ~value_type
+      ~labels __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -66,16 +66,16 @@ val azurerm_sentinel_metadata :
   ?threat_analysis_tactics:string prop list ->
   ?threat_analysis_techniques:string prop list ->
   ?version:string prop ->
+  ?author:author list ->
+  ?category:category list ->
+  ?source:source list ->
+  ?support:support list ->
   ?timeouts:timeouts ->
   content_id:string prop ->
   kind:string prop ->
   name:string prop ->
   parent_id:string prop ->
   workspace_id:string prop ->
-  author:author list ->
-  category:category list ->
-  source:source list ->
-  support:support list ->
   unit ->
   azurerm_sentinel_metadata
 
@@ -120,16 +120,16 @@ val register :
   ?threat_analysis_tactics:string prop list ->
   ?threat_analysis_techniques:string prop list ->
   ?version:string prop ->
+  ?author:author list ->
+  ?category:category list ->
+  ?source:source list ->
+  ?support:support list ->
   ?timeouts:timeouts ->
   content_id:string prop ->
   kind:string prop ->
   name:string prop ->
   parent_id:string prop ->
   workspace_id:string prop ->
-  author:author list ->
-  category:category list ->
-  source:source list ->
-  support:support list ->
   string ->
   t
 
@@ -147,15 +147,15 @@ val make :
   ?threat_analysis_tactics:string prop list ->
   ?threat_analysis_techniques:string prop list ->
   ?version:string prop ->
+  ?author:author list ->
+  ?category:category list ->
+  ?source:source list ->
+  ?support:support list ->
   ?timeouts:timeouts ->
   content_id:string prop ->
   kind:string prop ->
   name:string prop ->
   parent_id:string prop ->
   workspace_id:string prop ->
-  author:author list ->
-  category:category list ->
-  source:source list ->
-  support:support list ->
   string ->
   t Tf_core.resource

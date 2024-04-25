@@ -46,9 +46,9 @@ val cache_behavior_settings :
   ?default_ttl:float prop ->
   ?maximum_ttl:float prop ->
   ?minimum_ttl:float prop ->
-  forwarded_cookies:cache_behavior_settings__forwarded_cookies list ->
-  forwarded_headers:cache_behavior_settings__forwarded_headers list ->
-  forwarded_query_strings:
+  ?forwarded_cookies:cache_behavior_settings__forwarded_cookies list ->
+  ?forwarded_headers:cache_behavior_settings__forwarded_headers list ->
+  ?forwarded_query_strings:
     cache_behavior_settings__forwarded_query_strings list ->
   unit ->
   cache_behavior_settings
@@ -85,11 +85,11 @@ val aws_lightsail_distribution :
   ?is_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?cache_behavior_settings:cache_behavior_settings list ->
   ?timeouts:timeouts ->
   bundle_id:string prop ->
   name:string prop ->
   cache_behavior:cache_behavior list ->
-  cache_behavior_settings:cache_behavior_settings list ->
   default_cache_behavior:default_cache_behavior list ->
   origin:origin list ->
   unit ->
@@ -128,11 +128,11 @@ val register :
   ?is_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?cache_behavior_settings:cache_behavior_settings list ->
   ?timeouts:timeouts ->
   bundle_id:string prop ->
   name:string prop ->
   cache_behavior:cache_behavior list ->
-  cache_behavior_settings:cache_behavior_settings list ->
   default_cache_behavior:default_cache_behavior list ->
   origin:origin list ->
   string ->
@@ -145,11 +145,11 @@ val make :
   ?is_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?cache_behavior_settings:cache_behavior_settings list ->
   ?timeouts:timeouts ->
   bundle_id:string prop ->
   name:string prop ->
   cache_behavior:cache_behavior list ->
-  cache_behavior_settings:cache_behavior_settings list ->
   default_cache_behavior:default_cache_behavior list ->
   origin:origin list ->
   string ->

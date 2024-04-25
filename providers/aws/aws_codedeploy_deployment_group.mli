@@ -47,12 +47,12 @@ val blue_green_deployment_config__terminate_blue_instances_on_deployment_success
 type blue_green_deployment_config
 
 val blue_green_deployment_config :
-  deployment_ready_option:
+  ?deployment_ready_option:
     blue_green_deployment_config__deployment_ready_option list ->
-  green_fleet_provisioning_option:
+  ?green_fleet_provisioning_option:
     blue_green_deployment_config__green_fleet_provisioning_option
     list ->
-  terminate_blue_instances_on_deployment_success:
+  ?terminate_blue_instances_on_deployment_success:
     blue_green_deployment_config__terminate_blue_instances_on_deployment_success
     list ->
   unit ->
@@ -133,24 +133,24 @@ val load_balancer_info__target_group_pair_info__test_traffic_route :
 type load_balancer_info__target_group_pair_info
 
 val load_balancer_info__target_group_pair_info :
+  ?test_traffic_route:
+    load_balancer_info__target_group_pair_info__test_traffic_route
+    list ->
   prod_traffic_route:
     load_balancer_info__target_group_pair_info__prod_traffic_route
     list ->
   target_group:
     load_balancer_info__target_group_pair_info__target_group list ->
-  test_traffic_route:
-    load_balancer_info__target_group_pair_info__test_traffic_route
-    list ->
   unit ->
   load_balancer_info__target_group_pair_info
 
 type load_balancer_info
 
 val load_balancer_info :
+  ?target_group_pair_info:
+    load_balancer_info__target_group_pair_info list ->
   elb_info:load_balancer_info__elb_info list ->
   target_group_info:load_balancer_info__target_group_info list ->
-  target_group_pair_info:
-    load_balancer_info__target_group_pair_info list ->
   unit ->
   load_balancer_info
 
@@ -181,17 +181,17 @@ val aws_codedeploy_deployment_group :
   ?outdated_instances_strategy:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?alarm_configuration:alarm_configuration list ->
+  ?auto_rollback_configuration:auto_rollback_configuration list ->
+  ?blue_green_deployment_config:blue_green_deployment_config list ->
+  ?deployment_style:deployment_style list ->
+  ?ecs_service:ecs_service list ->
+  ?load_balancer_info:load_balancer_info list ->
   app_name:string prop ->
   deployment_group_name:string prop ->
   service_role_arn:string prop ->
-  alarm_configuration:alarm_configuration list ->
-  auto_rollback_configuration:auto_rollback_configuration list ->
-  blue_green_deployment_config:blue_green_deployment_config list ->
-  deployment_style:deployment_style list ->
   ec2_tag_filter:ec2_tag_filter list ->
   ec2_tag_set:ec2_tag_set list ->
-  ecs_service:ecs_service list ->
-  load_balancer_info:load_balancer_info list ->
   on_premises_instance_tag_filter:
     on_premises_instance_tag_filter list ->
   trigger_configuration:trigger_configuration list ->
@@ -226,17 +226,17 @@ val register :
   ?outdated_instances_strategy:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?alarm_configuration:alarm_configuration list ->
+  ?auto_rollback_configuration:auto_rollback_configuration list ->
+  ?blue_green_deployment_config:blue_green_deployment_config list ->
+  ?deployment_style:deployment_style list ->
+  ?ecs_service:ecs_service list ->
+  ?load_balancer_info:load_balancer_info list ->
   app_name:string prop ->
   deployment_group_name:string prop ->
   service_role_arn:string prop ->
-  alarm_configuration:alarm_configuration list ->
-  auto_rollback_configuration:auto_rollback_configuration list ->
-  blue_green_deployment_config:blue_green_deployment_config list ->
-  deployment_style:deployment_style list ->
   ec2_tag_filter:ec2_tag_filter list ->
   ec2_tag_set:ec2_tag_set list ->
-  ecs_service:ecs_service list ->
-  load_balancer_info:load_balancer_info list ->
   on_premises_instance_tag_filter:
     on_premises_instance_tag_filter list ->
   trigger_configuration:trigger_configuration list ->
@@ -250,17 +250,17 @@ val make :
   ?outdated_instances_strategy:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?alarm_configuration:alarm_configuration list ->
+  ?auto_rollback_configuration:auto_rollback_configuration list ->
+  ?blue_green_deployment_config:blue_green_deployment_config list ->
+  ?deployment_style:deployment_style list ->
+  ?ecs_service:ecs_service list ->
+  ?load_balancer_info:load_balancer_info list ->
   app_name:string prop ->
   deployment_group_name:string prop ->
   service_role_arn:string prop ->
-  alarm_configuration:alarm_configuration list ->
-  auto_rollback_configuration:auto_rollback_configuration list ->
-  blue_green_deployment_config:blue_green_deployment_config list ->
-  deployment_style:deployment_style list ->
   ec2_tag_filter:ec2_tag_filter list ->
   ec2_tag_set:ec2_tag_set list ->
-  ecs_service:ecs_service list ->
-  load_balancer_info:load_balancer_info list ->
   on_premises_instance_tag_filter:
     on_premises_instance_tag_filter list ->
   trigger_configuration:trigger_configuration list ->

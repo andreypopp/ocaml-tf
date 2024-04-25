@@ -49,15 +49,15 @@ val azurerm_machine_learning_compute_cluster :
   ?ssh_public_access_enabled:bool prop ->
   ?subnet_resource_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?ssh:ssh list ->
   ?timeouts:timeouts ->
   location:string prop ->
   machine_learning_workspace_id:string prop ->
   name:string prop ->
   vm_priority:string prop ->
   vm_size:string prop ->
-  identity:identity list ->
   scale_settings:scale_settings list ->
-  ssh:ssh list ->
   unit ->
   azurerm_machine_learning_compute_cluster
 
@@ -90,15 +90,15 @@ val register :
   ?ssh_public_access_enabled:bool prop ->
   ?subnet_resource_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?ssh:ssh list ->
   ?timeouts:timeouts ->
   location:string prop ->
   machine_learning_workspace_id:string prop ->
   name:string prop ->
   vm_priority:string prop ->
   vm_size:string prop ->
-  identity:identity list ->
   scale_settings:scale_settings list ->
-  ssh:ssh list ->
   string ->
   t
 
@@ -110,14 +110,14 @@ val make :
   ?ssh_public_access_enabled:bool prop ->
   ?subnet_resource_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?ssh:ssh list ->
   ?timeouts:timeouts ->
   location:string prop ->
   machine_learning_workspace_id:string prop ->
   name:string prop ->
   vm_priority:string prop ->
   vm_size:string prop ->
-  identity:identity list ->
   scale_settings:scale_settings list ->
-  ssh:ssh list ->
   string ->
   t Tf_core.resource

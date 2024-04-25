@@ -21,7 +21,7 @@ val config__health_check :
   ?protocol:string prop ->
   ?protocol_version:string prop ->
   ?unhealthy_threshold_count:float prop ->
-  matcher:config__health_check__matcher list ->
+  ?matcher:config__health_check__matcher list ->
   unit ->
   config__health_check
 
@@ -34,7 +34,7 @@ val config :
   ?protocol:string prop ->
   ?protocol_version:string prop ->
   ?vpc_identifier:string prop ->
-  health_check:config__health_check list ->
+  ?health_check:config__health_check list ->
   unit ->
   config
 
@@ -53,10 +53,10 @@ val aws_vpclattice_target_group :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?config:config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   type_:string prop ->
-  config:config list ->
   unit ->
   aws_vpclattice_target_group
 
@@ -80,10 +80,10 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?config:config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   type_:string prop ->
-  config:config list ->
   string ->
   t
 
@@ -91,9 +91,9 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?config:config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   type_:string prop ->
-  config:config list ->
   string ->
   t Tf_core.resource

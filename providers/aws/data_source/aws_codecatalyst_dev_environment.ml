@@ -160,7 +160,7 @@ let _ = yojson_of_aws_codecatalyst_dev_environment
 let repositories () = ()
 
 let aws_codecatalyst_dev_environment ?alias ?creator_id ?id ?tags
-    ~env_id ~project_name ~space_name ~repositories () :
+    ?(repositories = []) ~env_id ~project_name ~space_name () :
     aws_codecatalyst_dev_environment =
   {
     alias;
@@ -190,8 +190,8 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?alias ?creator_id ?id ?tags ~env_id ~project_name
-    ~space_name ~repositories __id =
+let make ?alias ?creator_id ?id ?tags ?(repositories = []) ~env_id
+    ~project_name ~space_name __id =
   let __type = "aws_codecatalyst_dev_environment" in
   let __attrs =
     ({
@@ -221,15 +221,15 @@ let make ?alias ?creator_id ?id ?tags ~env_id ~project_name
     json =
       yojson_of_aws_codecatalyst_dev_environment
         (aws_codecatalyst_dev_environment ?alias ?creator_id ?id
-           ?tags ~env_id ~project_name ~space_name ~repositories ());
+           ?tags ~repositories ~env_id ~project_name ~space_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?alias ?creator_id ?id ?tags ~env_id
-    ~project_name ~space_name ~repositories __id =
+let register ?tf_module ?alias ?creator_id ?id ?tags
+    ?(repositories = []) ~env_id ~project_name ~space_name __id =
   let (r : _ Tf_core.resource) =
-    make ?alias ?creator_id ?id ?tags ~env_id ~project_name
-      ~space_name ~repositories __id
+    make ?alias ?creator_id ?id ?tags ~repositories ~env_id
+      ~project_name ~space_name __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

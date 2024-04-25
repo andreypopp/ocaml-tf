@@ -51,10 +51,10 @@ val google_dialogflow_cx_intent :
   ?language_code:string prop ->
   ?parent:string prop ->
   ?priority:float prop ->
+  ?parameters:parameters list ->
   ?timeouts:timeouts ->
+  ?training_phrases:training_phrases list ->
   display_name:string prop ->
-  parameters:parameters list ->
-  training_phrases:training_phrases list ->
   unit ->
   google_dialogflow_cx_intent
 
@@ -90,10 +90,10 @@ val register :
   ?language_code:string prop ->
   ?parent:string prop ->
   ?priority:float prop ->
+  ?parameters:parameters list ->
   ?timeouts:timeouts ->
+  ?training_phrases:training_phrases list ->
   display_name:string prop ->
-  parameters:parameters list ->
-  training_phrases:training_phrases list ->
   string ->
   t
 
@@ -107,9 +107,9 @@ val make :
   ?language_code:string prop ->
   ?parent:string prop ->
   ?priority:float prop ->
+  ?parameters:parameters list ->
   ?timeouts:timeouts ->
+  ?training_phrases:training_phrases list ->
   display_name:string prop ->
-  parameters:parameters list ->
-  training_phrases:training_phrases list ->
   string ->
   t Tf_core.resource

@@ -67,7 +67,8 @@ let _ = yojson_of_aws_verifiedpermissions_policy_store
 let validation_settings ~mode () : validation_settings = { mode }
 
 let aws_verifiedpermissions_policy_store ?description
-    ~validation_settings () : aws_verifiedpermissions_policy_store =
+    ?(validation_settings = []) () :
+    aws_verifiedpermissions_policy_store =
   { description; validation_settings }
 
 type t = {
@@ -77,7 +78,7 @@ type t = {
   policy_store_id : string prop;
 }
 
-let make ?description ~validation_settings __id =
+let make ?description ?(validation_settings = []) __id =
   let __type = "aws_verifiedpermissions_policy_store" in
   let __attrs =
     ({
@@ -98,7 +99,8 @@ let make ?description ~validation_settings __id =
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ~validation_settings __id =
+let register ?tf_module ?description ?(validation_settings = []) __id
+    =
   let (r : _ Tf_core.resource) =
     make ?description ~validation_settings __id
   in

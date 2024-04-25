@@ -49,9 +49,9 @@ val datasources__s3_logs :
 type datasources
 
 val datasources :
-  kubernetes:datasources__kubernetes list ->
-  malware_protection:datasources__malware_protection list ->
-  s3_logs:datasources__s3_logs list ->
+  ?kubernetes:datasources__kubernetes list ->
+  ?malware_protection:datasources__malware_protection list ->
+  ?s3_logs:datasources__s3_logs list ->
   unit ->
   datasources
 
@@ -63,7 +63,7 @@ val aws_guardduty_detector :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  datasources:datasources list ->
+  ?datasources:datasources list ->
   unit ->
   aws_guardduty_detector
 
@@ -88,7 +88,7 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  datasources:datasources list ->
+  ?datasources:datasources list ->
   string ->
   t
 
@@ -98,6 +98,6 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  datasources:datasources list ->
+  ?datasources:datasources list ->
   string ->
   t Tf_core.resource

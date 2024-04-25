@@ -585,14 +585,14 @@ let logging_config__component_config ?enable_components () :
     logging_config__component_config =
   { enable_components }
 
-let logging_config ~component_config () : logging_config =
+let logging_config ?(component_config = []) () : logging_config =
   { component_config }
 
 let monitoring_config__managed_prometheus_config ?enabled () :
     monitoring_config__managed_prometheus_config =
   { enabled }
 
-let monitoring_config ~managed_prometheus_config () :
+let monitoring_config ?(managed_prometheus_config = []) () :
     monitoring_config =
   { managed_prometheus_config }
 
@@ -603,17 +603,18 @@ let proxy_config__kubernetes_secret ~name ~namespace () :
     proxy_config__kubernetes_secret =
   { name; namespace }
 
-let proxy_config ~kubernetes_secret () : proxy_config =
+let proxy_config ?(kubernetes_secret = []) () : proxy_config =
   { kubernetes_secret }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_container_attached_cluster ?annotations ?deletion_policy
-    ?description ?id ?project ?timeouts ~distribution ~location ~name
-    ~platform_version ~authorization ~binary_authorization ~fleet
-    ~logging_config ~monitoring_config ~oidc_config ~proxy_config ()
-    : google_container_attached_cluster =
+    ?description ?id ?project ?(authorization = [])
+    ?(binary_authorization = []) ?(logging_config = [])
+    ?(monitoring_config = []) ?(proxy_config = []) ?timeouts
+    ~distribution ~location ~name ~platform_version ~fleet
+    ~oidc_config () : google_container_attached_cluster =
   {
     annotations;
     deletion_policy;
@@ -657,9 +658,10 @@ type t = {
 }
 
 let make ?annotations ?deletion_policy ?description ?id ?project
-    ?timeouts ~distribution ~location ~name ~platform_version
-    ~authorization ~binary_authorization ~fleet ~logging_config
-    ~monitoring_config ~oidc_config ~proxy_config __id =
+    ?(authorization = []) ?(binary_authorization = [])
+    ?(logging_config = []) ?(monitoring_config = [])
+    ?(proxy_config = []) ?timeouts ~distribution ~location ~name
+    ~platform_version ~fleet ~oidc_config __id =
   let __type = "google_container_attached_cluster" in
   let __attrs =
     ({
@@ -695,24 +697,23 @@ let make ?annotations ?deletion_policy ?description ?id ?project
     json =
       yojson_of_google_container_attached_cluster
         (google_container_attached_cluster ?annotations
-           ?deletion_policy ?description ?id ?project ?timeouts
-           ~distribution ~location ~name ~platform_version
-           ~authorization ~binary_authorization ~fleet
-           ~logging_config ~monitoring_config ~oidc_config
-           ~proxy_config ());
+           ?deletion_policy ?description ?id ?project ~authorization
+           ~binary_authorization ~logging_config ~monitoring_config
+           ~proxy_config ?timeouts ~distribution ~location ~name
+           ~platform_version ~fleet ~oidc_config ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?deletion_policy ?description
-    ?id ?project ?timeouts ~distribution ~location ~name
-    ~platform_version ~authorization ~binary_authorization ~fleet
-    ~logging_config ~monitoring_config ~oidc_config ~proxy_config
-    __id =
+    ?id ?project ?(authorization = []) ?(binary_authorization = [])
+    ?(logging_config = []) ?(monitoring_config = [])
+    ?(proxy_config = []) ?timeouts ~distribution ~location ~name
+    ~platform_version ~fleet ~oidc_config __id =
   let (r : _ Tf_core.resource) =
     make ?annotations ?deletion_policy ?description ?id ?project
-      ?timeouts ~distribution ~location ~name ~platform_version
-      ~authorization ~binary_authorization ~fleet ~logging_config
-      ~monitoring_config ~oidc_config ~proxy_config __id
+      ~authorization ~binary_authorization ~logging_config
+      ~monitoring_config ~proxy_config ?timeouts ~distribution
+      ~location ~name ~platform_version ~fleet ~oidc_config __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

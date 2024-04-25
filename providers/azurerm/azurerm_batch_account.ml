@@ -514,20 +514,20 @@ let network_profile__account_access__ip_rule ?action ~ip_range () :
     network_profile__account_access__ip_rule =
   { action; ip_range }
 
-let network_profile__account_access ?default_action ~ip_rule () :
-    network_profile__account_access =
+let network_profile__account_access ?default_action ?(ip_rule = [])
+    () : network_profile__account_access =
   { default_action; ip_rule }
 
 let network_profile__node_management_access__ip_rule ?action
     ~ip_range () : network_profile__node_management_access__ip_rule =
   { action; ip_range }
 
-let network_profile__node_management_access ?default_action ~ip_rule
-    () : network_profile__node_management_access =
+let network_profile__node_management_access ?default_action
+    ?(ip_rule = []) () : network_profile__node_management_access =
   { default_action; ip_rule }
 
-let network_profile ~account_access ~node_management_access () :
-    network_profile =
+let network_profile ?(account_access = [])
+    ?(node_management_access = []) () : network_profile =
   { account_access; node_management_access }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
@@ -536,9 +536,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_batch_account ?allowed_authentication_modes ?encryption
     ?id ?pool_allocation_mode ?public_network_access_enabled
     ?storage_account_authentication_mode ?storage_account_id
-    ?storage_account_node_identity ?tags ?timeouts ~location ~name
-    ~resource_group_name ~identity ~key_vault_reference
-    ~network_profile () : azurerm_batch_account =
+    ?storage_account_node_identity ?tags ?(identity = [])
+    ?(key_vault_reference = []) ?(network_profile = []) ?timeouts
+    ~location ~name ~resource_group_name () : azurerm_batch_account =
   {
     allowed_authentication_modes;
     encryption;
@@ -579,9 +579,9 @@ type t = {
 let make ?allowed_authentication_modes ?encryption ?id
     ?pool_allocation_mode ?public_network_access_enabled
     ?storage_account_authentication_mode ?storage_account_id
-    ?storage_account_node_identity ?tags ?timeouts ~location ~name
-    ~resource_group_name ~identity ~key_vault_reference
-    ~network_profile __id =
+    ?storage_account_node_identity ?tags ?(identity = [])
+    ?(key_vault_reference = []) ?(network_profile = []) ?timeouts
+    ~location ~name ~resource_group_name __id =
   let __type = "azurerm_batch_account" in
   let __attrs =
     ({
@@ -623,25 +623,25 @@ let make ?allowed_authentication_modes ?encryption ?id
            ?encryption ?id ?pool_allocation_mode
            ?public_network_access_enabled
            ?storage_account_authentication_mode ?storage_account_id
-           ?storage_account_node_identity ?tags ?timeouts ~location
-           ~name ~resource_group_name ~identity ~key_vault_reference
-           ~network_profile ());
+           ?storage_account_node_identity ?tags ~identity
+           ~key_vault_reference ~network_profile ?timeouts ~location
+           ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?allowed_authentication_modes ?encryption ?id
     ?pool_allocation_mode ?public_network_access_enabled
     ?storage_account_authentication_mode ?storage_account_id
-    ?storage_account_node_identity ?tags ?timeouts ~location ~name
-    ~resource_group_name ~identity ~key_vault_reference
-    ~network_profile __id =
+    ?storage_account_node_identity ?tags ?(identity = [])
+    ?(key_vault_reference = []) ?(network_profile = []) ?timeouts
+    ~location ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?allowed_authentication_modes ?encryption ?id
       ?pool_allocation_mode ?public_network_access_enabled
       ?storage_account_authentication_mode ?storage_account_id
-      ?storage_account_node_identity ?tags ?timeouts ~location ~name
-      ~resource_group_name ~identity ~key_vault_reference
-      ~network_profile __id
+      ?storage_account_node_identity ?tags ~identity
+      ~key_vault_reference ~network_profile ?timeouts ~location ~name
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

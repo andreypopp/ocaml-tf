@@ -420,7 +420,7 @@ let image_scanning_configuration__ecr_configuration ?container_tags
   { container_tags; repository_name }
 
 let image_scanning_configuration ?image_scanning_enabled
-    ~ecr_configuration () : image_scanning_configuration =
+    ?(ecr_configuration = []) () : image_scanning_configuration =
   { image_scanning_enabled; ecr_configuration }
 
 let image_tests_configuration ?image_tests_enabled ?timeout_minutes
@@ -431,9 +431,10 @@ let timeouts ?create () : timeouts = { create }
 
 let aws_imagebuilder_image ?container_recipe_arn
     ?distribution_configuration_arn ?enhanced_image_metadata_enabled
-    ?id ?image_recipe_arn ?tags ?tags_all ?timeouts
-    ~infrastructure_configuration_arn ~image_scanning_configuration
-    ~image_tests_configuration () : aws_imagebuilder_image =
+    ?id ?image_recipe_arn ?tags ?tags_all
+    ?(image_scanning_configuration = [])
+    ?(image_tests_configuration = []) ?timeouts
+    ~infrastructure_configuration_arn () : aws_imagebuilder_image =
   {
     container_recipe_arn;
     distribution_configuration_arn;
@@ -468,8 +469,9 @@ type t = {
 
 let make ?container_recipe_arn ?distribution_configuration_arn
     ?enhanced_image_metadata_enabled ?id ?image_recipe_arn ?tags
-    ?tags_all ?timeouts ~infrastructure_configuration_arn
-    ~image_scanning_configuration ~image_tests_configuration __id =
+    ?tags_all ?(image_scanning_configuration = [])
+    ?(image_tests_configuration = []) ?timeouts
+    ~infrastructure_configuration_arn __id =
   let __type = "aws_imagebuilder_image" in
   let __attrs =
     ({
@@ -505,23 +507,24 @@ let make ?container_recipe_arn ?distribution_configuration_arn
         (aws_imagebuilder_image ?container_recipe_arn
            ?distribution_configuration_arn
            ?enhanced_image_metadata_enabled ?id ?image_recipe_arn
-           ?tags ?tags_all ?timeouts
-           ~infrastructure_configuration_arn
-           ~image_scanning_configuration ~image_tests_configuration
-           ());
+           ?tags ?tags_all ~image_scanning_configuration
+           ~image_tests_configuration ?timeouts
+           ~infrastructure_configuration_arn ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?container_recipe_arn
     ?distribution_configuration_arn ?enhanced_image_metadata_enabled
-    ?id ?image_recipe_arn ?tags ?tags_all ?timeouts
-    ~infrastructure_configuration_arn ~image_scanning_configuration
-    ~image_tests_configuration __id =
+    ?id ?image_recipe_arn ?tags ?tags_all
+    ?(image_scanning_configuration = [])
+    ?(image_tests_configuration = []) ?timeouts
+    ~infrastructure_configuration_arn __id =
   let (r : _ Tf_core.resource) =
     make ?container_recipe_arn ?distribution_configuration_arn
       ?enhanced_image_metadata_enabled ?id ?image_recipe_arn ?tags
-      ?tags_all ?timeouts ~infrastructure_configuration_arn
-      ~image_scanning_configuration ~image_tests_configuration __id
+      ?tags_all ~image_scanning_configuration
+      ~image_tests_configuration ?timeouts
+      ~infrastructure_configuration_arn __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

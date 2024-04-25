@@ -453,8 +453,8 @@ let aws_servicecatalog_provisioned_product ?accept_language ?id
     ?ignore_errors ?notification_arns ?path_id ?path_name ?product_id
     ?product_name ?provisioning_artifact_id
     ?provisioning_artifact_name ?retain_physical_resources ?tags
-    ?tags_all ?timeouts ~name ~provisioning_parameters
-    ~stack_set_provisioning_preferences () :
+    ?tags_all ?(provisioning_parameters = [])
+    ?(stack_set_provisioning_preferences = []) ?timeouts ~name () :
     aws_servicecatalog_provisioned_product =
   {
     accept_language;
@@ -507,9 +507,9 @@ type t = {
 let make ?accept_language ?id ?ignore_errors ?notification_arns
     ?path_id ?path_name ?product_id ?product_name
     ?provisioning_artifact_id ?provisioning_artifact_name
-    ?retain_physical_resources ?tags ?tags_all ?timeouts ~name
-    ~provisioning_parameters ~stack_set_provisioning_preferences __id
-    =
+    ?retain_physical_resources ?tags ?tags_all
+    ?(provisioning_parameters = [])
+    ?(stack_set_provisioning_preferences = []) ?timeouts ~name __id =
   let __type = "aws_servicecatalog_provisioned_product" in
   let __attrs =
     ({
@@ -558,24 +558,24 @@ let make ?accept_language ?id ?ignore_errors ?notification_arns
            ?ignore_errors ?notification_arns ?path_id ?path_name
            ?product_id ?product_name ?provisioning_artifact_id
            ?provisioning_artifact_name ?retain_physical_resources
-           ?tags ?tags_all ?timeouts ~name ~provisioning_parameters
-           ~stack_set_provisioning_preferences ());
+           ?tags ?tags_all ~provisioning_parameters
+           ~stack_set_provisioning_preferences ?timeouts ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?accept_language ?id ?ignore_errors
     ?notification_arns ?path_id ?path_name ?product_id ?product_name
     ?provisioning_artifact_id ?provisioning_artifact_name
-    ?retain_physical_resources ?tags ?tags_all ?timeouts ~name
-    ~provisioning_parameters ~stack_set_provisioning_preferences __id
-    =
+    ?retain_physical_resources ?tags ?tags_all
+    ?(provisioning_parameters = [])
+    ?(stack_set_provisioning_preferences = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
     make ?accept_language ?id ?ignore_errors ?notification_arns
       ?path_id ?path_name ?product_id ?product_name
       ?provisioning_artifact_id ?provisioning_artifact_name
-      ?retain_physical_resources ?tags ?tags_all ?timeouts ~name
+      ?retain_physical_resources ?tags ?tags_all
       ~provisioning_parameters ~stack_set_provisioning_preferences
-      __id
+      ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

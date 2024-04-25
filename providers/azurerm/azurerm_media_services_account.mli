@@ -17,7 +17,7 @@ type encryption
 val encryption :
   ?key_vault_key_identifier:string prop ->
   ?type_:string prop ->
-  managed_identity:encryption__managed_identity list ->
+  ?managed_identity:encryption__managed_identity list ->
   unit ->
   encryption
 
@@ -49,8 +49,8 @@ type storage_account
 
 val storage_account :
   ?is_primary:bool prop ->
+  ?managed_identity:storage_account__managed_identity list ->
   id:string prop ->
-  managed_identity:storage_account__managed_identity list ->
   unit ->
   storage_account
 
@@ -71,13 +71,13 @@ val azurerm_media_services_account :
   ?public_network_access_enabled:bool prop ->
   ?storage_authentication_type:string prop ->
   ?tags:(string * string prop) list ->
+  ?encryption:encryption list ->
+  ?identity:identity list ->
+  ?key_delivery_access_control:key_delivery_access_control list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  encryption:encryption list ->
-  identity:identity list ->
-  key_delivery_access_control:key_delivery_access_control list ->
   storage_account:storage_account list ->
   unit ->
   azurerm_media_services_account
@@ -103,13 +103,13 @@ val register :
   ?public_network_access_enabled:bool prop ->
   ?storage_authentication_type:string prop ->
   ?tags:(string * string prop) list ->
+  ?encryption:encryption list ->
+  ?identity:identity list ->
+  ?key_delivery_access_control:key_delivery_access_control list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  encryption:encryption list ->
-  identity:identity list ->
-  key_delivery_access_control:key_delivery_access_control list ->
   storage_account:storage_account list ->
   string ->
   t
@@ -119,13 +119,13 @@ val make :
   ?public_network_access_enabled:bool prop ->
   ?storage_authentication_type:string prop ->
   ?tags:(string * string prop) list ->
+  ?encryption:encryption list ->
+  ?identity:identity list ->
+  ?key_delivery_access_control:key_delivery_access_control list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  encryption:encryption list ->
-  identity:identity list ->
-  key_delivery_access_control:key_delivery_access_control list ->
   storage_account:storage_account list ->
   string ->
   t Tf_core.resource

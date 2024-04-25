@@ -70,7 +70,7 @@ val spec__function__cors :
   ?allow_methods:string prop list ->
   ?expose_headers:string prop list ->
   ?max_age:string prop ->
-  allow_origins:spec__function__cors__allow_origins list ->
+  ?allow_origins:spec__function__cors__allow_origins list ->
   unit ->
   spec__function__cors
 
@@ -135,10 +135,10 @@ val spec__function__log_destination__papertrail :
 type spec__function__log_destination
 
 val spec__function__log_destination :
+  ?datadog:spec__function__log_destination__datadog list ->
+  ?logtail:spec__function__log_destination__logtail list ->
+  ?papertrail:spec__function__log_destination__papertrail list ->
   name:string prop ->
-  datadog:spec__function__log_destination__datadog list ->
-  logtail:spec__function__log_destination__logtail list ->
-  papertrail:spec__function__log_destination__papertrail list ->
   unit ->
   spec__function__log_destination
 
@@ -154,15 +154,15 @@ type spec__function
 
 val spec__function :
   ?source_dir:string prop ->
+  ?alert:spec__function__alert list ->
+  ?cors:spec__function__cors list ->
+  ?git:spec__function__git list ->
+  ?github:spec__function__github list ->
+  ?gitlab:spec__function__gitlab list ->
+  ?log_destination:spec__function__log_destination list ->
+  ?routes:spec__function__routes list ->
   name:string prop ->
-  alert:spec__function__alert list ->
-  cors:spec__function__cors list ->
   env:spec__function__env list ->
-  git:spec__function__git list ->
-  github:spec__function__github list ->
-  gitlab:spec__function__gitlab list ->
-  log_destination:spec__function__log_destination list ->
-  routes:spec__function__routes list ->
   unit ->
   spec__function
 
@@ -192,7 +192,7 @@ val spec__ingress__rule__cors :
   ?allow_methods:string prop list ->
   ?expose_headers:string prop list ->
   ?max_age:string prop ->
-  allow_origins:spec__ingress__rule__cors__allow_origins list ->
+  ?allow_origins:spec__ingress__rule__cors__allow_origins list ->
   unit ->
   spec__ingress__rule__cors
 
@@ -204,7 +204,7 @@ val spec__ingress__rule__match__path :
 type spec__ingress__rule__match
 
 val spec__ingress__rule__match :
-  path:spec__ingress__rule__match__path list ->
+  ?path:spec__ingress__rule__match__path list ->
   unit ->
   spec__ingress__rule__match
 
@@ -222,17 +222,17 @@ val spec__ingress__rule__redirect :
 type spec__ingress__rule
 
 val spec__ingress__rule :
-  component:spec__ingress__rule__component list ->
-  cors:spec__ingress__rule__cors list ->
-  match_:spec__ingress__rule__match list ->
-  redirect:spec__ingress__rule__redirect list ->
+  ?component:spec__ingress__rule__component list ->
+  ?cors:spec__ingress__rule__cors list ->
+  ?match_:spec__ingress__rule__match list ->
+  ?redirect:spec__ingress__rule__redirect list ->
   unit ->
   spec__ingress__rule
 
 type spec__ingress
 
 val spec__ingress :
-  rule:spec__ingress__rule list -> unit -> spec__ingress
+  ?rule:spec__ingress__rule list -> unit -> spec__ingress
 
 type spec__job__alert
 
@@ -291,9 +291,9 @@ type spec__job__image
 val spec__job__image :
   ?registry:string prop ->
   ?tag:string prop ->
+  ?deploy_on_push:spec__job__image__deploy_on_push list ->
   registry_type:string prop ->
   repository:string prop ->
-  deploy_on_push:spec__job__image__deploy_on_push list ->
   unit ->
   spec__job__image
 
@@ -320,10 +320,10 @@ val spec__job__log_destination__papertrail :
 type spec__job__log_destination
 
 val spec__job__log_destination :
+  ?datadog:spec__job__log_destination__datadog list ->
+  ?logtail:spec__job__log_destination__logtail list ->
+  ?papertrail:spec__job__log_destination__papertrail list ->
   name:string prop ->
-  datadog:spec__job__log_destination__datadog list ->
-  logtail:spec__job__log_destination__logtail list ->
-  papertrail:spec__job__log_destination__papertrail list ->
   unit ->
   spec__job__log_destination
 
@@ -338,14 +338,14 @@ val spec__job :
   ?kind:string prop ->
   ?run_command:string prop ->
   ?source_dir:string prop ->
+  ?alert:spec__job__alert list ->
+  ?git:spec__job__git list ->
+  ?github:spec__job__github list ->
+  ?gitlab:spec__job__gitlab list ->
+  ?image:spec__job__image list ->
+  ?log_destination:spec__job__log_destination list ->
   name:string prop ->
-  alert:spec__job__alert list ->
   env:spec__job__env list ->
-  git:spec__job__git list ->
-  github:spec__job__github list ->
-  gitlab:spec__job__gitlab list ->
-  image:spec__job__image list ->
-  log_destination:spec__job__log_destination list ->
   unit ->
   spec__job
 
@@ -377,7 +377,7 @@ val spec__service__cors :
   ?allow_methods:string prop list ->
   ?expose_headers:string prop list ->
   ?max_age:string prop ->
-  allow_origins:spec__service__cors__allow_origins list ->
+  ?allow_origins:spec__service__cors__allow_origins list ->
   unit ->
   spec__service__cors
 
@@ -440,9 +440,9 @@ type spec__service__image
 val spec__service__image :
   ?registry:string prop ->
   ?tag:string prop ->
+  ?deploy_on_push:spec__service__image__deploy_on_push list ->
   registry_type:string prop ->
   repository:string prop ->
-  deploy_on_push:spec__service__image__deploy_on_push list ->
   unit ->
   spec__service__image
 
@@ -471,10 +471,10 @@ val spec__service__log_destination__papertrail :
 type spec__service__log_destination
 
 val spec__service__log_destination :
+  ?datadog:spec__service__log_destination__datadog list ->
+  ?logtail:spec__service__log_destination__logtail list ->
+  ?papertrail:spec__service__log_destination__papertrail list ->
   name:string prop ->
-  datadog:spec__service__log_destination__datadog list ->
-  logtail:spec__service__log_destination__logtail list ->
-  papertrail:spec__service__log_destination__papertrail list ->
   unit ->
   spec__service__log_destination
 
@@ -498,17 +498,17 @@ val spec__service :
   ?internal_ports:float prop list ->
   ?run_command:string prop ->
   ?source_dir:string prop ->
+  ?alert:spec__service__alert list ->
+  ?cors:spec__service__cors list ->
+  ?git:spec__service__git list ->
+  ?github:spec__service__github list ->
+  ?gitlab:spec__service__gitlab list ->
+  ?health_check:spec__service__health_check list ->
+  ?image:spec__service__image list ->
+  ?log_destination:spec__service__log_destination list ->
+  ?routes:spec__service__routes list ->
   name:string prop ->
-  alert:spec__service__alert list ->
-  cors:spec__service__cors list ->
   env:spec__service__env list ->
-  git:spec__service__git list ->
-  github:spec__service__github list ->
-  gitlab:spec__service__gitlab list ->
-  health_check:spec__service__health_check list ->
-  image:spec__service__image list ->
-  log_destination:spec__service__log_destination list ->
-  routes:spec__service__routes list ->
   unit ->
   spec__service
 
@@ -529,7 +529,7 @@ val spec__static_site__cors :
   ?allow_methods:string prop list ->
   ?expose_headers:string prop list ->
   ?max_age:string prop ->
-  allow_origins:spec__static_site__cors__allow_origins list ->
+  ?allow_origins:spec__static_site__cors__allow_origins list ->
   unit ->
   spec__static_site__cors
 
@@ -588,13 +588,13 @@ val spec__static_site :
   ?index_document:string prop ->
   ?output_dir:string prop ->
   ?source_dir:string prop ->
+  ?cors:spec__static_site__cors list ->
+  ?git:spec__static_site__git list ->
+  ?github:spec__static_site__github list ->
+  ?gitlab:spec__static_site__gitlab list ->
+  ?routes:spec__static_site__routes list ->
   name:string prop ->
-  cors:spec__static_site__cors list ->
   env:spec__static_site__env list ->
-  git:spec__static_site__git list ->
-  github:spec__static_site__github list ->
-  gitlab:spec__static_site__gitlab list ->
-  routes:spec__static_site__routes list ->
   unit ->
   spec__static_site
 
@@ -655,9 +655,9 @@ type spec__worker__image
 val spec__worker__image :
   ?registry:string prop ->
   ?tag:string prop ->
+  ?deploy_on_push:spec__worker__image__deploy_on_push list ->
   registry_type:string prop ->
   repository:string prop ->
-  deploy_on_push:spec__worker__image__deploy_on_push list ->
   unit ->
   spec__worker__image
 
@@ -684,10 +684,10 @@ val spec__worker__log_destination__papertrail :
 type spec__worker__log_destination
 
 val spec__worker__log_destination :
+  ?datadog:spec__worker__log_destination__datadog list ->
+  ?logtail:spec__worker__log_destination__logtail list ->
+  ?papertrail:spec__worker__log_destination__papertrail list ->
   name:string prop ->
-  datadog:spec__worker__log_destination__datadog list ->
-  logtail:spec__worker__log_destination__logtail list ->
-  papertrail:spec__worker__log_destination__papertrail list ->
   unit ->
   spec__worker__log_destination
 
@@ -701,14 +701,14 @@ val spec__worker :
   ?instance_size_slug:string prop ->
   ?run_command:string prop ->
   ?source_dir:string prop ->
+  ?alert:spec__worker__alert list ->
+  ?git:spec__worker__git list ->
+  ?github:spec__worker__github list ->
+  ?gitlab:spec__worker__gitlab list ->
+  ?image:spec__worker__image list ->
+  ?log_destination:spec__worker__log_destination list ->
   name:string prop ->
-  alert:spec__worker__alert list ->
   env:spec__worker__env list ->
-  git:spec__worker__git list ->
-  github:spec__worker__github list ->
-  gitlab:spec__worker__gitlab list ->
-  image:spec__worker__image list ->
-  log_destination:spec__worker__log_destination list ->
   unit ->
   spec__worker
 
@@ -718,17 +718,17 @@ val spec :
   ?domains:string prop list ->
   ?features:string prop list ->
   ?region:string prop ->
+  ?database:spec__database list ->
+  ?domain:spec__domain list ->
+  ?function_:spec__function list ->
+  ?ingress:spec__ingress list ->
+  ?job:spec__job list ->
+  ?service:spec__service list ->
+  ?static_site:spec__static_site list ->
+  ?worker:spec__worker list ->
   name:string prop ->
   alert:spec__alert list ->
-  database:spec__database list ->
-  domain:spec__domain list ->
   env:spec__env list ->
-  function_:spec__function list ->
-  ingress:spec__ingress list ->
-  job:spec__job list ->
-  service:spec__service list ->
-  static_site:spec__static_site list ->
-  worker:spec__worker list ->
   unit ->
   spec
 
@@ -741,8 +741,8 @@ type digitalocean_app
 val digitalocean_app :
   ?id:string prop ->
   ?project_id:string prop ->
+  ?spec:spec list ->
   ?timeouts:timeouts ->
-  spec:spec list ->
   unit ->
   digitalocean_app
 
@@ -765,15 +765,15 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?project_id:string prop ->
+  ?spec:spec list ->
   ?timeouts:timeouts ->
-  spec:spec list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?project_id:string prop ->
+  ?spec:spec list ->
   ?timeouts:timeouts ->
-  spec:spec list ->
   string ->
   t Tf_core.resource

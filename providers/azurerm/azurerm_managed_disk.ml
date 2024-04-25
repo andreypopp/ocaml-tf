@@ -568,8 +568,8 @@ let encryption_settings__key_encryption_key ~key_url ~source_vault_id
     () : encryption_settings__key_encryption_key =
   { key_url; source_vault_id }
 
-let encryption_settings ?enabled ~disk_encryption_key
-    ~key_encryption_key () : encryption_settings =
+let encryption_settings ?enabled ?(disk_encryption_key = [])
+    ?(key_encryption_key = []) () : encryption_settings =
   { enabled; disk_encryption_key; key_encryption_key }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
@@ -585,9 +585,9 @@ let azurerm_managed_disk ?disk_access_id ?disk_encryption_set_id
     ?performance_plus_enabled ?public_network_access_enabled
     ?secure_vm_disk_encryption_set_id ?security_type
     ?source_resource_id ?source_uri ?storage_account_id ?tags ?tier
-    ?trusted_launch_enabled ?upload_size_bytes ?zone ?timeouts
-    ~create_option ~location ~name ~resource_group_name
-    ~storage_account_type ~encryption_settings () :
+    ?trusted_launch_enabled ?upload_size_bytes ?zone
+    ?(encryption_settings = []) ?timeouts ~create_option ~location
+    ~name ~resource_group_name ~storage_account_type () :
     azurerm_managed_disk =
   {
     create_option;
@@ -676,9 +676,9 @@ let make ?disk_access_id ?disk_encryption_set_id ?disk_iops_read_only
     ?performance_plus_enabled ?public_network_access_enabled
     ?secure_vm_disk_encryption_set_id ?security_type
     ?source_resource_id ?source_uri ?storage_account_id ?tags ?tier
-    ?trusted_launch_enabled ?upload_size_bytes ?zone ?timeouts
-    ~create_option ~location ~name ~resource_group_name
-    ~storage_account_type ~encryption_settings __id =
+    ?trusted_launch_enabled ?upload_size_bytes ?zone
+    ?(encryption_settings = []) ?timeouts ~create_option ~location
+    ~name ~resource_group_name ~storage_account_type __id =
   let __type = "azurerm_managed_disk" in
   let __attrs =
     ({
@@ -758,9 +758,8 @@ let make ?disk_access_id ?disk_encryption_set_id ?disk_iops_read_only
            ?secure_vm_disk_encryption_set_id ?security_type
            ?source_resource_id ?source_uri ?storage_account_id ?tags
            ?tier ?trusted_launch_enabled ?upload_size_bytes ?zone
-           ?timeouts ~create_option ~location ~name
-           ~resource_group_name ~storage_account_type
-           ~encryption_settings ());
+           ~encryption_settings ?timeouts ~create_option ~location
+           ~name ~resource_group_name ~storage_account_type ());
     attrs = __attrs;
   }
 
@@ -774,9 +773,9 @@ let register ?tf_module ?disk_access_id ?disk_encryption_set_id
     ?performance_plus_enabled ?public_network_access_enabled
     ?secure_vm_disk_encryption_set_id ?security_type
     ?source_resource_id ?source_uri ?storage_account_id ?tags ?tier
-    ?trusted_launch_enabled ?upload_size_bytes ?zone ?timeouts
-    ~create_option ~location ~name ~resource_group_name
-    ~storage_account_type ~encryption_settings __id =
+    ?trusted_launch_enabled ?upload_size_bytes ?zone
+    ?(encryption_settings = []) ?timeouts ~create_option ~location
+    ~name ~resource_group_name ~storage_account_type __id =
   let (r : _ Tf_core.resource) =
     make ?disk_access_id ?disk_encryption_set_id ?disk_iops_read_only
       ?disk_iops_read_write ?disk_mbps_read_only
@@ -788,9 +787,9 @@ let register ?tf_module ?disk_access_id ?disk_encryption_set_id
       ?performance_plus_enabled ?public_network_access_enabled
       ?secure_vm_disk_encryption_set_id ?security_type
       ?source_resource_id ?source_uri ?storage_account_id ?tags ?tier
-      ?trusted_launch_enabled ?upload_size_bytes ?zone ?timeouts
-      ~create_option ~location ~name ~resource_group_name
-      ~storage_account_type ~encryption_settings __id
+      ?trusted_launch_enabled ?upload_size_bytes ?zone
+      ~encryption_settings ?timeouts ~create_option ~location ~name
+      ~resource_group_name ~storage_account_type __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

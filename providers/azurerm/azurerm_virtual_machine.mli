@@ -46,8 +46,8 @@ val os_profile_linux_config__ssh_keys :
 type os_profile_linux_config
 
 val os_profile_linux_config :
+  ?ssh_keys:os_profile_linux_config__ssh_keys list ->
   disable_password_authentication:bool prop ->
-  ssh_keys:os_profile_linux_config__ssh_keys list ->
   unit ->
   os_profile_linux_config
 
@@ -62,8 +62,8 @@ val os_profile_secrets__vault_certificates :
 type os_profile_secrets
 
 val os_profile_secrets :
+  ?vault_certificates:os_profile_secrets__vault_certificates list ->
   source_vault_id:string prop ->
-  vault_certificates:os_profile_secrets__vault_certificates list ->
   unit ->
   os_profile_secrets
 
@@ -91,9 +91,9 @@ val os_profile_windows_config :
   ?enable_automatic_upgrades:bool prop ->
   ?provision_vm_agent:bool prop ->
   ?timezone:string prop ->
-  additional_unattend_config:
+  ?additional_unattend_config:
     os_profile_windows_config__additional_unattend_config list ->
-  winrm:os_profile_windows_config__winrm list ->
+  ?winrm:os_profile_windows_config__winrm list ->
   unit ->
   os_profile_windows_config
 
@@ -170,21 +170,21 @@ val azurerm_virtual_machine :
   ?proximity_placement_group_id:string prop ->
   ?tags:(string * string prop) list ->
   ?zones:string prop list ->
+  ?additional_capabilities:additional_capabilities list ->
+  ?boot_diagnostics:boot_diagnostics list ->
+  ?identity:identity list ->
+  ?os_profile_secrets:os_profile_secrets list ->
+  ?plan:plan list ->
+  ?storage_data_disk:storage_data_disk list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   network_interface_ids:string prop list ->
   resource_group_name:string prop ->
   vm_size:string prop ->
-  additional_capabilities:additional_capabilities list ->
-  boot_diagnostics:boot_diagnostics list ->
-  identity:identity list ->
   os_profile:os_profile list ->
   os_profile_linux_config:os_profile_linux_config list ->
-  os_profile_secrets:os_profile_secrets list ->
   os_profile_windows_config:os_profile_windows_config list ->
-  plan:plan list ->
-  storage_data_disk:storage_data_disk list ->
   storage_image_reference:storage_image_reference list ->
   storage_os_disk:storage_os_disk list ->
   unit ->
@@ -223,21 +223,21 @@ val register :
   ?proximity_placement_group_id:string prop ->
   ?tags:(string * string prop) list ->
   ?zones:string prop list ->
+  ?additional_capabilities:additional_capabilities list ->
+  ?boot_diagnostics:boot_diagnostics list ->
+  ?identity:identity list ->
+  ?os_profile_secrets:os_profile_secrets list ->
+  ?plan:plan list ->
+  ?storage_data_disk:storage_data_disk list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   network_interface_ids:string prop list ->
   resource_group_name:string prop ->
   vm_size:string prop ->
-  additional_capabilities:additional_capabilities list ->
-  boot_diagnostics:boot_diagnostics list ->
-  identity:identity list ->
   os_profile:os_profile list ->
   os_profile_linux_config:os_profile_linux_config list ->
-  os_profile_secrets:os_profile_secrets list ->
   os_profile_windows_config:os_profile_windows_config list ->
-  plan:plan list ->
-  storage_data_disk:storage_data_disk list ->
   storage_image_reference:storage_image_reference list ->
   storage_os_disk:storage_os_disk list ->
   string ->
@@ -253,21 +253,21 @@ val make :
   ?proximity_placement_group_id:string prop ->
   ?tags:(string * string prop) list ->
   ?zones:string prop list ->
+  ?additional_capabilities:additional_capabilities list ->
+  ?boot_diagnostics:boot_diagnostics list ->
+  ?identity:identity list ->
+  ?os_profile_secrets:os_profile_secrets list ->
+  ?plan:plan list ->
+  ?storage_data_disk:storage_data_disk list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   network_interface_ids:string prop list ->
   resource_group_name:string prop ->
   vm_size:string prop ->
-  additional_capabilities:additional_capabilities list ->
-  boot_diagnostics:boot_diagnostics list ->
-  identity:identity list ->
   os_profile:os_profile list ->
   os_profile_linux_config:os_profile_linux_config list ->
-  os_profile_secrets:os_profile_secrets list ->
   os_profile_windows_config:os_profile_windows_config list ->
-  plan:plan list ->
-  storage_data_disk:storage_data_disk list ->
   storage_image_reference:storage_image_reference list ->
   storage_os_disk:storage_os_disk list ->
   string ->

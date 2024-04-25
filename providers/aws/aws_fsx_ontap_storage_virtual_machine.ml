@@ -484,7 +484,7 @@ let active_directory_configuration__self_managed_active_directory_configuration
   }
 
 let active_directory_configuration ?netbios_name
-    ~self_managed_active_directory_configuration () :
+    ?(self_managed_active_directory_configuration = []) () :
     active_directory_configuration =
   { netbios_name; self_managed_active_directory_configuration }
 
@@ -493,8 +493,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let aws_fsx_ontap_storage_virtual_machine ?id
     ?root_volume_security_style ?svm_admin_password ?tags ?tags_all
-    ?timeouts ~file_system_id ~name ~active_directory_configuration
-    () : aws_fsx_ontap_storage_virtual_machine =
+    ?(active_directory_configuration = []) ?timeouts ~file_system_id
+    ~name () : aws_fsx_ontap_storage_virtual_machine =
   {
     file_system_id;
     id;
@@ -522,8 +522,8 @@ type t = {
 }
 
 let make ?id ?root_volume_security_style ?svm_admin_password ?tags
-    ?tags_all ?timeouts ~file_system_id ~name
-    ~active_directory_configuration __id =
+    ?tags_all ?(active_directory_configuration = []) ?timeouts
+    ~file_system_id ~name __id =
   let __type = "aws_fsx_ontap_storage_virtual_machine" in
   let __attrs =
     ({
@@ -550,18 +550,19 @@ let make ?id ?root_volume_security_style ?svm_admin_password ?tags
       yojson_of_aws_fsx_ontap_storage_virtual_machine
         (aws_fsx_ontap_storage_virtual_machine ?id
            ?root_volume_security_style ?svm_admin_password ?tags
-           ?tags_all ?timeouts ~file_system_id ~name
-           ~active_directory_configuration ());
+           ?tags_all ~active_directory_configuration ?timeouts
+           ~file_system_id ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?root_volume_security_style
-    ?svm_admin_password ?tags ?tags_all ?timeouts ~file_system_id
-    ~name ~active_directory_configuration __id =
+    ?svm_admin_password ?tags ?tags_all
+    ?(active_directory_configuration = []) ?timeouts ~file_system_id
+    ~name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?root_volume_security_style ?svm_admin_password ?tags
-      ?tags_all ?timeouts ~file_system_id ~name
-      ~active_directory_configuration __id
+      ?tags_all ~active_directory_configuration ?timeouts
+      ~file_system_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -17,8 +17,8 @@ val s3__auto_import_policy :
 type s3
 
 val s3 :
-  auto_export_policy:s3__auto_export_policy list ->
-  auto_import_policy:s3__auto_import_policy list ->
+  ?auto_export_policy:s3__auto_export_policy list ->
+  ?auto_import_policy:s3__auto_import_policy list ->
   unit ->
   s3
 
@@ -40,11 +40,11 @@ val aws_fsx_data_repository_association :
   ?imported_file_chunk_size:float prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?s3:s3 list ->
   ?timeouts:timeouts ->
   data_repository_path:string prop ->
   file_system_id:string prop ->
   file_system_path:string prop ->
-  s3:s3 list ->
   unit ->
   aws_fsx_data_repository_association
 
@@ -75,11 +75,11 @@ val register :
   ?imported_file_chunk_size:float prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?s3:s3 list ->
   ?timeouts:timeouts ->
   data_repository_path:string prop ->
   file_system_id:string prop ->
   file_system_path:string prop ->
-  s3:s3 list ->
   string ->
   t
 
@@ -90,10 +90,10 @@ val make :
   ?imported_file_chunk_size:float prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?s3:s3 list ->
   ?timeouts:timeouts ->
   data_repository_path:string prop ->
   file_system_id:string prop ->
   file_system_path:string prop ->
-  s3:s3 list ->
   string ->
   t Tf_core.resource

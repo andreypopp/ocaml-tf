@@ -765,8 +765,8 @@ let database__cache_configurations ?db_paths ~cache_type () :
     database__cache_configurations =
   { cache_type; db_paths }
 
-let database ?changeset_id ?dataview_name ~database_name
-    ~cache_configurations () : database =
+let database ?changeset_id ?dataview_name
+    ?(cache_configurations = []) ~database_name () : database =
   {
     changeset_id;
     database_name;
@@ -802,13 +802,15 @@ let vpc_configuration ~ip_address_type ~security_group_ids
 
 let aws_finspace_kx_cluster ?availability_zone_id
     ?command_line_arguments ?description ?execution_role ?id
-    ?initialization_script ?tags ?tags_all ?timeouts ~az_mode
-    ~environment_id ~name ~release_label ~type_
-    ~auto_scaling_configuration ~cache_storage_configurations
-    ~capacity_configuration ~code ~database
-    ~savedown_storage_configuration ~scaling_group_configuration
-    ~tickerplant_log_configuration ~vpc_configuration () :
-    aws_finspace_kx_cluster =
+    ?initialization_script ?tags ?tags_all
+    ?(auto_scaling_configuration = [])
+    ?(cache_storage_configurations = [])
+    ?(capacity_configuration = []) ?(code = []) ?(database = [])
+    ?(savedown_storage_configuration = [])
+    ?(scaling_group_configuration = [])
+    ?(tickerplant_log_configuration = []) ?timeouts ~az_mode
+    ~environment_id ~name ~release_label ~type_ ~vpc_configuration ()
+    : aws_finspace_kx_cluster =
   {
     availability_zone_id;
     az_mode;
@@ -858,11 +860,14 @@ type t = {
 
 let make ?availability_zone_id ?command_line_arguments ?description
     ?execution_role ?id ?initialization_script ?tags ?tags_all
-    ?timeouts ~az_mode ~environment_id ~name ~release_label ~type_
-    ~auto_scaling_configuration ~cache_storage_configurations
-    ~capacity_configuration ~code ~database
-    ~savedown_storage_configuration ~scaling_group_configuration
-    ~tickerplant_log_configuration ~vpc_configuration __id =
+    ?(auto_scaling_configuration = [])
+    ?(cache_storage_configurations = [])
+    ?(capacity_configuration = []) ?(code = []) ?(database = [])
+    ?(savedown_storage_configuration = [])
+    ?(scaling_group_configuration = [])
+    ?(tickerplant_log_configuration = []) ?timeouts ~az_mode
+    ~environment_id ~name ~release_label ~type_ ~vpc_configuration
+    __id =
   let __type = "aws_finspace_kx_cluster" in
   let __attrs =
     ({
@@ -899,31 +904,36 @@ let make ?availability_zone_id ?command_line_arguments ?description
       yojson_of_aws_finspace_kx_cluster
         (aws_finspace_kx_cluster ?availability_zone_id
            ?command_line_arguments ?description ?execution_role ?id
-           ?initialization_script ?tags ?tags_all ?timeouts ~az_mode
-           ~environment_id ~name ~release_label ~type_
+           ?initialization_script ?tags ?tags_all
            ~auto_scaling_configuration ~cache_storage_configurations
            ~capacity_configuration ~code ~database
            ~savedown_storage_configuration
            ~scaling_group_configuration
-           ~tickerplant_log_configuration ~vpc_configuration ());
+           ~tickerplant_log_configuration ?timeouts ~az_mode
+           ~environment_id ~name ~release_label ~type_
+           ~vpc_configuration ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?availability_zone_id ?command_line_arguments
     ?description ?execution_role ?id ?initialization_script ?tags
-    ?tags_all ?timeouts ~az_mode ~environment_id ~name ~release_label
-    ~type_ ~auto_scaling_configuration ~cache_storage_configurations
-    ~capacity_configuration ~code ~database
-    ~savedown_storage_configuration ~scaling_group_configuration
-    ~tickerplant_log_configuration ~vpc_configuration __id =
+    ?tags_all ?(auto_scaling_configuration = [])
+    ?(cache_storage_configurations = [])
+    ?(capacity_configuration = []) ?(code = []) ?(database = [])
+    ?(savedown_storage_configuration = [])
+    ?(scaling_group_configuration = [])
+    ?(tickerplant_log_configuration = []) ?timeouts ~az_mode
+    ~environment_id ~name ~release_label ~type_ ~vpc_configuration
+    __id =
   let (r : _ Tf_core.resource) =
     make ?availability_zone_id ?command_line_arguments ?description
       ?execution_role ?id ?initialization_script ?tags ?tags_all
-      ?timeouts ~az_mode ~environment_id ~name ~release_label ~type_
       ~auto_scaling_configuration ~cache_storage_configurations
       ~capacity_configuration ~code ~database
       ~savedown_storage_configuration ~scaling_group_configuration
-      ~tickerplant_log_configuration ~vpc_configuration __id
+      ~tickerplant_log_configuration ?timeouts ~az_mode
+      ~environment_id ~name ~release_label ~type_ ~vpc_configuration
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

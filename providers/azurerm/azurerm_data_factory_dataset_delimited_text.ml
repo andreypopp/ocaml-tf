@@ -618,10 +618,11 @@ let azurerm_data_factory_dataset_delimited_text
     ?additional_properties ?annotations ?column_delimiter
     ?compression_codec ?compression_level ?description ?encoding
     ?escape_character ?first_row_as_header ?folder ?id ?null_value
-    ?parameters ?quote_character ?row_delimiter ?timeouts
-    ~data_factory_id ~linked_service_name ~name
-    ~azure_blob_fs_location ~azure_blob_storage_location
-    ~http_server_location ~schema_column () :
+    ?parameters ?quote_character ?row_delimiter
+    ?(azure_blob_fs_location = [])
+    ?(azure_blob_storage_location = []) ?(http_server_location = [])
+    ?(schema_column = []) ?timeouts ~data_factory_id
+    ~linked_service_name ~name () :
     azurerm_data_factory_dataset_delimited_text =
   {
     additional_properties;
@@ -673,10 +674,11 @@ type t = {
 let make ?additional_properties ?annotations ?column_delimiter
     ?compression_codec ?compression_level ?description ?encoding
     ?escape_character ?first_row_as_header ?folder ?id ?null_value
-    ?parameters ?quote_character ?row_delimiter ?timeouts
-    ~data_factory_id ~linked_service_name ~name
-    ~azure_blob_fs_location ~azure_blob_storage_location
-    ~http_server_location ~schema_column __id =
+    ?parameters ?quote_character ?row_delimiter
+    ?(azure_blob_fs_location = [])
+    ?(azure_blob_storage_location = []) ?(http_server_location = [])
+    ?(schema_column = []) ?timeouts ~data_factory_id
+    ~linked_service_name ~name __id =
   let __type = "azurerm_data_factory_dataset_delimited_text" in
   let __attrs =
     ({
@@ -718,10 +720,10 @@ let make ?additional_properties ?annotations ?column_delimiter
            ?compression_codec ?compression_level ?description
            ?encoding ?escape_character ?first_row_as_header ?folder
            ?id ?null_value ?parameters ?quote_character
-           ?row_delimiter ?timeouts ~data_factory_id
-           ~linked_service_name ~name ~azure_blob_fs_location
+           ?row_delimiter ~azure_blob_fs_location
            ~azure_blob_storage_location ~http_server_location
-           ~schema_column ());
+           ~schema_column ?timeouts ~data_factory_id
+           ~linked_service_name ~name ());
     attrs = __attrs;
   }
 
@@ -729,17 +731,18 @@ let register ?tf_module ?additional_properties ?annotations
     ?column_delimiter ?compression_codec ?compression_level
     ?description ?encoding ?escape_character ?first_row_as_header
     ?folder ?id ?null_value ?parameters ?quote_character
-    ?row_delimiter ?timeouts ~data_factory_id ~linked_service_name
-    ~name ~azure_blob_fs_location ~azure_blob_storage_location
-    ~http_server_location ~schema_column __id =
+    ?row_delimiter ?(azure_blob_fs_location = [])
+    ?(azure_blob_storage_location = []) ?(http_server_location = [])
+    ?(schema_column = []) ?timeouts ~data_factory_id
+    ~linked_service_name ~name __id =
   let (r : _ Tf_core.resource) =
     make ?additional_properties ?annotations ?column_delimiter
       ?compression_codec ?compression_level ?description ?encoding
       ?escape_character ?first_row_as_header ?folder ?id ?null_value
-      ?parameters ?quote_character ?row_delimiter ?timeouts
-      ~data_factory_id ~linked_service_name ~name
+      ?parameters ?quote_character ?row_delimiter
       ~azure_blob_fs_location ~azure_blob_storage_location
-      ~http_server_location ~schema_column __id
+      ~http_server_location ~schema_column ?timeouts ~data_factory_id
+      ~linked_service_name ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -215,11 +215,12 @@ let root_directory__creation_info ~owner_gid ~owner_uid ~permissions
     () : root_directory__creation_info =
   { owner_gid; owner_uid; permissions }
 
-let root_directory ?path ~creation_info () : root_directory =
+let root_directory ?path ?(creation_info = []) () : root_directory =
   { path; creation_info }
 
-let aws_efs_access_point ?id ?tags ?tags_all ~file_system_id
-    ~posix_user ~root_directory () : aws_efs_access_point =
+let aws_efs_access_point ?id ?tags ?tags_all ?(posix_user = [])
+    ?(root_directory = []) ~file_system_id () : aws_efs_access_point
+    =
   { file_system_id; id; tags; tags_all; posix_user; root_directory }
 
 type t = {
@@ -232,8 +233,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?tags ?tags_all ~file_system_id ~posix_user
-    ~root_directory __id =
+let make ?id ?tags ?tags_all ?(posix_user = [])
+    ?(root_directory = []) ~file_system_id __id =
   let __type = "aws_efs_access_point" in
   let __attrs =
     ({
@@ -252,16 +253,16 @@ let make ?id ?tags ?tags_all ~file_system_id ~posix_user
     type_ = __type;
     json =
       yojson_of_aws_efs_access_point
-        (aws_efs_access_point ?id ?tags ?tags_all ~file_system_id
-           ~posix_user ~root_directory ());
+        (aws_efs_access_point ?id ?tags ?tags_all ~posix_user
+           ~root_directory ~file_system_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ~file_system_id
-    ~posix_user ~root_directory __id =
+let register ?tf_module ?id ?tags ?tags_all ?(posix_user = [])
+    ?(root_directory = []) ~file_system_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~file_system_id ~posix_user
-      ~root_directory __id
+    make ?id ?tags ?tags_all ~posix_user ~root_directory
+      ~file_system_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -144,7 +144,7 @@ let vpc_config ~security_group_ids ~subnet_ids ~vpc_id () :
   { security_group_ids; subnet_ids; vpc_id }
 
 let aws_devicefarm_test_grid_project ?description ?id ?tags ?tags_all
-    ~name ~vpc_config () : aws_devicefarm_test_grid_project =
+    ?(vpc_config = []) ~name () : aws_devicefarm_test_grid_project =
   { description; id; name; tags; tags_all; vpc_config }
 
 type t = {
@@ -156,7 +156,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?description ?id ?tags ?tags_all ~name ~vpc_config __id =
+let make ?description ?id ?tags ?tags_all ?(vpc_config = []) ~name
+    __id =
   let __type = "aws_devicefarm_test_grid_project" in
   let __attrs =
     ({
@@ -175,14 +176,14 @@ let make ?description ?id ?tags ?tags_all ~name ~vpc_config __id =
     json =
       yojson_of_aws_devicefarm_test_grid_project
         (aws_devicefarm_test_grid_project ?description ?id ?tags
-           ?tags_all ~name ~vpc_config ());
+           ?tags_all ~vpc_config ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ~name
-    ~vpc_config __id =
+let register ?tf_module ?description ?id ?tags ?tags_all
+    ?(vpc_config = []) ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?tags ?tags_all ~name ~vpc_config __id
+    make ?description ?id ?tags ?tags_all ~vpc_config ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

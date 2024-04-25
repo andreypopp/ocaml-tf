@@ -46,6 +46,7 @@ val azurerm_data_factory_trigger_tumbling_window :
   ?end_time:string prop ->
   ?id:string prop ->
   ?max_concurrency:float prop ->
+  ?retry:retry list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   frequency:string prop ->
@@ -53,7 +54,6 @@ val azurerm_data_factory_trigger_tumbling_window :
   name:string prop ->
   start_time:string prop ->
   pipeline:pipeline list ->
-  retry:retry list ->
   trigger_dependency:trigger_dependency list ->
   unit ->
   azurerm_data_factory_trigger_tumbling_window
@@ -89,6 +89,7 @@ val register :
   ?end_time:string prop ->
   ?id:string prop ->
   ?max_concurrency:float prop ->
+  ?retry:retry list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   frequency:string prop ->
@@ -96,7 +97,6 @@ val register :
   name:string prop ->
   start_time:string prop ->
   pipeline:pipeline list ->
-  retry:retry list ->
   trigger_dependency:trigger_dependency list ->
   string ->
   t
@@ -110,6 +110,7 @@ val make :
   ?end_time:string prop ->
   ?id:string prop ->
   ?max_concurrency:float prop ->
+  ?retry:retry list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   frequency:string prop ->
@@ -117,7 +118,6 @@ val make :
   name:string prop ->
   start_time:string prop ->
   pipeline:pipeline list ->
-  retry:retry list ->
   trigger_dependency:trigger_dependency list ->
   string ->
   t Tf_core.resource

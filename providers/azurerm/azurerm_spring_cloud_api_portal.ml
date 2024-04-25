@@ -242,9 +242,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_spring_cloud_api_portal ?api_try_out_enabled ?gateway_ids
     ?https_only_enabled ?id ?instance_count
-    ?public_network_access_enabled ?timeouts ~name
-    ~spring_cloud_service_id ~sso () :
-    azurerm_spring_cloud_api_portal =
+    ?public_network_access_enabled ?(sso = []) ?timeouts ~name
+    ~spring_cloud_service_id () : azurerm_spring_cloud_api_portal =
   {
     api_try_out_enabled;
     gateway_ids;
@@ -271,8 +270,8 @@ type t = {
 }
 
 let make ?api_try_out_enabled ?gateway_ids ?https_only_enabled ?id
-    ?instance_count ?public_network_access_enabled ?timeouts ~name
-    ~spring_cloud_service_id ~sso __id =
+    ?instance_count ?public_network_access_enabled ?(sso = [])
+    ?timeouts ~name ~spring_cloud_service_id __id =
   let __type = "azurerm_spring_cloud_api_portal" in
   let __attrs =
     ({
@@ -299,19 +298,19 @@ let make ?api_try_out_enabled ?gateway_ids ?https_only_enabled ?id
       yojson_of_azurerm_spring_cloud_api_portal
         (azurerm_spring_cloud_api_portal ?api_try_out_enabled
            ?gateway_ids ?https_only_enabled ?id ?instance_count
-           ?public_network_access_enabled ?timeouts ~name
-           ~spring_cloud_service_id ~sso ());
+           ?public_network_access_enabled ~sso ?timeouts ~name
+           ~spring_cloud_service_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?api_try_out_enabled ?gateway_ids
     ?https_only_enabled ?id ?instance_count
-    ?public_network_access_enabled ?timeouts ~name
-    ~spring_cloud_service_id ~sso __id =
+    ?public_network_access_enabled ?(sso = []) ?timeouts ~name
+    ~spring_cloud_service_id __id =
   let (r : _ Tf_core.resource) =
     make ?api_try_out_enabled ?gateway_ids ?https_only_enabled ?id
-      ?instance_count ?public_network_access_enabled ?timeouts ~name
-      ~spring_cloud_service_id ~sso __id
+      ?instance_count ?public_network_access_enabled ~sso ?timeouts
+      ~name ~spring_cloud_service_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

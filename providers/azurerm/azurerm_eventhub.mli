@@ -41,13 +41,13 @@ type azurerm_eventhub
 val azurerm_eventhub :
   ?id:string prop ->
   ?status:string prop ->
+  ?capture_description:capture_description list ->
   ?timeouts:timeouts ->
   message_retention:float prop ->
   name:string prop ->
   namespace_name:string prop ->
   partition_count:float prop ->
   resource_group_name:string prop ->
-  capture_description:capture_description list ->
   unit ->
   azurerm_eventhub
 
@@ -70,25 +70,25 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?status:string prop ->
+  ?capture_description:capture_description list ->
   ?timeouts:timeouts ->
   message_retention:float prop ->
   name:string prop ->
   namespace_name:string prop ->
   partition_count:float prop ->
   resource_group_name:string prop ->
-  capture_description:capture_description list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?status:string prop ->
+  ?capture_description:capture_description list ->
   ?timeouts:timeouts ->
   message_retention:float prop ->
   name:string prop ->
   namespace_name:string prop ->
   partition_count:float prop ->
   resource_group_name:string prop ->
-  capture_description:capture_description list ->
   string ->
   t Tf_core.resource

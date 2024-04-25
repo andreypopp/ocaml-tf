@@ -29,11 +29,11 @@ val azurerm_data_share :
   ?description:string prop ->
   ?id:string prop ->
   ?terms:string prop ->
+  ?snapshot_schedule:snapshot_schedule list ->
   ?timeouts:timeouts ->
   account_id:string prop ->
   kind:string prop ->
   name:string prop ->
-  snapshot_schedule:snapshot_schedule list ->
   unit ->
   azurerm_data_share
 
@@ -55,11 +55,11 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?terms:string prop ->
+  ?snapshot_schedule:snapshot_schedule list ->
   ?timeouts:timeouts ->
   account_id:string prop ->
   kind:string prop ->
   name:string prop ->
-  snapshot_schedule:snapshot_schedule list ->
   string ->
   t
 
@@ -67,10 +67,10 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?terms:string prop ->
+  ?snapshot_schedule:snapshot_schedule list ->
   ?timeouts:timeouts ->
   account_id:string prop ->
   kind:string prop ->
   name:string prop ->
-  snapshot_schedule:snapshot_schedule list ->
   string ->
   t Tf_core.resource

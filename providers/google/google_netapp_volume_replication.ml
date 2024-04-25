@@ -345,9 +345,10 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_netapp_volume_replication ?delete_destination_volume
     ?description ?force_stopping ?id ?labels ?project
-    ?replication_enabled ?wait_for_mirror ?timeouts ~location ~name
-    ~replication_schedule ~volume_name ~destination_volume_parameters
-    () : google_netapp_volume_replication =
+    ?replication_enabled ?wait_for_mirror
+    ?(destination_volume_parameters = []) ?timeouts ~location ~name
+    ~replication_schedule ~volume_name () :
+    google_netapp_volume_replication =
   {
     delete_destination_volume;
     description;
@@ -392,9 +393,9 @@ type t = {
 }
 
 let make ?delete_destination_volume ?description ?force_stopping ?id
-    ?labels ?project ?replication_enabled ?wait_for_mirror ?timeouts
-    ~location ~name ~replication_schedule ~volume_name
-    ~destination_volume_parameters __id =
+    ?labels ?project ?replication_enabled ?wait_for_mirror
+    ?(destination_volume_parameters = []) ?timeouts ~location ~name
+    ~replication_schedule ~volume_name __id =
   let __type = "google_netapp_volume_replication" in
   let __attrs =
     ({
@@ -437,21 +438,21 @@ let make ?delete_destination_volume ?description ?force_stopping ?id
       yojson_of_google_netapp_volume_replication
         (google_netapp_volume_replication ?delete_destination_volume
            ?description ?force_stopping ?id ?labels ?project
-           ?replication_enabled ?wait_for_mirror ?timeouts ~location
-           ~name ~replication_schedule ~volume_name
-           ~destination_volume_parameters ());
+           ?replication_enabled ?wait_for_mirror
+           ~destination_volume_parameters ?timeouts ~location ~name
+           ~replication_schedule ~volume_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?delete_destination_volume ?description
     ?force_stopping ?id ?labels ?project ?replication_enabled
-    ?wait_for_mirror ?timeouts ~location ~name ~replication_schedule
-    ~volume_name ~destination_volume_parameters __id =
+    ?wait_for_mirror ?(destination_volume_parameters = []) ?timeouts
+    ~location ~name ~replication_schedule ~volume_name __id =
   let (r : _ Tf_core.resource) =
     make ?delete_destination_volume ?description ?force_stopping ?id
       ?labels ?project ?replication_enabled ?wait_for_mirror
-      ?timeouts ~location ~name ~replication_schedule ~volume_name
-      ~destination_volume_parameters __id
+      ~destination_volume_parameters ?timeouts ~location ~name
+      ~replication_schedule ~volume_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

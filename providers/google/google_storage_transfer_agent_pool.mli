@@ -24,9 +24,9 @@ val google_storage_transfer_agent_pool :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?bandwidth_limit:bandwidth_limit list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  bandwidth_limit:bandwidth_limit list ->
   unit ->
   google_storage_transfer_agent_pool
 
@@ -48,9 +48,9 @@ val register :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?bandwidth_limit:bandwidth_limit list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  bandwidth_limit:bandwidth_limit list ->
   string ->
   t
 
@@ -58,8 +58,8 @@ val make :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?bandwidth_limit:bandwidth_limit list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  bandwidth_limit:bandwidth_limit list ->
   string ->
   t Tf_core.resource

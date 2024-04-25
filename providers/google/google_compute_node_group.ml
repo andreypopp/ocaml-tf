@@ -328,8 +328,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_compute_node_group ?description ?id ?initial_size
-    ?maintenance_policy ?name ?project ?zone ?timeouts ~node_template
-    ~autoscaling_policy ~maintenance_window ~share_settings () :
+    ?maintenance_policy ?name ?project ?zone
+    ?(autoscaling_policy = []) ?(maintenance_window = [])
+    ?(share_settings = []) ?timeouts ~node_template () :
     google_compute_node_group =
   {
     description;
@@ -361,8 +362,9 @@ type t = {
 }
 
 let make ?description ?id ?initial_size ?maintenance_policy ?name
-    ?project ?zone ?timeouts ~node_template ~autoscaling_policy
-    ~maintenance_window ~share_settings __id =
+    ?project ?zone ?(autoscaling_policy = [])
+    ?(maintenance_window = []) ?(share_settings = []) ?timeouts
+    ~node_template __id =
   let __type = "google_compute_node_group" in
   let __attrs =
     ({
@@ -388,19 +390,20 @@ let make ?description ?id ?initial_size ?maintenance_policy ?name
     json =
       yojson_of_google_compute_node_group
         (google_compute_node_group ?description ?id ?initial_size
-           ?maintenance_policy ?name ?project ?zone ?timeouts
-           ~node_template ~autoscaling_policy ~maintenance_window
-           ~share_settings ());
+           ?maintenance_policy ?name ?project ?zone
+           ~autoscaling_policy ~maintenance_window ~share_settings
+           ?timeouts ~node_template ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?initial_size
-    ?maintenance_policy ?name ?project ?zone ?timeouts ~node_template
-    ~autoscaling_policy ~maintenance_window ~share_settings __id =
+    ?maintenance_policy ?name ?project ?zone
+    ?(autoscaling_policy = []) ?(maintenance_window = [])
+    ?(share_settings = []) ?timeouts ~node_template __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?initial_size ?maintenance_policy ?name
-      ?project ?zone ?timeouts ~node_template ~autoscaling_policy
-      ~maintenance_window ~share_settings __id
+      ?project ?zone ~autoscaling_policy ~maintenance_window
+      ~share_settings ?timeouts ~node_template __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

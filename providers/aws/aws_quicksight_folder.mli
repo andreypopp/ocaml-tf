@@ -34,9 +34,9 @@ val aws_quicksight_folder :
     ?parent_folder_arn:string prop ->
     ?tags:(string * string  prop) list ->
     ?tags_all:(string * string  prop) list ->
+    ?permissions:permissions list ->
     ?timeouts:timeouts ->
     folder_id:string prop ->
-    permissions:permissions list ->
     unit ->
     aws_quicksight_folder
 
@@ -68,9 +68,9 @@ val register :
     ?parent_folder_arn:string prop ->
     ?tags:(string * string  prop) list ->
     ?tags_all:(string * string  prop) list ->
+    ?permissions:permissions list ->
     ?timeouts:timeouts ->
     folder_id:string prop ->
-    permissions:permissions list ->
     string ->
     t
 
@@ -82,9 +82,9 @@ val make :
     ?parent_folder_arn:string prop ->
     ?tags:(string * string  prop) list ->
     ?tags_all:(string * string  prop) list ->
+    ?permissions:permissions list ->
     ?timeouts:timeouts ->
     folder_id:string prop ->
-    permissions:permissions list ->
     string ->
     t Tf_core.resource
 

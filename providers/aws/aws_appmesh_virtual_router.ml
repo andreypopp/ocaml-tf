@@ -184,7 +184,7 @@ let spec__listener__port_mapping ~port ~protocol () :
 let spec__listener ~port_mapping () : spec__listener =
   { port_mapping }
 
-let spec ~listener () : spec = { listener }
+let spec ?(listener = []) () : spec = { listener }
 
 let aws_appmesh_virtual_router ?id ?mesh_owner ?tags ?tags_all
     ~mesh_name ~name ~spec () : aws_appmesh_virtual_router =

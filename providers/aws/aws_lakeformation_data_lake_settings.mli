@@ -31,9 +31,9 @@ val aws_lakeformation_data_lake_settings :
   ?id:string prop ->
   ?read_only_admins:string prop list ->
   ?trusted_resource_owners:string prop list ->
-  create_database_default_permissions:
+  ?create_database_default_permissions:
     create_database_default_permissions list ->
-  create_table_default_permissions:
+  ?create_table_default_permissions:
     create_table_default_permissions list ->
   unit ->
   aws_lakeformation_data_lake_settings
@@ -64,9 +64,9 @@ val register :
   ?id:string prop ->
   ?read_only_admins:string prop list ->
   ?trusted_resource_owners:string prop list ->
-  create_database_default_permissions:
+  ?create_database_default_permissions:
     create_database_default_permissions list ->
-  create_table_default_permissions:
+  ?create_table_default_permissions:
     create_table_default_permissions list ->
   string ->
   t
@@ -80,9 +80,9 @@ val make :
   ?id:string prop ->
   ?read_only_admins:string prop list ->
   ?trusted_resource_owners:string prop list ->
-  create_database_default_permissions:
+  ?create_database_default_permissions:
     create_database_default_permissions list ->
-  create_table_default_permissions:
+  ?create_table_default_permissions:
     create_table_default_permissions list ->
   string ->
   t Tf_core.resource

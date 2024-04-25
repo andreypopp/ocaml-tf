@@ -16,9 +16,9 @@ val aws_location_place_index :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?data_source_configuration:data_source_configuration list ->
   data_source:string prop ->
   index_name:string prop ->
-  data_source_configuration:data_source_configuration list ->
   unit ->
   aws_location_place_index
 
@@ -45,9 +45,9 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?data_source_configuration:data_source_configuration list ->
   data_source:string prop ->
   index_name:string prop ->
-  data_source_configuration:data_source_configuration list ->
   string ->
   t
 
@@ -56,8 +56,8 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?data_source_configuration:data_source_configuration list ->
   data_source:string prop ->
   index_name:string prop ->
-  data_source_configuration:data_source_configuration list ->
   string ->
   t Tf_core.resource

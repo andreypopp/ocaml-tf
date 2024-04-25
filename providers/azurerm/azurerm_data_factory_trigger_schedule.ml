@@ -390,8 +390,8 @@ let pipeline ?parameters ~name () : pipeline = { name; parameters }
 let schedule__monthly ?week ~weekday () : schedule__monthly =
   { week; weekday }
 
-let schedule ?days_of_month ?days_of_week ?hours ?minutes ~monthly ()
-    : schedule =
+let schedule ?days_of_month ?days_of_week ?hours ?minutes
+    ?(monthly = []) () : schedule =
   { days_of_month; days_of_week; hours; minutes; monthly }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
@@ -399,8 +399,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_data_factory_trigger_schedule ?activated ?annotations
     ?description ?end_time ?frequency ?id ?interval ?pipeline_name
-    ?pipeline_parameters ?start_time ?time_zone ?timeouts
-    ~data_factory_id ~name ~pipeline ~schedule () :
+    ?pipeline_parameters ?start_time ?time_zone ?(pipeline = [])
+    ?(schedule = []) ?timeouts ~data_factory_id ~name () :
     azurerm_data_factory_trigger_schedule =
   {
     activated;
@@ -439,8 +439,8 @@ type t = {
 
 let make ?activated ?annotations ?description ?end_time ?frequency
     ?id ?interval ?pipeline_name ?pipeline_parameters ?start_time
-    ?time_zone ?timeouts ~data_factory_id ~name ~pipeline ~schedule
-    __id =
+    ?time_zone ?(pipeline = []) ?(schedule = []) ?timeouts
+    ~data_factory_id ~name __id =
   let __type = "azurerm_data_factory_trigger_schedule" in
   let __attrs =
     ({
@@ -469,19 +469,19 @@ let make ?activated ?annotations ?description ?end_time ?frequency
         (azurerm_data_factory_trigger_schedule ?activated
            ?annotations ?description ?end_time ?frequency ?id
            ?interval ?pipeline_name ?pipeline_parameters ?start_time
-           ?time_zone ?timeouts ~data_factory_id ~name ~pipeline
-           ~schedule ());
+           ?time_zone ~pipeline ~schedule ?timeouts ~data_factory_id
+           ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?activated ?annotations ?description
     ?end_time ?frequency ?id ?interval ?pipeline_name
-    ?pipeline_parameters ?start_time ?time_zone ?timeouts
-    ~data_factory_id ~name ~pipeline ~schedule __id =
+    ?pipeline_parameters ?start_time ?time_zone ?(pipeline = [])
+    ?(schedule = []) ?timeouts ~data_factory_id ~name __id =
   let (r : _ Tf_core.resource) =
     make ?activated ?annotations ?description ?end_time ?frequency
       ?id ?interval ?pipeline_name ?pipeline_parameters ?start_time
-      ?time_zone ?timeouts ~data_factory_id ~name ~pipeline ~schedule
+      ?time_zone ~pipeline ~schedule ?timeouts ~data_factory_id ~name
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

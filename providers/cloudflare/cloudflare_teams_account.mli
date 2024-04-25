@@ -20,10 +20,10 @@ val antivirus__notification_settings :
 type antivirus
 
 val antivirus :
+  ?notification_settings:antivirus__notification_settings list ->
   enabled_download_phase:bool prop ->
   enabled_upload_phase:bool prop ->
   fail_closed:bool prop ->
-  notification_settings:antivirus__notification_settings list ->
   unit ->
   antivirus
 
@@ -123,16 +123,16 @@ val cloudflare_teams_account :
   ?protocol_detection_enabled:bool prop ->
   ?tls_decrypt_enabled:bool prop ->
   ?url_browser_isolation_enabled:bool prop ->
+  ?antivirus:antivirus list ->
+  ?block_page:block_page list ->
+  ?body_scanning:body_scanning list ->
+  ?extended_email_matching:extended_email_matching list ->
+  ?fips:fips list ->
+  ?logging:logging list ->
+  ?payload_log:payload_log list ->
+  ?proxy:proxy list ->
+  ?ssh_session_log:ssh_session_log list ->
   account_id:string prop ->
-  antivirus:antivirus list ->
-  block_page:block_page list ->
-  body_scanning:body_scanning list ->
-  extended_email_matching:extended_email_matching list ->
-  fips:fips list ->
-  logging:logging list ->
-  payload_log:payload_log list ->
-  proxy:proxy list ->
-  ssh_session_log:ssh_session_log list ->
   unit ->
   cloudflare_teams_account
 
@@ -159,16 +159,16 @@ val register :
   ?protocol_detection_enabled:bool prop ->
   ?tls_decrypt_enabled:bool prop ->
   ?url_browser_isolation_enabled:bool prop ->
+  ?antivirus:antivirus list ->
+  ?block_page:block_page list ->
+  ?body_scanning:body_scanning list ->
+  ?extended_email_matching:extended_email_matching list ->
+  ?fips:fips list ->
+  ?logging:logging list ->
+  ?payload_log:payload_log list ->
+  ?proxy:proxy list ->
+  ?ssh_session_log:ssh_session_log list ->
   account_id:string prop ->
-  antivirus:antivirus list ->
-  block_page:block_page list ->
-  body_scanning:body_scanning list ->
-  extended_email_matching:extended_email_matching list ->
-  fips:fips list ->
-  logging:logging list ->
-  payload_log:payload_log list ->
-  proxy:proxy list ->
-  ssh_session_log:ssh_session_log list ->
   string ->
   t
 
@@ -179,15 +179,15 @@ val make :
   ?protocol_detection_enabled:bool prop ->
   ?tls_decrypt_enabled:bool prop ->
   ?url_browser_isolation_enabled:bool prop ->
+  ?antivirus:antivirus list ->
+  ?block_page:block_page list ->
+  ?body_scanning:body_scanning list ->
+  ?extended_email_matching:extended_email_matching list ->
+  ?fips:fips list ->
+  ?logging:logging list ->
+  ?payload_log:payload_log list ->
+  ?proxy:proxy list ->
+  ?ssh_session_log:ssh_session_log list ->
   account_id:string prop ->
-  antivirus:antivirus list ->
-  block_page:block_page list ->
-  body_scanning:body_scanning list ->
-  extended_email_matching:extended_email_matching list ->
-  fips:fips list ->
-  logging:logging list ->
-  payload_log:payload_log list ->
-  proxy:proxy list ->
-  ssh_session_log:ssh_session_log list ->
   string ->
   t Tf_core.resource

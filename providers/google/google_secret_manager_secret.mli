@@ -14,7 +14,7 @@ val replication__auto__customer_managed_encryption :
 type replication__auto
 
 val replication__auto :
-  customer_managed_encryption:
+  ?customer_managed_encryption:
     replication__auto__customer_managed_encryption list ->
   unit ->
   replication__auto
@@ -29,10 +29,10 @@ val replication__user_managed__replicas__customer_managed_encryption :
 type replication__user_managed__replicas
 
 val replication__user_managed__replicas :
-  location:string prop ->
-  customer_managed_encryption:
+  ?customer_managed_encryption:
     replication__user_managed__replicas__customer_managed_encryption
     list ->
+  location:string prop ->
   unit ->
   replication__user_managed__replicas
 
@@ -46,8 +46,8 @@ val replication__user_managed :
 type replication
 
 val replication :
-  auto:replication__auto list ->
-  user_managed:replication__user_managed list ->
+  ?auto:replication__auto list ->
+  ?user_managed:replication__user_managed list ->
   unit ->
   replication
 
@@ -82,11 +82,11 @@ val google_secret_manager_secret :
   ?project:string prop ->
   ?ttl:string prop ->
   ?version_aliases:(string * string prop) list ->
+  ?rotation:rotation list ->
   ?timeouts:timeouts ->
+  ?topics:topics list ->
   secret_id:string prop ->
   replication:replication list ->
-  rotation:rotation list ->
-  topics:topics list ->
   unit ->
   google_secret_manager_secret
 
@@ -120,11 +120,11 @@ val register :
   ?project:string prop ->
   ?ttl:string prop ->
   ?version_aliases:(string * string prop) list ->
+  ?rotation:rotation list ->
   ?timeouts:timeouts ->
+  ?topics:topics list ->
   secret_id:string prop ->
   replication:replication list ->
-  rotation:rotation list ->
-  topics:topics list ->
   string ->
   t
 
@@ -136,10 +136,10 @@ val make :
   ?project:string prop ->
   ?ttl:string prop ->
   ?version_aliases:(string * string prop) list ->
+  ?rotation:rotation list ->
   ?timeouts:timeouts ->
+  ?topics:topics list ->
   secret_id:string prop ->
   replication:replication list ->
-  rotation:rotation list ->
-  topics:topics list ->
   string ->
   t Tf_core.resource

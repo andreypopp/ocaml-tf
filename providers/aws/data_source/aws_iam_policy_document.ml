@@ -346,7 +346,7 @@ let statement ?actions ?effect ?not_actions ?not_resources ?resources
 
 let aws_iam_policy_document ?id ?override_json
     ?override_policy_documents ?policy_id ?source_json
-    ?source_policy_documents ?version ~statement () :
+    ?source_policy_documents ?version ?(statement = []) () :
     aws_iam_policy_document =
   {
     id;
@@ -371,7 +371,8 @@ type t = {
 }
 
 let make ?id ?override_json ?override_policy_documents ?policy_id
-    ?source_json ?source_policy_documents ?version ~statement __id =
+    ?source_json ?source_policy_documents ?version ?(statement = [])
+    __id =
   let __type = "aws_iam_policy_document" in
   let __attrs =
     ({
@@ -401,7 +402,7 @@ let make ?id ?override_json ?override_policy_documents ?policy_id
 
 let register ?tf_module ?id ?override_json ?override_policy_documents
     ?policy_id ?source_json ?source_policy_documents ?version
-    ~statement __id =
+    ?(statement = []) __id =
   let (r : _ Tf_core.resource) =
     make ?id ?override_json ?override_policy_documents ?policy_id
       ?source_json ?source_policy_documents ?version ~statement __id

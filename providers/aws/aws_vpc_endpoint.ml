@@ -314,8 +314,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let aws_vpc_endpoint ?auto_accept ?id ?ip_address_type ?policy
     ?private_dns_enabled ?route_table_ids ?security_group_ids
-    ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type ?timeouts
-    ~service_name ~vpc_id ~dns_options () : aws_vpc_endpoint =
+    ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type
+    ?(dns_options = []) ?timeouts ~service_name ~vpc_id () :
+    aws_vpc_endpoint =
   {
     auto_accept;
     id;
@@ -360,8 +361,8 @@ type t = {
 
 let make ?auto_accept ?id ?ip_address_type ?policy
     ?private_dns_enabled ?route_table_ids ?security_group_ids
-    ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type ?timeouts
-    ~service_name ~vpc_id ~dns_options __id =
+    ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type
+    ?(dns_options = []) ?timeouts ~service_name ~vpc_id __id =
   let __type = "aws_vpc_endpoint" in
   let __attrs =
     ({
@@ -401,20 +402,20 @@ let make ?auto_accept ?id ?ip_address_type ?policy
       yojson_of_aws_vpc_endpoint
         (aws_vpc_endpoint ?auto_accept ?id ?ip_address_type ?policy
            ?private_dns_enabled ?route_table_ids ?security_group_ids
-           ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type ?timeouts
-           ~service_name ~vpc_id ~dns_options ());
+           ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type
+           ~dns_options ?timeouts ~service_name ~vpc_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_accept ?id ?ip_address_type ?policy
     ?private_dns_enabled ?route_table_ids ?security_group_ids
-    ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type ?timeouts
-    ~service_name ~vpc_id ~dns_options __id =
+    ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type
+    ?(dns_options = []) ?timeouts ~service_name ~vpc_id __id =
   let (r : _ Tf_core.resource) =
     make ?auto_accept ?id ?ip_address_type ?policy
       ?private_dns_enabled ?route_table_ids ?security_group_ids
-      ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type ?timeouts
-      ~service_name ~vpc_id ~dns_options __id
+      ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type ~dns_options
+      ?timeouts ~service_name ~vpc_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

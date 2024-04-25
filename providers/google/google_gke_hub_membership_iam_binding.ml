@@ -125,7 +125,7 @@ let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
 let google_gke_hub_membership_iam_binding ?id ?location ?project
-    ~members ~membership_id ~role ~condition () :
+    ?(condition = []) ~members ~membership_id ~role () :
     google_gke_hub_membership_iam_binding =
   { id; location; members; membership_id; project; role; condition }
 
@@ -139,8 +139,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?location ?project ~members ~membership_id ~role
-    ~condition __id =
+let make ?id ?location ?project ?(condition = []) ~members
+    ~membership_id ~role __id =
   let __type = "google_gke_hub_membership_iam_binding" in
   let __attrs =
     ({
@@ -160,15 +160,15 @@ let make ?id ?location ?project ~members ~membership_id ~role
     json =
       yojson_of_google_gke_hub_membership_iam_binding
         (google_gke_hub_membership_iam_binding ?id ?location ?project
-           ~members ~membership_id ~role ~condition ());
+           ~condition ~members ~membership_id ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?location ?project ~members
-    ~membership_id ~role ~condition __id =
+let register ?tf_module ?id ?location ?project ?(condition = [])
+    ~members ~membership_id ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?location ?project ~members ~membership_id ~role
-      ~condition __id
+    make ?id ?location ?project ~condition ~members ~membership_id
+      ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

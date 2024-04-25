@@ -25,7 +25,7 @@ type multiplex_program_settings__video_settings
 
 val multiplex_program_settings__video_settings :
   ?constant_bitrate:float prop ->
-  statmux_settings:
+  ?statmux_settings:
     multiplex_program_settings__video_settings__statmux_settings list ->
   unit ->
   multiplex_program_settings__video_settings
@@ -33,20 +33,20 @@ val multiplex_program_settings__video_settings :
 type multiplex_program_settings
 
 val multiplex_program_settings :
+  ?service_descriptor:
+    multiplex_program_settings__service_descriptor list ->
+  ?video_settings:multiplex_program_settings__video_settings list ->
   preferred_channel_pipeline:string prop ->
   program_number:float prop ->
-  service_descriptor:
-    multiplex_program_settings__service_descriptor list ->
-  video_settings:multiplex_program_settings__video_settings list ->
   unit ->
   multiplex_program_settings
 
 type aws_medialive_multiplex_program
 
 val aws_medialive_multiplex_program :
+  ?multiplex_program_settings:multiplex_program_settings list ->
   multiplex_id:string prop ->
   program_name:string prop ->
-  multiplex_program_settings:multiplex_program_settings list ->
   unit ->
   aws_medialive_multiplex_program
 
@@ -63,15 +63,15 @@ type t = private {
 
 val register :
   ?tf_module:tf_module ->
+  ?multiplex_program_settings:multiplex_program_settings list ->
   multiplex_id:string prop ->
   program_name:string prop ->
-  multiplex_program_settings:multiplex_program_settings list ->
   string ->
   t
 
 val make :
+  ?multiplex_program_settings:multiplex_program_settings list ->
   multiplex_id:string prop ->
   program_name:string prop ->
-  multiplex_program_settings:multiplex_program_settings list ->
   string ->
   t Tf_core.resource

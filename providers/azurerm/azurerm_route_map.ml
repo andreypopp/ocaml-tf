@@ -332,15 +332,15 @@ let rule__match_criterion ?as_path ?community ?route_prefix
     ~match_condition () : rule__match_criterion =
   { as_path; community; match_condition; route_prefix }
 
-let rule ?next_step_if_matched ~name ~action ~match_criterion () :
-    rule =
+let rule ?next_step_if_matched ?(action = []) ?(match_criterion = [])
+    ~name () : rule =
   { name; next_step_if_matched; action; match_criterion }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_route_map ?id ?timeouts ~name ~virtual_hub_id ~rule () :
-    azurerm_route_map =
+let azurerm_route_map ?id ?(rule = []) ?timeouts ~name
+    ~virtual_hub_id () : azurerm_route_map =
   { id; name; virtual_hub_id; rule; timeouts }
 
 type t = {
@@ -349,7 +349,7 @@ type t = {
   virtual_hub_id : string prop;
 }
 
-let make ?id ?timeouts ~name ~virtual_hub_id ~rule __id =
+let make ?id ?(rule = []) ?timeouts ~name ~virtual_hub_id __id =
   let __type = "azurerm_route_map" in
   let __attrs =
     ({
@@ -364,15 +364,15 @@ let make ?id ?timeouts ~name ~virtual_hub_id ~rule __id =
     type_ = __type;
     json =
       yojson_of_azurerm_route_map
-        (azurerm_route_map ?id ?timeouts ~name ~virtual_hub_id ~rule
+        (azurerm_route_map ?id ~rule ?timeouts ~name ~virtual_hub_id
            ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~name ~virtual_hub_id ~rule
-    __id =
+let register ?tf_module ?id ?(rule = []) ?timeouts ~name
+    ~virtual_hub_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~name ~virtual_hub_id ~rule __id
+    make ?id ~rule ?timeouts ~name ~virtual_hub_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

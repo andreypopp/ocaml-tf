@@ -54,12 +54,12 @@ val google_network_connectivity_service_connection_policy :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?psc_config:psc_config list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   network:string prop ->
   service_class:string prop ->
-  psc_config:psc_config list ->
   unit ->
   google_network_connectivity_service_connection_policy
 
@@ -92,12 +92,12 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?psc_config:psc_config list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   network:string prop ->
   service_class:string prop ->
-  psc_config:psc_config list ->
   string ->
   t
 
@@ -106,11 +106,11 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?psc_config:psc_config list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   network:string prop ->
   service_class:string prop ->
-  psc_config:psc_config list ->
   string ->
   t Tf_core.resource

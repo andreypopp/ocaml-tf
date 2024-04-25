@@ -575,7 +575,7 @@ let destination_config__on_failure ~destination_arn () :
     destination_config__on_failure =
   { destination_arn }
 
-let destination_config ~on_failure () : destination_config =
+let destination_config ?(on_failure = []) () : destination_config =
   { on_failure }
 
 let document_db_event_source_config ?collection_name ?full_document
@@ -608,10 +608,11 @@ let aws_lambda_event_source_mapping ?batch_size
     ?maximum_record_age_in_seconds ?maximum_retry_attempts
     ?parallelization_factor ?queues ?starting_position
     ?starting_position_timestamp ?topics ?tumbling_window_in_seconds
-    ~function_name ~amazon_managed_kafka_event_source_config
-    ~destination_config ~document_db_event_source_config
-    ~filter_criteria ~scaling_config ~self_managed_event_source
-    ~self_managed_kafka_event_source_config
+    ?(amazon_managed_kafka_event_source_config = [])
+    ?(destination_config = [])
+    ?(document_db_event_source_config = []) ?(filter_criteria = [])
+    ?(scaling_config = []) ?(self_managed_event_source = [])
+    ?(self_managed_kafka_event_source_config = []) ~function_name
     ~source_access_configuration () : aws_lambda_event_source_mapping
     =
   {
@@ -672,10 +673,11 @@ let make ?batch_size ?bisect_batch_on_function_error ?enabled
     ?maximum_record_age_in_seconds ?maximum_retry_attempts
     ?parallelization_factor ?queues ?starting_position
     ?starting_position_timestamp ?topics ?tumbling_window_in_seconds
-    ~function_name ~amazon_managed_kafka_event_source_config
-    ~destination_config ~document_db_event_source_config
-    ~filter_criteria ~scaling_config ~self_managed_event_source
-    ~self_managed_kafka_event_source_config
+    ?(amazon_managed_kafka_event_source_config = [])
+    ?(destination_config = [])
+    ?(document_db_event_source_config = []) ?(filter_criteria = [])
+    ?(scaling_config = []) ?(self_managed_event_source = [])
+    ?(self_managed_kafka_event_source_config = []) ~function_name
     ~source_access_configuration __id =
   let __type = "aws_lambda_event_source_mapping" in
   let __attrs =
@@ -730,12 +732,12 @@ let make ?batch_size ?bisect_batch_on_function_error ?enabled
            ?maximum_record_age_in_seconds ?maximum_retry_attempts
            ?parallelization_factor ?queues ?starting_position
            ?starting_position_timestamp ?topics
-           ?tumbling_window_in_seconds ~function_name
+           ?tumbling_window_in_seconds
            ~amazon_managed_kafka_event_source_config
            ~destination_config ~document_db_event_source_config
            ~filter_criteria ~scaling_config
            ~self_managed_event_source
-           ~self_managed_kafka_event_source_config
+           ~self_managed_kafka_event_source_config ~function_name
            ~source_access_configuration ());
     attrs = __attrs;
   }
@@ -746,10 +748,11 @@ let register ?tf_module ?batch_size ?bisect_batch_on_function_error
     ?maximum_record_age_in_seconds ?maximum_retry_attempts
     ?parallelization_factor ?queues ?starting_position
     ?starting_position_timestamp ?topics ?tumbling_window_in_seconds
-    ~function_name ~amazon_managed_kafka_event_source_config
-    ~destination_config ~document_db_event_source_config
-    ~filter_criteria ~scaling_config ~self_managed_event_source
-    ~self_managed_kafka_event_source_config
+    ?(amazon_managed_kafka_event_source_config = [])
+    ?(destination_config = [])
+    ?(document_db_event_source_config = []) ?(filter_criteria = [])
+    ?(scaling_config = []) ?(self_managed_event_source = [])
+    ?(self_managed_kafka_event_source_config = []) ~function_name
     ~source_access_configuration __id =
   let (r : _ Tf_core.resource) =
     make ?batch_size ?bisect_batch_on_function_error ?enabled
@@ -758,11 +761,11 @@ let register ?tf_module ?batch_size ?bisect_batch_on_function_error
       ?maximum_record_age_in_seconds ?maximum_retry_attempts
       ?parallelization_factor ?queues ?starting_position
       ?starting_position_timestamp ?topics
-      ?tumbling_window_in_seconds ~function_name
+      ?tumbling_window_in_seconds
       ~amazon_managed_kafka_event_source_config ~destination_config
       ~document_db_event_source_config ~filter_criteria
       ~scaling_config ~self_managed_event_source
-      ~self_managed_kafka_event_source_config
+      ~self_managed_kafka_event_source_config ~function_name
       ~source_access_configuration __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

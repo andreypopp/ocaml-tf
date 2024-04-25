@@ -27,10 +27,10 @@ val google_bigquery_reservation :
   ?location:string prop ->
   ?multi_region_auxiliary:bool prop ->
   ?project:string prop ->
+  ?autoscale:autoscale list ->
   ?timeouts:timeouts ->
   name:string prop ->
   slot_capacity:float prop ->
-  autoscale:autoscale list ->
   unit ->
   google_bigquery_reservation
 
@@ -60,10 +60,10 @@ val register :
   ?location:string prop ->
   ?multi_region_auxiliary:bool prop ->
   ?project:string prop ->
+  ?autoscale:autoscale list ->
   ?timeouts:timeouts ->
   name:string prop ->
   slot_capacity:float prop ->
-  autoscale:autoscale list ->
   string ->
   t
 
@@ -75,9 +75,9 @@ val make :
   ?location:string prop ->
   ?multi_region_auxiliary:bool prop ->
   ?project:string prop ->
+  ?autoscale:autoscale list ->
   ?timeouts:timeouts ->
   name:string prop ->
   slot_capacity:float prop ->
-  autoscale:autoscale list ->
   string ->
   t Tf_core.resource

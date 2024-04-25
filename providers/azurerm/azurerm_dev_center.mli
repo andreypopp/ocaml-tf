@@ -27,11 +27,11 @@ type azurerm_dev_center
 val azurerm_dev_center :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   unit ->
   azurerm_dev_center
 
@@ -52,21 +52,21 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

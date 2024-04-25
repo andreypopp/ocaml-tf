@@ -408,8 +408,9 @@ let ipv6__microsoft_peering ?advertised_communities
     routing_registry_name;
   }
 
-let ipv6 ?enabled ?route_filter_id ~primary_peer_address_prefix
-    ~secondary_peer_address_prefix ~microsoft_peering () : ipv6 =
+let ipv6 ?enabled ?route_filter_id ?(microsoft_peering = [])
+    ~primary_peer_address_prefix ~secondary_peer_address_prefix () :
+    ipv6 =
   {
     enabled;
     primary_peer_address_prefix;
@@ -433,10 +434,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_express_route_circuit_peering ?id ?ipv4_enabled ?peer_asn
     ?primary_peer_address_prefix ?route_filter_id
-    ?secondary_peer_address_prefix ?shared_key ?timeouts
+    ?secondary_peer_address_prefix ?shared_key ?(ipv6 = [])
+    ?(microsoft_peering_config = []) ?timeouts
     ~express_route_circuit_name ~peering_type ~resource_group_name
-    ~vlan_id ~ipv6 ~microsoft_peering_config () :
-    azurerm_express_route_circuit_peering =
+    ~vlan_id () : azurerm_express_route_circuit_peering =
   {
     express_route_circuit_name;
     id;
@@ -474,9 +475,9 @@ type t = {
 
 let make ?id ?ipv4_enabled ?peer_asn ?primary_peer_address_prefix
     ?route_filter_id ?secondary_peer_address_prefix ?shared_key
-    ?timeouts ~express_route_circuit_name ~peering_type
-    ~resource_group_name ~vlan_id ~ipv6 ~microsoft_peering_config
-    __id =
+    ?(ipv6 = []) ?(microsoft_peering_config = []) ?timeouts
+    ~express_route_circuit_name ~peering_type ~resource_group_name
+    ~vlan_id __id =
   let __type = "azurerm_express_route_circuit_peering" in
   let __attrs =
     ({
@@ -512,24 +513,25 @@ let make ?id ?ipv4_enabled ?peer_asn ?primary_peer_address_prefix
       yojson_of_azurerm_express_route_circuit_peering
         (azurerm_express_route_circuit_peering ?id ?ipv4_enabled
            ?peer_asn ?primary_peer_address_prefix ?route_filter_id
-           ?secondary_peer_address_prefix ?shared_key ?timeouts
+           ?secondary_peer_address_prefix ?shared_key ~ipv6
+           ~microsoft_peering_config ?timeouts
            ~express_route_circuit_name ~peering_type
-           ~resource_group_name ~vlan_id ~ipv6
-           ~microsoft_peering_config ());
+           ~resource_group_name ~vlan_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?ipv4_enabled ?peer_asn
     ?primary_peer_address_prefix ?route_filter_id
-    ?secondary_peer_address_prefix ?shared_key ?timeouts
+    ?secondary_peer_address_prefix ?shared_key ?(ipv6 = [])
+    ?(microsoft_peering_config = []) ?timeouts
     ~express_route_circuit_name ~peering_type ~resource_group_name
-    ~vlan_id ~ipv6 ~microsoft_peering_config __id =
+    ~vlan_id __id =
   let (r : _ Tf_core.resource) =
     make ?id ?ipv4_enabled ?peer_asn ?primary_peer_address_prefix
       ?route_filter_id ?secondary_peer_address_prefix ?shared_key
-      ?timeouts ~express_route_circuit_name ~peering_type
-      ~resource_group_name ~vlan_id ~ipv6 ~microsoft_peering_config
-      __id
+      ~ipv6 ~microsoft_peering_config ?timeouts
+      ~express_route_circuit_name ~peering_type ~resource_group_name
+      ~vlan_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

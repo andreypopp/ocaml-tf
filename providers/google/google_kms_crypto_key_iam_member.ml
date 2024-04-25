@@ -102,8 +102,9 @@ let _ = yojson_of_google_kms_crypto_key_iam_member
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_kms_crypto_key_iam_member ?id ~crypto_key_id ~member ~role
-    ~condition () : google_kms_crypto_key_iam_member =
+let google_kms_crypto_key_iam_member ?id ?(condition = [])
+    ~crypto_key_id ~member ~role () :
+    google_kms_crypto_key_iam_member =
   { crypto_key_id; id; member; role; condition }
 
 type t = {
@@ -114,7 +115,7 @@ type t = {
   role : string prop;
 }
 
-let make ?id ~crypto_key_id ~member ~role ~condition __id =
+let make ?id ?(condition = []) ~crypto_key_id ~member ~role __id =
   let __type = "google_kms_crypto_key_iam_member" in
   let __attrs =
     ({
@@ -131,15 +132,15 @@ let make ?id ~crypto_key_id ~member ~role ~condition __id =
     type_ = __type;
     json =
       yojson_of_google_kms_crypto_key_iam_member
-        (google_kms_crypto_key_iam_member ?id ~crypto_key_id ~member
-           ~role ~condition ());
+        (google_kms_crypto_key_iam_member ?id ~condition
+           ~crypto_key_id ~member ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~crypto_key_id ~member ~role ~condition
-    __id =
+let register ?tf_module ?id ?(condition = []) ~crypto_key_id ~member
+    ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~crypto_key_id ~member ~role ~condition __id
+    make ?id ~condition ~crypto_key_id ~member ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

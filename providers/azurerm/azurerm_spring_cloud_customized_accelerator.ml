@@ -362,8 +362,8 @@ let git_repository__ssh_auth ?host_key ?host_key_algorithm
   { host_key; host_key_algorithm; private_key }
 
 let git_repository ?branch ?ca_certificate_id ?commit ?git_tag
-    ?interval_in_seconds ?path ~url ~basic_auth ~ssh_auth () :
-    git_repository =
+    ?interval_in_seconds ?path ?(basic_auth = []) ?(ssh_auth = [])
+    ~url () : git_repository =
   {
     branch;
     ca_certificate_id;

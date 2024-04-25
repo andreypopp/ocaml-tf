@@ -53,16 +53,16 @@ val routing__path_matcher__route_rule__header_action__response_header_to_remove 
 type routing__path_matcher__route_rule__header_action
 
 val routing__path_matcher__route_rule__header_action :
-  request_header_to_add:
+  ?request_header_to_add:
     routing__path_matcher__route_rule__header_action__request_header_to_add
     list ->
-  request_header_to_remove:
+  ?request_header_to_remove:
     routing__path_matcher__route_rule__header_action__request_header_to_remove
     list ->
-  response_header_to_add:
+  ?response_header_to_add:
     routing__path_matcher__route_rule__header_action__response_header_to_add
     list ->
-  response_header_to_remove:
+  ?response_header_to_remove:
     routing__path_matcher__route_rule__header_action__response_header_to_remove
     list ->
   unit ->
@@ -96,9 +96,9 @@ val routing__path_matcher__route_rule__match_rule :
   ?ignore_case:bool prop ->
   ?path_template_match:string prop ->
   ?prefix_match:string prop ->
-  header_match:
+  ?header_match:
     routing__path_matcher__route_rule__match_rule__header_match list ->
-  query_parameter_match:
+  ?query_parameter_match:
     routing__path_matcher__route_rule__match_rule__query_parameter_match
     list ->
   unit ->
@@ -148,13 +148,13 @@ val routing__path_matcher__route_rule__route_action__cdn_policy :
   ?signed_request_keyset:string prop ->
   ?signed_request_maximum_expiration_ttl:string prop ->
   ?signed_request_mode:string prop ->
-  add_signatures:
+  ?add_signatures:
     routing__path_matcher__route_rule__route_action__cdn_policy__add_signatures
     list ->
-  cache_key_policy:
+  ?cache_key_policy:
     routing__path_matcher__route_rule__route_action__cdn_policy__cache_key_policy
     list ->
-  signed_token_options:
+  ?signed_token_options:
     routing__path_matcher__route_rule__route_action__cdn_policy__signed_token_options
     list ->
   unit ->
@@ -185,11 +185,11 @@ val routing__path_matcher__route_rule__route_action__url_rewrite :
 type routing__path_matcher__route_rule__route_action
 
 val routing__path_matcher__route_rule__route_action :
-  cdn_policy:
+  ?cdn_policy:
     routing__path_matcher__route_rule__route_action__cdn_policy list ->
-  cors_policy:
+  ?cors_policy:
     routing__path_matcher__route_rule__route_action__cors_policy list ->
-  url_rewrite:
+  ?url_rewrite:
     routing__path_matcher__route_rule__route_action__url_rewrite list ->
   unit ->
   routing__path_matcher__route_rule__route_action
@@ -211,11 +211,12 @@ type routing__path_matcher__route_rule
 val routing__path_matcher__route_rule :
   ?description:string prop ->
   ?origin:string prop ->
+  ?header_action:
+    routing__path_matcher__route_rule__header_action list ->
+  ?route_action:routing__path_matcher__route_rule__route_action list ->
+  ?url_redirect:routing__path_matcher__route_rule__url_redirect list ->
   priority:string prop ->
-  header_action:routing__path_matcher__route_rule__header_action list ->
   match_rule:routing__path_matcher__route_rule__match_rule list ->
-  route_action:routing__path_matcher__route_rule__route_action list ->
-  url_redirect:routing__path_matcher__route_rule__url_redirect list ->
   unit ->
   routing__path_matcher__route_rule
 
@@ -258,9 +259,9 @@ val google_network_services_edge_cache_service :
   ?project:string prop ->
   ?require_tls:bool prop ->
   ?ssl_policy:string prop ->
+  ?log_config:log_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  log_config:log_config list ->
   routing:routing list ->
   unit ->
   google_network_services_edge_cache_service
@@ -300,9 +301,9 @@ val register :
   ?project:string prop ->
   ?require_tls:bool prop ->
   ?ssl_policy:string prop ->
+  ?log_config:log_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  log_config:log_config list ->
   routing:routing list ->
   string ->
   t
@@ -318,9 +319,9 @@ val make :
   ?project:string prop ->
   ?require_tls:bool prop ->
   ?ssl_policy:string prop ->
+  ?log_config:log_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  log_config:log_config list ->
   routing:routing list ->
   string ->
   t Tf_core.resource

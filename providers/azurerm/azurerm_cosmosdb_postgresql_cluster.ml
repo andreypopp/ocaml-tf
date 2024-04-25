@@ -390,9 +390,9 @@ let azurerm_cosmosdb_postgresql_cluster ?administrator_login_password
     ?node_public_ip_access_enabled ?node_server_edition
     ?node_storage_quota_in_mb ?node_vcores ?point_in_time_in_utc
     ?preferred_primary_zone ?shards_on_coordinator_enabled
-    ?source_location ?source_resource_id ?sql_version ?tags ?timeouts
-    ~location ~name ~node_count ~resource_group_name
-    ~maintenance_window () : azurerm_cosmosdb_postgresql_cluster =
+    ?source_location ?source_resource_id ?sql_version ?tags
+    ?(maintenance_window = []) ?timeouts ~location ~name ~node_count
+    ~resource_group_name () : azurerm_cosmosdb_postgresql_cluster =
   {
     administrator_login_password;
     citus_version;
@@ -455,8 +455,8 @@ let make ?administrator_login_password ?citus_version
     ?node_server_edition ?node_storage_quota_in_mb ?node_vcores
     ?point_in_time_in_utc ?preferred_primary_zone
     ?shards_on_coordinator_enabled ?source_location
-    ?source_resource_id ?sql_version ?tags ?timeouts ~location ~name
-    ~node_count ~resource_group_name ~maintenance_window __id =
+    ?source_resource_id ?sql_version ?tags ?(maintenance_window = [])
+    ?timeouts ~location ~name ~node_count ~resource_group_name __id =
   let __type = "azurerm_cosmosdb_postgresql_cluster" in
   let __attrs =
     ({
@@ -516,8 +516,8 @@ let make ?administrator_login_password ?citus_version
            ?node_server_edition ?node_storage_quota_in_mb
            ?node_vcores ?point_in_time_in_utc ?preferred_primary_zone
            ?shards_on_coordinator_enabled ?source_location
-           ?source_resource_id ?sql_version ?tags ?timeouts ~location
-           ~name ~node_count ~resource_group_name ~maintenance_window
+           ?source_resource_id ?sql_version ?tags ~maintenance_window
+           ?timeouts ~location ~name ~node_count ~resource_group_name
            ());
     attrs = __attrs;
   }
@@ -529,8 +529,8 @@ let register ?tf_module ?administrator_login_password ?citus_version
     ?node_server_edition ?node_storage_quota_in_mb ?node_vcores
     ?point_in_time_in_utc ?preferred_primary_zone
     ?shards_on_coordinator_enabled ?source_location
-    ?source_resource_id ?sql_version ?tags ?timeouts ~location ~name
-    ~node_count ~resource_group_name ~maintenance_window __id =
+    ?source_resource_id ?sql_version ?tags ?(maintenance_window = [])
+    ?timeouts ~location ~name ~node_count ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?administrator_login_password ?citus_version
       ?coordinator_public_ip_access_enabled
@@ -540,8 +540,8 @@ let register ?tf_module ?administrator_login_password ?citus_version
       ?node_storage_quota_in_mb ?node_vcores ?point_in_time_in_utc
       ?preferred_primary_zone ?shards_on_coordinator_enabled
       ?source_location ?source_resource_id ?sql_version ?tags
-      ?timeouts ~location ~name ~node_count ~resource_group_name
-      ~maintenance_window __id
+      ~maintenance_window ?timeouts ~location ~name ~node_count
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

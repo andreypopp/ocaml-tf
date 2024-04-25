@@ -172,8 +172,8 @@ let hub_profile ~dns_prefix () : hub_profile = { dns_prefix }
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_kubernetes_fleet_manager ?id ?tags ?timeouts ~location
-    ~name ~resource_group_name ~hub_profile () :
+let azurerm_kubernetes_fleet_manager ?id ?tags ?(hub_profile = [])
+    ?timeouts ~location ~name ~resource_group_name () :
     azurerm_kubernetes_fleet_manager =
   {
     id;
@@ -193,8 +193,8 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
-    ~hub_profile __id =
+let make ?id ?tags ?(hub_profile = []) ?timeouts ~location ~name
+    ~resource_group_name __id =
   let __type = "azurerm_kubernetes_fleet_manager" in
   let __attrs =
     ({
@@ -212,16 +212,16 @@ let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
     type_ = __type;
     json =
       yojson_of_azurerm_kubernetes_fleet_manager
-        (azurerm_kubernetes_fleet_manager ?id ?tags ?timeouts
-           ~location ~name ~resource_group_name ~hub_profile ());
+        (azurerm_kubernetes_fleet_manager ?id ?tags ~hub_profile
+           ?timeouts ~location ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?timeouts ~location ~name
-    ~resource_group_name ~hub_profile __id =
+let register ?tf_module ?id ?tags ?(hub_profile = []) ?timeouts
+    ~location ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?timeouts ~location ~name ~resource_group_name
-      ~hub_profile __id
+    make ?id ?tags ~hub_profile ?timeouts ~location ~name
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -33,8 +33,8 @@ type build_batch_config
 val build_batch_config :
   ?combine_artifacts:bool prop ->
   ?timeout_in_mins:float prop ->
+  ?restrictions:build_batch_config__restrictions list ->
   service_role:string prop ->
-  restrictions:build_batch_config__restrictions list ->
   unit ->
   build_batch_config
 
@@ -70,11 +70,11 @@ val environment :
   ?certificate:string prop ->
   ?image_pull_credentials_type:string prop ->
   ?privileged_mode:bool prop ->
+  ?environment_variable:environment__environment_variable list ->
+  ?registry_credential:environment__registry_credential list ->
   compute_type:string prop ->
   image:string prop ->
   type_:string prop ->
-  environment_variable:environment__environment_variable list ->
-  registry_credential:environment__registry_credential list ->
   unit ->
   environment
 
@@ -111,8 +111,8 @@ val logs_config__s3_logs :
 type logs_config
 
 val logs_config :
-  cloudwatch_logs:logs_config__cloudwatch_logs list ->
-  s3_logs:logs_config__s3_logs list ->
+  ?cloudwatch_logs:logs_config__cloudwatch_logs list ->
+  ?s3_logs:logs_config__s3_logs list ->
   unit ->
   logs_config
 
@@ -163,10 +163,11 @@ val secondary_sources :
   ?insecure_ssl:bool prop ->
   ?location:string prop ->
   ?report_build_status:bool prop ->
+  ?build_status_config:secondary_sources__build_status_config list ->
+  ?git_submodules_config:
+    secondary_sources__git_submodules_config list ->
   source_identifier:string prop ->
   type_:string prop ->
-  build_status_config:secondary_sources__build_status_config list ->
-  git_submodules_config:secondary_sources__git_submodules_config list ->
   unit ->
   secondary_sources
 
@@ -191,9 +192,9 @@ val source :
   ?insecure_ssl:bool prop ->
   ?location:string prop ->
   ?report_build_status:bool prop ->
+  ?build_status_config:source__build_status_config list ->
+  ?git_submodules_config:source__git_submodules_config list ->
   type_:string prop ->
-  build_status_config:source__build_status_config list ->
-  git_submodules_config:source__git_submodules_config list ->
   unit ->
   source
 
@@ -221,19 +222,19 @@ val aws_codebuild_project :
   ?source_version:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?build_batch_config:build_batch_config list ->
+  ?cache:cache list ->
+  ?logs_config:logs_config list ->
+  ?vpc_config:vpc_config list ->
   name:string prop ->
   service_role:string prop ->
   artifacts:artifacts list ->
-  build_batch_config:build_batch_config list ->
-  cache:cache list ->
   environment:environment list ->
   file_system_locations:file_system_locations list ->
-  logs_config:logs_config list ->
   secondary_artifacts:secondary_artifacts list ->
   secondary_source_version:secondary_source_version list ->
   secondary_sources:secondary_sources list ->
   source:source list ->
-  vpc_config:vpc_config list ->
   unit ->
   aws_codebuild_project
 
@@ -275,19 +276,19 @@ val register :
   ?source_version:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?build_batch_config:build_batch_config list ->
+  ?cache:cache list ->
+  ?logs_config:logs_config list ->
+  ?vpc_config:vpc_config list ->
   name:string prop ->
   service_role:string prop ->
   artifacts:artifacts list ->
-  build_batch_config:build_batch_config list ->
-  cache:cache list ->
   environment:environment list ->
   file_system_locations:file_system_locations list ->
-  logs_config:logs_config list ->
   secondary_artifacts:secondary_artifacts list ->
   secondary_source_version:secondary_source_version list ->
   secondary_sources:secondary_sources list ->
   source:source list ->
-  vpc_config:vpc_config list ->
   string ->
   t
 
@@ -304,18 +305,18 @@ val make :
   ?source_version:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?build_batch_config:build_batch_config list ->
+  ?cache:cache list ->
+  ?logs_config:logs_config list ->
+  ?vpc_config:vpc_config list ->
   name:string prop ->
   service_role:string prop ->
   artifacts:artifacts list ->
-  build_batch_config:build_batch_config list ->
-  cache:cache list ->
   environment:environment list ->
   file_system_locations:file_system_locations list ->
-  logs_config:logs_config list ->
   secondary_artifacts:secondary_artifacts list ->
   secondary_source_version:secondary_source_version list ->
   secondary_sources:secondary_sources list ->
   source:source list ->
-  vpc_config:vpc_config list ->
   string ->
   t Tf_core.resource

@@ -413,10 +413,11 @@ let web_settings ?allow_all_domains ?allow_amp_traffic
     integration_type;
   }
 
-let google_recaptcha_enterprise_key ?id ?labels ?project ?timeouts
-    ~display_name ~android_settings ~ios_settings ~testing_options
-    ~waf_settings ~web_settings () : google_recaptcha_enterprise_key
-    =
+let google_recaptcha_enterprise_key ?id ?labels ?project
+    ?(android_settings = []) ?(ios_settings = [])
+    ?(testing_options = []) ?timeouts ?(waf_settings = [])
+    ?(web_settings = []) ~display_name () :
+    google_recaptcha_enterprise_key =
   {
     display_name;
     id;
@@ -441,9 +442,9 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let make ?id ?labels ?project ?timeouts ~display_name
-    ~android_settings ~ios_settings ~testing_options ~waf_settings
-    ~web_settings __id =
+let make ?id ?labels ?project ?(android_settings = [])
+    ?(ios_settings = []) ?(testing_options = []) ?timeouts
+    ?(waf_settings = []) ?(web_settings = []) ~display_name __id =
   let __type = "google_recaptcha_enterprise_key" in
   let __attrs =
     ({
@@ -466,18 +467,18 @@ let make ?id ?labels ?project ?timeouts ~display_name
     json =
       yojson_of_google_recaptcha_enterprise_key
         (google_recaptcha_enterprise_key ?id ?labels ?project
-           ?timeouts ~display_name ~android_settings ~ios_settings
-           ~testing_options ~waf_settings ~web_settings ());
+           ~android_settings ~ios_settings ~testing_options ?timeouts
+           ~waf_settings ~web_settings ~display_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?labels ?project ?timeouts ~display_name
-    ~android_settings ~ios_settings ~testing_options ~waf_settings
-    ~web_settings __id =
+let register ?tf_module ?id ?labels ?project ?(android_settings = [])
+    ?(ios_settings = []) ?(testing_options = []) ?timeouts
+    ?(waf_settings = []) ?(web_settings = []) ~display_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?labels ?project ?timeouts ~display_name
-      ~android_settings ~ios_settings ~testing_options ~waf_settings
-      ~web_settings __id
+    make ?id ?labels ?project ~android_settings ~ios_settings
+      ~testing_options ?timeouts ~waf_settings ~web_settings
+      ~display_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

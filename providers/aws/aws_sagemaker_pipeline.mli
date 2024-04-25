@@ -29,11 +29,11 @@ val aws_sagemaker_pipeline :
   ?role_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?parallelism_configuration:parallelism_configuration list ->
+  ?pipeline_definition_s3_location:
+    pipeline_definition_s3_location list ->
   pipeline_display_name:string prop ->
   pipeline_name:string prop ->
-  parallelism_configuration:parallelism_configuration list ->
-  pipeline_definition_s3_location:
-    pipeline_definition_s3_location list ->
   unit ->
   aws_sagemaker_pipeline
 
@@ -61,11 +61,11 @@ val register :
   ?role_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?parallelism_configuration:parallelism_configuration list ->
+  ?pipeline_definition_s3_location:
+    pipeline_definition_s3_location list ->
   pipeline_display_name:string prop ->
   pipeline_name:string prop ->
-  parallelism_configuration:parallelism_configuration list ->
-  pipeline_definition_s3_location:
-    pipeline_definition_s3_location list ->
   string ->
   t
 
@@ -76,10 +76,10 @@ val make :
   ?role_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?parallelism_configuration:parallelism_configuration list ->
+  ?pipeline_definition_s3_location:
+    pipeline_definition_s3_location list ->
   pipeline_display_name:string prop ->
   pipeline_name:string prop ->
-  parallelism_configuration:parallelism_configuration list ->
-  pipeline_definition_s3_location:
-    pipeline_definition_s3_location list ->
   string ->
   t Tf_core.resource

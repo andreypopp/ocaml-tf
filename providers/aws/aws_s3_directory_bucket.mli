@@ -15,8 +15,8 @@ val aws_s3_directory_bucket :
   ?data_redundancy:string prop ->
   ?force_destroy:bool prop ->
   ?type_:string prop ->
+  ?location:location list ->
   bucket:string prop ->
-  location:location list ->
   unit ->
   aws_s3_directory_bucket
 
@@ -39,8 +39,8 @@ val register :
   ?data_redundancy:string prop ->
   ?force_destroy:bool prop ->
   ?type_:string prop ->
+  ?location:location list ->
   bucket:string prop ->
-  location:location list ->
   string ->
   t
 
@@ -48,7 +48,7 @@ val make :
   ?data_redundancy:string prop ->
   ?force_destroy:bool prop ->
   ?type_:string prop ->
+  ?location:location list ->
   bucket:string prop ->
-  location:location list ->
   string ->
   t Tf_core.resource

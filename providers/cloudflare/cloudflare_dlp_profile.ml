@@ -164,7 +164,7 @@ let _ = yojson_of_cloudflare_dlp_profile
 let entry__pattern ?validation ~regex () : entry__pattern =
   { regex; validation }
 
-let entry ?enabled ?id ~name ~pattern () : entry =
+let entry ?enabled ?id ?(pattern = []) ~name () : entry =
   { enabled; id; name; pattern }
 
 let cloudflare_dlp_profile ?description ?id ~account_id

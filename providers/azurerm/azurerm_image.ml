@@ -358,8 +358,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_image ?hyper_v_generation ?id ?source_virtual_machine_id
-    ?tags ?zone_resilient ?timeouts ~location ~name
-    ~resource_group_name ~data_disk ~os_disk () : azurerm_image =
+    ?tags ?zone_resilient ?(data_disk = []) ?(os_disk = []) ?timeouts
+    ~location ~name ~resource_group_name () : azurerm_image =
   {
     hyper_v_generation;
     id;
@@ -386,8 +386,8 @@ type t = {
 }
 
 let make ?hyper_v_generation ?id ?source_virtual_machine_id ?tags
-    ?zone_resilient ?timeouts ~location ~name ~resource_group_name
-    ~data_disk ~os_disk __id =
+    ?zone_resilient ?(data_disk = []) ?(os_disk = []) ?timeouts
+    ~location ~name ~resource_group_name __id =
   let __type = "azurerm_image" in
   let __attrs =
     ({
@@ -411,19 +411,20 @@ let make ?hyper_v_generation ?id ?source_virtual_machine_id ?tags
     json =
       yojson_of_azurerm_image
         (azurerm_image ?hyper_v_generation ?id
-           ?source_virtual_machine_id ?tags ?zone_resilient ?timeouts
-           ~location ~name ~resource_group_name ~data_disk ~os_disk
-           ());
+           ?source_virtual_machine_id ?tags ?zone_resilient
+           ~data_disk ~os_disk ?timeouts ~location ~name
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?hyper_v_generation ?id
-    ?source_virtual_machine_id ?tags ?zone_resilient ?timeouts
-    ~location ~name ~resource_group_name ~data_disk ~os_disk __id =
+    ?source_virtual_machine_id ?tags ?zone_resilient
+    ?(data_disk = []) ?(os_disk = []) ?timeouts ~location ~name
+    ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?hyper_v_generation ?id ?source_virtual_machine_id ?tags
-      ?zone_resilient ?timeouts ~location ~name ~resource_group_name
-      ~data_disk ~os_disk __id
+      ?zone_resilient ~data_disk ~os_disk ?timeouts ~location ~name
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

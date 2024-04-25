@@ -290,7 +290,7 @@ let control__scope ?compliance_resource_ids
     ?compliance_resource_types ?tags () : control__scope =
   { compliance_resource_ids; compliance_resource_types; tags }
 
-let control ~name ~input_parameter ~scope () : control =
+let control ?(scope = []) ~name ~input_parameter () : control =
   { name; input_parameter; scope }
 
 let timeouts ?create ?delete ?update () : timeouts =

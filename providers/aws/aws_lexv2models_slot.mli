@@ -33,7 +33,7 @@ val value_elicitation_setting__default_value_specification__default_value_list :
 type value_elicitation_setting__default_value_specification
 
 val value_elicitation_setting__default_value_specification :
-  default_value_list:
+  ?default_value_list:
     value_elicitation_setting__default_value_specification__default_value_list
     list ->
   unit ->
@@ -59,10 +59,10 @@ type value_elicitation_setting__prompt_specification__message_group__message__im
 val value_elicitation_setting__prompt_specification__message_group__message__image_response_card :
   ?image_url:string prop ->
   ?subtitle:string prop ->
-  title:string prop ->
-  button:
+  ?button:
     value_elicitation_setting__prompt_specification__message_group__message__image_response_card__button
     list ->
+  title:string prop ->
   unit ->
   value_elicitation_setting__prompt_specification__message_group__message__image_response_card
 
@@ -83,16 +83,16 @@ val value_elicitation_setting__prompt_specification__message_group__message__ssm
 type value_elicitation_setting__prompt_specification__message_group__message
 
 val value_elicitation_setting__prompt_specification__message_group__message :
-  custom_playload:
+  ?custom_playload:
     value_elicitation_setting__prompt_specification__message_group__message__custom_playload
     list ->
-  image_response_card:
+  ?image_response_card:
     value_elicitation_setting__prompt_specification__message_group__message__image_response_card
     list ->
-  plain_text_message:
+  ?plain_text_message:
     value_elicitation_setting__prompt_specification__message_group__message__plain_text_message
     list ->
-  ssml_message:
+  ?ssml_message:
     value_elicitation_setting__prompt_specification__message_group__message__ssml_message
     list ->
   unit ->
@@ -118,10 +118,10 @@ type value_elicitation_setting__prompt_specification__message_group__variation__
 val value_elicitation_setting__prompt_specification__message_group__variation__image_response_card :
   ?image_url:string prop ->
   ?subtitle:string prop ->
-  title:string prop ->
-  button:
+  ?button:
     value_elicitation_setting__prompt_specification__message_group__variation__image_response_card__button
     list ->
+  title:string prop ->
   unit ->
   value_elicitation_setting__prompt_specification__message_group__variation__image_response_card
 
@@ -142,16 +142,16 @@ val value_elicitation_setting__prompt_specification__message_group__variation__s
 type value_elicitation_setting__prompt_specification__message_group__variation
 
 val value_elicitation_setting__prompt_specification__message_group__variation :
-  custom_playload:
+  ?custom_playload:
     value_elicitation_setting__prompt_specification__message_group__variation__custom_playload
     list ->
-  image_response_card:
+  ?image_response_card:
     value_elicitation_setting__prompt_specification__message_group__variation__image_response_card
     list ->
-  plain_text_message:
+  ?plain_text_message:
     value_elicitation_setting__prompt_specification__message_group__variation__plain_text_message
     list ->
-  ssml_message:
+  ?ssml_message:
     value_elicitation_setting__prompt_specification__message_group__variation__ssml_message
     list ->
   unit ->
@@ -160,10 +160,10 @@ val value_elicitation_setting__prompt_specification__message_group__variation :
 type value_elicitation_setting__prompt_specification__message_group
 
 val value_elicitation_setting__prompt_specification__message_group :
-  message:
+  ?message:
     value_elicitation_setting__prompt_specification__message_group__message
     list ->
-  variation:
+  ?variation:
     value_elicitation_setting__prompt_specification__message_group__variation
     list ->
   unit ->
@@ -198,13 +198,13 @@ val value_elicitation_setting__prompt_specification__prompt_attempts_specificati
 type value_elicitation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification
 
 val value_elicitation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification :
-  start_timeout_ms:float prop ->
-  audio_specification:
+  ?audio_specification:
     value_elicitation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__audio_specification
     list ->
-  dtmf_specification:
+  ?dtmf_specification:
     value_elicitation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__dtmf_specification
     list ->
+  start_timeout_ms:float prop ->
   unit ->
   value_elicitation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification
 
@@ -219,16 +219,16 @@ type value_elicitation_setting__prompt_specification__prompt_attempts_specificat
 
 val value_elicitation_setting__prompt_specification__prompt_attempts_specification :
   ?allow_interrupt:bool prop ->
-  map_block_key:string prop ->
-  allowed_input_types:
+  ?allowed_input_types:
     value_elicitation_setting__prompt_specification__prompt_attempts_specification__allowed_input_types
     list ->
-  audio_and_dtmf_input_specification:
+  ?audio_and_dtmf_input_specification:
     value_elicitation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification
     list ->
-  text_input_specification:
+  ?text_input_specification:
     value_elicitation_setting__prompt_specification__prompt_attempts_specification__text_input_specification
     list ->
+  map_block_key:string prop ->
   unit ->
   value_elicitation_setting__prompt_specification__prompt_attempts_specification
 
@@ -237,10 +237,10 @@ type value_elicitation_setting__prompt_specification
 val value_elicitation_setting__prompt_specification :
   ?allow_interrupt:bool prop ->
   ?message_selection_strategy:string prop ->
-  max_retries:float prop ->
-  message_group:
+  ?message_group:
     value_elicitation_setting__prompt_specification__message_group
     list ->
+  max_retries:float prop ->
   prompt_attempts_specification:
     value_elicitation_setting__prompt_specification__prompt_attempts_specification
     list ->
@@ -281,10 +281,10 @@ type value_elicitation_setting__wait_and_continue_specification__continue_respon
 val value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__image_response_card :
   ?image_url:string prop ->
   ?subtitle:string prop ->
-  title:string prop ->
-  button:
+  ?button:
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__image_response_card__button
     list ->
+  title:string prop ->
   unit ->
   value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__image_response_card
 
@@ -305,16 +305,16 @@ val value_elicitation_setting__wait_and_continue_specification__continue_respons
 type value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message
 
 val value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message :
-  custom_playload:
+  ?custom_playload:
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_playload
     list ->
-  image_response_card:
+  ?image_response_card:
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__image_response_card
     list ->
-  plain_text_message:
+  ?plain_text_message:
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__plain_text_message
     list ->
-  ssml_message:
+  ?ssml_message:
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__ssml_message
     list ->
   unit ->
@@ -340,10 +340,10 @@ type value_elicitation_setting__wait_and_continue_specification__continue_respon
 val value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__image_response_card :
   ?image_url:string prop ->
   ?subtitle:string prop ->
-  title:string prop ->
-  button:
+  ?button:
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__image_response_card__button
     list ->
+  title:string prop ->
   unit ->
   value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__image_response_card
 
@@ -364,16 +364,16 @@ val value_elicitation_setting__wait_and_continue_specification__continue_respons
 type value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation
 
 val value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation :
-  custom_playload:
+  ?custom_playload:
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_playload
     list ->
-  image_response_card:
+  ?image_response_card:
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__image_response_card
     list ->
-  plain_text_message:
+  ?plain_text_message:
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__plain_text_message
     list ->
-  ssml_message:
+  ?ssml_message:
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__ssml_message
     list ->
   unit ->
@@ -382,10 +382,10 @@ val value_elicitation_setting__wait_and_continue_specification__continue_respons
 type value_elicitation_setting__wait_and_continue_specification__continue_response__message_group
 
 val value_elicitation_setting__wait_and_continue_specification__continue_response__message_group :
-  message:
+  ?message:
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message
     list ->
-  variation:
+  ?variation:
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation
     list ->
   unit ->
@@ -395,7 +395,7 @@ type value_elicitation_setting__wait_and_continue_specification__continue_respon
 
 val value_elicitation_setting__wait_and_continue_specification__continue_response :
   ?allow_interrupt:bool prop ->
-  message_group:
+  ?message_group:
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group
     list ->
   unit ->
@@ -421,10 +421,10 @@ type value_elicitation_setting__wait_and_continue_specification__still_waiting_r
 val value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__image_response_card :
   ?image_url:string prop ->
   ?subtitle:string prop ->
-  title:string prop ->
-  button:
+  ?button:
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__image_response_card__button
     list ->
+  title:string prop ->
   unit ->
   value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__image_response_card
 
@@ -445,16 +445,16 @@ val value_elicitation_setting__wait_and_continue_specification__still_waiting_re
 type value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message
 
 val value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message :
-  custom_playload:
+  ?custom_playload:
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_playload
     list ->
-  image_response_card:
+  ?image_response_card:
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__image_response_card
     list ->
-  plain_text_message:
+  ?plain_text_message:
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__plain_text_message
     list ->
-  ssml_message:
+  ?ssml_message:
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__ssml_message
     list ->
   unit ->
@@ -480,10 +480,10 @@ type value_elicitation_setting__wait_and_continue_specification__still_waiting_r
 val value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__image_response_card :
   ?image_url:string prop ->
   ?subtitle:string prop ->
-  title:string prop ->
-  button:
+  ?button:
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__image_response_card__button
     list ->
+  title:string prop ->
   unit ->
   value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__image_response_card
 
@@ -504,16 +504,16 @@ val value_elicitation_setting__wait_and_continue_specification__still_waiting_re
 type value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation
 
 val value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation :
-  custom_playload:
+  ?custom_playload:
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_playload
     list ->
-  image_response_card:
+  ?image_response_card:
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__image_response_card
     list ->
-  plain_text_message:
+  ?plain_text_message:
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__plain_text_message
     list ->
-  ssml_message:
+  ?ssml_message:
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__ssml_message
     list ->
   unit ->
@@ -522,10 +522,10 @@ val value_elicitation_setting__wait_and_continue_specification__still_waiting_re
 type value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group
 
 val value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group :
-  message:
+  ?message:
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message
     list ->
-  variation:
+  ?variation:
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation
     list ->
   unit ->
@@ -535,11 +535,11 @@ type value_elicitation_setting__wait_and_continue_specification__still_waiting_r
 
 val value_elicitation_setting__wait_and_continue_specification__still_waiting_response :
   ?allow_interrupt:bool prop ->
-  frequency_in_seconds:float prop ->
-  timeout_in_seconds:float prop ->
-  message_group:
+  ?message_group:
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group
     list ->
+  frequency_in_seconds:float prop ->
+  timeout_in_seconds:float prop ->
   unit ->
   value_elicitation_setting__wait_and_continue_specification__still_waiting_response
 
@@ -563,10 +563,10 @@ type value_elicitation_setting__wait_and_continue_specification__waiting_respons
 val value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__image_response_card :
   ?image_url:string prop ->
   ?subtitle:string prop ->
-  title:string prop ->
-  button:
+  ?button:
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__image_response_card__button
     list ->
+  title:string prop ->
   unit ->
   value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__image_response_card
 
@@ -587,16 +587,16 @@ val value_elicitation_setting__wait_and_continue_specification__waiting_response
 type value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message
 
 val value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message :
-  custom_playload:
+  ?custom_playload:
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_playload
     list ->
-  image_response_card:
+  ?image_response_card:
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__image_response_card
     list ->
-  plain_text_message:
+  ?plain_text_message:
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__plain_text_message
     list ->
-  ssml_message:
+  ?ssml_message:
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__ssml_message
     list ->
   unit ->
@@ -622,10 +622,10 @@ type value_elicitation_setting__wait_and_continue_specification__waiting_respons
 val value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__image_response_card :
   ?image_url:string prop ->
   ?subtitle:string prop ->
-  title:string prop ->
-  button:
+  ?button:
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__image_response_card__button
     list ->
+  title:string prop ->
   unit ->
   value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__image_response_card
 
@@ -646,16 +646,16 @@ val value_elicitation_setting__wait_and_continue_specification__waiting_response
 type value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation
 
 val value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation :
-  custom_playload:
+  ?custom_playload:
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_playload
     list ->
-  image_response_card:
+  ?image_response_card:
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__image_response_card
     list ->
-  plain_text_message:
+  ?plain_text_message:
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__plain_text_message
     list ->
-  ssml_message:
+  ?ssml_message:
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__ssml_message
     list ->
   unit ->
@@ -664,10 +664,10 @@ val value_elicitation_setting__wait_and_continue_specification__waiting_response
 type value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group
 
 val value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group :
-  message:
+  ?message:
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message
     list ->
-  variation:
+  ?variation:
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation
     list ->
   unit ->
@@ -677,7 +677,7 @@ type value_elicitation_setting__wait_and_continue_specification__waiting_respons
 
 val value_elicitation_setting__wait_and_continue_specification__waiting_response :
   ?allow_interrupt:bool prop ->
-  message_group:
+  ?message_group:
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group
     list ->
   unit ->
@@ -687,13 +687,13 @@ type value_elicitation_setting__wait_and_continue_specification
 
 val value_elicitation_setting__wait_and_continue_specification :
   ?active:bool prop ->
-  continue_response:
+  ?continue_response:
     value_elicitation_setting__wait_and_continue_specification__continue_response
     list ->
-  still_waiting_response:
+  ?still_waiting_response:
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response
     list ->
-  waiting_response:
+  ?waiting_response:
     value_elicitation_setting__wait_and_continue_specification__waiting_response
     list ->
   unit ->
@@ -702,16 +702,16 @@ val value_elicitation_setting__wait_and_continue_specification :
 type value_elicitation_setting
 
 val value_elicitation_setting :
-  slot_constraint:string prop ->
-  default_value_specification:
+  ?default_value_specification:
     value_elicitation_setting__default_value_specification list ->
-  prompt_specification:
+  ?prompt_specification:
     value_elicitation_setting__prompt_specification list ->
-  sample_utterance:value_elicitation_setting__sample_utterance list ->
-  slot_resolution_setting:
+  ?sample_utterance:value_elicitation_setting__sample_utterance list ->
+  ?slot_resolution_setting:
     value_elicitation_setting__slot_resolution_setting list ->
-  wait_and_continue_specification:
+  ?wait_and_continue_specification:
     value_elicitation_setting__wait_and_continue_specification list ->
+  slot_constraint:string prop ->
   unit ->
   value_elicitation_setting
 
@@ -720,15 +720,15 @@ type aws_lexv2models_slot
 val aws_lexv2models_slot :
   ?description:string prop ->
   ?slot_type_id:string prop ->
+  ?multiple_values_setting:multiple_values_setting list ->
+  ?obfuscation_setting:obfuscation_setting list ->
   ?timeouts:timeouts ->
+  ?value_elicitation_setting:value_elicitation_setting list ->
   bot_id:string prop ->
   bot_version:string prop ->
   intent_id:string prop ->
   locale_id:string prop ->
   name:string prop ->
-  multiple_values_setting:multiple_values_setting list ->
-  obfuscation_setting:obfuscation_setting list ->
-  value_elicitation_setting:value_elicitation_setting list ->
   unit ->
   aws_lexv2models_slot
 
@@ -752,29 +752,29 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?slot_type_id:string prop ->
+  ?multiple_values_setting:multiple_values_setting list ->
+  ?obfuscation_setting:obfuscation_setting list ->
   ?timeouts:timeouts ->
+  ?value_elicitation_setting:value_elicitation_setting list ->
   bot_id:string prop ->
   bot_version:string prop ->
   intent_id:string prop ->
   locale_id:string prop ->
   name:string prop ->
-  multiple_values_setting:multiple_values_setting list ->
-  obfuscation_setting:obfuscation_setting list ->
-  value_elicitation_setting:value_elicitation_setting list ->
   string ->
   t
 
 val make :
   ?description:string prop ->
   ?slot_type_id:string prop ->
+  ?multiple_values_setting:multiple_values_setting list ->
+  ?obfuscation_setting:obfuscation_setting list ->
   ?timeouts:timeouts ->
+  ?value_elicitation_setting:value_elicitation_setting list ->
   bot_id:string prop ->
   bot_version:string prop ->
   intent_id:string prop ->
   locale_id:string prop ->
   name:string prop ->
-  multiple_values_setting:multiple_values_setting list ->
-  obfuscation_setting:obfuscation_setting list ->
-  value_elicitation_setting:value_elicitation_setting list ->
   string ->
   t Tf_core.resource

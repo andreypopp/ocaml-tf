@@ -17,7 +17,7 @@ val spec__egress_policies__egress_from :
   ?identities:string prop list ->
   ?identity_type:string prop ->
   ?source_restriction:string prop ->
-  sources:spec__egress_policies__egress_from__sources list ->
+  ?sources:spec__egress_policies__egress_from__sources list ->
   unit ->
   spec__egress_policies__egress_from
 
@@ -33,7 +33,7 @@ type spec__egress_policies__egress_to__operations
 
 val spec__egress_policies__egress_to__operations :
   ?service_name:string prop ->
-  method_selectors:
+  ?method_selectors:
     spec__egress_policies__egress_to__operations__method_selectors
     list ->
   unit ->
@@ -44,15 +44,15 @@ type spec__egress_policies__egress_to
 val spec__egress_policies__egress_to :
   ?external_resources:string prop list ->
   ?resources:string prop list ->
-  operations:spec__egress_policies__egress_to__operations list ->
+  ?operations:spec__egress_policies__egress_to__operations list ->
   unit ->
   spec__egress_policies__egress_to
 
 type spec__egress_policies
 
 val spec__egress_policies :
-  egress_from:spec__egress_policies__egress_from list ->
-  egress_to:spec__egress_policies__egress_to list ->
+  ?egress_from:spec__egress_policies__egress_from list ->
+  ?egress_to:spec__egress_policies__egress_to list ->
   unit ->
   spec__egress_policies
 
@@ -69,7 +69,7 @@ type spec__ingress_policies__ingress_from
 val spec__ingress_policies__ingress_from :
   ?identities:string prop list ->
   ?identity_type:string prop ->
-  sources:spec__ingress_policies__ingress_from__sources list ->
+  ?sources:spec__ingress_policies__ingress_from__sources list ->
   unit ->
   spec__ingress_policies__ingress_from
 
@@ -85,7 +85,7 @@ type spec__ingress_policies__ingress_to__operations
 
 val spec__ingress_policies__ingress_to__operations :
   ?service_name:string prop ->
-  method_selectors:
+  ?method_selectors:
     spec__ingress_policies__ingress_to__operations__method_selectors
     list ->
   unit ->
@@ -95,15 +95,15 @@ type spec__ingress_policies__ingress_to
 
 val spec__ingress_policies__ingress_to :
   ?resources:string prop list ->
-  operations:spec__ingress_policies__ingress_to__operations list ->
+  ?operations:spec__ingress_policies__ingress_to__operations list ->
   unit ->
   spec__ingress_policies__ingress_to
 
 type spec__ingress_policies
 
 val spec__ingress_policies :
-  ingress_from:spec__ingress_policies__ingress_from list ->
-  ingress_to:spec__ingress_policies__ingress_to list ->
+  ?ingress_from:spec__ingress_policies__ingress_from list ->
+  ?ingress_to:spec__ingress_policies__ingress_to list ->
   unit ->
   spec__ingress_policies
 
@@ -121,9 +121,9 @@ val spec :
   ?access_levels:string prop list ->
   ?resources:string prop list ->
   ?restricted_services:string prop list ->
-  egress_policies:spec__egress_policies list ->
-  ingress_policies:spec__ingress_policies list ->
-  vpc_accessible_services:spec__vpc_accessible_services list ->
+  ?egress_policies:spec__egress_policies list ->
+  ?ingress_policies:spec__ingress_policies list ->
+  ?vpc_accessible_services:spec__vpc_accessible_services list ->
   unit ->
   spec
 
@@ -140,7 +140,7 @@ val status__egress_policies__egress_from :
   ?identities:string prop list ->
   ?identity_type:string prop ->
   ?source_restriction:string prop ->
-  sources:status__egress_policies__egress_from__sources list ->
+  ?sources:status__egress_policies__egress_from__sources list ->
   unit ->
   status__egress_policies__egress_from
 
@@ -156,7 +156,7 @@ type status__egress_policies__egress_to__operations
 
 val status__egress_policies__egress_to__operations :
   ?service_name:string prop ->
-  method_selectors:
+  ?method_selectors:
     status__egress_policies__egress_to__operations__method_selectors
     list ->
   unit ->
@@ -167,15 +167,15 @@ type status__egress_policies__egress_to
 val status__egress_policies__egress_to :
   ?external_resources:string prop list ->
   ?resources:string prop list ->
-  operations:status__egress_policies__egress_to__operations list ->
+  ?operations:status__egress_policies__egress_to__operations list ->
   unit ->
   status__egress_policies__egress_to
 
 type status__egress_policies
 
 val status__egress_policies :
-  egress_from:status__egress_policies__egress_from list ->
-  egress_to:status__egress_policies__egress_to list ->
+  ?egress_from:status__egress_policies__egress_from list ->
+  ?egress_to:status__egress_policies__egress_to list ->
   unit ->
   status__egress_policies
 
@@ -192,7 +192,7 @@ type status__ingress_policies__ingress_from
 val status__ingress_policies__ingress_from :
   ?identities:string prop list ->
   ?identity_type:string prop ->
-  sources:status__ingress_policies__ingress_from__sources list ->
+  ?sources:status__ingress_policies__ingress_from__sources list ->
   unit ->
   status__ingress_policies__ingress_from
 
@@ -208,7 +208,7 @@ type status__ingress_policies__ingress_to__operations
 
 val status__ingress_policies__ingress_to__operations :
   ?service_name:string prop ->
-  method_selectors:
+  ?method_selectors:
     status__ingress_policies__ingress_to__operations__method_selectors
     list ->
   unit ->
@@ -218,15 +218,15 @@ type status__ingress_policies__ingress_to
 
 val status__ingress_policies__ingress_to :
   ?resources:string prop list ->
-  operations:status__ingress_policies__ingress_to__operations list ->
+  ?operations:status__ingress_policies__ingress_to__operations list ->
   unit ->
   status__ingress_policies__ingress_to
 
 type status__ingress_policies
 
 val status__ingress_policies :
-  ingress_from:status__ingress_policies__ingress_from list ->
-  ingress_to:status__ingress_policies__ingress_to list ->
+  ?ingress_from:status__ingress_policies__ingress_from list ->
+  ?ingress_to:status__ingress_policies__ingress_to list ->
   unit ->
   status__ingress_policies
 
@@ -244,9 +244,9 @@ val status :
   ?access_levels:string prop list ->
   ?resources:string prop list ->
   ?restricted_services:string prop list ->
-  egress_policies:status__egress_policies list ->
-  ingress_policies:status__ingress_policies list ->
-  vpc_accessible_services:status__vpc_accessible_services list ->
+  ?egress_policies:status__egress_policies list ->
+  ?ingress_policies:status__ingress_policies list ->
+  ?vpc_accessible_services:status__vpc_accessible_services list ->
   unit ->
   status
 
@@ -266,12 +266,12 @@ val google_access_context_manager_service_perimeter :
   ?id:string prop ->
   ?perimeter_type:string prop ->
   ?use_explicit_dry_run_spec:bool prop ->
+  ?spec:spec list ->
+  ?status:status list ->
   ?timeouts:timeouts ->
   name:string prop ->
   parent:string prop ->
   title:string prop ->
-  spec:spec list ->
-  status:status list ->
   unit ->
   google_access_context_manager_service_perimeter
 
@@ -298,12 +298,12 @@ val register :
   ?id:string prop ->
   ?perimeter_type:string prop ->
   ?use_explicit_dry_run_spec:bool prop ->
+  ?spec:spec list ->
+  ?status:status list ->
   ?timeouts:timeouts ->
   name:string prop ->
   parent:string prop ->
   title:string prop ->
-  spec:spec list ->
-  status:status list ->
   string ->
   t
 
@@ -312,11 +312,11 @@ val make :
   ?id:string prop ->
   ?perimeter_type:string prop ->
   ?use_explicit_dry_run_spec:bool prop ->
+  ?spec:spec list ->
+  ?status:status list ->
   ?timeouts:timeouts ->
   name:string prop ->
   parent:string prop ->
   title:string prop ->
-  spec:spec list ->
-  status:status list ->
   string ->
   t Tf_core.resource

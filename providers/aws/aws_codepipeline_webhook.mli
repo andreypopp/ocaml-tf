@@ -23,11 +23,11 @@ val aws_codepipeline_webhook :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?authentication_configuration:authentication_configuration list ->
   authentication:string prop ->
   name:string prop ->
   target_action:string prop ->
   target_pipeline:string prop ->
-  authentication_configuration:authentication_configuration list ->
   filter:filter list ->
   unit ->
   aws_codepipeline_webhook
@@ -54,11 +54,11 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?authentication_configuration:authentication_configuration list ->
   authentication:string prop ->
   name:string prop ->
   target_action:string prop ->
   target_pipeline:string prop ->
-  authentication_configuration:authentication_configuration list ->
   filter:filter list ->
   string ->
   t
@@ -67,11 +67,11 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?authentication_configuration:authentication_configuration list ->
   authentication:string prop ->
   name:string prop ->
   target_action:string prop ->
   target_pipeline:string prop ->
-  authentication_configuration:authentication_configuration list ->
   filter:filter list ->
   string ->
   t Tf_core.resource

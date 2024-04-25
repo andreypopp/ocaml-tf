@@ -35,11 +35,11 @@ val azurerm_data_factory_dataset_http :
   ?relative_url:string prop ->
   ?request_body:string prop ->
   ?request_method:string prop ->
+  ?schema_column:schema_column list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_name:string prop ->
   name:string prop ->
-  schema_column:schema_column list ->
   unit ->
   azurerm_data_factory_dataset_http
 
@@ -74,11 +74,11 @@ val register :
   ?relative_url:string prop ->
   ?request_body:string prop ->
   ?request_method:string prop ->
+  ?schema_column:schema_column list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_name:string prop ->
   name:string prop ->
-  schema_column:schema_column list ->
   string ->
   t
 
@@ -92,10 +92,10 @@ val make :
   ?relative_url:string prop ->
   ?request_body:string prop ->
   ?request_method:string prop ->
+  ?schema_column:schema_column list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_name:string prop ->
   name:string prop ->
-  schema_column:schema_column list ->
   string ->
   t Tf_core.resource

@@ -604,14 +604,16 @@ let snaplock_configuration__retention_period__minimum_retention
     snaplock_configuration__retention_period__minimum_retention =
   { type_; value }
 
-let snaplock_configuration__retention_period ~default_retention
-    ~maximum_retention ~minimum_retention () :
+let snaplock_configuration__retention_period
+    ?(default_retention = []) ?(maximum_retention = [])
+    ?(minimum_retention = []) () :
     snaplock_configuration__retention_period =
   { default_retention; maximum_retention; minimum_retention }
 
 let snaplock_configuration ?audit_log_volume ?privileged_delete
-    ?volume_append_mode_enabled ~snaplock_type ~autocommit_period
-    ~retention_period () : snaplock_configuration =
+    ?volume_append_mode_enabled ?(autocommit_period = [])
+    ?(retention_period = []) ~snaplock_type () :
+    snaplock_configuration =
   {
     audit_log_volume;
     privileged_delete;
@@ -631,9 +633,9 @@ let aws_fsx_ontap_volume ?bypass_snaplock_enterprise_retention
     ?copy_tags_to_backups ?id ?junction_path ?ontap_volume_type
     ?security_style ?skip_final_backup ?snapshot_policy
     ?storage_efficiency_enabled ?tags ?tags_all ?volume_type
-    ?timeouts ~name ~size_in_megabytes ~storage_virtual_machine_id
-    ~snaplock_configuration ~tiering_policy () : aws_fsx_ontap_volume
-    =
+    ?(snaplock_configuration = []) ?(tiering_policy = []) ?timeouts
+    ~name ~size_in_megabytes ~storage_virtual_machine_id () :
+    aws_fsx_ontap_volume =
   {
     bypass_snaplock_enterprise_retention;
     copy_tags_to_backups;
@@ -680,9 +682,9 @@ type t = {
 let make ?bypass_snaplock_enterprise_retention ?copy_tags_to_backups
     ?id ?junction_path ?ontap_volume_type ?security_style
     ?skip_final_backup ?snapshot_policy ?storage_efficiency_enabled
-    ?tags ?tags_all ?volume_type ?timeouts ~name ~size_in_megabytes
-    ~storage_virtual_machine_id ~snaplock_configuration
-    ~tiering_policy __id =
+    ?tags ?tags_all ?volume_type ?(snaplock_configuration = [])
+    ?(tiering_policy = []) ?timeouts ~name ~size_in_megabytes
+    ~storage_virtual_machine_id __id =
   let __type = "aws_fsx_ontap_volume" in
   let __attrs =
     ({
@@ -726,9 +728,9 @@ let make ?bypass_snaplock_enterprise_retention ?copy_tags_to_backups
            ?copy_tags_to_backups ?id ?junction_path
            ?ontap_volume_type ?security_style ?skip_final_backup
            ?snapshot_policy ?storage_efficiency_enabled ?tags
-           ?tags_all ?volume_type ?timeouts ~name ~size_in_megabytes
-           ~storage_virtual_machine_id ~snaplock_configuration
-           ~tiering_policy ());
+           ?tags_all ?volume_type ~snaplock_configuration
+           ~tiering_policy ?timeouts ~name ~size_in_megabytes
+           ~storage_virtual_machine_id ());
     attrs = __attrs;
   }
 
@@ -736,15 +738,15 @@ let register ?tf_module ?bypass_snaplock_enterprise_retention
     ?copy_tags_to_backups ?id ?junction_path ?ontap_volume_type
     ?security_style ?skip_final_backup ?snapshot_policy
     ?storage_efficiency_enabled ?tags ?tags_all ?volume_type
-    ?timeouts ~name ~size_in_megabytes ~storage_virtual_machine_id
-    ~snaplock_configuration ~tiering_policy __id =
+    ?(snaplock_configuration = []) ?(tiering_policy = []) ?timeouts
+    ~name ~size_in_megabytes ~storage_virtual_machine_id __id =
   let (r : _ Tf_core.resource) =
     make ?bypass_snaplock_enterprise_retention ?copy_tags_to_backups
       ?id ?junction_path ?ontap_volume_type ?security_style
       ?skip_final_backup ?snapshot_policy ?storage_efficiency_enabled
-      ?tags ?tags_all ?volume_type ?timeouts ~name ~size_in_megabytes
-      ~storage_virtual_machine_id ~snaplock_configuration
-      ~tiering_policy __id
+      ?tags ?tags_all ?volume_type ~snaplock_configuration
+      ~tiering_policy ?timeouts ~name ~size_in_megabytes
+      ~storage_virtual_machine_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -588,8 +588,8 @@ let import__wsdl_selector ~endpoint_name ~service_name () :
     import__wsdl_selector =
   { endpoint_name; service_name }
 
-let import ~content_format ~content_value ~wsdl_selector () : import
-    =
+let import ?(wsdl_selector = []) ~content_format ~content_value () :
+    import =
   { content_format; content_value; wsdl_selector }
 
 let license ?name ?url () : license = { name; url }
@@ -613,11 +613,11 @@ let azurerm_api_management_api ?api_type ?description ?display_name
     ?id ?path ?protocols ?revision_description ?service_url
     ?soap_pass_through ?source_api_id ?subscription_required
     ?terms_of_service_url ?version ?version_description
-    ?version_set_id ?timeouts ~api_management_name ~name
-    ~resource_group_name ~revision ~contact ~import ~license
-    ~oauth2_authorization ~openid_authentication
-    ~subscription_key_parameter_names () : azurerm_api_management_api
-    =
+    ?version_set_id ?(contact = []) ?(import = []) ?(license = [])
+    ?(oauth2_authorization = []) ?(openid_authentication = [])
+    ?(subscription_key_parameter_names = []) ?timeouts
+    ~api_management_name ~name ~resource_group_name ~revision () :
+    azurerm_api_management_api =
   {
     api_management_name;
     api_type;
@@ -674,10 +674,11 @@ type t = {
 let make ?api_type ?description ?display_name ?id ?path ?protocols
     ?revision_description ?service_url ?soap_pass_through
     ?source_api_id ?subscription_required ?terms_of_service_url
-    ?version ?version_description ?version_set_id ?timeouts
-    ~api_management_name ~name ~resource_group_name ~revision
-    ~contact ~import ~license ~oauth2_authorization
-    ~openid_authentication ~subscription_key_parameter_names __id =
+    ?version ?version_description ?version_set_id ?(contact = [])
+    ?(import = []) ?(license = []) ?(oauth2_authorization = [])
+    ?(openid_authentication = [])
+    ?(subscription_key_parameter_names = []) ?timeouts
+    ~api_management_name ~name ~resource_group_name ~revision __id =
   let __type = "azurerm_api_management_api" in
   let __attrs =
     ({
@@ -721,10 +722,10 @@ let make ?api_type ?description ?display_name ?id ?path ?protocols
            ?display_name ?id ?path ?protocols ?revision_description
            ?service_url ?soap_pass_through ?source_api_id
            ?subscription_required ?terms_of_service_url ?version
-           ?version_description ?version_set_id ?timeouts
+           ?version_description ?version_set_id ~contact ~import
+           ~license ~oauth2_authorization ~openid_authentication
+           ~subscription_key_parameter_names ?timeouts
            ~api_management_name ~name ~resource_group_name ~revision
-           ~contact ~import ~license ~oauth2_authorization
-           ~openid_authentication ~subscription_key_parameter_names
            ());
     attrs = __attrs;
   }
@@ -733,18 +734,18 @@ let register ?tf_module ?api_type ?description ?display_name ?id
     ?path ?protocols ?revision_description ?service_url
     ?soap_pass_through ?source_api_id ?subscription_required
     ?terms_of_service_url ?version ?version_description
-    ?version_set_id ?timeouts ~api_management_name ~name
-    ~resource_group_name ~revision ~contact ~import ~license
-    ~oauth2_authorization ~openid_authentication
-    ~subscription_key_parameter_names __id =
+    ?version_set_id ?(contact = []) ?(import = []) ?(license = [])
+    ?(oauth2_authorization = []) ?(openid_authentication = [])
+    ?(subscription_key_parameter_names = []) ?timeouts
+    ~api_management_name ~name ~resource_group_name ~revision __id =
   let (r : _ Tf_core.resource) =
     make ?api_type ?description ?display_name ?id ?path ?protocols
       ?revision_description ?service_url ?soap_pass_through
       ?source_api_id ?subscription_required ?terms_of_service_url
-      ?version ?version_description ?version_set_id ?timeouts
-      ~api_management_name ~name ~resource_group_name ~revision
-      ~contact ~import ~license ~oauth2_authorization
-      ~openid_authentication ~subscription_key_parameter_names __id
+      ?version ?version_description ?version_set_id ~contact ~import
+      ~license ~oauth2_authorization ~openid_authentication
+      ~subscription_key_parameter_names ?timeouts
+      ~api_management_name ~name ~resource_group_name ~revision __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

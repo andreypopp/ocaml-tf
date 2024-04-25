@@ -24,11 +24,11 @@ type azurerm_cosmosdb_cassandra_keyspace
 val azurerm_cosmosdb_cassandra_keyspace :
   ?id:string prop ->
   ?throughput:float prop ->
+  ?autoscale_settings:autoscale_settings list ->
   ?timeouts:timeouts ->
   account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  autoscale_settings:autoscale_settings list ->
   unit ->
   azurerm_cosmosdb_cassandra_keyspace
 
@@ -49,21 +49,21 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?throughput:float prop ->
+  ?autoscale_settings:autoscale_settings list ->
   ?timeouts:timeouts ->
   account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  autoscale_settings:autoscale_settings list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?throughput:float prop ->
+  ?autoscale_settings:autoscale_settings list ->
   ?timeouts:timeouts ->
   account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  autoscale_settings:autoscale_settings list ->
   string ->
   t Tf_core.resource

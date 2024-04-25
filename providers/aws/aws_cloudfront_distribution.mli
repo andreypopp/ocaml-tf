@@ -84,11 +84,11 @@ val default_cache_behavior :
   ?smooth_streaming:bool prop ->
   ?trusted_key_groups:string prop list ->
   ?trusted_signers:string prop list ->
+  ?forwarded_values:default_cache_behavior__forwarded_values list ->
   allowed_methods:string prop list ->
   cached_methods:string prop list ->
   target_origin_id:string prop ->
   viewer_protocol_policy:string prop ->
-  forwarded_values:default_cache_behavior__forwarded_values list ->
   function_association:
     default_cache_behavior__function_association list ->
   lambda_function_association:
@@ -155,12 +155,12 @@ val ordered_cache_behavior :
   ?smooth_streaming:bool prop ->
   ?trusted_key_groups:string prop list ->
   ?trusted_signers:string prop list ->
+  ?forwarded_values:ordered_cache_behavior__forwarded_values list ->
   allowed_methods:string prop list ->
   cached_methods:string prop list ->
   path_pattern:string prop ->
   target_origin_id:string prop ->
   viewer_protocol_policy:string prop ->
-  forwarded_values:ordered_cache_behavior__forwarded_values list ->
   function_association:
     ordered_cache_behavior__function_association list ->
   lambda_function_association:
@@ -210,12 +210,12 @@ val origin :
   ?connection_timeout:float prop ->
   ?origin_access_control_id:string prop ->
   ?origin_path:string prop ->
+  ?custom_origin_config:origin__custom_origin_config list ->
+  ?origin_shield:origin__origin_shield list ->
+  ?s3_origin_config:origin__s3_origin_config list ->
   domain_name:string prop ->
   origin_id:string prop ->
   custom_header:origin__custom_header list ->
-  custom_origin_config:origin__custom_origin_config list ->
-  origin_shield:origin__origin_shield list ->
-  s3_origin_config:origin__s3_origin_config list ->
   unit ->
   origin
 
@@ -283,11 +283,11 @@ val aws_cloudfront_distribution :
   ?tags_all:(string * string prop) list ->
   ?wait_for_deployment:bool prop ->
   ?web_acl_id:string prop ->
+  ?logging_config:logging_config list ->
+  ?ordered_cache_behavior:ordered_cache_behavior list ->
   enabled:bool prop ->
   custom_error_response:custom_error_response list ->
   default_cache_behavior:default_cache_behavior list ->
-  logging_config:logging_config list ->
-  ordered_cache_behavior:ordered_cache_behavior list ->
   origin:origin list ->
   origin_group:origin_group list ->
   restrictions:restrictions list ->
@@ -344,11 +344,11 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?wait_for_deployment:bool prop ->
   ?web_acl_id:string prop ->
+  ?logging_config:logging_config list ->
+  ?ordered_cache_behavior:ordered_cache_behavior list ->
   enabled:bool prop ->
   custom_error_response:custom_error_response list ->
   default_cache_behavior:default_cache_behavior list ->
-  logging_config:logging_config list ->
-  ordered_cache_behavior:ordered_cache_behavior list ->
   origin:origin list ->
   origin_group:origin_group list ->
   restrictions:restrictions list ->
@@ -371,11 +371,11 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?wait_for_deployment:bool prop ->
   ?web_acl_id:string prop ->
+  ?logging_config:logging_config list ->
+  ?ordered_cache_behavior:ordered_cache_behavior list ->
   enabled:bool prop ->
   custom_error_response:custom_error_response list ->
   default_cache_behavior:default_cache_behavior list ->
-  logging_config:logging_config list ->
-  ordered_cache_behavior:ordered_cache_behavior list ->
   origin:origin list ->
   origin_group:origin_group list ->
   restrictions:restrictions list ->

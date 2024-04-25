@@ -4272,8 +4272,8 @@ let spec__function__cors__allow_origins ?exact ?prefix ?regex () :
   { exact; prefix; regex }
 
 let spec__function__cors ?allow_credentials ?allow_headers
-    ?allow_methods ?expose_headers ?max_age ~allow_origins () :
-    spec__function__cors =
+    ?allow_methods ?expose_headers ?max_age ?(allow_origins = []) ()
+    : spec__function__cors =
   {
     allow_credentials;
     allow_headers;
@@ -4311,16 +4311,17 @@ let spec__function__log_destination__papertrail ~endpoint () :
     spec__function__log_destination__papertrail =
   { endpoint }
 
-let spec__function__log_destination ~name ~datadog ~logtail
-    ~papertrail () : spec__function__log_destination =
+let spec__function__log_destination ?(datadog = []) ?(logtail = [])
+    ?(papertrail = []) ~name () : spec__function__log_destination =
   { name; datadog; logtail; papertrail }
 
 let spec__function__routes ?path ?preserve_path_prefix () :
     spec__function__routes =
   { path; preserve_path_prefix }
 
-let spec__function ?source_dir ~name ~alert ~cors ~env ~git ~github
-    ~gitlab ~log_destination ~routes () : spec__function =
+let spec__function ?source_dir ?(alert = []) ?(cors = []) ?(git = [])
+    ?(github = []) ?(gitlab = []) ?(log_destination = [])
+    ?(routes = []) ~name ~env () : spec__function =
   {
     name;
     source_dir;
@@ -4343,8 +4344,8 @@ let spec__ingress__rule__cors__allow_origins ?exact ?prefix ?regex ()
   { exact; prefix; regex }
 
 let spec__ingress__rule__cors ?allow_credentials ?allow_headers
-    ?allow_methods ?expose_headers ?max_age ~allow_origins () :
-    spec__ingress__rule__cors =
+    ?allow_methods ?expose_headers ?max_age ?(allow_origins = []) ()
+    : spec__ingress__rule__cors =
   {
     allow_credentials;
     allow_headers;
@@ -4358,19 +4359,19 @@ let spec__ingress__rule__match__path ?prefix () :
     spec__ingress__rule__match__path =
   { prefix }
 
-let spec__ingress__rule__match ~path () : spec__ingress__rule__match
-    =
+let spec__ingress__rule__match ?(path = []) () :
+    spec__ingress__rule__match =
   { path }
 
 let spec__ingress__rule__redirect ?authority ?port ?redirect_code
     ?scheme ?uri () : spec__ingress__rule__redirect =
   { authority; port; redirect_code; scheme; uri }
 
-let spec__ingress__rule ~component ~cors ~match_ ~redirect () :
-    spec__ingress__rule =
+let spec__ingress__rule ?(component = []) ?(cors = []) ?(match_ = [])
+    ?(redirect = []) () : spec__ingress__rule =
   { component; cors; match_; redirect }
 
-let spec__ingress ~rule () : spec__ingress = { rule }
+let spec__ingress ?(rule = []) () : spec__ingress = { rule }
 
 let spec__job__alert ?disabled ~operator ~rule ~value ~window () :
     spec__job__alert =
@@ -4394,8 +4395,8 @@ let spec__job__image__deploy_on_push ?enabled () :
     spec__job__image__deploy_on_push =
   { enabled }
 
-let spec__job__image ?registry ?tag ~registry_type ~repository
-    ~deploy_on_push () : spec__job__image =
+let spec__job__image ?registry ?tag ?(deploy_on_push = [])
+    ~registry_type ~repository () : spec__job__image =
   { registry; registry_type; repository; tag; deploy_on_push }
 
 let spec__job__log_destination__datadog ?endpoint ~api_key () :
@@ -4410,14 +4411,15 @@ let spec__job__log_destination__papertrail ~endpoint () :
     spec__job__log_destination__papertrail =
   { endpoint }
 
-let spec__job__log_destination ~name ~datadog ~logtail ~papertrail ()
-    : spec__job__log_destination =
+let spec__job__log_destination ?(datadog = []) ?(logtail = [])
+    ?(papertrail = []) ~name () : spec__job__log_destination =
   { name; datadog; logtail; papertrail }
 
 let spec__job ?build_command ?dockerfile_path ?environment_slug
     ?instance_count ?instance_size_slug ?kind ?run_command
-    ?source_dir ~name ~alert ~env ~git ~github ~gitlab ~image
-    ~log_destination () : spec__job =
+    ?source_dir ?(alert = []) ?(git = []) ?(github = [])
+    ?(gitlab = []) ?(image = []) ?(log_destination = []) ~name ~env
+    () : spec__job =
   {
     build_command;
     dockerfile_path;
@@ -4446,8 +4448,8 @@ let spec__service__cors__allow_origins ?exact ?prefix ?regex () :
   { exact; prefix; regex }
 
 let spec__service__cors ?allow_credentials ?allow_headers
-    ?allow_methods ?expose_headers ?max_age ~allow_origins () :
-    spec__service__cors =
+    ?allow_methods ?expose_headers ?max_age ?(allow_origins = []) ()
+    : spec__service__cors =
   {
     allow_credentials;
     allow_headers;
@@ -4490,8 +4492,8 @@ let spec__service__image__deploy_on_push ?enabled () :
     spec__service__image__deploy_on_push =
   { enabled }
 
-let spec__service__image ?registry ?tag ~registry_type ~repository
-    ~deploy_on_push () : spec__service__image =
+let spec__service__image ?registry ?tag ?(deploy_on_push = [])
+    ~registry_type ~repository () : spec__service__image =
   { registry; registry_type; repository; tag; deploy_on_push }
 
 let spec__service__log_destination__datadog ?endpoint ~api_key () :
@@ -4506,8 +4508,8 @@ let spec__service__log_destination__papertrail ~endpoint () :
     spec__service__log_destination__papertrail =
   { endpoint }
 
-let spec__service__log_destination ~name ~datadog ~logtail
-    ~papertrail () : spec__service__log_destination =
+let spec__service__log_destination ?(datadog = []) ?(logtail = [])
+    ?(papertrail = []) ~name () : spec__service__log_destination =
   { name; datadog; logtail; papertrail }
 
 let spec__service__routes ?path ?preserve_path_prefix () :
@@ -4516,8 +4518,9 @@ let spec__service__routes ?path ?preserve_path_prefix () :
 
 let spec__service ?build_command ?dockerfile_path ?environment_slug
     ?http_port ?instance_count ?instance_size_slug ?internal_ports
-    ?run_command ?source_dir ~name ~alert ~cors ~env ~git ~github
-    ~gitlab ~health_check ~image ~log_destination ~routes () :
+    ?run_command ?source_dir ?(alert = []) ?(cors = []) ?(git = [])
+    ?(github = []) ?(gitlab = []) ?(health_check = []) ?(image = [])
+    ?(log_destination = []) ?(routes = []) ~name ~env () :
     spec__service =
   {
     build_command;
@@ -4547,8 +4550,8 @@ let spec__static_site__cors__allow_origins ?exact ?prefix ?regex () :
   { exact; prefix; regex }
 
 let spec__static_site__cors ?allow_credentials ?allow_headers
-    ?allow_methods ?expose_headers ?max_age ~allow_origins () :
-    spec__static_site__cors =
+    ?allow_methods ?expose_headers ?max_age ?(allow_origins = []) ()
+    : spec__static_site__cors =
   {
     allow_credentials;
     allow_headers;
@@ -4580,8 +4583,9 @@ let spec__static_site__routes ?path ?preserve_path_prefix () :
 
 let spec__static_site ?build_command ?catchall_document
     ?dockerfile_path ?environment_slug ?error_document
-    ?index_document ?output_dir ?source_dir ~name ~cors ~env ~git
-    ~github ~gitlab ~routes () : spec__static_site =
+    ?index_document ?output_dir ?source_dir ?(cors = []) ?(git = [])
+    ?(github = []) ?(gitlab = []) ?(routes = []) ~name ~env () :
+    spec__static_site =
   {
     build_command;
     catchall_document;
@@ -4624,8 +4628,8 @@ let spec__worker__image__deploy_on_push ?enabled () :
     spec__worker__image__deploy_on_push =
   { enabled }
 
-let spec__worker__image ?registry ?tag ~registry_type ~repository
-    ~deploy_on_push () : spec__worker__image =
+let spec__worker__image ?registry ?tag ?(deploy_on_push = [])
+    ~registry_type ~repository () : spec__worker__image =
   { registry; registry_type; repository; tag; deploy_on_push }
 
 let spec__worker__log_destination__datadog ?endpoint ~api_key () :
@@ -4640,14 +4644,15 @@ let spec__worker__log_destination__papertrail ~endpoint () :
     spec__worker__log_destination__papertrail =
   { endpoint }
 
-let spec__worker__log_destination ~name ~datadog ~logtail ~papertrail
-    () : spec__worker__log_destination =
+let spec__worker__log_destination ?(datadog = []) ?(logtail = [])
+    ?(papertrail = []) ~name () : spec__worker__log_destination =
   { name; datadog; logtail; papertrail }
 
 let spec__worker ?build_command ?dockerfile_path ?environment_slug
     ?instance_count ?instance_size_slug ?run_command ?source_dir
-    ~name ~alert ~env ~git ~github ~gitlab ~image ~log_destination ()
-    : spec__worker =
+    ?(alert = []) ?(git = []) ?(github = []) ?(gitlab = [])
+    ?(image = []) ?(log_destination = []) ~name ~env () :
+    spec__worker =
   {
     build_command;
     dockerfile_path;
@@ -4666,9 +4671,9 @@ let spec__worker ?build_command ?dockerfile_path ?environment_slug
     log_destination;
   }
 
-let spec ?domains ?features ?region ~name ~alert ~database ~domain
-    ~env ~function_ ~ingress ~job ~service ~static_site ~worker () :
-    spec =
+let spec ?domains ?features ?region ?(database = []) ?(domain = [])
+    ?(function_ = []) ?(ingress = []) ?(job = []) ?(service = [])
+    ?(static_site = []) ?(worker = []) ~name ~alert ~env () : spec =
   {
     domains;
     features;
@@ -4688,7 +4693,7 @@ let spec ?domains ?features ?region ~name ~alert ~database ~domain
 
 let timeouts ?create () : timeouts = { create }
 
-let digitalocean_app ?id ?project_id ?timeouts ~spec () :
+let digitalocean_app ?id ?project_id ?(spec = []) ?timeouts () :
     digitalocean_app =
   { id; project_id; spec; timeouts }
 
@@ -4703,7 +4708,7 @@ type t = {
   urn : string prop;
 }
 
-let make ?id ?project_id ?timeouts ~spec __id =
+let make ?id ?project_id ?(spec = []) ?timeouts __id =
   let __type = "digitalocean_app" in
   let __attrs =
     ({
@@ -4724,13 +4729,13 @@ let make ?id ?project_id ?timeouts ~spec __id =
     type_ = __type;
     json =
       yojson_of_digitalocean_app
-        (digitalocean_app ?id ?project_id ?timeouts ~spec ());
+        (digitalocean_app ?id ?project_id ~spec ?timeouts ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project_id ?timeouts ~spec __id =
+let register ?tf_module ?id ?project_id ?(spec = []) ?timeouts __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project_id ?timeouts ~spec __id
+    make ?id ?project_id ~spec ?timeouts __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -367,8 +367,8 @@ let source__custom_log_source_resource ?source_name ?source_version
     () : source__custom_log_source_resource =
   { source_name; source_version }
 
-let source ~aws_log_source_resource ~custom_log_source_resource () :
-    source =
+let source ?(aws_log_source_resource = [])
+    ?(custom_log_source_resource = []) () : source =
   { aws_log_source_resource; custom_log_source_resource }
 
 let subscriber_identity ~external_id ~principal () :
@@ -379,8 +379,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_securitylake_subscriber ?access_type ?subscriber_description
-    ?subscriber_name ?tags ?timeouts ~source ~subscriber_identity ()
-    : aws_securitylake_subscriber =
+    ?subscriber_name ?tags ?(source = []) ?(subscriber_identity = [])
+    ?timeouts () : aws_securitylake_subscriber =
   {
     access_type;
     subscriber_description;
@@ -408,7 +408,7 @@ type t = {
 }
 
 let make ?access_type ?subscriber_description ?subscriber_name ?tags
-    ?timeouts ~source ~subscriber_identity __id =
+    ?(source = []) ?(subscriber_identity = []) ?timeouts __id =
   let __type = "aws_securitylake_subscriber" in
   let __attrs =
     ({
@@ -439,17 +439,17 @@ let make ?access_type ?subscriber_description ?subscriber_name ?tags
     json =
       yojson_of_aws_securitylake_subscriber
         (aws_securitylake_subscriber ?access_type
-           ?subscriber_description ?subscriber_name ?tags ?timeouts
-           ~source ~subscriber_identity ());
+           ?subscriber_description ?subscriber_name ?tags ~source
+           ~subscriber_identity ?timeouts ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?access_type ?subscriber_description
-    ?subscriber_name ?tags ?timeouts ~source ~subscriber_identity
-    __id =
+    ?subscriber_name ?tags ?(source = []) ?(subscriber_identity = [])
+    ?timeouts __id =
   let (r : _ Tf_core.resource) =
     make ?access_type ?subscriber_description ?subscriber_name ?tags
-      ?timeouts ~source ~subscriber_identity __id
+      ~source ~subscriber_identity ?timeouts __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -181,8 +181,9 @@ let fair_share_policy ?compute_reservation ?share_decay_seconds
     ~share_distribution () : fair_share_policy =
   { compute_reservation; share_decay_seconds; share_distribution }
 
-let aws_batch_scheduling_policy ?id ?tags ?tags_all ~name
-    ~fair_share_policy () : aws_batch_scheduling_policy =
+let aws_batch_scheduling_policy ?id ?tags ?tags_all
+    ?(fair_share_policy = []) ~name () : aws_batch_scheduling_policy
+    =
   { id; name; tags; tags_all; fair_share_policy }
 
 type t = {
@@ -193,7 +194,7 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?tags ?tags_all ~name ~fair_share_policy __id =
+let make ?id ?tags ?tags_all ?(fair_share_policy = []) ~name __id =
   let __type = "aws_batch_scheduling_policy" in
   let __attrs =
     ({
@@ -210,15 +211,15 @@ let make ?id ?tags ?tags_all ~name ~fair_share_policy __id =
     type_ = __type;
     json =
       yojson_of_aws_batch_scheduling_policy
-        (aws_batch_scheduling_policy ?id ?tags ?tags_all ~name
-           ~fair_share_policy ());
+        (aws_batch_scheduling_policy ?id ?tags ?tags_all
+           ~fair_share_policy ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ~name ~fair_share_policy
-    __id =
+let register ?tf_module ?id ?tags ?tags_all ?(fair_share_policy = [])
+    ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~name ~fair_share_policy __id
+    make ?id ?tags ?tags_all ~fair_share_policy ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

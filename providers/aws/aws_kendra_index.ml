@@ -813,8 +813,9 @@ let document_metadata_configuration_updates__search ?displayable
     document_metadata_configuration_updates__search =
   { displayable; facetable; searchable; sortable }
 
-let document_metadata_configuration_updates ~name ~type_ ~relevance
-    ~search () : document_metadata_configuration_updates =
+let document_metadata_configuration_updates ?(relevance = [])
+    ?(search = []) ~name ~type_ () :
+    document_metadata_configuration_updates =
   { name; type_; relevance; search }
 
 let server_side_encryption_configuration ?kms_key_id () :
@@ -847,16 +848,17 @@ let user_token_configurations__jwt_token_type_configuration
     user_name_attribute_field;
   }
 
-let user_token_configurations ~json_token_type_configuration
-    ~jwt_token_type_configuration () : user_token_configurations =
+let user_token_configurations ?(json_token_type_configuration = [])
+    ?(jwt_token_type_configuration = []) () :
+    user_token_configurations =
   { json_token_type_configuration; jwt_token_type_configuration }
 
 let aws_kendra_index ?description ?edition ?id ?tags ?tags_all
-    ?user_context_policy ?timeouts ~name ~role_arn ~capacity_units
-    ~document_metadata_configuration_updates
-    ~server_side_encryption_configuration
-    ~user_group_resolution_configuration ~user_token_configurations
-    () : aws_kendra_index =
+    ?user_context_policy ?(capacity_units = [])
+    ?(server_side_encryption_configuration = []) ?timeouts
+    ?(user_group_resolution_configuration = [])
+    ?(user_token_configurations = []) ~name ~role_arn
+    ~document_metadata_configuration_updates () : aws_kendra_index =
   {
     description;
     edition;
@@ -892,11 +894,11 @@ type t = {
 }
 
 let make ?description ?edition ?id ?tags ?tags_all
-    ?user_context_policy ?timeouts ~name ~role_arn ~capacity_units
-    ~document_metadata_configuration_updates
-    ~server_side_encryption_configuration
-    ~user_group_resolution_configuration ~user_token_configurations
-    __id =
+    ?user_context_policy ?(capacity_units = [])
+    ?(server_side_encryption_configuration = []) ?timeouts
+    ?(user_group_resolution_configuration = [])
+    ?(user_token_configurations = []) ~name ~role_arn
+    ~document_metadata_configuration_updates __id =
   let __type = "aws_kendra_index" in
   let __attrs =
     ({
@@ -925,27 +927,26 @@ let make ?description ?edition ?id ?tags ?tags_all
     json =
       yojson_of_aws_kendra_index
         (aws_kendra_index ?description ?edition ?id ?tags ?tags_all
-           ?user_context_policy ?timeouts ~name ~role_arn
-           ~capacity_units ~document_metadata_configuration_updates
-           ~server_side_encryption_configuration
+           ?user_context_policy ~capacity_units
+           ~server_side_encryption_configuration ?timeouts
            ~user_group_resolution_configuration
-           ~user_token_configurations ());
+           ~user_token_configurations ~name ~role_arn
+           ~document_metadata_configuration_updates ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?edition ?id ?tags ?tags_all
-    ?user_context_policy ?timeouts ~name ~role_arn ~capacity_units
-    ~document_metadata_configuration_updates
-    ~server_side_encryption_configuration
-    ~user_group_resolution_configuration ~user_token_configurations
-    __id =
+    ?user_context_policy ?(capacity_units = [])
+    ?(server_side_encryption_configuration = []) ?timeouts
+    ?(user_group_resolution_configuration = [])
+    ?(user_token_configurations = []) ~name ~role_arn
+    ~document_metadata_configuration_updates __id =
   let (r : _ Tf_core.resource) =
     make ?description ?edition ?id ?tags ?tags_all
-      ?user_context_policy ?timeouts ~name ~role_arn ~capacity_units
-      ~document_metadata_configuration_updates
-      ~server_side_encryption_configuration
+      ?user_context_policy ~capacity_units
+      ~server_side_encryption_configuration ?timeouts
       ~user_group_resolution_configuration ~user_token_configurations
-      __id
+      ~name ~role_arn ~document_metadata_configuration_updates __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

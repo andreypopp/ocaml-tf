@@ -250,11 +250,12 @@ let trust_stores__trust_anchors ?pem_certificate () :
     trust_stores__trust_anchors =
   { pem_certificate }
 
-let trust_stores ~intermediate_cas ~trust_anchors () : trust_stores =
+let trust_stores ?(intermediate_cas = []) ?(trust_anchors = []) () :
+    trust_stores =
   { intermediate_cas; trust_anchors }
 
 let google_certificate_manager_trust_config ?description ?id ?labels
-    ?project ?timeouts ~location ~name ~trust_stores () :
+    ?project ?timeouts ?(trust_stores = []) ~location ~name () :
     google_certificate_manager_trust_config =
   {
     description;
@@ -280,8 +281,8 @@ type t = {
   update_time : string prop;
 }
 
-let make ?description ?id ?labels ?project ?timeouts ~location ~name
-    ~trust_stores __id =
+let make ?description ?id ?labels ?project ?timeouts
+    ?(trust_stores = []) ~location ~name __id =
   let __type = "google_certificate_manager_trust_config" in
   let __attrs =
     ({
@@ -306,16 +307,16 @@ let make ?description ?id ?labels ?project ?timeouts ~location ~name
     json =
       yojson_of_google_certificate_manager_trust_config
         (google_certificate_manager_trust_config ?description ?id
-           ?labels ?project ?timeouts ~location ~name ~trust_stores
+           ?labels ?project ?timeouts ~trust_stores ~location ~name
            ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?labels ?project ?timeouts
-    ~location ~name ~trust_stores __id =
+    ?(trust_stores = []) ~location ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?labels ?project ?timeouts ~location ~name
-      ~trust_stores __id
+    make ?description ?id ?labels ?project ?timeouts ~trust_stores
+      ~location ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -122,9 +122,9 @@ let _ = yojson_of_google_dataproc_cluster_iam_member
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_dataproc_cluster_iam_member ?id ?project ?region ~cluster
-    ~member ~role ~condition () : google_dataproc_cluster_iam_member
-    =
+let google_dataproc_cluster_iam_member ?id ?project ?region
+    ?(condition = []) ~cluster ~member ~role () :
+    google_dataproc_cluster_iam_member =
   { cluster; id; member; project; region; role; condition }
 
 type t = {
@@ -137,8 +137,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?project ?region ~cluster ~member ~role ~condition __id
-    =
+let make ?id ?project ?region ?(condition = []) ~cluster ~member
+    ~role __id =
   let __type = "google_dataproc_cluster_iam_member" in
   let __attrs =
     ({
@@ -158,14 +158,14 @@ let make ?id ?project ?region ~cluster ~member ~role ~condition __id
     json =
       yojson_of_google_dataproc_cluster_iam_member
         (google_dataproc_cluster_iam_member ?id ?project ?region
-           ~cluster ~member ~role ~condition ());
+           ~condition ~cluster ~member ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ?region ~cluster ~member ~role
-    ~condition __id =
+let register ?tf_module ?id ?project ?region ?(condition = [])
+    ~cluster ~member ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ?region ~cluster ~member ~role ~condition __id
+    make ?id ?project ?region ~condition ~cluster ~member ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

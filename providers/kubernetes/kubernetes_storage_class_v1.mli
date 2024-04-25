@@ -15,7 +15,7 @@ val allowed_topologies__match_label_expressions :
 type allowed_topologies
 
 val allowed_topologies :
-  match_label_expressions:
+  ?match_label_expressions:
     allowed_topologies__match_label_expressions list ->
   unit ->
   allowed_topologies
@@ -39,8 +39,8 @@ val kubernetes_storage_class_v1 :
   ?parameters:(string * string prop) list ->
   ?reclaim_policy:string prop ->
   ?volume_binding_mode:string prop ->
+  ?allowed_topologies:allowed_topologies list ->
   storage_provisioner:string prop ->
-  allowed_topologies:allowed_topologies list ->
   metadata:metadata list ->
   unit ->
   kubernetes_storage_class_v1
@@ -68,8 +68,8 @@ val register :
   ?parameters:(string * string prop) list ->
   ?reclaim_policy:string prop ->
   ?volume_binding_mode:string prop ->
+  ?allowed_topologies:allowed_topologies list ->
   storage_provisioner:string prop ->
-  allowed_topologies:allowed_topologies list ->
   metadata:metadata list ->
   string ->
   t
@@ -81,8 +81,8 @@ val make :
   ?parameters:(string * string prop) list ->
   ?reclaim_policy:string prop ->
   ?volume_binding_mode:string prop ->
+  ?allowed_topologies:allowed_topologies list ->
   storage_provisioner:string prop ->
-  allowed_topologies:allowed_topologies list ->
   metadata:metadata list ->
   string ->
   t Tf_core.resource

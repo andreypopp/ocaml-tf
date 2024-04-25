@@ -118,9 +118,9 @@ let _ = yojson_of_google_bigquery_table_iam_member
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_bigquery_table_iam_member ?id ?project ~dataset_id ~member
-    ~role ~table_id ~condition () : google_bigquery_table_iam_member
-    =
+let google_bigquery_table_iam_member ?id ?project ?(condition = [])
+    ~dataset_id ~member ~role ~table_id () :
+    google_bigquery_table_iam_member =
   { dataset_id; id; member; project; role; table_id; condition }
 
 type t = {
@@ -133,8 +133,8 @@ type t = {
   table_id : string prop;
 }
 
-let make ?id ?project ~dataset_id ~member ~role ~table_id ~condition
-    __id =
+let make ?id ?project ?(condition = []) ~dataset_id ~member ~role
+    ~table_id __id =
   let __type = "google_bigquery_table_iam_member" in
   let __attrs =
     ({
@@ -153,15 +153,15 @@ let make ?id ?project ~dataset_id ~member ~role ~table_id ~condition
     type_ = __type;
     json =
       yojson_of_google_bigquery_table_iam_member
-        (google_bigquery_table_iam_member ?id ?project ~dataset_id
-           ~member ~role ~table_id ~condition ());
+        (google_bigquery_table_iam_member ?id ?project ~condition
+           ~dataset_id ~member ~role ~table_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ~dataset_id ~member ~role
-    ~table_id ~condition __id =
+let register ?tf_module ?id ?project ?(condition = []) ~dataset_id
+    ~member ~role ~table_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ~dataset_id ~member ~role ~table_id ~condition
+    make ?id ?project ~condition ~dataset_id ~member ~role ~table_id
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

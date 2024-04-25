@@ -43,11 +43,11 @@ val actions__finding_fields_update :
   ?types:string prop list ->
   ?user_defined_fields:(string * string prop) list ->
   ?verification_state:string prop ->
-  note:actions__finding_fields_update__note list ->
+  ?note:actions__finding_fields_update__note list ->
+  ?severity:actions__finding_fields_update__severity list ->
+  ?workflow:actions__finding_fields_update__workflow list ->
   related_findings:
     actions__finding_fields_update__related_findings list ->
-  severity:actions__finding_fields_update__severity list ->
-  workflow:actions__finding_fields_update__workflow list ->
   unit ->
   actions__finding_fields_update
 
@@ -55,7 +55,7 @@ type actions
 
 val actions :
   ?type_:string prop ->
-  finding_fields_update:actions__finding_fields_update list ->
+  ?finding_fields_update:actions__finding_fields_update list ->
   unit ->
   actions
 
@@ -131,7 +131,7 @@ type criteria__created_at
 val criteria__created_at :
   ?end_:string prop ->
   ?start:string prop ->
-  date_range:criteria__created_at__date_range list ->
+  ?date_range:criteria__created_at__date_range list ->
   unit ->
   criteria__created_at
 
@@ -167,7 +167,7 @@ type criteria__first_observed_at
 val criteria__first_observed_at :
   ?end_:string prop ->
   ?start:string prop ->
-  date_range:criteria__first_observed_at__date_range list ->
+  ?date_range:criteria__first_observed_at__date_range list ->
   unit ->
   criteria__first_observed_at
 
@@ -197,7 +197,7 @@ type criteria__last_observed_at
 val criteria__last_observed_at :
   ?end_:string prop ->
   ?start:string prop ->
-  date_range:criteria__last_observed_at__date_range list ->
+  ?date_range:criteria__last_observed_at__date_range list ->
   unit ->
   criteria__last_observed_at
 
@@ -222,7 +222,7 @@ type criteria__note_updated_at
 val criteria__note_updated_at :
   ?end_:string prop ->
   ?start:string prop ->
-  date_range:criteria__note_updated_at__date_range list ->
+  ?date_range:criteria__note_updated_at__date_range list ->
   unit ->
   criteria__note_updated_at
 
@@ -385,7 +385,7 @@ type criteria__updated_at
 val criteria__updated_at :
   ?end_:string prop ->
   ?start:string prop ->
-  date_range:criteria__updated_at__date_range list ->
+  ?date_range:criteria__updated_at__date_range list ->
   unit ->
   criteria__updated_at
 
@@ -467,11 +467,11 @@ val aws_securityhub_automation_rule :
   ?is_terminal:bool prop ->
   ?rule_status:string prop ->
   ?tags:(string * string prop) list ->
+  ?criteria:criteria list ->
   description:string prop ->
   rule_name:string prop ->
   rule_order:float prop ->
   actions:actions list ->
-  criteria:criteria list ->
   unit ->
   aws_securityhub_automation_rule
 
@@ -497,11 +497,11 @@ val register :
   ?is_terminal:bool prop ->
   ?rule_status:string prop ->
   ?tags:(string * string prop) list ->
+  ?criteria:criteria list ->
   description:string prop ->
   rule_name:string prop ->
   rule_order:float prop ->
   actions:actions list ->
-  criteria:criteria list ->
   string ->
   t
 
@@ -509,10 +509,10 @@ val make :
   ?is_terminal:bool prop ->
   ?rule_status:string prop ->
   ?tags:(string * string prop) list ->
+  ?criteria:criteria list ->
   description:string prop ->
   rule_name:string prop ->
   rule_order:float prop ->
   actions:actions list ->
-  criteria:criteria list ->
   string ->
   t Tf_core.resource

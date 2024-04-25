@@ -497,9 +497,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_bigquery_routine ?description ?determinism_level ?id
     ?imported_libraries ?language ?project ?return_table_type
-    ?return_type ?timeouts ~dataset_id ~definition_body ~routine_id
-    ~routine_type ~arguments ~remote_function_options ~spark_options
-    () : google_bigquery_routine =
+    ?return_type ?(arguments = []) ?(remote_function_options = [])
+    ?(spark_options = []) ?timeouts ~dataset_id ~definition_body
+    ~routine_id ~routine_type () : google_bigquery_routine =
   {
     dataset_id;
     definition_body;
@@ -537,9 +537,10 @@ type t = {
 }
 
 let make ?description ?determinism_level ?id ?imported_libraries
-    ?language ?project ?return_table_type ?return_type ?timeouts
-    ~dataset_id ~definition_body ~routine_id ~routine_type ~arguments
-    ~remote_function_options ~spark_options __id =
+    ?language ?project ?return_table_type ?return_type
+    ?(arguments = []) ?(remote_function_options = [])
+    ?(spark_options = []) ?timeouts ~dataset_id ~definition_body
+    ~routine_id ~routine_type __id =
   let __type = "google_bigquery_routine" in
   let __attrs =
     ({
@@ -571,22 +572,22 @@ let make ?description ?determinism_level ?id ?imported_libraries
       yojson_of_google_bigquery_routine
         (google_bigquery_routine ?description ?determinism_level ?id
            ?imported_libraries ?language ?project ?return_table_type
-           ?return_type ?timeouts ~dataset_id ~definition_body
-           ~routine_id ~routine_type ~arguments
-           ~remote_function_options ~spark_options ());
+           ?return_type ~arguments ~remote_function_options
+           ~spark_options ?timeouts ~dataset_id ~definition_body
+           ~routine_id ~routine_type ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?determinism_level ?id
     ?imported_libraries ?language ?project ?return_table_type
-    ?return_type ?timeouts ~dataset_id ~definition_body ~routine_id
-    ~routine_type ~arguments ~remote_function_options ~spark_options
-    __id =
+    ?return_type ?(arguments = []) ?(remote_function_options = [])
+    ?(spark_options = []) ?timeouts ~dataset_id ~definition_body
+    ~routine_id ~routine_type __id =
   let (r : _ Tf_core.resource) =
     make ?description ?determinism_level ?id ?imported_libraries
-      ?language ?project ?return_table_type ?return_type ?timeouts
-      ~dataset_id ~definition_body ~routine_id ~routine_type
-      ~arguments ~remote_function_options ~spark_options __id
+      ?language ?project ?return_table_type ?return_type ~arguments
+      ~remote_function_options ~spark_options ?timeouts ~dataset_id
+      ~definition_body ~routine_id ~routine_type __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -23,10 +23,10 @@ type google_healthcare_dicom_store
 val google_healthcare_dicom_store :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
+  ?notification_config:notification_config list ->
   ?timeouts:timeouts ->
   dataset:string prop ->
   name:string prop ->
-  notification_config:notification_config list ->
   unit ->
   google_healthcare_dicom_store
 
@@ -49,19 +49,19 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
+  ?notification_config:notification_config list ->
   ?timeouts:timeouts ->
   dataset:string prop ->
   name:string prop ->
-  notification_config:notification_config list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
+  ?notification_config:notification_config list ->
   ?timeouts:timeouts ->
   dataset:string prop ->
   name:string prop ->
-  notification_config:notification_config list ->
   string ->
   t Tf_core.resource

@@ -461,9 +461,10 @@ let vsts_configuration ?publishing_enabled ~account_name ~branch_name
 let azurerm_data_factory ?customer_managed_key_id
     ?customer_managed_key_identity_id ?id
     ?managed_virtual_network_enabled ?public_network_enabled
-    ?purview_id ?tags ?timeouts ~location ~name ~resource_group_name
-    ~github_configuration ~global_parameter ~identity
-    ~vsts_configuration () : azurerm_data_factory =
+    ?purview_id ?tags ?(github_configuration = []) ?(identity = [])
+    ?timeouts ?(vsts_configuration = []) ~location ~name
+    ~resource_group_name ~global_parameter () : azurerm_data_factory
+    =
   {
     customer_managed_key_id;
     customer_managed_key_identity_id;
@@ -497,9 +498,9 @@ type t = {
 
 let make ?customer_managed_key_id ?customer_managed_key_identity_id
     ?id ?managed_virtual_network_enabled ?public_network_enabled
-    ?purview_id ?tags ?timeouts ~location ~name ~resource_group_name
-    ~github_configuration ~global_parameter ~identity
-    ~vsts_configuration __id =
+    ?purview_id ?tags ?(github_configuration = []) ?(identity = [])
+    ?timeouts ?(vsts_configuration = []) ~location ~name
+    ~resource_group_name ~global_parameter __id =
   let __type = "azurerm_data_factory" in
   let __attrs =
     ({
@@ -529,24 +530,24 @@ let make ?customer_managed_key_id ?customer_managed_key_identity_id
         (azurerm_data_factory ?customer_managed_key_id
            ?customer_managed_key_identity_id ?id
            ?managed_virtual_network_enabled ?public_network_enabled
-           ?purview_id ?tags ?timeouts ~location ~name
-           ~resource_group_name ~github_configuration
-           ~global_parameter ~identity ~vsts_configuration ());
+           ?purview_id ?tags ~github_configuration ~identity
+           ?timeouts ~vsts_configuration ~location ~name
+           ~resource_group_name ~global_parameter ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?customer_managed_key_id
     ?customer_managed_key_identity_id ?id
     ?managed_virtual_network_enabled ?public_network_enabled
-    ?purview_id ?tags ?timeouts ~location ~name ~resource_group_name
-    ~github_configuration ~global_parameter ~identity
-    ~vsts_configuration __id =
+    ?purview_id ?tags ?(github_configuration = []) ?(identity = [])
+    ?timeouts ?(vsts_configuration = []) ~location ~name
+    ~resource_group_name ~global_parameter __id =
   let (r : _ Tf_core.resource) =
     make ?customer_managed_key_id ?customer_managed_key_identity_id
       ?id ?managed_virtual_network_enabled ?public_network_enabled
-      ?purview_id ?tags ?timeouts ~location ~name
-      ~resource_group_name ~github_configuration ~global_parameter
-      ~identity ~vsts_configuration __id
+      ?purview_id ?tags ~github_configuration ~identity ?timeouts
+      ~vsts_configuration ~location ~name ~resource_group_name
+      ~global_parameter __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

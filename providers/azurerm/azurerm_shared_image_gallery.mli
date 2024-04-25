@@ -17,8 +17,8 @@ val sharing__community_gallery :
 type sharing
 
 val sharing :
+  ?community_gallery:sharing__community_gallery list ->
   permission:string prop ->
-  community_gallery:sharing__community_gallery list ->
   unit ->
   sharing
 
@@ -38,11 +38,11 @@ val azurerm_shared_image_gallery :
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?sharing:sharing list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  sharing:sharing list ->
   unit ->
   azurerm_shared_image_gallery
 
@@ -66,11 +66,11 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?sharing:sharing list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  sharing:sharing list ->
   string ->
   t
 
@@ -78,10 +78,10 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?sharing:sharing list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  sharing:sharing list ->
   string ->
   t Tf_core.resource

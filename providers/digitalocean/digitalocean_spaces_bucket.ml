@@ -369,9 +369,9 @@ let lifecycle_rule ?abort_incomplete_multipart_upload_days ?id
 
 let versioning ?enabled () : versioning = { enabled }
 
-let digitalocean_spaces_bucket ?acl ?force_destroy ?id ?region ~name
-    ~cors_rule ~lifecycle_rule ~versioning () :
-    digitalocean_spaces_bucket =
+let digitalocean_spaces_bucket ?acl ?force_destroy ?id ?region
+    ?(cors_rule = []) ?(lifecycle_rule = []) ?(versioning = []) ~name
+    () : digitalocean_spaces_bucket =
   {
     acl;
     force_destroy;
@@ -394,8 +394,8 @@ type t = {
   urn : string prop;
 }
 
-let make ?acl ?force_destroy ?id ?region ~name ~cors_rule
-    ~lifecycle_rule ~versioning __id =
+let make ?acl ?force_destroy ?id ?region ?(cors_rule = [])
+    ?(lifecycle_rule = []) ?(versioning = []) ~name __id =
   let __type = "digitalocean_spaces_bucket" in
   let __attrs =
     ({
@@ -417,15 +417,16 @@ let make ?acl ?force_destroy ?id ?region ~name ~cors_rule
     json =
       yojson_of_digitalocean_spaces_bucket
         (digitalocean_spaces_bucket ?acl ?force_destroy ?id ?region
-           ~name ~cors_rule ~lifecycle_rule ~versioning ());
+           ~cors_rule ~lifecycle_rule ~versioning ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?acl ?force_destroy ?id ?region ~name
-    ~cors_rule ~lifecycle_rule ~versioning __id =
+let register ?tf_module ?acl ?force_destroy ?id ?region
+    ?(cors_rule = []) ?(lifecycle_rule = []) ?(versioning = []) ~name
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?acl ?force_destroy ?id ?region ~name ~cors_rule
-      ~lifecycle_rule ~versioning __id
+    make ?acl ?force_destroy ?id ?region ~cors_rule ~lifecycle_rule
+      ~versioning ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

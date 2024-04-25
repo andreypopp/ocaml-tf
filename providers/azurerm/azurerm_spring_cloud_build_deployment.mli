@@ -26,11 +26,11 @@ val azurerm_spring_cloud_build_deployment :
   ?environment_variables:(string * string prop) list ->
   ?id:string prop ->
   ?instance_count:float prop ->
+  ?quota:quota list ->
   ?timeouts:timeouts ->
   build_result_id:string prop ->
   name:string prop ->
   spring_cloud_app_id:string prop ->
-  quota:quota list ->
   unit ->
   azurerm_spring_cloud_build_deployment
 
@@ -57,11 +57,11 @@ val register :
   ?environment_variables:(string * string prop) list ->
   ?id:string prop ->
   ?instance_count:float prop ->
+  ?quota:quota list ->
   ?timeouts:timeouts ->
   build_result_id:string prop ->
   name:string prop ->
   spring_cloud_app_id:string prop ->
-  quota:quota list ->
   string ->
   t
 
@@ -71,10 +71,10 @@ val make :
   ?environment_variables:(string * string prop) list ->
   ?id:string prop ->
   ?instance_count:float prop ->
+  ?quota:quota list ->
   ?timeouts:timeouts ->
   build_result_id:string prop ->
   name:string prop ->
   spring_cloud_app_id:string prop ->
-  quota:quota list ->
   string ->
   t Tf_core.resource

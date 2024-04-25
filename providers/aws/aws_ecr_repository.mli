@@ -29,10 +29,10 @@ val aws_ecr_repository :
   ?image_tag_mutability:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?encryption_configuration:encryption_configuration list ->
+  ?image_scanning_configuration:image_scanning_configuration list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  encryption_configuration:encryption_configuration list ->
-  image_scanning_configuration:image_scanning_configuration list ->
   unit ->
   aws_ecr_repository
 
@@ -59,10 +59,10 @@ val register :
   ?image_tag_mutability:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?encryption_configuration:encryption_configuration list ->
+  ?image_scanning_configuration:image_scanning_configuration list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  encryption_configuration:encryption_configuration list ->
-  image_scanning_configuration:image_scanning_configuration list ->
   string ->
   t
 
@@ -72,9 +72,9 @@ val make :
   ?image_tag_mutability:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?encryption_configuration:encryption_configuration list ->
+  ?image_scanning_configuration:image_scanning_configuration list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  encryption_configuration:encryption_configuration list ->
-  image_scanning_configuration:image_scanning_configuration list ->
   string ->
   t Tf_core.resource

@@ -35,11 +35,11 @@ val azurerm_servicebus_subscription_rule :
   ?action:string prop ->
   ?id:string prop ->
   ?sql_filter:string prop ->
+  ?correlation_filter:correlation_filter list ->
   ?timeouts:timeouts ->
   filter_type:string prop ->
   name:string prop ->
   subscription_id:string prop ->
-  correlation_filter:correlation_filter list ->
   unit ->
   azurerm_servicebus_subscription_rule
 
@@ -63,11 +63,11 @@ val register :
   ?action:string prop ->
   ?id:string prop ->
   ?sql_filter:string prop ->
+  ?correlation_filter:correlation_filter list ->
   ?timeouts:timeouts ->
   filter_type:string prop ->
   name:string prop ->
   subscription_id:string prop ->
-  correlation_filter:correlation_filter list ->
   string ->
   t
 
@@ -75,10 +75,10 @@ val make :
   ?action:string prop ->
   ?id:string prop ->
   ?sql_filter:string prop ->
+  ?correlation_filter:correlation_filter list ->
   ?timeouts:timeouts ->
   filter_type:string prop ->
   name:string prop ->
   subscription_id:string prop ->
-  correlation_filter:correlation_filter list ->
   string ->
   t Tf_core.resource

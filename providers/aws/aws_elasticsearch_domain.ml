@@ -1036,7 +1036,8 @@ let advanced_security_options__master_user_options ?master_user_arn
   { master_user_arn; master_user_name; master_user_password }
 
 let advanced_security_options ?internal_user_database_enabled
-    ~enabled ~master_user_options () : advanced_security_options =
+    ?(master_user_options = []) ~enabled () :
+    advanced_security_options =
   { enabled; internal_user_database_enabled; master_user_options }
 
 let auto_tune_options__maintenance_schedule__duration ~unit ~value ()
@@ -1063,8 +1064,8 @@ let cluster_config__zone_awareness_config ?availability_zone_count ()
 let cluster_config ?dedicated_master_count ?dedicated_master_enabled
     ?dedicated_master_type ?instance_count ?instance_type ?warm_count
     ?warm_enabled ?warm_type ?zone_awareness_enabled
-    ~cold_storage_options ~zone_awareness_config () : cluster_config
-    =
+    ?(cold_storage_options = []) ?(zone_awareness_config = []) () :
+    cluster_config =
   {
     dedicated_master_count;
     dedicated_master_enabled;
@@ -1120,11 +1121,14 @@ let vpc_options ?security_group_ids ?subnet_ids () : vpc_options =
   { security_group_ids; subnet_ids }
 
 let aws_elasticsearch_domain ?access_policies ?advanced_options
-    ?elasticsearch_version ?id ?tags ?tags_all ?timeouts ~domain_name
-    ~advanced_security_options ~auto_tune_options ~cluster_config
-    ~cognito_options ~domain_endpoint_options ~ebs_options
-    ~encrypt_at_rest ~log_publishing_options ~node_to_node_encryption
-    ~snapshot_options ~vpc_options () : aws_elasticsearch_domain =
+    ?elasticsearch_version ?id ?tags ?tags_all
+    ?(advanced_security_options = []) ?(auto_tune_options = [])
+    ?(cluster_config = []) ?(cognito_options = [])
+    ?(domain_endpoint_options = []) ?(ebs_options = [])
+    ?(encrypt_at_rest = []) ?(node_to_node_encryption = [])
+    ?(snapshot_options = []) ?timeouts ?(vpc_options = [])
+    ~domain_name ~log_publishing_options () :
+    aws_elasticsearch_domain =
   {
     access_policies;
     advanced_options;
@@ -1162,11 +1166,13 @@ type t = {
 }
 
 let make ?access_policies ?advanced_options ?elasticsearch_version
-    ?id ?tags ?tags_all ?timeouts ~domain_name
-    ~advanced_security_options ~auto_tune_options ~cluster_config
-    ~cognito_options ~domain_endpoint_options ~ebs_options
-    ~encrypt_at_rest ~log_publishing_options ~node_to_node_encryption
-    ~snapshot_options ~vpc_options __id =
+    ?id ?tags ?tags_all ?(advanced_security_options = [])
+    ?(auto_tune_options = []) ?(cluster_config = [])
+    ?(cognito_options = []) ?(domain_endpoint_options = [])
+    ?(ebs_options = []) ?(encrypt_at_rest = [])
+    ?(node_to_node_encryption = []) ?(snapshot_options = [])
+    ?timeouts ?(vpc_options = []) ~domain_name
+    ~log_publishing_options __id =
   let __type = "aws_elasticsearch_domain" in
   let __attrs =
     ({
@@ -1192,27 +1198,30 @@ let make ?access_policies ?advanced_options ?elasticsearch_version
     json =
       yojson_of_aws_elasticsearch_domain
         (aws_elasticsearch_domain ?access_policies ?advanced_options
-           ?elasticsearch_version ?id ?tags ?tags_all ?timeouts
-           ~domain_name ~advanced_security_options ~auto_tune_options
+           ?elasticsearch_version ?id ?tags ?tags_all
+           ~advanced_security_options ~auto_tune_options
            ~cluster_config ~cognito_options ~domain_endpoint_options
-           ~ebs_options ~encrypt_at_rest ~log_publishing_options
-           ~node_to_node_encryption ~snapshot_options ~vpc_options ());
+           ~ebs_options ~encrypt_at_rest ~node_to_node_encryption
+           ~snapshot_options ?timeouts ~vpc_options ~domain_name
+           ~log_publishing_options ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?access_policies ?advanced_options
-    ?elasticsearch_version ?id ?tags ?tags_all ?timeouts ~domain_name
-    ~advanced_security_options ~auto_tune_options ~cluster_config
-    ~cognito_options ~domain_endpoint_options ~ebs_options
-    ~encrypt_at_rest ~log_publishing_options ~node_to_node_encryption
-    ~snapshot_options ~vpc_options __id =
+    ?elasticsearch_version ?id ?tags ?tags_all
+    ?(advanced_security_options = []) ?(auto_tune_options = [])
+    ?(cluster_config = []) ?(cognito_options = [])
+    ?(domain_endpoint_options = []) ?(ebs_options = [])
+    ?(encrypt_at_rest = []) ?(node_to_node_encryption = [])
+    ?(snapshot_options = []) ?timeouts ?(vpc_options = [])
+    ~domain_name ~log_publishing_options __id =
   let (r : _ Tf_core.resource) =
     make ?access_policies ?advanced_options ?elasticsearch_version
-      ?id ?tags ?tags_all ?timeouts ~domain_name
-      ~advanced_security_options ~auto_tune_options ~cluster_config
-      ~cognito_options ~domain_endpoint_options ~ebs_options
-      ~encrypt_at_rest ~log_publishing_options
-      ~node_to_node_encryption ~snapshot_options ~vpc_options __id
+      ?id ?tags ?tags_all ~advanced_security_options
+      ~auto_tune_options ~cluster_config ~cognito_options
+      ~domain_endpoint_options ~ebs_options ~encrypt_at_rest
+      ~node_to_node_encryption ~snapshot_options ?timeouts
+      ~vpc_options ~domain_name ~log_publishing_options __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

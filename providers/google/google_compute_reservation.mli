@@ -40,12 +40,12 @@ type specific_reservation__instance_properties
 
 val specific_reservation__instance_properties :
   ?min_cpu_platform:string prop ->
-  machine_type:string prop ->
-  guest_accelerators:
+  ?guest_accelerators:
     specific_reservation__instance_properties__guest_accelerators
     list ->
-  local_ssds:
+  ?local_ssds:
     specific_reservation__instance_properties__local_ssds list ->
+  machine_type:string prop ->
   unit ->
   specific_reservation__instance_properties
 
@@ -73,10 +73,10 @@ val google_compute_reservation :
   ?id:string prop ->
   ?project:string prop ->
   ?specific_reservation_required:bool prop ->
+  ?share_settings:share_settings list ->
   ?timeouts:timeouts ->
   name:string prop ->
   zone:string prop ->
-  share_settings:share_settings list ->
   specific_reservation:specific_reservation list ->
   unit ->
   google_compute_reservation
@@ -105,10 +105,10 @@ val register :
   ?id:string prop ->
   ?project:string prop ->
   ?specific_reservation_required:bool prop ->
+  ?share_settings:share_settings list ->
   ?timeouts:timeouts ->
   name:string prop ->
   zone:string prop ->
-  share_settings:share_settings list ->
   specific_reservation:specific_reservation list ->
   string ->
   t
@@ -118,10 +118,10 @@ val make :
   ?id:string prop ->
   ?project:string prop ->
   ?specific_reservation_required:bool prop ->
+  ?share_settings:share_settings list ->
   ?timeouts:timeouts ->
   name:string prop ->
   zone:string prop ->
-  share_settings:share_settings list ->
   specific_reservation:specific_reservation list ->
   string ->
   t Tf_core.resource

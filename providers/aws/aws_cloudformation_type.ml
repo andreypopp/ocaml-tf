@@ -113,7 +113,7 @@ let logging_config ~log_group_name ~log_role_arn () : logging_config
   { log_group_name; log_role_arn }
 
 let aws_cloudformation_type ?execution_role_arn ?id ?type_
-    ~schema_handler_package ~type_name ~logging_config () :
+    ?(logging_config = []) ~schema_handler_package ~type_name () :
     aws_cloudformation_type =
   {
     execution_role_arn;
@@ -144,8 +144,8 @@ type t = {
   visibility : string prop;
 }
 
-let make ?execution_role_arn ?id ?type_ ~schema_handler_package
-    ~type_name ~logging_config __id =
+let make ?execution_role_arn ?id ?type_ ?(logging_config = [])
+    ~schema_handler_package ~type_name __id =
   let __type = "aws_cloudformation_type" in
   let __attrs =
     ({
@@ -182,15 +182,15 @@ let make ?execution_role_arn ?id ?type_ ~schema_handler_package
     json =
       yojson_of_aws_cloudformation_type
         (aws_cloudformation_type ?execution_role_arn ?id ?type_
-           ~schema_handler_package ~type_name ~logging_config ());
+           ~logging_config ~schema_handler_package ~type_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?execution_role_arn ?id ?type_
-    ~schema_handler_package ~type_name ~logging_config __id =
+    ?(logging_config = []) ~schema_handler_package ~type_name __id =
   let (r : _ Tf_core.resource) =
-    make ?execution_role_arn ?id ?type_ ~schema_handler_package
-      ~type_name ~logging_config __id
+    make ?execution_role_arn ?id ?type_ ~logging_config
+      ~schema_handler_package ~type_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

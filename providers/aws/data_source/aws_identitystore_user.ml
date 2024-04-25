@@ -439,15 +439,15 @@ let alternate_identifier__unique_attribute ~attribute_path
     ~attribute_value () : alternate_identifier__unique_attribute =
   { attribute_path; attribute_value }
 
-let alternate_identifier ~external_id ~unique_attribute () :
-    alternate_identifier =
+let alternate_identifier ?(external_id = []) ?(unique_attribute = [])
+    () : alternate_identifier =
   { external_id; unique_attribute }
 
 let filter ~attribute_path ~attribute_value () : filter =
   { attribute_path; attribute_value }
 
-let aws_identitystore_user ?id ?user_id ~identity_store_id
-    ~alternate_identifier ~filter () : aws_identitystore_user =
+let aws_identitystore_user ?id ?user_id ?(alternate_identifier = [])
+    ?(filter = []) ~identity_store_id () : aws_identitystore_user =
   { id; identity_store_id; user_id; alternate_identifier; filter }
 
 type t = {
@@ -470,8 +470,8 @@ type t = {
   user_type : string prop;
 }
 
-let make ?id ?user_id ~identity_store_id ~alternate_identifier
-    ~filter __id =
+let make ?id ?user_id ?(alternate_identifier = []) ?(filter = [])
+    ~identity_store_id __id =
   let __type = "aws_identitystore_user" in
   let __attrs =
     ({
@@ -502,16 +502,16 @@ let make ?id ?user_id ~identity_store_id ~alternate_identifier
     type_ = __type;
     json =
       yojson_of_aws_identitystore_user
-        (aws_identitystore_user ?id ?user_id ~identity_store_id
-           ~alternate_identifier ~filter ());
+        (aws_identitystore_user ?id ?user_id ~alternate_identifier
+           ~filter ~identity_store_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?user_id ~identity_store_id
-    ~alternate_identifier ~filter __id =
+let register ?tf_module ?id ?user_id ?(alternate_identifier = [])
+    ?(filter = []) ~identity_store_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?user_id ~identity_store_id ~alternate_identifier
-      ~filter __id
+    make ?id ?user_id ~alternate_identifier ~filter
+      ~identity_store_id __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -36,13 +36,13 @@ val aws_codecatalyst_dev_environment :
   ?alias:string prop ->
   ?id:string prop ->
   ?inactivity_timeout_minutes:float prop ->
+  ?repositories:repositories list ->
   ?timeouts:timeouts ->
   instance_type:string prop ->
   project_name:string prop ->
   space_name:string prop ->
   ides:ides list ->
   persistent_storage:persistent_storage list ->
-  repositories:repositories list ->
   unit ->
   aws_codecatalyst_dev_environment
 
@@ -65,13 +65,13 @@ val register :
   ?alias:string prop ->
   ?id:string prop ->
   ?inactivity_timeout_minutes:float prop ->
+  ?repositories:repositories list ->
   ?timeouts:timeouts ->
   instance_type:string prop ->
   project_name:string prop ->
   space_name:string prop ->
   ides:ides list ->
   persistent_storage:persistent_storage list ->
-  repositories:repositories list ->
   string ->
   t
 
@@ -79,12 +79,12 @@ val make :
   ?alias:string prop ->
   ?id:string prop ->
   ?inactivity_timeout_minutes:float prop ->
+  ?repositories:repositories list ->
   ?timeouts:timeouts ->
   instance_type:string prop ->
   project_name:string prop ->
   space_name:string prop ->
   ides:ides list ->
   persistent_storage:persistent_storage list ->
-  repositories:repositories list ->
   string ->
   t Tf_core.resource

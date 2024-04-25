@@ -39,7 +39,7 @@ val logging_config__component_config :
 type logging_config
 
 val logging_config :
-  component_config:logging_config__component_config list ->
+  ?component_config:logging_config__component_config list ->
   unit ->
   logging_config
 
@@ -53,7 +53,7 @@ val monitoring_config__managed_prometheus_config :
 type monitoring_config
 
 val monitoring_config :
-  managed_prometheus_config:
+  ?managed_prometheus_config:
     monitoring_config__managed_prometheus_config list ->
   unit ->
   monitoring_config
@@ -74,7 +74,7 @@ val proxy_config__kubernetes_secret :
 type proxy_config
 
 val proxy_config :
-  kubernetes_secret:proxy_config__kubernetes_secret list ->
+  ?kubernetes_secret:proxy_config__kubernetes_secret list ->
   unit ->
   proxy_config
 
@@ -95,18 +95,18 @@ val google_container_attached_cluster :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?authorization:authorization list ->
+  ?binary_authorization:binary_authorization list ->
+  ?logging_config:logging_config list ->
+  ?monitoring_config:monitoring_config list ->
+  ?proxy_config:proxy_config list ->
   ?timeouts:timeouts ->
   distribution:string prop ->
   location:string prop ->
   name:string prop ->
   platform_version:string prop ->
-  authorization:authorization list ->
-  binary_authorization:binary_authorization list ->
   fleet:fleet list ->
-  logging_config:logging_config list ->
-  monitoring_config:monitoring_config list ->
   oidc_config:oidc_config list ->
-  proxy_config:proxy_config list ->
   unit ->
   google_container_attached_cluster
 
@@ -144,18 +144,18 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?authorization:authorization list ->
+  ?binary_authorization:binary_authorization list ->
+  ?logging_config:logging_config list ->
+  ?monitoring_config:monitoring_config list ->
+  ?proxy_config:proxy_config list ->
   ?timeouts:timeouts ->
   distribution:string prop ->
   location:string prop ->
   name:string prop ->
   platform_version:string prop ->
-  authorization:authorization list ->
-  binary_authorization:binary_authorization list ->
   fleet:fleet list ->
-  logging_config:logging_config list ->
-  monitoring_config:monitoring_config list ->
   oidc_config:oidc_config list ->
-  proxy_config:proxy_config list ->
   string ->
   t
 
@@ -165,17 +165,17 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?authorization:authorization list ->
+  ?binary_authorization:binary_authorization list ->
+  ?logging_config:logging_config list ->
+  ?monitoring_config:monitoring_config list ->
+  ?proxy_config:proxy_config list ->
   ?timeouts:timeouts ->
   distribution:string prop ->
   location:string prop ->
   name:string prop ->
   platform_version:string prop ->
-  authorization:authorization list ->
-  binary_authorization:binary_authorization list ->
   fleet:fleet list ->
-  logging_config:logging_config list ->
-  monitoring_config:monitoring_config list ->
   oidc_config:oidc_config list ->
-  proxy_config:proxy_config list ->
   string ->
   t Tf_core.resource

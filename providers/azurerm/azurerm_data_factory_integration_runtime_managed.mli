@@ -50,14 +50,14 @@ val azurerm_data_factory_integration_runtime_managed :
   ?license_type:string prop ->
   ?max_parallel_executions_per_node:float prop ->
   ?number_of_nodes:float prop ->
+  ?catalog_info:catalog_info list ->
+  ?custom_setup_script:custom_setup_script list ->
   ?timeouts:timeouts ->
+  ?vnet_integration:vnet_integration list ->
   data_factory_id:string prop ->
   location:string prop ->
   name:string prop ->
   node_size:string prop ->
-  catalog_info:catalog_info list ->
-  custom_setup_script:custom_setup_script list ->
-  vnet_integration:vnet_integration list ->
   unit ->
   azurerm_data_factory_integration_runtime_managed
 
@@ -89,14 +89,14 @@ val register :
   ?license_type:string prop ->
   ?max_parallel_executions_per_node:float prop ->
   ?number_of_nodes:float prop ->
+  ?catalog_info:catalog_info list ->
+  ?custom_setup_script:custom_setup_script list ->
   ?timeouts:timeouts ->
+  ?vnet_integration:vnet_integration list ->
   data_factory_id:string prop ->
   location:string prop ->
   name:string prop ->
   node_size:string prop ->
-  catalog_info:catalog_info list ->
-  custom_setup_script:custom_setup_script list ->
-  vnet_integration:vnet_integration list ->
   string ->
   t
 
@@ -108,13 +108,13 @@ val make :
   ?license_type:string prop ->
   ?max_parallel_executions_per_node:float prop ->
   ?number_of_nodes:float prop ->
+  ?catalog_info:catalog_info list ->
+  ?custom_setup_script:custom_setup_script list ->
   ?timeouts:timeouts ->
+  ?vnet_integration:vnet_integration list ->
   data_factory_id:string prop ->
   location:string prop ->
   name:string prop ->
   node_size:string prop ->
-  catalog_info:catalog_info list ->
-  custom_setup_script:custom_setup_script list ->
-  vnet_integration:vnet_integration list ->
   string ->
   t Tf_core.resource

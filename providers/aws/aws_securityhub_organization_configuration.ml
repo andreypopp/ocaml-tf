@@ -144,8 +144,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_securityhub_organization_configuration ?auto_enable_standards
-    ?id ?timeouts ~auto_enable ~organization_configuration () :
-    aws_securityhub_organization_configuration =
+    ?id ?(organization_configuration = []) ?timeouts ~auto_enable ()
+    : aws_securityhub_organization_configuration =
   {
     auto_enable;
     auto_enable_standards;
@@ -160,8 +160,8 @@ type t = {
   id : string prop;
 }
 
-let make ?auto_enable_standards ?id ?timeouts ~auto_enable
-    ~organization_configuration __id =
+let make ?auto_enable_standards ?id
+    ?(organization_configuration = []) ?timeouts ~auto_enable __id =
   let __type = "aws_securityhub_organization_configuration" in
   let __attrs =
     ({
@@ -178,16 +178,16 @@ let make ?auto_enable_standards ?id ?timeouts ~auto_enable
     json =
       yojson_of_aws_securityhub_organization_configuration
         (aws_securityhub_organization_configuration
-           ?auto_enable_standards ?id ?timeouts ~auto_enable
-           ~organization_configuration ());
+           ?auto_enable_standards ?id ~organization_configuration
+           ?timeouts ~auto_enable ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?auto_enable_standards ?id ?timeouts
-    ~auto_enable ~organization_configuration __id =
+let register ?tf_module ?auto_enable_standards ?id
+    ?(organization_configuration = []) ?timeouts ~auto_enable __id =
   let (r : _ Tf_core.resource) =
-    make ?auto_enable_standards ?id ?timeouts ~auto_enable
-      ~organization_configuration __id
+    make ?auto_enable_standards ?id ~organization_configuration
+      ?timeouts ~auto_enable __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

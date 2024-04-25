@@ -30,9 +30,9 @@ val endpoint :
   ?hostname:string prop ->
   ?node_name:string prop ->
   ?zone:string prop ->
+  ?condition:endpoint__condition list ->
+  ?target_ref:endpoint__target_ref list ->
   addresses:string prop list ->
-  condition:endpoint__condition list ->
-  target_ref:endpoint__target_ref list ->
   unit ->
   endpoint
 

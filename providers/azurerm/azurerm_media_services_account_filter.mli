@@ -47,12 +47,12 @@ type azurerm_media_services_account_filter
 val azurerm_media_services_account_filter :
   ?first_quality_bitrate:float prop ->
   ?id:string prop ->
+  ?presentation_time_range:presentation_time_range list ->
   ?timeouts:timeouts ->
+  ?track_selection:track_selection list ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  presentation_time_range:presentation_time_range list ->
-  track_selection:track_selection list ->
   unit ->
   azurerm_media_services_account_filter
 
@@ -73,23 +73,23 @@ val register :
   ?tf_module:tf_module ->
   ?first_quality_bitrate:float prop ->
   ?id:string prop ->
+  ?presentation_time_range:presentation_time_range list ->
   ?timeouts:timeouts ->
+  ?track_selection:track_selection list ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  presentation_time_range:presentation_time_range list ->
-  track_selection:track_selection list ->
   string ->
   t
 
 val make :
   ?first_quality_bitrate:float prop ->
   ?id:string prop ->
+  ?presentation_time_range:presentation_time_range list ->
   ?timeouts:timeouts ->
+  ?track_selection:track_selection list ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  presentation_time_range:presentation_time_range list ->
-  track_selection:track_selection list ->
   string ->
   t Tf_core.resource

@@ -51,11 +51,11 @@ type aws_cloudsearch_domain
 val aws_cloudsearch_domain :
   ?id:string prop ->
   ?multi_az:bool prop ->
+  ?endpoint_options:endpoint_options list ->
+  ?scaling_parameters:scaling_parameters list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  endpoint_options:endpoint_options list ->
   index_field:index_field list ->
-  scaling_parameters:scaling_parameters list ->
   unit ->
   aws_cloudsearch_domain
 
@@ -77,21 +77,21 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?multi_az:bool prop ->
+  ?endpoint_options:endpoint_options list ->
+  ?scaling_parameters:scaling_parameters list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  endpoint_options:endpoint_options list ->
   index_field:index_field list ->
-  scaling_parameters:scaling_parameters list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?multi_az:bool prop ->
+  ?endpoint_options:endpoint_options list ->
+  ?scaling_parameters:scaling_parameters list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  endpoint_options:endpoint_options list ->
   index_field:index_field list ->
-  scaling_parameters:scaling_parameters list ->
   string ->
   t Tf_core.resource

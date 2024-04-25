@@ -28,8 +28,8 @@ type digitalocean_domains
 
 val digitalocean_domains :
   ?id:string prop ->
+  ?sort:sort list ->
   filter:filter list ->
-  sort:sort list ->
   unit ->
   digitalocean_domains
 
@@ -42,14 +42,14 @@ type t = private { domains : domains list prop; id : string prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?sort:sort list ->
   filter:filter list ->
-  sort:sort list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?sort:sort list ->
   filter:filter list ->
-  sort:sort list ->
   string ->
   t Tf_core.resource

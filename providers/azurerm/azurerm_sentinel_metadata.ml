@@ -480,9 +480,9 @@ let azurerm_sentinel_metadata ?content_schema_version ?custom_version
     ?dependency ?first_publish_date ?icon_id ?id ?last_publish_date
     ?preview_images ?preview_images_dark ?providers
     ?threat_analysis_tactics ?threat_analysis_techniques ?version
-    ?timeouts ~content_id ~kind ~name ~parent_id ~workspace_id
-    ~author ~category ~source ~support () : azurerm_sentinel_metadata
-    =
+    ?(author = []) ?(category = []) ?(source = []) ?(support = [])
+    ?timeouts ~content_id ~kind ~name ~parent_id ~workspace_id () :
+    azurerm_sentinel_metadata =
   {
     content_id;
     content_schema_version;
@@ -534,8 +534,8 @@ let make ?content_schema_version ?custom_version ?dependency
     ?first_publish_date ?icon_id ?id ?last_publish_date
     ?preview_images ?preview_images_dark ?providers
     ?threat_analysis_tactics ?threat_analysis_techniques ?version
-    ?timeouts ~content_id ~kind ~name ~parent_id ~workspace_id
-    ~author ~category ~source ~support __id =
+    ?(author = []) ?(category = []) ?(source = []) ?(support = [])
+    ?timeouts ~content_id ~kind ~name ~parent_id ~workspace_id __id =
   let __type = "azurerm_sentinel_metadata" in
   let __attrs =
     ({
@@ -575,9 +575,9 @@ let make ?content_schema_version ?custom_version ?dependency
            ?custom_version ?dependency ?first_publish_date ?icon_id
            ?id ?last_publish_date ?preview_images
            ?preview_images_dark ?providers ?threat_analysis_tactics
-           ?threat_analysis_techniques ?version ?timeouts ~content_id
-           ~kind ~name ~parent_id ~workspace_id ~author ~category
-           ~source ~support ());
+           ?threat_analysis_techniques ?version ~author ~category
+           ~source ~support ?timeouts ~content_id ~kind ~name
+           ~parent_id ~workspace_id ());
     attrs = __attrs;
   }
 
@@ -585,15 +585,15 @@ let register ?tf_module ?content_schema_version ?custom_version
     ?dependency ?first_publish_date ?icon_id ?id ?last_publish_date
     ?preview_images ?preview_images_dark ?providers
     ?threat_analysis_tactics ?threat_analysis_techniques ?version
-    ?timeouts ~content_id ~kind ~name ~parent_id ~workspace_id
-    ~author ~category ~source ~support __id =
+    ?(author = []) ?(category = []) ?(source = []) ?(support = [])
+    ?timeouts ~content_id ~kind ~name ~parent_id ~workspace_id __id =
   let (r : _ Tf_core.resource) =
     make ?content_schema_version ?custom_version ?dependency
       ?first_publish_date ?icon_id ?id ?last_publish_date
       ?preview_images ?preview_images_dark ?providers
       ?threat_analysis_tactics ?threat_analysis_techniques ?version
-      ?timeouts ~content_id ~kind ~name ~parent_id ~workspace_id
-      ~author ~category ~source ~support __id
+      ~author ~category ~source ~support ?timeouts ~content_id ~kind
+      ~name ~parent_id ~workspace_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

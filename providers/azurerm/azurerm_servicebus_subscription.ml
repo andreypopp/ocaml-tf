@@ -303,9 +303,8 @@ let azurerm_servicebus_subscription ?auto_delete_on_idle
     ?dead_lettering_on_message_expiration ?default_message_ttl
     ?enable_batched_operations ?forward_dead_lettered_messages_to
     ?forward_to ?id ?lock_duration ?requires_session ?status
-    ?timeouts ~max_delivery_count ~name ~topic_id
-    ~client_scoped_subscription () : azurerm_servicebus_subscription
-    =
+    ?(client_scoped_subscription = []) ?timeouts ~max_delivery_count
+    ~name ~topic_id () : azurerm_servicebus_subscription =
   {
     auto_delete_on_idle;
     client_scoped_subscription_enabled;
@@ -349,8 +348,8 @@ let make ?auto_delete_on_idle ?client_scoped_subscription_enabled
     ?dead_lettering_on_message_expiration ?default_message_ttl
     ?enable_batched_operations ?forward_dead_lettered_messages_to
     ?forward_to ?id ?lock_duration ?requires_session ?status
-    ?timeouts ~max_delivery_count ~name ~topic_id
-    ~client_scoped_subscription __id =
+    ?(client_scoped_subscription = []) ?timeouts ~max_delivery_count
+    ~name ~topic_id __id =
   let __type = "azurerm_servicebus_subscription" in
   let __attrs =
     ({
@@ -396,9 +395,9 @@ let make ?auto_delete_on_idle ?client_scoped_subscription_enabled
            ?dead_lettering_on_message_expiration ?default_message_ttl
            ?enable_batched_operations
            ?forward_dead_lettered_messages_to ?forward_to ?id
-           ?lock_duration ?requires_session ?status ?timeouts
-           ~max_delivery_count ~name ~topic_id
-           ~client_scoped_subscription ());
+           ?lock_duration ?requires_session ?status
+           ~client_scoped_subscription ?timeouts ~max_delivery_count
+           ~name ~topic_id ());
     attrs = __attrs;
   }
 
@@ -408,16 +407,16 @@ let register ?tf_module ?auto_delete_on_idle
     ?dead_lettering_on_message_expiration ?default_message_ttl
     ?enable_batched_operations ?forward_dead_lettered_messages_to
     ?forward_to ?id ?lock_duration ?requires_session ?status
-    ?timeouts ~max_delivery_count ~name ~topic_id
-    ~client_scoped_subscription __id =
+    ?(client_scoped_subscription = []) ?timeouts ~max_delivery_count
+    ~name ~topic_id __id =
   let (r : _ Tf_core.resource) =
     make ?auto_delete_on_idle ?client_scoped_subscription_enabled
       ?dead_lettering_on_filter_evaluation_error
       ?dead_lettering_on_message_expiration ?default_message_ttl
       ?enable_batched_operations ?forward_dead_lettered_messages_to
       ?forward_to ?id ?lock_duration ?requires_session ?status
-      ?timeouts ~max_delivery_count ~name ~topic_id
-      ~client_scoped_subscription __id
+      ~client_scoped_subscription ?timeouts ~max_delivery_count ~name
+      ~topic_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -84,7 +84,7 @@ val settings__backup_configuration :
   ?point_in_time_recovery_enabled:bool prop ->
   ?start_time:string prop ->
   ?transaction_log_retention_days:float prop ->
-  backup_retention_settings:
+  ?backup_retention_settings:
     settings__backup_configuration__backup_retention_settings list ->
   unit ->
   settings__backup_configuration
@@ -211,20 +211,20 @@ val settings :
   ?pricing_plan:string prop ->
   ?time_zone:string prop ->
   ?user_labels:(string * string prop) list ->
-  tier:string prop ->
-  active_directory_config:settings__active_directory_config list ->
-  advanced_machine_features:settings__advanced_machine_features list ->
-  backup_configuration:settings__backup_configuration list ->
-  data_cache_config:settings__data_cache_config list ->
-  database_flags:settings__database_flags list ->
-  deny_maintenance_period:settings__deny_maintenance_period list ->
-  insights_config:settings__insights_config list ->
-  ip_configuration:settings__ip_configuration list ->
-  location_preference:settings__location_preference list ->
-  maintenance_window:settings__maintenance_window list ->
-  password_validation_policy:
+  ?active_directory_config:settings__active_directory_config list ->
+  ?advanced_machine_features:settings__advanced_machine_features list ->
+  ?backup_configuration:settings__backup_configuration list ->
+  ?data_cache_config:settings__data_cache_config list ->
+  ?deny_maintenance_period:settings__deny_maintenance_period list ->
+  ?insights_config:settings__insights_config list ->
+  ?ip_configuration:settings__ip_configuration list ->
+  ?location_preference:settings__location_preference list ->
+  ?maintenance_window:settings__maintenance_window list ->
+  ?password_validation_policy:
     settings__password_validation_policy list ->
-  sql_server_audit_config:settings__sql_server_audit_config list ->
+  ?sql_server_audit_config:settings__sql_server_audit_config list ->
+  tier:string prop ->
+  database_flags:settings__database_flags list ->
   unit ->
   settings
 
@@ -250,12 +250,12 @@ val google_sql_database_instance :
   ?project:string prop ->
   ?region:string prop ->
   ?root_password:string prop ->
+  ?clone:clone list ->
+  ?replica_configuration:replica_configuration list ->
+  ?restore_backup_context:restore_backup_context list ->
+  ?settings:settings list ->
   ?timeouts:timeouts ->
   database_version:string prop ->
-  clone:clone list ->
-  replica_configuration:replica_configuration list ->
-  restore_backup_context:restore_backup_context list ->
-  settings:settings list ->
   unit ->
   google_sql_database_instance
 
@@ -301,12 +301,12 @@ val register :
   ?project:string prop ->
   ?region:string prop ->
   ?root_password:string prop ->
+  ?clone:clone list ->
+  ?replica_configuration:replica_configuration list ->
+  ?restore_backup_context:restore_backup_context list ->
+  ?settings:settings list ->
   ?timeouts:timeouts ->
   database_version:string prop ->
-  clone:clone list ->
-  replica_configuration:replica_configuration list ->
-  restore_backup_context:restore_backup_context list ->
-  settings:settings list ->
   string ->
   t
 
@@ -321,11 +321,11 @@ val make :
   ?project:string prop ->
   ?region:string prop ->
   ?root_password:string prop ->
+  ?clone:clone list ->
+  ?replica_configuration:replica_configuration list ->
+  ?restore_backup_context:restore_backup_context list ->
+  ?settings:settings list ->
   ?timeouts:timeouts ->
   database_version:string prop ->
-  clone:clone list ->
-  replica_configuration:replica_configuration list ->
-  restore_backup_context:restore_backup_context list ->
-  settings:settings list ->
   string ->
   t Tf_core.resource

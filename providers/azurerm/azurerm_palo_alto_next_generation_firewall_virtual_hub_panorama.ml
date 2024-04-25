@@ -478,8 +478,8 @@ let destination_nat__frontend_config ~port ~public_ip_address_id () :
     destination_nat__frontend_config =
   { port; public_ip_address_id }
 
-let destination_nat ~name ~protocol ~backend_config ~frontend_config
-    () : destination_nat =
+let destination_nat ?(backend_config = []) ?(frontend_config = [])
+    ~name ~protocol () : destination_nat =
   { name; protocol; backend_config; frontend_config }
 
 let dns_settings ?dns_servers ?use_azure_dns () : dns_settings =
@@ -500,8 +500,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama
-    ?id ?tags ?timeouts ~location ~name ~panorama_base64_config
-    ~resource_group_name ~destination_nat ~dns_settings
+    ?id ?tags ?(destination_nat = []) ?(dns_settings = []) ?timeouts
+    ~location ~name ~panorama_base64_config ~resource_group_name
     ~network_profile () :
     azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama =
   {
@@ -527,9 +527,9 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?id ?tags ?timeouts ~location ~name ~panorama_base64_config
-    ~resource_group_name ~destination_nat ~dns_settings
-    ~network_profile __id =
+let make ?id ?tags ?(destination_nat = []) ?(dns_settings = [])
+    ?timeouts ~location ~name ~panorama_base64_config
+    ~resource_group_name ~network_profile __id =
   let __type =
     "azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama"
   in
@@ -553,18 +553,19 @@ let make ?id ?tags ?timeouts ~location ~name ~panorama_base64_config
     json =
       yojson_of_azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama
         (azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama
-           ?id ?tags ?timeouts ~location ~name
-           ~panorama_base64_config ~resource_group_name
-           ~destination_nat ~dns_settings ~network_profile ());
+           ?id ?tags ~destination_nat ~dns_settings ?timeouts
+           ~location ~name ~panorama_base64_config
+           ~resource_group_name ~network_profile ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?timeouts ~location ~name
-    ~panorama_base64_config ~resource_group_name ~destination_nat
-    ~dns_settings ~network_profile __id =
+let register ?tf_module ?id ?tags ?(destination_nat = [])
+    ?(dns_settings = []) ?timeouts ~location ~name
+    ~panorama_base64_config ~resource_group_name ~network_profile
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?timeouts ~location ~name ~panorama_base64_config
-      ~resource_group_name ~destination_nat ~dns_settings
+    make ?id ?tags ~destination_nat ~dns_settings ?timeouts ~location
+      ~name ~panorama_base64_config ~resource_group_name
       ~network_profile __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

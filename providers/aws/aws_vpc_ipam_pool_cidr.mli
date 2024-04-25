@@ -23,9 +23,9 @@ val aws_vpc_ipam_pool_cidr :
   ?cidr:string prop ->
   ?id:string prop ->
   ?netmask_length:float prop ->
+  ?cidr_authorization_context:cidr_authorization_context list ->
   ?timeouts:timeouts ->
   ipam_pool_id:string prop ->
-  cidr_authorization_context:cidr_authorization_context list ->
   unit ->
   aws_vpc_ipam_pool_cidr
 
@@ -46,9 +46,9 @@ val register :
   ?cidr:string prop ->
   ?id:string prop ->
   ?netmask_length:float prop ->
+  ?cidr_authorization_context:cidr_authorization_context list ->
   ?timeouts:timeouts ->
   ipam_pool_id:string prop ->
-  cidr_authorization_context:cidr_authorization_context list ->
   string ->
   t
 
@@ -56,8 +56,8 @@ val make :
   ?cidr:string prop ->
   ?id:string prop ->
   ?netmask_length:float prop ->
+  ?cidr_authorization_context:cidr_authorization_context list ->
   ?timeouts:timeouts ->
   ipam_pool_id:string prop ->
-  cidr_authorization_context:cidr_authorization_context list ->
   string ->
   t Tf_core.resource

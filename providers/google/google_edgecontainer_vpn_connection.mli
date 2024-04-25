@@ -38,10 +38,10 @@ val google_edgecontainer_vpn_connection :
   ?router:string prop ->
   ?vpc:string prop ->
   ?timeouts:timeouts ->
+  ?vpc_project:vpc_project list ->
   cluster:string prop ->
   location:string prop ->
   name:string prop ->
-  vpc_project:vpc_project list ->
   unit ->
   google_edgecontainer_vpn_connection
 
@@ -78,10 +78,10 @@ val register :
   ?router:string prop ->
   ?vpc:string prop ->
   ?timeouts:timeouts ->
+  ?vpc_project:vpc_project list ->
   cluster:string prop ->
   location:string prop ->
   name:string prop ->
-  vpc_project:vpc_project list ->
   string ->
   t
 
@@ -94,9 +94,9 @@ val make :
   ?router:string prop ->
   ?vpc:string prop ->
   ?timeouts:timeouts ->
+  ?vpc_project:vpc_project list ->
   cluster:string prop ->
   location:string prop ->
   name:string prop ->
-  vpc_project:vpc_project list ->
   string ->
   t Tf_core.resource

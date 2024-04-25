@@ -452,7 +452,7 @@ let action__ssm_automation ?document_version ?dynamic_parameters
     parameter;
   }
 
-let action ~ssm_automation () : action = { ssm_automation }
+let action ?(ssm_automation = []) () : action = { ssm_automation }
 
 let incident_template__notification_target ~sns_topic_arn () :
     incident_template__notification_target =
@@ -473,11 +473,12 @@ let integration__pagerduty ~name ~secret_id ~service_id () :
     integration__pagerduty =
   { name; secret_id; service_id }
 
-let integration ~pagerduty () : integration = { pagerduty }
+let integration ?(pagerduty = []) () : integration = { pagerduty }
 
 let aws_ssmincidents_response_plan ?chat_channel ?display_name
-    ?engagements ?id ?tags ?tags_all ~name ~action ~incident_template
-    ~integration () : aws_ssmincidents_response_plan =
+    ?engagements ?id ?tags ?tags_all ?(action = [])
+    ?(integration = []) ~name ~incident_template () :
+    aws_ssmincidents_response_plan =
   {
     chat_channel;
     display_name;
@@ -503,7 +504,8 @@ type t = {
 }
 
 let make ?chat_channel ?display_name ?engagements ?id ?tags ?tags_all
-    ~name ~action ~incident_template ~integration __id =
+    ?(action = []) ?(integration = []) ~name ~incident_template __id
+    =
   let __type = "aws_ssmincidents_response_plan" in
   let __attrs =
     ({
@@ -524,17 +526,17 @@ let make ?chat_channel ?display_name ?engagements ?id ?tags ?tags_all
     json =
       yojson_of_aws_ssmincidents_response_plan
         (aws_ssmincidents_response_plan ?chat_channel ?display_name
-           ?engagements ?id ?tags ?tags_all ~name ~action
-           ~incident_template ~integration ());
+           ?engagements ?id ?tags ?tags_all ~action ~integration
+           ~name ~incident_template ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?chat_channel ?display_name ?engagements ?id
-    ?tags ?tags_all ~name ~action ~incident_template ~integration
-    __id =
+    ?tags ?tags_all ?(action = []) ?(integration = []) ~name
+    ~incident_template __id =
   let (r : _ Tf_core.resource) =
     make ?chat_channel ?display_name ?engagements ?id ?tags ?tags_all
-      ~name ~action ~incident_template ~integration __id
+      ~action ~integration ~name ~incident_template __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

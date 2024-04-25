@@ -23,10 +23,10 @@ type matching__auto_merging
 
 val matching__auto_merging :
   ?min_allowed_confidence_score_for_merging:float prop ->
-  enabled:bool prop ->
-  conflict_resolution:
+  ?conflict_resolution:
     matching__auto_merging__conflict_resolution list ->
-  consolidation:matching__auto_merging__consolidation list ->
+  ?consolidation:matching__auto_merging__consolidation list ->
+  enabled:bool prop ->
   unit ->
   matching__auto_merging
 
@@ -41,7 +41,7 @@ val matching__exporting_config__s3_exporting :
 type matching__exporting_config
 
 val matching__exporting_config :
-  s3_exporting:matching__exporting_config__s3_exporting list ->
+  ?s3_exporting:matching__exporting_config__s3_exporting list ->
   unit ->
   matching__exporting_config
 
@@ -56,10 +56,10 @@ val matching__job_schedule :
 type matching
 
 val matching :
+  ?auto_merging:matching__auto_merging list ->
+  ?exporting_config:matching__exporting_config list ->
+  ?job_schedule:matching__job_schedule list ->
   enabled:bool prop ->
-  auto_merging:matching__auto_merging list ->
-  exporting_config:matching__exporting_config list ->
-  job_schedule:matching__job_schedule list ->
   unit ->
   matching
 
@@ -92,7 +92,7 @@ val rule_based_matching__exporting_config__s3_exporting :
 type rule_based_matching__exporting_config
 
 val rule_based_matching__exporting_config :
-  s3_exporting:
+  ?s3_exporting:
     rule_based_matching__exporting_config__s3_exporting list ->
   unit ->
   rule_based_matching__exporting_config
@@ -110,11 +110,11 @@ val rule_based_matching :
   ?max_allowed_rule_level_for_matching:float prop ->
   ?max_allowed_rule_level_for_merging:float prop ->
   ?status:string prop ->
-  enabled:bool prop ->
-  attribute_types_selector:
+  ?attribute_types_selector:
     rule_based_matching__attribute_types_selector list ->
-  conflict_resolution:rule_based_matching__conflict_resolution list ->
-  exporting_config:rule_based_matching__exporting_config list ->
+  ?conflict_resolution:rule_based_matching__conflict_resolution list ->
+  ?exporting_config:rule_based_matching__exporting_config list ->
+  enabled:bool prop ->
   matching_rules:rule_based_matching__matching_rules list ->
   unit ->
   rule_based_matching
@@ -127,10 +127,10 @@ val aws_customerprofiles_domain :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?matching:matching list ->
+  ?rule_based_matching:rule_based_matching list ->
   default_expiration_days:float prop ->
   domain_name:string prop ->
-  matching:matching list ->
-  rule_based_matching:rule_based_matching list ->
   unit ->
   aws_customerprofiles_domain
 
@@ -157,10 +157,10 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?matching:matching list ->
+  ?rule_based_matching:rule_based_matching list ->
   default_expiration_days:float prop ->
   domain_name:string prop ->
-  matching:matching list ->
-  rule_based_matching:rule_based_matching list ->
   string ->
   t
 
@@ -170,9 +170,9 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?matching:matching list ->
+  ?rule_based_matching:rule_based_matching list ->
   default_expiration_days:float prop ->
   domain_name:string prop ->
-  matching:matching list ->
-  rule_based_matching:rule_based_matching list ->
   string ->
   t Tf_core.resource

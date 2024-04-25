@@ -231,8 +231,8 @@ let attachments_source ?name ~key ~values () : attachments_source =
   { key; name; values }
 
 let aws_ssm_document ?document_format ?id ?permissions ?tags
-    ?tags_all ?target_type ?version_name ~content ~document_type
-    ~name ~attachments_source () : aws_ssm_document =
+    ?tags_all ?target_type ?version_name ?(attachments_source = [])
+    ~content ~document_type ~name () : aws_ssm_document =
   {
     content;
     document_format;
@@ -274,8 +274,8 @@ type t = {
 }
 
 let make ?document_format ?id ?permissions ?tags ?tags_all
-    ?target_type ?version_name ~content ~document_type ~name
-    ~attachments_source __id =
+    ?target_type ?version_name ?(attachments_source = []) ~content
+    ~document_type ~name __id =
   let __type = "aws_ssm_document" in
   let __attrs =
     ({
@@ -312,18 +312,18 @@ let make ?document_format ?id ?permissions ?tags ?tags_all
     json =
       yojson_of_aws_ssm_document
         (aws_ssm_document ?document_format ?id ?permissions ?tags
-           ?tags_all ?target_type ?version_name ~content
-           ~document_type ~name ~attachments_source ());
+           ?tags_all ?target_type ?version_name ~attachments_source
+           ~content ~document_type ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?document_format ?id ?permissions ?tags
-    ?tags_all ?target_type ?version_name ~content ~document_type
-    ~name ~attachments_source __id =
+    ?tags_all ?target_type ?version_name ?(attachments_source = [])
+    ~content ~document_type ~name __id =
   let (r : _ Tf_core.resource) =
     make ?document_format ?id ?permissions ?tags ?tags_all
-      ?target_type ?version_name ~content ~document_type ~name
-      ~attachments_source __id
+      ?target_type ?version_name ~attachments_source ~content
+      ~document_type ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

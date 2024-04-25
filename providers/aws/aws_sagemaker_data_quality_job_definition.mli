@@ -31,9 +31,9 @@ val data_quality_baseline_config__statistics_resource :
 type data_quality_baseline_config
 
 val data_quality_baseline_config :
-  constraints_resource:
+  ?constraints_resource:
     data_quality_baseline_config__constraints_resource list ->
-  statistics_resource:
+  ?statistics_resource:
     data_quality_baseline_config__statistics_resource list ->
   unit ->
   data_quality_baseline_config
@@ -55,10 +55,10 @@ val data_quality_job_input__batch_transform_input__dataset_format__json :
 type data_quality_job_input__batch_transform_input__dataset_format
 
 val data_quality_job_input__batch_transform_input__dataset_format :
-  csv:
+  ?csv:
     data_quality_job_input__batch_transform_input__dataset_format__csv
     list ->
-  json:
+  ?json:
     data_quality_job_input__batch_transform_input__dataset_format__json
     list ->
   unit ->
@@ -90,9 +90,9 @@ val data_quality_job_input__endpoint_input :
 type data_quality_job_input
 
 val data_quality_job_input :
-  batch_transform_input:
+  ?batch_transform_input:
     data_quality_job_input__batch_transform_input list ->
-  endpoint_input:data_quality_job_input__endpoint_input list ->
+  ?endpoint_input:data_quality_job_input__endpoint_input list ->
   unit ->
   data_quality_job_input
 
@@ -153,7 +153,7 @@ type network_config
 val network_config :
   ?enable_inter_container_traffic_encryption:bool prop ->
   ?enable_network_isolation:bool prop ->
-  vpc_config:network_config__vpc_config list ->
+  ?vpc_config:network_config__vpc_config list ->
   unit ->
   network_config
 
@@ -169,14 +169,14 @@ val aws_sagemaker_data_quality_job_definition :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?data_quality_baseline_config:data_quality_baseline_config list ->
+  ?network_config:network_config list ->
+  ?stopping_condition:stopping_condition list ->
   role_arn:string prop ->
   data_quality_app_specification:data_quality_app_specification list ->
-  data_quality_baseline_config:data_quality_baseline_config list ->
   data_quality_job_input:data_quality_job_input list ->
   data_quality_job_output_config:data_quality_job_output_config list ->
   job_resources:job_resources list ->
-  network_config:network_config list ->
-  stopping_condition:stopping_condition list ->
   unit ->
   aws_sagemaker_data_quality_job_definition
 
@@ -200,14 +200,14 @@ val register :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?data_quality_baseline_config:data_quality_baseline_config list ->
+  ?network_config:network_config list ->
+  ?stopping_condition:stopping_condition list ->
   role_arn:string prop ->
   data_quality_app_specification:data_quality_app_specification list ->
-  data_quality_baseline_config:data_quality_baseline_config list ->
   data_quality_job_input:data_quality_job_input list ->
   data_quality_job_output_config:data_quality_job_output_config list ->
   job_resources:job_resources list ->
-  network_config:network_config list ->
-  stopping_condition:stopping_condition list ->
   string ->
   t
 
@@ -216,13 +216,13 @@ val make :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?data_quality_baseline_config:data_quality_baseline_config list ->
+  ?network_config:network_config list ->
+  ?stopping_condition:stopping_condition list ->
   role_arn:string prop ->
   data_quality_app_specification:data_quality_app_specification list ->
-  data_quality_baseline_config:data_quality_baseline_config list ->
   data_quality_job_input:data_quality_job_input list ->
   data_quality_job_output_config:data_quality_job_output_config list ->
   job_resources:job_resources list ->
-  network_config:network_config list ->
-  stopping_condition:stopping_condition list ->
   string ->
   t Tf_core.resource

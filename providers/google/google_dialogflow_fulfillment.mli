@@ -33,10 +33,10 @@ val google_dialogflow_fulfillment :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?features:features list ->
+  ?generic_web_service:generic_web_service list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
-  features:features list ->
-  generic_web_service:generic_web_service list ->
   unit ->
   google_dialogflow_fulfillment
 
@@ -58,10 +58,10 @@ val register :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?features:features list ->
+  ?generic_web_service:generic_web_service list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
-  features:features list ->
-  generic_web_service:generic_web_service list ->
   string ->
   t
 
@@ -69,9 +69,9 @@ val make :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?features:features list ->
+  ?generic_web_service:generic_web_service list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
-  features:features list ->
-  generic_web_service:generic_web_service list ->
   string ->
   t Tf_core.resource

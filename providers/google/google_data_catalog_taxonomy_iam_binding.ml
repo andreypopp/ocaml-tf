@@ -125,7 +125,7 @@ let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
 let google_data_catalog_taxonomy_iam_binding ?id ?project ?region
-    ~members ~role ~taxonomy ~condition () :
+    ?(condition = []) ~members ~role ~taxonomy () :
     google_data_catalog_taxonomy_iam_binding =
   { id; members; project; region; role; taxonomy; condition }
 
@@ -139,8 +139,8 @@ type t = {
   taxonomy : string prop;
 }
 
-let make ?id ?project ?region ~members ~role ~taxonomy ~condition
-    __id =
+let make ?id ?project ?region ?(condition = []) ~members ~role
+    ~taxonomy __id =
   let __type = "google_data_catalog_taxonomy_iam_binding" in
   let __attrs =
     ({
@@ -160,14 +160,14 @@ let make ?id ?project ?region ~members ~role ~taxonomy ~condition
     json =
       yojson_of_google_data_catalog_taxonomy_iam_binding
         (google_data_catalog_taxonomy_iam_binding ?id ?project
-           ?region ~members ~role ~taxonomy ~condition ());
+           ?region ~condition ~members ~role ~taxonomy ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ?region ~members ~role ~taxonomy
-    ~condition __id =
+let register ?tf_module ?id ?project ?region ?(condition = [])
+    ~members ~role ~taxonomy __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ?region ~members ~role ~taxonomy ~condition
+    make ?id ?project ?region ~condition ~members ~role ~taxonomy
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

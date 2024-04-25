@@ -247,8 +247,8 @@ let soa_record ?expire_time ?minimum_ttl ?refresh_time ?retry_time
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_private_dns_zone ?id ?tags ?timeouts ~name
-    ~resource_group_name ~soa_record () : azurerm_private_dns_zone =
+let azurerm_private_dns_zone ?id ?tags ?(soa_record = []) ?timeouts
+    ~name ~resource_group_name () : azurerm_private_dns_zone =
   { id; name; resource_group_name; tags; soa_record; timeouts }
 
 type t = {
@@ -262,8 +262,8 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?id ?tags ?timeouts ~name ~resource_group_name ~soa_record
-    __id =
+let make ?id ?tags ?(soa_record = []) ?timeouts ~name
+    ~resource_group_name __id =
   let __type = "azurerm_private_dns_zone" in
   let __attrs =
     ({
@@ -290,15 +290,15 @@ let make ?id ?tags ?timeouts ~name ~resource_group_name ~soa_record
     type_ = __type;
     json =
       yojson_of_azurerm_private_dns_zone
-        (azurerm_private_dns_zone ?id ?tags ?timeouts ~name
-           ~resource_group_name ~soa_record ());
+        (azurerm_private_dns_zone ?id ?tags ~soa_record ?timeouts
+           ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?timeouts ~name
-    ~resource_group_name ~soa_record __id =
+let register ?tf_module ?id ?tags ?(soa_record = []) ?timeouts ~name
+    ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?timeouts ~name ~resource_group_name ~soa_record
+    make ?id ?tags ~soa_record ?timeouts ~name ~resource_group_name
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

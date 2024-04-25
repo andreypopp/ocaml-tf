@@ -1054,9 +1054,9 @@ let blue_green_deployment_config__terminate_blue_instances_on_deployment_success
     =
   { action; termination_wait_time_in_minutes }
 
-let blue_green_deployment_config ~deployment_ready_option
-    ~green_fleet_provisioning_option
-    ~terminate_blue_instances_on_deployment_success () :
+let blue_green_deployment_config ?(deployment_ready_option = [])
+    ?(green_fleet_provisioning_option = [])
+    ?(terminate_blue_instances_on_deployment_success = []) () :
     blue_green_deployment_config =
   {
     deployment_ready_option;
@@ -1102,13 +1102,13 @@ let load_balancer_info__target_group_pair_info__test_traffic_route
     load_balancer_info__target_group_pair_info__test_traffic_route =
   { listener_arns }
 
-let load_balancer_info__target_group_pair_info ~prod_traffic_route
-    ~target_group ~test_traffic_route () :
+let load_balancer_info__target_group_pair_info
+    ?(test_traffic_route = []) ~prod_traffic_route ~target_group () :
     load_balancer_info__target_group_pair_info =
   { prod_traffic_route; target_group; test_traffic_route }
 
-let load_balancer_info ~elb_info ~target_group_info
-    ~target_group_pair_info () : load_balancer_info =
+let load_balancer_info ?(target_group_pair_info = []) ~elb_info
+    ~target_group_info () : load_balancer_info =
   { elb_info; target_group_info; target_group_pair_info }
 
 let on_premises_instance_tag_filter ?key ?type_ ?value () :
@@ -1121,12 +1121,13 @@ let trigger_configuration ~trigger_events ~trigger_name
 
 let aws_codedeploy_deployment_group ?autoscaling_groups
     ?deployment_config_name ?id ?outdated_instances_strategy ?tags
-    ?tags_all ~app_name ~deployment_group_name ~service_role_arn
-    ~alarm_configuration ~auto_rollback_configuration
-    ~blue_green_deployment_config ~deployment_style ~ec2_tag_filter
-    ~ec2_tag_set ~ecs_service ~load_balancer_info
-    ~on_premises_instance_tag_filter ~trigger_configuration () :
-    aws_codedeploy_deployment_group =
+    ?tags_all ?(alarm_configuration = [])
+    ?(auto_rollback_configuration = [])
+    ?(blue_green_deployment_config = []) ?(deployment_style = [])
+    ?(ecs_service = []) ?(load_balancer_info = []) ~app_name
+    ~deployment_group_name ~service_role_arn ~ec2_tag_filter
+    ~ec2_tag_set ~on_premises_instance_tag_filter
+    ~trigger_configuration () : aws_codedeploy_deployment_group =
   {
     app_name;
     autoscaling_groups;
@@ -1165,11 +1166,12 @@ type t = {
 }
 
 let make ?autoscaling_groups ?deployment_config_name ?id
-    ?outdated_instances_strategy ?tags ?tags_all ~app_name
-    ~deployment_group_name ~service_role_arn ~alarm_configuration
-    ~auto_rollback_configuration ~blue_green_deployment_config
-    ~deployment_style ~ec2_tag_filter ~ec2_tag_set ~ecs_service
-    ~load_balancer_info ~on_premises_instance_tag_filter
+    ?outdated_instances_strategy ?tags ?tags_all
+    ?(alarm_configuration = []) ?(auto_rollback_configuration = [])
+    ?(blue_green_deployment_config = []) ?(deployment_style = [])
+    ?(ecs_service = []) ?(load_balancer_info = []) ~app_name
+    ~deployment_group_name ~service_role_arn ~ec2_tag_filter
+    ~ec2_tag_set ~on_premises_instance_tag_filter
     ~trigger_configuration __id =
   let __type = "aws_codedeploy_deployment_group" in
   let __attrs =
@@ -1203,30 +1205,31 @@ let make ?autoscaling_groups ?deployment_config_name ?id
       yojson_of_aws_codedeploy_deployment_group
         (aws_codedeploy_deployment_group ?autoscaling_groups
            ?deployment_config_name ?id ?outdated_instances_strategy
-           ?tags ?tags_all ~app_name ~deployment_group_name
-           ~service_role_arn ~alarm_configuration
+           ?tags ?tags_all ~alarm_configuration
            ~auto_rollback_configuration ~blue_green_deployment_config
-           ~deployment_style ~ec2_tag_filter ~ec2_tag_set
-           ~ecs_service ~load_balancer_info
+           ~deployment_style ~ecs_service ~load_balancer_info
+           ~app_name ~deployment_group_name ~service_role_arn
+           ~ec2_tag_filter ~ec2_tag_set
            ~on_premises_instance_tag_filter ~trigger_configuration ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?autoscaling_groups ?deployment_config_name
-    ?id ?outdated_instances_strategy ?tags ?tags_all ~app_name
-    ~deployment_group_name ~service_role_arn ~alarm_configuration
-    ~auto_rollback_configuration ~blue_green_deployment_config
-    ~deployment_style ~ec2_tag_filter ~ec2_tag_set ~ecs_service
-    ~load_balancer_info ~on_premises_instance_tag_filter
+    ?id ?outdated_instances_strategy ?tags ?tags_all
+    ?(alarm_configuration = []) ?(auto_rollback_configuration = [])
+    ?(blue_green_deployment_config = []) ?(deployment_style = [])
+    ?(ecs_service = []) ?(load_balancer_info = []) ~app_name
+    ~deployment_group_name ~service_role_arn ~ec2_tag_filter
+    ~ec2_tag_set ~on_premises_instance_tag_filter
     ~trigger_configuration __id =
   let (r : _ Tf_core.resource) =
     make ?autoscaling_groups ?deployment_config_name ?id
-      ?outdated_instances_strategy ?tags ?tags_all ~app_name
-      ~deployment_group_name ~service_role_arn ~alarm_configuration
-      ~auto_rollback_configuration ~blue_green_deployment_config
-      ~deployment_style ~ec2_tag_filter ~ec2_tag_set ~ecs_service
-      ~load_balancer_info ~on_premises_instance_tag_filter
-      ~trigger_configuration __id
+      ?outdated_instances_strategy ?tags ?tags_all
+      ~alarm_configuration ~auto_rollback_configuration
+      ~blue_green_deployment_config ~deployment_style ~ecs_service
+      ~load_balancer_info ~app_name ~deployment_group_name
+      ~service_role_arn ~ec2_tag_filter ~ec2_tag_set
+      ~on_premises_instance_tag_filter ~trigger_configuration __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

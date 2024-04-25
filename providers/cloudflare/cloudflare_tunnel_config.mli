@@ -44,7 +44,7 @@ val config__ingress_rule__origin_request :
   ?proxy_type:string prop ->
   ?tcp_keep_alive:string prop ->
   ?tls_timeout:string prop ->
-  access:config__ingress_rule__origin_request__access list ->
+  ?access:config__ingress_rule__origin_request__access list ->
   ip_rules:config__ingress_rule__origin_request__ip_rules list ->
   unit ->
   config__ingress_rule__origin_request
@@ -54,8 +54,8 @@ type config__ingress_rule
 val config__ingress_rule :
   ?hostname:string prop ->
   ?path:string prop ->
+  ?origin_request:config__ingress_rule__origin_request list ->
   service:string prop ->
-  origin_request:config__ingress_rule__origin_request list ->
   unit ->
   config__ingress_rule
 
@@ -96,7 +96,7 @@ val config__origin_request :
   ?proxy_type:string prop ->
   ?tcp_keep_alive:string prop ->
   ?tls_timeout:string prop ->
-  access:config__origin_request__access list ->
+  ?access:config__origin_request__access list ->
   ip_rules:config__origin_request__ip_rules list ->
   unit ->
   config__origin_request
@@ -109,9 +109,9 @@ val config__warp_routing :
 type config
 
 val config :
+  ?origin_request:config__origin_request list ->
+  ?warp_routing:config__warp_routing list ->
   ingress_rule:config__ingress_rule list ->
-  origin_request:config__origin_request list ->
-  warp_routing:config__warp_routing list ->
   unit ->
   config
 

@@ -1404,9 +1404,9 @@ let auth_settings__twitter ~consumer_key ~consumer_secret () :
 let auth_settings ?additional_login_params
     ?allowed_external_redirect_urls ?default_provider ?issuer
     ?runtime_version ?token_refresh_extension_hours
-    ?token_store_enabled ?unauthenticated_client_action ~enabled
-    ~active_directory ~facebook ~google ~microsoft ~twitter () :
-    auth_settings =
+    ?token_store_enabled ?unauthenticated_client_action
+    ?(active_directory = []) ?(facebook = []) ?(google = [])
+    ?(microsoft = []) ?(twitter = []) ~enabled () : auth_settings =
   {
     additional_login_params;
     allowed_external_redirect_urls;
@@ -1440,7 +1440,7 @@ let site_config ?always_on ?app_scale_limit ?auto_swap_slot_name
     ?linux_fx_version ?min_tls_version ?pre_warmed_instance_count
     ?runtime_scale_monitoring_enabled ?scm_ip_restriction ?scm_type
     ?scm_use_main_ip_restriction ?use_32_bit_worker_process
-    ?vnet_route_all_enabled ?websockets_enabled ~cors () :
+    ?vnet_route_all_enabled ?websockets_enabled ?(cors = []) () :
     site_config =
   {
     always_on;
@@ -1482,10 +1482,11 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_function_app ?app_settings ?client_cert_mode
     ?daily_memory_time_quota ?enable_builtin_logging ?enabled
     ?https_only ?id ?key_vault_reference_identity_id ?os_type ?tags
-    ?version ?timeouts ~app_service_plan_id ~location ~name
-    ~resource_group_name ~storage_account_access_key
-    ~storage_account_name ~auth_settings ~connection_string ~identity
-    ~site_config ~source_control () : azurerm_function_app =
+    ?version ?(auth_settings = []) ?(identity = [])
+    ?(site_config = []) ?(source_control = []) ?timeouts
+    ~app_service_plan_id ~location ~name ~resource_group_name
+    ~storage_account_access_key ~storage_account_name
+    ~connection_string () : azurerm_function_app =
   {
     app_service_plan_id;
     app_settings;
@@ -1541,10 +1542,10 @@ type t = {
 let make ?app_settings ?client_cert_mode ?daily_memory_time_quota
     ?enable_builtin_logging ?enabled ?https_only ?id
     ?key_vault_reference_identity_id ?os_type ?tags ?version
-    ?timeouts ~app_service_plan_id ~location ~name
-    ~resource_group_name ~storage_account_access_key
-    ~storage_account_name ~auth_settings ~connection_string ~identity
-    ~site_config ~source_control __id =
+    ?(auth_settings = []) ?(identity = []) ?(site_config = [])
+    ?(source_control = []) ?timeouts ~app_service_plan_id ~location
+    ~name ~resource_group_name ~storage_account_access_key
+    ~storage_account_name ~connection_string __id =
   let __type = "azurerm_function_app" in
   let __attrs =
     ({
@@ -1594,28 +1595,29 @@ let make ?app_settings ?client_cert_mode ?daily_memory_time_quota
         (azurerm_function_app ?app_settings ?client_cert_mode
            ?daily_memory_time_quota ?enable_builtin_logging ?enabled
            ?https_only ?id ?key_vault_reference_identity_id ?os_type
-           ?tags ?version ?timeouts ~app_service_plan_id ~location
+           ?tags ?version ~auth_settings ~identity ~site_config
+           ~source_control ?timeouts ~app_service_plan_id ~location
            ~name ~resource_group_name ~storage_account_access_key
-           ~storage_account_name ~auth_settings ~connection_string
-           ~identity ~site_config ~source_control ());
+           ~storage_account_name ~connection_string ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?app_settings ?client_cert_mode
     ?daily_memory_time_quota ?enable_builtin_logging ?enabled
     ?https_only ?id ?key_vault_reference_identity_id ?os_type ?tags
-    ?version ?timeouts ~app_service_plan_id ~location ~name
-    ~resource_group_name ~storage_account_access_key
-    ~storage_account_name ~auth_settings ~connection_string ~identity
-    ~site_config ~source_control __id =
+    ?version ?(auth_settings = []) ?(identity = [])
+    ?(site_config = []) ?(source_control = []) ?timeouts
+    ~app_service_plan_id ~location ~name ~resource_group_name
+    ~storage_account_access_key ~storage_account_name
+    ~connection_string __id =
   let (r : _ Tf_core.resource) =
     make ?app_settings ?client_cert_mode ?daily_memory_time_quota
       ?enable_builtin_logging ?enabled ?https_only ?id
       ?key_vault_reference_identity_id ?os_type ?tags ?version
-      ?timeouts ~app_service_plan_id ~location ~name
-      ~resource_group_name ~storage_account_access_key
-      ~storage_account_name ~auth_settings ~connection_string
-      ~identity ~site_config ~source_control __id
+      ~auth_settings ~identity ~site_config ~source_control ?timeouts
+      ~app_service_plan_id ~location ~name ~resource_group_name
+      ~storage_account_access_key ~storage_account_name
+      ~connection_string __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

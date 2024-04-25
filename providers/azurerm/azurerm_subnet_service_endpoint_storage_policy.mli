@@ -29,11 +29,11 @@ type azurerm_subnet_service_endpoint_storage_policy
 val azurerm_subnet_service_endpoint_storage_policy :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?definition:definition list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  definition:definition list ->
   unit ->
   azurerm_subnet_service_endpoint_storage_policy
 
@@ -54,21 +54,21 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?definition:definition list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  definition:definition list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?definition:definition list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  definition:definition list ->
   string ->
   t Tf_core.resource

@@ -275,8 +275,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_elastic_san_volume_group ?encryption_type ?id
-    ?protocol_type ?timeouts ~elastic_san_id ~name ~encryption
-    ~identity ~network_rule () : azurerm_elastic_san_volume_group =
+    ?protocol_type ?(encryption = []) ?(identity = [])
+    ?(network_rule = []) ?timeouts ~elastic_san_id ~name () :
+    azurerm_elastic_san_volume_group =
   {
     elastic_san_id;
     encryption_type;
@@ -297,8 +298,9 @@ type t = {
   protocol_type : string prop;
 }
 
-let make ?encryption_type ?id ?protocol_type ?timeouts
-    ~elastic_san_id ~name ~encryption ~identity ~network_rule __id =
+let make ?encryption_type ?id ?protocol_type ?(encryption = [])
+    ?(identity = []) ?(network_rule = []) ?timeouts ~elastic_san_id
+    ~name __id =
   let __type = "azurerm_elastic_san_volume_group" in
   let __attrs =
     ({
@@ -316,16 +318,17 @@ let make ?encryption_type ?id ?protocol_type ?timeouts
     json =
       yojson_of_azurerm_elastic_san_volume_group
         (azurerm_elastic_san_volume_group ?encryption_type ?id
-           ?protocol_type ?timeouts ~elastic_san_id ~name ~encryption
-           ~identity ~network_rule ());
+           ?protocol_type ~encryption ~identity ~network_rule
+           ?timeouts ~elastic_san_id ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?encryption_type ?id ?protocol_type ?timeouts
-    ~elastic_san_id ~name ~encryption ~identity ~network_rule __id =
+let register ?tf_module ?encryption_type ?id ?protocol_type
+    ?(encryption = []) ?(identity = []) ?(network_rule = [])
+    ?timeouts ~elastic_san_id ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?encryption_type ?id ?protocol_type ?timeouts
-      ~elastic_san_id ~name ~encryption ~identity ~network_rule __id
+    make ?encryption_type ?id ?protocol_type ~encryption ~identity
+      ~network_rule ?timeouts ~elastic_san_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

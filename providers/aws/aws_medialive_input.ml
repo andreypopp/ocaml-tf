@@ -355,8 +355,9 @@ let vpc ?security_group_ids ~subnet_ids () : vpc =
   { security_group_ids; subnet_ids }
 
 let aws_medialive_input ?id ?input_security_groups ?role_arn ?tags
-    ?tags_all ?timeouts ~name ~type_ ~destinations ~input_devices
-    ~media_connect_flows ~sources ~vpc () : aws_medialive_input =
+    ?tags_all ?timeouts ?(vpc = []) ~name ~type_ ~destinations
+    ~input_devices ~media_connect_flows ~sources () :
+    aws_medialive_input =
   {
     id;
     input_security_groups;
@@ -389,8 +390,8 @@ type t = {
 }
 
 let make ?id ?input_security_groups ?role_arn ?tags ?tags_all
-    ?timeouts ~name ~type_ ~destinations ~input_devices
-    ~media_connect_flows ~sources ~vpc __id =
+    ?timeouts ?(vpc = []) ~name ~type_ ~destinations ~input_devices
+    ~media_connect_flows ~sources __id =
   let __type = "aws_medialive_input" in
   let __attrs =
     ({
@@ -419,18 +420,18 @@ let make ?id ?input_security_groups ?role_arn ?tags ?tags_all
     json =
       yojson_of_aws_medialive_input
         (aws_medialive_input ?id ?input_security_groups ?role_arn
-           ?tags ?tags_all ?timeouts ~name ~type_ ~destinations
-           ~input_devices ~media_connect_flows ~sources ~vpc ());
+           ?tags ?tags_all ?timeouts ~vpc ~name ~type_ ~destinations
+           ~input_devices ~media_connect_flows ~sources ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?input_security_groups ?role_arn ?tags
-    ?tags_all ?timeouts ~name ~type_ ~destinations ~input_devices
-    ~media_connect_flows ~sources ~vpc __id =
+    ?tags_all ?timeouts ?(vpc = []) ~name ~type_ ~destinations
+    ~input_devices ~media_connect_flows ~sources __id =
   let (r : _ Tf_core.resource) =
     make ?id ?input_security_groups ?role_arn ?tags ?tags_all
-      ?timeouts ~name ~type_ ~destinations ~input_devices
-      ~media_connect_flows ~sources ~vpc __id
+      ?timeouts ~vpc ~name ~type_ ~destinations ~input_devices
+      ~media_connect_flows ~sources __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

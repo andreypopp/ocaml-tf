@@ -117,8 +117,8 @@ let _ = yojson_of_aws_apprunner_observability_configuration
 let trace_configuration ?vendor () : trace_configuration = { vendor }
 
 let aws_apprunner_observability_configuration ?id ?tags ?tags_all
-    ~observability_configuration_name ~trace_configuration () :
-    aws_apprunner_observability_configuration =
+    ?(trace_configuration = []) ~observability_configuration_name ()
+    : aws_apprunner_observability_configuration =
   {
     id;
     observability_configuration_name;
@@ -138,8 +138,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?tags ?tags_all ~observability_configuration_name
-    ~trace_configuration __id =
+let make ?id ?tags ?tags_all ?(trace_configuration = [])
+    ~observability_configuration_name __id =
   let __type = "aws_apprunner_observability_configuration" in
   let __attrs =
     ({
@@ -163,16 +163,17 @@ let make ?id ?tags ?tags_all ~observability_configuration_name
     json =
       yojson_of_aws_apprunner_observability_configuration
         (aws_apprunner_observability_configuration ?id ?tags
-           ?tags_all ~observability_configuration_name
-           ~trace_configuration ());
+           ?tags_all ~trace_configuration
+           ~observability_configuration_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?tags ?tags_all
-    ~observability_configuration_name ~trace_configuration __id =
+    ?(trace_configuration = []) ~observability_configuration_name
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~observability_configuration_name
-      ~trace_configuration __id
+    make ?id ?tags ?tags_all ~trace_configuration
+      ~observability_configuration_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -35,12 +35,12 @@ val aws_lexv2models_bot :
   ?tags:(string * string prop) list ->
   ?test_bot_alias_tags:(string * string prop) list ->
   ?type_:string prop ->
+  ?data_privacy:data_privacy list ->
+  ?members:members list ->
   ?timeouts:timeouts ->
   idle_session_ttl_in_seconds:float prop ->
   name:string prop ->
   role_arn:string prop ->
-  data_privacy:data_privacy list ->
-  members:members list ->
   unit ->
   aws_lexv2models_bot
 
@@ -67,12 +67,12 @@ val register :
   ?tags:(string * string prop) list ->
   ?test_bot_alias_tags:(string * string prop) list ->
   ?type_:string prop ->
+  ?data_privacy:data_privacy list ->
+  ?members:members list ->
   ?timeouts:timeouts ->
   idle_session_ttl_in_seconds:float prop ->
   name:string prop ->
   role_arn:string prop ->
-  data_privacy:data_privacy list ->
-  members:members list ->
   string ->
   t
 
@@ -81,11 +81,11 @@ val make :
   ?tags:(string * string prop) list ->
   ?test_bot_alias_tags:(string * string prop) list ->
   ?type_:string prop ->
+  ?data_privacy:data_privacy list ->
+  ?members:members list ->
   ?timeouts:timeouts ->
   idle_session_ttl_in_seconds:float prop ->
   name:string prop ->
   role_arn:string prop ->
-  data_privacy:data_privacy list ->
-  members:members list ->
   string ->
   t Tf_core.resource

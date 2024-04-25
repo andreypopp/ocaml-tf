@@ -199,7 +199,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_app_engine_domain_mapping ?id ?override_strategy ?project
-    ?timeouts ~domain_name ~ssl_settings () :
+    ?(ssl_settings = []) ?timeouts ~domain_name () :
     google_app_engine_domain_mapping =
   {
     domain_name;
@@ -219,8 +219,8 @@ type t = {
   resource_records : resource_records list prop;
 }
 
-let make ?id ?override_strategy ?project ?timeouts ~domain_name
-    ~ssl_settings __id =
+let make ?id ?override_strategy ?project ?(ssl_settings = [])
+    ?timeouts ~domain_name __id =
   let __type = "google_app_engine_domain_mapping" in
   let __attrs =
     ({
@@ -241,15 +241,15 @@ let make ?id ?override_strategy ?project ?timeouts ~domain_name
     json =
       yojson_of_google_app_engine_domain_mapping
         (google_app_engine_domain_mapping ?id ?override_strategy
-           ?project ?timeouts ~domain_name ~ssl_settings ());
+           ?project ~ssl_settings ?timeouts ~domain_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?override_strategy ?project ?timeouts
-    ~domain_name ~ssl_settings __id =
+let register ?tf_module ?id ?override_strategy ?project
+    ?(ssl_settings = []) ?timeouts ~domain_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?override_strategy ?project ?timeouts ~domain_name
-      ~ssl_settings __id
+    make ?id ?override_strategy ?project ~ssl_settings ?timeouts
+      ~domain_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

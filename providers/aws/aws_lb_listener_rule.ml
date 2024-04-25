@@ -919,16 +919,17 @@ let action__forward__target_group ?weight ~arn () :
     action__forward__target_group =
   { arn; weight }
 
-let action__forward ~stickiness ~target_group () : action__forward =
+let action__forward ?(stickiness = []) ~target_group () :
+    action__forward =
   { stickiness; target_group }
 
 let action__redirect ?host ?path ?port ?protocol ?query ~status_code
     () : action__redirect =
   { host; path; port; protocol; query; status_code }
 
-let action ?order ?target_group_arn ~type_ ~authenticate_cognito
-    ~authenticate_oidc ~fixed_response ~forward ~redirect () : action
-    =
+let action ?order ?target_group_arn ?(authenticate_cognito = [])
+    ?(authenticate_oidc = []) ?(fixed_response = []) ?(forward = [])
+    ?(redirect = []) ~type_ () : action =
   {
     order;
     target_group_arn;
@@ -961,8 +962,9 @@ let condition__query_string ?key ~value () : condition__query_string
 let condition__source_ip ~values () : condition__source_ip =
   { values }
 
-let condition ~host_header ~http_header ~http_request_method
-    ~path_pattern ~query_string ~source_ip () : condition =
+let condition ?(host_header = []) ?(http_header = [])
+    ?(http_request_method = []) ?(path_pattern = [])
+    ?(source_ip = []) ~query_string () : condition =
   {
     host_header;
     http_header;

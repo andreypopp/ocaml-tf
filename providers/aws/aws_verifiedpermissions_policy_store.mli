@@ -13,7 +13,7 @@ type aws_verifiedpermissions_policy_store
 
 val aws_verifiedpermissions_policy_store :
   ?description:string prop ->
-  validation_settings:validation_settings list ->
+  ?validation_settings:validation_settings list ->
   unit ->
   aws_verifiedpermissions_policy_store
 
@@ -32,12 +32,12 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
-  validation_settings:validation_settings list ->
+  ?validation_settings:validation_settings list ->
   string ->
   t
 
 val make :
   ?description:string prop ->
-  validation_settings:validation_settings list ->
+  ?validation_settings:validation_settings list ->
   string ->
   t Tf_core.resource

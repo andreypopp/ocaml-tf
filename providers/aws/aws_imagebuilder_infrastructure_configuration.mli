@@ -38,10 +38,10 @@ val aws_imagebuilder_infrastructure_configuration :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?terminate_instance_on_failure:bool prop ->
+  ?instance_metadata_options:instance_metadata_options list ->
+  ?logging:logging list ->
   instance_profile_name:string prop ->
   name:string prop ->
-  instance_metadata_options:instance_metadata_options list ->
-  logging:logging list ->
   unit ->
   aws_imagebuilder_infrastructure_configuration
 
@@ -82,10 +82,10 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?terminate_instance_on_failure:bool prop ->
+  ?instance_metadata_options:instance_metadata_options list ->
+  ?logging:logging list ->
   instance_profile_name:string prop ->
   name:string prop ->
-  instance_metadata_options:instance_metadata_options list ->
-  logging:logging list ->
   string ->
   t
 
@@ -101,9 +101,9 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?terminate_instance_on_failure:bool prop ->
+  ?instance_metadata_options:instance_metadata_options list ->
+  ?logging:logging list ->
   instance_profile_name:string prop ->
   name:string prop ->
-  instance_metadata_options:instance_metadata_options list ->
-  logging:logging list ->
   string ->
   t Tf_core.resource

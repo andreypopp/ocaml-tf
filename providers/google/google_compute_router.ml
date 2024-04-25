@@ -247,8 +247,8 @@ let bgp__advertised_ip_ranges ?description ~range () :
     bgp__advertised_ip_ranges =
   { description; range }
 
-let bgp ?advertise_mode ?advertised_groups ?keepalive_interval ~asn
-    ~advertised_ip_ranges () : bgp =
+let bgp ?advertise_mode ?advertised_groups ?keepalive_interval
+    ?(advertised_ip_ranges = []) ~asn () : bgp =
   {
     advertise_mode;
     advertised_groups;
@@ -261,7 +261,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_compute_router ?description ?encrypted_interconnect_router
-    ?id ?project ?region ?timeouts ~name ~network ~bgp () :
+    ?id ?project ?region ?(bgp = []) ?timeouts ~name ~network () :
     google_compute_router =
   {
     description;
@@ -288,7 +288,7 @@ type t = {
 }
 
 let make ?description ?encrypted_interconnect_router ?id ?project
-    ?region ?timeouts ~name ~network ~bgp __id =
+    ?region ?(bgp = []) ?timeouts ~name ~network __id =
   let __type = "google_compute_router" in
   let __attrs =
     ({
@@ -312,16 +312,16 @@ let make ?description ?encrypted_interconnect_router ?id ?project
     json =
       yojson_of_google_compute_router
         (google_compute_router ?description
-           ?encrypted_interconnect_router ?id ?project ?region
-           ?timeouts ~name ~network ~bgp ());
+           ?encrypted_interconnect_router ?id ?project ?region ~bgp
+           ?timeouts ~name ~network ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?encrypted_interconnect_router
-    ?id ?project ?region ?timeouts ~name ~network ~bgp __id =
+    ?id ?project ?region ?(bgp = []) ?timeouts ~name ~network __id =
   let (r : _ Tf_core.resource) =
     make ?description ?encrypted_interconnect_router ?id ?project
-      ?region ?timeouts ~name ~network ~bgp __id
+      ?region ~bgp ?timeouts ~name ~network __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

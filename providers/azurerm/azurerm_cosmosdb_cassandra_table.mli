@@ -30,7 +30,7 @@ val schema__partition_key :
 type schema
 
 val schema :
-  cluster_key:schema__cluster_key list ->
+  ?cluster_key:schema__cluster_key list ->
   column:schema__column list ->
   partition_key:schema__partition_key list ->
   unit ->
@@ -53,10 +53,10 @@ val azurerm_cosmosdb_cassandra_table :
   ?default_ttl:float prop ->
   ?id:string prop ->
   ?throughput:float prop ->
+  ?autoscale_settings:autoscale_settings list ->
   ?timeouts:timeouts ->
   cassandra_keyspace_id:string prop ->
   name:string prop ->
-  autoscale_settings:autoscale_settings list ->
   schema:schema list ->
   unit ->
   azurerm_cosmosdb_cassandra_table
@@ -81,10 +81,10 @@ val register :
   ?default_ttl:float prop ->
   ?id:string prop ->
   ?throughput:float prop ->
+  ?autoscale_settings:autoscale_settings list ->
   ?timeouts:timeouts ->
   cassandra_keyspace_id:string prop ->
   name:string prop ->
-  autoscale_settings:autoscale_settings list ->
   schema:schema list ->
   string ->
   t
@@ -94,10 +94,10 @@ val make :
   ?default_ttl:float prop ->
   ?id:string prop ->
   ?throughput:float prop ->
+  ?autoscale_settings:autoscale_settings list ->
   ?timeouts:timeouts ->
   cassandra_keyspace_id:string prop ->
   name:string prop ->
-  autoscale_settings:autoscale_settings list ->
   schema:schema list ->
   string ->
   t Tf_core.resource

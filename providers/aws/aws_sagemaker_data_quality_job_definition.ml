@@ -948,8 +948,8 @@ let data_quality_baseline_config__statistics_resource ?s3_uri () :
     data_quality_baseline_config__statistics_resource =
   { s3_uri }
 
-let data_quality_baseline_config ~constraints_resource
-    ~statistics_resource () : data_quality_baseline_config =
+let data_quality_baseline_config ?(constraints_resource = [])
+    ?(statistics_resource = []) () : data_quality_baseline_config =
   { constraints_resource; statistics_resource }
 
 let data_quality_job_input__batch_transform_input__dataset_format__csv
@@ -965,7 +965,7 @@ let data_quality_job_input__batch_transform_input__dataset_format__json
   { line }
 
 let data_quality_job_input__batch_transform_input__dataset_format
-    ~csv ~json () :
+    ?(csv = []) ?(json = []) () :
     data_quality_job_input__batch_transform_input__dataset_format =
   { csv; json }
 
@@ -991,8 +991,8 @@ let data_quality_job_input__endpoint_input ?local_path
     s3_input_mode;
   }
 
-let data_quality_job_input ~batch_transform_input ~endpoint_input ()
-    : data_quality_job_input =
+let data_quality_job_input ?(batch_transform_input = [])
+    ?(endpoint_input = []) () : data_quality_job_input =
   { batch_transform_input; endpoint_input }
 
 let data_quality_job_output_config__monitoring_outputs__s3_output
@@ -1026,7 +1026,8 @@ let network_config__vpc_config ~security_group_ids ~subnets () :
   { security_group_ids; subnets }
 
 let network_config ?enable_inter_container_traffic_encryption
-    ?enable_network_isolation ~vpc_config () : network_config =
+    ?enable_network_isolation ?(vpc_config = []) () : network_config
+    =
   {
     enable_inter_container_traffic_encryption;
     enable_network_isolation;
@@ -1038,10 +1039,10 @@ let stopping_condition ?max_runtime_in_seconds () :
   { max_runtime_in_seconds }
 
 let aws_sagemaker_data_quality_job_definition ?id ?name ?tags
-    ?tags_all ~role_arn ~data_quality_app_specification
-    ~data_quality_baseline_config ~data_quality_job_input
-    ~data_quality_job_output_config ~job_resources ~network_config
-    ~stopping_condition () :
+    ?tags_all ?(data_quality_baseline_config = [])
+    ?(network_config = []) ?(stopping_condition = []) ~role_arn
+    ~data_quality_app_specification ~data_quality_job_input
+    ~data_quality_job_output_config ~job_resources () :
     aws_sagemaker_data_quality_job_definition =
   {
     id;
@@ -1067,10 +1068,11 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?name ?tags ?tags_all ~role_arn
-    ~data_quality_app_specification ~data_quality_baseline_config
-    ~data_quality_job_input ~data_quality_job_output_config
-    ~job_resources ~network_config ~stopping_condition __id =
+let make ?id ?name ?tags ?tags_all
+    ?(data_quality_baseline_config = []) ?(network_config = [])
+    ?(stopping_condition = []) ~role_arn
+    ~data_quality_app_specification ~data_quality_job_input
+    ~data_quality_job_output_config ~job_resources __id =
   let __type = "aws_sagemaker_data_quality_job_definition" in
   let __attrs =
     ({
@@ -1089,22 +1091,23 @@ let make ?id ?name ?tags ?tags_all ~role_arn
     json =
       yojson_of_aws_sagemaker_data_quality_job_definition
         (aws_sagemaker_data_quality_job_definition ?id ?name ?tags
-           ?tags_all ~role_arn ~data_quality_app_specification
-           ~data_quality_baseline_config ~data_quality_job_input
-           ~data_quality_job_output_config ~job_resources
-           ~network_config ~stopping_condition ());
+           ?tags_all ~data_quality_baseline_config ~network_config
+           ~stopping_condition ~role_arn
+           ~data_quality_app_specification ~data_quality_job_input
+           ~data_quality_job_output_config ~job_resources ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?name ?tags ?tags_all ~role_arn
-    ~data_quality_app_specification ~data_quality_baseline_config
-    ~data_quality_job_input ~data_quality_job_output_config
-    ~job_resources ~network_config ~stopping_condition __id =
+let register ?tf_module ?id ?name ?tags ?tags_all
+    ?(data_quality_baseline_config = []) ?(network_config = [])
+    ?(stopping_condition = []) ~role_arn
+    ~data_quality_app_specification ~data_quality_job_input
+    ~data_quality_job_output_config ~job_resources __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?name ?tags ?tags_all ~role_arn
-      ~data_quality_app_specification ~data_quality_baseline_config
-      ~data_quality_job_input ~data_quality_job_output_config
-      ~job_resources ~network_config ~stopping_condition __id
+    make ?id ?name ?tags ?tags_all ~data_quality_baseline_config
+      ~network_config ~stopping_condition ~role_arn
+      ~data_quality_app_specification ~data_quality_job_input
+      ~data_quality_job_output_config ~job_resources __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -75,16 +75,16 @@ val azurerm_backup_policy_vm :
   ?instant_restore_retention_days:float prop ->
   ?policy_type:string prop ->
   ?timezone:string prop ->
+  ?instant_restore_resource_group:instant_restore_resource_group list ->
+  ?retention_daily:retention_daily list ->
+  ?retention_monthly:retention_monthly list ->
+  ?retention_weekly:retention_weekly list ->
+  ?retention_yearly:retention_yearly list ->
   ?timeouts:timeouts ->
   name:string prop ->
   recovery_vault_name:string prop ->
   resource_group_name:string prop ->
   backup:backup list ->
-  instant_restore_resource_group:instant_restore_resource_group list ->
-  retention_daily:retention_daily list ->
-  retention_monthly:retention_monthly list ->
-  retention_weekly:retention_weekly list ->
-  retention_yearly:retention_yearly list ->
   unit ->
   azurerm_backup_policy_vm
 
@@ -109,16 +109,16 @@ val register :
   ?instant_restore_retention_days:float prop ->
   ?policy_type:string prop ->
   ?timezone:string prop ->
+  ?instant_restore_resource_group:instant_restore_resource_group list ->
+  ?retention_daily:retention_daily list ->
+  ?retention_monthly:retention_monthly list ->
+  ?retention_weekly:retention_weekly list ->
+  ?retention_yearly:retention_yearly list ->
   ?timeouts:timeouts ->
   name:string prop ->
   recovery_vault_name:string prop ->
   resource_group_name:string prop ->
   backup:backup list ->
-  instant_restore_resource_group:instant_restore_resource_group list ->
-  retention_daily:retention_daily list ->
-  retention_monthly:retention_monthly list ->
-  retention_weekly:retention_weekly list ->
-  retention_yearly:retention_yearly list ->
   string ->
   t
 
@@ -127,15 +127,15 @@ val make :
   ?instant_restore_retention_days:float prop ->
   ?policy_type:string prop ->
   ?timezone:string prop ->
+  ?instant_restore_resource_group:instant_restore_resource_group list ->
+  ?retention_daily:retention_daily list ->
+  ?retention_monthly:retention_monthly list ->
+  ?retention_weekly:retention_weekly list ->
+  ?retention_yearly:retention_yearly list ->
   ?timeouts:timeouts ->
   name:string prop ->
   recovery_vault_name:string prop ->
   resource_group_name:string prop ->
   backup:backup list ->
-  instant_restore_resource_group:instant_restore_resource_group list ->
-  retention_daily:retention_daily list ->
-  retention_monthly:retention_monthly list ->
-  retention_weekly:retention_weekly list ->
-  retention_yearly:retention_yearly list ->
   string ->
   t Tf_core.resource

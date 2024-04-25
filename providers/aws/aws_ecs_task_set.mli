@@ -58,14 +58,14 @@ val aws_ecs_task_set :
   ?tags_all:(string * string prop) list ->
   ?wait_until_stable:bool prop ->
   ?wait_until_stable_timeout:string prop ->
+  ?network_configuration:network_configuration list ->
+  ?scale:scale list ->
+  ?service_registries:service_registries list ->
   cluster:string prop ->
   service:string prop ->
   task_definition:string prop ->
   capacity_provider_strategy:capacity_provider_strategy list ->
   load_balancer:load_balancer list ->
-  network_configuration:network_configuration list ->
-  scale:scale list ->
-  service_registries:service_registries list ->
   unit ->
   aws_ecs_task_set
 
@@ -103,14 +103,14 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?wait_until_stable:bool prop ->
   ?wait_until_stable_timeout:string prop ->
+  ?network_configuration:network_configuration list ->
+  ?scale:scale list ->
+  ?service_registries:service_registries list ->
   cluster:string prop ->
   service:string prop ->
   task_definition:string prop ->
   capacity_provider_strategy:capacity_provider_strategy list ->
   load_balancer:load_balancer list ->
-  network_configuration:network_configuration list ->
-  scale:scale list ->
-  service_registries:service_registries list ->
   string ->
   t
 
@@ -124,13 +124,13 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?wait_until_stable:bool prop ->
   ?wait_until_stable_timeout:string prop ->
+  ?network_configuration:network_configuration list ->
+  ?scale:scale list ->
+  ?service_registries:service_registries list ->
   cluster:string prop ->
   service:string prop ->
   task_definition:string prop ->
   capacity_provider_strategy:capacity_provider_strategy list ->
   load_balancer:load_balancer list ->
-  network_configuration:network_configuration list ->
-  scale:scale list ->
-  service_registries:service_registries list ->
   string ->
   t Tf_core.resource

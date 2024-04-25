@@ -35,7 +35,7 @@ type offline_store_config
 val offline_store_config :
   ?disable_glue_table_creation:bool prop ->
   ?table_format:string prop ->
-  data_catalog_config:offline_store_config__data_catalog_config list ->
+  ?data_catalog_config:offline_store_config__data_catalog_config list ->
   s3_storage_config:offline_store_config__s3_storage_config list ->
   unit ->
   offline_store_config
@@ -60,8 +60,8 @@ type online_store_config
 val online_store_config :
   ?enable_online_store:bool prop ->
   ?storage_type:string prop ->
-  security_config:online_store_config__security_config list ->
-  ttl_duration:online_store_config__ttl_duration list ->
+  ?security_config:online_store_config__security_config list ->
+  ?ttl_duration:online_store_config__ttl_duration list ->
   unit ->
   online_store_config
 
@@ -72,13 +72,13 @@ val aws_sagemaker_feature_group :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?offline_store_config:offline_store_config list ->
+  ?online_store_config:online_store_config list ->
   event_time_feature_name:string prop ->
   feature_group_name:string prop ->
   record_identifier_feature_name:string prop ->
   role_arn:string prop ->
   feature_definition:feature_definition list ->
-  offline_store_config:offline_store_config list ->
-  online_store_config:online_store_config list ->
   unit ->
   aws_sagemaker_feature_group
 
@@ -105,13 +105,13 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?offline_store_config:offline_store_config list ->
+  ?online_store_config:online_store_config list ->
   event_time_feature_name:string prop ->
   feature_group_name:string prop ->
   record_identifier_feature_name:string prop ->
   role_arn:string prop ->
   feature_definition:feature_definition list ->
-  offline_store_config:offline_store_config list ->
-  online_store_config:online_store_config list ->
   string ->
   t
 
@@ -120,12 +120,12 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?offline_store_config:offline_store_config list ->
+  ?online_store_config:online_store_config list ->
   event_time_feature_name:string prop ->
   feature_group_name:string prop ->
   record_identifier_feature_name:string prop ->
   role_arn:string prop ->
   feature_definition:feature_definition list ->
-  offline_store_config:offline_store_config list ->
-  online_store_config:online_store_config list ->
   string ->
   t Tf_core.resource

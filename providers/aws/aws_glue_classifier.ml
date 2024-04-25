@@ -306,8 +306,9 @@ let json_classifier ~json_path () : json_classifier = { json_path }
 let xml_classifier ~classification ~row_tag () : xml_classifier =
   { classification; row_tag }
 
-let aws_glue_classifier ?id ~name ~csv_classifier ~grok_classifier
-    ~json_classifier ~xml_classifier () : aws_glue_classifier =
+let aws_glue_classifier ?id ?(csv_classifier = [])
+    ?(grok_classifier = []) ?(json_classifier = [])
+    ?(xml_classifier = []) ~name () : aws_glue_classifier =
   {
     id;
     name;
@@ -319,8 +320,8 @@ let aws_glue_classifier ?id ~name ~csv_classifier ~grok_classifier
 
 type t = { id : string prop; name : string prop }
 
-let make ?id ~name ~csv_classifier ~grok_classifier ~json_classifier
-    ~xml_classifier __id =
+let make ?id ?(csv_classifier = []) ?(grok_classifier = [])
+    ?(json_classifier = []) ?(xml_classifier = []) ~name __id =
   let __type = "aws_glue_classifier" in
   let __attrs =
     ({
@@ -334,16 +335,17 @@ let make ?id ~name ~csv_classifier ~grok_classifier ~json_classifier
     type_ = __type;
     json =
       yojson_of_aws_glue_classifier
-        (aws_glue_classifier ?id ~name ~csv_classifier
-           ~grok_classifier ~json_classifier ~xml_classifier ());
+        (aws_glue_classifier ?id ~csv_classifier ~grok_classifier
+           ~json_classifier ~xml_classifier ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~name ~csv_classifier ~grok_classifier
-    ~json_classifier ~xml_classifier __id =
+let register ?tf_module ?id ?(csv_classifier = [])
+    ?(grok_classifier = []) ?(json_classifier = [])
+    ?(xml_classifier = []) ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~name ~csv_classifier ~grok_classifier ~json_classifier
-      ~xml_classifier __id
+    make ?id ~csv_classifier ~grok_classifier ~json_classifier
+      ~xml_classifier ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -21,7 +21,7 @@ type online_serving_config
 
 val online_serving_config :
   ?fixed_node_count:float prop ->
-  scaling:online_serving_config__scaling list ->
+  ?scaling:online_serving_config__scaling list ->
   unit ->
   online_serving_config
 
@@ -43,9 +43,9 @@ val google_vertex_ai_featurestore :
   ?name:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?encryption_spec:encryption_spec list ->
+  ?online_serving_config:online_serving_config list ->
   ?timeouts:timeouts ->
-  encryption_spec:encryption_spec list ->
-  online_serving_config:online_serving_config list ->
   unit ->
   google_vertex_ai_featurestore
 
@@ -76,9 +76,9 @@ val register :
   ?name:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?encryption_spec:encryption_spec list ->
+  ?online_serving_config:online_serving_config list ->
   ?timeouts:timeouts ->
-  encryption_spec:encryption_spec list ->
-  online_serving_config:online_serving_config list ->
   string ->
   t
 
@@ -89,8 +89,8 @@ val make :
   ?name:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?encryption_spec:encryption_spec list ->
+  ?online_serving_config:online_serving_config list ->
   ?timeouts:timeouts ->
-  encryption_spec:encryption_spec list ->
-  online_serving_config:online_serving_config list ->
   string ->
   t Tf_core.resource

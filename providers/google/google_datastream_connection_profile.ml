@@ -573,8 +573,8 @@ let mysql_profile__ssl_config ?ca_certificate ?client_certificate
     ?client_key () : mysql_profile__ssl_config =
   { ca_certificate; client_certificate; client_key }
 
-let mysql_profile ?port ~hostname ~password ~username ~ssl_config ()
-    : mysql_profile =
+let mysql_profile ?port ?(ssl_config = []) ~hostname ~password
+    ~username () : mysql_profile =
   { hostname; password; port; username; ssl_config }
 
 let oracle_profile ?connection_attributes ?port ~database_service
@@ -600,10 +600,11 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_datastream_connection_profile ?id ?labels ?project
-    ?timeouts ~connection_profile_id ~display_name ~location
-    ~bigquery_profile ~forward_ssh_connectivity ~gcs_profile
-    ~mysql_profile ~oracle_profile ~postgresql_profile
-    ~private_connectivity () : google_datastream_connection_profile =
+    ?(bigquery_profile = []) ?(forward_ssh_connectivity = [])
+    ?(gcs_profile = []) ?(mysql_profile = []) ?(oracle_profile = [])
+    ?(postgresql_profile = []) ?(private_connectivity = []) ?timeouts
+    ~connection_profile_id ~display_name ~location () :
+    google_datastream_connection_profile =
   {
     connection_profile_id;
     display_name;
@@ -633,10 +634,11 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let make ?id ?labels ?project ?timeouts ~connection_profile_id
-    ~display_name ~location ~bigquery_profile
-    ~forward_ssh_connectivity ~gcs_profile ~mysql_profile
-    ~oracle_profile ~postgresql_profile ~private_connectivity __id =
+let make ?id ?labels ?project ?(bigquery_profile = [])
+    ?(forward_ssh_connectivity = []) ?(gcs_profile = [])
+    ?(mysql_profile = []) ?(oracle_profile = [])
+    ?(postgresql_profile = []) ?(private_connectivity = []) ?timeouts
+    ~connection_profile_id ~display_name ~location __id =
   let __type = "google_datastream_connection_profile" in
   let __attrs =
     ({
@@ -661,22 +663,23 @@ let make ?id ?labels ?project ?timeouts ~connection_profile_id
     json =
       yojson_of_google_datastream_connection_profile
         (google_datastream_connection_profile ?id ?labels ?project
-           ?timeouts ~connection_profile_id ~display_name ~location
            ~bigquery_profile ~forward_ssh_connectivity ~gcs_profile
            ~mysql_profile ~oracle_profile ~postgresql_profile
-           ~private_connectivity ());
+           ~private_connectivity ?timeouts ~connection_profile_id
+           ~display_name ~location ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?labels ?project ?timeouts
-    ~connection_profile_id ~display_name ~location ~bigquery_profile
-    ~forward_ssh_connectivity ~gcs_profile ~mysql_profile
-    ~oracle_profile ~postgresql_profile ~private_connectivity __id =
+let register ?tf_module ?id ?labels ?project ?(bigquery_profile = [])
+    ?(forward_ssh_connectivity = []) ?(gcs_profile = [])
+    ?(mysql_profile = []) ?(oracle_profile = [])
+    ?(postgresql_profile = []) ?(private_connectivity = []) ?timeouts
+    ~connection_profile_id ~display_name ~location __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?labels ?project ?timeouts ~connection_profile_id
-      ~display_name ~location ~bigquery_profile
+    make ?id ?labels ?project ~bigquery_profile
       ~forward_ssh_connectivity ~gcs_profile ~mysql_profile
-      ~oracle_profile ~postgresql_profile ~private_connectivity __id
+      ~oracle_profile ~postgresql_profile ~private_connectivity
+      ?timeouts ~connection_profile_id ~display_name ~location __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

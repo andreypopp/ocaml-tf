@@ -360,9 +360,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_bigquery_analytics_hub_listing ?categories ?description
     ?documentation ?icon ?id ?primary_contact ?project
-    ?request_access ?timeouts ~data_exchange_id ~display_name
-    ~listing_id ~location ~bigquery_dataset ~data_provider ~publisher
-    ~restricted_export_config () :
+    ?request_access ?(data_provider = []) ?(publisher = [])
+    ?(restricted_export_config = []) ?timeouts ~data_exchange_id
+    ~display_name ~listing_id ~location ~bigquery_dataset () :
     google_bigquery_analytics_hub_listing =
   {
     categories;
@@ -401,10 +401,10 @@ type t = {
 }
 
 let make ?categories ?description ?documentation ?icon ?id
-    ?primary_contact ?project ?request_access ?timeouts
+    ?primary_contact ?project ?request_access ?(data_provider = [])
+    ?(publisher = []) ?(restricted_export_config = []) ?timeouts
     ~data_exchange_id ~display_name ~listing_id ~location
-    ~bigquery_dataset ~data_provider ~publisher
-    ~restricted_export_config __id =
+    ~bigquery_dataset __id =
   let __type = "google_bigquery_analytics_hub_listing" in
   let __attrs =
     ({
@@ -432,23 +432,23 @@ let make ?categories ?description ?documentation ?icon ?id
       yojson_of_google_bigquery_analytics_hub_listing
         (google_bigquery_analytics_hub_listing ?categories
            ?description ?documentation ?icon ?id ?primary_contact
-           ?project ?request_access ?timeouts ~data_exchange_id
-           ~display_name ~listing_id ~location ~bigquery_dataset
-           ~data_provider ~publisher ~restricted_export_config ());
+           ?project ?request_access ~data_provider ~publisher
+           ~restricted_export_config ?timeouts ~data_exchange_id
+           ~display_name ~listing_id ~location ~bigquery_dataset ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?categories ?description ?documentation ?icon
-    ?id ?primary_contact ?project ?request_access ?timeouts
-    ~data_exchange_id ~display_name ~listing_id ~location
-    ~bigquery_dataset ~data_provider ~publisher
-    ~restricted_export_config __id =
+    ?id ?primary_contact ?project ?request_access
+    ?(data_provider = []) ?(publisher = [])
+    ?(restricted_export_config = []) ?timeouts ~data_exchange_id
+    ~display_name ~listing_id ~location ~bigquery_dataset __id =
   let (r : _ Tf_core.resource) =
     make ?categories ?description ?documentation ?icon ?id
-      ?primary_contact ?project ?request_access ?timeouts
+      ?primary_contact ?project ?request_access ~data_provider
+      ~publisher ~restricted_export_config ?timeouts
       ~data_exchange_id ~display_name ~listing_id ~location
-      ~bigquery_dataset ~data_provider ~publisher
-      ~restricted_export_config __id
+      ~bigquery_dataset __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

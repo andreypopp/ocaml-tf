@@ -26,10 +26,10 @@ val aws_lambda_function_url :
   ?id:string prop ->
   ?invoke_mode:string prop ->
   ?qualifier:string prop ->
+  ?cors:cors list ->
   ?timeouts:timeouts ->
   authorization_type:string prop ->
   function_name:string prop ->
-  cors:cors list ->
   unit ->
   aws_lambda_function_url
 
@@ -54,10 +54,10 @@ val register :
   ?id:string prop ->
   ?invoke_mode:string prop ->
   ?qualifier:string prop ->
+  ?cors:cors list ->
   ?timeouts:timeouts ->
   authorization_type:string prop ->
   function_name:string prop ->
-  cors:cors list ->
   string ->
   t
 
@@ -65,9 +65,9 @@ val make :
   ?id:string prop ->
   ?invoke_mode:string prop ->
   ?qualifier:string prop ->
+  ?cors:cors list ->
   ?timeouts:timeouts ->
   authorization_type:string prop ->
   function_name:string prop ->
-  cors:cors list ->
   string ->
   t Tf_core.resource

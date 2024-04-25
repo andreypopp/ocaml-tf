@@ -39,11 +39,11 @@ val snaplock_configuration__retention_period__minimum_retention :
 type snaplock_configuration__retention_period
 
 val snaplock_configuration__retention_period :
-  default_retention:
+  ?default_retention:
     snaplock_configuration__retention_period__default_retention list ->
-  maximum_retention:
+  ?maximum_retention:
     snaplock_configuration__retention_period__maximum_retention list ->
-  minimum_retention:
+  ?minimum_retention:
     snaplock_configuration__retention_period__minimum_retention list ->
   unit ->
   snaplock_configuration__retention_period
@@ -54,9 +54,9 @@ val snaplock_configuration :
   ?audit_log_volume:bool prop ->
   ?privileged_delete:string prop ->
   ?volume_append_mode_enabled:bool prop ->
+  ?autocommit_period:snaplock_configuration__autocommit_period list ->
+  ?retention_period:snaplock_configuration__retention_period list ->
   snaplock_type:string prop ->
-  autocommit_period:snaplock_configuration__autocommit_period list ->
-  retention_period:snaplock_configuration__retention_period list ->
   unit ->
   snaplock_configuration
 
@@ -92,12 +92,12 @@ val aws_fsx_ontap_volume :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?volume_type:string prop ->
+  ?snaplock_configuration:snaplock_configuration list ->
+  ?tiering_policy:tiering_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
   size_in_megabytes:float prop ->
   storage_virtual_machine_id:string prop ->
-  snaplock_configuration:snaplock_configuration list ->
-  tiering_policy:tiering_policy list ->
   unit ->
   aws_fsx_ontap_volume
 
@@ -141,12 +141,12 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?volume_type:string prop ->
+  ?snaplock_configuration:snaplock_configuration list ->
+  ?tiering_policy:tiering_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
   size_in_megabytes:float prop ->
   storage_virtual_machine_id:string prop ->
-  snaplock_configuration:snaplock_configuration list ->
-  tiering_policy:tiering_policy list ->
   string ->
   t
 
@@ -163,11 +163,11 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?volume_type:string prop ->
+  ?snaplock_configuration:snaplock_configuration list ->
+  ?tiering_policy:tiering_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
   size_in_megabytes:float prop ->
   storage_virtual_machine_id:string prop ->
-  snaplock_configuration:snaplock_configuration list ->
-  tiering_policy:tiering_policy list ->
   string ->
   t Tf_core.resource

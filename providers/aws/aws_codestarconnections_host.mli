@@ -28,10 +28,10 @@ type aws_codestarconnections_host
 val aws_codestarconnections_host :
   ?id:string prop ->
   ?timeouts:timeouts ->
+  ?vpc_configuration:vpc_configuration list ->
   name:string prop ->
   provider_endpoint:string prop ->
   provider_type:string prop ->
-  vpc_configuration:vpc_configuration list ->
   unit ->
   aws_codestarconnections_host
 
@@ -53,19 +53,19 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?timeouts:timeouts ->
+  ?vpc_configuration:vpc_configuration list ->
   name:string prop ->
   provider_endpoint:string prop ->
   provider_type:string prop ->
-  vpc_configuration:vpc_configuration list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?timeouts:timeouts ->
+  ?vpc_configuration:vpc_configuration list ->
   name:string prop ->
   provider_endpoint:string prop ->
   provider_type:string prop ->
-  vpc_configuration:vpc_configuration list ->
   string ->
   t Tf_core.resource

@@ -34,12 +34,12 @@ type criteria
 
 val criteria :
   ?skip_metric_validation:bool prop ->
+  ?dimension:criteria__dimension list ->
   aggregation:string prop ->
   metric_name:string prop ->
   metric_namespace:string prop ->
   operator:string prop ->
   threshold:float prop ->
-  dimension:criteria__dimension list ->
   unit ->
   criteria
 
@@ -59,12 +59,12 @@ val dynamic_criteria :
   ?evaluation_total_count:float prop ->
   ?ignore_data_before:string prop ->
   ?skip_metric_validation:bool prop ->
+  ?dimension:dynamic_criteria__dimension list ->
   aggregation:string prop ->
   alert_sensitivity:string prop ->
   metric_name:string prop ->
   metric_namespace:string prop ->
   operator:string prop ->
-  dimension:dynamic_criteria__dimension list ->
   unit ->
   dynamic_criteria
 
@@ -91,15 +91,15 @@ val azurerm_monitor_metric_alert :
   ?target_resource_location:string prop ->
   ?target_resource_type:string prop ->
   ?window_size:string prop ->
+  ?application_insights_web_test_location_availability_criteria:
+    application_insights_web_test_location_availability_criteria list ->
+  ?criteria:criteria list ->
+  ?dynamic_criteria:dynamic_criteria list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   scopes:string prop list ->
   action:action list ->
-  application_insights_web_test_location_availability_criteria:
-    application_insights_web_test_location_availability_criteria list ->
-  criteria:criteria list ->
-  dynamic_criteria:dynamic_criteria list ->
   unit ->
   azurerm_monitor_metric_alert
 
@@ -136,15 +136,15 @@ val register :
   ?target_resource_location:string prop ->
   ?target_resource_type:string prop ->
   ?window_size:string prop ->
+  ?application_insights_web_test_location_availability_criteria:
+    application_insights_web_test_location_availability_criteria list ->
+  ?criteria:criteria list ->
+  ?dynamic_criteria:dynamic_criteria list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   scopes:string prop list ->
   action:action list ->
-  application_insights_web_test_location_availability_criteria:
-    application_insights_web_test_location_availability_criteria list ->
-  criteria:criteria list ->
-  dynamic_criteria:dynamic_criteria list ->
   string ->
   t
 
@@ -159,14 +159,14 @@ val make :
   ?target_resource_location:string prop ->
   ?target_resource_type:string prop ->
   ?window_size:string prop ->
+  ?application_insights_web_test_location_availability_criteria:
+    application_insights_web_test_location_availability_criteria list ->
+  ?criteria:criteria list ->
+  ?dynamic_criteria:dynamic_criteria list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   scopes:string prop list ->
   action:action list ->
-  application_insights_web_test_location_availability_criteria:
-    application_insights_web_test_location_availability_criteria list ->
-  criteria:criteria list ->
-  dynamic_criteria:dynamic_criteria list ->
   string ->
   t Tf_core.resource

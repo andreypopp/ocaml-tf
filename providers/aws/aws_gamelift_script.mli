@@ -22,8 +22,8 @@ val aws_gamelift_script :
   ?tags_all:(string * string prop) list ->
   ?version:string prop ->
   ?zip_file:string prop ->
+  ?storage_location:storage_location list ->
   name:string prop ->
-  storage_location:storage_location list ->
   unit ->
   aws_gamelift_script
 
@@ -48,8 +48,8 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?version:string prop ->
   ?zip_file:string prop ->
+  ?storage_location:storage_location list ->
   name:string prop ->
-  storage_location:storage_location list ->
   string ->
   t
 
@@ -59,7 +59,7 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?version:string prop ->
   ?zip_file:string prop ->
+  ?storage_location:storage_location list ->
   name:string prop ->
-  storage_location:storage_location list ->
   string ->
   t Tf_core.resource

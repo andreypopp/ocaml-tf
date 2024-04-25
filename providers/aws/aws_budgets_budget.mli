@@ -14,8 +14,8 @@ val auto_adjust_data__historical_options :
 type auto_adjust_data
 
 val auto_adjust_data :
+  ?historical_options:auto_adjust_data__historical_options list ->
   auto_adjust_type:string prop ->
-  historical_options:auto_adjust_data__historical_options list ->
   unit ->
   auto_adjust_data
 
@@ -73,11 +73,11 @@ val aws_budgets_budget :
   ?name_prefix:string prop ->
   ?time_period_end:string prop ->
   ?time_period_start:string prop ->
+  ?auto_adjust_data:auto_adjust_data list ->
+  ?cost_types:cost_types list ->
   budget_type:string prop ->
   time_unit:string prop ->
-  auto_adjust_data:auto_adjust_data list ->
   cost_filter:cost_filter list ->
-  cost_types:cost_types list ->
   notification:notification list ->
   planned_limit:planned_limit list ->
   unit ->
@@ -111,11 +111,11 @@ val register :
   ?name_prefix:string prop ->
   ?time_period_end:string prop ->
   ?time_period_start:string prop ->
+  ?auto_adjust_data:auto_adjust_data list ->
+  ?cost_types:cost_types list ->
   budget_type:string prop ->
   time_unit:string prop ->
-  auto_adjust_data:auto_adjust_data list ->
   cost_filter:cost_filter list ->
-  cost_types:cost_types list ->
   notification:notification list ->
   planned_limit:planned_limit list ->
   string ->
@@ -130,11 +130,11 @@ val make :
   ?name_prefix:string prop ->
   ?time_period_end:string prop ->
   ?time_period_start:string prop ->
+  ?auto_adjust_data:auto_adjust_data list ->
+  ?cost_types:cost_types list ->
   budget_type:string prop ->
   time_unit:string prop ->
-  auto_adjust_data:auto_adjust_data list ->
   cost_filter:cost_filter list ->
-  cost_types:cost_types list ->
   notification:notification list ->
   planned_limit:planned_limit list ->
   string ->

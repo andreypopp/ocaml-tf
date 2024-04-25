@@ -810,8 +810,9 @@ let snapshot_policy__weekly_schedule ?day ?hour ?minute
     ~snapshots_to_keep () : snapshot_policy__weekly_schedule =
   { day; hour; minute; snapshots_to_keep }
 
-let snapshot_policy ?enabled ~daily_schedule ~hourly_schedule
-    ~monthly_schedule ~weekly_schedule () : snapshot_policy =
+let snapshot_policy ?enabled ?(daily_schedule = [])
+    ?(hourly_schedule = []) ?(monthly_schedule = [])
+    ?(weekly_schedule = []) () : snapshot_policy =
   {
     enabled;
     daily_schedule;
@@ -826,9 +827,10 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_netapp_volume ?deletion_policy ?description ?id
     ?kerberos_enabled ?labels ?project ?restricted_actions
     ?security_style ?smb_settings ?snapshot_directory
-    ?unix_permissions ?timeouts ~capacity_gib ~location ~name
-    ~protocols ~share_name ~storage_pool ~export_policy
-    ~restore_parameters ~snapshot_policy () : google_netapp_volume =
+    ?unix_permissions ?(export_policy = [])
+    ?(restore_parameters = []) ?(snapshot_policy = []) ?timeouts
+    ~capacity_gib ~location ~name ~protocols ~share_name
+    ~storage_pool () : google_netapp_volume =
   {
     capacity_gib;
     deletion_policy;
@@ -890,9 +892,10 @@ type t = {
 
 let make ?deletion_policy ?description ?id ?kerberos_enabled ?labels
     ?project ?restricted_actions ?security_style ?smb_settings
-    ?snapshot_directory ?unix_permissions ?timeouts ~capacity_gib
-    ~location ~name ~protocols ~share_name ~storage_pool
-    ~export_policy ~restore_parameters ~snapshot_policy __id =
+    ?snapshot_directory ?unix_permissions ?(export_policy = [])
+    ?(restore_parameters = []) ?(snapshot_policy = []) ?timeouts
+    ~capacity_gib ~location ~name ~protocols ~share_name
+    ~storage_pool __id =
   let __type = "google_netapp_volume" in
   let __attrs =
     ({
@@ -946,24 +949,25 @@ let make ?deletion_policy ?description ?id ?kerberos_enabled ?labels
         (google_netapp_volume ?deletion_policy ?description ?id
            ?kerberos_enabled ?labels ?project ?restricted_actions
            ?security_style ?smb_settings ?snapshot_directory
-           ?unix_permissions ?timeouts ~capacity_gib ~location ~name
-           ~protocols ~share_name ~storage_pool ~export_policy
-           ~restore_parameters ~snapshot_policy ());
+           ?unix_permissions ~export_policy ~restore_parameters
+           ~snapshot_policy ?timeouts ~capacity_gib ~location ~name
+           ~protocols ~share_name ~storage_pool ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?deletion_policy ?description ?id
     ?kerberos_enabled ?labels ?project ?restricted_actions
     ?security_style ?smb_settings ?snapshot_directory
-    ?unix_permissions ?timeouts ~capacity_gib ~location ~name
-    ~protocols ~share_name ~storage_pool ~export_policy
-    ~restore_parameters ~snapshot_policy __id =
+    ?unix_permissions ?(export_policy = [])
+    ?(restore_parameters = []) ?(snapshot_policy = []) ?timeouts
+    ~capacity_gib ~location ~name ~protocols ~share_name
+    ~storage_pool __id =
   let (r : _ Tf_core.resource) =
     make ?deletion_policy ?description ?id ?kerberos_enabled ?labels
       ?project ?restricted_actions ?security_style ?smb_settings
-      ?snapshot_directory ?unix_permissions ?timeouts ~capacity_gib
-      ~location ~name ~protocols ~share_name ~storage_pool
-      ~export_policy ~restore_parameters ~snapshot_policy __id
+      ?snapshot_directory ?unix_permissions ~export_policy
+      ~restore_parameters ~snapshot_policy ?timeouts ~capacity_gib
+      ~location ~name ~protocols ~share_name ~storage_pool __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

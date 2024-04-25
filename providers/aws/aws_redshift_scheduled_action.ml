@@ -288,8 +288,8 @@ let target_action__resume_cluster ~cluster_identifier () :
     target_action__resume_cluster =
   { cluster_identifier }
 
-let target_action ~pause_cluster ~resize_cluster ~resume_cluster () :
-    target_action =
+let target_action ?(pause_cluster = []) ?(resize_cluster = [])
+    ?(resume_cluster = []) () : target_action =
   { pause_cluster; resize_cluster; resume_cluster }
 
 let aws_redshift_scheduled_action ?description ?enable ?end_time ?id

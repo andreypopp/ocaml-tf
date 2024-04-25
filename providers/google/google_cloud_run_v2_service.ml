@@ -1956,11 +1956,11 @@ let template__containers__env__value_source__secret_key_ref ?version
     template__containers__env__value_source__secret_key_ref =
   { secret; version }
 
-let template__containers__env__value_source ~secret_key_ref () :
-    template__containers__env__value_source =
+let template__containers__env__value_source ?(secret_key_ref = []) ()
+    : template__containers__env__value_source =
   { secret_key_ref }
 
-let template__containers__env ?value ~name ~value_source () :
+let template__containers__env ?value ?(value_source = []) ~name () :
     template__containers__env =
   { name; value; value_source }
 
@@ -1974,8 +1974,8 @@ let template__containers__liveness_probe__http_get__http_headers
   { name; value }
 
 let template__containers__liveness_probe__http_get ?path ?port
-    ~http_headers () : template__containers__liveness_probe__http_get
-    =
+    ?(http_headers = []) () :
+    template__containers__liveness_probe__http_get =
   { path; port; http_headers }
 
 let template__containers__liveness_probe__tcp_socket ~port () :
@@ -1983,8 +1983,9 @@ let template__containers__liveness_probe__tcp_socket ~port () :
   { port }
 
 let template__containers__liveness_probe ?failure_threshold
-    ?initial_delay_seconds ?period_seconds ?timeout_seconds ~grpc
-    ~http_get ~tcp_socket () : template__containers__liveness_probe =
+    ?initial_delay_seconds ?period_seconds ?timeout_seconds
+    ?(grpc = []) ?(http_get = []) ?(tcp_socket = []) () :
+    template__containers__liveness_probe =
   {
     failure_threshold;
     initial_delay_seconds;
@@ -2013,8 +2014,8 @@ let template__containers__startup_probe__http_get__http_headers
   { name; value }
 
 let template__containers__startup_probe__http_get ?path ?port
-    ~http_headers () : template__containers__startup_probe__http_get
-    =
+    ?(http_headers = []) () :
+    template__containers__startup_probe__http_get =
   { path; port; http_headers }
 
 let template__containers__startup_probe__tcp_socket ?port () :
@@ -2022,8 +2023,9 @@ let template__containers__startup_probe__tcp_socket ?port () :
   { port }
 
 let template__containers__startup_probe ?failure_threshold
-    ?initial_delay_seconds ?period_seconds ?timeout_seconds ~grpc
-    ~http_get ~tcp_socket () : template__containers__startup_probe =
+    ?initial_delay_seconds ?period_seconds ?timeout_seconds
+    ?(grpc = []) ?(http_get = []) ?(tcp_socket = []) () :
+    template__containers__startup_probe =
   {
     failure_threshold;
     initial_delay_seconds;
@@ -2039,8 +2041,9 @@ let template__containers__volume_mounts ~mount_path ~name () :
   { mount_path; name }
 
 let template__containers ?args ?command ?depends_on ?name
-    ?working_dir ~image ~env ~liveness_probe ~ports ~resources
-    ~startup_probe ~volume_mounts () : template__containers =
+    ?working_dir ?(env = []) ?(liveness_probe = []) ?(ports = [])
+    ?(resources = []) ?(startup_probe = []) ?(volume_mounts = [])
+    ~image () : template__containers =
   {
     args;
     command;
@@ -2076,26 +2079,27 @@ let template__volumes__secret__items ?mode ?version ~path () :
     template__volumes__secret__items =
   { mode; path; version }
 
-let template__volumes__secret ?default_mode ~secret ~items () :
-    template__volumes__secret =
+let template__volumes__secret ?default_mode ?(items = []) ~secret ()
+    : template__volumes__secret =
   { default_mode; secret; items }
 
-let template__volumes ~name ~cloud_sql_instance ~gcs ~nfs ~secret ()
-    : template__volumes =
+let template__volumes ?(cloud_sql_instance = []) ?(gcs = [])
+    ?(nfs = []) ?(secret = []) ~name () : template__volumes =
   { name; cloud_sql_instance; gcs; nfs; secret }
 
 let template__vpc_access__network_interfaces ?network ?subnetwork
     ?tags () : template__vpc_access__network_interfaces =
   { network; subnetwork; tags }
 
-let template__vpc_access ?connector ?egress ~network_interfaces () :
-    template__vpc_access =
+let template__vpc_access ?connector ?egress
+    ?(network_interfaces = []) () : template__vpc_access =
   { connector; egress; network_interfaces }
 
 let template ?annotations ?encryption_key ?execution_environment
     ?labels ?max_instance_request_concurrency ?revision
-    ?service_account ?session_affinity ?timeout ~containers ~scaling
-    ~volumes ~vpc_access () : template =
+    ?service_account ?session_affinity ?timeout ?(containers = [])
+    ?(scaling = []) ?(volumes = []) ?(vpc_access = []) () : template
+    =
   {
     annotations;
     encryption_key;
@@ -2120,8 +2124,8 @@ let traffic ?percent ?revision ?tag ?type_ () : traffic =
 
 let google_cloud_run_v2_service ?annotations ?client ?client_version
     ?custom_audiences ?description ?id ?ingress ?labels ?launch_stage
-    ?project ?timeouts ~location ~name ~binary_authorization
-    ~template ~traffic () : google_cloud_run_v2_service =
+    ?project ?(binary_authorization = []) ?timeouts ?(traffic = [])
+    ~location ~name ~template () : google_cloud_run_v2_service =
   {
     annotations;
     client;
@@ -2178,8 +2182,8 @@ type t = {
 
 let make ?annotations ?client ?client_version ?custom_audiences
     ?description ?id ?ingress ?labels ?launch_stage ?project
-    ?timeouts ~location ~name ~binary_authorization ~template
-    ~traffic __id =
+    ?(binary_authorization = []) ?timeouts ?(traffic = []) ~location
+    ~name ~template __id =
   let __type = "google_cloud_run_v2_service" in
   let __attrs =
     ({
@@ -2234,21 +2238,21 @@ let make ?annotations ?client ?client_version ?custom_audiences
       yojson_of_google_cloud_run_v2_service
         (google_cloud_run_v2_service ?annotations ?client
            ?client_version ?custom_audiences ?description ?id
-           ?ingress ?labels ?launch_stage ?project ?timeouts
-           ~location ~name ~binary_authorization ~template ~traffic
-           ());
+           ?ingress ?labels ?launch_stage ?project
+           ~binary_authorization ?timeouts ~traffic ~location ~name
+           ~template ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?client ?client_version
     ?custom_audiences ?description ?id ?ingress ?labels ?launch_stage
-    ?project ?timeouts ~location ~name ~binary_authorization
-    ~template ~traffic __id =
+    ?project ?(binary_authorization = []) ?timeouts ?(traffic = [])
+    ~location ~name ~template __id =
   let (r : _ Tf_core.resource) =
     make ?annotations ?client ?client_version ?custom_audiences
       ?description ?id ?ingress ?labels ?launch_stage ?project
-      ?timeouts ~location ~name ~binary_authorization ~template
-      ~traffic __id
+      ~binary_authorization ?timeouts ~traffic ~location ~name
+      ~template __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

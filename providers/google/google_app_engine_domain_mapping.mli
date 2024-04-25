@@ -33,9 +33,9 @@ val google_app_engine_domain_mapping :
   ?id:string prop ->
   ?override_strategy:string prop ->
   ?project:string prop ->
+  ?ssl_settings:ssl_settings list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
-  ssl_settings:ssl_settings list ->
   unit ->
   google_app_engine_domain_mapping
 
@@ -58,9 +58,9 @@ val register :
   ?id:string prop ->
   ?override_strategy:string prop ->
   ?project:string prop ->
+  ?ssl_settings:ssl_settings list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
-  ssl_settings:ssl_settings list ->
   string ->
   t
 
@@ -68,8 +68,8 @@ val make :
   ?id:string prop ->
   ?override_strategy:string prop ->
   ?project:string prop ->
+  ?ssl_settings:ssl_settings list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
-  ssl_settings:ssl_settings list ->
   string ->
   t Tf_core.resource

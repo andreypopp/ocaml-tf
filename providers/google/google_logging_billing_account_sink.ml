@@ -183,8 +183,9 @@ let exclusions ?description ?disabled ~filter ~name () : exclusions =
   { description; disabled; filter; name }
 
 let google_logging_billing_account_sink ?description ?disabled
-    ?filter ?id ~billing_account ~destination ~name ~bigquery_options
-    ~exclusions () : google_logging_billing_account_sink =
+    ?filter ?id ?(bigquery_options = []) ?(exclusions = [])
+    ~billing_account ~destination ~name () :
+    google_logging_billing_account_sink =
   {
     billing_account;
     description;
@@ -208,8 +209,8 @@ type t = {
   writer_identity : string prop;
 }
 
-let make ?description ?disabled ?filter ?id ~billing_account
-    ~destination ~name ~bigquery_options ~exclusions __id =
+let make ?description ?disabled ?filter ?id ?(bigquery_options = [])
+    ?(exclusions = []) ~billing_account ~destination ~name __id =
   let __type = "google_logging_billing_account_sink" in
   let __attrs =
     ({
@@ -230,17 +231,17 @@ let make ?description ?disabled ?filter ?id ~billing_account
     json =
       yojson_of_google_logging_billing_account_sink
         (google_logging_billing_account_sink ?description ?disabled
-           ?filter ?id ~billing_account ~destination ~name
-           ~bigquery_options ~exclusions ());
+           ?filter ?id ~bigquery_options ~exclusions ~billing_account
+           ~destination ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?disabled ?filter ?id
-    ~billing_account ~destination ~name ~bigquery_options ~exclusions
-    __id =
+    ?(bigquery_options = []) ?(exclusions = []) ~billing_account
+    ~destination ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?disabled ?filter ?id ~billing_account
-      ~destination ~name ~bigquery_options ~exclusions __id
+    make ?description ?disabled ?filter ?id ~bigquery_options
+      ~exclusions ~billing_account ~destination ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

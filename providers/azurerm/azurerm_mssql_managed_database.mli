@@ -38,11 +38,11 @@ type azurerm_mssql_managed_database
 val azurerm_mssql_managed_database :
   ?id:string prop ->
   ?short_term_retention_days:float prop ->
+  ?long_term_retention_policy:long_term_retention_policy list ->
+  ?point_in_time_restore:point_in_time_restore list ->
   ?timeouts:timeouts ->
   managed_instance_id:string prop ->
   name:string prop ->
-  long_term_retention_policy:long_term_retention_policy list ->
-  point_in_time_restore:point_in_time_restore list ->
   unit ->
   azurerm_mssql_managed_database
 
@@ -62,21 +62,21 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?short_term_retention_days:float prop ->
+  ?long_term_retention_policy:long_term_retention_policy list ->
+  ?point_in_time_restore:point_in_time_restore list ->
   ?timeouts:timeouts ->
   managed_instance_id:string prop ->
   name:string prop ->
-  long_term_retention_policy:long_term_retention_policy list ->
-  point_in_time_restore:point_in_time_restore list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?short_term_retention_days:float prop ->
+  ?long_term_retention_policy:long_term_retention_policy list ->
+  ?point_in_time_restore:point_in_time_restore list ->
   ?timeouts:timeouts ->
   managed_instance_id:string prop ->
   name:string prop ->
-  long_term_retention_policy:long_term_retention_policy list ->
-  point_in_time_restore:point_in_time_restore list ->
   string ->
   t Tf_core.resource

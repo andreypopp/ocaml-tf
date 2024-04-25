@@ -38,10 +38,10 @@ val cdn_policy :
   ?request_coalescing:bool prop ->
   ?serve_while_stale:float prop ->
   ?signed_url_cache_max_age_sec:float prop ->
-  bypass_cache_on_request_headers:
+  ?bypass_cache_on_request_headers:
     cdn_policy__bypass_cache_on_request_headers list ->
-  cache_key_policy:cdn_policy__cache_key_policy list ->
-  negative_caching_policy:cdn_policy__negative_caching_policy list ->
+  ?cache_key_policy:cdn_policy__cache_key_policy list ->
+  ?negative_caching_policy:cdn_policy__negative_caching_policy list ->
   unit ->
   cdn_policy
 
@@ -64,10 +64,10 @@ val google_compute_backend_bucket :
   ?enable_cdn:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?cdn_policy:cdn_policy list ->
   ?timeouts:timeouts ->
   bucket_name:string prop ->
   name:string prop ->
-  cdn_policy:cdn_policy list ->
   unit ->
   google_compute_backend_bucket
 
@@ -99,10 +99,10 @@ val register :
   ?enable_cdn:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?cdn_policy:cdn_policy list ->
   ?timeouts:timeouts ->
   bucket_name:string prop ->
   name:string prop ->
-  cdn_policy:cdn_policy list ->
   string ->
   t
 
@@ -114,9 +114,9 @@ val make :
   ?enable_cdn:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?cdn_policy:cdn_policy list ->
   ?timeouts:timeouts ->
   bucket_name:string prop ->
   name:string prop ->
-  cdn_policy:cdn_policy list ->
   string ->
   t Tf_core.resource

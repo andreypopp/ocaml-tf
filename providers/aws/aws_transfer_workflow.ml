@@ -1412,13 +1412,13 @@ let on_exception_steps__copy_step_details__destination_file_location__s3_file_lo
   { bucket; key }
 
 let on_exception_steps__copy_step_details__destination_file_location
-    ~efs_file_location ~s3_file_location () :
+    ?(efs_file_location = []) ?(s3_file_location = []) () :
     on_exception_steps__copy_step_details__destination_file_location
     =
   { efs_file_location; s3_file_location }
 
 let on_exception_steps__copy_step_details ?name ?overwrite_existing
-    ?source_file_location ~destination_file_location () :
+    ?source_file_location ?(destination_file_location = []) () :
     on_exception_steps__copy_step_details =
   {
     name;
@@ -1445,14 +1445,14 @@ let on_exception_steps__decrypt_step_details__destination_file_location__s3_file
   { bucket; key }
 
 let on_exception_steps__decrypt_step_details__destination_file_location
-    ~efs_file_location ~s3_file_location () :
+    ?(efs_file_location = []) ?(s3_file_location = []) () :
     on_exception_steps__decrypt_step_details__destination_file_location
     =
   { efs_file_location; s3_file_location }
 
 let on_exception_steps__decrypt_step_details ?name
-    ?overwrite_existing ?source_file_location ~type_
-    ~destination_file_location () :
+    ?overwrite_existing ?source_file_location
+    ?(destination_file_location = []) ~type_ () :
     on_exception_steps__decrypt_step_details =
   {
     name;
@@ -1472,11 +1472,12 @@ let on_exception_steps__tag_step_details__tags ~key ~value () :
   { key; value }
 
 let on_exception_steps__tag_step_details ?name ?source_file_location
-    ~tags () : on_exception_steps__tag_step_details =
+    ?(tags = []) () : on_exception_steps__tag_step_details =
   { name; source_file_location; tags }
 
-let on_exception_steps ~type_ ~copy_step_details ~custom_step_details
-    ~decrypt_step_details ~delete_step_details ~tag_step_details () :
+let on_exception_steps ?(copy_step_details = [])
+    ?(custom_step_details = []) ?(decrypt_step_details = [])
+    ?(delete_step_details = []) ?(tag_step_details = []) ~type_ () :
     on_exception_steps =
   {
     type_;
@@ -1500,12 +1501,12 @@ let steps__copy_step_details__destination_file_location__s3_file_location
   { bucket; key }
 
 let steps__copy_step_details__destination_file_location
-    ~efs_file_location ~s3_file_location () :
+    ?(efs_file_location = []) ?(s3_file_location = []) () :
     steps__copy_step_details__destination_file_location =
   { efs_file_location; s3_file_location }
 
 let steps__copy_step_details ?name ?overwrite_existing
-    ?source_file_location ~destination_file_location () :
+    ?source_file_location ?(destination_file_location = []) () :
     steps__copy_step_details =
   {
     name;
@@ -1531,13 +1532,13 @@ let steps__decrypt_step_details__destination_file_location__s3_file_location
   { bucket; key }
 
 let steps__decrypt_step_details__destination_file_location
-    ~efs_file_location ~s3_file_location () :
+    ?(efs_file_location = []) ?(s3_file_location = []) () :
     steps__decrypt_step_details__destination_file_location =
   { efs_file_location; s3_file_location }
 
 let steps__decrypt_step_details ?name ?overwrite_existing
-    ?source_file_location ~type_ ~destination_file_location () :
-    steps__decrypt_step_details =
+    ?source_file_location ?(destination_file_location = []) ~type_ ()
+    : steps__decrypt_step_details =
   {
     name;
     overwrite_existing;
@@ -1554,13 +1555,13 @@ let steps__tag_step_details__tags ~key ~value () :
     steps__tag_step_details__tags =
   { key; value }
 
-let steps__tag_step_details ?name ?source_file_location ~tags () :
-    steps__tag_step_details =
+let steps__tag_step_details ?name ?source_file_location ?(tags = [])
+    () : steps__tag_step_details =
   { name; source_file_location; tags }
 
-let steps ~type_ ~copy_step_details ~custom_step_details
-    ~decrypt_step_details ~delete_step_details ~tag_step_details () :
-    steps =
+let steps ?(copy_step_details = []) ?(custom_step_details = [])
+    ?(decrypt_step_details = []) ?(delete_step_details = [])
+    ?(tag_step_details = []) ~type_ () : steps =
   {
     type_;
     copy_step_details;
@@ -1571,7 +1572,7 @@ let steps ~type_ ~copy_step_details ~custom_step_details
   }
 
 let aws_transfer_workflow ?description ?id ?tags ?tags_all
-    ~on_exception_steps ~steps () : aws_transfer_workflow =
+    ?(on_exception_steps = []) ~steps () : aws_transfer_workflow =
   { description; id; tags; tags_all; on_exception_steps; steps }
 
 type t = {
@@ -1582,8 +1583,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?description ?id ?tags ?tags_all ~on_exception_steps ~steps
-    __id =
+let make ?description ?id ?tags ?tags_all ?(on_exception_steps = [])
+    ~steps __id =
   let __type = "aws_transfer_workflow" in
   let __attrs =
     ({
@@ -1606,7 +1607,7 @@ let make ?description ?id ?tags ?tags_all ~on_exception_steps ~steps
   }
 
 let register ?tf_module ?description ?id ?tags ?tags_all
-    ~on_exception_steps ~steps __id =
+    ?(on_exception_steps = []) ~steps __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?tags ?tags_all ~on_exception_steps ~steps
       __id

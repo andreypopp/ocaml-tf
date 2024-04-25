@@ -130,8 +130,8 @@ let _ = yojson_of_google_dataplex_task_iam_binding
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_dataplex_task_iam_binding ?id ?location ?project ~lake
-    ~members ~role ~task_id ~condition () :
+let google_dataplex_task_iam_binding ?id ?location ?project
+    ?(condition = []) ~lake ~members ~role ~task_id () :
     google_dataplex_task_iam_binding =
   { id; lake; location; members; project; role; task_id; condition }
 
@@ -146,8 +146,8 @@ type t = {
   task_id : string prop;
 }
 
-let make ?id ?location ?project ~lake ~members ~role ~task_id
-    ~condition __id =
+let make ?id ?location ?project ?(condition = []) ~lake ~members
+    ~role ~task_id __id =
   let __type = "google_dataplex_task_iam_binding" in
   let __attrs =
     ({
@@ -168,15 +168,15 @@ let make ?id ?location ?project ~lake ~members ~role ~task_id
     json =
       yojson_of_google_dataplex_task_iam_binding
         (google_dataplex_task_iam_binding ?id ?location ?project
-           ~lake ~members ~role ~task_id ~condition ());
+           ~condition ~lake ~members ~role ~task_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?location ?project ~lake ~members ~role
-    ~task_id ~condition __id =
+let register ?tf_module ?id ?location ?project ?(condition = [])
+    ~lake ~members ~role ~task_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?location ?project ~lake ~members ~role ~task_id
-      ~condition __id
+    make ?id ?location ?project ~condition ~lake ~members ~role
+      ~task_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

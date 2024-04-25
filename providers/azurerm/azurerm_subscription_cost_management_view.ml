@@ -360,8 +360,8 @@ let dataset__grouping ~name ~type_ () : dataset__grouping =
 let dataset__sorting ~direction ~name () : dataset__sorting =
   { direction; name }
 
-let dataset ~granularity ~aggregation ~grouping ~sorting () : dataset
-    =
+let dataset ?(grouping = []) ?(sorting = []) ~granularity
+    ~aggregation () : dataset =
   { granularity; aggregation; grouping; sorting }
 
 let kpi ~type_ () : kpi = { type_ }
@@ -370,9 +370,9 @@ let pivot ~name ~type_ () : pivot = { name; type_ }
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_subscription_cost_management_view ?id ?timeouts
-    ~accumulated ~chart_type ~display_name ~name ~report_type
-    ~subscription_id ~timeframe ~dataset ~kpi ~pivot () :
+let azurerm_subscription_cost_management_view ?id ?(kpi = [])
+    ?(pivot = []) ?timeouts ~accumulated ~chart_type ~display_name
+    ~name ~report_type ~subscription_id ~timeframe ~dataset () :
     azurerm_subscription_cost_management_view =
   {
     accumulated;
@@ -400,9 +400,9 @@ type t = {
   timeframe : string prop;
 }
 
-let make ?id ?timeouts ~accumulated ~chart_type ~display_name ~name
-    ~report_type ~subscription_id ~timeframe ~dataset ~kpi ~pivot
-    __id =
+let make ?id ?(kpi = []) ?(pivot = []) ?timeouts ~accumulated
+    ~chart_type ~display_name ~name ~report_type ~subscription_id
+    ~timeframe ~dataset __id =
   let __type = "azurerm_subscription_cost_management_view" in
   let __attrs =
     ({
@@ -422,19 +422,19 @@ let make ?id ?timeouts ~accumulated ~chart_type ~display_name ~name
     type_ = __type;
     json =
       yojson_of_azurerm_subscription_cost_management_view
-        (azurerm_subscription_cost_management_view ?id ?timeouts
-           ~accumulated ~chart_type ~display_name ~name ~report_type
-           ~subscription_id ~timeframe ~dataset ~kpi ~pivot ());
+        (azurerm_subscription_cost_management_view ?id ~kpi ~pivot
+           ?timeouts ~accumulated ~chart_type ~display_name ~name
+           ~report_type ~subscription_id ~timeframe ~dataset ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~accumulated ~chart_type
-    ~display_name ~name ~report_type ~subscription_id ~timeframe
-    ~dataset ~kpi ~pivot __id =
+let register ?tf_module ?id ?(kpi = []) ?(pivot = []) ?timeouts
+    ~accumulated ~chart_type ~display_name ~name ~report_type
+    ~subscription_id ~timeframe ~dataset __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~accumulated ~chart_type ~display_name ~name
-      ~report_type ~subscription_id ~timeframe ~dataset ~kpi ~pivot
-      __id
+    make ?id ~kpi ~pivot ?timeouts ~accumulated ~chart_type
+      ~display_name ~name ~report_type ~subscription_id ~timeframe
+      ~dataset __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -47,8 +47,8 @@ type aws_dynamodb_table
 val aws_dynamodb_table :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?server_side_encryption:server_side_encryption list ->
   name:string prop ->
-  server_side_encryption:server_side_encryption list ->
   unit ->
   aws_dynamodb_table
 
@@ -84,15 +84,15 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?server_side_encryption:server_side_encryption list ->
   name:string prop ->
-  server_side_encryption:server_side_encryption list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?server_side_encryption:server_side_encryption list ->
   name:string prop ->
-  server_side_encryption:server_side_encryption list ->
   string ->
   t Tf_core.resource

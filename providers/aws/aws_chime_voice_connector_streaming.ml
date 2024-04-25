@@ -125,9 +125,9 @@ let media_insights_configuration ?configuration_arn ?disabled () :
   { configuration_arn; disabled }
 
 let aws_chime_voice_connector_streaming ?disabled ?id
-    ?streaming_notification_targets ~data_retention
-    ~voice_connector_id ~media_insights_configuration () :
-    aws_chime_voice_connector_streaming =
+    ?streaming_notification_targets
+    ?(media_insights_configuration = []) ~data_retention
+    ~voice_connector_id () : aws_chime_voice_connector_streaming =
   {
     data_retention;
     disabled;
@@ -146,8 +146,8 @@ type t = {
 }
 
 let make ?disabled ?id ?streaming_notification_targets
-    ~data_retention ~voice_connector_id ~media_insights_configuration
-    __id =
+    ?(media_insights_configuration = []) ~data_retention
+    ~voice_connector_id __id =
   let __type = "aws_chime_voice_connector_streaming" in
   let __attrs =
     ({
@@ -167,18 +167,19 @@ let make ?disabled ?id ?streaming_notification_targets
     json =
       yojson_of_aws_chime_voice_connector_streaming
         (aws_chime_voice_connector_streaming ?disabled ?id
-           ?streaming_notification_targets ~data_retention
-           ~voice_connector_id ~media_insights_configuration ());
+           ?streaming_notification_targets
+           ~media_insights_configuration ~data_retention
+           ~voice_connector_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?disabled ?id ?streaming_notification_targets
-    ~data_retention ~voice_connector_id ~media_insights_configuration
-    __id =
+    ?(media_insights_configuration = []) ~data_retention
+    ~voice_connector_id __id =
   let (r : _ Tf_core.resource) =
     make ?disabled ?id ?streaming_notification_targets
-      ~data_retention ~voice_connector_id
-      ~media_insights_configuration __id
+      ~media_insights_configuration ~data_retention
+      ~voice_connector_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

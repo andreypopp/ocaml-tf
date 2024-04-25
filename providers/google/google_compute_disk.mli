@@ -69,13 +69,13 @@ val google_compute_disk :
   ?source_disk:string prop ->
   ?type_:string prop ->
   ?zone:string prop ->
+  ?async_primary_disk:async_primary_disk list ->
+  ?disk_encryption_key:disk_encryption_key list ->
+  ?source_image_encryption_key:source_image_encryption_key list ->
+  ?source_snapshot_encryption_key:source_snapshot_encryption_key list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  async_primary_disk:async_primary_disk list ->
-  disk_encryption_key:disk_encryption_key list ->
   guest_os_features:guest_os_features list ->
-  source_image_encryption_key:source_image_encryption_key list ->
-  source_snapshot_encryption_key:source_snapshot_encryption_key list ->
   unit ->
   google_compute_disk
 
@@ -131,13 +131,13 @@ val register :
   ?source_disk:string prop ->
   ?type_:string prop ->
   ?zone:string prop ->
+  ?async_primary_disk:async_primary_disk list ->
+  ?disk_encryption_key:disk_encryption_key list ->
+  ?source_image_encryption_key:source_image_encryption_key list ->
+  ?source_snapshot_encryption_key:source_snapshot_encryption_key list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  async_primary_disk:async_primary_disk list ->
-  disk_encryption_key:disk_encryption_key list ->
   guest_os_features:guest_os_features list ->
-  source_image_encryption_key:source_image_encryption_key list ->
-  source_snapshot_encryption_key:source_snapshot_encryption_key list ->
   string ->
   t
 
@@ -157,12 +157,12 @@ val make :
   ?source_disk:string prop ->
   ?type_:string prop ->
   ?zone:string prop ->
+  ?async_primary_disk:async_primary_disk list ->
+  ?disk_encryption_key:disk_encryption_key list ->
+  ?source_image_encryption_key:source_image_encryption_key list ->
+  ?source_snapshot_encryption_key:source_snapshot_encryption_key list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  async_primary_disk:async_primary_disk list ->
-  disk_encryption_key:disk_encryption_key list ->
   guest_os_features:guest_os_features list ->
-  source_image_encryption_key:source_image_encryption_key list ->
-  source_snapshot_encryption_key:source_snapshot_encryption_key list ->
   string ->
   t Tf_core.resource

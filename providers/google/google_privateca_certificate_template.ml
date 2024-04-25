@@ -844,9 +844,9 @@ let identity_constraints__cel_expression ?description ?expression
     ?location ?title () : identity_constraints__cel_expression =
   { description; expression; location; title }
 
-let identity_constraints ~allow_subject_alt_names_passthrough
-    ~allow_subject_passthrough ~cel_expression () :
-    identity_constraints =
+let identity_constraints ?(cel_expression = [])
+    ~allow_subject_alt_names_passthrough ~allow_subject_passthrough
+    () : identity_constraints =
   {
     allow_subject_alt_names_passthrough;
     allow_subject_passthrough;
@@ -857,8 +857,8 @@ let passthrough_extensions__additional_extensions ~object_id_path ()
     : passthrough_extensions__additional_extensions =
   { object_id_path }
 
-let passthrough_extensions ?known_extensions ~additional_extensions
-    () : passthrough_extensions =
+let passthrough_extensions ?known_extensions
+    ?(additional_extensions = []) () : passthrough_extensions =
   { known_extensions; additional_extensions }
 
 let predefined_values__additional_extensions__object_id
@@ -909,16 +909,18 @@ let predefined_values__key_usage__unknown_extended_key_usages
     predefined_values__key_usage__unknown_extended_key_usages =
   { object_id_path }
 
-let predefined_values__key_usage ~base_key_usage ~extended_key_usage
-    ~unknown_extended_key_usages () : predefined_values__key_usage =
+let predefined_values__key_usage ?(base_key_usage = [])
+    ?(extended_key_usage = []) ?(unknown_extended_key_usages = []) ()
+    : predefined_values__key_usage =
   { base_key_usage; extended_key_usage; unknown_extended_key_usages }
 
 let predefined_values__policy_ids ~object_id_path () :
     predefined_values__policy_ids =
   { object_id_path }
 
-let predefined_values ?aia_ocsp_servers ~additional_extensions
-    ~ca_options ~key_usage ~policy_ids () : predefined_values =
+let predefined_values ?aia_ocsp_servers ?(additional_extensions = [])
+    ?(ca_options = []) ?(key_usage = []) ?(policy_ids = []) () :
+    predefined_values =
   {
     aia_ocsp_servers;
     additional_extensions;
@@ -931,8 +933,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_privateca_certificate_template ?description ?id ?labels
-    ?project ?timeouts ~location ~name ~identity_constraints
-    ~passthrough_extensions ~predefined_values () :
+    ?project ?(identity_constraints = [])
+    ?(passthrough_extensions = []) ?(predefined_values = [])
+    ?timeouts ~location ~name () :
     google_privateca_certificate_template =
   {
     description;
@@ -960,9 +963,9 @@ type t = {
   update_time : string prop;
 }
 
-let make ?description ?id ?labels ?project ?timeouts ~location ~name
-    ~identity_constraints ~passthrough_extensions ~predefined_values
-    __id =
+let make ?description ?id ?labels ?project
+    ?(identity_constraints = []) ?(passthrough_extensions = [])
+    ?(predefined_values = []) ?timeouts ~location ~name __id =
   let __type = "google_privateca_certificate_template" in
   let __attrs =
     ({
@@ -987,19 +990,19 @@ let make ?description ?id ?labels ?project ?timeouts ~location ~name
     json =
       yojson_of_google_privateca_certificate_template
         (google_privateca_certificate_template ?description ?id
-           ?labels ?project ?timeouts ~location ~name
-           ~identity_constraints ~passthrough_extensions
-           ~predefined_values ());
+           ?labels ?project ~identity_constraints
+           ~passthrough_extensions ~predefined_values ?timeouts
+           ~location ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?labels ?project ?timeouts
-    ~location ~name ~identity_constraints ~passthrough_extensions
-    ~predefined_values __id =
+let register ?tf_module ?description ?id ?labels ?project
+    ?(identity_constraints = []) ?(passthrough_extensions = [])
+    ?(predefined_values = []) ?timeouts ~location ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?labels ?project ?timeouts ~location ~name
-      ~identity_constraints ~passthrough_extensions
-      ~predefined_values __id
+    make ?description ?id ?labels ?project ~identity_constraints
+      ~passthrough_extensions ~predefined_values ?timeouts ~location
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -25,9 +25,9 @@ type aws_securityhub_organization_configuration
 val aws_securityhub_organization_configuration :
   ?auto_enable_standards:string prop ->
   ?id:string prop ->
+  ?organization_configuration:organization_configuration list ->
   ?timeouts:timeouts ->
   auto_enable:bool prop ->
-  organization_configuration:organization_configuration list ->
   unit ->
   aws_securityhub_organization_configuration
 
@@ -46,17 +46,17 @@ val register :
   ?tf_module:tf_module ->
   ?auto_enable_standards:string prop ->
   ?id:string prop ->
+  ?organization_configuration:organization_configuration list ->
   ?timeouts:timeouts ->
   auto_enable:bool prop ->
-  organization_configuration:organization_configuration list ->
   string ->
   t
 
 val make :
   ?auto_enable_standards:string prop ->
   ?id:string prop ->
+  ?organization_configuration:organization_configuration list ->
   ?timeouts:timeouts ->
   auto_enable:bool prop ->
-  organization_configuration:organization_configuration list ->
   string ->
   t Tf_core.resource

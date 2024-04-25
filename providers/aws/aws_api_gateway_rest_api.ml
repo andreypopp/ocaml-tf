@@ -237,8 +237,9 @@ let endpoint_configuration ?vpc_endpoint_ids ~types () :
 let aws_api_gateway_rest_api ?api_key_source ?binary_media_types
     ?body ?description ?disable_execute_api_endpoint
     ?fail_on_warnings ?id ?minimum_compression_size ?parameters
-    ?policy ?put_rest_api_mode ?tags ?tags_all ~name
-    ~endpoint_configuration () : aws_api_gateway_rest_api =
+    ?policy ?put_rest_api_mode ?tags ?tags_all
+    ?(endpoint_configuration = []) ~name () :
+    aws_api_gateway_rest_api =
   {
     api_key_source;
     binary_media_types;
@@ -281,7 +282,7 @@ type t = {
 let make ?api_key_source ?binary_media_types ?body ?description
     ?disable_execute_api_endpoint ?fail_on_warnings ?id
     ?minimum_compression_size ?parameters ?policy ?put_rest_api_mode
-    ?tags ?tags_all ~name ~endpoint_configuration __id =
+    ?tags ?tags_all ?(endpoint_configuration = []) ~name __id =
   let __type = "aws_api_gateway_rest_api" in
   let __attrs =
     ({
@@ -321,20 +322,20 @@ let make ?api_key_source ?binary_media_types ?body ?description
            ?body ?description ?disable_execute_api_endpoint
            ?fail_on_warnings ?id ?minimum_compression_size
            ?parameters ?policy ?put_rest_api_mode ?tags ?tags_all
-           ~name ~endpoint_configuration ());
+           ~endpoint_configuration ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?api_key_source ?binary_media_types ?body
     ?description ?disable_execute_api_endpoint ?fail_on_warnings ?id
     ?minimum_compression_size ?parameters ?policy ?put_rest_api_mode
-    ?tags ?tags_all ~name ~endpoint_configuration __id =
+    ?tags ?tags_all ?(endpoint_configuration = []) ~name __id =
   let (r : _ Tf_core.resource) =
     make ?api_key_source ?binary_media_types ?body ?description
       ?disable_execute_api_endpoint ?fail_on_warnings ?id
       ?minimum_compression_size ?parameters ?policy
-      ?put_rest_api_mode ?tags ?tags_all ~name
-      ~endpoint_configuration __id
+      ?put_rest_api_mode ?tags ?tags_all ~endpoint_configuration
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

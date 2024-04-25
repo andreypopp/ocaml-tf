@@ -530,17 +530,19 @@ let source__script_uri_managed_identity ?client_id ?object_id () :
   { client_id; object_id }
 
 let source ?command_id ?script ?script_uri
-    ~script_uri_managed_identity () : source =
+    ?(script_uri_managed_identity = []) () : source =
   { command_id; script; script_uri; script_uri_managed_identity }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_virtual_machine_run_command ?error_blob_uri ?id
-    ?output_blob_uri ?run_as_password ?run_as_user ?tags ?timeouts
-    ~location ~name ~virtual_machine_id ~error_blob_managed_identity
-    ~output_blob_managed_identity ~parameter ~protected_parameter
-    ~source () : azurerm_virtual_machine_run_command =
+    ?output_blob_uri ?run_as_password ?run_as_user ?tags
+    ?(error_blob_managed_identity = [])
+    ?(output_blob_managed_identity = []) ?(parameter = [])
+    ?(protected_parameter = []) ?timeouts ~location ~name
+    ~virtual_machine_id ~source () :
+    azurerm_virtual_machine_run_command =
   {
     error_blob_uri;
     id;
@@ -573,9 +575,10 @@ type t = {
 }
 
 let make ?error_blob_uri ?id ?output_blob_uri ?run_as_password
-    ?run_as_user ?tags ?timeouts ~location ~name ~virtual_machine_id
-    ~error_blob_managed_identity ~output_blob_managed_identity
-    ~parameter ~protected_parameter ~source __id =
+    ?run_as_user ?tags ?(error_blob_managed_identity = [])
+    ?(output_blob_managed_identity = []) ?(parameter = [])
+    ?(protected_parameter = []) ?timeouts ~location ~name
+    ~virtual_machine_id ~source __id =
   let __type = "azurerm_virtual_machine_run_command" in
   let __attrs =
     ({
@@ -600,23 +603,23 @@ let make ?error_blob_uri ?id ?output_blob_uri ?run_as_password
       yojson_of_azurerm_virtual_machine_run_command
         (azurerm_virtual_machine_run_command ?error_blob_uri ?id
            ?output_blob_uri ?run_as_password ?run_as_user ?tags
-           ?timeouts ~location ~name ~virtual_machine_id
            ~error_blob_managed_identity ~output_blob_managed_identity
-           ~parameter ~protected_parameter ~source ());
+           ~parameter ~protected_parameter ?timeouts ~location ~name
+           ~virtual_machine_id ~source ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?error_blob_uri ?id ?output_blob_uri
-    ?run_as_password ?run_as_user ?tags ?timeouts ~location ~name
-    ~virtual_machine_id ~error_blob_managed_identity
-    ~output_blob_managed_identity ~parameter ~protected_parameter
-    ~source __id =
+    ?run_as_password ?run_as_user ?tags
+    ?(error_blob_managed_identity = [])
+    ?(output_blob_managed_identity = []) ?(parameter = [])
+    ?(protected_parameter = []) ?timeouts ~location ~name
+    ~virtual_machine_id ~source __id =
   let (r : _ Tf_core.resource) =
     make ?error_blob_uri ?id ?output_blob_uri ?run_as_password
-      ?run_as_user ?tags ?timeouts ~location ~name
-      ~virtual_machine_id ~error_blob_managed_identity
+      ?run_as_user ?tags ~error_blob_managed_identity
       ~output_blob_managed_identity ~parameter ~protected_parameter
-      ~source __id
+      ?timeouts ~location ~name ~virtual_machine_id ~source __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

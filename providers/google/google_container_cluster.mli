@@ -68,20 +68,22 @@ val addons_config__network_policy_config :
 type addons_config
 
 val addons_config :
-  cloudrun_config:addons_config__cloudrun_config list ->
-  config_connector_config:addons_config__config_connector_config list ->
-  dns_cache_config:addons_config__dns_cache_config list ->
-  gce_persistent_disk_csi_driver_config:
+  ?cloudrun_config:addons_config__cloudrun_config list ->
+  ?config_connector_config:
+    addons_config__config_connector_config list ->
+  ?dns_cache_config:addons_config__dns_cache_config list ->
+  ?gce_persistent_disk_csi_driver_config:
     addons_config__gce_persistent_disk_csi_driver_config list ->
-  gcp_filestore_csi_driver_config:
+  ?gcp_filestore_csi_driver_config:
     addons_config__gcp_filestore_csi_driver_config list ->
-  gcs_fuse_csi_driver_config:
+  ?gcs_fuse_csi_driver_config:
     addons_config__gcs_fuse_csi_driver_config list ->
-  gke_backup_agent_config:addons_config__gke_backup_agent_config list ->
-  horizontal_pod_autoscaling:
+  ?gke_backup_agent_config:
+    addons_config__gke_backup_agent_config list ->
+  ?horizontal_pod_autoscaling:
     addons_config__horizontal_pod_autoscaling list ->
-  http_load_balancing:addons_config__http_load_balancing list ->
-  network_policy_config:addons_config__network_policy_config list ->
+  ?http_load_balancing:addons_config__http_load_balancing list ->
+  ?network_policy_config:addons_config__network_policy_config list ->
   unit ->
   addons_config
 
@@ -133,7 +135,7 @@ type cluster_autoscaling__auto_provisioning_defaults__upgrade_settings__blue_gre
 
 val cluster_autoscaling__auto_provisioning_defaults__upgrade_settings__blue_green_settings :
   ?node_pool_soak_duration:string prop ->
-  standard_rollout_policy:
+  ?standard_rollout_policy:
     cluster_autoscaling__auto_provisioning_defaults__upgrade_settings__blue_green_settings__standard_rollout_policy
     list ->
   unit ->
@@ -145,7 +147,7 @@ val cluster_autoscaling__auto_provisioning_defaults__upgrade_settings :
   ?max_surge:float prop ->
   ?max_unavailable:float prop ->
   ?strategy:string prop ->
-  blue_green_settings:
+  ?blue_green_settings:
     cluster_autoscaling__auto_provisioning_defaults__upgrade_settings__blue_green_settings
     list ->
   unit ->
@@ -161,12 +163,12 @@ val cluster_autoscaling__auto_provisioning_defaults :
   ?min_cpu_platform:string prop ->
   ?oauth_scopes:string prop list ->
   ?service_account:string prop ->
-  management:
+  ?management:
     cluster_autoscaling__auto_provisioning_defaults__management list ->
-  shielded_instance_config:
+  ?shielded_instance_config:
     cluster_autoscaling__auto_provisioning_defaults__shielded_instance_config
     list ->
-  upgrade_settings:
+  ?upgrade_settings:
     cluster_autoscaling__auto_provisioning_defaults__upgrade_settings
     list ->
   unit ->
@@ -186,9 +188,9 @@ type cluster_autoscaling
 val cluster_autoscaling :
   ?autoscaling_profile:string prop ->
   ?enabled:bool prop ->
-  auto_provisioning_defaults:
+  ?auto_provisioning_defaults:
     cluster_autoscaling__auto_provisioning_defaults list ->
-  resource_limits:cluster_autoscaling__resource_limits list ->
+  ?resource_limits:cluster_autoscaling__resource_limits list ->
   unit ->
   cluster_autoscaling
 
@@ -265,9 +267,9 @@ val ip_allocation_policy :
   ?services_ipv4_cidr_block:string prop ->
   ?services_secondary_range_name:string prop ->
   ?stack_type:string prop ->
-  additional_pod_ranges_config:
+  ?additional_pod_ranges_config:
     ip_allocation_policy__additional_pod_ranges_config list ->
-  pod_cidr_overprovision_config:
+  ?pod_cidr_overprovision_config:
     ip_allocation_policy__pod_cidr_overprovision_config list ->
   unit ->
   ip_allocation_policy
@@ -294,11 +296,11 @@ val maintenance_policy__maintenance_exclusion__exclusion_options :
 type maintenance_policy__maintenance_exclusion
 
 val maintenance_policy__maintenance_exclusion :
+  ?exclusion_options:
+    maintenance_policy__maintenance_exclusion__exclusion_options list ->
   end_time:string prop ->
   exclusion_name:string prop ->
   start_time:string prop ->
-  exclusion_options:
-    maintenance_policy__maintenance_exclusion__exclusion_options list ->
   unit ->
   maintenance_policy__maintenance_exclusion
 
@@ -314,11 +316,11 @@ val maintenance_policy__recurring_window :
 type maintenance_policy
 
 val maintenance_policy :
-  daily_maintenance_window:
+  ?daily_maintenance_window:
     maintenance_policy__daily_maintenance_window list ->
+  ?recurring_window:maintenance_policy__recurring_window list ->
   maintenance_exclusion:
     maintenance_policy__maintenance_exclusion list ->
-  recurring_window:maintenance_policy__recurring_window list ->
   unit ->
   maintenance_policy
 
@@ -376,9 +378,9 @@ type monitoring_config
 
 val monitoring_config :
   ?enable_components:string prop list ->
-  advanced_datapath_observability_config:
+  ?advanced_datapath_observability_config:
     monitoring_config__advanced_datapath_observability_config list ->
-  managed_prometheus:monitoring_config__managed_prometheus list ->
+  ?managed_prometheus:monitoring_config__managed_prometheus list ->
   unit ->
   monitoring_config
 
@@ -555,24 +557,26 @@ val node_config :
   ?service_account:string prop ->
   ?spot:bool prop ->
   ?tags:string prop list ->
-  advanced_machine_features:
+  ?advanced_machine_features:
     node_config__advanced_machine_features list ->
-  confidential_nodes:node_config__confidential_nodes list ->
-  ephemeral_storage_local_ssd_config:
+  ?confidential_nodes:node_config__confidential_nodes list ->
+  ?ephemeral_storage_local_ssd_config:
     node_config__ephemeral_storage_local_ssd_config list ->
-  fast_socket:node_config__fast_socket list ->
-  gcfs_config:node_config__gcfs_config list ->
-  gvnic:node_config__gvnic list ->
-  host_maintenance_policy:node_config__host_maintenance_policy list ->
-  kubelet_config:node_config__kubelet_config list ->
-  linux_node_config:node_config__linux_node_config list ->
-  local_nvme_ssd_block_config:
+  ?fast_socket:node_config__fast_socket list ->
+  ?gcfs_config:node_config__gcfs_config list ->
+  ?gvnic:node_config__gvnic list ->
+  ?host_maintenance_policy:node_config__host_maintenance_policy list ->
+  ?kubelet_config:node_config__kubelet_config list ->
+  ?linux_node_config:node_config__linux_node_config list ->
+  ?local_nvme_ssd_block_config:
     node_config__local_nvme_ssd_block_config list ->
-  reservation_affinity:node_config__reservation_affinity list ->
-  shielded_instance_config:node_config__shielded_instance_config list ->
-  sole_tenant_config:node_config__sole_tenant_config list ->
-  taint:node_config__taint list ->
-  workload_metadata_config:node_config__workload_metadata_config list ->
+  ?reservation_affinity:node_config__reservation_affinity list ->
+  ?shielded_instance_config:
+    node_config__shielded_instance_config list ->
+  ?sole_tenant_config:node_config__sole_tenant_config list ->
+  ?taint:node_config__taint list ->
+  ?workload_metadata_config:
+    node_config__workload_metadata_config list ->
   unit ->
   node_config
 
@@ -616,9 +620,9 @@ val node_pool__network_config :
   ?enable_private_nodes:bool prop ->
   ?pod_ipv4_cidr_block:string prop ->
   ?pod_range:string prop ->
-  network_performance_config:
+  ?network_performance_config:
     node_pool__network_config__network_performance_config list ->
-  pod_cidr_overprovision_config:
+  ?pod_cidr_overprovision_config:
     node_pool__network_config__pod_cidr_overprovision_config list ->
   unit ->
   node_pool__network_config
@@ -794,27 +798,27 @@ val node_pool__node_config :
   ?service_account:string prop ->
   ?spot:bool prop ->
   ?tags:string prop list ->
-  advanced_machine_features:
+  ?advanced_machine_features:
     node_pool__node_config__advanced_machine_features list ->
-  confidential_nodes:node_pool__node_config__confidential_nodes list ->
-  ephemeral_storage_local_ssd_config:
+  ?confidential_nodes:node_pool__node_config__confidential_nodes list ->
+  ?ephemeral_storage_local_ssd_config:
     node_pool__node_config__ephemeral_storage_local_ssd_config list ->
-  fast_socket:node_pool__node_config__fast_socket list ->
-  gcfs_config:node_pool__node_config__gcfs_config list ->
-  gvnic:node_pool__node_config__gvnic list ->
-  host_maintenance_policy:
+  ?fast_socket:node_pool__node_config__fast_socket list ->
+  ?gcfs_config:node_pool__node_config__gcfs_config list ->
+  ?gvnic:node_pool__node_config__gvnic list ->
+  ?host_maintenance_policy:
     node_pool__node_config__host_maintenance_policy list ->
-  kubelet_config:node_pool__node_config__kubelet_config list ->
-  linux_node_config:node_pool__node_config__linux_node_config list ->
-  local_nvme_ssd_block_config:
+  ?kubelet_config:node_pool__node_config__kubelet_config list ->
+  ?linux_node_config:node_pool__node_config__linux_node_config list ->
+  ?local_nvme_ssd_block_config:
     node_pool__node_config__local_nvme_ssd_block_config list ->
-  reservation_affinity:
+  ?reservation_affinity:
     node_pool__node_config__reservation_affinity list ->
-  shielded_instance_config:
+  ?shielded_instance_config:
     node_pool__node_config__shielded_instance_config list ->
-  sole_tenant_config:node_pool__node_config__sole_tenant_config list ->
-  taint:node_pool__node_config__taint list ->
-  workload_metadata_config:
+  ?sole_tenant_config:node_pool__node_config__sole_tenant_config list ->
+  ?taint:node_pool__node_config__taint list ->
+  ?workload_metadata_config:
     node_pool__node_config__workload_metadata_config list ->
   unit ->
   node_pool__node_config
@@ -853,7 +857,7 @@ val node_pool__upgrade_settings :
   ?max_surge:float prop ->
   ?max_unavailable:float prop ->
   ?strategy:string prop ->
-  blue_green_settings:
+  ?blue_green_settings:
     node_pool__upgrade_settings__blue_green_settings list ->
   unit ->
   node_pool__upgrade_settings
@@ -868,12 +872,12 @@ val node_pool :
   ?node_count:float prop ->
   ?node_locations:string prop list ->
   ?version:string prop ->
-  autoscaling:node_pool__autoscaling list ->
-  management:node_pool__management list ->
-  network_config:node_pool__network_config list ->
-  node_config:node_pool__node_config list ->
-  placement_policy:node_pool__placement_policy list ->
-  upgrade_settings:node_pool__upgrade_settings list ->
+  ?autoscaling:node_pool__autoscaling list ->
+  ?management:node_pool__management list ->
+  ?network_config:node_pool__network_config list ->
+  ?node_config:node_pool__node_config list ->
+  ?placement_policy:node_pool__placement_policy list ->
+  ?upgrade_settings:node_pool__upgrade_settings list ->
   unit ->
   node_pool
 
@@ -887,7 +891,7 @@ val node_pool_auto_config__network_tags :
 type node_pool_auto_config
 
 val node_pool_auto_config :
-  network_tags:node_pool_auto_config__network_tags list ->
+  ?network_tags:node_pool_auto_config__network_tags list ->
   unit ->
   node_pool_auto_config
 
@@ -901,7 +905,7 @@ val node_pool_defaults__node_config_defaults :
 type node_pool_defaults
 
 val node_pool_defaults :
-  node_config_defaults:node_pool_defaults__node_config_defaults list ->
+  ?node_config_defaults:node_pool_defaults__node_config_defaults list ->
   unit ->
   node_pool_defaults
 
@@ -916,8 +920,8 @@ type notification_config__pubsub
 
 val notification_config__pubsub :
   ?topic:string prop ->
+  ?filter:notification_config__pubsub__filter list ->
   enabled:bool prop ->
-  filter:notification_config__pubsub__filter list ->
   unit ->
   notification_config__pubsub
 
@@ -942,7 +946,7 @@ val private_cluster_config :
   ?enable_private_nodes:bool prop ->
   ?master_ipv4_cidr_block:string prop ->
   ?private_endpoint_subnetwork:string prop ->
-  master_global_access_config:
+  ?master_global_access_config:
     private_cluster_config__master_global_access_config list ->
   unit ->
   private_cluster_config
@@ -1032,42 +1036,42 @@ val google_container_cluster :
   ?remove_default_node_pool:bool prop ->
   ?resource_labels:(string * string prop) list ->
   ?subnetwork:string prop ->
-  ?timeouts:timeouts ->
-  name:string prop ->
-  addons_config:addons_config list ->
-  authenticator_groups_config:authenticator_groups_config list ->
-  binary_authorization:binary_authorization list ->
-  cluster_autoscaling:cluster_autoscaling list ->
-  confidential_nodes:confidential_nodes list ->
-  cost_management_config:cost_management_config list ->
-  database_encryption:database_encryption list ->
-  default_snat_status:default_snat_status list ->
-  dns_config:dns_config list ->
-  enable_k8s_beta_apis:enable_k8s_beta_apis list ->
-  fleet:fleet list ->
-  gateway_api_config:gateway_api_config list ->
-  identity_service_config:identity_service_config list ->
-  ip_allocation_policy:ip_allocation_policy list ->
-  logging_config:logging_config list ->
-  maintenance_policy:maintenance_policy list ->
-  master_auth:master_auth list ->
-  master_authorized_networks_config:
+  ?addons_config:addons_config list ->
+  ?authenticator_groups_config:authenticator_groups_config list ->
+  ?binary_authorization:binary_authorization list ->
+  ?cluster_autoscaling:cluster_autoscaling list ->
+  ?confidential_nodes:confidential_nodes list ->
+  ?cost_management_config:cost_management_config list ->
+  ?database_encryption:database_encryption list ->
+  ?default_snat_status:default_snat_status list ->
+  ?dns_config:dns_config list ->
+  ?enable_k8s_beta_apis:enable_k8s_beta_apis list ->
+  ?fleet:fleet list ->
+  ?gateway_api_config:gateway_api_config list ->
+  ?identity_service_config:identity_service_config list ->
+  ?ip_allocation_policy:ip_allocation_policy list ->
+  ?logging_config:logging_config list ->
+  ?maintenance_policy:maintenance_policy list ->
+  ?master_auth:master_auth list ->
+  ?master_authorized_networks_config:
     master_authorized_networks_config list ->
-  mesh_certificates:mesh_certificates list ->
-  monitoring_config:monitoring_config list ->
-  network_policy:network_policy list ->
-  node_config:node_config list ->
-  node_pool:node_pool list ->
-  node_pool_auto_config:node_pool_auto_config list ->
-  node_pool_defaults:node_pool_defaults list ->
-  notification_config:notification_config list ->
-  private_cluster_config:private_cluster_config list ->
-  release_channel:release_channel list ->
-  resource_usage_export_config:resource_usage_export_config list ->
-  security_posture_config:security_posture_config list ->
-  service_external_ips_config:service_external_ips_config list ->
-  vertical_pod_autoscaling:vertical_pod_autoscaling list ->
-  workload_identity_config:workload_identity_config list ->
+  ?mesh_certificates:mesh_certificates list ->
+  ?monitoring_config:monitoring_config list ->
+  ?network_policy:network_policy list ->
+  ?node_config:node_config list ->
+  ?node_pool:node_pool list ->
+  ?node_pool_auto_config:node_pool_auto_config list ->
+  ?node_pool_defaults:node_pool_defaults list ->
+  ?notification_config:notification_config list ->
+  ?private_cluster_config:private_cluster_config list ->
+  ?release_channel:release_channel list ->
+  ?resource_usage_export_config:resource_usage_export_config list ->
+  ?security_posture_config:security_posture_config list ->
+  ?service_external_ips_config:service_external_ips_config list ->
+  ?timeouts:timeouts ->
+  ?vertical_pod_autoscaling:vertical_pod_autoscaling list ->
+  ?workload_identity_config:workload_identity_config list ->
+  name:string prop ->
   unit ->
   google_container_cluster
 
@@ -1145,42 +1149,42 @@ val register :
   ?remove_default_node_pool:bool prop ->
   ?resource_labels:(string * string prop) list ->
   ?subnetwork:string prop ->
-  ?timeouts:timeouts ->
-  name:string prop ->
-  addons_config:addons_config list ->
-  authenticator_groups_config:authenticator_groups_config list ->
-  binary_authorization:binary_authorization list ->
-  cluster_autoscaling:cluster_autoscaling list ->
-  confidential_nodes:confidential_nodes list ->
-  cost_management_config:cost_management_config list ->
-  database_encryption:database_encryption list ->
-  default_snat_status:default_snat_status list ->
-  dns_config:dns_config list ->
-  enable_k8s_beta_apis:enable_k8s_beta_apis list ->
-  fleet:fleet list ->
-  gateway_api_config:gateway_api_config list ->
-  identity_service_config:identity_service_config list ->
-  ip_allocation_policy:ip_allocation_policy list ->
-  logging_config:logging_config list ->
-  maintenance_policy:maintenance_policy list ->
-  master_auth:master_auth list ->
-  master_authorized_networks_config:
+  ?addons_config:addons_config list ->
+  ?authenticator_groups_config:authenticator_groups_config list ->
+  ?binary_authorization:binary_authorization list ->
+  ?cluster_autoscaling:cluster_autoscaling list ->
+  ?confidential_nodes:confidential_nodes list ->
+  ?cost_management_config:cost_management_config list ->
+  ?database_encryption:database_encryption list ->
+  ?default_snat_status:default_snat_status list ->
+  ?dns_config:dns_config list ->
+  ?enable_k8s_beta_apis:enable_k8s_beta_apis list ->
+  ?fleet:fleet list ->
+  ?gateway_api_config:gateway_api_config list ->
+  ?identity_service_config:identity_service_config list ->
+  ?ip_allocation_policy:ip_allocation_policy list ->
+  ?logging_config:logging_config list ->
+  ?maintenance_policy:maintenance_policy list ->
+  ?master_auth:master_auth list ->
+  ?master_authorized_networks_config:
     master_authorized_networks_config list ->
-  mesh_certificates:mesh_certificates list ->
-  monitoring_config:monitoring_config list ->
-  network_policy:network_policy list ->
-  node_config:node_config list ->
-  node_pool:node_pool list ->
-  node_pool_auto_config:node_pool_auto_config list ->
-  node_pool_defaults:node_pool_defaults list ->
-  notification_config:notification_config list ->
-  private_cluster_config:private_cluster_config list ->
-  release_channel:release_channel list ->
-  resource_usage_export_config:resource_usage_export_config list ->
-  security_posture_config:security_posture_config list ->
-  service_external_ips_config:service_external_ips_config list ->
-  vertical_pod_autoscaling:vertical_pod_autoscaling list ->
-  workload_identity_config:workload_identity_config list ->
+  ?mesh_certificates:mesh_certificates list ->
+  ?monitoring_config:monitoring_config list ->
+  ?network_policy:network_policy list ->
+  ?node_config:node_config list ->
+  ?node_pool:node_pool list ->
+  ?node_pool_auto_config:node_pool_auto_config list ->
+  ?node_pool_defaults:node_pool_defaults list ->
+  ?notification_config:notification_config list ->
+  ?private_cluster_config:private_cluster_config list ->
+  ?release_channel:release_channel list ->
+  ?resource_usage_export_config:resource_usage_export_config list ->
+  ?security_posture_config:security_posture_config list ->
+  ?service_external_ips_config:service_external_ips_config list ->
+  ?timeouts:timeouts ->
+  ?vertical_pod_autoscaling:vertical_pod_autoscaling list ->
+  ?workload_identity_config:workload_identity_config list ->
+  name:string prop ->
   string ->
   t
 
@@ -1213,41 +1217,41 @@ val make :
   ?remove_default_node_pool:bool prop ->
   ?resource_labels:(string * string prop) list ->
   ?subnetwork:string prop ->
-  ?timeouts:timeouts ->
-  name:string prop ->
-  addons_config:addons_config list ->
-  authenticator_groups_config:authenticator_groups_config list ->
-  binary_authorization:binary_authorization list ->
-  cluster_autoscaling:cluster_autoscaling list ->
-  confidential_nodes:confidential_nodes list ->
-  cost_management_config:cost_management_config list ->
-  database_encryption:database_encryption list ->
-  default_snat_status:default_snat_status list ->
-  dns_config:dns_config list ->
-  enable_k8s_beta_apis:enable_k8s_beta_apis list ->
-  fleet:fleet list ->
-  gateway_api_config:gateway_api_config list ->
-  identity_service_config:identity_service_config list ->
-  ip_allocation_policy:ip_allocation_policy list ->
-  logging_config:logging_config list ->
-  maintenance_policy:maintenance_policy list ->
-  master_auth:master_auth list ->
-  master_authorized_networks_config:
+  ?addons_config:addons_config list ->
+  ?authenticator_groups_config:authenticator_groups_config list ->
+  ?binary_authorization:binary_authorization list ->
+  ?cluster_autoscaling:cluster_autoscaling list ->
+  ?confidential_nodes:confidential_nodes list ->
+  ?cost_management_config:cost_management_config list ->
+  ?database_encryption:database_encryption list ->
+  ?default_snat_status:default_snat_status list ->
+  ?dns_config:dns_config list ->
+  ?enable_k8s_beta_apis:enable_k8s_beta_apis list ->
+  ?fleet:fleet list ->
+  ?gateway_api_config:gateway_api_config list ->
+  ?identity_service_config:identity_service_config list ->
+  ?ip_allocation_policy:ip_allocation_policy list ->
+  ?logging_config:logging_config list ->
+  ?maintenance_policy:maintenance_policy list ->
+  ?master_auth:master_auth list ->
+  ?master_authorized_networks_config:
     master_authorized_networks_config list ->
-  mesh_certificates:mesh_certificates list ->
-  monitoring_config:monitoring_config list ->
-  network_policy:network_policy list ->
-  node_config:node_config list ->
-  node_pool:node_pool list ->
-  node_pool_auto_config:node_pool_auto_config list ->
-  node_pool_defaults:node_pool_defaults list ->
-  notification_config:notification_config list ->
-  private_cluster_config:private_cluster_config list ->
-  release_channel:release_channel list ->
-  resource_usage_export_config:resource_usage_export_config list ->
-  security_posture_config:security_posture_config list ->
-  service_external_ips_config:service_external_ips_config list ->
-  vertical_pod_autoscaling:vertical_pod_autoscaling list ->
-  workload_identity_config:workload_identity_config list ->
+  ?mesh_certificates:mesh_certificates list ->
+  ?monitoring_config:monitoring_config list ->
+  ?network_policy:network_policy list ->
+  ?node_config:node_config list ->
+  ?node_pool:node_pool list ->
+  ?node_pool_auto_config:node_pool_auto_config list ->
+  ?node_pool_defaults:node_pool_defaults list ->
+  ?notification_config:notification_config list ->
+  ?private_cluster_config:private_cluster_config list ->
+  ?release_channel:release_channel list ->
+  ?resource_usage_export_config:resource_usage_export_config list ->
+  ?security_posture_config:security_posture_config list ->
+  ?service_external_ips_config:service_external_ips_config list ->
+  ?timeouts:timeouts ->
+  ?vertical_pod_autoscaling:vertical_pod_autoscaling list ->
+  ?workload_identity_config:workload_identity_config list ->
+  name:string prop ->
   string ->
   t Tf_core.resource

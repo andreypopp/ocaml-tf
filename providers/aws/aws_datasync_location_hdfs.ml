@@ -258,8 +258,8 @@ let qop_configuration ?data_transfer_protection ?rpc_protection () :
 let aws_datasync_location_hdfs ?authentication_type ?block_size ?id
     ?kerberos_keytab ?kerberos_krb5_conf ?kerberos_principal
     ?kms_key_provider_uri ?replication_factor ?simple_user
-    ?subdirectory ?tags ?tags_all ~agent_arns ~name_node
-    ~qop_configuration () : aws_datasync_location_hdfs =
+    ?subdirectory ?tags ?tags_all ?(qop_configuration = [])
+    ~agent_arns ~name_node () : aws_datasync_location_hdfs =
   {
     agent_arns;
     authentication_type;
@@ -299,7 +299,7 @@ type t = {
 let make ?authentication_type ?block_size ?id ?kerberos_keytab
     ?kerberos_krb5_conf ?kerberos_principal ?kms_key_provider_uri
     ?replication_factor ?simple_user ?subdirectory ?tags ?tags_all
-    ~agent_arns ~name_node ~qop_configuration __id =
+    ?(qop_configuration = []) ~agent_arns ~name_node __id =
   let __type = "aws_datasync_location_hdfs" in
   let __attrs =
     ({
@@ -335,20 +335,20 @@ let make ?authentication_type ?block_size ?id ?kerberos_keytab
            ?id ?kerberos_keytab ?kerberos_krb5_conf
            ?kerberos_principal ?kms_key_provider_uri
            ?replication_factor ?simple_user ?subdirectory ?tags
-           ?tags_all ~agent_arns ~name_node ~qop_configuration ());
+           ?tags_all ~qop_configuration ~agent_arns ~name_node ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?authentication_type ?block_size ?id
     ?kerberos_keytab ?kerberos_krb5_conf ?kerberos_principal
     ?kms_key_provider_uri ?replication_factor ?simple_user
-    ?subdirectory ?tags ?tags_all ~agent_arns ~name_node
-    ~qop_configuration __id =
+    ?subdirectory ?tags ?tags_all ?(qop_configuration = [])
+    ~agent_arns ~name_node __id =
   let (r : _ Tf_core.resource) =
     make ?authentication_type ?block_size ?id ?kerberos_keytab
       ?kerberos_krb5_conf ?kerberos_principal ?kms_key_provider_uri
       ?replication_factor ?simple_user ?subdirectory ?tags ?tags_all
-      ~agent_arns ~name_node ~qop_configuration __id
+      ~qop_configuration ~agent_arns ~name_node __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

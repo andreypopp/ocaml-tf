@@ -798,9 +798,10 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_compute_health_check ?check_interval_sec ?description
     ?healthy_threshold ?id ?project ?timeout_sec ?unhealthy_threshold
-    ?timeouts ~name ~grpc_health_check ~http2_health_check
-    ~http_health_check ~https_health_check ~log_config
-    ~ssl_health_check ~tcp_health_check () :
+    ?(grpc_health_check = []) ?(http2_health_check = [])
+    ?(http_health_check = []) ?(https_health_check = [])
+    ?(log_config = []) ?(ssl_health_check = [])
+    ?(tcp_health_check = []) ?timeouts ~name () :
     google_compute_health_check =
   {
     check_interval_sec;
@@ -836,10 +837,11 @@ type t = {
 }
 
 let make ?check_interval_sec ?description ?healthy_threshold ?id
-    ?project ?timeout_sec ?unhealthy_threshold ?timeouts ~name
-    ~grpc_health_check ~http2_health_check ~http_health_check
-    ~https_health_check ~log_config ~ssl_health_check
-    ~tcp_health_check __id =
+    ?project ?timeout_sec ?unhealthy_threshold
+    ?(grpc_health_check = []) ?(http2_health_check = [])
+    ?(http_health_check = []) ?(https_health_check = [])
+    ?(log_config = []) ?(ssl_health_check = [])
+    ?(tcp_health_check = []) ?timeouts ~name __id =
   let __type = "google_compute_health_check" in
   let __attrs =
     ({
@@ -868,23 +870,25 @@ let make ?check_interval_sec ?description ?healthy_threshold ?id
       yojson_of_google_compute_health_check
         (google_compute_health_check ?check_interval_sec ?description
            ?healthy_threshold ?id ?project ?timeout_sec
-           ?unhealthy_threshold ?timeouts ~name ~grpc_health_check
+           ?unhealthy_threshold ~grpc_health_check
            ~http2_health_check ~http_health_check ~https_health_check
-           ~log_config ~ssl_health_check ~tcp_health_check ());
+           ~log_config ~ssl_health_check ~tcp_health_check ?timeouts
+           ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?check_interval_sec ?description
     ?healthy_threshold ?id ?project ?timeout_sec ?unhealthy_threshold
-    ?timeouts ~name ~grpc_health_check ~http2_health_check
-    ~http_health_check ~https_health_check ~log_config
-    ~ssl_health_check ~tcp_health_check __id =
+    ?(grpc_health_check = []) ?(http2_health_check = [])
+    ?(http_health_check = []) ?(https_health_check = [])
+    ?(log_config = []) ?(ssl_health_check = [])
+    ?(tcp_health_check = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
     make ?check_interval_sec ?description ?healthy_threshold ?id
-      ?project ?timeout_sec ?unhealthy_threshold ?timeouts ~name
-      ~grpc_health_check ~http2_health_check ~http_health_check
-      ~https_health_check ~log_config ~ssl_health_check
-      ~tcp_health_check __id
+      ?project ?timeout_sec ?unhealthy_threshold ~grpc_health_check
+      ~http2_health_check ~http_health_check ~https_health_check
+      ~log_config ~ssl_health_check ~tcp_health_check ?timeouts ~name
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -314,8 +314,8 @@ let public_endpoint ~container_name ~container_port ~health_check ()
 
 let timeouts ?create () : timeouts = { create }
 
-let aws_lightsail_container_service_deployment_version ?id ?timeouts
-    ~service_name ~container ~public_endpoint () :
+let aws_lightsail_container_service_deployment_version ?id
+    ?(public_endpoint = []) ?timeouts ~service_name ~container () :
     aws_lightsail_container_service_deployment_version =
   { id; service_name; container; public_endpoint; timeouts }
 
@@ -327,8 +327,8 @@ type t = {
   version : float prop;
 }
 
-let make ?id ?timeouts ~service_name ~container ~public_endpoint __id
-    =
+let make ?id ?(public_endpoint = []) ?timeouts ~service_name
+    ~container __id =
   let __type =
     "aws_lightsail_container_service_deployment_version"
   in
@@ -348,14 +348,14 @@ let make ?id ?timeouts ~service_name ~container ~public_endpoint __id
     json =
       yojson_of_aws_lightsail_container_service_deployment_version
         (aws_lightsail_container_service_deployment_version ?id
-           ?timeouts ~service_name ~container ~public_endpoint ());
+           ~public_endpoint ?timeouts ~service_name ~container ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~service_name ~container
-    ~public_endpoint __id =
+let register ?tf_module ?id ?(public_endpoint = []) ?timeouts
+    ~service_name ~container __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~service_name ~container ~public_endpoint __id
+    make ?id ~public_endpoint ?timeouts ~service_name ~container __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

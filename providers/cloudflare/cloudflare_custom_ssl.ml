@@ -176,8 +176,8 @@ let custom_ssl_options ?bundle_method ?certificate ?geo_restrictions
 let custom_ssl_priority ?id ?priority () : custom_ssl_priority =
   { id; priority }
 
-let cloudflare_custom_ssl ?id ~zone_id ~custom_ssl_options
-    ~custom_ssl_priority () : cloudflare_custom_ssl =
+let cloudflare_custom_ssl ?id ?(custom_ssl_options = [])
+    ?(custom_ssl_priority = []) ~zone_id () : cloudflare_custom_ssl =
   { id; zone_id; custom_ssl_options; custom_ssl_priority }
 
 type t = {
@@ -193,7 +193,8 @@ type t = {
   zone_id : string prop;
 }
 
-let make ?id ~zone_id ~custom_ssl_options ~custom_ssl_priority __id =
+let make ?id ?(custom_ssl_options = []) ?(custom_ssl_priority = [])
+    ~zone_id __id =
   let __type = "cloudflare_custom_ssl" in
   let __attrs =
     ({
@@ -215,15 +216,15 @@ let make ?id ~zone_id ~custom_ssl_options ~custom_ssl_priority __id =
     type_ = __type;
     json =
       yojson_of_cloudflare_custom_ssl
-        (cloudflare_custom_ssl ?id ~zone_id ~custom_ssl_options
-           ~custom_ssl_priority ());
+        (cloudflare_custom_ssl ?id ~custom_ssl_options
+           ~custom_ssl_priority ~zone_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~zone_id ~custom_ssl_options
-    ~custom_ssl_priority __id =
+let register ?tf_module ?id ?(custom_ssl_options = [])
+    ?(custom_ssl_priority = []) ~zone_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~zone_id ~custom_ssl_options ~custom_ssl_priority __id
+    make ?id ~custom_ssl_options ~custom_ssl_priority ~zone_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

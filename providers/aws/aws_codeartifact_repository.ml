@@ -173,8 +173,8 @@ let external_connections ~external_connection_name () :
 let upstream ~repository_name () : upstream = { repository_name }
 
 let aws_codeartifact_repository ?description ?domain_owner ?id ?tags
-    ?tags_all ~domain ~repository ~external_connections ~upstream ()
-    : aws_codeartifact_repository =
+    ?tags_all ?(external_connections = []) ?(upstream = []) ~domain
+    ~repository () : aws_codeartifact_repository =
   {
     description;
     domain;
@@ -199,8 +199,9 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?description ?domain_owner ?id ?tags ?tags_all ~domain
-    ~repository ~external_connections ~upstream __id =
+let make ?description ?domain_owner ?id ?tags ?tags_all
+    ?(external_connections = []) ?(upstream = []) ~domain ~repository
+    __id =
   let __type = "aws_codeartifact_repository" in
   let __attrs =
     ({
@@ -223,17 +224,17 @@ let make ?description ?domain_owner ?id ?tags ?tags_all ~domain
     json =
       yojson_of_aws_codeartifact_repository
         (aws_codeartifact_repository ?description ?domain_owner ?id
-           ?tags ?tags_all ~domain ~repository ~external_connections
-           ~upstream ());
+           ?tags ?tags_all ~external_connections ~upstream ~domain
+           ~repository ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?domain_owner ?id ?tags
-    ?tags_all ~domain ~repository ~external_connections ~upstream
-    __id =
+    ?tags_all ?(external_connections = []) ?(upstream = []) ~domain
+    ~repository __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?domain_owner ?id ?tags ?tags_all ~domain
-      ~repository ~external_connections ~upstream __id
+    make ?description ?domain_owner ?id ?tags ?tags_all
+      ~external_connections ~upstream ~domain ~repository __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

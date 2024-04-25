@@ -320,11 +320,12 @@ let configuration__execute_command_configuration__log_configuration
   }
 
 let configuration__execute_command_configuration ?kms_key_id ?logging
-    ~log_configuration () :
+    ?(log_configuration = []) () :
     configuration__execute_command_configuration =
   { kms_key_id; logging; log_configuration }
 
-let configuration ~execute_command_configuration () : configuration =
+let configuration ?(execute_command_configuration = []) () :
+    configuration =
   { execute_command_configuration }
 
 let service_connect_defaults ~namespace () : service_connect_defaults
@@ -333,8 +334,9 @@ let service_connect_defaults ~namespace () : service_connect_defaults
 
 let setting ~name ~value () : setting = { name; value }
 
-let aws_ecs_cluster ?id ?tags ?tags_all ~name ~configuration
-    ~service_connect_defaults ~setting () : aws_ecs_cluster =
+let aws_ecs_cluster ?id ?tags ?tags_all ?(configuration = [])
+    ?(service_connect_defaults = []) ~name ~setting () :
+    aws_ecs_cluster =
   {
     id;
     name;
@@ -353,8 +355,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?tags ?tags_all ~name ~configuration
-    ~service_connect_defaults ~setting __id =
+let make ?id ?tags ?tags_all ?(configuration = [])
+    ?(service_connect_defaults = []) ~name ~setting __id =
   let __type = "aws_ecs_cluster" in
   let __attrs =
     ({
@@ -371,16 +373,16 @@ let make ?id ?tags ?tags_all ~name ~configuration
     type_ = __type;
     json =
       yojson_of_aws_ecs_cluster
-        (aws_ecs_cluster ?id ?tags ?tags_all ~name ~configuration
-           ~service_connect_defaults ~setting ());
+        (aws_ecs_cluster ?id ?tags ?tags_all ~configuration
+           ~service_connect_defaults ~name ~setting ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ~name ~configuration
-    ~service_connect_defaults ~setting __id =
+let register ?tf_module ?id ?tags ?tags_all ?(configuration = [])
+    ?(service_connect_defaults = []) ~name ~setting __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~name ~configuration
-      ~service_connect_defaults ~setting __id
+    make ?id ?tags ?tags_all ~configuration ~service_connect_defaults
+      ~name ~setting __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

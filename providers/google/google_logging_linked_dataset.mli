@@ -20,10 +20,10 @@ val google_logging_linked_dataset :
   ?id:string prop ->
   ?location:string prop ->
   ?parent:string prop ->
+  ?bigquery_dataset:bigquery_dataset list ->
   ?timeouts:timeouts ->
   bucket:string prop ->
   link_id:string prop ->
-  bigquery_dataset:bigquery_dataset list ->
   unit ->
   google_logging_linked_dataset
 
@@ -50,10 +50,10 @@ val register :
   ?id:string prop ->
   ?location:string prop ->
   ?parent:string prop ->
+  ?bigquery_dataset:bigquery_dataset list ->
   ?timeouts:timeouts ->
   bucket:string prop ->
   link_id:string prop ->
-  bigquery_dataset:bigquery_dataset list ->
   string ->
   t
 
@@ -62,9 +62,9 @@ val make :
   ?id:string prop ->
   ?location:string prop ->
   ?parent:string prop ->
+  ?bigquery_dataset:bigquery_dataset list ->
   ?timeouts:timeouts ->
   bucket:string prop ->
   link_id:string prop ->
-  bigquery_dataset:bigquery_dataset list ->
   string ->
   t Tf_core.resource

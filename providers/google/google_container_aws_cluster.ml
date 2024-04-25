@@ -850,7 +850,8 @@ let authorization__admin_users ~username () :
     authorization__admin_users =
   { username }
 
-let authorization ~admin_groups ~admin_users () : authorization =
+let authorization ?(admin_groups = []) ~admin_users () :
+    authorization =
   { admin_groups; admin_users }
 
 let binary_authorization ?evaluation_mode () : binary_authorization =
@@ -885,10 +886,10 @@ let control_plane__ssh_config ~ec2_key_pair () :
   { ec2_key_pair }
 
 let control_plane ?instance_type ?security_group_ids ?tags
-    ~iam_instance_profile ~subnet_ids ~version
+    ?(main_volume = []) ?(proxy_config = []) ?(root_volume = [])
+    ?(ssh_config = []) ~iam_instance_profile ~subnet_ids ~version
     ~aws_services_authentication ~config_encryption
-    ~database_encryption ~main_volume ~proxy_config ~root_volume
-    ~ssh_config () : control_plane =
+    ~database_encryption () : control_plane =
   {
     iam_instance_profile;
     instance_type;
@@ -921,9 +922,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_container_aws_cluster ?annotations ?description ?id
-    ?project ?timeouts ~aws_region ~location ~name ~authorization
-    ~binary_authorization ~control_plane ~fleet ~networking () :
-    google_container_aws_cluster =
+    ?project ?(binary_authorization = []) ?timeouts ~aws_region
+    ~location ~name ~authorization ~control_plane ~fleet ~networking
+    () : google_container_aws_cluster =
   {
     annotations;
     aws_region;
@@ -959,9 +960,9 @@ type t = {
   workload_identity_config : workload_identity_config list prop;
 }
 
-let make ?annotations ?description ?id ?project ?timeouts ~aws_region
-    ~location ~name ~authorization ~binary_authorization
-    ~control_plane ~fleet ~networking __id =
+let make ?annotations ?description ?id ?project
+    ?(binary_authorization = []) ?timeouts ~aws_region ~location
+    ~name ~authorization ~control_plane ~fleet ~networking __id =
   let __type = "google_container_aws_cluster" in
   let __attrs =
     ({
@@ -992,18 +993,18 @@ let make ?annotations ?description ?id ?project ?timeouts ~aws_region
     json =
       yojson_of_google_container_aws_cluster
         (google_container_aws_cluster ?annotations ?description ?id
-           ?project ?timeouts ~aws_region ~location ~name
-           ~authorization ~binary_authorization ~control_plane ~fleet
+           ?project ~binary_authorization ?timeouts ~aws_region
+           ~location ~name ~authorization ~control_plane ~fleet
            ~networking ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?description ?id ?project
-    ?timeouts ~aws_region ~location ~name ~authorization
-    ~binary_authorization ~control_plane ~fleet ~networking __id =
+    ?(binary_authorization = []) ?timeouts ~aws_region ~location
+    ~name ~authorization ~control_plane ~fleet ~networking __id =
   let (r : _ Tf_core.resource) =
-    make ?annotations ?description ?id ?project ?timeouts ~aws_region
-      ~location ~name ~authorization ~binary_authorization
+    make ?annotations ?description ?id ?project ~binary_authorization
+      ?timeouts ~aws_region ~location ~name ~authorization
       ~control_plane ~fleet ~networking __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

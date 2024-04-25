@@ -263,7 +263,7 @@ let _ = yojson_of_azurerm_firewall_application_rule_collection
 let rule__protocol ~port ~type_ () : rule__protocol = { port; type_ }
 
 let rule ?description ?fqdn_tags ?source_addresses ?source_ip_groups
-    ?target_fqdns ~name ~protocol () : rule =
+    ?target_fqdns ?(protocol = []) ~name () : rule =
   {
     description;
     fqdn_tags;

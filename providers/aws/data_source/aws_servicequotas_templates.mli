@@ -11,8 +11,8 @@ val templates : unit -> templates
 type aws_servicequotas_templates
 
 val aws_servicequotas_templates :
+  ?templates:templates list ->
   region:string prop ->
-  templates:templates list ->
   unit ->
   aws_servicequotas_templates
 
@@ -25,13 +25,13 @@ type t = private { id : string prop; region : string prop }
 
 val register :
   ?tf_module:tf_module ->
+  ?templates:templates list ->
   region:string prop ->
-  templates:templates list ->
   string ->
   t
 
 val make :
+  ?templates:templates list ->
   region:string prop ->
-  templates:templates list ->
   string ->
   t Tf_core.resource

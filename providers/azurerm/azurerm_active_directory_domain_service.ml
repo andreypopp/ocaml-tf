@@ -452,9 +452,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_active_directory_domain_service
     ?domain_configuration_type ?filtered_sync_enabled ?id ?tags
+    ?(notifications = []) ?(secure_ldap = []) ?(security = [])
     ?timeouts ~domain_name ~location ~name ~resource_group_name ~sku
-    ~initial_replica_set ~notifications ~secure_ldap ~security () :
-    azurerm_active_directory_domain_service =
+    ~initial_replica_set () : azurerm_active_directory_domain_service
+    =
   {
     domain_configuration_type;
     domain_name;
@@ -490,8 +491,9 @@ type t = {
 }
 
 let make ?domain_configuration_type ?filtered_sync_enabled ?id ?tags
+    ?(notifications = []) ?(secure_ldap = []) ?(security = [])
     ?timeouts ~domain_name ~location ~name ~resource_group_name ~sku
-    ~initial_replica_set ~notifications ~secure_ldap ~security __id =
+    ~initial_replica_set __id =
   let __type = "azurerm_active_directory_domain_service" in
   let __attrs =
     ({
@@ -522,20 +524,21 @@ let make ?domain_configuration_type ?filtered_sync_enabled ?id ?tags
       yojson_of_azurerm_active_directory_domain_service
         (azurerm_active_directory_domain_service
            ?domain_configuration_type ?filtered_sync_enabled ?id
-           ?tags ?timeouts ~domain_name ~location ~name
-           ~resource_group_name ~sku ~initial_replica_set
-           ~notifications ~secure_ldap ~security ());
+           ?tags ~notifications ~secure_ldap ~security ?timeouts
+           ~domain_name ~location ~name ~resource_group_name ~sku
+           ~initial_replica_set ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?domain_configuration_type
-    ?filtered_sync_enabled ?id ?tags ?timeouts ~domain_name ~location
-    ~name ~resource_group_name ~sku ~initial_replica_set
-    ~notifications ~secure_ldap ~security __id =
+    ?filtered_sync_enabled ?id ?tags ?(notifications = [])
+    ?(secure_ldap = []) ?(security = []) ?timeouts ~domain_name
+    ~location ~name ~resource_group_name ~sku ~initial_replica_set
+    __id =
   let (r : _ Tf_core.resource) =
     make ?domain_configuration_type ?filtered_sync_enabled ?id ?tags
-      ?timeouts ~domain_name ~location ~name ~resource_group_name
-      ~sku ~initial_replica_set ~notifications ~secure_ldap ~security
+      ~notifications ~secure_ldap ~security ?timeouts ~domain_name
+      ~location ~name ~resource_group_name ~sku ~initial_replica_set
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

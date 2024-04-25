@@ -36,11 +36,11 @@ val azurerm_container_connected_registry :
   ?sync_message_ttl:string prop ->
   ?sync_schedule:string prop ->
   ?sync_window:string prop ->
+  ?notification:notification list ->
   ?timeouts:timeouts ->
   container_registry_id:string prop ->
   name:string prop ->
   sync_token_id:string prop ->
-  notification:notification list ->
   unit ->
   azurerm_container_connected_registry
 
@@ -75,11 +75,11 @@ val register :
   ?sync_message_ttl:string prop ->
   ?sync_schedule:string prop ->
   ?sync_window:string prop ->
+  ?notification:notification list ->
   ?timeouts:timeouts ->
   container_registry_id:string prop ->
   name:string prop ->
   sync_token_id:string prop ->
-  notification:notification list ->
   string ->
   t
 
@@ -93,10 +93,10 @@ val make :
   ?sync_message_ttl:string prop ->
   ?sync_schedule:string prop ->
   ?sync_window:string prop ->
+  ?notification:notification list ->
   ?timeouts:timeouts ->
   container_registry_id:string prop ->
   name:string prop ->
   sync_token_id:string prop ->
-  notification:notification list ->
   string ->
   t Tf_core.resource

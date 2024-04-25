@@ -2119,7 +2119,7 @@ let spec__node_affinity__required__node_selector_term__match_fields
   { key; operator; values }
 
 let spec__node_affinity__required__node_selector_term
-    ~match_expressions ~match_fields () :
+    ?(match_expressions = []) ?(match_fields = []) () :
     spec__node_affinity__required__node_selector_term =
   { match_expressions; match_fields }
 
@@ -2127,7 +2127,7 @@ let spec__node_affinity__required ~node_selector_term () :
     spec__node_affinity__required =
   { node_selector_term }
 
-let spec__node_affinity ~required () : spec__node_affinity =
+let spec__node_affinity ?(required = []) () : spec__node_affinity =
   { required }
 
 let spec__persistent_volume_source__aws_elastic_block_store ?fs_type
@@ -2158,7 +2158,7 @@ let spec__persistent_volume_source__ceph_fs__secret_ref ?name
   { name; namespace }
 
 let spec__persistent_volume_source__ceph_fs ?path ?read_only
-    ?secret_file ?user ~monitors ~secret_ref () :
+    ?secret_file ?user ?(secret_ref = []) ~monitors () :
     spec__persistent_volume_source__ceph_fs =
   { monitors; path; read_only; secret_file; user; secret_ref }
 
@@ -2189,10 +2189,10 @@ let spec__persistent_volume_source__csi__node_stage_secret_ref ?name
   { name; namespace }
 
 let spec__persistent_volume_source__csi ?fs_type ?read_only
-    ?volume_attributes ~driver ~volume_handle
-    ~controller_expand_secret_ref ~controller_publish_secret_ref
-    ~node_publish_secret_ref ~node_stage_secret_ref () :
-    spec__persistent_volume_source__csi =
+    ?volume_attributes ?(controller_expand_secret_ref = [])
+    ?(controller_publish_secret_ref = [])
+    ?(node_publish_secret_ref = []) ?(node_stage_secret_ref = [])
+    ~driver ~volume_handle () : spec__persistent_volume_source__csi =
   {
     driver;
     fs_type;
@@ -2215,7 +2215,7 @@ let spec__persistent_volume_source__flex_volume__secret_ref ?name
   { name; namespace }
 
 let spec__persistent_volume_source__flex_volume ?fs_type ?options
-    ?read_only ~driver ~secret_ref () :
+    ?read_only ?(secret_ref = []) ~driver () :
     spec__persistent_volume_source__flex_volume =
   { driver; fs_type; options; read_only; secret_ref }
 
@@ -2264,8 +2264,8 @@ let spec__persistent_volume_source__rbd__secret_ref ?name ?namespace
   { name; namespace }
 
 let spec__persistent_volume_source__rbd ?fs_type ?keyring ?rados_user
-    ?rbd_pool ?read_only ~ceph_monitors ~rbd_image ~secret_ref () :
-    spec__persistent_volume_source__rbd =
+    ?rbd_pool ?read_only ?(secret_ref = []) ~ceph_monitors ~rbd_image
+    () : spec__persistent_volume_source__rbd =
   {
     ceph_monitors;
     fs_type;
@@ -2282,11 +2282,13 @@ let spec__persistent_volume_source__vsphere_volume ?fs_type
     =
   { fs_type; volume_path }
 
-let spec__persistent_volume_source ~aws_elastic_block_store
-    ~azure_disk ~azure_file ~ceph_fs ~cinder ~csi ~fc ~flex_volume
-    ~flocker ~gce_persistent_disk ~glusterfs ~host_path ~iscsi ~local
-    ~nfs ~photon_persistent_disk ~quobyte ~rbd ~vsphere_volume () :
-    spec__persistent_volume_source =
+let spec__persistent_volume_source ?(aws_elastic_block_store = [])
+    ?(azure_disk = []) ?(azure_file = []) ?(ceph_fs = [])
+    ?(cinder = []) ?(csi = []) ?(fc = []) ?(flex_volume = [])
+    ?(flocker = []) ?(gce_persistent_disk = []) ?(glusterfs = [])
+    ?(host_path = []) ?(iscsi = []) ?(local = []) ?(nfs = [])
+    ?(photon_persistent_disk = []) ?(quobyte = []) ?(rbd = [])
+    ?(vsphere_volume = []) () : spec__persistent_volume_source =
   {
     aws_elastic_block_store;
     azure_disk;
@@ -2310,8 +2312,9 @@ let spec__persistent_volume_source ~aws_elastic_block_store
   }
 
 let spec ?mount_options ?persistent_volume_reclaim_policy
-    ?storage_class_name ?volume_mode ~access_modes ~capacity
-    ~claim_ref ~node_affinity ~persistent_volume_source () : spec =
+    ?storage_class_name ?volume_mode ?(claim_ref = [])
+    ?(node_affinity = []) ~access_modes ~capacity
+    ~persistent_volume_source () : spec =
   {
     access_modes;
     capacity;

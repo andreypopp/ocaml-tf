@@ -35,10 +35,10 @@ val aws_apigatewayv2_integration :
   ?request_templates:(string * string prop) list ->
   ?template_selection_expression:string prop ->
   ?timeout_milliseconds:float prop ->
+  ?tls_config:tls_config list ->
   api_id:string prop ->
   integration_type:string prop ->
   response_parameters:response_parameters list ->
-  tls_config:tls_config list ->
   unit ->
   aws_apigatewayv2_integration
 
@@ -85,10 +85,10 @@ val register :
   ?request_templates:(string * string prop) list ->
   ?template_selection_expression:string prop ->
   ?timeout_milliseconds:float prop ->
+  ?tls_config:tls_config list ->
   api_id:string prop ->
   integration_type:string prop ->
   response_parameters:response_parameters list ->
-  tls_config:tls_config list ->
   string ->
   t
 
@@ -108,9 +108,9 @@ val make :
   ?request_templates:(string * string prop) list ->
   ?template_selection_expression:string prop ->
   ?timeout_milliseconds:float prop ->
+  ?tls_config:tls_config list ->
   api_id:string prop ->
   integration_type:string prop ->
   response_parameters:response_parameters list ->
-  tls_config:tls_config list ->
   string ->
   t Tf_core.resource

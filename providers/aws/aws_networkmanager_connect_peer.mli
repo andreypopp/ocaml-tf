@@ -38,10 +38,10 @@ val aws_networkmanager_connect_peer :
   ?subnet_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?bgp_options:bgp_options list ->
   ?timeouts:timeouts ->
   connect_attachment_id:string prop ->
   peer_address:string prop ->
-  bgp_options:bgp_options list ->
   unit ->
   aws_networkmanager_connect_peer
 
@@ -76,10 +76,10 @@ val register :
   ?subnet_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?bgp_options:bgp_options list ->
   ?timeouts:timeouts ->
   connect_attachment_id:string prop ->
   peer_address:string prop ->
-  bgp_options:bgp_options list ->
   string ->
   t
 
@@ -90,9 +90,9 @@ val make :
   ?subnet_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?bgp_options:bgp_options list ->
   ?timeouts:timeouts ->
   connect_attachment_id:string prop ->
   peer_address:string prop ->
-  bgp_options:bgp_options list ->
   string ->
   t Tf_core.resource

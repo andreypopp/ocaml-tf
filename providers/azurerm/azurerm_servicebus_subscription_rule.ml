@@ -285,8 +285,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_servicebus_subscription_rule ?action ?id ?sql_filter
-    ?timeouts ~filter_type ~name ~subscription_id ~correlation_filter
-    () : azurerm_servicebus_subscription_rule =
+    ?(correlation_filter = []) ?timeouts ~filter_type ~name
+    ~subscription_id () : azurerm_servicebus_subscription_rule =
   {
     action;
     filter_type;
@@ -308,8 +308,8 @@ type t = {
   subscription_id : string prop;
 }
 
-let make ?action ?id ?sql_filter ?timeouts ~filter_type ~name
-    ~subscription_id ~correlation_filter __id =
+let make ?action ?id ?sql_filter ?(correlation_filter = []) ?timeouts
+    ~filter_type ~name ~subscription_id __id =
   let __type = "azurerm_servicebus_subscription_rule" in
   let __attrs =
     ({
@@ -330,16 +330,17 @@ let make ?action ?id ?sql_filter ?timeouts ~filter_type ~name
     json =
       yojson_of_azurerm_servicebus_subscription_rule
         (azurerm_servicebus_subscription_rule ?action ?id ?sql_filter
-           ?timeouts ~filter_type ~name ~subscription_id
-           ~correlation_filter ());
+           ~correlation_filter ?timeouts ~filter_type ~name
+           ~subscription_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?action ?id ?sql_filter ?timeouts
-    ~filter_type ~name ~subscription_id ~correlation_filter __id =
+let register ?tf_module ?action ?id ?sql_filter
+    ?(correlation_filter = []) ?timeouts ~filter_type ~name
+    ~subscription_id __id =
   let (r : _ Tf_core.resource) =
-    make ?action ?id ?sql_filter ?timeouts ~filter_type ~name
-      ~subscription_id ~correlation_filter __id
+    make ?action ?id ?sql_filter ~correlation_filter ?timeouts
+      ~filter_type ~name ~subscription_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

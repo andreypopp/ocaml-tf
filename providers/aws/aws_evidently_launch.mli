@@ -49,10 +49,10 @@ val scheduled_splits_config__steps__segment_overrides :
 type scheduled_splits_config__steps
 
 val scheduled_splits_config__steps :
+  ?segment_overrides:
+    scheduled_splits_config__steps__segment_overrides list ->
   group_weights:(string * float prop) list ->
   start_time:string prop ->
-  segment_overrides:
-    scheduled_splits_config__steps__segment_overrides list ->
   unit ->
   scheduled_splits_config__steps
 
@@ -80,12 +80,12 @@ val aws_evidently_launch :
   ?randomization_salt:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?metric_monitors:metric_monitors list ->
+  ?scheduled_splits_config:scheduled_splits_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   project:string prop ->
   groups:groups list ->
-  metric_monitors:metric_monitors list ->
-  scheduled_splits_config:scheduled_splits_config list ->
   unit ->
   aws_evidently_launch
 
@@ -117,12 +117,12 @@ val register :
   ?randomization_salt:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?metric_monitors:metric_monitors list ->
+  ?scheduled_splits_config:scheduled_splits_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   project:string prop ->
   groups:groups list ->
-  metric_monitors:metric_monitors list ->
-  scheduled_splits_config:scheduled_splits_config list ->
   string ->
   t
 
@@ -132,11 +132,11 @@ val make :
   ?randomization_salt:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?metric_monitors:metric_monitors list ->
+  ?scheduled_splits_config:scheduled_splits_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   project:string prop ->
   groups:groups list ->
-  metric_monitors:metric_monitors list ->
-  scheduled_splits_config:scheduled_splits_config list ->
   string ->
   t Tf_core.resource

@@ -101,15 +101,15 @@ val google_compute_region_health_check :
   ?region:string prop ->
   ?timeout_sec:float prop ->
   ?unhealthy_threshold:float prop ->
+  ?grpc_health_check:grpc_health_check list ->
+  ?http2_health_check:http2_health_check list ->
+  ?http_health_check:http_health_check list ->
+  ?https_health_check:https_health_check list ->
+  ?log_config:log_config list ->
+  ?ssl_health_check:ssl_health_check list ->
+  ?tcp_health_check:tcp_health_check list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  grpc_health_check:grpc_health_check list ->
-  http2_health_check:http2_health_check list ->
-  http_health_check:http_health_check list ->
-  https_health_check:https_health_check list ->
-  log_config:log_config list ->
-  ssl_health_check:ssl_health_check list ->
-  tcp_health_check:tcp_health_check list ->
   unit ->
   google_compute_region_health_check
 
@@ -143,15 +143,15 @@ val register :
   ?region:string prop ->
   ?timeout_sec:float prop ->
   ?unhealthy_threshold:float prop ->
+  ?grpc_health_check:grpc_health_check list ->
+  ?http2_health_check:http2_health_check list ->
+  ?http_health_check:http_health_check list ->
+  ?https_health_check:https_health_check list ->
+  ?log_config:log_config list ->
+  ?ssl_health_check:ssl_health_check list ->
+  ?tcp_health_check:tcp_health_check list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  grpc_health_check:grpc_health_check list ->
-  http2_health_check:http2_health_check list ->
-  http_health_check:http_health_check list ->
-  https_health_check:https_health_check list ->
-  log_config:log_config list ->
-  ssl_health_check:ssl_health_check list ->
-  tcp_health_check:tcp_health_check list ->
   string ->
   t
 
@@ -164,14 +164,14 @@ val make :
   ?region:string prop ->
   ?timeout_sec:float prop ->
   ?unhealthy_threshold:float prop ->
+  ?grpc_health_check:grpc_health_check list ->
+  ?http2_health_check:http2_health_check list ->
+  ?http_health_check:http_health_check list ->
+  ?https_health_check:https_health_check list ->
+  ?log_config:log_config list ->
+  ?ssl_health_check:ssl_health_check list ->
+  ?tcp_health_check:tcp_health_check list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  grpc_health_check:grpc_health_check list ->
-  http2_health_check:http2_health_check list ->
-  http_health_check:http_health_check list ->
-  https_health_check:https_health_check list ->
-  log_config:log_config list ->
-  ssl_health_check:ssl_health_check list ->
-  tcp_health_check:tcp_health_check list ->
   string ->
   t Tf_core.resource

@@ -19,9 +19,9 @@ type file_shares
 
 val file_shares :
   ?source_backup:string prop ->
+  ?nfs_export_options:file_shares__nfs_export_options list ->
   capacity_gb:float prop ->
   name:string prop ->
-  nfs_export_options:file_shares__nfs_export_options list ->
   unit ->
   file_shares
 

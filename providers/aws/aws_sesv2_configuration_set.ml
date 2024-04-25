@@ -401,14 +401,15 @@ let vdm_options__guardian_options ?optimized_shared_delivery () :
     vdm_options__guardian_options =
   { optimized_shared_delivery }
 
-let vdm_options ~dashboard_options ~guardian_options () : vdm_options
-    =
+let vdm_options ?(dashboard_options = []) ?(guardian_options = []) ()
+    : vdm_options =
   { dashboard_options; guardian_options }
 
 let aws_sesv2_configuration_set ?id ?tags ?tags_all
-    ~configuration_set_name ~delivery_options ~reputation_options
-    ~sending_options ~suppression_options ~tracking_options
-    ~vdm_options () : aws_sesv2_configuration_set =
+    ?(delivery_options = []) ?(reputation_options = [])
+    ?(sending_options = []) ?(suppression_options = [])
+    ?(tracking_options = []) ?(vdm_options = [])
+    ~configuration_set_name () : aws_sesv2_configuration_set =
   {
     configuration_set_name;
     id;
@@ -430,9 +431,10 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?tags ?tags_all ~configuration_set_name
-    ~delivery_options ~reputation_options ~sending_options
-    ~suppression_options ~tracking_options ~vdm_options __id =
+let make ?id ?tags ?tags_all ?(delivery_options = [])
+    ?(reputation_options = []) ?(sending_options = [])
+    ?(suppression_options = []) ?(tracking_options = [])
+    ?(vdm_options = []) ~configuration_set_name __id =
   let __type = "aws_sesv2_configuration_set" in
   let __attrs =
     ({
@@ -451,19 +453,20 @@ let make ?id ?tags ?tags_all ~configuration_set_name
     json =
       yojson_of_aws_sesv2_configuration_set
         (aws_sesv2_configuration_set ?id ?tags ?tags_all
-           ~configuration_set_name ~delivery_options
-           ~reputation_options ~sending_options ~suppression_options
-           ~tracking_options ~vdm_options ());
+           ~delivery_options ~reputation_options ~sending_options
+           ~suppression_options ~tracking_options ~vdm_options
+           ~configuration_set_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ~configuration_set_name
-    ~delivery_options ~reputation_options ~sending_options
-    ~suppression_options ~tracking_options ~vdm_options __id =
+let register ?tf_module ?id ?tags ?tags_all ?(delivery_options = [])
+    ?(reputation_options = []) ?(sending_options = [])
+    ?(suppression_options = []) ?(tracking_options = [])
+    ?(vdm_options = []) ~configuration_set_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~configuration_set_name
-      ~delivery_options ~reputation_options ~sending_options
-      ~suppression_options ~tracking_options ~vdm_options __id
+    make ?id ?tags ?tags_all ~delivery_options ~reputation_options
+      ~sending_options ~suppression_options ~tracking_options
+      ~vdm_options ~configuration_set_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

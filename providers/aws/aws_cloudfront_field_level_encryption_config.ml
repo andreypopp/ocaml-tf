@@ -304,9 +304,9 @@ let query_arg_profile_config__query_arg_profiles ~items () :
     query_arg_profile_config__query_arg_profiles =
   { items }
 
-let query_arg_profile_config
-    ~forward_when_query_arg_profile_is_unknown ~query_arg_profiles ()
-    : query_arg_profile_config =
+let query_arg_profile_config ?(query_arg_profiles = [])
+    ~forward_when_query_arg_profile_is_unknown () :
+    query_arg_profile_config =
   { forward_when_query_arg_profile_is_unknown; query_arg_profiles }
 
 let aws_cloudfront_field_level_encryption_config ?comment ?id

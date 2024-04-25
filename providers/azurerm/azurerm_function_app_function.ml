@@ -187,7 +187,7 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_function_app_function ?enabled ?id ?language ?test_data
-    ?timeouts ~config_json ~function_app_id ~name ~file () :
+    ?(file = []) ?timeouts ~config_json ~function_app_id ~name () :
     azurerm_function_app_function =
   {
     config_json;
@@ -218,8 +218,8 @@ type t = {
   url : string prop;
 }
 
-let make ?enabled ?id ?language ?test_data ?timeouts ~config_json
-    ~function_app_id ~name ~file __id =
+let make ?enabled ?id ?language ?test_data ?(file = []) ?timeouts
+    ~config_json ~function_app_id ~name __id =
   let __type = "azurerm_function_app_function" in
   let __attrs =
     ({
@@ -248,16 +248,16 @@ let make ?enabled ?id ?language ?test_data ?timeouts ~config_json
     json =
       yojson_of_azurerm_function_app_function
         (azurerm_function_app_function ?enabled ?id ?language
-           ?test_data ?timeouts ~config_json ~function_app_id ~name
-           ~file ());
+           ?test_data ~file ?timeouts ~config_json ~function_app_id
+           ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?enabled ?id ?language ?test_data ?timeouts
-    ~config_json ~function_app_id ~name ~file __id =
+let register ?tf_module ?enabled ?id ?language ?test_data
+    ?(file = []) ?timeouts ~config_json ~function_app_id ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?enabled ?id ?language ?test_data ?timeouts ~config_json
-      ~function_app_id ~name ~file __id
+    make ?enabled ?id ?language ?test_data ~file ?timeouts
+      ~config_json ~function_app_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

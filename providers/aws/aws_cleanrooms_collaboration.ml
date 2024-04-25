@@ -274,10 +274,10 @@ let member ~account_id ~display_name ~member_abilities () : member =
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let aws_cleanrooms_collaboration ?tags ?tags_all ?timeouts
-    ~creator_display_name ~creator_member_abilities ~description
-    ~name ~query_log_status ~data_encryption_metadata ~member () :
-    aws_cleanrooms_collaboration =
+let aws_cleanrooms_collaboration ?tags ?tags_all
+    ?(data_encryption_metadata = []) ?timeouts ~creator_display_name
+    ~creator_member_abilities ~description ~name ~query_log_status
+    ~member () : aws_cleanrooms_collaboration =
   {
     creator_display_name;
     creator_member_abilities;
@@ -305,9 +305,9 @@ type t = {
   update_time : string prop;
 }
 
-let make ?tags ?tags_all ?timeouts ~creator_display_name
-    ~creator_member_abilities ~description ~name ~query_log_status
-    ~data_encryption_metadata ~member __id =
+let make ?tags ?tags_all ?(data_encryption_metadata = []) ?timeouts
+    ~creator_display_name ~creator_member_abilities ~description
+    ~name ~query_log_status ~member __id =
   let __type = "aws_cleanrooms_collaboration" in
   let __attrs =
     ({
@@ -333,20 +333,21 @@ let make ?tags ?tags_all ?timeouts ~creator_display_name
     type_ = __type;
     json =
       yojson_of_aws_cleanrooms_collaboration
-        (aws_cleanrooms_collaboration ?tags ?tags_all ?timeouts
-           ~creator_display_name ~creator_member_abilities
-           ~description ~name ~query_log_status
-           ~data_encryption_metadata ~member ());
+        (aws_cleanrooms_collaboration ?tags ?tags_all
+           ~data_encryption_metadata ?timeouts ~creator_display_name
+           ~creator_member_abilities ~description ~name
+           ~query_log_status ~member ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?tags ?tags_all ?timeouts
-    ~creator_display_name ~creator_member_abilities ~description
-    ~name ~query_log_status ~data_encryption_metadata ~member __id =
+let register ?tf_module ?tags ?tags_all
+    ?(data_encryption_metadata = []) ?timeouts ~creator_display_name
+    ~creator_member_abilities ~description ~name ~query_log_status
+    ~member __id =
   let (r : _ Tf_core.resource) =
-    make ?tags ?tags_all ?timeouts ~creator_display_name
-      ~creator_member_abilities ~description ~name ~query_log_status
-      ~data_encryption_metadata ~member __id
+    make ?tags ?tags_all ~data_encryption_metadata ?timeouts
+      ~creator_display_name ~creator_member_abilities ~description
+      ~name ~query_log_status ~member __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

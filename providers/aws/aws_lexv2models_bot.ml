@@ -247,8 +247,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_lexv2models_bot ?description ?tags ?test_bot_alias_tags
-    ?type_ ?timeouts ~idle_session_ttl_in_seconds ~name ~role_arn
-    ~data_privacy ~members () : aws_lexv2models_bot =
+    ?type_ ?(data_privacy = []) ?(members = []) ?timeouts
+    ~idle_session_ttl_in_seconds ~name ~role_arn () :
+    aws_lexv2models_bot =
   {
     description;
     idle_session_ttl_in_seconds;
@@ -275,9 +276,9 @@ type t = {
   type_ : string prop;
 }
 
-let make ?description ?tags ?test_bot_alias_tags ?type_ ?timeouts
-    ~idle_session_ttl_in_seconds ~name ~role_arn ~data_privacy
-    ~members __id =
+let make ?description ?tags ?test_bot_alias_tags ?type_
+    ?(data_privacy = []) ?(members = []) ?timeouts
+    ~idle_session_ttl_in_seconds ~name ~role_arn __id =
   let __type = "aws_lexv2models_bot" in
   let __attrs =
     ({
@@ -302,18 +303,18 @@ let make ?description ?tags ?test_bot_alias_tags ?type_ ?timeouts
     json =
       yojson_of_aws_lexv2models_bot
         (aws_lexv2models_bot ?description ?tags ?test_bot_alias_tags
-           ?type_ ?timeouts ~idle_session_ttl_in_seconds ~name
-           ~role_arn ~data_privacy ~members ());
+           ?type_ ~data_privacy ~members ?timeouts
+           ~idle_session_ttl_in_seconds ~name ~role_arn ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?tags ?test_bot_alias_tags
-    ?type_ ?timeouts ~idle_session_ttl_in_seconds ~name ~role_arn
-    ~data_privacy ~members __id =
+    ?type_ ?(data_privacy = []) ?(members = []) ?timeouts
+    ~idle_session_ttl_in_seconds ~name ~role_arn __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?tags ?test_bot_alias_tags ?type_ ?timeouts
-      ~idle_session_ttl_in_seconds ~name ~role_arn ~data_privacy
-      ~members __id
+    make ?description ?tags ?test_bot_alias_tags ?type_ ~data_privacy
+      ~members ?timeouts ~idle_session_ttl_in_seconds ~name ~role_arn
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

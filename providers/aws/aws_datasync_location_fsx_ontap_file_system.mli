@@ -34,8 +34,8 @@ val protocol__smb :
 type protocol
 
 val protocol :
-  nfs:protocol__nfs list ->
-  smb:protocol__smb list ->
+  ?nfs:protocol__nfs list ->
+  ?smb:protocol__smb list ->
   unit ->
   protocol
 

@@ -33,13 +33,13 @@ val azurerm_managed_application :
   ?parameter_values:string prop ->
   ?parameters:(string * string prop) list ->
   ?tags:(string * string prop) list ->
+  ?plan:plan list ->
   ?timeouts:timeouts ->
   kind:string prop ->
   location:string prop ->
   managed_resource_group_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  plan:plan list ->
   unit ->
   azurerm_managed_application
 
@@ -69,13 +69,13 @@ val register :
   ?parameter_values:string prop ->
   ?parameters:(string * string prop) list ->
   ?tags:(string * string prop) list ->
+  ?plan:plan list ->
   ?timeouts:timeouts ->
   kind:string prop ->
   location:string prop ->
   managed_resource_group_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  plan:plan list ->
   string ->
   t
 
@@ -85,12 +85,12 @@ val make :
   ?parameter_values:string prop ->
   ?parameters:(string * string prop) list ->
   ?tags:(string * string prop) list ->
+  ?plan:plan list ->
   ?timeouts:timeouts ->
   kind:string prop ->
   location:string prop ->
   managed_resource_group_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  plan:plan list ->
   string ->
   t Tf_core.resource

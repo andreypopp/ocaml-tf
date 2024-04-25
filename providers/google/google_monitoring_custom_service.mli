@@ -25,8 +25,8 @@ val google_monitoring_custom_service :
   ?project:string prop ->
   ?service_id:string prop ->
   ?user_labels:(string * string prop) list ->
+  ?telemetry:telemetry list ->
   ?timeouts:timeouts ->
-  telemetry:telemetry list ->
   unit ->
   google_monitoring_custom_service
 
@@ -51,8 +51,8 @@ val register :
   ?project:string prop ->
   ?service_id:string prop ->
   ?user_labels:(string * string prop) list ->
+  ?telemetry:telemetry list ->
   ?timeouts:timeouts ->
-  telemetry:telemetry list ->
   string ->
   t
 
@@ -62,7 +62,7 @@ val make :
   ?project:string prop ->
   ?service_id:string prop ->
   ?user_labels:(string * string prop) list ->
+  ?telemetry:telemetry list ->
   ?timeouts:timeouts ->
-  telemetry:telemetry list ->
   string ->
   t Tf_core.resource

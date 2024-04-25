@@ -664,8 +664,8 @@ let custom_rule__match_condition ?negation_condition ?selector
   }
 
 let custom_rule ?enabled ?priority ?rate_limit_duration_in_minutes
-    ?rate_limit_threshold ~action ~name ~type_ ~match_condition () :
-    custom_rule =
+    ?rate_limit_threshold ?(match_condition = []) ~action ~name
+    ~type_ () : custom_rule =
   {
     action;
     enabled;
@@ -689,16 +689,16 @@ let managed_rule__override__rule__exclusion ~match_variable ~operator
     ~selector () : managed_rule__override__rule__exclusion =
   { match_variable; operator; selector }
 
-let managed_rule__override__rule ?enabled ~action ~rule_id ~exclusion
-    () : managed_rule__override__rule =
+let managed_rule__override__rule ?enabled ?(exclusion = []) ~action
+    ~rule_id () : managed_rule__override__rule =
   { action; enabled; rule_id; exclusion }
 
-let managed_rule__override ~rule_group_name ~exclusion ~rule () :
-    managed_rule__override =
+let managed_rule__override ?(exclusion = []) ?(rule = [])
+    ~rule_group_name () : managed_rule__override =
   { rule_group_name; exclusion; rule }
 
-let managed_rule ~action ~type_ ~version ~exclusion ~override () :
-    managed_rule =
+let managed_rule ?(exclusion = []) ?(override = []) ~action ~type_
+    ~version () : managed_rule =
   { action; type_; version; exclusion; override }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
@@ -706,9 +706,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_cdn_frontdoor_firewall_policy ?custom_block_response_body
     ?custom_block_response_status_code ?enabled ?id ?redirect_url
-    ?request_body_check_enabled ?tags ?timeouts ~mode ~name
-    ~resource_group_name ~sku_name ~custom_rule ~managed_rule () :
-    azurerm_cdn_frontdoor_firewall_policy =
+    ?request_body_check_enabled ?tags ?(custom_rule = [])
+    ?(managed_rule = []) ?timeouts ~mode ~name ~resource_group_name
+    ~sku_name () : azurerm_cdn_frontdoor_firewall_policy =
   {
     custom_block_response_body;
     custom_block_response_status_code;
@@ -743,8 +743,9 @@ type t = {
 
 let make ?custom_block_response_body
     ?custom_block_response_status_code ?enabled ?id ?redirect_url
-    ?request_body_check_enabled ?tags ?timeouts ~mode ~name
-    ~resource_group_name ~sku_name ~custom_rule ~managed_rule __id =
+    ?request_body_check_enabled ?tags ?(custom_rule = [])
+    ?(managed_rule = []) ?timeouts ~mode ~name ~resource_group_name
+    ~sku_name __id =
   let __type = "azurerm_cdn_frontdoor_firewall_policy" in
   let __attrs =
     ({
@@ -777,21 +778,22 @@ let make ?custom_block_response_body
         (azurerm_cdn_frontdoor_firewall_policy
            ?custom_block_response_body
            ?custom_block_response_status_code ?enabled ?id
-           ?redirect_url ?request_body_check_enabled ?tags ?timeouts
-           ~mode ~name ~resource_group_name ~sku_name ~custom_rule
-           ~managed_rule ());
+           ?redirect_url ?request_body_check_enabled ?tags
+           ~custom_rule ~managed_rule ?timeouts ~mode ~name
+           ~resource_group_name ~sku_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?custom_block_response_body
     ?custom_block_response_status_code ?enabled ?id ?redirect_url
-    ?request_body_check_enabled ?tags ?timeouts ~mode ~name
-    ~resource_group_name ~sku_name ~custom_rule ~managed_rule __id =
+    ?request_body_check_enabled ?tags ?(custom_rule = [])
+    ?(managed_rule = []) ?timeouts ~mode ~name ~resource_group_name
+    ~sku_name __id =
   let (r : _ Tf_core.resource) =
     make ?custom_block_response_body
       ?custom_block_response_status_code ?enabled ?id ?redirect_url
-      ?request_body_check_enabled ?tags ?timeouts ~mode ~name
-      ~resource_group_name ~sku_name ~custom_rule ~managed_rule __id
+      ?request_body_check_enabled ?tags ~custom_rule ~managed_rule
+      ?timeouts ~mode ~name ~resource_group_name ~sku_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

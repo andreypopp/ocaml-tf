@@ -79,13 +79,13 @@ type azurerm_api_management_custom_domain
 
 val azurerm_api_management_custom_domain :
   ?id:string prop ->
+  ?developer_portal:developer_portal list ->
+  ?gateway:gateway list ->
+  ?management:management list ->
+  ?portal:portal list ->
+  ?scm:scm list ->
   ?timeouts:timeouts ->
   api_management_id:string prop ->
-  developer_portal:developer_portal list ->
-  gateway:gateway list ->
-  management:management list ->
-  portal:portal list ->
-  scm:scm list ->
   unit ->
   azurerm_api_management_custom_domain
 
@@ -102,24 +102,24 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?developer_portal:developer_portal list ->
+  ?gateway:gateway list ->
+  ?management:management list ->
+  ?portal:portal list ->
+  ?scm:scm list ->
   ?timeouts:timeouts ->
   api_management_id:string prop ->
-  developer_portal:developer_portal list ->
-  gateway:gateway list ->
-  management:management list ->
-  portal:portal list ->
-  scm:scm list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?developer_portal:developer_portal list ->
+  ?gateway:gateway list ->
+  ?management:management list ->
+  ?portal:portal list ->
+  ?scm:scm list ->
   ?timeouts:timeouts ->
   api_management_id:string prop ->
-  developer_portal:developer_portal list ->
-  gateway:gateway list ->
-  management:management list ->
-  portal:portal list ->
-  scm:scm list ->
   string ->
   t Tf_core.resource

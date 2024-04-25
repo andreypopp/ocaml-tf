@@ -18,9 +18,9 @@ val aws_chime_voice_connector_streaming :
   ?disabled:bool prop ->
   ?id:string prop ->
   ?streaming_notification_targets:string prop list ->
+  ?media_insights_configuration:media_insights_configuration list ->
   data_retention:float prop ->
   voice_connector_id:string prop ->
-  media_insights_configuration:media_insights_configuration list ->
   unit ->
   aws_chime_voice_connector_streaming
 
@@ -42,9 +42,9 @@ val register :
   ?disabled:bool prop ->
   ?id:string prop ->
   ?streaming_notification_targets:string prop list ->
+  ?media_insights_configuration:media_insights_configuration list ->
   data_retention:float prop ->
   voice_connector_id:string prop ->
-  media_insights_configuration:media_insights_configuration list ->
   string ->
   t
 
@@ -52,8 +52,8 @@ val make :
   ?disabled:bool prop ->
   ?id:string prop ->
   ?streaming_notification_targets:string prop list ->
+  ?media_insights_configuration:media_insights_configuration list ->
   data_retention:float prop ->
   voice_connector_id:string prop ->
-  media_insights_configuration:media_insights_configuration list ->
   string ->
   t Tf_core.resource

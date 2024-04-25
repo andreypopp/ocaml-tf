@@ -21,7 +21,7 @@ val antimalware :
   ?scheduled_scan_enabled:bool prop ->
   ?scheduled_scan_time_in_minutes:float prop ->
   ?scheduled_scan_type:string prop ->
-  exclusions:antimalware__exclusions list ->
+  ?exclusions:antimalware__exclusions list ->
   unit ->
   antimalware
 
@@ -42,7 +42,7 @@ type backup__retention_policy__daily_schedule
 
 val backup__retention_policy__daily_schedule :
   ?retention_times:string prop list ->
-  retention_duration:
+  ?retention_duration:
     backup__retention_policy__daily_schedule__retention_duration list ->
   unit ->
   backup__retention_policy__daily_schedule
@@ -59,7 +59,7 @@ type backup__retention_policy__weekly_schedule
 
 val backup__retention_policy__weekly_schedule :
   ?retention_times:string prop list ->
-  retention_duration:
+  ?retention_duration:
     backup__retention_policy__weekly_schedule__retention_duration
     list ->
   unit ->
@@ -69,8 +69,8 @@ type backup__retention_policy
 
 val backup__retention_policy :
   ?retention_policy_type:string prop ->
-  daily_schedule:backup__retention_policy__daily_schedule list ->
-  weekly_schedule:backup__retention_policy__weekly_schedule list ->
+  ?daily_schedule:backup__retention_policy__daily_schedule list ->
+  ?weekly_schedule:backup__retention_policy__weekly_schedule list ->
   unit ->
   backup__retention_policy
 
@@ -90,8 +90,8 @@ val backup :
   ?instant_rp_retention_range_in_days:float prop ->
   ?policy_name:string prop ->
   ?time_zone:string prop ->
-  retention_policy:backup__retention_policy list ->
-  schedule_policy:backup__schedule_policy list ->
+  ?retention_policy:backup__retention_policy list ->
+  ?schedule_policy:backup__schedule_policy list ->
   unit ->
   backup
 
@@ -116,13 +116,13 @@ val azurerm_automanage_configuration :
   ?log_analytics_enabled:bool prop ->
   ?status_change_alert_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?antimalware:antimalware list ->
+  ?azure_security_baseline:azure_security_baseline list ->
+  ?backup:backup list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  antimalware:antimalware list ->
-  azure_security_baseline:azure_security_baseline list ->
-  backup:backup list ->
   unit ->
   azurerm_automanage_configuration
 
@@ -155,13 +155,13 @@ val register :
   ?log_analytics_enabled:bool prop ->
   ?status_change_alert_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?antimalware:antimalware list ->
+  ?azure_security_baseline:azure_security_baseline list ->
+  ?backup:backup list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  antimalware:antimalware list ->
-  azure_security_baseline:azure_security_baseline list ->
-  backup:backup list ->
   string ->
   t
 
@@ -174,12 +174,12 @@ val make :
   ?log_analytics_enabled:bool prop ->
   ?status_change_alert_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?antimalware:antimalware list ->
+  ?azure_security_baseline:azure_security_baseline list ->
+  ?backup:backup list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  antimalware:antimalware list ->
-  azure_security_baseline:azure_security_baseline list ->
-  backup:backup list ->
   string ->
   t Tf_core.resource

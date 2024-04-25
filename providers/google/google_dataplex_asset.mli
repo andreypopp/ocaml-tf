@@ -56,9 +56,9 @@ val discovery_spec :
   ?exclude_patterns:string prop list ->
   ?include_patterns:string prop list ->
   ?schedule:string prop ->
+  ?csv_options:discovery_spec__csv_options list ->
+  ?json_options:discovery_spec__json_options list ->
   enabled:bool prop ->
-  csv_options:discovery_spec__csv_options list ->
-  json_options:discovery_spec__json_options list ->
   unit ->
   discovery_spec
 

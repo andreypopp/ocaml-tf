@@ -251,17 +251,17 @@ let member_definition__oidc_member_definition ~groups () :
     member_definition__oidc_member_definition =
   { groups }
 
-let member_definition ~cognito_member_definition
-    ~oidc_member_definition () : member_definition =
+let member_definition ?(cognito_member_definition = [])
+    ?(oidc_member_definition = []) () : member_definition =
   { cognito_member_definition; oidc_member_definition }
 
 let notification_configuration ?notification_topic_arn () :
     notification_configuration =
   { notification_topic_arn }
 
-let aws_sagemaker_workteam ?id ?tags ?tags_all ~description
-    ~workforce_name ~workteam_name ~member_definition
-    ~notification_configuration () : aws_sagemaker_workteam =
+let aws_sagemaker_workteam ?id ?tags ?tags_all
+    ?(notification_configuration = []) ~description ~workforce_name
+    ~workteam_name ~member_definition () : aws_sagemaker_workteam =
   {
     description;
     id;
@@ -284,8 +284,8 @@ type t = {
   workteam_name : string prop;
 }
 
-let make ?id ?tags ?tags_all ~description ~workforce_name
-    ~workteam_name ~member_definition ~notification_configuration
+let make ?id ?tags ?tags_all ?(notification_configuration = [])
+    ~description ~workforce_name ~workteam_name ~member_definition
     __id =
   let __type = "aws_sagemaker_workteam" in
   let __attrs =
@@ -306,19 +306,18 @@ let make ?id ?tags ?tags_all ~description ~workforce_name
     type_ = __type;
     json =
       yojson_of_aws_sagemaker_workteam
-        (aws_sagemaker_workteam ?id ?tags ?tags_all ~description
-           ~workforce_name ~workteam_name ~member_definition
-           ~notification_configuration ());
+        (aws_sagemaker_workteam ?id ?tags ?tags_all
+           ~notification_configuration ~description ~workforce_name
+           ~workteam_name ~member_definition ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ~description
-    ~workforce_name ~workteam_name ~member_definition
-    ~notification_configuration __id =
+let register ?tf_module ?id ?tags ?tags_all
+    ?(notification_configuration = []) ~description ~workforce_name
+    ~workteam_name ~member_definition __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~description ~workforce_name
-      ~workteam_name ~member_definition ~notification_configuration
-      __id
+    make ?id ?tags ?tags_all ~notification_configuration ~description
+      ~workforce_name ~workteam_name ~member_definition __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

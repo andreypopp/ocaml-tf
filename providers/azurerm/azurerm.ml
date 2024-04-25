@@ -1085,11 +1085,13 @@ let features__virtual_machine_scale_set ?force_delete
     scale_to_zero_before_deletion;
   }
 
-let features ~api_management ~app_configuration ~application_insights
-    ~cognitive_account ~key_vault ~log_analytics_workspace
-    ~managed_disk ~postgresql_flexible_server ~resource_group
-    ~subscription ~template_deployment ~virtual_machine
-    ~virtual_machine_scale_set () : features =
+let features ?(api_management = []) ?(app_configuration = [])
+    ?(application_insights = []) ?(cognitive_account = [])
+    ?(key_vault = []) ?(log_analytics_workspace = [])
+    ?(managed_disk = []) ?(postgresql_flexible_server = [])
+    ?(resource_group = []) ?(subscription = [])
+    ?(template_deployment = []) ?(virtual_machine = [])
+    ?(virtual_machine_scale_set = []) () : features =
   {
     api_management;
     app_configuration;

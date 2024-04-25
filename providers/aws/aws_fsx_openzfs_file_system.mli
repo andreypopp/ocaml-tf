@@ -45,7 +45,7 @@ val root_volume_configuration :
   ?data_compression_type:string prop ->
   ?read_only:bool prop ->
   ?record_size_kib:float prop ->
-  nfs_exports:root_volume_configuration__nfs_exports list ->
+  ?nfs_exports:root_volume_configuration__nfs_exports list ->
   user_and_group_quotas:
     root_volume_configuration__user_and_group_quotas list ->
   unit ->
@@ -80,12 +80,12 @@ val aws_fsx_openzfs_file_system :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?weekly_maintenance_start_time:string prop ->
+  ?disk_iops_configuration:disk_iops_configuration list ->
+  ?root_volume_configuration:root_volume_configuration list ->
   ?timeouts:timeouts ->
   deployment_type:string prop ->
   subnet_ids:string prop list ->
   throughput_capacity:float prop ->
-  disk_iops_configuration:disk_iops_configuration list ->
-  root_volume_configuration:root_volume_configuration list ->
   unit ->
   aws_fsx_openzfs_file_system
 
@@ -142,12 +142,12 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?weekly_maintenance_start_time:string prop ->
+  ?disk_iops_configuration:disk_iops_configuration list ->
+  ?root_volume_configuration:root_volume_configuration list ->
   ?timeouts:timeouts ->
   deployment_type:string prop ->
   subnet_ids:string prop list ->
   throughput_capacity:float prop ->
-  disk_iops_configuration:disk_iops_configuration list ->
-  root_volume_configuration:root_volume_configuration list ->
   string ->
   t
 
@@ -169,11 +169,11 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?weekly_maintenance_start_time:string prop ->
+  ?disk_iops_configuration:disk_iops_configuration list ->
+  ?root_volume_configuration:root_volume_configuration list ->
   ?timeouts:timeouts ->
   deployment_type:string prop ->
   subnet_ids:string prop list ->
   throughput_capacity:float prop ->
-  disk_iops_configuration:disk_iops_configuration list ->
-  root_volume_configuration:root_volume_configuration list ->
   string ->
   t Tf_core.resource

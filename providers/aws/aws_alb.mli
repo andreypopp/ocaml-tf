@@ -69,9 +69,9 @@ val aws_alb :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?xff_header_processing_mode:string prop ->
+  ?access_logs:access_logs list ->
+  ?connection_logs:connection_logs list ->
   ?timeouts:timeouts ->
-  access_logs:access_logs list ->
-  connection_logs:connection_logs list ->
   subnet_mapping:subnet_mapping list ->
   unit ->
   aws_alb
@@ -140,9 +140,9 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?xff_header_processing_mode:string prop ->
+  ?access_logs:access_logs list ->
+  ?connection_logs:connection_logs list ->
   ?timeouts:timeouts ->
-  access_logs:access_logs list ->
-  connection_logs:connection_logs list ->
   subnet_mapping:subnet_mapping list ->
   string ->
   t
@@ -173,9 +173,9 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?xff_header_processing_mode:string prop ->
+  ?access_logs:access_logs list ->
+  ?connection_logs:connection_logs list ->
   ?timeouts:timeouts ->
-  access_logs:access_logs list ->
-  connection_logs:connection_logs list ->
   subnet_mapping:subnet_mapping list ->
   string ->
   t Tf_core.resource

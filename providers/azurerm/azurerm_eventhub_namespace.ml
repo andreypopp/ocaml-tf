@@ -417,9 +417,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_eventhub_namespace ?auto_inflate_enabled ?capacity
     ?dedicated_cluster_id ?id ?local_authentication_enabled
     ?maximum_throughput_units ?minimum_tls_version ?network_rulesets
-    ?public_network_access_enabled ?tags ?zone_redundant ?timeouts
-    ~location ~name ~resource_group_name ~sku ~identity () :
-    azurerm_eventhub_namespace =
+    ?public_network_access_enabled ?tags ?zone_redundant
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    ~sku () : azurerm_eventhub_namespace =
   {
     auto_inflate_enabled;
     capacity;
@@ -467,8 +467,9 @@ type t = {
 let make ?auto_inflate_enabled ?capacity ?dedicated_cluster_id ?id
     ?local_authentication_enabled ?maximum_throughput_units
     ?minimum_tls_version ?network_rulesets
-    ?public_network_access_enabled ?tags ?zone_redundant ?timeouts
-    ~location ~name ~resource_group_name ~sku ~identity __id =
+    ?public_network_access_enabled ?tags ?zone_redundant
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    ~sku __id =
   let __type = "azurerm_eventhub_namespace" in
   let __attrs =
     ({
@@ -523,22 +524,23 @@ let make ?auto_inflate_enabled ?capacity ?dedicated_cluster_id ?id
            ?dedicated_cluster_id ?id ?local_authentication_enabled
            ?maximum_throughput_units ?minimum_tls_version
            ?network_rulesets ?public_network_access_enabled ?tags
-           ?zone_redundant ?timeouts ~location ~name
-           ~resource_group_name ~sku ~identity ());
+           ?zone_redundant ~identity ?timeouts ~location ~name
+           ~resource_group_name ~sku ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_inflate_enabled ?capacity
     ?dedicated_cluster_id ?id ?local_authentication_enabled
     ?maximum_throughput_units ?minimum_tls_version ?network_rulesets
-    ?public_network_access_enabled ?tags ?zone_redundant ?timeouts
-    ~location ~name ~resource_group_name ~sku ~identity __id =
+    ?public_network_access_enabled ?tags ?zone_redundant
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    ~sku __id =
   let (r : _ Tf_core.resource) =
     make ?auto_inflate_enabled ?capacity ?dedicated_cluster_id ?id
       ?local_authentication_enabled ?maximum_throughput_units
       ?minimum_tls_version ?network_rulesets
-      ?public_network_access_enabled ?tags ?zone_redundant ?timeouts
-      ~location ~name ~resource_group_name ~sku ~identity __id
+      ?public_network_access_enabled ?tags ?zone_redundant ~identity
+      ?timeouts ~location ~name ~resource_group_name ~sku __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

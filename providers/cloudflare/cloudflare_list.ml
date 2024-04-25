@@ -275,7 +275,8 @@ let item__value__redirect ?include_subdomains ?preserve_path_suffix
     target_url;
   }
 
-let item__value ?asn ?ip ~hostname ~redirect () : item__value =
+let item__value ?asn ?ip ?(hostname = []) ?(redirect = []) () :
+    item__value =
   { asn; ip; hostname; redirect }
 
 let item ?comment ~value () : item = { comment; value }

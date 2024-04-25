@@ -85,13 +85,13 @@ type rule
 
 val rule :
   ?type_:string prop ->
+  ?primary:rule__primary list ->
+  ?secondary:rule__secondary list ->
   id:string prop ->
   geo_proximity_location:rule__geo_proximity_location list ->
   items:rule__items list ->
   location:rule__location list ->
-  primary:rule__primary list ->
   region:rule__region list ->
-  secondary:rule__secondary list ->
   unit ->
   rule
 

@@ -301,8 +301,8 @@ let health_check__http ?domain ?path ?response ?status_codes ?tls ()
     : health_check__http =
   { domain; path; response; status_codes; tls }
 
-let health_check ?retries ~interval ~port ~protocol ~timeout ~http ()
-    : health_check =
+let health_check ?retries ?(http = []) ~interval ~port ~protocol
+    ~timeout () : health_check =
   { interval; port; protocol; retries; timeout; http }
 
 let http ?certificates ?cookie_lifetime ?cookie_name ?redirect_http
@@ -316,8 +316,8 @@ let http ?certificates ?cookie_lifetime ?cookie_name ?redirect_http
   }
 
 let hcloud_load_balancer_service ?destination_port ?id ?listen_port
-    ?proxyprotocol ~load_balancer_id ~protocol ~health_check ~http ()
-    : hcloud_load_balancer_service =
+    ?proxyprotocol ?(health_check = []) ?(http = [])
+    ~load_balancer_id ~protocol () : hcloud_load_balancer_service =
   {
     destination_port;
     id;
@@ -339,7 +339,8 @@ type t = {
 }
 
 let make ?destination_port ?id ?listen_port ?proxyprotocol
-    ~load_balancer_id ~protocol ~health_check ~http __id =
+    ?(health_check = []) ?(http = []) ~load_balancer_id ~protocol
+    __id =
   let __type = "hcloud_load_balancer_service" in
   let __attrs =
     ({
@@ -360,17 +361,17 @@ let make ?destination_port ?id ?listen_port ?proxyprotocol
     json =
       yojson_of_hcloud_load_balancer_service
         (hcloud_load_balancer_service ?destination_port ?id
-           ?listen_port ?proxyprotocol ~load_balancer_id ~protocol
-           ~health_check ~http ());
+           ?listen_port ?proxyprotocol ~health_check ~http
+           ~load_balancer_id ~protocol ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?destination_port ?id ?listen_port
-    ?proxyprotocol ~load_balancer_id ~protocol ~health_check ~http
-    __id =
+    ?proxyprotocol ?(health_check = []) ?(http = [])
+    ~load_balancer_id ~protocol __id =
   let (r : _ Tf_core.resource) =
     make ?destination_port ?id ?listen_port ?proxyprotocol
-      ~load_balancer_id ~protocol ~health_check ~http __id
+      ~health_check ~http ~load_balancer_id ~protocol __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

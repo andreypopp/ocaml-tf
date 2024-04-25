@@ -37,11 +37,11 @@ val aws_sfn_state_machine :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
+  ?logging_configuration:logging_configuration list ->
   ?timeouts:timeouts ->
+  ?tracing_configuration:tracing_configuration list ->
   definition:string prop ->
   role_arn:string prop ->
-  logging_configuration:logging_configuration list ->
-  tracing_configuration:tracing_configuration list ->
   unit ->
   aws_sfn_state_machine
 
@@ -77,11 +77,11 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
+  ?logging_configuration:logging_configuration list ->
   ?timeouts:timeouts ->
+  ?tracing_configuration:tracing_configuration list ->
   definition:string prop ->
   role_arn:string prop ->
-  logging_configuration:logging_configuration list ->
-  tracing_configuration:tracing_configuration list ->
   string ->
   t
 
@@ -93,10 +93,10 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
+  ?logging_configuration:logging_configuration list ->
   ?timeouts:timeouts ->
+  ?tracing_configuration:tracing_configuration list ->
   definition:string prop ->
   role_arn:string prop ->
-  logging_configuration:logging_configuration list ->
-  tracing_configuration:tracing_configuration list ->
   string ->
   t Tf_core.resource

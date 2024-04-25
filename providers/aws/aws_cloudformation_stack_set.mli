@@ -48,11 +48,11 @@ val aws_cloudformation_stack_set :
   ?tags_all:(string * string prop) list ->
   ?template_body:string prop ->
   ?template_url:string prop ->
+  ?auto_deployment:auto_deployment list ->
+  ?managed_execution:managed_execution list ->
+  ?operation_preferences:operation_preferences list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  auto_deployment:auto_deployment list ->
-  managed_execution:managed_execution list ->
-  operation_preferences:operation_preferences list ->
   unit ->
   aws_cloudformation_stack_set
 
@@ -93,11 +93,11 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?template_body:string prop ->
   ?template_url:string prop ->
+  ?auto_deployment:auto_deployment list ->
+  ?managed_execution:managed_execution list ->
+  ?operation_preferences:operation_preferences list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  auto_deployment:auto_deployment list ->
-  managed_execution:managed_execution list ->
-  operation_preferences:operation_preferences list ->
   string ->
   t
 
@@ -114,10 +114,10 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?template_body:string prop ->
   ?template_url:string prop ->
+  ?auto_deployment:auto_deployment list ->
+  ?managed_execution:managed_execution list ->
+  ?operation_preferences:operation_preferences list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  auto_deployment:auto_deployment list ->
-  managed_execution:managed_execution list ->
-  operation_preferences:operation_preferences list ->
   string ->
   t Tf_core.resource

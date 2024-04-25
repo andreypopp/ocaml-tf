@@ -412,7 +412,8 @@ let rule__action__response_header ?header_action_type ?header_name
     ?value () : rule__action__response_header =
   { header_action_type; header_name; value }
 
-let rule__action ~request_header ~response_header () : rule__action =
+let rule__action ?(request_header = []) ?(response_header = []) () :
+    rule__action =
   { request_header; response_header }
 
 let rule__match_condition ?negate_condition ?selector ?transform
@@ -426,14 +427,15 @@ let rule__match_condition ?negate_condition ?selector ?transform
     variable;
   }
 
-let rule ~name ~priority ~action ~match_condition () : rule =
+let rule ?(action = []) ?(match_condition = []) ~name ~priority () :
+    rule =
   { name; priority; action; match_condition }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_frontdoor_rules_engine ?enabled ?id ?timeouts
-    ~frontdoor_name ~name ~resource_group_name ~rule () :
+let azurerm_frontdoor_rules_engine ?enabled ?id ?(rule = [])
+    ?timeouts ~frontdoor_name ~name ~resource_group_name () :
     azurerm_frontdoor_rules_engine =
   {
     enabled;
@@ -454,8 +456,8 @@ type t = {
   resource_group_name : string prop;
 }
 
-let make ?enabled ?id ?timeouts ~frontdoor_name ~name
-    ~resource_group_name ~rule __id =
+let make ?enabled ?id ?(rule = []) ?timeouts ~frontdoor_name ~name
+    ~resource_group_name __id =
   let __type = "azurerm_frontdoor_rules_engine" in
   let __attrs =
     ({
@@ -474,16 +476,16 @@ let make ?enabled ?id ?timeouts ~frontdoor_name ~name
     type_ = __type;
     json =
       yojson_of_azurerm_frontdoor_rules_engine
-        (azurerm_frontdoor_rules_engine ?enabled ?id ?timeouts
-           ~frontdoor_name ~name ~resource_group_name ~rule ());
+        (azurerm_frontdoor_rules_engine ?enabled ?id ~rule ?timeouts
+           ~frontdoor_name ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?enabled ?id ?timeouts ~frontdoor_name ~name
-    ~resource_group_name ~rule __id =
+let register ?tf_module ?enabled ?id ?(rule = []) ?timeouts
+    ~frontdoor_name ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?enabled ?id ?timeouts ~frontdoor_name ~name
-      ~resource_group_name ~rule __id
+    make ?enabled ?id ~rule ?timeouts ~frontdoor_name ~name
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

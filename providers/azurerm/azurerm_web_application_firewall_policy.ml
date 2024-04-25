@@ -925,11 +925,12 @@ let managed_rules__exclusion__excluded_rule_set__rule_group
   { excluded_rules; rule_group_name }
 
 let managed_rules__exclusion__excluded_rule_set ?type_ ?version
-    ~rule_group () : managed_rules__exclusion__excluded_rule_set =
+    ?(rule_group = []) () :
+    managed_rules__exclusion__excluded_rule_set =
   { type_; version; rule_group }
 
-let managed_rules__exclusion ~match_variable ~selector
-    ~selector_match_operator ~excluded_rule_set () :
+let managed_rules__exclusion ?(excluded_rule_set = [])
+    ~match_variable ~selector ~selector_match_operator () :
     managed_rules__exclusion =
   {
     match_variable;
@@ -944,15 +945,17 @@ let managed_rules__managed_rule_set__rule_group_override__rule
   { action; enabled; id }
 
 let managed_rules__managed_rule_set__rule_group_override
-    ?disabled_rules ~rule_group_name ~rule () :
+    ?disabled_rules ?(rule = []) ~rule_group_name () :
     managed_rules__managed_rule_set__rule_group_override =
   { disabled_rules; rule_group_name; rule }
 
-let managed_rules__managed_rule_set ?type_ ~version
-    ~rule_group_override () : managed_rules__managed_rule_set =
+let managed_rules__managed_rule_set ?type_
+    ?(rule_group_override = []) ~version () :
+    managed_rules__managed_rule_set =
   { type_; version; rule_group_override }
 
-let managed_rules ~exclusion ~managed_rule_set () : managed_rules =
+let managed_rules ?(exclusion = []) ~managed_rule_set () :
+    managed_rules =
   { exclusion; managed_rule_set }
 
 let policy_settings__log_scrubbing__rule ?enabled ?selector
@@ -960,13 +963,13 @@ let policy_settings__log_scrubbing__rule ?enabled ?selector
     policy_settings__log_scrubbing__rule =
   { enabled; match_variable; selector; selector_match_operator }
 
-let policy_settings__log_scrubbing ?enabled ~rule () :
+let policy_settings__log_scrubbing ?enabled ?(rule = []) () :
     policy_settings__log_scrubbing =
   { enabled; rule }
 
 let policy_settings ?enabled ?file_upload_limit_in_mb
     ?max_request_body_size_in_kb ?mode ?request_body_check
-    ?request_body_inspect_limit_in_kb ~log_scrubbing () :
+    ?request_body_inspect_limit_in_kb ?(log_scrubbing = []) () :
     policy_settings =
   {
     enabled;
@@ -981,9 +984,10 @@ let policy_settings ?enabled ?file_upload_limit_in_mb
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_web_application_firewall_policy ?id ?tags ?timeouts
-    ~location ~name ~resource_group_name ~custom_rules ~managed_rules
-    ~policy_settings () : azurerm_web_application_firewall_policy =
+let azurerm_web_application_firewall_policy ?id ?tags
+    ?(custom_rules = []) ?(policy_settings = []) ?timeouts ~location
+    ~name ~resource_group_name ~managed_rules () :
+    azurerm_web_application_firewall_policy =
   {
     id;
     location;
@@ -1006,8 +1010,9 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
-    ~custom_rules ~managed_rules ~policy_settings __id =
+let make ?id ?tags ?(custom_rules = []) ?(policy_settings = [])
+    ?timeouts ~location ~name ~resource_group_name ~managed_rules
+    __id =
   let __type = "azurerm_web_application_firewall_policy" in
   let __attrs =
     ({
@@ -1029,18 +1034,18 @@ let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
     type_ = __type;
     json =
       yojson_of_azurerm_web_application_firewall_policy
-        (azurerm_web_application_firewall_policy ?id ?tags ?timeouts
-           ~location ~name ~resource_group_name ~custom_rules
-           ~managed_rules ~policy_settings ());
+        (azurerm_web_application_firewall_policy ?id ?tags
+           ~custom_rules ~policy_settings ?timeouts ~location ~name
+           ~resource_group_name ~managed_rules ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?timeouts ~location ~name
-    ~resource_group_name ~custom_rules ~managed_rules
-    ~policy_settings __id =
+let register ?tf_module ?id ?tags ?(custom_rules = [])
+    ?(policy_settings = []) ?timeouts ~location ~name
+    ~resource_group_name ~managed_rules __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?timeouts ~location ~name ~resource_group_name
-      ~custom_rules ~managed_rules ~policy_settings __id
+    make ?id ?tags ~custom_rules ~policy_settings ?timeouts ~location
+      ~name ~resource_group_name ~managed_rules __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

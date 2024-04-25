@@ -2588,13 +2588,13 @@ let backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables__mysql_c
   }
 
 let backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables
-    ~table ~mysql_columns () :
+    ?(mysql_columns = []) ~table () :
     backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables
     =
   { table; mysql_columns }
 
-let backfill_all__mysql_excluded_objects__mysql_databases ~database
-    ~mysql_tables () :
+let backfill_all__mysql_excluded_objects__mysql_databases
+    ?(mysql_tables = []) ~database () :
     backfill_all__mysql_excluded_objects__mysql_databases =
   { database; mysql_tables }
 
@@ -2609,13 +2609,13 @@ let backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables__oracle
   { column; data_type }
 
 let backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables
-    ~table ~oracle_columns () :
+    ?(oracle_columns = []) ~table () :
     backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables
     =
   { table; oracle_columns }
 
-let backfill_all__oracle_excluded_objects__oracle_schemas ~schema
-    ~oracle_tables () :
+let backfill_all__oracle_excluded_objects__oracle_schemas
+    ?(oracle_tables = []) ~schema () :
     backfill_all__oracle_excluded_objects__oracle_schemas =
   { schema; oracle_tables }
 
@@ -2630,13 +2630,13 @@ let backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_ta
   { column; data_type; nullable; ordinal_position; primary_key }
 
 let backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables
-    ~table ~postgresql_columns () :
+    ?(postgresql_columns = []) ~table () :
     backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables
     =
   { table; postgresql_columns }
 
 let backfill_all__postgresql_excluded_objects__postgresql_schemas
-    ~schema ~postgresql_tables () :
+    ?(postgresql_tables = []) ~schema () :
     backfill_all__postgresql_excluded_objects__postgresql_schemas =
   { schema; postgresql_tables }
 
@@ -2644,8 +2644,9 @@ let backfill_all__postgresql_excluded_objects ~postgresql_schemas ()
     : backfill_all__postgresql_excluded_objects =
   { postgresql_schemas }
 
-let backfill_all ~mysql_excluded_objects ~oracle_excluded_objects
-    ~postgresql_excluded_objects () : backfill_all =
+let backfill_all ?(mysql_excluded_objects = [])
+    ?(oracle_excluded_objects = [])
+    ?(postgresql_excluded_objects = []) () : backfill_all =
   {
     mysql_excluded_objects;
     oracle_excluded_objects;
@@ -2673,8 +2674,8 @@ let destination_config__bigquery_destination_config__source_hierarchy_datasets
   { dataset_template }
 
 let destination_config__bigquery_destination_config ?data_freshness
-    ~single_target_dataset ~source_hierarchy_datasets () :
-    destination_config__bigquery_destination_config =
+    ?(single_target_dataset = []) ?(source_hierarchy_datasets = [])
+    () : destination_config__bigquery_destination_config =
   {
     data_freshness;
     single_target_dataset;
@@ -2690,9 +2691,9 @@ let destination_config__gcs_destination_config__json_file_format
   { compression; schema_file_format }
 
 let destination_config__gcs_destination_config
-    ?file_rotation_interval ?file_rotation_mb ?path ~avro_file_format
-    ~json_file_format () : destination_config__gcs_destination_config
-    =
+    ?file_rotation_interval ?file_rotation_mb ?path
+    ?(avro_file_format = []) ?(json_file_format = []) () :
+    destination_config__gcs_destination_config =
   {
     file_rotation_interval;
     file_rotation_mb;
@@ -2701,9 +2702,9 @@ let destination_config__gcs_destination_config
     json_file_format;
   }
 
-let destination_config ~destination_connection_profile
-    ~bigquery_destination_config ~gcs_destination_config () :
-    destination_config =
+let destination_config ?(bigquery_destination_config = [])
+    ?(gcs_destination_config = []) ~destination_connection_profile ()
+    : destination_config =
   {
     destination_connection_profile;
     bigquery_destination_config;
@@ -2725,13 +2726,13 @@ let source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_
   }
 
 let source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables
-    ~table ~mysql_columns () :
+    ?(mysql_columns = []) ~table () :
     source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables
     =
   { table; mysql_columns }
 
 let source_config__mysql_source_config__exclude_objects__mysql_databases
-    ~database ~mysql_tables () :
+    ?(mysql_tables = []) ~database () :
     source_config__mysql_source_config__exclude_objects__mysql_databases
     =
   { database; mysql_tables }
@@ -2756,13 +2757,13 @@ let source_config__mysql_source_config__include_objects__mysql_databases__mysql_
   }
 
 let source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables
-    ~table ~mysql_columns () :
+    ?(mysql_columns = []) ~table () :
     source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables
     =
   { table; mysql_columns }
 
 let source_config__mysql_source_config__include_objects__mysql_databases
-    ~database ~mysql_tables () :
+    ?(mysql_tables = []) ~database () :
     source_config__mysql_source_config__include_objects__mysql_databases
     =
   { database; mysql_tables }
@@ -2773,8 +2774,8 @@ let source_config__mysql_source_config__include_objects
   { mysql_databases }
 
 let source_config__mysql_source_config ?max_concurrent_backfill_tasks
-    ?max_concurrent_cdc_tasks ~exclude_objects ~include_objects () :
-    source_config__mysql_source_config =
+    ?max_concurrent_cdc_tasks ?(exclude_objects = [])
+    ?(include_objects = []) () : source_config__mysql_source_config =
   {
     max_concurrent_backfill_tasks;
     max_concurrent_cdc_tasks;
@@ -2791,13 +2792,13 @@ let source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle
   { column; data_type }
 
 let source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables
-    ~table ~oracle_columns () :
+    ?(oracle_columns = []) ~table () :
     source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables
     =
   { table; oracle_columns }
 
 let source_config__oracle_source_config__exclude_objects__oracle_schemas
-    ~schema ~oracle_tables () :
+    ?(oracle_tables = []) ~schema () :
     source_config__oracle_source_config__exclude_objects__oracle_schemas
     =
   { schema; oracle_tables }
@@ -2814,13 +2815,13 @@ let source_config__oracle_source_config__include_objects__oracle_schemas__oracle
   { column; data_type }
 
 let source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables
-    ~table ~oracle_columns () :
+    ?(oracle_columns = []) ~table () :
     source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables
     =
   { table; oracle_columns }
 
 let source_config__oracle_source_config__include_objects__oracle_schemas
-    ~schema ~oracle_tables () :
+    ?(oracle_tables = []) ~schema () :
     source_config__oracle_source_config__include_objects__oracle_schemas
     =
   { schema; oracle_tables }
@@ -2834,8 +2835,9 @@ let source_config__oracle_source_config__stream_large_objects () = ()
 
 let source_config__oracle_source_config
     ?max_concurrent_backfill_tasks ?max_concurrent_cdc_tasks
-    ~drop_large_objects ~exclude_objects ~include_objects
-    ~stream_large_objects () : source_config__oracle_source_config =
+    ?(drop_large_objects = []) ?(exclude_objects = [])
+    ?(include_objects = []) ?(stream_large_objects = []) () :
+    source_config__oracle_source_config =
   {
     max_concurrent_backfill_tasks;
     max_concurrent_cdc_tasks;
@@ -2852,13 +2854,13 @@ let source_config__postgresql_source_config__exclude_objects__postgresql_schemas
   { column; data_type; nullable; ordinal_position; primary_key }
 
 let source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables
-    ~table ~postgresql_columns () :
+    ?(postgresql_columns = []) ~table () :
     source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables
     =
   { table; postgresql_columns }
 
 let source_config__postgresql_source_config__exclude_objects__postgresql_schemas
-    ~schema ~postgresql_tables () :
+    ?(postgresql_tables = []) ~schema () :
     source_config__postgresql_source_config__exclude_objects__postgresql_schemas
     =
   { schema; postgresql_tables }
@@ -2875,13 +2877,13 @@ let source_config__postgresql_source_config__include_objects__postgresql_schemas
   { column; data_type; nullable; ordinal_position; primary_key }
 
 let source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables
-    ~table ~postgresql_columns () :
+    ?(postgresql_columns = []) ~table () :
     source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables
     =
   { table; postgresql_columns }
 
 let source_config__postgresql_source_config__include_objects__postgresql_schemas
-    ~schema ~postgresql_tables () :
+    ?(postgresql_tables = []) ~schema () :
     source_config__postgresql_source_config__include_objects__postgresql_schemas
     =
   { schema; postgresql_tables }
@@ -2892,8 +2894,8 @@ let source_config__postgresql_source_config__include_objects
   { postgresql_schemas }
 
 let source_config__postgresql_source_config
-    ?max_concurrent_backfill_tasks ~publication ~replication_slot
-    ~exclude_objects ~include_objects () :
+    ?max_concurrent_backfill_tasks ?(exclude_objects = [])
+    ?(include_objects = []) ~publication ~replication_slot () :
     source_config__postgresql_source_config =
   {
     max_concurrent_backfill_tasks;
@@ -2903,9 +2905,9 @@ let source_config__postgresql_source_config
     include_objects;
   }
 
-let source_config ~source_connection_profile ~mysql_source_config
-    ~oracle_source_config ~postgresql_source_config () :
-    source_config =
+let source_config ?(mysql_source_config = [])
+    ?(oracle_source_config = []) ?(postgresql_source_config = [])
+    ~source_connection_profile () : source_config =
   {
     source_connection_profile;
     mysql_source_config;
@@ -2917,10 +2919,10 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_datastream_stream ?customer_managed_encryption_key
-    ?desired_state ?id ?labels ?project ?timeouts ~display_name
-    ~location ~stream_id ~backfill_all ~backfill_none
-    ~destination_config ~source_config () : google_datastream_stream
-    =
+    ?desired_state ?id ?labels ?project ?(backfill_all = [])
+    ?(backfill_none = []) ?timeouts ~display_name ~location
+    ~stream_id ~destination_config ~source_config () :
+    google_datastream_stream =
   {
     customer_managed_encryption_key;
     desired_state;
@@ -2953,9 +2955,9 @@ type t = {
 }
 
 let make ?customer_managed_encryption_key ?desired_state ?id ?labels
-    ?project ?timeouts ~display_name ~location ~stream_id
-    ~backfill_all ~backfill_none ~destination_config ~source_config
-    __id =
+    ?project ?(backfill_all = []) ?(backfill_none = []) ?timeouts
+    ~display_name ~location ~stream_id ~destination_config
+    ~source_config __id =
   let __type = "google_datastream_stream" in
   let __attrs =
     ({
@@ -2983,21 +2985,20 @@ let make ?customer_managed_encryption_key ?desired_state ?id ?labels
     json =
       yojson_of_google_datastream_stream
         (google_datastream_stream ?customer_managed_encryption_key
-           ?desired_state ?id ?labels ?project ?timeouts
-           ~display_name ~location ~stream_id ~backfill_all
-           ~backfill_none ~destination_config ~source_config ());
+           ?desired_state ?id ?labels ?project ~backfill_all
+           ~backfill_none ?timeouts ~display_name ~location
+           ~stream_id ~destination_config ~source_config ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?customer_managed_encryption_key
-    ?desired_state ?id ?labels ?project ?timeouts ~display_name
-    ~location ~stream_id ~backfill_all ~backfill_none
-    ~destination_config ~source_config __id =
+    ?desired_state ?id ?labels ?project ?(backfill_all = [])
+    ?(backfill_none = []) ?timeouts ~display_name ~location
+    ~stream_id ~destination_config ~source_config __id =
   let (r : _ Tf_core.resource) =
     make ?customer_managed_encryption_key ?desired_state ?id ?labels
-      ?project ?timeouts ~display_name ~location ~stream_id
-      ~backfill_all ~backfill_none ~destination_config ~source_config
-      __id
+      ?project ~backfill_all ~backfill_none ?timeouts ~display_name
+      ~location ~stream_id ~destination_config ~source_config __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

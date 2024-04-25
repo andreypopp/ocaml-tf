@@ -96,14 +96,14 @@ val gce_setup :
     ?machine_type:string prop ->
     ?metadata:(string * string  prop) list ->
     ?tags:string  prop list ->
-    accelerator_configs:gce_setup__accelerator_configs list ->
-    boot_disk:gce_setup__boot_disk list ->
-    container_image:gce_setup__container_image list ->
-    data_disks:gce_setup__data_disks list ->
-    network_interfaces:gce_setup__network_interfaces list ->
-    service_accounts:gce_setup__service_accounts list ->
-    shielded_instance_config:gce_setup__shielded_instance_config list ->
-    vm_image:gce_setup__vm_image list ->
+    ?accelerator_configs:gce_setup__accelerator_configs list ->
+    ?boot_disk:gce_setup__boot_disk list ->
+    ?container_image:gce_setup__container_image list ->
+    ?data_disks:gce_setup__data_disks list ->
+    ?network_interfaces:gce_setup__network_interfaces list ->
+    ?service_accounts:gce_setup__service_accounts list ->
+    ?shielded_instance_config:gce_setup__shielded_instance_config list ->
+    ?vm_image:gce_setup__vm_image list ->
     unit ->
     gce_setup
 
@@ -126,10 +126,10 @@ val google_workbench_instance :
     ?instance_owners:string  prop list ->
     ?labels:(string * string  prop) list ->
     ?project:string prop ->
+    ?gce_setup:gce_setup list ->
     ?timeouts:timeouts ->
     location:string prop ->
     name:string prop ->
-    gce_setup:gce_setup list ->
     unit ->
     google_workbench_instance
 
@@ -168,10 +168,10 @@ val register :
     ?instance_owners:string  prop list ->
     ?labels:(string * string  prop) list ->
     ?project:string prop ->
+    ?gce_setup:gce_setup list ->
     ?timeouts:timeouts ->
     location:string prop ->
     name:string prop ->
-    gce_setup:gce_setup list ->
     string ->
     t
 
@@ -183,10 +183,10 @@ val make :
     ?instance_owners:string  prop list ->
     ?labels:(string * string  prop) list ->
     ?project:string prop ->
+    ?gce_setup:gce_setup list ->
     ?timeouts:timeouts ->
     location:string prop ->
     name:string prop ->
-    gce_setup:gce_setup list ->
     string ->
     t Tf_core.resource
 

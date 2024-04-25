@@ -49,9 +49,9 @@ type network_configuration
 
 val network_configuration :
   ?ip_address_type:string prop ->
-  egress_configuration:
+  ?egress_configuration:
     network_configuration__egress_configuration list ->
-  ingress_configuration:
+  ?ingress_configuration:
     network_configuration__ingress_configuration list ->
   unit ->
   network_configuration
@@ -87,10 +87,10 @@ val source_configuration__code_repository__code_configuration__code_configuratio
 type source_configuration__code_repository__code_configuration
 
 val source_configuration__code_repository__code_configuration :
-  configuration_source:string prop ->
-  code_configuration_values:
+  ?code_configuration_values:
     source_configuration__code_repository__code_configuration__code_configuration_values
     list ->
+  configuration_source:string prop ->
   unit ->
   source_configuration__code_repository__code_configuration
 
@@ -106,9 +106,9 @@ type source_configuration__code_repository
 
 val source_configuration__code_repository :
   ?source_directory:string prop ->
-  repository_url:string prop ->
-  code_configuration:
+  ?code_configuration:
     source_configuration__code_repository__code_configuration list ->
+  repository_url:string prop ->
   source_code_version:
     source_configuration__code_repository__source_code_version list ->
   unit ->
@@ -127,10 +127,10 @@ val source_configuration__image_repository__image_configuration :
 type source_configuration__image_repository
 
 val source_configuration__image_repository :
+  ?image_configuration:
+    source_configuration__image_repository__image_configuration list ->
   image_identifier:string prop ->
   image_repository_type:string prop ->
-  image_configuration:
-    source_configuration__image_repository__image_configuration list ->
   unit ->
   source_configuration__image_repository
 
@@ -138,10 +138,10 @@ type source_configuration
 
 val source_configuration :
   ?auto_deployments_enabled:bool prop ->
-  authentication_configuration:
+  ?authentication_configuration:
     source_configuration__authentication_configuration list ->
-  code_repository:source_configuration__code_repository list ->
-  image_repository:source_configuration__image_repository list ->
+  ?code_repository:source_configuration__code_repository list ->
+  ?image_repository:source_configuration__image_repository list ->
   unit ->
   source_configuration
 
@@ -152,12 +152,12 @@ val aws_apprunner_service :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?encryption_configuration:encryption_configuration list ->
+  ?health_check_configuration:health_check_configuration list ->
+  ?instance_configuration:instance_configuration list ->
+  ?network_configuration:network_configuration list ->
+  ?observability_configuration:observability_configuration list ->
   service_name:string prop ->
-  encryption_configuration:encryption_configuration list ->
-  health_check_configuration:health_check_configuration list ->
-  instance_configuration:instance_configuration list ->
-  network_configuration:network_configuration list ->
-  observability_configuration:observability_configuration list ->
   source_configuration:source_configuration list ->
   unit ->
   aws_apprunner_service
@@ -184,12 +184,12 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?encryption_configuration:encryption_configuration list ->
+  ?health_check_configuration:health_check_configuration list ->
+  ?instance_configuration:instance_configuration list ->
+  ?network_configuration:network_configuration list ->
+  ?observability_configuration:observability_configuration list ->
   service_name:string prop ->
-  encryption_configuration:encryption_configuration list ->
-  health_check_configuration:health_check_configuration list ->
-  instance_configuration:instance_configuration list ->
-  network_configuration:network_configuration list ->
-  observability_configuration:observability_configuration list ->
   source_configuration:source_configuration list ->
   string ->
   t
@@ -199,12 +199,12 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?encryption_configuration:encryption_configuration list ->
+  ?health_check_configuration:health_check_configuration list ->
+  ?instance_configuration:instance_configuration list ->
+  ?network_configuration:network_configuration list ->
+  ?observability_configuration:observability_configuration list ->
   service_name:string prop ->
-  encryption_configuration:encryption_configuration list ->
-  health_check_configuration:health_check_configuration list ->
-  instance_configuration:instance_configuration list ->
-  network_configuration:network_configuration list ->
-  observability_configuration:observability_configuration list ->
   source_configuration:source_configuration list ->
   string ->
   t Tf_core.resource

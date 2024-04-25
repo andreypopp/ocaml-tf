@@ -40,18 +40,18 @@ type alloydb__settings
 
 val alloydb__settings :
   ?labels:(string * string prop) list ->
+  ?primary_instance_settings:
+    alloydb__settings__primary_instance_settings list ->
   vpc_network:string prop ->
   initial_user:alloydb__settings__initial_user list ->
-  primary_instance_settings:
-    alloydb__settings__primary_instance_settings list ->
   unit ->
   alloydb__settings
 
 type alloydb
 
 val alloydb :
+  ?settings:alloydb__settings list ->
   cluster_id:string prop ->
-  settings:alloydb__settings list ->
   unit ->
   alloydb
 
@@ -71,7 +71,7 @@ val cloudsql__settings__ip_config :
   ?enable_ipv4:bool prop ->
   ?private_network:string prop ->
   ?require_ssl:bool prop ->
-  authorized_networks:
+  ?authorized_networks:
     cloudsql__settings__ip_config__authorized_networks list ->
   unit ->
   cloudsql__settings__ip_config
@@ -93,14 +93,14 @@ val cloudsql__settings :
   ?tier:string prop ->
   ?user_labels:(string * string prop) list ->
   ?zone:string prop ->
+  ?ip_config:cloudsql__settings__ip_config list ->
   source_id:string prop ->
-  ip_config:cloudsql__settings__ip_config list ->
   unit ->
   cloudsql__settings
 
 type cloudsql
 
-val cloudsql : settings:cloudsql__settings list -> unit -> cloudsql
+val cloudsql : ?settings:cloudsql__settings list -> unit -> cloudsql
 
 type mysql__ssl
 
@@ -115,11 +115,11 @@ type mysql
 
 val mysql :
   ?cloud_sql_id:string prop ->
+  ?ssl:mysql__ssl list ->
   host:string prop ->
   password:string prop ->
   port:float prop ->
   username:string prop ->
-  ssl:mysql__ssl list ->
   unit ->
   mysql
 
@@ -158,16 +158,16 @@ val oracle__static_service_ip_connectivity :
 type oracle
 
 val oracle :
+  ?forward_ssh_connectivity:oracle__forward_ssh_connectivity list ->
+  ?private_connectivity:oracle__private_connectivity list ->
+  ?ssl:oracle__ssl list ->
+  ?static_service_ip_connectivity:
+    oracle__static_service_ip_connectivity list ->
   database_service:string prop ->
   host:string prop ->
   password:string prop ->
   port:float prop ->
   username:string prop ->
-  forward_ssh_connectivity:oracle__forward_ssh_connectivity list ->
-  private_connectivity:oracle__private_connectivity list ->
-  ssl:oracle__ssl list ->
-  static_service_ip_connectivity:
-    oracle__static_service_ip_connectivity list ->
   unit ->
   oracle
 
@@ -184,11 +184,11 @@ type postgresql
 
 val postgresql :
   ?cloud_sql_id:string prop ->
+  ?ssl:postgresql__ssl list ->
   host:string prop ->
   password:string prop ->
   port:float prop ->
   username:string prop ->
-  ssl:postgresql__ssl list ->
   unit ->
   postgresql
 
@@ -209,13 +209,13 @@ val google_database_migration_service_connection_profile :
   ?labels:(string * string prop) list ->
   ?location:string prop ->
   ?project:string prop ->
+  ?alloydb:alloydb list ->
+  ?cloudsql:cloudsql list ->
+  ?mysql:mysql list ->
+  ?oracle:oracle list ->
+  ?postgresql:postgresql list ->
   ?timeouts:timeouts ->
   connection_profile_id:string prop ->
-  alloydb:alloydb list ->
-  cloudsql:cloudsql list ->
-  mysql:mysql list ->
-  oracle:oracle list ->
-  postgresql:postgresql list ->
   unit ->
   google_database_migration_service_connection_profile
 
@@ -247,13 +247,13 @@ val register :
   ?labels:(string * string prop) list ->
   ?location:string prop ->
   ?project:string prop ->
+  ?alloydb:alloydb list ->
+  ?cloudsql:cloudsql list ->
+  ?mysql:mysql list ->
+  ?oracle:oracle list ->
+  ?postgresql:postgresql list ->
   ?timeouts:timeouts ->
   connection_profile_id:string prop ->
-  alloydb:alloydb list ->
-  cloudsql:cloudsql list ->
-  mysql:mysql list ->
-  oracle:oracle list ->
-  postgresql:postgresql list ->
   string ->
   t
 
@@ -263,12 +263,12 @@ val make :
   ?labels:(string * string prop) list ->
   ?location:string prop ->
   ?project:string prop ->
+  ?alloydb:alloydb list ->
+  ?cloudsql:cloudsql list ->
+  ?mysql:mysql list ->
+  ?oracle:oracle list ->
+  ?postgresql:postgresql list ->
   ?timeouts:timeouts ->
   connection_profile_id:string prop ->
-  alloydb:alloydb list ->
-  cloudsql:cloudsql list ->
-  mysql:mysql list ->
-  oracle:oracle list ->
-  postgresql:postgresql list ->
   string ->
   t Tf_core.resource

@@ -18,10 +18,10 @@ val aws_datasync_location_azure_blob :
   ?subdirectory:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?sas_configuration:sas_configuration list ->
   agent_arns:string prop list ->
   authentication_type:string prop ->
   container_url:string prop ->
-  sas_configuration:sas_configuration list ->
   unit ->
   aws_datasync_location_azure_blob
 
@@ -52,10 +52,10 @@ val register :
   ?subdirectory:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?sas_configuration:sas_configuration list ->
   agent_arns:string prop list ->
   authentication_type:string prop ->
   container_url:string prop ->
-  sas_configuration:sas_configuration list ->
   string ->
   t
 
@@ -66,9 +66,9 @@ val make :
   ?subdirectory:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?sas_configuration:sas_configuration list ->
   agent_arns:string prop list ->
   authentication_type:string prop ->
   container_url:string prop ->
-  sas_configuration:sas_configuration list ->
   string ->
   t Tf_core.resource

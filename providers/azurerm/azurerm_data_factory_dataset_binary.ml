@@ -478,10 +478,11 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_data_factory_dataset_binary ?additional_properties
-    ?annotations ?description ?folder ?id ?parameters ?timeouts
-    ~data_factory_id ~linked_service_name ~name
-    ~azure_blob_storage_location ~compression ~http_server_location
-    ~sftp_server_location () : azurerm_data_factory_dataset_binary =
+    ?annotations ?description ?folder ?id ?parameters
+    ?(azure_blob_storage_location = []) ?(compression = [])
+    ?(http_server_location = []) ?(sftp_server_location = [])
+    ?timeouts ~data_factory_id ~linked_service_name ~name () :
+    azurerm_data_factory_dataset_binary =
   {
     additional_properties;
     annotations;
@@ -512,9 +513,10 @@ type t = {
 }
 
 let make ?additional_properties ?annotations ?description ?folder ?id
-    ?parameters ?timeouts ~data_factory_id ~linked_service_name ~name
-    ~azure_blob_storage_location ~compression ~http_server_location
-    ~sftp_server_location __id =
+    ?parameters ?(azure_blob_storage_location = [])
+    ?(compression = []) ?(http_server_location = [])
+    ?(sftp_server_location = []) ?timeouts ~data_factory_id
+    ~linked_service_name ~name __id =
   let __type = "azurerm_data_factory_dataset_binary" in
   let __attrs =
     ({
@@ -539,21 +541,22 @@ let make ?additional_properties ?annotations ?description ?folder ?id
       yojson_of_azurerm_data_factory_dataset_binary
         (azurerm_data_factory_dataset_binary ?additional_properties
            ?annotations ?description ?folder ?id ?parameters
-           ?timeouts ~data_factory_id ~linked_service_name ~name
            ~azure_blob_storage_location ~compression
-           ~http_server_location ~sftp_server_location ());
+           ~http_server_location ~sftp_server_location ?timeouts
+           ~data_factory_id ~linked_service_name ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?additional_properties ?annotations
-    ?description ?folder ?id ?parameters ?timeouts ~data_factory_id
-    ~linked_service_name ~name ~azure_blob_storage_location
-    ~compression ~http_server_location ~sftp_server_location __id =
+    ?description ?folder ?id ?parameters
+    ?(azure_blob_storage_location = []) ?(compression = [])
+    ?(http_server_location = []) ?(sftp_server_location = [])
+    ?timeouts ~data_factory_id ~linked_service_name ~name __id =
   let (r : _ Tf_core.resource) =
     make ?additional_properties ?annotations ?description ?folder ?id
-      ?parameters ?timeouts ~data_factory_id ~linked_service_name
-      ~name ~azure_blob_storage_location ~compression
-      ~http_server_location ~sftp_server_location __id
+      ?parameters ~azure_blob_storage_location ~compression
+      ~http_server_location ~sftp_server_location ?timeouts
+      ~data_factory_id ~linked_service_name ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

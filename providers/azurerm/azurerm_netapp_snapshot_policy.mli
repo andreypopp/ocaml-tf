@@ -56,16 +56,16 @@ type azurerm_netapp_snapshot_policy
 val azurerm_netapp_snapshot_policy :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?daily_schedule:daily_schedule list ->
+  ?hourly_schedule:hourly_schedule list ->
+  ?monthly_schedule:monthly_schedule list ->
   ?timeouts:timeouts ->
+  ?weekly_schedule:weekly_schedule list ->
   account_name:string prop ->
   enabled:bool prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  daily_schedule:daily_schedule list ->
-  hourly_schedule:hourly_schedule list ->
-  monthly_schedule:monthly_schedule list ->
-  weekly_schedule:weekly_schedule list ->
   unit ->
   azurerm_netapp_snapshot_policy
 
@@ -88,31 +88,31 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?daily_schedule:daily_schedule list ->
+  ?hourly_schedule:hourly_schedule list ->
+  ?monthly_schedule:monthly_schedule list ->
   ?timeouts:timeouts ->
+  ?weekly_schedule:weekly_schedule list ->
   account_name:string prop ->
   enabled:bool prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  daily_schedule:daily_schedule list ->
-  hourly_schedule:hourly_schedule list ->
-  monthly_schedule:monthly_schedule list ->
-  weekly_schedule:weekly_schedule list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?daily_schedule:daily_schedule list ->
+  ?hourly_schedule:hourly_schedule list ->
+  ?monthly_schedule:monthly_schedule list ->
   ?timeouts:timeouts ->
+  ?weekly_schedule:weekly_schedule list ->
   account_name:string prop ->
   enabled:bool prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  daily_schedule:daily_schedule list ->
-  hourly_schedule:hourly_schedule list ->
-  monthly_schedule:monthly_schedule list ->
-  weekly_schedule:weekly_schedule list ->
   string ->
   t Tf_core.resource

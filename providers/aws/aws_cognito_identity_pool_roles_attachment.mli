@@ -18,9 +18,9 @@ type role_mapping
 
 val role_mapping :
   ?ambiguous_role_resolution:string prop ->
+  ?mapping_rule:role_mapping__mapping_rule list ->
   identity_provider:string prop ->
   type_:string prop ->
-  mapping_rule:role_mapping__mapping_rule list ->
   unit ->
   role_mapping
 

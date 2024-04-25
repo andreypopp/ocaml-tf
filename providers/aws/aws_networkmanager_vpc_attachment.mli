@@ -27,11 +27,11 @@ val aws_networkmanager_vpc_attachment :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?options:options list ->
   ?timeouts:timeouts ->
   core_network_id:string prop ->
   subnet_arns:string prop list ->
   vpc_arn:string prop ->
-  options:options list ->
   unit ->
   aws_networkmanager_vpc_attachment
 
@@ -63,11 +63,11 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?options:options list ->
   ?timeouts:timeouts ->
   core_network_id:string prop ->
   subnet_arns:string prop list ->
   vpc_arn:string prop ->
-  options:options list ->
   string ->
   t
 
@@ -75,10 +75,10 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?options:options list ->
   ?timeouts:timeouts ->
   core_network_id:string prop ->
   subnet_arns:string prop list ->
   vpc_arn:string prop ->
-  options:options list ->
   string ->
   t Tf_core.resource

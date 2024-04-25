@@ -533,10 +533,11 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_backup_policy_vm ?id ?instant_restore_retention_days
-    ?policy_type ?timezone ?timeouts ~name ~recovery_vault_name
-    ~resource_group_name ~backup ~instant_restore_resource_group
-    ~retention_daily ~retention_monthly ~retention_weekly
-    ~retention_yearly () : azurerm_backup_policy_vm =
+    ?policy_type ?timezone ?(instant_restore_resource_group = [])
+    ?(retention_daily = []) ?(retention_monthly = [])
+    ?(retention_weekly = []) ?(retention_yearly = []) ?timeouts ~name
+    ~recovery_vault_name ~resource_group_name ~backup () :
+    azurerm_backup_policy_vm =
   {
     id;
     instant_restore_retention_days;
@@ -565,9 +566,10 @@ type t = {
 }
 
 let make ?id ?instant_restore_retention_days ?policy_type ?timezone
-    ?timeouts ~name ~recovery_vault_name ~resource_group_name ~backup
-    ~instant_restore_resource_group ~retention_daily
-    ~retention_monthly ~retention_weekly ~retention_yearly __id =
+    ?(instant_restore_resource_group = []) ?(retention_daily = [])
+    ?(retention_monthly = []) ?(retention_weekly = [])
+    ?(retention_yearly = []) ?timeouts ~name ~recovery_vault_name
+    ~resource_group_name ~backup __id =
   let __type = "azurerm_backup_policy_vm" in
   let __attrs =
     ({
@@ -590,23 +592,24 @@ let make ?id ?instant_restore_retention_days ?policy_type ?timezone
     json =
       yojson_of_azurerm_backup_policy_vm
         (azurerm_backup_policy_vm ?id ?instant_restore_retention_days
-           ?policy_type ?timezone ?timeouts ~name
-           ~recovery_vault_name ~resource_group_name ~backup
-           ~instant_restore_resource_group ~retention_daily
-           ~retention_monthly ~retention_weekly ~retention_yearly ());
+           ?policy_type ?timezone ~instant_restore_resource_group
+           ~retention_daily ~retention_monthly ~retention_weekly
+           ~retention_yearly ?timeouts ~name ~recovery_vault_name
+           ~resource_group_name ~backup ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?instant_restore_retention_days
-    ?policy_type ?timezone ?timeouts ~name ~recovery_vault_name
-    ~resource_group_name ~backup ~instant_restore_resource_group
-    ~retention_daily ~retention_monthly ~retention_weekly
-    ~retention_yearly __id =
+    ?policy_type ?timezone ?(instant_restore_resource_group = [])
+    ?(retention_daily = []) ?(retention_monthly = [])
+    ?(retention_weekly = []) ?(retention_yearly = []) ?timeouts ~name
+    ~recovery_vault_name ~resource_group_name ~backup __id =
   let (r : _ Tf_core.resource) =
     make ?id ?instant_restore_retention_days ?policy_type ?timezone
+      ~instant_restore_resource_group ~retention_daily
+      ~retention_monthly ~retention_weekly ~retention_yearly
       ?timeouts ~name ~recovery_vault_name ~resource_group_name
-      ~backup ~instant_restore_resource_group ~retention_daily
-      ~retention_monthly ~retention_weekly ~retention_yearly __id
+      ~backup __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

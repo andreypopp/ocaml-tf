@@ -35,7 +35,7 @@ val validation_data_config__validator :
 type validation_data_config
 
 val validation_data_config :
-  validator:validation_data_config__validator list ->
+  ?validator:validation_data_config__validator list ->
   unit ->
   validation_data_config
 
@@ -53,16 +53,16 @@ val aws_bedrock_custom_model :
   ?custom_model_kms_key_id:string prop ->
   ?customization_type:string prop ->
   ?tags:(string * string prop) list ->
+  ?output_data_config:output_data_config list ->
   ?timeouts:timeouts ->
+  ?training_data_config:training_data_config list ->
+  ?validation_data_config:validation_data_config list ->
+  ?vpc_config:vpc_config list ->
   base_model_identifier:string prop ->
   custom_model_name:string prop ->
   hyperparameters:(string * string prop) list ->
   job_name:string prop ->
   role_arn:string prop ->
-  output_data_config:output_data_config list ->
-  training_data_config:training_data_config list ->
-  validation_data_config:validation_data_config list ->
-  vpc_config:vpc_config list ->
   unit ->
   aws_bedrock_custom_model
 
@@ -94,16 +94,16 @@ val register :
   ?custom_model_kms_key_id:string prop ->
   ?customization_type:string prop ->
   ?tags:(string * string prop) list ->
+  ?output_data_config:output_data_config list ->
   ?timeouts:timeouts ->
+  ?training_data_config:training_data_config list ->
+  ?validation_data_config:validation_data_config list ->
+  ?vpc_config:vpc_config list ->
   base_model_identifier:string prop ->
   custom_model_name:string prop ->
   hyperparameters:(string * string prop) list ->
   job_name:string prop ->
   role_arn:string prop ->
-  output_data_config:output_data_config list ->
-  training_data_config:training_data_config list ->
-  validation_data_config:validation_data_config list ->
-  vpc_config:vpc_config list ->
   string ->
   t
 
@@ -111,15 +111,15 @@ val make :
   ?custom_model_kms_key_id:string prop ->
   ?customization_type:string prop ->
   ?tags:(string * string prop) list ->
+  ?output_data_config:output_data_config list ->
   ?timeouts:timeouts ->
+  ?training_data_config:training_data_config list ->
+  ?validation_data_config:validation_data_config list ->
+  ?vpc_config:vpc_config list ->
   base_model_identifier:string prop ->
   custom_model_name:string prop ->
   hyperparameters:(string * string prop) list ->
   job_name:string prop ->
   role_arn:string prop ->
-  output_data_config:output_data_config list ->
-  training_data_config:training_data_config list ->
-  validation_data_config:validation_data_config list ->
-  vpc_config:vpc_config list ->
   string ->
   t Tf_core.resource

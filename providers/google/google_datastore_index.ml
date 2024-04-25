@@ -138,8 +138,8 @@ let _ = yojson_of_google_datastore_index
 let properties ~direction ~name () : properties = { direction; name }
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
-let google_datastore_index ?ancestor ?id ?project ?timeouts ~kind
-    ~properties () : google_datastore_index =
+let google_datastore_index ?ancestor ?id ?project ?(properties = [])
+    ?timeouts ~kind () : google_datastore_index =
   { ancestor; id; kind; project; properties; timeouts }
 
 type t = {
@@ -150,7 +150,8 @@ type t = {
   project : string prop;
 }
 
-let make ?ancestor ?id ?project ?timeouts ~kind ~properties __id =
+let make ?ancestor ?id ?project ?(properties = []) ?timeouts ~kind
+    __id =
   let __type = "google_datastore_index" in
   let __attrs =
     ({
@@ -167,15 +168,15 @@ let make ?ancestor ?id ?project ?timeouts ~kind ~properties __id =
     type_ = __type;
     json =
       yojson_of_google_datastore_index
-        (google_datastore_index ?ancestor ?id ?project ?timeouts
-           ~kind ~properties ());
+        (google_datastore_index ?ancestor ?id ?project ~properties
+           ?timeouts ~kind ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?ancestor ?id ?project ?timeouts ~kind
-    ~properties __id =
+let register ?tf_module ?ancestor ?id ?project ?(properties = [])
+    ?timeouts ~kind __id =
   let (r : _ Tf_core.resource) =
-    make ?ancestor ?id ?project ?timeouts ~kind ~properties __id
+    make ?ancestor ?id ?project ~properties ?timeouts ~kind __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -16,7 +16,7 @@ val jupyter_lab_image_config__container_config :
 type jupyter_lab_image_config
 
 val jupyter_lab_image_config :
-  container_config:jupyter_lab_image_config__container_config list ->
+  ?container_config:jupyter_lab_image_config__container_config list ->
   unit ->
   jupyter_lab_image_config
 
@@ -40,7 +40,7 @@ val kernel_gateway_image_config__kernel_spec :
 type kernel_gateway_image_config
 
 val kernel_gateway_image_config :
-  file_system_config:
+  ?file_system_config:
     kernel_gateway_image_config__file_system_config list ->
   kernel_spec:kernel_gateway_image_config__kernel_spec list ->
   unit ->
@@ -52,9 +52,9 @@ val aws_sagemaker_app_image_config :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?jupyter_lab_image_config:jupyter_lab_image_config list ->
+  ?kernel_gateway_image_config:kernel_gateway_image_config list ->
   app_image_config_name:string prop ->
-  jupyter_lab_image_config:jupyter_lab_image_config list ->
-  kernel_gateway_image_config:kernel_gateway_image_config list ->
   unit ->
   aws_sagemaker_app_image_config
 
@@ -76,9 +76,9 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?jupyter_lab_image_config:jupyter_lab_image_config list ->
+  ?kernel_gateway_image_config:kernel_gateway_image_config list ->
   app_image_config_name:string prop ->
-  jupyter_lab_image_config:jupyter_lab_image_config list ->
-  kernel_gateway_image_config:kernel_gateway_image_config list ->
   string ->
   t
 
@@ -86,8 +86,8 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?jupyter_lab_image_config:jupyter_lab_image_config list ->
+  ?kernel_gateway_image_config:kernel_gateway_image_config list ->
   app_image_config_name:string prop ->
-  jupyter_lab_image_config:jupyter_lab_image_config list ->
-  kernel_gateway_image_config:kernel_gateway_image_config list ->
   string ->
   t Tf_core.resource

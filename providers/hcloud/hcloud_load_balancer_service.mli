@@ -19,11 +19,11 @@ type health_check
 
 val health_check :
   ?retries:float prop ->
+  ?http:health_check__http list ->
   interval:float prop ->
   port:float prop ->
   protocol:string prop ->
   timeout:float prop ->
-  http:health_check__http list ->
   unit ->
   health_check
 
@@ -45,10 +45,10 @@ val hcloud_load_balancer_service :
   ?id:string prop ->
   ?listen_port:float prop ->
   ?proxyprotocol:bool prop ->
+  ?health_check:health_check list ->
+  ?http:http list ->
   load_balancer_id:string prop ->
   protocol:string prop ->
-  health_check:health_check list ->
-  http:http list ->
   unit ->
   hcloud_load_balancer_service
 
@@ -72,10 +72,10 @@ val register :
   ?id:string prop ->
   ?listen_port:float prop ->
   ?proxyprotocol:bool prop ->
+  ?health_check:health_check list ->
+  ?http:http list ->
   load_balancer_id:string prop ->
   protocol:string prop ->
-  health_check:health_check list ->
-  http:http list ->
   string ->
   t
 
@@ -84,9 +84,9 @@ val make :
   ?id:string prop ->
   ?listen_port:float prop ->
   ?proxyprotocol:bool prop ->
+  ?health_check:health_check list ->
+  ?http:http list ->
   load_balancer_id:string prop ->
   protocol:string prop ->
-  health_check:health_check list ->
-  http:http list ->
   string ->
   t Tf_core.resource

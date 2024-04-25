@@ -153,9 +153,9 @@ let _ = yojson_of_aws_datasync_location_nfs
 let mount_options ?version () : mount_options = { version }
 let on_prem_config ~agent_arns () : on_prem_config = { agent_arns }
 
-let aws_datasync_location_nfs ?id ?tags ?tags_all ~server_hostname
-    ~subdirectory ~mount_options ~on_prem_config () :
-    aws_datasync_location_nfs =
+let aws_datasync_location_nfs ?id ?tags ?tags_all
+    ?(mount_options = []) ~server_hostname ~subdirectory
+    ~on_prem_config () : aws_datasync_location_nfs =
   {
     id;
     server_hostname;
@@ -176,8 +176,8 @@ type t = {
   uri : string prop;
 }
 
-let make ?id ?tags ?tags_all ~server_hostname ~subdirectory
-    ~mount_options ~on_prem_config __id =
+let make ?id ?tags ?tags_all ?(mount_options = []) ~server_hostname
+    ~subdirectory ~on_prem_config __id =
   let __type = "aws_datasync_location_nfs" in
   let __attrs =
     ({
@@ -196,17 +196,16 @@ let make ?id ?tags ?tags_all ~server_hostname ~subdirectory
     type_ = __type;
     json =
       yojson_of_aws_datasync_location_nfs
-        (aws_datasync_location_nfs ?id ?tags ?tags_all
-           ~server_hostname ~subdirectory ~mount_options
-           ~on_prem_config ());
+        (aws_datasync_location_nfs ?id ?tags ?tags_all ~mount_options
+           ~server_hostname ~subdirectory ~on_prem_config ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ~server_hostname
-    ~subdirectory ~mount_options ~on_prem_config __id =
+let register ?tf_module ?id ?tags ?tags_all ?(mount_options = [])
+    ~server_hostname ~subdirectory ~on_prem_config __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~server_hostname ~subdirectory
-      ~mount_options ~on_prem_config __id
+    make ?id ?tags ?tags_all ~mount_options ~server_hostname
+      ~subdirectory ~on_prem_config __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

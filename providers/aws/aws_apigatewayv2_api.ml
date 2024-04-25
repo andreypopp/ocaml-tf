@@ -292,8 +292,8 @@ let cors_configuration ?allow_credentials ?allow_headers
 let aws_apigatewayv2_api ?api_key_selection_expression ?body
     ?credentials_arn ?description ?disable_execute_api_endpoint
     ?fail_on_warnings ?id ?route_key ?route_selection_expression
-    ?tags ?tags_all ?target ?version ~name ~protocol_type
-    ~cors_configuration () : aws_apigatewayv2_api =
+    ?tags ?tags_all ?target ?version ?(cors_configuration = []) ~name
+    ~protocol_type () : aws_apigatewayv2_api =
   {
     api_key_selection_expression;
     body;
@@ -337,7 +337,7 @@ type t = {
 let make ?api_key_selection_expression ?body ?credentials_arn
     ?description ?disable_execute_api_endpoint ?fail_on_warnings ?id
     ?route_key ?route_selection_expression ?tags ?tags_all ?target
-    ?version ~name ~protocol_type ~cors_configuration __id =
+    ?version ?(cors_configuration = []) ~name ~protocol_type __id =
   let __type = "aws_apigatewayv2_api" in
   let __attrs =
     ({
@@ -375,7 +375,7 @@ let make ?api_key_selection_expression ?body ?credentials_arn
            ?credentials_arn ?description
            ?disable_execute_api_endpoint ?fail_on_warnings ?id
            ?route_key ?route_selection_expression ?tags ?tags_all
-           ?target ?version ~name ~protocol_type ~cors_configuration
+           ?target ?version ~cors_configuration ~name ~protocol_type
            ());
     attrs = __attrs;
   }
@@ -383,13 +383,13 @@ let make ?api_key_selection_expression ?body ?credentials_arn
 let register ?tf_module ?api_key_selection_expression ?body
     ?credentials_arn ?description ?disable_execute_api_endpoint
     ?fail_on_warnings ?id ?route_key ?route_selection_expression
-    ?tags ?tags_all ?target ?version ~name ~protocol_type
-    ~cors_configuration __id =
+    ?tags ?tags_all ?target ?version ?(cors_configuration = []) ~name
+    ~protocol_type __id =
   let (r : _ Tf_core.resource) =
     make ?api_key_selection_expression ?body ?credentials_arn
       ?description ?disable_execute_api_endpoint ?fail_on_warnings
       ?id ?route_key ?route_selection_expression ?tags ?tags_all
-      ?target ?version ~name ~protocol_type ~cors_configuration __id
+      ?target ?version ~cors_configuration ~name ~protocol_type __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

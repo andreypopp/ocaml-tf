@@ -31,13 +31,13 @@ val azurerm_application_insights_workbook :
   ?source_id:string prop ->
   ?storage_container_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   data_json:string prop ->
   display_name:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   unit ->
   azurerm_application_insights_workbook
 
@@ -68,13 +68,13 @@ val register :
   ?source_id:string prop ->
   ?storage_container_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   data_json:string prop ->
   display_name:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   string ->
   t
 
@@ -85,12 +85,12 @@ val make :
   ?source_id:string prop ->
   ?storage_container_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   data_json:string prop ->
   display_name:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

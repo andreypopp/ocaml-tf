@@ -59,11 +59,11 @@ val aws_fsx_openzfs_volume :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?volume_type:string prop ->
+  ?nfs_exports:nfs_exports list ->
+  ?origin_snapshot:origin_snapshot list ->
   ?timeouts:timeouts ->
   name:string prop ->
   parent_volume_id:string prop ->
-  nfs_exports:nfs_exports list ->
-  origin_snapshot:origin_snapshot list ->
   user_and_group_quotas:user_and_group_quotas list ->
   unit ->
   aws_fsx_openzfs_volume
@@ -102,11 +102,11 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?volume_type:string prop ->
+  ?nfs_exports:nfs_exports list ->
+  ?origin_snapshot:origin_snapshot list ->
   ?timeouts:timeouts ->
   name:string prop ->
   parent_volume_id:string prop ->
-  nfs_exports:nfs_exports list ->
-  origin_snapshot:origin_snapshot list ->
   user_and_group_quotas:user_and_group_quotas list ->
   string ->
   t
@@ -123,11 +123,11 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?volume_type:string prop ->
+  ?nfs_exports:nfs_exports list ->
+  ?origin_snapshot:origin_snapshot list ->
   ?timeouts:timeouts ->
   name:string prop ->
   parent_volume_id:string prop ->
-  nfs_exports:nfs_exports list ->
-  origin_snapshot:origin_snapshot list ->
   user_and_group_quotas:user_and_group_quotas list ->
   string ->
   t Tf_core.resource

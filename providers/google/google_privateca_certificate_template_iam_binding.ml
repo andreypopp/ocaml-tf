@@ -128,8 +128,8 @@ let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
 let google_privateca_certificate_template_iam_binding ?id ?location
-    ?project ~certificate_template ~members ~role ~condition () :
-    google_privateca_certificate_template_iam_binding =
+    ?project ?(condition = []) ~certificate_template ~members ~role
+    () : google_privateca_certificate_template_iam_binding =
   {
     certificate_template;
     id;
@@ -150,8 +150,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?location ?project ~certificate_template ~members ~role
-    ~condition __id =
+let make ?id ?location ?project ?(condition = [])
+    ~certificate_template ~members ~role __id =
   let __type = "google_privateca_certificate_template_iam_binding" in
   let __attrs =
     ({
@@ -172,16 +172,16 @@ let make ?id ?location ?project ~certificate_template ~members ~role
     json =
       yojson_of_google_privateca_certificate_template_iam_binding
         (google_privateca_certificate_template_iam_binding ?id
-           ?location ?project ~certificate_template ~members ~role
-           ~condition ());
+           ?location ?project ~condition ~certificate_template
+           ~members ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?location ?project ~certificate_template
-    ~members ~role ~condition __id =
+let register ?tf_module ?id ?location ?project ?(condition = [])
+    ~certificate_template ~members ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?location ?project ~certificate_template ~members ~role
-      ~condition __id
+    make ?id ?location ?project ~condition ~certificate_template
+      ~members ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

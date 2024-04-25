@@ -215,8 +215,8 @@ let control_mapping_sources__source_keyword ~keyword_input_type
   { keyword_input_type; keyword_value }
 
 let control_mapping_sources ?source_description ?source_frequency
-    ?troubleshooting_text ~source_name ~source_set_up_option
-    ~source_type ~source_keyword () : control_mapping_sources =
+    ?troubleshooting_text ?(source_keyword = []) ~source_name
+    ~source_set_up_option ~source_type () : control_mapping_sources =
   {
     source_description;
     source_frequency;

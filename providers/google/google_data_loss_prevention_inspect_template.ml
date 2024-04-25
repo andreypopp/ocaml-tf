@@ -1688,8 +1688,9 @@ let inspect_config__custom_info_types__dictionary__word_list ~words
     () : inspect_config__custom_info_types__dictionary__word_list =
   { words }
 
-let inspect_config__custom_info_types__dictionary ~cloud_storage_path
-    ~word_list () : inspect_config__custom_info_types__dictionary =
+let inspect_config__custom_info_types__dictionary
+    ?(cloud_storage_path = []) ?(word_list = []) () :
+    inspect_config__custom_info_types__dictionary =
   { cloud_storage_path; word_list }
 
 let inspect_config__custom_info_types__info_type__sensitivity_score
@@ -1697,8 +1698,8 @@ let inspect_config__custom_info_types__info_type__sensitivity_score
     inspect_config__custom_info_types__info_type__sensitivity_score =
   { score }
 
-let inspect_config__custom_info_types__info_type ?version ~name
-    ~sensitivity_score () :
+let inspect_config__custom_info_types__info_type ?version
+    ?(sensitivity_score = []) ~name () :
     inspect_config__custom_info_types__info_type =
   { name; version; sensitivity_score }
 
@@ -1717,8 +1718,9 @@ let inspect_config__custom_info_types__stored_type ~name () :
 let inspect_config__custom_info_types__surrogate_type () = ()
 
 let inspect_config__custom_info_types ?exclusion_type ?likelihood
-    ~dictionary ~info_type ~regex ~sensitivity_score ~stored_type
-    ~surrogate_type () : inspect_config__custom_info_types =
+    ?(dictionary = []) ?(regex = []) ?(sensitivity_score = [])
+    ?(stored_type = []) ?(surrogate_type = []) ~info_type () :
+    inspect_config__custom_info_types =
   {
     exclusion_type;
     likelihood;
@@ -1734,8 +1736,8 @@ let inspect_config__info_types__sensitivity_score ~score () :
     inspect_config__info_types__sensitivity_score =
   { score }
 
-let inspect_config__info_types ?version ~name ~sensitivity_score () :
-    inspect_config__info_types =
+let inspect_config__info_types ?version ?(sensitivity_score = [])
+    ~name () : inspect_config__info_types =
   { name; version; sensitivity_score }
 
 let inspect_config__limits__max_findings_per_info_type__info_type__sensitivity_score
@@ -1745,7 +1747,7 @@ let inspect_config__limits__max_findings_per_info_type__info_type__sensitivity_s
   { score }
 
 let inspect_config__limits__max_findings_per_info_type__info_type
-    ?version ~name ~sensitivity_score () :
+    ?version ?(sensitivity_score = []) ~name () :
     inspect_config__limits__max_findings_per_info_type__info_type =
   { name; version; sensitivity_score }
 
@@ -1754,8 +1756,8 @@ let inspect_config__limits__max_findings_per_info_type ~max_findings
     inspect_config__limits__max_findings_per_info_type =
   { max_findings; info_type }
 
-let inspect_config__limits ~max_findings_per_item
-    ~max_findings_per_request ~max_findings_per_info_type () :
+let inspect_config__limits ?(max_findings_per_info_type = [])
+    ~max_findings_per_item ~max_findings_per_request () :
     inspect_config__limits =
   {
     max_findings_per_item;
@@ -1767,8 +1769,9 @@ let inspect_config__rule_set__info_types__sensitivity_score ~score ()
     : inspect_config__rule_set__info_types__sensitivity_score =
   { score }
 
-let inspect_config__rule_set__info_types ?version ~name
-    ~sensitivity_score () : inspect_config__rule_set__info_types =
+let inspect_config__rule_set__info_types ?version
+    ?(sensitivity_score = []) ~name () :
+    inspect_config__rule_set__info_types =
   { name; version; sensitivity_score }
 
 let inspect_config__rule_set__rules__exclusion_rule__dictionary__cloud_storage_path
@@ -1784,7 +1787,7 @@ let inspect_config__rule_set__rules__exclusion_rule__dictionary__word_list
   { words }
 
 let inspect_config__rule_set__rules__exclusion_rule__dictionary
-    ~cloud_storage_path ~word_list () :
+    ?(cloud_storage_path = []) ?(word_list = []) () :
     inspect_config__rule_set__rules__exclusion_rule__dictionary =
   { cloud_storage_path; word_list }
 
@@ -1813,7 +1816,7 @@ let inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_ty
   { score }
 
 let inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types
-    ?version ~name ~sensitivity_score () :
+    ?version ?(sensitivity_score = []) ~name () :
     inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types
     =
   { name; version; sensitivity_score }
@@ -1829,8 +1832,9 @@ let inspect_config__rule_set__rules__exclusion_rule__regex
     inspect_config__rule_set__rules__exclusion_rule__regex =
   { group_indexes; pattern }
 
-let inspect_config__rule_set__rules__exclusion_rule ~matching_type
-    ~dictionary ~exclude_by_hotword ~exclude_info_types ~regex () :
+let inspect_config__rule_set__rules__exclusion_rule
+    ?(dictionary = []) ?(exclude_by_hotword = [])
+    ?(exclude_info_types = []) ?(regex = []) ~matching_type () :
     inspect_config__rule_set__rules__exclusion_rule =
   {
     matching_type;
@@ -1861,8 +1865,8 @@ let inspect_config__rule_set__rules__hotword_rule ~hotword_regex
     inspect_config__rule_set__rules__hotword_rule =
   { hotword_regex; likelihood_adjustment; proximity }
 
-let inspect_config__rule_set__rules ~exclusion_rule ~hotword_rule ()
-    : inspect_config__rule_set__rules =
+let inspect_config__rule_set__rules ?(exclusion_rule = [])
+    ?(hotword_rule = []) () : inspect_config__rule_set__rules =
   { exclusion_rule; hotword_rule }
 
 let inspect_config__rule_set ~info_types ~rules () :
@@ -1870,8 +1874,9 @@ let inspect_config__rule_set ~info_types ~rules () :
   { info_types; rules }
 
 let inspect_config ?content_options ?exclude_info_types
-    ?include_quote ?min_likelihood ~custom_info_types ~info_types
-    ~limits ~rule_set () : inspect_config =
+    ?include_quote ?min_likelihood ?(custom_info_types = [])
+    ?(info_types = []) ?(limits = []) ?(rule_set = []) () :
+    inspect_config =
   {
     content_options;
     exclude_info_types;
@@ -1887,8 +1892,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_data_loss_prevention_inspect_template ?description
-    ?display_name ?id ?template_id ?timeouts ~parent ~inspect_config
-    () : google_data_loss_prevention_inspect_template =
+    ?display_name ?id ?template_id ?(inspect_config = []) ?timeouts
+    ~parent () : google_data_loss_prevention_inspect_template =
   {
     description;
     display_name;
@@ -1908,8 +1913,8 @@ type t = {
   template_id : string prop;
 }
 
-let make ?description ?display_name ?id ?template_id ?timeouts
-    ~parent ~inspect_config __id =
+let make ?description ?display_name ?id ?template_id
+    ?(inspect_config = []) ?timeouts ~parent __id =
   let __type = "google_data_loss_prevention_inspect_template" in
   let __attrs =
     ({
@@ -1928,16 +1933,16 @@ let make ?description ?display_name ?id ?template_id ?timeouts
     json =
       yojson_of_google_data_loss_prevention_inspect_template
         (google_data_loss_prevention_inspect_template ?description
-           ?display_name ?id ?template_id ?timeouts ~parent
-           ~inspect_config ());
+           ?display_name ?id ?template_id ~inspect_config ?timeouts
+           ~parent ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?display_name ?id ?template_id
-    ?timeouts ~parent ~inspect_config __id =
+    ?(inspect_config = []) ?timeouts ~parent __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?display_name ?id ?template_id ?timeouts
-      ~parent ~inspect_config __id
+    make ?description ?display_name ?id ?template_id ~inspect_config
+      ?timeouts ~parent __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

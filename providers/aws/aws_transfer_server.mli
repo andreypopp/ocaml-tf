@@ -44,8 +44,8 @@ val workflow_details__on_upload :
 type workflow_details
 
 val workflow_details :
-  on_partial_upload:workflow_details__on_partial_upload list ->
-  on_upload:workflow_details__on_upload list ->
+  ?on_partial_upload:workflow_details__on_partial_upload list ->
+  ?on_upload:workflow_details__on_upload list ->
   unit ->
   workflow_details
 
@@ -71,9 +71,9 @@ val aws_transfer_server :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?url:string prop ->
-  endpoint_details:endpoint_details list ->
-  protocol_details:protocol_details list ->
-  workflow_details:workflow_details list ->
+  ?endpoint_details:endpoint_details list ->
+  ?protocol_details:protocol_details list ->
+  ?workflow_details:workflow_details list ->
   unit ->
   aws_transfer_server
 
@@ -127,9 +127,9 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?url:string prop ->
-  endpoint_details:endpoint_details list ->
-  protocol_details:protocol_details list ->
-  workflow_details:workflow_details list ->
+  ?endpoint_details:endpoint_details list ->
+  ?protocol_details:protocol_details list ->
+  ?workflow_details:workflow_details list ->
   string ->
   t
 
@@ -153,8 +153,8 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?url:string prop ->
-  endpoint_details:endpoint_details list ->
-  protocol_details:protocol_details list ->
-  workflow_details:workflow_details list ->
+  ?endpoint_details:endpoint_details list ->
+  ?protocol_details:protocol_details list ->
+  ?workflow_details:workflow_details list ->
   string ->
   t Tf_core.resource

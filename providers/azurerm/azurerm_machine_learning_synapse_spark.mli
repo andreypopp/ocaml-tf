@@ -28,12 +28,12 @@ val azurerm_machine_learning_synapse_spark :
   ?id:string prop ->
   ?local_auth_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   machine_learning_workspace_id:string prop ->
   name:string prop ->
   synapse_spark_pool_id:string prop ->
-  identity:identity list ->
   unit ->
   azurerm_machine_learning_synapse_spark
 
@@ -59,12 +59,12 @@ val register :
   ?id:string prop ->
   ?local_auth_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   machine_learning_workspace_id:string prop ->
   name:string prop ->
   synapse_spark_pool_id:string prop ->
-  identity:identity list ->
   string ->
   t
 
@@ -73,11 +73,11 @@ val make :
   ?id:string prop ->
   ?local_auth_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   machine_learning_workspace_id:string prop ->
   name:string prop ->
   synapse_spark_pool_id:string prop ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

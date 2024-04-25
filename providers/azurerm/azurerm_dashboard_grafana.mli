@@ -55,14 +55,14 @@ val azurerm_dashboard_grafana :
   ?sku:string prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundancy_enabled:bool prop ->
+  ?azure_monitor_workspace_integrations:
+    azure_monitor_workspace_integrations list ->
+  ?identity:identity list ->
+  ?smtp:smtp list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  azure_monitor_workspace_integrations:
-    azure_monitor_workspace_integrations list ->
-  identity:identity list ->
-  smtp:smtp list ->
   unit ->
   azurerm_dashboard_grafana
 
@@ -100,14 +100,14 @@ val register :
   ?sku:string prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundancy_enabled:bool prop ->
+  ?azure_monitor_workspace_integrations:
+    azure_monitor_workspace_integrations list ->
+  ?identity:identity list ->
+  ?smtp:smtp list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  azure_monitor_workspace_integrations:
-    azure_monitor_workspace_integrations list ->
-  identity:identity list ->
-  smtp:smtp list ->
   string ->
   t
 
@@ -121,13 +121,13 @@ val make :
   ?sku:string prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundancy_enabled:bool prop ->
+  ?azure_monitor_workspace_integrations:
+    azure_monitor_workspace_integrations list ->
+  ?identity:identity list ->
+  ?smtp:smtp list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  azure_monitor_workspace_integrations:
-    azure_monitor_workspace_integrations list ->
-  identity:identity list ->
-  smtp:smtp list ->
   string ->
   t Tf_core.resource

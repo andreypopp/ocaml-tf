@@ -37,6 +37,7 @@ val google_monitoring_metric_descriptor :
   ?launch_stage:string prop ->
   ?project:string prop ->
   ?unit:string prop ->
+  ?metadata:metadata list ->
   ?timeouts:timeouts ->
   description:string prop ->
   display_name:string prop ->
@@ -44,7 +45,6 @@ val google_monitoring_metric_descriptor :
   type_:string prop ->
   value_type:string prop ->
   labels:labels list ->
-  metadata:metadata list ->
   unit ->
   google_monitoring_metric_descriptor
 
@@ -73,6 +73,7 @@ val register :
   ?launch_stage:string prop ->
   ?project:string prop ->
   ?unit:string prop ->
+  ?metadata:metadata list ->
   ?timeouts:timeouts ->
   description:string prop ->
   display_name:string prop ->
@@ -80,7 +81,6 @@ val register :
   type_:string prop ->
   value_type:string prop ->
   labels:labels list ->
-  metadata:metadata list ->
   string ->
   t
 
@@ -89,6 +89,7 @@ val make :
   ?launch_stage:string prop ->
   ?project:string prop ->
   ?unit:string prop ->
+  ?metadata:metadata list ->
   ?timeouts:timeouts ->
   description:string prop ->
   display_name:string prop ->
@@ -96,6 +97,5 @@ val make :
   type_:string prop ->
   value_type:string prop ->
   labels:labels list ->
-  metadata:metadata list ->
   string ->
   t Tf_core.resource

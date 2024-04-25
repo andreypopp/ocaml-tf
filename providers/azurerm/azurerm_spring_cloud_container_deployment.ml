@@ -265,8 +265,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_spring_cloud_container_deployment ?addon_json
     ?application_performance_monitoring_ids ?arguments ?commands
     ?environment_variables ?id ?instance_count ?language_framework
-    ?timeouts ~image ~name ~server ~spring_cloud_app_id ~quota () :
-    azurerm_spring_cloud_container_deployment =
+    ?(quota = []) ?timeouts ~image ~name ~server ~spring_cloud_app_id
+    () : azurerm_spring_cloud_container_deployment =
   {
     addon_json;
     application_performance_monitoring_ids;
@@ -301,8 +301,8 @@ type t = {
 
 let make ?addon_json ?application_performance_monitoring_ids
     ?arguments ?commands ?environment_variables ?id ?instance_count
-    ?language_framework ?timeouts ~image ~name ~server
-    ~spring_cloud_app_id ~quota __id =
+    ?language_framework ?(quota = []) ?timeouts ~image ~name ~server
+    ~spring_cloud_app_id __id =
   let __type = "azurerm_spring_cloud_container_deployment" in
   let __attrs =
     ({
@@ -334,20 +334,21 @@ let make ?addon_json ?application_performance_monitoring_ids
         (azurerm_spring_cloud_container_deployment ?addon_json
            ?application_performance_monitoring_ids ?arguments
            ?commands ?environment_variables ?id ?instance_count
-           ?language_framework ?timeouts ~image ~name ~server
-           ~spring_cloud_app_id ~quota ());
+           ?language_framework ~quota ?timeouts ~image ~name ~server
+           ~spring_cloud_app_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?addon_json
     ?application_performance_monitoring_ids ?arguments ?commands
     ?environment_variables ?id ?instance_count ?language_framework
-    ?timeouts ~image ~name ~server ~spring_cloud_app_id ~quota __id =
+    ?(quota = []) ?timeouts ~image ~name ~server ~spring_cloud_app_id
+    __id =
   let (r : _ Tf_core.resource) =
     make ?addon_json ?application_performance_monitoring_ids
       ?arguments ?commands ?environment_variables ?id ?instance_count
-      ?language_framework ?timeouts ~image ~name ~server
-      ~spring_cloud_app_id ~quota __id
+      ?language_framework ~quota ?timeouts ~image ~name ~server
+      ~spring_cloud_app_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

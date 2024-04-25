@@ -25,8 +25,8 @@ val autoscaling_config__autoscaling_targets :
 type autoscaling_config
 
 val autoscaling_config :
-  autoscaling_limits:autoscaling_config__autoscaling_limits list ->
-  autoscaling_targets:autoscaling_config__autoscaling_targets list ->
+  ?autoscaling_limits:autoscaling_config__autoscaling_limits list ->
+  ?autoscaling_targets:autoscaling_config__autoscaling_targets list ->
   unit ->
   autoscaling_config
 
@@ -49,10 +49,10 @@ val google_spanner_instance :
   ?num_nodes:float prop ->
   ?processing_units:float prop ->
   ?project:string prop ->
+  ?autoscaling_config:autoscaling_config list ->
   ?timeouts:timeouts ->
   config:string prop ->
   display_name:string prop ->
-  autoscaling_config:autoscaling_config list ->
   unit ->
   google_spanner_instance
 
@@ -85,10 +85,10 @@ val register :
   ?num_nodes:float prop ->
   ?processing_units:float prop ->
   ?project:string prop ->
+  ?autoscaling_config:autoscaling_config list ->
   ?timeouts:timeouts ->
   config:string prop ->
   display_name:string prop ->
-  autoscaling_config:autoscaling_config list ->
   string ->
   t
 
@@ -100,9 +100,9 @@ val make :
   ?num_nodes:float prop ->
   ?processing_units:float prop ->
   ?project:string prop ->
+  ?autoscaling_config:autoscaling_config list ->
   ?timeouts:timeouts ->
   config:string prop ->
   display_name:string prop ->
-  autoscaling_config:autoscaling_config list ->
   string ->
   t Tf_core.resource

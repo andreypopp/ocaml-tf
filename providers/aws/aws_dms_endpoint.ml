@@ -1697,11 +1697,12 @@ let aws_dms_endpoint ?certificate_arn ?database_name
     ?extra_connection_attributes ?id ?kms_key_arn ?password
     ?pause_replication_tasks ?port ?secrets_manager_access_role_arn
     ?secrets_manager_arn ?server_name ?service_access_role ?ssl_mode
-    ?tags ?tags_all ?username ?timeouts ~endpoint_id ~endpoint_type
-    ~engine_name ~elasticsearch_settings ~kafka_settings
-    ~kinesis_settings ~mongodb_settings ~postgres_settings
-    ~redis_settings ~redshift_settings ~s3_settings () :
-    aws_dms_endpoint =
+    ?tags ?tags_all ?username ?(elasticsearch_settings = [])
+    ?(kafka_settings = []) ?(kinesis_settings = [])
+    ?(mongodb_settings = []) ?(postgres_settings = [])
+    ?(redis_settings = []) ?(redshift_settings = [])
+    ?(s3_settings = []) ?timeouts ~endpoint_id ~endpoint_type
+    ~engine_name () : aws_dms_endpoint =
   {
     certificate_arn;
     database_name;
@@ -1760,10 +1761,11 @@ let make ?certificate_arn ?database_name ?extra_connection_attributes
     ?id ?kms_key_arn ?password ?pause_replication_tasks ?port
     ?secrets_manager_access_role_arn ?secrets_manager_arn
     ?server_name ?service_access_role ?ssl_mode ?tags ?tags_all
-    ?username ?timeouts ~endpoint_id ~endpoint_type ~engine_name
-    ~elasticsearch_settings ~kafka_settings ~kinesis_settings
-    ~mongodb_settings ~postgres_settings ~redis_settings
-    ~redshift_settings ~s3_settings __id =
+    ?username ?(elasticsearch_settings = []) ?(kafka_settings = [])
+    ?(kinesis_settings = []) ?(mongodb_settings = [])
+    ?(postgres_settings = []) ?(redis_settings = [])
+    ?(redshift_settings = []) ?(s3_settings = []) ?timeouts
+    ~endpoint_id ~endpoint_type ~engine_name __id =
   let __type = "aws_dms_endpoint" in
   let __attrs =
     ({
@@ -1805,10 +1807,11 @@ let make ?certificate_arn ?database_name ?extra_connection_attributes
            ?pause_replication_tasks ?port
            ?secrets_manager_access_role_arn ?secrets_manager_arn
            ?server_name ?service_access_role ?ssl_mode ?tags
-           ?tags_all ?username ?timeouts ~endpoint_id ~endpoint_type
-           ~engine_name ~elasticsearch_settings ~kafka_settings
-           ~kinesis_settings ~mongodb_settings ~postgres_settings
-           ~redis_settings ~redshift_settings ~s3_settings ());
+           ?tags_all ?username ~elasticsearch_settings
+           ~kafka_settings ~kinesis_settings ~mongodb_settings
+           ~postgres_settings ~redis_settings ~redshift_settings
+           ~s3_settings ?timeouts ~endpoint_id ~endpoint_type
+           ~engine_name ());
     attrs = __attrs;
   }
 
@@ -1816,19 +1819,21 @@ let register ?tf_module ?certificate_arn ?database_name
     ?extra_connection_attributes ?id ?kms_key_arn ?password
     ?pause_replication_tasks ?port ?secrets_manager_access_role_arn
     ?secrets_manager_arn ?server_name ?service_access_role ?ssl_mode
-    ?tags ?tags_all ?username ?timeouts ~endpoint_id ~endpoint_type
-    ~engine_name ~elasticsearch_settings ~kafka_settings
-    ~kinesis_settings ~mongodb_settings ~postgres_settings
-    ~redis_settings ~redshift_settings ~s3_settings __id =
+    ?tags ?tags_all ?username ?(elasticsearch_settings = [])
+    ?(kafka_settings = []) ?(kinesis_settings = [])
+    ?(mongodb_settings = []) ?(postgres_settings = [])
+    ?(redis_settings = []) ?(redshift_settings = [])
+    ?(s3_settings = []) ?timeouts ~endpoint_id ~endpoint_type
+    ~engine_name __id =
   let (r : _ Tf_core.resource) =
     make ?certificate_arn ?database_name ?extra_connection_attributes
       ?id ?kms_key_arn ?password ?pause_replication_tasks ?port
       ?secrets_manager_access_role_arn ?secrets_manager_arn
       ?server_name ?service_access_role ?ssl_mode ?tags ?tags_all
-      ?username ?timeouts ~endpoint_id ~endpoint_type ~engine_name
-      ~elasticsearch_settings ~kafka_settings ~kinesis_settings
-      ~mongodb_settings ~postgres_settings ~redis_settings
-      ~redshift_settings ~s3_settings __id
+      ?username ~elasticsearch_settings ~kafka_settings
+      ~kinesis_settings ~mongodb_settings ~postgres_settings
+      ~redis_settings ~redshift_settings ~s3_settings ?timeouts
+      ~endpoint_id ~endpoint_type ~engine_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

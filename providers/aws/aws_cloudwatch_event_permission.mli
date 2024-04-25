@@ -19,9 +19,9 @@ val aws_cloudwatch_event_permission :
   ?action:string prop ->
   ?event_bus_name:string prop ->
   ?id:string prop ->
+  ?condition:condition list ->
   principal:string prop ->
   statement_id:string prop ->
-  condition:condition list ->
   unit ->
   aws_cloudwatch_event_permission
 
@@ -43,9 +43,9 @@ val register :
   ?action:string prop ->
   ?event_bus_name:string prop ->
   ?id:string prop ->
+  ?condition:condition list ->
   principal:string prop ->
   statement_id:string prop ->
-  condition:condition list ->
   string ->
   t
 
@@ -53,8 +53,8 @@ val make :
   ?action:string prop ->
   ?event_bus_name:string prop ->
   ?id:string prop ->
+  ?condition:condition list ->
   principal:string prop ->
   statement_id:string prop ->
-  condition:condition list ->
   string ->
   t Tf_core.resource

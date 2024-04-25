@@ -114,8 +114,8 @@ let _ = yojson_of_google_sourcerepo_repository_iam_binding
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_sourcerepo_repository_iam_binding ?id ?project ~members
-    ~repository ~role ~condition () :
+let google_sourcerepo_repository_iam_binding ?id ?project
+    ?(condition = []) ~members ~repository ~role () :
     google_sourcerepo_repository_iam_binding =
   { id; members; project; repository; role; condition }
 
@@ -128,7 +128,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?project ~members ~repository ~role ~condition __id =
+let make ?id ?project ?(condition = []) ~members ~repository ~role
+    __id =
   let __type = "google_sourcerepo_repository_iam_binding" in
   let __attrs =
     ({
@@ -147,14 +148,14 @@ let make ?id ?project ~members ~repository ~role ~condition __id =
     json =
       yojson_of_google_sourcerepo_repository_iam_binding
         (google_sourcerepo_repository_iam_binding ?id ?project
-           ~members ~repository ~role ~condition ());
+           ~condition ~members ~repository ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ~members ~repository ~role
-    ~condition __id =
+let register ?tf_module ?id ?project ?(condition = []) ~members
+    ~repository ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ~members ~repository ~role ~condition __id
+    make ?id ?project ~condition ~members ~repository ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

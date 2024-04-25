@@ -731,8 +731,9 @@ let virtual_machine__sku ~capacity ~name () : virtual_machine__sku =
   { capacity; name }
 
 let virtual_machine ?additional_capability_gpu_drivers_installed
-    ?create_option ?shared_password_enabled ?usage_quota ~admin_user
-    ~image_reference ~non_admin_user ~sku () : virtual_machine =
+    ?create_option ?shared_password_enabled ?usage_quota
+    ?(non_admin_user = []) ~admin_user ~image_reference ~sku () :
+    virtual_machine =
   {
     additional_capability_gpu_drivers_installed;
     create_option;
@@ -745,9 +746,9 @@ let virtual_machine ?additional_capability_gpu_drivers_installed
   }
 
 let azurerm_lab_service_lab ?description ?id ?lab_plan_id ?tags
-    ?timeouts ~location ~name ~resource_group_name ~title
-    ~auto_shutdown ~connection_setting ~network ~roster ~security
-    ~virtual_machine () : azurerm_lab_service_lab =
+    ?(auto_shutdown = []) ?(network = []) ?(roster = []) ?timeouts
+    ~location ~name ~resource_group_name ~title ~connection_setting
+    ~security ~virtual_machine () : azurerm_lab_service_lab =
   {
     description;
     id;
@@ -777,10 +778,10 @@ type t = {
   title : string prop;
 }
 
-let make ?description ?id ?lab_plan_id ?tags ?timeouts ~location
-    ~name ~resource_group_name ~title ~auto_shutdown
-    ~connection_setting ~network ~roster ~security ~virtual_machine
-    __id =
+let make ?description ?id ?lab_plan_id ?tags ?(auto_shutdown = [])
+    ?(network = []) ?(roster = []) ?timeouts ~location ~name
+    ~resource_group_name ~title ~connection_setting ~security
+    ~virtual_machine __id =
   let __type = "azurerm_lab_service_lab" in
   let __attrs =
     ({
@@ -802,21 +803,20 @@ let make ?description ?id ?lab_plan_id ?tags ?timeouts ~location
     json =
       yojson_of_azurerm_lab_service_lab
         (azurerm_lab_service_lab ?description ?id ?lab_plan_id ?tags
-           ?timeouts ~location ~name ~resource_group_name ~title
-           ~auto_shutdown ~connection_setting ~network ~roster
-           ~security ~virtual_machine ());
+           ~auto_shutdown ~network ~roster ?timeouts ~location ~name
+           ~resource_group_name ~title ~connection_setting ~security
+           ~virtual_machine ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?lab_plan_id ?tags ?timeouts
-    ~location ~name ~resource_group_name ~title ~auto_shutdown
-    ~connection_setting ~network ~roster ~security ~virtual_machine
-    __id =
+let register ?tf_module ?description ?id ?lab_plan_id ?tags
+    ?(auto_shutdown = []) ?(network = []) ?(roster = []) ?timeouts
+    ~location ~name ~resource_group_name ~title ~connection_setting
+    ~security ~virtual_machine __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?lab_plan_id ?tags ?timeouts ~location
-      ~name ~resource_group_name ~title ~auto_shutdown
-      ~connection_setting ~network ~roster ~security ~virtual_machine
-      __id
+    make ?description ?id ?lab_plan_id ?tags ~auto_shutdown ~network
+      ~roster ?timeouts ~location ~name ~resource_group_name ~title
+      ~connection_setting ~security ~virtual_machine __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

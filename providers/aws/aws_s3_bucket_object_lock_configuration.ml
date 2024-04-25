@@ -153,7 +153,7 @@ let rule__default_retention ?days ?mode ?years () :
 let rule ~default_retention () : rule = { default_retention }
 
 let aws_s3_bucket_object_lock_configuration ?expected_bucket_owner
-    ?id ?object_lock_enabled ?token ~bucket ~rule () :
+    ?id ?object_lock_enabled ?token ?(rule = []) ~bucket () :
     aws_s3_bucket_object_lock_configuration =
   {
     bucket;
@@ -173,7 +173,7 @@ type t = {
 }
 
 let make ?expected_bucket_owner ?id ?object_lock_enabled ?token
-    ~bucket ~rule __id =
+    ?(rule = []) ~bucket __id =
   let __type = "aws_s3_bucket_object_lock_configuration" in
   let __attrs =
     ({
@@ -194,15 +194,15 @@ let make ?expected_bucket_owner ?id ?object_lock_enabled ?token
       yojson_of_aws_s3_bucket_object_lock_configuration
         (aws_s3_bucket_object_lock_configuration
            ?expected_bucket_owner ?id ?object_lock_enabled ?token
-           ~bucket ~rule ());
+           ~rule ~bucket ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?expected_bucket_owner ?id
-    ?object_lock_enabled ?token ~bucket ~rule __id =
+    ?object_lock_enabled ?token ?(rule = []) ~bucket __id =
   let (r : _ Tf_core.resource) =
-    make ?expected_bucket_owner ?id ?object_lock_enabled ?token
-      ~bucket ~rule __id
+    make ?expected_bucket_owner ?id ?object_lock_enabled ?token ~rule
+      ~bucket __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

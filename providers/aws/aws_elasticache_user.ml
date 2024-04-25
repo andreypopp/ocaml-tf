@@ -231,8 +231,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let aws_elasticache_user ?id ?no_password_required ?passwords ?tags
-    ?tags_all ?timeouts ~access_string ~engine ~user_id ~user_name
-    ~authentication_mode () : aws_elasticache_user =
+    ?tags_all ?(authentication_mode = []) ?timeouts ~access_string
+    ~engine ~user_id ~user_name () : aws_elasticache_user =
   {
     access_string;
     engine;
@@ -261,8 +261,8 @@ type t = {
 }
 
 let make ?id ?no_password_required ?passwords ?tags ?tags_all
-    ?timeouts ~access_string ~engine ~user_id ~user_name
-    ~authentication_mode __id =
+    ?(authentication_mode = []) ?timeouts ~access_string ~engine
+    ~user_id ~user_name __id =
   let __type = "aws_elasticache_user" in
   let __attrs =
     ({
@@ -286,18 +286,18 @@ let make ?id ?no_password_required ?passwords ?tags ?tags_all
     json =
       yojson_of_aws_elasticache_user
         (aws_elasticache_user ?id ?no_password_required ?passwords
-           ?tags ?tags_all ?timeouts ~access_string ~engine ~user_id
-           ~user_name ~authentication_mode ());
+           ?tags ?tags_all ~authentication_mode ?timeouts
+           ~access_string ~engine ~user_id ~user_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?no_password_required ?passwords ?tags
-    ?tags_all ?timeouts ~access_string ~engine ~user_id ~user_name
-    ~authentication_mode __id =
+    ?tags_all ?(authentication_mode = []) ?timeouts ~access_string
+    ~engine ~user_id ~user_name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?no_password_required ?passwords ?tags ?tags_all
-      ?timeouts ~access_string ~engine ~user_id ~user_name
-      ~authentication_mode __id
+      ~authentication_mode ?timeouts ~access_string ~engine ~user_id
+      ~user_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

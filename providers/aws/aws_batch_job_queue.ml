@@ -181,8 +181,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_batch_job_queue ?compute_environments ?scheduling_policy_arn
-    ?tags ?timeouts ~name ~priority ~state ~compute_environment_order
-    () : aws_batch_job_queue =
+    ?tags ?(compute_environment_order = []) ?timeouts ~name ~priority
+    ~state () : aws_batch_job_queue =
   {
     compute_environments;
     name;
@@ -206,8 +206,9 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?compute_environments ?scheduling_policy_arn ?tags ?timeouts
-    ~name ~priority ~state ~compute_environment_order __id =
+let make ?compute_environments ?scheduling_policy_arn ?tags
+    ?(compute_environment_order = []) ?timeouts ~name ~priority
+    ~state __id =
   let __type = "aws_batch_job_queue" in
   let __attrs =
     ({
@@ -231,17 +232,18 @@ let make ?compute_environments ?scheduling_policy_arn ?tags ?timeouts
     json =
       yojson_of_aws_batch_job_queue
         (aws_batch_job_queue ?compute_environments
-           ?scheduling_policy_arn ?tags ?timeouts ~name ~priority
-           ~state ~compute_environment_order ());
+           ?scheduling_policy_arn ?tags ~compute_environment_order
+           ?timeouts ~name ~priority ~state ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?compute_environments ?scheduling_policy_arn
-    ?tags ?timeouts ~name ~priority ~state ~compute_environment_order
-    __id =
+    ?tags ?(compute_environment_order = []) ?timeouts ~name ~priority
+    ~state __id =
   let (r : _ Tf_core.resource) =
-    make ?compute_environments ?scheduling_policy_arn ?tags ?timeouts
-      ~name ~priority ~state ~compute_environment_order __id
+    make ?compute_environments ?scheduling_policy_arn ?tags
+      ~compute_environment_order ?timeouts ~name ~priority ~state
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

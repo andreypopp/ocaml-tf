@@ -1167,8 +1167,8 @@ let rule__rule__and__tags ?key ?match_options ?values () :
     rule__rule__and__tags =
   { key; match_options; values }
 
-let rule__rule__and ~cost_category ~dimension ~tags () :
-    rule__rule__and =
+let rule__rule__and ?(cost_category = []) ?(dimension = [])
+    ?(tags = []) () : rule__rule__and =
   { cost_category; dimension; tags }
 
 let rule__rule__cost_category ?key ?match_options ?values () :
@@ -1191,8 +1191,8 @@ let rule__rule__not__tags ?key ?match_options ?values () :
     rule__rule__not__tags =
   { key; match_options; values }
 
-let rule__rule__not ~cost_category ~dimension ~tags () :
-    rule__rule__not =
+let rule__rule__not ?(cost_category = []) ?(dimension = [])
+    ?(tags = []) () : rule__rule__not =
   { cost_category; dimension; tags }
 
 let rule__rule__or__cost_category ?key ?match_options ?values () :
@@ -1207,19 +1207,20 @@ let rule__rule__or__tags ?key ?match_options ?values () :
     rule__rule__or__tags =
   { key; match_options; values }
 
-let rule__rule__or ~cost_category ~dimension ~tags () :
-    rule__rule__or =
+let rule__rule__or ?(cost_category = []) ?(dimension = [])
+    ?(tags = []) () : rule__rule__or =
   { cost_category; dimension; tags }
 
 let rule__rule__tags ?key ?match_options ?values () :
     rule__rule__tags =
   { key; match_options; values }
 
-let rule__rule ~and_ ~cost_category ~dimension ~not ~or_ ~tags () :
-    rule__rule =
+let rule__rule ?(cost_category = []) ?(dimension = []) ?(not = [])
+    ?(tags = []) ~and_ ~or_ () : rule__rule =
   { and_; cost_category; dimension; not; or_; tags }
 
-let rule ?type_ ?value ~inherited_value ~rule () : rule =
+let rule ?type_ ?value ?(inherited_value = []) ?(rule = []) () : rule
+    =
   { type_; value; inherited_value; rule }
 
 let split_charge_rule__parameter ?type_ ?values () :

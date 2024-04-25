@@ -340,8 +340,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_compute_subnetwork ?description ?external_ipv6_prefix ?id
     ?ipv6_access_type ?private_ip_google_access
     ?private_ipv6_google_access ?project ?purpose ?region ?role
-    ?secondary_ip_range ?stack_type ?timeouts ~ip_cidr_range ~name
-    ~network ~log_config () : google_compute_subnetwork =
+    ?secondary_ip_range ?stack_type ?(log_config = []) ?timeouts
+    ~ip_cidr_range ~name ~network () : google_compute_subnetwork =
   {
     description;
     external_ipv6_prefix;
@@ -388,8 +388,8 @@ type t = {
 
 let make ?description ?external_ipv6_prefix ?id ?ipv6_access_type
     ?private_ip_google_access ?private_ipv6_google_access ?project
-    ?purpose ?region ?role ?secondary_ip_range ?stack_type ?timeouts
-    ~ip_cidr_range ~name ~network ~log_config __id =
+    ?purpose ?region ?role ?secondary_ip_range ?stack_type
+    ?(log_config = []) ?timeouts ~ip_cidr_range ~name ~network __id =
   let __type = "google_compute_subnetwork" in
   let __attrs =
     ({
@@ -432,21 +432,21 @@ let make ?description ?external_ipv6_prefix ?id ?ipv6_access_type
         (google_compute_subnetwork ?description ?external_ipv6_prefix
            ?id ?ipv6_access_type ?private_ip_google_access
            ?private_ipv6_google_access ?project ?purpose ?region
-           ?role ?secondary_ip_range ?stack_type ?timeouts
-           ~ip_cidr_range ~name ~network ~log_config ());
+           ?role ?secondary_ip_range ?stack_type ~log_config
+           ?timeouts ~ip_cidr_range ~name ~network ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?external_ipv6_prefix ?id
     ?ipv6_access_type ?private_ip_google_access
     ?private_ipv6_google_access ?project ?purpose ?region ?role
-    ?secondary_ip_range ?stack_type ?timeouts ~ip_cidr_range ~name
-    ~network ~log_config __id =
+    ?secondary_ip_range ?stack_type ?(log_config = []) ?timeouts
+    ~ip_cidr_range ~name ~network __id =
   let (r : _ Tf_core.resource) =
     make ?description ?external_ipv6_prefix ?id ?ipv6_access_type
       ?private_ip_google_access ?private_ipv6_google_access ?project
       ?purpose ?region ?role ?secondary_ip_range ?stack_type
-      ?timeouts ~ip_cidr_range ~name ~network ~log_config __id
+      ~log_config ?timeouts ~ip_cidr_range ~name ~network __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

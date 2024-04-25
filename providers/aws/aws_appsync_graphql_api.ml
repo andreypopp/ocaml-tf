@@ -643,9 +643,10 @@ let additional_authentication_provider__user_pool_config
     additional_authentication_provider__user_pool_config =
   { app_id_client_regex; aws_region; user_pool_id }
 
-let additional_authentication_provider ~authentication_type
-    ~lambda_authorizer_config ~openid_connect_config
-    ~user_pool_config () : additional_authentication_provider =
+let additional_authentication_provider
+    ?(lambda_authorizer_config = []) ?(openid_connect_config = [])
+    ?(user_pool_config = []) ~authentication_type () :
+    additional_authentication_provider =
   {
     authentication_type;
     lambda_authorizer_config;
@@ -680,10 +681,11 @@ let user_pool_config ?app_id_client_regex ?aws_region ~default_action
 
 let aws_appsync_graphql_api ?id ?introspection_config
     ?query_depth_limit ?resolver_count_limit ?schema ?tags ?tags_all
-    ?visibility ?xray_enabled ~authentication_type ~name
-    ~additional_authentication_provider ~lambda_authorizer_config
-    ~log_config ~openid_connect_config ~user_pool_config () :
-    aws_appsync_graphql_api =
+    ?visibility ?xray_enabled
+    ?(additional_authentication_provider = [])
+    ?(lambda_authorizer_config = []) ?(log_config = [])
+    ?(openid_connect_config = []) ?(user_pool_config = [])
+    ~authentication_type ~name () : aws_appsync_graphql_api =
   {
     authentication_type;
     id;
@@ -721,9 +723,10 @@ type t = {
 
 let make ?id ?introspection_config ?query_depth_limit
     ?resolver_count_limit ?schema ?tags ?tags_all ?visibility
-    ?xray_enabled ~authentication_type ~name
-    ~additional_authentication_provider ~lambda_authorizer_config
-    ~log_config ~openid_connect_config ~user_pool_config __id =
+    ?xray_enabled ?(additional_authentication_provider = [])
+    ?(lambda_authorizer_config = []) ?(log_config = [])
+    ?(openid_connect_config = []) ?(user_pool_config = [])
+    ~authentication_type ~name __id =
   let __type = "aws_appsync_graphql_api" in
   let __attrs =
     ({
@@ -754,24 +757,26 @@ let make ?id ?introspection_config ?query_depth_limit
       yojson_of_aws_appsync_graphql_api
         (aws_appsync_graphql_api ?id ?introspection_config
            ?query_depth_limit ?resolver_count_limit ?schema ?tags
-           ?tags_all ?visibility ?xray_enabled ~authentication_type
-           ~name ~additional_authentication_provider
+           ?tags_all ?visibility ?xray_enabled
+           ~additional_authentication_provider
            ~lambda_authorizer_config ~log_config
-           ~openid_connect_config ~user_pool_config ());
+           ~openid_connect_config ~user_pool_config
+           ~authentication_type ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?introspection_config ?query_depth_limit
     ?resolver_count_limit ?schema ?tags ?tags_all ?visibility
-    ?xray_enabled ~authentication_type ~name
-    ~additional_authentication_provider ~lambda_authorizer_config
-    ~log_config ~openid_connect_config ~user_pool_config __id =
+    ?xray_enabled ?(additional_authentication_provider = [])
+    ?(lambda_authorizer_config = []) ?(log_config = [])
+    ?(openid_connect_config = []) ?(user_pool_config = [])
+    ~authentication_type ~name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?introspection_config ?query_depth_limit
       ?resolver_count_limit ?schema ?tags ?tags_all ?visibility
-      ?xray_enabled ~authentication_type ~name
-      ~additional_authentication_provider ~lambda_authorizer_config
-      ~log_config ~openid_connect_config ~user_pool_config __id
+      ?xray_enabled ~additional_authentication_provider
+      ~lambda_authorizer_config ~log_config ~openid_connect_config
+      ~user_pool_config ~authentication_type ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

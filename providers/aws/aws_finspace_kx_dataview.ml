@@ -232,9 +232,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_finspace_kx_dataview ?availability_zone_id ?changeset_id
-    ?description ?id ?tags ?tags_all ?timeouts ~auto_update ~az_mode
-    ~database_name ~environment_id ~name ~segment_configurations () :
-    aws_finspace_kx_dataview =
+    ?description ?id ?tags ?tags_all ?(segment_configurations = [])
+    ?timeouts ~auto_update ~az_mode ~database_name ~environment_id
+    ~name () : aws_finspace_kx_dataview =
   {
     auto_update;
     availability_zone_id;
@@ -270,8 +270,8 @@ type t = {
 }
 
 let make ?availability_zone_id ?changeset_id ?description ?id ?tags
-    ?tags_all ?timeouts ~auto_update ~az_mode ~database_name
-    ~environment_id ~name ~segment_configurations __id =
+    ?tags_all ?(segment_configurations = []) ?timeouts ~auto_update
+    ~az_mode ~database_name ~environment_id ~name __id =
   let __type = "aws_finspace_kx_dataview" in
   let __attrs =
     ({
@@ -302,20 +302,20 @@ let make ?availability_zone_id ?changeset_id ?description ?id ?tags
     json =
       yojson_of_aws_finspace_kx_dataview
         (aws_finspace_kx_dataview ?availability_zone_id ?changeset_id
-           ?description ?id ?tags ?tags_all ?timeouts ~auto_update
-           ~az_mode ~database_name ~environment_id ~name
-           ~segment_configurations ());
+           ?description ?id ?tags ?tags_all ~segment_configurations
+           ?timeouts ~auto_update ~az_mode ~database_name
+           ~environment_id ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?availability_zone_id ?changeset_id
-    ?description ?id ?tags ?tags_all ?timeouts ~auto_update ~az_mode
-    ~database_name ~environment_id ~name ~segment_configurations __id
-    =
+    ?description ?id ?tags ?tags_all ?(segment_configurations = [])
+    ?timeouts ~auto_update ~az_mode ~database_name ~environment_id
+    ~name __id =
   let (r : _ Tf_core.resource) =
     make ?availability_zone_id ?changeset_id ?description ?id ?tags
-      ?tags_all ?timeouts ~auto_update ~az_mode ~database_name
-      ~environment_id ~name ~segment_configurations __id
+      ?tags_all ~segment_configurations ?timeouts ~auto_update
+      ~az_mode ~database_name ~environment_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

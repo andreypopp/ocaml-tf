@@ -683,9 +683,9 @@ let video_watermarks ?horizontal_align ?horizontal_offset ?id
   }
 
 let aws_elastictranscoder_preset ?description ?id ?name ?type_
-    ?video_codec_options ~container ~audio ~audio_codec_options
-    ~thumbnails ~video ~video_watermarks () :
-    aws_elastictranscoder_preset =
+    ?video_codec_options ?(audio = []) ?(audio_codec_options = [])
+    ?(thumbnails = []) ?(video = []) ~container ~video_watermarks ()
+    : aws_elastictranscoder_preset =
   {
     container;
     description;
@@ -711,8 +711,8 @@ type t = {
 }
 
 let make ?description ?id ?name ?type_ ?video_codec_options
-    ~container ~audio ~audio_codec_options ~thumbnails ~video
-    ~video_watermarks __id =
+    ?(audio = []) ?(audio_codec_options = []) ?(thumbnails = [])
+    ?(video = []) ~container ~video_watermarks __id =
   let __type = "aws_elastictranscoder_preset" in
   let __attrs =
     ({
@@ -733,18 +733,18 @@ let make ?description ?id ?name ?type_ ?video_codec_options
     json =
       yojson_of_aws_elastictranscoder_preset
         (aws_elastictranscoder_preset ?description ?id ?name ?type_
-           ?video_codec_options ~container ~audio
-           ~audio_codec_options ~thumbnails ~video ~video_watermarks
-           ());
+           ?video_codec_options ~audio ~audio_codec_options
+           ~thumbnails ~video ~container ~video_watermarks ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?name ?type_
-    ?video_codec_options ~container ~audio ~audio_codec_options
-    ~thumbnails ~video ~video_watermarks __id =
+    ?video_codec_options ?(audio = []) ?(audio_codec_options = [])
+    ?(thumbnails = []) ?(video = []) ~container ~video_watermarks
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?name ?type_ ?video_codec_options
-      ~container ~audio ~audio_codec_options ~thumbnails ~video
+    make ?description ?id ?name ?type_ ?video_codec_options ~audio
+      ~audio_codec_options ~thumbnails ~video ~container
       ~video_watermarks __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

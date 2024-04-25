@@ -125,7 +125,7 @@ let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
 let google_compute_subnetwork_iam_binding ?id ?project ?region
-    ~members ~role ~subnetwork ~condition () :
+    ?(condition = []) ~members ~role ~subnetwork () :
     google_compute_subnetwork_iam_binding =
   { id; members; project; region; role; subnetwork; condition }
 
@@ -139,8 +139,8 @@ type t = {
   subnetwork : string prop;
 }
 
-let make ?id ?project ?region ~members ~role ~subnetwork ~condition
-    __id =
+let make ?id ?project ?region ?(condition = []) ~members ~role
+    ~subnetwork __id =
   let __type = "google_compute_subnetwork_iam_binding" in
   let __attrs =
     ({
@@ -160,14 +160,14 @@ let make ?id ?project ?region ~members ~role ~subnetwork ~condition
     json =
       yojson_of_google_compute_subnetwork_iam_binding
         (google_compute_subnetwork_iam_binding ?id ?project ?region
-           ~members ~role ~subnetwork ~condition ());
+           ~condition ~members ~role ~subnetwork ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ?region ~members ~role
-    ~subnetwork ~condition __id =
+let register ?tf_module ?id ?project ?region ?(condition = [])
+    ~members ~role ~subnetwork __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ?region ~members ~role ~subnetwork ~condition
+    make ?id ?project ?region ~condition ~members ~role ~subnetwork
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

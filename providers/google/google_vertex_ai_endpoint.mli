@@ -81,11 +81,11 @@ val google_vertex_ai_endpoint :
   ?network:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?encryption_spec:encryption_spec list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   location:string prop ->
   name:string prop ->
-  encryption_spec:encryption_spec list ->
   unit ->
   google_vertex_ai_endpoint
 
@@ -121,11 +121,11 @@ val register :
   ?network:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?encryption_spec:encryption_spec list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   location:string prop ->
   name:string prop ->
-  encryption_spec:encryption_spec list ->
   string ->
   t
 
@@ -136,10 +136,10 @@ val make :
   ?network:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?encryption_spec:encryption_spec list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   location:string prop ->
   name:string prop ->
-  encryption_spec:encryption_spec list ->
   string ->
   t Tf_core.resource

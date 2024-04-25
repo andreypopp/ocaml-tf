@@ -49,11 +49,11 @@ val google_compute_image :
   ?source_image:string prop ->
   ?source_snapshot:string prop ->
   ?storage_locations:string prop list ->
+  ?image_encryption_key:image_encryption_key list ->
+  ?raw_disk:raw_disk list ->
   ?timeouts:timeouts ->
   name:string prop ->
   guest_os_features:guest_os_features list ->
-  image_encryption_key:image_encryption_key list ->
-  raw_disk:raw_disk list ->
   unit ->
   google_compute_image
 
@@ -95,11 +95,11 @@ val register :
   ?source_image:string prop ->
   ?source_snapshot:string prop ->
   ?storage_locations:string prop list ->
+  ?image_encryption_key:image_encryption_key list ->
+  ?raw_disk:raw_disk list ->
   ?timeouts:timeouts ->
   name:string prop ->
   guest_os_features:guest_os_features list ->
-  image_encryption_key:image_encryption_key list ->
-  raw_disk:raw_disk list ->
   string ->
   t
 
@@ -115,10 +115,10 @@ val make :
   ?source_image:string prop ->
   ?source_snapshot:string prop ->
   ?storage_locations:string prop list ->
+  ?image_encryption_key:image_encryption_key list ->
+  ?raw_disk:raw_disk list ->
   ?timeouts:timeouts ->
   name:string prop ->
   guest_os_features:guest_os_features list ->
-  image_encryption_key:image_encryption_key list ->
-  raw_disk:raw_disk list ->
   string ->
   t Tf_core.resource

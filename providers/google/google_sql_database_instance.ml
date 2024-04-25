@@ -1656,8 +1656,8 @@ let settings__backup_configuration__backup_retention_settings
 
 let settings__backup_configuration ?binary_log_enabled ?enabled
     ?location ?point_in_time_recovery_enabled ?start_time
-    ?transaction_log_retention_days ~backup_retention_settings () :
-    settings__backup_configuration =
+    ?transaction_log_retention_days ?(backup_retention_settings = [])
+    () : settings__backup_configuration =
   {
     binary_log_enabled;
     enabled;
@@ -1744,12 +1744,13 @@ let settings__sql_server_audit_config ?bucket ?retention_interval
 let settings ?activation_policy ?availability_type ?collation
     ?connector_enforcement ?deletion_protection_enabled
     ?disk_autoresize ?disk_autoresize_limit ?disk_size ?disk_type
-    ?edition ?pricing_plan ?time_zone ?user_labels ~tier
-    ~active_directory_config ~advanced_machine_features
-    ~backup_configuration ~data_cache_config ~database_flags
-    ~deny_maintenance_period ~insights_config ~ip_configuration
-    ~location_preference ~maintenance_window
-    ~password_validation_policy ~sql_server_audit_config () :
+    ?edition ?pricing_plan ?time_zone ?user_labels
+    ?(active_directory_config = []) ?(advanced_machine_features = [])
+    ?(backup_configuration = []) ?(data_cache_config = [])
+    ?(deny_maintenance_period = []) ?(insights_config = [])
+    ?(ip_configuration = []) ?(location_preference = [])
+    ?(maintenance_window = []) ?(password_validation_policy = [])
+    ?(sql_server_audit_config = []) ~tier ~database_flags () :
     settings =
   {
     activation_policy;
@@ -1786,9 +1787,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_sql_database_instance ?deletion_protection
     ?encryption_key_name ?id ?instance_type ?maintenance_version
     ?master_instance_name ?name ?project ?region ?root_password
-    ?timeouts ~database_version ~clone ~replica_configuration
-    ~restore_backup_context ~settings () :
-    google_sql_database_instance =
+    ?(clone = []) ?(replica_configuration = [])
+    ?(restore_backup_context = []) ?(settings = []) ?timeouts
+    ~database_version () : google_sql_database_instance =
   {
     database_version;
     deletion_protection;
@@ -1835,8 +1836,9 @@ type t = {
 
 let make ?deletion_protection ?encryption_key_name ?id ?instance_type
     ?maintenance_version ?master_instance_name ?name ?project ?region
-    ?root_password ?timeouts ~database_version ~clone
-    ~replica_configuration ~restore_backup_context ~settings __id =
+    ?root_password ?(clone = []) ?(replica_configuration = [])
+    ?(restore_backup_context = []) ?(settings = []) ?timeouts
+    ~database_version __id =
   let __type = "google_sql_database_instance" in
   let __attrs =
     ({
@@ -1884,22 +1886,23 @@ let make ?deletion_protection ?encryption_key_name ?id ?instance_type
         (google_sql_database_instance ?deletion_protection
            ?encryption_key_name ?id ?instance_type
            ?maintenance_version ?master_instance_name ?name ?project
-           ?region ?root_password ?timeouts ~database_version ~clone
-           ~replica_configuration ~restore_backup_context ~settings
-           ());
+           ?region ?root_password ~clone ~replica_configuration
+           ~restore_backup_context ~settings ?timeouts
+           ~database_version ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?deletion_protection ?encryption_key_name ?id
     ?instance_type ?maintenance_version ?master_instance_name ?name
-    ?project ?region ?root_password ?timeouts ~database_version
-    ~clone ~replica_configuration ~restore_backup_context ~settings
-    __id =
+    ?project ?region ?root_password ?(clone = [])
+    ?(replica_configuration = []) ?(restore_backup_context = [])
+    ?(settings = []) ?timeouts ~database_version __id =
   let (r : _ Tf_core.resource) =
     make ?deletion_protection ?encryption_key_name ?id ?instance_type
       ?maintenance_version ?master_instance_name ?name ?project
-      ?region ?root_password ?timeouts ~database_version ~clone
-      ~replica_configuration ~restore_backup_context ~settings __id
+      ?region ?root_password ~clone ~replica_configuration
+      ~restore_backup_context ~settings ?timeouts ~database_version
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

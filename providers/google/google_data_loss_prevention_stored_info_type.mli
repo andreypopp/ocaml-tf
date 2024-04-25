@@ -17,8 +17,8 @@ val dictionary__word_list :
 type dictionary
 
 val dictionary :
-  cloud_storage_path:dictionary__cloud_storage_path list ->
-  word_list:dictionary__word_list list ->
+  ?cloud_storage_path:dictionary__cloud_storage_path list ->
+  ?word_list:dictionary__word_list list ->
   unit ->
   dictionary
 
@@ -61,8 +61,8 @@ val large_custom_dictionary__output_path :
 type large_custom_dictionary
 
 val large_custom_dictionary :
-  big_query_field:large_custom_dictionary__big_query_field list ->
-  cloud_storage_file_set:
+  ?big_query_field:large_custom_dictionary__big_query_field list ->
+  ?cloud_storage_file_set:
     large_custom_dictionary__cloud_storage_file_set list ->
   output_path:large_custom_dictionary__output_path list ->
   unit ->
@@ -92,11 +92,11 @@ val google_data_loss_prevention_stored_info_type :
   ?display_name:string prop ->
   ?id:string prop ->
   ?stored_info_type_id:string prop ->
+  ?dictionary:dictionary list ->
+  ?large_custom_dictionary:large_custom_dictionary list ->
+  ?regex:regex list ->
   ?timeouts:timeouts ->
   parent:string prop ->
-  dictionary:dictionary list ->
-  large_custom_dictionary:large_custom_dictionary list ->
-  regex:regex list ->
   unit ->
   google_data_loss_prevention_stored_info_type
 
@@ -120,11 +120,11 @@ val register :
   ?display_name:string prop ->
   ?id:string prop ->
   ?stored_info_type_id:string prop ->
+  ?dictionary:dictionary list ->
+  ?large_custom_dictionary:large_custom_dictionary list ->
+  ?regex:regex list ->
   ?timeouts:timeouts ->
   parent:string prop ->
-  dictionary:dictionary list ->
-  large_custom_dictionary:large_custom_dictionary list ->
-  regex:regex list ->
   string ->
   t
 
@@ -133,10 +133,10 @@ val make :
   ?display_name:string prop ->
   ?id:string prop ->
   ?stored_info_type_id:string prop ->
+  ?dictionary:dictionary list ->
+  ?large_custom_dictionary:large_custom_dictionary list ->
+  ?regex:regex list ->
   ?timeouts:timeouts ->
   parent:string prop ->
-  dictionary:dictionary list ->
-  large_custom_dictionary:large_custom_dictionary list ->
-  regex:regex list ->
   string ->
   t Tf_core.resource

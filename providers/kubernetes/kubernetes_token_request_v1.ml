@@ -246,16 +246,17 @@ let spec__bound_object_ref ?api_version ?kind ?name ?uid () :
     spec__bound_object_ref =
   { api_version; kind; name; uid }
 
-let spec ?audiences ?expiration_seconds ~bound_object_ref () : spec =
+let spec ?audiences ?expiration_seconds ?(bound_object_ref = []) () :
+    spec =
   { audiences; expiration_seconds; bound_object_ref }
 
-let kubernetes_token_request_v1 ?id ~metadata ~spec () :
+let kubernetes_token_request_v1 ?id ?(spec = []) ~metadata () :
     kubernetes_token_request_v1 =
   { id; metadata; spec }
 
 type t = { id : string prop; token : string prop }
 
-let make ?id ~metadata ~spec __id =
+let make ?id ?(spec = []) ~metadata __id =
   let __type = "kubernetes_token_request_v1" in
   let __attrs =
     ({
@@ -269,11 +270,11 @@ let make ?id ~metadata ~spec __id =
     type_ = __type;
     json =
       yojson_of_kubernetes_token_request_v1
-        (kubernetes_token_request_v1 ?id ~metadata ~spec ());
+        (kubernetes_token_request_v1 ?id ~spec ~metadata ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~metadata ~spec __id =
-  let (r : _ Tf_core.resource) = make ?id ~metadata ~spec __id in
+let register ?tf_module ?id ?(spec = []) ~metadata __id =
+  let (r : _ Tf_core.resource) = make ?id ~spec ~metadata __id in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

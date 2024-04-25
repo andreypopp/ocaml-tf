@@ -28,10 +28,10 @@ type azurerm_frontdoor_custom_https_configuration
 
 val azurerm_frontdoor_custom_https_configuration :
   ?id:string prop ->
+  ?custom_https_configuration:custom_https_configuration list ->
   ?timeouts:timeouts ->
   custom_https_provisioning_enabled:bool prop ->
   frontend_endpoint_id:string prop ->
-  custom_https_configuration:custom_https_configuration list ->
   unit ->
   azurerm_frontdoor_custom_https_configuration
 
@@ -49,18 +49,18 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?custom_https_configuration:custom_https_configuration list ->
   ?timeouts:timeouts ->
   custom_https_provisioning_enabled:bool prop ->
   frontend_endpoint_id:string prop ->
-  custom_https_configuration:custom_https_configuration list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?custom_https_configuration:custom_https_configuration list ->
   ?timeouts:timeouts ->
   custom_https_provisioning_enabled:bool prop ->
   frontend_endpoint_id:string prop ->
-  custom_https_configuration:custom_https_configuration list ->
   string ->
   t Tf_core.resource

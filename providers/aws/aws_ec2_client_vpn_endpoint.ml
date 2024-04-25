@@ -433,10 +433,10 @@ let connection_log_options ?cloudwatch_log_group
 let aws_ec2_client_vpn_endpoint ?description ?dns_servers ?id
     ?security_group_ids ?self_service_portal ?session_timeout_hours
     ?split_tunnel ?tags ?tags_all ?transport_protocol ?vpc_id
-    ?vpn_port ~client_cidr_block ~server_certificate_arn
-    ~authentication_options ~client_connect_options
-    ~client_login_banner_options ~connection_log_options () :
-    aws_ec2_client_vpn_endpoint =
+    ?vpn_port ?(client_connect_options = [])
+    ?(client_login_banner_options = []) ~client_cidr_block
+    ~server_certificate_arn ~authentication_options
+    ~connection_log_options () : aws_ec2_client_vpn_endpoint =
   {
     client_cidr_block;
     description;
@@ -481,9 +481,10 @@ type t = {
 let make ?description ?dns_servers ?id ?security_group_ids
     ?self_service_portal ?session_timeout_hours ?split_tunnel ?tags
     ?tags_all ?transport_protocol ?vpc_id ?vpn_port
-    ~client_cidr_block ~server_certificate_arn
-    ~authentication_options ~client_connect_options
-    ~client_login_banner_options ~connection_log_options __id =
+    ?(client_connect_options = [])
+    ?(client_login_banner_options = []) ~client_cidr_block
+    ~server_certificate_arn ~authentication_options
+    ~connection_log_options __id =
   let __type = "aws_ec2_client_vpn_endpoint" in
   let __attrs =
     ({
@@ -522,26 +523,27 @@ let make ?description ?dns_servers ?id ?security_group_ids
         (aws_ec2_client_vpn_endpoint ?description ?dns_servers ?id
            ?security_group_ids ?self_service_portal
            ?session_timeout_hours ?split_tunnel ?tags ?tags_all
-           ?transport_protocol ?vpc_id ?vpn_port ~client_cidr_block
-           ~server_certificate_arn ~authentication_options
+           ?transport_protocol ?vpc_id ?vpn_port
            ~client_connect_options ~client_login_banner_options
-           ~connection_log_options ());
+           ~client_cidr_block ~server_certificate_arn
+           ~authentication_options ~connection_log_options ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?dns_servers ?id
     ?security_group_ids ?self_service_portal ?session_timeout_hours
     ?split_tunnel ?tags ?tags_all ?transport_protocol ?vpc_id
-    ?vpn_port ~client_cidr_block ~server_certificate_arn
-    ~authentication_options ~client_connect_options
-    ~client_login_banner_options ~connection_log_options __id =
+    ?vpn_port ?(client_connect_options = [])
+    ?(client_login_banner_options = []) ~client_cidr_block
+    ~server_certificate_arn ~authentication_options
+    ~connection_log_options __id =
   let (r : _ Tf_core.resource) =
     make ?description ?dns_servers ?id ?security_group_ids
       ?self_service_portal ?session_timeout_hours ?split_tunnel ?tags
       ?tags_all ?transport_protocol ?vpc_id ?vpn_port
+      ~client_connect_options ~client_login_banner_options
       ~client_cidr_block ~server_certificate_arn
-      ~authentication_options ~client_connect_options
-      ~client_login_banner_options ~connection_log_options __id
+      ~authentication_options ~connection_log_options __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

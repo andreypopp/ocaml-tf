@@ -1777,8 +1777,8 @@ let template__spec__containers__env__value_from ~secret_key_ref () :
     template__spec__containers__env__value_from =
   { secret_key_ref }
 
-let template__spec__containers__env ?name ?value ~value_from () :
-    template__spec__containers__env =
+let template__spec__containers__env ?name ?value ?(value_from = [])
+    () : template__spec__containers__env =
   { name; value; value_from }
 
 let template__spec__containers__env_from__config_map_ref__local_object_reference
@@ -1788,7 +1788,7 @@ let template__spec__containers__env_from__config_map_ref__local_object_reference
   { name }
 
 let template__spec__containers__env_from__config_map_ref ?optional
-    ~local_object_reference () :
+    ?(local_object_reference = []) () :
     template__spec__containers__env_from__config_map_ref =
   { optional; local_object_reference }
 
@@ -1799,12 +1799,13 @@ let template__spec__containers__env_from__secret_ref__local_object_reference
   { name }
 
 let template__spec__containers__env_from__secret_ref ?optional
-    ~local_object_reference () :
+    ?(local_object_reference = []) () :
     template__spec__containers__env_from__secret_ref =
   { optional; local_object_reference }
 
-let template__spec__containers__env_from ?prefix ~config_map_ref
-    ~secret_ref () : template__spec__containers__env_from =
+let template__spec__containers__env_from ?prefix
+    ?(config_map_ref = []) ?(secret_ref = []) () :
+    template__spec__containers__env_from =
   { prefix; config_map_ref; secret_ref }
 
 let template__spec__containers__liveness_probe__grpc ?port ?service
@@ -1818,13 +1819,14 @@ let template__spec__containers__liveness_probe__http_get__http_headers
   { name; value }
 
 let template__spec__containers__liveness_probe__http_get ?path ?port
-    ~http_headers () :
+    ?(http_headers = []) () :
     template__spec__containers__liveness_probe__http_get =
   { path; port; http_headers }
 
 let template__spec__containers__liveness_probe ?failure_threshold
-    ?initial_delay_seconds ?period_seconds ?timeout_seconds ~grpc
-    ~http_get () : template__spec__containers__liveness_probe =
+    ?initial_delay_seconds ?period_seconds ?timeout_seconds
+    ?(grpc = []) ?(http_get = []) () :
+    template__spec__containers__liveness_probe =
   {
     failure_threshold;
     initial_delay_seconds;
@@ -1853,7 +1855,7 @@ let template__spec__containers__startup_probe__http_get__http_headers
   { name; value }
 
 let template__spec__containers__startup_probe__http_get ?path ?port
-    ~http_headers () :
+    ?(http_headers = []) () :
     template__spec__containers__startup_probe__http_get =
   { path; port; http_headers }
 
@@ -1862,8 +1864,8 @@ let template__spec__containers__startup_probe__tcp_socket ?port () :
   { port }
 
 let template__spec__containers__startup_probe ?failure_threshold
-    ?initial_delay_seconds ?period_seconds ?timeout_seconds ~grpc
-    ~http_get ~tcp_socket () :
+    ?initial_delay_seconds ?period_seconds ?timeout_seconds
+    ?(grpc = []) ?(http_get = []) ?(tcp_socket = []) () :
     template__spec__containers__startup_probe =
   {
     failure_threshold;
@@ -1880,8 +1882,9 @@ let template__spec__containers__volume_mounts ~mount_path ~name () :
   { mount_path; name }
 
 let template__spec__containers ?args ?command ?name ?working_dir
-    ~image ~env ~env_from ~liveness_probe ~ports ~resources
-    ~startup_probe ~volume_mounts () : template__spec__containers =
+    ?(env_from = []) ?(liveness_probe = []) ?(ports = [])
+    ?(resources = []) ?(startup_probe = []) ?(volume_mounts = [])
+    ~image ~env () : template__spec__containers =
   {
     args;
     command;
@@ -1901,16 +1904,17 @@ let template__spec__volumes__secret__items ?mode ~key ~path () :
     template__spec__volumes__secret__items =
   { key; mode; path }
 
-let template__spec__volumes__secret ?default_mode ~secret_name ~items
-    () : template__spec__volumes__secret =
+let template__spec__volumes__secret ?default_mode ?(items = [])
+    ~secret_name () : template__spec__volumes__secret =
   { default_mode; secret_name; items }
 
-let template__spec__volumes ~name ~secret () :
+let template__spec__volumes ?(secret = []) ~name () :
     template__spec__volumes =
   { name; secret }
 
 let template__spec ?container_concurrency ?service_account_name
-    ?timeout_seconds ~containers ~volumes () : template__spec =
+    ?timeout_seconds ?(containers = []) ?(volumes = []) () :
+    template__spec =
   {
     container_concurrency;
     service_account_name;
@@ -1919,7 +1923,8 @@ let template__spec ?container_concurrency ?service_account_name
     volumes;
   }
 
-let template ~metadata ~spec () : template = { metadata; spec }
+let template ?(metadata = []) ?(spec = []) () : template =
+  { metadata; spec }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
@@ -1929,8 +1934,8 @@ let traffic ?latest_revision ?revision_name ?tag ~percent () :
   { latest_revision; percent; revision_name; tag }
 
 let google_cloud_run_service ?autogenerate_revision_name ?id ?project
-    ?timeouts ~location ~name ~metadata ~template ~traffic () :
-    google_cloud_run_service =
+    ?(metadata = []) ?(template = []) ?timeouts ?(traffic = [])
+    ~location ~name () : google_cloud_run_service =
   {
     autogenerate_revision_name;
     id;
@@ -1952,8 +1957,8 @@ type t = {
   status : status list prop;
 }
 
-let make ?autogenerate_revision_name ?id ?project ?timeouts ~location
-    ~name ~metadata ~template ~traffic __id =
+let make ?autogenerate_revision_name ?id ?project ?(metadata = [])
+    ?(template = []) ?timeouts ?(traffic = []) ~location ~name __id =
   let __type = "google_cloud_run_service" in
   let __attrs =
     ({
@@ -1973,16 +1978,17 @@ let make ?autogenerate_revision_name ?id ?project ?timeouts ~location
     json =
       yojson_of_google_cloud_run_service
         (google_cloud_run_service ?autogenerate_revision_name ?id
-           ?project ?timeouts ~location ~name ~metadata ~template
-           ~traffic ());
+           ?project ~metadata ~template ?timeouts ~traffic ~location
+           ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?autogenerate_revision_name ?id ?project
-    ?timeouts ~location ~name ~metadata ~template ~traffic __id =
+    ?(metadata = []) ?(template = []) ?timeouts ?(traffic = [])
+    ~location ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?autogenerate_revision_name ?id ?project ?timeouts ~location
-      ~name ~metadata ~template ~traffic __id
+    make ?autogenerate_revision_name ?id ?project ~metadata ~template
+      ?timeouts ~traffic ~location ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

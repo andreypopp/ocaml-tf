@@ -162,7 +162,7 @@ val google :
   ?workbench_custom_endpoint:string prop ->
   ?workflows_custom_endpoint:string prop ->
   ?zone:string prop ->
-  batching:batching list ->
+  ?batching:batching list ->
   unit ->
   google
 
@@ -319,7 +319,7 @@ val register :
   ?workbench_custom_endpoint:string prop ->
   ?workflows_custom_endpoint:string prop ->
   ?zone:string prop ->
-  batching:batching list ->
+  ?batching:batching list ->
   version:string ->
   unit ->
   unit
@@ -472,6 +472,6 @@ val make :
   ?workbench_custom_endpoint:string prop ->
   ?workflows_custom_endpoint:string prop ->
   ?zone:string prop ->
-  batching:batching list ->
+  ?batching:batching list ->
   unit ->
   Tf_core.provider

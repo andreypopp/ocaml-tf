@@ -50,11 +50,11 @@ type aws_lakeformation_resource_lf_tags
 val aws_lakeformation_resource_lf_tags :
   ?catalog_id:string prop ->
   ?id:string prop ->
+  ?database:database list ->
+  ?table:table list ->
+  ?table_with_columns:table_with_columns list ->
   ?timeouts:timeouts ->
-  database:database list ->
   lf_tag:lf_tag list ->
-  table:table list ->
-  table_with_columns:table_with_columns list ->
   unit ->
   aws_lakeformation_resource_lf_tags
 
@@ -69,21 +69,21 @@ val register :
   ?tf_module:tf_module ->
   ?catalog_id:string prop ->
   ?id:string prop ->
+  ?database:database list ->
+  ?table:table list ->
+  ?table_with_columns:table_with_columns list ->
   ?timeouts:timeouts ->
-  database:database list ->
   lf_tag:lf_tag list ->
-  table:table list ->
-  table_with_columns:table_with_columns list ->
   string ->
   t
 
 val make :
   ?catalog_id:string prop ->
   ?id:string prop ->
+  ?database:database list ->
+  ?table:table list ->
+  ?table_with_columns:table_with_columns list ->
   ?timeouts:timeouts ->
-  database:database list ->
   lf_tag:lf_tag list ->
-  table:table list ->
-  table_with_columns:table_with_columns list ->
   string ->
   t Tf_core.resource

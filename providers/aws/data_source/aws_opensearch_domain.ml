@@ -783,8 +783,8 @@ let _ = yojson_of_aws_opensearch_domain
 
 let off_peak_window_options () = ()
 
-let aws_opensearch_domain ?id ?tags ~domain_name
-    ~off_peak_window_options () : aws_opensearch_domain =
+let aws_opensearch_domain ?id ?tags ?(off_peak_window_options = [])
+    ~domain_name () : aws_opensearch_domain =
   { domain_name; id; tags; off_peak_window_options }
 
 type t = {
@@ -815,7 +815,8 @@ type t = {
   vpc_options : vpc_options list prop;
 }
 
-let make ?id ?tags ~domain_name ~off_peak_window_options __id =
+let make ?id ?tags ?(off_peak_window_options = []) ~domain_name __id
+    =
   let __type = "aws_opensearch_domain" in
   let __attrs =
     ({
@@ -861,15 +862,15 @@ let make ?id ?tags ~domain_name ~off_peak_window_options __id =
     type_ = __type;
     json =
       yojson_of_aws_opensearch_domain
-        (aws_opensearch_domain ?id ?tags ~domain_name
-           ~off_peak_window_options ());
+        (aws_opensearch_domain ?id ?tags ~off_peak_window_options
+           ~domain_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ~domain_name
-    ~off_peak_window_options __id =
+let register ?tf_module ?id ?tags ?(off_peak_window_options = [])
+    ~domain_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ~domain_name ~off_peak_window_options __id
+    make ?id ?tags ~off_peak_window_options ~domain_name __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

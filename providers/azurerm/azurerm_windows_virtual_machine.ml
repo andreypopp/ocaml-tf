@@ -1198,8 +1198,8 @@ let os_disk__diff_disk_settings ?placement ~option_ () :
 
 let os_disk ?disk_encryption_set_id ?disk_size_gb ?name
     ?secure_vm_disk_encryption_set_id ?security_encryption_type
-    ?write_accelerator_enabled ~caching ~storage_account_type
-    ~diff_disk_settings () : os_disk =
+    ?write_accelerator_enabled ?(diff_disk_settings = []) ~caching
+    ~storage_account_type () : os_disk =
   {
     caching;
     disk_encryption_set_id;
@@ -1250,13 +1250,14 @@ let azurerm_windows_virtual_machine ?allow_extension_operations
     ?proximity_placement_group_id ?reboot_setting
     ?secure_boot_enabled ?source_image_id ?tags ?timezone ?user_data
     ?virtual_machine_scale_set_id ?vm_agent_platform_updates_enabled
-    ?vtpm_enabled ?zone ?timeouts ~admin_password ~admin_username
-    ~location ~name ~network_interface_ids ~resource_group_name ~size
-    ~additional_capabilities ~additional_unattend_content
-    ~boot_diagnostics ~gallery_application ~identity ~os_disk
-    ~os_image_notification ~plan ~secret ~source_image_reference
-    ~termination_notification ~winrm_listener () :
-    azurerm_windows_virtual_machine =
+    ?vtpm_enabled ?zone ?(additional_capabilities = [])
+    ?(additional_unattend_content = []) ?(boot_diagnostics = [])
+    ?(gallery_application = []) ?(identity = [])
+    ?(os_image_notification = []) ?(plan = []) ?(secret = [])
+    ?(source_image_reference = []) ?(termination_notification = [])
+    ?timeouts ~admin_password ~admin_username ~location ~name
+    ~network_interface_ids ~resource_group_name ~size ~os_disk
+    ~winrm_listener () : azurerm_windows_virtual_machine =
   {
     admin_password;
     admin_username;
@@ -1374,12 +1375,14 @@ let make ?allow_extension_operations ?availability_set_id
     ?proximity_placement_group_id ?reboot_setting
     ?secure_boot_enabled ?source_image_id ?tags ?timezone ?user_data
     ?virtual_machine_scale_set_id ?vm_agent_platform_updates_enabled
-    ?vtpm_enabled ?zone ?timeouts ~admin_password ~admin_username
-    ~location ~name ~network_interface_ids ~resource_group_name ~size
-    ~additional_capabilities ~additional_unattend_content
-    ~boot_diagnostics ~gallery_application ~identity ~os_disk
-    ~os_image_notification ~plan ~secret ~source_image_reference
-    ~termination_notification ~winrm_listener __id =
+    ?vtpm_enabled ?zone ?(additional_capabilities = [])
+    ?(additional_unattend_content = []) ?(boot_diagnostics = [])
+    ?(gallery_application = []) ?(identity = [])
+    ?(os_image_notification = []) ?(plan = []) ?(secret = [])
+    ?(source_image_reference = []) ?(termination_notification = [])
+    ?timeouts ~admin_password ~admin_username ~location ~name
+    ~network_interface_ids ~resource_group_name ~size ~os_disk
+    ~winrm_listener __id =
   let __type = "azurerm_windows_virtual_machine" in
   let __attrs =
     ({
@@ -1478,12 +1481,12 @@ let make ?allow_extension_operations ?availability_set_id
            ?reboot_setting ?secure_boot_enabled ?source_image_id
            ?tags ?timezone ?user_data ?virtual_machine_scale_set_id
            ?vm_agent_platform_updates_enabled ?vtpm_enabled ?zone
-           ?timeouts ~admin_password ~admin_username ~location ~name
-           ~network_interface_ids ~resource_group_name ~size
            ~additional_capabilities ~additional_unattend_content
-           ~boot_diagnostics ~gallery_application ~identity ~os_disk
+           ~boot_diagnostics ~gallery_application ~identity
            ~os_image_notification ~plan ~secret
            ~source_image_reference ~termination_notification
+           ?timeouts ~admin_password ~admin_username ~location ~name
+           ~network_interface_ids ~resource_group_name ~size ~os_disk
            ~winrm_listener ());
     attrs = __attrs;
   }
@@ -1500,12 +1503,14 @@ let register ?tf_module ?allow_extension_operations
     ?proximity_placement_group_id ?reboot_setting
     ?secure_boot_enabled ?source_image_id ?tags ?timezone ?user_data
     ?virtual_machine_scale_set_id ?vm_agent_platform_updates_enabled
-    ?vtpm_enabled ?zone ?timeouts ~admin_password ~admin_username
-    ~location ~name ~network_interface_ids ~resource_group_name ~size
-    ~additional_capabilities ~additional_unattend_content
-    ~boot_diagnostics ~gallery_application ~identity ~os_disk
-    ~os_image_notification ~plan ~secret ~source_image_reference
-    ~termination_notification ~winrm_listener __id =
+    ?vtpm_enabled ?zone ?(additional_capabilities = [])
+    ?(additional_unattend_content = []) ?(boot_diagnostics = [])
+    ?(gallery_application = []) ?(identity = [])
+    ?(os_image_notification = []) ?(plan = []) ?(secret = [])
+    ?(source_image_reference = []) ?(termination_notification = [])
+    ?timeouts ~admin_password ~admin_username ~location ~name
+    ~network_interface_ids ~resource_group_name ~size ~os_disk
+    ~winrm_listener __id =
   let (r : _ Tf_core.resource) =
     make ?allow_extension_operations ?availability_set_id
       ?bypass_platform_safety_checks_on_user_schedule_enabled
@@ -1520,12 +1525,12 @@ let register ?tf_module ?allow_extension_operations
       ?secure_boot_enabled ?source_image_id ?tags ?timezone
       ?user_data ?virtual_machine_scale_set_id
       ?vm_agent_platform_updates_enabled ?vtpm_enabled ?zone
-      ?timeouts ~admin_password ~admin_username ~location ~name
-      ~network_interface_ids ~resource_group_name ~size
       ~additional_capabilities ~additional_unattend_content
-      ~boot_diagnostics ~gallery_application ~identity ~os_disk
+      ~boot_diagnostics ~gallery_application ~identity
       ~os_image_notification ~plan ~secret ~source_image_reference
-      ~termination_notification ~winrm_listener __id
+      ~termination_notification ?timeouts ~admin_password
+      ~admin_username ~location ~name ~network_interface_ids
+      ~resource_group_name ~size ~os_disk ~winrm_listener __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -127,7 +127,7 @@ type space_settings__kernel_gateway_app_settings
 
 val space_settings__kernel_gateway_app_settings :
   ?lifecycle_config_arns:string prop list ->
-  custom_image:
+  ?custom_image:
     space_settings__kernel_gateway_app_settings__custom_image list ->
   default_resource_spec:
     space_settings__kernel_gateway_app_settings__default_resource_spec
@@ -154,16 +154,16 @@ type space_settings
 
 val space_settings :
   ?app_type:string prop ->
-  code_editor_app_settings:
+  ?code_editor_app_settings:
     space_settings__code_editor_app_settings list ->
-  custom_file_system:space_settings__custom_file_system list ->
-  jupyter_lab_app_settings:
+  ?custom_file_system:space_settings__custom_file_system list ->
+  ?jupyter_lab_app_settings:
     space_settings__jupyter_lab_app_settings list ->
-  jupyter_server_app_settings:
+  ?jupyter_server_app_settings:
     space_settings__jupyter_server_app_settings list ->
-  kernel_gateway_app_settings:
+  ?kernel_gateway_app_settings:
     space_settings__kernel_gateway_app_settings list ->
-  space_storage_settings:space_settings__space_storage_settings list ->
+  ?space_storage_settings:space_settings__space_storage_settings list ->
   unit ->
   space_settings
 
@@ -179,11 +179,11 @@ val aws_sagemaker_space :
   ?space_display_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?ownership_settings:ownership_settings list ->
+  ?space_settings:space_settings list ->
+  ?space_sharing_settings:space_sharing_settings list ->
   domain_id:string prop ->
   space_name:string prop ->
-  ownership_settings:ownership_settings list ->
-  space_settings:space_settings list ->
-  space_sharing_settings:space_sharing_settings list ->
   unit ->
   aws_sagemaker_space
 
@@ -209,11 +209,11 @@ val register :
   ?space_display_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?ownership_settings:ownership_settings list ->
+  ?space_settings:space_settings list ->
+  ?space_sharing_settings:space_sharing_settings list ->
   domain_id:string prop ->
   space_name:string prop ->
-  ownership_settings:ownership_settings list ->
-  space_settings:space_settings list ->
-  space_sharing_settings:space_sharing_settings list ->
   string ->
   t
 
@@ -222,10 +222,10 @@ val make :
   ?space_display_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?ownership_settings:ownership_settings list ->
+  ?space_settings:space_settings list ->
+  ?space_sharing_settings:space_sharing_settings list ->
   domain_id:string prop ->
   space_name:string prop ->
-  ownership_settings:ownership_settings list ->
-  space_settings:space_settings list ->
-  space_sharing_settings:space_sharing_settings list ->
   string ->
   t Tf_core.resource

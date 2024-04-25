@@ -279,9 +279,10 @@ let timeouts ?create ?update () : timeouts = { create; update }
 let cloudflare_waiting_room ?cookie_suffix ?custom_page_html
     ?default_template_language ?description ?disable_session_renewal
     ?id ?json_response_enabled ?path ?queue_all ?queueing_method
-    ?queueing_status_code ?session_duration ?suspended ?timeouts
-    ~host ~name ~new_users_per_minute ~total_active_users ~zone_id
-    ~additional_routes () : cloudflare_waiting_room =
+    ?queueing_status_code ?session_duration ?suspended
+    ?(additional_routes = []) ?timeouts ~host ~name
+    ~new_users_per_minute ~total_active_users ~zone_id () :
+    cloudflare_waiting_room =
   {
     cookie_suffix;
     custom_page_html;
@@ -329,9 +330,9 @@ type t = {
 let make ?cookie_suffix ?custom_page_html ?default_template_language
     ?description ?disable_session_renewal ?id ?json_response_enabled
     ?path ?queue_all ?queueing_method ?queueing_status_code
-    ?session_duration ?suspended ?timeouts ~host ~name
-    ~new_users_per_minute ~total_active_users ~zone_id
-    ~additional_routes __id =
+    ?session_duration ?suspended ?(additional_routes = []) ?timeouts
+    ~host ~name ~new_users_per_minute ~total_active_users ~zone_id
+    __id =
   let __type = "cloudflare_waiting_room" in
   let __attrs =
     ({
@@ -373,25 +374,25 @@ let make ?cookie_suffix ?custom_page_html ?default_template_language
            ?default_template_language ?description
            ?disable_session_renewal ?id ?json_response_enabled ?path
            ?queue_all ?queueing_method ?queueing_status_code
-           ?session_duration ?suspended ?timeouts ~host ~name
-           ~new_users_per_minute ~total_active_users ~zone_id
-           ~additional_routes ());
+           ?session_duration ?suspended ~additional_routes ?timeouts
+           ~host ~name ~new_users_per_minute ~total_active_users
+           ~zone_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?cookie_suffix ?custom_page_html
     ?default_template_language ?description ?disable_session_renewal
     ?id ?json_response_enabled ?path ?queue_all ?queueing_method
-    ?queueing_status_code ?session_duration ?suspended ?timeouts
-    ~host ~name ~new_users_per_minute ~total_active_users ~zone_id
-    ~additional_routes __id =
+    ?queueing_status_code ?session_duration ?suspended
+    ?(additional_routes = []) ?timeouts ~host ~name
+    ~new_users_per_minute ~total_active_users ~zone_id __id =
   let (r : _ Tf_core.resource) =
     make ?cookie_suffix ?custom_page_html ?default_template_language
       ?description ?disable_session_renewal ?id
       ?json_response_enabled ?path ?queue_all ?queueing_method
-      ?queueing_status_code ?session_duration ?suspended ?timeouts
-      ~host ~name ~new_users_per_minute ~total_active_users ~zone_id
-      ~additional_routes __id
+      ?queueing_status_code ?session_duration ?suspended
+      ~additional_routes ?timeouts ~host ~name ~new_users_per_minute
+      ~total_active_users ~zone_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

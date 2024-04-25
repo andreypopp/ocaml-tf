@@ -195,8 +195,8 @@ let redirect ?include_subdomains ?preserve_path_suffix
     target_url;
   }
 
-let cloudflare_list_item ?asn ?comment ?ip ~account_id ~list_id
-    ~hostname ~redirect () : cloudflare_list_item =
+let cloudflare_list_item ?asn ?comment ?ip ?(hostname = [])
+    ?(redirect = []) ~account_id ~list_id () : cloudflare_list_item =
   { account_id; asn; comment; ip; list_id; hostname; redirect }
 
 type t = {
@@ -208,8 +208,8 @@ type t = {
   list_id : string prop;
 }
 
-let make ?asn ?comment ?ip ~account_id ~list_id ~hostname ~redirect
-    __id =
+let make ?asn ?comment ?ip ?(hostname = []) ?(redirect = [])
+    ~account_id ~list_id __id =
   let __type = "cloudflare_list_item" in
   let __attrs =
     ({
@@ -227,15 +227,15 @@ let make ?asn ?comment ?ip ~account_id ~list_id ~hostname ~redirect
     type_ = __type;
     json =
       yojson_of_cloudflare_list_item
-        (cloudflare_list_item ?asn ?comment ?ip ~account_id ~list_id
-           ~hostname ~redirect ());
+        (cloudflare_list_item ?asn ?comment ?ip ~hostname ~redirect
+           ~account_id ~list_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?asn ?comment ?ip ~account_id ~list_id
-    ~hostname ~redirect __id =
+let register ?tf_module ?asn ?comment ?ip ?(hostname = [])
+    ?(redirect = []) ~account_id ~list_id __id =
   let (r : _ Tf_core.resource) =
-    make ?asn ?comment ?ip ~account_id ~list_id ~hostname ~redirect
+    make ?asn ?comment ?ip ~hostname ~redirect ~account_id ~list_id
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

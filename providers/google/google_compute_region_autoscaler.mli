@@ -40,7 +40,7 @@ type autoscaling_policy__scale_in_control
 
 val autoscaling_policy__scale_in_control :
   ?time_window_sec:float prop ->
-  max_scaled_in_replicas:
+  ?max_scaled_in_replicas:
     autoscaling_policy__scale_in_control__max_scaled_in_replicas list ->
   unit ->
   autoscaling_policy__scale_in_control
@@ -63,13 +63,13 @@ type autoscaling_policy
 val autoscaling_policy :
   ?cooldown_period:float prop ->
   ?mode:string prop ->
+  ?cpu_utilization:autoscaling_policy__cpu_utilization list ->
+  ?load_balancing_utilization:
+    autoscaling_policy__load_balancing_utilization list ->
+  ?metric:autoscaling_policy__metric list ->
+  ?scale_in_control:autoscaling_policy__scale_in_control list ->
   max_replicas:float prop ->
   min_replicas:float prop ->
-  cpu_utilization:autoscaling_policy__cpu_utilization list ->
-  load_balancing_utilization:
-    autoscaling_policy__load_balancing_utilization list ->
-  metric:autoscaling_policy__metric list ->
-  scale_in_control:autoscaling_policy__scale_in_control list ->
   scaling_schedules:autoscaling_policy__scaling_schedules list ->
   unit ->
   autoscaling_policy

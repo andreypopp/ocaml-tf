@@ -530,10 +530,10 @@ let table_with_columns ?catalog_id ?column_names
   }
 
 let aws_lakeformation_permissions ?catalog_id ?catalog_resource ?id
-    ?permissions_with_grant_option ~permissions ~principal
-    ~data_cells_filter ~data_location ~database ~lf_tag
-    ~lf_tag_policy ~table ~table_with_columns () :
-    aws_lakeformation_permissions =
+    ?permissions_with_grant_option ?(data_cells_filter = [])
+    ?(data_location = []) ?(database = []) ?(lf_tag = [])
+    ?(lf_tag_policy = []) ?(table = []) ?(table_with_columns = [])
+    ~permissions ~principal () : aws_lakeformation_permissions =
   {
     catalog_id;
     catalog_resource;
@@ -560,9 +560,10 @@ type t = {
 }
 
 let make ?catalog_id ?catalog_resource ?id
-    ?permissions_with_grant_option ~permissions ~principal
-    ~data_cells_filter ~data_location ~database ~lf_tag
-    ~lf_tag_policy ~table ~table_with_columns __id =
+    ?permissions_with_grant_option ?(data_cells_filter = [])
+    ?(data_location = []) ?(database = []) ?(lf_tag = [])
+    ?(lf_tag_policy = []) ?(table = []) ?(table_with_columns = [])
+    ~permissions ~principal __id =
   let __type = "aws_lakeformation_permissions" in
   let __attrs =
     ({
@@ -583,21 +584,22 @@ let make ?catalog_id ?catalog_resource ?id
     json =
       yojson_of_aws_lakeformation_permissions
         (aws_lakeformation_permissions ?catalog_id ?catalog_resource
-           ?id ?permissions_with_grant_option ~permissions ~principal
-           ~data_cells_filter ~data_location ~database ~lf_tag
-           ~lf_tag_policy ~table ~table_with_columns ());
+           ?id ?permissions_with_grant_option ~data_cells_filter
+           ~data_location ~database ~lf_tag ~lf_tag_policy ~table
+           ~table_with_columns ~permissions ~principal ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?catalog_id ?catalog_resource ?id
-    ?permissions_with_grant_option ~permissions ~principal
-    ~data_cells_filter ~data_location ~database ~lf_tag
-    ~lf_tag_policy ~table ~table_with_columns __id =
+    ?permissions_with_grant_option ?(data_cells_filter = [])
+    ?(data_location = []) ?(database = []) ?(lf_tag = [])
+    ?(lf_tag_policy = []) ?(table = []) ?(table_with_columns = [])
+    ~permissions ~principal __id =
   let (r : _ Tf_core.resource) =
     make ?catalog_id ?catalog_resource ?id
-      ?permissions_with_grant_option ~permissions ~principal
-      ~data_cells_filter ~data_location ~database ~lf_tag
-      ~lf_tag_policy ~table ~table_with_columns __id
+      ?permissions_with_grant_option ~data_cells_filter
+      ~data_location ~database ~lf_tag ~lf_tag_policy ~table
+      ~table_with_columns ~permissions ~principal __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

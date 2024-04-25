@@ -915,8 +915,9 @@ let deployment_configs__preview__service_binding ?environment ~name
 let deployment_configs__preview ?always_use_latest_compatibility_date
     ?compatibility_date ?compatibility_flags ?d1_databases
     ?durable_object_namespaces ?environment_variables ?fail_open
-    ?kv_namespaces ?r2_buckets ?secrets ?usage_model ~placement
-    ~service_binding () : deployment_configs__preview =
+    ?kv_namespaces ?r2_buckets ?secrets ?usage_model
+    ?(placement = []) ~service_binding () :
+    deployment_configs__preview =
   {
     always_use_latest_compatibility_date;
     compatibility_date;
@@ -946,7 +947,7 @@ let deployment_configs__production
     ?always_use_latest_compatibility_date ?compatibility_date
     ?compatibility_flags ?d1_databases ?durable_object_namespaces
     ?environment_variables ?fail_open ?kv_namespaces ?r2_buckets
-    ?secrets ?usage_model ~placement ~service_binding () :
+    ?secrets ?usage_model ?(placement = []) ~service_binding () :
     deployment_configs__production =
   {
     always_use_latest_compatibility_date;
@@ -964,7 +965,8 @@ let deployment_configs__production
     service_binding;
   }
 
-let deployment_configs ~preview ~production () : deployment_configs =
+let deployment_configs ?(preview = []) ?(production = []) () :
+    deployment_configs =
   { preview; production }
 
 let source__config ?deployments_enabled ?owner ?pr_comments_enabled
@@ -983,11 +985,11 @@ let source__config ?deployments_enabled ?owner ?pr_comments_enabled
     repo_name;
   }
 
-let source ?type_ ~config () : source = { type_; config }
+let source ?type_ ?(config = []) () : source = { type_; config }
 
-let cloudflare_pages_project ?id ~account_id ~name ~production_branch
-    ~build_config ~deployment_configs ~source () :
-    cloudflare_pages_project =
+let cloudflare_pages_project ?id ?(build_config = [])
+    ?(deployment_configs = []) ?(source = []) ~account_id ~name
+    ~production_branch () : cloudflare_pages_project =
   {
     account_id;
     id;
@@ -1008,8 +1010,8 @@ type t = {
   subdomain : string prop;
 }
 
-let make ?id ~account_id ~name ~production_branch ~build_config
-    ~deployment_configs ~source __id =
+let make ?id ?(build_config = []) ?(deployment_configs = [])
+    ?(source = []) ~account_id ~name ~production_branch __id =
   let __type = "cloudflare_pages_project" in
   let __attrs =
     ({
@@ -1029,17 +1031,18 @@ let make ?id ~account_id ~name ~production_branch ~build_config
     type_ = __type;
     json =
       yojson_of_cloudflare_pages_project
-        (cloudflare_pages_project ?id ~account_id ~name
-           ~production_branch ~build_config ~deployment_configs
-           ~source ());
+        (cloudflare_pages_project ?id ~build_config
+           ~deployment_configs ~source ~account_id ~name
+           ~production_branch ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~account_id ~name ~production_branch
-    ~build_config ~deployment_configs ~source __id =
+let register ?tf_module ?id ?(build_config = [])
+    ?(deployment_configs = []) ?(source = []) ~account_id ~name
+    ~production_branch __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~account_id ~name ~production_branch ~build_config
-      ~deployment_configs ~source __id
+    make ?id ~build_config ~deployment_configs ~source ~account_id
+      ~name ~production_branch __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

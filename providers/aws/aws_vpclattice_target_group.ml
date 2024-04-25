@@ -385,7 +385,7 @@ let config__health_check__matcher ?value () :
 let config__health_check ?enabled ?health_check_interval_seconds
     ?health_check_timeout_seconds ?healthy_threshold_count ?path
     ?port ?protocol ?protocol_version ?unhealthy_threshold_count
-    ~matcher () : config__health_check =
+    ?(matcher = []) () : config__health_check =
   {
     enabled;
     health_check_interval_seconds;
@@ -400,8 +400,8 @@ let config__health_check ?enabled ?health_check_interval_seconds
   }
 
 let config ?ip_address_type ?lambda_event_structure_version ?port
-    ?protocol ?protocol_version ?vpc_identifier ~health_check () :
-    config =
+    ?protocol ?protocol_version ?vpc_identifier ?(health_check = [])
+    () : config =
   {
     ip_address_type;
     lambda_event_structure_version;
@@ -415,8 +415,8 @@ let config ?ip_address_type ?lambda_event_structure_version ?port
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let aws_vpclattice_target_group ?id ?tags ?tags_all ?timeouts ~name
-    ~type_ ~config () : aws_vpclattice_target_group =
+let aws_vpclattice_target_group ?id ?tags ?tags_all ?(config = [])
+    ?timeouts ~name ~type_ () : aws_vpclattice_target_group =
   { id; name; tags; tags_all; type_; config; timeouts }
 
 type t = {
@@ -429,7 +429,8 @@ type t = {
   type_ : string prop;
 }
 
-let make ?id ?tags ?tags_all ?timeouts ~name ~type_ ~config __id =
+let make ?id ?tags ?tags_all ?(config = []) ?timeouts ~name ~type_
+    __id =
   let __type = "aws_vpclattice_target_group" in
   let __attrs =
     ({
@@ -448,15 +449,15 @@ let make ?id ?tags ?tags_all ?timeouts ~name ~type_ ~config __id =
     type_ = __type;
     json =
       yojson_of_aws_vpclattice_target_group
-        (aws_vpclattice_target_group ?id ?tags ?tags_all ?timeouts
-           ~name ~type_ ~config ());
+        (aws_vpclattice_target_group ?id ?tags ?tags_all ~config
+           ?timeouts ~name ~type_ ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ?timeouts ~name ~type_
-    ~config __id =
+let register ?tf_module ?id ?tags ?tags_all ?(config = []) ?timeouts
+    ~name ~type_ __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ?timeouts ~name ~type_ ~config __id
+    make ?id ?tags ?tags_all ~config ?timeouts ~name ~type_ __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

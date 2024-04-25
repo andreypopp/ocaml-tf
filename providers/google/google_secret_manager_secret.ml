@@ -446,7 +446,7 @@ let replication__auto__customer_managed_encryption ~kms_key_name () :
     replication__auto__customer_managed_encryption =
   { kms_key_name }
 
-let replication__auto ~customer_managed_encryption () :
+let replication__auto ?(customer_managed_encryption = []) () :
     replication__auto =
   { customer_managed_encryption }
 
@@ -456,8 +456,8 @@ let replication__user_managed__replicas__customer_managed_encryption
     =
   { kms_key_name }
 
-let replication__user_managed__replicas ~location
-    ~customer_managed_encryption () :
+let replication__user_managed__replicas
+    ?(customer_managed_encryption = []) ~location () :
     replication__user_managed__replicas =
   { location; customer_managed_encryption }
 
@@ -465,7 +465,7 @@ let replication__user_managed ~replicas () :
     replication__user_managed =
   { replicas }
 
-let replication ~auto ~user_managed () : replication =
+let replication ?(auto = []) ?(user_managed = []) () : replication =
   { auto; user_managed }
 
 let rotation ?next_rotation_time ?rotation_period () : rotation =
@@ -477,9 +477,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 let topics ~name () : topics = { name }
 
 let google_secret_manager_secret ?annotations ?expire_time ?id
-    ?labels ?project ?ttl ?version_aliases ?timeouts ~secret_id
-    ~replication ~rotation ~topics () : google_secret_manager_secret
-    =
+    ?labels ?project ?ttl ?version_aliases ?(rotation = []) ?timeouts
+    ?(topics = []) ~secret_id ~replication () :
+    google_secret_manager_secret =
   {
     annotations;
     expire_time;
@@ -512,8 +512,8 @@ type t = {
 }
 
 let make ?annotations ?expire_time ?id ?labels ?project ?ttl
-    ?version_aliases ?timeouts ~secret_id ~replication ~rotation
-    ~topics __id =
+    ?version_aliases ?(rotation = []) ?timeouts ?(topics = [])
+    ~secret_id ~replication __id =
   let __type = "google_secret_manager_secret" in
   let __attrs =
     ({
@@ -542,18 +542,18 @@ let make ?annotations ?expire_time ?id ?labels ?project ?ttl
     json =
       yojson_of_google_secret_manager_secret
         (google_secret_manager_secret ?annotations ?expire_time ?id
-           ?labels ?project ?ttl ?version_aliases ?timeouts
-           ~secret_id ~replication ~rotation ~topics ());
+           ?labels ?project ?ttl ?version_aliases ~rotation ?timeouts
+           ~topics ~secret_id ~replication ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?expire_time ?id ?labels
-    ?project ?ttl ?version_aliases ?timeouts ~secret_id ~replication
-    ~rotation ~topics __id =
+    ?project ?ttl ?version_aliases ?(rotation = []) ?timeouts
+    ?(topics = []) ~secret_id ~replication __id =
   let (r : _ Tf_core.resource) =
     make ?annotations ?expire_time ?id ?labels ?project ?ttl
-      ?version_aliases ?timeouts ~secret_id ~replication ~rotation
-      ~topics __id
+      ?version_aliases ~rotation ?timeouts ~topics ~secret_id
+      ~replication __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

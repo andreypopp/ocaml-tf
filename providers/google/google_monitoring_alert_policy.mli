@@ -28,9 +28,9 @@ type alert_strategy
 
 val alert_strategy :
   ?auto_close:string prop ->
-  notification_channel_strategy:
+  ?notification_channel_strategy:
     alert_strategy__notification_channel_strategy list ->
-  notification_rate_limit:
+  ?notification_rate_limit:
     alert_strategy__notification_rate_limit list ->
   unit ->
   alert_strategy
@@ -57,9 +57,9 @@ type conditions__condition_absent
 
 val conditions__condition_absent :
   ?filter:string prop ->
+  ?aggregations:conditions__condition_absent__aggregations list ->
+  ?trigger:conditions__condition_absent__trigger list ->
   duration:string prop ->
-  aggregations:conditions__condition_absent__aggregations list ->
-  trigger:conditions__condition_absent__trigger list ->
   unit ->
   conditions__condition_absent
 
@@ -83,10 +83,10 @@ type conditions__condition_monitoring_query_language
 
 val conditions__condition_monitoring_query_language :
   ?evaluation_missing_data:string prop ->
+  ?trigger:
+    conditions__condition_monitoring_query_language__trigger list ->
   duration:string prop ->
   query:string prop ->
-  trigger:
-    conditions__condition_monitoring_query_language__trigger list ->
   unit ->
   conditions__condition_monitoring_query_language
 
@@ -144,28 +144,28 @@ val conditions__condition_threshold :
   ?evaluation_missing_data:string prop ->
   ?filter:string prop ->
   ?threshold_value:float prop ->
+  ?aggregations:conditions__condition_threshold__aggregations list ->
+  ?denominator_aggregations:
+    conditions__condition_threshold__denominator_aggregations list ->
+  ?forecast_options:
+    conditions__condition_threshold__forecast_options list ->
+  ?trigger:conditions__condition_threshold__trigger list ->
   comparison:string prop ->
   duration:string prop ->
-  aggregations:conditions__condition_threshold__aggregations list ->
-  denominator_aggregations:
-    conditions__condition_threshold__denominator_aggregations list ->
-  forecast_options:
-    conditions__condition_threshold__forecast_options list ->
-  trigger:conditions__condition_threshold__trigger list ->
   unit ->
   conditions__condition_threshold
 
 type conditions
 
 val conditions :
-  display_name:string prop ->
-  condition_absent:conditions__condition_absent list ->
-  condition_matched_log:conditions__condition_matched_log list ->
-  condition_monitoring_query_language:
+  ?condition_absent:conditions__condition_absent list ->
+  ?condition_matched_log:conditions__condition_matched_log list ->
+  ?condition_monitoring_query_language:
     conditions__condition_monitoring_query_language list ->
-  condition_prometheus_query_language:
+  ?condition_prometheus_query_language:
     conditions__condition_prometheus_query_language list ->
-  condition_threshold:conditions__condition_threshold list ->
+  ?condition_threshold:conditions__condition_threshold list ->
+  display_name:string prop ->
   unit ->
   conditions
 
@@ -196,12 +196,12 @@ val google_monitoring_alert_policy :
   ?project:string prop ->
   ?severity:string prop ->
   ?user_labels:(string * string prop) list ->
+  ?alert_strategy:alert_strategy list ->
+  ?documentation:documentation list ->
   ?timeouts:timeouts ->
   combiner:string prop ->
   display_name:string prop ->
-  alert_strategy:alert_strategy list ->
   conditions:conditions list ->
-  documentation:documentation list ->
   unit ->
   google_monitoring_alert_policy
 
@@ -231,12 +231,12 @@ val register :
   ?project:string prop ->
   ?severity:string prop ->
   ?user_labels:(string * string prop) list ->
+  ?alert_strategy:alert_strategy list ->
+  ?documentation:documentation list ->
   ?timeouts:timeouts ->
   combiner:string prop ->
   display_name:string prop ->
-  alert_strategy:alert_strategy list ->
   conditions:conditions list ->
-  documentation:documentation list ->
   string ->
   t
 
@@ -247,11 +247,11 @@ val make :
   ?project:string prop ->
   ?severity:string prop ->
   ?user_labels:(string * string prop) list ->
+  ?alert_strategy:alert_strategy list ->
+  ?documentation:documentation list ->
   ?timeouts:timeouts ->
   combiner:string prop ->
   display_name:string prop ->
-  alert_strategy:alert_strategy list ->
   conditions:conditions list ->
-  documentation:documentation list ->
   string ->
   t Tf_core.resource

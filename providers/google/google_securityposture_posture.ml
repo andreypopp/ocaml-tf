@@ -1339,7 +1339,8 @@ let policy_sets__policies__constraint__org_policy_constraint__policy_rules__valu
   { allowed_values; denied_values }
 
 let policy_sets__policies__constraint__org_policy_constraint__policy_rules
-    ?allow_all ?deny_all ?enforce ~condition ~values () :
+    ?allow_all ?deny_all ?enforce ?(condition = []) ?(values = []) ()
+    :
     policy_sets__policies__constraint__org_policy_constraint__policy_rules
     =
   { allow_all; deny_all; enforce; condition; values }
@@ -1377,13 +1378,14 @@ let policy_sets__policies__constraint__org_policy_constraint_custom__policy_rule
   { allowed_values; denied_values }
 
 let policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules
-    ?allow_all ?deny_all ?enforce ~condition ~values () :
+    ?allow_all ?deny_all ?enforce ?(condition = []) ?(values = []) ()
+    :
     policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules
     =
   { allow_all; deny_all; enforce; condition; values }
 
 let policy_sets__policies__constraint__org_policy_constraint_custom
-    ~custom_constraint ~policy_rules () :
+    ?(custom_constraint = []) ~policy_rules () :
     policy_sets__policies__constraint__org_policy_constraint_custom =
   { custom_constraint; policy_rules }
 
@@ -1394,13 +1396,13 @@ let policy_sets__policies__constraint__security_health_analytics_custom_module__
   { description; expression; location; title }
 
 let policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties
-    ~name ~value_expression () :
+    ?(value_expression = []) ~name () :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties
     =
   { name; value_expression }
 
 let policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output
-    ~properties () :
+    ?(properties = []) () :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output
     =
   { properties }
@@ -1418,8 +1420,8 @@ let policy_sets__policies__constraint__security_health_analytics_custom_module__
   { resource_types }
 
 let policy_sets__policies__constraint__security_health_analytics_custom_module__config
-    ?description ?recommendation ~severity ~custom_output ~predicate
-    ~resource_selector () :
+    ?description ?recommendation ?(custom_output = []) ~severity
+    ~predicate ~resource_selector () :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config
     =
   {
@@ -1443,10 +1445,10 @@ let policy_sets__policies__constraint__security_health_analytics_module
     =
   { module_enablement_state; module_name }
 
-let policy_sets__policies__constraint ~org_policy_constraint
-    ~org_policy_constraint_custom
-    ~security_health_analytics_custom_module
-    ~security_health_analytics_module () :
+let policy_sets__policies__constraint ?(org_policy_constraint = [])
+    ?(org_policy_constraint_custom = [])
+    ?(security_health_analytics_custom_module = [])
+    ?(security_health_analytics_module = []) () :
     policy_sets__policies__constraint =
   {
     org_policy_constraint;
@@ -1455,8 +1457,8 @@ let policy_sets__policies__constraint ~org_policy_constraint
     security_health_analytics_module;
   }
 
-let policy_sets__policies ?description ~policy_id
-    ~compliance_standards ~constraint_ () : policy_sets__policies =
+let policy_sets__policies ?description ?(compliance_standards = [])
+    ~policy_id ~constraint_ () : policy_sets__policies =
   { description; policy_id; compliance_standards; constraint_ }
 
 let policy_sets ?description ~policy_set_id ~policies () :

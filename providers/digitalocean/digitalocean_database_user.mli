@@ -14,16 +14,16 @@ val settings__acl :
 
 type settings
 
-val settings : acl:settings__acl list -> unit -> settings
+val settings : ?acl:settings__acl list -> unit -> settings
 
 type digitalocean_database_user
 
 val digitalocean_database_user :
   ?id:string prop ->
   ?mysql_auth_plugin:string prop ->
+  ?settings:settings list ->
   cluster_id:string prop ->
   name:string prop ->
-  settings:settings list ->
   unit ->
   digitalocean_database_user
 
@@ -47,17 +47,17 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?mysql_auth_plugin:string prop ->
+  ?settings:settings list ->
   cluster_id:string prop ->
   name:string prop ->
-  settings:settings list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?mysql_auth_plugin:string prop ->
+  ?settings:settings list ->
   cluster_id:string prop ->
   name:string prop ->
-  settings:settings list ->
   string ->
   t Tf_core.resource

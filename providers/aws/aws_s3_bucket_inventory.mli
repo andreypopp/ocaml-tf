@@ -19,8 +19,8 @@ val destination__bucket__encryption__sse_s3 :
 type destination__bucket__encryption
 
 val destination__bucket__encryption :
-  sse_kms:destination__bucket__encryption__sse_kms list ->
-  sse_s3:destination__bucket__encryption__sse_s3 list ->
+  ?sse_kms:destination__bucket__encryption__sse_kms list ->
+  ?sse_s3:destination__bucket__encryption__sse_s3 list ->
   unit ->
   destination__bucket__encryption
 
@@ -29,9 +29,9 @@ type destination__bucket
 val destination__bucket :
   ?account_id:string prop ->
   ?prefix:string prop ->
+  ?encryption:destination__bucket__encryption list ->
   bucket_arn:string prop ->
   format:string prop ->
-  encryption:destination__bucket__encryption list ->
   unit ->
   destination__bucket
 
@@ -54,11 +54,11 @@ val aws_s3_bucket_inventory :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?optional_fields:string prop list ->
+  ?filter:filter list ->
   bucket:string prop ->
   included_object_versions:string prop ->
   name:string prop ->
   destination:destination list ->
-  filter:filter list ->
   schedule:schedule list ->
   unit ->
   aws_s3_bucket_inventory
@@ -82,11 +82,11 @@ val register :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?optional_fields:string prop list ->
+  ?filter:filter list ->
   bucket:string prop ->
   included_object_versions:string prop ->
   name:string prop ->
   destination:destination list ->
-  filter:filter list ->
   schedule:schedule list ->
   string ->
   t
@@ -95,11 +95,11 @@ val make :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?optional_fields:string prop list ->
+  ?filter:filter list ->
   bucket:string prop ->
   included_object_versions:string prop ->
   name:string prop ->
   destination:destination list ->
-  filter:filter list ->
   schedule:schedule list ->
   string ->
   t Tf_core.resource

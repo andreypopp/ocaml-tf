@@ -27,12 +27,12 @@ val azurerm_iotcentral_application :
   ?sku:string prop ->
   ?tags:(string * string prop) list ->
   ?template:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sub_domain:string prop ->
-  identity:identity list ->
   unit ->
   azurerm_iotcentral_application
 
@@ -62,12 +62,12 @@ val register :
   ?sku:string prop ->
   ?tags:(string * string prop) list ->
   ?template:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sub_domain:string prop ->
-  identity:identity list ->
   string ->
   t
 
@@ -78,11 +78,11 @@ val make :
   ?sku:string prop ->
   ?tags:(string * string prop) list ->
   ?template:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sub_domain:string prop ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

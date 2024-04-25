@@ -462,8 +462,8 @@ let access_control__ip_allow ?address ?name ?subnet_prefix_length ()
     : access_control__ip_allow =
   { address; name; subnet_prefix_length }
 
-let access_control ~akamai_signature_header_authentication_key
-    ~ip_allow () : access_control =
+let access_control ?(akamai_signature_header_authentication_key = [])
+    ?(ip_allow = []) () : access_control =
   { akamai_signature_header_authentication_key; ip_allow }
 
 let cross_site_access_policy ?client_access_policy
@@ -475,10 +475,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_media_streaming_endpoint ?auto_start_enabled ?cdn_enabled
     ?cdn_profile ?cdn_provider ?custom_host_names ?description ?id
-    ?max_cache_age_seconds ?tags ?timeouts ~location
+    ?max_cache_age_seconds ?tags ?(access_control = [])
+    ?(cross_site_access_policy = []) ?timeouts ~location
     ~media_services_account_name ~name ~resource_group_name
-    ~scale_units ~access_control ~cross_site_access_policy () :
-    azurerm_media_streaming_endpoint =
+    ~scale_units () : azurerm_media_streaming_endpoint =
   {
     auto_start_enabled;
     cdn_enabled;
@@ -520,9 +520,9 @@ type t = {
 
 let make ?auto_start_enabled ?cdn_enabled ?cdn_profile ?cdn_provider
     ?custom_host_names ?description ?id ?max_cache_age_seconds ?tags
-    ?timeouts ~location ~media_services_account_name ~name
-    ~resource_group_name ~scale_units ~access_control
-    ~cross_site_access_policy __id =
+    ?(access_control = []) ?(cross_site_access_policy = []) ?timeouts
+    ~location ~media_services_account_name ~name ~resource_group_name
+    ~scale_units __id =
   let __type = "azurerm_media_streaming_endpoint" in
   let __attrs =
     ({
@@ -557,24 +557,25 @@ let make ?auto_start_enabled ?cdn_enabled ?cdn_profile ?cdn_provider
       yojson_of_azurerm_media_streaming_endpoint
         (azurerm_media_streaming_endpoint ?auto_start_enabled
            ?cdn_enabled ?cdn_profile ?cdn_provider ?custom_host_names
-           ?description ?id ?max_cache_age_seconds ?tags ?timeouts
+           ?description ?id ?max_cache_age_seconds ?tags
+           ~access_control ~cross_site_access_policy ?timeouts
            ~location ~media_services_account_name ~name
-           ~resource_group_name ~scale_units ~access_control
-           ~cross_site_access_policy ());
+           ~resource_group_name ~scale_units ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_start_enabled ?cdn_enabled ?cdn_profile
     ?cdn_provider ?custom_host_names ?description ?id
-    ?max_cache_age_seconds ?tags ?timeouts ~location
+    ?max_cache_age_seconds ?tags ?(access_control = [])
+    ?(cross_site_access_policy = []) ?timeouts ~location
     ~media_services_account_name ~name ~resource_group_name
-    ~scale_units ~access_control ~cross_site_access_policy __id =
+    ~scale_units __id =
   let (r : _ Tf_core.resource) =
     make ?auto_start_enabled ?cdn_enabled ?cdn_profile ?cdn_provider
       ?custom_host_names ?description ?id ?max_cache_age_seconds
-      ?tags ?timeouts ~location ~media_services_account_name ~name
-      ~resource_group_name ~scale_units ~access_control
-      ~cross_site_access_policy __id
+      ?tags ~access_control ~cross_site_access_policy ?timeouts
+      ~location ~media_services_account_name ~name
+      ~resource_group_name ~scale_units __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

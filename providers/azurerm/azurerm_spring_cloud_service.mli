@@ -44,11 +44,11 @@ val config_server_git_setting__repository :
   ?label:string prop ->
   ?pattern:string prop list ->
   ?search_paths:string prop list ->
+  ?http_basic_auth:
+    config_server_git_setting__repository__http_basic_auth list ->
+  ?ssh_auth:config_server_git_setting__repository__ssh_auth list ->
   name:string prop ->
   uri:string prop ->
-  http_basic_auth:
-    config_server_git_setting__repository__http_basic_auth list ->
-  ssh_auth:config_server_git_setting__repository__ssh_auth list ->
   unit ->
   config_server_git_setting__repository
 
@@ -67,10 +67,10 @@ type config_server_git_setting
 val config_server_git_setting :
   ?label:string prop ->
   ?search_paths:string prop list ->
+  ?http_basic_auth:config_server_git_setting__http_basic_auth list ->
+  ?repository:config_server_git_setting__repository list ->
+  ?ssh_auth:config_server_git_setting__ssh_auth list ->
   uri:string prop ->
-  http_basic_auth:config_server_git_setting__http_basic_auth list ->
-  repository:config_server_git_setting__repository list ->
-  ssh_auth:config_server_git_setting__ssh_auth list ->
   unit ->
   config_server_git_setting
 
@@ -143,16 +143,16 @@ val azurerm_spring_cloud_service :
   ?sku_tier:string prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundant:bool prop ->
+  ?config_server_git_setting:config_server_git_setting list ->
+  ?container_registry:container_registry list ->
+  ?default_build_service:default_build_service list ->
+  ?marketplace:marketplace list ->
+  ?network:network list ->
   ?timeouts:timeouts ->
+  ?trace:trace list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  config_server_git_setting:config_server_git_setting list ->
-  container_registry:container_registry list ->
-  default_build_service:default_build_service list ->
-  marketplace:marketplace list ->
-  network:network list ->
-  trace:trace list ->
   unit ->
   azurerm_spring_cloud_service
 
@@ -191,16 +191,16 @@ val register :
   ?sku_tier:string prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundant:bool prop ->
+  ?config_server_git_setting:config_server_git_setting list ->
+  ?container_registry:container_registry list ->
+  ?default_build_service:default_build_service list ->
+  ?marketplace:marketplace list ->
+  ?network:network list ->
   ?timeouts:timeouts ->
+  ?trace:trace list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  config_server_git_setting:config_server_git_setting list ->
-  container_registry:container_registry list ->
-  default_build_service:default_build_service list ->
-  marketplace:marketplace list ->
-  network:network list ->
-  trace:trace list ->
   string ->
   t
 
@@ -214,15 +214,15 @@ val make :
   ?sku_tier:string prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundant:bool prop ->
+  ?config_server_git_setting:config_server_git_setting list ->
+  ?container_registry:container_registry list ->
+  ?default_build_service:default_build_service list ->
+  ?marketplace:marketplace list ->
+  ?network:network list ->
   ?timeouts:timeouts ->
+  ?trace:trace list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  config_server_git_setting:config_server_git_setting list ->
-  container_registry:container_registry list ->
-  default_build_service:default_build_service list ->
-  marketplace:marketplace list ->
-  network:network list ->
-  trace:trace list ->
   string ->
   t Tf_core.resource

@@ -123,9 +123,8 @@ let allowed_publishers ~signing_profile_version_arns () :
 let policies ~untrusted_artifact_on_deployment () : policies =
   { untrusted_artifact_on_deployment }
 
-let aws_lambda_code_signing_config ?description ?id
-    ~allowed_publishers ~policies () : aws_lambda_code_signing_config
-    =
+let aws_lambda_code_signing_config ?description ?id ?(policies = [])
+    ~allowed_publishers () : aws_lambda_code_signing_config =
   { description; id; allowed_publishers; policies }
 
 type t = {
@@ -136,7 +135,7 @@ type t = {
   last_modified : string prop;
 }
 
-let make ?description ?id ~allowed_publishers ~policies __id =
+let make ?description ?id ?(policies = []) ~allowed_publishers __id =
   let __type = "aws_lambda_code_signing_config" in
   let __attrs =
     ({
@@ -153,15 +152,15 @@ let make ?description ?id ~allowed_publishers ~policies __id =
     type_ = __type;
     json =
       yojson_of_aws_lambda_code_signing_config
-        (aws_lambda_code_signing_config ?description ?id
-           ~allowed_publishers ~policies ());
+        (aws_lambda_code_signing_config ?description ?id ~policies
+           ~allowed_publishers ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ~allowed_publishers
-    ~policies __id =
+let register ?tf_module ?description ?id ?(policies = [])
+    ~allowed_publishers __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ~allowed_publishers ~policies __id
+    make ?description ?id ~policies ~allowed_publishers __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

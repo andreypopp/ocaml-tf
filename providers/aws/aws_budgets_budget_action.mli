@@ -42,9 +42,9 @@ val definition__ssm_action_definition :
 type definition
 
 val definition :
-  iam_action_definition:definition__iam_action_definition list ->
-  scp_action_definition:definition__scp_action_definition list ->
-  ssm_action_definition:definition__ssm_action_definition list ->
+  ?iam_action_definition:definition__iam_action_definition list ->
+  ?scp_action_definition:definition__scp_action_definition list ->
+  ?ssm_action_definition:definition__ssm_action_definition list ->
   unit ->
   definition
 

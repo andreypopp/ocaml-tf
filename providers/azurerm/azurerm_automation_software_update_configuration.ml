@@ -822,8 +822,8 @@ let schedule__monthly_occurrence ~day ~occurrence () :
 let schedule ?advanced_month_days ?advanced_week_days ?description
     ?expiry_time ?expiry_time_offset_minutes ?interval ?is_enabled
     ?next_run ?next_run_offset_minutes ?start_time
-    ?start_time_offset_minutes ?time_zone ~frequency
-    ~monthly_occurrence () : schedule =
+    ?start_time_offset_minutes ?time_zone ?(monthly_occurrence = [])
+    ~frequency () : schedule =
   {
     advanced_month_days;
     advanced_week_days;
@@ -845,15 +845,15 @@ let target__azure_query__tags ~tag ~values () :
     target__azure_query__tags =
   { tag; values }
 
-let target__azure_query ?locations ?scope ?tag_filter ~tags () :
-    target__azure_query =
+let target__azure_query ?locations ?scope ?tag_filter ?(tags = []) ()
+    : target__azure_query =
   { locations; scope; tag_filter; tags }
 
 let target__non_azure_query ?function_alias ?workspace_id () :
     target__non_azure_query =
   { function_alias; workspace_id }
 
-let target ~azure_query ~non_azure_query () : target =
+let target ?(azure_query = []) ?(non_azure_query = []) () : target =
   { azure_query; non_azure_query }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
@@ -872,9 +872,9 @@ let windows ?classification_included ?classifications_included
 
 let azurerm_automation_software_update_configuration ?duration ?id
     ?non_azure_computer_names ?operating_system ?virtual_machine_ids
-    ?timeouts ~automation_account_id ~name ~linux ~post_task
-    ~pre_task ~schedule ~target ~windows () :
-    azurerm_automation_software_update_configuration =
+    ?(linux = []) ?(post_task = []) ?(pre_task = []) ?(target = [])
+    ?timeouts ?(windows = []) ~automation_account_id ~name ~schedule
+    () : azurerm_automation_software_update_configuration =
   {
     automation_account_id;
     duration;
@@ -906,8 +906,9 @@ type t = {
 }
 
 let make ?duration ?id ?non_azure_computer_names ?operating_system
-    ?virtual_machine_ids ?timeouts ~automation_account_id ~name
-    ~linux ~post_task ~pre_task ~schedule ~target ~windows __id =
+    ?virtual_machine_ids ?(linux = []) ?(post_task = [])
+    ?(pre_task = []) ?(target = []) ?timeouts ?(windows = [])
+    ~automation_account_id ~name ~schedule __id =
   let __type = "azurerm_automation_software_update_configuration" in
   let __attrs =
     ({
@@ -935,20 +936,20 @@ let make ?duration ?id ?non_azure_computer_names ?operating_system
       yojson_of_azurerm_automation_software_update_configuration
         (azurerm_automation_software_update_configuration ?duration
            ?id ?non_azure_computer_names ?operating_system
-           ?virtual_machine_ids ?timeouts ~automation_account_id
-           ~name ~linux ~post_task ~pre_task ~schedule ~target
-           ~windows ());
+           ?virtual_machine_ids ~linux ~post_task ~pre_task ~target
+           ?timeouts ~windows ~automation_account_id ~name ~schedule
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?duration ?id ?non_azure_computer_names
-    ?operating_system ?virtual_machine_ids ?timeouts
-    ~automation_account_id ~name ~linux ~post_task ~pre_task
-    ~schedule ~target ~windows __id =
+    ?operating_system ?virtual_machine_ids ?(linux = [])
+    ?(post_task = []) ?(pre_task = []) ?(target = []) ?timeouts
+    ?(windows = []) ~automation_account_id ~name ~schedule __id =
   let (r : _ Tf_core.resource) =
     make ?duration ?id ?non_azure_computer_names ?operating_system
-      ?virtual_machine_ids ?timeouts ~automation_account_id ~name
-      ~linux ~post_task ~pre_task ~schedule ~target ~windows __id
+      ?virtual_machine_ids ~linux ~post_task ~pre_task ~target
+      ?timeouts ~windows ~automation_account_id ~name ~schedule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

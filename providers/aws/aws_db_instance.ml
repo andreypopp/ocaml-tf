@@ -1052,9 +1052,9 @@ let aws_db_instance ?allocated_storage ?allow_major_version_upgrade
     ?replica_mode ?replicate_source_db ?skip_final_snapshot
     ?snapshot_identifier ?storage_encrypted ?storage_throughput
     ?storage_type ?tags ?tags_all ?timezone ?username
-    ?vpc_security_group_ids ?timeouts ~instance_class
-    ~blue_green_update ~restore_to_point_in_time ~s3_import () :
-    aws_db_instance =
+    ?vpc_security_group_ids ?(blue_green_update = [])
+    ?(restore_to_point_in_time = []) ?(s3_import = []) ?timeouts
+    ~instance_class () : aws_db_instance =
   {
     allocated_storage;
     allow_major_version_upgrade;
@@ -1225,8 +1225,9 @@ let make ?allocated_storage ?allow_major_version_upgrade
     ?replica_mode ?replicate_source_db ?skip_final_snapshot
     ?snapshot_identifier ?storage_encrypted ?storage_throughput
     ?storage_type ?tags ?tags_all ?timezone ?username
-    ?vpc_security_group_ids ?timeouts ~instance_class
-    ~blue_green_update ~restore_to_point_in_time ~s3_import __id =
+    ?vpc_security_group_ids ?(blue_green_update = [])
+    ?(restore_to_point_in_time = []) ?(s3_import = []) ?timeouts
+    ~instance_class __id =
   let __type = "aws_db_instance" in
   let __attrs =
     ({
@@ -1384,8 +1385,8 @@ let make ?allocated_storage ?allow_major_version_upgrade
            ?skip_final_snapshot ?snapshot_identifier
            ?storage_encrypted ?storage_throughput ?storage_type ?tags
            ?tags_all ?timezone ?username ?vpc_security_group_ids
-           ?timeouts ~instance_class ~blue_green_update
-           ~restore_to_point_in_time ~s3_import ());
+           ~blue_green_update ~restore_to_point_in_time ~s3_import
+           ?timeouts ~instance_class ());
     attrs = __attrs;
   }
 
@@ -1411,8 +1412,9 @@ let register ?tf_module ?allocated_storage
     ?replica_mode ?replicate_source_db ?skip_final_snapshot
     ?snapshot_identifier ?storage_encrypted ?storage_throughput
     ?storage_type ?tags ?tags_all ?timezone ?username
-    ?vpc_security_group_ids ?timeouts ~instance_class
-    ~blue_green_update ~restore_to_point_in_time ~s3_import __id =
+    ?vpc_security_group_ids ?(blue_green_update = [])
+    ?(restore_to_point_in_time = []) ?(s3_import = []) ?timeouts
+    ~instance_class __id =
   let (r : _ Tf_core.resource) =
     make ?allocated_storage ?allow_major_version_upgrade
       ?apply_immediately ?auto_minor_version_upgrade
@@ -1436,8 +1438,9 @@ let register ?tf_module ?allocated_storage
       ?publicly_accessible ?replica_mode ?replicate_source_db
       ?skip_final_snapshot ?snapshot_identifier ?storage_encrypted
       ?storage_throughput ?storage_type ?tags ?tags_all ?timezone
-      ?username ?vpc_security_group_ids ?timeouts ~instance_class
-      ~blue_green_update ~restore_to_point_in_time ~s3_import __id
+      ?username ?vpc_security_group_ids ~blue_green_update
+      ~restore_to_point_in_time ~s3_import ?timeouts ~instance_class
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

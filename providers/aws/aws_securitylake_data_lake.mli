@@ -26,7 +26,7 @@ val configuration__lifecycle_configuration__transition :
 type configuration__lifecycle_configuration
 
 val configuration__lifecycle_configuration :
-  expiration:configuration__lifecycle_configuration__expiration list ->
+  ?expiration:configuration__lifecycle_configuration__expiration list ->
   transition:configuration__lifecycle_configuration__transition list ->
   unit ->
   configuration__lifecycle_configuration
@@ -44,10 +44,11 @@ type configuration
 val configuration :
   ?encryption_configuration:
     configuration__encryption_configuration list ->
-  region:string prop ->
-  lifecycle_configuration:configuration__lifecycle_configuration list ->
-  replication_configuration:
+  ?lifecycle_configuration:
+    configuration__lifecycle_configuration list ->
+  ?replication_configuration:
     configuration__replication_configuration list ->
+  region:string prop ->
   unit ->
   configuration
 
@@ -64,9 +65,9 @@ type aws_securitylake_data_lake
 
 val aws_securitylake_data_lake :
   ?tags:(string * string prop) list ->
+  ?configuration:configuration list ->
   ?timeouts:timeouts ->
   meta_store_manager_role_arn:string prop ->
-  configuration:configuration list ->
   unit ->
   aws_securitylake_data_lake
 
@@ -87,16 +88,16 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?tags:(string * string prop) list ->
+  ?configuration:configuration list ->
   ?timeouts:timeouts ->
   meta_store_manager_role_arn:string prop ->
-  configuration:configuration list ->
   string ->
   t
 
 val make :
   ?tags:(string * string prop) list ->
+  ?configuration:configuration list ->
   ?timeouts:timeouts ->
   meta_store_manager_role_arn:string prop ->
-  configuration:configuration list ->
   string ->
   t Tf_core.resource

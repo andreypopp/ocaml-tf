@@ -17,7 +17,7 @@ type default_cluster_config__binary_authorization_config
 
 val default_cluster_config__binary_authorization_config :
   ?evaluation_mode:string prop ->
-  policy_bindings:
+  ?policy_bindings:
     default_cluster_config__binary_authorization_config__policy_bindings
     list ->
   unit ->
@@ -34,9 +34,9 @@ val default_cluster_config__security_posture_config :
 type default_cluster_config
 
 val default_cluster_config :
-  binary_authorization_config:
+  ?binary_authorization_config:
     default_cluster_config__binary_authorization_config list ->
-  security_posture_config:
+  ?security_posture_config:
     default_cluster_config__security_posture_config list ->
   unit ->
   default_cluster_config
@@ -56,8 +56,8 @@ val google_gke_hub_fleet :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?default_cluster_config:default_cluster_config list ->
   ?timeouts:timeouts ->
-  default_cluster_config:default_cluster_config list ->
   unit ->
   google_gke_hub_fleet
 
@@ -81,8 +81,8 @@ val register :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?default_cluster_config:default_cluster_config list ->
   ?timeouts:timeouts ->
-  default_cluster_config:default_cluster_config list ->
   string ->
   t
 
@@ -90,7 +90,7 @@ val make :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?default_cluster_config:default_cluster_config list ->
   ?timeouts:timeouts ->
-  default_cluster_config:default_cluster_config list ->
   string ->
   t Tf_core.resource

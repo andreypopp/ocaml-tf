@@ -32,9 +32,9 @@ val application_rule_collection__rule :
   ?source_ip_groups:string prop list ->
   ?terminate_tls:bool prop ->
   ?web_categories:string prop list ->
+  ?http_headers:application_rule_collection__rule__http_headers list ->
+  ?protocols:application_rule_collection__rule__protocols list ->
   name:string prop ->
-  http_headers:application_rule_collection__rule__http_headers list ->
-  protocols:application_rule_collection__rule__protocols list ->
   unit ->
   application_rule_collection__rule
 
@@ -113,13 +113,13 @@ type azurerm_firewall_policy_rule_collection_group
 
 val azurerm_firewall_policy_rule_collection_group :
   ?id:string prop ->
+  ?application_rule_collection:application_rule_collection list ->
+  ?nat_rule_collection:nat_rule_collection list ->
+  ?network_rule_collection:network_rule_collection list ->
   ?timeouts:timeouts ->
   firewall_policy_id:string prop ->
   name:string prop ->
   priority:float prop ->
-  application_rule_collection:application_rule_collection list ->
-  nat_rule_collection:nat_rule_collection list ->
-  network_rule_collection:network_rule_collection list ->
   unit ->
   azurerm_firewall_policy_rule_collection_group
 
@@ -138,24 +138,24 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?application_rule_collection:application_rule_collection list ->
+  ?nat_rule_collection:nat_rule_collection list ->
+  ?network_rule_collection:network_rule_collection list ->
   ?timeouts:timeouts ->
   firewall_policy_id:string prop ->
   name:string prop ->
   priority:float prop ->
-  application_rule_collection:application_rule_collection list ->
-  nat_rule_collection:nat_rule_collection list ->
-  network_rule_collection:network_rule_collection list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?application_rule_collection:application_rule_collection list ->
+  ?nat_rule_collection:nat_rule_collection list ->
+  ?network_rule_collection:network_rule_collection list ->
   ?timeouts:timeouts ->
   firewall_policy_id:string prop ->
   name:string prop ->
   priority:float prop ->
-  application_rule_collection:application_rule_collection list ->
-  nat_rule_collection:nat_rule_collection list ->
-  network_rule_collection:network_rule_collection list ->
   string ->
   t Tf_core.resource

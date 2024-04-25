@@ -16,10 +16,10 @@ type aws_guardduty_detector_feature
 
 val aws_guardduty_detector_feature :
   ?id:string prop ->
+  ?additional_configuration:additional_configuration list ->
   detector_id:string prop ->
   name:string prop ->
   status:string prop ->
-  additional_configuration:additional_configuration list ->
   unit ->
   aws_guardduty_detector_feature
 
@@ -38,18 +38,18 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?additional_configuration:additional_configuration list ->
   detector_id:string prop ->
   name:string prop ->
   status:string prop ->
-  additional_configuration:additional_configuration list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?additional_configuration:additional_configuration list ->
   detector_id:string prop ->
   name:string prop ->
   status:string prop ->
-  additional_configuration:additional_configuration list ->
   string ->
   t Tf_core.resource

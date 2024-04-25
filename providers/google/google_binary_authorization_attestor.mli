@@ -18,7 +18,7 @@ val attestation_authority_note__public_keys :
   ?ascii_armored_pgp_public_key:string prop ->
   ?comment:string prop ->
   ?id:string prop ->
-  pkix_public_key:
+  ?pkix_public_key:
     attestation_authority_note__public_keys__pkix_public_key list ->
   unit ->
   attestation_authority_note__public_keys
@@ -26,8 +26,8 @@ val attestation_authority_note__public_keys :
 type attestation_authority_note
 
 val attestation_authority_note :
+  ?public_keys:attestation_authority_note__public_keys list ->
   note_reference:string prop ->
-  public_keys:attestation_authority_note__public_keys list ->
   unit ->
   attestation_authority_note
 

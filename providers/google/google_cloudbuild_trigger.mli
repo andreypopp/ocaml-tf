@@ -30,11 +30,11 @@ val bitbucket_server_trigger_config__push :
 type bitbucket_server_trigger_config
 
 val bitbucket_server_trigger_config :
+  ?pull_request:bitbucket_server_trigger_config__pull_request list ->
+  ?push:bitbucket_server_trigger_config__push list ->
   bitbucket_server_config_resource:string prop ->
   project_key:string prop ->
   repo_slug:string prop ->
-  pull_request:bitbucket_server_trigger_config__pull_request list ->
-  push:bitbucket_server_trigger_config__push list ->
   unit ->
   bitbucket_server_trigger_config
 
@@ -82,10 +82,10 @@ type build__artifacts
 
 val build__artifacts :
   ?images:string prop list ->
-  maven_artifacts:build__artifacts__maven_artifacts list ->
-  npm_packages:build__artifacts__npm_packages list ->
-  objects:build__artifacts__objects list ->
-  python_packages:build__artifacts__python_packages list ->
+  ?maven_artifacts:build__artifacts__maven_artifacts list ->
+  ?npm_packages:build__artifacts__npm_packages list ->
+  ?objects:build__artifacts__objects list ->
+  ?python_packages:build__artifacts__python_packages list ->
   unit ->
   build__artifacts
 
@@ -126,7 +126,7 @@ val build__options :
   ?source_provenance_hash:string prop list ->
   ?substitution_option:string prop ->
   ?worker_pool:string prop ->
-  volumes:build__options__volumes list ->
+  ?volumes:build__options__volumes list ->
   unit ->
   build__options
 
@@ -164,8 +164,8 @@ val build__source__storage_source :
 type build__source
 
 val build__source :
-  repo_source:build__source__repo_source list ->
-  storage_source:build__source__storage_source list ->
+  ?repo_source:build__source__repo_source list ->
+  ?storage_source:build__source__storage_source list ->
   unit ->
   build__source
 
@@ -192,8 +192,8 @@ val build__step :
   ?timeout:string prop ->
   ?timing:string prop ->
   ?wait_for:string prop list ->
+  ?volumes:build__step__volumes list ->
   name:string prop ->
-  volumes:build__step__volumes list ->
   unit ->
   build__step
 
@@ -206,11 +206,11 @@ val build :
   ?substitutions:(string * string prop) list ->
   ?tags:string prop list ->
   ?timeout:string prop ->
-  artifacts:build__artifacts list ->
-  available_secrets:build__available_secrets list ->
-  options:build__options list ->
-  secret:build__secret list ->
-  source:build__source list ->
+  ?artifacts:build__artifacts list ->
+  ?available_secrets:build__available_secrets list ->
+  ?options:build__options list ->
+  ?secret:build__secret list ->
+  ?source:build__source list ->
   step:build__step list ->
   unit ->
   build
@@ -252,8 +252,8 @@ val github :
   ?enterprise_config_resource_name:string prop ->
   ?name:string prop ->
   ?owner:string prop ->
-  pull_request:github__pull_request list ->
-  push:github__push list ->
+  ?pull_request:github__pull_request list ->
+  ?push:github__push list ->
   unit ->
   github
 
@@ -287,8 +287,8 @@ type repository_event_config
 
 val repository_event_config :
   ?repository:string prop ->
-  pull_request:repository_event_config__pull_request list ->
-  push:repository_event_config__push list ->
+  ?pull_request:repository_event_config__pull_request list ->
+  ?push:repository_event_config__push list ->
   unit ->
   repository_event_config
 
@@ -347,18 +347,18 @@ val google_cloudbuild_trigger :
   ?service_account:string prop ->
   ?substitutions:(string * string prop) list ->
   ?tags:string prop list ->
-  ?timeouts:timeouts ->
-  approval_config:approval_config list ->
-  bitbucket_server_trigger_config:
+  ?approval_config:approval_config list ->
+  ?bitbucket_server_trigger_config:
     bitbucket_server_trigger_config list ->
-  build:build list ->
-  git_file_source:git_file_source list ->
-  github:github list ->
-  pubsub_config:pubsub_config list ->
-  repository_event_config:repository_event_config list ->
-  source_to_build:source_to_build list ->
-  trigger_template:trigger_template list ->
-  webhook_config:webhook_config list ->
+  ?build:build list ->
+  ?git_file_source:git_file_source list ->
+  ?github:github list ->
+  ?pubsub_config:pubsub_config list ->
+  ?repository_event_config:repository_event_config list ->
+  ?source_to_build:source_to_build list ->
+  ?timeouts:timeouts ->
+  ?trigger_template:trigger_template list ->
+  ?webhook_config:webhook_config list ->
   unit ->
   google_cloudbuild_trigger
 
@@ -402,18 +402,18 @@ val register :
   ?service_account:string prop ->
   ?substitutions:(string * string prop) list ->
   ?tags:string prop list ->
-  ?timeouts:timeouts ->
-  approval_config:approval_config list ->
-  bitbucket_server_trigger_config:
+  ?approval_config:approval_config list ->
+  ?bitbucket_server_trigger_config:
     bitbucket_server_trigger_config list ->
-  build:build list ->
-  git_file_source:git_file_source list ->
-  github:github list ->
-  pubsub_config:pubsub_config list ->
-  repository_event_config:repository_event_config list ->
-  source_to_build:source_to_build list ->
-  trigger_template:trigger_template list ->
-  webhook_config:webhook_config list ->
+  ?build:build list ->
+  ?git_file_source:git_file_source list ->
+  ?github:github list ->
+  ?pubsub_config:pubsub_config list ->
+  ?repository_event_config:repository_event_config list ->
+  ?source_to_build:source_to_build list ->
+  ?timeouts:timeouts ->
+  ?trigger_template:trigger_template list ->
+  ?webhook_config:webhook_config list ->
   string ->
   t
 
@@ -432,17 +432,17 @@ val make :
   ?service_account:string prop ->
   ?substitutions:(string * string prop) list ->
   ?tags:string prop list ->
-  ?timeouts:timeouts ->
-  approval_config:approval_config list ->
-  bitbucket_server_trigger_config:
+  ?approval_config:approval_config list ->
+  ?bitbucket_server_trigger_config:
     bitbucket_server_trigger_config list ->
-  build:build list ->
-  git_file_source:git_file_source list ->
-  github:github list ->
-  pubsub_config:pubsub_config list ->
-  repository_event_config:repository_event_config list ->
-  source_to_build:source_to_build list ->
-  trigger_template:trigger_template list ->
-  webhook_config:webhook_config list ->
+  ?build:build list ->
+  ?git_file_source:git_file_source list ->
+  ?github:github list ->
+  ?pubsub_config:pubsub_config list ->
+  ?repository_event_config:repository_event_config list ->
+  ?source_to_build:source_to_build list ->
+  ?timeouts:timeouts ->
+  ?trigger_template:trigger_template list ->
+  ?webhook_config:webhook_config list ->
   string ->
   t Tf_core.resource

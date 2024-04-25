@@ -106,9 +106,9 @@ let _ = yojson_of_google_billing_account_iam_binding
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_billing_account_iam_binding ?id ~billing_account_id
-    ~members ~role ~condition () : google_billing_account_iam_binding
-    =
+let google_billing_account_iam_binding ?id ?(condition = [])
+    ~billing_account_id ~members ~role () :
+    google_billing_account_iam_binding =
   { billing_account_id; id; members; role; condition }
 
 type t = {
@@ -119,7 +119,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ~billing_account_id ~members ~role ~condition __id =
+let make ?id ?(condition = []) ~billing_account_id ~members ~role
+    __id =
   let __type = "google_billing_account_iam_binding" in
   let __attrs =
     ({
@@ -137,15 +138,15 @@ let make ?id ~billing_account_id ~members ~role ~condition __id =
     type_ = __type;
     json =
       yojson_of_google_billing_account_iam_binding
-        (google_billing_account_iam_binding ?id ~billing_account_id
-           ~members ~role ~condition ());
+        (google_billing_account_iam_binding ?id ~condition
+           ~billing_account_id ~members ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~billing_account_id ~members ~role
-    ~condition __id =
+let register ?tf_module ?id ?(condition = []) ~billing_account_id
+    ~members ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~billing_account_id ~members ~role ~condition __id
+    make ?id ~condition ~billing_account_id ~members ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

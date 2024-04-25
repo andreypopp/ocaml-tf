@@ -51,14 +51,14 @@ val azurerm_recovery_services_vault :
   ?soft_delete_enabled:bool prop ->
   ?storage_mode_type:string prop ->
   ?tags:(string * string prop) list ->
+  ?encryption:encryption list ->
+  ?identity:identity list ->
+  ?monitoring:monitoring list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  encryption:encryption list ->
-  identity:identity list ->
-  monitoring:monitoring list ->
   unit ->
   azurerm_recovery_services_vault
 
@@ -92,14 +92,14 @@ val register :
   ?soft_delete_enabled:bool prop ->
   ?storage_mode_type:string prop ->
   ?tags:(string * string prop) list ->
+  ?encryption:encryption list ->
+  ?identity:identity list ->
+  ?monitoring:monitoring list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  encryption:encryption list ->
-  identity:identity list ->
-  monitoring:monitoring list ->
   string ->
   t
 
@@ -112,13 +112,13 @@ val make :
   ?soft_delete_enabled:bool prop ->
   ?storage_mode_type:string prop ->
   ?tags:(string * string prop) list ->
+  ?encryption:encryption list ->
+  ?identity:identity list ->
+  ?monitoring:monitoring list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  encryption:encryption list ->
-  identity:identity list ->
-  monitoring:monitoring list ->
   string ->
   t Tf_core.resource

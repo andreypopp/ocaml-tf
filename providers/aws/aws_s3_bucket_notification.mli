@@ -42,10 +42,10 @@ type aws_s3_bucket_notification
 val aws_s3_bucket_notification :
   ?eventbridge:bool prop ->
   ?id:string prop ->
+  ?lambda_function:lambda_function list ->
+  ?queue:queue list ->
+  ?topic:topic list ->
   bucket:string prop ->
-  lambda_function:lambda_function list ->
-  queue:queue list ->
-  topic:topic list ->
   unit ->
   aws_s3_bucket_notification
 
@@ -64,19 +64,19 @@ val register :
   ?tf_module:tf_module ->
   ?eventbridge:bool prop ->
   ?id:string prop ->
+  ?lambda_function:lambda_function list ->
+  ?queue:queue list ->
+  ?topic:topic list ->
   bucket:string prop ->
-  lambda_function:lambda_function list ->
-  queue:queue list ->
-  topic:topic list ->
   string ->
   t
 
 val make :
   ?eventbridge:bool prop ->
   ?id:string prop ->
+  ?lambda_function:lambda_function list ->
+  ?queue:queue list ->
+  ?topic:topic list ->
   bucket:string prop ->
-  lambda_function:lambda_function list ->
-  queue:queue list ->
-  topic:topic list ->
   string ->
   t Tf_core.resource

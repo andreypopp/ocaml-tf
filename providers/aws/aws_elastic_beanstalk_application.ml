@@ -155,7 +155,7 @@ let appversion_lifecycle ?delete_source_from_s3 ?max_age_in_days
   { delete_source_from_s3; max_age_in_days; max_count; service_role }
 
 let aws_elastic_beanstalk_application ?description ?id ?tags
-    ?tags_all ~name ~appversion_lifecycle () :
+    ?tags_all ?(appversion_lifecycle = []) ~name () :
     aws_elastic_beanstalk_application =
   { description; id; name; tags; tags_all; appversion_lifecycle }
 
@@ -168,8 +168,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?description ?id ?tags ?tags_all ~name ~appversion_lifecycle
-    __id =
+let make ?description ?id ?tags ?tags_all
+    ?(appversion_lifecycle = []) ~name __id =
   let __type = "aws_elastic_beanstalk_application" in
   let __attrs =
     ({
@@ -188,14 +188,14 @@ let make ?description ?id ?tags ?tags_all ~name ~appversion_lifecycle
     json =
       yojson_of_aws_elastic_beanstalk_application
         (aws_elastic_beanstalk_application ?description ?id ?tags
-           ?tags_all ~name ~appversion_lifecycle ());
+           ?tags_all ~appversion_lifecycle ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ~name
-    ~appversion_lifecycle __id =
+let register ?tf_module ?description ?id ?tags ?tags_all
+    ?(appversion_lifecycle = []) ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?tags ?tags_all ~name ~appversion_lifecycle
+    make ?description ?id ?tags ?tags_all ~appversion_lifecycle ~name
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

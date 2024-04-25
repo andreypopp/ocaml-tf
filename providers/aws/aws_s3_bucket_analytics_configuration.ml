@@ -288,8 +288,8 @@ let storage_class_analysis__data_export ?output_schema_version
 let storage_class_analysis ~data_export () : storage_class_analysis =
   { data_export }
 
-let aws_s3_bucket_analytics_configuration ?id ~bucket ~name ~filter
-    ~storage_class_analysis () :
+let aws_s3_bucket_analytics_configuration ?id ?(filter = [])
+    ?(storage_class_analysis = []) ~bucket ~name () :
     aws_s3_bucket_analytics_configuration =
   { bucket; id; name; filter; storage_class_analysis }
 
@@ -299,7 +299,8 @@ type t = {
   name : string prop;
 }
 
-let make ?id ~bucket ~name ~filter ~storage_class_analysis __id =
+let make ?id ?(filter = []) ?(storage_class_analysis = []) ~bucket
+    ~name __id =
   let __type = "aws_s3_bucket_analytics_configuration" in
   let __attrs =
     ({
@@ -314,15 +315,15 @@ let make ?id ~bucket ~name ~filter ~storage_class_analysis __id =
     type_ = __type;
     json =
       yojson_of_aws_s3_bucket_analytics_configuration
-        (aws_s3_bucket_analytics_configuration ?id ~bucket ~name
-           ~filter ~storage_class_analysis ());
+        (aws_s3_bucket_analytics_configuration ?id ~filter
+           ~storage_class_analysis ~bucket ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~bucket ~name ~filter
-    ~storage_class_analysis __id =
+let register ?tf_module ?id ?(filter = [])
+    ?(storage_class_analysis = []) ~bucket ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~bucket ~name ~filter ~storage_class_analysis __id
+    make ?id ~filter ~storage_class_analysis ~bucket ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -73,16 +73,16 @@ val aws_route53_record :
   ?records:string prop list ->
   ?set_identifier:string prop ->
   ?ttl:float prop ->
+  ?alias:alias list ->
+  ?cidr_routing_policy:cidr_routing_policy list ->
+  ?failover_routing_policy:failover_routing_policy list ->
+  ?geolocation_routing_policy:geolocation_routing_policy list ->
+  ?geoproximity_routing_policy:geoproximity_routing_policy list ->
+  ?latency_routing_policy:latency_routing_policy list ->
+  ?weighted_routing_policy:weighted_routing_policy list ->
   name:string prop ->
   type_:string prop ->
   zone_id:string prop ->
-  alias:alias list ->
-  cidr_routing_policy:cidr_routing_policy list ->
-  failover_routing_policy:failover_routing_policy list ->
-  geolocation_routing_policy:geolocation_routing_policy list ->
-  geoproximity_routing_policy:geoproximity_routing_policy list ->
-  latency_routing_policy:latency_routing_policy list ->
-  weighted_routing_policy:weighted_routing_policy list ->
   unit ->
   aws_route53_record
 
@@ -113,16 +113,16 @@ val register :
   ?records:string prop list ->
   ?set_identifier:string prop ->
   ?ttl:float prop ->
+  ?alias:alias list ->
+  ?cidr_routing_policy:cidr_routing_policy list ->
+  ?failover_routing_policy:failover_routing_policy list ->
+  ?geolocation_routing_policy:geolocation_routing_policy list ->
+  ?geoproximity_routing_policy:geoproximity_routing_policy list ->
+  ?latency_routing_policy:latency_routing_policy list ->
+  ?weighted_routing_policy:weighted_routing_policy list ->
   name:string prop ->
   type_:string prop ->
   zone_id:string prop ->
-  alias:alias list ->
-  cidr_routing_policy:cidr_routing_policy list ->
-  failover_routing_policy:failover_routing_policy list ->
-  geolocation_routing_policy:geolocation_routing_policy list ->
-  geoproximity_routing_policy:geoproximity_routing_policy list ->
-  latency_routing_policy:latency_routing_policy list ->
-  weighted_routing_policy:weighted_routing_policy list ->
   string ->
   t
 
@@ -134,15 +134,15 @@ val make :
   ?records:string prop list ->
   ?set_identifier:string prop ->
   ?ttl:float prop ->
+  ?alias:alias list ->
+  ?cidr_routing_policy:cidr_routing_policy list ->
+  ?failover_routing_policy:failover_routing_policy list ->
+  ?geolocation_routing_policy:geolocation_routing_policy list ->
+  ?geoproximity_routing_policy:geoproximity_routing_policy list ->
+  ?latency_routing_policy:latency_routing_policy list ->
+  ?weighted_routing_policy:weighted_routing_policy list ->
   name:string prop ->
   type_:string prop ->
   zone_id:string prop ->
-  alias:alias list ->
-  cidr_routing_policy:cidr_routing_policy list ->
-  failover_routing_policy:failover_routing_policy list ->
-  geolocation_routing_policy:geolocation_routing_policy list ->
-  geoproximity_routing_policy:geoproximity_routing_policy list ->
-  latency_routing_policy:latency_routing_policy list ->
-  weighted_routing_policy:weighted_routing_policy list ->
   string ->
   t Tf_core.resource

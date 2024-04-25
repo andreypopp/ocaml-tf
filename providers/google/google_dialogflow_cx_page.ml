@@ -3058,7 +3058,7 @@ let advanced_settings__dtmf_settings ?enabled ?finish_digit
     ?max_digits () : advanced_settings__dtmf_settings =
   { enabled; finish_digit; max_digits }
 
-let advanced_settings ~dtmf_settings () : advanced_settings =
+let advanced_settings ?(dtmf_settings = []) () : advanced_settings =
   { dtmf_settings }
 
 let entry_fulfillment__conditional_cases ?cases () :
@@ -3091,8 +3091,9 @@ let entry_fulfillment__messages__text ?text () :
   { text }
 
 let entry_fulfillment__messages ?channel ?payload
-    ~conversation_success ~live_agent_handoff ~output_audio_text
-    ~play_audio ~telephony_transfer_call ~text () :
+    ?(conversation_success = []) ?(live_agent_handoff = [])
+    ?(output_audio_text = []) ?(play_audio = [])
+    ?(telephony_transfer_call = []) ?(text = []) () :
     entry_fulfillment__messages =
   {
     channel;
@@ -3110,8 +3111,8 @@ let entry_fulfillment__set_parameter_actions ?parameter ?value () :
   { parameter; value }
 
 let entry_fulfillment ?return_partial_responses ?tag ?webhook
-    ~conditional_cases ~messages ~set_parameter_actions () :
-    entry_fulfillment =
+    ?(conditional_cases = []) ?(messages = [])
+    ?(set_parameter_actions = []) () : entry_fulfillment =
   {
     return_partial_responses;
     tag;
@@ -3159,8 +3160,9 @@ let event_handlers__trigger_fulfillment__messages__text ?text () :
   { text }
 
 let event_handlers__trigger_fulfillment__messages ?channel ?payload
-    ~conversation_success ~live_agent_handoff ~output_audio_text
-    ~play_audio ~telephony_transfer_call ~text () :
+    ?(conversation_success = []) ?(live_agent_handoff = [])
+    ?(output_audio_text = []) ?(play_audio = [])
+    ?(telephony_transfer_call = []) ?(text = []) () :
     event_handlers__trigger_fulfillment__messages =
   {
     channel;
@@ -3179,8 +3181,9 @@ let event_handlers__trigger_fulfillment__set_parameter_actions
   { parameter; value }
 
 let event_handlers__trigger_fulfillment ?return_partial_responses
-    ?tag ?webhook ~conditional_cases ~messages ~set_parameter_actions
-    () : event_handlers__trigger_fulfillment =
+    ?tag ?webhook ?(conditional_cases = []) ?(messages = [])
+    ?(set_parameter_actions = []) () :
+    event_handlers__trigger_fulfillment =
   {
     return_partial_responses;
     tag;
@@ -3191,7 +3194,7 @@ let event_handlers__trigger_fulfillment ?return_partial_responses
   }
 
 let event_handlers ?event ?target_flow ?target_page
-    ~trigger_fulfillment () : event_handlers =
+    ?(trigger_fulfillment = []) () : event_handlers =
   { event; target_flow; target_page; trigger_fulfillment }
 
 let form__parameters__advanced_settings__dtmf_settings ?enabled
@@ -3199,7 +3202,7 @@ let form__parameters__advanced_settings__dtmf_settings ?enabled
     form__parameters__advanced_settings__dtmf_settings =
   { enabled; finish_digit; max_digits }
 
-let form__parameters__advanced_settings ~dtmf_settings () :
+let form__parameters__advanced_settings ?(dtmf_settings = []) () :
     form__parameters__advanced_settings =
   { dtmf_settings }
 
@@ -3246,9 +3249,10 @@ let form__parameters__fill_behavior__initial_prompt_fulfillment__messages__text
   { text }
 
 let form__parameters__fill_behavior__initial_prompt_fulfillment__messages
-    ?channel ?payload ~conversation_success ~live_agent_handoff
-    ~output_audio_text ~play_audio ~telephony_transfer_call ~text ()
-    :
+    ?channel ?payload ?(conversation_success = [])
+    ?(live_agent_handoff = []) ?(output_audio_text = [])
+    ?(play_audio = []) ?(telephony_transfer_call = []) ?(text = [])
+    () :
     form__parameters__fill_behavior__initial_prompt_fulfillment__messages
     =
   {
@@ -3269,8 +3273,8 @@ let form__parameters__fill_behavior__initial_prompt_fulfillment__set_parameter_a
   { parameter; value }
 
 let form__parameters__fill_behavior__initial_prompt_fulfillment
-    ?return_partial_responses ?tag ?webhook ~conditional_cases
-    ~messages ~set_parameter_actions () :
+    ?return_partial_responses ?tag ?webhook ?(conditional_cases = [])
+    ?(messages = []) ?(set_parameter_actions = []) () :
     form__parameters__fill_behavior__initial_prompt_fulfillment =
   {
     return_partial_responses;
@@ -3324,9 +3328,10 @@ let form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillmen
   { text }
 
 let form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages
-    ?channel ?payload ~conversation_success ~live_agent_handoff
-    ~output_audio_text ~play_audio ~telephony_transfer_call ~text ()
-    :
+    ?channel ?payload ?(conversation_success = [])
+    ?(live_agent_handoff = []) ?(output_audio_text = [])
+    ?(play_audio = []) ?(telephony_transfer_call = []) ?(text = [])
+    () :
     form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages
     =
   {
@@ -3347,8 +3352,8 @@ let form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillmen
   { parameter; value }
 
 let form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment
-    ?return_partial_responses ?tag ?webhook ~conditional_cases
-    ~messages ~set_parameter_actions () :
+    ?return_partial_responses ?tag ?webhook ?(conditional_cases = [])
+    ?(messages = []) ?(set_parameter_actions = []) () :
     form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment
     =
   {
@@ -3361,17 +3366,19 @@ let form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillmen
   }
 
 let form__parameters__fill_behavior__reprompt_event_handlers ?event
-    ?target_flow ?target_page ~trigger_fulfillment () :
+    ?target_flow ?target_page ?(trigger_fulfillment = []) () :
     form__parameters__fill_behavior__reprompt_event_handlers =
   { event; target_flow; target_page; trigger_fulfillment }
 
-let form__parameters__fill_behavior ~initial_prompt_fulfillment
-    ~reprompt_event_handlers () : form__parameters__fill_behavior =
+let form__parameters__fill_behavior
+    ?(initial_prompt_fulfillment = [])
+    ?(reprompt_event_handlers = []) () :
+    form__parameters__fill_behavior =
   { initial_prompt_fulfillment; reprompt_event_handlers }
 
 let form__parameters ?default_value ?display_name ?entity_type
-    ?is_list ?redact ?required ~advanced_settings ~fill_behavior () :
-    form__parameters =
+    ?is_list ?redact ?required ?(advanced_settings = [])
+    ?(fill_behavior = []) () : form__parameters =
   {
     default_value;
     display_name;
@@ -3383,7 +3390,7 @@ let form__parameters ?default_value ?display_name ?entity_type
     fill_behavior;
   }
 
-let form ~parameters () : form = { parameters }
+let form ?(parameters = []) () : form = { parameters }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
@@ -3426,9 +3433,10 @@ let transition_routes__trigger_fulfillment__messages__text ?text () :
   { text }
 
 let transition_routes__trigger_fulfillment__messages ?channel
-    ?payload ~conversation_success ~live_agent_handoff
-    ~output_audio_text ~play_audio ~telephony_transfer_call ~text ()
-    : transition_routes__trigger_fulfillment__messages =
+    ?payload ?(conversation_success = []) ?(live_agent_handoff = [])
+    ?(output_audio_text = []) ?(play_audio = [])
+    ?(telephony_transfer_call = []) ?(text = []) () :
+    transition_routes__trigger_fulfillment__messages =
   {
     channel;
     payload;
@@ -3446,8 +3454,9 @@ let transition_routes__trigger_fulfillment__set_parameter_actions
   { parameter; value }
 
 let transition_routes__trigger_fulfillment ?return_partial_responses
-    ?tag ?webhook ~conditional_cases ~messages ~set_parameter_actions
-    () : transition_routes__trigger_fulfillment =
+    ?tag ?webhook ?(conditional_cases = []) ?(messages = [])
+    ?(set_parameter_actions = []) () :
+    transition_routes__trigger_fulfillment =
   {
     return_partial_responses;
     tag;
@@ -3458,7 +3467,7 @@ let transition_routes__trigger_fulfillment ?return_partial_responses
   }
 
 let transition_routes ?condition ?intent ?target_flow ?target_page
-    ~trigger_fulfillment () : transition_routes =
+    ?(trigger_fulfillment = []) () : transition_routes =
   {
     condition;
     intent;
@@ -3468,9 +3477,10 @@ let transition_routes ?condition ?intent ?target_flow ?target_page
   }
 
 let google_dialogflow_cx_page ?id ?language_code ?parent
-    ?transition_route_groups ?timeouts ~display_name
-    ~advanced_settings ~entry_fulfillment ~event_handlers ~form
-    ~transition_routes () : google_dialogflow_cx_page =
+    ?transition_route_groups ?(advanced_settings = [])
+    ?(entry_fulfillment = []) ?(event_handlers = []) ?(form = [])
+    ?timeouts ?(transition_routes = []) ~display_name () :
+    google_dialogflow_cx_page =
   {
     display_name;
     id;
@@ -3495,8 +3505,9 @@ type t = {
 }
 
 let make ?id ?language_code ?parent ?transition_route_groups
-    ?timeouts ~display_name ~advanced_settings ~entry_fulfillment
-    ~event_handlers ~form ~transition_routes __id =
+    ?(advanced_settings = []) ?(entry_fulfillment = [])
+    ?(event_handlers = []) ?(form = []) ?timeouts
+    ?(transition_routes = []) ~display_name __id =
   let __type = "google_dialogflow_cx_page" in
   let __attrs =
     ({
@@ -3516,20 +3527,20 @@ let make ?id ?language_code ?parent ?transition_route_groups
     json =
       yojson_of_google_dialogflow_cx_page
         (google_dialogflow_cx_page ?id ?language_code ?parent
-           ?transition_route_groups ?timeouts ~display_name
-           ~advanced_settings ~entry_fulfillment ~event_handlers
-           ~form ~transition_routes ());
+           ?transition_route_groups ~advanced_settings
+           ~entry_fulfillment ~event_handlers ~form ?timeouts
+           ~transition_routes ~display_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?language_code ?parent
-    ?transition_route_groups ?timeouts ~display_name
-    ~advanced_settings ~entry_fulfillment ~event_handlers ~form
-    ~transition_routes __id =
+    ?transition_route_groups ?(advanced_settings = [])
+    ?(entry_fulfillment = []) ?(event_handlers = []) ?(form = [])
+    ?timeouts ?(transition_routes = []) ~display_name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?language_code ?parent ?transition_route_groups
-      ?timeouts ~display_name ~advanced_settings ~entry_fulfillment
-      ~event_handlers ~form ~transition_routes __id
+      ~advanced_settings ~entry_fulfillment ~event_handlers ~form
+      ?timeouts ~transition_routes ~display_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

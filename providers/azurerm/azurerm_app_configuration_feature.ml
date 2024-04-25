@@ -340,8 +340,8 @@ let targeting_filter__groups ~name ~rollout_percentage () :
     targeting_filter__groups =
   { name; rollout_percentage }
 
-let targeting_filter ?users ~default_rollout_percentage ~groups () :
-    targeting_filter =
+let targeting_filter ?users ?(groups = [])
+    ~default_rollout_percentage () : targeting_filter =
   { default_rollout_percentage; users; groups }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
@@ -351,9 +351,10 @@ let timewindow_filter ?end_ ?start () : timewindow_filter =
   { end_; start }
 
 let azurerm_app_configuration_feature ?description ?enabled ?etag ?id
-    ?key ?label ?locked ?percentage_filter_value ?tags ?timeouts
-    ~configuration_store_id ~name ~targeting_filter
-    ~timewindow_filter () : azurerm_app_configuration_feature =
+    ?key ?label ?locked ?percentage_filter_value ?tags
+    ?(targeting_filter = []) ?timeouts ?(timewindow_filter = [])
+    ~configuration_store_id ~name () :
+    azurerm_app_configuration_feature =
   {
     configuration_store_id;
     description;
@@ -386,8 +387,8 @@ type t = {
 }
 
 let make ?description ?enabled ?etag ?id ?key ?label ?locked
-    ?percentage_filter_value ?tags ?timeouts ~configuration_store_id
-    ~name ~targeting_filter ~timewindow_filter __id =
+    ?percentage_filter_value ?tags ?(targeting_filter = []) ?timeouts
+    ?(timewindow_filter = []) ~configuration_store_id ~name __id =
   let __type = "azurerm_app_configuration_feature" in
   let __attrs =
     ({
@@ -414,20 +415,19 @@ let make ?description ?enabled ?etag ?id ?key ?label ?locked
       yojson_of_azurerm_app_configuration_feature
         (azurerm_app_configuration_feature ?description ?enabled
            ?etag ?id ?key ?label ?locked ?percentage_filter_value
-           ?tags ?timeouts ~configuration_store_id ~name
-           ~targeting_filter ~timewindow_filter ());
+           ?tags ~targeting_filter ?timeouts ~timewindow_filter
+           ~configuration_store_id ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?enabled ?etag ?id ?key ?label
-    ?locked ?percentage_filter_value ?tags ?timeouts
-    ~configuration_store_id ~name ~targeting_filter
-    ~timewindow_filter __id =
+    ?locked ?percentage_filter_value ?tags ?(targeting_filter = [])
+    ?timeouts ?(timewindow_filter = []) ~configuration_store_id ~name
+    __id =
   let (r : _ Tf_core.resource) =
     make ?description ?enabled ?etag ?id ?key ?label ?locked
-      ?percentage_filter_value ?tags ?timeouts
-      ~configuration_store_id ~name ~targeting_filter
-      ~timewindow_filter __id
+      ?percentage_filter_value ?tags ~targeting_filter ?timeouts
+      ~timewindow_filter ~configuration_store_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

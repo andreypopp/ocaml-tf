@@ -26,9 +26,9 @@ val aws_athena_database :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?properties:(string * string prop) list ->
+  ?acl_configuration:acl_configuration list ->
+  ?encryption_configuration:encryption_configuration list ->
   name:string prop ->
-  acl_configuration:acl_configuration list ->
-  encryption_configuration:encryption_configuration list ->
   unit ->
   aws_athena_database
 
@@ -54,9 +54,9 @@ val register :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?properties:(string * string prop) list ->
+  ?acl_configuration:acl_configuration list ->
+  ?encryption_configuration:encryption_configuration list ->
   name:string prop ->
-  acl_configuration:acl_configuration list ->
-  encryption_configuration:encryption_configuration list ->
   string ->
   t
 
@@ -67,8 +67,8 @@ val make :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?properties:(string * string prop) list ->
+  ?acl_configuration:acl_configuration list ->
+  ?encryption_configuration:encryption_configuration list ->
   name:string prop ->
-  acl_configuration:acl_configuration list ->
-  encryption_configuration:encryption_configuration list ->
   string ->
   t Tf_core.resource

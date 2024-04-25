@@ -25,9 +25,9 @@ val azurerm_iotcentral_application_network_rule_set :
   ?apply_to_device:bool prop ->
   ?default_action:string prop ->
   ?id:string prop ->
+  ?ip_rule:ip_rule list ->
   ?timeouts:timeouts ->
   iotcentral_application_id:string prop ->
-  ip_rule:ip_rule list ->
   unit ->
   azurerm_iotcentral_application_network_rule_set
 
@@ -48,9 +48,9 @@ val register :
   ?apply_to_device:bool prop ->
   ?default_action:string prop ->
   ?id:string prop ->
+  ?ip_rule:ip_rule list ->
   ?timeouts:timeouts ->
   iotcentral_application_id:string prop ->
-  ip_rule:ip_rule list ->
   string ->
   t
 
@@ -58,8 +58,8 @@ val make :
   ?apply_to_device:bool prop ->
   ?default_action:string prop ->
   ?id:string prop ->
+  ?ip_rule:ip_rule list ->
   ?timeouts:timeouts ->
   iotcentral_application_id:string prop ->
-  ip_rule:ip_rule list ->
   string ->
   t Tf_core.resource

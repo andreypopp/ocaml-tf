@@ -359,11 +359,12 @@ let threshold_observation ~name ~value () : threshold_observation =
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_sentinel_alert_rule_anomaly_duplicate ?id ?timeouts
-    ~built_in_rule_id ~display_name ~enabled
-    ~log_analytics_workspace_id ~mode ~multi_select_observation
-    ~prioritized_exclude_observation ~single_select_observation
-    ~threshold_observation () :
+let azurerm_sentinel_alert_rule_anomaly_duplicate ?id
+    ?(multi_select_observation = [])
+    ?(prioritized_exclude_observation = [])
+    ?(single_select_observation = []) ?(threshold_observation = [])
+    ?timeouts ~built_in_rule_id ~display_name ~enabled
+    ~log_analytics_workspace_id ~mode () :
     azurerm_sentinel_alert_rule_anomaly_duplicate =
   {
     built_in_rule_id;
@@ -398,10 +399,11 @@ type t = {
   techniques : string list prop;
 }
 
-let make ?id ?timeouts ~built_in_rule_id ~display_name ~enabled
-    ~log_analytics_workspace_id ~mode ~multi_select_observation
-    ~prioritized_exclude_observation ~single_select_observation
-    ~threshold_observation __id =
+let make ?id ?(multi_select_observation = [])
+    ?(prioritized_exclude_observation = [])
+    ?(single_select_observation = []) ?(threshold_observation = [])
+    ?timeouts ~built_in_rule_id ~display_name ~enabled
+    ~log_analytics_workspace_id ~mode __id =
   let __type = "azurerm_sentinel_alert_rule_anomaly_duplicate" in
   let __attrs =
     ({
@@ -435,23 +437,24 @@ let make ?id ?timeouts ~built_in_rule_id ~display_name ~enabled
     type_ = __type;
     json =
       yojson_of_azurerm_sentinel_alert_rule_anomaly_duplicate
-        (azurerm_sentinel_alert_rule_anomaly_duplicate ?id ?timeouts
-           ~built_in_rule_id ~display_name ~enabled
-           ~log_analytics_workspace_id ~mode
+        (azurerm_sentinel_alert_rule_anomaly_duplicate ?id
            ~multi_select_observation ~prioritized_exclude_observation
-           ~single_select_observation ~threshold_observation ());
+           ~single_select_observation ~threshold_observation
+           ?timeouts ~built_in_rule_id ~display_name ~enabled
+           ~log_analytics_workspace_id ~mode ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~built_in_rule_id ~display_name
-    ~enabled ~log_analytics_workspace_id ~mode
-    ~multi_select_observation ~prioritized_exclude_observation
-    ~single_select_observation ~threshold_observation __id =
+let register ?tf_module ?id ?(multi_select_observation = [])
+    ?(prioritized_exclude_observation = [])
+    ?(single_select_observation = []) ?(threshold_observation = [])
+    ?timeouts ~built_in_rule_id ~display_name ~enabled
+    ~log_analytics_workspace_id ~mode __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~built_in_rule_id ~display_name ~enabled
-      ~log_analytics_workspace_id ~mode ~multi_select_observation
+    make ?id ~multi_select_observation
       ~prioritized_exclude_observation ~single_select_observation
-      ~threshold_observation __id
+      ~threshold_observation ?timeouts ~built_in_rule_id
+      ~display_name ~enabled ~log_analytics_workspace_id ~mode __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

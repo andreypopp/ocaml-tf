@@ -26,9 +26,9 @@ val google_compute_ha_vpn_gateway :
   ?region:string prop ->
   ?stack_type:string prop ->
   ?timeouts:timeouts ->
+  ?vpn_interfaces:vpn_interfaces list ->
   name:string prop ->
   network:string prop ->
-  vpn_interfaces:vpn_interfaces list ->
   unit ->
   google_compute_ha_vpn_gateway
 
@@ -56,9 +56,9 @@ val register :
   ?region:string prop ->
   ?stack_type:string prop ->
   ?timeouts:timeouts ->
+  ?vpn_interfaces:vpn_interfaces list ->
   name:string prop ->
   network:string prop ->
-  vpn_interfaces:vpn_interfaces list ->
   string ->
   t
 
@@ -69,8 +69,8 @@ val make :
   ?region:string prop ->
   ?stack_type:string prop ->
   ?timeouts:timeouts ->
+  ?vpn_interfaces:vpn_interfaces list ->
   name:string prop ->
   network:string prop ->
-  vpn_interfaces:vpn_interfaces list ->
   string ->
   t Tf_core.resource

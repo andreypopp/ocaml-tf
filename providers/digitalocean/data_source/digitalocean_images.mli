@@ -40,8 +40,8 @@ type digitalocean_images
 
 val digitalocean_images :
   ?id:string prop ->
+  ?sort:sort list ->
   filter:filter list ->
-  sort:sort list ->
   unit ->
   digitalocean_images
 
@@ -54,14 +54,14 @@ type t = private { id : string prop; images : images list prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?sort:sort list ->
   filter:filter list ->
-  sort:sort list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?sort:sort list ->
   filter:filter list ->
-  sort:sort list ->
   string ->
   t Tf_core.resource

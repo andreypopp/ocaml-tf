@@ -1742,7 +1742,7 @@ let google ?access_approval_custom_endpoint
     ?tpu_custom_endpoint ?universe_domain ?user_project_override
     ?vertex_ai_custom_endpoint ?vmwareengine_custom_endpoint
     ?vpc_access_custom_endpoint ?workbench_custom_endpoint
-    ?workflows_custom_endpoint ?zone ~batching () : google =
+    ?workflows_custom_endpoint ?zone ?(batching = []) () : google =
   {
     access_approval_custom_endpoint;
     access_context_manager_custom_endpoint;
@@ -1980,7 +1980,7 @@ let make ?access_approval_custom_endpoint
     ?tpu_custom_endpoint ?universe_domain ?user_project_override
     ?vertex_ai_custom_endpoint ?vmwareengine_custom_endpoint
     ?vpc_access_custom_endpoint ?workbench_custom_endpoint
-    ?workflows_custom_endpoint ?zone ~batching () =
+    ?workflows_custom_endpoint ?zone ?(batching = []) () =
   {
     Tf_core.id = "google";
     json =
@@ -2176,7 +2176,7 @@ let register ?tf_module ?access_approval_custom_endpoint
     ?tpu_custom_endpoint ?universe_domain ?user_project_override
     ?vertex_ai_custom_endpoint ?vmwareengine_custom_endpoint
     ?vpc_access_custom_endpoint ?workbench_custom_endpoint
-    ?workflows_custom_endpoint ?zone ~batching ~version () =
+    ?workflows_custom_endpoint ?zone ?(batching = []) ~version () =
   let (p : Tf_core.provider) =
     make ?access_approval_custom_endpoint
       ?access_context_manager_custom_endpoint ?access_token

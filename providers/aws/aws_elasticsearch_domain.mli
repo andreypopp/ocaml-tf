@@ -17,9 +17,9 @@ type advanced_security_options
 
 val advanced_security_options :
   ?internal_user_database_enabled:bool prop ->
-  enabled:bool prop ->
-  master_user_options:
+  ?master_user_options:
     advanced_security_options__master_user_options list ->
+  enabled:bool prop ->
   unit ->
   advanced_security_options
 
@@ -73,8 +73,8 @@ val cluster_config :
   ?warm_enabled:bool prop ->
   ?warm_type:string prop ->
   ?zone_awareness_enabled:bool prop ->
-  cold_storage_options:cluster_config__cold_storage_options list ->
-  zone_awareness_config:cluster_config__zone_awareness_config list ->
+  ?cold_storage_options:cluster_config__cold_storage_options list ->
+  ?zone_awareness_config:cluster_config__zone_awareness_config list ->
   unit ->
   cluster_config
 
@@ -165,19 +165,19 @@ val aws_elasticsearch_domain :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?advanced_security_options:advanced_security_options list ->
+  ?auto_tune_options:auto_tune_options list ->
+  ?cluster_config:cluster_config list ->
+  ?cognito_options:cognito_options list ->
+  ?domain_endpoint_options:domain_endpoint_options list ->
+  ?ebs_options:ebs_options list ->
+  ?encrypt_at_rest:encrypt_at_rest list ->
+  ?node_to_node_encryption:node_to_node_encryption list ->
+  ?snapshot_options:snapshot_options list ->
   ?timeouts:timeouts ->
+  ?vpc_options:vpc_options list ->
   domain_name:string prop ->
-  advanced_security_options:advanced_security_options list ->
-  auto_tune_options:auto_tune_options list ->
-  cluster_config:cluster_config list ->
-  cognito_options:cognito_options list ->
-  domain_endpoint_options:domain_endpoint_options list ->
-  ebs_options:ebs_options list ->
-  encrypt_at_rest:encrypt_at_rest list ->
   log_publishing_options:log_publishing_options list ->
-  node_to_node_encryption:node_to_node_encryption list ->
-  snapshot_options:snapshot_options list ->
-  vpc_options:vpc_options list ->
   unit ->
   aws_elasticsearch_domain
 
@@ -208,19 +208,19 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?advanced_security_options:advanced_security_options list ->
+  ?auto_tune_options:auto_tune_options list ->
+  ?cluster_config:cluster_config list ->
+  ?cognito_options:cognito_options list ->
+  ?domain_endpoint_options:domain_endpoint_options list ->
+  ?ebs_options:ebs_options list ->
+  ?encrypt_at_rest:encrypt_at_rest list ->
+  ?node_to_node_encryption:node_to_node_encryption list ->
+  ?snapshot_options:snapshot_options list ->
   ?timeouts:timeouts ->
+  ?vpc_options:vpc_options list ->
   domain_name:string prop ->
-  advanced_security_options:advanced_security_options list ->
-  auto_tune_options:auto_tune_options list ->
-  cluster_config:cluster_config list ->
-  cognito_options:cognito_options list ->
-  domain_endpoint_options:domain_endpoint_options list ->
-  ebs_options:ebs_options list ->
-  encrypt_at_rest:encrypt_at_rest list ->
   log_publishing_options:log_publishing_options list ->
-  node_to_node_encryption:node_to_node_encryption list ->
-  snapshot_options:snapshot_options list ->
-  vpc_options:vpc_options list ->
   string ->
   t
 
@@ -231,18 +231,18 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?advanced_security_options:advanced_security_options list ->
+  ?auto_tune_options:auto_tune_options list ->
+  ?cluster_config:cluster_config list ->
+  ?cognito_options:cognito_options list ->
+  ?domain_endpoint_options:domain_endpoint_options list ->
+  ?ebs_options:ebs_options list ->
+  ?encrypt_at_rest:encrypt_at_rest list ->
+  ?node_to_node_encryption:node_to_node_encryption list ->
+  ?snapshot_options:snapshot_options list ->
   ?timeouts:timeouts ->
+  ?vpc_options:vpc_options list ->
   domain_name:string prop ->
-  advanced_security_options:advanced_security_options list ->
-  auto_tune_options:auto_tune_options list ->
-  cluster_config:cluster_config list ->
-  cognito_options:cognito_options list ->
-  domain_endpoint_options:domain_endpoint_options list ->
-  ebs_options:ebs_options list ->
-  encrypt_at_rest:encrypt_at_rest list ->
   log_publishing_options:log_publishing_options list ->
-  node_to_node_encryption:node_to_node_encryption list ->
-  snapshot_options:snapshot_options list ->
-  vpc_options:vpc_options list ->
   string ->
   t Tf_core.resource

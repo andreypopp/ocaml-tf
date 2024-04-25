@@ -30,9 +30,9 @@ val output__builtin_preset__preset_configuration :
 type output__builtin_preset
 
 val output__builtin_preset :
-  preset_name:string prop ->
-  preset_configuration:
+  ?preset_configuration:
     output__builtin_preset__preset_configuration list ->
+  preset_name:string prop ->
   unit ->
   output__builtin_preset
 
@@ -102,7 +102,7 @@ val output__custom_preset__codec__h264_video :
   ?scene_change_detection_enabled:bool prop ->
   ?stretch_mode:string prop ->
   ?sync_mode:string prop ->
-  layer:output__custom_preset__codec__h264_video__layer list ->
+  ?layer:output__custom_preset__codec__h264_video__layer list ->
   unit ->
   output__custom_preset__codec__h264_video
 
@@ -135,7 +135,7 @@ val output__custom_preset__codec__h265_video :
   ?scene_change_detection_enabled:bool prop ->
   ?stretch_mode:string prop ->
   ?sync_mode:string prop ->
-  layer:output__custom_preset__codec__h265_video__layer list ->
+  ?layer:output__custom_preset__codec__h265_video__layer list ->
   unit ->
   output__custom_preset__codec__h265_video
 
@@ -159,8 +159,8 @@ val output__custom_preset__codec__jpg_image :
   ?step:string prop ->
   ?stretch_mode:string prop ->
   ?sync_mode:string prop ->
+  ?layer:output__custom_preset__codec__jpg_image__layer list ->
   start:string prop ->
-  layer:output__custom_preset__codec__jpg_image__layer list ->
   unit ->
   output__custom_preset__codec__jpg_image
 
@@ -182,22 +182,22 @@ val output__custom_preset__codec__png_image :
   ?step:string prop ->
   ?stretch_mode:string prop ->
   ?sync_mode:string prop ->
+  ?layer:output__custom_preset__codec__png_image__layer list ->
   start:string prop ->
-  layer:output__custom_preset__codec__png_image__layer list ->
   unit ->
   output__custom_preset__codec__png_image
 
 type output__custom_preset__codec
 
 val output__custom_preset__codec :
-  aac_audio:output__custom_preset__codec__aac_audio list ->
-  copy_audio:output__custom_preset__codec__copy_audio list ->
-  copy_video:output__custom_preset__codec__copy_video list ->
-  dd_audio:output__custom_preset__codec__dd_audio list ->
-  h264_video:output__custom_preset__codec__h264_video list ->
-  h265_video:output__custom_preset__codec__h265_video list ->
-  jpg_image:output__custom_preset__codec__jpg_image list ->
-  png_image:output__custom_preset__codec__png_image list ->
+  ?aac_audio:output__custom_preset__codec__aac_audio list ->
+  ?copy_audio:output__custom_preset__codec__copy_audio list ->
+  ?copy_video:output__custom_preset__codec__copy_video list ->
+  ?dd_audio:output__custom_preset__codec__dd_audio list ->
+  ?h264_video:output__custom_preset__codec__h264_video list ->
+  ?h265_video:output__custom_preset__codec__h265_video list ->
+  ?jpg_image:output__custom_preset__codec__jpg_image list ->
+  ?png_image:output__custom_preset__codec__png_image list ->
   unit ->
   output__custom_preset__codec
 
@@ -278,20 +278,20 @@ val output__custom_preset__filter__overlay__video :
   ?fade_out_duration:string prop ->
   ?opacity:float prop ->
   ?start:string prop ->
-  input_label:string prop ->
-  crop_rectangle:
+  ?crop_rectangle:
     output__custom_preset__filter__overlay__video__crop_rectangle
     list ->
-  position:
+  ?position:
     output__custom_preset__filter__overlay__video__position list ->
+  input_label:string prop ->
   unit ->
   output__custom_preset__filter__overlay__video
 
 type output__custom_preset__filter__overlay
 
 val output__custom_preset__filter__overlay :
-  audio:output__custom_preset__filter__overlay__audio list ->
-  video:output__custom_preset__filter__overlay__video list ->
+  ?audio:output__custom_preset__filter__overlay__audio list ->
+  ?video:output__custom_preset__filter__overlay__video list ->
   unit ->
   output__custom_preset__filter__overlay
 
@@ -299,11 +299,11 @@ type output__custom_preset__filter
 
 val output__custom_preset__filter :
   ?rotation:string prop ->
-  crop_rectangle:output__custom_preset__filter__crop_rectangle list ->
-  deinterlace:output__custom_preset__filter__deinterlace list ->
-  fade_in:output__custom_preset__filter__fade_in list ->
-  fade_out:output__custom_preset__filter__fade_out list ->
-  overlay:output__custom_preset__filter__overlay list ->
+  ?crop_rectangle:output__custom_preset__filter__crop_rectangle list ->
+  ?deinterlace:output__custom_preset__filter__deinterlace list ->
+  ?fade_in:output__custom_preset__filter__fade_in list ->
+  ?fade_out:output__custom_preset__filter__fade_out list ->
+  ?overlay:output__custom_preset__filter__overlay list ->
   unit ->
   output__custom_preset__filter
 
@@ -324,8 +324,8 @@ val output__custom_preset__format__mp4__output_file :
 type output__custom_preset__format__mp4
 
 val output__custom_preset__format__mp4 :
+  ?output_file:output__custom_preset__format__mp4__output_file list ->
   filename_pattern:string prop ->
-  output_file:output__custom_preset__format__mp4__output_file list ->
   unit ->
   output__custom_preset__format__mp4
 
@@ -346,19 +346,19 @@ val output__custom_preset__format__transport_stream__output_file :
 type output__custom_preset__format__transport_stream
 
 val output__custom_preset__format__transport_stream :
-  filename_pattern:string prop ->
-  output_file:
+  ?output_file:
     output__custom_preset__format__transport_stream__output_file list ->
+  filename_pattern:string prop ->
   unit ->
   output__custom_preset__format__transport_stream
 
 type output__custom_preset__format
 
 val output__custom_preset__format :
-  jpg:output__custom_preset__format__jpg list ->
-  mp4:output__custom_preset__format__mp4 list ->
-  png:output__custom_preset__format__png list ->
-  transport_stream:
+  ?jpg:output__custom_preset__format__jpg list ->
+  ?mp4:output__custom_preset__format__mp4 list ->
+  ?png:output__custom_preset__format__png list ->
+  ?transport_stream:
     output__custom_preset__format__transport_stream list ->
   unit ->
   output__custom_preset__format
@@ -367,8 +367,8 @@ type output__custom_preset
 
 val output__custom_preset :
   ?experimental_options:(string * string prop) list ->
+  ?filter:output__custom_preset__filter list ->
   codec:output__custom_preset__codec list ->
-  filter:output__custom_preset__filter list ->
   format:output__custom_preset__format list ->
   unit ->
   output__custom_preset
@@ -398,11 +398,11 @@ type output
 val output :
   ?on_error_action:string prop ->
   ?relative_priority:string prop ->
-  audio_analyzer_preset:output__audio_analyzer_preset list ->
-  builtin_preset:output__builtin_preset list ->
-  custom_preset:output__custom_preset list ->
-  face_detector_preset:output__face_detector_preset list ->
-  video_analyzer_preset:output__video_analyzer_preset list ->
+  ?audio_analyzer_preset:output__audio_analyzer_preset list ->
+  ?builtin_preset:output__builtin_preset list ->
+  ?custom_preset:output__custom_preset list ->
+  ?face_detector_preset:output__face_detector_preset list ->
+  ?video_analyzer_preset:output__video_analyzer_preset list ->
   unit ->
   output
 
@@ -421,11 +421,11 @@ type azurerm_media_transform
 val azurerm_media_transform :
   ?description:string prop ->
   ?id:string prop ->
+  ?output:output list ->
   ?timeouts:timeouts ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  output:output list ->
   unit ->
   azurerm_media_transform
 
@@ -446,21 +446,21 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
+  ?output:output list ->
   ?timeouts:timeouts ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  output:output list ->
   string ->
   t
 
 val make :
   ?description:string prop ->
   ?id:string prop ->
+  ?output:output list ->
   ?timeouts:timeouts ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  output:output list ->
   string ->
   t Tf_core.resource

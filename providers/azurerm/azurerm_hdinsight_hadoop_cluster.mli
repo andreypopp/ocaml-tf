@@ -73,9 +73,9 @@ val metastores__oozie :
 type metastores
 
 val metastores :
-  ambari:metastores__ambari list ->
-  hive:metastores__hive list ->
-  oozie:metastores__oozie list ->
+  ?ambari:metastores__ambari list ->
+  ?hive:metastores__hive list ->
+  ?oozie:metastores__oozie list ->
   unit ->
   metastores
 
@@ -127,12 +127,12 @@ val roles__edge_node__uninstall_script_actions :
 type roles__edge_node
 
 val roles__edge_node :
+  ?https_endpoints:roles__edge_node__https_endpoints list ->
+  ?uninstall_script_actions:
+    roles__edge_node__uninstall_script_actions list ->
   target_instance_count:float prop ->
   vm_size:string prop ->
-  https_endpoints:roles__edge_node__https_endpoints list ->
   install_script_action:roles__edge_node__install_script_action list ->
-  uninstall_script_actions:
-    roles__edge_node__uninstall_script_actions list ->
   unit ->
   roles__edge_node
 
@@ -152,9 +152,9 @@ val roles__head_node :
   ?ssh_keys:string prop list ->
   ?subnet_id:string prop ->
   ?virtual_network_id:string prop ->
+  ?script_actions:roles__head_node__script_actions list ->
   username:string prop ->
   vm_size:string prop ->
-  script_actions:roles__head_node__script_actions list ->
   unit ->
   roles__head_node
 
@@ -186,8 +186,8 @@ val roles__worker_node__autoscale__recurrence :
 type roles__worker_node__autoscale
 
 val roles__worker_node__autoscale :
-  capacity:roles__worker_node__autoscale__capacity list ->
-  recurrence:roles__worker_node__autoscale__recurrence list ->
+  ?capacity:roles__worker_node__autoscale__capacity list ->
+  ?recurrence:roles__worker_node__autoscale__recurrence list ->
   unit ->
   roles__worker_node__autoscale
 
@@ -207,11 +207,11 @@ val roles__worker_node :
   ?ssh_keys:string prop list ->
   ?subnet_id:string prop ->
   ?virtual_network_id:string prop ->
+  ?autoscale:roles__worker_node__autoscale list ->
+  ?script_actions:roles__worker_node__script_actions list ->
   target_instance_count:float prop ->
   username:string prop ->
   vm_size:string prop ->
-  autoscale:roles__worker_node__autoscale list ->
-  script_actions:roles__worker_node__script_actions list ->
   unit ->
   roles__worker_node
 
@@ -231,16 +231,16 @@ val roles__zookeeper_node :
   ?ssh_keys:string prop list ->
   ?subnet_id:string prop ->
   ?virtual_network_id:string prop ->
+  ?script_actions:roles__zookeeper_node__script_actions list ->
   username:string prop ->
   vm_size:string prop ->
-  script_actions:roles__zookeeper_node__script_actions list ->
   unit ->
   roles__zookeeper_node
 
 type roles
 
 val roles :
-  edge_node:roles__edge_node list ->
+  ?edge_node:roles__edge_node list ->
   head_node:roles__head_node list ->
   worker_node:roles__worker_node list ->
   zookeeper_node:roles__zookeeper_node list ->
@@ -296,6 +296,15 @@ val azurerm_hdinsight_hadoop_cluster :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tls_min_version:string prop ->
+  ?compute_isolation:compute_isolation list ->
+  ?disk_encryption:disk_encryption list ->
+  ?extension:extension list ->
+  ?metastores:metastores list ->
+  ?monitor:monitor list ->
+  ?network:network list ->
+  ?security_profile:security_profile list ->
+  ?storage_account:storage_account list ->
+  ?storage_account_gen2:storage_account_gen2 list ->
   ?timeouts:timeouts ->
   cluster_version:string prop ->
   location:string prop ->
@@ -303,17 +312,8 @@ val azurerm_hdinsight_hadoop_cluster :
   resource_group_name:string prop ->
   tier:string prop ->
   component_version:component_version list ->
-  compute_isolation:compute_isolation list ->
-  disk_encryption:disk_encryption list ->
-  extension:extension list ->
   gateway:gateway list ->
-  metastores:metastores list ->
-  monitor:monitor list ->
-  network:network list ->
   roles:roles list ->
-  security_profile:security_profile list ->
-  storage_account:storage_account list ->
-  storage_account_gen2:storage_account_gen2 list ->
   unit ->
   azurerm_hdinsight_hadoop_cluster
 
@@ -340,6 +340,15 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tls_min_version:string prop ->
+  ?compute_isolation:compute_isolation list ->
+  ?disk_encryption:disk_encryption list ->
+  ?extension:extension list ->
+  ?metastores:metastores list ->
+  ?monitor:monitor list ->
+  ?network:network list ->
+  ?security_profile:security_profile list ->
+  ?storage_account:storage_account list ->
+  ?storage_account_gen2:storage_account_gen2 list ->
   ?timeouts:timeouts ->
   cluster_version:string prop ->
   location:string prop ->
@@ -347,17 +356,8 @@ val register :
   resource_group_name:string prop ->
   tier:string prop ->
   component_version:component_version list ->
-  compute_isolation:compute_isolation list ->
-  disk_encryption:disk_encryption list ->
-  extension:extension list ->
   gateway:gateway list ->
-  metastores:metastores list ->
-  monitor:monitor list ->
-  network:network list ->
   roles:roles list ->
-  security_profile:security_profile list ->
-  storage_account:storage_account list ->
-  storage_account_gen2:storage_account_gen2 list ->
   string ->
   t
 
@@ -365,6 +365,15 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tls_min_version:string prop ->
+  ?compute_isolation:compute_isolation list ->
+  ?disk_encryption:disk_encryption list ->
+  ?extension:extension list ->
+  ?metastores:metastores list ->
+  ?monitor:monitor list ->
+  ?network:network list ->
+  ?security_profile:security_profile list ->
+  ?storage_account:storage_account list ->
+  ?storage_account_gen2:storage_account_gen2 list ->
   ?timeouts:timeouts ->
   cluster_version:string prop ->
   location:string prop ->
@@ -372,16 +381,7 @@ val make :
   resource_group_name:string prop ->
   tier:string prop ->
   component_version:component_version list ->
-  compute_isolation:compute_isolation list ->
-  disk_encryption:disk_encryption list ->
-  extension:extension list ->
   gateway:gateway list ->
-  metastores:metastores list ->
-  monitor:monitor list ->
-  network:network list ->
   roles:roles list ->
-  security_profile:security_profile list ->
-  storage_account:storage_account list ->
-  storage_account_gen2:storage_account_gen2 list ->
   string ->
   t Tf_core.resource

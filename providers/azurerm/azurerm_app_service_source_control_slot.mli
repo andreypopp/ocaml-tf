@@ -26,9 +26,9 @@ type github_action_configuration
 
 val github_action_configuration :
   ?generate_workflow_file:bool prop ->
-  code_configuration:
+  ?code_configuration:
     github_action_configuration__code_configuration list ->
-  container_configuration:
+  ?container_configuration:
     github_action_configuration__container_configuration list ->
   unit ->
   github_action_configuration
@@ -52,9 +52,9 @@ val azurerm_app_service_source_control_slot :
   ?use_local_git:bool prop ->
   ?use_manual_integration:bool prop ->
   ?use_mercurial:bool prop ->
+  ?github_action_configuration:github_action_configuration list ->
   ?timeouts:timeouts ->
   slot_id:string prop ->
-  github_action_configuration:github_action_configuration list ->
   unit ->
   azurerm_app_service_source_control_slot
 
@@ -85,9 +85,9 @@ val register :
   ?use_local_git:bool prop ->
   ?use_manual_integration:bool prop ->
   ?use_mercurial:bool prop ->
+  ?github_action_configuration:github_action_configuration list ->
   ?timeouts:timeouts ->
   slot_id:string prop ->
-  github_action_configuration:github_action_configuration list ->
   string ->
   t
 
@@ -99,8 +99,8 @@ val make :
   ?use_local_git:bool prop ->
   ?use_manual_integration:bool prop ->
   ?use_mercurial:bool prop ->
+  ?github_action_configuration:github_action_configuration list ->
   ?timeouts:timeouts ->
   slot_id:string prop ->
-  github_action_configuration:github_action_configuration list ->
   string ->
   t Tf_core.resource

@@ -662,8 +662,8 @@ let task_report_config__s3_destination ?subdirectory
   { bucket_access_role_arn; s3_bucket_arn; subdirectory }
 
 let task_report_config ?output_type ?report_level
-    ?s3_object_versioning ~report_overrides ~s3_destination () :
-    task_report_config =
+    ?s3_object_versioning ?(report_overrides = []) ~s3_destination ()
+    : task_report_config =
   {
     output_type;
     report_level;
@@ -675,9 +675,10 @@ let task_report_config ?output_type ?report_level
 let timeouts ?create () : timeouts = { create }
 
 let aws_datasync_task ?cloudwatch_log_group_arn ?id ?name ?tags
-    ?tags_all ?timeouts ~destination_location_arn
-    ~source_location_arn ~excludes ~includes ~options ~schedule
-    ~task_report_config () : aws_datasync_task =
+    ?tags_all ?(excludes = []) ?(includes = []) ?(options = [])
+    ?(schedule = []) ?(task_report_config = []) ?timeouts
+    ~destination_location_arn ~source_location_arn () :
+    aws_datasync_task =
   {
     cloudwatch_log_group_arn;
     destination_location_arn;
@@ -706,8 +707,9 @@ type t = {
 }
 
 let make ?cloudwatch_log_group_arn ?id ?name ?tags ?tags_all
-    ?timeouts ~destination_location_arn ~source_location_arn
-    ~excludes ~includes ~options ~schedule ~task_report_config __id =
+    ?(excludes = []) ?(includes = []) ?(options = [])
+    ?(schedule = []) ?(task_report_config = []) ?timeouts
+    ~destination_location_arn ~source_location_arn __id =
   let __type = "aws_datasync_task" in
   let __attrs =
     ({
@@ -731,20 +733,20 @@ let make ?cloudwatch_log_group_arn ?id ?name ?tags ?tags_all
     json =
       yojson_of_aws_datasync_task
         (aws_datasync_task ?cloudwatch_log_group_arn ?id ?name ?tags
-           ?tags_all ?timeouts ~destination_location_arn
-           ~source_location_arn ~excludes ~includes ~options
-           ~schedule ~task_report_config ());
+           ?tags_all ~excludes ~includes ~options ~schedule
+           ~task_report_config ?timeouts ~destination_location_arn
+           ~source_location_arn ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?cloudwatch_log_group_arn ?id ?name ?tags
-    ?tags_all ?timeouts ~destination_location_arn
-    ~source_location_arn ~excludes ~includes ~options ~schedule
-    ~task_report_config __id =
+    ?tags_all ?(excludes = []) ?(includes = []) ?(options = [])
+    ?(schedule = []) ?(task_report_config = []) ?timeouts
+    ~destination_location_arn ~source_location_arn __id =
   let (r : _ Tf_core.resource) =
     make ?cloudwatch_log_group_arn ?id ?name ?tags ?tags_all
-      ?timeouts ~destination_location_arn ~source_location_arn
-      ~excludes ~includes ~options ~schedule ~task_report_config __id
+      ~excludes ~includes ~options ~schedule ~task_report_config
+      ?timeouts ~destination_location_arn ~source_location_arn __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -978,7 +978,8 @@ let assessment__schedule ?monthly_occurrence ?weekly_interval
     ~day_of_week ~start_time () : assessment__schedule =
   { day_of_week; monthly_occurrence; start_time; weekly_interval }
 
-let assessment ?enabled ?run_immediately ~schedule () : assessment =
+let assessment ?enabled ?run_immediately ?(schedule = []) () :
+    assessment =
   { enabled; run_immediately; schedule }
 
 let auto_backup__manual_schedule ?days_of_week ~full_backup_frequency
@@ -994,9 +995,9 @@ let auto_backup__manual_schedule ?days_of_week ~full_backup_frequency
   }
 
 let auto_backup ?encryption_enabled ?encryption_password
-    ?system_databases_backup_enabled ~retention_period_in_days
-    ~storage_account_access_key ~storage_blob_endpoint
-    ~manual_schedule () : auto_backup =
+    ?system_databases_backup_enabled ?(manual_schedule = [])
+    ~retention_period_in_days ~storage_account_access_key
+    ~storage_blob_endpoint () : auto_backup =
   {
     encryption_enabled;
     encryption_password;
@@ -1061,9 +1062,10 @@ let storage_configuration__temp_db_settings ?data_file_count
     luns;
   }
 
-let storage_configuration ?system_db_on_data_disk_enabled ~disk_type
-    ~storage_workload_type ~data_settings ~log_settings
-    ~temp_db_settings () : storage_configuration =
+let storage_configuration ?system_db_on_data_disk_enabled
+    ?(data_settings = []) ?(log_settings = [])
+    ?(temp_db_settings = []) ~disk_type ~storage_workload_type () :
+    storage_configuration =
   {
     disk_type;
     storage_workload_type;
@@ -1089,9 +1091,11 @@ let azurerm_mssql_virtual_machine ?id ?r_services_enabled
     ?sql_connectivity_port ?sql_connectivity_type
     ?sql_connectivity_update_password
     ?sql_connectivity_update_username ?sql_license_type
-    ?sql_virtual_machine_group_id ?tags ?timeouts ~virtual_machine_id
-    ~assessment ~auto_backup ~auto_patching ~key_vault_credential
-    ~sql_instance ~storage_configuration ~wsfc_domain_credential () :
+    ?sql_virtual_machine_group_id ?tags ?(assessment = [])
+    ?(auto_backup = []) ?(auto_patching = [])
+    ?(key_vault_credential = []) ?(sql_instance = [])
+    ?(storage_configuration = []) ?timeouts
+    ?(wsfc_domain_credential = []) ~virtual_machine_id () :
     azurerm_mssql_virtual_machine =
   {
     id;
@@ -1130,10 +1134,11 @@ type t = {
 let make ?id ?r_services_enabled ?sql_connectivity_port
     ?sql_connectivity_type ?sql_connectivity_update_password
     ?sql_connectivity_update_username ?sql_license_type
-    ?sql_virtual_machine_group_id ?tags ?timeouts ~virtual_machine_id
-    ~assessment ~auto_backup ~auto_patching ~key_vault_credential
-    ~sql_instance ~storage_configuration ~wsfc_domain_credential __id
-    =
+    ?sql_virtual_machine_group_id ?tags ?(assessment = [])
+    ?(auto_backup = []) ?(auto_patching = [])
+    ?(key_vault_credential = []) ?(sql_instance = [])
+    ?(storage_configuration = []) ?timeouts
+    ?(wsfc_domain_credential = []) ~virtual_machine_id __id =
   let __type = "azurerm_mssql_virtual_machine" in
   let __attrs =
     ({
@@ -1167,10 +1172,10 @@ let make ?id ?r_services_enabled ?sql_connectivity_port
            ?sql_connectivity_port ?sql_connectivity_type
            ?sql_connectivity_update_password
            ?sql_connectivity_update_username ?sql_license_type
-           ?sql_virtual_machine_group_id ?tags ?timeouts
-           ~virtual_machine_id ~assessment ~auto_backup
-           ~auto_patching ~key_vault_credential ~sql_instance
-           ~storage_configuration ~wsfc_domain_credential ());
+           ?sql_virtual_machine_group_id ?tags ~assessment
+           ~auto_backup ~auto_patching ~key_vault_credential
+           ~sql_instance ~storage_configuration ?timeouts
+           ~wsfc_domain_credential ~virtual_machine_id ());
     attrs = __attrs;
   }
 
@@ -1178,18 +1183,19 @@ let register ?tf_module ?id ?r_services_enabled
     ?sql_connectivity_port ?sql_connectivity_type
     ?sql_connectivity_update_password
     ?sql_connectivity_update_username ?sql_license_type
-    ?sql_virtual_machine_group_id ?tags ?timeouts ~virtual_machine_id
-    ~assessment ~auto_backup ~auto_patching ~key_vault_credential
-    ~sql_instance ~storage_configuration ~wsfc_domain_credential __id
-    =
+    ?sql_virtual_machine_group_id ?tags ?(assessment = [])
+    ?(auto_backup = []) ?(auto_patching = [])
+    ?(key_vault_credential = []) ?(sql_instance = [])
+    ?(storage_configuration = []) ?timeouts
+    ?(wsfc_domain_credential = []) ~virtual_machine_id __id =
   let (r : _ Tf_core.resource) =
     make ?id ?r_services_enabled ?sql_connectivity_port
       ?sql_connectivity_type ?sql_connectivity_update_password
       ?sql_connectivity_update_username ?sql_license_type
-      ?sql_virtual_machine_group_id ?tags ?timeouts
-      ~virtual_machine_id ~assessment ~auto_backup ~auto_patching
-      ~key_vault_credential ~sql_instance ~storage_configuration
-      ~wsfc_domain_credential __id
+      ?sql_virtual_machine_group_id ?tags ~assessment ~auto_backup
+      ~auto_patching ~key_vault_credential ~sql_instance
+      ~storage_configuration ?timeouts ~wsfc_domain_credential
+      ~virtual_machine_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

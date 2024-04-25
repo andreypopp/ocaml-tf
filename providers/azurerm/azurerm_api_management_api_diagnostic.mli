@@ -23,8 +23,8 @@ val backend_request__data_masking__query_params :
 type backend_request__data_masking
 
 val backend_request__data_masking :
-  headers:backend_request__data_masking__headers list ->
-  query_params:backend_request__data_masking__query_params list ->
+  ?headers:backend_request__data_masking__headers list ->
+  ?query_params:backend_request__data_masking__query_params list ->
   unit ->
   backend_request__data_masking
 
@@ -33,7 +33,7 @@ type backend_request
 val backend_request :
   ?body_bytes:float prop ->
   ?headers_to_log:string prop list ->
-  data_masking:backend_request__data_masking list ->
+  ?data_masking:backend_request__data_masking list ->
   unit ->
   backend_request
 
@@ -56,8 +56,8 @@ val backend_response__data_masking__query_params :
 type backend_response__data_masking
 
 val backend_response__data_masking :
-  headers:backend_response__data_masking__headers list ->
-  query_params:backend_response__data_masking__query_params list ->
+  ?headers:backend_response__data_masking__headers list ->
+  ?query_params:backend_response__data_masking__query_params list ->
   unit ->
   backend_response__data_masking
 
@@ -66,7 +66,7 @@ type backend_response
 val backend_response :
   ?body_bytes:float prop ->
   ?headers_to_log:string prop list ->
-  data_masking:backend_response__data_masking list ->
+  ?data_masking:backend_response__data_masking list ->
   unit ->
   backend_response
 
@@ -89,8 +89,8 @@ val frontend_request__data_masking__query_params :
 type frontend_request__data_masking
 
 val frontend_request__data_masking :
-  headers:frontend_request__data_masking__headers list ->
-  query_params:frontend_request__data_masking__query_params list ->
+  ?headers:frontend_request__data_masking__headers list ->
+  ?query_params:frontend_request__data_masking__query_params list ->
   unit ->
   frontend_request__data_masking
 
@@ -99,7 +99,7 @@ type frontend_request
 val frontend_request :
   ?body_bytes:float prop ->
   ?headers_to_log:string prop list ->
-  data_masking:frontend_request__data_masking list ->
+  ?data_masking:frontend_request__data_masking list ->
   unit ->
   frontend_request
 
@@ -122,8 +122,8 @@ val frontend_response__data_masking__query_params :
 type frontend_response__data_masking
 
 val frontend_response__data_masking :
-  headers:frontend_response__data_masking__headers list ->
-  query_params:frontend_response__data_masking__query_params list ->
+  ?headers:frontend_response__data_masking__headers list ->
+  ?query_params:frontend_response__data_masking__query_params list ->
   unit ->
   frontend_response__data_masking
 
@@ -132,7 +132,7 @@ type frontend_response
 val frontend_response :
   ?body_bytes:float prop ->
   ?headers_to_log:string prop list ->
-  data_masking:frontend_response__data_masking list ->
+  ?data_masking:frontend_response__data_masking list ->
   unit ->
   frontend_response
 
@@ -156,16 +156,16 @@ val azurerm_api_management_api_diagnostic :
   ?operation_name_format:string prop ->
   ?sampling_percentage:float prop ->
   ?verbosity:string prop ->
+  ?backend_request:backend_request list ->
+  ?backend_response:backend_response list ->
+  ?frontend_request:frontend_request list ->
+  ?frontend_response:frontend_response list ->
   ?timeouts:timeouts ->
   api_management_logger_id:string prop ->
   api_management_name:string prop ->
   api_name:string prop ->
   identifier:string prop ->
   resource_group_name:string prop ->
-  backend_request:backend_request list ->
-  backend_response:backend_response list ->
-  frontend_request:frontend_request list ->
-  frontend_response:frontend_response list ->
   unit ->
   azurerm_api_management_api_diagnostic
 
@@ -198,16 +198,16 @@ val register :
   ?operation_name_format:string prop ->
   ?sampling_percentage:float prop ->
   ?verbosity:string prop ->
+  ?backend_request:backend_request list ->
+  ?backend_response:backend_response list ->
+  ?frontend_request:frontend_request list ->
+  ?frontend_response:frontend_response list ->
   ?timeouts:timeouts ->
   api_management_logger_id:string prop ->
   api_management_name:string prop ->
   api_name:string prop ->
   identifier:string prop ->
   resource_group_name:string prop ->
-  backend_request:backend_request list ->
-  backend_response:backend_response list ->
-  frontend_request:frontend_request list ->
-  frontend_response:frontend_response list ->
   string ->
   t
 
@@ -219,15 +219,15 @@ val make :
   ?operation_name_format:string prop ->
   ?sampling_percentage:float prop ->
   ?verbosity:string prop ->
+  ?backend_request:backend_request list ->
+  ?backend_response:backend_response list ->
+  ?frontend_request:frontend_request list ->
+  ?frontend_response:frontend_response list ->
   ?timeouts:timeouts ->
   api_management_logger_id:string prop ->
   api_management_name:string prop ->
   api_name:string prop ->
   identifier:string prop ->
   resource_group_name:string prop ->
-  backend_request:backend_request list ->
-  backend_response:backend_response list ->
-  frontend_request:frontend_request list ->
-  frontend_response:frontend_response list ->
   string ->
   t Tf_core.resource

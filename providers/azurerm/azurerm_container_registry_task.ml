@@ -1085,15 +1085,16 @@ let registry_credential__source ~login_mode () :
     registry_credential__source =
   { login_mode }
 
-let registry_credential ~custom ~source () : registry_credential =
+let registry_credential ?(source = []) ~custom () :
+    registry_credential =
   { custom; source }
 
 let source_trigger__authentication ?expire_in_seconds ?refresh_token
     ?scope ~token ~token_type () : source_trigger__authentication =
   { expire_in_seconds; refresh_token; scope; token; token_type }
 
-let source_trigger ?branch ?enabled ~events ~name ~repository_url
-    ~source_type ~authentication () : source_trigger =
+let source_trigger ?branch ?enabled ?(authentication = []) ~events
+    ~name ~repository_url ~source_type () : source_trigger =
   {
     branch;
     enabled;
@@ -1111,11 +1112,13 @@ let timer_trigger ?enabled ~name ~schedule () : timer_trigger =
   { enabled; name; schedule }
 
 let azurerm_container_registry_task ?agent_pool_name ?enabled ?id
-    ?is_system_task ?log_template ?tags ?timeout_in_seconds ?timeouts
-    ~container_registry_id ~name ~agent_setting ~base_image_trigger
-    ~docker_step ~encoded_step ~file_step ~identity ~platform
-    ~registry_credential ~source_trigger ~timer_trigger () :
-    azurerm_container_registry_task =
+    ?is_system_task ?log_template ?tags ?timeout_in_seconds
+    ?(agent_setting = []) ?(base_image_trigger = [])
+    ?(docker_step = []) ?(encoded_step = []) ?(file_step = [])
+    ?(identity = []) ?(platform = []) ?(registry_credential = [])
+    ?(source_trigger = []) ?timeouts ?(timer_trigger = [])
+    ~container_registry_id ~name () : azurerm_container_registry_task
+    =
   {
     agent_pool_name;
     container_registry_id;
@@ -1152,10 +1155,12 @@ type t = {
 }
 
 let make ?agent_pool_name ?enabled ?id ?is_system_task ?log_template
-    ?tags ?timeout_in_seconds ?timeouts ~container_registry_id ~name
-    ~agent_setting ~base_image_trigger ~docker_step ~encoded_step
-    ~file_step ~identity ~platform ~registry_credential
-    ~source_trigger ~timer_trigger __id =
+    ?tags ?timeout_in_seconds ?(agent_setting = [])
+    ?(base_image_trigger = []) ?(docker_step = [])
+    ?(encoded_step = []) ?(file_step = []) ?(identity = [])
+    ?(platform = []) ?(registry_credential = [])
+    ?(source_trigger = []) ?timeouts ?(timer_trigger = [])
+    ~container_registry_id ~name __id =
   let __type = "azurerm_container_registry_task" in
   let __attrs =
     ({
@@ -1180,24 +1185,26 @@ let make ?agent_pool_name ?enabled ?id ?is_system_task ?log_template
       yojson_of_azurerm_container_registry_task
         (azurerm_container_registry_task ?agent_pool_name ?enabled
            ?id ?is_system_task ?log_template ?tags
-           ?timeout_in_seconds ?timeouts ~container_registry_id ~name
-           ~agent_setting ~base_image_trigger ~docker_step
-           ~encoded_step ~file_step ~identity ~platform
-           ~registry_credential ~source_trigger ~timer_trigger ());
+           ?timeout_in_seconds ~agent_setting ~base_image_trigger
+           ~docker_step ~encoded_step ~file_step ~identity ~platform
+           ~registry_credential ~source_trigger ?timeouts
+           ~timer_trigger ~container_registry_id ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?agent_pool_name ?enabled ?id ?is_system_task
-    ?log_template ?tags ?timeout_in_seconds ?timeouts
-    ~container_registry_id ~name ~agent_setting ~base_image_trigger
-    ~docker_step ~encoded_step ~file_step ~identity ~platform
-    ~registry_credential ~source_trigger ~timer_trigger __id =
+    ?log_template ?tags ?timeout_in_seconds ?(agent_setting = [])
+    ?(base_image_trigger = []) ?(docker_step = [])
+    ?(encoded_step = []) ?(file_step = []) ?(identity = [])
+    ?(platform = []) ?(registry_credential = [])
+    ?(source_trigger = []) ?timeouts ?(timer_trigger = [])
+    ~container_registry_id ~name __id =
   let (r : _ Tf_core.resource) =
     make ?agent_pool_name ?enabled ?id ?is_system_task ?log_template
-      ?tags ?timeout_in_seconds ?timeouts ~container_registry_id
-      ~name ~agent_setting ~base_image_trigger ~docker_step
-      ~encoded_step ~file_step ~identity ~platform
-      ~registry_credential ~source_trigger ~timer_trigger __id
+      ?tags ?timeout_in_seconds ~agent_setting ~base_image_trigger
+      ~docker_step ~encoded_step ~file_step ~identity ~platform
+      ~registry_credential ~source_trigger ?timeouts ~timer_trigger
+      ~container_registry_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

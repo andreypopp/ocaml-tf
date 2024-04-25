@@ -155,8 +155,8 @@ let storage_location ?object_version ~bucket ~key ~role_arn () :
     storage_location =
   { bucket; key; object_version; role_arn }
 
-let aws_gamelift_script ?id ?tags ?tags_all ?version ?zip_file ~name
-    ~storage_location () : aws_gamelift_script =
+let aws_gamelift_script ?id ?tags ?tags_all ?version ?zip_file
+    ?(storage_location = []) ~name () : aws_gamelift_script =
   { id; name; tags; tags_all; version; zip_file; storage_location }
 
 type t = {
@@ -169,8 +169,8 @@ type t = {
   zip_file : string prop;
 }
 
-let make ?id ?tags ?tags_all ?version ?zip_file ~name
-    ~storage_location __id =
+let make ?id ?tags ?tags_all ?version ?zip_file
+    ?(storage_location = []) ~name __id =
   let __type = "aws_gamelift_script" in
   let __attrs =
     ({
@@ -190,15 +190,15 @@ let make ?id ?tags ?tags_all ?version ?zip_file ~name
     json =
       yojson_of_aws_gamelift_script
         (aws_gamelift_script ?id ?tags ?tags_all ?version ?zip_file
-           ~name ~storage_location ());
+           ~storage_location ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ?version ?zip_file ~name
-    ~storage_location __id =
+let register ?tf_module ?id ?tags ?tags_all ?version ?zip_file
+    ?(storage_location = []) ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ?version ?zip_file ~name
-      ~storage_location __id
+    make ?id ?tags ?tags_all ?version ?zip_file ~storage_location
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -413,7 +413,7 @@ let rule__alert_resolution ?auto_resolved ?time_to_resolve () :
   { auto_resolved; time_to_resolve }
 
 let rule ?alert ?annotations ?enabled ?for_ ?labels ?record ?severity
-    ~expression ~action ~alert_resolution () : rule =
+    ?(action = []) ?(alert_resolution = []) ~expression () : rule =
   {
     alert;
     annotations;

@@ -28,8 +28,8 @@ val routing :
   ?inbound_route_map_id:string prop ->
   ?outbound_route_map_id:string prop ->
   ?static_vnet_local_route_override_criteria:string prop ->
-  propagated_route_table:routing__propagated_route_table list ->
-  static_vnet_route:routing__static_vnet_route list ->
+  ?propagated_route_table:routing__propagated_route_table list ->
+  ?static_vnet_route:routing__static_vnet_route list ->
   unit ->
   routing
 
@@ -48,11 +48,11 @@ type azurerm_virtual_hub_connection
 val azurerm_virtual_hub_connection :
   ?id:string prop ->
   ?internet_security_enabled:bool prop ->
+  ?routing:routing list ->
   ?timeouts:timeouts ->
   name:string prop ->
   remote_virtual_network_id:string prop ->
   virtual_hub_id:string prop ->
-  routing:routing list ->
   unit ->
   azurerm_virtual_hub_connection
 
@@ -73,21 +73,21 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?internet_security_enabled:bool prop ->
+  ?routing:routing list ->
   ?timeouts:timeouts ->
   name:string prop ->
   remote_virtual_network_id:string prop ->
   virtual_hub_id:string prop ->
-  routing:routing list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?internet_security_enabled:bool prop ->
+  ?routing:routing list ->
   ?timeouts:timeouts ->
   name:string prop ->
   remote_virtual_network_id:string prop ->
   virtual_hub_id:string prop ->
-  routing:routing list ->
   string ->
   t Tf_core.resource

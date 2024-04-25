@@ -644,7 +644,8 @@ let cloud_storage_config__avro_config ?write_metadata () :
   { write_metadata }
 
 let cloud_storage_config ?filename_prefix ?filename_suffix ?max_bytes
-    ?max_duration ~bucket ~avro_config () : cloud_storage_config =
+    ?max_duration ?(avro_config = []) ~bucket () :
+    cloud_storage_config =
   {
     bucket;
     filename_prefix;
@@ -668,8 +669,8 @@ let push_config__oidc_token ?audience ~service_account_email () :
     push_config__oidc_token =
   { audience; service_account_email }
 
-let push_config ?attributes ~push_endpoint ~no_wrapper ~oidc_token ()
-    : push_config =
+let push_config ?attributes ?(no_wrapper = []) ?(oidc_token = [])
+    ~push_endpoint () : push_config =
   { attributes; push_endpoint; no_wrapper; oidc_token }
 
 let retry_policy ?maximum_backoff ?minimum_backoff () : retry_policy
@@ -682,9 +683,11 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_pubsub_subscription ?ack_deadline_seconds
     ?enable_exactly_once_delivery ?enable_message_ordering ?filter
     ?id ?labels ?message_retention_duration ?project
-    ?retain_acked_messages ?timeouts ~name ~topic ~bigquery_config
-    ~cloud_storage_config ~dead_letter_policy ~expiration_policy
-    ~push_config ~retry_policy () : google_pubsub_subscription =
+    ?retain_acked_messages ?(bigquery_config = [])
+    ?(cloud_storage_config = []) ?(dead_letter_policy = [])
+    ?(expiration_policy = []) ?(push_config = [])
+    ?(retry_policy = []) ?timeouts ~name ~topic () :
+    google_pubsub_subscription =
   {
     ack_deadline_seconds;
     enable_exactly_once_delivery;
@@ -725,8 +728,9 @@ type t = {
 let make ?ack_deadline_seconds ?enable_exactly_once_delivery
     ?enable_message_ordering ?filter ?id ?labels
     ?message_retention_duration ?project ?retain_acked_messages
-    ?timeouts ~name ~topic ~bigquery_config ~cloud_storage_config
-    ~dead_letter_policy ~expiration_policy ~push_config ~retry_policy
+    ?(bigquery_config = []) ?(cloud_storage_config = [])
+    ?(dead_letter_policy = []) ?(expiration_policy = [])
+    ?(push_config = []) ?(retry_policy = []) ?timeouts ~name ~topic
     __id =
   let __type = "google_pubsub_subscription" in
   let __attrs =
@@ -762,25 +766,27 @@ let make ?ack_deadline_seconds ?enable_exactly_once_delivery
         (google_pubsub_subscription ?ack_deadline_seconds
            ?enable_exactly_once_delivery ?enable_message_ordering
            ?filter ?id ?labels ?message_retention_duration ?project
-           ?retain_acked_messages ?timeouts ~name ~topic
-           ~bigquery_config ~cloud_storage_config ~dead_letter_policy
-           ~expiration_policy ~push_config ~retry_policy ());
+           ?retain_acked_messages ~bigquery_config
+           ~cloud_storage_config ~dead_letter_policy
+           ~expiration_policy ~push_config ~retry_policy ?timeouts
+           ~name ~topic ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?ack_deadline_seconds
     ?enable_exactly_once_delivery ?enable_message_ordering ?filter
     ?id ?labels ?message_retention_duration ?project
-    ?retain_acked_messages ?timeouts ~name ~topic ~bigquery_config
-    ~cloud_storage_config ~dead_letter_policy ~expiration_policy
-    ~push_config ~retry_policy __id =
+    ?retain_acked_messages ?(bigquery_config = [])
+    ?(cloud_storage_config = []) ?(dead_letter_policy = [])
+    ?(expiration_policy = []) ?(push_config = [])
+    ?(retry_policy = []) ?timeouts ~name ~topic __id =
   let (r : _ Tf_core.resource) =
     make ?ack_deadline_seconds ?enable_exactly_once_delivery
       ?enable_message_ordering ?filter ?id ?labels
       ?message_retention_duration ?project ?retain_acked_messages
-      ?timeouts ~name ~topic ~bigquery_config ~cloud_storage_config
-      ~dead_letter_policy ~expiration_policy ~push_config
-      ~retry_policy __id
+      ~bigquery_config ~cloud_storage_config ~dead_letter_policy
+      ~expiration_policy ~push_config ~retry_policy ?timeouts ~name
+      ~topic __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

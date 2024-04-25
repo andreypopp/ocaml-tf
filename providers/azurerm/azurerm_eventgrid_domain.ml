@@ -442,9 +442,9 @@ let azurerm_eventgrid_domain
     ?auto_create_topic_with_first_subscription
     ?auto_delete_topic_with_last_subscription ?id ?inbound_ip_rule
     ?input_schema ?local_auth_enabled ?public_network_access_enabled
-    ?tags ?timeouts ~location ~name ~resource_group_name ~identity
-    ~input_mapping_default_values ~input_mapping_fields () :
-    azurerm_eventgrid_domain =
+    ?tags ?(identity = []) ?(input_mapping_default_values = [])
+    ?(input_mapping_fields = []) ?timeouts ~location ~name
+    ~resource_group_name () : azurerm_eventgrid_domain =
   {
     auto_create_topic_with_first_subscription;
     auto_delete_topic_with_last_subscription;
@@ -483,8 +483,9 @@ type t = {
 let make ?auto_create_topic_with_first_subscription
     ?auto_delete_topic_with_last_subscription ?id ?inbound_ip_rule
     ?input_schema ?local_auth_enabled ?public_network_access_enabled
-    ?tags ?timeouts ~location ~name ~resource_group_name ~identity
-    ~input_mapping_default_values ~input_mapping_fields __id =
+    ?tags ?(identity = []) ?(input_mapping_default_values = [])
+    ?(input_mapping_fields = []) ?timeouts ~location ~name
+    ~resource_group_name __id =
   let __type = "azurerm_eventgrid_domain" in
   let __attrs =
     ({
@@ -523,24 +524,25 @@ let make ?auto_create_topic_with_first_subscription
            ?auto_create_topic_with_first_subscription
            ?auto_delete_topic_with_last_subscription ?id
            ?inbound_ip_rule ?input_schema ?local_auth_enabled
-           ?public_network_access_enabled ?tags ?timeouts ~location
-           ~name ~resource_group_name ~identity
-           ~input_mapping_default_values ~input_mapping_fields ());
+           ?public_network_access_enabled ?tags ~identity
+           ~input_mapping_default_values ~input_mapping_fields
+           ?timeouts ~location ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_create_topic_with_first_subscription
     ?auto_delete_topic_with_last_subscription ?id ?inbound_ip_rule
     ?input_schema ?local_auth_enabled ?public_network_access_enabled
-    ?tags ?timeouts ~location ~name ~resource_group_name ~identity
-    ~input_mapping_default_values ~input_mapping_fields __id =
+    ?tags ?(identity = []) ?(input_mapping_default_values = [])
+    ?(input_mapping_fields = []) ?timeouts ~location ~name
+    ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?auto_create_topic_with_first_subscription
       ?auto_delete_topic_with_last_subscription ?id ?inbound_ip_rule
       ?input_schema ?local_auth_enabled
-      ?public_network_access_enabled ?tags ?timeouts ~location ~name
-      ~resource_group_name ~identity ~input_mapping_default_values
-      ~input_mapping_fields __id
+      ?public_network_access_enabled ?tags ~identity
+      ~input_mapping_default_values ~input_mapping_fields ?timeouts
+      ~location ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

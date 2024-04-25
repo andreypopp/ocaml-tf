@@ -18,11 +18,11 @@ val aws_storagegateway_file_system_association :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?cache_attributes:cache_attributes list ->
   gateway_arn:string prop ->
   location_arn:string prop ->
   password:string prop ->
   username:string prop ->
-  cache_attributes:cache_attributes list ->
   unit ->
   aws_storagegateway_file_system_association
 
@@ -49,11 +49,11 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?cache_attributes:cache_attributes list ->
   gateway_arn:string prop ->
   location_arn:string prop ->
   password:string prop ->
   username:string prop ->
-  cache_attributes:cache_attributes list ->
   string ->
   t
 
@@ -62,10 +62,10 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?cache_attributes:cache_attributes list ->
   gateway_arn:string prop ->
   location_arn:string prop ->
   password:string prop ->
   username:string prop ->
-  cache_attributes:cache_attributes list ->
   string ->
   t Tf_core.resource

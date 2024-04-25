@@ -1338,7 +1338,8 @@ let settings ?always_online ?always_use_https
     ?server_side_exclude ?sort_query_string_for_cache ?ssl
     ?tls_1_2_only ?tls_1_3 ?tls_client_auth ?true_client_ip_header
     ?universal_ssl ?visitor_ip ?waf ?webp ?websockets ?zero_rtt
-    ~minify ~mobile_redirect ~security_header () : settings =
+    ?(minify = []) ?(mobile_redirect = []) ?(security_header = []) ()
+    : settings =
   {
     always_online;
     always_use_https;
@@ -1398,8 +1399,8 @@ let settings ?always_online ?always_use_https
     security_header;
   }
 
-let cloudflare_zone_settings_override ?id ~zone_id ~settings () :
-    cloudflare_zone_settings_override =
+let cloudflare_zone_settings_override ?id ?(settings = []) ~zone_id
+    () : cloudflare_zone_settings_override =
   { id; zone_id; settings }
 
 type t = {
@@ -1412,7 +1413,7 @@ type t = {
   zone_type : string prop;
 }
 
-let make ?id ~zone_id ~settings __id =
+let make ?id ?(settings = []) ~zone_id __id =
   let __type = "cloudflare_zone_settings_override" in
   let __attrs =
     ({
@@ -1434,11 +1435,11 @@ let make ?id ~zone_id ~settings __id =
     type_ = __type;
     json =
       yojson_of_cloudflare_zone_settings_override
-        (cloudflare_zone_settings_override ?id ~zone_id ~settings ());
+        (cloudflare_zone_settings_override ?id ~settings ~zone_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~zone_id ~settings __id =
-  let (r : _ Tf_core.resource) = make ?id ~zone_id ~settings __id in
+let register ?tf_module ?id ?(settings = []) ~zone_id __id =
+  let (r : _ Tf_core.resource) = make ?id ~settings ~zone_id __id in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

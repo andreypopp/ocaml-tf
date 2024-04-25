@@ -324,15 +324,15 @@ let sign_in__phone_number ?enabled ?test_phone_numbers () :
     sign_in__phone_number =
   { enabled; test_phone_numbers }
 
-let sign_in ?allow_duplicate_emails ~anonymous ~email ~phone_number
-    () : sign_in =
+let sign_in ?allow_duplicate_emails ?(anonymous = []) ?(email = [])
+    ?(phone_number = []) () : sign_in =
   { allow_duplicate_emails; anonymous; email; phone_number }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_identity_platform_project_default_config ?id ?project
-    ?timeouts ~sign_in () :
+    ?(sign_in = []) ?timeouts () :
     google_identity_platform_project_default_config =
   { id; project; sign_in; timeouts }
 
@@ -342,7 +342,7 @@ type t = {
   project : string prop;
 }
 
-let make ?id ?project ?timeouts ~sign_in __id =
+let make ?id ?project ?(sign_in = []) ?timeouts __id =
   let __type = "google_identity_platform_project_default_config" in
   let __attrs =
     ({
@@ -358,13 +358,13 @@ let make ?id ?project ?timeouts ~sign_in __id =
     json =
       yojson_of_google_identity_platform_project_default_config
         (google_identity_platform_project_default_config ?id ?project
-           ?timeouts ~sign_in ());
+           ~sign_in ?timeouts ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ?timeouts ~sign_in __id =
+let register ?tf_module ?id ?project ?(sign_in = []) ?timeouts __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ?timeouts ~sign_in __id
+    make ?id ?project ~sign_in ?timeouts __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -21,10 +21,10 @@ val aws_codecatalyst_dev_environment :
   ?creator_id:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?repositories:repositories list ->
   env_id:string prop ->
   project_name:string prop ->
   space_name:string prop ->
-  repositories:repositories list ->
   unit ->
   aws_codecatalyst_dev_environment
 
@@ -56,10 +56,10 @@ val register :
   ?creator_id:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?repositories:repositories list ->
   env_id:string prop ->
   project_name:string prop ->
   space_name:string prop ->
-  repositories:repositories list ->
   string ->
   t
 
@@ -68,9 +68,9 @@ val make :
   ?creator_id:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?repositories:repositories list ->
   env_id:string prop ->
   project_name:string prop ->
   space_name:string prop ->
-  repositories:repositories list ->
   string ->
   t Tf_core.resource

@@ -114,8 +114,8 @@ let _ = yojson_of_google_pubsub_subscription_iam_binding
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_pubsub_subscription_iam_binding ?id ?project ~members
-    ~role ~subscription ~condition () :
+let google_pubsub_subscription_iam_binding ?id ?project
+    ?(condition = []) ~members ~role ~subscription () :
     google_pubsub_subscription_iam_binding =
   { id; members; project; role; subscription; condition }
 
@@ -128,7 +128,8 @@ type t = {
   subscription : string prop;
 }
 
-let make ?id ?project ~members ~role ~subscription ~condition __id =
+let make ?id ?project ?(condition = []) ~members ~role ~subscription
+    __id =
   let __type = "google_pubsub_subscription_iam_binding" in
   let __attrs =
     ({
@@ -146,15 +147,15 @@ let make ?id ?project ~members ~role ~subscription ~condition __id =
     type_ = __type;
     json =
       yojson_of_google_pubsub_subscription_iam_binding
-        (google_pubsub_subscription_iam_binding ?id ?project ~members
-           ~role ~subscription ~condition ());
+        (google_pubsub_subscription_iam_binding ?id ?project
+           ~condition ~members ~role ~subscription ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ~members ~role ~subscription
-    ~condition __id =
+let register ?tf_module ?id ?project ?(condition = []) ~members ~role
+    ~subscription __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ~members ~role ~subscription ~condition __id
+    make ?id ?project ~condition ~members ~role ~subscription __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

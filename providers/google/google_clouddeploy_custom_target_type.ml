@@ -354,21 +354,21 @@ let custom_actions__include_skaffold_modules__google_cloud_storage
     custom_actions__include_skaffold_modules__google_cloud_storage =
   { path; source }
 
-let custom_actions__include_skaffold_modules ?configs ~git
-    ~google_cloud_storage () :
+let custom_actions__include_skaffold_modules ?configs ?(git = [])
+    ?(google_cloud_storage = []) () :
     custom_actions__include_skaffold_modules =
   { configs; git; google_cloud_storage }
 
-let custom_actions ?render_action ~deploy_action
-    ~include_skaffold_modules () : custom_actions =
+let custom_actions ?render_action ?(include_skaffold_modules = [])
+    ~deploy_action () : custom_actions =
   { deploy_action; render_action; include_skaffold_modules }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_clouddeploy_custom_target_type ?annotations ?description
-    ?id ?labels ?project ?timeouts ~location ~name ~custom_actions ()
-    : google_clouddeploy_custom_target_type =
+    ?id ?labels ?project ?(custom_actions = []) ?timeouts ~location
+    ~name () : google_clouddeploy_custom_target_type =
   {
     annotations;
     description;
@@ -399,8 +399,8 @@ type t = {
   update_time : string prop;
 }
 
-let make ?annotations ?description ?id ?labels ?project ?timeouts
-    ~location ~name ~custom_actions __id =
+let make ?annotations ?description ?id ?labels ?project
+    ?(custom_actions = []) ?timeouts ~location ~name __id =
   let __type = "google_clouddeploy_custom_target_type" in
   let __attrs =
     ({
@@ -432,16 +432,16 @@ let make ?annotations ?description ?id ?labels ?project ?timeouts
     json =
       yojson_of_google_clouddeploy_custom_target_type
         (google_clouddeploy_custom_target_type ?annotations
-           ?description ?id ?labels ?project ?timeouts ~location
-           ~name ~custom_actions ());
+           ?description ?id ?labels ?project ~custom_actions
+           ?timeouts ~location ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?description ?id ?labels
-    ?project ?timeouts ~location ~name ~custom_actions __id =
+    ?project ?(custom_actions = []) ?timeouts ~location ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?annotations ?description ?id ?labels ?project ?timeouts
-      ~location ~name ~custom_actions __id
+    make ?annotations ?description ?id ?labels ?project
+      ~custom_actions ?timeouts ~location ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

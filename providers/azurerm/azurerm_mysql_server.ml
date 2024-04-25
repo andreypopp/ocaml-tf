@@ -435,9 +435,10 @@ let azurerm_mysql_server ?administrator_login
     ?geo_redundant_backup_enabled ?id
     ?infrastructure_encryption_enabled ?public_network_access_enabled
     ?restore_point_in_time ?ssl_minimal_tls_version_enforced
-    ?storage_mb ?tags ?timeouts ~location ~name ~resource_group_name
-    ~sku_name ~ssl_enforcement_enabled ~version ~identity
-    ~threat_detection_policy () : azurerm_mysql_server =
+    ?storage_mb ?tags ?(identity = [])
+    ?(threat_detection_policy = []) ?timeouts ~location ~name
+    ~resource_group_name ~sku_name ~ssl_enforcement_enabled ~version
+    () : azurerm_mysql_server =
   {
     administrator_login;
     administrator_login_password;
@@ -493,9 +494,10 @@ let make ?administrator_login ?administrator_login_password
     ?creation_source_server_id ?geo_redundant_backup_enabled ?id
     ?infrastructure_encryption_enabled ?public_network_access_enabled
     ?restore_point_in_time ?ssl_minimal_tls_version_enforced
-    ?storage_mb ?tags ?timeouts ~location ~name ~resource_group_name
-    ~sku_name ~ssl_enforcement_enabled ~version ~identity
-    ~threat_detection_policy __id =
+    ?storage_mb ?tags ?(identity = [])
+    ?(threat_detection_policy = []) ?timeouts ~location ~name
+    ~resource_group_name ~sku_name ~ssl_enforcement_enabled ~version
+    __id =
   let __type = "azurerm_mysql_server" in
   let __attrs =
     ({
@@ -548,9 +550,9 @@ let make ?administrator_login ?administrator_login_password
            ?id ?infrastructure_encryption_enabled
            ?public_network_access_enabled ?restore_point_in_time
            ?ssl_minimal_tls_version_enforced ?storage_mb ?tags
-           ?timeouts ~location ~name ~resource_group_name ~sku_name
-           ~ssl_enforcement_enabled ~version ~identity
-           ~threat_detection_policy ());
+           ~identity ~threat_detection_policy ?timeouts ~location
+           ~name ~resource_group_name ~sku_name
+           ~ssl_enforcement_enabled ~version ());
     attrs = __attrs;
   }
 
@@ -560,19 +562,20 @@ let register ?tf_module ?administrator_login
     ?geo_redundant_backup_enabled ?id
     ?infrastructure_encryption_enabled ?public_network_access_enabled
     ?restore_point_in_time ?ssl_minimal_tls_version_enforced
-    ?storage_mb ?tags ?timeouts ~location ~name ~resource_group_name
-    ~sku_name ~ssl_enforcement_enabled ~version ~identity
-    ~threat_detection_policy __id =
+    ?storage_mb ?tags ?(identity = [])
+    ?(threat_detection_policy = []) ?timeouts ~location ~name
+    ~resource_group_name ~sku_name ~ssl_enforcement_enabled ~version
+    __id =
   let (r : _ Tf_core.resource) =
     make ?administrator_login ?administrator_login_password
       ?auto_grow_enabled ?backup_retention_days ?create_mode
       ?creation_source_server_id ?geo_redundant_backup_enabled ?id
       ?infrastructure_encryption_enabled
       ?public_network_access_enabled ?restore_point_in_time
-      ?ssl_minimal_tls_version_enforced ?storage_mb ?tags ?timeouts
-      ~location ~name ~resource_group_name ~sku_name
-      ~ssl_enforcement_enabled ~version ~identity
-      ~threat_detection_policy __id
+      ?ssl_minimal_tls_version_enforced ?storage_mb ?tags ~identity
+      ~threat_detection_policy ?timeouts ~location ~name
+      ~resource_group_name ~sku_name ~ssl_enforcement_enabled
+      ~version __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

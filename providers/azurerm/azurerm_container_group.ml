@@ -1636,7 +1636,8 @@ let container__liveness_probe__http_get ?http_headers ?path ?port
 
 let container__liveness_probe ?exec ?failure_threshold
     ?initial_delay_seconds ?period_seconds ?success_threshold
-    ?timeout_seconds ~http_get () : container__liveness_probe =
+    ?timeout_seconds ?(http_get = []) () : container__liveness_probe
+    =
   {
     exec;
     failure_threshold;
@@ -1656,7 +1657,8 @@ let container__readiness_probe__http_get ?http_headers ?path ?port
 
 let container__readiness_probe ?exec ?failure_threshold
     ?initial_delay_seconds ?period_seconds ?success_threshold
-    ?timeout_seconds ~http_get () : container__readiness_probe =
+    ?timeout_seconds ?(http_get = []) () : container__readiness_probe
+    =
   {
     exec;
     failure_threshold;
@@ -1675,8 +1677,8 @@ let container__volume__git_repo ?directory ?revision ~url () :
   { directory; revision; url }
 
 let container__volume ?empty_dir ?read_only ?secret ?share_name
-    ?storage_account_key ?storage_account_name ~mount_path ~name
-    ~git_repo () : container__volume =
+    ?storage_account_key ?storage_account_name ?(git_repo = [])
+    ~mount_path ~name () : container__volume =
   {
     empty_dir;
     mount_path;
@@ -1690,9 +1692,10 @@ let container__volume ?empty_dir ?read_only ?secret ?share_name
   }
 
 let container ?commands ?cpu_limit ?environment_variables
-    ?memory_limit ?secure_environment_variables ~cpu ~image ~memory
-    ~name ~gpu ~gpu_limit ~liveness_probe ~ports ~readiness_probe
-    ~security ~volume () : container =
+    ?memory_limit ?secure_environment_variables ?(gpu = [])
+    ?(gpu_limit = []) ?(liveness_probe = []) ?(readiness_probe = [])
+    ?(security = []) ?(volume = []) ~cpu ~image ~memory ~name ~ports
+    () : container =
   {
     commands;
     cpu;
@@ -1738,8 +1741,8 @@ let init_container__volume__git_repo ?directory ?revision ~url () :
   { directory; revision; url }
 
 let init_container__volume ?empty_dir ?read_only ?secret ?share_name
-    ?storage_account_key ?storage_account_name ~mount_path ~name
-    ~git_repo () : init_container__volume =
+    ?storage_account_key ?storage_account_name ?(git_repo = [])
+    ~mount_path ~name () : init_container__volume =
   {
     empty_dir;
     mount_path;
@@ -1753,8 +1756,8 @@ let init_container__volume ?empty_dir ?read_only ?secret ?share_name
   }
 
 let init_container ?commands ?environment_variables
-    ?secure_environment_variables ~image ~name ~security ~volume () :
-    init_container =
+    ?secure_environment_variables ?(security = []) ?(volume = [])
+    ~image ~name () : init_container =
   {
     commands;
     environment_variables;
@@ -1772,10 +1775,10 @@ let azurerm_container_group ?dns_name_label
     ?dns_name_label_reuse_policy ?exposed_port ?id ?ip_address_type
     ?key_vault_key_id ?key_vault_user_assigned_identity_id
     ?network_profile_id ?priority ?restart_policy ?sku ?subnet_ids
-    ?tags ?zones ?timeouts ~location ~name ~os_type
-    ~resource_group_name ~container ~diagnostics ~dns_config
-    ~identity ~image_registry_credential ~init_container () :
-    azurerm_container_group =
+    ?tags ?zones ?(diagnostics = []) ?(dns_config = [])
+    ?(identity = []) ?(image_registry_credential = [])
+    ?(init_container = []) ?timeouts ~location ~name ~os_type
+    ~resource_group_name ~container () : azurerm_container_group =
   {
     dns_name_label;
     dns_name_label_reuse_policy;
@@ -1830,10 +1833,11 @@ type t = {
 let make ?dns_name_label ?dns_name_label_reuse_policy ?exposed_port
     ?id ?ip_address_type ?key_vault_key_id
     ?key_vault_user_assigned_identity_id ?network_profile_id
-    ?priority ?restart_policy ?sku ?subnet_ids ?tags ?zones ?timeouts
-    ~location ~name ~os_type ~resource_group_name ~container
-    ~diagnostics ~dns_config ~identity ~image_registry_credential
-    ~init_container __id =
+    ?priority ?restart_policy ?sku ?subnet_ids ?tags ?zones
+    ?(diagnostics = []) ?(dns_config = []) ?(identity = [])
+    ?(image_registry_credential = []) ?(init_container = [])
+    ?timeouts ~location ~name ~os_type ~resource_group_name
+    ~container __id =
   let __type = "azurerm_container_group" in
   let __attrs =
     ({
@@ -1876,27 +1880,29 @@ let make ?dns_name_label ?dns_name_label_reuse_policy ?exposed_port
            ?ip_address_type ?key_vault_key_id
            ?key_vault_user_assigned_identity_id ?network_profile_id
            ?priority ?restart_policy ?sku ?subnet_ids ?tags ?zones
-           ?timeouts ~location ~name ~os_type ~resource_group_name
-           ~container ~diagnostics ~dns_config ~identity
-           ~image_registry_credential ~init_container ());
+           ~diagnostics ~dns_config ~identity
+           ~image_registry_credential ~init_container ?timeouts
+           ~location ~name ~os_type ~resource_group_name ~container
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?dns_name_label ?dns_name_label_reuse_policy
     ?exposed_port ?id ?ip_address_type ?key_vault_key_id
     ?key_vault_user_assigned_identity_id ?network_profile_id
-    ?priority ?restart_policy ?sku ?subnet_ids ?tags ?zones ?timeouts
-    ~location ~name ~os_type ~resource_group_name ~container
-    ~diagnostics ~dns_config ~identity ~image_registry_credential
-    ~init_container __id =
+    ?priority ?restart_policy ?sku ?subnet_ids ?tags ?zones
+    ?(diagnostics = []) ?(dns_config = []) ?(identity = [])
+    ?(image_registry_credential = []) ?(init_container = [])
+    ?timeouts ~location ~name ~os_type ~resource_group_name
+    ~container __id =
   let (r : _ Tf_core.resource) =
     make ?dns_name_label ?dns_name_label_reuse_policy ?exposed_port
       ?id ?ip_address_type ?key_vault_key_id
       ?key_vault_user_assigned_identity_id ?network_profile_id
       ?priority ?restart_policy ?sku ?subnet_ids ?tags ?zones
-      ?timeouts ~location ~name ~os_type ~resource_group_name
-      ~container ~diagnostics ~dns_config ~identity
-      ~image_registry_credential ~init_container __id
+      ~diagnostics ~dns_config ~identity ~image_registry_credential
+      ~init_container ?timeouts ~location ~name ~os_type
+      ~resource_group_name ~container __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

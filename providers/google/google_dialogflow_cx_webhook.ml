@@ -336,8 +336,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_dialogflow_cx_webhook ?disabled ?enable_spell_correction
     ?enable_stackdriver_logging ?id ?parent ?security_settings
-    ?timeout ?timeouts ~display_name ~generic_web_service
-    ~service_directory () : google_dialogflow_cx_webhook =
+    ?timeout ?(generic_web_service = []) ?(service_directory = [])
+    ?timeouts ~display_name () : google_dialogflow_cx_webhook =
   {
     disabled;
     display_name;
@@ -367,8 +367,8 @@ type t = {
 
 let make ?disabled ?enable_spell_correction
     ?enable_stackdriver_logging ?id ?parent ?security_settings
-    ?timeout ?timeouts ~display_name ~generic_web_service
-    ~service_directory __id =
+    ?timeout ?(generic_web_service = []) ?(service_directory = [])
+    ?timeouts ~display_name __id =
   let __type = "google_dialogflow_cx_webhook" in
   let __attrs =
     ({
@@ -395,20 +395,20 @@ let make ?disabled ?enable_spell_correction
       yojson_of_google_dialogflow_cx_webhook
         (google_dialogflow_cx_webhook ?disabled
            ?enable_spell_correction ?enable_stackdriver_logging ?id
-           ?parent ?security_settings ?timeout ?timeouts
-           ~display_name ~generic_web_service ~service_directory ());
+           ?parent ?security_settings ?timeout ~generic_web_service
+           ~service_directory ?timeouts ~display_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?disabled ?enable_spell_correction
     ?enable_stackdriver_logging ?id ?parent ?security_settings
-    ?timeout ?timeouts ~display_name ~generic_web_service
-    ~service_directory __id =
+    ?timeout ?(generic_web_service = []) ?(service_directory = [])
+    ?timeouts ~display_name __id =
   let (r : _ Tf_core.resource) =
     make ?disabled ?enable_spell_correction
       ?enable_stackdriver_logging ?id ?parent ?security_settings
-      ?timeout ?timeouts ~display_name ~generic_web_service
-      ~service_directory __id
+      ?timeout ~generic_web_service ~service_directory ?timeouts
+      ~display_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

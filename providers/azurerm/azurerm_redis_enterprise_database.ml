@@ -235,7 +235,7 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_redis_enterprise_database ?client_protocol
     ?clustering_policy ?eviction_policy ?id
     ?linked_database_group_nickname ?linked_database_id ?name ?port
-    ?resource_group_name ?timeouts ~cluster_id ~module_ () :
+    ?resource_group_name ?(module_ = []) ?timeouts ~cluster_id () :
     azurerm_redis_enterprise_database =
   {
     client_protocol;
@@ -269,7 +269,7 @@ type t = {
 
 let make ?client_protocol ?clustering_policy ?eviction_policy ?id
     ?linked_database_group_nickname ?linked_database_id ?name ?port
-    ?resource_group_name ?timeouts ~cluster_id ~module_ __id =
+    ?resource_group_name ?(module_ = []) ?timeouts ~cluster_id __id =
   let __type = "azurerm_redis_enterprise_database" in
   let __attrs =
     ({
@@ -302,19 +302,19 @@ let make ?client_protocol ?clustering_policy ?eviction_policy ?id
         (azurerm_redis_enterprise_database ?client_protocol
            ?clustering_policy ?eviction_policy ?id
            ?linked_database_group_nickname ?linked_database_id ?name
-           ?port ?resource_group_name ?timeouts ~cluster_id ~module_
+           ?port ?resource_group_name ~module_ ?timeouts ~cluster_id
            ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?client_protocol ?clustering_policy
     ?eviction_policy ?id ?linked_database_group_nickname
-    ?linked_database_id ?name ?port ?resource_group_name ?timeouts
-    ~cluster_id ~module_ __id =
+    ?linked_database_id ?name ?port ?resource_group_name
+    ?(module_ = []) ?timeouts ~cluster_id __id =
   let (r : _ Tf_core.resource) =
     make ?client_protocol ?clustering_policy ?eviction_policy ?id
       ?linked_database_group_nickname ?linked_database_id ?name ?port
-      ?resource_group_name ?timeouts ~cluster_id ~module_ __id
+      ?resource_group_name ~module_ ?timeouts ~cluster_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

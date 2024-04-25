@@ -15,7 +15,7 @@ val egress_from :
   ?identities:string prop list ->
   ?identity_type:string prop ->
   ?source_restriction:string prop ->
-  sources:egress_from__sources list ->
+  ?sources:egress_from__sources list ->
   unit ->
   egress_from
 
@@ -31,7 +31,7 @@ type egress_to__operations
 
 val egress_to__operations :
   ?service_name:string prop ->
-  method_selectors:egress_to__operations__method_selectors list ->
+  ?method_selectors:egress_to__operations__method_selectors list ->
   unit ->
   egress_to__operations
 
@@ -40,7 +40,7 @@ type egress_to
 val egress_to :
   ?external_resources:string prop list ->
   ?resources:string prop list ->
-  operations:egress_to__operations list ->
+  ?operations:egress_to__operations list ->
   unit ->
   egress_to
 
@@ -57,10 +57,10 @@ type google_access_context_manager_service_perimeter_egress_policy
 
 val google_access_context_manager_service_perimeter_egress_policy :
   ?id:string prop ->
+  ?egress_from:egress_from list ->
+  ?egress_to:egress_to list ->
   ?timeouts:timeouts ->
   perimeter:string prop ->
-  egress_from:egress_from list ->
-  egress_to:egress_to list ->
   unit ->
   google_access_context_manager_service_perimeter_egress_policy
 
@@ -75,18 +75,18 @@ type t = private { id : string prop; perimeter : string prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?egress_from:egress_from list ->
+  ?egress_to:egress_to list ->
   ?timeouts:timeouts ->
   perimeter:string prop ->
-  egress_from:egress_from list ->
-  egress_to:egress_to list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?egress_from:egress_from list ->
+  ?egress_to:egress_to list ->
   ?timeouts:timeouts ->
   perimeter:string prop ->
-  egress_from:egress_from list ->
-  egress_to:egress_to list ->
   string ->
   t Tf_core.resource

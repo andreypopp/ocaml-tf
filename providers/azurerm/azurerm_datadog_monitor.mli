@@ -45,13 +45,13 @@ val azurerm_datadog_monitor :
   ?id:string prop ->
   ?monitoring_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
   datadog_organization:datadog_organization list ->
-  identity:identity list ->
   user:user list ->
   unit ->
   azurerm_datadog_monitor
@@ -77,13 +77,13 @@ val register :
   ?id:string prop ->
   ?monitoring_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
   datadog_organization:datadog_organization list ->
-  identity:identity list ->
   user:user list ->
   string ->
   t
@@ -92,13 +92,13 @@ val make :
   ?id:string prop ->
   ?monitoring_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
   datadog_organization:datadog_organization list ->
-  identity:identity list ->
   user:user list ->
   string ->
   t Tf_core.resource

@@ -243,9 +243,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_data_factory_linked_custom_service ?additional_properties
-    ?annotations ?description ?id ?parameters ?timeouts
-    ~data_factory_id ~name ~type_ ~type_properties_json
-    ~integration_runtime () :
+    ?annotations ?description ?id ?parameters
+    ?(integration_runtime = []) ?timeouts ~data_factory_id ~name
+    ~type_ ~type_properties_json () :
     azurerm_data_factory_linked_custom_service =
   {
     additional_properties;
@@ -274,8 +274,8 @@ type t = {
 }
 
 let make ?additional_properties ?annotations ?description ?id
-    ?parameters ?timeouts ~data_factory_id ~name ~type_
-    ~type_properties_json ~integration_runtime __id =
+    ?parameters ?(integration_runtime = []) ?timeouts
+    ~data_factory_id ~name ~type_ ~type_properties_json __id =
   let __type = "azurerm_data_factory_linked_custom_service" in
   let __attrs =
     ({
@@ -300,18 +300,19 @@ let make ?additional_properties ?annotations ?description ?id
       yojson_of_azurerm_data_factory_linked_custom_service
         (azurerm_data_factory_linked_custom_service
            ?additional_properties ?annotations ?description ?id
-           ?parameters ?timeouts ~data_factory_id ~name ~type_
-           ~type_properties_json ~integration_runtime ());
+           ?parameters ~integration_runtime ?timeouts
+           ~data_factory_id ~name ~type_ ~type_properties_json ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?additional_properties ?annotations
-    ?description ?id ?parameters ?timeouts ~data_factory_id ~name
-    ~type_ ~type_properties_json ~integration_runtime __id =
+    ?description ?id ?parameters ?(integration_runtime = [])
+    ?timeouts ~data_factory_id ~name ~type_ ~type_properties_json
+    __id =
   let (r : _ Tf_core.resource) =
     make ?additional_properties ?annotations ?description ?id
-      ?parameters ?timeouts ~data_factory_id ~name ~type_
-      ~type_properties_json ~integration_runtime __id
+      ?parameters ~integration_runtime ?timeouts ~data_factory_id
+      ~name ~type_ ~type_properties_json __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

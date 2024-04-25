@@ -37,9 +37,9 @@ val destinations__settings :
 type destinations
 
 val destinations :
+  ?multiplex_settings:destinations__multiplex_settings list ->
   id:string prop ->
   media_package_settings:destinations__media_package_settings list ->
-  multiplex_settings:destinations__multiplex_settings list ->
   settings:destinations__settings list ->
   unit ->
   destinations
@@ -74,10 +74,10 @@ type encoder_settings__audio_descriptions__audio_watermark_settings__nielsen_wat
 
 val encoder_settings__audio_descriptions__audio_watermark_settings__nielsen_watermarks_settings :
   ?nielsen_distribution_type:string prop ->
-  nielsen_cbet_settings:
+  ?nielsen_cbet_settings:
     encoder_settings__audio_descriptions__audio_watermark_settings__nielsen_watermarks_settings__nielsen_cbet_settings
     list ->
-  nielsen_naes_ii_nw_settings:
+  ?nielsen_naes_ii_nw_settings:
     encoder_settings__audio_descriptions__audio_watermark_settings__nielsen_watermarks_settings__nielsen_naes_ii_nw_settings
     list ->
   unit ->
@@ -86,7 +86,7 @@ val encoder_settings__audio_descriptions__audio_watermark_settings__nielsen_wate
 type encoder_settings__audio_descriptions__audio_watermark_settings
 
 val encoder_settings__audio_descriptions__audio_watermark_settings :
-  nielsen_watermarks_settings:
+  ?nielsen_watermarks_settings:
     encoder_settings__audio_descriptions__audio_watermark_settings__nielsen_watermarks_settings
     list ->
   unit ->
@@ -186,25 +186,25 @@ val encoder_settings__audio_descriptions__codec_settings__wav_settings :
 type encoder_settings__audio_descriptions__codec_settings
 
 val encoder_settings__audio_descriptions__codec_settings :
-  aac_settings:
+  ?aac_settings:
     encoder_settings__audio_descriptions__codec_settings__aac_settings
     list ->
-  ac3_settings:
+  ?ac3_settings:
     encoder_settings__audio_descriptions__codec_settings__ac3_settings
     list ->
-  eac3_atmos_settings:
+  ?eac3_atmos_settings:
     encoder_settings__audio_descriptions__codec_settings__eac3_atmos_settings
     list ->
-  eac3_settings:
+  ?eac3_settings:
     encoder_settings__audio_descriptions__codec_settings__eac3_settings
     list ->
-  mp2_settings:
+  ?mp2_settings:
     encoder_settings__audio_descriptions__codec_settings__mp2_settings
     list ->
-  pass_through_settings:
+  ?pass_through_settings:
     encoder_settings__audio_descriptions__codec_settings__pass_through_settings
     list ->
-  wav_settings:
+  ?wav_settings:
     encoder_settings__audio_descriptions__codec_settings__wav_settings
     list ->
   unit ->
@@ -247,18 +247,18 @@ val encoder_settings__audio_descriptions :
   ?language_code:string prop ->
   ?language_code_control:string prop ->
   ?stream_name:string prop ->
-  audio_selector_name:string prop ->
-  name:string prop ->
-  audio_normalization_settings:
+  ?audio_normalization_settings:
     encoder_settings__audio_descriptions__audio_normalization_settings
     list ->
-  audio_watermark_settings:
+  ?audio_watermark_settings:
     encoder_settings__audio_descriptions__audio_watermark_settings
     list ->
-  codec_settings:
+  ?codec_settings:
     encoder_settings__audio_descriptions__codec_settings list ->
-  remix_settings:
+  ?remix_settings:
     encoder_settings__audio_descriptions__remix_settings list ->
+  audio_selector_name:string prop ->
+  name:string prop ->
   unit ->
   encoder_settings__audio_descriptions
 
@@ -275,7 +275,7 @@ type encoder_settings__avail_blanking
 
 val encoder_settings__avail_blanking :
   ?state:string prop ->
-  avail_blanking_image:
+  ?avail_blanking_image:
     encoder_settings__avail_blanking__avail_blanking_image list ->
   unit ->
   encoder_settings__avail_blanking
@@ -312,11 +312,11 @@ val encoder_settings__caption_descriptions__destination_settings__burn_in_destin
   ?shadow_y_offset:float prop ->
   ?x_position:float prop ->
   ?y_position:float prop ->
-  outline_color:string prop ->
-  teletext_grid_control:string prop ->
-  font:
+  ?font:
     encoder_settings__caption_descriptions__destination_settings__burn_in_destination_settings__font
     list ->
+  outline_color:string prop ->
+  teletext_grid_control:string prop ->
   unit ->
   encoder_settings__caption_descriptions__destination_settings__burn_in_destination_settings
 
@@ -348,7 +348,7 @@ val encoder_settings__caption_descriptions__destination_settings__dvb_sub_destin
   ?teletext_grid_control:string prop ->
   ?x_position:float prop ->
   ?y_position:float prop ->
-  font:
+  ?font:
     encoder_settings__caption_descriptions__destination_settings__dvb_sub_destination_settings__font
     list ->
   unit ->
@@ -423,43 +423,43 @@ val encoder_settings__caption_descriptions__destination_settings__webvtt_destina
 type encoder_settings__caption_descriptions__destination_settings
 
 val encoder_settings__caption_descriptions__destination_settings :
-  arib_destination_settings:
+  ?arib_destination_settings:
     encoder_settings__caption_descriptions__destination_settings__arib_destination_settings
     list ->
-  burn_in_destination_settings:
+  ?burn_in_destination_settings:
     encoder_settings__caption_descriptions__destination_settings__burn_in_destination_settings
     list ->
-  dvb_sub_destination_settings:
+  ?dvb_sub_destination_settings:
     encoder_settings__caption_descriptions__destination_settings__dvb_sub_destination_settings
     list ->
-  ebu_tt_d_destination_settings:
+  ?ebu_tt_d_destination_settings:
     encoder_settings__caption_descriptions__destination_settings__ebu_tt_d_destination_settings
     list ->
-  embedded_destination_settings:
+  ?embedded_destination_settings:
     encoder_settings__caption_descriptions__destination_settings__embedded_destination_settings
     list ->
-  embedded_plus_scte20_destination_settings:
+  ?embedded_plus_scte20_destination_settings:
     encoder_settings__caption_descriptions__destination_settings__embedded_plus_scte20_destination_settings
     list ->
-  rtmp_caption_info_destination_settings:
+  ?rtmp_caption_info_destination_settings:
     encoder_settings__caption_descriptions__destination_settings__rtmp_caption_info_destination_settings
     list ->
-  scte20_plus_embedded_destination_settings:
+  ?scte20_plus_embedded_destination_settings:
     encoder_settings__caption_descriptions__destination_settings__scte20_plus_embedded_destination_settings
     list ->
-  scte27_destination_settings:
+  ?scte27_destination_settings:
     encoder_settings__caption_descriptions__destination_settings__scte27_destination_settings
     list ->
-  smpte_tt_destination_settings:
+  ?smpte_tt_destination_settings:
     encoder_settings__caption_descriptions__destination_settings__smpte_tt_destination_settings
     list ->
-  teletext_destination_settings:
+  ?teletext_destination_settings:
     encoder_settings__caption_descriptions__destination_settings__teletext_destination_settings
     list ->
-  ttml_destination_settings:
+  ?ttml_destination_settings:
     encoder_settings__caption_descriptions__destination_settings__ttml_destination_settings
     list ->
-  webvtt_destination_settings:
+  ?webvtt_destination_settings:
     encoder_settings__caption_descriptions__destination_settings__webvtt_destination_settings
     list ->
   unit ->
@@ -471,10 +471,10 @@ val encoder_settings__caption_descriptions :
   ?accessibility:string prop ->
   ?language_code:string prop ->
   ?language_description:string prop ->
+  ?destination_settings:
+    encoder_settings__caption_descriptions__destination_settings list ->
   caption_selector_name:string prop ->
   name:string prop ->
-  destination_settings:
-    encoder_settings__caption_descriptions__destination_settings list ->
   unit ->
   encoder_settings__caption_descriptions
 
@@ -494,7 +494,7 @@ val encoder_settings__global_configuration__input_loss_behavior :
   ?input_loss_image_color:string prop ->
   ?input_loss_image_type:string prop ->
   ?repeat_frame_msec:float prop ->
-  input_loss_image_slate:
+  ?input_loss_image_slate:
     encoder_settings__global_configuration__input_loss_behavior__input_loss_image_slate
     list ->
   unit ->
@@ -508,7 +508,7 @@ val encoder_settings__global_configuration :
   ?output_locking_mode:string prop ->
   ?output_timing_source:string prop ->
   ?support_low_framerate_inputs:string prop ->
-  input_loss_behavior:
+  ?input_loss_behavior:
     encoder_settings__global_configuration__input_loss_behavior list ->
   unit ->
   encoder_settings__global_configuration
@@ -522,7 +522,7 @@ val encoder_settings__motion_graphics_configuration__motion_graphics_settings__h
 type encoder_settings__motion_graphics_configuration__motion_graphics_settings
 
 val encoder_settings__motion_graphics_configuration__motion_graphics_settings :
-  html_motion_graphics_settings:
+  ?html_motion_graphics_settings:
     encoder_settings__motion_graphics_configuration__motion_graphics_settings__html_motion_graphics_settings
     list ->
   unit ->
@@ -556,7 +556,7 @@ val encoder_settings__output_groups__output_group_settings__archive_group_settin
 type encoder_settings__output_groups__output_group_settings__archive_group_settings__archive_cdn_settings
 
 val encoder_settings__output_groups__output_group_settings__archive_group_settings__archive_cdn_settings :
-  archive_s3_settings:
+  ?archive_s3_settings:
     encoder_settings__output_groups__output_group_settings__archive_group_settings__archive_cdn_settings__archive_s3_settings
     list ->
   unit ->
@@ -573,7 +573,7 @@ type encoder_settings__output_groups__output_group_settings__archive_group_setti
 
 val encoder_settings__output_groups__output_group_settings__archive_group_settings :
   ?rollover_interval:float prop ->
-  archive_cdn_settings:
+  ?archive_cdn_settings:
     encoder_settings__output_groups__output_group_settings__archive_group_settings__archive_cdn_settings
     list ->
   destination:
@@ -599,7 +599,7 @@ val encoder_settings__output_groups__output_group_settings__frame_capture_group_
 type encoder_settings__output_groups__output_group_settings__frame_capture_group_settings__frame_capture_cdn_settings
 
 val encoder_settings__output_groups__output_group_settings__frame_capture_group_settings__frame_capture_cdn_settings :
-  frame_capture_s3_settings:
+  ?frame_capture_s3_settings:
     encoder_settings__output_groups__output_group_settings__frame_capture_group_settings__frame_capture_cdn_settings__frame_capture_s3_settings
     list ->
   unit ->
@@ -608,11 +608,11 @@ val encoder_settings__output_groups__output_group_settings__frame_capture_group_
 type encoder_settings__output_groups__output_group_settings__frame_capture_group_settings
 
 val encoder_settings__output_groups__output_group_settings__frame_capture_group_settings :
+  ?frame_capture_cdn_settings:
+    encoder_settings__output_groups__output_group_settings__frame_capture_group_settings__frame_capture_cdn_settings
+    list ->
   destination:
     encoder_settings__output_groups__output_group_settings__frame_capture_group_settings__destination
-    list ->
-  frame_capture_cdn_settings:
-    encoder_settings__output_groups__output_group_settings__frame_capture_group_settings__frame_capture_cdn_settings
     list ->
   unit ->
   encoder_settings__output_groups__output_group_settings__frame_capture_group_settings
@@ -688,19 +688,19 @@ val encoder_settings__output_groups__output_group_settings__hls_group_settings__
 type encoder_settings__output_groups__output_group_settings__hls_group_settings__hls_cdn_settings
 
 val encoder_settings__output_groups__output_group_settings__hls_group_settings__hls_cdn_settings :
-  hls_akamai_settings:
+  ?hls_akamai_settings:
     encoder_settings__output_groups__output_group_settings__hls_group_settings__hls_cdn_settings__hls_akamai_settings
     list ->
-  hls_basic_put_settings:
+  ?hls_basic_put_settings:
     encoder_settings__output_groups__output_group_settings__hls_group_settings__hls_cdn_settings__hls_basic_put_settings
     list ->
-  hls_media_store_settings:
+  ?hls_media_store_settings:
     encoder_settings__output_groups__output_group_settings__hls_group_settings__hls_cdn_settings__hls_media_store_settings
     list ->
-  hls_s3_settings:
+  ?hls_s3_settings:
     encoder_settings__output_groups__output_group_settings__hls_group_settings__hls_cdn_settings__hls_s3_settings
     list ->
-  hls_webdav_settings:
+  ?hls_webdav_settings:
     encoder_settings__output_groups__output_group_settings__hls_group_settings__hls_cdn_settings__hls_webdav_settings
     list ->
   unit ->
@@ -718,17 +718,17 @@ val encoder_settings__output_groups__output_group_settings__hls_group_settings__
 type encoder_settings__output_groups__output_group_settings__hls_group_settings__key_provider_settings__static_key_settings
 
 val encoder_settings__output_groups__output_group_settings__hls_group_settings__key_provider_settings__static_key_settings :
-  static_key_value:string prop ->
-  key_provider_server:
+  ?key_provider_server:
     encoder_settings__output_groups__output_group_settings__hls_group_settings__key_provider_settings__static_key_settings__key_provider_server
     list ->
+  static_key_value:string prop ->
   unit ->
   encoder_settings__output_groups__output_group_settings__hls_group_settings__key_provider_settings__static_key_settings
 
 type encoder_settings__output_groups__output_group_settings__hls_group_settings__key_provider_settings
 
 val encoder_settings__output_groups__output_group_settings__hls_group_settings__key_provider_settings :
-  static_key_settings:
+  ?static_key_settings:
     encoder_settings__output_groups__output_group_settings__hls_group_settings__key_provider_settings__static_key_settings
     list ->
   unit ->
@@ -775,17 +775,17 @@ val encoder_settings__output_groups__output_group_settings__hls_group_settings :
   ?timed_metadata_id3_period:float prop ->
   ?timestamp_delta_milliseconds:float prop ->
   ?ts_file_mode:string prop ->
+  ?hls_cdn_settings:
+    encoder_settings__output_groups__output_group_settings__hls_group_settings__hls_cdn_settings
+    list ->
+  ?key_provider_settings:
+    encoder_settings__output_groups__output_group_settings__hls_group_settings__key_provider_settings
+    list ->
   caption_language_mappings:
     encoder_settings__output_groups__output_group_settings__hls_group_settings__caption_language_mappings
     list ->
   destination:
     encoder_settings__output_groups__output_group_settings__hls_group_settings__destination
-    list ->
-  hls_cdn_settings:
-    encoder_settings__output_groups__output_group_settings__hls_group_settings__hls_cdn_settings
-    list ->
-  key_provider_settings:
-    encoder_settings__output_groups__output_group_settings__hls_group_settings__key_provider_settings
     list ->
   unit ->
   encoder_settings__output_groups__output_group_settings__hls_group_settings
@@ -871,28 +871,28 @@ val encoder_settings__output_groups__output_group_settings__udp_group_settings :
 type encoder_settings__output_groups__output_group_settings
 
 val encoder_settings__output_groups__output_group_settings :
-  archive_group_settings:
+  ?archive_group_settings:
     encoder_settings__output_groups__output_group_settings__archive_group_settings
     list ->
-  frame_capture_group_settings:
+  ?frame_capture_group_settings:
     encoder_settings__output_groups__output_group_settings__frame_capture_group_settings
     list ->
-  hls_group_settings:
+  ?hls_group_settings:
     encoder_settings__output_groups__output_group_settings__hls_group_settings
     list ->
-  media_package_group_settings:
+  ?media_package_group_settings:
     encoder_settings__output_groups__output_group_settings__media_package_group_settings
     list ->
-  ms_smooth_group_settings:
+  ?ms_smooth_group_settings:
     encoder_settings__output_groups__output_group_settings__ms_smooth_group_settings
     list ->
-  multiplex_group_settings:
+  ?multiplex_group_settings:
     encoder_settings__output_groups__output_group_settings__multiplex_group_settings
     list ->
-  rtmp_group_settings:
+  ?rtmp_group_settings:
     encoder_settings__output_groups__output_group_settings__rtmp_group_settings
     list ->
-  udp_group_settings:
+  ?udp_group_settings:
     encoder_settings__output_groups__output_group_settings__udp_group_settings
     list ->
   unit ->
@@ -971,13 +971,13 @@ val encoder_settings__output_groups__outputs__output_settings__archive_output_se
   ?timed_metadata_pid:string prop ->
   ?transport_stream_id:float prop ->
   ?video_pid:string prop ->
-  dvb_nit_settings:
+  ?dvb_nit_settings:
     encoder_settings__output_groups__outputs__output_settings__archive_output_settings__container_settings__m2ts_settings__dvb_nit_settings
     list ->
-  dvb_sdt_settings:
+  ?dvb_sdt_settings:
     encoder_settings__output_groups__outputs__output_settings__archive_output_settings__container_settings__m2ts_settings__dvb_sdt_settings
     list ->
-  dvb_tdt_settings:
+  ?dvb_tdt_settings:
     encoder_settings__output_groups__outputs__output_settings__archive_output_settings__container_settings__m2ts_settings__dvb_tdt_settings
     list ->
   unit ->
@@ -992,10 +992,10 @@ val encoder_settings__output_groups__outputs__output_settings__archive_output_se
 type encoder_settings__output_groups__outputs__output_settings__archive_output_settings__container_settings
 
 val encoder_settings__output_groups__outputs__output_settings__archive_output_settings__container_settings :
-  m2ts_settings:
+  ?m2ts_settings:
     encoder_settings__output_groups__outputs__output_settings__archive_output_settings__container_settings__m2ts_settings
     list ->
-  raw_settings:
+  ?raw_settings:
     encoder_settings__output_groups__outputs__output_settings__archive_output_settings__container_settings__raw_settings
     list ->
   unit ->
@@ -1006,7 +1006,7 @@ type encoder_settings__output_groups__outputs__output_settings__archive_output_s
 val encoder_settings__output_groups__outputs__output_settings__archive_output_settings :
   ?extension:string prop ->
   ?name_modifier:string prop ->
-  container_settings:
+  ?container_settings:
     encoder_settings__output_groups__outputs__output_settings__archive_output_settings__container_settings
     list ->
   unit ->
@@ -1034,7 +1034,7 @@ val encoder_settings__output_groups__outputs__output_settings__hls_output_settin
   ?audio_group_id:string prop ->
   ?audio_track_type:string prop ->
   ?segment_type:string prop ->
-  audio_only_image:
+  ?audio_only_image:
     encoder_settings__output_groups__outputs__output_settings__hls_output_settings__hls_settings__audio_only_hls_settings__audio_only_image
     list ->
   unit ->
@@ -1091,16 +1091,16 @@ val encoder_settings__output_groups__outputs__output_settings__hls_output_settin
 type encoder_settings__output_groups__outputs__output_settings__hls_output_settings__hls_settings
 
 val encoder_settings__output_groups__outputs__output_settings__hls_output_settings__hls_settings :
-  audio_only_hls_settings:
+  ?audio_only_hls_settings:
     encoder_settings__output_groups__outputs__output_settings__hls_output_settings__hls_settings__audio_only_hls_settings
     list ->
-  fmp4_hls_settings:
+  ?fmp4_hls_settings:
     encoder_settings__output_groups__outputs__output_settings__hls_output_settings__hls_settings__fmp4_hls_settings
     list ->
-  frame_capture_hls_settings:
+  ?frame_capture_hls_settings:
     encoder_settings__output_groups__outputs__output_settings__hls_output_settings__hls_settings__frame_capture_hls_settings
     list ->
-  standard_hls_settings:
+  ?standard_hls_settings:
     encoder_settings__output_groups__outputs__output_settings__hls_output_settings__hls_settings__standard_hls_settings
     list ->
   unit ->
@@ -1240,13 +1240,13 @@ val encoder_settings__output_groups__outputs__output_settings__udp_output_settin
   ?timed_metadata_pid:string prop ->
   ?transport_stream_id:float prop ->
   ?video_pid:string prop ->
-  dvb_nit_settings:
+  ?dvb_nit_settings:
     encoder_settings__output_groups__outputs__output_settings__udp_output_settings__container_settings__m2ts_settings__dvb_nit_settings
     list ->
-  dvb_sdt_settings:
+  ?dvb_sdt_settings:
     encoder_settings__output_groups__outputs__output_settings__udp_output_settings__container_settings__m2ts_settings__dvb_sdt_settings
     list ->
-  dvb_tdt_settings:
+  ?dvb_tdt_settings:
     encoder_settings__output_groups__outputs__output_settings__udp_output_settings__container_settings__m2ts_settings__dvb_tdt_settings
     list ->
   unit ->
@@ -1255,7 +1255,7 @@ val encoder_settings__output_groups__outputs__output_settings__udp_output_settin
 type encoder_settings__output_groups__outputs__output_settings__udp_output_settings__container_settings
 
 val encoder_settings__output_groups__outputs__output_settings__udp_output_settings__container_settings :
-  m2ts_settings:
+  ?m2ts_settings:
     encoder_settings__output_groups__outputs__output_settings__udp_output_settings__container_settings__m2ts_settings
     list ->
   unit ->
@@ -1281,14 +1281,14 @@ type encoder_settings__output_groups__outputs__output_settings__udp_output_setti
 
 val encoder_settings__output_groups__outputs__output_settings__udp_output_settings :
   ?buffer_msec:float prop ->
+  ?fec_output_settings:
+    encoder_settings__output_groups__outputs__output_settings__udp_output_settings__fec_output_settings
+    list ->
   container_settings:
     encoder_settings__output_groups__outputs__output_settings__udp_output_settings__container_settings
     list ->
   destination:
     encoder_settings__output_groups__outputs__output_settings__udp_output_settings__destination
-    list ->
-  fec_output_settings:
-    encoder_settings__output_groups__outputs__output_settings__udp_output_settings__fec_output_settings
     list ->
   unit ->
   encoder_settings__output_groups__outputs__output_settings__udp_output_settings
@@ -1296,28 +1296,28 @@ val encoder_settings__output_groups__outputs__output_settings__udp_output_settin
 type encoder_settings__output_groups__outputs__output_settings
 
 val encoder_settings__output_groups__outputs__output_settings :
-  archive_output_settings:
+  ?archive_output_settings:
     encoder_settings__output_groups__outputs__output_settings__archive_output_settings
     list ->
-  frame_capture_output_settings:
+  ?frame_capture_output_settings:
     encoder_settings__output_groups__outputs__output_settings__frame_capture_output_settings
     list ->
-  hls_output_settings:
+  ?hls_output_settings:
     encoder_settings__output_groups__outputs__output_settings__hls_output_settings
     list ->
-  media_package_output_settings:
+  ?media_package_output_settings:
     encoder_settings__output_groups__outputs__output_settings__media_package_output_settings
     list ->
-  ms_smooth_output_settings:
+  ?ms_smooth_output_settings:
     encoder_settings__output_groups__outputs__output_settings__ms_smooth_output_settings
     list ->
-  multiplex_output_settings:
+  ?multiplex_output_settings:
     encoder_settings__output_groups__outputs__output_settings__multiplex_output_settings
     list ->
-  rtmp_output_settings:
+  ?rtmp_output_settings:
     encoder_settings__output_groups__outputs__output_settings__rtmp_output_settings
     list ->
-  udp_output_settings:
+  ?udp_output_settings:
     encoder_settings__output_groups__outputs__output_settings__udp_output_settings
     list ->
   unit ->
@@ -1372,7 +1372,7 @@ val encoder_settings__video_descriptions__codec_settings__h264_settings__filter_
 type encoder_settings__video_descriptions__codec_settings__h264_settings__filter_settings
 
 val encoder_settings__video_descriptions__codec_settings__h264_settings__filter_settings :
-  temporal_filter_settings:
+  ?temporal_filter_settings:
     encoder_settings__video_descriptions__codec_settings__h264_settings__filter_settings__temporal_filter_settings
     list ->
   unit ->
@@ -1420,7 +1420,7 @@ val encoder_settings__video_descriptions__codec_settings__h264_settings :
   ?syntax:string prop ->
   ?temporal_aq:string prop ->
   ?timecode_insertion:string prop ->
-  filter_settings:
+  ?filter_settings:
     encoder_settings__video_descriptions__codec_settings__h264_settings__filter_settings
     list ->
   unit ->
@@ -1461,19 +1461,19 @@ val encoder_settings__video_descriptions__codec_settings__h265_settings__color_s
 type encoder_settings__video_descriptions__codec_settings__h265_settings__color_space_settings
 
 val encoder_settings__video_descriptions__codec_settings__h265_settings__color_space_settings :
-  color_space_passthrough_settings:
+  ?color_space_passthrough_settings:
     encoder_settings__video_descriptions__codec_settings__h265_settings__color_space_settings__color_space_passthrough_settings
     list ->
-  dolby_vision81_settings:
+  ?dolby_vision81_settings:
     encoder_settings__video_descriptions__codec_settings__h265_settings__color_space_settings__dolby_vision81_settings
     list ->
-  hdr10_settings:
+  ?hdr10_settings:
     encoder_settings__video_descriptions__codec_settings__h265_settings__color_space_settings__hdr10_settings
     list ->
-  rec601_settings:
+  ?rec601_settings:
     encoder_settings__video_descriptions__codec_settings__h265_settings__color_space_settings__rec601_settings
     list ->
-  rec709_settings:
+  ?rec709_settings:
     encoder_settings__video_descriptions__codec_settings__h265_settings__color_space_settings__rec709_settings
     list ->
   unit ->
@@ -1490,7 +1490,7 @@ val encoder_settings__video_descriptions__codec_settings__h265_settings__filter_
 type encoder_settings__video_descriptions__codec_settings__h265_settings__filter_settings
 
 val encoder_settings__video_descriptions__codec_settings__h265_settings__filter_settings :
-  temporal_filter_settings:
+  ?temporal_filter_settings:
     encoder_settings__video_descriptions__codec_settings__h265_settings__filter_settings__temporal_filter_settings
     list ->
   unit ->
@@ -1532,31 +1532,31 @@ val encoder_settings__video_descriptions__codec_settings__h265_settings :
   ?slices:float prop ->
   ?tier:string prop ->
   ?timecode_insertion:string prop ->
+  ?color_space_settings:
+    encoder_settings__video_descriptions__codec_settings__h265_settings__color_space_settings
+    list ->
+  ?filter_settings:
+    encoder_settings__video_descriptions__codec_settings__h265_settings__filter_settings
+    list ->
+  ?timecode_burnin_settings:
+    encoder_settings__video_descriptions__codec_settings__h265_settings__timecode_burnin_settings
+    list ->
   bitrate:float prop ->
   framerate_denominator:float prop ->
   framerate_numerator:float prop ->
-  color_space_settings:
-    encoder_settings__video_descriptions__codec_settings__h265_settings__color_space_settings
-    list ->
-  filter_settings:
-    encoder_settings__video_descriptions__codec_settings__h265_settings__filter_settings
-    list ->
-  timecode_burnin_settings:
-    encoder_settings__video_descriptions__codec_settings__h265_settings__timecode_burnin_settings
-    list ->
   unit ->
   encoder_settings__video_descriptions__codec_settings__h265_settings
 
 type encoder_settings__video_descriptions__codec_settings
 
 val encoder_settings__video_descriptions__codec_settings :
-  frame_capture_settings:
+  ?frame_capture_settings:
     encoder_settings__video_descriptions__codec_settings__frame_capture_settings
     list ->
-  h264_settings:
+  ?h264_settings:
     encoder_settings__video_descriptions__codec_settings__h264_settings
     list ->
-  h265_settings:
+  ?h265_settings:
     encoder_settings__video_descriptions__codec_settings__h265_settings
     list ->
   unit ->
@@ -1570,25 +1570,25 @@ val encoder_settings__video_descriptions :
   ?scaling_behavior:string prop ->
   ?sharpness:float prop ->
   ?width:float prop ->
-  name:string prop ->
-  codec_settings:
+  ?codec_settings:
     encoder_settings__video_descriptions__codec_settings list ->
+  name:string prop ->
   unit ->
   encoder_settings__video_descriptions
 
 type encoder_settings
 
 val encoder_settings :
-  audio_descriptions:encoder_settings__audio_descriptions list ->
-  avail_blanking:encoder_settings__avail_blanking list ->
-  caption_descriptions:encoder_settings__caption_descriptions list ->
-  global_configuration:encoder_settings__global_configuration list ->
-  motion_graphics_configuration:
+  ?avail_blanking:encoder_settings__avail_blanking list ->
+  ?caption_descriptions:encoder_settings__caption_descriptions list ->
+  ?global_configuration:encoder_settings__global_configuration list ->
+  ?motion_graphics_configuration:
     encoder_settings__motion_graphics_configuration list ->
-  nielsen_configuration:encoder_settings__nielsen_configuration list ->
+  ?nielsen_configuration:encoder_settings__nielsen_configuration list ->
+  ?video_descriptions:encoder_settings__video_descriptions list ->
+  audio_descriptions:encoder_settings__audio_descriptions list ->
   output_groups:encoder_settings__output_groups list ->
   timecode_config:encoder_settings__timecode_config list ->
-  video_descriptions:encoder_settings__video_descriptions list ->
   unit ->
   encoder_settings
 
@@ -1618,13 +1618,13 @@ val input_attachments__automatic_input_failover_settings__failover_condition__fa
 type input_attachments__automatic_input_failover_settings__failover_condition__failover_condition_settings
 
 val input_attachments__automatic_input_failover_settings__failover_condition__failover_condition_settings :
-  audio_silence_settings:
+  ?audio_silence_settings:
     input_attachments__automatic_input_failover_settings__failover_condition__failover_condition_settings__audio_silence_settings
     list ->
-  input_loss_settings:
+  ?input_loss_settings:
     input_attachments__automatic_input_failover_settings__failover_condition__failover_condition_settings__input_loss_settings
     list ->
-  video_black_settings:
+  ?video_black_settings:
     input_attachments__automatic_input_failover_settings__failover_condition__failover_condition_settings__video_black_settings
     list ->
   unit ->
@@ -1633,7 +1633,7 @@ val input_attachments__automatic_input_failover_settings__failover_condition__fa
 type input_attachments__automatic_input_failover_settings__failover_condition
 
 val input_attachments__automatic_input_failover_settings__failover_condition :
-  failover_condition_settings:
+  ?failover_condition_settings:
     input_attachments__automatic_input_failover_settings__failover_condition__failover_condition_settings
     list ->
   unit ->
@@ -1691,7 +1691,7 @@ val input_attachments__input_settings__audio_selector__selector_settings__audio_
 type input_attachments__input_settings__audio_selector__selector_settings__audio_track_selection
 
 val input_attachments__input_settings__audio_selector__selector_settings__audio_track_selection :
-  dolby_e_decode:
+  ?dolby_e_decode:
     input_attachments__input_settings__audio_selector__selector_settings__audio_track_selection__dolby_e_decode
     list ->
   tracks:
@@ -1703,16 +1703,16 @@ val input_attachments__input_settings__audio_selector__selector_settings__audio_
 type input_attachments__input_settings__audio_selector__selector_settings
 
 val input_attachments__input_settings__audio_selector__selector_settings :
-  audio_hls_rendition_selection:
+  ?audio_hls_rendition_selection:
     input_attachments__input_settings__audio_selector__selector_settings__audio_hls_rendition_selection
     list ->
-  audio_language_selection:
+  ?audio_language_selection:
     input_attachments__input_settings__audio_selector__selector_settings__audio_language_selection
     list ->
-  audio_pid_selection:
+  ?audio_pid_selection:
     input_attachments__input_settings__audio_selector__selector_settings__audio_pid_selection
     list ->
-  audio_track_selection:
+  ?audio_track_selection:
     input_attachments__input_settings__audio_selector__selector_settings__audio_track_selection
     list ->
   unit ->
@@ -1721,10 +1721,10 @@ val input_attachments__input_settings__audio_selector__selector_settings :
 type input_attachments__input_settings__audio_selector
 
 val input_attachments__input_settings__audio_selector :
-  name:string prop ->
-  selector_settings:
+  ?selector_settings:
     input_attachments__input_settings__audio_selector__selector_settings
     list ->
+  name:string prop ->
   unit ->
   input_attachments__input_settings__audio_selector
 
@@ -1788,7 +1788,7 @@ type input_attachments__input_settings__caption_selector__selector_settings__tel
 
 val input_attachments__input_settings__caption_selector__selector_settings__teletext_source_settings :
   ?page_number:string prop ->
-  output_rectangle:
+  ?output_rectangle:
     input_attachments__input_settings__caption_selector__selector_settings__teletext_source_settings__output_rectangle
     list ->
   unit ->
@@ -1797,25 +1797,25 @@ val input_attachments__input_settings__caption_selector__selector_settings__tele
 type input_attachments__input_settings__caption_selector__selector_settings
 
 val input_attachments__input_settings__caption_selector__selector_settings :
-  ancillary_source_settings:
+  ?ancillary_source_settings:
     input_attachments__input_settings__caption_selector__selector_settings__ancillary_source_settings
     list ->
-  arib_source_settings:
+  ?arib_source_settings:
     input_attachments__input_settings__caption_selector__selector_settings__arib_source_settings
     list ->
-  dvb_sub_source_settings:
+  ?dvb_sub_source_settings:
     input_attachments__input_settings__caption_selector__selector_settings__dvb_sub_source_settings
     list ->
-  embedded_source_settings:
+  ?embedded_source_settings:
     input_attachments__input_settings__caption_selector__selector_settings__embedded_source_settings
     list ->
-  scte20_source_settings:
+  ?scte20_source_settings:
     input_attachments__input_settings__caption_selector__selector_settings__scte20_source_settings
     list ->
-  scte27_source_settings:
+  ?scte27_source_settings:
     input_attachments__input_settings__caption_selector__selector_settings__scte27_source_settings
     list ->
-  teletext_source_settings:
+  ?teletext_source_settings:
     input_attachments__input_settings__caption_selector__selector_settings__teletext_source_settings
     list ->
   unit ->
@@ -1825,10 +1825,10 @@ type input_attachments__input_settings__caption_selector
 
 val input_attachments__input_settings__caption_selector :
   ?language_code:string prop ->
-  name:string prop ->
-  selector_settings:
+  ?selector_settings:
     input_attachments__input_settings__caption_selector__selector_settings
     list ->
+  name:string prop ->
   unit ->
   input_attachments__input_settings__caption_selector
 
@@ -1847,7 +1847,7 @@ type input_attachments__input_settings__network_input_settings
 
 val input_attachments__input_settings__network_input_settings :
   ?server_validation:string prop ->
-  hls_input_settings:
+  ?hls_input_settings:
     input_attachments__input_settings__network_input_settings__hls_input_settings
     list ->
   unit ->
@@ -1871,13 +1871,13 @@ val input_attachments__input_settings :
   ?scte35_pid:float prop ->
   ?smpte2038_data_preference:string prop ->
   ?source_end_behavior:string prop ->
-  audio_selector:
+  ?audio_selector:
     input_attachments__input_settings__audio_selector list ->
-  caption_selector:
+  ?caption_selector:
     input_attachments__input_settings__caption_selector list ->
-  network_input_settings:
+  ?network_input_settings:
     input_attachments__input_settings__network_input_settings list ->
-  video_selector:
+  ?video_selector:
     input_attachments__input_settings__video_selector list ->
   unit ->
   input_attachments__input_settings
@@ -1885,11 +1885,11 @@ val input_attachments__input_settings :
 type input_attachments
 
 val input_attachments :
+  ?automatic_input_failover_settings:
+    input_attachments__automatic_input_failover_settings list ->
+  ?input_settings:input_attachments__input_settings list ->
   input_attachment_name:string prop ->
   input_id:string prop ->
-  automatic_input_failover_settings:
-    input_attachments__automatic_input_failover_settings list ->
-  input_settings:input_attachments__input_settings list ->
   unit ->
   input_attachments
 
@@ -1937,16 +1937,16 @@ val aws_medialive_channel :
   ?start_channel:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?cdi_input_specification:cdi_input_specification list ->
+  ?maintenance:maintenance list ->
   ?timeouts:timeouts ->
+  ?vpc:vpc list ->
   channel_class:string prop ->
   name:string prop ->
-  cdi_input_specification:cdi_input_specification list ->
   destinations:destinations list ->
   encoder_settings:encoder_settings list ->
   input_attachments:input_attachments list ->
   input_specification:input_specification list ->
-  maintenance:maintenance list ->
-  vpc:vpc list ->
   unit ->
   aws_medialive_channel
 
@@ -1975,16 +1975,16 @@ val register :
   ?start_channel:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?cdi_input_specification:cdi_input_specification list ->
+  ?maintenance:maintenance list ->
   ?timeouts:timeouts ->
+  ?vpc:vpc list ->
   channel_class:string prop ->
   name:string prop ->
-  cdi_input_specification:cdi_input_specification list ->
   destinations:destinations list ->
   encoder_settings:encoder_settings list ->
   input_attachments:input_attachments list ->
   input_specification:input_specification list ->
-  maintenance:maintenance list ->
-  vpc:vpc list ->
   string ->
   t
 
@@ -1995,15 +1995,15 @@ val make :
   ?start_channel:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?cdi_input_specification:cdi_input_specification list ->
+  ?maintenance:maintenance list ->
   ?timeouts:timeouts ->
+  ?vpc:vpc list ->
   channel_class:string prop ->
   name:string prop ->
-  cdi_input_specification:cdi_input_specification list ->
   destinations:destinations list ->
   encoder_settings:encoder_settings list ->
   input_attachments:input_attachments list ->
   input_specification:input_specification list ->
-  maintenance:maintenance list ->
-  vpc:vpc list ->
   string ->
   t Tf_core.resource

@@ -79,15 +79,15 @@ val aws_lakeformation_permissions :
   ?catalog_resource:bool prop ->
   ?id:string prop ->
   ?permissions_with_grant_option:string prop list ->
+  ?data_cells_filter:data_cells_filter list ->
+  ?data_location:data_location list ->
+  ?database:database list ->
+  ?lf_tag:lf_tag list ->
+  ?lf_tag_policy:lf_tag_policy list ->
+  ?table:table list ->
+  ?table_with_columns:table_with_columns list ->
   permissions:string prop list ->
   principal:string prop ->
-  data_cells_filter:data_cells_filter list ->
-  data_location:data_location list ->
-  database:database list ->
-  lf_tag:lf_tag list ->
-  lf_tag_policy:lf_tag_policy list ->
-  table:table list ->
-  table_with_columns:table_with_columns list ->
   unit ->
   aws_lakeformation_permissions
 
@@ -111,15 +111,15 @@ val register :
   ?catalog_resource:bool prop ->
   ?id:string prop ->
   ?permissions_with_grant_option:string prop list ->
+  ?data_cells_filter:data_cells_filter list ->
+  ?data_location:data_location list ->
+  ?database:database list ->
+  ?lf_tag:lf_tag list ->
+  ?lf_tag_policy:lf_tag_policy list ->
+  ?table:table list ->
+  ?table_with_columns:table_with_columns list ->
   permissions:string prop list ->
   principal:string prop ->
-  data_cells_filter:data_cells_filter list ->
-  data_location:data_location list ->
-  database:database list ->
-  lf_tag:lf_tag list ->
-  lf_tag_policy:lf_tag_policy list ->
-  table:table list ->
-  table_with_columns:table_with_columns list ->
   string ->
   t
 
@@ -128,14 +128,14 @@ val make :
   ?catalog_resource:bool prop ->
   ?id:string prop ->
   ?permissions_with_grant_option:string prop list ->
+  ?data_cells_filter:data_cells_filter list ->
+  ?data_location:data_location list ->
+  ?database:database list ->
+  ?lf_tag:lf_tag list ->
+  ?lf_tag_policy:lf_tag_policy list ->
+  ?table:table list ->
+  ?table_with_columns:table_with_columns list ->
   permissions:string prop list ->
   principal:string prop ->
-  data_cells_filter:data_cells_filter list ->
-  data_location:data_location list ->
-  database:database list ->
-  lf_tag:lf_tag list ->
-  lf_tag_policy:lf_tag_policy list ->
-  table:table list ->
-  table_with_columns:table_with_columns list ->
   string ->
   t Tf_core.resource

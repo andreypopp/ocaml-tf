@@ -1066,8 +1066,8 @@ let policy_details__action__cross_region_copy__retain_rule ~interval
     policy_details__action__cross_region_copy__retain_rule =
   { interval; interval_unit }
 
-let policy_details__action__cross_region_copy ~target
-    ~encryption_configuration ~retain_rule () :
+let policy_details__action__cross_region_copy ?(retain_rule = [])
+    ~target ~encryption_configuration () :
     policy_details__action__cross_region_copy =
   { target; encryption_configuration; retain_rule }
 
@@ -1105,8 +1105,8 @@ let policy_details__schedule__cross_region_copy_rule__retain_rule
   { interval; interval_unit }
 
 let policy_details__schedule__cross_region_copy_rule ?cmk_arn
-    ?copy_tags ~encrypted ~target ~deprecate_rule ~retain_rule () :
-    policy_details__schedule__cross_region_copy_rule =
+    ?copy_tags ?(deprecate_rule = []) ?(retain_rule = []) ~encrypted
+    ~target () : policy_details__schedule__cross_region_copy_rule =
   {
     cmk_arn;
     copy_tags;
@@ -1135,9 +1135,9 @@ let policy_details__schedule__share_rule ?unshare_interval
   { target_accounts; unshare_interval; unshare_interval_unit }
 
 let policy_details__schedule ?copy_tags ?tags_to_add ?variable_tags
-    ~name ~create_rule ~cross_region_copy_rule ~deprecate_rule
-    ~fast_restore_rule ~retain_rule ~share_rule () :
-    policy_details__schedule =
+    ?(deprecate_rule = []) ?(fast_restore_rule = [])
+    ?(share_rule = []) ~name ~create_rule ~cross_region_copy_rule
+    ~retain_rule () : policy_details__schedule =
   {
     copy_tags;
     name;
@@ -1152,8 +1152,8 @@ let policy_details__schedule ?copy_tags ?tags_to_add ?variable_tags
   }
 
 let policy_details ?policy_type ?resource_locations ?resource_types
-    ?target_tags ~action ~event_source ~parameters ~schedule () :
-    policy_details =
+    ?target_tags ?(action = []) ?(event_source = [])
+    ?(parameters = []) ?(schedule = []) () : policy_details =
   {
     policy_type;
     resource_locations;

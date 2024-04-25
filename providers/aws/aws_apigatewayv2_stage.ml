@@ -370,8 +370,8 @@ let route_settings ?data_trace_enabled ?detailed_metrics_enabled
 
 let aws_apigatewayv2_stage ?auto_deploy ?client_certificate_id
     ?deployment_id ?description ?id ?stage_variables ?tags ?tags_all
-    ~api_id ~name ~access_log_settings ~default_route_settings
-    ~route_settings () : aws_apigatewayv2_stage =
+    ?(access_log_settings = []) ?(default_route_settings = [])
+    ~api_id ~name ~route_settings () : aws_apigatewayv2_stage =
   {
     api_id;
     auto_deploy;
@@ -405,9 +405,9 @@ type t = {
 }
 
 let make ?auto_deploy ?client_certificate_id ?deployment_id
-    ?description ?id ?stage_variables ?tags ?tags_all ~api_id ~name
-    ~access_log_settings ~default_route_settings ~route_settings __id
-    =
+    ?description ?id ?stage_variables ?tags ?tags_all
+    ?(access_log_settings = []) ?(default_route_settings = [])
+    ~api_id ~name ~route_settings __id =
   let __type = "aws_apigatewayv2_stage" in
   let __attrs =
     ({
@@ -435,20 +435,20 @@ let make ?auto_deploy ?client_certificate_id ?deployment_id
       yojson_of_aws_apigatewayv2_stage
         (aws_apigatewayv2_stage ?auto_deploy ?client_certificate_id
            ?deployment_id ?description ?id ?stage_variables ?tags
-           ?tags_all ~api_id ~name ~access_log_settings
-           ~default_route_settings ~route_settings ());
+           ?tags_all ~access_log_settings ~default_route_settings
+           ~api_id ~name ~route_settings ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_deploy ?client_certificate_id
     ?deployment_id ?description ?id ?stage_variables ?tags ?tags_all
-    ~api_id ~name ~access_log_settings ~default_route_settings
-    ~route_settings __id =
+    ?(access_log_settings = []) ?(default_route_settings = [])
+    ~api_id ~name ~route_settings __id =
   let (r : _ Tf_core.resource) =
     make ?auto_deploy ?client_certificate_id ?deployment_id
-      ?description ?id ?stage_variables ?tags ?tags_all ~api_id ~name
-      ~access_log_settings ~default_route_settings ~route_settings
-      __id
+      ?description ?id ?stage_variables ?tags ?tags_all
+      ~access_log_settings ~default_route_settings ~api_id ~name
+      ~route_settings __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -51,6 +51,8 @@ val azurerm_site_recovery_vmware_replicated_vm :
   ?target_vm_size:string prop ->
   ?target_zone:string prop ->
   ?test_network_id:string prop ->
+  ?managed_disk:managed_disk list ->
+  ?network_interface:network_interface list ->
   ?timeouts:timeouts ->
   appliance_name:string prop ->
   name:string prop ->
@@ -60,8 +62,6 @@ val azurerm_site_recovery_vmware_replicated_vm :
   source_vm_name:string prop ->
   target_resource_group_id:string prop ->
   target_vm_name:string prop ->
-  managed_disk:managed_disk list ->
-  network_interface:network_interface list ->
   unit ->
   azurerm_site_recovery_vmware_replicated_vm
 
@@ -109,6 +109,8 @@ val register :
   ?target_vm_size:string prop ->
   ?target_zone:string prop ->
   ?test_network_id:string prop ->
+  ?managed_disk:managed_disk list ->
+  ?network_interface:network_interface list ->
   ?timeouts:timeouts ->
   appliance_name:string prop ->
   name:string prop ->
@@ -118,8 +120,6 @@ val register :
   source_vm_name:string prop ->
   target_resource_group_id:string prop ->
   target_vm_name:string prop ->
-  managed_disk:managed_disk list ->
-  network_interface:network_interface list ->
   string ->
   t
 
@@ -137,6 +137,8 @@ val make :
   ?target_vm_size:string prop ->
   ?target_zone:string prop ->
   ?test_network_id:string prop ->
+  ?managed_disk:managed_disk list ->
+  ?network_interface:network_interface list ->
   ?timeouts:timeouts ->
   appliance_name:string prop ->
   name:string prop ->
@@ -146,7 +148,5 @@ val make :
   source_vm_name:string prop ->
   target_resource_group_id:string prop ->
   target_vm_name:string prop ->
-  managed_disk:managed_disk list ->
-  network_interface:network_interface list ->
   string ->
   t Tf_core.resource

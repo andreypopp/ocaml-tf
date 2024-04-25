@@ -55,9 +55,9 @@ val aws_neptune_cluster :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
-  ?timeouts:timeouts ->
-  serverless_v2_scaling_configuration:
+  ?serverless_v2_scaling_configuration:
     serverless_v2_scaling_configuration list ->
+  ?timeouts:timeouts ->
   unit ->
   aws_neptune_cluster
 
@@ -138,9 +138,9 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
-  ?timeouts:timeouts ->
-  serverless_v2_scaling_configuration:
+  ?serverless_v2_scaling_configuration:
     serverless_v2_scaling_configuration list ->
+  ?timeouts:timeouts ->
   string ->
   t
 
@@ -176,8 +176,8 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
-  ?timeouts:timeouts ->
-  serverless_v2_scaling_configuration:
+  ?serverless_v2_scaling_configuration:
     serverless_v2_scaling_configuration list ->
+  ?timeouts:timeouts ->
   string ->
   t Tf_core.resource

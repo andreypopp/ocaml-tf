@@ -620,8 +620,9 @@ let segments ?allow_filter ?deny_filter ?description ?edge_locations
   }
 
 let aws_networkmanager_core_network_policy_document ?id ?version
-    ~attachment_policies ~core_network_configuration ~segment_actions
-    ~segments () : aws_networkmanager_core_network_policy_document =
+    ?(attachment_policies = []) ?(segment_actions = [])
+    ~core_network_configuration ~segments () :
+    aws_networkmanager_core_network_policy_document =
   {
     id;
     version;
@@ -637,8 +638,9 @@ type t = {
   version : string prop;
 }
 
-let make ?id ?version ~attachment_policies
-    ~core_network_configuration ~segment_actions ~segments __id =
+let make ?id ?version ?(attachment_policies = [])
+    ?(segment_actions = []) ~core_network_configuration ~segments
+    __id =
   let __type = "aws_networkmanager_core_network_policy_document" in
   let __attrs =
     ({
@@ -654,16 +656,17 @@ let make ?id ?version ~attachment_policies
     json =
       yojson_of_aws_networkmanager_core_network_policy_document
         (aws_networkmanager_core_network_policy_document ?id ?version
-           ~attachment_policies ~core_network_configuration
-           ~segment_actions ~segments ());
+           ~attachment_policies ~segment_actions
+           ~core_network_configuration ~segments ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?version ~attachment_policies
-    ~core_network_configuration ~segment_actions ~segments __id =
+let register ?tf_module ?id ?version ?(attachment_policies = [])
+    ?(segment_actions = []) ~core_network_configuration ~segments
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?version ~attachment_policies
-      ~core_network_configuration ~segment_actions ~segments __id
+    make ?id ?version ~attachment_policies ~segment_actions
+      ~core_network_configuration ~segments __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

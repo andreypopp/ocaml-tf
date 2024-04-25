@@ -22,7 +22,7 @@ type fields__type
 
 val fields__type :
   ?primitive_type:string prop ->
-  enum_type:fields__type__enum_type list ->
+  ?enum_type:fields__type__enum_type list ->
   unit ->
   fields__type
 

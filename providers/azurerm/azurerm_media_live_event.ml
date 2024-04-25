@@ -624,7 +624,7 @@ let input__ip_access_control_allow ?address ?name
   { address; name; subnet_prefix_length }
 
 let input ?access_token ?key_frame_interval_duration
-    ?streaming_protocol ~ip_access_control_allow () : input =
+    ?streaming_protocol ?(ip_access_control_allow = []) () : input =
   {
     access_token;
     key_frame_interval_duration;
@@ -637,7 +637,8 @@ let preview__ip_access_control_allow ?address ?name
   { address; name; subnet_prefix_length }
 
 let preview ?alternative_media_id ?preview_locator
-    ?streaming_policy_name ~ip_access_control_allow () : preview =
+    ?streaming_policy_name ?(ip_access_control_allow = []) () :
+    preview =
   {
     alternative_media_id;
     preview_locator;
@@ -650,10 +651,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_media_live_event ?auto_start_enabled ?description
     ?hostname_prefix ?id ?stream_options ?tags
-    ?transcription_languages ?use_static_hostname ?timeouts ~location
-    ~media_services_account_name ~name ~resource_group_name
-    ~cross_site_access_policy ~encoding ~input ~preview () :
-    azurerm_media_live_event =
+    ?transcription_languages ?use_static_hostname
+    ?(cross_site_access_policy = []) ?(encoding = []) ?(preview = [])
+    ?timeouts ~location ~media_services_account_name ~name
+    ~resource_group_name ~input () : azurerm_media_live_event =
   {
     auto_start_enabled;
     description;
@@ -691,9 +692,10 @@ type t = {
 
 let make ?auto_start_enabled ?description ?hostname_prefix ?id
     ?stream_options ?tags ?transcription_languages
-    ?use_static_hostname ?timeouts ~location
-    ~media_services_account_name ~name ~resource_group_name
-    ~cross_site_access_policy ~encoding ~input ~preview __id =
+    ?use_static_hostname ?(cross_site_access_policy = [])
+    ?(encoding = []) ?(preview = []) ?timeouts ~location
+    ~media_services_account_name ~name ~resource_group_name ~input
+    __id =
   let __type = "azurerm_media_live_event" in
   let __attrs =
     ({
@@ -724,24 +726,25 @@ let make ?auto_start_enabled ?description ?hostname_prefix ?id
       yojson_of_azurerm_media_live_event
         (azurerm_media_live_event ?auto_start_enabled ?description
            ?hostname_prefix ?id ?stream_options ?tags
-           ?transcription_languages ?use_static_hostname ?timeouts
+           ?transcription_languages ?use_static_hostname
+           ~cross_site_access_policy ~encoding ~preview ?timeouts
            ~location ~media_services_account_name ~name
-           ~resource_group_name ~cross_site_access_policy ~encoding
-           ~input ~preview ());
+           ~resource_group_name ~input ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_start_enabled ?description
     ?hostname_prefix ?id ?stream_options ?tags
-    ?transcription_languages ?use_static_hostname ?timeouts ~location
-    ~media_services_account_name ~name ~resource_group_name
-    ~cross_site_access_policy ~encoding ~input ~preview __id =
+    ?transcription_languages ?use_static_hostname
+    ?(cross_site_access_policy = []) ?(encoding = []) ?(preview = [])
+    ?timeouts ~location ~media_services_account_name ~name
+    ~resource_group_name ~input __id =
   let (r : _ Tf_core.resource) =
     make ?auto_start_enabled ?description ?hostname_prefix ?id
       ?stream_options ?tags ?transcription_languages
-      ?use_static_hostname ?timeouts ~location
-      ~media_services_account_name ~name ~resource_group_name
-      ~cross_site_access_policy ~encoding ~input ~preview __id
+      ?use_static_hostname ~cross_site_access_policy ~encoding
+      ~preview ?timeouts ~location ~media_services_account_name ~name
+      ~resource_group_name ~input __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

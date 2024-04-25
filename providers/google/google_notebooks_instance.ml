@@ -650,9 +650,9 @@ let google_notebooks_instance ?boot_disk_size_gb ?boot_disk_type
     ?network ?nic_type ?no_proxy_access ?no_public_ip
     ?no_remove_data_disk ?post_startup_script ?project
     ?service_account ?service_account_scopes ?subnet ?tags
-    ?update_time ?timeouts ~location ~machine_type ~name
-    ~accelerator_config ~container_image ~reservation_affinity
-    ~shielded_instance_config ~vm_image () :
+    ?update_time ?(accelerator_config = []) ?(container_image = [])
+    ?(reservation_affinity = []) ?(shielded_instance_config = [])
+    ?timeouts ?(vm_image = []) ~location ~machine_type ~name () :
     google_notebooks_instance =
   {
     boot_disk_size_gb;
@@ -734,10 +734,10 @@ let make ?boot_disk_size_gb ?boot_disk_type ?create_time
     ?instance_owners ?kms_key ?labels ?metadata ?network ?nic_type
     ?no_proxy_access ?no_public_ip ?no_remove_data_disk
     ?post_startup_script ?project ?service_account
-    ?service_account_scopes ?subnet ?tags ?update_time ?timeouts
-    ~location ~machine_type ~name ~accelerator_config
-    ~container_image ~reservation_affinity ~shielded_instance_config
-    ~vm_image __id =
+    ?service_account_scopes ?subnet ?tags ?update_time
+    ?(accelerator_config = []) ?(container_image = [])
+    ?(reservation_affinity = []) ?(shielded_instance_config = [])
+    ?timeouts ?(vm_image = []) ~location ~machine_type ~name __id =
   let __type = "google_notebooks_instance" in
   let __attrs =
     ({
@@ -798,9 +798,9 @@ let make ?boot_disk_size_gb ?boot_disk_type ?create_time
            ?metadata ?network ?nic_type ?no_proxy_access
            ?no_public_ip ?no_remove_data_disk ?post_startup_script
            ?project ?service_account ?service_account_scopes ?subnet
-           ?tags ?update_time ?timeouts ~location ~machine_type ~name
-           ~accelerator_config ~container_image ~reservation_affinity
-           ~shielded_instance_config ~vm_image ());
+           ?tags ?update_time ~accelerator_config ~container_image
+           ~reservation_affinity ~shielded_instance_config ?timeouts
+           ~vm_image ~location ~machine_type ~name ());
     attrs = __attrs;
   }
 
@@ -811,9 +811,9 @@ let register ?tf_module ?boot_disk_size_gb ?boot_disk_type
     ?network ?nic_type ?no_proxy_access ?no_public_ip
     ?no_remove_data_disk ?post_startup_script ?project
     ?service_account ?service_account_scopes ?subnet ?tags
-    ?update_time ?timeouts ~location ~machine_type ~name
-    ~accelerator_config ~container_image ~reservation_affinity
-    ~shielded_instance_config ~vm_image __id =
+    ?update_time ?(accelerator_config = []) ?(container_image = [])
+    ?(reservation_affinity = []) ?(shielded_instance_config = [])
+    ?timeouts ?(vm_image = []) ~location ~machine_type ~name __id =
   let (r : _ Tf_core.resource) =
     make ?boot_disk_size_gb ?boot_disk_type ?create_time
       ?custom_gpu_driver_path ?data_disk_size_gb ?data_disk_type
@@ -821,10 +821,10 @@ let register ?tf_module ?boot_disk_size_gb ?boot_disk_type
       ?instance_owners ?kms_key ?labels ?metadata ?network ?nic_type
       ?no_proxy_access ?no_public_ip ?no_remove_data_disk
       ?post_startup_script ?project ?service_account
-      ?service_account_scopes ?subnet ?tags ?update_time ?timeouts
-      ~location ~machine_type ~name ~accelerator_config
-      ~container_image ~reservation_affinity
-      ~shielded_instance_config ~vm_image __id
+      ?service_account_scopes ?subnet ?tags ?update_time
+      ~accelerator_config ~container_image ~reservation_affinity
+      ~shielded_instance_config ?timeouts ~vm_image ~location
+      ~machine_type ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

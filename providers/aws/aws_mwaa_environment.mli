@@ -58,11 +58,12 @@ val logging_configuration__worker_logs :
 type logging_configuration
 
 val logging_configuration :
-  dag_processing_logs:logging_configuration__dag_processing_logs list ->
-  scheduler_logs:logging_configuration__scheduler_logs list ->
-  task_logs:logging_configuration__task_logs list ->
-  webserver_logs:logging_configuration__webserver_logs list ->
-  worker_logs:logging_configuration__worker_logs list ->
+  ?dag_processing_logs:
+    logging_configuration__dag_processing_logs list ->
+  ?scheduler_logs:logging_configuration__scheduler_logs list ->
+  ?task_logs:logging_configuration__task_logs list ->
+  ?webserver_logs:logging_configuration__webserver_logs list ->
+  ?worker_logs:logging_configuration__worker_logs list ->
   unit ->
   logging_configuration
 
@@ -105,12 +106,12 @@ val aws_mwaa_environment :
   ?tags_all:(string * string prop) list ->
   ?webserver_access_mode:string prop ->
   ?weekly_maintenance_window_start:string prop ->
+  ?logging_configuration:logging_configuration list ->
   ?timeouts:timeouts ->
   dag_s3_path:string prop ->
   execution_role_arn:string prop ->
   name:string prop ->
   source_bucket_arn:string prop ->
-  logging_configuration:logging_configuration list ->
   network_configuration:network_configuration list ->
   unit ->
   aws_mwaa_environment
@@ -172,12 +173,12 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?webserver_access_mode:string prop ->
   ?weekly_maintenance_window_start:string prop ->
+  ?logging_configuration:logging_configuration list ->
   ?timeouts:timeouts ->
   dag_s3_path:string prop ->
   execution_role_arn:string prop ->
   name:string prop ->
   source_bucket_arn:string prop ->
-  logging_configuration:logging_configuration list ->
   network_configuration:network_configuration list ->
   string ->
   t
@@ -202,12 +203,12 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?webserver_access_mode:string prop ->
   ?weekly_maintenance_window_start:string prop ->
+  ?logging_configuration:logging_configuration list ->
   ?timeouts:timeouts ->
   dag_s3_path:string prop ->
   execution_role_arn:string prop ->
   name:string prop ->
   source_bucket_arn:string prop ->
-  logging_configuration:logging_configuration list ->
   network_configuration:network_configuration list ->
   string ->
   t Tf_core.resource

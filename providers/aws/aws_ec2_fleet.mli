@@ -112,29 +112,29 @@ val launch_template_config__override__instance_requirements :
   ?on_demand_max_price_percentage_over_lowest_price:float prop ->
   ?require_hibernate_support:bool prop ->
   ?spot_max_price_percentage_over_lowest_price:float prop ->
-  accelerator_count:
+  ?accelerator_count:
     launch_template_config__override__instance_requirements__accelerator_count
     list ->
-  accelerator_total_memory_mib:
+  ?accelerator_total_memory_mib:
     launch_template_config__override__instance_requirements__accelerator_total_memory_mib
     list ->
-  baseline_ebs_bandwidth_mbps:
+  ?baseline_ebs_bandwidth_mbps:
     launch_template_config__override__instance_requirements__baseline_ebs_bandwidth_mbps
     list ->
-  memory_gib_per_vcpu:
+  ?memory_gib_per_vcpu:
     launch_template_config__override__instance_requirements__memory_gib_per_vcpu
+    list ->
+  ?network_bandwidth_gbps:
+    launch_template_config__override__instance_requirements__network_bandwidth_gbps
+    list ->
+  ?network_interface_count:
+    launch_template_config__override__instance_requirements__network_interface_count
+    list ->
+  ?total_local_storage_gb:
+    launch_template_config__override__instance_requirements__total_local_storage_gb
     list ->
   memory_mib:
     launch_template_config__override__instance_requirements__memory_mib
-    list ->
-  network_bandwidth_gbps:
-    launch_template_config__override__instance_requirements__network_bandwidth_gbps
-    list ->
-  network_interface_count:
-    launch_template_config__override__instance_requirements__network_interface_count
-    list ->
-  total_local_storage_gb:
-    launch_template_config__override__instance_requirements__total_local_storage_gb
     list ->
   vcpu_count:
     launch_template_config__override__instance_requirements__vcpu_count
@@ -151,7 +151,7 @@ val launch_template_config__override :
   ?priority:float prop ->
   ?subnet_id:string prop ->
   ?weighted_capacity:float prop ->
-  instance_requirements:
+  ?instance_requirements:
     launch_template_config__override__instance_requirements list ->
   unit ->
   launch_template_config__override
@@ -159,9 +159,9 @@ val launch_template_config__override :
 type launch_template_config
 
 val launch_template_config :
-  launch_template_specification:
+  ?launch_template_specification:
     launch_template_config__launch_template_specification list ->
-  override:launch_template_config__override list ->
+  ?override:launch_template_config__override list ->
   unit ->
   launch_template_config
 
@@ -187,7 +187,7 @@ val spot_options__maintenance_strategies__capacity_rebalance :
 type spot_options__maintenance_strategies
 
 val spot_options__maintenance_strategies :
-  capacity_rebalance:
+  ?capacity_rebalance:
     spot_options__maintenance_strategies__capacity_rebalance list ->
   unit ->
   spot_options__maintenance_strategies
@@ -198,7 +198,7 @@ val spot_options :
   ?allocation_strategy:string prop ->
   ?instance_interruption_behavior:string prop ->
   ?instance_pools_to_use_count:float prop ->
-  maintenance_strategies:spot_options__maintenance_strategies list ->
+  ?maintenance_strategies:spot_options__maintenance_strategies list ->
   unit ->
   spot_options
 
@@ -239,11 +239,11 @@ val aws_ec2_fleet :
   ?type_:string prop ->
   ?valid_from:string prop ->
   ?valid_until:string prop ->
+  ?fleet_instance_set:fleet_instance_set list ->
+  ?on_demand_options:on_demand_options list ->
+  ?spot_options:spot_options list ->
   ?timeouts:timeouts ->
-  fleet_instance_set:fleet_instance_set list ->
   launch_template_config:launch_template_config list ->
-  on_demand_options:on_demand_options list ->
-  spot_options:spot_options list ->
   target_capacity_specification:target_capacity_specification list ->
   unit ->
   aws_ec2_fleet
@@ -286,11 +286,11 @@ val register :
   ?type_:string prop ->
   ?valid_from:string prop ->
   ?valid_until:string prop ->
+  ?fleet_instance_set:fleet_instance_set list ->
+  ?on_demand_options:on_demand_options list ->
+  ?spot_options:spot_options list ->
   ?timeouts:timeouts ->
-  fleet_instance_set:fleet_instance_set list ->
   launch_template_config:launch_template_config list ->
-  on_demand_options:on_demand_options list ->
-  spot_options:spot_options list ->
   target_capacity_specification:target_capacity_specification list ->
   string ->
   t
@@ -310,11 +310,11 @@ val make :
   ?type_:string prop ->
   ?valid_from:string prop ->
   ?valid_until:string prop ->
+  ?fleet_instance_set:fleet_instance_set list ->
+  ?on_demand_options:on_demand_options list ->
+  ?spot_options:spot_options list ->
   ?timeouts:timeouts ->
-  fleet_instance_set:fleet_instance_set list ->
   launch_template_config:launch_template_config list ->
-  on_demand_options:on_demand_options list ->
-  spot_options:spot_options list ->
   target_capacity_specification:target_capacity_specification list ->
   string ->
   t Tf_core.resource

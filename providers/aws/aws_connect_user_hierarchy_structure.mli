@@ -32,11 +32,11 @@ val hierarchy_structure__level_two :
 type hierarchy_structure
 
 val hierarchy_structure :
-  level_five:hierarchy_structure__level_five list ->
-  level_four:hierarchy_structure__level_four list ->
-  level_one:hierarchy_structure__level_one list ->
-  level_three:hierarchy_structure__level_three list ->
-  level_two:hierarchy_structure__level_two list ->
+  ?level_five:hierarchy_structure__level_five list ->
+  ?level_four:hierarchy_structure__level_four list ->
+  ?level_one:hierarchy_structure__level_one list ->
+  ?level_three:hierarchy_structure__level_three list ->
+  ?level_two:hierarchy_structure__level_two list ->
   unit ->
   hierarchy_structure
 

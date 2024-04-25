@@ -93,9 +93,9 @@ val virtual_machine :
   ?create_option:string prop ->
   ?shared_password_enabled:bool prop ->
   ?usage_quota:string prop ->
+  ?non_admin_user:virtual_machine__non_admin_user list ->
   admin_user:virtual_machine__admin_user list ->
   image_reference:virtual_machine__image_reference list ->
-  non_admin_user:virtual_machine__non_admin_user list ->
   sku:virtual_machine__sku list ->
   unit ->
   virtual_machine
@@ -107,15 +107,15 @@ val azurerm_lab_service_lab :
   ?id:string prop ->
   ?lab_plan_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?auto_shutdown:auto_shutdown list ->
+  ?network:network list ->
+  ?roster:roster list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   title:string prop ->
-  auto_shutdown:auto_shutdown list ->
   connection_setting:connection_setting list ->
-  network:network list ->
-  roster:roster list ->
   security:security list ->
   virtual_machine:virtual_machine list ->
   unit ->
@@ -143,15 +143,15 @@ val register :
   ?id:string prop ->
   ?lab_plan_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?auto_shutdown:auto_shutdown list ->
+  ?network:network list ->
+  ?roster:roster list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   title:string prop ->
-  auto_shutdown:auto_shutdown list ->
   connection_setting:connection_setting list ->
-  network:network list ->
-  roster:roster list ->
   security:security list ->
   virtual_machine:virtual_machine list ->
   string ->
@@ -162,15 +162,15 @@ val make :
   ?id:string prop ->
   ?lab_plan_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?auto_shutdown:auto_shutdown list ->
+  ?network:network list ->
+  ?roster:roster list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   title:string prop ->
-  auto_shutdown:auto_shutdown list ->
   connection_setting:connection_setting list ->
-  network:network list ->
-  roster:roster list ->
   security:security list ->
   virtual_machine:virtual_machine list ->
   string ->

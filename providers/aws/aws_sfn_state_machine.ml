@@ -277,8 +277,8 @@ let tracing_configuration ?enabled () : tracing_configuration =
   { enabled }
 
 let aws_sfn_state_machine ?id ?name ?name_prefix ?publish ?tags
-    ?tags_all ?type_ ?timeouts ~definition ~role_arn
-    ~logging_configuration ~tracing_configuration () :
+    ?tags_all ?type_ ?(logging_configuration = []) ?timeouts
+    ?(tracing_configuration = []) ~definition ~role_arn () :
     aws_sfn_state_machine =
   {
     definition;
@@ -315,8 +315,8 @@ type t = {
 }
 
 let make ?id ?name ?name_prefix ?publish ?tags ?tags_all ?type_
-    ?timeouts ~definition ~role_arn ~logging_configuration
-    ~tracing_configuration __id =
+    ?(logging_configuration = []) ?timeouts
+    ?(tracing_configuration = []) ~definition ~role_arn __id =
   let __type = "aws_sfn_state_machine" in
   let __attrs =
     ({
@@ -347,18 +347,18 @@ let make ?id ?name ?name_prefix ?publish ?tags ?tags_all ?type_
     json =
       yojson_of_aws_sfn_state_machine
         (aws_sfn_state_machine ?id ?name ?name_prefix ?publish ?tags
-           ?tags_all ?type_ ?timeouts ~definition ~role_arn
-           ~logging_configuration ~tracing_configuration ());
+           ?tags_all ?type_ ~logging_configuration ?timeouts
+           ~tracing_configuration ~definition ~role_arn ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?name ?name_prefix ?publish ?tags
-    ?tags_all ?type_ ?timeouts ~definition ~role_arn
-    ~logging_configuration ~tracing_configuration __id =
+    ?tags_all ?type_ ?(logging_configuration = []) ?timeouts
+    ?(tracing_configuration = []) ~definition ~role_arn __id =
   let (r : _ Tf_core.resource) =
     make ?id ?name ?name_prefix ?publish ?tags ?tags_all ?type_
-      ?timeouts ~definition ~role_arn ~logging_configuration
-      ~tracing_configuration __id
+      ~logging_configuration ?timeouts ~tracing_configuration
+      ~definition ~role_arn __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

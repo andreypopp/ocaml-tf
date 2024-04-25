@@ -36,9 +36,9 @@ val trigger__metric_trigger :
 type trigger
 
 val trigger :
+  ?metric_trigger:trigger__metric_trigger list ->
   operator:string prop ->
   threshold:float prop ->
-  metric_trigger:trigger__metric_trigger list ->
   unit ->
   trigger
 

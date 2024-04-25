@@ -64,12 +64,12 @@ val auth_settings :
   ?token_refresh_extension_hours:float prop ->
   ?token_store_enabled:bool prop ->
   ?unauthenticated_client_action:string prop ->
+  ?active_directory:auth_settings__active_directory list ->
+  ?facebook:auth_settings__facebook list ->
+  ?google:auth_settings__google list ->
+  ?microsoft:auth_settings__microsoft list ->
+  ?twitter:auth_settings__twitter list ->
   enabled:bool prop ->
-  active_directory:auth_settings__active_directory list ->
-  facebook:auth_settings__facebook list ->
-  google:auth_settings__google list ->
-  microsoft:auth_settings__microsoft list ->
-  twitter:auth_settings__twitter list ->
   unit ->
   auth_settings
 
@@ -159,7 +159,7 @@ val site_config :
   ?use_32_bit_worker_process:bool prop ->
   ?vnet_route_all_enabled:bool prop ->
   ?websockets_enabled:bool prop ->
-  cors:site_config__cors list ->
+  ?cors:site_config__cors list ->
   unit ->
   site_config
 
@@ -185,6 +185,9 @@ val azurerm_function_app_slot :
   ?os_type:string prop ->
   ?tags:(string * string prop) list ->
   ?version:string prop ->
+  ?auth_settings:auth_settings list ->
+  ?identity:identity list ->
+  ?site_config:site_config list ->
   ?timeouts:timeouts ->
   app_service_plan_id:string prop ->
   function_app_name:string prop ->
@@ -193,10 +196,7 @@ val azurerm_function_app_slot :
   resource_group_name:string prop ->
   storage_account_access_key:string prop ->
   storage_account_name:string prop ->
-  auth_settings:auth_settings list ->
   connection_string:connection_string list ->
-  identity:identity list ->
-  site_config:site_config list ->
   unit ->
   azurerm_function_app_slot
 
@@ -240,6 +240,9 @@ val register :
   ?os_type:string prop ->
   ?tags:(string * string prop) list ->
   ?version:string prop ->
+  ?auth_settings:auth_settings list ->
+  ?identity:identity list ->
+  ?site_config:site_config list ->
   ?timeouts:timeouts ->
   app_service_plan_id:string prop ->
   function_app_name:string prop ->
@@ -248,10 +251,7 @@ val register :
   resource_group_name:string prop ->
   storage_account_access_key:string prop ->
   storage_account_name:string prop ->
-  auth_settings:auth_settings list ->
   connection_string:connection_string list ->
-  identity:identity list ->
-  site_config:site_config list ->
   string ->
   t
 
@@ -265,6 +265,9 @@ val make :
   ?os_type:string prop ->
   ?tags:(string * string prop) list ->
   ?version:string prop ->
+  ?auth_settings:auth_settings list ->
+  ?identity:identity list ->
+  ?site_config:site_config list ->
   ?timeouts:timeouts ->
   app_service_plan_id:string prop ->
   function_app_name:string prop ->
@@ -273,9 +276,6 @@ val make :
   resource_group_name:string prop ->
   storage_account_access_key:string prop ->
   storage_account_name:string prop ->
-  auth_settings:auth_settings list ->
   connection_string:connection_string list ->
-  identity:identity list ->
-  site_config:site_config list ->
   string ->
   t Tf_core.resource

@@ -269,8 +269,8 @@ let resources ?accelerator_type ?amount ?type_ () : resources =
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let google_compute_region_commitment ?auto_renew ?category
-    ?description ?id ?project ?region ?type_ ?timeouts ~name ~plan
-    ~license_resource ~resources () :
+    ?description ?id ?project ?region ?type_ ?(license_resource = [])
+    ?(resources = []) ?timeouts ~name ~plan () :
     google_compute_region_commitment =
   {
     auto_renew;
@@ -307,7 +307,8 @@ type t = {
 }
 
 let make ?auto_renew ?category ?description ?id ?project ?region
-    ?type_ ?timeouts ~name ~plan ~license_resource ~resources __id =
+    ?type_ ?(license_resource = []) ?(resources = []) ?timeouts ~name
+    ~plan __id =
   let __type = "google_compute_region_commitment" in
   let __attrs =
     ({
@@ -337,17 +338,17 @@ let make ?auto_renew ?category ?description ?id ?project ?region
     json =
       yojson_of_google_compute_region_commitment
         (google_compute_region_commitment ?auto_renew ?category
-           ?description ?id ?project ?region ?type_ ?timeouts ~name
-           ~plan ~license_resource ~resources ());
+           ?description ?id ?project ?region ?type_ ~license_resource
+           ~resources ?timeouts ~name ~plan ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_renew ?category ?description ?id
-    ?project ?region ?type_ ?timeouts ~name ~plan ~license_resource
-    ~resources __id =
+    ?project ?region ?type_ ?(license_resource = [])
+    ?(resources = []) ?timeouts ~name ~plan __id =
   let (r : _ Tf_core.resource) =
     make ?auto_renew ?category ?description ?id ?project ?region
-      ?type_ ?timeouts ~name ~plan ~license_resource ~resources __id
+      ?type_ ~license_resource ~resources ?timeouts ~name ~plan __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -32,7 +32,7 @@ val aws_flow_log :
   ?transit_gateway_attachment_id:string prop ->
   ?transit_gateway_id:string prop ->
   ?vpc_id:string prop ->
-  destination_options:destination_options list ->
+  ?destination_options:destination_options list ->
   unit ->
   aws_flow_log
 
@@ -78,7 +78,7 @@ val register :
   ?transit_gateway_attachment_id:string prop ->
   ?transit_gateway_id:string prop ->
   ?vpc_id:string prop ->
-  destination_options:destination_options list ->
+  ?destination_options:destination_options list ->
   string ->
   t
 
@@ -99,6 +99,6 @@ val make :
   ?transit_gateway_attachment_id:string prop ->
   ?transit_gateway_id:string prop ->
   ?vpc_id:string prop ->
-  destination_options:destination_options list ->
+  ?destination_options:destination_options list ->
   string ->
   t Tf_core.resource

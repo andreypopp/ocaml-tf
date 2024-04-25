@@ -628,8 +628,8 @@ let maintenance_policy__weekly_maintenance_window ~day ~start_time ()
     : maintenance_policy__weekly_maintenance_window =
   { day; start_time }
 
-let maintenance_policy ?description ~weekly_maintenance_window () :
-    maintenance_policy =
+let maintenance_policy ?description ?(weekly_maintenance_window = [])
+    () : maintenance_policy =
   { description; weekly_maintenance_window }
 
 let persistence_config ?persistence_mode ?rdb_snapshot_period
@@ -644,8 +644,8 @@ let google_redis_instance ?alternative_location_id ?auth_enabled
     ?display_name ?id ?labels ?location_id ?project
     ?read_replicas_mode ?redis_configs ?redis_version ?region
     ?replica_count ?reserved_ip_range ?secondary_ip_range ?tier
-    ?transit_encryption_mode ?timeouts ~memory_size_gb ~name
-    ~maintenance_policy ~persistence_config () :
+    ?transit_encryption_mode ?(maintenance_policy = [])
+    ?(persistence_config = []) ?timeouts ~memory_size_gb ~name () :
     google_redis_instance =
   {
     alternative_location_id;
@@ -715,9 +715,9 @@ let make ?alternative_location_id ?auth_enabled ?authorized_network
     ?connect_mode ?customer_managed_key ?display_name ?id ?labels
     ?location_id ?project ?read_replicas_mode ?redis_configs
     ?redis_version ?region ?replica_count ?reserved_ip_range
-    ?secondary_ip_range ?tier ?transit_encryption_mode ?timeouts
-    ~memory_size_gb ~name ~maintenance_policy ~persistence_config
-    __id =
+    ?secondary_ip_range ?tier ?transit_encryption_mode
+    ?(maintenance_policy = []) ?(persistence_config = []) ?timeouts
+    ~memory_size_gb ~name __id =
   let __type = "google_redis_instance" in
   let __attrs =
     ({
@@ -781,8 +781,8 @@ let make ?alternative_location_id ?auth_enabled ?authorized_network
            ?display_name ?id ?labels ?location_id ?project
            ?read_replicas_mode ?redis_configs ?redis_version ?region
            ?replica_count ?reserved_ip_range ?secondary_ip_range
-           ?tier ?transit_encryption_mode ?timeouts ~memory_size_gb
-           ~name ~maintenance_policy ~persistence_config ());
+           ?tier ?transit_encryption_mode ~maintenance_policy
+           ~persistence_config ?timeouts ~memory_size_gb ~name ());
     attrs = __attrs;
   }
 
@@ -791,16 +791,16 @@ let register ?tf_module ?alternative_location_id ?auth_enabled
     ?display_name ?id ?labels ?location_id ?project
     ?read_replicas_mode ?redis_configs ?redis_version ?region
     ?replica_count ?reserved_ip_range ?secondary_ip_range ?tier
-    ?transit_encryption_mode ?timeouts ~memory_size_gb ~name
-    ~maintenance_policy ~persistence_config __id =
+    ?transit_encryption_mode ?(maintenance_policy = [])
+    ?(persistence_config = []) ?timeouts ~memory_size_gb ~name __id =
   let (r : _ Tf_core.resource) =
     make ?alternative_location_id ?auth_enabled ?authorized_network
       ?connect_mode ?customer_managed_key ?display_name ?id ?labels
       ?location_id ?project ?read_replicas_mode ?redis_configs
       ?redis_version ?region ?replica_count ?reserved_ip_range
-      ?secondary_ip_range ?tier ?transit_encryption_mode ?timeouts
-      ~memory_size_gb ~name ~maintenance_policy ~persistence_config
-      __id
+      ?secondary_ip_range ?tier ?transit_encryption_mode
+      ~maintenance_policy ~persistence_config ?timeouts
+      ~memory_size_gb ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

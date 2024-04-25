@@ -34,7 +34,7 @@ type image_scanning_configuration
 
 val image_scanning_configuration :
   ?image_scanning_enabled:bool prop ->
-  ecr_configuration:
+  ?ecr_configuration:
     image_scanning_configuration__ecr_configuration list ->
   unit ->
   image_scanning_configuration
@@ -61,10 +61,10 @@ val aws_imagebuilder_image :
   ?image_recipe_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?image_scanning_configuration:image_scanning_configuration list ->
+  ?image_tests_configuration:image_tests_configuration list ->
   ?timeouts:timeouts ->
   infrastructure_configuration_arn:string prop ->
-  image_scanning_configuration:image_scanning_configuration list ->
-  image_tests_configuration:image_tests_configuration list ->
   unit ->
   aws_imagebuilder_image
 
@@ -99,10 +99,10 @@ val register :
   ?image_recipe_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?image_scanning_configuration:image_scanning_configuration list ->
+  ?image_tests_configuration:image_tests_configuration list ->
   ?timeouts:timeouts ->
   infrastructure_configuration_arn:string prop ->
-  image_scanning_configuration:image_scanning_configuration list ->
-  image_tests_configuration:image_tests_configuration list ->
   string ->
   t
 
@@ -114,9 +114,9 @@ val make :
   ?image_recipe_arn:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?image_scanning_configuration:image_scanning_configuration list ->
+  ?image_tests_configuration:image_tests_configuration list ->
   ?timeouts:timeouts ->
   infrastructure_configuration_arn:string prop ->
-  image_scanning_configuration:image_scanning_configuration list ->
-  image_tests_configuration:image_tests_configuration list ->
   string ->
   t Tf_core.resource

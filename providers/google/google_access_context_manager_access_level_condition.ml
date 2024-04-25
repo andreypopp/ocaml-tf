@@ -351,8 +351,8 @@ let device_policy__os_constraints ?minimum_version ~os_type () :
 
 let device_policy ?allowed_device_management_levels
     ?allowed_encryption_statuses ?require_admin_approval
-    ?require_corp_owned ?require_screen_lock ~os_constraints () :
-    device_policy =
+    ?require_corp_owned ?require_screen_lock ?(os_constraints = [])
+    () : device_policy =
   {
     allowed_device_management_levels;
     allowed_encryption_statuses;
@@ -368,12 +368,14 @@ let vpc_network_sources__vpc_subnetwork ?vpc_ip_subnetworks ~network
     () : vpc_network_sources__vpc_subnetwork =
   { network; vpc_ip_subnetworks }
 
-let vpc_network_sources ~vpc_subnetwork () : vpc_network_sources =
+let vpc_network_sources ?(vpc_subnetwork = []) () :
+    vpc_network_sources =
   { vpc_subnetwork }
 
 let google_access_context_manager_access_level_condition ?id
     ?ip_subnetworks ?members ?negate ?regions ?required_access_levels
-    ?timeouts ~access_level ~device_policy ~vpc_network_sources () :
+    ?(device_policy = []) ?timeouts ?(vpc_network_sources = [])
+    ~access_level () :
     google_access_context_manager_access_level_condition =
   {
     access_level;
@@ -399,8 +401,8 @@ type t = {
 }
 
 let make ?id ?ip_subnetworks ?members ?negate ?regions
-    ?required_access_levels ?timeouts ~access_level ~device_policy
-    ~vpc_network_sources __id =
+    ?required_access_levels ?(device_policy = []) ?timeouts
+    ?(vpc_network_sources = []) ~access_level __id =
   let __type =
     "google_access_context_manager_access_level_condition"
   in
@@ -424,18 +426,18 @@ let make ?id ?ip_subnetworks ?members ?negate ?regions
       yojson_of_google_access_context_manager_access_level_condition
         (google_access_context_manager_access_level_condition ?id
            ?ip_subnetworks ?members ?negate ?regions
-           ?required_access_levels ?timeouts ~access_level
-           ~device_policy ~vpc_network_sources ());
+           ?required_access_levels ~device_policy ?timeouts
+           ~vpc_network_sources ~access_level ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?ip_subnetworks ?members ?negate ?regions
-    ?required_access_levels ?timeouts ~access_level ~device_policy
-    ~vpc_network_sources __id =
+    ?required_access_levels ?(device_policy = []) ?timeouts
+    ?(vpc_network_sources = []) ~access_level __id =
   let (r : _ Tf_core.resource) =
     make ?id ?ip_subnetworks ?members ?negate ?regions
-      ?required_access_levels ?timeouts ~access_level ~device_policy
-      ~vpc_network_sources __id
+      ?required_access_levels ~device_policy ?timeouts
+      ~vpc_network_sources ~access_level __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

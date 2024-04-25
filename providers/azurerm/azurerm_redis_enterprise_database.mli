@@ -31,9 +31,9 @@ val azurerm_redis_enterprise_database :
   ?name:string prop ->
   ?port:float prop ->
   ?resource_group_name:string prop ->
+  ?module_:module_ list ->
   ?timeouts:timeouts ->
   cluster_id:string prop ->
-  module_:module_ list ->
   unit ->
   azurerm_redis_enterprise_database
 
@@ -68,9 +68,9 @@ val register :
   ?name:string prop ->
   ?port:float prop ->
   ?resource_group_name:string prop ->
+  ?module_:module_ list ->
   ?timeouts:timeouts ->
   cluster_id:string prop ->
-  module_:module_ list ->
   string ->
   t
 
@@ -84,8 +84,8 @@ val make :
   ?name:string prop ->
   ?port:float prop ->
   ?resource_group_name:string prop ->
+  ?module_:module_ list ->
   ?timeouts:timeouts ->
   cluster_id:string prop ->
-  module_:module_ list ->
   string ->
   t Tf_core.resource

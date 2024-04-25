@@ -22,7 +22,7 @@ val artifact_config__s3_encryption :
 type artifact_config
 
 val artifact_config :
-  s3_encryption:artifact_config__s3_encryption list ->
+  ?s3_encryption:artifact_config__s3_encryption list ->
   unit ->
   artifact_config
 
@@ -66,15 +66,15 @@ val aws_synthetics_canary :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?zip_file:string prop ->
+  ?artifact_config:artifact_config list ->
+  ?run_config:run_config list ->
+  ?vpc_config:vpc_config list ->
   artifact_s3_location:string prop ->
   execution_role_arn:string prop ->
   handler:string prop ->
   name:string prop ->
   runtime_version:string prop ->
-  artifact_config:artifact_config list ->
-  run_config:run_config list ->
   schedule:schedule list ->
-  vpc_config:vpc_config list ->
   unit ->
   aws_synthetics_canary
 
@@ -119,15 +119,15 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?zip_file:string prop ->
+  ?artifact_config:artifact_config list ->
+  ?run_config:run_config list ->
+  ?vpc_config:vpc_config list ->
   artifact_s3_location:string prop ->
   execution_role_arn:string prop ->
   handler:string prop ->
   name:string prop ->
   runtime_version:string prop ->
-  artifact_config:artifact_config list ->
-  run_config:run_config list ->
   schedule:schedule list ->
-  vpc_config:vpc_config list ->
   string ->
   t
 
@@ -143,14 +143,14 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?zip_file:string prop ->
+  ?artifact_config:artifact_config list ->
+  ?run_config:run_config list ->
+  ?vpc_config:vpc_config list ->
   artifact_s3_location:string prop ->
   execution_role_arn:string prop ->
   handler:string prop ->
   name:string prop ->
   runtime_version:string prop ->
-  artifact_config:artifact_config list ->
-  run_config:run_config list ->
   schedule:schedule list ->
-  vpc_config:vpc_config list ->
   string ->
   t Tf_core.resource

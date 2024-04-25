@@ -37,9 +37,9 @@ type sign_in
 
 val sign_in :
   ?allow_duplicate_emails:bool prop ->
-  anonymous:sign_in__anonymous list ->
-  email:sign_in__email list ->
-  phone_number:sign_in__phone_number list ->
+  ?anonymous:sign_in__anonymous list ->
+  ?email:sign_in__email list ->
+  ?phone_number:sign_in__phone_number list ->
   unit ->
   sign_in
 
@@ -57,8 +57,8 @@ type google_identity_platform_project_default_config
 val google_identity_platform_project_default_config :
   ?id:string prop ->
   ?project:string prop ->
+  ?sign_in:sign_in list ->
   ?timeouts:timeouts ->
-  sign_in:sign_in list ->
   unit ->
   google_identity_platform_project_default_config
 
@@ -77,15 +77,15 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
+  ?sign_in:sign_in list ->
   ?timeouts:timeouts ->
-  sign_in:sign_in list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?project:string prop ->
+  ?sign_in:sign_in list ->
   ?timeouts:timeouts ->
-  sign_in:sign_in list ->
   string ->
   t Tf_core.resource

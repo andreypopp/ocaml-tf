@@ -18,10 +18,10 @@ type google_sourcerepo_repository_iam_member
 val google_sourcerepo_repository_iam_member :
   ?id:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   member:string prop ->
   repository:string prop ->
   role:string prop ->
-  condition:condition list ->
   unit ->
   google_sourcerepo_repository_iam_member
 
@@ -43,19 +43,19 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   member:string prop ->
   repository:string prop ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   member:string prop ->
   repository:string prop ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t Tf_core.resource

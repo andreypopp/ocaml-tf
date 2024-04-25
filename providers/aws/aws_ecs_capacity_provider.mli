@@ -20,8 +20,8 @@ type auto_scaling_group_provider
 val auto_scaling_group_provider :
   ?managed_draining:string prop ->
   ?managed_termination_protection:string prop ->
+  ?managed_scaling:auto_scaling_group_provider__managed_scaling list ->
   auto_scaling_group_arn:string prop ->
-  managed_scaling:auto_scaling_group_provider__managed_scaling list ->
   unit ->
   auto_scaling_group_provider
 

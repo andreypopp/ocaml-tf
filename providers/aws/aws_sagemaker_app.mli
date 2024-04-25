@@ -23,10 +23,10 @@ val aws_sagemaker_app :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?user_profile_name:string prop ->
+  ?resource_spec:resource_spec list ->
   app_name:string prop ->
   app_type:string prop ->
   domain_id:string prop ->
-  resource_spec:resource_spec list ->
   unit ->
   aws_sagemaker_app
 
@@ -53,10 +53,10 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?user_profile_name:string prop ->
+  ?resource_spec:resource_spec list ->
   app_name:string prop ->
   app_type:string prop ->
   domain_id:string prop ->
-  resource_spec:resource_spec list ->
   string ->
   t
 
@@ -66,9 +66,9 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?user_profile_name:string prop ->
+  ?resource_spec:resource_spec list ->
   app_name:string prop ->
   app_type:string prop ->
   domain_id:string prop ->
-  resource_spec:resource_spec list ->
   string ->
   t Tf_core.resource

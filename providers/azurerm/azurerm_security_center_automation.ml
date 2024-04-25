@@ -340,7 +340,7 @@ let source__rule_set__rule ~expected_value ~operator ~property_path
 
 let source__rule_set ~rule () : source__rule_set = { rule }
 
-let source ~event_source ~rule_set () : source =
+let source ?(rule_set = []) ~event_source () : source =
   { event_source; rule_set }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =

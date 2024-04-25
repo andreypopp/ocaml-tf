@@ -182,14 +182,14 @@ let trusted_token_issuer_configuration__oidc_jwt_configuration
     jwks_retrieval_option;
   }
 
-let trusted_token_issuer_configuration ~oidc_jwt_configuration () :
-    trusted_token_issuer_configuration =
+let trusted_token_issuer_configuration ?(oidc_jwt_configuration = [])
+    () : trusted_token_issuer_configuration =
   { oidc_jwt_configuration }
 
 let aws_ssoadmin_trusted_token_issuer ?client_token ?tags
-    ~instance_arn ~name ~trusted_token_issuer_type
-    ~trusted_token_issuer_configuration () :
-    aws_ssoadmin_trusted_token_issuer =
+    ?(trusted_token_issuer_configuration = []) ~instance_arn ~name
+    ~trusted_token_issuer_type () : aws_ssoadmin_trusted_token_issuer
+    =
   {
     client_token;
     instance_arn;
@@ -210,9 +210,9 @@ type t = {
   trusted_token_issuer_type : string prop;
 }
 
-let make ?client_token ?tags ~instance_arn ~name
-    ~trusted_token_issuer_type ~trusted_token_issuer_configuration
-    __id =
+let make ?client_token ?tags
+    ?(trusted_token_issuer_configuration = []) ~instance_arn ~name
+    ~trusted_token_issuer_type __id =
   let __type = "aws_ssoadmin_trusted_token_issuer" in
   let __attrs =
     ({
@@ -234,18 +234,17 @@ let make ?client_token ?tags ~instance_arn ~name
     json =
       yojson_of_aws_ssoadmin_trusted_token_issuer
         (aws_ssoadmin_trusted_token_issuer ?client_token ?tags
-           ~instance_arn ~name ~trusted_token_issuer_type
-           ~trusted_token_issuer_configuration ());
+           ~trusted_token_issuer_configuration ~instance_arn ~name
+           ~trusted_token_issuer_type ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?client_token ?tags ~instance_arn ~name
-    ~trusted_token_issuer_type ~trusted_token_issuer_configuration
-    __id =
+let register ?tf_module ?client_token ?tags
+    ?(trusted_token_issuer_configuration = []) ~instance_arn ~name
+    ~trusted_token_issuer_type __id =
   let (r : _ Tf_core.resource) =
-    make ?client_token ?tags ~instance_arn ~name
-      ~trusted_token_issuer_type ~trusted_token_issuer_configuration
-      __id
+    make ?client_token ?tags ~trusted_token_issuer_configuration
+      ~instance_arn ~name ~trusted_token_issuer_type __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

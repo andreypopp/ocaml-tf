@@ -38,13 +38,13 @@ val monitoring_config__snapshot_analysis :
 type monitoring_config
 
 val monitoring_config :
-  categorical_threshold_config:
+  ?categorical_threshold_config:
     monitoring_config__categorical_threshold_config list ->
-  import_features_analysis:
+  ?import_features_analysis:
     monitoring_config__import_features_analysis list ->
-  numerical_threshold_config:
+  ?numerical_threshold_config:
     monitoring_config__numerical_threshold_config list ->
-  snapshot_analysis:monitoring_config__snapshot_analysis list ->
+  ?snapshot_analysis:monitoring_config__snapshot_analysis list ->
   unit ->
   monitoring_config
 
@@ -64,9 +64,9 @@ val google_vertex_ai_featurestore_entitytype :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?name:string prop ->
+  ?monitoring_config:monitoring_config list ->
   ?timeouts:timeouts ->
   featurestore:string prop ->
-  monitoring_config:monitoring_config list ->
   unit ->
   google_vertex_ai_featurestore_entitytype
 
@@ -95,9 +95,9 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?name:string prop ->
+  ?monitoring_config:monitoring_config list ->
   ?timeouts:timeouts ->
   featurestore:string prop ->
-  monitoring_config:monitoring_config list ->
   string ->
   t
 
@@ -106,8 +106,8 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?name:string prop ->
+  ?monitoring_config:monitoring_config list ->
   ?timeouts:timeouts ->
   featurestore:string prop ->
-  monitoring_config:monitoring_config list ->
   string ->
   t Tf_core.resource

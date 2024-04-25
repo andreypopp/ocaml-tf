@@ -30,8 +30,8 @@ type digitalocean_regions
 
 val digitalocean_regions :
   ?id:string prop ->
+  ?sort:sort list ->
   filter:filter list ->
-  sort:sort list ->
   unit ->
   digitalocean_regions
 
@@ -44,14 +44,14 @@ type t = private { id : string prop; regions : regions list prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?sort:sort list ->
   filter:filter list ->
-  sort:sort list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?sort:sort list ->
   filter:filter list ->
-  sort:sort list ->
   string ->
   t Tf_core.resource

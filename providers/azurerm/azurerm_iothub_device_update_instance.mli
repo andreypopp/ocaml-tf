@@ -28,11 +28,11 @@ val azurerm_iothub_device_update_instance :
   ?diagnostic_enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?diagnostic_storage_account:diagnostic_storage_account list ->
   ?timeouts:timeouts ->
   device_update_account_id:string prop ->
   iothub_id:string prop ->
   name:string prop ->
-  diagnostic_storage_account:diagnostic_storage_account list ->
   unit ->
   azurerm_iothub_device_update_instance
 
@@ -55,11 +55,11 @@ val register :
   ?diagnostic_enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?diagnostic_storage_account:diagnostic_storage_account list ->
   ?timeouts:timeouts ->
   device_update_account_id:string prop ->
   iothub_id:string prop ->
   name:string prop ->
-  diagnostic_storage_account:diagnostic_storage_account list ->
   string ->
   t
 
@@ -67,10 +67,10 @@ val make :
   ?diagnostic_enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?diagnostic_storage_account:diagnostic_storage_account list ->
   ?timeouts:timeouts ->
   device_update_account_id:string prop ->
   iothub_id:string prop ->
   name:string prop ->
-  diagnostic_storage_account:diagnostic_storage_account list ->
   string ->
   t Tf_core.resource

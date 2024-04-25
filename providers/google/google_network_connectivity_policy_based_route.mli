@@ -49,12 +49,12 @@ val google_network_connectivity_policy_based_route :
   ?next_hop_other_routes:string prop ->
   ?priority:float prop ->
   ?project:string prop ->
+  ?interconnect_attachment:interconnect_attachment list ->
   ?timeouts:timeouts ->
+  ?virtual_machine:virtual_machine list ->
   name:string prop ->
   network:string prop ->
   filter:filter list ->
-  interconnect_attachment:interconnect_attachment list ->
-  virtual_machine:virtual_machine list ->
   unit ->
   google_network_connectivity_policy_based_route
 
@@ -90,12 +90,12 @@ val register :
   ?next_hop_other_routes:string prop ->
   ?priority:float prop ->
   ?project:string prop ->
+  ?interconnect_attachment:interconnect_attachment list ->
   ?timeouts:timeouts ->
+  ?virtual_machine:virtual_machine list ->
   name:string prop ->
   network:string prop ->
   filter:filter list ->
-  interconnect_attachment:interconnect_attachment list ->
-  virtual_machine:virtual_machine list ->
   string ->
   t
 
@@ -107,11 +107,11 @@ val make :
   ?next_hop_other_routes:string prop ->
   ?priority:float prop ->
   ?project:string prop ->
+  ?interconnect_attachment:interconnect_attachment list ->
   ?timeouts:timeouts ->
+  ?virtual_machine:virtual_machine list ->
   name:string prop ->
   network:string prop ->
   filter:filter list ->
-  interconnect_attachment:interconnect_attachment list ->
-  virtual_machine:virtual_machine list ->
   string ->
   t Tf_core.resource

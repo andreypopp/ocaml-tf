@@ -556,18 +556,19 @@ let radius__server_root_certificate ~name ~public_cert_data () :
     radius__server_root_certificate =
   { name; public_cert_data }
 
-let radius ~client_root_certificate ~server ~server_root_certificate
-    () : radius =
+let radius ?(server = []) ~client_root_certificate
+    ~server_root_certificate () : radius =
   { client_root_certificate; server; server_root_certificate }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_vpn_server_configuration ?id ?tags ?vpn_protocols
-    ?timeouts ~location ~name ~resource_group_name
-    ~vpn_authentication_types ~azure_active_directory_authentication
-    ~client_revoked_certificate ~client_root_certificate
-    ~ipsec_policy ~radius () : azurerm_vpn_server_configuration =
+    ?(azure_active_directory_authentication = [])
+    ?(ipsec_policy = []) ?(radius = []) ?timeouts ~location ~name
+    ~resource_group_name ~vpn_authentication_types
+    ~client_revoked_certificate ~client_root_certificate () :
+    azurerm_vpn_server_configuration =
   {
     id;
     location;
@@ -594,11 +595,11 @@ type t = {
   vpn_protocols : string list prop;
 }
 
-let make ?id ?tags ?vpn_protocols ?timeouts ~location ~name
+let make ?id ?tags ?vpn_protocols
+    ?(azure_active_directory_authentication = [])
+    ?(ipsec_policy = []) ?(radius = []) ?timeouts ~location ~name
     ~resource_group_name ~vpn_authentication_types
-    ~azure_active_directory_authentication
-    ~client_revoked_certificate ~client_root_certificate
-    ~ipsec_policy ~radius __id =
+    ~client_revoked_certificate ~client_root_certificate __id =
   let __type = "azurerm_vpn_server_configuration" in
   let __attrs =
     ({
@@ -620,25 +621,24 @@ let make ?id ?tags ?vpn_protocols ?timeouts ~location ~name
     json =
       yojson_of_azurerm_vpn_server_configuration
         (azurerm_vpn_server_configuration ?id ?tags ?vpn_protocols
-           ?timeouts ~location ~name ~resource_group_name
-           ~vpn_authentication_types
-           ~azure_active_directory_authentication
-           ~client_revoked_certificate ~client_root_certificate
-           ~ipsec_policy ~radius ());
+           ~azure_active_directory_authentication ~ipsec_policy
+           ~radius ?timeouts ~location ~name ~resource_group_name
+           ~vpn_authentication_types ~client_revoked_certificate
+           ~client_root_certificate ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?vpn_protocols ?timeouts ~location
-    ~name ~resource_group_name ~vpn_authentication_types
-    ~azure_active_directory_authentication
-    ~client_revoked_certificate ~client_root_certificate
-    ~ipsec_policy ~radius __id =
+let register ?tf_module ?id ?tags ?vpn_protocols
+    ?(azure_active_directory_authentication = [])
+    ?(ipsec_policy = []) ?(radius = []) ?timeouts ~location ~name
+    ~resource_group_name ~vpn_authentication_types
+    ~client_revoked_certificate ~client_root_certificate __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?vpn_protocols ?timeouts ~location ~name
-      ~resource_group_name ~vpn_authentication_types
-      ~azure_active_directory_authentication
-      ~client_revoked_certificate ~client_root_certificate
-      ~ipsec_policy ~radius __id
+    make ?id ?tags ?vpn_protocols
+      ~azure_active_directory_authentication ~ipsec_policy ~radius
+      ?timeouts ~location ~name ~resource_group_name
+      ~vpn_authentication_types ~client_revoked_certificate
+      ~client_root_certificate __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -287,8 +287,8 @@ let rules__deny_rule__denial_condition ?description ?location ?title
   { description; expression; location; title }
 
 let rules__deny_rule ?denied_permissions ?denied_principals
-    ?exception_permissions ?exception_principals ~denial_condition ()
-    : rules__deny_rule =
+    ?exception_permissions ?exception_principals
+    ?(denial_condition = []) () : rules__deny_rule =
   {
     denied_permissions;
     denied_principals;
@@ -297,7 +297,7 @@ let rules__deny_rule ?denied_permissions ?denied_principals
     denial_condition;
   }
 
-let rules ?description ~deny_rule () : rules =
+let rules ?description ?(deny_rule = []) () : rules =
   { description; deny_rule }
 
 let timeouts ?create ?delete ?update () : timeouts =

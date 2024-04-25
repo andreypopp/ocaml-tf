@@ -53,10 +53,10 @@ val aws_fsx_lustre_file_system :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?weekly_maintenance_start_time:string prop ->
+  ?log_configuration:log_configuration list ->
+  ?root_squash_configuration:root_squash_configuration list ->
   ?timeouts:timeouts ->
   subnet_ids:string prop list ->
-  log_configuration:log_configuration list ->
-  root_squash_configuration:root_squash_configuration list ->
   unit ->
   aws_fsx_lustre_file_system
 
@@ -119,10 +119,10 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?weekly_maintenance_start_time:string prop ->
+  ?log_configuration:log_configuration list ->
+  ?root_squash_configuration:root_squash_configuration list ->
   ?timeouts:timeouts ->
   subnet_ids:string prop list ->
-  log_configuration:log_configuration list ->
-  root_squash_configuration:root_squash_configuration list ->
   string ->
   t
 
@@ -148,9 +148,9 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?weekly_maintenance_start_time:string prop ->
+  ?log_configuration:log_configuration list ->
+  ?root_squash_configuration:root_squash_configuration list ->
   ?timeouts:timeouts ->
   subnet_ids:string prop list ->
-  log_configuration:log_configuration list ->
-  root_squash_configuration:root_squash_configuration list ->
   string ->
   t Tf_core.resource

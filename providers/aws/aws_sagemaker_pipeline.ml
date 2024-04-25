@@ -214,8 +214,9 @@ let pipeline_definition_s3_location ?version_id ~bucket ~object_key
 
 let aws_sagemaker_pipeline ?id ?pipeline_definition
     ?pipeline_description ?role_arn ?tags ?tags_all
-    ~pipeline_display_name ~pipeline_name ~parallelism_configuration
-    ~pipeline_definition_s3_location () : aws_sagemaker_pipeline =
+    ?(parallelism_configuration = [])
+    ?(pipeline_definition_s3_location = []) ~pipeline_display_name
+    ~pipeline_name () : aws_sagemaker_pipeline =
   {
     id;
     pipeline_definition;
@@ -242,9 +243,9 @@ type t = {
 }
 
 let make ?id ?pipeline_definition ?pipeline_description ?role_arn
-    ?tags ?tags_all ~pipeline_display_name ~pipeline_name
-    ~parallelism_configuration ~pipeline_definition_s3_location __id
-    =
+    ?tags ?tags_all ?(parallelism_configuration = [])
+    ?(pipeline_definition_s3_location = []) ~pipeline_display_name
+    ~pipeline_name __id =
   let __type = "aws_sagemaker_pipeline" in
   let __attrs =
     ({
@@ -270,21 +271,22 @@ let make ?id ?pipeline_definition ?pipeline_description ?role_arn
       yojson_of_aws_sagemaker_pipeline
         (aws_sagemaker_pipeline ?id ?pipeline_definition
            ?pipeline_description ?role_arn ?tags ?tags_all
-           ~pipeline_display_name ~pipeline_name
            ~parallelism_configuration
-           ~pipeline_definition_s3_location ());
+           ~pipeline_definition_s3_location ~pipeline_display_name
+           ~pipeline_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?pipeline_definition
     ?pipeline_description ?role_arn ?tags ?tags_all
-    ~pipeline_display_name ~pipeline_name ~parallelism_configuration
-    ~pipeline_definition_s3_location __id =
+    ?(parallelism_configuration = [])
+    ?(pipeline_definition_s3_location = []) ~pipeline_display_name
+    ~pipeline_name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?pipeline_definition ?pipeline_description ?role_arn
-      ?tags ?tags_all ~pipeline_display_name ~pipeline_name
-      ~parallelism_configuration ~pipeline_definition_s3_location
-      __id
+      ?tags ?tags_all ~parallelism_configuration
+      ~pipeline_definition_s3_location ~pipeline_display_name
+      ~pipeline_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

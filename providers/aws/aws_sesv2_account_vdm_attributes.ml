@@ -121,15 +121,15 @@ let guardian_attributes ?optimized_shared_delivery () :
     guardian_attributes =
   { optimized_shared_delivery }
 
-let aws_sesv2_account_vdm_attributes ?id ~vdm_enabled
-    ~dashboard_attributes ~guardian_attributes () :
+let aws_sesv2_account_vdm_attributes ?id ?(dashboard_attributes = [])
+    ?(guardian_attributes = []) ~vdm_enabled () :
     aws_sesv2_account_vdm_attributes =
   { id; vdm_enabled; dashboard_attributes; guardian_attributes }
 
 type t = { id : string prop; vdm_enabled : string prop }
 
-let make ?id ~vdm_enabled ~dashboard_attributes ~guardian_attributes
-    __id =
+let make ?id ?(dashboard_attributes = []) ?(guardian_attributes = [])
+    ~vdm_enabled __id =
   let __type = "aws_sesv2_account_vdm_attributes" in
   let __attrs =
     ({
@@ -143,15 +143,15 @@ let make ?id ~vdm_enabled ~dashboard_attributes ~guardian_attributes
     type_ = __type;
     json =
       yojson_of_aws_sesv2_account_vdm_attributes
-        (aws_sesv2_account_vdm_attributes ?id ~vdm_enabled
-           ~dashboard_attributes ~guardian_attributes ());
+        (aws_sesv2_account_vdm_attributes ?id ~dashboard_attributes
+           ~guardian_attributes ~vdm_enabled ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~vdm_enabled ~dashboard_attributes
-    ~guardian_attributes __id =
+let register ?tf_module ?id ?(dashboard_attributes = [])
+    ?(guardian_attributes = []) ~vdm_enabled __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~vdm_enabled ~dashboard_attributes ~guardian_attributes
+    make ?id ~dashboard_attributes ~guardian_attributes ~vdm_enabled
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

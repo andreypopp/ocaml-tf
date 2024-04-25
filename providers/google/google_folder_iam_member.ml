@@ -101,8 +101,8 @@ let _ = yojson_of_google_folder_iam_member
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_folder_iam_member ?id ~folder ~member ~role ~condition ()
-    : google_folder_iam_member =
+let google_folder_iam_member ?id ?(condition = []) ~folder ~member
+    ~role () : google_folder_iam_member =
   { folder; id; member; role; condition }
 
 type t = {
@@ -113,7 +113,7 @@ type t = {
   role : string prop;
 }
 
-let make ?id ~folder ~member ~role ~condition __id =
+let make ?id ?(condition = []) ~folder ~member ~role __id =
   let __type = "google_folder_iam_member" in
   let __attrs =
     ({
@@ -130,14 +130,15 @@ let make ?id ~folder ~member ~role ~condition __id =
     type_ = __type;
     json =
       yojson_of_google_folder_iam_member
-        (google_folder_iam_member ?id ~folder ~member ~role
-           ~condition ());
+        (google_folder_iam_member ?id ~condition ~folder ~member
+           ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~folder ~member ~role ~condition __id =
+let register ?tf_module ?id ?(condition = []) ~folder ~member ~role
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~folder ~member ~role ~condition __id
+    make ?id ~condition ~folder ~member ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -882,12 +882,12 @@ let build_config__source__storage_source ?bucket ?generation ?object_
     () : build_config__source__storage_source =
   { bucket; generation; object_ }
 
-let build_config__source ~repo_source ~storage_source () :
-    build_config__source =
+let build_config__source ?(repo_source = []) ?(storage_source = [])
+    () : build_config__source =
   { repo_source; storage_source }
 
 let build_config ?docker_repository ?entry_point
-    ?environment_variables ?runtime ?worker_pool ~source () :
+    ?environment_variables ?runtime ?worker_pool ?(source = []) () :
     build_config =
   {
     docker_repository;
@@ -923,8 +923,8 @@ let service_config__secret_volumes__versions ~path ~version () :
     service_config__secret_volumes__versions =
   { path; version }
 
-let service_config__secret_volumes ~mount_path ~project_id ~secret
-    ~versions () : service_config__secret_volumes =
+let service_config__secret_volumes ?(versions = []) ~mount_path
+    ~project_id ~secret () : service_config__secret_volumes =
   { mount_path; project_id; secret; versions }
 
 let service_config ?all_traffic_on_latest_revision ?available_cpu
@@ -932,8 +932,8 @@ let service_config ?all_traffic_on_latest_revision ?available_cpu
     ?max_instance_count ?max_instance_request_concurrency
     ?min_instance_count ?service ?service_account_email
     ?timeout_seconds ?vpc_connector ?vpc_connector_egress_settings
-    ~secret_environment_variables ~secret_volumes () : service_config
-    =
+    ?(secret_environment_variables = []) ?(secret_volumes = []) () :
+    service_config =
   {
     all_traffic_on_latest_revision;
     available_cpu;
@@ -956,8 +956,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_cloudfunctions2_function ?description ?id ?kms_key_name
-    ?labels ?project ?timeouts ~location ~name ~build_config
-    ~event_trigger ~service_config () :
+    ?labels ?project ?(build_config = []) ?(event_trigger = [])
+    ?(service_config = []) ?timeouts ~location ~name () :
     google_cloudfunctions2_function =
   {
     description;
@@ -989,9 +989,9 @@ type t = {
   url : string prop;
 }
 
-let make ?description ?id ?kms_key_name ?labels ?project ?timeouts
-    ~location ~name ~build_config ~event_trigger ~service_config __id
-    =
+let make ?description ?id ?kms_key_name ?labels ?project
+    ?(build_config = []) ?(event_trigger = []) ?(service_config = [])
+    ?timeouts ~location ~name __id =
   let __type = "google_cloudfunctions2_function" in
   let __attrs =
     ({
@@ -1019,18 +1019,19 @@ let make ?description ?id ?kms_key_name ?labels ?project ?timeouts
     json =
       yojson_of_google_cloudfunctions2_function
         (google_cloudfunctions2_function ?description ?id
-           ?kms_key_name ?labels ?project ?timeouts ~location ~name
-           ~build_config ~event_trigger ~service_config ());
+           ?kms_key_name ?labels ?project ~build_config
+           ~event_trigger ~service_config ?timeouts ~location ~name
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?kms_key_name ?labels
-    ?project ?timeouts ~location ~name ~build_config ~event_trigger
-    ~service_config __id =
+    ?project ?(build_config = []) ?(event_trigger = [])
+    ?(service_config = []) ?timeouts ~location ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?kms_key_name ?labels ?project ?timeouts
-      ~location ~name ~build_config ~event_trigger ~service_config
-      __id
+    make ?description ?id ?kms_key_name ?labels ?project
+      ~build_config ~event_trigger ~service_config ?timeouts
+      ~location ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

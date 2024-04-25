@@ -41,12 +41,12 @@ val aws_grafana_workspace :
   ?stack_set_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?network_access_control:network_access_control list ->
   ?timeouts:timeouts ->
+  ?vpc_configuration:vpc_configuration list ->
   account_access_type:string prop ->
   authentication_providers:string prop list ->
   permission_type:string prop ->
-  network_access_control:network_access_control list ->
-  vpc_configuration:vpc_configuration list ->
   unit ->
   aws_grafana_workspace
 
@@ -91,12 +91,12 @@ val register :
   ?stack_set_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?network_access_control:network_access_control list ->
   ?timeouts:timeouts ->
+  ?vpc_configuration:vpc_configuration list ->
   account_access_type:string prop ->
   authentication_providers:string prop list ->
   permission_type:string prop ->
-  network_access_control:network_access_control list ->
-  vpc_configuration:vpc_configuration list ->
   string ->
   t
 
@@ -114,11 +114,11 @@ val make :
   ?stack_set_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?network_access_control:network_access_control list ->
   ?timeouts:timeouts ->
+  ?vpc_configuration:vpc_configuration list ->
   account_access_type:string prop ->
   authentication_providers:string prop list ->
   permission_type:string prop ->
-  network_access_control:network_access_control list ->
-  vpc_configuration:vpc_configuration list ->
   string ->
   t Tf_core.resource

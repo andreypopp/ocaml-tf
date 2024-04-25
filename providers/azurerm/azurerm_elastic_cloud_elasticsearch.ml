@@ -266,7 +266,7 @@ let logs__filtering_tag ~action ~name ~value () : logs__filtering_tag
   { action; name; value }
 
 let logs ?send_activity_logs ?send_azuread_logs
-    ?send_subscription_logs ~filtering_tag () : logs =
+    ?send_subscription_logs ?(filtering_tag = []) () : logs =
   {
     send_activity_logs;
     send_azuread_logs;
@@ -278,8 +278,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_elastic_cloud_elasticsearch ?id ?monitoring_enabled ?tags
-    ?timeouts ~elastic_cloud_email_address ~location ~name
-    ~resource_group_name ~sku_name ~logs () :
+    ?(logs = []) ?timeouts ~elastic_cloud_email_address ~location
+    ~name ~resource_group_name ~sku_name () :
     azurerm_elastic_cloud_elasticsearch =
   {
     elastic_cloud_email_address;
@@ -311,9 +311,9 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?id ?monitoring_enabled ?tags ?timeouts
+let make ?id ?monitoring_enabled ?tags ?(logs = []) ?timeouts
     ~elastic_cloud_email_address ~location ~name ~resource_group_name
-    ~sku_name ~logs __id =
+    ~sku_name __id =
   let __type = "azurerm_elastic_cloud_elasticsearch" in
   let __attrs =
     ({
@@ -348,18 +348,18 @@ let make ?id ?monitoring_enabled ?tags ?timeouts
     json =
       yojson_of_azurerm_elastic_cloud_elasticsearch
         (azurerm_elastic_cloud_elasticsearch ?id ?monitoring_enabled
-           ?tags ?timeouts ~elastic_cloud_email_address ~location
-           ~name ~resource_group_name ~sku_name ~logs ());
+           ?tags ~logs ?timeouts ~elastic_cloud_email_address
+           ~location ~name ~resource_group_name ~sku_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?monitoring_enabled ?tags ?timeouts
-    ~elastic_cloud_email_address ~location ~name ~resource_group_name
-    ~sku_name ~logs __id =
+let register ?tf_module ?id ?monitoring_enabled ?tags ?(logs = [])
+    ?timeouts ~elastic_cloud_email_address ~location ~name
+    ~resource_group_name ~sku_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?monitoring_enabled ?tags ?timeouts
+    make ?id ?monitoring_enabled ?tags ~logs ?timeouts
       ~elastic_cloud_email_address ~location ~name
-      ~resource_group_name ~sku_name ~logs __id
+      ~resource_group_name ~sku_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

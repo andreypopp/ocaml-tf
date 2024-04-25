@@ -531,8 +531,8 @@ let azurerm_databricks_workspace ?customer_managed_key_enabled ?id
     ?managed_resource_group_name
     ?managed_services_cmk_key_vault_key_id
     ?network_security_group_rules_required
-    ?public_network_access_enabled ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku ~custom_parameters () :
+    ?public_network_access_enabled ?tags ?(custom_parameters = [])
+    ?timeouts ~location ~name ~resource_group_name ~sku () :
     azurerm_databricks_workspace =
   {
     customer_managed_key_enabled;
@@ -586,8 +586,8 @@ let make ?customer_managed_key_enabled ?id
     ?managed_resource_group_name
     ?managed_services_cmk_key_vault_key_id
     ?network_security_group_rules_required
-    ?public_network_access_enabled ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku ~custom_parameters __id =
+    ?public_network_access_enabled ?tags ?(custom_parameters = [])
+    ?timeouts ~location ~name ~resource_group_name ~sku __id =
   let __type = "azurerm_databricks_workspace" in
   let __attrs =
     ({
@@ -648,8 +648,8 @@ let make ?customer_managed_key_enabled ?id
            ?managed_resource_group_name
            ?managed_services_cmk_key_vault_key_id
            ?network_security_group_rules_required
-           ?public_network_access_enabled ?tags ?timeouts ~location
-           ~name ~resource_group_name ~sku ~custom_parameters ());
+           ?public_network_access_enabled ?tags ~custom_parameters
+           ?timeouts ~location ~name ~resource_group_name ~sku ());
     attrs = __attrs;
   }
 
@@ -661,8 +661,8 @@ let register ?tf_module ?customer_managed_key_enabled ?id
     ?managed_resource_group_name
     ?managed_services_cmk_key_vault_key_id
     ?network_security_group_rules_required
-    ?public_network_access_enabled ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku ~custom_parameters __id =
+    ?public_network_access_enabled ?tags ?(custom_parameters = [])
+    ?timeouts ~location ~name ~resource_group_name ~sku __id =
   let (r : _ Tf_core.resource) =
     make ?customer_managed_key_enabled ?id
       ?infrastructure_encryption_enabled
@@ -672,8 +672,8 @@ let register ?tf_module ?customer_managed_key_enabled ?id
       ?managed_resource_group_name
       ?managed_services_cmk_key_vault_key_id
       ?network_security_group_rules_required
-      ?public_network_access_enabled ?tags ?timeouts ~location ~name
-      ~resource_group_name ~sku ~custom_parameters __id
+      ?public_network_access_enabled ?tags ~custom_parameters
+      ?timeouts ~location ~name ~resource_group_name ~sku __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

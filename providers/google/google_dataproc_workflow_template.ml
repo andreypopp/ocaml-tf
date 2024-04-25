@@ -3462,8 +3462,8 @@ let jobs__hadoop_job__logging_config ?driver_log_levels () :
   { driver_log_levels }
 
 let jobs__hadoop_job ?archive_uris ?args ?file_uris ?jar_file_uris
-    ?main_class ?main_jar_file_uri ?properties ~logging_config () :
-    jobs__hadoop_job =
+    ?main_class ?main_jar_file_uri ?properties ?(logging_config = [])
+    () : jobs__hadoop_job =
   {
     archive_uris;
     args;
@@ -3480,8 +3480,8 @@ let jobs__hive_job__query_list ~queries () :
   { queries }
 
 let jobs__hive_job ?continue_on_failure ?jar_file_uris ?properties
-    ?query_file_uri ?script_variables ~query_list () : jobs__hive_job
-    =
+    ?query_file_uri ?script_variables ?(query_list = []) () :
+    jobs__hive_job =
   {
     continue_on_failure;
     jar_file_uris;
@@ -3500,8 +3500,8 @@ let jobs__pig_job__query_list ~queries () : jobs__pig_job__query_list
   { queries }
 
 let jobs__pig_job ?continue_on_failure ?jar_file_uris ?properties
-    ?query_file_uri ?script_variables ~logging_config ~query_list ()
-    : jobs__pig_job =
+    ?query_file_uri ?script_variables ?(logging_config = [])
+    ?(query_list = []) () : jobs__pig_job =
   {
     continue_on_failure;
     jar_file_uris;
@@ -3521,8 +3521,8 @@ let jobs__presto_job__query_list ~queries () :
   { queries }
 
 let jobs__presto_job ?client_tags ?continue_on_failure ?output_format
-    ?properties ?query_file_uri ~logging_config ~query_list () :
-    jobs__presto_job =
+    ?properties ?query_file_uri ?(logging_config = [])
+    ?(query_list = []) () : jobs__presto_job =
   {
     client_tags;
     continue_on_failure;
@@ -3538,8 +3538,8 @@ let jobs__pyspark_job__logging_config ?driver_log_levels () :
   { driver_log_levels }
 
 let jobs__pyspark_job ?archive_uris ?args ?file_uris ?jar_file_uris
-    ?properties ?python_file_uris ~main_python_file_uri
-    ~logging_config () : jobs__pyspark_job =
+    ?properties ?python_file_uris ?(logging_config = [])
+    ~main_python_file_uri () : jobs__pyspark_job =
   {
     archive_uris;
     args;
@@ -3560,8 +3560,8 @@ let jobs__spark_job__logging_config ?driver_log_levels () :
   { driver_log_levels }
 
 let jobs__spark_job ?archive_uris ?args ?file_uris ?jar_file_uris
-    ?main_class ?main_jar_file_uri ?properties ~logging_config () :
-    jobs__spark_job =
+    ?main_class ?main_jar_file_uri ?properties ?(logging_config = [])
+    () : jobs__spark_job =
   {
     archive_uris;
     args;
@@ -3578,7 +3578,7 @@ let jobs__spark_r_job__logging_config ?driver_log_levels () :
   { driver_log_levels }
 
 let jobs__spark_r_job ?archive_uris ?args ?file_uris ?properties
-    ~main_r_file_uri ~logging_config () : jobs__spark_r_job =
+    ?(logging_config = []) ~main_r_file_uri () : jobs__spark_r_job =
   {
     archive_uris;
     args;
@@ -3597,7 +3597,7 @@ let jobs__spark_sql_job__query_list ~queries () :
   { queries }
 
 let jobs__spark_sql_job ?jar_file_uris ?properties ?query_file_uri
-    ?script_variables ~logging_config ~query_list () :
+    ?script_variables ?(logging_config = []) ?(query_list = []) () :
     jobs__spark_sql_job =
   {
     jar_file_uris;
@@ -3608,9 +3608,10 @@ let jobs__spark_sql_job ?jar_file_uris ?properties ?query_file_uri
     query_list;
   }
 
-let jobs ?labels ?prerequisite_step_ids ~step_id ~hadoop_job
-    ~hive_job ~pig_job ~presto_job ~pyspark_job ~scheduling
-    ~spark_job ~spark_r_job ~spark_sql_job () : jobs =
+let jobs ?labels ?prerequisite_step_ids ?(hadoop_job = [])
+    ?(hive_job = []) ?(pig_job = []) ?(presto_job = [])
+    ?(pyspark_job = []) ?(scheduling = []) ?(spark_job = [])
+    ?(spark_r_job = []) ?(spark_sql_job = []) ~step_id () : jobs =
   {
     labels;
     prerequisite_step_ids;
@@ -3634,12 +3635,12 @@ let parameters__validation__values ~values () :
     parameters__validation__values =
   { values }
 
-let parameters__validation ~regex ~values () : parameters__validation
-    =
+let parameters__validation ?(regex = []) ?(values = []) () :
+    parameters__validation =
   { regex; values }
 
-let parameters ?description ~fields ~name ~validation () : parameters
-    =
+let parameters ?description ?(validation = []) ~fields ~name () :
+    parameters =
   { description; fields; name; validation }
 
 let placement__cluster_selector ?zone ~cluster_labels () :
@@ -3682,8 +3683,8 @@ let placement__managed_cluster__config__gce_cluster_config__shielded_instance_co
 let placement__managed_cluster__config__gce_cluster_config
     ?internal_ip_only ?metadata ?network ?private_ipv6_google_access
     ?service_account ?service_account_scopes ?subnetwork ?tags ?zone
-    ~node_group_affinity ~reservation_affinity
-    ~shielded_instance_config () :
+    ?(node_group_affinity = []) ?(reservation_affinity = [])
+    ?(shielded_instance_config = []) () :
     placement__managed_cluster__config__gce_cluster_config =
   {
     internal_ip_only;
@@ -3722,7 +3723,7 @@ let placement__managed_cluster__config__master_config__disk_config
 
 let placement__managed_cluster__config__master_config ?image
     ?machine_type ?min_cpu_platform ?num_instances ?preemptibility
-    ~accelerators ~disk_config () :
+    ?(accelerators = []) ?(disk_config = []) () :
     placement__managed_cluster__config__master_config =
   {
     image;
@@ -3748,7 +3749,7 @@ let placement__managed_cluster__config__secondary_worker_config__disk_config
 
 let placement__managed_cluster__config__secondary_worker_config
     ?image ?machine_type ?min_cpu_platform ?num_instances
-    ?preemptibility ~accelerators ~disk_config () :
+    ?preemptibility ?(accelerators = []) ?(disk_config = []) () :
     placement__managed_cluster__config__secondary_worker_config =
   {
     image;
@@ -3787,7 +3788,7 @@ let placement__managed_cluster__config__security_config__kerberos_config
   }
 
 let placement__managed_cluster__config__security_config
-    ~kerberos_config () :
+    ?(kerberos_config = []) () :
     placement__managed_cluster__config__security_config =
   { kerberos_config }
 
@@ -3808,7 +3809,7 @@ let placement__managed_cluster__config__worker_config__disk_config
 
 let placement__managed_cluster__config__worker_config ?image
     ?machine_type ?min_cpu_platform ?num_instances ?preemptibility
-    ~accelerators ~disk_config () :
+    ?(accelerators = []) ?(disk_config = []) () :
     placement__managed_cluster__config__worker_config =
   {
     image;
@@ -3821,11 +3822,12 @@ let placement__managed_cluster__config__worker_config ?image
   }
 
 let placement__managed_cluster__config ?staging_bucket ?temp_bucket
-    ~autoscaling_config ~encryption_config ~endpoint_config
-    ~gce_cluster_config ~initialization_actions ~lifecycle_config
-    ~master_config ~secondary_worker_config ~security_config
-    ~software_config ~worker_config () :
-    placement__managed_cluster__config =
+    ?(autoscaling_config = []) ?(encryption_config = [])
+    ?(endpoint_config = []) ?(gce_cluster_config = [])
+    ?(initialization_actions = []) ?(lifecycle_config = [])
+    ?(master_config = []) ?(secondary_worker_config = [])
+    ?(security_config = []) ?(software_config = [])
+    ?(worker_config = []) () : placement__managed_cluster__config =
   {
     staging_bucket;
     temp_bucket;
@@ -3846,15 +3848,16 @@ let placement__managed_cluster ?labels ~cluster_name ~config () :
     placement__managed_cluster =
   { cluster_name; labels; config }
 
-let placement ~cluster_selector ~managed_cluster () : placement =
+let placement ?(cluster_selector = []) ?(managed_cluster = []) () :
+    placement =
   { cluster_selector; managed_cluster }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_dataproc_workflow_template ?dag_timeout ?id ?labels
-    ?project ?version ?timeouts ~location ~name ~jobs ~parameters
-    ~placement () : google_dataproc_workflow_template =
+    ?project ?version ?(parameters = []) ?timeouts ~location ~name
+    ~jobs ~placement () : google_dataproc_workflow_template =
   {
     dag_timeout;
     id;
@@ -3883,8 +3886,9 @@ type t = {
   version : float prop;
 }
 
-let make ?dag_timeout ?id ?labels ?project ?version ?timeouts
-    ~location ~name ~jobs ~parameters ~placement __id =
+let make ?dag_timeout ?id ?labels ?project ?version
+    ?(parameters = []) ?timeouts ~location ~name ~jobs ~placement
+    __id =
   let __type = "google_dataproc_workflow_template" in
   let __attrs =
     ({
@@ -3910,16 +3914,17 @@ let make ?dag_timeout ?id ?labels ?project ?version ?timeouts
     json =
       yojson_of_google_dataproc_workflow_template
         (google_dataproc_workflow_template ?dag_timeout ?id ?labels
-           ?project ?version ?timeouts ~location ~name ~jobs
-           ~parameters ~placement ());
+           ?project ?version ~parameters ?timeouts ~location ~name
+           ~jobs ~placement ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?dag_timeout ?id ?labels ?project ?version
-    ?timeouts ~location ~name ~jobs ~parameters ~placement __id =
+    ?(parameters = []) ?timeouts ~location ~name ~jobs ~placement
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?dag_timeout ?id ?labels ?project ?version ?timeouts
-      ~location ~name ~jobs ~parameters ~placement __id
+    make ?dag_timeout ?id ?labels ?project ?version ~parameters
+      ?timeouts ~location ~name ~jobs ~placement __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

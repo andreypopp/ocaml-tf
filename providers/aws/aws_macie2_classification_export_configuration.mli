@@ -17,7 +17,7 @@ type aws_macie2_classification_export_configuration
 
 val aws_macie2_classification_export_configuration :
   ?id:string prop ->
-  s3_destination:s3_destination list ->
+  ?s3_destination:s3_destination list ->
   unit ->
   aws_macie2_classification_export_configuration
 
@@ -31,12 +31,12 @@ type t = private { id : string prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  s3_destination:s3_destination list ->
+  ?s3_destination:s3_destination list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  s3_destination:s3_destination list ->
+  ?s3_destination:s3_destination list ->
   string ->
   t Tf_core.resource

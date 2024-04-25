@@ -109,7 +109,7 @@ let condition ~key ~type_ ~value () : condition =
   { key; type_; value }
 
 let aws_cloudwatch_event_permission ?action ?event_bus_name ?id
-    ~principal ~statement_id ~condition () :
+    ?(condition = []) ~principal ~statement_id () :
     aws_cloudwatch_event_permission =
   { action; event_bus_name; id; principal; statement_id; condition }
 
@@ -121,8 +121,8 @@ type t = {
   statement_id : string prop;
 }
 
-let make ?action ?event_bus_name ?id ~principal ~statement_id
-    ~condition __id =
+let make ?action ?event_bus_name ?id ?(condition = []) ~principal
+    ~statement_id __id =
   let __type = "aws_cloudwatch_event_permission" in
   let __attrs =
     ({
@@ -140,15 +140,15 @@ let make ?action ?event_bus_name ?id ~principal ~statement_id
     json =
       yojson_of_aws_cloudwatch_event_permission
         (aws_cloudwatch_event_permission ?action ?event_bus_name ?id
-           ~principal ~statement_id ~condition ());
+           ~condition ~principal ~statement_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?action ?event_bus_name ?id ~principal
-    ~statement_id ~condition __id =
+let register ?tf_module ?action ?event_bus_name ?id ?(condition = [])
+    ~principal ~statement_id __id =
   let (r : _ Tf_core.resource) =
-    make ?action ?event_bus_name ?id ~principal ~statement_id
-      ~condition __id
+    make ?action ?event_bus_name ?id ~condition ~principal
+      ~statement_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

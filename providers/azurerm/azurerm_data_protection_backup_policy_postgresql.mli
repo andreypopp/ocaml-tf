@@ -39,13 +39,13 @@ type azurerm_data_protection_backup_policy_postgresql
 val azurerm_data_protection_backup_policy_postgresql :
   ?id:string prop ->
   ?time_zone:string prop ->
+  ?retention_rule:retention_rule list ->
   ?timeouts:timeouts ->
   backup_repeating_time_intervals:string prop list ->
   default_retention_duration:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   vault_name:string prop ->
-  retention_rule:retention_rule list ->
   unit ->
   azurerm_data_protection_backup_policy_postgresql
 
@@ -68,25 +68,25 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?time_zone:string prop ->
+  ?retention_rule:retention_rule list ->
   ?timeouts:timeouts ->
   backup_repeating_time_intervals:string prop list ->
   default_retention_duration:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   vault_name:string prop ->
-  retention_rule:retention_rule list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?time_zone:string prop ->
+  ?retention_rule:retention_rule list ->
   ?timeouts:timeouts ->
   backup_repeating_time_intervals:string prop list ->
   default_retention_duration:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   vault_name:string prop ->
-  retention_rule:retention_rule list ->
   string ->
   t Tf_core.resource

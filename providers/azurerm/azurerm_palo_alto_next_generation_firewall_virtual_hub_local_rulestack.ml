@@ -400,8 +400,8 @@ let destination_nat__frontend_config ~port ~public_ip_address_id () :
     destination_nat__frontend_config =
   { port; public_ip_address_id }
 
-let destination_nat ~name ~protocol ~backend_config ~frontend_config
-    () : destination_nat =
+let destination_nat ?(backend_config = []) ?(frontend_config = [])
+    ~name ~protocol () : destination_nat =
   { name; protocol; backend_config; frontend_config }
 
 let dns_settings ?dns_servers ?use_azure_dns () : dns_settings =
@@ -422,8 +422,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack
-    ?id ?tags ?timeouts ~name ~resource_group_name ~rulestack_id
-    ~destination_nat ~dns_settings ~network_profile () :
+    ?id ?tags ?(destination_nat = []) ?(dns_settings = []) ?timeouts
+    ~name ~resource_group_name ~rulestack_id ~network_profile () :
     azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack
     =
   {
@@ -446,8 +446,9 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?id ?tags ?timeouts ~name ~resource_group_name ~rulestack_id
-    ~destination_nat ~dns_settings ~network_profile __id =
+let make ?id ?tags ?(destination_nat = []) ?(dns_settings = [])
+    ?timeouts ~name ~resource_group_name ~rulestack_id
+    ~network_profile __id =
   let __type =
     "azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack"
   in
@@ -468,18 +469,17 @@ let make ?id ?tags ?timeouts ~name ~resource_group_name ~rulestack_id
     json =
       yojson_of_azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack
         (azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack
-           ?id ?tags ?timeouts ~name ~resource_group_name
-           ~rulestack_id ~destination_nat ~dns_settings
-           ~network_profile ());
+           ?id ?tags ~destination_nat ~dns_settings ?timeouts ~name
+           ~resource_group_name ~rulestack_id ~network_profile ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?timeouts ~name
-    ~resource_group_name ~rulestack_id ~destination_nat ~dns_settings
-    ~network_profile __id =
+let register ?tf_module ?id ?tags ?(destination_nat = [])
+    ?(dns_settings = []) ?timeouts ~name ~resource_group_name
+    ~rulestack_id ~network_profile __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?timeouts ~name ~resource_group_name ~rulestack_id
-      ~destination_nat ~dns_settings ~network_profile __id
+    make ?id ?tags ~destination_nat ~dns_settings ?timeouts ~name
+      ~resource_group_name ~rulestack_id ~network_profile __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

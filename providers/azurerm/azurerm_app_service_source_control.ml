@@ -315,7 +315,7 @@ let github_action_configuration__container_configuration
   { image_name; registry_password; registry_url; registry_username }
 
 let github_action_configuration ?generate_workflow_file
-    ~code_configuration ~container_configuration () :
+    ?(code_configuration = []) ?(container_configuration = []) () :
     github_action_configuration =
   {
     generate_workflow_file;
@@ -328,8 +328,8 @@ let timeouts ?create ?delete ?read () : timeouts =
 
 let azurerm_app_service_source_control ?branch ?id ?repo_url
     ?rollback_enabled ?use_local_git ?use_manual_integration
-    ?use_mercurial ?timeouts ~app_id ~github_action_configuration ()
-    : azurerm_app_service_source_control =
+    ?use_mercurial ?(github_action_configuration = []) ?timeouts
+    ~app_id () : azurerm_app_service_source_control =
   {
     app_id;
     branch;
@@ -357,8 +357,8 @@ type t = {
 }
 
 let make ?branch ?id ?repo_url ?rollback_enabled ?use_local_git
-    ?use_manual_integration ?use_mercurial ?timeouts ~app_id
-    ~github_action_configuration __id =
+    ?use_manual_integration ?use_mercurial
+    ?(github_action_configuration = []) ?timeouts ~app_id __id =
   let __type = "azurerm_app_service_source_control" in
   let __attrs =
     ({
@@ -385,18 +385,18 @@ let make ?branch ?id ?repo_url ?rollback_enabled ?use_local_git
       yojson_of_azurerm_app_service_source_control
         (azurerm_app_service_source_control ?branch ?id ?repo_url
            ?rollback_enabled ?use_local_git ?use_manual_integration
-           ?use_mercurial ?timeouts ~app_id
-           ~github_action_configuration ());
+           ?use_mercurial ~github_action_configuration ?timeouts
+           ~app_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?branch ?id ?repo_url ?rollback_enabled
-    ?use_local_git ?use_manual_integration ?use_mercurial ?timeouts
-    ~app_id ~github_action_configuration __id =
+    ?use_local_git ?use_manual_integration ?use_mercurial
+    ?(github_action_configuration = []) ?timeouts ~app_id __id =
   let (r : _ Tf_core.resource) =
     make ?branch ?id ?repo_url ?rollback_enabled ?use_local_git
-      ?use_manual_integration ?use_mercurial ?timeouts ~app_id
-      ~github_action_configuration __id
+      ?use_manual_integration ?use_mercurial
+      ~github_action_configuration ?timeouts ~app_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

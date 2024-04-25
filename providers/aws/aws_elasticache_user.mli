@@ -30,12 +30,12 @@ val aws_elasticache_user :
   ?passwords:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?authentication_mode:authentication_mode list ->
   ?timeouts:timeouts ->
   access_string:string prop ->
   engine:string prop ->
   user_id:string prop ->
   user_name:string prop ->
-  authentication_mode:authentication_mode list ->
   unit ->
   aws_elasticache_user
 
@@ -63,12 +63,12 @@ val register :
   ?passwords:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?authentication_mode:authentication_mode list ->
   ?timeouts:timeouts ->
   access_string:string prop ->
   engine:string prop ->
   user_id:string prop ->
   user_name:string prop ->
-  authentication_mode:authentication_mode list ->
   string ->
   t
 
@@ -78,11 +78,11 @@ val make :
   ?passwords:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?authentication_mode:authentication_mode list ->
   ?timeouts:timeouts ->
   access_string:string prop ->
   engine:string prop ->
   user_id:string prop ->
   user_name:string prop ->
-  authentication_mode:authentication_mode list ->
   string ->
   t Tf_core.resource

@@ -46,10 +46,10 @@ val outpost_config__control_plane_placement :
 type outpost_config
 
 val outpost_config :
+  ?control_plane_placement:
+    outpost_config__control_plane_placement list ->
   control_plane_instance_type:string prop ->
   outpost_arns:string prop list ->
-  control_plane_placement:
-    outpost_config__control_plane_placement list ->
   unit ->
   outpost_config
 
@@ -81,13 +81,13 @@ val aws_eks_cluster :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?version:string prop ->
+  ?access_config:access_config list ->
+  ?encryption_config:encryption_config list ->
+  ?kubernetes_network_config:kubernetes_network_config list ->
+  ?outpost_config:outpost_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   role_arn:string prop ->
-  access_config:access_config list ->
-  encryption_config:encryption_config list ->
-  kubernetes_network_config:kubernetes_network_config list ->
-  outpost_config:outpost_config list ->
   vpc_config:vpc_config list ->
   unit ->
   aws_eks_cluster
@@ -121,13 +121,13 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?version:string prop ->
+  ?access_config:access_config list ->
+  ?encryption_config:encryption_config list ->
+  ?kubernetes_network_config:kubernetes_network_config list ->
+  ?outpost_config:outpost_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   role_arn:string prop ->
-  access_config:access_config list ->
-  encryption_config:encryption_config list ->
-  kubernetes_network_config:kubernetes_network_config list ->
-  outpost_config:outpost_config list ->
   vpc_config:vpc_config list ->
   string ->
   t
@@ -138,13 +138,13 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?version:string prop ->
+  ?access_config:access_config list ->
+  ?encryption_config:encryption_config list ->
+  ?kubernetes_network_config:kubernetes_network_config list ->
+  ?outpost_config:outpost_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   role_arn:string prop ->
-  access_config:access_config list ->
-  encryption_config:encryption_config list ->
-  kubernetes_network_config:kubernetes_network_config list ->
-  outpost_config:outpost_config list ->
   vpc_config:vpc_config list ->
   string ->
   t Tf_core.resource

@@ -753,7 +753,7 @@ let site_config ?always_on ?app_scale_limit ?dotnet_framework_version
     ?runtime_scale_monitoring_enabled ?scm_ip_restriction
     ?scm_min_tls_version ?scm_type ?scm_use_main_ip_restriction
     ?use_32_bit_worker_process ?vnet_route_all_enabled
-    ?websockets_enabled ~cors () : site_config =
+    ?websockets_enabled ?(cors = []) () : site_config =
   {
     always_on;
     app_scale_limit;
@@ -780,9 +780,9 @@ let site_config ?always_on ?app_scale_limit ?dotnet_framework_version
 
 let timeouts ?read () : timeouts = { read }
 
-let azurerm_logic_app_standard ?id ?tags ?timeouts ~name
-    ~resource_group_name ~site_config () : azurerm_logic_app_standard
-    =
+let azurerm_logic_app_standard ?id ?tags ?(site_config = [])
+    ?timeouts ~name ~resource_group_name () :
+    azurerm_logic_app_standard =
   { id; name; resource_group_name; tags; site_config; timeouts }
 
 type t = {
@@ -814,8 +814,8 @@ type t = {
   virtual_network_subnet_id : string prop;
 }
 
-let make ?id ?tags ?timeouts ~name ~resource_group_name ~site_config
-    __id =
+let make ?id ?tags ?(site_config = []) ?timeouts ~name
+    ~resource_group_name __id =
   let __type = "azurerm_logic_app_standard" in
   let __attrs =
     ({
@@ -867,15 +867,15 @@ let make ?id ?tags ?timeouts ~name ~resource_group_name ~site_config
     type_ = __type;
     json =
       yojson_of_azurerm_logic_app_standard
-        (azurerm_logic_app_standard ?id ?tags ?timeouts ~name
-           ~resource_group_name ~site_config ());
+        (azurerm_logic_app_standard ?id ?tags ~site_config ?timeouts
+           ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?timeouts ~name
-    ~resource_group_name ~site_config __id =
+let register ?tf_module ?id ?tags ?(site_config = []) ?timeouts ~name
+    ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?timeouts ~name ~resource_group_name ~site_config
+    make ?id ?tags ~site_config ?timeouts ~name ~resource_group_name
       __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

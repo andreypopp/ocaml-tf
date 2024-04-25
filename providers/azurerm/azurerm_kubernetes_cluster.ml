@@ -3994,7 +3994,7 @@ let default_node_pool__linux_os_config__sysctl_config ?fs_aio_max_nr
 
 let default_node_pool__linux_os_config ?swap_file_size_mb
     ?transparent_huge_page_defrag ?transparent_huge_page_enabled
-    ~sysctl_config () : default_node_pool__linux_os_config =
+    ?(sysctl_config = []) () : default_node_pool__linux_os_config =
   {
     swap_file_size_mb;
     transparent_huge_page_defrag;
@@ -4009,8 +4009,8 @@ let default_node_pool__node_network_profile__allowed_host_ports
 
 let default_node_pool__node_network_profile
     ?application_security_group_ids ?node_public_ip_tags
-    ~allowed_host_ports () : default_node_pool__node_network_profile
-    =
+    ?(allowed_host_ports = []) () :
+    default_node_pool__node_network_profile =
   {
     application_security_group_ids;
     node_public_ip_tags;
@@ -4031,9 +4031,9 @@ let default_node_pool ?capacity_reservation_group_id
     ?os_disk_size_gb ?os_disk_type ?os_sku ?pod_subnet_id
     ?proximity_placement_group_id ?scale_down_mode ?snapshot_id ?tags
     ?temporary_name_for_rotation ?type_ ?ultra_ssd_enabled
-    ?vnet_subnet_id ?workload_runtime ?zones ~name ~vm_size
-    ~kubelet_config ~linux_os_config ~node_network_profile
-    ~upgrade_settings () : default_node_pool =
+    ?vnet_subnet_id ?workload_runtime ?zones ?(kubelet_config = [])
+    ?(linux_os_config = []) ?(node_network_profile = [])
+    ?(upgrade_settings = []) ~name ~vm_size () : default_node_pool =
   {
     capacity_reservation_group_id;
     custom_ca_trust_enabled;
@@ -4188,9 +4188,9 @@ let network_profile__nat_gateway_profile ?idle_timeout_in_minutes
 let network_profile ?dns_service_ip ?docker_bridge_cidr
     ?ebpf_data_plane ?ip_versions ?load_balancer_sku ?network_mode
     ?network_plugin_mode ?network_policy ?outbound_type ?pod_cidr
-    ?pod_cidrs ?service_cidr ?service_cidrs ~network_plugin
-    ~load_balancer_profile ~nat_gateway_profile () : network_profile
-    =
+    ?pod_cidrs ?service_cidr ?service_cidrs
+    ?(load_balancer_profile = []) ?(nat_gateway_profile = [])
+    ~network_plugin () : network_profile =
   {
     dns_service_ip;
     docker_bridge_cidr;
@@ -4248,8 +4248,8 @@ let windows_profile__gmsa ~dns_server ~root_domain () :
     windows_profile__gmsa =
   { dns_server; root_domain }
 
-let windows_profile ?admin_password ?license ~admin_username ~gmsa ()
-    : windows_profile =
+let windows_profile ?admin_password ?license ?(gmsa = [])
+    ~admin_username () : windows_profile =
   { admin_password; admin_username; license; gmsa }
 
 let workload_autoscaler_profile ?keda_enabled
@@ -4269,18 +4269,22 @@ let azurerm_kubernetes_cluster ?api_server_authorized_ip_ranges
     ?private_cluster_enabled ?private_cluster_public_fqdn_enabled
     ?private_dns_zone_id ?public_network_access_enabled
     ?role_based_access_control_enabled ?run_command_enabled ?sku_tier
-    ?support_plan ?tags ?workload_identity_enabled ?timeouts
-    ~location ~name ~resource_group_name ~aci_connector_linux
-    ~api_server_access_profile ~auto_scaler_profile
-    ~azure_active_directory_role_based_access_control
-    ~confidential_computing ~default_node_pool ~http_proxy_config
-    ~identity ~ingress_application_gateway ~key_management_service
-    ~key_vault_secrets_provider ~kubelet_identity ~linux_profile
-    ~maintenance_window ~maintenance_window_auto_upgrade
-    ~maintenance_window_node_os ~microsoft_defender ~monitor_metrics
-    ~network_profile ~oms_agent ~service_mesh_profile
-    ~service_principal ~storage_profile ~web_app_routing
-    ~windows_profile ~workload_autoscaler_profile () :
+    ?support_plan ?tags ?workload_identity_enabled
+    ?(aci_connector_linux = []) ?(api_server_access_profile = [])
+    ?(auto_scaler_profile = [])
+    ?(azure_active_directory_role_based_access_control = [])
+    ?(confidential_computing = []) ?(http_proxy_config = [])
+    ?(identity = []) ?(ingress_application_gateway = [])
+    ?(key_management_service = []) ?(key_vault_secrets_provider = [])
+    ?(kubelet_identity = []) ?(linux_profile = [])
+    ?(maintenance_window = [])
+    ?(maintenance_window_auto_upgrade = [])
+    ?(maintenance_window_node_os = []) ?(microsoft_defender = [])
+    ?(monitor_metrics = []) ?(network_profile = []) ?(oms_agent = [])
+    ?(service_mesh_profile = []) ?(service_principal = [])
+    ?(storage_profile = []) ?timeouts ?(web_app_routing = [])
+    ?(windows_profile = []) ?(workload_autoscaler_profile = [])
+    ~location ~name ~resource_group_name ~default_node_pool () :
     azurerm_kubernetes_cluster =
   {
     api_server_authorized_ip_ranges;
@@ -4402,18 +4406,21 @@ let make ?api_server_authorized_ip_ranges ?automatic_channel_upgrade
     ?private_cluster_public_fqdn_enabled ?private_dns_zone_id
     ?public_network_access_enabled ?role_based_access_control_enabled
     ?run_command_enabled ?sku_tier ?support_plan ?tags
-    ?workload_identity_enabled ?timeouts ~location ~name
-    ~resource_group_name ~aci_connector_linux
-    ~api_server_access_profile ~auto_scaler_profile
-    ~azure_active_directory_role_based_access_control
-    ~confidential_computing ~default_node_pool ~http_proxy_config
-    ~identity ~ingress_application_gateway ~key_management_service
-    ~key_vault_secrets_provider ~kubelet_identity ~linux_profile
-    ~maintenance_window ~maintenance_window_auto_upgrade
-    ~maintenance_window_node_os ~microsoft_defender ~monitor_metrics
-    ~network_profile ~oms_agent ~service_mesh_profile
-    ~service_principal ~storage_profile ~web_app_routing
-    ~windows_profile ~workload_autoscaler_profile __id =
+    ?workload_identity_enabled ?(aci_connector_linux = [])
+    ?(api_server_access_profile = []) ?(auto_scaler_profile = [])
+    ?(azure_active_directory_role_based_access_control = [])
+    ?(confidential_computing = []) ?(http_proxy_config = [])
+    ?(identity = []) ?(ingress_application_gateway = [])
+    ?(key_management_service = []) ?(key_vault_secrets_provider = [])
+    ?(kubelet_identity = []) ?(linux_profile = [])
+    ?(maintenance_window = [])
+    ?(maintenance_window_auto_upgrade = [])
+    ?(maintenance_window_node_os = []) ?(microsoft_defender = [])
+    ?(monitor_metrics = []) ?(network_profile = []) ?(oms_agent = [])
+    ?(service_mesh_profile = []) ?(service_principal = [])
+    ?(storage_profile = []) ?timeouts ?(web_app_routing = [])
+    ?(windows_profile = []) ?(workload_autoscaler_profile = [])
+    ~location ~name ~resource_group_name ~default_node_pool __id =
   let __type = "azurerm_kubernetes_cluster" in
   let __attrs =
     ({
@@ -4517,20 +4524,20 @@ let make ?api_server_authorized_ip_ranges ?automatic_channel_upgrade
            ?public_network_access_enabled
            ?role_based_access_control_enabled ?run_command_enabled
            ?sku_tier ?support_plan ?tags ?workload_identity_enabled
-           ?timeouts ~location ~name ~resource_group_name
            ~aci_connector_linux ~api_server_access_profile
            ~auto_scaler_profile
            ~azure_active_directory_role_based_access_control
-           ~confidential_computing ~default_node_pool
-           ~http_proxy_config ~identity ~ingress_application_gateway
-           ~key_management_service ~key_vault_secrets_provider
-           ~kubelet_identity ~linux_profile ~maintenance_window
+           ~confidential_computing ~http_proxy_config ~identity
+           ~ingress_application_gateway ~key_management_service
+           ~key_vault_secrets_provider ~kubelet_identity
+           ~linux_profile ~maintenance_window
            ~maintenance_window_auto_upgrade
            ~maintenance_window_node_os ~microsoft_defender
            ~monitor_metrics ~network_profile ~oms_agent
            ~service_mesh_profile ~service_principal ~storage_profile
-           ~web_app_routing ~windows_profile
-           ~workload_autoscaler_profile ());
+           ?timeouts ~web_app_routing ~windows_profile
+           ~workload_autoscaler_profile ~location ~name
+           ~resource_group_name ~default_node_pool ());
     attrs = __attrs;
   }
 
@@ -4546,18 +4553,22 @@ let register ?tf_module ?api_server_authorized_ip_ranges
     ?private_cluster_enabled ?private_cluster_public_fqdn_enabled
     ?private_dns_zone_id ?public_network_access_enabled
     ?role_based_access_control_enabled ?run_command_enabled ?sku_tier
-    ?support_plan ?tags ?workload_identity_enabled ?timeouts
-    ~location ~name ~resource_group_name ~aci_connector_linux
-    ~api_server_access_profile ~auto_scaler_profile
-    ~azure_active_directory_role_based_access_control
-    ~confidential_computing ~default_node_pool ~http_proxy_config
-    ~identity ~ingress_application_gateway ~key_management_service
-    ~key_vault_secrets_provider ~kubelet_identity ~linux_profile
-    ~maintenance_window ~maintenance_window_auto_upgrade
-    ~maintenance_window_node_os ~microsoft_defender ~monitor_metrics
-    ~network_profile ~oms_agent ~service_mesh_profile
-    ~service_principal ~storage_profile ~web_app_routing
-    ~windows_profile ~workload_autoscaler_profile __id =
+    ?support_plan ?tags ?workload_identity_enabled
+    ?(aci_connector_linux = []) ?(api_server_access_profile = [])
+    ?(auto_scaler_profile = [])
+    ?(azure_active_directory_role_based_access_control = [])
+    ?(confidential_computing = []) ?(http_proxy_config = [])
+    ?(identity = []) ?(ingress_application_gateway = [])
+    ?(key_management_service = []) ?(key_vault_secrets_provider = [])
+    ?(kubelet_identity = []) ?(linux_profile = [])
+    ?(maintenance_window = [])
+    ?(maintenance_window_auto_upgrade = [])
+    ?(maintenance_window_node_os = []) ?(microsoft_defender = [])
+    ?(monitor_metrics = []) ?(network_profile = []) ?(oms_agent = [])
+    ?(service_mesh_profile = []) ?(service_principal = [])
+    ?(storage_profile = []) ?timeouts ?(web_app_routing = [])
+    ?(windows_profile = []) ?(workload_autoscaler_profile = [])
+    ~location ~name ~resource_group_name ~default_node_pool __id =
   let (r : _ Tf_core.resource) =
     make ?api_server_authorized_ip_ranges ?automatic_channel_upgrade
       ?azure_policy_enabled ?custom_ca_trust_certificates_base64
@@ -4572,19 +4583,19 @@ let register ?tf_module ?api_server_authorized_ip_ranges
       ?public_network_access_enabled
       ?role_based_access_control_enabled ?run_command_enabled
       ?sku_tier ?support_plan ?tags ?workload_identity_enabled
-      ?timeouts ~location ~name ~resource_group_name
       ~aci_connector_linux ~api_server_access_profile
       ~auto_scaler_profile
       ~azure_active_directory_role_based_access_control
-      ~confidential_computing ~default_node_pool ~http_proxy_config
-      ~identity ~ingress_application_gateway ~key_management_service
+      ~confidential_computing ~http_proxy_config ~identity
+      ~ingress_application_gateway ~key_management_service
       ~key_vault_secrets_provider ~kubelet_identity ~linux_profile
       ~maintenance_window ~maintenance_window_auto_upgrade
       ~maintenance_window_node_os ~microsoft_defender
       ~monitor_metrics ~network_profile ~oms_agent
       ~service_mesh_profile ~service_principal ~storage_profile
-      ~web_app_routing ~windows_profile ~workload_autoscaler_profile
-      __id
+      ?timeouts ~web_app_routing ~windows_profile
+      ~workload_autoscaler_profile ~location ~name
+      ~resource_group_name ~default_node_pool __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

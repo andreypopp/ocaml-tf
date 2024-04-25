@@ -351,10 +351,10 @@ let timeouts ?create ?delete ?read () : timeouts =
 
 let azurerm_machine_learning_compute_cluster ?description ?id
     ?local_auth_enabled ?node_public_ip_enabled
-    ?ssh_public_access_enabled ?subnet_resource_id ?tags ?timeouts
-    ~location ~machine_learning_workspace_id ~name ~vm_priority
-    ~vm_size ~identity ~scale_settings ~ssh () :
-    azurerm_machine_learning_compute_cluster =
+    ?ssh_public_access_enabled ?subnet_resource_id ?tags
+    ?(identity = []) ?(ssh = []) ?timeouts ~location
+    ~machine_learning_workspace_id ~name ~vm_priority ~vm_size
+    ~scale_settings () : azurerm_machine_learning_compute_cluster =
   {
     description;
     id;
@@ -390,9 +390,10 @@ type t = {
 }
 
 let make ?description ?id ?local_auth_enabled ?node_public_ip_enabled
-    ?ssh_public_access_enabled ?subnet_resource_id ?tags ?timeouts
-    ~location ~machine_learning_workspace_id ~name ~vm_priority
-    ~vm_size ~identity ~scale_settings ~ssh __id =
+    ?ssh_public_access_enabled ?subnet_resource_id ?tags
+    ?(identity = []) ?(ssh = []) ?timeouts ~location
+    ~machine_learning_workspace_id ~name ~vm_priority ~vm_size
+    ~scale_settings __id =
   let __type = "azurerm_machine_learning_compute_cluster" in
   let __attrs =
     ({
@@ -424,21 +425,22 @@ let make ?description ?id ?local_auth_enabled ?node_public_ip_enabled
         (azurerm_machine_learning_compute_cluster ?description ?id
            ?local_auth_enabled ?node_public_ip_enabled
            ?ssh_public_access_enabled ?subnet_resource_id ?tags
-           ?timeouts ~location ~machine_learning_workspace_id ~name
-           ~vm_priority ~vm_size ~identity ~scale_settings ~ssh ());
+           ~identity ~ssh ?timeouts ~location
+           ~machine_learning_workspace_id ~name ~vm_priority ~vm_size
+           ~scale_settings ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?local_auth_enabled
     ?node_public_ip_enabled ?ssh_public_access_enabled
-    ?subnet_resource_id ?tags ?timeouts ~location
-    ~machine_learning_workspace_id ~name ~vm_priority ~vm_size
-    ~identity ~scale_settings ~ssh __id =
+    ?subnet_resource_id ?tags ?(identity = []) ?(ssh = []) ?timeouts
+    ~location ~machine_learning_workspace_id ~name ~vm_priority
+    ~vm_size ~scale_settings __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?local_auth_enabled ?node_public_ip_enabled
-      ?ssh_public_access_enabled ?subnet_resource_id ?tags ?timeouts
-      ~location ~machine_learning_workspace_id ~name ~vm_priority
-      ~vm_size ~identity ~scale_settings ~ssh __id
+      ?ssh_public_access_enabled ?subnet_resource_id ?tags ~identity
+      ~ssh ?timeouts ~location ~machine_learning_workspace_id ~name
+      ~vm_priority ~vm_size ~scale_settings __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

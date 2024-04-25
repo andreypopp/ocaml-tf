@@ -535,7 +535,7 @@ let action__forward__target_groups ?weight ~target_group_identifier
 let action__forward ~target_groups () : action__forward =
   { target_groups }
 
-let action ~fixed_response ~forward () : action =
+let action ?(fixed_response = []) ?(forward = []) () : action =
   { fixed_response; forward }
 
 let match__http_match__header_matches__match ?contains ?exact ?prefix
@@ -554,11 +554,11 @@ let match__http_match__path_match ?case_sensitive ~match_ () :
     match__http_match__path_match =
   { case_sensitive; match_ }
 
-let match__http_match ?method_ ~header_matches ~path_match () :
-    match__http_match =
+let match__http_match ?method_ ?(header_matches = [])
+    ?(path_match = []) () : match__http_match =
   { method_; header_matches; path_match }
 
-let match_ ~http_match () : match_ = { http_match }
+let match_ ?(http_match = []) () : match_ = { http_match }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

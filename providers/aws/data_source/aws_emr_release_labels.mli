@@ -13,7 +13,7 @@ type aws_emr_release_labels
 
 val aws_emr_release_labels :
   ?id:string prop ->
-  filters:filters list ->
+  ?filters:filters list ->
   unit ->
   aws_emr_release_labels
 
@@ -29,12 +29,12 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  filters:filters list ->
+  ?filters:filters list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  filters:filters list ->
+  ?filters:filters list ->
   string ->
   t Tf_core.resource

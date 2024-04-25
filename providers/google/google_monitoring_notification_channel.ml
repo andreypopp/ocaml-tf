@@ -245,7 +245,7 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_monitoring_notification_channel ?description ?display_name
     ?enabled ?force_delete ?id ?labels ?project ?user_labels
-    ?timeouts ~type_ ~sensitive_labels () :
+    ?(sensitive_labels = []) ?timeouts ~type_ () :
     google_monitoring_notification_channel =
   {
     description;
@@ -276,8 +276,8 @@ type t = {
 }
 
 let make ?description ?display_name ?enabled ?force_delete ?id
-    ?labels ?project ?user_labels ?timeouts ~type_ ~sensitive_labels
-    __id =
+    ?labels ?project ?user_labels ?(sensitive_labels = []) ?timeouts
+    ~type_ __id =
   let __type = "google_monitoring_notification_channel" in
   let __attrs =
     ({
@@ -303,17 +303,17 @@ let make ?description ?display_name ?enabled ?force_delete ?id
       yojson_of_google_monitoring_notification_channel
         (google_monitoring_notification_channel ?description
            ?display_name ?enabled ?force_delete ?id ?labels ?project
-           ?user_labels ?timeouts ~type_ ~sensitive_labels ());
+           ?user_labels ~sensitive_labels ?timeouts ~type_ ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?display_name ?enabled
-    ?force_delete ?id ?labels ?project ?user_labels ?timeouts ~type_
-    ~sensitive_labels __id =
+    ?force_delete ?id ?labels ?project ?user_labels
+    ?(sensitive_labels = []) ?timeouts ~type_ __id =
   let (r : _ Tf_core.resource) =
     make ?description ?display_name ?enabled ?force_delete ?id
-      ?labels ?project ?user_labels ?timeouts ~type_
-      ~sensitive_labels __id
+      ?labels ?project ?user_labels ~sensitive_labels ?timeouts
+      ~type_ __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

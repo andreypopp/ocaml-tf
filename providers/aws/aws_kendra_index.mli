@@ -55,10 +55,10 @@ val document_metadata_configuration_updates__search :
 type document_metadata_configuration_updates
 
 val document_metadata_configuration_updates :
+  ?relevance:document_metadata_configuration_updates__relevance list ->
+  ?search:document_metadata_configuration_updates__search list ->
   name:string prop ->
   type_:string prop ->
-  relevance:document_metadata_configuration_updates__relevance list ->
-  search:document_metadata_configuration_updates__search list ->
   unit ->
   document_metadata_configuration_updates
 
@@ -109,9 +109,9 @@ val user_token_configurations__jwt_token_type_configuration :
 type user_token_configurations
 
 val user_token_configurations :
-  json_token_type_configuration:
+  ?json_token_type_configuration:
     user_token_configurations__json_token_type_configuration list ->
-  jwt_token_type_configuration:
+  ?jwt_token_type_configuration:
     user_token_configurations__jwt_token_type_configuration list ->
   unit ->
   user_token_configurations
@@ -125,17 +125,17 @@ val aws_kendra_index :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?user_context_policy:string prop ->
+  ?capacity_units:capacity_units list ->
+  ?server_side_encryption_configuration:
+    server_side_encryption_configuration list ->
   ?timeouts:timeouts ->
+  ?user_group_resolution_configuration:
+    user_group_resolution_configuration list ->
+  ?user_token_configurations:user_token_configurations list ->
   name:string prop ->
   role_arn:string prop ->
-  capacity_units:capacity_units list ->
   document_metadata_configuration_updates:
     document_metadata_configuration_updates list ->
-  server_side_encryption_configuration:
-    server_side_encryption_configuration list ->
-  user_group_resolution_configuration:
-    user_group_resolution_configuration list ->
-  user_token_configurations:user_token_configurations list ->
   unit ->
   aws_kendra_index
 
@@ -168,17 +168,17 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?user_context_policy:string prop ->
+  ?capacity_units:capacity_units list ->
+  ?server_side_encryption_configuration:
+    server_side_encryption_configuration list ->
   ?timeouts:timeouts ->
+  ?user_group_resolution_configuration:
+    user_group_resolution_configuration list ->
+  ?user_token_configurations:user_token_configurations list ->
   name:string prop ->
   role_arn:string prop ->
-  capacity_units:capacity_units list ->
   document_metadata_configuration_updates:
     document_metadata_configuration_updates list ->
-  server_side_encryption_configuration:
-    server_side_encryption_configuration list ->
-  user_group_resolution_configuration:
-    user_group_resolution_configuration list ->
-  user_token_configurations:user_token_configurations list ->
   string ->
   t
 
@@ -189,16 +189,16 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?user_context_policy:string prop ->
+  ?capacity_units:capacity_units list ->
+  ?server_side_encryption_configuration:
+    server_side_encryption_configuration list ->
   ?timeouts:timeouts ->
+  ?user_group_resolution_configuration:
+    user_group_resolution_configuration list ->
+  ?user_token_configurations:user_token_configurations list ->
   name:string prop ->
   role_arn:string prop ->
-  capacity_units:capacity_units list ->
   document_metadata_configuration_updates:
     document_metadata_configuration_updates list ->
-  server_side_encryption_configuration:
-    server_side_encryption_configuration list ->
-  user_group_resolution_configuration:
-    user_group_resolution_configuration list ->
-  user_token_configurations:user_token_configurations list ->
   string ->
   t Tf_core.resource

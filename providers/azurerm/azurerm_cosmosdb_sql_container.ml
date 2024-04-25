@@ -528,8 +528,9 @@ let indexing_policy__spatial_index ~path () :
     indexing_policy__spatial_index =
   { path }
 
-let indexing_policy ?indexing_mode ~composite_index ~excluded_path
-    ~included_path ~spatial_index () : indexing_policy =
+let indexing_policy ?indexing_mode ?(composite_index = [])
+    ?(excluded_path = []) ?(included_path = []) ?(spatial_index = [])
+    () : indexing_policy =
   {
     indexing_mode;
     composite_index;
@@ -544,10 +545,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let unique_key ~paths () : unique_key = { paths }
 
 let azurerm_cosmosdb_sql_container ?analytical_storage_ttl
-    ?default_ttl ?id ?partition_key_version ?throughput ?timeouts
-    ~account_name ~database_name ~name ~partition_key_path
-    ~resource_group_name ~autoscale_settings
-    ~conflict_resolution_policy ~indexing_policy ~unique_key () :
+    ?default_ttl ?id ?partition_key_version ?throughput
+    ?(autoscale_settings = []) ?(conflict_resolution_policy = [])
+    ?(indexing_policy = []) ?timeouts ~account_name ~database_name
+    ~name ~partition_key_path ~resource_group_name ~unique_key () :
     azurerm_cosmosdb_sql_container =
   {
     account_name;
@@ -581,10 +582,10 @@ type t = {
 }
 
 let make ?analytical_storage_ttl ?default_ttl ?id
-    ?partition_key_version ?throughput ?timeouts ~account_name
-    ~database_name ~name ~partition_key_path ~resource_group_name
-    ~autoscale_settings ~conflict_resolution_policy ~indexing_policy
-    ~unique_key __id =
+    ?partition_key_version ?throughput ?(autoscale_settings = [])
+    ?(conflict_resolution_policy = []) ?(indexing_policy = [])
+    ?timeouts ~account_name ~database_name ~name ~partition_key_path
+    ~resource_group_name ~unique_key __id =
   let __type = "azurerm_cosmosdb_sql_container" in
   let __attrs =
     ({
@@ -612,24 +613,24 @@ let make ?analytical_storage_ttl ?default_ttl ?id
       yojson_of_azurerm_cosmosdb_sql_container
         (azurerm_cosmosdb_sql_container ?analytical_storage_ttl
            ?default_ttl ?id ?partition_key_version ?throughput
-           ?timeouts ~account_name ~database_name ~name
-           ~partition_key_path ~resource_group_name
            ~autoscale_settings ~conflict_resolution_policy
-           ~indexing_policy ~unique_key ());
+           ~indexing_policy ?timeouts ~account_name ~database_name
+           ~name ~partition_key_path ~resource_group_name ~unique_key
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?analytical_storage_ttl ?default_ttl ?id
-    ?partition_key_version ?throughput ?timeouts ~account_name
-    ~database_name ~name ~partition_key_path ~resource_group_name
-    ~autoscale_settings ~conflict_resolution_policy ~indexing_policy
-    ~unique_key __id =
+    ?partition_key_version ?throughput ?(autoscale_settings = [])
+    ?(conflict_resolution_policy = []) ?(indexing_policy = [])
+    ?timeouts ~account_name ~database_name ~name ~partition_key_path
+    ~resource_group_name ~unique_key __id =
   let (r : _ Tf_core.resource) =
     make ?analytical_storage_ttl ?default_ttl ?id
-      ?partition_key_version ?throughput ?timeouts ~account_name
-      ~database_name ~name ~partition_key_path ~resource_group_name
-      ~autoscale_settings ~conflict_resolution_policy
-      ~indexing_policy ~unique_key __id
+      ?partition_key_version ?throughput ~autoscale_settings
+      ~conflict_resolution_policy ~indexing_policy ?timeouts
+      ~account_name ~database_name ~name ~partition_key_path
+      ~resource_group_name ~unique_key __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

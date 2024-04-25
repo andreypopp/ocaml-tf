@@ -25,10 +25,10 @@ type restore_config__cluster_resource_restore_scope
 val restore_config__cluster_resource_restore_scope :
   ?all_group_kinds:bool prop ->
   ?no_group_kinds:bool prop ->
-  excluded_group_kinds:
+  ?excluded_group_kinds:
     restore_config__cluster_resource_restore_scope__excluded_group_kinds
     list ->
-  selected_group_kinds:
+  ?selected_group_kinds:
     restore_config__cluster_resource_restore_scope__selected_group_kinds
     list ->
   unit ->
@@ -87,7 +87,7 @@ type restore_config__transformation_rules__resource_filter
 val restore_config__transformation_rules__resource_filter :
   ?json_path:string prop ->
   ?namespaces:string prop list ->
-  group_kinds:
+  ?group_kinds:
     restore_config__transformation_rules__resource_filter__group_kinds
     list ->
   unit ->
@@ -97,10 +97,10 @@ type restore_config__transformation_rules
 
 val restore_config__transformation_rules :
   ?description:string prop ->
+  ?resource_filter:
+    restore_config__transformation_rules__resource_filter list ->
   field_actions:
     restore_config__transformation_rules__field_actions list ->
-  resource_filter:
-    restore_config__transformation_rules__resource_filter list ->
   unit ->
   restore_config__transformation_rules
 
@@ -112,12 +112,12 @@ val restore_config :
   ?namespaced_resource_restore_mode:string prop ->
   ?no_namespaces:bool prop ->
   ?volume_data_restore_policy:string prop ->
-  cluster_resource_restore_scope:
+  ?cluster_resource_restore_scope:
     restore_config__cluster_resource_restore_scope list ->
-  excluded_namespaces:restore_config__excluded_namespaces list ->
-  selected_applications:restore_config__selected_applications list ->
-  selected_namespaces:restore_config__selected_namespaces list ->
-  transformation_rules:restore_config__transformation_rules list ->
+  ?excluded_namespaces:restore_config__excluded_namespaces list ->
+  ?selected_applications:restore_config__selected_applications list ->
+  ?selected_namespaces:restore_config__selected_namespaces list ->
+  ?transformation_rules:restore_config__transformation_rules list ->
   unit ->
   restore_config
 

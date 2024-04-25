@@ -281,8 +281,9 @@ let cloudflare_access_organization ?account_id
     ?allow_authenticate_via_warp ?auto_redirect_to_identity ?id
     ?is_ui_read_only ?name ?session_duration
     ?ui_read_only_toggle_reason ?user_seat_expiration_inactive_time
-    ?warp_auth_session_duration ?zone_id ~auth_domain ~custom_pages
-    ~login_design () : cloudflare_access_organization =
+    ?warp_auth_session_duration ?zone_id ?(custom_pages = [])
+    ?(login_design = []) ~auth_domain () :
+    cloudflare_access_organization =
   {
     account_id;
     allow_authenticate_via_warp;
@@ -319,7 +320,8 @@ let make ?account_id ?allow_authenticate_via_warp
     ?auto_redirect_to_identity ?id ?is_ui_read_only ?name
     ?session_duration ?ui_read_only_toggle_reason
     ?user_seat_expiration_inactive_time ?warp_auth_session_duration
-    ?zone_id ~auth_domain ~custom_pages ~login_design __id =
+    ?zone_id ?(custom_pages = []) ?(login_design = []) ~auth_domain
+    __id =
   let __type = "cloudflare_access_organization" in
   let __attrs =
     ({
@@ -355,8 +357,8 @@ let make ?account_id ?allow_authenticate_via_warp
            ?id ?is_ui_read_only ?name ?session_duration
            ?ui_read_only_toggle_reason
            ?user_seat_expiration_inactive_time
-           ?warp_auth_session_duration ?zone_id ~auth_domain
-           ~custom_pages ~login_design ());
+           ?warp_auth_session_duration ?zone_id ~custom_pages
+           ~login_design ~auth_domain ());
     attrs = __attrs;
   }
 
@@ -364,13 +366,14 @@ let register ?tf_module ?account_id ?allow_authenticate_via_warp
     ?auto_redirect_to_identity ?id ?is_ui_read_only ?name
     ?session_duration ?ui_read_only_toggle_reason
     ?user_seat_expiration_inactive_time ?warp_auth_session_duration
-    ?zone_id ~auth_domain ~custom_pages ~login_design __id =
+    ?zone_id ?(custom_pages = []) ?(login_design = []) ~auth_domain
+    __id =
   let (r : _ Tf_core.resource) =
     make ?account_id ?allow_authenticate_via_warp
       ?auto_redirect_to_identity ?id ?is_ui_read_only ?name
       ?session_duration ?ui_read_only_toggle_reason
       ?user_seat_expiration_inactive_time ?warp_auth_session_duration
-      ?zone_id ~auth_domain ~custom_pages ~login_design __id
+      ?zone_id ~custom_pages ~login_design ~auth_domain __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

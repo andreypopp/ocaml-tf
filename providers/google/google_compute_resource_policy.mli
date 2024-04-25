@@ -37,9 +37,9 @@ type instance_schedule_policy
 val instance_schedule_policy :
   ?expiration_time:string prop ->
   ?start_time:string prop ->
+  ?vm_start_schedule:instance_schedule_policy__vm_start_schedule list ->
+  ?vm_stop_schedule:instance_schedule_policy__vm_stop_schedule list ->
   time_zone:string prop ->
-  vm_start_schedule:instance_schedule_policy__vm_start_schedule list ->
-  vm_stop_schedule:instance_schedule_policy__vm_stop_schedule list ->
   unit ->
   instance_schedule_policy
 
@@ -87,11 +87,11 @@ val snapshot_schedule_policy__schedule__weekly_schedule :
 type snapshot_schedule_policy__schedule
 
 val snapshot_schedule_policy__schedule :
-  daily_schedule:
+  ?daily_schedule:
     snapshot_schedule_policy__schedule__daily_schedule list ->
-  hourly_schedule:
+  ?hourly_schedule:
     snapshot_schedule_policy__schedule__hourly_schedule list ->
-  weekly_schedule:
+  ?weekly_schedule:
     snapshot_schedule_policy__schedule__weekly_schedule list ->
   unit ->
   snapshot_schedule_policy__schedule
@@ -109,10 +109,10 @@ val snapshot_schedule_policy__snapshot_properties :
 type snapshot_schedule_policy
 
 val snapshot_schedule_policy :
-  retention_policy:snapshot_schedule_policy__retention_policy list ->
-  schedule:snapshot_schedule_policy__schedule list ->
-  snapshot_properties:
+  ?retention_policy:snapshot_schedule_policy__retention_policy list ->
+  ?snapshot_properties:
     snapshot_schedule_policy__snapshot_properties list ->
+  schedule:snapshot_schedule_policy__schedule list ->
   unit ->
   snapshot_schedule_policy
 
@@ -128,12 +128,12 @@ val google_compute_resource_policy :
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?disk_consistency_group_policy:disk_consistency_group_policy list ->
+  ?group_placement_policy:group_placement_policy list ->
+  ?instance_schedule_policy:instance_schedule_policy list ->
+  ?snapshot_schedule_policy:snapshot_schedule_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  disk_consistency_group_policy:disk_consistency_group_policy list ->
-  group_placement_policy:group_placement_policy list ->
-  instance_schedule_policy:instance_schedule_policy list ->
-  snapshot_schedule_policy:snapshot_schedule_policy list ->
   unit ->
   google_compute_resource_policy
 
@@ -157,12 +157,12 @@ val register :
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?disk_consistency_group_policy:disk_consistency_group_policy list ->
+  ?group_placement_policy:group_placement_policy list ->
+  ?instance_schedule_policy:instance_schedule_policy list ->
+  ?snapshot_schedule_policy:snapshot_schedule_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  disk_consistency_group_policy:disk_consistency_group_policy list ->
-  group_placement_policy:group_placement_policy list ->
-  instance_schedule_policy:instance_schedule_policy list ->
-  snapshot_schedule_policy:snapshot_schedule_policy list ->
   string ->
   t
 
@@ -171,11 +171,11 @@ val make :
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?disk_consistency_group_policy:disk_consistency_group_policy list ->
+  ?group_placement_policy:group_placement_policy list ->
+  ?instance_schedule_policy:instance_schedule_policy list ->
+  ?snapshot_schedule_policy:snapshot_schedule_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  disk_consistency_group_policy:disk_consistency_group_policy list ->
-  group_placement_policy:group_placement_policy list ->
-  instance_schedule_policy:instance_schedule_policy list ->
-  snapshot_schedule_policy:snapshot_schedule_policy list ->
   string ->
   t Tf_core.resource

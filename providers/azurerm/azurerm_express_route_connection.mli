@@ -18,7 +18,7 @@ val routing :
   ?associated_route_table_id:string prop ->
   ?inbound_route_map_id:string prop ->
   ?outbound_route_map_id:string prop ->
-  propagated_route_table:routing__propagated_route_table list ->
+  ?propagated_route_table:routing__propagated_route_table list ->
   unit ->
   routing
 
@@ -40,11 +40,11 @@ val azurerm_express_route_connection :
   ?express_route_gateway_bypass_enabled:bool prop ->
   ?id:string prop ->
   ?routing_weight:float prop ->
+  ?routing:routing list ->
   ?timeouts:timeouts ->
   express_route_circuit_peering_id:string prop ->
   express_route_gateway_id:string prop ->
   name:string prop ->
-  routing:routing list ->
   unit ->
   azurerm_express_route_connection
 
@@ -71,11 +71,11 @@ val register :
   ?express_route_gateway_bypass_enabled:bool prop ->
   ?id:string prop ->
   ?routing_weight:float prop ->
+  ?routing:routing list ->
   ?timeouts:timeouts ->
   express_route_circuit_peering_id:string prop ->
   express_route_gateway_id:string prop ->
   name:string prop ->
-  routing:routing list ->
   string ->
   t
 
@@ -85,10 +85,10 @@ val make :
   ?express_route_gateway_bypass_enabled:bool prop ->
   ?id:string prop ->
   ?routing_weight:float prop ->
+  ?routing:routing list ->
   ?timeouts:timeouts ->
   express_route_circuit_peering_id:string prop ->
   express_route_gateway_id:string prop ->
   name:string prop ->
-  routing:routing list ->
   string ->
   t Tf_core.resource

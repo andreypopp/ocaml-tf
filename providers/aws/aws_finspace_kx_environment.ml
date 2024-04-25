@@ -402,8 +402,8 @@ let transit_gateway_configuration__attachment_network_acl_configuration__port_ra
   { from; to_ }
 
 let transit_gateway_configuration__attachment_network_acl_configuration
-    ~cidr_block ~protocol ~rule_action ~rule_number ~icmp_type_code
-    ~port_range () :
+    ?(icmp_type_code = []) ?(port_range = []) ~cidr_block ~protocol
+    ~rule_action ~rule_number () :
     transit_gateway_configuration__attachment_network_acl_configuration
     =
   {
@@ -415,9 +415,9 @@ let transit_gateway_configuration__attachment_network_acl_configuration
     port_range;
   }
 
-let transit_gateway_configuration ~routable_cidr_space
-    ~transit_gateway_id ~attachment_network_acl_configuration () :
-    transit_gateway_configuration =
+let transit_gateway_configuration
+    ?(attachment_network_acl_configuration = []) ~routable_cidr_space
+    ~transit_gateway_id () : transit_gateway_configuration =
   {
     routable_cidr_space;
     transit_gateway_id;
@@ -425,8 +425,9 @@ let transit_gateway_configuration ~routable_cidr_space
   }
 
 let aws_finspace_kx_environment ?description ?tags ?tags_all
-    ?timeouts ~kms_key_id ~name ~custom_dns_configuration
-    ~transit_gateway_configuration () : aws_finspace_kx_environment =
+    ?(custom_dns_configuration = []) ?timeouts
+    ?(transit_gateway_configuration = []) ~kms_key_id ~name () :
+    aws_finspace_kx_environment =
   {
     description;
     kms_key_id;
@@ -453,8 +454,9 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?description ?tags ?tags_all ?timeouts ~kms_key_id ~name
-    ~custom_dns_configuration ~transit_gateway_configuration __id =
+let make ?description ?tags ?tags_all
+    ?(custom_dns_configuration = []) ?timeouts
+    ?(transit_gateway_configuration = []) ~kms_key_id ~name __id =
   let __type = "aws_finspace_kx_environment" in
   let __attrs =
     ({
@@ -483,17 +485,17 @@ let make ?description ?tags ?tags_all ?timeouts ~kms_key_id ~name
     json =
       yojson_of_aws_finspace_kx_environment
         (aws_finspace_kx_environment ?description ?tags ?tags_all
-           ?timeouts ~kms_key_id ~name ~custom_dns_configuration
-           ~transit_gateway_configuration ());
+           ~custom_dns_configuration ?timeouts
+           ~transit_gateway_configuration ~kms_key_id ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?tags ?tags_all ?timeouts
-    ~kms_key_id ~name ~custom_dns_configuration
-    ~transit_gateway_configuration __id =
+let register ?tf_module ?description ?tags ?tags_all
+    ?(custom_dns_configuration = []) ?timeouts
+    ?(transit_gateway_configuration = []) ~kms_key_id ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?tags ?tags_all ?timeouts ~kms_key_id ~name
-      ~custom_dns_configuration ~transit_gateway_configuration __id
+    make ?description ?tags ?tags_all ~custom_dns_configuration
+      ?timeouts ~transit_gateway_configuration ~kms_key_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

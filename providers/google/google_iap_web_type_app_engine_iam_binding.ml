@@ -114,8 +114,8 @@ let _ = yojson_of_google_iap_web_type_app_engine_iam_binding
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_iap_web_type_app_engine_iam_binding ?id ?project ~app_id
-    ~members ~role ~condition () :
+let google_iap_web_type_app_engine_iam_binding ?id ?project
+    ?(condition = []) ~app_id ~members ~role () :
     google_iap_web_type_app_engine_iam_binding =
   { app_id; id; members; project; role; condition }
 
@@ -128,7 +128,7 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?project ~app_id ~members ~role ~condition __id =
+let make ?id ?project ?(condition = []) ~app_id ~members ~role __id =
   let __type = "google_iap_web_type_app_engine_iam_binding" in
   let __attrs =
     ({
@@ -147,14 +147,14 @@ let make ?id ?project ~app_id ~members ~role ~condition __id =
     json =
       yojson_of_google_iap_web_type_app_engine_iam_binding
         (google_iap_web_type_app_engine_iam_binding ?id ?project
-           ~app_id ~members ~role ~condition ());
+           ~condition ~app_id ~members ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ~app_id ~members ~role
-    ~condition __id =
+let register ?tf_module ?id ?project ?(condition = []) ~app_id
+    ~members ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ~app_id ~members ~role ~condition __id
+    make ?id ?project ~condition ~app_id ~members ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

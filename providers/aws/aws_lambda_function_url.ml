@@ -205,8 +205,8 @@ let cors ?allow_credentials ?allow_headers ?allow_methods
 
 let timeouts ?create () : timeouts = { create }
 
-let aws_lambda_function_url ?id ?invoke_mode ?qualifier ?timeouts
-    ~authorization_type ~function_name ~cors () :
+let aws_lambda_function_url ?id ?invoke_mode ?qualifier ?(cors = [])
+    ?timeouts ~authorization_type ~function_name () :
     aws_lambda_function_url =
   {
     authorization_type;
@@ -229,8 +229,8 @@ type t = {
   url_id : string prop;
 }
 
-let make ?id ?invoke_mode ?qualifier ?timeouts ~authorization_type
-    ~function_name ~cors __id =
+let make ?id ?invoke_mode ?qualifier ?(cors = []) ?timeouts
+    ~authorization_type ~function_name __id =
   let __type = "aws_lambda_function_url" in
   let __attrs =
     ({
@@ -251,16 +251,16 @@ let make ?id ?invoke_mode ?qualifier ?timeouts ~authorization_type
     type_ = __type;
     json =
       yojson_of_aws_lambda_function_url
-        (aws_lambda_function_url ?id ?invoke_mode ?qualifier
-           ?timeouts ~authorization_type ~function_name ~cors ());
+        (aws_lambda_function_url ?id ?invoke_mode ?qualifier ~cors
+           ?timeouts ~authorization_type ~function_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?invoke_mode ?qualifier ?timeouts
-    ~authorization_type ~function_name ~cors __id =
+let register ?tf_module ?id ?invoke_mode ?qualifier ?(cors = [])
+    ?timeouts ~authorization_type ~function_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?invoke_mode ?qualifier ?timeouts ~authorization_type
-      ~function_name ~cors __id
+    make ?id ?invoke_mode ?qualifier ~cors ?timeouts
+      ~authorization_type ~function_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

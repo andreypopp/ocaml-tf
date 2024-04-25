@@ -310,8 +310,8 @@ let vpc_config ?security_group_ids ?subnet_ids () : vpc_config =
 
 let aws_appstream_image_builder ?appstream_agent_version ?description
     ?display_name ?enable_default_internet_access ?iam_role_arn ?id
-    ?image_arn ?image_name ?tags ?tags_all ~instance_type ~name
-    ~access_endpoint ~domain_join_info ~vpc_config () :
+    ?image_arn ?image_name ?tags ?tags_all ?(domain_join_info = [])
+    ?(vpc_config = []) ~instance_type ~name ~access_endpoint () :
     aws_appstream_image_builder =
   {
     appstream_agent_version;
@@ -351,8 +351,8 @@ type t = {
 
 let make ?appstream_agent_version ?description ?display_name
     ?enable_default_internet_access ?iam_role_arn ?id ?image_arn
-    ?image_name ?tags ?tags_all ~instance_type ~name ~access_endpoint
-    ~domain_join_info ~vpc_config __id =
+    ?image_name ?tags ?tags_all ?(domain_join_info = [])
+    ?(vpc_config = []) ~instance_type ~name ~access_endpoint __id =
   let __type = "aws_appstream_image_builder" in
   let __attrs =
     ({
@@ -384,20 +384,20 @@ let make ?appstream_agent_version ?description ?display_name
         (aws_appstream_image_builder ?appstream_agent_version
            ?description ?display_name ?enable_default_internet_access
            ?iam_role_arn ?id ?image_arn ?image_name ?tags ?tags_all
-           ~instance_type ~name ~access_endpoint ~domain_join_info
-           ~vpc_config ());
+           ~domain_join_info ~vpc_config ~instance_type ~name
+           ~access_endpoint ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?appstream_agent_version ?description
     ?display_name ?enable_default_internet_access ?iam_role_arn ?id
-    ?image_arn ?image_name ?tags ?tags_all ~instance_type ~name
-    ~access_endpoint ~domain_join_info ~vpc_config __id =
+    ?image_arn ?image_name ?tags ?tags_all ?(domain_join_info = [])
+    ?(vpc_config = []) ~instance_type ~name ~access_endpoint __id =
   let (r : _ Tf_core.resource) =
     make ?appstream_agent_version ?description ?display_name
       ?enable_default_internet_access ?iam_role_arn ?id ?image_arn
-      ?image_name ?tags ?tags_all ~instance_type ~name
-      ~access_endpoint ~domain_join_info ~vpc_config __id
+      ?image_name ?tags ?tags_all ~domain_join_info ~vpc_config
+      ~instance_type ~name ~access_endpoint __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

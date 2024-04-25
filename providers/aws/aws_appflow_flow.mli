@@ -19,10 +19,10 @@ val destination_flow_config__destination_connector_properties__custom_connector 
   ?custom_properties:(string * string prop) list ->
   ?id_field_names:string prop list ->
   ?write_operation_type:string prop ->
-  entity_name:string prop ->
-  error_handling_config:
+  ?error_handling_config:
     destination_flow_config__destination_connector_properties__custom_connector__error_handling_config
     list ->
+  entity_name:string prop ->
   unit ->
   destination_flow_config__destination_connector_properties__custom_connector
 
@@ -46,10 +46,10 @@ val destination_flow_config__destination_connector_properties__event_bridge__err
 type destination_flow_config__destination_connector_properties__event_bridge
 
 val destination_flow_config__destination_connector_properties__event_bridge :
-  object_:string prop ->
-  error_handling_config:
+  ?error_handling_config:
     destination_flow_config__destination_connector_properties__event_bridge__error_handling_config
     list ->
+  object_:string prop ->
   unit ->
   destination_flow_config__destination_connector_properties__event_bridge
 
@@ -65,10 +65,10 @@ val destination_flow_config__destination_connector_properties__honeycode__error_
 type destination_flow_config__destination_connector_properties__honeycode
 
 val destination_flow_config__destination_connector_properties__honeycode :
-  object_:string prop ->
-  error_handling_config:
+  ?error_handling_config:
     destination_flow_config__destination_connector_properties__honeycode__error_handling_config
     list ->
+  object_:string prop ->
   unit ->
   destination_flow_config__destination_connector_properties__honeycode
 
@@ -90,10 +90,10 @@ val destination_flow_config__destination_connector_properties__marketo__error_ha
 type destination_flow_config__destination_connector_properties__marketo
 
 val destination_flow_config__destination_connector_properties__marketo :
-  object_:string prop ->
-  error_handling_config:
+  ?error_handling_config:
     destination_flow_config__destination_connector_properties__marketo__error_handling_config
     list ->
+  object_:string prop ->
   unit ->
   destination_flow_config__destination_connector_properties__marketo
 
@@ -110,11 +110,11 @@ type destination_flow_config__destination_connector_properties__redshift
 
 val destination_flow_config__destination_connector_properties__redshift :
   ?bucket_prefix:string prop ->
-  intermediate_bucket_name:string prop ->
-  object_:string prop ->
-  error_handling_config:
+  ?error_handling_config:
     destination_flow_config__destination_connector_properties__redshift__error_handling_config
     list ->
+  intermediate_bucket_name:string prop ->
+  object_:string prop ->
   unit ->
   destination_flow_config__destination_connector_properties__redshift
 
@@ -139,10 +139,10 @@ type destination_flow_config__destination_connector_properties__s3__s3_output_fo
 val destination_flow_config__destination_connector_properties__s3__s3_output_format_config :
   ?file_type:string prop ->
   ?preserve_source_data_typing:bool prop ->
-  aggregation_config:
+  ?aggregation_config:
     destination_flow_config__destination_connector_properties__s3__s3_output_format_config__aggregation_config
     list ->
-  prefix_config:
+  ?prefix_config:
     destination_flow_config__destination_connector_properties__s3__s3_output_format_config__prefix_config
     list ->
   unit ->
@@ -152,10 +152,10 @@ type destination_flow_config__destination_connector_properties__s3
 
 val destination_flow_config__destination_connector_properties__s3 :
   ?bucket_prefix:string prop ->
-  bucket_name:string prop ->
-  s3_output_format_config:
+  ?s3_output_format_config:
     destination_flow_config__destination_connector_properties__s3__s3_output_format_config
     list ->
+  bucket_name:string prop ->
   unit ->
   destination_flow_config__destination_connector_properties__s3
 
@@ -173,10 +173,10 @@ type destination_flow_config__destination_connector_properties__salesforce
 val destination_flow_config__destination_connector_properties__salesforce :
   ?id_field_names:string prop list ->
   ?write_operation_type:string prop ->
-  object_:string prop ->
-  error_handling_config:
+  ?error_handling_config:
     destination_flow_config__destination_connector_properties__salesforce__error_handling_config
     list ->
+  object_:string prop ->
   unit ->
   destination_flow_config__destination_connector_properties__salesforce
 
@@ -202,13 +202,13 @@ type destination_flow_config__destination_connector_properties__sapo_data
 val destination_flow_config__destination_connector_properties__sapo_data :
   ?id_field_names:string prop list ->
   ?write_operation_type:string prop ->
-  object_path:string prop ->
-  error_handling_config:
+  ?error_handling_config:
     destination_flow_config__destination_connector_properties__sapo_data__error_handling_config
     list ->
-  success_response_handling_config:
+  ?success_response_handling_config:
     destination_flow_config__destination_connector_properties__sapo_data__success_response_handling_config
     list ->
+  object_path:string prop ->
   unit ->
   destination_flow_config__destination_connector_properties__sapo_data
 
@@ -225,11 +225,11 @@ type destination_flow_config__destination_connector_properties__snowflake
 
 val destination_flow_config__destination_connector_properties__snowflake :
   ?bucket_prefix:string prop ->
-  intermediate_bucket_name:string prop ->
-  object_:string prop ->
-  error_handling_config:
+  ?error_handling_config:
     destination_flow_config__destination_connector_properties__snowflake__error_handling_config
     list ->
+  intermediate_bucket_name:string prop ->
+  object_:string prop ->
   unit ->
   destination_flow_config__destination_connector_properties__snowflake
 
@@ -252,7 +252,7 @@ type destination_flow_config__destination_connector_properties__upsolver__s3_out
 
 val destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config :
   ?file_type:string prop ->
-  aggregation_config:
+  ?aggregation_config:
     destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__aggregation_config
     list ->
   prefix_config:
@@ -286,53 +286,53 @@ type destination_flow_config__destination_connector_properties__zendesk
 val destination_flow_config__destination_connector_properties__zendesk :
   ?id_field_names:string prop list ->
   ?write_operation_type:string prop ->
-  object_:string prop ->
-  error_handling_config:
+  ?error_handling_config:
     destination_flow_config__destination_connector_properties__zendesk__error_handling_config
     list ->
+  object_:string prop ->
   unit ->
   destination_flow_config__destination_connector_properties__zendesk
 
 type destination_flow_config__destination_connector_properties
 
 val destination_flow_config__destination_connector_properties :
-  custom_connector:
+  ?custom_connector:
     destination_flow_config__destination_connector_properties__custom_connector
     list ->
-  customer_profiles:
+  ?customer_profiles:
     destination_flow_config__destination_connector_properties__customer_profiles
     list ->
-  event_bridge:
+  ?event_bridge:
     destination_flow_config__destination_connector_properties__event_bridge
     list ->
-  honeycode:
+  ?honeycode:
     destination_flow_config__destination_connector_properties__honeycode
     list ->
-  lookout_metrics:
+  ?lookout_metrics:
     destination_flow_config__destination_connector_properties__lookout_metrics
     list ->
-  marketo:
+  ?marketo:
     destination_flow_config__destination_connector_properties__marketo
     list ->
-  redshift:
+  ?redshift:
     destination_flow_config__destination_connector_properties__redshift
     list ->
-  s3:
+  ?s3:
     destination_flow_config__destination_connector_properties__s3
     list ->
-  salesforce:
+  ?salesforce:
     destination_flow_config__destination_connector_properties__salesforce
     list ->
-  sapo_data:
+  ?sapo_data:
     destination_flow_config__destination_connector_properties__sapo_data
     list ->
-  snowflake:
+  ?snowflake:
     destination_flow_config__destination_connector_properties__snowflake
     list ->
-  upsolver:
+  ?upsolver:
     destination_flow_config__destination_connector_properties__upsolver
     list ->
-  zendesk:
+  ?zendesk:
     destination_flow_config__destination_connector_properties__zendesk
     list ->
   unit ->
@@ -416,11 +416,11 @@ val source_flow_config__source_connector_properties__s3__s3_input_format_config 
 type source_flow_config__source_connector_properties__s3
 
 val source_flow_config__source_connector_properties__s3 :
-  bucket_name:string prop ->
-  bucket_prefix:string prop ->
-  s3_input_format_config:
+  ?s3_input_format_config:
     source_flow_config__source_connector_properties__s3__s3_input_format_config
     list ->
+  bucket_name:string prop ->
+  bucket_prefix:string prop ->
   unit ->
   source_flow_config__source_connector_properties__s3
 
@@ -489,36 +489,36 @@ val source_flow_config__source_connector_properties__zendesk :
 type source_flow_config__source_connector_properties
 
 val source_flow_config__source_connector_properties :
-  amplitude:
+  ?amplitude:
     source_flow_config__source_connector_properties__amplitude list ->
-  custom_connector:
+  ?custom_connector:
     source_flow_config__source_connector_properties__custom_connector
     list ->
-  datadog:
+  ?datadog:
     source_flow_config__source_connector_properties__datadog list ->
-  dynatrace:
+  ?dynatrace:
     source_flow_config__source_connector_properties__dynatrace list ->
-  google_analytics:
+  ?google_analytics:
     source_flow_config__source_connector_properties__google_analytics
     list ->
-  infor_nexus:
+  ?infor_nexus:
     source_flow_config__source_connector_properties__infor_nexus list ->
-  marketo:
+  ?marketo:
     source_flow_config__source_connector_properties__marketo list ->
-  s3:source_flow_config__source_connector_properties__s3 list ->
-  salesforce:
+  ?s3:source_flow_config__source_connector_properties__s3 list ->
+  ?salesforce:
     source_flow_config__source_connector_properties__salesforce list ->
-  sapo_data:
+  ?sapo_data:
     source_flow_config__source_connector_properties__sapo_data list ->
-  service_now:
+  ?service_now:
     source_flow_config__source_connector_properties__service_now list ->
-  singular:
+  ?singular:
     source_flow_config__source_connector_properties__singular list ->
-  slack:source_flow_config__source_connector_properties__slack list ->
-  trendmicro:
+  ?slack:source_flow_config__source_connector_properties__slack list ->
+  ?trendmicro:
     source_flow_config__source_connector_properties__trendmicro list ->
-  veeva:source_flow_config__source_connector_properties__veeva list ->
-  zendesk:
+  ?veeva:source_flow_config__source_connector_properties__veeva list ->
+  ?zendesk:
     source_flow_config__source_connector_properties__zendesk list ->
   unit ->
   source_flow_config__source_connector_properties
@@ -528,9 +528,9 @@ type source_flow_config
 val source_flow_config :
   ?api_version:string prop ->
   ?connector_profile_name:string prop ->
-  connector_type:string prop ->
-  incremental_pull_config:
+  ?incremental_pull_config:
     source_flow_config__incremental_pull_config list ->
+  connector_type:string prop ->
   source_connector_properties:
     source_flow_config__source_connector_properties list ->
   unit ->
@@ -564,8 +564,8 @@ val task :
   ?destination_field:string prop ->
   ?source_fields:string prop list ->
   ?task_properties:(string * string prop) list ->
+  ?connector_operator:task__connector_operator list ->
   task_type:string prop ->
-  connector_operator:task__connector_operator list ->
   unit ->
   task
 
@@ -585,15 +585,15 @@ val trigger_config__trigger_properties__scheduled :
 type trigger_config__trigger_properties
 
 val trigger_config__trigger_properties :
-  scheduled:trigger_config__trigger_properties__scheduled list ->
+  ?scheduled:trigger_config__trigger_properties__scheduled list ->
   unit ->
   trigger_config__trigger_properties
 
 type trigger_config
 
 val trigger_config :
+  ?trigger_properties:trigger_config__trigger_properties list ->
   trigger_type:string prop ->
-  trigger_properties:trigger_config__trigger_properties list ->
   unit ->
   trigger_config
 

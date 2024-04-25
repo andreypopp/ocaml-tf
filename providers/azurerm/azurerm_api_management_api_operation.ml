@@ -1554,7 +1554,8 @@ let request__header__example ?description ?external_value ?summary
   { description; external_value; name; summary; value }
 
 let request__header ?default_value ?description ?schema_id ?type_name
-    ?values ~name ~required ~type_ ~example () : request__header =
+    ?values ?(example = []) ~name ~required ~type_ () :
+    request__header =
   {
     default_value;
     description;
@@ -1572,7 +1573,7 @@ let request__query_parameter__example ?description ?external_value
   { description; external_value; name; summary; value }
 
 let request__query_parameter ?default_value ?description ?schema_id
-    ?type_name ?values ~name ~required ~type_ ~example () :
+    ?type_name ?values ?(example = []) ~name ~required ~type_ () :
     request__query_parameter =
   {
     default_value;
@@ -1596,8 +1597,8 @@ let request__representation__form_parameter__example ?description
   { description; external_value; name; summary; value }
 
 let request__representation__form_parameter ?default_value
-    ?description ?schema_id ?type_name ?values ~name ~required ~type_
-    ~example () : request__representation__form_parameter =
+    ?description ?schema_id ?type_name ?values ?(example = []) ~name
+    ~required ~type_ () : request__representation__form_parameter =
   {
     default_value;
     description;
@@ -1610,12 +1611,13 @@ let request__representation__form_parameter ?default_value
     example;
   }
 
-let request__representation ?schema_id ?type_name ~content_type
-    ~example ~form_parameter () : request__representation =
+let request__representation ?schema_id ?type_name ?(example = [])
+    ?(form_parameter = []) ~content_type () : request__representation
+    =
   { content_type; schema_id; type_name; example; form_parameter }
 
-let request ?description ~header ~query_parameter ~representation ()
-    : request =
+let request ?description ?(header = []) ?(query_parameter = [])
+    ?(representation = []) () : request =
   { description; header; query_parameter; representation }
 
 let response__header__example ?description ?external_value ?summary
@@ -1623,7 +1625,7 @@ let response__header__example ?description ?external_value ?summary
   { description; external_value; name; summary; value }
 
 let response__header ?default_value ?description ?schema_id
-    ?type_name ?values ~name ~required ~type_ ~example () :
+    ?type_name ?values ?(example = []) ~name ~required ~type_ () :
     response__header =
   {
     default_value;
@@ -1647,8 +1649,8 @@ let response__representation__form_parameter__example ?description
   { description; external_value; name; summary; value }
 
 let response__representation__form_parameter ?default_value
-    ?description ?schema_id ?type_name ?values ~name ~required ~type_
-    ~example () : response__representation__form_parameter =
+    ?description ?schema_id ?type_name ?values ?(example = []) ~name
+    ~required ~type_ () : response__representation__form_parameter =
   {
     default_value;
     description;
@@ -1661,12 +1663,13 @@ let response__representation__form_parameter ?default_value
     example;
   }
 
-let response__representation ?schema_id ?type_name ~content_type
-    ~example ~form_parameter () : response__representation =
+let response__representation ?schema_id ?type_name ?(example = [])
+    ?(form_parameter = []) ~content_type () :
+    response__representation =
   { content_type; schema_id; type_name; example; form_parameter }
 
-let response ?description ~status_code ~header ~representation () :
-    response =
+let response ?description ?(header = []) ?(representation = [])
+    ~status_code () : response =
   { description; status_code; header; representation }
 
 let template_parameter__example ?description ?external_value ?summary
@@ -1674,7 +1677,7 @@ let template_parameter__example ?description ?external_value ?summary
   { description; external_value; name; summary; value }
 
 let template_parameter ?default_value ?description ?schema_id
-    ?type_name ?values ~name ~required ~type_ ~example () :
+    ?type_name ?values ?(example = []) ~name ~required ~type_ () :
     template_parameter =
   {
     default_value;
@@ -1691,10 +1694,10 @@ let template_parameter ?default_value ?description ?schema_id
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_api_management_api_operation ?description ?id ?timeouts
-    ~api_management_name ~api_name ~display_name ~method_
-    ~operation_id ~resource_group_name ~url_template ~request
-    ~response ~template_parameter () :
+let azurerm_api_management_api_operation ?description ?id
+    ?(request = []) ?(response = []) ?(template_parameter = [])
+    ?timeouts ~api_management_name ~api_name ~display_name ~method_
+    ~operation_id ~resource_group_name ~url_template () :
     azurerm_api_management_api_operation =
   {
     api_management_name;
@@ -1724,9 +1727,10 @@ type t = {
   url_template : string prop;
 }
 
-let make ?description ?id ?timeouts ~api_management_name ~api_name
-    ~display_name ~method_ ~operation_id ~resource_group_name
-    ~url_template ~request ~response ~template_parameter __id =
+let make ?description ?id ?(request = []) ?(response = [])
+    ?(template_parameter = []) ?timeouts ~api_management_name
+    ~api_name ~display_name ~method_ ~operation_id
+    ~resource_group_name ~url_template __id =
   let __type = "azurerm_api_management_api_operation" in
   let __attrs =
     ({
@@ -1750,20 +1754,20 @@ let make ?description ?id ?timeouts ~api_management_name ~api_name
     json =
       yojson_of_azurerm_api_management_api_operation
         (azurerm_api_management_api_operation ?description ?id
-           ?timeouts ~api_management_name ~api_name ~display_name
-           ~method_ ~operation_id ~resource_group_name ~url_template
-           ~request ~response ~template_parameter ());
+           ~request ~response ~template_parameter ?timeouts
+           ~api_management_name ~api_name ~display_name ~method_
+           ~operation_id ~resource_group_name ~url_template ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?timeouts
+let register ?tf_module ?description ?id ?(request = [])
+    ?(response = []) ?(template_parameter = []) ?timeouts
     ~api_management_name ~api_name ~display_name ~method_
-    ~operation_id ~resource_group_name ~url_template ~request
-    ~response ~template_parameter __id =
+    ~operation_id ~resource_group_name ~url_template __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?timeouts ~api_management_name ~api_name
-      ~display_name ~method_ ~operation_id ~resource_group_name
-      ~url_template ~request ~response ~template_parameter __id
+    make ?description ?id ~request ~response ~template_parameter
+      ?timeouts ~api_management_name ~api_name ~display_name ~method_
+      ~operation_id ~resource_group_name ~url_template __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

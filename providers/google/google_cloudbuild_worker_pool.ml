@@ -251,8 +251,8 @@ let worker_config ?disk_size_gb ?machine_type ?no_external_ip () :
   { disk_size_gb; machine_type; no_external_ip }
 
 let google_cloudbuild_worker_pool ?annotations ?display_name ?id
-    ?project ?timeouts ~location ~name ~network_config ~worker_config
-    () : google_cloudbuild_worker_pool =
+    ?project ?(network_config = []) ?timeouts ?(worker_config = [])
+    ~location ~name () : google_cloudbuild_worker_pool =
   {
     annotations;
     display_name;
@@ -280,8 +280,9 @@ type t = {
   update_time : string prop;
 }
 
-let make ?annotations ?display_name ?id ?project ?timeouts ~location
-    ~name ~network_config ~worker_config __id =
+let make ?annotations ?display_name ?id ?project
+    ?(network_config = []) ?timeouts ?(worker_config = []) ~location
+    ~name __id =
   let __type = "google_cloudbuild_worker_pool" in
   let __attrs =
     ({
@@ -307,16 +308,17 @@ let make ?annotations ?display_name ?id ?project ?timeouts ~location
     json =
       yojson_of_google_cloudbuild_worker_pool
         (google_cloudbuild_worker_pool ?annotations ?display_name ?id
-           ?project ?timeouts ~location ~name ~network_config
-           ~worker_config ());
+           ?project ~network_config ?timeouts ~worker_config
+           ~location ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?display_name ?id ?project
-    ?timeouts ~location ~name ~network_config ~worker_config __id =
+    ?(network_config = []) ?timeouts ?(worker_config = []) ~location
+    ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?annotations ?display_name ?id ?project ?timeouts ~location
-      ~name ~network_config ~worker_config __id
+    make ?annotations ?display_name ?id ?project ~network_config
+      ?timeouts ~worker_config ~location ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

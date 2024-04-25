@@ -30,10 +30,10 @@ val google_apigee_environment :
   ?display_name:string prop ->
   ?id:string prop ->
   ?type_:string prop ->
+  ?node_config:node_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   org_id:string prop ->
-  node_config:node_config list ->
   unit ->
   google_apigee_environment
 
@@ -61,10 +61,10 @@ val register :
   ?display_name:string prop ->
   ?id:string prop ->
   ?type_:string prop ->
+  ?node_config:node_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   org_id:string prop ->
-  node_config:node_config list ->
   string ->
   t
 
@@ -75,9 +75,9 @@ val make :
   ?display_name:string prop ->
   ?id:string prop ->
   ?type_:string prop ->
+  ?node_config:node_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   org_id:string prop ->
-  node_config:node_config list ->
   string ->
   t Tf_core.resource

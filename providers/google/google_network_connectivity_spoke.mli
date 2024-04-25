@@ -60,16 +60,16 @@ val google_network_connectivity_spoke :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?linked_interconnect_attachments:
+    linked_interconnect_attachments list ->
+  ?linked_router_appliance_instances:
+    linked_router_appliance_instances list ->
+  ?linked_vpc_network:linked_vpc_network list ->
+  ?linked_vpn_tunnels:linked_vpn_tunnels list ->
   ?timeouts:timeouts ->
   hub:string prop ->
   location:string prop ->
   name:string prop ->
-  linked_interconnect_attachments:
-    linked_interconnect_attachments list ->
-  linked_router_appliance_instances:
-    linked_router_appliance_instances list ->
-  linked_vpc_network:linked_vpc_network list ->
-  linked_vpn_tunnels:linked_vpn_tunnels list ->
   unit ->
   google_network_connectivity_spoke
 
@@ -100,16 +100,16 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?linked_interconnect_attachments:
+    linked_interconnect_attachments list ->
+  ?linked_router_appliance_instances:
+    linked_router_appliance_instances list ->
+  ?linked_vpc_network:linked_vpc_network list ->
+  ?linked_vpn_tunnels:linked_vpn_tunnels list ->
   ?timeouts:timeouts ->
   hub:string prop ->
   location:string prop ->
   name:string prop ->
-  linked_interconnect_attachments:
-    linked_interconnect_attachments list ->
-  linked_router_appliance_instances:
-    linked_router_appliance_instances list ->
-  linked_vpc_network:linked_vpc_network list ->
-  linked_vpn_tunnels:linked_vpn_tunnels list ->
   string ->
   t
 
@@ -118,15 +118,15 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?linked_interconnect_attachments:
+    linked_interconnect_attachments list ->
+  ?linked_router_appliance_instances:
+    linked_router_appliance_instances list ->
+  ?linked_vpc_network:linked_vpc_network list ->
+  ?linked_vpn_tunnels:linked_vpn_tunnels list ->
   ?timeouts:timeouts ->
   hub:string prop ->
   location:string prop ->
   name:string prop ->
-  linked_interconnect_attachments:
-    linked_interconnect_attachments list ->
-  linked_router_appliance_instances:
-    linked_router_appliance_instances list ->
-  linked_vpc_network:linked_vpc_network list ->
-  linked_vpn_tunnels:linked_vpn_tunnels list ->
   string ->
   t Tf_core.resource

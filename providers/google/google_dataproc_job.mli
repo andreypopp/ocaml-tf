@@ -28,7 +28,7 @@ val hadoop_config :
   ?main_class:string prop ->
   ?main_jar_file_uri:string prop ->
   ?properties:(string * string prop) list ->
-  logging_config:hadoop_config__logging_config list ->
+  ?logging_config:hadoop_config__logging_config list ->
   unit ->
   hadoop_config
 
@@ -60,7 +60,7 @@ val pig_config :
   ?query_file_uri:string prop ->
   ?query_list:string prop list ->
   ?script_variables:(string * string prop) list ->
-  logging_config:pig_config__logging_config list ->
+  ?logging_config:pig_config__logging_config list ->
   unit ->
   pig_config
 
@@ -84,7 +84,7 @@ val presto_config :
   ?properties:(string * string prop) list ->
   ?query_file_uri:string prop ->
   ?query_list:string prop list ->
-  logging_config:presto_config__logging_config list ->
+  ?logging_config:presto_config__logging_config list ->
   unit ->
   presto_config
 
@@ -104,8 +104,8 @@ val pyspark_config :
   ?jar_file_uris:string prop list ->
   ?properties:(string * string prop) list ->
   ?python_file_uris:string prop list ->
+  ?logging_config:pyspark_config__logging_config list ->
   main_python_file_uri:string prop ->
-  logging_config:pyspark_config__logging_config list ->
   unit ->
   pyspark_config
 
@@ -138,7 +138,7 @@ val spark_config :
   ?main_class:string prop ->
   ?main_jar_file_uri:string prop ->
   ?properties:(string * string prop) list ->
-  logging_config:spark_config__logging_config list ->
+  ?logging_config:spark_config__logging_config list ->
   unit ->
   spark_config
 
@@ -157,7 +157,7 @@ val sparksql_config :
   ?query_file_uri:string prop ->
   ?query_list:string prop list ->
   ?script_variables:(string * string prop) list ->
-  logging_config:sparksql_config__logging_config list ->
+  ?logging_config:sparksql_config__logging_config list ->
   unit ->
   sparksql_config
 
@@ -174,17 +174,17 @@ val google_dataproc_job :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
+  ?hadoop_config:hadoop_config list ->
+  ?hive_config:hive_config list ->
+  ?pig_config:pig_config list ->
+  ?presto_config:presto_config list ->
+  ?pyspark_config:pyspark_config list ->
+  ?reference:reference list ->
+  ?scheduling:scheduling list ->
+  ?spark_config:spark_config list ->
+  ?sparksql_config:sparksql_config list ->
   ?timeouts:timeouts ->
-  hadoop_config:hadoop_config list ->
-  hive_config:hive_config list ->
-  pig_config:pig_config list ->
   placement:placement list ->
-  presto_config:presto_config list ->
-  pyspark_config:pyspark_config list ->
-  reference:reference list ->
-  scheduling:scheduling list ->
-  spark_config:spark_config list ->
-  sparksql_config:sparksql_config list ->
   unit ->
   google_dataproc_job
 
@@ -212,17 +212,17 @@ val register :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
+  ?hadoop_config:hadoop_config list ->
+  ?hive_config:hive_config list ->
+  ?pig_config:pig_config list ->
+  ?presto_config:presto_config list ->
+  ?pyspark_config:pyspark_config list ->
+  ?reference:reference list ->
+  ?scheduling:scheduling list ->
+  ?spark_config:spark_config list ->
+  ?sparksql_config:sparksql_config list ->
   ?timeouts:timeouts ->
-  hadoop_config:hadoop_config list ->
-  hive_config:hive_config list ->
-  pig_config:pig_config list ->
   placement:placement list ->
-  presto_config:presto_config list ->
-  pyspark_config:pyspark_config list ->
-  reference:reference list ->
-  scheduling:scheduling list ->
-  spark_config:spark_config list ->
-  sparksql_config:sparksql_config list ->
   string ->
   t
 
@@ -232,16 +232,16 @@ val make :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
+  ?hadoop_config:hadoop_config list ->
+  ?hive_config:hive_config list ->
+  ?pig_config:pig_config list ->
+  ?presto_config:presto_config list ->
+  ?pyspark_config:pyspark_config list ->
+  ?reference:reference list ->
+  ?scheduling:scheduling list ->
+  ?spark_config:spark_config list ->
+  ?sparksql_config:sparksql_config list ->
   ?timeouts:timeouts ->
-  hadoop_config:hadoop_config list ->
-  hive_config:hive_config list ->
-  pig_config:pig_config list ->
   placement:placement list ->
-  presto_config:presto_config list ->
-  pyspark_config:pyspark_config list ->
-  reference:reference list ->
-  scheduling:scheduling list ->
-  spark_config:spark_config list ->
-  sparksql_config:sparksql_config list ->
   string ->
   t Tf_core.resource

@@ -25,11 +25,11 @@ val azurerm_function_app_function :
   ?id:string prop ->
   ?language:string prop ->
   ?test_data:string prop ->
+  ?file:file list ->
   ?timeouts:timeouts ->
   config_json:string prop ->
   function_app_id:string prop ->
   name:string prop ->
-  file:file list ->
   unit ->
   azurerm_function_app_function
 
@@ -61,11 +61,11 @@ val register :
   ?id:string prop ->
   ?language:string prop ->
   ?test_data:string prop ->
+  ?file:file list ->
   ?timeouts:timeouts ->
   config_json:string prop ->
   function_app_id:string prop ->
   name:string prop ->
-  file:file list ->
   string ->
   t
 
@@ -74,10 +74,10 @@ val make :
   ?id:string prop ->
   ?language:string prop ->
   ?test_data:string prop ->
+  ?file:file list ->
   ?timeouts:timeouts ->
   config_json:string prop ->
   function_app_id:string prop ->
   name:string prop ->
-  file:file list ->
   string ->
   t Tf_core.resource

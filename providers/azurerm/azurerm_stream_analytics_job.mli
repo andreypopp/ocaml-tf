@@ -47,13 +47,13 @@ val azurerm_stream_analytics_job :
   ?streaming_units:float prop ->
   ?tags:(string * string prop) list ->
   ?type_:string prop ->
+  ?identity:identity list ->
+  ?job_storage_account:job_storage_account list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   transformation_query:string prop ->
-  identity:identity list ->
-  job_storage_account:job_storage_account list ->
   unit ->
   azurerm_stream_analytics_job
 
@@ -98,13 +98,13 @@ val register :
   ?streaming_units:float prop ->
   ?tags:(string * string prop) list ->
   ?type_:string prop ->
+  ?identity:identity list ->
+  ?job_storage_account:job_storage_account list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   transformation_query:string prop ->
-  identity:identity list ->
-  job_storage_account:job_storage_account list ->
   string ->
   t
 
@@ -122,12 +122,12 @@ val make :
   ?streaming_units:float prop ->
   ?tags:(string * string prop) list ->
   ?type_:string prop ->
+  ?identity:identity list ->
+  ?job_storage_account:job_storage_account list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   transformation_query:string prop ->
-  identity:identity list ->
-  job_storage_account:job_storage_account list ->
   string ->
   t Tf_core.resource

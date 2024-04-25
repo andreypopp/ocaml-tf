@@ -30,9 +30,9 @@ val issuance_policy__allowed_key_types__rsa :
 type issuance_policy__allowed_key_types
 
 val issuance_policy__allowed_key_types :
-  elliptic_curve:
+  ?elliptic_curve:
     issuance_policy__allowed_key_types__elliptic_curve list ->
-  rsa:issuance_policy__allowed_key_types__rsa list ->
+  ?rsa:issuance_policy__allowed_key_types__rsa list ->
   unit ->
   issuance_policy__allowed_key_types
 
@@ -101,13 +101,13 @@ val issuance_policy__baseline_values__key_usage__unknown_extended_key_usages :
 type issuance_policy__baseline_values__key_usage
 
 val issuance_policy__baseline_values__key_usage :
+  ?unknown_extended_key_usages:
+    issuance_policy__baseline_values__key_usage__unknown_extended_key_usages
+    list ->
   base_key_usage:
     issuance_policy__baseline_values__key_usage__base_key_usage list ->
   extended_key_usage:
     issuance_policy__baseline_values__key_usage__extended_key_usage
-    list ->
-  unknown_extended_key_usages:
-    issuance_policy__baseline_values__key_usage__unknown_extended_key_usages
     list ->
   unit ->
   issuance_policy__baseline_values__key_usage
@@ -138,13 +138,13 @@ type issuance_policy__baseline_values
 
 val issuance_policy__baseline_values :
   ?aia_ocsp_servers:string prop list ->
-  additional_extensions:
+  ?additional_extensions:
     issuance_policy__baseline_values__additional_extensions list ->
+  ?name_constraints:
+    issuance_policy__baseline_values__name_constraints list ->
+  ?policy_ids:issuance_policy__baseline_values__policy_ids list ->
   ca_options:issuance_policy__baseline_values__ca_options list ->
   key_usage:issuance_policy__baseline_values__key_usage list ->
-  name_constraints:
-    issuance_policy__baseline_values__name_constraints list ->
-  policy_ids:issuance_policy__baseline_values__policy_ids list ->
   unit ->
   issuance_policy__baseline_values
 
@@ -161,10 +161,10 @@ val issuance_policy__identity_constraints__cel_expression :
 type issuance_policy__identity_constraints
 
 val issuance_policy__identity_constraints :
+  ?cel_expression:
+    issuance_policy__identity_constraints__cel_expression list ->
   allow_subject_alt_names_passthrough:bool prop ->
   allow_subject_passthrough:bool prop ->
-  cel_expression:
-    issuance_policy__identity_constraints__cel_expression list ->
   unit ->
   issuance_policy__identity_constraints
 
@@ -172,10 +172,11 @@ type issuance_policy
 
 val issuance_policy :
   ?maximum_lifetime:string prop ->
-  allowed_issuance_modes:issuance_policy__allowed_issuance_modes list ->
-  allowed_key_types:issuance_policy__allowed_key_types list ->
-  baseline_values:issuance_policy__baseline_values list ->
-  identity_constraints:issuance_policy__identity_constraints list ->
+  ?allowed_issuance_modes:
+    issuance_policy__allowed_issuance_modes list ->
+  ?allowed_key_types:issuance_policy__allowed_key_types list ->
+  ?baseline_values:issuance_policy__baseline_values list ->
+  ?identity_constraints:issuance_policy__identity_constraints list ->
   unit ->
   issuance_policy
 
@@ -203,12 +204,12 @@ val google_privateca_ca_pool :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?issuance_policy:issuance_policy list ->
+  ?publishing_options:publishing_options list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   tier:string prop ->
-  issuance_policy:issuance_policy list ->
-  publishing_options:publishing_options list ->
   unit ->
   google_privateca_ca_pool
 
@@ -233,12 +234,12 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?issuance_policy:issuance_policy list ->
+  ?publishing_options:publishing_options list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   tier:string prop ->
-  issuance_policy:issuance_policy list ->
-  publishing_options:publishing_options list ->
   string ->
   t
 
@@ -246,11 +247,11 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?issuance_policy:issuance_policy list ->
+  ?publishing_options:publishing_options list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   tier:string prop ->
-  issuance_policy:issuance_policy list ->
-  publishing_options:publishing_options list ->
   string ->
   t Tf_core.resource

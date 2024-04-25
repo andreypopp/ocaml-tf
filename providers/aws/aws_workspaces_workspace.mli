@@ -34,10 +34,10 @@ val aws_workspaces_workspace :
   ?user_volume_encryption_enabled:bool prop ->
   ?volume_encryption_key:string prop ->
   ?timeouts:timeouts ->
+  ?workspace_properties:workspace_properties list ->
   bundle_id:string prop ->
   directory_id:string prop ->
   user_name:string prop ->
-  workspace_properties:workspace_properties list ->
   unit ->
   aws_workspaces_workspace
 
@@ -70,10 +70,10 @@ val register :
   ?user_volume_encryption_enabled:bool prop ->
   ?volume_encryption_key:string prop ->
   ?timeouts:timeouts ->
+  ?workspace_properties:workspace_properties list ->
   bundle_id:string prop ->
   directory_id:string prop ->
   user_name:string prop ->
-  workspace_properties:workspace_properties list ->
   string ->
   t
 
@@ -85,9 +85,9 @@ val make :
   ?user_volume_encryption_enabled:bool prop ->
   ?volume_encryption_key:string prop ->
   ?timeouts:timeouts ->
+  ?workspace_properties:workspace_properties list ->
   bundle_id:string prop ->
   directory_id:string prop ->
   user_name:string prop ->
-  workspace_properties:workspace_properties list ->
   string ->
   t Tf_core.resource

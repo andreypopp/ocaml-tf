@@ -32,7 +32,7 @@ val aws_resourcegroupstaggingapi_resources :
   ?include_compliance_details:bool prop ->
   ?resource_arn_list:string prop list ->
   ?resource_type_filters:string prop list ->
-  tag_filter:tag_filter list ->
+  ?tag_filter:tag_filter list ->
   unit ->
   aws_resourcegroupstaggingapi_resources
 
@@ -57,7 +57,7 @@ val register :
   ?include_compliance_details:bool prop ->
   ?resource_arn_list:string prop list ->
   ?resource_type_filters:string prop list ->
-  tag_filter:tag_filter list ->
+  ?tag_filter:tag_filter list ->
   string ->
   t
 
@@ -67,6 +67,6 @@ val make :
   ?include_compliance_details:bool prop ->
   ?resource_arn_list:string prop list ->
   ?resource_type_filters:string prop list ->
-  tag_filter:tag_filter list ->
+  ?tag_filter:tag_filter list ->
   string ->
   t Tf_core.resource

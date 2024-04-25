@@ -1616,9 +1616,9 @@ let routing__path_matcher__route_rule__header_action__response_header_to_remove
   { header_name }
 
 let routing__path_matcher__route_rule__header_action
-    ~request_header_to_add ~request_header_to_remove
-    ~response_header_to_add ~response_header_to_remove () :
-    routing__path_matcher__route_rule__header_action =
+    ?(request_header_to_add = []) ?(request_header_to_remove = [])
+    ?(response_header_to_add = []) ?(response_header_to_remove = [])
+    () : routing__path_matcher__route_rule__header_action =
   {
     request_header_to_add;
     request_header_to_remove;
@@ -1646,8 +1646,8 @@ let routing__path_matcher__route_rule__match_rule__query_parameter_match
   { exact_match; name; present_match }
 
 let routing__path_matcher__route_rule__match_rule ?full_path_match
-    ?ignore_case ?path_template_match ?prefix_match ~header_match
-    ~query_parameter_match () :
+    ?ignore_case ?path_template_match ?prefix_match
+    ?(header_match = []) ?(query_parameter_match = []) () :
     routing__path_matcher__route_rule__match_rule =
   {
     full_path_match;
@@ -1697,7 +1697,8 @@ let routing__path_matcher__route_rule__route_action__cdn_policy
     ?cache_mode ?client_ttl ?default_ttl ?max_ttl ?negative_caching
     ?negative_caching_policy ?signed_request_keyset
     ?signed_request_maximum_expiration_ttl ?signed_request_mode
-    ~add_signatures ~cache_key_policy ~signed_token_options () :
+    ?(add_signatures = []) ?(cache_key_policy = [])
+    ?(signed_token_options = []) () :
     routing__path_matcher__route_rule__route_action__cdn_policy =
   {
     cache_mode;
@@ -1733,8 +1734,8 @@ let routing__path_matcher__route_rule__route_action__url_rewrite
     routing__path_matcher__route_rule__route_action__url_rewrite =
   { host_rewrite; path_prefix_rewrite; path_template_rewrite }
 
-let routing__path_matcher__route_rule__route_action ~cdn_policy
-    ~cors_policy ~url_rewrite () :
+let routing__path_matcher__route_rule__route_action
+    ?(cdn_policy = []) ?(cors_policy = []) ?(url_rewrite = []) () :
     routing__path_matcher__route_rule__route_action =
   { cdn_policy; cors_policy; url_rewrite }
 
@@ -1751,9 +1752,9 @@ let routing__path_matcher__route_rule__url_redirect ?host_redirect
     strip_query;
   }
 
-let routing__path_matcher__route_rule ?description ?origin ~priority
-    ~header_action ~match_rule ~route_action ~url_redirect () :
-    routing__path_matcher__route_rule =
+let routing__path_matcher__route_rule ?description ?origin
+    ?(header_action = []) ?(route_action = []) ?(url_redirect = [])
+    ~priority ~match_rule () : routing__path_matcher__route_rule =
   {
     description;
     origin;
@@ -1777,7 +1778,7 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_network_services_edge_cache_service ?description
     ?disable_http2 ?disable_quic ?edge_security_policy
     ?edge_ssl_certificates ?id ?labels ?project ?require_tls
-    ?ssl_policy ?timeouts ~name ~log_config ~routing () :
+    ?ssl_policy ?(log_config = []) ?timeouts ~name ~routing () :
     google_network_services_edge_cache_service =
   {
     description;
@@ -1816,8 +1817,8 @@ type t = {
 
 let make ?description ?disable_http2 ?disable_quic
     ?edge_security_policy ?edge_ssl_certificates ?id ?labels ?project
-    ?require_tls ?ssl_policy ?timeouts ~name ~log_config ~routing
-    __id =
+    ?require_tls ?ssl_policy ?(log_config = []) ?timeouts ~name
+    ~routing __id =
   let __type = "google_network_services_edge_cache_service" in
   let __attrs =
     ({
@@ -1851,18 +1852,18 @@ let make ?description ?disable_http2 ?disable_quic
         (google_network_services_edge_cache_service ?description
            ?disable_http2 ?disable_quic ?edge_security_policy
            ?edge_ssl_certificates ?id ?labels ?project ?require_tls
-           ?ssl_policy ?timeouts ~name ~log_config ~routing ());
+           ?ssl_policy ~log_config ?timeouts ~name ~routing ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?disable_http2 ?disable_quic
     ?edge_security_policy ?edge_ssl_certificates ?id ?labels ?project
-    ?require_tls ?ssl_policy ?timeouts ~name ~log_config ~routing
-    __id =
+    ?require_tls ?ssl_policy ?(log_config = []) ?timeouts ~name
+    ~routing __id =
   let (r : _ Tf_core.resource) =
     make ?description ?disable_http2 ?disable_quic
       ?edge_security_policy ?edge_ssl_certificates ?id ?labels
-      ?project ?require_tls ?ssl_policy ?timeouts ~name ~log_config
+      ?project ?require_tls ?ssl_policy ~log_config ?timeouts ~name
       ~routing __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

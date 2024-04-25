@@ -371,8 +371,8 @@ let _ = yojson_of_azurerm_vpn_site
 let link__bgp ~asn ~peering_address () : link__bgp =
   { asn; peering_address }
 
-let link ?fqdn ?ip_address ?provider_name ?speed_in_mbps ~name ~bgp
-    () : link =
+let link ?fqdn ?ip_address ?provider_name ?speed_in_mbps ?(bgp = [])
+    ~name () : link =
   { fqdn; ip_address; name; provider_name; speed_in_mbps; bgp }
 
 let o365_policy__traffic_category ?allow_endpoint_enabled
@@ -384,15 +384,15 @@ let o365_policy__traffic_category ?allow_endpoint_enabled
     optimize_endpoint_enabled;
   }
 
-let o365_policy ~traffic_category () : o365_policy =
+let o365_policy ?(traffic_category = []) () : o365_policy =
   { traffic_category }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_vpn_site ?address_cidrs ?device_model ?device_vendor ?id
-    ?tags ?timeouts ~location ~name ~resource_group_name
-    ~virtual_wan_id ~link ~o365_policy () : azurerm_vpn_site =
+    ?tags ?(link = []) ?(o365_policy = []) ?timeouts ~location ~name
+    ~resource_group_name ~virtual_wan_id () : azurerm_vpn_site =
   {
     address_cidrs;
     device_model;
@@ -421,8 +421,8 @@ type t = {
 }
 
 let make ?address_cidrs ?device_model ?device_vendor ?id ?tags
-    ?timeouts ~location ~name ~resource_group_name ~virtual_wan_id
-    ~link ~o365_policy __id =
+    ?(link = []) ?(o365_policy = []) ?timeouts ~location ~name
+    ~resource_group_name ~virtual_wan_id __id =
   let __type = "azurerm_vpn_site" in
   let __attrs =
     ({
@@ -445,18 +445,18 @@ let make ?address_cidrs ?device_model ?device_vendor ?id ?tags
     json =
       yojson_of_azurerm_vpn_site
         (azurerm_vpn_site ?address_cidrs ?device_model ?device_vendor
-           ?id ?tags ?timeouts ~location ~name ~resource_group_name
-           ~virtual_wan_id ~link ~o365_policy ());
+           ?id ?tags ~link ~o365_policy ?timeouts ~location ~name
+           ~resource_group_name ~virtual_wan_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?address_cidrs ?device_model ?device_vendor
-    ?id ?tags ?timeouts ~location ~name ~resource_group_name
-    ~virtual_wan_id ~link ~o365_policy __id =
+    ?id ?tags ?(link = []) ?(o365_policy = []) ?timeouts ~location
+    ~name ~resource_group_name ~virtual_wan_id __id =
   let (r : _ Tf_core.resource) =
-    make ?address_cidrs ?device_model ?device_vendor ?id ?tags
-      ?timeouts ~location ~name ~resource_group_name ~virtual_wan_id
-      ~link ~o365_policy __id
+    make ?address_cidrs ?device_model ?device_vendor ?id ?tags ~link
+      ~o365_policy ?timeouts ~location ~name ~resource_group_name
+      ~virtual_wan_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

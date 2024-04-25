@@ -126,7 +126,7 @@ let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
 let google_network_security_address_group_iam_binding ?id ?location
-    ?project ~members ~name ~role ~condition () :
+    ?project ?(condition = []) ~members ~name ~role () :
     google_network_security_address_group_iam_binding =
   { id; location; members; name; project; role; condition }
 
@@ -140,8 +140,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?location ?project ~members ~name ~role ~condition __id
-    =
+let make ?id ?location ?project ?(condition = []) ~members ~name
+    ~role __id =
   let __type = "google_network_security_address_group_iam_binding" in
   let __attrs =
     ({
@@ -161,14 +161,14 @@ let make ?id ?location ?project ~members ~name ~role ~condition __id
     json =
       yojson_of_google_network_security_address_group_iam_binding
         (google_network_security_address_group_iam_binding ?id
-           ?location ?project ~members ~name ~role ~condition ());
+           ?location ?project ~condition ~members ~name ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?location ?project ~members ~name ~role
-    ~condition __id =
+let register ?tf_module ?id ?location ?project ?(condition = [])
+    ~members ~name ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?location ?project ~members ~name ~role ~condition __id
+    make ?id ?location ?project ~condition ~members ~name ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

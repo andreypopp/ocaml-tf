@@ -33,9 +33,9 @@ val google_monitoring_notification_channel :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?user_labels:(string * string prop) list ->
+  ?sensitive_labels:sensitive_labels list ->
   ?timeouts:timeouts ->
   type_:string prop ->
-  sensitive_labels:sensitive_labels list ->
   unit ->
   google_monitoring_notification_channel
 
@@ -68,9 +68,9 @@ val register :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?user_labels:(string * string prop) list ->
+  ?sensitive_labels:sensitive_labels list ->
   ?timeouts:timeouts ->
   type_:string prop ->
-  sensitive_labels:sensitive_labels list ->
   string ->
   t
 
@@ -83,8 +83,8 @@ val make :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?user_labels:(string * string prop) list ->
+  ?sensitive_labels:sensitive_labels list ->
   ?timeouts:timeouts ->
   type_:string prop ->
-  sensitive_labels:sensitive_labels list ->
   string ->
   t Tf_core.resource

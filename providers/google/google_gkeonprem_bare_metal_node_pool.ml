@@ -401,8 +401,8 @@ let node_pool_config__taints ?effect ?key ?value () :
     node_pool_config__taints =
   { effect; key; value }
 
-let node_pool_config ?labels ?operating_system ~node_configs ~taints
-    () : node_pool_config =
+let node_pool_config ?labels ?operating_system ?(taints = [])
+    ~node_configs () : node_pool_config =
   { labels; operating_system; node_configs; taints }
 
 let timeouts ?create ?delete ?update () : timeouts =

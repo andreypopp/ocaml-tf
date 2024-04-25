@@ -17,7 +17,7 @@ val trusted_token_issuer_configuration__oidc_jwt_configuration :
 type trusted_token_issuer_configuration
 
 val trusted_token_issuer_configuration :
-  oidc_jwt_configuration:
+  ?oidc_jwt_configuration:
     trusted_token_issuer_configuration__oidc_jwt_configuration list ->
   unit ->
   trusted_token_issuer_configuration
@@ -27,11 +27,11 @@ type aws_ssoadmin_trusted_token_issuer
 val aws_ssoadmin_trusted_token_issuer :
   ?client_token:string prop ->
   ?tags:(string * string prop) list ->
+  ?trusted_token_issuer_configuration:
+    trusted_token_issuer_configuration list ->
   instance_arn:string prop ->
   name:string prop ->
   trusted_token_issuer_type:string prop ->
-  trusted_token_issuer_configuration:
-    trusted_token_issuer_configuration list ->
   unit ->
   aws_ssoadmin_trusted_token_issuer
 
@@ -55,21 +55,21 @@ val register :
   ?tf_module:tf_module ->
   ?client_token:string prop ->
   ?tags:(string * string prop) list ->
+  ?trusted_token_issuer_configuration:
+    trusted_token_issuer_configuration list ->
   instance_arn:string prop ->
   name:string prop ->
   trusted_token_issuer_type:string prop ->
-  trusted_token_issuer_configuration:
-    trusted_token_issuer_configuration list ->
   string ->
   t
 
 val make :
   ?client_token:string prop ->
   ?tags:(string * string prop) list ->
+  ?trusted_token_issuer_configuration:
+    trusted_token_issuer_configuration list ->
   instance_arn:string prop ->
   name:string prop ->
   trusted_token_issuer_type:string prop ->
-  trusted_token_issuer_configuration:
-    trusted_token_issuer_configuration list ->
   string ->
   t Tf_core.resource

@@ -90,7 +90,7 @@ val site_config :
   ?use_32_bit_worker_process:bool prop ->
   ?vnet_route_all_enabled:bool prop ->
   ?websockets_enabled:bool prop ->
-  cors:site_config__cors list ->
+  ?cors:site_config__cors list ->
   unit ->
   site_config
 
@@ -103,10 +103,10 @@ type azurerm_logic_app_standard
 val azurerm_logic_app_standard :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?site_config:site_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
-  site_config:site_config list ->
   unit ->
   azurerm_logic_app_standard
 
@@ -148,19 +148,19 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?site_config:site_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
-  site_config:site_config list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?site_config:site_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
-  site_config:site_config list ->
   string ->
   t Tf_core.resource

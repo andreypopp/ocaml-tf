@@ -65,10 +65,10 @@ val lifecycle_rule :
   ?id:string prop ->
   ?prefix:string prop ->
   ?tags:(string * string prop) list ->
-  enabled:bool prop ->
-  expiration:lifecycle_rule__expiration list ->
-  noncurrent_version_expiration:
+  ?expiration:lifecycle_rule__expiration list ->
+  ?noncurrent_version_expiration:
     lifecycle_rule__noncurrent_version_expiration list ->
+  enabled:bool prop ->
   noncurrent_version_transition:
     lifecycle_rule__noncurrent_version_transition list ->
   transition:lifecycle_rule__transition list ->
@@ -104,7 +104,7 @@ type object_lock_configuration
 
 val object_lock_configuration :
   ?object_lock_enabled:string prop ->
-  rule:object_lock_configuration__rule list ->
+  ?rule:object_lock_configuration__rule list ->
   unit ->
   object_lock_configuration
 
@@ -137,14 +137,15 @@ val replication_configuration__rules__destination :
   ?account_id:string prop ->
   ?replica_kms_key_id:string prop ->
   ?storage_class:string prop ->
-  bucket:string prop ->
-  access_control_translation:
+  ?access_control_translation:
     replication_configuration__rules__destination__access_control_translation
     list ->
-  metrics:replication_configuration__rules__destination__metrics list ->
-  replication_time:
+  ?metrics:
+    replication_configuration__rules__destination__metrics list ->
+  ?replication_time:
     replication_configuration__rules__destination__replication_time
     list ->
+  bucket:string prop ->
   unit ->
   replication_configuration__rules__destination
 
@@ -166,7 +167,7 @@ val replication_configuration__rules__source_selection_criteria__sse_kms_encrypt
 type replication_configuration__rules__source_selection_criteria
 
 val replication_configuration__rules__source_selection_criteria :
-  sse_kms_encrypted_objects:
+  ?sse_kms_encrypted_objects:
     replication_configuration__rules__source_selection_criteria__sse_kms_encrypted_objects
     list ->
   unit ->
@@ -179,11 +180,11 @@ val replication_configuration__rules :
   ?id:string prop ->
   ?prefix:string prop ->
   ?priority:float prop ->
+  ?filter:replication_configuration__rules__filter list ->
+  ?source_selection_criteria:
+    replication_configuration__rules__source_selection_criteria list ->
   status:string prop ->
   destination:replication_configuration__rules__destination list ->
-  filter:replication_configuration__rules__filter list ->
-  source_selection_criteria:
-    replication_configuration__rules__source_selection_criteria list ->
   unit ->
   replication_configuration__rules
 
@@ -259,17 +260,17 @@ val aws_s3_bucket :
   ?request_payer:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:timeouts ->
-  cors_rule:cors_rule list ->
-  grant:grant list ->
-  lifecycle_rule:lifecycle_rule list ->
-  logging:logging list ->
-  object_lock_configuration:object_lock_configuration list ->
-  replication_configuration:replication_configuration list ->
-  server_side_encryption_configuration:
+  ?cors_rule:cors_rule list ->
+  ?lifecycle_rule:lifecycle_rule list ->
+  ?logging:logging list ->
+  ?object_lock_configuration:object_lock_configuration list ->
+  ?replication_configuration:replication_configuration list ->
+  ?server_side_encryption_configuration:
     server_side_encryption_configuration list ->
-  versioning:versioning list ->
-  website:website list ->
+  ?timeouts:timeouts ->
+  ?versioning:versioning list ->
+  ?website:website list ->
+  grant:grant list ->
   unit ->
   aws_s3_bucket
 
@@ -311,17 +312,17 @@ val register :
   ?request_payer:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:timeouts ->
-  cors_rule:cors_rule list ->
-  grant:grant list ->
-  lifecycle_rule:lifecycle_rule list ->
-  logging:logging list ->
-  object_lock_configuration:object_lock_configuration list ->
-  replication_configuration:replication_configuration list ->
-  server_side_encryption_configuration:
+  ?cors_rule:cors_rule list ->
+  ?lifecycle_rule:lifecycle_rule list ->
+  ?logging:logging list ->
+  ?object_lock_configuration:object_lock_configuration list ->
+  ?replication_configuration:replication_configuration list ->
+  ?server_side_encryption_configuration:
     server_side_encryption_configuration list ->
-  versioning:versioning list ->
-  website:website list ->
+  ?timeouts:timeouts ->
+  ?versioning:versioning list ->
+  ?website:website list ->
+  grant:grant list ->
   string ->
   t
 
@@ -337,16 +338,16 @@ val make :
   ?request_payer:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  ?timeouts:timeouts ->
-  cors_rule:cors_rule list ->
-  grant:grant list ->
-  lifecycle_rule:lifecycle_rule list ->
-  logging:logging list ->
-  object_lock_configuration:object_lock_configuration list ->
-  replication_configuration:replication_configuration list ->
-  server_side_encryption_configuration:
+  ?cors_rule:cors_rule list ->
+  ?lifecycle_rule:lifecycle_rule list ->
+  ?logging:logging list ->
+  ?object_lock_configuration:object_lock_configuration list ->
+  ?replication_configuration:replication_configuration list ->
+  ?server_side_encryption_configuration:
     server_side_encryption_configuration list ->
-  versioning:versioning list ->
-  website:website list ->
+  ?timeouts:timeouts ->
+  ?versioning:versioning list ->
+  ?website:website list ->
+  grant:grant list ->
   string ->
   t Tf_core.resource

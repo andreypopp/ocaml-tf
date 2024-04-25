@@ -35,10 +35,10 @@ type azurerm_cosmosdb_mongo_role_definition
 val azurerm_cosmosdb_mongo_role_definition :
   ?id:string prop ->
   ?inherited_role_names:string prop list ->
+  ?privilege:privilege list ->
   ?timeouts:timeouts ->
   cosmos_mongo_database_id:string prop ->
   role_name:string prop ->
-  privilege:privilege list ->
   unit ->
   azurerm_cosmosdb_mongo_role_definition
 
@@ -58,19 +58,19 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?inherited_role_names:string prop list ->
+  ?privilege:privilege list ->
   ?timeouts:timeouts ->
   cosmos_mongo_database_id:string prop ->
   role_name:string prop ->
-  privilege:privilege list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?inherited_role_names:string prop list ->
+  ?privilege:privilege list ->
   ?timeouts:timeouts ->
   cosmos_mongo_database_id:string prop ->
   role_name:string prop ->
-  privilege:privilege list ->
   string ->
   t Tf_core.resource

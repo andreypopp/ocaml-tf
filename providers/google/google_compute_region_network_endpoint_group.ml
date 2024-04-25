@@ -316,8 +316,9 @@ let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let google_compute_region_network_endpoint_group ?description ?id
     ?network ?network_endpoint_type ?project ?psc_target_service
-    ?subnetwork ?timeouts ~name ~region ~app_engine ~cloud_function
-    ~cloud_run () : google_compute_region_network_endpoint_group =
+    ?subnetwork ?(app_engine = []) ?(cloud_function = [])
+    ?(cloud_run = []) ?timeouts ~name ~region () :
+    google_compute_region_network_endpoint_group =
   {
     description;
     id;
@@ -348,8 +349,9 @@ type t = {
 }
 
 let make ?description ?id ?network ?network_endpoint_type ?project
-    ?psc_target_service ?subnetwork ?timeouts ~name ~region
-    ~app_engine ~cloud_function ~cloud_run __id =
+    ?psc_target_service ?subnetwork ?(app_engine = [])
+    ?(cloud_function = []) ?(cloud_run = []) ?timeouts ~name ~region
+    __id =
   let __type = "google_compute_region_network_endpoint_group" in
   let __attrs =
     ({
@@ -375,19 +377,19 @@ let make ?description ?id ?network ?network_endpoint_type ?project
       yojson_of_google_compute_region_network_endpoint_group
         (google_compute_region_network_endpoint_group ?description
            ?id ?network ?network_endpoint_type ?project
-           ?psc_target_service ?subnetwork ?timeouts ~name ~region
-           ~app_engine ~cloud_function ~cloud_run ());
+           ?psc_target_service ?subnetwork ~app_engine
+           ~cloud_function ~cloud_run ?timeouts ~name ~region ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?network
     ?network_endpoint_type ?project ?psc_target_service ?subnetwork
-    ?timeouts ~name ~region ~app_engine ~cloud_function ~cloud_run
-    __id =
+    ?(app_engine = []) ?(cloud_function = []) ?(cloud_run = [])
+    ?timeouts ~name ~region __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?network ?network_endpoint_type ?project
-      ?psc_target_service ?subnetwork ?timeouts ~name ~region
-      ~app_engine ~cloud_function ~cloud_run __id
+      ?psc_target_service ?subnetwork ~app_engine ~cloud_function
+      ~cloud_run ?timeouts ~name ~region __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

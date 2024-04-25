@@ -1012,22 +1012,24 @@ let spec__egress__to__namespace_selector__match_expressions ?key
   { key; operator; values }
 
 let spec__egress__to__namespace_selector ?match_labels
-    ~match_expressions () : spec__egress__to__namespace_selector =
+    ?(match_expressions = []) () :
+    spec__egress__to__namespace_selector =
   { match_labels; match_expressions }
 
 let spec__egress__to__pod_selector__match_expressions ?key ?operator
     ?values () : spec__egress__to__pod_selector__match_expressions =
   { key; operator; values }
 
-let spec__egress__to__pod_selector ?match_labels ~match_expressions
-    () : spec__egress__to__pod_selector =
+let spec__egress__to__pod_selector ?match_labels
+    ?(match_expressions = []) () : spec__egress__to__pod_selector =
   { match_labels; match_expressions }
 
-let spec__egress__to ~ip_block ~namespace_selector ~pod_selector () :
-    spec__egress__to =
+let spec__egress__to ?(ip_block = []) ?(namespace_selector = [])
+    ?(pod_selector = []) () : spec__egress__to =
   { ip_block; namespace_selector; pod_selector }
 
-let spec__egress ~ports ~to_ () : spec__egress = { ports; to_ }
+let spec__egress ?(ports = []) ?(to_ = []) () : spec__egress =
+  { ports; to_ }
 
 let spec__ingress__from__ip_block ?cidr ?except () :
     spec__ingress__from__ip_block =
@@ -1039,7 +1041,8 @@ let spec__ingress__from__namespace_selector__match_expressions ?key
   { key; operator; values }
 
 let spec__ingress__from__namespace_selector ?match_labels
-    ~match_expressions () : spec__ingress__from__namespace_selector =
+    ?(match_expressions = []) () :
+    spec__ingress__from__namespace_selector =
   { match_labels; match_expressions }
 
 let spec__ingress__from__pod_selector__match_expressions ?key
@@ -1048,27 +1051,30 @@ let spec__ingress__from__pod_selector__match_expressions ?key
   { key; operator; values }
 
 let spec__ingress__from__pod_selector ?match_labels
-    ~match_expressions () : spec__ingress__from__pod_selector =
+    ?(match_expressions = []) () : spec__ingress__from__pod_selector
+    =
   { match_labels; match_expressions }
 
-let spec__ingress__from ~ip_block ~namespace_selector ~pod_selector
-    () : spec__ingress__from =
+let spec__ingress__from ?(ip_block = []) ?(namespace_selector = [])
+    ?(pod_selector = []) () : spec__ingress__from =
   { ip_block; namespace_selector; pod_selector }
 
 let spec__ingress__ports ?port ?protocol () : spec__ingress__ports =
   { port; protocol }
 
-let spec__ingress ~from ~ports () : spec__ingress = { from; ports }
+let spec__ingress ?(from = []) ?(ports = []) () : spec__ingress =
+  { from; ports }
 
 let spec__pod_selector__match_expressions ?key ?operator ?values () :
     spec__pod_selector__match_expressions =
   { key; operator; values }
 
-let spec__pod_selector ?match_labels ~match_expressions () :
+let spec__pod_selector ?match_labels ?(match_expressions = []) () :
     spec__pod_selector =
   { match_labels; match_expressions }
 
-let spec ~policy_types ~egress ~ingress ~pod_selector () : spec =
+let spec ?(egress = []) ?(ingress = []) ~policy_types ~pod_selector
+    () : spec =
   { policy_types; egress; ingress; pod_selector }
 
 let kubernetes_network_policy ?id ~metadata ~spec () :

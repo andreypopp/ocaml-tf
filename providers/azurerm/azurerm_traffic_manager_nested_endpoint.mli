@@ -39,13 +39,13 @@ val azurerm_traffic_manager_nested_endpoint :
   ?minimum_required_child_endpoints_ipv6:float prop ->
   ?priority:float prop ->
   ?weight:float prop ->
+  ?custom_header:custom_header list ->
+  ?subnet:subnet list ->
   ?timeouts:timeouts ->
   minimum_child_endpoints:float prop ->
   name:string prop ->
   profile_id:string prop ->
   target_resource_id:string prop ->
-  custom_header:custom_header list ->
-  subnet:subnet list ->
   unit ->
   azurerm_traffic_manager_nested_endpoint
 
@@ -79,13 +79,13 @@ val register :
   ?minimum_required_child_endpoints_ipv6:float prop ->
   ?priority:float prop ->
   ?weight:float prop ->
+  ?custom_header:custom_header list ->
+  ?subnet:subnet list ->
   ?timeouts:timeouts ->
   minimum_child_endpoints:float prop ->
   name:string prop ->
   profile_id:string prop ->
   target_resource_id:string prop ->
-  custom_header:custom_header list ->
-  subnet:subnet list ->
   string ->
   t
 
@@ -98,12 +98,12 @@ val make :
   ?minimum_required_child_endpoints_ipv6:float prop ->
   ?priority:float prop ->
   ?weight:float prop ->
+  ?custom_header:custom_header list ->
+  ?subnet:subnet list ->
   ?timeouts:timeouts ->
   minimum_child_endpoints:float prop ->
   name:string prop ->
   profile_id:string prop ->
   target_resource_id:string prop ->
-  custom_header:custom_header list ->
-  subnet:subnet list ->
   string ->
   t Tf_core.resource

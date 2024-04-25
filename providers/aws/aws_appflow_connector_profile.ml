@@ -2986,7 +2986,7 @@ let connector_profile_config__connector_profile_credentials__custom_connector__o
 
 let connector_profile_config__connector_profile_credentials__custom_connector__oauth2
     ?access_token ?client_id ?client_secret ?refresh_token
-    ~oauth_request () :
+    ?(oauth_request = []) () :
     connector_profile_config__connector_profile_credentials__custom_connector__oauth2
     =
   {
@@ -2998,7 +2998,8 @@ let connector_profile_config__connector_profile_credentials__custom_connector__o
   }
 
 let connector_profile_config__connector_profile_credentials__custom_connector
-    ~authentication_type ~api_key ~basic ~custom ~oauth2 () :
+    ?(api_key = []) ?(basic = []) ?(custom = []) ?(oauth2 = [])
+    ~authentication_type () :
     connector_profile_config__connector_profile_credentials__custom_connector
     =
   { authentication_type; api_key; basic; custom; oauth2 }
@@ -3022,8 +3023,8 @@ let connector_profile_config__connector_profile_credentials__google_analytics__o
   { auth_code; redirect_uri }
 
 let connector_profile_config__connector_profile_credentials__google_analytics
-    ?access_token ?refresh_token ~client_id ~client_secret
-    ~oauth_request () :
+    ?access_token ?refresh_token ?(oauth_request = []) ~client_id
+    ~client_secret () :
     connector_profile_config__connector_profile_credentials__google_analytics
     =
   {
@@ -3041,7 +3042,7 @@ let connector_profile_config__connector_profile_credentials__honeycode__oauth_re
   { auth_code; redirect_uri }
 
 let connector_profile_config__connector_profile_credentials__honeycode
-    ?access_token ?refresh_token ~oauth_request () :
+    ?access_token ?refresh_token ?(oauth_request = []) () :
     connector_profile_config__connector_profile_credentials__honeycode
     =
   { access_token; refresh_token; oauth_request }
@@ -3059,7 +3060,8 @@ let connector_profile_config__connector_profile_credentials__marketo__oauth_requ
   { auth_code; redirect_uri }
 
 let connector_profile_config__connector_profile_credentials__marketo
-    ?access_token ~client_id ~client_secret ~oauth_request () :
+    ?access_token ?(oauth_request = []) ~client_id ~client_secret ()
+    :
     connector_profile_config__connector_profile_credentials__marketo
     =
   { access_token; client_id; client_secret; oauth_request }
@@ -3078,7 +3080,7 @@ let connector_profile_config__connector_profile_credentials__salesforce__oauth_r
 
 let connector_profile_config__connector_profile_credentials__salesforce
     ?access_token ?client_credentials_arn ?jwt_token
-    ?oauth2_grant_type ?refresh_token ~oauth_request () :
+    ?oauth2_grant_type ?refresh_token ?(oauth_request = []) () :
     connector_profile_config__connector_profile_credentials__salesforce
     =
   {
@@ -3103,8 +3105,8 @@ let connector_profile_config__connector_profile_credentials__sapo_data__oauth_cr
   { auth_code; redirect_uri }
 
 let connector_profile_config__connector_profile_credentials__sapo_data__oauth_credentials
-    ?access_token ?refresh_token ~client_id ~client_secret
-    ~oauth_request () :
+    ?access_token ?refresh_token ?(oauth_request = []) ~client_id
+    ~client_secret () :
     connector_profile_config__connector_profile_credentials__sapo_data__oauth_credentials
     =
   {
@@ -3116,7 +3118,7 @@ let connector_profile_config__connector_profile_credentials__sapo_data__oauth_cr
   }
 
 let connector_profile_config__connector_profile_credentials__sapo_data
-    ~basic_auth_credentials ~oauth_credentials () :
+    ?(basic_auth_credentials = []) ?(oauth_credentials = []) () :
     connector_profile_config__connector_profile_credentials__sapo_data
     =
   { basic_auth_credentials; oauth_credentials }
@@ -3140,8 +3142,9 @@ let connector_profile_config__connector_profile_credentials__slack__oauth_reques
   { auth_code; redirect_uri }
 
 let connector_profile_config__connector_profile_credentials__slack
-    ?access_token ~client_id ~client_secret ~oauth_request () :
-    connector_profile_config__connector_profile_credentials__slack =
+    ?access_token ?(oauth_request = []) ~client_id ~client_secret ()
+    : connector_profile_config__connector_profile_credentials__slack
+    =
   { access_token; client_id; client_secret; oauth_request }
 
 let connector_profile_config__connector_profile_credentials__snowflake
@@ -3168,16 +3171,19 @@ let connector_profile_config__connector_profile_credentials__zendesk__oauth_requ
   { auth_code; redirect_uri }
 
 let connector_profile_config__connector_profile_credentials__zendesk
-    ?access_token ~client_id ~client_secret ~oauth_request () :
+    ?access_token ?(oauth_request = []) ~client_id ~client_secret ()
+    :
     connector_profile_config__connector_profile_credentials__zendesk
     =
   { access_token; client_id; client_secret; oauth_request }
 
 let connector_profile_config__connector_profile_credentials
-    ~amplitude ~custom_connector ~datadog ~dynatrace
-    ~google_analytics ~honeycode ~infor_nexus ~marketo ~redshift
-    ~salesforce ~sapo_data ~service_now ~singular ~slack ~snowflake
-    ~trendmicro ~veeva ~zendesk () :
+    ?(amplitude = []) ?(custom_connector = []) ?(datadog = [])
+    ?(dynatrace = []) ?(google_analytics = []) ?(honeycode = [])
+    ?(infor_nexus = []) ?(marketo = []) ?(redshift = [])
+    ?(salesforce = []) ?(sapo_data = []) ?(service_now = [])
+    ?(singular = []) ?(slack = []) ?(snowflake = [])
+    ?(trendmicro = []) ?(veeva = []) ?(zendesk = []) () :
     connector_profile_config__connector_profile_credentials =
   {
     amplitude;
@@ -3211,7 +3217,7 @@ let connector_profile_config__connector_profile_properties__custom_connector__oa
   { oauth2_grant_type; token_url; token_url_custom_properties }
 
 let connector_profile_config__connector_profile_properties__custom_connector
-    ?profile_properties ~oauth2_properties () :
+    ?profile_properties ?(oauth2_properties = []) () :
     connector_profile_config__connector_profile_properties__custom_connector
     =
   { profile_properties; oauth2_properties }
@@ -3274,9 +3280,9 @@ let connector_profile_config__connector_profile_properties__sapo_data__oauth_pro
   { auth_code_url; oauth_scopes; token_url }
 
 let connector_profile_config__connector_profile_properties__sapo_data
-    ?logon_language ?private_link_service_name ~application_host_url
-    ~application_service_path ~client_number ~port_number
-    ~oauth_properties () :
+    ?logon_language ?private_link_service_name
+    ?(oauth_properties = []) ~application_host_url
+    ~application_service_path ~client_number ~port_number () :
     connector_profile_config__connector_profile_properties__sapo_data
     =
   {
@@ -3333,11 +3339,13 @@ let connector_profile_config__connector_profile_properties__zendesk
     connector_profile_config__connector_profile_properties__zendesk =
   { instance_url }
 
-let connector_profile_config__connector_profile_properties ~amplitude
-    ~custom_connector ~datadog ~dynatrace ~google_analytics
-    ~honeycode ~infor_nexus ~marketo ~redshift ~salesforce ~sapo_data
-    ~service_now ~singular ~slack ~snowflake ~trendmicro ~veeva
-    ~zendesk () :
+let connector_profile_config__connector_profile_properties
+    ?(amplitude = []) ?(custom_connector = []) ?(datadog = [])
+    ?(dynatrace = []) ?(google_analytics = []) ?(honeycode = [])
+    ?(infor_nexus = []) ?(marketo = []) ?(redshift = [])
+    ?(salesforce = []) ?(sapo_data = []) ?(service_now = [])
+    ?(singular = []) ?(slack = []) ?(snowflake = [])
+    ?(trendmicro = []) ?(veeva = []) ?(zendesk = []) () :
     connector_profile_config__connector_profile_properties =
   {
     amplitude;

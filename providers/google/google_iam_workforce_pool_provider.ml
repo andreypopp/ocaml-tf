@@ -359,15 +359,16 @@ let oidc__client_secret__value ~plain_text () :
     oidc__client_secret__value =
   { plain_text }
 
-let oidc__client_secret ~value () : oidc__client_secret = { value }
+let oidc__client_secret ?(value = []) () : oidc__client_secret =
+  { value }
 
 let oidc__web_sso_config ?additional_scopes
     ~assertion_claims_behavior ~response_type () :
     oidc__web_sso_config =
   { additional_scopes; assertion_claims_behavior; response_type }
 
-let oidc ?jwks_json ~client_id ~issuer_uri ~client_secret
-    ~web_sso_config () : oidc =
+let oidc ?jwks_json ?(client_secret = []) ?(web_sso_config = [])
+    ~client_id ~issuer_uri () : oidc =
   { client_id; issuer_uri; jwks_json; client_secret; web_sso_config }
 
 let saml ~idp_metadata_xml () : saml = { idp_metadata_xml }
@@ -377,8 +378,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_iam_workforce_pool_provider ?attribute_condition
     ?attribute_mapping ?description ?disabled ?display_name ?id
-    ?timeouts ~location ~provider_id ~workforce_pool_id ~oidc ~saml
-    () : google_iam_workforce_pool_provider =
+    ?(oidc = []) ?(saml = []) ?timeouts ~location ~provider_id
+    ~workforce_pool_id () : google_iam_workforce_pool_provider =
   {
     attribute_condition;
     attribute_mapping;
@@ -409,8 +410,8 @@ type t = {
 }
 
 let make ?attribute_condition ?attribute_mapping ?description
-    ?disabled ?display_name ?id ?timeouts ~location ~provider_id
-    ~workforce_pool_id ~oidc ~saml __id =
+    ?disabled ?display_name ?id ?(oidc = []) ?(saml = []) ?timeouts
+    ~location ~provider_id ~workforce_pool_id __id =
   let __type = "google_iam_workforce_pool_provider" in
   let __attrs =
     ({
@@ -438,18 +439,19 @@ let make ?attribute_condition ?attribute_mapping ?description
       yojson_of_google_iam_workforce_pool_provider
         (google_iam_workforce_pool_provider ?attribute_condition
            ?attribute_mapping ?description ?disabled ?display_name
-           ?id ?timeouts ~location ~provider_id ~workforce_pool_id
-           ~oidc ~saml ());
+           ?id ~oidc ~saml ?timeouts ~location ~provider_id
+           ~workforce_pool_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?attribute_condition ?attribute_mapping
-    ?description ?disabled ?display_name ?id ?timeouts ~location
-    ~provider_id ~workforce_pool_id ~oidc ~saml __id =
+    ?description ?disabled ?display_name ?id ?(oidc = [])
+    ?(saml = []) ?timeouts ~location ~provider_id ~workforce_pool_id
+    __id =
   let (r : _ Tf_core.resource) =
     make ?attribute_condition ?attribute_mapping ?description
-      ?disabled ?display_name ?id ?timeouts ~location ~provider_id
-      ~workforce_pool_id ~oidc ~saml __id
+      ?disabled ?display_name ?id ~oidc ~saml ?timeouts ~location
+      ~provider_id ~workforce_pool_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

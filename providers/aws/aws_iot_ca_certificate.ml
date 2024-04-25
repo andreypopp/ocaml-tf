@@ -200,8 +200,8 @@ let registration_config ?role_arn ?template_body ?template_name () :
   { role_arn; template_body; template_name }
 
 let aws_iot_ca_certificate ?certificate_mode ?id ?tags ?tags_all
-    ?verification_certificate_pem ~active ~allow_auto_registration
-    ~ca_certificate_pem ~registration_config () :
+    ?verification_certificate_pem ?(registration_config = []) ~active
+    ~allow_auto_registration ~ca_certificate_pem () :
     aws_iot_ca_certificate =
   {
     active;
@@ -231,8 +231,8 @@ type t = {
 }
 
 let make ?certificate_mode ?id ?tags ?tags_all
-    ?verification_certificate_pem ~active ~allow_auto_registration
-    ~ca_certificate_pem ~registration_config __id =
+    ?verification_certificate_pem ?(registration_config = []) ~active
+    ~allow_auto_registration ~ca_certificate_pem __id =
   let __type = "aws_iot_ca_certificate" in
   let __attrs =
     ({
@@ -262,19 +262,18 @@ let make ?certificate_mode ?id ?tags ?tags_all
     json =
       yojson_of_aws_iot_ca_certificate
         (aws_iot_ca_certificate ?certificate_mode ?id ?tags ?tags_all
-           ?verification_certificate_pem ~active
-           ~allow_auto_registration ~ca_certificate_pem
-           ~registration_config ());
+           ?verification_certificate_pem ~registration_config ~active
+           ~allow_auto_registration ~ca_certificate_pem ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?certificate_mode ?id ?tags ?tags_all
-    ?verification_certificate_pem ~active ~allow_auto_registration
-    ~ca_certificate_pem ~registration_config __id =
+    ?verification_certificate_pem ?(registration_config = []) ~active
+    ~allow_auto_registration ~ca_certificate_pem __id =
   let (r : _ Tf_core.resource) =
     make ?certificate_mode ?id ?tags ?tags_all
-      ?verification_certificate_pem ~active ~allow_auto_registration
-      ~ca_certificate_pem ~registration_config __id
+      ?verification_certificate_pem ~registration_config ~active
+      ~allow_auto_registration ~ca_certificate_pem __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -748,8 +748,8 @@ let application_rule_collection__rule__protocols ~port ~type_ () :
 let application_rule_collection__rule ?description
     ?destination_addresses ?destination_fqdn_tags ?destination_fqdns
     ?destination_urls ?source_addresses ?source_ip_groups
-    ?terminate_tls ?web_categories ~name ~http_headers ~protocols ()
-    : application_rule_collection__rule =
+    ?terminate_tls ?web_categories ?(http_headers = [])
+    ?(protocols = []) ~name () : application_rule_collection__rule =
   {
     description;
     destination_addresses;
@@ -813,9 +813,10 @@ let network_rule_collection ~action ~name ~priority ~rule () :
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_firewall_policy_rule_collection_group ?id ?timeouts
-    ~firewall_policy_id ~name ~priority ~application_rule_collection
-    ~nat_rule_collection ~network_rule_collection () :
+let azurerm_firewall_policy_rule_collection_group ?id
+    ?(application_rule_collection = []) ?(nat_rule_collection = [])
+    ?(network_rule_collection = []) ?timeouts ~firewall_policy_id
+    ~name ~priority () :
     azurerm_firewall_policy_rule_collection_group =
   {
     firewall_policy_id;
@@ -835,9 +836,9 @@ type t = {
   priority : float prop;
 }
 
-let make ?id ?timeouts ~firewall_policy_id ~name ~priority
-    ~application_rule_collection ~nat_rule_collection
-    ~network_rule_collection __id =
+let make ?id ?(application_rule_collection = [])
+    ?(nat_rule_collection = []) ?(network_rule_collection = [])
+    ?timeouts ~firewall_policy_id ~name ~priority __id =
   let __type = "azurerm_firewall_policy_rule_collection_group" in
   let __attrs =
     ({
@@ -854,20 +855,20 @@ let make ?id ?timeouts ~firewall_policy_id ~name ~priority
     type_ = __type;
     json =
       yojson_of_azurerm_firewall_policy_rule_collection_group
-        (azurerm_firewall_policy_rule_collection_group ?id ?timeouts
-           ~firewall_policy_id ~name ~priority
+        (azurerm_firewall_policy_rule_collection_group ?id
            ~application_rule_collection ~nat_rule_collection
-           ~network_rule_collection ());
+           ~network_rule_collection ?timeouts ~firewall_policy_id
+           ~name ~priority ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~firewall_policy_id ~name
-    ~priority ~application_rule_collection ~nat_rule_collection
-    ~network_rule_collection __id =
+let register ?tf_module ?id ?(application_rule_collection = [])
+    ?(nat_rule_collection = []) ?(network_rule_collection = [])
+    ?timeouts ~firewall_policy_id ~name ~priority __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~firewall_policy_id ~name ~priority
-      ~application_rule_collection ~nat_rule_collection
-      ~network_rule_collection __id
+    make ?id ~application_rule_collection ~nat_rule_collection
+      ~network_rule_collection ?timeouts ~firewall_policy_id ~name
+      ~priority __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

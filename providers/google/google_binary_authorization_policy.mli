@@ -44,8 +44,8 @@ val google_binary_authorization_policy :
   ?global_policy_evaluation_mode:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?admission_whitelist_patterns:admission_whitelist_patterns list ->
   ?timeouts:timeouts ->
-  admission_whitelist_patterns:admission_whitelist_patterns list ->
   cluster_admission_rules:cluster_admission_rules list ->
   default_admission_rule:default_admission_rule list ->
   unit ->
@@ -69,8 +69,8 @@ val register :
   ?global_policy_evaluation_mode:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?admission_whitelist_patterns:admission_whitelist_patterns list ->
   ?timeouts:timeouts ->
-  admission_whitelist_patterns:admission_whitelist_patterns list ->
   cluster_admission_rules:cluster_admission_rules list ->
   default_admission_rule:default_admission_rule list ->
   string ->
@@ -81,8 +81,8 @@ val make :
   ?global_policy_evaluation_mode:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?admission_whitelist_patterns:admission_whitelist_patterns list ->
   ?timeouts:timeouts ->
-  admission_whitelist_patterns:admission_whitelist_patterns list ->
   cluster_admission_rules:cluster_admission_rules list ->
   default_admission_rule:default_admission_rule list ->
   string ->

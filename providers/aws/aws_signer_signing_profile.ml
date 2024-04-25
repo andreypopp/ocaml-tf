@@ -214,8 +214,8 @@ let signing_material ~certificate_arn () : signing_material =
   { certificate_arn }
 
 let aws_signer_signing_profile ?id ?name ?name_prefix ?tags ?tags_all
-    ~platform_id ~signature_validity_period ~signing_material () :
-    aws_signer_signing_profile =
+    ?(signature_validity_period = []) ?(signing_material = [])
+    ~platform_id () : aws_signer_signing_profile =
   {
     id;
     name;
@@ -242,8 +242,9 @@ type t = {
   version_arn : string prop;
 }
 
-let make ?id ?name ?name_prefix ?tags ?tags_all ~platform_id
-    ~signature_validity_period ~signing_material __id =
+let make ?id ?name ?name_prefix ?tags ?tags_all
+    ?(signature_validity_period = []) ?(signing_material = [])
+    ~platform_id __id =
   let __type = "aws_signer_signing_profile" in
   let __attrs =
     ({
@@ -270,16 +271,17 @@ let make ?id ?name ?name_prefix ?tags ?tags_all ~platform_id
     json =
       yojson_of_aws_signer_signing_profile
         (aws_signer_signing_profile ?id ?name ?name_prefix ?tags
-           ?tags_all ~platform_id ~signature_validity_period
-           ~signing_material ());
+           ?tags_all ~signature_validity_period ~signing_material
+           ~platform_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?name ?name_prefix ?tags ?tags_all
-    ~platform_id ~signature_validity_period ~signing_material __id =
+    ?(signature_validity_period = []) ?(signing_material = [])
+    ~platform_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?name ?name_prefix ?tags ?tags_all ~platform_id
-      ~signature_validity_period ~signing_material __id
+    make ?id ?name ?name_prefix ?tags ?tags_all
+      ~signature_validity_period ~signing_material ~platform_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

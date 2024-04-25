@@ -69,6 +69,9 @@ val azurerm_redis_cache :
   ?tags:(string * string prop) list ->
   ?tenant_settings:(string * string prop) list ->
   ?zones:string prop list ->
+  ?identity:identity list ->
+  ?patch_schedule:patch_schedule list ->
+  ?redis_configuration:redis_configuration list ->
   ?timeouts:timeouts ->
   capacity:float prop ->
   family:string prop ->
@@ -76,9 +79,6 @@ val azurerm_redis_cache :
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  identity:identity list ->
-  patch_schedule:patch_schedule list ->
-  redis_configuration:redis_configuration list ->
   unit ->
   azurerm_redis_cache
 
@@ -130,6 +130,9 @@ val register :
   ?tags:(string * string prop) list ->
   ?tenant_settings:(string * string prop) list ->
   ?zones:string prop list ->
+  ?identity:identity list ->
+  ?patch_schedule:patch_schedule list ->
+  ?redis_configuration:redis_configuration list ->
   ?timeouts:timeouts ->
   capacity:float prop ->
   family:string prop ->
@@ -137,9 +140,6 @@ val register :
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  identity:identity list ->
-  patch_schedule:patch_schedule list ->
-  redis_configuration:redis_configuration list ->
   string ->
   t
 
@@ -157,6 +157,9 @@ val make :
   ?tags:(string * string prop) list ->
   ?tenant_settings:(string * string prop) list ->
   ?zones:string prop list ->
+  ?identity:identity list ->
+  ?patch_schedule:patch_schedule list ->
+  ?redis_configuration:redis_configuration list ->
   ?timeouts:timeouts ->
   capacity:float prop ->
   family:string prop ->
@@ -164,8 +167,5 @@ val make :
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  identity:identity list ->
-  patch_schedule:patch_schedule list ->
-  redis_configuration:redis_configuration list ->
   string ->
   t Tf_core.resource

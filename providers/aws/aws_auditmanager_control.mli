@@ -18,10 +18,10 @@ val control_mapping_sources :
   ?source_description:string prop ->
   ?source_frequency:string prop ->
   ?troubleshooting_text:string prop ->
+  ?source_keyword:control_mapping_sources__source_keyword list ->
   source_name:string prop ->
   source_set_up_option:string prop ->
   source_type:string prop ->
-  source_keyword:control_mapping_sources__source_keyword list ->
   unit ->
   control_mapping_sources
 

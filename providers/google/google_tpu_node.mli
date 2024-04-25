@@ -34,11 +34,11 @@ val google_tpu_node :
   ?project:string prop ->
   ?use_service_networking:bool prop ->
   ?zone:string prop ->
+  ?scheduling_config:scheduling_config list ->
   ?timeouts:timeouts ->
   accelerator_type:string prop ->
   name:string prop ->
   tensorflow_version:string prop ->
-  scheduling_config:scheduling_config list ->
   unit ->
   google_tpu_node
 
@@ -74,11 +74,11 @@ val register :
   ?project:string prop ->
   ?use_service_networking:bool prop ->
   ?zone:string prop ->
+  ?scheduling_config:scheduling_config list ->
   ?timeouts:timeouts ->
   accelerator_type:string prop ->
   name:string prop ->
   tensorflow_version:string prop ->
-  scheduling_config:scheduling_config list ->
   string ->
   t
 
@@ -91,10 +91,10 @@ val make :
   ?project:string prop ->
   ?use_service_networking:bool prop ->
   ?zone:string prop ->
+  ?scheduling_config:scheduling_config list ->
   ?timeouts:timeouts ->
   accelerator_type:string prop ->
   name:string prop ->
   tensorflow_version:string prop ->
-  scheduling_config:scheduling_config list ->
   string ->
   t Tf_core.resource

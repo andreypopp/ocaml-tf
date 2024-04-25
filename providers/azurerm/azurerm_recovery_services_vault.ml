@@ -389,9 +389,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_recovery_services_vault
     ?classic_vmware_replication_enabled ?cross_region_restore_enabled
     ?id ?immutability ?public_network_access_enabled
-    ?soft_delete_enabled ?storage_mode_type ?tags ?timeouts ~location
-    ~name ~resource_group_name ~sku ~encryption ~identity ~monitoring
-    () : azurerm_recovery_services_vault =
+    ?soft_delete_enabled ?storage_mode_type ?tags ?(encryption = [])
+    ?(identity = []) ?(monitoring = []) ?timeouts ~location ~name
+    ~resource_group_name ~sku () : azurerm_recovery_services_vault =
   {
     classic_vmware_replication_enabled;
     cross_region_restore_enabled;
@@ -429,9 +429,9 @@ type t = {
 let make ?classic_vmware_replication_enabled
     ?cross_region_restore_enabled ?id ?immutability
     ?public_network_access_enabled ?soft_delete_enabled
-    ?storage_mode_type ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku ~encryption ~identity ~monitoring __id
-    =
+    ?storage_mode_type ?tags ?(encryption = []) ?(identity = [])
+    ?(monitoring = []) ?timeouts ~location ~name ~resource_group_name
+    ~sku __id =
   let __type = "azurerm_recovery_services_vault" in
   let __attrs =
     ({
@@ -466,25 +466,23 @@ let make ?classic_vmware_replication_enabled
            ?classic_vmware_replication_enabled
            ?cross_region_restore_enabled ?id ?immutability
            ?public_network_access_enabled ?soft_delete_enabled
-           ?storage_mode_type ?tags ?timeouts ~location ~name
-           ~resource_group_name ~sku ~encryption ~identity
-           ~monitoring ());
+           ?storage_mode_type ?tags ~encryption ~identity ~monitoring
+           ?timeouts ~location ~name ~resource_group_name ~sku ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?classic_vmware_replication_enabled
     ?cross_region_restore_enabled ?id ?immutability
     ?public_network_access_enabled ?soft_delete_enabled
-    ?storage_mode_type ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku ~encryption ~identity ~monitoring __id
-    =
+    ?storage_mode_type ?tags ?(encryption = []) ?(identity = [])
+    ?(monitoring = []) ?timeouts ~location ~name ~resource_group_name
+    ~sku __id =
   let (r : _ Tf_core.resource) =
     make ?classic_vmware_replication_enabled
       ?cross_region_restore_enabled ?id ?immutability
       ?public_network_access_enabled ?soft_delete_enabled
-      ?storage_mode_type ?tags ?timeouts ~location ~name
-      ~resource_group_name ~sku ~encryption ~identity ~monitoring
-      __id
+      ?storage_mode_type ?tags ~encryption ~identity ~monitoring
+      ?timeouts ~location ~name ~resource_group_name ~sku __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -39,8 +39,8 @@ type node_pool_config
 val node_pool_config :
   ?labels:(string * string prop) list ->
   ?operating_system:string prop ->
+  ?taints:node_pool_config__taints list ->
   node_configs:node_pool_config__node_configs list ->
-  taints:node_pool_config__taints list ->
   unit ->
   node_pool_config
 

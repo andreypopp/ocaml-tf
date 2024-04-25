@@ -1548,7 +1548,7 @@ let instance_filter__group_labels ~labels () :
   { labels }
 
 let instance_filter ?all ?instance_name_prefixes ?instances ?zones
-    ~group_labels () : instance_filter =
+    ?(group_labels = []) () : instance_filter =
   { all; instance_name_prefixes; instances; zones; group_labels }
 
 let one_time_schedule ~execute_time () : one_time_schedule =
@@ -1566,7 +1566,8 @@ let patch_config__post_step__linux_exec_step_config__gcs_object
   { bucket; generation_number; object_ }
 
 let patch_config__post_step__linux_exec_step_config
-    ?allowed_success_codes ?interpreter ?local_path ~gcs_object () :
+    ?allowed_success_codes ?interpreter ?local_path
+    ?(gcs_object = []) () :
     patch_config__post_step__linux_exec_step_config =
   { allowed_success_codes; interpreter; local_path; gcs_object }
 
@@ -1576,12 +1577,13 @@ let patch_config__post_step__windows_exec_step_config__gcs_object
   { bucket; generation_number; object_ }
 
 let patch_config__post_step__windows_exec_step_config
-    ?allowed_success_codes ?interpreter ?local_path ~gcs_object () :
+    ?allowed_success_codes ?interpreter ?local_path
+    ?(gcs_object = []) () :
     patch_config__post_step__windows_exec_step_config =
   { allowed_success_codes; interpreter; local_path; gcs_object }
 
-let patch_config__post_step ~linux_exec_step_config
-    ~windows_exec_step_config () : patch_config__post_step =
+let patch_config__post_step ?(linux_exec_step_config = [])
+    ?(windows_exec_step_config = []) () : patch_config__post_step =
   { linux_exec_step_config; windows_exec_step_config }
 
 let patch_config__pre_step__linux_exec_step_config__gcs_object
@@ -1590,7 +1592,8 @@ let patch_config__pre_step__linux_exec_step_config__gcs_object
   { bucket; generation_number; object_ }
 
 let patch_config__pre_step__linux_exec_step_config
-    ?allowed_success_codes ?interpreter ?local_path ~gcs_object () :
+    ?allowed_success_codes ?interpreter ?local_path
+    ?(gcs_object = []) () :
     patch_config__pre_step__linux_exec_step_config =
   { allowed_success_codes; interpreter; local_path; gcs_object }
 
@@ -1600,12 +1603,13 @@ let patch_config__pre_step__windows_exec_step_config__gcs_object
   { bucket; generation_number; object_ }
 
 let patch_config__pre_step__windows_exec_step_config
-    ?allowed_success_codes ?interpreter ?local_path ~gcs_object () :
+    ?allowed_success_codes ?interpreter ?local_path
+    ?(gcs_object = []) () :
     patch_config__pre_step__windows_exec_step_config =
   { allowed_success_codes; interpreter; local_path; gcs_object }
 
-let patch_config__pre_step ~linux_exec_step_config
-    ~windows_exec_step_config () : patch_config__pre_step =
+let patch_config__pre_step ?(linux_exec_step_config = [])
+    ?(windows_exec_step_config = []) () : patch_config__pre_step =
   { linux_exec_step_config; windows_exec_step_config }
 
 let patch_config__windows_update ?classifications ?excludes
@@ -1628,8 +1632,9 @@ let patch_config__zypper ?categories ?excludes ?exclusive_patches
     with_update;
   }
 
-let patch_config ?mig_instances_allowed ?reboot_config ~apt ~goo
-    ~post_step ~pre_step ~windows_update ~yum ~zypper () :
+let patch_config ?mig_instances_allowed ?reboot_config ?(apt = [])
+    ?(goo = []) ?(post_step = []) ?(pre_step = [])
+    ?(windows_update = []) ?(yum = []) ?(zypper = []) () :
     patch_config =
   {
     mig_instances_allowed;
@@ -1648,8 +1653,8 @@ let recurring_schedule__monthly__week_day_of_month ?day_offset
     recurring_schedule__monthly__week_day_of_month =
   { day_of_week; day_offset; week_ordinal }
 
-let recurring_schedule__monthly ?month_day ~week_day_of_month () :
-    recurring_schedule__monthly =
+let recurring_schedule__monthly ?month_day ?(week_day_of_month = [])
+    () : recurring_schedule__monthly =
   { month_day; week_day_of_month }
 
 let recurring_schedule__time_of_day ?hours ?minutes ?nanos ?seconds
@@ -1664,8 +1669,8 @@ let recurring_schedule__weekly ~day_of_week () :
     recurring_schedule__weekly =
   { day_of_week }
 
-let recurring_schedule ?end_time ?start_time ~monthly ~time_of_day
-    ~time_zone ~weekly () : recurring_schedule =
+let recurring_schedule ?end_time ?start_time ?(monthly = [])
+    ?(weekly = []) ~time_of_day ~time_zone () : recurring_schedule =
   { end_time; start_time; monthly; time_of_day; time_zone; weekly }
 
 let rollout__disruption_budget ?fixed ?percentage () :
@@ -1678,9 +1683,10 @@ let rollout ~mode ~disruption_budget () : rollout =
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let google_os_config_patch_deployment ?description ?duration ?id
-    ?project ?timeouts ~patch_deployment_id ~instance_filter
-    ~one_time_schedule ~patch_config ~recurring_schedule ~rollout ()
-    : google_os_config_patch_deployment =
+    ?project ?(one_time_schedule = []) ?(patch_config = [])
+    ?(recurring_schedule = []) ?(rollout = []) ?timeouts
+    ~patch_deployment_id ~instance_filter () :
+    google_os_config_patch_deployment =
   {
     description;
     duration;
@@ -1707,9 +1713,10 @@ type t = {
   update_time : string prop;
 }
 
-let make ?description ?duration ?id ?project ?timeouts
-    ~patch_deployment_id ~instance_filter ~one_time_schedule
-    ~patch_config ~recurring_schedule ~rollout __id =
+let make ?description ?duration ?id ?project
+    ?(one_time_schedule = []) ?(patch_config = [])
+    ?(recurring_schedule = []) ?(rollout = []) ?timeouts
+    ~patch_deployment_id ~instance_filter __id =
   let __type = "google_os_config_patch_deployment" in
   let __attrs =
     ({
@@ -1733,19 +1740,20 @@ let make ?description ?duration ?id ?project ?timeouts
     json =
       yojson_of_google_os_config_patch_deployment
         (google_os_config_patch_deployment ?description ?duration ?id
-           ?project ?timeouts ~patch_deployment_id ~instance_filter
-           ~one_time_schedule ~patch_config ~recurring_schedule
-           ~rollout ());
+           ?project ~one_time_schedule ~patch_config
+           ~recurring_schedule ~rollout ?timeouts
+           ~patch_deployment_id ~instance_filter ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?duration ?id ?project ?timeouts
-    ~patch_deployment_id ~instance_filter ~one_time_schedule
-    ~patch_config ~recurring_schedule ~rollout __id =
+let register ?tf_module ?description ?duration ?id ?project
+    ?(one_time_schedule = []) ?(patch_config = [])
+    ?(recurring_schedule = []) ?(rollout = []) ?timeouts
+    ~patch_deployment_id ~instance_filter __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?duration ?id ?project ?timeouts
-      ~patch_deployment_id ~instance_filter ~one_time_schedule
-      ~patch_config ~recurring_schedule ~rollout __id
+    make ?description ?duration ?id ?project ~one_time_schedule
+      ~patch_config ~recurring_schedule ~rollout ?timeouts
+      ~patch_deployment_id ~instance_filter __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -59,13 +59,14 @@ val backend_http_settings :
   ?probe_name:string prop ->
   ?request_timeout:float prop ->
   ?trusted_root_certificate_names:string prop list ->
+  ?authentication_certificate:
+    backend_http_settings__authentication_certificate list ->
+  ?connection_draining:
+    backend_http_settings__connection_draining list ->
   cookie_based_affinity:string prop ->
   name:string prop ->
   port:float prop ->
   protocol:string prop ->
-  authentication_certificate:
-    backend_http_settings__authentication_certificate list ->
-  connection_draining:backend_http_settings__connection_draining list ->
   unit ->
   backend_http_settings
 
@@ -127,12 +128,12 @@ val http_listener :
   ?require_sni:bool prop ->
   ?ssl_certificate_name:string prop ->
   ?ssl_profile_name:string prop ->
+  ?custom_error_configuration:
+    http_listener__custom_error_configuration list ->
   frontend_ip_configuration_name:string prop ->
   frontend_port_name:string prop ->
   name:string prop ->
   protocol:string prop ->
-  custom_error_configuration:
-    http_listener__custom_error_configuration list ->
   unit ->
   http_listener
 
@@ -178,13 +179,13 @@ val probe :
   ?minimum_servers:float prop ->
   ?pick_host_name_from_backend_http_settings:bool prop ->
   ?port:float prop ->
+  ?match_:probe__match list ->
   interval:float prop ->
   name:string prop ->
   path:string prop ->
   protocol:string prop ->
   timeout:float prop ->
   unhealthy_threshold:float prop ->
-  match_:probe__match list ->
   unit ->
   probe
 
@@ -254,23 +255,23 @@ val rewrite_rule_set__rewrite_rule__url :
 type rewrite_rule_set__rewrite_rule
 
 val rewrite_rule_set__rewrite_rule :
-  name:string prop ->
-  rule_sequence:float prop ->
-  condition:rewrite_rule_set__rewrite_rule__condition list ->
-  request_header_configuration:
+  ?condition:rewrite_rule_set__rewrite_rule__condition list ->
+  ?request_header_configuration:
     rewrite_rule_set__rewrite_rule__request_header_configuration list ->
-  response_header_configuration:
+  ?response_header_configuration:
     rewrite_rule_set__rewrite_rule__response_header_configuration
     list ->
-  url:rewrite_rule_set__rewrite_rule__url list ->
+  ?url:rewrite_rule_set__rewrite_rule__url list ->
+  name:string prop ->
+  rule_sequence:float prop ->
   unit ->
   rewrite_rule_set__rewrite_rule
 
 type rewrite_rule_set
 
 val rewrite_rule_set :
+  ?rewrite_rule:rewrite_rule_set__rewrite_rule list ->
   name:string prop ->
-  rewrite_rule:rewrite_rule_set__rewrite_rule list ->
   unit ->
   rewrite_rule_set
 
@@ -321,8 +322,8 @@ val ssl_profile :
   ?trusted_client_certificate_names:string prop list ->
   ?verify_client_cert_issuer_dn:bool prop ->
   ?verify_client_certificate_revocation:string prop ->
+  ?ssl_policy:ssl_profile__ssl_policy list ->
   name:string prop ->
-  ssl_policy:ssl_profile__ssl_policy list ->
   unit ->
   ssl_profile
 
@@ -402,11 +403,11 @@ val waf_configuration :
   ?max_request_body_size_kb:float prop ->
   ?request_body_check:bool prop ->
   ?rule_set_type:string prop ->
+  ?disabled_rule_group:waf_configuration__disabled_rule_group list ->
+  ?exclusion:waf_configuration__exclusion list ->
   enabled:bool prop ->
   firewall_mode:string prop ->
   rule_set_version:string prop ->
-  disabled_rule_group:waf_configuration__disabled_rule_group list ->
-  exclusion:waf_configuration__exclusion list ->
   unit ->
   waf_configuration
 
@@ -420,34 +421,34 @@ val azurerm_application_gateway :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?zones:string prop list ->
+  ?authentication_certificate:authentication_certificate list ->
+  ?autoscale_configuration:autoscale_configuration list ->
+  ?custom_error_configuration:custom_error_configuration list ->
+  ?global:global list ->
+  ?identity:identity list ->
+  ?rewrite_rule_set:rewrite_rule_set list ->
+  ?ssl_policy:ssl_policy list ->
+  ?ssl_profile:ssl_profile list ->
   ?timeouts:timeouts ->
+  ?trusted_client_certificate:trusted_client_certificate list ->
+  ?trusted_root_certificate:trusted_root_certificate list ->
+  ?url_path_map:url_path_map list ->
+  ?waf_configuration:waf_configuration list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  authentication_certificate:authentication_certificate list ->
-  autoscale_configuration:autoscale_configuration list ->
   backend_address_pool:backend_address_pool list ->
   backend_http_settings:backend_http_settings list ->
-  custom_error_configuration:custom_error_configuration list ->
   frontend_ip_configuration:frontend_ip_configuration list ->
   frontend_port:frontend_port list ->
   gateway_ip_configuration:gateway_ip_configuration list ->
-  global:global list ->
   http_listener:http_listener list ->
-  identity:identity list ->
   private_link_configuration:private_link_configuration list ->
   probe:probe list ->
   redirect_configuration:redirect_configuration list ->
   request_routing_rule:request_routing_rule list ->
-  rewrite_rule_set:rewrite_rule_set list ->
   sku:sku list ->
   ssl_certificate:ssl_certificate list ->
-  ssl_policy:ssl_policy list ->
-  ssl_profile:ssl_profile list ->
-  trusted_client_certificate:trusted_client_certificate list ->
-  trusted_root_certificate:trusted_root_certificate list ->
-  url_path_map:url_path_map list ->
-  waf_configuration:waf_configuration list ->
   unit ->
   azurerm_application_gateway
 
@@ -480,34 +481,34 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?zones:string prop list ->
+  ?authentication_certificate:authentication_certificate list ->
+  ?autoscale_configuration:autoscale_configuration list ->
+  ?custom_error_configuration:custom_error_configuration list ->
+  ?global:global list ->
+  ?identity:identity list ->
+  ?rewrite_rule_set:rewrite_rule_set list ->
+  ?ssl_policy:ssl_policy list ->
+  ?ssl_profile:ssl_profile list ->
   ?timeouts:timeouts ->
+  ?trusted_client_certificate:trusted_client_certificate list ->
+  ?trusted_root_certificate:trusted_root_certificate list ->
+  ?url_path_map:url_path_map list ->
+  ?waf_configuration:waf_configuration list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  authentication_certificate:authentication_certificate list ->
-  autoscale_configuration:autoscale_configuration list ->
   backend_address_pool:backend_address_pool list ->
   backend_http_settings:backend_http_settings list ->
-  custom_error_configuration:custom_error_configuration list ->
   frontend_ip_configuration:frontend_ip_configuration list ->
   frontend_port:frontend_port list ->
   gateway_ip_configuration:gateway_ip_configuration list ->
-  global:global list ->
   http_listener:http_listener list ->
-  identity:identity list ->
   private_link_configuration:private_link_configuration list ->
   probe:probe list ->
   redirect_configuration:redirect_configuration list ->
   request_routing_rule:request_routing_rule list ->
-  rewrite_rule_set:rewrite_rule_set list ->
   sku:sku list ->
   ssl_certificate:ssl_certificate list ->
-  ssl_policy:ssl_policy list ->
-  ssl_profile:ssl_profile list ->
-  trusted_client_certificate:trusted_client_certificate list ->
-  trusted_root_certificate:trusted_root_certificate list ->
-  url_path_map:url_path_map list ->
-  waf_configuration:waf_configuration list ->
   string ->
   t
 
@@ -519,33 +520,33 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?zones:string prop list ->
+  ?authentication_certificate:authentication_certificate list ->
+  ?autoscale_configuration:autoscale_configuration list ->
+  ?custom_error_configuration:custom_error_configuration list ->
+  ?global:global list ->
+  ?identity:identity list ->
+  ?rewrite_rule_set:rewrite_rule_set list ->
+  ?ssl_policy:ssl_policy list ->
+  ?ssl_profile:ssl_profile list ->
   ?timeouts:timeouts ->
+  ?trusted_client_certificate:trusted_client_certificate list ->
+  ?trusted_root_certificate:trusted_root_certificate list ->
+  ?url_path_map:url_path_map list ->
+  ?waf_configuration:waf_configuration list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  authentication_certificate:authentication_certificate list ->
-  autoscale_configuration:autoscale_configuration list ->
   backend_address_pool:backend_address_pool list ->
   backend_http_settings:backend_http_settings list ->
-  custom_error_configuration:custom_error_configuration list ->
   frontend_ip_configuration:frontend_ip_configuration list ->
   frontend_port:frontend_port list ->
   gateway_ip_configuration:gateway_ip_configuration list ->
-  global:global list ->
   http_listener:http_listener list ->
-  identity:identity list ->
   private_link_configuration:private_link_configuration list ->
   probe:probe list ->
   redirect_configuration:redirect_configuration list ->
   request_routing_rule:request_routing_rule list ->
-  rewrite_rule_set:rewrite_rule_set list ->
   sku:sku list ->
   ssl_certificate:ssl_certificate list ->
-  ssl_policy:ssl_policy list ->
-  ssl_profile:ssl_profile list ->
-  trusted_client_certificate:trusted_client_certificate list ->
-  trusted_root_certificate:trusted_root_certificate list ->
-  url_path_map:url_path_map list ->
-  waf_configuration:waf_configuration list ->
   string ->
   t Tf_core.resource

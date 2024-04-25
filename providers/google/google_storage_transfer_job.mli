@@ -54,9 +54,9 @@ type schedule
 
 val schedule :
   ?repeat_interval:string prop ->
-  schedule_end_date:schedule__schedule_end_date list ->
+  ?schedule_end_date:schedule__schedule_end_date list ->
+  ?start_time_of_day:schedule__start_time_of_day list ->
   schedule_start_date:schedule__schedule_start_date list ->
-  start_time_of_day:schedule__start_time_of_day list ->
   unit ->
   schedule
 
@@ -73,9 +73,9 @@ type transfer_spec__aws_s3_data_source
 val transfer_spec__aws_s3_data_source :
   ?path:string prop ->
   ?role_arn:string prop ->
-  bucket_name:string prop ->
-  aws_access_key:
+  ?aws_access_key:
     transfer_spec__aws_s3_data_source__aws_access_key list ->
+  bucket_name:string prop ->
   unit ->
   transfer_spec__aws_s3_data_source
 
@@ -160,16 +160,16 @@ type transfer_spec
 val transfer_spec :
   ?sink_agent_pool_name:string prop ->
   ?source_agent_pool_name:string prop ->
-  aws_s3_data_source:transfer_spec__aws_s3_data_source list ->
-  azure_blob_storage_data_source:
+  ?aws_s3_data_source:transfer_spec__aws_s3_data_source list ->
+  ?azure_blob_storage_data_source:
     transfer_spec__azure_blob_storage_data_source list ->
-  gcs_data_sink:transfer_spec__gcs_data_sink list ->
-  gcs_data_source:transfer_spec__gcs_data_source list ->
-  http_data_source:transfer_spec__http_data_source list ->
-  object_conditions:transfer_spec__object_conditions list ->
-  posix_data_sink:transfer_spec__posix_data_sink list ->
-  posix_data_source:transfer_spec__posix_data_source list ->
-  transfer_options:transfer_spec__transfer_options list ->
+  ?gcs_data_sink:transfer_spec__gcs_data_sink list ->
+  ?gcs_data_source:transfer_spec__gcs_data_source list ->
+  ?http_data_source:transfer_spec__http_data_source list ->
+  ?object_conditions:transfer_spec__object_conditions list ->
+  ?posix_data_sink:transfer_spec__posix_data_sink list ->
+  ?posix_data_source:transfer_spec__posix_data_source list ->
+  ?transfer_options:transfer_spec__transfer_options list ->
   unit ->
   transfer_spec
 
@@ -180,10 +180,10 @@ val google_storage_transfer_job :
   ?name:string prop ->
   ?project:string prop ->
   ?status:string prop ->
+  ?event_stream:event_stream list ->
+  ?notification_config:notification_config list ->
+  ?schedule:schedule list ->
   description:string prop ->
-  event_stream:event_stream list ->
-  notification_config:notification_config list ->
-  schedule:schedule list ->
   transfer_spec:transfer_spec list ->
   unit ->
   google_storage_transfer_job
@@ -210,10 +210,10 @@ val register :
   ?name:string prop ->
   ?project:string prop ->
   ?status:string prop ->
+  ?event_stream:event_stream list ->
+  ?notification_config:notification_config list ->
+  ?schedule:schedule list ->
   description:string prop ->
-  event_stream:event_stream list ->
-  notification_config:notification_config list ->
-  schedule:schedule list ->
   transfer_spec:transfer_spec list ->
   string ->
   t
@@ -223,10 +223,10 @@ val make :
   ?name:string prop ->
   ?project:string prop ->
   ?status:string prop ->
+  ?event_stream:event_stream list ->
+  ?notification_config:notification_config list ->
+  ?schedule:schedule list ->
   description:string prop ->
-  event_stream:event_stream list ->
-  notification_config:notification_config list ->
-  schedule:schedule list ->
   transfer_spec:transfer_spec list ->
   string ->
   t Tf_core.resource

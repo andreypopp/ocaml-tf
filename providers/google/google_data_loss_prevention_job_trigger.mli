@@ -35,12 +35,12 @@ type inspect_job__actions__deidentify
 
 val inspect_job__actions__deidentify :
   ?file_types_to_transform:string prop list ->
-  cloud_storage_output:string prop ->
-  transformation_config:
+  ?transformation_config:
     inspect_job__actions__deidentify__transformation_config list ->
-  transformation_details_storage_config:
+  ?transformation_details_storage_config:
     inspect_job__actions__deidentify__transformation_details_storage_config
     list ->
+  cloud_storage_output:string prop ->
   unit ->
   inspect_job__actions__deidentify
 
@@ -99,17 +99,17 @@ val inspect_job__actions__save_findings :
 type inspect_job__actions
 
 val inspect_job__actions :
-  deidentify:inspect_job__actions__deidentify list ->
-  job_notification_emails:
+  ?deidentify:inspect_job__actions__deidentify list ->
+  ?job_notification_emails:
     inspect_job__actions__job_notification_emails list ->
-  pub_sub:inspect_job__actions__pub_sub list ->
-  publish_findings_to_cloud_data_catalog:
+  ?pub_sub:inspect_job__actions__pub_sub list ->
+  ?publish_findings_to_cloud_data_catalog:
     inspect_job__actions__publish_findings_to_cloud_data_catalog list ->
-  publish_summary_to_cscc:
+  ?publish_summary_to_cscc:
     inspect_job__actions__publish_summary_to_cscc list ->
-  publish_to_stackdriver:
+  ?publish_to_stackdriver:
     inspect_job__actions__publish_to_stackdriver list ->
-  save_findings:inspect_job__actions__save_findings list ->
+  ?save_findings:inspect_job__actions__save_findings list ->
   unit ->
   inspect_job__actions
 
@@ -130,10 +130,10 @@ val inspect_job__inspect_config__custom_info_types__dictionary__word_list :
 type inspect_job__inspect_config__custom_info_types__dictionary
 
 val inspect_job__inspect_config__custom_info_types__dictionary :
-  cloud_storage_path:
+  ?cloud_storage_path:
     inspect_job__inspect_config__custom_info_types__dictionary__cloud_storage_path
     list ->
-  word_list:
+  ?word_list:
     inspect_job__inspect_config__custom_info_types__dictionary__word_list
     list ->
   unit ->
@@ -150,10 +150,10 @@ type inspect_job__inspect_config__custom_info_types__info_type
 
 val inspect_job__inspect_config__custom_info_types__info_type :
   ?version:string prop ->
-  name:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     inspect_job__inspect_config__custom_info_types__info_type__sensitivity_score
     list ->
+  name:string prop ->
   unit ->
   inspect_job__inspect_config__custom_info_types__info_type
 
@@ -190,19 +190,19 @@ type inspect_job__inspect_config__custom_info_types
 val inspect_job__inspect_config__custom_info_types :
   ?exclusion_type:string prop ->
   ?likelihood:string prop ->
-  dictionary:
+  ?dictionary:
     inspect_job__inspect_config__custom_info_types__dictionary list ->
-  info_type:
-    inspect_job__inspect_config__custom_info_types__info_type list ->
-  regex:inspect_job__inspect_config__custom_info_types__regex list ->
-  sensitivity_score:
+  ?regex:inspect_job__inspect_config__custom_info_types__regex list ->
+  ?sensitivity_score:
     inspect_job__inspect_config__custom_info_types__sensitivity_score
     list ->
-  stored_type:
+  ?stored_type:
     inspect_job__inspect_config__custom_info_types__stored_type list ->
-  surrogate_type:
+  ?surrogate_type:
     inspect_job__inspect_config__custom_info_types__surrogate_type
     list ->
+  info_type:
+    inspect_job__inspect_config__custom_info_types__info_type list ->
   unit ->
   inspect_job__inspect_config__custom_info_types
 
@@ -217,9 +217,9 @@ type inspect_job__inspect_config__info_types
 
 val inspect_job__inspect_config__info_types :
   ?version:string prop ->
-  name:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     inspect_job__inspect_config__info_types__sensitivity_score list ->
+  name:string prop ->
   unit ->
   inspect_job__inspect_config__info_types
 
@@ -234,10 +234,10 @@ type inspect_job__inspect_config__limits__max_findings_per_info_type__info_type
 
 val inspect_job__inspect_config__limits__max_findings_per_info_type__info_type :
   ?version:string prop ->
-  name:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     inspect_job__inspect_config__limits__max_findings_per_info_type__info_type__sensitivity_score
     list ->
+  name:string prop ->
   unit ->
   inspect_job__inspect_config__limits__max_findings_per_info_type__info_type
 
@@ -245,7 +245,7 @@ type inspect_job__inspect_config__limits__max_findings_per_info_type
 
 val inspect_job__inspect_config__limits__max_findings_per_info_type :
   ?max_findings:float prop ->
-  info_type:
+  ?info_type:
     inspect_job__inspect_config__limits__max_findings_per_info_type__info_type
     list ->
   unit ->
@@ -256,7 +256,7 @@ type inspect_job__inspect_config__limits
 val inspect_job__inspect_config__limits :
   ?max_findings_per_item:float prop ->
   ?max_findings_per_request:float prop ->
-  max_findings_per_info_type:
+  ?max_findings_per_info_type:
     inspect_job__inspect_config__limits__max_findings_per_info_type
     list ->
   unit ->
@@ -273,10 +273,10 @@ type inspect_job__inspect_config__rule_set__info_types
 
 val inspect_job__inspect_config__rule_set__info_types :
   ?version:string prop ->
-  name:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     inspect_job__inspect_config__rule_set__info_types__sensitivity_score
     list ->
+  name:string prop ->
   unit ->
   inspect_job__inspect_config__rule_set__info_types
 
@@ -297,10 +297,10 @@ val inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__wo
 type inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary
 
 val inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary :
-  cloud_storage_path:
+  ?cloud_storage_path:
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__cloud_storage_path
     list ->
-  word_list:
+  ?word_list:
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__word_list
     list ->
   unit ->
@@ -325,10 +325,10 @@ val inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hot
 type inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword
 
 val inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword :
-  hotword_regex:
+  ?hotword_regex:
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__hotword_regex
     list ->
-  proximity:
+  ?proximity:
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__proximity
     list ->
   unit ->
@@ -345,10 +345,10 @@ type inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_
 
 val inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types :
   ?version:string prop ->
-  name:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types__sensitivity_score
     list ->
+  name:string prop ->
   unit ->
   inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types
 
@@ -372,19 +372,19 @@ val inspect_job__inspect_config__rule_set__rules__exclusion_rule__regex :
 type inspect_job__inspect_config__rule_set__rules__exclusion_rule
 
 val inspect_job__inspect_config__rule_set__rules__exclusion_rule :
-  matching_type:string prop ->
-  dictionary:
+  ?dictionary:
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary
     list ->
-  exclude_by_hotword:
+  ?exclude_by_hotword:
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword
     list ->
-  exclude_info_types:
+  ?exclude_info_types:
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types
     list ->
-  regex:
+  ?regex:
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__regex
     list ->
+  matching_type:string prop ->
   unit ->
   inspect_job__inspect_config__rule_set__rules__exclusion_rule
 
@@ -415,13 +415,13 @@ val inspect_job__inspect_config__rule_set__rules__hotword_rule__proximity :
 type inspect_job__inspect_config__rule_set__rules__hotword_rule
 
 val inspect_job__inspect_config__rule_set__rules__hotword_rule :
-  hotword_regex:
+  ?hotword_regex:
     inspect_job__inspect_config__rule_set__rules__hotword_rule__hotword_regex
     list ->
-  likelihood_adjustment:
+  ?likelihood_adjustment:
     inspect_job__inspect_config__rule_set__rules__hotword_rule__likelihood_adjustment
     list ->
-  proximity:
+  ?proximity:
     inspect_job__inspect_config__rule_set__rules__hotword_rule__proximity
     list ->
   unit ->
@@ -430,9 +430,9 @@ val inspect_job__inspect_config__rule_set__rules__hotword_rule :
 type inspect_job__inspect_config__rule_set__rules
 
 val inspect_job__inspect_config__rule_set__rules :
-  exclusion_rule:
+  ?exclusion_rule:
     inspect_job__inspect_config__rule_set__rules__exclusion_rule list ->
-  hotword_rule:
+  ?hotword_rule:
     inspect_job__inspect_config__rule_set__rules__hotword_rule list ->
   unit ->
   inspect_job__inspect_config__rule_set__rules
@@ -440,7 +440,7 @@ val inspect_job__inspect_config__rule_set__rules :
 type inspect_job__inspect_config__rule_set
 
 val inspect_job__inspect_config__rule_set :
-  info_types:inspect_job__inspect_config__rule_set__info_types list ->
+  ?info_types:inspect_job__inspect_config__rule_set__info_types list ->
   rules:inspect_job__inspect_config__rule_set__rules list ->
   unit ->
   inspect_job__inspect_config__rule_set
@@ -451,11 +451,11 @@ val inspect_job__inspect_config :
   ?exclude_info_types:bool prop ->
   ?include_quote:bool prop ->
   ?min_likelihood:string prop ->
-  custom_info_types:
+  ?custom_info_types:
     inspect_job__inspect_config__custom_info_types list ->
-  info_types:inspect_job__inspect_config__info_types list ->
-  limits:inspect_job__inspect_config__limits list ->
-  rule_set:inspect_job__inspect_config__rule_set list ->
+  ?info_types:inspect_job__inspect_config__info_types list ->
+  ?limits:inspect_job__inspect_config__limits list ->
+  ?rule_set:inspect_job__inspect_config__rule_set list ->
   unit ->
   inspect_job__inspect_config
 
@@ -495,13 +495,13 @@ val inspect_job__storage_config__big_query_options :
   ?rows_limit:float prop ->
   ?rows_limit_percent:float prop ->
   ?sample_method:string prop ->
-  excluded_fields:
+  ?excluded_fields:
     inspect_job__storage_config__big_query_options__excluded_fields
     list ->
-  identifying_fields:
+  ?identifying_fields:
     inspect_job__storage_config__big_query_options__identifying_fields
     list ->
-  included_fields:
+  ?included_fields:
     inspect_job__storage_config__big_query_options__included_fields
     list ->
   table_reference:
@@ -523,7 +523,7 @@ type inspect_job__storage_config__cloud_storage_options__file_set
 
 val inspect_job__storage_config__cloud_storage_options__file_set :
   ?url:string prop ->
-  regex_file_set:
+  ?regex_file_set:
     inspect_job__storage_config__cloud_storage_options__file_set__regex_file_set
     list ->
   unit ->
@@ -576,7 +576,7 @@ val inspect_job__storage_config__hybrid_options__table_options__identifying_fiel
 type inspect_job__storage_config__hybrid_options__table_options
 
 val inspect_job__storage_config__hybrid_options__table_options :
-  identifying_fields:
+  ?identifying_fields:
     inspect_job__storage_config__hybrid_options__table_options__identifying_fields
     list ->
   unit ->
@@ -588,7 +588,7 @@ val inspect_job__storage_config__hybrid_options :
   ?description:string prop ->
   ?labels:(string * string prop) list ->
   ?required_finding_label_keys:string prop list ->
-  table_options:
+  ?table_options:
     inspect_job__storage_config__hybrid_options__table_options list ->
   unit ->
   inspect_job__storage_config__hybrid_options
@@ -606,7 +606,7 @@ val inspect_job__storage_config__timespan_config :
   ?enable_auto_population_of_timespan_config:bool prop ->
   ?end_time:string prop ->
   ?start_time:string prop ->
-  timestamp_field:
+  ?timestamp_field:
     inspect_job__storage_config__timespan_config__timestamp_field
     list ->
   unit ->
@@ -615,14 +615,14 @@ val inspect_job__storage_config__timespan_config :
 type inspect_job__storage_config
 
 val inspect_job__storage_config :
-  big_query_options:
+  ?big_query_options:
     inspect_job__storage_config__big_query_options list ->
-  cloud_storage_options:
+  ?cloud_storage_options:
     inspect_job__storage_config__cloud_storage_options list ->
-  datastore_options:
+  ?datastore_options:
     inspect_job__storage_config__datastore_options list ->
-  hybrid_options:inspect_job__storage_config__hybrid_options list ->
-  timespan_config:inspect_job__storage_config__timespan_config list ->
+  ?hybrid_options:inspect_job__storage_config__hybrid_options list ->
+  ?timespan_config:inspect_job__storage_config__timespan_config list ->
   unit ->
   inspect_job__storage_config
 
@@ -630,8 +630,8 @@ type inspect_job
 
 val inspect_job :
   ?inspect_template_name:string prop ->
-  actions:inspect_job__actions list ->
-  inspect_config:inspect_job__inspect_config list ->
+  ?actions:inspect_job__actions list ->
+  ?inspect_config:inspect_job__inspect_config list ->
   storage_config:inspect_job__storage_config list ->
   unit ->
   inspect_job
@@ -659,8 +659,8 @@ val triggers__schedule :
 type triggers
 
 val triggers :
-  manual:triggers__manual list ->
-  schedule:triggers__schedule list ->
+  ?manual:triggers__manual list ->
+  ?schedule:triggers__schedule list ->
   unit ->
   triggers
 
@@ -672,9 +672,9 @@ val google_data_loss_prevention_job_trigger :
   ?id:string prop ->
   ?status:string prop ->
   ?trigger_id:string prop ->
+  ?inspect_job:inspect_job list ->
   ?timeouts:timeouts ->
   parent:string prop ->
-  inspect_job:inspect_job list ->
   triggers:triggers list ->
   unit ->
   google_data_loss_prevention_job_trigger
@@ -704,9 +704,9 @@ val register :
   ?id:string prop ->
   ?status:string prop ->
   ?trigger_id:string prop ->
+  ?inspect_job:inspect_job list ->
   ?timeouts:timeouts ->
   parent:string prop ->
-  inspect_job:inspect_job list ->
   triggers:triggers list ->
   string ->
   t
@@ -717,9 +717,9 @@ val make :
   ?id:string prop ->
   ?status:string prop ->
   ?trigger_id:string prop ->
+  ?inspect_job:inspect_job list ->
   ?timeouts:timeouts ->
   parent:string prop ->
-  inspect_job:inspect_job list ->
   triggers:triggers list ->
   string ->
   t Tf_core.resource

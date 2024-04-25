@@ -16,7 +16,7 @@ type capacity_reservation_specification
 
 val capacity_reservation_specification :
   ?capacity_reservation_preference:string prop ->
-  capacity_reservation_target:
+  ?capacity_reservation_target:
     capacity_reservation_specification__capacity_reservation_target
     list ->
   unit ->
@@ -80,7 +80,7 @@ type instance_market_options
 
 val instance_market_options :
   ?market_type:string prop ->
-  spot_options:instance_market_options__spot_options list ->
+  ?spot_options:instance_market_options__spot_options list ->
   unit ->
   instance_market_options
 
@@ -191,21 +191,21 @@ val aws_instance :
   ?user_data_replace_on_change:bool prop ->
   ?volume_tags:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
-  ?timeouts:timeouts ->
-  capacity_reservation_specification:
+  ?capacity_reservation_specification:
     capacity_reservation_specification list ->
-  cpu_options:cpu_options list ->
-  credit_specification:credit_specification list ->
+  ?cpu_options:cpu_options list ->
+  ?credit_specification:credit_specification list ->
+  ?enclave_options:enclave_options list ->
+  ?instance_market_options:instance_market_options list ->
+  ?launch_template:launch_template list ->
+  ?maintenance_options:maintenance_options list ->
+  ?metadata_options:metadata_options list ->
+  ?private_dns_name_options:private_dns_name_options list ->
+  ?root_block_device:root_block_device list ->
+  ?timeouts:timeouts ->
   ebs_block_device:ebs_block_device list ->
-  enclave_options:enclave_options list ->
   ephemeral_block_device:ephemeral_block_device list ->
-  instance_market_options:instance_market_options list ->
-  launch_template:launch_template list ->
-  maintenance_options:maintenance_options list ->
-  metadata_options:metadata_options list ->
   network_interface:network_interface list ->
-  private_dns_name_options:private_dns_name_options list ->
-  root_block_device:root_block_device list ->
   unit ->
   aws_instance
 
@@ -298,21 +298,21 @@ val register :
   ?user_data_replace_on_change:bool prop ->
   ?volume_tags:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
-  ?timeouts:timeouts ->
-  capacity_reservation_specification:
+  ?capacity_reservation_specification:
     capacity_reservation_specification list ->
-  cpu_options:cpu_options list ->
-  credit_specification:credit_specification list ->
+  ?cpu_options:cpu_options list ->
+  ?credit_specification:credit_specification list ->
+  ?enclave_options:enclave_options list ->
+  ?instance_market_options:instance_market_options list ->
+  ?launch_template:launch_template list ->
+  ?maintenance_options:maintenance_options list ->
+  ?metadata_options:metadata_options list ->
+  ?private_dns_name_options:private_dns_name_options list ->
+  ?root_block_device:root_block_device list ->
+  ?timeouts:timeouts ->
   ebs_block_device:ebs_block_device list ->
-  enclave_options:enclave_options list ->
   ephemeral_block_device:ephemeral_block_device list ->
-  instance_market_options:instance_market_options list ->
-  launch_template:launch_template list ->
-  maintenance_options:maintenance_options list ->
-  metadata_options:metadata_options list ->
   network_interface:network_interface list ->
-  private_dns_name_options:private_dns_name_options list ->
-  root_block_device:root_block_device list ->
   string ->
   t
 
@@ -352,20 +352,20 @@ val make :
   ?user_data_replace_on_change:bool prop ->
   ?volume_tags:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
-  ?timeouts:timeouts ->
-  capacity_reservation_specification:
+  ?capacity_reservation_specification:
     capacity_reservation_specification list ->
-  cpu_options:cpu_options list ->
-  credit_specification:credit_specification list ->
+  ?cpu_options:cpu_options list ->
+  ?credit_specification:credit_specification list ->
+  ?enclave_options:enclave_options list ->
+  ?instance_market_options:instance_market_options list ->
+  ?launch_template:launch_template list ->
+  ?maintenance_options:maintenance_options list ->
+  ?metadata_options:metadata_options list ->
+  ?private_dns_name_options:private_dns_name_options list ->
+  ?root_block_device:root_block_device list ->
+  ?timeouts:timeouts ->
   ebs_block_device:ebs_block_device list ->
-  enclave_options:enclave_options list ->
   ephemeral_block_device:ephemeral_block_device list ->
-  instance_market_options:instance_market_options list ->
-  launch_template:launch_template list ->
-  maintenance_options:maintenance_options list ->
-  metadata_options:metadata_options list ->
   network_interface:network_interface list ->
-  private_dns_name_options:private_dns_name_options list ->
-  root_block_device:root_block_device list ->
   string ->
   t Tf_core.resource

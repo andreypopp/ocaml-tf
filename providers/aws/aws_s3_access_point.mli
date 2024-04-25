@@ -26,11 +26,11 @@ val aws_s3_access_point :
   ?bucket_account_id:string prop ->
   ?id:string prop ->
   ?policy:string prop ->
+  ?public_access_block_configuration:
+    public_access_block_configuration list ->
+  ?vpc_configuration:vpc_configuration list ->
   bucket:string prop ->
   name:string prop ->
-  public_access_block_configuration:
-    public_access_block_configuration list ->
-  vpc_configuration:vpc_configuration list ->
   unit ->
   aws_s3_access_point
 
@@ -59,11 +59,11 @@ val register :
   ?bucket_account_id:string prop ->
   ?id:string prop ->
   ?policy:string prop ->
+  ?public_access_block_configuration:
+    public_access_block_configuration list ->
+  ?vpc_configuration:vpc_configuration list ->
   bucket:string prop ->
   name:string prop ->
-  public_access_block_configuration:
-    public_access_block_configuration list ->
-  vpc_configuration:vpc_configuration list ->
   string ->
   t
 
@@ -72,10 +72,10 @@ val make :
   ?bucket_account_id:string prop ->
   ?id:string prop ->
   ?policy:string prop ->
+  ?public_access_block_configuration:
+    public_access_block_configuration list ->
+  ?vpc_configuration:vpc_configuration list ->
   bucket:string prop ->
   name:string prop ->
-  public_access_block_configuration:
-    public_access_block_configuration list ->
-  vpc_configuration:vpc_configuration list ->
   string ->
   t Tf_core.resource

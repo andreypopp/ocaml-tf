@@ -22,10 +22,10 @@ val aws_apigatewayv2_authorizer :
   ?enable_simple_responses:bool prop ->
   ?id:string prop ->
   ?identity_sources:string prop list ->
+  ?jwt_configuration:jwt_configuration list ->
   api_id:string prop ->
   authorizer_type:string prop ->
   name:string prop ->
-  jwt_configuration:jwt_configuration list ->
   unit ->
   aws_apigatewayv2_authorizer
 
@@ -56,10 +56,10 @@ val register :
   ?enable_simple_responses:bool prop ->
   ?id:string prop ->
   ?identity_sources:string prop list ->
+  ?jwt_configuration:jwt_configuration list ->
   api_id:string prop ->
   authorizer_type:string prop ->
   name:string prop ->
-  jwt_configuration:jwt_configuration list ->
   string ->
   t
 
@@ -71,9 +71,9 @@ val make :
   ?enable_simple_responses:bool prop ->
   ?id:string prop ->
   ?identity_sources:string prop list ->
+  ?jwt_configuration:jwt_configuration list ->
   api_id:string prop ->
   authorizer_type:string prop ->
   name:string prop ->
-  jwt_configuration:jwt_configuration list ->
   string ->
   t Tf_core.resource

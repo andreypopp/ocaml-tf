@@ -285,16 +285,17 @@ let rotation_policy__automatic ?time_after_creation
     ?time_before_expiry () : rotation_policy__automatic =
   { time_after_creation; time_before_expiry }
 
-let rotation_policy ?expire_after ?notify_before_expiry ~automatic ()
-    : rotation_policy =
+let rotation_policy ?expire_after ?notify_before_expiry
+    ?(automatic = []) () : rotation_policy =
   { expire_after; notify_before_expiry; automatic }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_key_vault_key ?curve ?expiration_date ?id ?key_size
-    ?not_before_date ?tags ?timeouts ~key_opts ~key_type
-    ~key_vault_id ~name ~rotation_policy () : azurerm_key_vault_key =
+    ?not_before_date ?tags ?(rotation_policy = []) ?timeouts
+    ~key_opts ~key_type ~key_vault_id ~name () :
+    azurerm_key_vault_key =
   {
     curve;
     expiration_date;
@@ -334,8 +335,8 @@ type t = {
 }
 
 let make ?curve ?expiration_date ?id ?key_size ?not_before_date ?tags
-    ?timeouts ~key_opts ~key_type ~key_vault_id ~name
-    ~rotation_policy __id =
+    ?(rotation_policy = []) ?timeouts ~key_opts ~key_type
+    ~key_vault_id ~name __id =
   let __type = "azurerm_key_vault_key" in
   let __attrs =
     ({
@@ -370,18 +371,18 @@ let make ?curve ?expiration_date ?id ?key_size ?not_before_date ?tags
     json =
       yojson_of_azurerm_key_vault_key
         (azurerm_key_vault_key ?curve ?expiration_date ?id ?key_size
-           ?not_before_date ?tags ?timeouts ~key_opts ~key_type
-           ~key_vault_id ~name ~rotation_policy ());
+           ?not_before_date ?tags ~rotation_policy ?timeouts
+           ~key_opts ~key_type ~key_vault_id ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?curve ?expiration_date ?id ?key_size
-    ?not_before_date ?tags ?timeouts ~key_opts ~key_type
-    ~key_vault_id ~name ~rotation_policy __id =
+    ?not_before_date ?tags ?(rotation_policy = []) ?timeouts
+    ~key_opts ~key_type ~key_vault_id ~name __id =
   let (r : _ Tf_core.resource) =
     make ?curve ?expiration_date ?id ?key_size ?not_before_date ?tags
-      ?timeouts ~key_opts ~key_type ~key_vault_id ~name
-      ~rotation_policy __id
+      ~rotation_policy ?timeouts ~key_opts ~key_type ~key_vault_id
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

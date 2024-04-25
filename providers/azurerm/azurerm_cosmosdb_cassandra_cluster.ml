@@ -271,9 +271,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_cosmosdb_cassandra_cluster ?authentication_method
     ?client_certificate_pems ?external_gossip_certificate_pems
     ?external_seed_node_ip_addresses ?hours_between_backups ?id
-    ?repair_enabled ?tags ?version ?timeouts ~default_admin_password
-    ~delegated_management_subnet_id ~location ~name
-    ~resource_group_name ~identity () :
+    ?repair_enabled ?tags ?version ?(identity = []) ?timeouts
+    ~default_admin_password ~delegated_management_subnet_id ~location
+    ~name ~resource_group_name () :
     azurerm_cosmosdb_cassandra_cluster =
   {
     authentication_method;
@@ -314,9 +314,9 @@ type t = {
 let make ?authentication_method ?client_certificate_pems
     ?external_gossip_certificate_pems
     ?external_seed_node_ip_addresses ?hours_between_backups ?id
-    ?repair_enabled ?tags ?version ?timeouts ~default_admin_password
-    ~delegated_management_subnet_id ~location ~name
-    ~resource_group_name ~identity __id =
+    ?repair_enabled ?tags ?version ?(identity = []) ?timeouts
+    ~default_admin_password ~delegated_management_subnet_id ~location
+    ~name ~resource_group_name __id =
   let __type = "azurerm_cosmosdb_cassandra_cluster" in
   let __attrs =
     ({
@@ -353,25 +353,25 @@ let make ?authentication_method ?client_certificate_pems
         (azurerm_cosmosdb_cassandra_cluster ?authentication_method
            ?client_certificate_pems ?external_gossip_certificate_pems
            ?external_seed_node_ip_addresses ?hours_between_backups
-           ?id ?repair_enabled ?tags ?version ?timeouts
+           ?id ?repair_enabled ?tags ?version ~identity ?timeouts
            ~default_admin_password ~delegated_management_subnet_id
-           ~location ~name ~resource_group_name ~identity ());
+           ~location ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?authentication_method
     ?client_certificate_pems ?external_gossip_certificate_pems
     ?external_seed_node_ip_addresses ?hours_between_backups ?id
-    ?repair_enabled ?tags ?version ?timeouts ~default_admin_password
-    ~delegated_management_subnet_id ~location ~name
-    ~resource_group_name ~identity __id =
+    ?repair_enabled ?tags ?version ?(identity = []) ?timeouts
+    ~default_admin_password ~delegated_management_subnet_id ~location
+    ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?authentication_method ?client_certificate_pems
       ?external_gossip_certificate_pems
       ?external_seed_node_ip_addresses ?hours_between_backups ?id
-      ?repair_enabled ?tags ?version ?timeouts
+      ?repair_enabled ?tags ?version ~identity ?timeouts
       ~default_admin_password ~delegated_management_subnet_id
-      ~location ~name ~resource_group_name ~identity __id
+      ~location ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

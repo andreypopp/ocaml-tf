@@ -25,8 +25,8 @@ val authentication__certificate :
 type authentication
 
 val authentication :
-  active_directory:authentication__active_directory list ->
-  certificate:authentication__certificate list ->
+  ?active_directory:authentication__active_directory list ->
+  ?certificate:authentication__certificate list ->
   unit ->
   authentication
 
@@ -75,6 +75,7 @@ val node_type :
   ?placement_properties:(string * string prop) list ->
   ?primary:bool prop ->
   ?stateless:bool prop ->
+  ?vm_secrets:node_type__vm_secrets list ->
   application_port_range:string prop ->
   data_disk_size_gb:float prop ->
   ephemeral_port_range:string prop ->
@@ -85,7 +86,6 @@ val node_type :
   vm_image_version:string prop ->
   vm_instance_count:float prop ->
   vm_size:string prop ->
-  vm_secrets:node_type__vm_secrets list ->
   unit ->
   node_type
 
@@ -111,16 +111,16 @@ val azurerm_service_fabric_managed_cluster :
   ?tags:(string * string prop) list ->
   ?upgrade_wave:string prop ->
   ?username:string prop ->
+  ?authentication:authentication list ->
+  ?custom_fabric_setting:custom_fabric_setting list ->
+  ?node_type:node_type list ->
   ?timeouts:timeouts ->
   client_connection_port:float prop ->
   http_gateway_port:float prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  authentication:authentication list ->
-  custom_fabric_setting:custom_fabric_setting list ->
   lb_rule:lb_rule list ->
-  node_type:node_type list ->
   unit ->
   azurerm_service_fabric_managed_cluster
 
@@ -157,16 +157,16 @@ val register :
   ?tags:(string * string prop) list ->
   ?upgrade_wave:string prop ->
   ?username:string prop ->
+  ?authentication:authentication list ->
+  ?custom_fabric_setting:custom_fabric_setting list ->
+  ?node_type:node_type list ->
   ?timeouts:timeouts ->
   client_connection_port:float prop ->
   http_gateway_port:float prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  authentication:authentication list ->
-  custom_fabric_setting:custom_fabric_setting list ->
   lb_rule:lb_rule list ->
-  node_type:node_type list ->
   string ->
   t
 
@@ -180,15 +180,15 @@ val make :
   ?tags:(string * string prop) list ->
   ?upgrade_wave:string prop ->
   ?username:string prop ->
+  ?authentication:authentication list ->
+  ?custom_fabric_setting:custom_fabric_setting list ->
+  ?node_type:node_type list ->
   ?timeouts:timeouts ->
   client_connection_port:float prop ->
   http_gateway_port:float prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  authentication:authentication list ->
-  custom_fabric_setting:custom_fabric_setting list ->
   lb_rule:lb_rule list ->
-  node_type:node_type list ->
   string ->
   t Tf_core.resource

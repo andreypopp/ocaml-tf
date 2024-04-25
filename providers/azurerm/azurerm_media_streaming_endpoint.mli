@@ -30,9 +30,9 @@ val access_control__ip_allow :
 type access_control
 
 val access_control :
-  akamai_signature_header_authentication_key:
+  ?akamai_signature_header_authentication_key:
     access_control__akamai_signature_header_authentication_key list ->
-  ip_allow:access_control__ip_allow list ->
+  ?ip_allow:access_control__ip_allow list ->
   unit ->
   access_control
 
@@ -66,14 +66,14 @@ val azurerm_media_streaming_endpoint :
   ?id:string prop ->
   ?max_cache_age_seconds:float prop ->
   ?tags:(string * string prop) list ->
+  ?access_control:access_control list ->
+  ?cross_site_access_policy:cross_site_access_policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   scale_units:float prop ->
-  access_control:access_control list ->
-  cross_site_access_policy:cross_site_access_policy list ->
   unit ->
   azurerm_media_streaming_endpoint
 
@@ -112,14 +112,14 @@ val register :
   ?id:string prop ->
   ?max_cache_age_seconds:float prop ->
   ?tags:(string * string prop) list ->
+  ?access_control:access_control list ->
+  ?cross_site_access_policy:cross_site_access_policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   scale_units:float prop ->
-  access_control:access_control list ->
-  cross_site_access_policy:cross_site_access_policy list ->
   string ->
   t
 
@@ -133,13 +133,13 @@ val make :
   ?id:string prop ->
   ?max_cache_age_seconds:float prop ->
   ?tags:(string * string prop) list ->
+  ?access_control:access_control list ->
+  ?cross_site_access_policy:cross_site_access_policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   scale_units:float prop ->
-  access_control:access_control list ->
-  cross_site_access_policy:cross_site_access_policy list ->
   string ->
   t Tf_core.resource

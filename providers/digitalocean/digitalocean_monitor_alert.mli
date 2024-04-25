@@ -13,7 +13,7 @@ type alerts
 
 val alerts :
   ?email:string prop list ->
-  slack:alerts__slack list ->
+  ?slack:alerts__slack list ->
   unit ->
   alerts
 

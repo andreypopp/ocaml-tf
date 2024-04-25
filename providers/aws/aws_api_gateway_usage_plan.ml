@@ -291,8 +291,8 @@ let throttle_settings ?burst_limit ?rate_limit () : throttle_settings
   { burst_limit; rate_limit }
 
 let aws_api_gateway_usage_plan ?description ?id ?product_code ?tags
-    ?tags_all ~name ~api_stages ~quota_settings ~throttle_settings ()
-    : aws_api_gateway_usage_plan =
+    ?tags_all ?(quota_settings = []) ?(throttle_settings = []) ~name
+    ~api_stages () : aws_api_gateway_usage_plan =
   {
     description;
     id;
@@ -315,8 +315,9 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?description ?id ?product_code ?tags ?tags_all ~name
-    ~api_stages ~quota_settings ~throttle_settings __id =
+let make ?description ?id ?product_code ?tags ?tags_all
+    ?(quota_settings = []) ?(throttle_settings = []) ~name
+    ~api_stages __id =
   let __type = "aws_api_gateway_usage_plan" in
   let __attrs =
     ({
@@ -336,17 +337,17 @@ let make ?description ?id ?product_code ?tags ?tags_all ~name
     json =
       yojson_of_aws_api_gateway_usage_plan
         (aws_api_gateway_usage_plan ?description ?id ?product_code
-           ?tags ?tags_all ~name ~api_stages ~quota_settings
-           ~throttle_settings ());
+           ?tags ?tags_all ~quota_settings ~throttle_settings ~name
+           ~api_stages ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?product_code ?tags
-    ?tags_all ~name ~api_stages ~quota_settings ~throttle_settings
-    __id =
+    ?tags_all ?(quota_settings = []) ?(throttle_settings = []) ~name
+    ~api_stages __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?product_code ?tags ?tags_all ~name
-      ~api_stages ~quota_settings ~throttle_settings __id
+    make ?description ?id ?product_code ?tags ?tags_all
+      ~quota_settings ~throttle_settings ~name ~api_stages __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

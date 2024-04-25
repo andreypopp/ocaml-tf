@@ -40,12 +40,12 @@ val azurerm_subnet :
   ?private_link_service_network_policies_enabled:bool prop ->
   ?service_endpoint_policy_ids:string prop list ->
   ?service_endpoints:string prop list ->
+  ?delegation:delegation list ->
   ?timeouts:timeouts ->
   address_prefixes:string prop list ->
   name:string prop ->
   resource_group_name:string prop ->
   virtual_network_name:string prop ->
-  delegation:delegation list ->
   unit ->
   azurerm_subnet
 
@@ -76,12 +76,12 @@ val register :
   ?private_link_service_network_policies_enabled:bool prop ->
   ?service_endpoint_policy_ids:string prop list ->
   ?service_endpoints:string prop list ->
+  ?delegation:delegation list ->
   ?timeouts:timeouts ->
   address_prefixes:string prop list ->
   name:string prop ->
   resource_group_name:string prop ->
   virtual_network_name:string prop ->
-  delegation:delegation list ->
   string ->
   t
 
@@ -93,11 +93,11 @@ val make :
   ?private_link_service_network_policies_enabled:bool prop ->
   ?service_endpoint_policy_ids:string prop list ->
   ?service_endpoints:string prop list ->
+  ?delegation:delegation list ->
   ?timeouts:timeouts ->
   address_prefixes:string prop list ->
   name:string prop ->
   resource_group_name:string prop ->
   virtual_network_name:string prop ->
-  delegation:delegation list ->
   string ->
   t Tf_core.resource

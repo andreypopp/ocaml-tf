@@ -362,9 +362,10 @@ let monitoring_config__snapshot_analysis ?disabled
     monitoring_config__snapshot_analysis =
   { disabled; monitoring_interval_days; staleness_days }
 
-let monitoring_config ~categorical_threshold_config
-    ~import_features_analysis ~numerical_threshold_config
-    ~snapshot_analysis () : monitoring_config =
+let monitoring_config ?(categorical_threshold_config = [])
+    ?(import_features_analysis = [])
+    ?(numerical_threshold_config = []) ?(snapshot_analysis = []) () :
+    monitoring_config =
   {
     categorical_threshold_config;
     import_features_analysis;
@@ -376,7 +377,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_vertex_ai_featurestore_entitytype ?description ?id ?labels
-    ?name ?timeouts ~featurestore ~monitoring_config () :
+    ?name ?(monitoring_config = []) ?timeouts ~featurestore () :
     google_vertex_ai_featurestore_entitytype =
   {
     description;
@@ -402,8 +403,8 @@ type t = {
   update_time : string prop;
 }
 
-let make ?description ?id ?labels ?name ?timeouts ~featurestore
-    ~monitoring_config __id =
+let make ?description ?id ?labels ?name ?(monitoring_config = [])
+    ?timeouts ~featurestore __id =
   let __type = "google_vertex_ai_featurestore_entitytype" in
   let __attrs =
     ({
@@ -429,16 +430,16 @@ let make ?description ?id ?labels ?name ?timeouts ~featurestore
     json =
       yojson_of_google_vertex_ai_featurestore_entitytype
         (google_vertex_ai_featurestore_entitytype ?description ?id
-           ?labels ?name ?timeouts ~featurestore ~monitoring_config
+           ?labels ?name ~monitoring_config ?timeouts ~featurestore
            ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?labels ?name ?timeouts
-    ~featurestore ~monitoring_config __id =
+let register ?tf_module ?description ?id ?labels ?name
+    ?(monitoring_config = []) ?timeouts ~featurestore __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?labels ?name ?timeouts ~featurestore
-      ~monitoring_config __id
+    make ?description ?id ?labels ?name ~monitoring_config ?timeouts
+      ~featurestore __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

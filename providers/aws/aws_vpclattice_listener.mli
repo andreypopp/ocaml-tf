@@ -20,15 +20,15 @@ val default_action__forward__target_groups :
 type default_action__forward
 
 val default_action__forward :
-  target_groups:default_action__forward__target_groups list ->
+  ?target_groups:default_action__forward__target_groups list ->
   unit ->
   default_action__forward
 
 type default_action
 
 val default_action :
-  fixed_response:default_action__fixed_response list ->
-  forward:default_action__forward list ->
+  ?fixed_response:default_action__fixed_response list ->
+  ?forward:default_action__forward list ->
   unit ->
   default_action
 

@@ -57,11 +57,11 @@ val aws_servicecatalog_provisioned_product :
   ?retain_physical_resources:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?provisioning_parameters:provisioning_parameters list ->
+  ?stack_set_provisioning_preferences:
+    stack_set_provisioning_preferences list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  provisioning_parameters:provisioning_parameters list ->
-  stack_set_provisioning_preferences:
-    stack_set_provisioning_preferences list ->
   unit ->
   aws_servicecatalog_provisioned_product
 
@@ -113,11 +113,11 @@ val register :
   ?retain_physical_resources:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?provisioning_parameters:provisioning_parameters list ->
+  ?stack_set_provisioning_preferences:
+    stack_set_provisioning_preferences list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  provisioning_parameters:provisioning_parameters list ->
-  stack_set_provisioning_preferences:
-    stack_set_provisioning_preferences list ->
   string ->
   t
 
@@ -135,10 +135,10 @@ val make :
   ?retain_physical_resources:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?provisioning_parameters:provisioning_parameters list ->
+  ?stack_set_provisioning_preferences:
+    stack_set_provisioning_preferences list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  provisioning_parameters:provisioning_parameters list ->
-  stack_set_provisioning_preferences:
-    stack_set_provisioning_preferences list ->
   string ->
   t Tf_core.resource

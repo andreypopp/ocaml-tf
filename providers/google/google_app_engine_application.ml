@@ -250,8 +250,8 @@ let iap ?enabled ~oauth2_client_id ~oauth2_client_secret () : iap =
 let timeouts ?create ?update () : timeouts = { create; update }
 
 let google_app_engine_application ?auth_domain ?database_type ?id
-    ?project ?serving_status ?timeouts ~location_id ~feature_settings
-    ~iap () : google_app_engine_application =
+    ?project ?serving_status ?(feature_settings = []) ?(iap = [])
+    ?timeouts ~location_id () : google_app_engine_application =
   {
     auth_domain;
     database_type;
@@ -281,7 +281,8 @@ type t = {
 }
 
 let make ?auth_domain ?database_type ?id ?project ?serving_status
-    ?timeouts ~location_id ~feature_settings ~iap __id =
+    ?(feature_settings = []) ?(iap = []) ?timeouts ~location_id __id
+    =
   let __type = "google_app_engine_application" in
   let __attrs =
     ({
@@ -309,17 +310,17 @@ let make ?auth_domain ?database_type ?id ?project ?serving_status
     json =
       yojson_of_google_app_engine_application
         (google_app_engine_application ?auth_domain ?database_type
-           ?id ?project ?serving_status ?timeouts ~location_id
-           ~feature_settings ~iap ());
+           ?id ?project ?serving_status ~feature_settings ~iap
+           ?timeouts ~location_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auth_domain ?database_type ?id ?project
-    ?serving_status ?timeouts ~location_id ~feature_settings ~iap
-    __id =
+    ?serving_status ?(feature_settings = []) ?(iap = []) ?timeouts
+    ~location_id __id =
   let (r : _ Tf_core.resource) =
     make ?auth_domain ?database_type ?id ?project ?serving_status
-      ?timeouts ~location_id ~feature_settings ~iap __id
+      ~feature_settings ~iap ?timeouts ~location_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

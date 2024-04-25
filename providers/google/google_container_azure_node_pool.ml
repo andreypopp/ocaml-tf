@@ -454,8 +454,8 @@ let config__root_volume ?size_gib () : config__root_volume =
 let config__ssh_config ~authorized_key () : config__ssh_config =
   { authorized_key }
 
-let config ?labels ?tags ?vm_size ~proxy_config ~root_volume
-    ~ssh_config () : config =
+let config ?labels ?tags ?vm_size ?(proxy_config = [])
+    ?(root_volume = []) ~ssh_config () : config =
   { labels; tags; vm_size; proxy_config; root_volume; ssh_config }
 
 let management ?auto_repair () : management = { auto_repair }
@@ -467,9 +467,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_container_azure_node_pool ?annotations
-    ?azure_availability_zone ?id ?project ?timeouts ~cluster
-    ~location ~name ~subnet_id ~version ~autoscaling ~config
-    ~management ~max_pods_constraint () :
+    ?azure_availability_zone ?id ?project ?(management = [])
+    ?timeouts ~cluster ~location ~name ~subnet_id ~version
+    ~autoscaling ~config ~max_pods_constraint () :
     google_container_azure_node_pool =
   {
     annotations;
@@ -507,9 +507,9 @@ type t = {
   version : string prop;
 }
 
-let make ?annotations ?azure_availability_zone ?id ?project ?timeouts
-    ~cluster ~location ~name ~subnet_id ~version ~autoscaling ~config
-    ~management ~max_pods_constraint __id =
+let make ?annotations ?azure_availability_zone ?id ?project
+    ?(management = []) ?timeouts ~cluster ~location ~name ~subnet_id
+    ~version ~autoscaling ~config ~max_pods_constraint __id =
   let __type = "google_container_azure_node_pool" in
   let __attrs =
     ({
@@ -540,19 +540,20 @@ let make ?annotations ?azure_availability_zone ?id ?project ?timeouts
     json =
       yojson_of_google_container_azure_node_pool
         (google_container_azure_node_pool ?annotations
-           ?azure_availability_zone ?id ?project ?timeouts ~cluster
-           ~location ~name ~subnet_id ~version ~autoscaling ~config
-           ~management ~max_pods_constraint ());
+           ?azure_availability_zone ?id ?project ~management
+           ?timeouts ~cluster ~location ~name ~subnet_id ~version
+           ~autoscaling ~config ~max_pods_constraint ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?azure_availability_zone ?id
-    ?project ?timeouts ~cluster ~location ~name ~subnet_id ~version
-    ~autoscaling ~config ~management ~max_pods_constraint __id =
+    ?project ?(management = []) ?timeouts ~cluster ~location ~name
+    ~subnet_id ~version ~autoscaling ~config ~max_pods_constraint
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?annotations ?azure_availability_zone ?id ?project ?timeouts
-      ~cluster ~location ~name ~subnet_id ~version ~autoscaling
-      ~config ~management ~max_pods_constraint __id
+    make ?annotations ?azure_availability_zone ?id ?project
+      ~management ?timeouts ~cluster ~location ~name ~subnet_id
+      ~version ~autoscaling ~config ~max_pods_constraint __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

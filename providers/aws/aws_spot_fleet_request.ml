@@ -1874,10 +1874,12 @@ let launch_template_config__overrides__instance_requirements
     ?local_storage ?local_storage_types
     ?on_demand_max_price_percentage_over_lowest_price
     ?require_hibernate_support
-    ?spot_max_price_percentage_over_lowest_price ~accelerator_count
-    ~accelerator_total_memory_mib ~baseline_ebs_bandwidth_mbps
-    ~memory_gib_per_vcpu ~memory_mib ~network_bandwidth_gbps
-    ~network_interface_count ~total_local_storage_gb ~vcpu_count () :
+    ?spot_max_price_percentage_over_lowest_price
+    ?(accelerator_count = []) ?(accelerator_total_memory_mib = [])
+    ?(baseline_ebs_bandwidth_mbps = []) ?(memory_gib_per_vcpu = [])
+    ?(memory_mib = []) ?(network_bandwidth_gbps = [])
+    ?(network_interface_count = []) ?(total_local_storage_gb = [])
+    ?(vcpu_count = []) () :
     launch_template_config__overrides__instance_requirements =
   {
     accelerator_manufacturers;
@@ -1907,7 +1909,7 @@ let launch_template_config__overrides__instance_requirements
 
 let launch_template_config__overrides ?availability_zone
     ?instance_type ?priority ?spot_price ?subnet_id
-    ?weighted_capacity ~instance_requirements () :
+    ?weighted_capacity ?(instance_requirements = []) () :
     launch_template_config__overrides =
   {
     availability_zone;
@@ -1928,7 +1930,7 @@ let spot_maintenance_strategies__capacity_rebalance
     spot_maintenance_strategies__capacity_rebalance =
   { replacement_strategy }
 
-let spot_maintenance_strategies ~capacity_rebalance () :
+let spot_maintenance_strategies ?(capacity_rebalance = []) () :
     spot_maintenance_strategies =
   { capacity_rebalance }
 
@@ -1944,9 +1946,9 @@ let aws_spot_fleet_request ?allocation_strategy ?context
     ?target_capacity_unit_type ?target_group_arns
     ?terminate_instances_on_delete
     ?terminate_instances_with_expiration ?valid_from ?valid_until
-    ?wait_for_fulfillment ?timeouts ~iam_fleet_role ~target_capacity
-    ~launch_specification ~launch_template_config
-    ~spot_maintenance_strategies () : aws_spot_fleet_request =
+    ?wait_for_fulfillment ?(spot_maintenance_strategies = [])
+    ?timeouts ~iam_fleet_role ~target_capacity ~launch_specification
+    ~launch_template_config () : aws_spot_fleet_request =
   {
     allocation_strategy;
     context;
@@ -2016,9 +2018,9 @@ let make ?allocation_strategy ?context
     ?target_capacity_unit_type ?target_group_arns
     ?terminate_instances_on_delete
     ?terminate_instances_with_expiration ?valid_from ?valid_until
-    ?wait_for_fulfillment ?timeouts ~iam_fleet_role ~target_capacity
-    ~launch_specification ~launch_template_config
-    ~spot_maintenance_strategies __id =
+    ?wait_for_fulfillment ?(spot_maintenance_strategies = [])
+    ?timeouts ~iam_fleet_role ~target_capacity ~launch_specification
+    ~launch_template_config __id =
   let __type = "aws_spot_fleet_request" in
   let __attrs =
     ({
@@ -2081,9 +2083,10 @@ let make ?allocation_strategy ?context
            ?spot_price ?tags ?tags_all ?target_capacity_unit_type
            ?target_group_arns ?terminate_instances_on_delete
            ?terminate_instances_with_expiration ?valid_from
-           ?valid_until ?wait_for_fulfillment ?timeouts
-           ~iam_fleet_role ~target_capacity ~launch_specification
-           ~launch_template_config ~spot_maintenance_strategies ());
+           ?valid_until ?wait_for_fulfillment
+           ~spot_maintenance_strategies ?timeouts ~iam_fleet_role
+           ~target_capacity ~launch_specification
+           ~launch_template_config ());
     attrs = __attrs;
   }
 
@@ -2096,9 +2099,9 @@ let register ?tf_module ?allocation_strategy ?context
     ?target_capacity_unit_type ?target_group_arns
     ?terminate_instances_on_delete
     ?terminate_instances_with_expiration ?valid_from ?valid_until
-    ?wait_for_fulfillment ?timeouts ~iam_fleet_role ~target_capacity
-    ~launch_specification ~launch_template_config
-    ~spot_maintenance_strategies __id =
+    ?wait_for_fulfillment ?(spot_maintenance_strategies = [])
+    ?timeouts ~iam_fleet_role ~target_capacity ~launch_specification
+    ~launch_template_config __id =
   let (r : _ Tf_core.resource) =
     make ?allocation_strategy ?context
       ?excess_capacity_termination_policy ?fleet_type ?id
@@ -2109,9 +2112,9 @@ let register ?tf_module ?allocation_strategy ?context
       ?target_capacity_unit_type ?target_group_arns
       ?terminate_instances_on_delete
       ?terminate_instances_with_expiration ?valid_from ?valid_until
-      ?wait_for_fulfillment ?timeouts ~iam_fleet_role
-      ~target_capacity ~launch_specification ~launch_template_config
-      ~spot_maintenance_strategies __id
+      ?wait_for_fulfillment ~spot_maintenance_strategies ?timeouts
+      ~iam_fleet_role ~target_capacity ~launch_specification
+      ~launch_template_config __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

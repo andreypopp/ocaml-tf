@@ -208,8 +208,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_vmwareengine_network_policy ?description ?id ?project
-    ?timeouts ~edge_services_cidr ~location ~name
-    ~vmware_engine_network ~external_ip ~internet_access () :
+    ?(external_ip = []) ?(internet_access = []) ?timeouts
+    ~edge_services_cidr ~location ~name ~vmware_engine_network () :
     google_vmwareengine_network_policy =
   {
     description;
@@ -238,9 +238,9 @@ type t = {
   vmware_engine_network_canonical : string prop;
 }
 
-let make ?description ?id ?project ?timeouts ~edge_services_cidr
-    ~location ~name ~vmware_engine_network ~external_ip
-    ~internet_access __id =
+let make ?description ?id ?project ?(external_ip = [])
+    ?(internet_access = []) ?timeouts ~edge_services_cidr ~location
+    ~name ~vmware_engine_network __id =
   let __type = "google_vmwareengine_network_policy" in
   let __attrs =
     ({
@@ -267,18 +267,19 @@ let make ?description ?id ?project ?timeouts ~edge_services_cidr
     json =
       yojson_of_google_vmwareengine_network_policy
         (google_vmwareengine_network_policy ?description ?id ?project
-           ?timeouts ~edge_services_cidr ~location ~name
-           ~vmware_engine_network ~external_ip ~internet_access ());
+           ~external_ip ~internet_access ?timeouts
+           ~edge_services_cidr ~location ~name ~vmware_engine_network
+           ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?project ?timeouts
-    ~edge_services_cidr ~location ~name ~vmware_engine_network
-    ~external_ip ~internet_access __id =
+let register ?tf_module ?description ?id ?project ?(external_ip = [])
+    ?(internet_access = []) ?timeouts ~edge_services_cidr ~location
+    ~name ~vmware_engine_network __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?project ?timeouts ~edge_services_cidr
-      ~location ~name ~vmware_engine_network ~external_ip
-      ~internet_access __id
+    make ?description ?id ?project ~external_ip ~internet_access
+      ?timeouts ~edge_services_cidr ~location ~name
+      ~vmware_engine_network __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

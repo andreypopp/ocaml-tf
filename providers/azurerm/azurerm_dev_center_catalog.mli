@@ -38,12 +38,12 @@ type azurerm_dev_center_catalog
 
 val azurerm_dev_center_catalog :
   ?id:string prop ->
+  ?catalog_adogit:catalog_adogit list ->
+  ?catalog_github:catalog_github list ->
   ?timeouts:timeouts ->
   dev_center_id:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  catalog_adogit:catalog_adogit list ->
-  catalog_github:catalog_github list ->
   unit ->
   azurerm_dev_center_catalog
 
@@ -62,22 +62,22 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?catalog_adogit:catalog_adogit list ->
+  ?catalog_github:catalog_github list ->
   ?timeouts:timeouts ->
   dev_center_id:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  catalog_adogit:catalog_adogit list ->
-  catalog_github:catalog_github list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?catalog_adogit:catalog_adogit list ->
+  ?catalog_github:catalog_github list ->
   ?timeouts:timeouts ->
   dev_center_id:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  catalog_adogit:catalog_adogit list ->
-  catalog_github:catalog_github list ->
   string ->
   t Tf_core.resource

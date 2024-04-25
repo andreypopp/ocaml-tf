@@ -34,8 +34,8 @@ val spec__fs_group__range :
 type spec__fs_group
 
 val spec__fs_group :
+  ?range:spec__fs_group__range list ->
   rule:string prop ->
-  range:spec__fs_group__range list ->
   unit ->
   spec__fs_group
 
@@ -55,8 +55,8 @@ val spec__run_as_group__range :
 type spec__run_as_group
 
 val spec__run_as_group :
+  ?range:spec__run_as_group__range list ->
   rule:string prop ->
-  range:spec__run_as_group__range list ->
   unit ->
   spec__run_as_group
 
@@ -71,8 +71,8 @@ val spec__run_as_user__range :
 type spec__run_as_user
 
 val spec__run_as_user :
+  ?range:spec__run_as_user__range list ->
   rule:string prop ->
-  range:spec__run_as_user__range list ->
   unit ->
   spec__run_as_user
 
@@ -89,8 +89,8 @@ val spec__se_linux__se_linux_options :
 type spec__se_linux
 
 val spec__se_linux :
+  ?se_linux_options:spec__se_linux__se_linux_options list ->
   rule:string prop ->
-  se_linux_options:spec__se_linux__se_linux_options list ->
   unit ->
   spec__se_linux
 
@@ -105,8 +105,8 @@ val spec__supplemental_groups__range :
 type spec__supplemental_groups
 
 val spec__supplemental_groups :
+  ?range:spec__supplemental_groups__range list ->
   rule:string prop ->
-  range:spec__supplemental_groups__range list ->
   unit ->
   spec__supplemental_groups
 
@@ -127,13 +127,13 @@ val spec :
   ?read_only_root_filesystem:bool prop ->
   ?required_drop_capabilities:string prop list ->
   ?volumes:string prop list ->
-  allowed_flex_volumes:spec__allowed_flex_volumes list ->
-  allowed_host_paths:spec__allowed_host_paths list ->
+  ?allowed_flex_volumes:spec__allowed_flex_volumes list ->
+  ?allowed_host_paths:spec__allowed_host_paths list ->
+  ?host_ports:spec__host_ports list ->
+  ?run_as_group:spec__run_as_group list ->
+  ?se_linux:spec__se_linux list ->
   fs_group:spec__fs_group list ->
-  host_ports:spec__host_ports list ->
-  run_as_group:spec__run_as_group list ->
   run_as_user:spec__run_as_user list ->
-  se_linux:spec__se_linux list ->
   supplemental_groups:spec__supplemental_groups list ->
   unit ->
   spec

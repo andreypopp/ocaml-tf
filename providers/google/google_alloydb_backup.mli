@@ -38,11 +38,11 @@ val google_alloydb_backup :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?type_:string prop ->
+  ?encryption_config:encryption_config list ->
   ?timeouts:timeouts ->
   backup_id:string prop ->
   cluster_name:string prop ->
   location:string prop ->
-  encryption_config:encryption_config list ->
   unit ->
   google_alloydb_backup
 
@@ -88,11 +88,11 @@ val register :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?type_:string prop ->
+  ?encryption_config:encryption_config list ->
   ?timeouts:timeouts ->
   backup_id:string prop ->
   cluster_name:string prop ->
   location:string prop ->
-  encryption_config:encryption_config list ->
   string ->
   t
 
@@ -104,10 +104,10 @@ val make :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?type_:string prop ->
+  ?encryption_config:encryption_config list ->
   ?timeouts:timeouts ->
   backup_id:string prop ->
   cluster_name:string prop ->
   location:string prop ->
-  encryption_config:encryption_config list ->
   string ->
   t Tf_core.resource

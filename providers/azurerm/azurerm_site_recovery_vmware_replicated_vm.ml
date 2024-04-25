@@ -461,10 +461,10 @@ let azurerm_site_recovery_vmware_replicated_vm
     ?multi_vm_group_name ?target_availability_set_id
     ?target_boot_diagnostics_storage_account_id ?target_network_id
     ?target_proximity_placement_group_id ?target_vm_size ?target_zone
-    ?test_network_id ?timeouts ~appliance_name ~name
-    ~physical_server_credential_name ~recovery_replication_policy_id
-    ~recovery_vault_id ~source_vm_name ~target_resource_group_id
-    ~target_vm_name ~managed_disk ~network_interface () :
+    ?test_network_id ?(managed_disk = []) ?(network_interface = [])
+    ?timeouts ~appliance_name ~name ~physical_server_credential_name
+    ~recovery_replication_policy_id ~recovery_vault_id
+    ~source_vm_name ~target_resource_group_id ~target_vm_name () :
     azurerm_site_recovery_vmware_replicated_vm =
   {
     appliance_name;
@@ -522,10 +522,10 @@ let make ?default_log_storage_account_id ?default_recovery_disk_type
     ?multi_vm_group_name ?target_availability_set_id
     ?target_boot_diagnostics_storage_account_id ?target_network_id
     ?target_proximity_placement_group_id ?target_vm_size ?target_zone
-    ?test_network_id ?timeouts ~appliance_name ~name
-    ~physical_server_credential_name ~recovery_replication_policy_id
-    ~recovery_vault_id ~source_vm_name ~target_resource_group_id
-    ~target_vm_name ~managed_disk ~network_interface __id =
+    ?test_network_id ?(managed_disk = []) ?(network_interface = [])
+    ?timeouts ~appliance_name ~name ~physical_server_credential_name
+    ~recovery_replication_policy_id ~recovery_vault_id
+    ~source_vm_name ~target_resource_group_id ~target_vm_name __id =
   let __type = "azurerm_site_recovery_vmware_replicated_vm" in
   let __attrs =
     ({
@@ -580,11 +580,12 @@ let make ?default_log_storage_account_id ?default_recovery_disk_type
            ?multi_vm_group_name ?target_availability_set_id
            ?target_boot_diagnostics_storage_account_id
            ?target_network_id ?target_proximity_placement_group_id
-           ?target_vm_size ?target_zone ?test_network_id ?timeouts
-           ~appliance_name ~name ~physical_server_credential_name
+           ?target_vm_size ?target_zone ?test_network_id
+           ~managed_disk ~network_interface ?timeouts ~appliance_name
+           ~name ~physical_server_credential_name
            ~recovery_replication_policy_id ~recovery_vault_id
            ~source_vm_name ~target_resource_group_id ~target_vm_name
-           ~managed_disk ~network_interface ());
+           ());
     attrs = __attrs;
   }
 
@@ -594,21 +595,21 @@ let register ?tf_module ?default_log_storage_account_id
     ?multi_vm_group_name ?target_availability_set_id
     ?target_boot_diagnostics_storage_account_id ?target_network_id
     ?target_proximity_placement_group_id ?target_vm_size ?target_zone
-    ?test_network_id ?timeouts ~appliance_name ~name
-    ~physical_server_credential_name ~recovery_replication_policy_id
-    ~recovery_vault_id ~source_vm_name ~target_resource_group_id
-    ~target_vm_name ~managed_disk ~network_interface __id =
+    ?test_network_id ?(managed_disk = []) ?(network_interface = [])
+    ?timeouts ~appliance_name ~name ~physical_server_credential_name
+    ~recovery_replication_policy_id ~recovery_vault_id
+    ~source_vm_name ~target_resource_group_id ~target_vm_name __id =
   let (r : _ Tf_core.resource) =
     make ?default_log_storage_account_id ?default_recovery_disk_type
       ?default_target_disk_encryption_set_id ?id ?license_type
       ?multi_vm_group_name ?target_availability_set_id
       ?target_boot_diagnostics_storage_account_id ?target_network_id
       ?target_proximity_placement_group_id ?target_vm_size
-      ?target_zone ?test_network_id ?timeouts ~appliance_name ~name
+      ?target_zone ?test_network_id ~managed_disk ~network_interface
+      ?timeouts ~appliance_name ~name
       ~physical_server_credential_name
       ~recovery_replication_policy_id ~recovery_vault_id
-      ~source_vm_name ~target_resource_group_id ~target_vm_name
-      ~managed_disk ~network_interface __id
+      ~source_vm_name ~target_resource_group_id ~target_vm_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -996,7 +996,8 @@ let filter__and__tags ?key ?match_options ?values () :
     filter__and__tags =
   { key; match_options; values }
 
-let filter__and ~cost_category ~dimension ~tags () : filter__and =
+let filter__and ?(cost_category = []) ?(dimension = []) ?(tags = [])
+    () : filter__and =
   { cost_category; dimension; tags }
 
 let filter__cost_category ?key ?match_options ?values () :
@@ -1019,7 +1020,8 @@ let filter__not__tags ?key ?match_options ?values () :
     filter__not__tags =
   { key; match_options; values }
 
-let filter__not ~cost_category ~dimension ~tags () : filter__not =
+let filter__not ?(cost_category = []) ?(dimension = []) ?(tags = [])
+    () : filter__not =
   { cost_category; dimension; tags }
 
 let filter__or__cost_category ?key ?match_options ?values () :
@@ -1034,21 +1036,22 @@ let filter__or__tags ?key ?match_options ?values () :
     filter__or__tags =
   { key; match_options; values }
 
-let filter__or ~cost_category ~dimension ~tags () : filter__or =
+let filter__or ?(cost_category = []) ?(dimension = []) ?(tags = [])
+    () : filter__or =
   { cost_category; dimension; tags }
 
 let filter__tags ?key ?match_options ?values () : filter__tags =
   { key; match_options; values }
 
-let filter ~and_ ~cost_category ~dimension ~not ~or_ ~tags () :
-    filter =
+let filter ?(cost_category = []) ?(dimension = []) ?(not = [])
+    ?(tags = []) ~and_ ~or_ () : filter =
   { and_; cost_category; dimension; not; or_; tags }
 
 let sort_by ?key ?sort_order () : sort_by = { key; sort_order }
 let time_period ~end_ ~start () : time_period = { end_; start }
 
-let aws_ce_tags ?id ?search_string ?tag_key ~filter ~sort_by
-    ~time_period () : aws_ce_tags =
+let aws_ce_tags ?id ?search_string ?tag_key ?(filter = [])
+    ?(sort_by = []) ~time_period () : aws_ce_tags =
   { id; search_string; tag_key; filter; sort_by; time_period }
 
 type t = {
@@ -1058,8 +1061,8 @@ type t = {
   tags : string list prop;
 }
 
-let make ?id ?search_string ?tag_key ~filter ~sort_by ~time_period
-    __id =
+let make ?id ?search_string ?tag_key ?(filter = []) ?(sort_by = [])
+    ~time_period __id =
   let __type = "aws_ce_tags" in
   let __attrs =
     ({
@@ -1080,8 +1083,8 @@ let make ?id ?search_string ?tag_key ~filter ~sort_by ~time_period
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?search_string ?tag_key ~filter ~sort_by
-    ~time_period __id =
+let register ?tf_module ?id ?search_string ?tag_key ?(filter = [])
+    ?(sort_by = []) ~time_period __id =
   let (r : _ Tf_core.resource) =
     make ?id ?search_string ?tag_key ~filter ~sort_by ~time_period
       __id

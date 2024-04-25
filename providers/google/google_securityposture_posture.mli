@@ -36,10 +36,10 @@ val policy_sets__policies__constraint__org_policy_constraint__policy_rules :
   ?allow_all:bool prop ->
   ?deny_all:bool prop ->
   ?enforce:bool prop ->
-  condition:
+  ?condition:
     policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition
     list ->
-  values:
+  ?values:
     policy_sets__policies__constraint__org_policy_constraint__policy_rules__values
     list ->
   unit ->
@@ -92,10 +92,10 @@ val policy_sets__policies__constraint__org_policy_constraint_custom__policy_rule
   ?allow_all:bool prop ->
   ?deny_all:bool prop ->
   ?enforce:bool prop ->
-  condition:
+  ?condition:
     policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition
     list ->
-  values:
+  ?values:
     policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values
     list ->
   unit ->
@@ -104,7 +104,7 @@ val policy_sets__policies__constraint__org_policy_constraint_custom__policy_rule
 type policy_sets__policies__constraint__org_policy_constraint_custom
 
 val policy_sets__policies__constraint__org_policy_constraint_custom :
-  custom_constraint:
+  ?custom_constraint:
     policy_sets__policies__constraint__org_policy_constraint_custom__custom_constraint
     list ->
   policy_rules:
@@ -126,17 +126,17 @@ val policy_sets__policies__constraint__security_health_analytics_custom_module__
 type policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties
 
 val policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties :
-  name:string prop ->
-  value_expression:
+  ?value_expression:
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression
     list ->
+  name:string prop ->
   unit ->
   policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties
 
 type policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output
 
 val policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output :
-  properties:
+  ?properties:
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties
     list ->
   unit ->
@@ -164,10 +164,10 @@ type policy_sets__policies__constraint__security_health_analytics_custom_module_
 val policy_sets__policies__constraint__security_health_analytics_custom_module__config :
   ?description:string prop ->
   ?recommendation:string prop ->
-  severity:string prop ->
-  custom_output:
+  ?custom_output:
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output
     list ->
+  severity:string prop ->
   predicate:
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__predicate
     list ->
@@ -199,15 +199,15 @@ val policy_sets__policies__constraint__security_health_analytics_module :
 type policy_sets__policies__constraint
 
 val policy_sets__policies__constraint :
-  org_policy_constraint:
+  ?org_policy_constraint:
     policy_sets__policies__constraint__org_policy_constraint list ->
-  org_policy_constraint_custom:
+  ?org_policy_constraint_custom:
     policy_sets__policies__constraint__org_policy_constraint_custom
     list ->
-  security_health_analytics_custom_module:
+  ?security_health_analytics_custom_module:
     policy_sets__policies__constraint__security_health_analytics_custom_module
     list ->
-  security_health_analytics_module:
+  ?security_health_analytics_module:
     policy_sets__policies__constraint__security_health_analytics_module
     list ->
   unit ->
@@ -217,9 +217,9 @@ type policy_sets__policies
 
 val policy_sets__policies :
   ?description:string prop ->
-  policy_id:string prop ->
-  compliance_standards:
+  ?compliance_standards:
     policy_sets__policies__compliance_standards list ->
+  policy_id:string prop ->
   constraint_:policy_sets__policies__constraint list ->
   unit ->
   policy_sets__policies

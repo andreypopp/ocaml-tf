@@ -21,12 +21,12 @@ val bgp_settings__instance_1_bgp_peering_address :
 type bgp_settings
 
 val bgp_settings :
+  ?instance_0_bgp_peering_address:
+    bgp_settings__instance_0_bgp_peering_address list ->
+  ?instance_1_bgp_peering_address:
+    bgp_settings__instance_1_bgp_peering_address list ->
   asn:float prop ->
   peer_weight:float prop ->
-  instance_0_bgp_peering_address:
-    bgp_settings__instance_0_bgp_peering_address list ->
-  instance_1_bgp_peering_address:
-    bgp_settings__instance_1_bgp_peering_address list ->
   unit ->
   bgp_settings
 
@@ -48,12 +48,12 @@ val azurerm_vpn_gateway :
   ?routing_preference:string prop ->
   ?scale_unit:float prop ->
   ?tags:(string * string prop) list ->
+  ?bgp_settings:bgp_settings list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   virtual_hub_id:string prop ->
-  bgp_settings:bgp_settings list ->
   unit ->
   azurerm_vpn_gateway
 
@@ -80,12 +80,12 @@ val register :
   ?routing_preference:string prop ->
   ?scale_unit:float prop ->
   ?tags:(string * string prop) list ->
+  ?bgp_settings:bgp_settings list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   virtual_hub_id:string prop ->
-  bgp_settings:bgp_settings list ->
   string ->
   t
 
@@ -95,11 +95,11 @@ val make :
   ?routing_preference:string prop ->
   ?scale_unit:float prop ->
   ?tags:(string * string prop) list ->
+  ?bgp_settings:bgp_settings list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   virtual_hub_id:string prop ->
-  bgp_settings:bgp_settings list ->
   string ->
   t Tf_core.resource

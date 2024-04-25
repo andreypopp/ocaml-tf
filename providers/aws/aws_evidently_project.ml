@@ -257,15 +257,16 @@ let data_delivery__s3_destination ?bucket ?prefix () :
     data_delivery__s3_destination =
   { bucket; prefix }
 
-let data_delivery ~cloudwatch_logs ~s3_destination () : data_delivery
-    =
+let data_delivery ?(cloudwatch_logs = []) ?(s3_destination = []) () :
+    data_delivery =
   { cloudwatch_logs; s3_destination }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let aws_evidently_project ?description ?id ?tags ?tags_all ?timeouts
-    ~name ~data_delivery () : aws_evidently_project =
+let aws_evidently_project ?description ?id ?tags ?tags_all
+    ?(data_delivery = []) ?timeouts ~name () : aws_evidently_project
+    =
   { description; id; name; tags; tags_all; data_delivery; timeouts }
 
 type t = {
@@ -285,8 +286,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?description ?id ?tags ?tags_all ?timeouts ~name
-    ~data_delivery __id =
+let make ?description ?id ?tags ?tags_all ?(data_delivery = [])
+    ?timeouts ~name __id =
   let __type = "aws_evidently_project" in
   let __attrs =
     ({
@@ -317,15 +318,15 @@ let make ?description ?id ?tags ?tags_all ?timeouts ~name
     json =
       yojson_of_aws_evidently_project
         (aws_evidently_project ?description ?id ?tags ?tags_all
-           ?timeouts ~name ~data_delivery ());
+           ~data_delivery ?timeouts ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
-    ~name ~data_delivery __id =
+let register ?tf_module ?description ?id ?tags ?tags_all
+    ?(data_delivery = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?tags ?tags_all ?timeouts ~name
-      ~data_delivery __id
+    make ?description ?id ?tags ?tags_all ~data_delivery ?timeouts
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

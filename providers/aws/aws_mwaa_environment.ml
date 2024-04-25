@@ -729,9 +729,9 @@ let logging_configuration__worker_logs ?enabled ?log_level () :
     logging_configuration__worker_logs =
   { enabled; log_level }
 
-let logging_configuration ~dag_processing_logs ~scheduler_logs
-    ~task_logs ~webserver_logs ~worker_logs () :
-    logging_configuration =
+let logging_configuration ?(dag_processing_logs = [])
+    ?(scheduler_logs = []) ?(task_logs = []) ?(webserver_logs = [])
+    ?(worker_logs = []) () : logging_configuration =
   {
     dag_processing_logs;
     scheduler_logs;
@@ -754,9 +754,9 @@ let aws_mwaa_environment ?airflow_configuration_options
     ?requirements_s3_path ?schedulers
     ?startup_script_s3_object_version ?startup_script_s3_path ?tags
     ?tags_all ?webserver_access_mode ?weekly_maintenance_window_start
-    ?timeouts ~dag_s3_path ~execution_role_arn ~name
-    ~source_bucket_arn ~logging_configuration ~network_configuration
-    () : aws_mwaa_environment =
+    ?(logging_configuration = []) ?timeouts ~dag_s3_path
+    ~execution_role_arn ~name ~source_bucket_arn
+    ~network_configuration () : aws_mwaa_environment =
   {
     airflow_configuration_options;
     airflow_version;
@@ -824,9 +824,9 @@ let make ?airflow_configuration_options ?airflow_version
     ?requirements_s3_object_version ?requirements_s3_path ?schedulers
     ?startup_script_s3_object_version ?startup_script_s3_path ?tags
     ?tags_all ?webserver_access_mode ?weekly_maintenance_window_start
-    ?timeouts ~dag_s3_path ~execution_role_arn ~name
-    ~source_bucket_arn ~logging_configuration ~network_configuration
-    __id =
+    ?(logging_configuration = []) ?timeouts ~dag_s3_path
+    ~execution_role_arn ~name ~source_bucket_arn
+    ~network_configuration __id =
   let __type = "aws_mwaa_environment" in
   let __attrs =
     ({
@@ -888,8 +888,8 @@ let make ?airflow_configuration_options ?airflow_version
            ?schedulers ?startup_script_s3_object_version
            ?startup_script_s3_path ?tags ?tags_all
            ?webserver_access_mode ?weekly_maintenance_window_start
-           ?timeouts ~dag_s3_path ~execution_role_arn ~name
-           ~source_bucket_arn ~logging_configuration
+           ~logging_configuration ?timeouts ~dag_s3_path
+           ~execution_role_arn ~name ~source_bucket_arn
            ~network_configuration ());
     attrs = __attrs;
   }
@@ -901,9 +901,9 @@ let register ?tf_module ?airflow_configuration_options
     ?requirements_s3_path ?schedulers
     ?startup_script_s3_object_version ?startup_script_s3_path ?tags
     ?tags_all ?webserver_access_mode ?weekly_maintenance_window_start
-    ?timeouts ~dag_s3_path ~execution_role_arn ~name
-    ~source_bucket_arn ~logging_configuration ~network_configuration
-    __id =
+    ?(logging_configuration = []) ?timeouts ~dag_s3_path
+    ~execution_role_arn ~name ~source_bucket_arn
+    ~network_configuration __id =
   let (r : _ Tf_core.resource) =
     make ?airflow_configuration_options ?airflow_version
       ?endpoint_management ?environment_class ?id ?kms_key
@@ -912,9 +912,9 @@ let register ?tf_module ?airflow_configuration_options
       ?requirements_s3_path ?schedulers
       ?startup_script_s3_object_version ?startup_script_s3_path ?tags
       ?tags_all ?webserver_access_mode
-      ?weekly_maintenance_window_start ?timeouts ~dag_s3_path
-      ~execution_role_arn ~name ~source_bucket_arn
-      ~logging_configuration ~network_configuration __id
+      ?weekly_maintenance_window_start ~logging_configuration
+      ?timeouts ~dag_s3_path ~execution_role_arn ~name
+      ~source_bucket_arn ~network_configuration __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -22,11 +22,11 @@ val aws_lightsail_instance :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?user_data:string prop ->
+  ?add_on:add_on list ->
   availability_zone:string prop ->
   blueprint_id:string prop ->
   bundle_id:string prop ->
   name:string prop ->
-  add_on:add_on list ->
   unit ->
   aws_lightsail_instance
 
@@ -64,11 +64,11 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?user_data:string prop ->
+  ?add_on:add_on list ->
   availability_zone:string prop ->
   blueprint_id:string prop ->
   bundle_id:string prop ->
   name:string prop ->
-  add_on:add_on list ->
   string ->
   t
 
@@ -79,10 +79,10 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?user_data:string prop ->
+  ?add_on:add_on list ->
   availability_zone:string prop ->
   blueprint_id:string prop ->
   bundle_id:string prop ->
   name:string prop ->
-  add_on:add_on list ->
   string ->
   t Tf_core.resource

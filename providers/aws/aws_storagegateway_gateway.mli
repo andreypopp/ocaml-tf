@@ -52,11 +52,11 @@ val aws_storagegateway_gateway :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?tape_drive_type:string prop ->
+  ?maintenance_start_time:maintenance_start_time list ->
+  ?smb_active_directory_settings:smb_active_directory_settings list ->
   ?timeouts:timeouts ->
   gateway_name:string prop ->
   gateway_timezone:string prop ->
-  maintenance_start_time:maintenance_start_time list ->
-  smb_active_directory_settings:smb_active_directory_settings list ->
   unit ->
   aws_storagegateway_gateway
 
@@ -108,11 +108,11 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?tape_drive_type:string prop ->
+  ?maintenance_start_time:maintenance_start_time list ->
+  ?smb_active_directory_settings:smb_active_directory_settings list ->
   ?timeouts:timeouts ->
   gateway_name:string prop ->
   gateway_timezone:string prop ->
-  maintenance_start_time:maintenance_start_time list ->
-  smb_active_directory_settings:smb_active_directory_settings list ->
   string ->
   t
 
@@ -132,10 +132,10 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?tape_drive_type:string prop ->
+  ?maintenance_start_time:maintenance_start_time list ->
+  ?smb_active_directory_settings:smb_active_directory_settings list ->
   ?timeouts:timeouts ->
   gateway_name:string prop ->
   gateway_timezone:string prop ->
-  maintenance_start_time:maintenance_start_time list ->
-  smb_active_directory_settings:smb_active_directory_settings list ->
   string ->
   t Tf_core.resource

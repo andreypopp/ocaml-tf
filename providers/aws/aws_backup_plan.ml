@@ -396,7 +396,7 @@ let rule__copy_action__lifecycle ?cold_storage_after ?delete_after
     opt_in_to_archive_for_supported_resources;
   }
 
-let rule__copy_action ~destination_vault_arn ~lifecycle () :
+let rule__copy_action ?(lifecycle = []) ~destination_vault_arn () :
     rule__copy_action =
   { destination_vault_arn; lifecycle }
 
@@ -409,8 +409,8 @@ let rule__lifecycle ?cold_storage_after ?delete_after
   }
 
 let rule ?completion_window ?enable_continuous_backup
-    ?recovery_point_tags ?schedule ?start_window ~rule_name
-    ~target_vault_name ~copy_action ~lifecycle () : rule =
+    ?recovery_point_tags ?schedule ?start_window ?(lifecycle = [])
+    ~rule_name ~target_vault_name ~copy_action () : rule =
   {
     completion_window;
     enable_continuous_backup;

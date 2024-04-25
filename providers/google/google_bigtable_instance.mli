@@ -21,8 +21,8 @@ val cluster :
   ?num_nodes:float prop ->
   ?storage_type:string prop ->
   ?zone:string prop ->
+  ?autoscaling_config:cluster__autoscaling_config list ->
   cluster_id:string prop ->
-  autoscaling_config:cluster__autoscaling_config list ->
   unit ->
   cluster
 
@@ -44,9 +44,9 @@ val google_bigtable_instance :
   ?instance_type:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?cluster:cluster list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  cluster:cluster list ->
   unit ->
   google_bigtable_instance
 
@@ -75,9 +75,9 @@ val register :
   ?instance_type:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?cluster:cluster list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  cluster:cluster list ->
   string ->
   t
 
@@ -88,8 +88,8 @@ val make :
   ?instance_type:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?cluster:cluster list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  cluster:cluster list ->
   string ->
   t Tf_core.resource

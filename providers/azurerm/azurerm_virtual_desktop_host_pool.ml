@@ -345,8 +345,8 @@ let scheduled_agent_updates__schedule ~day_of_week ~hour_of_day () :
   { day_of_week; hour_of_day }
 
 let scheduled_agent_updates ?enabled ?timezone
-    ?use_session_host_timezone ~schedule () : scheduled_agent_updates
-    =
+    ?use_session_host_timezone ?(schedule = []) () :
+    scheduled_agent_updates =
   { enabled; timezone; use_session_host_timezone; schedule }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
@@ -356,8 +356,8 @@ let azurerm_virtual_desktop_host_pool ?custom_rdp_properties
     ?description ?friendly_name ?id ?maximum_sessions_allowed
     ?personal_desktop_assignment_type ?preferred_app_group_type
     ?start_vm_on_connect ?tags ?validate_environment ?vm_template
-    ?timeouts ~load_balancer_type ~location ~name
-    ~resource_group_name ~type_ ~scheduled_agent_updates () :
+    ?(scheduled_agent_updates = []) ?timeouts ~load_balancer_type
+    ~location ~name ~resource_group_name ~type_ () :
     azurerm_virtual_desktop_host_pool =
   {
     custom_rdp_properties;
@@ -402,9 +402,9 @@ type t = {
 let make ?custom_rdp_properties ?description ?friendly_name ?id
     ?maximum_sessions_allowed ?personal_desktop_assignment_type
     ?preferred_app_group_type ?start_vm_on_connect ?tags
-    ?validate_environment ?vm_template ?timeouts ~load_balancer_type
-    ~location ~name ~resource_group_name ~type_
-    ~scheduled_agent_updates __id =
+    ?validate_environment ?vm_template
+    ?(scheduled_agent_updates = []) ?timeouts ~load_balancer_type
+    ~location ~name ~resource_group_name ~type_ __id =
   let __type = "azurerm_virtual_desktop_host_pool" in
   let __attrs =
     ({
@@ -444,9 +444,9 @@ let make ?custom_rdp_properties ?description ?friendly_name ?id
            ?description ?friendly_name ?id ?maximum_sessions_allowed
            ?personal_desktop_assignment_type
            ?preferred_app_group_type ?start_vm_on_connect ?tags
-           ?validate_environment ?vm_template ?timeouts
-           ~load_balancer_type ~location ~name ~resource_group_name
-           ~type_ ~scheduled_agent_updates ());
+           ?validate_environment ?vm_template
+           ~scheduled_agent_updates ?timeouts ~load_balancer_type
+           ~location ~name ~resource_group_name ~type_ ());
     attrs = __attrs;
   }
 
@@ -454,15 +454,15 @@ let register ?tf_module ?custom_rdp_properties ?description
     ?friendly_name ?id ?maximum_sessions_allowed
     ?personal_desktop_assignment_type ?preferred_app_group_type
     ?start_vm_on_connect ?tags ?validate_environment ?vm_template
-    ?timeouts ~load_balancer_type ~location ~name
-    ~resource_group_name ~type_ ~scheduled_agent_updates __id =
+    ?(scheduled_agent_updates = []) ?timeouts ~load_balancer_type
+    ~location ~name ~resource_group_name ~type_ __id =
   let (r : _ Tf_core.resource) =
     make ?custom_rdp_properties ?description ?friendly_name ?id
       ?maximum_sessions_allowed ?personal_desktop_assignment_type
       ?preferred_app_group_type ?start_vm_on_connect ?tags
-      ?validate_environment ?vm_template ?timeouts
-      ~load_balancer_type ~location ~name ~resource_group_name ~type_
-      ~scheduled_agent_updates __id
+      ?validate_environment ?vm_template ~scheduled_agent_updates
+      ?timeouts ~load_balancer_type ~location ~name
+      ~resource_group_name ~type_ __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

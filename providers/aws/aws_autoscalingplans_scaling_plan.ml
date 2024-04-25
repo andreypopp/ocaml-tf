@@ -650,10 +650,10 @@ let scaling_instruction__target_tracking_configuration__predefined_scaling_metri
 
 let scaling_instruction__target_tracking_configuration
     ?disable_scale_in ?estimated_instance_warmup ?scale_in_cooldown
-    ?scale_out_cooldown ~target_value
-    ~customized_scaling_metric_specification
-    ~predefined_scaling_metric_specification () :
-    scaling_instruction__target_tracking_configuration =
+    ?scale_out_cooldown
+    ?(customized_scaling_metric_specification = [])
+    ?(predefined_scaling_metric_specification = []) ~target_value ()
+    : scaling_instruction__target_tracking_configuration =
   {
     disable_scale_in;
     estimated_instance_warmup;
@@ -668,9 +668,9 @@ let scaling_instruction ?disable_dynamic_scaling
     ?predictive_scaling_max_capacity_behavior
     ?predictive_scaling_max_capacity_buffer ?predictive_scaling_mode
     ?scaling_policy_update_behavior ?scheduled_action_buffer_time
-    ~max_capacity ~min_capacity ~resource_id ~scalable_dimension
-    ~service_namespace ~customized_load_metric_specification
-    ~predefined_load_metric_specification
+    ?(customized_load_metric_specification = [])
+    ?(predefined_load_metric_specification = []) ~max_capacity
+    ~min_capacity ~resource_id ~scalable_dimension ~service_namespace
     ~target_tracking_configuration () : scaling_instruction =
   {
     disable_dynamic_scaling;

@@ -283,9 +283,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_app_service_connection ?client_type ?id ?vnet_solution
-    ?timeouts ~app_service_id ~name ~target_resource_id
-    ~authentication ~secret_store () : azurerm_app_service_connection
-    =
+    ?(secret_store = []) ?timeouts ~app_service_id ~name
+    ~target_resource_id ~authentication () :
+    azurerm_app_service_connection =
   {
     app_service_id;
     client_type;
@@ -307,8 +307,9 @@ type t = {
   vnet_solution : string prop;
 }
 
-let make ?client_type ?id ?vnet_solution ?timeouts ~app_service_id
-    ~name ~target_resource_id ~authentication ~secret_store __id =
+let make ?client_type ?id ?vnet_solution ?(secret_store = [])
+    ?timeouts ~app_service_id ~name ~target_resource_id
+    ~authentication __id =
   let __type = "azurerm_app_service_connection" in
   let __attrs =
     ({
@@ -328,17 +329,17 @@ let make ?client_type ?id ?vnet_solution ?timeouts ~app_service_id
     json =
       yojson_of_azurerm_app_service_connection
         (azurerm_app_service_connection ?client_type ?id
-           ?vnet_solution ?timeouts ~app_service_id ~name
-           ~target_resource_id ~authentication ~secret_store ());
+           ?vnet_solution ~secret_store ?timeouts ~app_service_id
+           ~name ~target_resource_id ~authentication ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?client_type ?id ?vnet_solution ?timeouts
-    ~app_service_id ~name ~target_resource_id ~authentication
-    ~secret_store __id =
+let register ?tf_module ?client_type ?id ?vnet_solution
+    ?(secret_store = []) ?timeouts ~app_service_id ~name
+    ~target_resource_id ~authentication __id =
   let (r : _ Tf_core.resource) =
-    make ?client_type ?id ?vnet_solution ?timeouts ~app_service_id
-      ~name ~target_resource_id ~authentication ~secret_store __id
+    make ?client_type ?id ?vnet_solution ~secret_store ?timeouts
+      ~app_service_id ~name ~target_resource_id ~authentication __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

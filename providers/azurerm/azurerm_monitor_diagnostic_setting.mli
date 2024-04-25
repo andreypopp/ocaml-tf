@@ -17,7 +17,7 @@ type enabled_log
 val enabled_log :
   ?category:string prop ->
   ?category_group:string prop ->
-  retention_policy:enabled_log__retention_policy list ->
+  ?retention_policy:enabled_log__retention_policy list ->
   unit ->
   enabled_log
 
@@ -35,7 +35,7 @@ val log :
   ?category:string prop ->
   ?category_group:string prop ->
   ?enabled:bool prop ->
-  retention_policy:log__retention_policy list ->
+  ?retention_policy:log__retention_policy list ->
   unit ->
   log
 
@@ -51,8 +51,8 @@ type metric
 
 val metric :
   ?enabled:bool prop ->
+  ?retention_policy:metric__retention_policy list ->
   category:string prop ->
-  retention_policy:metric__retention_policy list ->
   unit ->
   metric
 

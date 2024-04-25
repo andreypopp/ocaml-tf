@@ -110,15 +110,15 @@ val google_looker_instance :
   ?public_ip_enabled:bool prop ->
   ?region:string prop ->
   ?reserved_range:string prop ->
+  ?admin_settings:admin_settings list ->
+  ?custom_domain:custom_domain list ->
+  ?deny_maintenance_period:deny_maintenance_period list ->
+  ?encryption_config:encryption_config list ->
+  ?maintenance_window:maintenance_window list ->
+  ?oauth_config:oauth_config list ->
   ?timeouts:timeouts ->
+  ?user_metadata:user_metadata list ->
   name:string prop ->
-  admin_settings:admin_settings list ->
-  custom_domain:custom_domain list ->
-  deny_maintenance_period:deny_maintenance_period list ->
-  encryption_config:encryption_config list ->
-  maintenance_window:maintenance_window list ->
-  oauth_config:oauth_config list ->
-  user_metadata:user_metadata list ->
   unit ->
   google_looker_instance
 
@@ -155,15 +155,15 @@ val register :
   ?public_ip_enabled:bool prop ->
   ?region:string prop ->
   ?reserved_range:string prop ->
+  ?admin_settings:admin_settings list ->
+  ?custom_domain:custom_domain list ->
+  ?deny_maintenance_period:deny_maintenance_period list ->
+  ?encryption_config:encryption_config list ->
+  ?maintenance_window:maintenance_window list ->
+  ?oauth_config:oauth_config list ->
   ?timeouts:timeouts ->
+  ?user_metadata:user_metadata list ->
   name:string prop ->
-  admin_settings:admin_settings list ->
-  custom_domain:custom_domain list ->
-  deny_maintenance_period:deny_maintenance_period list ->
-  encryption_config:encryption_config list ->
-  maintenance_window:maintenance_window list ->
-  oauth_config:oauth_config list ->
-  user_metadata:user_metadata list ->
   string ->
   t
 
@@ -176,14 +176,14 @@ val make :
   ?public_ip_enabled:bool prop ->
   ?region:string prop ->
   ?reserved_range:string prop ->
+  ?admin_settings:admin_settings list ->
+  ?custom_domain:custom_domain list ->
+  ?deny_maintenance_period:deny_maintenance_period list ->
+  ?encryption_config:encryption_config list ->
+  ?maintenance_window:maintenance_window list ->
+  ?oauth_config:oauth_config list ->
   ?timeouts:timeouts ->
+  ?user_metadata:user_metadata list ->
   name:string prop ->
-  admin_settings:admin_settings list ->
-  custom_domain:custom_domain list ->
-  deny_maintenance_period:deny_maintenance_period list ->
-  encryption_config:encryption_config list ->
-  maintenance_window:maintenance_window list ->
-  oauth_config:oauth_config list ->
-  user_metadata:user_metadata list ->
   string ->
   t Tf_core.resource

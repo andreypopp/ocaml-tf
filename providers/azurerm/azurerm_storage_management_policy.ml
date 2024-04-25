@@ -822,7 +822,8 @@ let rule__actions__version
     tier_to_cold_after_days_since_creation_greater_than;
   }
 
-let rule__actions ~base_blob ~snapshot ~version () : rule__actions =
+let rule__actions ?(base_blob = []) ?(snapshot = []) ?(version = [])
+    () : rule__actions =
   { base_blob; snapshot; version }
 
 let rule__filters__match_blob_index_tag ?operation ~name ~value () :
@@ -839,14 +840,13 @@ let rule ~enabled ~name ~actions ~filters () : rule =
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_storage_management_policy ?id ?timeouts
-    ~storage_account_id ~rule () : azurerm_storage_management_policy
-    =
+let azurerm_storage_management_policy ?id ?(rule = []) ?timeouts
+    ~storage_account_id () : azurerm_storage_management_policy =
   { id; storage_account_id; rule; timeouts }
 
 type t = { id : string prop; storage_account_id : string prop }
 
-let make ?id ?timeouts ~storage_account_id ~rule __id =
+let make ?id ?(rule = []) ?timeouts ~storage_account_id __id =
   let __type = "azurerm_storage_management_policy" in
   let __attrs =
     ({
@@ -861,15 +861,15 @@ let make ?id ?timeouts ~storage_account_id ~rule __id =
     type_ = __type;
     json =
       yojson_of_azurerm_storage_management_policy
-        (azurerm_storage_management_policy ?id ?timeouts
-           ~storage_account_id ~rule ());
+        (azurerm_storage_management_policy ?id ~rule ?timeouts
+           ~storage_account_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~storage_account_id ~rule __id
-    =
+let register ?tf_module ?id ?(rule = []) ?timeouts
+    ~storage_account_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~storage_account_id ~rule __id
+    make ?id ~rule ?timeouts ~storage_account_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

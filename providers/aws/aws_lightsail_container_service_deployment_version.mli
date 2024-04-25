@@ -44,10 +44,10 @@ type aws_lightsail_container_service_deployment_version
 
 val aws_lightsail_container_service_deployment_version :
   ?id:string prop ->
+  ?public_endpoint:public_endpoint list ->
   ?timeouts:timeouts ->
   service_name:string prop ->
   container:container list ->
-  public_endpoint:public_endpoint list ->
   unit ->
   aws_lightsail_container_service_deployment_version
 
@@ -67,18 +67,18 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?public_endpoint:public_endpoint list ->
   ?timeouts:timeouts ->
   service_name:string prop ->
   container:container list ->
-  public_endpoint:public_endpoint list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?public_endpoint:public_endpoint list ->
   ?timeouts:timeouts ->
   service_name:string prop ->
   container:container list ->
-  public_endpoint:public_endpoint list ->
   string ->
   t Tf_core.resource

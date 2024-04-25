@@ -26,8 +26,8 @@ val rules__promote_release_rule :
 type rules
 
 val rules :
-  advance_rollout_rule:rules__advance_rollout_rule list ->
-  promote_release_rule:rules__promote_release_rule list ->
+  ?advance_rollout_rule:rules__advance_rollout_rule list ->
+  ?promote_release_rule:rules__promote_release_rule list ->
   unit ->
   rules
 

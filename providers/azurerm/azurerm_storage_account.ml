@@ -1730,8 +1730,8 @@ let azure_files_authentication__active_directory ?domain_sid
     storage_sid;
   }
 
-let azure_files_authentication ~directory_type ~active_directory () :
-    azure_files_authentication =
+let azure_files_authentication ?(active_directory = [])
+    ~directory_type () : azure_files_authentication =
   { directory_type; active_directory }
 
 let blob_properties__container_delete_retention_policy ?days () :
@@ -1760,8 +1760,9 @@ let blob_properties__restore_policy ~days () :
 let blob_properties ?change_feed_enabled
     ?change_feed_retention_in_days ?default_service_version
     ?last_access_time_enabled ?versioning_enabled
-    ~container_delete_retention_policy ~cors_rule
-    ~delete_retention_policy ~restore_policy () : blob_properties =
+    ?(container_delete_retention_policy = []) ?(cors_rule = [])
+    ?(delete_retention_policy = []) ?(restore_policy = []) () :
+    blob_properties =
   {
     change_feed_enabled;
     change_feed_retention_in_days;
@@ -1797,7 +1798,7 @@ let network_rules__private_link_access ?endpoint_tenant_id
   { endpoint_resource_id; endpoint_tenant_id }
 
 let network_rules ?bypass ?ip_rules ?virtual_network_subnet_ids
-    ~default_action ~private_link_access () : network_rules =
+    ?(private_link_access = []) ~default_action () : network_rules =
   {
     bypass;
     default_action;
@@ -1831,8 +1832,8 @@ let queue_properties__minute_metrics ?include_apis
     queue_properties__minute_metrics =
   { enabled; include_apis; retention_policy_days; version }
 
-let queue_properties ~cors_rule ~hour_metrics ~logging
-    ~minute_metrics () : queue_properties =
+let queue_properties ?(cors_rule = []) ?(hour_metrics = [])
+    ?(logging = []) ?(minute_metrics = []) () : queue_properties =
   { cors_rule; hour_metrics; logging; minute_metrics }
 
 let routing ?choice ?publish_internet_endpoints
@@ -1869,8 +1870,8 @@ let share_properties__smb ?authentication_types
     versions;
   }
 
-let share_properties ~cors_rule ~retention_policy ~smb () :
-    share_properties =
+let share_properties ?(cors_rule = []) ?(retention_policy = [])
+    ?(smb = []) () : share_properties =
   { cors_rule; retention_policy; smb }
 
 let static_website ?error_404_document ?index_document () :
@@ -1889,11 +1890,13 @@ let azurerm_storage_account ?access_tier ?account_kind
     ?min_tls_version ?nfsv3_enabled ?public_network_access_enabled
     ?queue_encryption_key_type ?sftp_enabled
     ?shared_access_key_enabled ?table_encryption_key_type ?tags
-    ?timeouts ~account_replication_type ~account_tier ~location ~name
-    ~resource_group_name ~azure_files_authentication ~blob_properties
-    ~custom_domain ~customer_managed_key ~identity
-    ~immutability_policy ~network_rules ~queue_properties ~routing
-    ~sas_policy ~share_properties ~static_website () :
+    ?(azure_files_authentication = []) ?(blob_properties = [])
+    ?(custom_domain = []) ?(customer_managed_key = [])
+    ?(identity = []) ?(immutability_policy = [])
+    ?(network_rules = []) ?(queue_properties = []) ?(routing = [])
+    ?(sas_policy = []) ?(share_properties = [])
+    ?(static_website = []) ?timeouts ~account_replication_type
+    ~account_tier ~location ~name ~resource_group_name () :
     azurerm_storage_account =
   {
     access_tier;
@@ -2046,11 +2049,13 @@ let make ?access_tier ?account_kind ?allow_nested_items_to_be_public
     ?min_tls_version ?nfsv3_enabled ?public_network_access_enabled
     ?queue_encryption_key_type ?sftp_enabled
     ?shared_access_key_enabled ?table_encryption_key_type ?tags
-    ?timeouts ~account_replication_type ~account_tier ~location ~name
-    ~resource_group_name ~azure_files_authentication ~blob_properties
-    ~custom_domain ~customer_managed_key ~identity
-    ~immutability_policy ~network_rules ~queue_properties ~routing
-    ~sas_policy ~share_properties ~static_website __id =
+    ?(azure_files_authentication = []) ?(blob_properties = [])
+    ?(custom_domain = []) ?(customer_managed_key = [])
+    ?(identity = []) ?(immutability_policy = [])
+    ?(network_rules = []) ?(queue_properties = []) ?(routing = [])
+    ?(sas_policy = []) ?(share_properties = [])
+    ?(static_website = []) ?timeouts ~account_replication_type
+    ~account_tier ~location ~name ~resource_group_name __id =
   let __type = "azurerm_storage_account" in
   let __attrs =
     ({
@@ -2261,13 +2266,13 @@ let make ?access_tier ?account_kind ?allow_nested_items_to_be_public
            ?min_tls_version ?nfsv3_enabled
            ?public_network_access_enabled ?queue_encryption_key_type
            ?sftp_enabled ?shared_access_key_enabled
-           ?table_encryption_key_type ?tags ?timeouts
-           ~account_replication_type ~account_tier ~location ~name
-           ~resource_group_name ~azure_files_authentication
-           ~blob_properties ~custom_domain ~customer_managed_key
-           ~identity ~immutability_policy ~network_rules
-           ~queue_properties ~routing ~sas_policy ~share_properties
-           ~static_website ());
+           ?table_encryption_key_type ?tags
+           ~azure_files_authentication ~blob_properties
+           ~custom_domain ~customer_managed_key ~identity
+           ~immutability_policy ~network_rules ~queue_properties
+           ~routing ~sas_policy ~share_properties ~static_website
+           ?timeouts ~account_replication_type ~account_tier
+           ~location ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
@@ -2280,11 +2285,13 @@ let register ?tf_module ?access_tier ?account_kind
     ?min_tls_version ?nfsv3_enabled ?public_network_access_enabled
     ?queue_encryption_key_type ?sftp_enabled
     ?shared_access_key_enabled ?table_encryption_key_type ?tags
-    ?timeouts ~account_replication_type ~account_tier ~location ~name
-    ~resource_group_name ~azure_files_authentication ~blob_properties
-    ~custom_domain ~customer_managed_key ~identity
-    ~immutability_policy ~network_rules ~queue_properties ~routing
-    ~sas_policy ~share_properties ~static_website __id =
+    ?(azure_files_authentication = []) ?(blob_properties = [])
+    ?(custom_domain = []) ?(customer_managed_key = [])
+    ?(identity = []) ?(immutability_policy = [])
+    ?(network_rules = []) ?(queue_properties = []) ?(routing = [])
+    ?(sas_policy = []) ?(share_properties = [])
+    ?(static_website = []) ?timeouts ~account_replication_type
+    ~account_tier ~location ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?access_tier ?account_kind ?allow_nested_items_to_be_public
       ?allowed_copy_scope ?cross_tenant_replication_enabled
@@ -2295,11 +2302,12 @@ let register ?tf_module ?access_tier ?account_kind
       ?nfsv3_enabled ?public_network_access_enabled
       ?queue_encryption_key_type ?sftp_enabled
       ?shared_access_key_enabled ?table_encryption_key_type ?tags
-      ?timeouts ~account_replication_type ~account_tier ~location
-      ~name ~resource_group_name ~azure_files_authentication
-      ~blob_properties ~custom_domain ~customer_managed_key ~identity
-      ~immutability_policy ~network_rules ~queue_properties ~routing
-      ~sas_policy ~share_properties ~static_website __id
+      ~azure_files_authentication ~blob_properties ~custom_domain
+      ~customer_managed_key ~identity ~immutability_policy
+      ~network_rules ~queue_properties ~routing ~sas_policy
+      ~share_properties ~static_website ?timeouts
+      ~account_replication_type ~account_tier ~location ~name
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

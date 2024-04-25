@@ -33,10 +33,10 @@ val google_beyondcorp_app_connection :
   ?project:string prop ->
   ?region:string prop ->
   ?type_:string prop ->
+  ?gateway:gateway list ->
   ?timeouts:timeouts ->
   name:string prop ->
   application_endpoint:application_endpoint list ->
-  gateway:gateway list ->
   unit ->
   google_beyondcorp_app_connection
 
@@ -67,10 +67,10 @@ val register :
   ?project:string prop ->
   ?region:string prop ->
   ?type_:string prop ->
+  ?gateway:gateway list ->
   ?timeouts:timeouts ->
   name:string prop ->
   application_endpoint:application_endpoint list ->
-  gateway:gateway list ->
   string ->
   t
 
@@ -82,9 +82,9 @@ val make :
   ?project:string prop ->
   ?region:string prop ->
   ?type_:string prop ->
+  ?gateway:gateway list ->
   ?timeouts:timeouts ->
   name:string prop ->
   application_endpoint:application_endpoint list ->
-  gateway:gateway list ->
   string ->
   t Tf_core.resource

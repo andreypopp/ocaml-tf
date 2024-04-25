@@ -19,7 +19,7 @@ type rules__access_boundary_rule
 val rules__access_boundary_rule :
   ?available_permissions:string prop list ->
   ?available_resource:string prop ->
-  availability_condition:
+  ?availability_condition:
     rules__access_boundary_rule__availability_condition list ->
   unit ->
   rules__access_boundary_rule
@@ -28,7 +28,7 @@ type rules
 
 val rules :
   ?description:string prop ->
-  access_boundary_rule:rules__access_boundary_rule list ->
+  ?access_boundary_rule:rules__access_boundary_rule list ->
   unit ->
   rules
 

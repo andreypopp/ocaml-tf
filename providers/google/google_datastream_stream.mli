@@ -19,20 +19,20 @@ val backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables__mysql_c
 type backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables
 
 val backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables :
-  table:string prop ->
-  mysql_columns:
+  ?mysql_columns:
     backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables__mysql_columns
     list ->
+  table:string prop ->
   unit ->
   backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables
 
 type backfill_all__mysql_excluded_objects__mysql_databases
 
 val backfill_all__mysql_excluded_objects__mysql_databases :
-  database:string prop ->
-  mysql_tables:
+  ?mysql_tables:
     backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables
     list ->
+  database:string prop ->
   unit ->
   backfill_all__mysql_excluded_objects__mysql_databases
 
@@ -55,20 +55,20 @@ val backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables__oracle
 type backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables
 
 val backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables :
-  table:string prop ->
-  oracle_columns:
+  ?oracle_columns:
     backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables__oracle_columns
     list ->
+  table:string prop ->
   unit ->
   backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables
 
 type backfill_all__oracle_excluded_objects__oracle_schemas
 
 val backfill_all__oracle_excluded_objects__oracle_schemas :
-  schema:string prop ->
-  oracle_tables:
+  ?oracle_tables:
     backfill_all__oracle_excluded_objects__oracle_schemas__oracle_tables
     list ->
+  schema:string prop ->
   unit ->
   backfill_all__oracle_excluded_objects__oracle_schemas
 
@@ -94,20 +94,20 @@ val backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_ta
 type backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables
 
 val backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables :
-  table:string prop ->
-  postgresql_columns:
+  ?postgresql_columns:
     backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables__postgresql_columns
     list ->
+  table:string prop ->
   unit ->
   backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables
 
 type backfill_all__postgresql_excluded_objects__postgresql_schemas
 
 val backfill_all__postgresql_excluded_objects__postgresql_schemas :
-  schema:string prop ->
-  postgresql_tables:
+  ?postgresql_tables:
     backfill_all__postgresql_excluded_objects__postgresql_schemas__postgresql_tables
     list ->
+  schema:string prop ->
   unit ->
   backfill_all__postgresql_excluded_objects__postgresql_schemas
 
@@ -123,9 +123,9 @@ val backfill_all__postgresql_excluded_objects :
 type backfill_all
 
 val backfill_all :
-  mysql_excluded_objects:backfill_all__mysql_excluded_objects list ->
-  oracle_excluded_objects:backfill_all__oracle_excluded_objects list ->
-  postgresql_excluded_objects:
+  ?mysql_excluded_objects:backfill_all__mysql_excluded_objects list ->
+  ?oracle_excluded_objects:backfill_all__oracle_excluded_objects list ->
+  ?postgresql_excluded_objects:
     backfill_all__postgresql_excluded_objects list ->
   unit ->
   backfill_all
@@ -163,10 +163,10 @@ type destination_config__bigquery_destination_config
 
 val destination_config__bigquery_destination_config :
   ?data_freshness:string prop ->
-  single_target_dataset:
+  ?single_target_dataset:
     destination_config__bigquery_destination_config__single_target_dataset
     list ->
-  source_hierarchy_datasets:
+  ?source_hierarchy_datasets:
     destination_config__bigquery_destination_config__source_hierarchy_datasets
     list ->
   unit ->
@@ -192,9 +192,9 @@ val destination_config__gcs_destination_config :
   ?file_rotation_interval:string prop ->
   ?file_rotation_mb:float prop ->
   ?path:string prop ->
-  avro_file_format:
+  ?avro_file_format:
     destination_config__gcs_destination_config__avro_file_format list ->
-  json_file_format:
+  ?json_file_format:
     destination_config__gcs_destination_config__json_file_format list ->
   unit ->
   destination_config__gcs_destination_config
@@ -202,11 +202,11 @@ val destination_config__gcs_destination_config :
 type destination_config
 
 val destination_config :
-  destination_connection_profile:string prop ->
-  bigquery_destination_config:
+  ?bigquery_destination_config:
     destination_config__bigquery_destination_config list ->
-  gcs_destination_config:
+  ?gcs_destination_config:
     destination_config__gcs_destination_config list ->
+  destination_connection_profile:string prop ->
   unit ->
   destination_config
 
@@ -225,20 +225,20 @@ val source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_
 type source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables
 
 val source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables :
-  table:string prop ->
-  mysql_columns:
+  ?mysql_columns:
     source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables__mysql_columns
     list ->
+  table:string prop ->
   unit ->
   source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables
 
 type source_config__mysql_source_config__exclude_objects__mysql_databases
 
 val source_config__mysql_source_config__exclude_objects__mysql_databases :
-  database:string prop ->
-  mysql_tables:
+  ?mysql_tables:
     source_config__mysql_source_config__exclude_objects__mysql_databases__mysql_tables
     list ->
+  database:string prop ->
   unit ->
   source_config__mysql_source_config__exclude_objects__mysql_databases
 
@@ -266,20 +266,20 @@ val source_config__mysql_source_config__include_objects__mysql_databases__mysql_
 type source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables
 
 val source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables :
-  table:string prop ->
-  mysql_columns:
+  ?mysql_columns:
     source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables__mysql_columns
     list ->
+  table:string prop ->
   unit ->
   source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables
 
 type source_config__mysql_source_config__include_objects__mysql_databases
 
 val source_config__mysql_source_config__include_objects__mysql_databases :
-  database:string prop ->
-  mysql_tables:
+  ?mysql_tables:
     source_config__mysql_source_config__include_objects__mysql_databases__mysql_tables
     list ->
+  database:string prop ->
   unit ->
   source_config__mysql_source_config__include_objects__mysql_databases
 
@@ -297,9 +297,9 @@ type source_config__mysql_source_config
 val source_config__mysql_source_config :
   ?max_concurrent_backfill_tasks:float prop ->
   ?max_concurrent_cdc_tasks:float prop ->
-  exclude_objects:
+  ?exclude_objects:
     source_config__mysql_source_config__exclude_objects list ->
-  include_objects:
+  ?include_objects:
     source_config__mysql_source_config__include_objects list ->
   unit ->
   source_config__mysql_source_config
@@ -320,20 +320,20 @@ val source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle
 type source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables
 
 val source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables :
-  table:string prop ->
-  oracle_columns:
+  ?oracle_columns:
     source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables__oracle_columns
     list ->
+  table:string prop ->
   unit ->
   source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables
 
 type source_config__oracle_source_config__exclude_objects__oracle_schemas
 
 val source_config__oracle_source_config__exclude_objects__oracle_schemas :
-  schema:string prop ->
-  oracle_tables:
+  ?oracle_tables:
     source_config__oracle_source_config__exclude_objects__oracle_schemas__oracle_tables
     list ->
+  schema:string prop ->
   unit ->
   source_config__oracle_source_config__exclude_objects__oracle_schemas
 
@@ -357,20 +357,20 @@ val source_config__oracle_source_config__include_objects__oracle_schemas__oracle
 type source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables
 
 val source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables :
-  table:string prop ->
-  oracle_columns:
+  ?oracle_columns:
     source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables__oracle_columns
     list ->
+  table:string prop ->
   unit ->
   source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables
 
 type source_config__oracle_source_config__include_objects__oracle_schemas
 
 val source_config__oracle_source_config__include_objects__oracle_schemas :
-  schema:string prop ->
-  oracle_tables:
+  ?oracle_tables:
     source_config__oracle_source_config__include_objects__oracle_schemas__oracle_tables
     list ->
+  schema:string prop ->
   unit ->
   source_config__oracle_source_config__include_objects__oracle_schemas
 
@@ -393,13 +393,13 @@ type source_config__oracle_source_config
 val source_config__oracle_source_config :
   ?max_concurrent_backfill_tasks:float prop ->
   ?max_concurrent_cdc_tasks:float prop ->
-  drop_large_objects:
+  ?drop_large_objects:
     source_config__oracle_source_config__drop_large_objects list ->
-  exclude_objects:
+  ?exclude_objects:
     source_config__oracle_source_config__exclude_objects list ->
-  include_objects:
+  ?include_objects:
     source_config__oracle_source_config__include_objects list ->
-  stream_large_objects:
+  ?stream_large_objects:
     source_config__oracle_source_config__stream_large_objects list ->
   unit ->
   source_config__oracle_source_config
@@ -418,20 +418,20 @@ val source_config__postgresql_source_config__exclude_objects__postgresql_schemas
 type source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables
 
 val source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables :
-  table:string prop ->
-  postgresql_columns:
+  ?postgresql_columns:
     source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables__postgresql_columns
     list ->
+  table:string prop ->
   unit ->
   source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables
 
 type source_config__postgresql_source_config__exclude_objects__postgresql_schemas
 
 val source_config__postgresql_source_config__exclude_objects__postgresql_schemas :
-  schema:string prop ->
-  postgresql_tables:
+  ?postgresql_tables:
     source_config__postgresql_source_config__exclude_objects__postgresql_schemas__postgresql_tables
     list ->
+  schema:string prop ->
   unit ->
   source_config__postgresql_source_config__exclude_objects__postgresql_schemas
 
@@ -458,20 +458,20 @@ val source_config__postgresql_source_config__include_objects__postgresql_schemas
 type source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables
 
 val source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables :
-  table:string prop ->
-  postgresql_columns:
+  ?postgresql_columns:
     source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables__postgresql_columns
     list ->
+  table:string prop ->
   unit ->
   source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables
 
 type source_config__postgresql_source_config__include_objects__postgresql_schemas
 
 val source_config__postgresql_source_config__include_objects__postgresql_schemas :
-  schema:string prop ->
-  postgresql_tables:
+  ?postgresql_tables:
     source_config__postgresql_source_config__include_objects__postgresql_schemas__postgresql_tables
     list ->
+  schema:string prop ->
   unit ->
   source_config__postgresql_source_config__include_objects__postgresql_schemas
 
@@ -488,23 +488,23 @@ type source_config__postgresql_source_config
 
 val source_config__postgresql_source_config :
   ?max_concurrent_backfill_tasks:float prop ->
+  ?exclude_objects:
+    source_config__postgresql_source_config__exclude_objects list ->
+  ?include_objects:
+    source_config__postgresql_source_config__include_objects list ->
   publication:string prop ->
   replication_slot:string prop ->
-  exclude_objects:
-    source_config__postgresql_source_config__exclude_objects list ->
-  include_objects:
-    source_config__postgresql_source_config__include_objects list ->
   unit ->
   source_config__postgresql_source_config
 
 type source_config
 
 val source_config :
-  source_connection_profile:string prop ->
-  mysql_source_config:source_config__mysql_source_config list ->
-  oracle_source_config:source_config__oracle_source_config list ->
-  postgresql_source_config:
+  ?mysql_source_config:source_config__mysql_source_config list ->
+  ?oracle_source_config:source_config__oracle_source_config list ->
+  ?postgresql_source_config:
     source_config__postgresql_source_config list ->
+  source_connection_profile:string prop ->
   unit ->
   source_config
 
@@ -525,12 +525,12 @@ val google_datastream_stream :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?backfill_all:backfill_all list ->
+  ?backfill_none:backfill_none list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   location:string prop ->
   stream_id:string prop ->
-  backfill_all:backfill_all list ->
-  backfill_none:backfill_none list ->
   destination_config:destination_config list ->
   source_config:source_config list ->
   unit ->
@@ -563,12 +563,12 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?backfill_all:backfill_all list ->
+  ?backfill_none:backfill_none list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   location:string prop ->
   stream_id:string prop ->
-  backfill_all:backfill_all list ->
-  backfill_none:backfill_none list ->
   destination_config:destination_config list ->
   source_config:source_config list ->
   string ->
@@ -580,12 +580,12 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?backfill_all:backfill_all list ->
+  ?backfill_none:backfill_none list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   location:string prop ->
   stream_id:string prop ->
-  backfill_all:backfill_all list ->
-  backfill_none:backfill_none list ->
   destination_config:destination_config list ->
   source_config:source_config list ->
   string ->

@@ -487,8 +487,9 @@ let aws_neptune_cluster ?allow_major_version_upgrade
     ?port ?preferred_backup_window ?preferred_maintenance_window
     ?replication_source_identifier ?skip_final_snapshot
     ?snapshot_identifier ?storage_encrypted ?storage_type ?tags
-    ?tags_all ?vpc_security_group_ids ?timeouts
-    ~serverless_v2_scaling_configuration () : aws_neptune_cluster =
+    ?tags_all ?vpc_security_group_ids
+    ?(serverless_v2_scaling_configuration = []) ?timeouts () :
+    aws_neptune_cluster =
   {
     allow_major_version_upgrade;
     apply_immediately;
@@ -576,8 +577,8 @@ let make ?allow_major_version_upgrade ?apply_immediately
     ?port ?preferred_backup_window ?preferred_maintenance_window
     ?replication_source_identifier ?skip_final_snapshot
     ?snapshot_identifier ?storage_encrypted ?storage_type ?tags
-    ?tags_all ?vpc_security_group_ids ?timeouts
-    ~serverless_v2_scaling_configuration __id =
+    ?tags_all ?vpc_security_group_ids
+    ?(serverless_v2_scaling_configuration = []) ?timeouts __id =
   let __type = "aws_neptune_cluster" in
   let __attrs =
     ({
@@ -666,8 +667,8 @@ let make ?allow_major_version_upgrade ?apply_immediately
            ?preferred_maintenance_window
            ?replication_source_identifier ?skip_final_snapshot
            ?snapshot_identifier ?storage_encrypted ?storage_type
-           ?tags ?tags_all ?vpc_security_group_ids ?timeouts
-           ~serverless_v2_scaling_configuration ());
+           ?tags ?tags_all ?vpc_security_group_ids
+           ~serverless_v2_scaling_configuration ?timeouts ());
     attrs = __attrs;
   }
 
@@ -683,8 +684,8 @@ let register ?tf_module ?allow_major_version_upgrade
     ?port ?preferred_backup_window ?preferred_maintenance_window
     ?replication_source_identifier ?skip_final_snapshot
     ?snapshot_identifier ?storage_encrypted ?storage_type ?tags
-    ?tags_all ?vpc_security_group_ids ?timeouts
-    ~serverless_v2_scaling_configuration __id =
+    ?tags_all ?vpc_security_group_ids
+    ?(serverless_v2_scaling_configuration = []) ?timeouts __id =
   let (r : _ Tf_core.resource) =
     make ?allow_major_version_upgrade ?apply_immediately
       ?availability_zones ?backup_retention_period
@@ -698,8 +699,8 @@ let register ?tf_module ?allow_major_version_upgrade
       ?neptune_subnet_group_name ?port ?preferred_backup_window
       ?preferred_maintenance_window ?replication_source_identifier
       ?skip_final_snapshot ?snapshot_identifier ?storage_encrypted
-      ?storage_type ?tags ?tags_all ?vpc_security_group_ids ?timeouts
-      ~serverless_v2_scaling_configuration __id
+      ?storage_type ?tags ?tags_all ?vpc_security_group_ids
+      ~serverless_v2_scaling_configuration ?timeouts __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -37,11 +37,11 @@ val google_cloudbuild_worker_pool :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?network_config:network_config list ->
   ?timeouts:timeouts ->
+  ?worker_config:worker_config list ->
   location:string prop ->
   name:string prop ->
-  network_config:network_config list ->
-  worker_config:worker_config list ->
   unit ->
   google_cloudbuild_worker_pool
 
@@ -71,11 +71,11 @@ val register :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?network_config:network_config list ->
   ?timeouts:timeouts ->
+  ?worker_config:worker_config list ->
   location:string prop ->
   name:string prop ->
-  network_config:network_config list ->
-  worker_config:worker_config list ->
   string ->
   t
 
@@ -84,10 +84,10 @@ val make :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?network_config:network_config list ->
   ?timeouts:timeouts ->
+  ?worker_config:worker_config list ->
   location:string prop ->
   name:string prop ->
-  network_config:network_config list ->
-  worker_config:worker_config list ->
   string ->
   t Tf_core.resource

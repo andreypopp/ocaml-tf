@@ -36,6 +36,7 @@ val azurerm_api_management_authorization_server :
   ?support_state:bool prop ->
   ?token_endpoint:string prop ->
   ?timeouts:timeouts ->
+  ?token_body_parameter:token_body_parameter list ->
   api_management_name:string prop ->
   authorization_endpoint:string prop ->
   authorization_methods:string prop list ->
@@ -45,7 +46,6 @@ val azurerm_api_management_authorization_server :
   grant_types:string prop list ->
   name:string prop ->
   resource_group_name:string prop ->
-  token_body_parameter:token_body_parameter list ->
   unit ->
   azurerm_api_management_authorization_server
 
@@ -89,6 +89,7 @@ val register :
   ?support_state:bool prop ->
   ?token_endpoint:string prop ->
   ?timeouts:timeouts ->
+  ?token_body_parameter:token_body_parameter list ->
   api_management_name:string prop ->
   authorization_endpoint:string prop ->
   authorization_methods:string prop list ->
@@ -98,7 +99,6 @@ val register :
   grant_types:string prop list ->
   name:string prop ->
   resource_group_name:string prop ->
-  token_body_parameter:token_body_parameter list ->
   string ->
   t
 
@@ -114,6 +114,7 @@ val make :
   ?support_state:bool prop ->
   ?token_endpoint:string prop ->
   ?timeouts:timeouts ->
+  ?token_body_parameter:token_body_parameter list ->
   api_management_name:string prop ->
   authorization_endpoint:string prop ->
   authorization_methods:string prop list ->
@@ -123,6 +124,5 @@ val make :
   grant_types:string prop list ->
   name:string prop ->
   resource_group_name:string prop ->
-  token_body_parameter:token_body_parameter list ->
   string ->
   t Tf_core.resource

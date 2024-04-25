@@ -634,8 +634,8 @@ let data ?algorithm ?altitude ?certificate ?content ?digest
 let timeouts ?create ?update () : timeouts = { create; update }
 
 let cloudflare_record ?allow_overwrite ?comment ?id ?priority
-    ?proxied ?tags ?ttl ?value ?timeouts ~name ~type_ ~zone_id ~data
-    () : cloudflare_record =
+    ?proxied ?tags ?ttl ?value ?(data = []) ?timeouts ~name ~type_
+    ~zone_id () : cloudflare_record =
   {
     allow_overwrite;
     comment;
@@ -672,7 +672,7 @@ type t = {
 }
 
 let make ?allow_overwrite ?comment ?id ?priority ?proxied ?tags ?ttl
-    ?value ?timeouts ~name ~type_ ~zone_id ~data __id =
+    ?value ?(data = []) ?timeouts ~name ~type_ ~zone_id __id =
   let __type = "cloudflare_record" in
   let __attrs =
     ({
@@ -701,17 +701,17 @@ let make ?allow_overwrite ?comment ?id ?priority ?proxied ?tags ?ttl
     json =
       yojson_of_cloudflare_record
         (cloudflare_record ?allow_overwrite ?comment ?id ?priority
-           ?proxied ?tags ?ttl ?value ?timeouts ~name ~type_ ~zone_id
-           ~data ());
+           ?proxied ?tags ?ttl ?value ~data ?timeouts ~name ~type_
+           ~zone_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?allow_overwrite ?comment ?id ?priority
-    ?proxied ?tags ?ttl ?value ?timeouts ~name ~type_ ~zone_id ~data
-    __id =
+    ?proxied ?tags ?ttl ?value ?(data = []) ?timeouts ~name ~type_
+    ~zone_id __id =
   let (r : _ Tf_core.resource) =
     make ?allow_overwrite ?comment ?id ?priority ?proxied ?tags ?ttl
-      ?value ?timeouts ~name ~type_ ~zone_id ~data __id
+      ?value ~data ?timeouts ~name ~type_ ~zone_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -1246,11 +1246,11 @@ let alloydb__settings__primary_instance_settings ?database_flags
     alloydb__settings__primary_instance_settings =
   { database_flags; id; labels; machine_config }
 
-let alloydb__settings ?labels ~vpc_network ~initial_user
-    ~primary_instance_settings () : alloydb__settings =
+let alloydb__settings ?labels ?(primary_instance_settings = [])
+    ~vpc_network ~initial_user () : alloydb__settings =
   { labels; vpc_network; initial_user; primary_instance_settings }
 
-let alloydb ~cluster_id ~settings () : alloydb =
+let alloydb ?(settings = []) ~cluster_id () : alloydb =
   { cluster_id; settings }
 
 let cloudsql__settings__ip_config__authorized_networks ?expire_time
@@ -1259,15 +1259,15 @@ let cloudsql__settings__ip_config__authorized_networks ?expire_time
   { expire_time; label; ttl; value }
 
 let cloudsql__settings__ip_config ?enable_ipv4 ?private_network
-    ?require_ssl ~authorized_networks () :
+    ?require_ssl ?(authorized_networks = []) () :
     cloudsql__settings__ip_config =
   { enable_ipv4; private_network; require_ssl; authorized_networks }
 
 let cloudsql__settings ?activation_policy ?auto_storage_increase
     ?cmek_key_name ?collation ?data_disk_size_gb ?data_disk_type
     ?database_flags ?database_version ?edition ?root_password
-    ?storage_auto_resize_limit ?tier ?user_labels ?zone ~source_id
-    ~ip_config () : cloudsql__settings =
+    ?storage_auto_resize_limit ?tier ?user_labels ?zone
+    ?(ip_config = []) ~source_id () : cloudsql__settings =
   {
     activation_policy;
     auto_storage_increase;
@@ -1287,14 +1287,14 @@ let cloudsql__settings ?activation_policy ?auto_storage_increase
     ip_config;
   }
 
-let cloudsql ~settings () : cloudsql = { settings }
+let cloudsql ?(settings = []) () : cloudsql = { settings }
 
 let mysql__ssl ?client_certificate ?client_key ~ca_certificate () :
     mysql__ssl =
   { ca_certificate; client_certificate; client_key }
 
-let mysql ?cloud_sql_id ~host ~password ~port ~username ~ssl () :
-    mysql =
+let mysql ?cloud_sql_id ?(ssl = []) ~host ~password ~port ~username
+    () : mysql =
   { cloud_sql_id; host; password; port; username; ssl }
 
 let oracle__forward_ssh_connectivity ?password ?private_key ~hostname
@@ -1311,9 +1311,10 @@ let oracle__ssl ?client_certificate ?client_key ~ca_certificate () :
 
 let oracle__static_service_ip_connectivity () = ()
 
-let oracle ~database_service ~host ~password ~port ~username
-    ~forward_ssh_connectivity ~private_connectivity ~ssl
-    ~static_service_ip_connectivity () : oracle =
+let oracle ?(forward_ssh_connectivity = [])
+    ?(private_connectivity = []) ?(ssl = [])
+    ?(static_service_ip_connectivity = []) ~database_service ~host
+    ~password ~port ~username () : oracle =
   {
     database_service;
     host;
@@ -1330,17 +1331,17 @@ let postgresql__ssl ?client_certificate ?client_key ~ca_certificate
     () : postgresql__ssl =
   { ca_certificate; client_certificate; client_key }
 
-let postgresql ?cloud_sql_id ~host ~password ~port ~username ~ssl ()
-    : postgresql =
+let postgresql ?cloud_sql_id ?(ssl = []) ~host ~password ~port
+    ~username () : postgresql =
   { cloud_sql_id; host; password; port; username; ssl }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_database_migration_service_connection_profile
-    ?display_name ?id ?labels ?location ?project ?timeouts
-    ~connection_profile_id ~alloydb ~cloudsql ~mysql ~oracle
-    ~postgresql () :
+    ?display_name ?id ?labels ?location ?project ?(alloydb = [])
+    ?(cloudsql = []) ?(mysql = []) ?(oracle = []) ?(postgresql = [])
+    ?timeouts ~connection_profile_id () :
     google_database_migration_service_connection_profile =
   {
     connection_profile_id;
@@ -1373,9 +1374,9 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let make ?display_name ?id ?labels ?location ?project ?timeouts
-    ~connection_profile_id ~alloydb ~cloudsql ~mysql ~oracle
-    ~postgresql __id =
+let make ?display_name ?id ?labels ?location ?project ?(alloydb = [])
+    ?(cloudsql = []) ?(mysql = []) ?(oracle = []) ?(postgresql = [])
+    ?timeouts ~connection_profile_id __id =
   let __type =
     "google_database_migration_service_connection_profile"
   in
@@ -1406,19 +1407,19 @@ let make ?display_name ?id ?labels ?location ?project ?timeouts
     json =
       yojson_of_google_database_migration_service_connection_profile
         (google_database_migration_service_connection_profile
-           ?display_name ?id ?labels ?location ?project ?timeouts
-           ~connection_profile_id ~alloydb ~cloudsql ~mysql ~oracle
-           ~postgresql ());
+           ?display_name ?id ?labels ?location ?project ~alloydb
+           ~cloudsql ~mysql ~oracle ~postgresql ?timeouts
+           ~connection_profile_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?display_name ?id ?labels ?location ?project
-    ?timeouts ~connection_profile_id ~alloydb ~cloudsql ~mysql
-    ~oracle ~postgresql __id =
+    ?(alloydb = []) ?(cloudsql = []) ?(mysql = []) ?(oracle = [])
+    ?(postgresql = []) ?timeouts ~connection_profile_id __id =
   let (r : _ Tf_core.resource) =
-    make ?display_name ?id ?labels ?location ?project ?timeouts
-      ~connection_profile_id ~alloydb ~cloudsql ~mysql ~oracle
-      ~postgresql __id
+    make ?display_name ?id ?labels ?location ?project ~alloydb
+      ~cloudsql ~mysql ~oracle ~postgresql ?timeouts
+      ~connection_profile_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

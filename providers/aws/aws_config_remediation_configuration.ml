@@ -250,7 +250,7 @@ let execution_controls__ssm_controls
     execution_controls__ssm_controls =
   { concurrent_execution_rate_percentage; error_percentage }
 
-let execution_controls ~ssm_controls () : execution_controls =
+let execution_controls ?(ssm_controls = []) () : execution_controls =
   { ssm_controls }
 
 let parameter ?resource_value ?static_value ?static_values ~name () :
@@ -259,8 +259,8 @@ let parameter ?resource_value ?static_value ?static_values ~name () :
 
 let aws_config_remediation_configuration ?automatic ?id
     ?maximum_automatic_attempts ?resource_type ?retry_attempt_seconds
-    ?target_version ~config_rule_name ~target_id ~target_type
-    ~execution_controls ~parameter () :
+    ?target_version ?(execution_controls = []) ?(parameter = [])
+    ~config_rule_name ~target_id ~target_type () :
     aws_config_remediation_configuration =
   {
     automatic;
@@ -290,8 +290,9 @@ type t = {
 }
 
 let make ?automatic ?id ?maximum_automatic_attempts ?resource_type
-    ?retry_attempt_seconds ?target_version ~config_rule_name
-    ~target_id ~target_type ~execution_controls ~parameter __id =
+    ?retry_attempt_seconds ?target_version ?(execution_controls = [])
+    ?(parameter = []) ~config_rule_name ~target_id ~target_type __id
+    =
   let __type = "aws_config_remediation_configuration" in
   let __attrs =
     ({
@@ -318,19 +319,19 @@ let make ?automatic ?id ?maximum_automatic_attempts ?resource_type
       yojson_of_aws_config_remediation_configuration
         (aws_config_remediation_configuration ?automatic ?id
            ?maximum_automatic_attempts ?resource_type
-           ?retry_attempt_seconds ?target_version ~config_rule_name
-           ~target_id ~target_type ~execution_controls ~parameter ());
+           ?retry_attempt_seconds ?target_version ~execution_controls
+           ~parameter ~config_rule_name ~target_id ~target_type ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?automatic ?id ?maximum_automatic_attempts
     ?resource_type ?retry_attempt_seconds ?target_version
-    ~config_rule_name ~target_id ~target_type ~execution_controls
-    ~parameter __id =
+    ?(execution_controls = []) ?(parameter = []) ~config_rule_name
+    ~target_id ~target_type __id =
   let (r : _ Tf_core.resource) =
     make ?automatic ?id ?maximum_automatic_attempts ?resource_type
-      ?retry_attempt_seconds ?target_version ~config_rule_name
-      ~target_id ~target_type ~execution_controls ~parameter __id
+      ?retry_attempt_seconds ?target_version ~execution_controls
+      ~parameter ~config_rule_name ~target_id ~target_type __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

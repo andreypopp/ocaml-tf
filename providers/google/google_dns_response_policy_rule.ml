@@ -211,8 +211,8 @@ let local_data ~local_datas () : local_data = { local_datas }
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_dns_response_policy_rule ?id ?project ?timeouts ~dns_name
-    ~response_policy ~rule_name ~local_data () :
+let google_dns_response_policy_rule ?id ?project ?(local_data = [])
+    ?timeouts ~dns_name ~response_policy ~rule_name () :
     google_dns_response_policy_rule =
   {
     dns_name;
@@ -232,8 +232,8 @@ type t = {
   rule_name : string prop;
 }
 
-let make ?id ?project ?timeouts ~dns_name ~response_policy ~rule_name
-    ~local_data __id =
+let make ?id ?project ?(local_data = []) ?timeouts ~dns_name
+    ~response_policy ~rule_name __id =
   let __type = "google_dns_response_policy_rule" in
   let __attrs =
     ({
@@ -250,16 +250,16 @@ let make ?id ?project ?timeouts ~dns_name ~response_policy ~rule_name
     type_ = __type;
     json =
       yojson_of_google_dns_response_policy_rule
-        (google_dns_response_policy_rule ?id ?project ?timeouts
-           ~dns_name ~response_policy ~rule_name ~local_data ());
+        (google_dns_response_policy_rule ?id ?project ~local_data
+           ?timeouts ~dns_name ~response_policy ~rule_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ?timeouts ~dns_name
-    ~response_policy ~rule_name ~local_data __id =
+let register ?tf_module ?id ?project ?(local_data = []) ?timeouts
+    ~dns_name ~response_policy ~rule_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ?timeouts ~dns_name ~response_policy ~rule_name
-      ~local_data __id
+    make ?id ?project ~local_data ?timeouts ~dns_name
+      ~response_policy ~rule_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

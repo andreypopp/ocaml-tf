@@ -245,9 +245,9 @@ type rule_group__rules_source
 
 val rule_group__rules_source :
   ?rules_string:string prop ->
-  rules_source_list:rule_group__rules_source__rules_source_list list ->
-  stateful_rule:rule_group__rules_source__stateful_rule list ->
-  stateless_rules_and_custom_actions:
+  ?rules_source_list:rule_group__rules_source__rules_source_list list ->
+  ?stateful_rule:rule_group__rules_source__stateful_rule list ->
+  ?stateless_rules_and_custom_actions:
     rule_group__rules_source__stateless_rules_and_custom_actions list ->
   unit ->
   rule_group__rules_source
@@ -260,10 +260,10 @@ val rule_group__stateful_rule_options :
 type rule_group
 
 val rule_group :
-  reference_sets:rule_group__reference_sets list ->
-  rule_variables:rule_group__rule_variables list ->
+  ?reference_sets:rule_group__reference_sets list ->
+  ?rule_variables:rule_group__rule_variables list ->
+  ?stateful_rule_options:rule_group__stateful_rule_options list ->
   rules_source:rule_group__rules_source list ->
-  stateful_rule_options:rule_group__stateful_rule_options list ->
   unit ->
   rule_group
 
@@ -275,11 +275,11 @@ val aws_networkfirewall_rule_group :
   ?rules:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?encryption_configuration:encryption_configuration list ->
+  ?rule_group:rule_group list ->
   capacity:float prop ->
   name:string prop ->
   type_:string prop ->
-  encryption_configuration:encryption_configuration list ->
-  rule_group:rule_group list ->
   unit ->
   aws_networkfirewall_rule_group
 
@@ -308,11 +308,11 @@ val register :
   ?rules:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?encryption_configuration:encryption_configuration list ->
+  ?rule_group:rule_group list ->
   capacity:float prop ->
   name:string prop ->
   type_:string prop ->
-  encryption_configuration:encryption_configuration list ->
-  rule_group:rule_group list ->
   string ->
   t
 
@@ -322,10 +322,10 @@ val make :
   ?rules:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?encryption_configuration:encryption_configuration list ->
+  ?rule_group:rule_group list ->
   capacity:float prop ->
   name:string prop ->
   type_:string prop ->
-  encryption_configuration:encryption_configuration list ->
-  rule_group:rule_group list ->
   string ->
   t Tf_core.resource

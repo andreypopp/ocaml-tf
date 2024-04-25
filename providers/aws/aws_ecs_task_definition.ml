@@ -804,8 +804,9 @@ let volume__efs_volume_configuration__authorization_config
   { access_point_id; iam }
 
 let volume__efs_volume_configuration ?root_directory
-    ?transit_encryption ?transit_encryption_port ~file_system_id
-    ~authorization_config () : volume__efs_volume_configuration =
+    ?transit_encryption ?transit_encryption_port
+    ?(authorization_config = []) ~file_system_id () :
+    volume__efs_volume_configuration =
   {
     file_system_id;
     root_directory;
@@ -825,9 +826,10 @@ let volume__fsx_windows_file_server_volume_configuration
     volume__fsx_windows_file_server_volume_configuration =
   { file_system_id; root_directory; authorization_config }
 
-let volume ?host_path ~name ~docker_volume_configuration
-    ~efs_volume_configuration
-    ~fsx_windows_file_server_volume_configuration () : volume =
+let volume ?host_path ?(docker_volume_configuration = [])
+    ?(efs_volume_configuration = [])
+    ?(fsx_windows_file_server_volume_configuration = []) ~name () :
+    volume =
   {
     host_path;
     name;
@@ -839,9 +841,9 @@ let volume ?host_path ~name ~docker_volume_configuration
 let aws_ecs_task_definition ?cpu ?execution_role_arn ?id ?ipc_mode
     ?memory ?network_mode ?pid_mode ?requires_compatibilities
     ?skip_destroy ?tags ?tags_all ?task_role_arn ?track_latest
-    ~container_definitions ~family ~ephemeral_storage
-    ~inference_accelerator ~placement_constraints
-    ~proxy_configuration ~runtime_platform ~volume () :
+    ?(ephemeral_storage = []) ?(proxy_configuration = [])
+    ?(runtime_platform = []) ~container_definitions ~family
+    ~inference_accelerator ~placement_constraints ~volume () :
     aws_ecs_task_definition =
   {
     container_definitions;
@@ -890,9 +892,10 @@ type t = {
 
 let make ?cpu ?execution_role_arn ?id ?ipc_mode ?memory ?network_mode
     ?pid_mode ?requires_compatibilities ?skip_destroy ?tags ?tags_all
-    ?task_role_arn ?track_latest ~container_definitions ~family
-    ~ephemeral_storage ~inference_accelerator ~placement_constraints
-    ~proxy_configuration ~runtime_platform ~volume __id =
+    ?task_role_arn ?track_latest ?(ephemeral_storage = [])
+    ?(proxy_configuration = []) ?(runtime_platform = [])
+    ~container_definitions ~family ~inference_accelerator
+    ~placement_constraints ~volume __id =
   let __type = "aws_ecs_task_definition" in
   let __attrs =
     ({
@@ -929,26 +932,26 @@ let make ?cpu ?execution_role_arn ?id ?ipc_mode ?memory ?network_mode
         (aws_ecs_task_definition ?cpu ?execution_role_arn ?id
            ?ipc_mode ?memory ?network_mode ?pid_mode
            ?requires_compatibilities ?skip_destroy ?tags ?tags_all
-           ?task_role_arn ?track_latest ~container_definitions
-           ~family ~ephemeral_storage ~inference_accelerator
-           ~placement_constraints ~proxy_configuration
-           ~runtime_platform ~volume ());
+           ?task_role_arn ?track_latest ~ephemeral_storage
+           ~proxy_configuration ~runtime_platform
+           ~container_definitions ~family ~inference_accelerator
+           ~placement_constraints ~volume ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?cpu ?execution_role_arn ?id ?ipc_mode
     ?memory ?network_mode ?pid_mode ?requires_compatibilities
     ?skip_destroy ?tags ?tags_all ?task_role_arn ?track_latest
-    ~container_definitions ~family ~ephemeral_storage
-    ~inference_accelerator ~placement_constraints
-    ~proxy_configuration ~runtime_platform ~volume __id =
+    ?(ephemeral_storage = []) ?(proxy_configuration = [])
+    ?(runtime_platform = []) ~container_definitions ~family
+    ~inference_accelerator ~placement_constraints ~volume __id =
   let (r : _ Tf_core.resource) =
     make ?cpu ?execution_role_arn ?id ?ipc_mode ?memory ?network_mode
       ?pid_mode ?requires_compatibilities ?skip_destroy ?tags
-      ?tags_all ?task_role_arn ?track_latest ~container_definitions
-      ~family ~ephemeral_storage ~inference_accelerator
-      ~placement_constraints ~proxy_configuration ~runtime_platform
-      ~volume __id
+      ?tags_all ?task_role_arn ?track_latest ~ephemeral_storage
+      ~proxy_configuration ~runtime_platform ~container_definitions
+      ~family ~inference_accelerator ~placement_constraints ~volume
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

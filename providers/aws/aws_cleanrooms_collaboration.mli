@@ -37,13 +37,13 @@ type aws_cleanrooms_collaboration
 val aws_cleanrooms_collaboration :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?data_encryption_metadata:data_encryption_metadata list ->
   ?timeouts:timeouts ->
   creator_display_name:string prop ->
   creator_member_abilities:string prop list ->
   description:string prop ->
   name:string prop ->
   query_log_status:string prop ->
-  data_encryption_metadata:data_encryption_metadata list ->
   member:member list ->
   unit ->
   aws_cleanrooms_collaboration
@@ -71,13 +71,13 @@ val register :
   ?tf_module:tf_module ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?data_encryption_metadata:data_encryption_metadata list ->
   ?timeouts:timeouts ->
   creator_display_name:string prop ->
   creator_member_abilities:string prop list ->
   description:string prop ->
   name:string prop ->
   query_log_status:string prop ->
-  data_encryption_metadata:data_encryption_metadata list ->
   member:member list ->
   string ->
   t
@@ -85,13 +85,13 @@ val register :
 val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?data_encryption_metadata:data_encryption_metadata list ->
   ?timeouts:timeouts ->
   creator_display_name:string prop ->
   creator_member_abilities:string prop list ->
   description:string prop ->
   name:string prop ->
   query_log_status:string prop ->
-  data_encryption_metadata:data_encryption_metadata list ->
   member:member list ->
   string ->
   t Tf_core.resource

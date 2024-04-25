@@ -906,7 +906,8 @@ let software_config__kernels ?tag ~repository () :
 let software_config ?custom_gpu_driver_path ?enable_health_monitoring
     ?idle_shutdown ?idle_shutdown_timeout ?install_gpu_driver
     ?notebook_upgrade_schedule ?post_startup_script
-    ?post_startup_script_behavior ~kernels () : software_config =
+    ?post_startup_script_behavior ?(kernels = []) () :
+    software_config =
   {
     custom_gpu_driver_path;
     enable_health_monitoring;
@@ -939,7 +940,7 @@ let virtual_machine__virtual_machine_config__data_disk__initialize_params
   { description; disk_name; disk_size_gb; disk_type; labels }
 
 let virtual_machine__virtual_machine_config__data_disk ?interface
-    ?mode ?source ?type_ ~initialize_params () :
+    ?mode ?source ?type_ ?(initialize_params = []) () :
     virtual_machine__virtual_machine_config__data_disk =
   { interface; mode; source; type_; initialize_params }
 
@@ -957,8 +958,9 @@ let virtual_machine__virtual_machine_config__shielded_instance_config
 
 let virtual_machine__virtual_machine_config ?internal_ip_only ?labels
     ?metadata ?network ?nic_type ?reserved_ip_range ?subnet ?tags
-    ~machine_type ~accelerator_config ~container_images ~data_disk
-    ~encryption_config ~shielded_instance_config () :
+    ?(accelerator_config = []) ?(container_images = [])
+    ?(encryption_config = []) ?(shielded_instance_config = [])
+    ~machine_type ~data_disk () :
     virtual_machine__virtual_machine_config =
   {
     internal_ip_only;
@@ -977,11 +979,13 @@ let virtual_machine__virtual_machine_config ?internal_ip_only ?labels
     shielded_instance_config;
   }
 
-let virtual_machine ~virtual_machine_config () : virtual_machine =
+let virtual_machine ?(virtual_machine_config = []) () :
+    virtual_machine =
   { virtual_machine_config }
 
-let google_notebooks_runtime ?id ?labels ?project ?timeouts ~location
-    ~name ~access_config ~software_config ~virtual_machine () :
+let google_notebooks_runtime ?id ?labels ?project
+    ?(access_config = []) ?(software_config = []) ?timeouts
+    ?(virtual_machine = []) ~location ~name () :
     google_notebooks_runtime =
   {
     id;
@@ -1008,8 +1012,9 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let make ?id ?labels ?project ?timeouts ~location ~name
-    ~access_config ~software_config ~virtual_machine __id =
+let make ?id ?labels ?project ?(access_config = [])
+    ?(software_config = []) ?timeouts ?(virtual_machine = [])
+    ~location ~name __id =
   let __type = "google_notebooks_runtime" in
   let __attrs =
     ({
@@ -1033,17 +1038,18 @@ let make ?id ?labels ?project ?timeouts ~location ~name
     type_ = __type;
     json =
       yojson_of_google_notebooks_runtime
-        (google_notebooks_runtime ?id ?labels ?project ?timeouts
-           ~location ~name ~access_config ~software_config
-           ~virtual_machine ());
+        (google_notebooks_runtime ?id ?labels ?project ~access_config
+           ~software_config ?timeouts ~virtual_machine ~location
+           ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?labels ?project ?timeouts ~location
-    ~name ~access_config ~software_config ~virtual_machine __id =
+let register ?tf_module ?id ?labels ?project ?(access_config = [])
+    ?(software_config = []) ?timeouts ?(virtual_machine = [])
+    ~location ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?labels ?project ?timeouts ~location ~name
-      ~access_config ~software_config ~virtual_machine __id
+    make ?id ?labels ?project ~access_config ~software_config
+      ?timeouts ~virtual_machine ~location ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

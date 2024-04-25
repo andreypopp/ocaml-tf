@@ -504,8 +504,8 @@ let advanced_settings__dtmf_settings ?enabled ?finish_digit
     ?max_digits () : advanced_settings__dtmf_settings =
   { enabled; finish_digit; max_digits }
 
-let advanced_settings ~audio_export_gcs_destination ~dtmf_settings ()
-    : advanced_settings =
+let advanced_settings ?(audio_export_gcs_destination = [])
+    ?(dtmf_settings = []) () : advanced_settings =
   { audio_export_gcs_destination; dtmf_settings }
 
 let git_integration_settings__github_settings ?access_token ?branches
@@ -519,7 +519,7 @@ let git_integration_settings__github_settings ?access_token ?branches
     tracking_branch;
   }
 
-let git_integration_settings ~github_settings () :
+let git_integration_settings ?(github_settings = []) () :
     git_integration_settings =
   { github_settings }
 
@@ -536,11 +536,11 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_dialogflow_cx_agent ?avatar_uri ?description
     ?enable_spell_correction ?enable_stackdriver_logging ?id ?project
-    ?security_settings ?supported_language_codes ?timeouts
-    ~default_language_code ~display_name ~location ~time_zone
-    ~advanced_settings ~git_integration_settings
-    ~speech_to_text_settings ~text_to_speech_settings () :
-    google_dialogflow_cx_agent =
+    ?security_settings ?supported_language_codes
+    ?(advanced_settings = []) ?(git_integration_settings = [])
+    ?(speech_to_text_settings = []) ?(text_to_speech_settings = [])
+    ?timeouts ~default_language_code ~display_name ~location
+    ~time_zone () : google_dialogflow_cx_agent =
   {
     avatar_uri;
     default_language_code;
@@ -580,10 +580,10 @@ type t = {
 
 let make ?avatar_uri ?description ?enable_spell_correction
     ?enable_stackdriver_logging ?id ?project ?security_settings
-    ?supported_language_codes ?timeouts ~default_language_code
-    ~display_name ~location ~time_zone ~advanced_settings
-    ~git_integration_settings ~speech_to_text_settings
-    ~text_to_speech_settings __id =
+    ?supported_language_codes ?(advanced_settings = [])
+    ?(git_integration_settings = []) ?(speech_to_text_settings = [])
+    ?(text_to_speech_settings = []) ?timeouts ~default_language_code
+    ~display_name ~location ~time_zone __id =
   let __type = "google_dialogflow_cx_agent" in
   let __attrs =
     ({
@@ -617,25 +617,27 @@ let make ?avatar_uri ?description ?enable_spell_correction
         (google_dialogflow_cx_agent ?avatar_uri ?description
            ?enable_spell_correction ?enable_stackdriver_logging ?id
            ?project ?security_settings ?supported_language_codes
+           ~advanced_settings ~git_integration_settings
+           ~speech_to_text_settings ~text_to_speech_settings
            ?timeouts ~default_language_code ~display_name ~location
-           ~time_zone ~advanced_settings ~git_integration_settings
-           ~speech_to_text_settings ~text_to_speech_settings ());
+           ~time_zone ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?avatar_uri ?description
     ?enable_spell_correction ?enable_stackdriver_logging ?id ?project
-    ?security_settings ?supported_language_codes ?timeouts
-    ~default_language_code ~display_name ~location ~time_zone
-    ~advanced_settings ~git_integration_settings
-    ~speech_to_text_settings ~text_to_speech_settings __id =
+    ?security_settings ?supported_language_codes
+    ?(advanced_settings = []) ?(git_integration_settings = [])
+    ?(speech_to_text_settings = []) ?(text_to_speech_settings = [])
+    ?timeouts ~default_language_code ~display_name ~location
+    ~time_zone __id =
   let (r : _ Tf_core.resource) =
     make ?avatar_uri ?description ?enable_spell_correction
       ?enable_stackdriver_logging ?id ?project ?security_settings
-      ?supported_language_codes ?timeouts ~default_language_code
-      ~display_name ~location ~time_zone ~advanced_settings
+      ?supported_language_codes ~advanced_settings
       ~git_integration_settings ~speech_to_text_settings
-      ~text_to_speech_settings __id
+      ~text_to_speech_settings ?timeouts ~default_language_code
+      ~display_name ~location ~time_zone __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

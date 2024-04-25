@@ -21,10 +21,10 @@ val google_workbench_instance_iam_binding :
     ?id:string prop ->
     ?location:string prop ->
     ?project:string prop ->
+    ?condition:condition list ->
     members:string  prop list ->
     name:string prop ->
     role:string prop ->
-    condition:condition list ->
     unit ->
     google_workbench_instance_iam_binding
 
@@ -47,10 +47,10 @@ val register :
     ?id:string prop ->
     ?location:string prop ->
     ?project:string prop ->
+    ?condition:condition list ->
     members:string  prop list ->
     name:string prop ->
     role:string prop ->
-    condition:condition list ->
     string ->
     t
 
@@ -58,10 +58,10 @@ val make :
     ?id:string prop ->
     ?location:string prop ->
     ?project:string prop ->
+    ?condition:condition list ->
     members:string  prop list ->
     name:string prop ->
     role:string prop ->
-    condition:condition list ->
     string ->
     t Tf_core.resource
 

@@ -23,10 +23,10 @@ val aws_redshiftdata_statement :
   ?statement_name:string prop ->
   ?with_event:bool prop ->
   ?workgroup_name:string prop ->
+  ?parameters:parameters list ->
   ?timeouts:timeouts ->
   database:string prop ->
   sql:string prop ->
-  parameters:parameters list ->
   unit ->
   aws_redshiftdata_statement
 
@@ -56,10 +56,10 @@ val register :
   ?statement_name:string prop ->
   ?with_event:bool prop ->
   ?workgroup_name:string prop ->
+  ?parameters:parameters list ->
   ?timeouts:timeouts ->
   database:string prop ->
   sql:string prop ->
-  parameters:parameters list ->
   string ->
   t
 
@@ -71,9 +71,9 @@ val make :
   ?statement_name:string prop ->
   ?with_event:bool prop ->
   ?workgroup_name:string prop ->
+  ?parameters:parameters list ->
   ?timeouts:timeouts ->
   database:string prop ->
   sql:string prop ->
-  parameters:parameters list ->
   string ->
   t Tf_core.resource

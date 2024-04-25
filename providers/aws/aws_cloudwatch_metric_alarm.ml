@@ -452,7 +452,7 @@ let metric_query__metric ?dimensions ?namespace ?unit ~metric_name
   { dimensions; metric_name; namespace; period; stat; unit }
 
 let metric_query ?account_id ?expression ?label ?period ?return_data
-    ~id ~metric () : metric_query =
+    ?(metric = []) ~id () : metric_query =
   { account_id; expression; id; label; period; return_data; metric }
 
 let aws_cloudwatch_metric_alarm ?actions_enabled ?alarm_actions

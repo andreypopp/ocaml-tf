@@ -20,9 +20,9 @@ val aws_quicksight_iam_policy_assignment :
     ?aws_account_id:string prop ->
     ?namespace:string prop ->
     ?policy_arn:string prop ->
+    ?identities:identities list ->
     assignment_name:string prop ->
     assignment_status:string prop ->
-    identities:identities list ->
     unit ->
     aws_quicksight_iam_policy_assignment
 
@@ -45,9 +45,9 @@ val register :
     ?aws_account_id:string prop ->
     ?namespace:string prop ->
     ?policy_arn:string prop ->
+    ?identities:identities list ->
     assignment_name:string prop ->
     assignment_status:string prop ->
-    identities:identities list ->
     string ->
     t
 
@@ -55,9 +55,9 @@ val make :
     ?aws_account_id:string prop ->
     ?namespace:string prop ->
     ?policy_arn:string prop ->
+    ?identities:identities list ->
     assignment_name:string prop ->
     assignment_status:string prop ->
-    identities:identities list ->
     string ->
     t Tf_core.resource
 

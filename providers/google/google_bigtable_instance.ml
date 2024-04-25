@@ -282,8 +282,8 @@ let cluster__autoscaling_config ?storage_target ~cpu_target
     ~max_nodes ~min_nodes () : cluster__autoscaling_config =
   { cpu_target; max_nodes; min_nodes; storage_target }
 
-let cluster ?kms_key_name ?num_nodes ?storage_type ?zone ~cluster_id
-    ~autoscaling_config () : cluster =
+let cluster ?kms_key_name ?num_nodes ?storage_type ?zone
+    ?(autoscaling_config = []) ~cluster_id () : cluster =
   {
     cluster_id;
     kms_key_name;
@@ -297,8 +297,8 @@ let timeouts ?create ?read ?update () : timeouts =
   { create; read; update }
 
 let google_bigtable_instance ?deletion_protection ?display_name ?id
-    ?instance_type ?labels ?project ?timeouts ~name ~cluster () :
-    google_bigtable_instance =
+    ?instance_type ?labels ?project ?(cluster = []) ?timeouts ~name
+    () : google_bigtable_instance =
   {
     deletion_protection;
     display_name;
@@ -324,7 +324,7 @@ type t = {
 }
 
 let make ?deletion_protection ?display_name ?id ?instance_type
-    ?labels ?project ?timeouts ~name ~cluster __id =
+    ?labels ?project ?(cluster = []) ?timeouts ~name __id =
   let __type = "google_bigtable_instance" in
   let __attrs =
     ({
@@ -349,16 +349,17 @@ let make ?deletion_protection ?display_name ?id ?instance_type
     json =
       yojson_of_google_bigtable_instance
         (google_bigtable_instance ?deletion_protection ?display_name
-           ?id ?instance_type ?labels ?project ?timeouts ~name
-           ~cluster ());
+           ?id ?instance_type ?labels ?project ~cluster ?timeouts
+           ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?deletion_protection ?display_name ?id
-    ?instance_type ?labels ?project ?timeouts ~name ~cluster __id =
+    ?instance_type ?labels ?project ?(cluster = []) ?timeouts ~name
+    __id =
   let (r : _ Tf_core.resource) =
     make ?deletion_protection ?display_name ?id ?instance_type
-      ?labels ?project ?timeouts ~name ~cluster __id
+      ?labels ?project ~cluster ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

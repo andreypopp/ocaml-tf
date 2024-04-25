@@ -64,13 +64,13 @@ val aws_identitystore_user :
   ?timezone:string prop ->
   ?title:string prop ->
   ?user_type:string prop ->
+  ?addresses:addresses list ->
+  ?emails:emails list ->
+  ?phone_numbers:phone_numbers list ->
   display_name:string prop ->
   identity_store_id:string prop ->
   user_name:string prop ->
-  addresses:addresses list ->
-  emails:emails list ->
   name:name list ->
-  phone_numbers:phone_numbers list ->
   unit ->
   aws_identitystore_user
 
@@ -104,13 +104,13 @@ val register :
   ?timezone:string prop ->
   ?title:string prop ->
   ?user_type:string prop ->
+  ?addresses:addresses list ->
+  ?emails:emails list ->
+  ?phone_numbers:phone_numbers list ->
   display_name:string prop ->
   identity_store_id:string prop ->
   user_name:string prop ->
-  addresses:addresses list ->
-  emails:emails list ->
   name:name list ->
-  phone_numbers:phone_numbers list ->
   string ->
   t
 
@@ -123,12 +123,12 @@ val make :
   ?timezone:string prop ->
   ?title:string prop ->
   ?user_type:string prop ->
+  ?addresses:addresses list ->
+  ?emails:emails list ->
+  ?phone_numbers:phone_numbers list ->
   display_name:string prop ->
   identity_store_id:string prop ->
   user_name:string prop ->
-  addresses:addresses list ->
-  emails:emails list ->
   name:name list ->
-  phone_numbers:phone_numbers list ->
   string ->
   t Tf_core.resource

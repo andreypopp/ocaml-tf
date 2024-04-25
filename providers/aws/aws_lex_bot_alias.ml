@@ -214,8 +214,8 @@ let conversation_logs ~iam_role_arn ~log_settings () :
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let aws_lex_bot_alias ?description ?id ?timeouts ~bot_name
-    ~bot_version ~name ~conversation_logs () : aws_lex_bot_alias =
+let aws_lex_bot_alias ?description ?id ?(conversation_logs = [])
+    ?timeouts ~bot_name ~bot_version ~name () : aws_lex_bot_alias =
   {
     bot_name;
     bot_version;
@@ -238,8 +238,8 @@ type t = {
   name : string prop;
 }
 
-let make ?description ?id ?timeouts ~bot_name ~bot_version ~name
-    ~conversation_logs __id =
+let make ?description ?id ?(conversation_logs = []) ?timeouts
+    ~bot_name ~bot_version ~name __id =
   let __type = "aws_lex_bot_alias" in
   let __attrs =
     ({
@@ -261,16 +261,16 @@ let make ?description ?id ?timeouts ~bot_name ~bot_version ~name
     type_ = __type;
     json =
       yojson_of_aws_lex_bot_alias
-        (aws_lex_bot_alias ?description ?id ?timeouts ~bot_name
-           ~bot_version ~name ~conversation_logs ());
+        (aws_lex_bot_alias ?description ?id ~conversation_logs
+           ?timeouts ~bot_name ~bot_version ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?timeouts ~bot_name
-    ~bot_version ~name ~conversation_logs __id =
+let register ?tf_module ?description ?id ?(conversation_logs = [])
+    ?timeouts ~bot_name ~bot_version ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?timeouts ~bot_name ~bot_version ~name
-      ~conversation_logs __id
+    make ?description ?id ~conversation_logs ?timeouts ~bot_name
+      ~bot_version ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

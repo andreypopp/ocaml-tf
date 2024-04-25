@@ -140,8 +140,8 @@ let rule__apply_server_side_encryption_by_default ?kms_master_key_id
     =
   { kms_master_key_id; sse_algorithm }
 
-let rule ?bucket_key_enabled ~apply_server_side_encryption_by_default
-    () : rule =
+let rule ?bucket_key_enabled
+    ?(apply_server_side_encryption_by_default = []) () : rule =
   { bucket_key_enabled; apply_server_side_encryption_by_default }
 
 let aws_s3_bucket_server_side_encryption_configuration

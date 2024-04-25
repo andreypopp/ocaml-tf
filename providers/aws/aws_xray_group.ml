@@ -133,8 +133,8 @@ let insights_configuration ?notifications_enabled ~insights_enabled
     () : insights_configuration =
   { insights_enabled; notifications_enabled }
 
-let aws_xray_group ?id ?tags ?tags_all ~filter_expression ~group_name
-    ~insights_configuration () : aws_xray_group =
+let aws_xray_group ?id ?tags ?tags_all ?(insights_configuration = [])
+    ~filter_expression ~group_name () : aws_xray_group =
   {
     filter_expression;
     group_name;
@@ -153,8 +153,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?tags ?tags_all ~filter_expression ~group_name
-    ~insights_configuration __id =
+let make ?id ?tags ?tags_all ?(insights_configuration = [])
+    ~filter_expression ~group_name __id =
   let __type = "aws_xray_group" in
   let __attrs =
     ({
@@ -173,16 +173,17 @@ let make ?id ?tags ?tags_all ~filter_expression ~group_name
     type_ = __type;
     json =
       yojson_of_aws_xray_group
-        (aws_xray_group ?id ?tags ?tags_all ~filter_expression
-           ~group_name ~insights_configuration ());
+        (aws_xray_group ?id ?tags ?tags_all ~insights_configuration
+           ~filter_expression ~group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ~filter_expression
-    ~group_name ~insights_configuration __id =
+let register ?tf_module ?id ?tags ?tags_all
+    ?(insights_configuration = []) ~filter_expression ~group_name
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~filter_expression ~group_name
-      ~insights_configuration __id
+    make ?id ?tags ?tags_all ~insights_configuration
+      ~filter_expression ~group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -225,7 +225,7 @@ let tag_filter ?values ~key () : tag_filter = { key; values }
 
 let aws_resourcegroupstaggingapi_resources
     ?exclude_compliant_resources ?id ?include_compliance_details
-    ?resource_arn_list ?resource_type_filters ~tag_filter () :
+    ?resource_arn_list ?resource_type_filters ?(tag_filter = []) () :
     aws_resourcegroupstaggingapi_resources =
   {
     exclude_compliant_resources;
@@ -246,7 +246,8 @@ type t = {
 }
 
 let make ?exclude_compliant_resources ?id ?include_compliance_details
-    ?resource_arn_list ?resource_type_filters ~tag_filter __id =
+    ?resource_arn_list ?resource_type_filters ?(tag_filter = []) __id
+    =
   let __type = "aws_resourcegroupstaggingapi_resources" in
   let __attrs =
     ({
@@ -278,7 +279,7 @@ let make ?exclude_compliant_resources ?id ?include_compliance_details
 
 let register ?tf_module ?exclude_compliant_resources ?id
     ?include_compliance_details ?resource_arn_list
-    ?resource_type_filters ~tag_filter __id =
+    ?resource_type_filters ?(tag_filter = []) __id =
   let (r : _ Tf_core.resource) =
     make ?exclude_compliant_resources ?id ?include_compliance_details
       ?resource_arn_list ?resource_type_filters ~tag_filter __id

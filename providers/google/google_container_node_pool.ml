@@ -1802,8 +1802,9 @@ let network_config__pod_cidr_overprovision_config ~disabled () :
   { disabled }
 
 let network_config ?create_pod_range ?enable_private_nodes
-    ?pod_ipv4_cidr_block ?pod_range ~network_performance_config
-    ~pod_cidr_overprovision_config () : network_config =
+    ?pod_ipv4_cidr_block ?pod_range
+    ?(network_performance_config = [])
+    ?(pod_cidr_overprovision_config = []) () : network_config =
   {
     create_pod_range;
     enable_private_nodes;
@@ -1885,13 +1886,14 @@ let node_config ?boot_disk_kms_key ?disk_size_gb ?disk_type
     ?labels ?local_ssd_count ?logging_variant ?machine_type ?metadata
     ?min_cpu_platform ?node_group ?oauth_scopes ?preemptible
     ?resource_labels ?resource_manager_tags ?service_account ?spot
-    ?tags ~advanced_machine_features ~confidential_nodes
-    ~ephemeral_storage_local_ssd_config ~fast_socket ~gcfs_config
-    ~gvnic ~host_maintenance_policy ~kubelet_config
-    ~linux_node_config ~local_nvme_ssd_block_config
-    ~reservation_affinity ~shielded_instance_config
-    ~sole_tenant_config ~taint ~workload_metadata_config () :
-    node_config =
+    ?tags ?(advanced_machine_features = [])
+    ?(confidential_nodes = [])
+    ?(ephemeral_storage_local_ssd_config = []) ?(fast_socket = [])
+    ?(gcfs_config = []) ?(gvnic = []) ?(host_maintenance_policy = [])
+    ?(kubelet_config = []) ?(linux_node_config = [])
+    ?(local_nvme_ssd_block_config = []) ?(reservation_affinity = [])
+    ?(shielded_instance_config = []) ?(sole_tenant_config = [])
+    ?(taint = []) ?(workload_metadata_config = []) () : node_config =
   {
     boot_disk_kms_key;
     disk_size_gb;
@@ -1948,14 +1950,15 @@ let upgrade_settings__blue_green_settings ?node_pool_soak_duration
   { node_pool_soak_duration; standard_rollout_policy }
 
 let upgrade_settings ?max_surge ?max_unavailable ?strategy
-    ~blue_green_settings () : upgrade_settings =
+    ?(blue_green_settings = []) () : upgrade_settings =
   { max_surge; max_unavailable; strategy; blue_green_settings }
 
 let google_container_node_pool ?id ?initial_node_count ?location
     ?max_pods_per_node ?name ?name_prefix ?node_count ?node_locations
-    ?project ?version ?timeouts ~cluster ~autoscaling ~management
-    ~network_config ~node_config ~placement_policy ~upgrade_settings
-    () : google_container_node_pool =
+    ?project ?version ?(autoscaling = []) ?(management = [])
+    ?(network_config = []) ?(node_config = [])
+    ?(placement_policy = []) ?timeouts ?(upgrade_settings = [])
+    ~cluster () : google_container_node_pool =
   {
     cluster;
     id;
@@ -1996,8 +1999,9 @@ type t = {
 
 let make ?id ?initial_node_count ?location ?max_pods_per_node ?name
     ?name_prefix ?node_count ?node_locations ?project ?version
-    ?timeouts ~cluster ~autoscaling ~management ~network_config
-    ~node_config ~placement_policy ~upgrade_settings __id =
+    ?(autoscaling = []) ?(management = []) ?(network_config = [])
+    ?(node_config = []) ?(placement_policy = []) ?timeouts
+    ?(upgrade_settings = []) ~cluster __id =
   let __type = "google_container_node_pool" in
   let __attrs =
     ({
@@ -2029,22 +2033,23 @@ let make ?id ?initial_node_count ?location ?max_pods_per_node ?name
       yojson_of_google_container_node_pool
         (google_container_node_pool ?id ?initial_node_count ?location
            ?max_pods_per_node ?name ?name_prefix ?node_count
-           ?node_locations ?project ?version ?timeouts ~cluster
-           ~autoscaling ~management ~network_config ~node_config
-           ~placement_policy ~upgrade_settings ());
+           ?node_locations ?project ?version ~autoscaling ~management
+           ~network_config ~node_config ~placement_policy ?timeouts
+           ~upgrade_settings ~cluster ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?initial_node_count ?location
     ?max_pods_per_node ?name ?name_prefix ?node_count ?node_locations
-    ?project ?version ?timeouts ~cluster ~autoscaling ~management
-    ~network_config ~node_config ~placement_policy ~upgrade_settings
-    __id =
+    ?project ?version ?(autoscaling = []) ?(management = [])
+    ?(network_config = []) ?(node_config = [])
+    ?(placement_policy = []) ?timeouts ?(upgrade_settings = [])
+    ~cluster __id =
   let (r : _ Tf_core.resource) =
     make ?id ?initial_node_count ?location ?max_pods_per_node ?name
       ?name_prefix ?node_count ?node_locations ?project ?version
-      ?timeouts ~cluster ~autoscaling ~management ~network_config
-      ~node_config ~placement_policy ~upgrade_settings __id
+      ~autoscaling ~management ~network_config ~node_config
+      ~placement_policy ?timeouts ~upgrade_settings ~cluster __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

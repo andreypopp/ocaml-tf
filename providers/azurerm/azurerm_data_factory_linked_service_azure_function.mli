@@ -32,11 +32,11 @@ val azurerm_data_factory_linked_service_azure_function :
   ?integration_runtime_name:string prop ->
   ?key:string prop ->
   ?parameters:(string * string prop) list ->
+  ?key_vault_key:key_vault_key list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
   url:string prop ->
-  key_vault_key:key_vault_key list ->
   unit ->
   azurerm_data_factory_linked_service_azure_function
 
@@ -67,11 +67,11 @@ val register :
   ?integration_runtime_name:string prop ->
   ?key:string prop ->
   ?parameters:(string * string prop) list ->
+  ?key_vault_key:key_vault_key list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
   url:string prop ->
-  key_vault_key:key_vault_key list ->
   string ->
   t
 
@@ -83,10 +83,10 @@ val make :
   ?integration_runtime_name:string prop ->
   ?key:string prop ->
   ?parameters:(string * string prop) list ->
+  ?key_vault_key:key_vault_key list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
   url:string prop ->
-  key_vault_key:key_vault_key list ->
   string ->
   t Tf_core.resource

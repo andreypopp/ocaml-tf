@@ -39,7 +39,7 @@ type config__vsphere_config
 val config__vsphere_config :
   ?datastore:string prop ->
   ?host_groups:string prop list ->
-  tags:config__vsphere_config__tags list ->
+  ?tags:config__vsphere_config__tags list ->
   unit ->
   config__vsphere_config
 
@@ -53,9 +53,9 @@ val config :
   ?labels:(string * string prop) list ->
   ?memory_mb:float prop ->
   ?replicas:float prop ->
+  ?taints:config__taints list ->
+  ?vsphere_config:config__vsphere_config list ->
   image_type:string prop ->
-  taints:config__taints list ->
-  vsphere_config:config__vsphere_config list ->
   unit ->
   config
 
@@ -83,12 +83,12 @@ val google_gkeonprem_vmware_node_pool :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?node_pool_autoscaling:node_pool_autoscaling list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   vmware_cluster:string prop ->
   config:config list ->
-  node_pool_autoscaling:node_pool_autoscaling list ->
   unit ->
   google_gkeonprem_vmware_node_pool
 
@@ -123,12 +123,12 @@ val register :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?node_pool_autoscaling:node_pool_autoscaling list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   vmware_cluster:string prop ->
   config:config list ->
-  node_pool_autoscaling:node_pool_autoscaling list ->
   string ->
   t
 
@@ -137,11 +137,11 @@ val make :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?node_pool_autoscaling:node_pool_autoscaling list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   vmware_cluster:string prop ->
   config:config list ->
-  node_pool_autoscaling:node_pool_autoscaling list ->
   string ->
   t Tf_core.resource

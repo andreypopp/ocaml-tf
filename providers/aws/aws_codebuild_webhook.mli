@@ -16,7 +16,7 @@ val filter_group__filter :
 type filter_group
 
 val filter_group :
-  filter:filter_group__filter list -> unit -> filter_group
+  ?filter:filter_group__filter list -> unit -> filter_group
 
 type aws_codebuild_webhook
 

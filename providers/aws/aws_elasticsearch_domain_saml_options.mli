@@ -21,7 +21,7 @@ val saml_options :
   ?roles_key:string prop ->
   ?session_timeout_minutes:float prop ->
   ?subject_key:string prop ->
-  idp:saml_options__idp list ->
+  ?idp:saml_options__idp list ->
   unit ->
   saml_options
 
@@ -34,9 +34,9 @@ type aws_elasticsearch_domain_saml_options
 
 val aws_elasticsearch_domain_saml_options :
   ?id:string prop ->
+  ?saml_options:saml_options list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
-  saml_options:saml_options list ->
   unit ->
   aws_elasticsearch_domain_saml_options
 
@@ -50,16 +50,16 @@ type t = private { domain_name : string prop; id : string prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?saml_options:saml_options list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
-  saml_options:saml_options list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?saml_options:saml_options list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
-  saml_options:saml_options list ->
   string ->
   t Tf_core.resource

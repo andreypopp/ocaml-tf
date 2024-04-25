@@ -380,13 +380,13 @@ let source__source_detail ?event_source ?maximum_execution_frequency
     ?message_type () : source__source_detail =
   { event_source; maximum_execution_frequency; message_type }
 
-let source ?source_identifier ~owner ~custom_policy_details
+let source ?source_identifier ?(custom_policy_details = []) ~owner
     ~source_detail () : source =
   { owner; source_identifier; custom_policy_details; source_detail }
 
 let aws_config_config_rule ?description ?id ?input_parameters
-    ?maximum_execution_frequency ?tags ?tags_all ~name
-    ~evaluation_mode ~scope ~source () : aws_config_config_rule =
+    ?maximum_execution_frequency ?tags ?tags_all ?(scope = []) ~name
+    ~evaluation_mode ~source () : aws_config_config_rule =
   {
     description;
     id;
@@ -413,8 +413,8 @@ type t = {
 }
 
 let make ?description ?id ?input_parameters
-    ?maximum_execution_frequency ?tags ?tags_all ~name
-    ~evaluation_mode ~scope ~source __id =
+    ?maximum_execution_frequency ?tags ?tags_all ?(scope = []) ~name
+    ~evaluation_mode ~source __id =
   let __type = "aws_config_config_rule" in
   let __attrs =
     ({
@@ -438,18 +438,18 @@ let make ?description ?id ?input_parameters
     json =
       yojson_of_aws_config_config_rule
         (aws_config_config_rule ?description ?id ?input_parameters
-           ?maximum_execution_frequency ?tags ?tags_all ~name
-           ~evaluation_mode ~scope ~source ());
+           ?maximum_execution_frequency ?tags ?tags_all ~scope ~name
+           ~evaluation_mode ~source ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?input_parameters
-    ?maximum_execution_frequency ?tags ?tags_all ~name
-    ~evaluation_mode ~scope ~source __id =
+    ?maximum_execution_frequency ?tags ?tags_all ?(scope = []) ~name
+    ~evaluation_mode ~source __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?input_parameters
-      ?maximum_execution_frequency ?tags ?tags_all ~name
-      ~evaluation_mode ~scope ~source __id
+      ?maximum_execution_frequency ?tags ?tags_all ~scope ~name
+      ~evaluation_mode ~source __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

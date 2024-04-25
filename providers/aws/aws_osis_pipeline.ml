@@ -320,7 +320,7 @@ let log_publishing_options__cloudwatch_log_destination ~log_group ()
   { log_group }
 
 let log_publishing_options ?is_logging_enabled
-    ~cloudwatch_log_destination () : log_publishing_options =
+    ?(cloudwatch_log_destination = []) () : log_publishing_options =
   { is_logging_enabled; cloudwatch_log_destination }
 
 let timeouts ?create ?delete ?update () : timeouts =
@@ -329,10 +329,11 @@ let timeouts ?create ?delete ?update () : timeouts =
 let vpc_options ?security_group_ids ~subnet_ids () : vpc_options =
   { security_group_ids; subnet_ids }
 
-let aws_osis_pipeline ?tags ?timeouts ~max_units ~min_units
-    ~pipeline_configuration_body ~pipeline_name ~buffer_options
-    ~encryption_at_rest_options ~log_publishing_options ~vpc_options
-    () : aws_osis_pipeline =
+let aws_osis_pipeline ?tags ?(buffer_options = [])
+    ?(encryption_at_rest_options = []) ?(log_publishing_options = [])
+    ?timeouts ?(vpc_options = []) ~max_units ~min_units
+    ~pipeline_configuration_body ~pipeline_name () :
+    aws_osis_pipeline =
   {
     max_units;
     min_units;
@@ -358,10 +359,10 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?tags ?timeouts ~max_units ~min_units
-    ~pipeline_configuration_body ~pipeline_name ~buffer_options
-    ~encryption_at_rest_options ~log_publishing_options ~vpc_options
-    __id =
+let make ?tags ?(buffer_options = [])
+    ?(encryption_at_rest_options = []) ?(log_publishing_options = [])
+    ?timeouts ?(vpc_options = []) ~max_units ~min_units
+    ~pipeline_configuration_body ~pipeline_name __id =
   let __type = "aws_osis_pipeline" in
   let __attrs =
     ({
@@ -384,22 +385,21 @@ let make ?tags ?timeouts ~max_units ~min_units
     type_ = __type;
     json =
       yojson_of_aws_osis_pipeline
-        (aws_osis_pipeline ?tags ?timeouts ~max_units ~min_units
-           ~pipeline_configuration_body ~pipeline_name
-           ~buffer_options ~encryption_at_rest_options
-           ~log_publishing_options ~vpc_options ());
+        (aws_osis_pipeline ?tags ~buffer_options
+           ~encryption_at_rest_options ~log_publishing_options
+           ?timeouts ~vpc_options ~max_units ~min_units
+           ~pipeline_configuration_body ~pipeline_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?tags ?timeouts ~max_units ~min_units
-    ~pipeline_configuration_body ~pipeline_name ~buffer_options
-    ~encryption_at_rest_options ~log_publishing_options ~vpc_options
-    __id =
+let register ?tf_module ?tags ?(buffer_options = [])
+    ?(encryption_at_rest_options = []) ?(log_publishing_options = [])
+    ?timeouts ?(vpc_options = []) ~max_units ~min_units
+    ~pipeline_configuration_body ~pipeline_name __id =
   let (r : _ Tf_core.resource) =
-    make ?tags ?timeouts ~max_units ~min_units
-      ~pipeline_configuration_body ~pipeline_name ~buffer_options
-      ~encryption_at_rest_options ~log_publishing_options
-      ~vpc_options __id
+    make ?tags ~buffer_options ~encryption_at_rest_options
+      ~log_publishing_options ?timeouts ~vpc_options ~max_units
+      ~min_units ~pipeline_configuration_body ~pipeline_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

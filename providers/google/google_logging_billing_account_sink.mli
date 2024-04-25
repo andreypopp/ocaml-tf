@@ -26,11 +26,11 @@ val google_logging_billing_account_sink :
   ?disabled:bool prop ->
   ?filter:string prop ->
   ?id:string prop ->
+  ?bigquery_options:bigquery_options list ->
+  ?exclusions:exclusions list ->
   billing_account:string prop ->
   destination:string prop ->
   name:string prop ->
-  bigquery_options:bigquery_options list ->
-  exclusions:exclusions list ->
   unit ->
   google_logging_billing_account_sink
 
@@ -56,11 +56,11 @@ val register :
   ?disabled:bool prop ->
   ?filter:string prop ->
   ?id:string prop ->
+  ?bigquery_options:bigquery_options list ->
+  ?exclusions:exclusions list ->
   billing_account:string prop ->
   destination:string prop ->
   name:string prop ->
-  bigquery_options:bigquery_options list ->
-  exclusions:exclusions list ->
   string ->
   t
 
@@ -69,10 +69,10 @@ val make :
   ?disabled:bool prop ->
   ?filter:string prop ->
   ?id:string prop ->
+  ?bigquery_options:bigquery_options list ->
+  ?exclusions:exclusions list ->
   billing_account:string prop ->
   destination:string prop ->
   name:string prop ->
-  bigquery_options:bigquery_options list ->
-  exclusions:exclusions list ->
   string ->
   t Tf_core.resource

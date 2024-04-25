@@ -19,8 +19,8 @@ val app_engine_http_target :
   ?body:string prop ->
   ?headers:(string * string prop) list ->
   ?http_method:string prop ->
+  ?app_engine_routing:app_engine_http_target__app_engine_routing list ->
   relative_uri:string prop ->
-  app_engine_routing:app_engine_http_target__app_engine_routing list ->
   unit ->
   app_engine_http_target
 
@@ -46,9 +46,9 @@ val http_target :
   ?body:string prop ->
   ?headers:(string * string prop) list ->
   ?http_method:string prop ->
+  ?oauth_token:http_target__oauth_token list ->
+  ?oidc_token:http_target__oidc_token list ->
   uri:string prop ->
-  oauth_token:http_target__oauth_token list ->
-  oidc_token:http_target__oidc_token list ->
   unit ->
   http_target
 
@@ -92,12 +92,12 @@ val google_cloud_scheduler_job :
   ?region:string prop ->
   ?schedule:string prop ->
   ?time_zone:string prop ->
+  ?app_engine_http_target:app_engine_http_target list ->
+  ?http_target:http_target list ->
+  ?pubsub_target:pubsub_target list ->
+  ?retry_config:retry_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  app_engine_http_target:app_engine_http_target list ->
-  http_target:http_target list ->
-  pubsub_target:pubsub_target list ->
-  retry_config:retry_config list ->
   unit ->
   google_cloud_scheduler_job
 
@@ -129,12 +129,12 @@ val register :
   ?region:string prop ->
   ?schedule:string prop ->
   ?time_zone:string prop ->
+  ?app_engine_http_target:app_engine_http_target list ->
+  ?http_target:http_target list ->
+  ?pubsub_target:pubsub_target list ->
+  ?retry_config:retry_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  app_engine_http_target:app_engine_http_target list ->
-  http_target:http_target list ->
-  pubsub_target:pubsub_target list ->
-  retry_config:retry_config list ->
   string ->
   t
 
@@ -147,11 +147,11 @@ val make :
   ?region:string prop ->
   ?schedule:string prop ->
   ?time_zone:string prop ->
+  ?app_engine_http_target:app_engine_http_target list ->
+  ?http_target:http_target list ->
+  ?pubsub_target:pubsub_target list ->
+  ?retry_config:retry_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  app_engine_http_target:app_engine_http_target list ->
-  http_target:http_target list ->
-  pubsub_target:pubsub_target list ->
-  retry_config:retry_config list ->
   string ->
   t Tf_core.resource

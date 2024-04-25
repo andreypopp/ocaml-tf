@@ -760,35 +760,38 @@ let spec__allowed_host_paths ?read_only ~path_prefix () :
 let spec__fs_group__range ~max ~min () : spec__fs_group__range =
   { max; min }
 
-let spec__fs_group ~rule ~range () : spec__fs_group = { rule; range }
+let spec__fs_group ?(range = []) ~rule () : spec__fs_group =
+  { rule; range }
+
 let spec__host_ports ~max ~min () : spec__host_ports = { max; min }
 
 let spec__run_as_group__range ~max ~min () :
     spec__run_as_group__range =
   { max; min }
 
-let spec__run_as_group ~rule ~range () : spec__run_as_group =
+let spec__run_as_group ?(range = []) ~rule () : spec__run_as_group =
   { rule; range }
 
 let spec__run_as_user__range ~max ~min () : spec__run_as_user__range
     =
   { max; min }
 
-let spec__run_as_user ~rule ~range () : spec__run_as_user =
+let spec__run_as_user ?(range = []) ~rule () : spec__run_as_user =
   { rule; range }
 
 let spec__se_linux__se_linux_options ~level ~role ~type_ ~user () :
     spec__se_linux__se_linux_options =
   { level; role; type_; user }
 
-let spec__se_linux ~rule ~se_linux_options () : spec__se_linux =
+let spec__se_linux ?(se_linux_options = []) ~rule () : spec__se_linux
+    =
   { rule; se_linux_options }
 
 let spec__supplemental_groups__range ~max ~min () :
     spec__supplemental_groups__range =
   { max; min }
 
-let spec__supplemental_groups ~rule ~range () :
+let spec__supplemental_groups ?(range = []) ~rule () :
     spec__supplemental_groups =
   { rule; range }
 
@@ -797,9 +800,9 @@ let spec ?allow_privilege_escalation ?allowed_capabilities
     ?default_add_capabilities ?default_allow_privilege_escalation
     ?forbidden_sysctls ?host_ipc ?host_network ?host_pid ?privileged
     ?read_only_root_filesystem ?required_drop_capabilities ?volumes
-    ~allowed_flex_volumes ~allowed_host_paths ~fs_group ~host_ports
-    ~run_as_group ~run_as_user ~se_linux ~supplemental_groups () :
-    spec =
+    ?(allowed_flex_volumes = []) ?(allowed_host_paths = [])
+    ?(host_ports = []) ?(run_as_group = []) ?(se_linux = [])
+    ~fs_group ~run_as_user ~supplemental_groups () : spec =
   {
     allow_privilege_escalation;
     allowed_capabilities;

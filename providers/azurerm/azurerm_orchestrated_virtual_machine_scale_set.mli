@@ -54,12 +54,12 @@ val extension :
   ?force_extension_execution_on_change:string prop ->
   ?protected_settings:string prop ->
   ?settings:string prop ->
+  ?protected_settings_from_key_vault:
+    extension__protected_settings_from_key_vault list ->
   name:string prop ->
   publisher:string prop ->
   type_:string prop ->
   type_handler_version:string prop ->
-  protected_settings_from_key_vault:
-    extension__protected_settings_from_key_vault list ->
   unit ->
   extension
 
@@ -87,10 +87,10 @@ val network_interface__ip_configuration__public_ip_address :
   ?public_ip_prefix_id:string prop ->
   ?sku_name:string prop ->
   ?version:string prop ->
-  name:string prop ->
-  ip_tag:
+  ?ip_tag:
     network_interface__ip_configuration__public_ip_address__ip_tag
     list ->
+  name:string prop ->
   unit ->
   network_interface__ip_configuration__public_ip_address
 
@@ -103,9 +103,9 @@ val network_interface__ip_configuration :
   ?primary:bool prop ->
   ?subnet_id:string prop ->
   ?version:string prop ->
-  name:string prop ->
-  public_ip_address:
+  ?public_ip_address:
     network_interface__ip_configuration__public_ip_address list ->
+  name:string prop ->
   unit ->
   network_interface__ip_configuration
 
@@ -136,9 +136,9 @@ val os_disk :
   ?disk_encryption_set_id:string prop ->
   ?disk_size_gb:float prop ->
   ?write_accelerator_enabled:bool prop ->
+  ?diff_disk_settings:os_disk__diff_disk_settings list ->
   caching:string prop ->
   storage_account_type:string prop ->
-  diff_disk_settings:os_disk__diff_disk_settings list ->
   unit ->
   os_disk
 
@@ -175,9 +175,9 @@ val os_profile__linux_configuration :
   ?patch_assessment_mode:string prop ->
   ?patch_mode:string prop ->
   ?provision_vm_agent:bool prop ->
+  ?secret:os_profile__linux_configuration__secret list ->
   admin_username:string prop ->
   admin_ssh_key:os_profile__linux_configuration__admin_ssh_key list ->
-  secret:os_profile__linux_configuration__secret list ->
   unit ->
   os_profile__linux_configuration
 
@@ -224,12 +224,12 @@ val os_profile__windows_configuration :
   ?patch_mode:string prop ->
   ?provision_vm_agent:bool prop ->
   ?timezone:string prop ->
-  admin_password:string prop ->
-  admin_username:string prop ->
-  additional_unattend_content:
+  ?additional_unattend_content:
     os_profile__windows_configuration__additional_unattend_content
     list ->
-  secret:os_profile__windows_configuration__secret list ->
+  ?secret:os_profile__windows_configuration__secret list ->
+  admin_password:string prop ->
+  admin_username:string prop ->
   winrm_listener:
     os_profile__windows_configuration__winrm_listener list ->
   unit ->
@@ -239,8 +239,8 @@ type os_profile
 
 val os_profile :
   ?custom_data:string prop ->
-  linux_configuration:os_profile__linux_configuration list ->
-  windows_configuration:os_profile__windows_configuration list ->
+  ?linux_configuration:os_profile__linux_configuration list ->
+  ?windows_configuration:os_profile__windows_configuration list ->
   unit ->
   os_profile
 
@@ -310,24 +310,24 @@ val azurerm_orchestrated_virtual_machine_scale_set :
   ?user_data_base64:string prop ->
   ?zone_balance:bool prop ->
   ?zones:string prop list ->
+  ?additional_capabilities:additional_capabilities list ->
+  ?automatic_instance_repair:automatic_instance_repair list ->
+  ?boot_diagnostics:boot_diagnostics list ->
+  ?data_disk:data_disk list ->
+  ?identity:identity list ->
+  ?network_interface:network_interface list ->
+  ?os_disk:os_disk list ->
+  ?os_profile:os_profile list ->
+  ?plan:plan list ->
+  ?priority_mix:priority_mix list ->
+  ?source_image_reference:source_image_reference list ->
+  ?termination_notification:termination_notification list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   platform_fault_domain_count:float prop ->
   resource_group_name:string prop ->
-  additional_capabilities:additional_capabilities list ->
-  automatic_instance_repair:automatic_instance_repair list ->
-  boot_diagnostics:boot_diagnostics list ->
-  data_disk:data_disk list ->
   extension:extension list ->
-  identity:identity list ->
-  network_interface:network_interface list ->
-  os_disk:os_disk list ->
-  os_profile:os_profile list ->
-  plan:plan list ->
-  priority_mix:priority_mix list ->
-  source_image_reference:source_image_reference list ->
-  termination_notification:termination_notification list ->
   unit ->
   azurerm_orchestrated_virtual_machine_scale_set
 
@@ -382,24 +382,24 @@ val register :
   ?user_data_base64:string prop ->
   ?zone_balance:bool prop ->
   ?zones:string prop list ->
+  ?additional_capabilities:additional_capabilities list ->
+  ?automatic_instance_repair:automatic_instance_repair list ->
+  ?boot_diagnostics:boot_diagnostics list ->
+  ?data_disk:data_disk list ->
+  ?identity:identity list ->
+  ?network_interface:network_interface list ->
+  ?os_disk:os_disk list ->
+  ?os_profile:os_profile list ->
+  ?plan:plan list ->
+  ?priority_mix:priority_mix list ->
+  ?source_image_reference:source_image_reference list ->
+  ?termination_notification:termination_notification list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   platform_fault_domain_count:float prop ->
   resource_group_name:string prop ->
-  additional_capabilities:additional_capabilities list ->
-  automatic_instance_repair:automatic_instance_repair list ->
-  boot_diagnostics:boot_diagnostics list ->
-  data_disk:data_disk list ->
   extension:extension list ->
-  identity:identity list ->
-  network_interface:network_interface list ->
-  os_disk:os_disk list ->
-  os_profile:os_profile list ->
-  plan:plan list ->
-  priority_mix:priority_mix list ->
-  source_image_reference:source_image_reference list ->
-  termination_notification:termination_notification list ->
   string ->
   t
 
@@ -422,23 +422,23 @@ val make :
   ?user_data_base64:string prop ->
   ?zone_balance:bool prop ->
   ?zones:string prop list ->
+  ?additional_capabilities:additional_capabilities list ->
+  ?automatic_instance_repair:automatic_instance_repair list ->
+  ?boot_diagnostics:boot_diagnostics list ->
+  ?data_disk:data_disk list ->
+  ?identity:identity list ->
+  ?network_interface:network_interface list ->
+  ?os_disk:os_disk list ->
+  ?os_profile:os_profile list ->
+  ?plan:plan list ->
+  ?priority_mix:priority_mix list ->
+  ?source_image_reference:source_image_reference list ->
+  ?termination_notification:termination_notification list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   platform_fault_domain_count:float prop ->
   resource_group_name:string prop ->
-  additional_capabilities:additional_capabilities list ->
-  automatic_instance_repair:automatic_instance_repair list ->
-  boot_diagnostics:boot_diagnostics list ->
-  data_disk:data_disk list ->
   extension:extension list ->
-  identity:identity list ->
-  network_interface:network_interface list ->
-  os_disk:os_disk list ->
-  os_profile:os_profile list ->
-  plan:plan list ->
-  priority_mix:priority_mix list ->
-  source_image_reference:source_image_reference list ->
-  termination_notification:termination_notification list ->
   string ->
   t Tf_core.resource

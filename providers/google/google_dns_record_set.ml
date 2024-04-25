@@ -801,8 +801,8 @@ let routing_policy__geo__health_checked_targets
     routing_policy__geo__health_checked_targets =
   { internal_load_balancers }
 
-let routing_policy__geo ?rrdatas ~location ~health_checked_targets ()
-    : routing_policy__geo =
+let routing_policy__geo ?rrdatas ?(health_checked_targets = [])
+    ~location () : routing_policy__geo =
   { location; rrdatas; health_checked_targets }
 
 let routing_policy__primary_backup__backup_geo__health_checked_targets__internal_load_balancers
@@ -826,8 +826,8 @@ let routing_policy__primary_backup__backup_geo__health_checked_targets
     =
   { internal_load_balancers }
 
-let routing_policy__primary_backup__backup_geo ?rrdatas ~location
-    ~health_checked_targets () :
+let routing_policy__primary_backup__backup_geo ?rrdatas
+    ?(health_checked_targets = []) ~location () :
     routing_policy__primary_backup__backup_geo =
   { location; rrdatas; health_checked_targets }
 
@@ -880,16 +880,17 @@ let routing_policy__wrr__health_checked_targets
     routing_policy__wrr__health_checked_targets =
   { internal_load_balancers }
 
-let routing_policy__wrr ?rrdatas ~weight ~health_checked_targets () :
-    routing_policy__wrr =
+let routing_policy__wrr ?rrdatas ?(health_checked_targets = [])
+    ~weight () : routing_policy__wrr =
   { rrdatas; weight; health_checked_targets }
 
-let routing_policy ?enable_geo_fencing ~geo ~primary_backup ~wrr () :
-    routing_policy =
+let routing_policy ?enable_geo_fencing ?(geo = [])
+    ?(primary_backup = []) ?(wrr = []) () : routing_policy =
   { enable_geo_fencing; geo; primary_backup; wrr }
 
-let google_dns_record_set ?id ?project ?rrdatas ?ttl ~managed_zone
-    ~name ~type_ ~routing_policy () : google_dns_record_set =
+let google_dns_record_set ?id ?project ?rrdatas ?ttl
+    ?(routing_policy = []) ~managed_zone ~name ~type_ () :
+    google_dns_record_set =
   {
     id;
     managed_zone;
@@ -911,8 +912,8 @@ type t = {
   type_ : string prop;
 }
 
-let make ?id ?project ?rrdatas ?ttl ~managed_zone ~name ~type_
-    ~routing_policy __id =
+let make ?id ?project ?rrdatas ?ttl ?(routing_policy = [])
+    ~managed_zone ~name ~type_ __id =
   let __type = "google_dns_record_set" in
   let __attrs =
     ({
@@ -932,15 +933,15 @@ let make ?id ?project ?rrdatas ?ttl ~managed_zone ~name ~type_
     json =
       yojson_of_google_dns_record_set
         (google_dns_record_set ?id ?project ?rrdatas ?ttl
-           ~managed_zone ~name ~type_ ~routing_policy ());
+           ~routing_policy ~managed_zone ~name ~type_ ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ?rrdatas ?ttl ~managed_zone
-    ~name ~type_ ~routing_policy __id =
+let register ?tf_module ?id ?project ?rrdatas ?ttl
+    ?(routing_policy = []) ~managed_zone ~name ~type_ __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ?rrdatas ?ttl ~managed_zone ~name ~type_
-      ~routing_policy __id
+    make ?id ?project ?rrdatas ?ttl ~routing_policy ~managed_zone
+      ~name ~type_ __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

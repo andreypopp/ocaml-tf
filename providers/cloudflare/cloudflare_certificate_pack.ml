@@ -232,9 +232,10 @@ let validation_records ?cname_name ?cname_target ?emails ?http_body
   }
 
 let cloudflare_certificate_pack ?cloudflare_branding ?id
-    ?wait_for_active_status ~certificate_authority ~hosts ~type_
-    ~validation_method ~validity_days ~zone_id ~validation_errors
-    ~validation_records () : cloudflare_certificate_pack =
+    ?wait_for_active_status ?(validation_errors = [])
+    ?(validation_records = []) ~certificate_authority ~hosts ~type_
+    ~validation_method ~validity_days ~zone_id () :
+    cloudflare_certificate_pack =
   {
     certificate_authority;
     cloudflare_branding;
@@ -262,9 +263,9 @@ type t = {
 }
 
 let make ?cloudflare_branding ?id ?wait_for_active_status
+    ?(validation_errors = []) ?(validation_records = [])
     ~certificate_authority ~hosts ~type_ ~validation_method
-    ~validity_days ~zone_id ~validation_errors ~validation_records
-    __id =
+    ~validity_days ~zone_id __id =
   let __type = "cloudflare_certificate_pack" in
   let __attrs =
     ({
@@ -290,21 +291,20 @@ let make ?cloudflare_branding ?id ?wait_for_active_status
     json =
       yojson_of_cloudflare_certificate_pack
         (cloudflare_certificate_pack ?cloudflare_branding ?id
-           ?wait_for_active_status ~certificate_authority ~hosts
-           ~type_ ~validation_method ~validity_days ~zone_id
-           ~validation_errors ~validation_records ());
+           ?wait_for_active_status ~validation_errors
+           ~validation_records ~certificate_authority ~hosts ~type_
+           ~validation_method ~validity_days ~zone_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?cloudflare_branding ?id
-    ?wait_for_active_status ~certificate_authority ~hosts ~type_
-    ~validation_method ~validity_days ~zone_id ~validation_errors
-    ~validation_records __id =
+    ?wait_for_active_status ?(validation_errors = [])
+    ?(validation_records = []) ~certificate_authority ~hosts ~type_
+    ~validation_method ~validity_days ~zone_id __id =
   let (r : _ Tf_core.resource) =
     make ?cloudflare_branding ?id ?wait_for_active_status
-      ~certificate_authority ~hosts ~type_ ~validation_method
-      ~validity_days ~zone_id ~validation_errors ~validation_records
-      __id
+      ~validation_errors ~validation_records ~certificate_authority
+      ~hosts ~type_ ~validation_method ~validity_days ~zone_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

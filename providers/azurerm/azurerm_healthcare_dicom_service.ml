@@ -253,8 +253,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_healthcare_dicom_service ?id
-    ?public_network_access_enabled ?tags ?timeouts ~location ~name
-    ~workspace_id ~identity () : azurerm_healthcare_dicom_service =
+    ?public_network_access_enabled ?tags ?(identity = []) ?timeouts
+    ~location ~name ~workspace_id () :
+    azurerm_healthcare_dicom_service =
   {
     id;
     location;
@@ -278,8 +279,8 @@ type t = {
   workspace_id : string prop;
 }
 
-let make ?id ?public_network_access_enabled ?tags ?timeouts ~location
-    ~name ~workspace_id ~identity __id =
+let make ?id ?public_network_access_enabled ?tags ?(identity = [])
+    ?timeouts ~location ~name ~workspace_id __id =
   let __type = "azurerm_healthcare_dicom_service" in
   let __attrs =
     ({
@@ -303,16 +304,16 @@ let make ?id ?public_network_access_enabled ?tags ?timeouts ~location
     json =
       yojson_of_azurerm_healthcare_dicom_service
         (azurerm_healthcare_dicom_service ?id
-           ?public_network_access_enabled ?tags ?timeouts ~location
-           ~name ~workspace_id ~identity ());
+           ?public_network_access_enabled ?tags ~identity ?timeouts
+           ~location ~name ~workspace_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?public_network_access_enabled ?tags
-    ?timeouts ~location ~name ~workspace_id ~identity __id =
+    ?(identity = []) ?timeouts ~location ~name ~workspace_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?public_network_access_enabled ?tags ?timeouts ~location
-      ~name ~workspace_id ~identity __id
+    make ?id ?public_network_access_enabled ?tags ~identity ?timeouts
+      ~location ~name ~workspace_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

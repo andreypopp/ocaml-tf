@@ -191,9 +191,9 @@ let exclusions ?description ?disabled ~filter ~name () : exclusions =
   { description; disabled; filter; name }
 
 let google_logging_organization_sink ?description ?disabled ?filter
-    ?id ?include_children ~destination ~name ~org_id
-    ~bigquery_options ~exclusions () :
-    google_logging_organization_sink =
+    ?id ?include_children ?(bigquery_options = []) ?(exclusions = [])
+    ~destination ~name ~org_id () : google_logging_organization_sink
+    =
   {
     description;
     destination;
@@ -220,7 +220,8 @@ type t = {
 }
 
 let make ?description ?disabled ?filter ?id ?include_children
-    ~destination ~name ~org_id ~bigquery_options ~exclusions __id =
+    ?(bigquery_options = []) ?(exclusions = []) ~destination ~name
+    ~org_id __id =
   let __type = "google_logging_organization_sink" in
   let __attrs =
     ({
@@ -243,17 +244,17 @@ let make ?description ?disabled ?filter ?id ?include_children
     json =
       yojson_of_google_logging_organization_sink
         (google_logging_organization_sink ?description ?disabled
-           ?filter ?id ?include_children ~destination ~name ~org_id
-           ~bigquery_options ~exclusions ());
+           ?filter ?id ?include_children ~bigquery_options
+           ~exclusions ~destination ~name ~org_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?disabled ?filter ?id
-    ?include_children ~destination ~name ~org_id ~bigquery_options
-    ~exclusions __id =
+    ?include_children ?(bigquery_options = []) ?(exclusions = [])
+    ~destination ~name ~org_id __id =
   let (r : _ Tf_core.resource) =
     make ?description ?disabled ?filter ?id ?include_children
-      ~destination ~name ~org_id ~bigquery_options ~exclusions __id
+      ~bigquery_options ~exclusions ~destination ~name ~org_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

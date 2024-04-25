@@ -42,11 +42,11 @@ val aws_appstream_fleet :
   ?stream_view:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?domain_join_info:domain_join_info list ->
+  ?vpc_config:vpc_config list ->
   instance_type:string prop ->
   name:string prop ->
   compute_capacity:compute_capacity list ->
-  domain_join_info:domain_join_info list ->
-  vpc_config:vpc_config list ->
   unit ->
   aws_appstream_fleet
 
@@ -92,11 +92,11 @@ val register :
   ?stream_view:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?domain_join_info:domain_join_info list ->
+  ?vpc_config:vpc_config list ->
   instance_type:string prop ->
   name:string prop ->
   compute_capacity:compute_capacity list ->
-  domain_join_info:domain_join_info list ->
-  vpc_config:vpc_config list ->
   string ->
   t
 
@@ -115,10 +115,10 @@ val make :
   ?stream_view:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?domain_join_info:domain_join_info list ->
+  ?vpc_config:vpc_config list ->
   instance_type:string prop ->
   name:string prop ->
   compute_capacity:compute_capacity list ->
-  domain_join_info:domain_join_info list ->
-  vpc_config:vpc_config list ->
   string ->
   t Tf_core.resource

@@ -19,7 +19,7 @@ val alert_details_override :
   ?display_name_format:string prop ->
   ?severity_column_name:string prop ->
   ?tactics_column_name:string prop ->
-  dynamic_property:alert_details_override__dynamic_property list ->
+  ?dynamic_property:alert_details_override__dynamic_property list ->
   unit ->
   alert_details_override
 
@@ -93,17 +93,17 @@ val azurerm_sentinel_alert_rule_nrt :
   ?suppression_enabled:bool prop ->
   ?tactics:string prop list ->
   ?techniques:string prop list ->
+  ?alert_details_override:alert_details_override list ->
+  ?entity_mapping:entity_mapping list ->
+  ?event_grouping:event_grouping list ->
+  ?incident:incident list ->
+  ?sentinel_entity_mapping:sentinel_entity_mapping list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   log_analytics_workspace_id:string prop ->
   name:string prop ->
   query:string prop ->
   severity:string prop ->
-  alert_details_override:alert_details_override list ->
-  entity_mapping:entity_mapping list ->
-  event_grouping:event_grouping list ->
-  incident:incident list ->
-  sentinel_entity_mapping:sentinel_entity_mapping list ->
   unit ->
   azurerm_sentinel_alert_rule_nrt
 
@@ -142,17 +142,17 @@ val register :
   ?suppression_enabled:bool prop ->
   ?tactics:string prop list ->
   ?techniques:string prop list ->
+  ?alert_details_override:alert_details_override list ->
+  ?entity_mapping:entity_mapping list ->
+  ?event_grouping:event_grouping list ->
+  ?incident:incident list ->
+  ?sentinel_entity_mapping:sentinel_entity_mapping list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   log_analytics_workspace_id:string prop ->
   name:string prop ->
   query:string prop ->
   severity:string prop ->
-  alert_details_override:alert_details_override list ->
-  entity_mapping:entity_mapping list ->
-  event_grouping:event_grouping list ->
-  incident:incident list ->
-  sentinel_entity_mapping:sentinel_entity_mapping list ->
   string ->
   t
 
@@ -167,16 +167,16 @@ val make :
   ?suppression_enabled:bool prop ->
   ?tactics:string prop list ->
   ?techniques:string prop list ->
+  ?alert_details_override:alert_details_override list ->
+  ?entity_mapping:entity_mapping list ->
+  ?event_grouping:event_grouping list ->
+  ?incident:incident list ->
+  ?sentinel_entity_mapping:sentinel_entity_mapping list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   log_analytics_workspace_id:string prop ->
   name:string prop ->
   query:string prop ->
   severity:string prop ->
-  alert_details_override:alert_details_override list ->
-  entity_mapping:entity_mapping list ->
-  event_grouping:event_grouping list ->
-  incident:incident list ->
-  sentinel_entity_mapping:sentinel_entity_mapping list ->
   string ->
   t Tf_core.resource

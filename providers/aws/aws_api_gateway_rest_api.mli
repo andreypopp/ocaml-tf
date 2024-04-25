@@ -28,8 +28,8 @@ val aws_api_gateway_rest_api :
   ?put_rest_api_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?endpoint_configuration:endpoint_configuration list ->
   name:string prop ->
-  endpoint_configuration:endpoint_configuration list ->
   unit ->
   aws_api_gateway_rest_api
 
@@ -74,8 +74,8 @@ val register :
   ?put_rest_api_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?endpoint_configuration:endpoint_configuration list ->
   name:string prop ->
-  endpoint_configuration:endpoint_configuration list ->
   string ->
   t
 
@@ -93,7 +93,7 @@ val make :
   ?put_rest_api_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?endpoint_configuration:endpoint_configuration list ->
   name:string prop ->
-  endpoint_configuration:endpoint_configuration list ->
   string ->
   t Tf_core.resource

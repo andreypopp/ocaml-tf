@@ -27,11 +27,11 @@ val google_logging_folder_sink :
   ?filter:string prop ->
   ?id:string prop ->
   ?include_children:bool prop ->
+  ?bigquery_options:bigquery_options list ->
+  ?exclusions:exclusions list ->
   destination:string prop ->
   folder:string prop ->
   name:string prop ->
-  bigquery_options:bigquery_options list ->
-  exclusions:exclusions list ->
   unit ->
   google_logging_folder_sink
 
@@ -59,11 +59,11 @@ val register :
   ?filter:string prop ->
   ?id:string prop ->
   ?include_children:bool prop ->
+  ?bigquery_options:bigquery_options list ->
+  ?exclusions:exclusions list ->
   destination:string prop ->
   folder:string prop ->
   name:string prop ->
-  bigquery_options:bigquery_options list ->
-  exclusions:exclusions list ->
   string ->
   t
 
@@ -73,10 +73,10 @@ val make :
   ?filter:string prop ->
   ?id:string prop ->
   ?include_children:bool prop ->
+  ?bigquery_options:bigquery_options list ->
+  ?exclusions:exclusions list ->
   destination:string prop ->
   folder:string prop ->
   name:string prop ->
-  bigquery_options:bigquery_options list ->
-  exclusions:exclusions list ->
   string ->
   t Tf_core.resource

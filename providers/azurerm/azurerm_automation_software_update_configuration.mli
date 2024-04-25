@@ -54,8 +54,8 @@ val schedule :
   ?start_time:string prop ->
   ?start_time_offset_minutes:float prop ->
   ?time_zone:string prop ->
+  ?monthly_occurrence:schedule__monthly_occurrence list ->
   frequency:string prop ->
-  monthly_occurrence:schedule__monthly_occurrence list ->
   unit ->
   schedule
 
@@ -73,7 +73,7 @@ val target__azure_query :
   ?locations:string prop list ->
   ?scope:string prop list ->
   ?tag_filter:string prop ->
-  tags:target__azure_query__tags list ->
+  ?tags:target__azure_query__tags list ->
   unit ->
   target__azure_query
 
@@ -88,8 +88,8 @@ val target__non_azure_query :
 type target
 
 val target :
-  azure_query:target__azure_query list ->
-  non_azure_query:target__non_azure_query list ->
+  ?azure_query:target__azure_query list ->
+  ?non_azure_query:target__non_azure_query list ->
   unit ->
   target
 
@@ -122,15 +122,15 @@ val azurerm_automation_software_update_configuration :
   ?non_azure_computer_names:string prop list ->
   ?operating_system:string prop ->
   ?virtual_machine_ids:string prop list ->
+  ?linux:linux list ->
+  ?post_task:post_task list ->
+  ?pre_task:pre_task list ->
+  ?target:target list ->
   ?timeouts:timeouts ->
+  ?windows:windows list ->
   automation_account_id:string prop ->
   name:string prop ->
-  linux:linux list ->
-  post_task:post_task list ->
-  pre_task:pre_task list ->
   schedule:schedule list ->
-  target:target list ->
-  windows:windows list ->
   unit ->
   azurerm_automation_software_update_configuration
 
@@ -159,15 +159,15 @@ val register :
   ?non_azure_computer_names:string prop list ->
   ?operating_system:string prop ->
   ?virtual_machine_ids:string prop list ->
+  ?linux:linux list ->
+  ?post_task:post_task list ->
+  ?pre_task:pre_task list ->
+  ?target:target list ->
   ?timeouts:timeouts ->
+  ?windows:windows list ->
   automation_account_id:string prop ->
   name:string prop ->
-  linux:linux list ->
-  post_task:post_task list ->
-  pre_task:pre_task list ->
   schedule:schedule list ->
-  target:target list ->
-  windows:windows list ->
   string ->
   t
 
@@ -177,14 +177,14 @@ val make :
   ?non_azure_computer_names:string prop list ->
   ?operating_system:string prop ->
   ?virtual_machine_ids:string prop list ->
+  ?linux:linux list ->
+  ?post_task:post_task list ->
+  ?pre_task:pre_task list ->
+  ?target:target list ->
   ?timeouts:timeouts ->
+  ?windows:windows list ->
   automation_account_id:string prop ->
   name:string prop ->
-  linux:linux list ->
-  post_task:post_task list ->
-  pre_task:pre_task list ->
   schedule:schedule list ->
-  target:target list ->
-  windows:windows list ->
   string ->
   t Tf_core.resource

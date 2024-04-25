@@ -27,7 +27,7 @@ val schedule :
   ?days_of_week:string prop list ->
   ?hours:float prop list ->
   ?minutes:float prop list ->
-  monthly:schedule__monthly list ->
+  ?monthly:schedule__monthly list ->
   unit ->
   schedule
 
@@ -55,11 +55,11 @@ val azurerm_data_factory_trigger_schedule :
   ?pipeline_parameters:(string * string prop) list ->
   ?start_time:string prop ->
   ?time_zone:string prop ->
+  ?pipeline:pipeline list ->
+  ?schedule:schedule list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
-  pipeline:pipeline list ->
-  schedule:schedule list ->
   unit ->
   azurerm_data_factory_trigger_schedule
 
@@ -97,11 +97,11 @@ val register :
   ?pipeline_parameters:(string * string prop) list ->
   ?start_time:string prop ->
   ?time_zone:string prop ->
+  ?pipeline:pipeline list ->
+  ?schedule:schedule list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
-  pipeline:pipeline list ->
-  schedule:schedule list ->
   string ->
   t
 
@@ -117,10 +117,10 @@ val make :
   ?pipeline_parameters:(string * string prop) list ->
   ?start_time:string prop ->
   ?time_zone:string prop ->
+  ?pipeline:pipeline list ->
+  ?schedule:schedule list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
-  pipeline:pipeline list ->
-  schedule:schedule list ->
   string ->
   t Tf_core.resource

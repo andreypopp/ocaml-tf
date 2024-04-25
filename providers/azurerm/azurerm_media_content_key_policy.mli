@@ -20,7 +20,7 @@ val policy_option__fairplay_configuration :
   ?pfx_password:string prop ->
   ?rental_and_lease_key_type:string prop ->
   ?rental_duration_seconds:float prop ->
-  offline_rental_configuration:
+  ?offline_rental_configuration:
     policy_option__fairplay_configuration__offline_rental_configuration
     list ->
   unit ->
@@ -49,7 +49,7 @@ val policy_option__playready_configuration_license__play_right :
   ?scms_restriction:float prop ->
   ?uncompressed_digital_audio_opl:float prop ->
   ?uncompressed_digital_video_opl:float prop ->
-  explicit_analog_television_output_restriction:
+  ?explicit_analog_television_output_restriction:
     policy_option__playready_configuration_license__play_right__explicit_analog_television_output_restriction
     list ->
   unit ->
@@ -69,7 +69,7 @@ val policy_option__playready_configuration_license :
   ?relative_begin_date:string prop ->
   ?relative_expiration_date:string prop ->
   ?security_level:string prop ->
-  play_right:
+  ?play_right:
     policy_option__playready_configuration_license__play_right list ->
   unit ->
   policy_option__playready_configuration_license
@@ -103,8 +103,8 @@ val policy_option__token_restriction :
   ?primary_symmetric_token_key:string prop ->
   ?primary_x509_token_key_raw:string prop ->
   ?token_type:string prop ->
-  alternate_key:policy_option__token_restriction__alternate_key list ->
-  required_claim:
+  ?alternate_key:policy_option__token_restriction__alternate_key list ->
+  ?required_claim:
     policy_option__token_restriction__required_claim list ->
   unit ->
   policy_option__token_restriction
@@ -116,11 +116,11 @@ val policy_option :
   ?open_restriction_enabled:bool prop ->
   ?playready_response_custom_data:string prop ->
   ?widevine_configuration_template:string prop ->
-  name:string prop ->
-  fairplay_configuration:policy_option__fairplay_configuration list ->
-  playready_configuration_license:
+  ?fairplay_configuration:policy_option__fairplay_configuration list ->
+  ?playready_configuration_license:
     policy_option__playready_configuration_license list ->
-  token_restriction:policy_option__token_restriction list ->
+  ?token_restriction:policy_option__token_restriction list ->
+  name:string prop ->
   unit ->
   policy_option
 

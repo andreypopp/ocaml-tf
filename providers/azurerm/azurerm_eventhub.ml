@@ -302,9 +302,9 @@ let capture_description ?interval_in_seconds ?size_limit_in_bytes
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_eventhub ?id ?status ?timeouts ~message_retention ~name
-    ~namespace_name ~partition_count ~resource_group_name
-    ~capture_description () : azurerm_eventhub =
+let azurerm_eventhub ?id ?status ?(capture_description = [])
+    ?timeouts ~message_retention ~name ~namespace_name
+    ~partition_count ~resource_group_name () : azurerm_eventhub =
   {
     id;
     message_retention;
@@ -328,9 +328,9 @@ type t = {
   status : string prop;
 }
 
-let make ?id ?status ?timeouts ~message_retention ~name
-    ~namespace_name ~partition_count ~resource_group_name
-    ~capture_description __id =
+let make ?id ?status ?(capture_description = []) ?timeouts
+    ~message_retention ~name ~namespace_name ~partition_count
+    ~resource_group_name __id =
   let __type = "azurerm_eventhub" in
   let __attrs =
     ({
@@ -352,19 +352,19 @@ let make ?id ?status ?timeouts ~message_retention ~name
     type_ = __type;
     json =
       yojson_of_azurerm_eventhub
-        (azurerm_eventhub ?id ?status ?timeouts ~message_retention
-           ~name ~namespace_name ~partition_count
-           ~resource_group_name ~capture_description ());
+        (azurerm_eventhub ?id ?status ~capture_description ?timeouts
+           ~message_retention ~name ~namespace_name ~partition_count
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?status ?timeouts ~message_retention
-    ~name ~namespace_name ~partition_count ~resource_group_name
-    ~capture_description __id =
+let register ?tf_module ?id ?status ?(capture_description = [])
+    ?timeouts ~message_retention ~name ~namespace_name
+    ~partition_count ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?status ?timeouts ~message_retention ~name
-      ~namespace_name ~partition_count ~resource_group_name
-      ~capture_description __id
+    make ?id ?status ~capture_description ?timeouts
+      ~message_retention ~name ~namespace_name ~partition_count
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

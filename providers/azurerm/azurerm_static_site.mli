@@ -30,11 +30,11 @@ val azurerm_static_site :
   ?sku_size:string prop ->
   ?sku_tier:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   unit ->
   azurerm_static_site
 
@@ -62,11 +62,11 @@ val register :
   ?sku_size:string prop ->
   ?sku_tier:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   string ->
   t
 
@@ -76,10 +76,10 @@ val make :
   ?sku_size:string prop ->
   ?sku_tier:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

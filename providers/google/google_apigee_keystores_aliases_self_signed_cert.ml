@@ -397,9 +397,9 @@ let subject_alternative_dns_names ?subject_alternative_name () :
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let google_apigee_keystores_aliases_self_signed_cert
-    ?cert_validity_in_days ?id ?key_size ?timeouts ~alias
-    ~environment ~keystore ~org_id ~sig_alg ~subject
-    ~subject_alternative_dns_names () :
+    ?cert_validity_in_days ?id ?key_size
+    ?(subject_alternative_dns_names = []) ?timeouts ~alias
+    ~environment ~keystore ~org_id ~sig_alg ~subject () :
     google_apigee_keystores_aliases_self_signed_cert =
   {
     alias;
@@ -428,9 +428,9 @@ type t = {
   type_ : string prop;
 }
 
-let make ?cert_validity_in_days ?id ?key_size ?timeouts ~alias
-    ~environment ~keystore ~org_id ~sig_alg ~subject
-    ~subject_alternative_dns_names __id =
+let make ?cert_validity_in_days ?id ?key_size
+    ?(subject_alternative_dns_names = []) ?timeouts ~alias
+    ~environment ~keystore ~org_id ~sig_alg ~subject __id =
   let __type = "google_apigee_keystores_aliases_self_signed_cert" in
   let __attrs =
     ({
@@ -454,19 +454,19 @@ let make ?cert_validity_in_days ?id ?key_size ?timeouts ~alias
     json =
       yojson_of_google_apigee_keystores_aliases_self_signed_cert
         (google_apigee_keystores_aliases_self_signed_cert
-           ?cert_validity_in_days ?id ?key_size ?timeouts ~alias
-           ~environment ~keystore ~org_id ~sig_alg ~subject
-           ~subject_alternative_dns_names ());
+           ?cert_validity_in_days ?id ?key_size
+           ~subject_alternative_dns_names ?timeouts ~alias
+           ~environment ~keystore ~org_id ~sig_alg ~subject ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?cert_validity_in_days ?id ?key_size
-    ?timeouts ~alias ~environment ~keystore ~org_id ~sig_alg ~subject
-    ~subject_alternative_dns_names __id =
+    ?(subject_alternative_dns_names = []) ?timeouts ~alias
+    ~environment ~keystore ~org_id ~sig_alg ~subject __id =
   let (r : _ Tf_core.resource) =
-    make ?cert_validity_in_days ?id ?key_size ?timeouts ~alias
-      ~environment ~keystore ~org_id ~sig_alg ~subject
-      ~subject_alternative_dns_names __id
+    make ?cert_validity_in_days ?id ?key_size
+      ~subject_alternative_dns_names ?timeouts ~alias ~environment
+      ~keystore ~org_id ~sig_alg ~subject __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

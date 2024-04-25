@@ -186,8 +186,8 @@ let target ?server_id ?use_private_ip ~type_ () : target =
   { server_id; type_; use_private_ip }
 
 let hcloud_load_balancer ?delete_protection ?id ?labels ?location
-    ?network_zone ~load_balancer_type ~name ~algorithm ~target () :
-    hcloud_load_balancer =
+    ?network_zone ?(algorithm = []) ~load_balancer_type ~name ~target
+    () : hcloud_load_balancer =
   {
     delete_protection;
     id;
@@ -215,7 +215,7 @@ type t = {
 }
 
 let make ?delete_protection ?id ?labels ?location ?network_zone
-    ~load_balancer_type ~name ~algorithm ~target __id =
+    ?(algorithm = []) ~load_balancer_type ~name ~target __id =
   let __type = "hcloud_load_balancer" in
   let __attrs =
     ({
@@ -241,16 +241,17 @@ let make ?delete_protection ?id ?labels ?location ?network_zone
     json =
       yojson_of_hcloud_load_balancer
         (hcloud_load_balancer ?delete_protection ?id ?labels
-           ?location ?network_zone ~load_balancer_type ~name
-           ~algorithm ~target ());
+           ?location ?network_zone ~algorithm ~load_balancer_type
+           ~name ~target ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?delete_protection ?id ?labels ?location
-    ?network_zone ~load_balancer_type ~name ~algorithm ~target __id =
+    ?network_zone ?(algorithm = []) ~load_balancer_type ~name ~target
+    __id =
   let (r : _ Tf_core.resource) =
     make ?delete_protection ?id ?labels ?location ?network_zone
-      ~load_balancer_type ~name ~algorithm ~target __id
+      ~algorithm ~load_balancer_type ~name ~target __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

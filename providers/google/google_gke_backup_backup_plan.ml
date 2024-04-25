@@ -480,8 +480,9 @@ let backup_config__selected_namespaces ~namespaces () :
   { namespaces }
 
 let backup_config ?all_namespaces ?include_secrets
-    ?include_volume_data ~encryption_key ~selected_applications
-    ~selected_namespaces () : backup_config =
+    ?include_volume_data ?(encryption_key = [])
+    ?(selected_applications = []) ?(selected_namespaces = []) () :
+    backup_config =
   {
     all_namespaces;
     include_secrets;
@@ -502,8 +503,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_gke_backup_backup_plan ?deactivated ?description ?id
-    ?labels ?project ?timeouts ~cluster ~location ~name
-    ~backup_config ~backup_schedule ~retention_policy () :
+    ?labels ?project ?(backup_config = []) ?(backup_schedule = [])
+    ?(retention_policy = []) ?timeouts ~cluster ~location ~name () :
     google_gke_backup_backup_plan =
   {
     cluster;
@@ -538,9 +539,10 @@ type t = {
   uid : string prop;
 }
 
-let make ?deactivated ?description ?id ?labels ?project ?timeouts
-    ~cluster ~location ~name ~backup_config ~backup_schedule
-    ~retention_policy __id =
+let make ?deactivated ?description ?id ?labels ?project
+    ?(backup_config = []) ?(backup_schedule = [])
+    ?(retention_policy = []) ?timeouts ~cluster ~location ~name __id
+    =
   let __type = "google_gke_backup_backup_plan" in
   let __attrs =
     ({
@@ -571,18 +573,19 @@ let make ?deactivated ?description ?id ?labels ?project ?timeouts
     json =
       yojson_of_google_gke_backup_backup_plan
         (google_gke_backup_backup_plan ?deactivated ?description ?id
-           ?labels ?project ?timeouts ~cluster ~location ~name
-           ~backup_config ~backup_schedule ~retention_policy ());
+           ?labels ?project ~backup_config ~backup_schedule
+           ~retention_policy ?timeouts ~cluster ~location ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?deactivated ?description ?id ?labels
-    ?project ?timeouts ~cluster ~location ~name ~backup_config
-    ~backup_schedule ~retention_policy __id =
+    ?project ?(backup_config = []) ?(backup_schedule = [])
+    ?(retention_policy = []) ?timeouts ~cluster ~location ~name __id
+    =
   let (r : _ Tf_core.resource) =
-    make ?deactivated ?description ?id ?labels ?project ?timeouts
-      ~cluster ~location ~name ~backup_config ~backup_schedule
-      ~retention_policy __id
+    make ?deactivated ?description ?id ?labels ?project
+      ~backup_config ~backup_schedule ~retention_policy ?timeouts
+      ~cluster ~location ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

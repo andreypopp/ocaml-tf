@@ -499,9 +499,9 @@ let criteria__failing_periods
     number_of_evaluation_periods;
   }
 
-let criteria ?metric_measure_column ?resource_id_column ~operator
-    ~query ~threshold ~time_aggregation_method ~dimension
-    ~failing_periods () : criteria =
+let criteria ?metric_measure_column ?resource_id_column
+    ?(dimension = []) ?(failing_periods = []) ~operator ~query
+    ~threshold ~time_aggregation_method () : criteria =
   {
     metric_measure_column;
     operator;
@@ -521,8 +521,8 @@ let azurerm_monitor_scheduled_query_rules_alert_v2
     ?evaluation_frequency ?id ?mute_actions_after_alert_duration
     ?query_time_range_override ?skip_query_validation ?tags
     ?target_resource_types ?workspace_alerts_storage_enabled
-    ?timeouts ~location ~name ~resource_group_name ~scopes ~severity
-    ~window_duration ~action ~criteria () :
+    ?(action = []) ?timeouts ~location ~name ~resource_group_name
+    ~scopes ~severity ~window_duration ~criteria () :
     azurerm_monitor_scheduled_query_rules_alert_v2 =
   {
     auto_mitigation_enabled;
@@ -576,8 +576,8 @@ let make ?auto_mitigation_enabled ?description ?display_name ?enabled
     ?evaluation_frequency ?id ?mute_actions_after_alert_duration
     ?query_time_range_override ?skip_query_validation ?tags
     ?target_resource_types ?workspace_alerts_storage_enabled
-    ?timeouts ~location ~name ~resource_group_name ~scopes ~severity
-    ~window_duration ~action ~criteria __id =
+    ?(action = []) ?timeouts ~location ~name ~resource_group_name
+    ~scopes ~severity ~window_duration ~criteria __id =
   let __type = "azurerm_monitor_scheduled_query_rules_alert_v2" in
   let __attrs =
     ({
@@ -629,8 +629,8 @@ let make ?auto_mitigation_enabled ?description ?display_name ?enabled
            ?mute_actions_after_alert_duration
            ?query_time_range_override ?skip_query_validation ?tags
            ?target_resource_types ?workspace_alerts_storage_enabled
-           ?timeouts ~location ~name ~resource_group_name ~scopes
-           ~severity ~window_duration ~action ~criteria ());
+           ~action ?timeouts ~location ~name ~resource_group_name
+           ~scopes ~severity ~window_duration ~criteria ());
     attrs = __attrs;
   }
 
@@ -638,16 +638,16 @@ let register ?tf_module ?auto_mitigation_enabled ?description
     ?display_name ?enabled ?evaluation_frequency ?id
     ?mute_actions_after_alert_duration ?query_time_range_override
     ?skip_query_validation ?tags ?target_resource_types
-    ?workspace_alerts_storage_enabled ?timeouts ~location ~name
-    ~resource_group_name ~scopes ~severity ~window_duration ~action
-    ~criteria __id =
+    ?workspace_alerts_storage_enabled ?(action = []) ?timeouts
+    ~location ~name ~resource_group_name ~scopes ~severity
+    ~window_duration ~criteria __id =
   let (r : _ Tf_core.resource) =
     make ?auto_mitigation_enabled ?description ?display_name ?enabled
       ?evaluation_frequency ?id ?mute_actions_after_alert_duration
       ?query_time_range_override ?skip_query_validation ?tags
       ?target_resource_types ?workspace_alerts_storage_enabled
-      ?timeouts ~location ~name ~resource_group_name ~scopes
-      ~severity ~window_duration ~action ~criteria __id
+      ~action ?timeouts ~location ~name ~resource_group_name ~scopes
+      ~severity ~window_duration ~criteria __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

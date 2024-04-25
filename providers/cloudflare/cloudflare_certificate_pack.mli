@@ -31,14 +31,14 @@ val cloudflare_certificate_pack :
   ?cloudflare_branding:bool prop ->
   ?id:string prop ->
   ?wait_for_active_status:bool prop ->
+  ?validation_errors:validation_errors list ->
+  ?validation_records:validation_records list ->
   certificate_authority:string prop ->
   hosts:string prop list ->
   type_:string prop ->
   validation_method:string prop ->
   validity_days:float prop ->
   zone_id:string prop ->
-  validation_errors:validation_errors list ->
-  validation_records:validation_records list ->
   unit ->
   cloudflare_certificate_pack
 
@@ -64,14 +64,14 @@ val register :
   ?cloudflare_branding:bool prop ->
   ?id:string prop ->
   ?wait_for_active_status:bool prop ->
+  ?validation_errors:validation_errors list ->
+  ?validation_records:validation_records list ->
   certificate_authority:string prop ->
   hosts:string prop list ->
   type_:string prop ->
   validation_method:string prop ->
   validity_days:float prop ->
   zone_id:string prop ->
-  validation_errors:validation_errors list ->
-  validation_records:validation_records list ->
   string ->
   t
 
@@ -79,13 +79,13 @@ val make :
   ?cloudflare_branding:bool prop ->
   ?id:string prop ->
   ?wait_for_active_status:bool prop ->
+  ?validation_errors:validation_errors list ->
+  ?validation_records:validation_records list ->
   certificate_authority:string prop ->
   hosts:string prop list ->
   type_:string prop ->
   validation_method:string prop ->
   validity_days:float prop ->
   zone_id:string prop ->
-  validation_errors:validation_errors list ->
-  validation_records:validation_records list ->
   string ->
   t Tf_core.resource

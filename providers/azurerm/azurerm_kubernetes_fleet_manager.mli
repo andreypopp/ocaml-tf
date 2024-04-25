@@ -23,11 +23,11 @@ type azurerm_kubernetes_fleet_manager
 val azurerm_kubernetes_fleet_manager :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?hub_profile:hub_profile list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  hub_profile:hub_profile list ->
   unit ->
   azurerm_kubernetes_fleet_manager
 
@@ -48,21 +48,21 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?hub_profile:hub_profile list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  hub_profile:hub_profile list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?hub_profile:hub_profile list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  hub_profile:hub_profile list ->
   string ->
   t Tf_core.resource

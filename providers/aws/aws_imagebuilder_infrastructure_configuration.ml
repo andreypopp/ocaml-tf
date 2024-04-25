@@ -306,8 +306,8 @@ let logging ~s3_logs () : logging = { s3_logs }
 let aws_imagebuilder_infrastructure_configuration ?description ?id
     ?instance_types ?key_pair ?resource_tags ?security_group_ids
     ?sns_topic_arn ?subnet_id ?tags ?tags_all
-    ?terminate_instance_on_failure ~instance_profile_name ~name
-    ~instance_metadata_options ~logging () :
+    ?terminate_instance_on_failure ?(instance_metadata_options = [])
+    ?(logging = []) ~instance_profile_name ~name () :
     aws_imagebuilder_infrastructure_configuration =
   {
     description;
@@ -348,8 +348,8 @@ type t = {
 
 let make ?description ?id ?instance_types ?key_pair ?resource_tags
     ?security_group_ids ?sns_topic_arn ?subnet_id ?tags ?tags_all
-    ?terminate_instance_on_failure ~instance_profile_name ~name
-    ~instance_metadata_options ~logging __id =
+    ?terminate_instance_on_failure ?(instance_metadata_options = [])
+    ?(logging = []) ~instance_profile_name ~name __id =
   let __type = "aws_imagebuilder_infrastructure_configuration" in
   let __attrs =
     ({
@@ -384,21 +384,21 @@ let make ?description ?id ?instance_types ?key_pair ?resource_tags
            ?id ?instance_types ?key_pair ?resource_tags
            ?security_group_ids ?sns_topic_arn ?subnet_id ?tags
            ?tags_all ?terminate_instance_on_failure
-           ~instance_profile_name ~name ~instance_metadata_options
-           ~logging ());
+           ~instance_metadata_options ~logging ~instance_profile_name
+           ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?instance_types ?key_pair
     ?resource_tags ?security_group_ids ?sns_topic_arn ?subnet_id
     ?tags ?tags_all ?terminate_instance_on_failure
-    ~instance_profile_name ~name ~instance_metadata_options ~logging
-    __id =
+    ?(instance_metadata_options = []) ?(logging = [])
+    ~instance_profile_name ~name __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?instance_types ?key_pair ?resource_tags
       ?security_group_ids ?sns_topic_arn ?subnet_id ?tags ?tags_all
-      ?terminate_instance_on_failure ~instance_profile_name ~name
-      ~instance_metadata_options ~logging __id
+      ?terminate_instance_on_failure ~instance_metadata_options
+      ~logging ~instance_profile_name ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

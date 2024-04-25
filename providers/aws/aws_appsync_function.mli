@@ -21,7 +21,7 @@ type sync_config
 val sync_config :
   ?conflict_detection:string prop ->
   ?conflict_handler:string prop ->
-  lambda_conflict_handler_config:
+  ?lambda_conflict_handler_config:
     sync_config__lambda_conflict_handler_config list ->
   unit ->
   sync_config
@@ -36,11 +36,11 @@ val aws_appsync_function :
   ?max_batch_size:float prop ->
   ?request_mapping_template:string prop ->
   ?response_mapping_template:string prop ->
+  ?runtime:runtime list ->
+  ?sync_config:sync_config list ->
   api_id:string prop ->
   data_source:string prop ->
   name:string prop ->
-  runtime:runtime list ->
-  sync_config:sync_config list ->
   unit ->
   aws_appsync_function
 
@@ -72,11 +72,11 @@ val register :
   ?max_batch_size:float prop ->
   ?request_mapping_template:string prop ->
   ?response_mapping_template:string prop ->
+  ?runtime:runtime list ->
+  ?sync_config:sync_config list ->
   api_id:string prop ->
   data_source:string prop ->
   name:string prop ->
-  runtime:runtime list ->
-  sync_config:sync_config list ->
   string ->
   t
 
@@ -88,10 +88,10 @@ val make :
   ?max_batch_size:float prop ->
   ?request_mapping_template:string prop ->
   ?response_mapping_template:string prop ->
+  ?runtime:runtime list ->
+  ?sync_config:sync_config list ->
   api_id:string prop ->
   data_source:string prop ->
   name:string prop ->
-  runtime:runtime list ->
-  sync_config:sync_config list ->
   string ->
   t Tf_core.resource

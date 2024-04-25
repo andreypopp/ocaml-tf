@@ -1227,13 +1227,13 @@ let test_case_conversation_turns__user_input__input__text ~text () :
   { text }
 
 let test_case_conversation_turns__user_input__input ?language_code
-    ~dtmf ~event ~text () :
+    ?(dtmf = []) ?(event = []) ?(text = []) () :
     test_case_conversation_turns__user_input__input =
   { language_code; dtmf; event; text }
 
 let test_case_conversation_turns__user_input
     ?enable_sentiment_analysis ?injected_parameters
-    ?is_webhook_enabled ~input () :
+    ?is_webhook_enabled ?(input = []) () :
     test_case_conversation_turns__user_input =
   {
     enable_sentiment_analysis;
@@ -1261,8 +1261,8 @@ let test_case_conversation_turns__virtual_agent_output__triggered_intent
   { name }
 
 let test_case_conversation_turns__virtual_agent_output
-    ?session_parameters ~current_page ~text_responses
-    ~triggered_intent () :
+    ?session_parameters ?(current_page = []) ?(text_responses = [])
+    ?(triggered_intent = []) () :
     test_case_conversation_turns__virtual_agent_output =
   {
     session_parameters;
@@ -1271,8 +1271,8 @@ let test_case_conversation_turns__virtual_agent_output
     triggered_intent;
   }
 
-let test_case_conversation_turns ~user_input ~virtual_agent_output ()
-    : test_case_conversation_turns =
+let test_case_conversation_turns ?(user_input = [])
+    ?(virtual_agent_output = []) () : test_case_conversation_turns =
   { user_input; virtual_agent_output }
 
 let test_config ?flow ?page ?tracking_parameters () : test_config =
@@ -1281,9 +1281,9 @@ let test_config ?flow ?page ?tracking_parameters () : test_config =
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_dialogflow_cx_test_case ?id ?notes ?parent ?tags ?timeouts
-    ~display_name ~test_case_conversation_turns ~test_config () :
-    google_dialogflow_cx_test_case =
+let google_dialogflow_cx_test_case ?id ?notes ?parent ?tags
+    ?(test_case_conversation_turns = []) ?(test_config = [])
+    ?timeouts ~display_name () : google_dialogflow_cx_test_case =
   {
     display_name;
     id;
@@ -1306,8 +1306,9 @@ type t = {
   tags : string list prop;
 }
 
-let make ?id ?notes ?parent ?tags ?timeouts ~display_name
-    ~test_case_conversation_turns ~test_config __id =
+let make ?id ?notes ?parent ?tags
+    ?(test_case_conversation_turns = []) ?(test_config = [])
+    ?timeouts ~display_name __id =
   let __type = "google_dialogflow_cx_test_case" in
   let __attrs =
     ({
@@ -1329,16 +1330,17 @@ let make ?id ?notes ?parent ?tags ?timeouts ~display_name
     json =
       yojson_of_google_dialogflow_cx_test_case
         (google_dialogflow_cx_test_case ?id ?notes ?parent ?tags
-           ?timeouts ~display_name ~test_case_conversation_turns
-           ~test_config ());
+           ~test_case_conversation_turns ~test_config ?timeouts
+           ~display_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?notes ?parent ?tags ?timeouts
-    ~display_name ~test_case_conversation_turns ~test_config __id =
+let register ?tf_module ?id ?notes ?parent ?tags
+    ?(test_case_conversation_turns = []) ?(test_config = [])
+    ?timeouts ~display_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?notes ?parent ?tags ?timeouts ~display_name
-      ~test_case_conversation_turns ~test_config __id
+    make ?id ?notes ?parent ?tags ~test_case_conversation_turns
+      ~test_config ?timeouts ~display_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

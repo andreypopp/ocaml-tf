@@ -716,8 +716,8 @@ let task_invocation_parameters__run_command_parameters__parameter
 let task_invocation_parameters__run_command_parameters ?comment
     ?document_hash ?document_hash_type ?document_version
     ?output_s3_bucket ?output_s3_key_prefix ?service_role_arn
-    ?timeout_seconds ~cloudwatch_config ~notification_config
-    ~parameter () :
+    ?timeout_seconds ?(cloudwatch_config = [])
+    ?(notification_config = []) ~parameter () :
     task_invocation_parameters__run_command_parameters =
   {
     comment;
@@ -738,9 +738,10 @@ let task_invocation_parameters__step_functions_parameters ?input
     =
   { input; name }
 
-let task_invocation_parameters ~automation_parameters
-    ~lambda_parameters ~run_command_parameters
-    ~step_functions_parameters () : task_invocation_parameters =
+let task_invocation_parameters ?(automation_parameters = [])
+    ?(lambda_parameters = []) ?(run_command_parameters = [])
+    ?(step_functions_parameters = []) () : task_invocation_parameters
+    =
   {
     automation_parameters;
     lambda_parameters;
@@ -750,9 +751,8 @@ let task_invocation_parameters ~automation_parameters
 
 let aws_ssm_maintenance_window_task ?cutoff_behavior ?description ?id
     ?max_concurrency ?max_errors ?name ?priority ?service_role_arn
-    ~task_arn ~task_type ~window_id ~targets
-    ~task_invocation_parameters () : aws_ssm_maintenance_window_task
-    =
+    ?(targets = []) ?(task_invocation_parameters = []) ~task_arn
+    ~task_type ~window_id () : aws_ssm_maintenance_window_task =
   {
     cutoff_behavior;
     description;
@@ -786,8 +786,9 @@ type t = {
 }
 
 let make ?cutoff_behavior ?description ?id ?max_concurrency
-    ?max_errors ?name ?priority ?service_role_arn ~task_arn
-    ~task_type ~window_id ~targets ~task_invocation_parameters __id =
+    ?max_errors ?name ?priority ?service_role_arn ?(targets = [])
+    ?(task_invocation_parameters = []) ~task_arn ~task_type
+    ~window_id __id =
   let __type = "aws_ssm_maintenance_window_task" in
   let __attrs =
     ({
@@ -815,19 +816,21 @@ let make ?cutoff_behavior ?description ?id ?max_concurrency
       yojson_of_aws_ssm_maintenance_window_task
         (aws_ssm_maintenance_window_task ?cutoff_behavior
            ?description ?id ?max_concurrency ?max_errors ?name
-           ?priority ?service_role_arn ~task_arn ~task_type
-           ~window_id ~targets ~task_invocation_parameters ());
+           ?priority ?service_role_arn ~targets
+           ~task_invocation_parameters ~task_arn ~task_type
+           ~window_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?cutoff_behavior ?description ?id
     ?max_concurrency ?max_errors ?name ?priority ?service_role_arn
-    ~task_arn ~task_type ~window_id ~targets
-    ~task_invocation_parameters __id =
+    ?(targets = []) ?(task_invocation_parameters = []) ~task_arn
+    ~task_type ~window_id __id =
   let (r : _ Tf_core.resource) =
     make ?cutoff_behavior ?description ?id ?max_concurrency
-      ?max_errors ?name ?priority ?service_role_arn ~task_arn
-      ~task_type ~window_id ~targets ~task_invocation_parameters __id
+      ?max_errors ?name ?priority ?service_role_arn ~targets
+      ~task_invocation_parameters ~task_arn ~task_type ~window_id
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

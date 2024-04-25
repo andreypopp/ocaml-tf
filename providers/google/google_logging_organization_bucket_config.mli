@@ -22,10 +22,10 @@ val google_logging_organization_bucket_config :
   ?description:string prop ->
   ?id:string prop ->
   ?retention_days:float prop ->
+  ?cmek_settings:cmek_settings list ->
   bucket_id:string prop ->
   location:string prop ->
   organization:string prop ->
-  cmek_settings:cmek_settings list ->
   index_configs:index_configs list ->
   unit ->
   google_logging_organization_bucket_config
@@ -51,10 +51,10 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?retention_days:float prop ->
+  ?cmek_settings:cmek_settings list ->
   bucket_id:string prop ->
   location:string prop ->
   organization:string prop ->
-  cmek_settings:cmek_settings list ->
   index_configs:index_configs list ->
   string ->
   t
@@ -63,10 +63,10 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?retention_days:float prop ->
+  ?cmek_settings:cmek_settings list ->
   bucket_id:string prop ->
   location:string prop ->
   organization:string prop ->
-  cmek_settings:cmek_settings list ->
   index_configs:index_configs list ->
   string ->
   t Tf_core.resource

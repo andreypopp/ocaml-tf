@@ -331,14 +331,14 @@ let certs_info__cert_info ?basic_constraints ?expiry_date ?is_valid
     version;
   }
 
-let certs_info ~cert_info () : certs_info = { cert_info }
+let certs_info ?(cert_info = []) () : certs_info = { cert_info }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let google_apigee_keystores_aliases_key_cert_file ?id ?key ?password
-    ?timeouts ~alias ~cert ~environment ~keystore ~org_id ~certs_info
-    () : google_apigee_keystores_aliases_key_cert_file =
+    ?(certs_info = []) ?timeouts ~alias ~cert ~environment ~keystore
+    ~org_id () : google_apigee_keystores_aliases_key_cert_file =
   {
     alias;
     cert;
@@ -364,8 +364,8 @@ type t = {
   type_ : string prop;
 }
 
-let make ?id ?key ?password ?timeouts ~alias ~cert ~environment
-    ~keystore ~org_id ~certs_info __id =
+let make ?id ?key ?password ?(certs_info = []) ?timeouts ~alias ~cert
+    ~environment ~keystore ~org_id __id =
   let __type = "google_apigee_keystores_aliases_key_cert_file" in
   let __attrs =
     ({
@@ -387,16 +387,16 @@ let make ?id ?key ?password ?timeouts ~alias ~cert ~environment
     json =
       yojson_of_google_apigee_keystores_aliases_key_cert_file
         (google_apigee_keystores_aliases_key_cert_file ?id ?key
-           ?password ?timeouts ~alias ~cert ~environment ~keystore
-           ~org_id ~certs_info ());
+           ?password ~certs_info ?timeouts ~alias ~cert ~environment
+           ~keystore ~org_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?key ?password ?timeouts ~alias ~cert
-    ~environment ~keystore ~org_id ~certs_info __id =
+let register ?tf_module ?id ?key ?password ?(certs_info = [])
+    ?timeouts ~alias ~cert ~environment ~keystore ~org_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?key ?password ?timeouts ~alias ~cert ~environment
-      ~keystore ~org_id ~certs_info __id
+    make ?id ?key ?password ~certs_info ?timeouts ~alias ~cert
+      ~environment ~keystore ~org_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

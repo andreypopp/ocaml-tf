@@ -12,8 +12,8 @@ val cookies_config__cookies :
 type cookies_config
 
 val cookies_config :
+  ?cookies:cookies_config__cookies list ->
   cookie_behavior:string prop ->
-  cookies:cookies_config__cookies list ->
   unit ->
   cookies_config
 
@@ -26,7 +26,7 @@ type headers_config
 
 val headers_config :
   ?header_behavior:string prop ->
-  headers:headers_config__headers list ->
+  ?headers:headers_config__headers list ->
   unit ->
   headers_config
 
@@ -40,8 +40,8 @@ val query_strings_config__query_strings :
 type query_strings_config
 
 val query_strings_config :
+  ?query_strings:query_strings_config__query_strings list ->
   query_string_behavior:string prop ->
-  query_strings:query_strings_config__query_strings list ->
   unit ->
   query_strings_config
 

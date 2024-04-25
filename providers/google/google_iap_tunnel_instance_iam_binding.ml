@@ -125,7 +125,7 @@ let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
 let google_iap_tunnel_instance_iam_binding ?id ?project ?zone
-    ~instance ~members ~role ~condition () :
+    ?(condition = []) ~instance ~members ~role () :
     google_iap_tunnel_instance_iam_binding =
   { id; instance; members; project; role; zone; condition }
 
@@ -139,8 +139,8 @@ type t = {
   zone : string prop;
 }
 
-let make ?id ?project ?zone ~instance ~members ~role ~condition __id
-    =
+let make ?id ?project ?zone ?(condition = []) ~instance ~members
+    ~role __id =
   let __type = "google_iap_tunnel_instance_iam_binding" in
   let __attrs =
     ({
@@ -160,14 +160,14 @@ let make ?id ?project ?zone ~instance ~members ~role ~condition __id
     json =
       yojson_of_google_iap_tunnel_instance_iam_binding
         (google_iap_tunnel_instance_iam_binding ?id ?project ?zone
-           ~instance ~members ~role ~condition ());
+           ~condition ~instance ~members ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ?zone ~instance ~members ~role
-    ~condition __id =
+let register ?tf_module ?id ?project ?zone ?(condition = [])
+    ~instance ~members ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ?zone ~instance ~members ~role ~condition __id
+    make ?id ?project ?zone ~condition ~instance ~members ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

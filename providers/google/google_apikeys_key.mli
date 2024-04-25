@@ -52,13 +52,13 @@ val restrictions__server_key_restrictions :
 type restrictions
 
 val restrictions :
-  android_key_restrictions:
+  ?android_key_restrictions:
     restrictions__android_key_restrictions list ->
-  api_targets:restrictions__api_targets list ->
-  browser_key_restrictions:
+  ?api_targets:restrictions__api_targets list ->
+  ?browser_key_restrictions:
     restrictions__browser_key_restrictions list ->
-  ios_key_restrictions:restrictions__ios_key_restrictions list ->
-  server_key_restrictions:restrictions__server_key_restrictions list ->
+  ?ios_key_restrictions:restrictions__ios_key_restrictions list ->
+  ?server_key_restrictions:restrictions__server_key_restrictions list ->
   unit ->
   restrictions
 
@@ -77,9 +77,9 @@ val google_apikeys_key :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?restrictions:restrictions list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  restrictions:restrictions list ->
   unit ->
   google_apikeys_key
 
@@ -101,9 +101,9 @@ val register :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?restrictions:restrictions list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  restrictions:restrictions list ->
   string ->
   t
 
@@ -111,8 +111,8 @@ val make :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?restrictions:restrictions list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  restrictions:restrictions list ->
   string ->
   t Tf_core.resource

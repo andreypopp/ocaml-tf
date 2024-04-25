@@ -952,9 +952,10 @@ let aws_rds_cluster ?allocated_storage ?allow_major_version_upgrade
     ?preferred_maintenance_window ?replication_source_identifier
     ?skip_final_snapshot ?snapshot_identifier ?source_region
     ?storage_encrypted ?storage_type ?tags ?tags_all
-    ?vpc_security_group_ids ?timeouts ~engine
-    ~restore_to_point_in_time ~s3_import ~scaling_configuration
-    ~serverlessv2_scaling_configuration () : aws_rds_cluster =
+    ?vpc_security_group_ids ?(restore_to_point_in_time = [])
+    ?(s3_import = []) ?(scaling_configuration = [])
+    ?(serverlessv2_scaling_configuration = []) ?timeouts ~engine () :
+    aws_rds_cluster =
   {
     allocated_storage;
     allow_major_version_upgrade;
@@ -1091,9 +1092,10 @@ let make ?allocated_storage ?allow_major_version_upgrade
     ?preferred_maintenance_window ?replication_source_identifier
     ?skip_final_snapshot ?snapshot_identifier ?source_region
     ?storage_encrypted ?storage_type ?tags ?tags_all
-    ?vpc_security_group_ids ?timeouts ~engine
-    ~restore_to_point_in_time ~s3_import ~scaling_configuration
-    ~serverlessv2_scaling_configuration __id =
+    ?vpc_security_group_ids ?(restore_to_point_in_time = [])
+    ?(s3_import = []) ?(scaling_configuration = [])
+    ?(serverlessv2_scaling_configuration = []) ?timeouts ~engine __id
+    =
   let __type = "aws_rds_cluster" in
   let __attrs =
     ({
@@ -1220,9 +1222,9 @@ let make ?allocated_storage ?allow_major_version_upgrade
            ?replication_source_identifier ?skip_final_snapshot
            ?snapshot_identifier ?source_region ?storage_encrypted
            ?storage_type ?tags ?tags_all ?vpc_security_group_ids
-           ?timeouts ~engine ~restore_to_point_in_time ~s3_import
+           ~restore_to_point_in_time ~s3_import
            ~scaling_configuration ~serverlessv2_scaling_configuration
-           ());
+           ?timeouts ~engine ());
     attrs = __attrs;
   }
 
@@ -1244,9 +1246,10 @@ let register ?tf_module ?allocated_storage
     ?preferred_maintenance_window ?replication_source_identifier
     ?skip_final_snapshot ?snapshot_identifier ?source_region
     ?storage_encrypted ?storage_type ?tags ?tags_all
-    ?vpc_security_group_ids ?timeouts ~engine
-    ~restore_to_point_in_time ~s3_import ~scaling_configuration
-    ~serverlessv2_scaling_configuration __id =
+    ?vpc_security_group_ids ?(restore_to_point_in_time = [])
+    ?(s3_import = []) ?(scaling_configuration = [])
+    ?(serverlessv2_scaling_configuration = []) ?timeouts ~engine __id
+    =
   let (r : _ Tf_core.resource) =
     make ?allocated_storage ?allow_major_version_upgrade
       ?apply_immediately ?availability_zones ?backtrack_window
@@ -1266,9 +1269,9 @@ let register ?tf_module ?allocated_storage
       ?preferred_maintenance_window ?replication_source_identifier
       ?skip_final_snapshot ?snapshot_identifier ?source_region
       ?storage_encrypted ?storage_type ?tags ?tags_all
-      ?vpc_security_group_ids ?timeouts ~engine
-      ~restore_to_point_in_time ~s3_import ~scaling_configuration
-      ~serverlessv2_scaling_configuration __id
+      ?vpc_security_group_ids ~restore_to_point_in_time ~s3_import
+      ~scaling_configuration ~serverlessv2_scaling_configuration
+      ?timeouts ~engine __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

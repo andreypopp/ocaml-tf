@@ -20,8 +20,8 @@ val basic_sli :
   ?location:string prop list ->
   ?method_:string prop list ->
   ?version:string prop list ->
-  availability:basic_sli__availability list ->
-  latency:basic_sli__latency list ->
+  ?availability:basic_sli__availability list ->
+  ?latency:basic_sli__latency list ->
   unit ->
   basic_sli
 
@@ -53,8 +53,8 @@ val request_based_sli__good_total_ratio :
 type request_based_sli
 
 val request_based_sli :
-  distribution_cut:request_based_sli__distribution_cut list ->
-  good_total_ratio:request_based_sli__good_total_ratio list ->
+  ?distribution_cut:request_based_sli__distribution_cut list ->
+  ?good_total_ratio:request_based_sli__good_total_ratio list ->
   unit ->
   request_based_sli
 
@@ -87,10 +87,10 @@ val windows_based_sli__good_total_ratio_threshold__basic_sli_performance :
   ?location:string prop list ->
   ?method_:string prop list ->
   ?version:string prop list ->
-  availability:
+  ?availability:
     windows_based_sli__good_total_ratio_threshold__basic_sli_performance__availability
     list ->
-  latency:
+  ?latency:
     windows_based_sli__good_total_ratio_threshold__basic_sli_performance__latency
     list ->
   unit ->
@@ -126,10 +126,10 @@ val windows_based_sli__good_total_ratio_threshold__performance__good_total_ratio
 type windows_based_sli__good_total_ratio_threshold__performance
 
 val windows_based_sli__good_total_ratio_threshold__performance :
-  distribution_cut:
+  ?distribution_cut:
     windows_based_sli__good_total_ratio_threshold__performance__distribution_cut
     list ->
-  good_total_ratio:
+  ?good_total_ratio:
     windows_based_sli__good_total_ratio_threshold__performance__good_total_ratio
     list ->
   unit ->
@@ -139,10 +139,10 @@ type windows_based_sli__good_total_ratio_threshold
 
 val windows_based_sli__good_total_ratio_threshold :
   ?threshold:float prop ->
-  basic_sli_performance:
+  ?basic_sli_performance:
     windows_based_sli__good_total_ratio_threshold__basic_sli_performance
     list ->
-  performance:
+  ?performance:
     windows_based_sli__good_total_ratio_threshold__performance list ->
   unit ->
   windows_based_sli__good_total_ratio_threshold
@@ -184,10 +184,10 @@ type windows_based_sli
 val windows_based_sli :
   ?good_bad_metric_filter:string prop ->
   ?window_period:string prop ->
-  good_total_ratio_threshold:
+  ?good_total_ratio_threshold:
     windows_based_sli__good_total_ratio_threshold list ->
-  metric_mean_in_range:windows_based_sli__metric_mean_in_range list ->
-  metric_sum_in_range:windows_based_sli__metric_sum_in_range list ->
+  ?metric_mean_in_range:windows_based_sli__metric_mean_in_range list ->
+  ?metric_sum_in_range:windows_based_sli__metric_sum_in_range list ->
   unit ->
   windows_based_sli
 
@@ -201,12 +201,12 @@ val google_monitoring_slo :
   ?rolling_period_days:float prop ->
   ?slo_id:string prop ->
   ?user_labels:(string * string prop) list ->
+  ?basic_sli:basic_sli list ->
+  ?request_based_sli:request_based_sli list ->
   ?timeouts:timeouts ->
+  ?windows_based_sli:windows_based_sli list ->
   goal:float prop ->
   service:string prop ->
-  basic_sli:basic_sli list ->
-  request_based_sli:request_based_sli list ->
-  windows_based_sli:windows_based_sli list ->
   unit ->
   google_monitoring_slo
 
@@ -236,12 +236,12 @@ val register :
   ?rolling_period_days:float prop ->
   ?slo_id:string prop ->
   ?user_labels:(string * string prop) list ->
+  ?basic_sli:basic_sli list ->
+  ?request_based_sli:request_based_sli list ->
   ?timeouts:timeouts ->
+  ?windows_based_sli:windows_based_sli list ->
   goal:float prop ->
   service:string prop ->
-  basic_sli:basic_sli list ->
-  request_based_sli:request_based_sli list ->
-  windows_based_sli:windows_based_sli list ->
   string ->
   t
 
@@ -253,11 +253,11 @@ val make :
   ?rolling_period_days:float prop ->
   ?slo_id:string prop ->
   ?user_labels:(string * string prop) list ->
+  ?basic_sli:basic_sli list ->
+  ?request_based_sli:request_based_sli list ->
   ?timeouts:timeouts ->
+  ?windows_based_sli:windows_based_sli list ->
   goal:float prop ->
   service:string prop ->
-  basic_sli:basic_sli list ->
-  request_based_sli:request_based_sli list ->
-  windows_based_sli:windows_based_sli list ->
   string ->
   t Tf_core.resource

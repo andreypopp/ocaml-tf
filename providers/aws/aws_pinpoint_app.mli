@@ -36,9 +36,9 @@ val aws_pinpoint_app :
   ?name_prefix:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  campaign_hook:campaign_hook list ->
-  limits:limits list ->
-  quiet_time:quiet_time list ->
+  ?campaign_hook:campaign_hook list ->
+  ?limits:limits list ->
+  ?quiet_time:quiet_time list ->
   unit ->
   aws_pinpoint_app
 
@@ -63,9 +63,9 @@ val register :
   ?name_prefix:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  campaign_hook:campaign_hook list ->
-  limits:limits list ->
-  quiet_time:quiet_time list ->
+  ?campaign_hook:campaign_hook list ->
+  ?limits:limits list ->
+  ?quiet_time:quiet_time list ->
   string ->
   t
 
@@ -75,8 +75,8 @@ val make :
   ?name_prefix:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  campaign_hook:campaign_hook list ->
-  limits:limits list ->
-  quiet_time:quiet_time list ->
+  ?campaign_hook:campaign_hook list ->
+  ?limits:limits list ->
+  ?quiet_time:quiet_time list ->
   string ->
   t Tf_core.resource

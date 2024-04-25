@@ -915,8 +915,8 @@ let config_server_git_setting__repository__ssh_auth ?host_key
   }
 
 let config_server_git_setting__repository ?label ?pattern
-    ?search_paths ~name ~uri ~http_basic_auth ~ssh_auth () :
-    config_server_git_setting__repository =
+    ?search_paths ?(http_basic_auth = []) ?(ssh_auth = []) ~name ~uri
+    () : config_server_git_setting__repository =
   {
     label;
     name;
@@ -937,9 +937,9 @@ let config_server_git_setting__ssh_auth ?host_key ?host_key_algorithm
     strict_host_key_checking_enabled;
   }
 
-let config_server_git_setting ?label ?search_paths ~uri
-    ~http_basic_auth ~repository ~ssh_auth () :
-    config_server_git_setting =
+let config_server_git_setting ?label ?search_paths
+    ?(http_basic_auth = []) ?(repository = []) ?(ssh_auth = []) ~uri
+    () : config_server_git_setting =
   { label; search_paths; uri; http_basic_auth; repository; ssh_auth }
 
 let container_registry ~name ~password ~server ~username () :
@@ -976,9 +976,10 @@ let trace ?connection_string ?sample_rate () : trace =
 let azurerm_spring_cloud_service ?build_agent_pool_size ?id
     ?log_stream_public_endpoint_enabled ?managed_environment_id
     ?service_registry_enabled ?sku_name ?sku_tier ?tags
-    ?zone_redundant ?timeouts ~location ~name ~resource_group_name
-    ~config_server_git_setting ~container_registry
-    ~default_build_service ~marketplace ~network ~trace () :
+    ?zone_redundant ?(config_server_git_setting = [])
+    ?(container_registry = []) ?(default_build_service = [])
+    ?(marketplace = []) ?(network = []) ?timeouts ?(trace = [])
+    ~location ~name ~resource_group_name () :
     azurerm_spring_cloud_service =
   {
     build_agent_pool_size;
@@ -1024,9 +1025,10 @@ type t = {
 let make ?build_agent_pool_size ?id
     ?log_stream_public_endpoint_enabled ?managed_environment_id
     ?service_registry_enabled ?sku_name ?sku_tier ?tags
-    ?zone_redundant ?timeouts ~location ~name ~resource_group_name
-    ~config_server_git_setting ~container_registry
-    ~default_build_service ~marketplace ~network ~trace __id =
+    ?zone_redundant ?(config_server_git_setting = [])
+    ?(container_registry = []) ?(default_build_service = [])
+    ?(marketplace = []) ?(network = []) ?timeouts ?(trace = [])
+    ~location ~name ~resource_group_name __id =
   let __type = "azurerm_spring_cloud_service" in
   let __attrs =
     ({
@@ -1065,26 +1067,27 @@ let make ?build_agent_pool_size ?id
         (azurerm_spring_cloud_service ?build_agent_pool_size ?id
            ?log_stream_public_endpoint_enabled
            ?managed_environment_id ?service_registry_enabled
-           ?sku_name ?sku_tier ?tags ?zone_redundant ?timeouts
-           ~location ~name ~resource_group_name
+           ?sku_name ?sku_tier ?tags ?zone_redundant
            ~config_server_git_setting ~container_registry
-           ~default_build_service ~marketplace ~network ~trace ());
+           ~default_build_service ~marketplace ~network ?timeouts
+           ~trace ~location ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?build_agent_pool_size ?id
     ?log_stream_public_endpoint_enabled ?managed_environment_id
     ?service_registry_enabled ?sku_name ?sku_tier ?tags
-    ?zone_redundant ?timeouts ~location ~name ~resource_group_name
-    ~config_server_git_setting ~container_registry
-    ~default_build_service ~marketplace ~network ~trace __id =
+    ?zone_redundant ?(config_server_git_setting = [])
+    ?(container_registry = []) ?(default_build_service = [])
+    ?(marketplace = []) ?(network = []) ?timeouts ?(trace = [])
+    ~location ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?build_agent_pool_size ?id
       ?log_stream_public_endpoint_enabled ?managed_environment_id
       ?service_registry_enabled ?sku_name ?sku_tier ?tags
-      ?zone_redundant ?timeouts ~location ~name ~resource_group_name
-      ~config_server_git_setting ~container_registry
-      ~default_build_service ~marketplace ~network ~trace __id
+      ?zone_redundant ~config_server_git_setting ~container_registry
+      ~default_build_service ~marketplace ~network ?timeouts ~trace
+      ~location ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

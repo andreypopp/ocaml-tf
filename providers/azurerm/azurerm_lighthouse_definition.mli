@@ -36,10 +36,10 @@ type eligible_authorization
 
 val eligible_authorization :
   ?principal_display_name:string prop ->
+  ?just_in_time_access_policy:
+    eligible_authorization__just_in_time_access_policy list ->
   principal_id:string prop ->
   role_definition_id:string prop ->
-  just_in_time_access_policy:
-    eligible_authorization__just_in_time_access_policy list ->
   unit ->
   eligible_authorization
 
@@ -69,13 +69,13 @@ val azurerm_lighthouse_definition :
   ?description:string prop ->
   ?id:string prop ->
   ?lighthouse_definition_id:string prop ->
+  ?plan:plan list ->
   ?timeouts:timeouts ->
   managing_tenant_id:string prop ->
   name:string prop ->
   scope:string prop ->
   authorization:authorization list ->
   eligible_authorization:eligible_authorization list ->
-  plan:plan list ->
   unit ->
   azurerm_lighthouse_definition
 
@@ -98,13 +98,13 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?lighthouse_definition_id:string prop ->
+  ?plan:plan list ->
   ?timeouts:timeouts ->
   managing_tenant_id:string prop ->
   name:string prop ->
   scope:string prop ->
   authorization:authorization list ->
   eligible_authorization:eligible_authorization list ->
-  plan:plan list ->
   string ->
   t
 
@@ -112,12 +112,12 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?lighthouse_definition_id:string prop ->
+  ?plan:plan list ->
   ?timeouts:timeouts ->
   managing_tenant_id:string prop ->
   name:string prop ->
   scope:string prop ->
   authorization:authorization list ->
   eligible_authorization:eligible_authorization list ->
-  plan:plan list ->
   string ->
   t Tf_core.resource

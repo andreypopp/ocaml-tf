@@ -30,7 +30,7 @@ type spec
 val spec :
   ?audiences:string prop list ->
   ?expiration_seconds:float prop ->
-  bound_object_ref:spec__bound_object_ref list ->
+  ?bound_object_ref:spec__bound_object_ref list ->
   unit ->
   spec
 
@@ -38,8 +38,8 @@ type kubernetes_token_request_v1
 
 val kubernetes_token_request_v1 :
   ?id:string prop ->
+  ?spec:spec list ->
   metadata:metadata list ->
-  spec:spec list ->
   unit ->
   kubernetes_token_request_v1
 
@@ -53,14 +53,14 @@ type t = private { id : string prop; token : string prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?spec:spec list ->
   metadata:metadata list ->
-  spec:spec list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?spec:spec list ->
   metadata:metadata list ->
-  spec:spec list ->
   string ->
   t Tf_core.resource

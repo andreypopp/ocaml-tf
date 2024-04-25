@@ -56,9 +56,9 @@ val rule__actions__version :
 type rule__actions
 
 val rule__actions :
-  base_blob:rule__actions__base_blob list ->
-  snapshot:rule__actions__snapshot list ->
-  version:rule__actions__version list ->
+  ?base_blob:rule__actions__base_blob list ->
+  ?snapshot:rule__actions__snapshot list ->
+  ?version:rule__actions__version list ->
   unit ->
   rule__actions
 
@@ -104,9 +104,9 @@ type azurerm_storage_management_policy
 
 val azurerm_storage_management_policy :
   ?id:string prop ->
+  ?rule:rule list ->
   ?timeouts:timeouts ->
   storage_account_id:string prop ->
-  rule:rule list ->
   unit ->
   azurerm_storage_management_policy
 
@@ -123,16 +123,16 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?rule:rule list ->
   ?timeouts:timeouts ->
   storage_account_id:string prop ->
-  rule:rule list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?rule:rule list ->
   ?timeouts:timeouts ->
   storage_account_id:string prop ->
-  rule:rule list ->
   string ->
   t Tf_core.resource

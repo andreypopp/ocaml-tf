@@ -482,10 +482,12 @@ let weighted_routing_policy ~weight () : weighted_routing_policy =
 
 let aws_route53_record ?allow_overwrite ?health_check_id ?id
     ?multivalue_answer_routing_policy ?records ?set_identifier ?ttl
-    ~name ~type_ ~zone_id ~alias ~cidr_routing_policy
-    ~failover_routing_policy ~geolocation_routing_policy
-    ~geoproximity_routing_policy ~latency_routing_policy
-    ~weighted_routing_policy () : aws_route53_record =
+    ?(alias = []) ?(cidr_routing_policy = [])
+    ?(failover_routing_policy = [])
+    ?(geolocation_routing_policy = [])
+    ?(geoproximity_routing_policy = [])
+    ?(latency_routing_policy = []) ?(weighted_routing_policy = [])
+    ~name ~type_ ~zone_id () : aws_route53_record =
   {
     allow_overwrite;
     health_check_id;
@@ -522,10 +524,12 @@ type t = {
 
 let make ?allow_overwrite ?health_check_id ?id
     ?multivalue_answer_routing_policy ?records ?set_identifier ?ttl
-    ~name ~type_ ~zone_id ~alias ~cidr_routing_policy
-    ~failover_routing_policy ~geolocation_routing_policy
-    ~geoproximity_routing_policy ~latency_routing_policy
-    ~weighted_routing_policy __id =
+    ?(alias = []) ?(cidr_routing_policy = [])
+    ?(failover_routing_policy = [])
+    ?(geolocation_routing_policy = [])
+    ?(geoproximity_routing_policy = [])
+    ?(latency_routing_policy = []) ?(weighted_routing_policy = [])
+    ~name ~type_ ~zone_id __id =
   let __type = "aws_route53_record" in
   let __attrs =
     ({
@@ -551,26 +555,28 @@ let make ?allow_overwrite ?health_check_id ?id
       yojson_of_aws_route53_record
         (aws_route53_record ?allow_overwrite ?health_check_id ?id
            ?multivalue_answer_routing_policy ?records ?set_identifier
-           ?ttl ~name ~type_ ~zone_id ~alias ~cidr_routing_policy
-           ~failover_routing_policy ~geolocation_routing_policy
-           ~geoproximity_routing_policy ~latency_routing_policy
-           ~weighted_routing_policy ());
+           ?ttl ~alias ~cidr_routing_policy ~failover_routing_policy
+           ~geolocation_routing_policy ~geoproximity_routing_policy
+           ~latency_routing_policy ~weighted_routing_policy ~name
+           ~type_ ~zone_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?allow_overwrite ?health_check_id ?id
     ?multivalue_answer_routing_policy ?records ?set_identifier ?ttl
-    ~name ~type_ ~zone_id ~alias ~cidr_routing_policy
-    ~failover_routing_policy ~geolocation_routing_policy
-    ~geoproximity_routing_policy ~latency_routing_policy
-    ~weighted_routing_policy __id =
+    ?(alias = []) ?(cidr_routing_policy = [])
+    ?(failover_routing_policy = [])
+    ?(geolocation_routing_policy = [])
+    ?(geoproximity_routing_policy = [])
+    ?(latency_routing_policy = []) ?(weighted_routing_policy = [])
+    ~name ~type_ ~zone_id __id =
   let (r : _ Tf_core.resource) =
     make ?allow_overwrite ?health_check_id ?id
       ?multivalue_answer_routing_policy ?records ?set_identifier ?ttl
-      ~name ~type_ ~zone_id ~alias ~cidr_routing_policy
-      ~failover_routing_policy ~geolocation_routing_policy
-      ~geoproximity_routing_policy ~latency_routing_policy
-      ~weighted_routing_policy __id
+      ~alias ~cidr_routing_policy ~failover_routing_policy
+      ~geolocation_routing_policy ~geoproximity_routing_policy
+      ~latency_routing_policy ~weighted_routing_policy ~name ~type_
+      ~zone_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

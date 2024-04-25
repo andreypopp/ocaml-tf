@@ -124,8 +124,8 @@ let identity ?identity_ids ~type_ () : identity =
 
 let timeouts ?read () : timeouts = { read }
 
-let azurerm_netapp_account ?id ?timeouts ~name ~resource_group_name
-    ~identity () : azurerm_netapp_account =
+let azurerm_netapp_account ?id ?(identity = []) ?timeouts ~name
+    ~resource_group_name () : azurerm_netapp_account =
   { id; name; resource_group_name; identity; timeouts }
 
 type t = {
@@ -136,7 +136,8 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?id ?timeouts ~name ~resource_group_name ~identity __id =
+let make ?id ?(identity = []) ?timeouts ~name ~resource_group_name
+    __id =
   let __type = "azurerm_netapp_account" in
   let __attrs =
     ({
@@ -154,15 +155,15 @@ let make ?id ?timeouts ~name ~resource_group_name ~identity __id =
     type_ = __type;
     json =
       yojson_of_azurerm_netapp_account
-        (azurerm_netapp_account ?id ?timeouts ~name
-           ~resource_group_name ~identity ());
+        (azurerm_netapp_account ?id ~identity ?timeouts ~name
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~name ~resource_group_name
-    ~identity __id =
+let register ?tf_module ?id ?(identity = []) ?timeouts ~name
+    ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~name ~resource_group_name ~identity __id
+    make ?id ~identity ?timeouts ~name ~resource_group_name __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

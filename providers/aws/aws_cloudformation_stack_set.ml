@@ -406,8 +406,9 @@ let timeouts ?update () : timeouts = { update }
 let aws_cloudformation_stack_set ?administration_role_arn ?call_as
     ?capabilities ?description ?execution_role_name ?id ?parameters
     ?permission_model ?tags ?tags_all ?template_body ?template_url
-    ?timeouts ~name ~auto_deployment ~managed_execution
-    ~operation_preferences () : aws_cloudformation_stack_set =
+    ?(auto_deployment = []) ?(managed_execution = [])
+    ?(operation_preferences = []) ?timeouts ~name () :
+    aws_cloudformation_stack_set =
   {
     administration_role_arn;
     call_as;
@@ -448,8 +449,9 @@ type t = {
 
 let make ?administration_role_arn ?call_as ?capabilities ?description
     ?execution_role_name ?id ?parameters ?permission_model ?tags
-    ?tags_all ?template_body ?template_url ?timeouts ~name
-    ~auto_deployment ~managed_execution ~operation_preferences __id =
+    ?tags_all ?template_body ?template_url ?(auto_deployment = [])
+    ?(managed_execution = []) ?(operation_preferences = []) ?timeouts
+    ~name __id =
   let __type = "aws_cloudformation_stack_set" in
   let __attrs =
     ({
@@ -482,8 +484,8 @@ let make ?administration_role_arn ?call_as ?capabilities ?description
         (aws_cloudformation_stack_set ?administration_role_arn
            ?call_as ?capabilities ?description ?execution_role_name
            ?id ?parameters ?permission_model ?tags ?tags_all
-           ?template_body ?template_url ?timeouts ~name
-           ~auto_deployment ~managed_execution ~operation_preferences
+           ?template_body ?template_url ~auto_deployment
+           ~managed_execution ~operation_preferences ?timeouts ~name
            ());
     attrs = __attrs;
   }
@@ -491,13 +493,13 @@ let make ?administration_role_arn ?call_as ?capabilities ?description
 let register ?tf_module ?administration_role_arn ?call_as
     ?capabilities ?description ?execution_role_name ?id ?parameters
     ?permission_model ?tags ?tags_all ?template_body ?template_url
-    ?timeouts ~name ~auto_deployment ~managed_execution
-    ~operation_preferences __id =
+    ?(auto_deployment = []) ?(managed_execution = [])
+    ?(operation_preferences = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
     make ?administration_role_arn ?call_as ?capabilities ?description
       ?execution_role_name ?id ?parameters ?permission_model ?tags
-      ?tags_all ?template_body ?template_url ?timeouts ~name
-      ~auto_deployment ~managed_execution ~operation_preferences __id
+      ?tags_all ?template_body ?template_url ~auto_deployment
+      ~managed_execution ~operation_preferences ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

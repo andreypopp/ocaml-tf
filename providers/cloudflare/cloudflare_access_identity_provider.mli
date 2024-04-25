@@ -58,10 +58,10 @@ val cloudflare_access_identity_provider :
   ?account_id:string prop ->
   ?id:string prop ->
   ?zone_id:string prop ->
+  ?config:config list ->
+  ?scim_config:scim_config list ->
   name:string prop ->
   type_:string prop ->
-  config:config list ->
-  scim_config:scim_config list ->
   unit ->
   cloudflare_access_identity_provider
 
@@ -83,10 +83,10 @@ val register :
   ?account_id:string prop ->
   ?id:string prop ->
   ?zone_id:string prop ->
+  ?config:config list ->
+  ?scim_config:scim_config list ->
   name:string prop ->
   type_:string prop ->
-  config:config list ->
-  scim_config:scim_config list ->
   string ->
   t
 
@@ -94,9 +94,9 @@ val make :
   ?account_id:string prop ->
   ?id:string prop ->
   ?zone_id:string prop ->
+  ?config:config list ->
+  ?scim_config:scim_config list ->
   name:string prop ->
   type_:string prop ->
-  config:config list ->
-  scim_config:scim_config list ->
   string ->
   t Tf_core.resource

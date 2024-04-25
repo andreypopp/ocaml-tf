@@ -19,10 +19,10 @@ type action
 val action :
   ?description:string prop ->
   ?start_after:string prop list ->
+  ?target:action__target list ->
   action_id:string prop ->
   name:string prop ->
   parameter:action__parameter list ->
-  target:action__target list ->
   unit ->
   action
 
@@ -44,10 +44,10 @@ val log_configuration__s3_configuration :
 type log_configuration
 
 val log_configuration :
-  log_schema_version:float prop ->
-  cloudwatch_logs_configuration:
+  ?cloudwatch_logs_configuration:
     log_configuration__cloudwatch_logs_configuration list ->
-  s3_configuration:log_configuration__s3_configuration list ->
+  ?s3_configuration:log_configuration__s3_configuration list ->
+  log_schema_version:float prop ->
   unit ->
   log_configuration
 
@@ -77,10 +77,10 @@ type target
 val target :
   ?parameters:(string * string prop) list ->
   ?resource_arns:string prop list ->
+  ?filter:target__filter list ->
   name:string prop ->
   resource_type:string prop ->
   selection_mode:string prop ->
-  filter:target__filter list ->
   resource_tag:target__resource_tag list ->
   unit ->
   target
@@ -100,11 +100,11 @@ val aws_fis_experiment_template :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?log_configuration:log_configuration list ->
   ?timeouts:timeouts ->
   description:string prop ->
   role_arn:string prop ->
   action:action list ->
-  log_configuration:log_configuration list ->
   stop_condition:stop_condition list ->
   target:target list ->
   unit ->
@@ -128,11 +128,11 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?log_configuration:log_configuration list ->
   ?timeouts:timeouts ->
   description:string prop ->
   role_arn:string prop ->
   action:action list ->
-  log_configuration:log_configuration list ->
   stop_condition:stop_condition list ->
   target:target list ->
   string ->
@@ -142,11 +142,11 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?log_configuration:log_configuration list ->
   ?timeouts:timeouts ->
   description:string prop ->
   role_arn:string prop ->
   action:action list ->
-  log_configuration:log_configuration list ->
   stop_condition:stop_condition list ->
   target:target list ->
   string ->

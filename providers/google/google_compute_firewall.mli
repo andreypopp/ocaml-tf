@@ -43,12 +43,12 @@ val google_compute_firewall :
   ?source_tags:string prop list ->
   ?target_service_accounts:string prop list ->
   ?target_tags:string prop list ->
+  ?log_config:log_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   network:string prop ->
   allow:allow list ->
   deny:deny list ->
-  log_config:log_config list ->
   unit ->
   google_compute_firewall
 
@@ -92,12 +92,12 @@ val register :
   ?source_tags:string prop list ->
   ?target_service_accounts:string prop list ->
   ?target_tags:string prop list ->
+  ?log_config:log_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   network:string prop ->
   allow:allow list ->
   deny:deny list ->
-  log_config:log_config list ->
   string ->
   t
 
@@ -115,11 +115,11 @@ val make :
   ?source_tags:string prop list ->
   ?target_service_accounts:string prop list ->
   ?target_tags:string prop list ->
+  ?log_config:log_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   network:string prop ->
   allow:allow list ->
   deny:deny list ->
-  log_config:log_config list ->
   string ->
   t Tf_core.resource

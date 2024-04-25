@@ -593,8 +593,8 @@ let criteria ?caller ?level ?levels ?operation_name
     ?recommendation_type ?resource_group ?resource_groups
     ?resource_id ?resource_ids ?resource_provider ?resource_providers
     ?resource_type ?resource_types ?status ?statuses ?sub_status
-    ?sub_statuses ~category ~resource_health ~service_health () :
-    criteria =
+    ?sub_statuses ?(resource_health = []) ?(service_health = [])
+    ~category () : criteria =
   {
     caller;
     category;
@@ -624,7 +624,7 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_monitor_activity_log_alert ?description ?enabled ?id
-    ?tags ?timeouts ~name ~resource_group_name ~scopes ~action
+    ?tags ?(action = []) ?timeouts ~name ~resource_group_name ~scopes
     ~criteria () : azurerm_monitor_activity_log_alert =
   {
     description;
@@ -649,8 +649,8 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?description ?enabled ?id ?tags ?timeouts ~name
-    ~resource_group_name ~scopes ~action ~criteria __id =
+let make ?description ?enabled ?id ?tags ?(action = []) ?timeouts
+    ~name ~resource_group_name ~scopes ~criteria __id =
   let __type = "azurerm_monitor_activity_log_alert" in
   let __attrs =
     ({
@@ -671,16 +671,17 @@ let make ?description ?enabled ?id ?tags ?timeouts ~name
     json =
       yojson_of_azurerm_monitor_activity_log_alert
         (azurerm_monitor_activity_log_alert ?description ?enabled ?id
-           ?tags ?timeouts ~name ~resource_group_name ~scopes ~action
+           ?tags ~action ?timeouts ~name ~resource_group_name ~scopes
            ~criteria ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?enabled ?id ?tags ?timeouts
-    ~name ~resource_group_name ~scopes ~action ~criteria __id =
+let register ?tf_module ?description ?enabled ?id ?tags
+    ?(action = []) ?timeouts ~name ~resource_group_name ~scopes
+    ~criteria __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?enabled ?id ?tags ?timeouts ~name
-      ~resource_group_name ~scopes ~action ~criteria __id
+    make ?description ?enabled ?id ?tags ~action ?timeouts ~name
+      ~resource_group_name ~scopes ~criteria __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

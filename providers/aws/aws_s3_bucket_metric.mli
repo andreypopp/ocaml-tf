@@ -17,9 +17,9 @@ type aws_s3_bucket_metric
 
 val aws_s3_bucket_metric :
   ?id:string prop ->
+  ?filter:filter list ->
   bucket:string prop ->
   name:string prop ->
-  filter:filter list ->
   unit ->
   aws_s3_bucket_metric
 
@@ -36,16 +36,16 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?filter:filter list ->
   bucket:string prop ->
   name:string prop ->
-  filter:filter list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?filter:filter list ->
   bucket:string prop ->
   name:string prop ->
-  filter:filter list ->
   string ->
   t Tf_core.resource

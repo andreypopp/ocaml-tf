@@ -287,8 +287,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_data_factory_linked_service_azure_file_storage
     ?additional_properties ?annotations ?description ?file_share
     ?host ?id ?integration_runtime_name ?parameters ?password
-    ?user_id ?timeouts ~connection_string ~data_factory_id ~name
-    ~key_vault_password () :
+    ?user_id ?(key_vault_password = []) ?timeouts ~connection_string
+    ~data_factory_id ~name () :
     azurerm_data_factory_linked_service_azure_file_storage =
   {
     additional_properties;
@@ -326,8 +326,8 @@ type t = {
 
 let make ?additional_properties ?annotations ?description ?file_share
     ?host ?id ?integration_runtime_name ?parameters ?password
-    ?user_id ?timeouts ~connection_string ~data_factory_id ~name
-    ~key_vault_password __id =
+    ?user_id ?(key_vault_password = []) ?timeouts ~connection_string
+    ~data_factory_id ~name __id =
   let __type =
     "azurerm_data_factory_linked_service_azure_file_storage"
   in
@@ -360,21 +360,20 @@ let make ?additional_properties ?annotations ?description ?file_share
         (azurerm_data_factory_linked_service_azure_file_storage
            ?additional_properties ?annotations ?description
            ?file_share ?host ?id ?integration_runtime_name
-           ?parameters ?password ?user_id ?timeouts
-           ~connection_string ~data_factory_id ~name
-           ~key_vault_password ());
+           ?parameters ?password ?user_id ~key_vault_password
+           ?timeouts ~connection_string ~data_factory_id ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?additional_properties ?annotations
     ?description ?file_share ?host ?id ?integration_runtime_name
-    ?parameters ?password ?user_id ?timeouts ~connection_string
-    ~data_factory_id ~name ~key_vault_password __id =
+    ?parameters ?password ?user_id ?(key_vault_password = [])
+    ?timeouts ~connection_string ~data_factory_id ~name __id =
   let (r : _ Tf_core.resource) =
     make ?additional_properties ?annotations ?description ?file_share
       ?host ?id ?integration_runtime_name ?parameters ?password
-      ?user_id ?timeouts ~connection_string ~data_factory_id ~name
-      ~key_vault_password __id
+      ?user_id ~key_vault_password ?timeouts ~connection_string
+      ~data_factory_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -23,7 +23,7 @@ val authorization__admin_users :
 type authorization
 
 val authorization :
-  admin_groups:authorization__admin_groups list ->
+  ?admin_groups:authorization__admin_groups list ->
   admin_users:authorization__admin_users list ->
   unit ->
   authorization
@@ -94,6 +94,10 @@ val control_plane :
   ?instance_type:string prop ->
   ?security_group_ids:string prop list ->
   ?tags:(string * string prop) list ->
+  ?main_volume:control_plane__main_volume list ->
+  ?proxy_config:control_plane__proxy_config list ->
+  ?root_volume:control_plane__root_volume list ->
+  ?ssh_config:control_plane__ssh_config list ->
   iam_instance_profile:string prop ->
   subnet_ids:string prop list ->
   version:string prop ->
@@ -101,10 +105,6 @@ val control_plane :
     control_plane__aws_services_authentication list ->
   config_encryption:control_plane__config_encryption list ->
   database_encryption:control_plane__database_encryption list ->
-  main_volume:control_plane__main_volume list ->
-  proxy_config:control_plane__proxy_config list ->
-  root_volume:control_plane__root_volume list ->
-  ssh_config:control_plane__ssh_config list ->
   unit ->
   control_plane
 
@@ -138,12 +138,12 @@ val google_container_aws_cluster :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?binary_authorization:binary_authorization list ->
   ?timeouts:timeouts ->
   aws_region:string prop ->
   location:string prop ->
   name:string prop ->
   authorization:authorization list ->
-  binary_authorization:binary_authorization list ->
   control_plane:control_plane list ->
   fleet:fleet list ->
   networking:networking list ->
@@ -180,12 +180,12 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?binary_authorization:binary_authorization list ->
   ?timeouts:timeouts ->
   aws_region:string prop ->
   location:string prop ->
   name:string prop ->
   authorization:authorization list ->
-  binary_authorization:binary_authorization list ->
   control_plane:control_plane list ->
   fleet:fleet list ->
   networking:networking list ->
@@ -197,12 +197,12 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?binary_authorization:binary_authorization list ->
   ?timeouts:timeouts ->
   aws_region:string prop ->
   location:string prop ->
   name:string prop ->
   authorization:authorization list ->
-  binary_authorization:binary_authorization list ->
   control_plane:control_plane list ->
   fleet:fleet list ->
   networking:networking list ->

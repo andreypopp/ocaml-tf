@@ -38,8 +38,8 @@ val kubernetes :
   ?tls_server_name:string prop ->
   ?token:string prop ->
   ?username:string prop ->
-  exec:exec list ->
-  experiments:experiments list ->
+  ?exec:exec list ->
+  ?experiments:experiments list ->
   unit ->
   kubernetes
 
@@ -66,8 +66,8 @@ val register :
   ?tls_server_name:string prop ->
   ?token:string prop ->
   ?username:string prop ->
-  exec:exec list ->
-  experiments:experiments list ->
+  ?exec:exec list ->
+  ?experiments:experiments list ->
   version:string ->
   unit ->
   unit
@@ -90,7 +90,7 @@ val make :
   ?tls_server_name:string prop ->
   ?token:string prop ->
   ?username:string prop ->
-  exec:exec list ->
-  experiments:experiments list ->
+  ?exec:exec list ->
+  ?experiments:experiments list ->
   unit ->
   Tf_core.provider

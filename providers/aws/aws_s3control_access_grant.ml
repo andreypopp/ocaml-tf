@@ -164,8 +164,8 @@ let grantee ~grantee_identifier ~grantee_type () : grantee =
   { grantee_identifier; grantee_type }
 
 let aws_s3control_access_grant ?account_id ?s3_prefix_type ?tags
-    ~access_grants_location_id ~permission
-    ~access_grants_location_configuration ~grantee () :
+    ?(access_grants_location_configuration = []) ?(grantee = [])
+    ~access_grants_location_id ~permission () :
     aws_s3control_access_grant =
   {
     access_grants_location_id;
@@ -190,8 +190,9 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?account_id ?s3_prefix_type ?tags ~access_grants_location_id
-    ~permission ~access_grants_location_configuration ~grantee __id =
+let make ?account_id ?s3_prefix_type ?tags
+    ?(access_grants_location_configuration = []) ?(grantee = [])
+    ~access_grants_location_id ~permission __id =
   let __type = "aws_s3control_access_grant" in
   let __attrs =
     ({
@@ -216,17 +217,18 @@ let make ?account_id ?s3_prefix_type ?tags ~access_grants_location_id
     json =
       yojson_of_aws_s3control_access_grant
         (aws_s3control_access_grant ?account_id ?s3_prefix_type ?tags
-           ~access_grants_location_id ~permission
-           ~access_grants_location_configuration ~grantee ());
+           ~access_grants_location_configuration ~grantee
+           ~access_grants_location_id ~permission ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?account_id ?s3_prefix_type ?tags
-    ~access_grants_location_id ~permission
-    ~access_grants_location_configuration ~grantee __id =
+    ?(access_grants_location_configuration = []) ?(grantee = [])
+    ~access_grants_location_id ~permission __id =
   let (r : _ Tf_core.resource) =
-    make ?account_id ?s3_prefix_type ?tags ~access_grants_location_id
-      ~permission ~access_grants_location_configuration ~grantee __id
+    make ?account_id ?s3_prefix_type ?tags
+      ~access_grants_location_configuration ~grantee
+      ~access_grants_location_id ~permission __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

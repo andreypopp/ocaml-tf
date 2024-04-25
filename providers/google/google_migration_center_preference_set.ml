@@ -561,13 +561,13 @@ let virtual_machine_preferences__compute_engine_preferences__machine_preferences
   { code }
 
 let virtual_machine_preferences__compute_engine_preferences__machine_preferences
-    ~allowed_machine_series () :
+    ?(allowed_machine_series = []) () :
     virtual_machine_preferences__compute_engine_preferences__machine_preferences
     =
   { allowed_machine_series }
 
 let virtual_machine_preferences__compute_engine_preferences
-    ?license_type ~machine_preferences () :
+    ?license_type ?(machine_preferences = []) () :
     virtual_machine_preferences__compute_engine_preferences =
   { license_type; machine_preferences }
 
@@ -584,7 +584,7 @@ let virtual_machine_preferences__sole_tenancy_preferences__node_types
 
 let virtual_machine_preferences__sole_tenancy_preferences
     ?commitment_plan ?cpu_overcommit_ratio ?host_maintenance_policy
-    ~node_types () :
+    ?(node_types = []) () :
     virtual_machine_preferences__sole_tenancy_preferences =
   {
     commitment_plan;
@@ -606,8 +606,9 @@ let virtual_machine_preferences__vmware_engine_preferences
 
 let virtual_machine_preferences ?commitment_plan
     ?sizing_optimization_strategy ?target_product
-    ~compute_engine_preferences ~region_preferences
-    ~sole_tenancy_preferences ~vmware_engine_preferences () :
+    ?(compute_engine_preferences = []) ?(region_preferences = [])
+    ?(sole_tenancy_preferences = [])
+    ?(vmware_engine_preferences = []) () :
     virtual_machine_preferences =
   {
     commitment_plan;
@@ -620,8 +621,8 @@ let virtual_machine_preferences ?commitment_plan
   }
 
 let google_migration_center_preference_set ?description ?display_name
-    ?id ?project ?timeouts ~location ~preference_set_id
-    ~virtual_machine_preferences () :
+    ?id ?project ?timeouts ?(virtual_machine_preferences = [])
+    ~location ~preference_set_id () :
     google_migration_center_preference_set =
   {
     description;
@@ -646,8 +647,9 @@ type t = {
   update_time : string prop;
 }
 
-let make ?description ?display_name ?id ?project ?timeouts ~location
-    ~preference_set_id ~virtual_machine_preferences __id =
+let make ?description ?display_name ?id ?project ?timeouts
+    ?(virtual_machine_preferences = []) ~location ~preference_set_id
+    __id =
   let __type = "google_migration_center_preference_set" in
   let __attrs =
     ({
@@ -670,17 +672,18 @@ let make ?description ?display_name ?id ?project ?timeouts ~location
     json =
       yojson_of_google_migration_center_preference_set
         (google_migration_center_preference_set ?description
-           ?display_name ?id ?project ?timeouts ~location
-           ~preference_set_id ~virtual_machine_preferences ());
+           ?display_name ?id ?project ?timeouts
+           ~virtual_machine_preferences ~location ~preference_set_id
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?display_name ?id ?project
-    ?timeouts ~location ~preference_set_id
-    ~virtual_machine_preferences __id =
+    ?timeouts ?(virtual_machine_preferences = []) ~location
+    ~preference_set_id __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?display_name ?id ?project ?timeouts ~location
-      ~preference_set_id ~virtual_machine_preferences __id
+    make ?description ?display_name ?id ?project ?timeouts
+      ~virtual_machine_preferences ~location ~preference_set_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

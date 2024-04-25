@@ -48,9 +48,9 @@ val query_arg_profile_config__query_arg_profiles :
 type query_arg_profile_config
 
 val query_arg_profile_config :
-  forward_when_query_arg_profile_is_unknown:bool prop ->
-  query_arg_profiles:
+  ?query_arg_profiles:
     query_arg_profile_config__query_arg_profiles list ->
+  forward_when_query_arg_profile_is_unknown:bool prop ->
   unit ->
   query_arg_profile_config
 

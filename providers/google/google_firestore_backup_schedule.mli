@@ -27,10 +27,10 @@ val google_firestore_backup_schedule :
   ?database:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?daily_recurrence:daily_recurrence list ->
   ?timeouts:timeouts ->
+  ?weekly_recurrence:weekly_recurrence list ->
   retention:string prop ->
-  daily_recurrence:daily_recurrence list ->
-  weekly_recurrence:weekly_recurrence list ->
   unit ->
   google_firestore_backup_schedule
 
@@ -52,10 +52,10 @@ val register :
   ?database:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?daily_recurrence:daily_recurrence list ->
   ?timeouts:timeouts ->
+  ?weekly_recurrence:weekly_recurrence list ->
   retention:string prop ->
-  daily_recurrence:daily_recurrence list ->
-  weekly_recurrence:weekly_recurrence list ->
   string ->
   t
 
@@ -63,9 +63,9 @@ val make :
   ?database:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?daily_recurrence:daily_recurrence list ->
   ?timeouts:timeouts ->
+  ?weekly_recurrence:weekly_recurrence list ->
   retention:string prop ->
-  daily_recurrence:daily_recurrence list ->
-  weekly_recurrence:weekly_recurrence list ->
   string ->
   t Tf_core.resource

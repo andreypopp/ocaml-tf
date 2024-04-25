@@ -28,9 +28,9 @@ type cleanup_policies
 
 val cleanup_policies :
   ?action:string prop ->
+  ?condition:cleanup_policies__condition list ->
+  ?most_recent_versions:cleanup_policies__most_recent_versions list ->
   id:string prop ->
-  condition:cleanup_policies__condition list ->
-  most_recent_versions:cleanup_policies__most_recent_versions list ->
   unit ->
   cleanup_policies
 
@@ -58,7 +58,7 @@ val remote_repository_config__apt_repository__public_repository :
 type remote_repository_config__apt_repository
 
 val remote_repository_config__apt_repository :
-  public_repository:
+  ?public_repository:
     remote_repository_config__apt_repository__public_repository list ->
   unit ->
   remote_repository_config__apt_repository
@@ -102,7 +102,7 @@ val remote_repository_config__upstream_credentials__username_password_credential
 type remote_repository_config__upstream_credentials
 
 val remote_repository_config__upstream_credentials :
-  username_password_credentials:
+  ?username_password_credentials:
     remote_repository_config__upstream_credentials__username_password_credentials
     list ->
   unit ->
@@ -119,7 +119,7 @@ val remote_repository_config__yum_repository__public_repository :
 type remote_repository_config__yum_repository
 
 val remote_repository_config__yum_repository :
-  public_repository:
+  ?public_repository:
     remote_repository_config__yum_repository__public_repository list ->
   unit ->
   remote_repository_config__yum_repository
@@ -128,14 +128,14 @@ type remote_repository_config
 
 val remote_repository_config :
   ?description:string prop ->
-  apt_repository:remote_repository_config__apt_repository list ->
-  docker_repository:remote_repository_config__docker_repository list ->
-  maven_repository:remote_repository_config__maven_repository list ->
-  npm_repository:remote_repository_config__npm_repository list ->
-  python_repository:remote_repository_config__python_repository list ->
-  upstream_credentials:
+  ?apt_repository:remote_repository_config__apt_repository list ->
+  ?docker_repository:remote_repository_config__docker_repository list ->
+  ?maven_repository:remote_repository_config__maven_repository list ->
+  ?npm_repository:remote_repository_config__npm_repository list ->
+  ?python_repository:remote_repository_config__python_repository list ->
+  ?upstream_credentials:
     remote_repository_config__upstream_credentials list ->
-  yum_repository:remote_repository_config__yum_repository list ->
+  ?yum_repository:remote_repository_config__yum_repository list ->
   unit ->
   remote_repository_config
 
@@ -160,7 +160,8 @@ val virtual_repository_config__upstream_policies :
 type virtual_repository_config
 
 val virtual_repository_config :
-  upstream_policies:virtual_repository_config__upstream_policies list ->
+  ?upstream_policies:
+    virtual_repository_config__upstream_policies list ->
   unit ->
   virtual_repository_config
 
@@ -175,14 +176,14 @@ val google_artifact_registry_repository :
   ?location:string prop ->
   ?mode:string prop ->
   ?project:string prop ->
+  ?docker_config:docker_config list ->
+  ?maven_config:maven_config list ->
+  ?remote_repository_config:remote_repository_config list ->
   ?timeouts:timeouts ->
+  ?virtual_repository_config:virtual_repository_config list ->
   format:string prop ->
   repository_id:string prop ->
   cleanup_policies:cleanup_policies list ->
-  docker_config:docker_config list ->
-  maven_config:maven_config list ->
-  remote_repository_config:remote_repository_config list ->
-  virtual_repository_config:virtual_repository_config list ->
   unit ->
   google_artifact_registry_repository
 
@@ -219,14 +220,14 @@ val register :
   ?location:string prop ->
   ?mode:string prop ->
   ?project:string prop ->
+  ?docker_config:docker_config list ->
+  ?maven_config:maven_config list ->
+  ?remote_repository_config:remote_repository_config list ->
   ?timeouts:timeouts ->
+  ?virtual_repository_config:virtual_repository_config list ->
   format:string prop ->
   repository_id:string prop ->
   cleanup_policies:cleanup_policies list ->
-  docker_config:docker_config list ->
-  maven_config:maven_config list ->
-  remote_repository_config:remote_repository_config list ->
-  virtual_repository_config:virtual_repository_config list ->
   string ->
   t
 
@@ -239,13 +240,13 @@ val make :
   ?location:string prop ->
   ?mode:string prop ->
   ?project:string prop ->
+  ?docker_config:docker_config list ->
+  ?maven_config:maven_config list ->
+  ?remote_repository_config:remote_repository_config list ->
   ?timeouts:timeouts ->
+  ?virtual_repository_config:virtual_repository_config list ->
   format:string prop ->
   repository_id:string prop ->
   cleanup_policies:cleanup_policies list ->
-  docker_config:docker_config list ->
-  maven_config:maven_config list ->
-  remote_repository_config:remote_repository_config list ->
-  virtual_repository_config:virtual_repository_config list ->
   string ->
   t Tf_core.resource

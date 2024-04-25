@@ -352,9 +352,9 @@ let vpc_configuration ~security_group_ids ~subnet_ids () :
 let aws_grafana_workspace ?configuration ?data_sources ?description
     ?grafana_version ?id ?name ?notification_destinations
     ?organization_role_name ?organizational_units ?role_arn
-    ?stack_set_name ?tags ?tags_all ?timeouts ~account_access_type
-    ~authentication_providers ~permission_type
-    ~network_access_control ~vpc_configuration () :
+    ?stack_set_name ?tags ?tags_all ?(network_access_control = [])
+    ?timeouts ?(vpc_configuration = []) ~account_access_type
+    ~authentication_providers ~permission_type () :
     aws_grafana_workspace =
   {
     account_access_type;
@@ -403,9 +403,9 @@ type t = {
 let make ?configuration ?data_sources ?description ?grafana_version
     ?id ?name ?notification_destinations ?organization_role_name
     ?organizational_units ?role_arn ?stack_set_name ?tags ?tags_all
-    ?timeouts ~account_access_type ~authentication_providers
-    ~permission_type ~network_access_control ~vpc_configuration __id
-    =
+    ?(network_access_control = []) ?timeouts
+    ?(vpc_configuration = []) ~account_access_type
+    ~authentication_providers ~permission_type __id =
   let __type = "aws_grafana_workspace" in
   let __attrs =
     ({
@@ -446,24 +446,24 @@ let make ?configuration ?data_sources ?description ?grafana_version
            ?description ?grafana_version ?id ?name
            ?notification_destinations ?organization_role_name
            ?organizational_units ?role_arn ?stack_set_name ?tags
-           ?tags_all ?timeouts ~account_access_type
-           ~authentication_providers ~permission_type
-           ~network_access_control ~vpc_configuration ());
+           ?tags_all ~network_access_control ?timeouts
+           ~vpc_configuration ~account_access_type
+           ~authentication_providers ~permission_type ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?configuration ?data_sources ?description
     ?grafana_version ?id ?name ?notification_destinations
     ?organization_role_name ?organizational_units ?role_arn
-    ?stack_set_name ?tags ?tags_all ?timeouts ~account_access_type
-    ~authentication_providers ~permission_type
-    ~network_access_control ~vpc_configuration __id =
+    ?stack_set_name ?tags ?tags_all ?(network_access_control = [])
+    ?timeouts ?(vpc_configuration = []) ~account_access_type
+    ~authentication_providers ~permission_type __id =
   let (r : _ Tf_core.resource) =
     make ?configuration ?data_sources ?description ?grafana_version
       ?id ?name ?notification_destinations ?organization_role_name
       ?organizational_units ?role_arn ?stack_set_name ?tags ?tags_all
-      ?timeouts ~account_access_type ~authentication_providers
-      ~permission_type ~network_access_control ~vpc_configuration
+      ~network_access_control ?timeouts ~vpc_configuration
+      ~account_access_type ~authentication_providers ~permission_type
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

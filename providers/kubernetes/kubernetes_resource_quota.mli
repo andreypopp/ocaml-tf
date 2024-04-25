@@ -27,7 +27,7 @@ val spec__scope_selector__match_expression :
 type spec__scope_selector
 
 val spec__scope_selector :
-  match_expression:spec__scope_selector__match_expression list ->
+  ?match_expression:spec__scope_selector__match_expression list ->
   unit ->
   spec__scope_selector
 
@@ -36,7 +36,7 @@ type spec
 val spec :
   ?hard:(string * string prop) list ->
   ?scopes:string prop list ->
-  scope_selector:spec__scope_selector list ->
+  ?scope_selector:spec__scope_selector list ->
   unit ->
   spec
 
@@ -49,9 +49,9 @@ type kubernetes_resource_quota
 
 val kubernetes_resource_quota :
   ?id:string prop ->
+  ?spec:spec list ->
   ?timeouts:timeouts ->
   metadata:metadata list ->
-  spec:spec list ->
   unit ->
   kubernetes_resource_quota
 
@@ -65,16 +65,16 @@ type t = private { id : string prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?spec:spec list ->
   ?timeouts:timeouts ->
   metadata:metadata list ->
-  spec:spec list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?spec:spec list ->
   ?timeouts:timeouts ->
   metadata:metadata list ->
-  spec:spec list ->
   string ->
   t Tf_core.resource

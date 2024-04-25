@@ -36,11 +36,11 @@ val compute_resources :
   ?security_group_ids:string prop list ->
   ?spot_iam_fleet_role:string prop ->
   ?tags:(string * string prop) list ->
+  ?ec2_configuration:compute_resources__ec2_configuration list ->
+  ?launch_template:compute_resources__launch_template list ->
   max_vcpus:float prop ->
   subnets:string prop list ->
   type_:string prop ->
-  ec2_configuration:compute_resources__ec2_configuration list ->
-  launch_template:compute_resources__launch_template list ->
   unit ->
   compute_resources
 
@@ -70,10 +70,10 @@ val aws_batch_compute_environment :
   ?state:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?compute_resources:compute_resources list ->
+  ?eks_configuration:eks_configuration list ->
+  ?update_policy:update_policy list ->
   type_:string prop ->
-  compute_resources:compute_resources list ->
-  eks_configuration:eks_configuration list ->
-  update_policy:update_policy list ->
   unit ->
   aws_batch_compute_environment
 
@@ -106,10 +106,10 @@ val register :
   ?state:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?compute_resources:compute_resources list ->
+  ?eks_configuration:eks_configuration list ->
+  ?update_policy:update_policy list ->
   type_:string prop ->
-  compute_resources:compute_resources list ->
-  eks_configuration:eks_configuration list ->
-  update_policy:update_policy list ->
   string ->
   t
 
@@ -121,9 +121,9 @@ val make :
   ?state:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?compute_resources:compute_resources list ->
+  ?eks_configuration:eks_configuration list ->
+  ?update_policy:update_policy list ->
   type_:string prop ->
-  compute_resources:compute_resources list ->
-  eks_configuration:eks_configuration list ->
-  update_policy:update_policy list ->
   string ->
   t Tf_core.resource

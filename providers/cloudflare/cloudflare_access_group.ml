@@ -1697,8 +1697,9 @@ let exclude__saml ?attribute_name ?attribute_value
 
 let exclude ?any_valid_service_token ?auth_method ?certificate
     ?common_name ?device_posture ?email ?email_domain ?everyone ?geo
-    ?group ?ip ?ip_list ?login_method ?service_token ~auth_context
-    ~azure ~external_evaluation ~github ~gsuite ~okta ~saml () :
+    ?group ?ip ?ip_list ?login_method ?service_token
+    ?(auth_context = []) ?(azure = []) ?(external_evaluation = [])
+    ?(github = []) ?(gsuite = []) ?(okta = []) ?(saml = []) () :
     exclude =
   {
     any_valid_service_token;
@@ -1752,8 +1753,9 @@ let include__saml ?attribute_name ?attribute_value
 
 let include_ ?any_valid_service_token ?auth_method ?certificate
     ?common_name ?device_posture ?email ?email_domain ?everyone ?geo
-    ?group ?ip ?ip_list ?login_method ?service_token ~auth_context
-    ~azure ~external_evaluation ~github ~gsuite ~okta ~saml () :
+    ?group ?ip ?ip_list ?login_method ?service_token
+    ?(auth_context = []) ?(azure = []) ?(external_evaluation = [])
+    ?(github = []) ?(gsuite = []) ?(okta = []) ?(saml = []) () :
     include_ =
   {
     any_valid_service_token;
@@ -1807,8 +1809,9 @@ let require__saml ?attribute_name ?attribute_value
 
 let require ?any_valid_service_token ?auth_method ?certificate
     ?common_name ?device_posture ?email ?email_domain ?everyone ?geo
-    ?group ?ip ?ip_list ?login_method ?service_token ~auth_context
-    ~azure ~external_evaluation ~github ~gsuite ~okta ~saml () :
+    ?group ?ip ?ip_list ?login_method ?service_token
+    ?(auth_context = []) ?(azure = []) ?(external_evaluation = [])
+    ?(github = []) ?(gsuite = []) ?(okta = []) ?(saml = []) () :
     require =
   {
     any_valid_service_token;
@@ -1834,8 +1837,8 @@ let require ?any_valid_service_token ?auth_method ?certificate
     saml;
   }
 
-let cloudflare_access_group ?account_id ?id ?zone_id ~name ~exclude
-    ~include_ ~require () : cloudflare_access_group =
+let cloudflare_access_group ?account_id ?id ?zone_id ?(exclude = [])
+    ?(require = []) ~name ~include_ () : cloudflare_access_group =
   { account_id; id; name; zone_id; exclude; include_; require }
 
 type t = {
@@ -1845,8 +1848,8 @@ type t = {
   zone_id : string prop;
 }
 
-let make ?account_id ?id ?zone_id ~name ~exclude ~include_ ~require
-    __id =
+let make ?account_id ?id ?zone_id ?(exclude = []) ?(require = [])
+    ~name ~include_ __id =
   let __type = "cloudflare_access_group" in
   let __attrs =
     ({
@@ -1862,15 +1865,15 @@ let make ?account_id ?id ?zone_id ~name ~exclude ~include_ ~require
     type_ = __type;
     json =
       yojson_of_cloudflare_access_group
-        (cloudflare_access_group ?account_id ?id ?zone_id ~name
-           ~exclude ~include_ ~require ());
+        (cloudflare_access_group ?account_id ?id ?zone_id ~exclude
+           ~require ~name ~include_ ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?account_id ?id ?zone_id ~name ~exclude
-    ~include_ ~require __id =
+let register ?tf_module ?account_id ?id ?zone_id ?(exclude = [])
+    ?(require = []) ~name ~include_ __id =
   let (r : _ Tf_core.resource) =
-    make ?account_id ?id ?zone_id ~name ~exclude ~include_ ~require
+    make ?account_id ?id ?zone_id ~exclude ~require ~name ~include_
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

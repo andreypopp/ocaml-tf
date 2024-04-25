@@ -227,8 +227,8 @@ let auto_scaling_group_provider__managed_scaling
   }
 
 let auto_scaling_group_provider ?managed_draining
-    ?managed_termination_protection ~auto_scaling_group_arn
-    ~managed_scaling () : auto_scaling_group_provider =
+    ?managed_termination_protection ?(managed_scaling = [])
+    ~auto_scaling_group_arn () : auto_scaling_group_provider =
   {
     auto_scaling_group_arn;
     managed_draining;

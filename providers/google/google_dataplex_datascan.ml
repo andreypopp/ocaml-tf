@@ -1117,12 +1117,13 @@ let data_profile_spec__post_scan_actions__bigquery_export
     data_profile_spec__post_scan_actions__bigquery_export =
   { results_table }
 
-let data_profile_spec__post_scan_actions ~bigquery_export () :
+let data_profile_spec__post_scan_actions ?(bigquery_export = []) () :
     data_profile_spec__post_scan_actions =
   { bigquery_export }
 
-let data_profile_spec ?row_filter ?sampling_percent ~exclude_fields
-    ~include_fields ~post_scan_actions () : data_profile_spec =
+let data_profile_spec ?row_filter ?sampling_percent
+    ?(exclude_fields = []) ?(include_fields = [])
+    ?(post_scan_actions = []) () : data_profile_spec =
   {
     row_filter;
     sampling_percent;
@@ -1136,7 +1137,7 @@ let data_quality_spec__post_scan_actions__bigquery_export
     data_quality_spec__post_scan_actions__bigquery_export =
   { results_table }
 
-let data_quality_spec__post_scan_actions ~bigquery_export () :
+let data_quality_spec__post_scan_actions ?(bigquery_export = []) () :
     data_quality_spec__post_scan_actions =
   { bigquery_export }
 
@@ -1179,10 +1180,12 @@ let data_quality_spec__rules__table_condition_expectation
 let data_quality_spec__rules__uniqueness_expectation () = ()
 
 let data_quality_spec__rules ?column ?description ?ignore_null ?name
-    ?threshold ~dimension ~non_null_expectation ~range_expectation
-    ~regex_expectation ~row_condition_expectation ~set_expectation
-    ~statistic_range_expectation ~table_condition_expectation
-    ~uniqueness_expectation () : data_quality_spec__rules =
+    ?threshold ?(non_null_expectation = []) ?(range_expectation = [])
+    ?(regex_expectation = []) ?(row_condition_expectation = [])
+    ?(set_expectation = []) ?(statistic_range_expectation = [])
+    ?(table_condition_expectation = [])
+    ?(uniqueness_expectation = []) ~dimension () :
+    data_quality_spec__rules =
   {
     column;
     description;
@@ -1201,7 +1204,7 @@ let data_quality_spec__rules ?column ?description ?ignore_null ?name
   }
 
 let data_quality_spec ?row_filter ?sampling_percent
-    ~post_scan_actions ~rules () : data_quality_spec =
+    ?(post_scan_actions = []) ?(rules = []) () : data_quality_spec =
   { row_filter; sampling_percent; post_scan_actions; rules }
 
 let execution_spec__trigger__on_demand () = ()
@@ -1210,7 +1213,7 @@ let execution_spec__trigger__schedule ~cron () :
     execution_spec__trigger__schedule =
   { cron }
 
-let execution_spec__trigger ~on_demand ~schedule () :
+let execution_spec__trigger ?(on_demand = []) ?(schedule = []) () :
     execution_spec__trigger =
   { on_demand; schedule }
 
@@ -1221,8 +1224,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_dataplex_datascan ?description ?display_name ?id ?labels
-    ?project ?timeouts ~data_scan_id ~location ~data
-    ~data_profile_spec ~data_quality_spec ~execution_spec () :
+    ?project ?(data_profile_spec = []) ?(data_quality_spec = [])
+    ?timeouts ~data_scan_id ~location ~data ~execution_spec () :
     google_dataplex_datascan =
   {
     data_scan_id;
@@ -1258,9 +1261,9 @@ type t = {
   update_time : string prop;
 }
 
-let make ?description ?display_name ?id ?labels ?project ?timeouts
-    ~data_scan_id ~location ~data ~data_profile_spec
-    ~data_quality_spec ~execution_spec __id =
+let make ?description ?display_name ?id ?labels ?project
+    ?(data_profile_spec = []) ?(data_quality_spec = []) ?timeouts
+    ~data_scan_id ~location ~data ~execution_spec __id =
   let __type = "google_dataplex_datascan" in
   let __attrs =
     ({
@@ -1292,18 +1295,18 @@ let make ?description ?display_name ?id ?labels ?project ?timeouts
     json =
       yojson_of_google_dataplex_datascan
         (google_dataplex_datascan ?description ?display_name ?id
-           ?labels ?project ?timeouts ~data_scan_id ~location ~data
-           ~data_profile_spec ~data_quality_spec ~execution_spec ());
+           ?labels ?project ~data_profile_spec ~data_quality_spec
+           ?timeouts ~data_scan_id ~location ~data ~execution_spec ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?display_name ?id ?labels
-    ?project ?timeouts ~data_scan_id ~location ~data
-    ~data_profile_spec ~data_quality_spec ~execution_spec __id =
+    ?project ?(data_profile_spec = []) ?(data_quality_spec = [])
+    ?timeouts ~data_scan_id ~location ~data ~execution_spec __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?display_name ?id ?labels ?project ?timeouts
-      ~data_scan_id ~location ~data ~data_profile_spec
-      ~data_quality_spec ~execution_spec __id
+    make ?description ?display_name ?id ?labels ?project
+      ~data_profile_spec ~data_quality_spec ?timeouts ~data_scan_id
+      ~location ~data ~execution_spec __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

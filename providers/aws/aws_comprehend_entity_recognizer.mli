@@ -47,10 +47,10 @@ type input_data_config
 
 val input_data_config :
   ?data_format:string prop ->
-  annotations:input_data_config__annotations list ->
+  ?annotations:input_data_config__annotations list ->
+  ?documents:input_data_config__documents list ->
+  ?entity_list:input_data_config__entity_list list ->
   augmented_manifests:input_data_config__augmented_manifests list ->
-  documents:input_data_config__documents list ->
-  entity_list:input_data_config__entity_list list ->
   entity_types:input_data_config__entity_types list ->
   unit ->
   input_data_config
@@ -83,11 +83,11 @@ val aws_comprehend_entity_recognizer :
   ?version_name_prefix:string prop ->
   ?volume_kms_key_id:string prop ->
   ?timeouts:timeouts ->
+  ?vpc_config:vpc_config list ->
   data_access_role_arn:string prop ->
   language_code:string prop ->
   name:string prop ->
   input_data_config:input_data_config list ->
-  vpc_config:vpc_config list ->
   unit ->
   aws_comprehend_entity_recognizer
 
@@ -120,11 +120,11 @@ val register :
   ?version_name_prefix:string prop ->
   ?volume_kms_key_id:string prop ->
   ?timeouts:timeouts ->
+  ?vpc_config:vpc_config list ->
   data_access_role_arn:string prop ->
   language_code:string prop ->
   name:string prop ->
   input_data_config:input_data_config list ->
-  vpc_config:vpc_config list ->
   string ->
   t
 
@@ -137,10 +137,10 @@ val make :
   ?version_name_prefix:string prop ->
   ?volume_kms_key_id:string prop ->
   ?timeouts:timeouts ->
+  ?vpc_config:vpc_config list ->
   data_access_role_arn:string prop ->
   language_code:string prop ->
   name:string prop ->
   input_data_config:input_data_config list ->
-  vpc_config:vpc_config list ->
   string ->
   t Tf_core.resource

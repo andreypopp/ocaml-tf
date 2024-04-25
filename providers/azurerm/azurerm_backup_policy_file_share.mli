@@ -17,8 +17,8 @@ type backup
 
 val backup :
   ?time:string prop ->
+  ?hourly:backup__hourly list ->
   frequency:string prop ->
-  hourly:backup__hourly list ->
   unit ->
   backup
 
@@ -72,15 +72,15 @@ type azurerm_backup_policy_file_share
 val azurerm_backup_policy_file_share :
   ?id:string prop ->
   ?timezone:string prop ->
+  ?retention_monthly:retention_monthly list ->
+  ?retention_weekly:retention_weekly list ->
+  ?retention_yearly:retention_yearly list ->
   ?timeouts:timeouts ->
   name:string prop ->
   recovery_vault_name:string prop ->
   resource_group_name:string prop ->
   backup:backup list ->
   retention_daily:retention_daily list ->
-  retention_monthly:retention_monthly list ->
-  retention_weekly:retention_weekly list ->
-  retention_yearly:retention_yearly list ->
   unit ->
   azurerm_backup_policy_file_share
 
@@ -101,29 +101,29 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?timezone:string prop ->
+  ?retention_monthly:retention_monthly list ->
+  ?retention_weekly:retention_weekly list ->
+  ?retention_yearly:retention_yearly list ->
   ?timeouts:timeouts ->
   name:string prop ->
   recovery_vault_name:string prop ->
   resource_group_name:string prop ->
   backup:backup list ->
   retention_daily:retention_daily list ->
-  retention_monthly:retention_monthly list ->
-  retention_weekly:retention_weekly list ->
-  retention_yearly:retention_yearly list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?timezone:string prop ->
+  ?retention_monthly:retention_monthly list ->
+  ?retention_weekly:retention_weekly list ->
+  ?retention_yearly:retention_yearly list ->
   ?timeouts:timeouts ->
   name:string prop ->
   recovery_vault_name:string prop ->
   resource_group_name:string prop ->
   backup:backup list ->
   retention_daily:retention_daily list ->
-  retention_monthly:retention_monthly list ->
-  retention_weekly:retention_weekly list ->
-  retention_yearly:retention_yearly list ->
   string ->
   t Tf_core.resource

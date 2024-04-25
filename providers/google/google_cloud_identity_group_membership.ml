@@ -199,13 +199,14 @@ let preferred_member_key ?namespace ~id () : preferred_member_key =
 let roles__expiry_detail ~expire_time () : roles__expiry_detail =
   { expire_time }
 
-let roles ~name ~expiry_detail () : roles = { name; expiry_detail }
+let roles ?(expiry_detail = []) ~name () : roles =
+  { name; expiry_detail }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_cloud_identity_group_membership ?id ?timeouts ~group
-    ~preferred_member_key ~roles () :
+let google_cloud_identity_group_membership ?id
+    ?(preferred_member_key = []) ?timeouts ~group ~roles () :
     google_cloud_identity_group_membership =
   { group; id; preferred_member_key; roles; timeouts }
 
@@ -218,7 +219,8 @@ type t = {
   update_time : string prop;
 }
 
-let make ?id ?timeouts ~group ~preferred_member_key ~roles __id =
+let make ?id ?(preferred_member_key = []) ?timeouts ~group ~roles
+    __id =
   let __type = "google_cloud_identity_group_membership" in
   let __attrs =
     ({
@@ -236,15 +238,15 @@ let make ?id ?timeouts ~group ~preferred_member_key ~roles __id =
     type_ = __type;
     json =
       yojson_of_google_cloud_identity_group_membership
-        (google_cloud_identity_group_membership ?id ?timeouts ~group
-           ~preferred_member_key ~roles ());
+        (google_cloud_identity_group_membership ?id
+           ~preferred_member_key ?timeouts ~group ~roles ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~group ~preferred_member_key
-    ~roles __id =
+let register ?tf_module ?id ?(preferred_member_key = []) ?timeouts
+    ~group ~roles __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~group ~preferred_member_key ~roles __id
+    make ?id ~preferred_member_key ?timeouts ~group ~roles __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -32,9 +32,9 @@ val aws_signer_signing_profile :
   ?name_prefix:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?signature_validity_period:signature_validity_period list ->
+  ?signing_material:signing_material list ->
   platform_id:string prop ->
-  signature_validity_period:signature_validity_period list ->
-  signing_material:signing_material list ->
   unit ->
   aws_signer_signing_profile
 
@@ -65,9 +65,9 @@ val register :
   ?name_prefix:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?signature_validity_period:signature_validity_period list ->
+  ?signing_material:signing_material list ->
   platform_id:string prop ->
-  signature_validity_period:signature_validity_period list ->
-  signing_material:signing_material list ->
   string ->
   t
 
@@ -77,8 +77,8 @@ val make :
   ?name_prefix:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?signature_validity_period:signature_validity_period list ->
+  ?signing_material:signing_material list ->
   platform_id:string prop ->
-  signature_validity_period:signature_validity_period list ->
-  signing_material:signing_material list ->
   string ->
   t Tf_core.resource

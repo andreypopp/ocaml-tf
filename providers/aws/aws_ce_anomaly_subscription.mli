@@ -39,9 +39,9 @@ val threshold_expression__and__tags :
 type threshold_expression__and
 
 val threshold_expression__and :
-  cost_category:threshold_expression__and__cost_category list ->
-  dimension:threshold_expression__and__dimension list ->
-  tags:threshold_expression__and__tags list ->
+  ?cost_category:threshold_expression__and__cost_category list ->
+  ?dimension:threshold_expression__and__dimension list ->
+  ?tags:threshold_expression__and__tags list ->
   unit ->
   threshold_expression__and
 
@@ -93,9 +93,9 @@ val threshold_expression__not__tags :
 type threshold_expression__not
 
 val threshold_expression__not :
-  cost_category:threshold_expression__not__cost_category list ->
-  dimension:threshold_expression__not__dimension list ->
-  tags:threshold_expression__not__tags list ->
+  ?cost_category:threshold_expression__not__cost_category list ->
+  ?dimension:threshold_expression__not__dimension list ->
+  ?tags:threshold_expression__not__tags list ->
   unit ->
   threshold_expression__not
 
@@ -129,9 +129,9 @@ val threshold_expression__or__tags :
 type threshold_expression__or
 
 val threshold_expression__or :
-  cost_category:threshold_expression__or__cost_category list ->
-  dimension:threshold_expression__or__dimension list ->
-  tags:threshold_expression__or__tags list ->
+  ?cost_category:threshold_expression__or__cost_category list ->
+  ?dimension:threshold_expression__or__dimension list ->
+  ?tags:threshold_expression__or__tags list ->
   unit ->
   threshold_expression__or
 
@@ -147,12 +147,12 @@ val threshold_expression__tags :
 type threshold_expression
 
 val threshold_expression :
+  ?cost_category:threshold_expression__cost_category list ->
+  ?dimension:threshold_expression__dimension list ->
+  ?not:threshold_expression__not list ->
+  ?tags:threshold_expression__tags list ->
   and_:threshold_expression__and list ->
-  cost_category:threshold_expression__cost_category list ->
-  dimension:threshold_expression__dimension list ->
-  not:threshold_expression__not list ->
   or_:threshold_expression__or list ->
-  tags:threshold_expression__tags list ->
   unit ->
   threshold_expression
 
@@ -163,11 +163,11 @@ val aws_ce_anomaly_subscription :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?threshold_expression:threshold_expression list ->
   frequency:string prop ->
   monitor_arn_list:string prop list ->
   name:string prop ->
   subscriber:subscriber list ->
-  threshold_expression:threshold_expression list ->
   unit ->
   aws_ce_anomaly_subscription
 
@@ -193,11 +193,11 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?threshold_expression:threshold_expression list ->
   frequency:string prop ->
   monitor_arn_list:string prop list ->
   name:string prop ->
   subscriber:subscriber list ->
-  threshold_expression:threshold_expression list ->
   string ->
   t
 
@@ -206,10 +206,10 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?threshold_expression:threshold_expression list ->
   frequency:string prop ->
   monitor_arn_list:string prop list ->
   name:string prop ->
   subscriber:subscriber list ->
-  threshold_expression:threshold_expression list ->
   string ->
   t Tf_core.resource

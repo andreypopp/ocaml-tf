@@ -1148,8 +1148,8 @@ let rules__overrides ?default_pools ?fallback_pool ?session_affinity
     session_affinity_attributes;
   }
 
-let rules ?condition ?disabled ?priority ?terminates ~name
-    ~fixed_response ~overrides () : rules =
+let rules ?condition ?disabled ?priority ?terminates
+    ?(fixed_response = []) ?(overrides = []) ~name () : rules =
   {
     condition;
     disabled;
@@ -1174,10 +1174,10 @@ let session_affinity_attributes ?drain_duration ?headers
 
 let cloudflare_load_balancer ?description ?enabled ?id ?proxied
     ?session_affinity ?session_affinity_ttl ?steering_policy ?ttl
-    ~default_pool_ids ~fallback_pool_id ~name ~zone_id
+    ?(rules = []) ~default_pool_ids ~fallback_pool_id ~name ~zone_id
     ~adaptive_routing ~country_pools ~location_strategy ~pop_pools
-    ~random_steering ~region_pools ~rules
-    ~session_affinity_attributes () : cloudflare_load_balancer =
+    ~random_steering ~region_pools ~session_affinity_attributes () :
+    cloudflare_load_balancer =
   {
     default_pool_ids;
     description;
@@ -1219,10 +1219,11 @@ type t = {
 }
 
 let make ?description ?enabled ?id ?proxied ?session_affinity
-    ?session_affinity_ttl ?steering_policy ?ttl ~default_pool_ids
-    ~fallback_pool_id ~name ~zone_id ~adaptive_routing ~country_pools
-    ~location_strategy ~pop_pools ~random_steering ~region_pools
-    ~rules ~session_affinity_attributes __id =
+    ?session_affinity_ttl ?steering_policy ?ttl ?(rules = [])
+    ~default_pool_ids ~fallback_pool_id ~name ~zone_id
+    ~adaptive_routing ~country_pools ~location_strategy ~pop_pools
+    ~random_steering ~region_pools ~session_affinity_attributes __id
+    =
   let __type = "cloudflare_load_balancer" in
   let __attrs =
     ({
@@ -1254,25 +1255,26 @@ let make ?description ?enabled ?id ?proxied ?session_affinity
       yojson_of_cloudflare_load_balancer
         (cloudflare_load_balancer ?description ?enabled ?id ?proxied
            ?session_affinity ?session_affinity_ttl ?steering_policy
-           ?ttl ~default_pool_ids ~fallback_pool_id ~name ~zone_id
-           ~adaptive_routing ~country_pools ~location_strategy
-           ~pop_pools ~random_steering ~region_pools ~rules
-           ~session_affinity_attributes ());
+           ?ttl ~rules ~default_pool_ids ~fallback_pool_id ~name
+           ~zone_id ~adaptive_routing ~country_pools
+           ~location_strategy ~pop_pools ~random_steering
+           ~region_pools ~session_affinity_attributes ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?enabled ?id ?proxied
     ?session_affinity ?session_affinity_ttl ?steering_policy ?ttl
-    ~default_pool_ids ~fallback_pool_id ~name ~zone_id
+    ?(rules = []) ~default_pool_ids ~fallback_pool_id ~name ~zone_id
     ~adaptive_routing ~country_pools ~location_strategy ~pop_pools
-    ~random_steering ~region_pools ~rules
-    ~session_affinity_attributes __id =
+    ~random_steering ~region_pools ~session_affinity_attributes __id
+    =
   let (r : _ Tf_core.resource) =
     make ?description ?enabled ?id ?proxied ?session_affinity
-      ?session_affinity_ttl ?steering_policy ?ttl ~default_pool_ids
-      ~fallback_pool_id ~name ~zone_id ~adaptive_routing
-      ~country_pools ~location_strategy ~pop_pools ~random_steering
-      ~region_pools ~rules ~session_affinity_attributes __id
+      ?session_affinity_ttl ?steering_policy ?ttl ~rules
+      ~default_pool_ids ~fallback_pool_id ~name ~zone_id
+      ~adaptive_routing ~country_pools ~location_strategy ~pop_pools
+      ~random_steering ~region_pools ~session_affinity_attributes
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

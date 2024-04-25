@@ -2325,16 +2325,17 @@ let control_plane__control_plane_node_pool_config__node_pool_config__taints
   { effect; key; value }
 
 let control_plane__control_plane_node_pool_config__node_pool_config
-    ?labels ?operating_system ~node_configs ~taints () :
-    control_plane__control_plane_node_pool_config__node_pool_config =
+    ?labels ?operating_system ?(node_configs = []) ?(taints = []) ()
+    : control_plane__control_plane_node_pool_config__node_pool_config
+    =
   { labels; operating_system; node_configs; taints }
 
 let control_plane__control_plane_node_pool_config ~node_pool_config
     () : control_plane__control_plane_node_pool_config =
   { node_pool_config }
 
-let control_plane ~api_server_args ~control_plane_node_pool_config ()
-    : control_plane =
+let control_plane ?(api_server_args = [])
+    ~control_plane_node_pool_config () : control_plane =
   { api_server_args; control_plane_node_pool_config }
 
 let load_balancer__bgp_lb_config__address_pools ?avoid_buggy_ips
@@ -2371,20 +2372,20 @@ let load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_conf
   { effect; key; value }
 
 let load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config
-    ?labels ?operating_system ~kubelet_config ~node_configs ~taints
-    () :
+    ?labels ?operating_system ?(kubelet_config = [])
+    ?(node_configs = []) ?(taints = []) () :
     load_balancer__bgp_lb_config__load_balancer_node_pool_config__node_pool_config
     =
   { labels; operating_system; kubelet_config; node_configs; taints }
 
 let load_balancer__bgp_lb_config__load_balancer_node_pool_config
-    ~node_pool_config () :
+    ?(node_pool_config = []) () :
     load_balancer__bgp_lb_config__load_balancer_node_pool_config =
   { node_pool_config }
 
-let load_balancer__bgp_lb_config ~asn ~address_pools
-    ~bgp_peer_configs ~load_balancer_node_pool_config () :
-    load_balancer__bgp_lb_config =
+let load_balancer__bgp_lb_config
+    ?(load_balancer_node_pool_config = []) ~asn ~address_pools
+    ~bgp_peer_configs () : load_balancer__bgp_lb_config =
   {
     asn;
     address_pools;
@@ -2414,18 +2415,19 @@ let load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_co
   { effect; key; value }
 
 let load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config
-    ?labels ?operating_system ~node_configs ~taints () :
+    ?labels ?operating_system ?(node_configs = []) ?(taints = []) ()
+    :
     load_balancer__metal_lb_config__load_balancer_node_pool_config__node_pool_config
     =
   { labels; operating_system; node_configs; taints }
 
 let load_balancer__metal_lb_config__load_balancer_node_pool_config
-    ~node_pool_config () :
+    ?(node_pool_config = []) () :
     load_balancer__metal_lb_config__load_balancer_node_pool_config =
   { node_pool_config }
 
-let load_balancer__metal_lb_config ~address_pools
-    ~load_balancer_node_pool_config () :
+let load_balancer__metal_lb_config
+    ?(load_balancer_node_pool_config = []) ~address_pools () :
     load_balancer__metal_lb_config =
   { address_pools; load_balancer_node_pool_config }
 
@@ -2437,8 +2439,9 @@ let load_balancer__vip_config ~control_plane_vip ~ingress_vip () :
     load_balancer__vip_config =
   { control_plane_vip; ingress_vip }
 
-let load_balancer ~bgp_lb_config ~manual_lb_config ~metal_lb_config
-    ~port_config ~vip_config () : load_balancer =
+let load_balancer ?(bgp_lb_config = []) ?(manual_lb_config = [])
+    ?(metal_lb_config = []) ~port_config ~vip_config () :
+    load_balancer =
   {
     bgp_lb_config;
     manual_lb_config;
@@ -2464,9 +2467,9 @@ let network_config__sr_iov_config ?enabled () :
     network_config__sr_iov_config =
   { enabled }
 
-let network_config ?advanced_networking ~island_mode_cidr
-    ~multiple_network_interfaces_config ~sr_iov_config () :
-    network_config =
+let network_config ?advanced_networking ?(island_mode_cidr = [])
+    ?(multiple_network_interfaces_config = []) ?(sr_iov_config = [])
+    () : network_config =
   {
     advanced_networking;
     island_mode_cidr;
@@ -2495,7 +2498,7 @@ let security_config__authorization ~admin_users () :
     security_config__authorization =
   { admin_users }
 
-let security_config ~authorization () : security_config =
+let security_config ?(authorization = []) () : security_config =
   { authorization }
 
 let storage__lvp_node_mounts_config ~path ~storage_class () :
@@ -2519,11 +2522,12 @@ let timeouts ?create ?delete ?update () : timeouts =
 let upgrade_policy ?policy () : upgrade_policy = { policy }
 
 let google_gkeonprem_bare_metal_cluster ?annotations ?description ?id
-    ?project ?timeouts ~admin_cluster_membership ~bare_metal_version
-    ~location ~name ~binary_authorization ~cluster_operations
-    ~control_plane ~load_balancer ~maintenance_config ~network_config
-    ~node_access_config ~node_config ~os_environment_config ~proxy
-    ~security_config ~storage ~upgrade_policy () :
+    ?project ?(binary_authorization = []) ?(cluster_operations = [])
+    ?(maintenance_config = []) ?(node_access_config = [])
+    ?(node_config = []) ?(os_environment_config = []) ?(proxy = [])
+    ?(security_config = []) ?timeouts ?(upgrade_policy = [])
+    ~admin_cluster_membership ~bare_metal_version ~location ~name
+    ~control_plane ~load_balancer ~network_config ~storage () :
     google_gkeonprem_bare_metal_cluster =
   {
     admin_cluster_membership;
@@ -2574,12 +2578,13 @@ type t = {
   validation_check : validation_check list prop;
 }
 
-let make ?annotations ?description ?id ?project ?timeouts
+let make ?annotations ?description ?id ?project
+    ?(binary_authorization = []) ?(cluster_operations = [])
+    ?(maintenance_config = []) ?(node_access_config = [])
+    ?(node_config = []) ?(os_environment_config = []) ?(proxy = [])
+    ?(security_config = []) ?timeouts ?(upgrade_policy = [])
     ~admin_cluster_membership ~bare_metal_version ~location ~name
-    ~binary_authorization ~cluster_operations ~control_plane
-    ~load_balancer ~maintenance_config ~network_config
-    ~node_access_config ~node_config ~os_environment_config ~proxy
-    ~security_config ~storage ~upgrade_policy __id =
+    ~control_plane ~load_balancer ~network_config ~storage __id =
   let __type = "google_gkeonprem_bare_metal_cluster" in
   let __attrs =
     ({
@@ -2617,29 +2622,30 @@ let make ?annotations ?description ?id ?project ?timeouts
     json =
       yojson_of_google_gkeonprem_bare_metal_cluster
         (google_gkeonprem_bare_metal_cluster ?annotations
-           ?description ?id ?project ?timeouts
+           ?description ?id ?project ~binary_authorization
+           ~cluster_operations ~maintenance_config
+           ~node_access_config ~node_config ~os_environment_config
+           ~proxy ~security_config ?timeouts ~upgrade_policy
            ~admin_cluster_membership ~bare_metal_version ~location
-           ~name ~binary_authorization ~cluster_operations
-           ~control_plane ~load_balancer ~maintenance_config
-           ~network_config ~node_access_config ~node_config
-           ~os_environment_config ~proxy ~security_config ~storage
-           ~upgrade_policy ());
+           ~name ~control_plane ~load_balancer ~network_config
+           ~storage ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?description ?id ?project
-    ?timeouts ~admin_cluster_membership ~bare_metal_version ~location
-    ~name ~binary_authorization ~cluster_operations ~control_plane
-    ~load_balancer ~maintenance_config ~network_config
-    ~node_access_config ~node_config ~os_environment_config ~proxy
-    ~security_config ~storage ~upgrade_policy __id =
+    ?(binary_authorization = []) ?(cluster_operations = [])
+    ?(maintenance_config = []) ?(node_access_config = [])
+    ?(node_config = []) ?(os_environment_config = []) ?(proxy = [])
+    ?(security_config = []) ?timeouts ?(upgrade_policy = [])
+    ~admin_cluster_membership ~bare_metal_version ~location ~name
+    ~control_plane ~load_balancer ~network_config ~storage __id =
   let (r : _ Tf_core.resource) =
-    make ?annotations ?description ?id ?project ?timeouts
-      ~admin_cluster_membership ~bare_metal_version ~location ~name
-      ~binary_authorization ~cluster_operations ~control_plane
-      ~load_balancer ~maintenance_config ~network_config
-      ~node_access_config ~node_config ~os_environment_config ~proxy
-      ~security_config ~storage ~upgrade_policy __id
+    make ?annotations ?description ?id ?project ~binary_authorization
+      ~cluster_operations ~maintenance_config ~node_access_config
+      ~node_config ~os_environment_config ~proxy ~security_config
+      ?timeouts ~upgrade_policy ~admin_cluster_membership
+      ~bare_metal_version ~location ~name ~control_plane
+      ~load_balancer ~network_config ~storage __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

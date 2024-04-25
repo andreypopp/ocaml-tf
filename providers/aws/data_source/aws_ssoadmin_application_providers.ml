@@ -74,16 +74,17 @@ let _ = yojson_of_aws_ssoadmin_application_providers
 
 let application_providers__display_data () = ()
 
-let application_providers ~display_data () : application_providers =
+let application_providers ?(display_data = []) () :
+    application_providers =
   { display_data }
 
-let aws_ssoadmin_application_providers ~application_providers () :
-    aws_ssoadmin_application_providers =
+let aws_ssoadmin_application_providers ?(application_providers = [])
+    () : aws_ssoadmin_application_providers =
   { application_providers }
 
 type t = { id : string prop }
 
-let make ~application_providers __id =
+let make ?(application_providers = []) __id =
   let __type = "aws_ssoadmin_application_providers" in
   let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
   {
@@ -95,7 +96,7 @@ let make ~application_providers __id =
     attrs = __attrs;
   }
 
-let register ?tf_module ~application_providers __id =
+let register ?tf_module ?(application_providers = []) __id =
   let (r : _ Tf_core.resource) = make ~application_providers __id in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

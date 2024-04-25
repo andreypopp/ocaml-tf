@@ -1218,8 +1218,8 @@ let cdn_policy__negative_caching_policy ?code () :
 
 let cdn_policy ?cache_mode ?client_ttl ?default_ttl ?max_ttl
     ?negative_caching ?serve_while_stale
-    ?signed_url_cache_max_age_sec ~cache_key_policy
-    ~negative_caching_policy () : cdn_policy =
+    ?signed_url_cache_max_age_sec ?(cache_key_policy = [])
+    ?(negative_caching_policy = []) () : cdn_policy =
   {
     cache_mode;
     client_ttl;
@@ -1247,12 +1247,12 @@ let consistent_hash__http_cookie__ttl ?nanos ~seconds () :
     consistent_hash__http_cookie__ttl =
   { nanos; seconds }
 
-let consistent_hash__http_cookie ?name ?path ~ttl () :
+let consistent_hash__http_cookie ?name ?path ?(ttl = []) () :
     consistent_hash__http_cookie =
   { name; path; ttl }
 
-let consistent_hash ?http_header_name ?minimum_ring_size ~http_cookie
-    () : consistent_hash =
+let consistent_hash ?http_header_name ?minimum_ring_size
+    ?(http_cookie = []) () : consistent_hash =
   { http_header_name; minimum_ring_size; http_cookie }
 
 let failover_policy ?disable_connection_drain_on_failover
@@ -1282,7 +1282,8 @@ let outlier_detection ?consecutive_errors
     ?enforcing_consecutive_gateway_failure ?enforcing_success_rate
     ?max_ejection_percent ?success_rate_minimum_hosts
     ?success_rate_request_volume ?success_rate_stdev_factor
-    ~base_ejection_time ~interval () : outlier_detection =
+    ?(base_ejection_time = []) ?(interval = []) () :
+    outlier_detection =
   {
     consecutive_errors;
     consecutive_gateway_failure;
@@ -1304,10 +1305,10 @@ let google_compute_region_backend_service ?affinity_cookie_ttl_sec
     ?connection_draining_timeout_sec ?description ?enable_cdn
     ?health_checks ?id ?load_balancing_scheme ?locality_lb_policy
     ?network ?port_name ?project ?protocol ?region ?session_affinity
-    ?timeout_sec ?timeouts ~name ~backend ~cdn_policy
-    ~circuit_breakers ~consistent_hash ~failover_policy ~iap
-    ~log_config ~outlier_detection () :
-    google_compute_region_backend_service =
+    ?timeout_sec ?(cdn_policy = []) ?(circuit_breakers = [])
+    ?(consistent_hash = []) ?(failover_policy = []) ?(iap = [])
+    ?(log_config = []) ?(outlier_detection = []) ?timeouts ~name
+    ~backend () : google_compute_region_backend_service =
   {
     affinity_cookie_ttl_sec;
     connection_draining_timeout_sec;
@@ -1362,9 +1363,10 @@ let make ?affinity_cookie_ttl_sec ?connection_draining_timeout_sec
     ?description ?enable_cdn ?health_checks ?id
     ?load_balancing_scheme ?locality_lb_policy ?network ?port_name
     ?project ?protocol ?region ?session_affinity ?timeout_sec
-    ?timeouts ~name ~backend ~cdn_policy ~circuit_breakers
-    ~consistent_hash ~failover_policy ~iap ~log_config
-    ~outlier_detection __id =
+    ?(cdn_policy = []) ?(circuit_breakers = [])
+    ?(consistent_hash = []) ?(failover_policy = []) ?(iap = [])
+    ?(log_config = []) ?(outlier_detection = []) ?timeouts ~name
+    ~backend __id =
   let __type = "google_compute_region_backend_service" in
   let __attrs =
     ({
@@ -1406,9 +1408,9 @@ let make ?affinity_cookie_ttl_sec ?connection_draining_timeout_sec
            ?description ?enable_cdn ?health_checks ?id
            ?load_balancing_scheme ?locality_lb_policy ?network
            ?port_name ?project ?protocol ?region ?session_affinity
-           ?timeout_sec ?timeouts ~name ~backend ~cdn_policy
-           ~circuit_breakers ~consistent_hash ~failover_policy ~iap
-           ~log_config ~outlier_detection ());
+           ?timeout_sec ~cdn_policy ~circuit_breakers
+           ~consistent_hash ~failover_policy ~iap ~log_config
+           ~outlier_detection ?timeouts ~name ~backend ());
     attrs = __attrs;
   }
 
@@ -1416,17 +1418,18 @@ let register ?tf_module ?affinity_cookie_ttl_sec
     ?connection_draining_timeout_sec ?description ?enable_cdn
     ?health_checks ?id ?load_balancing_scheme ?locality_lb_policy
     ?network ?port_name ?project ?protocol ?region ?session_affinity
-    ?timeout_sec ?timeouts ~name ~backend ~cdn_policy
-    ~circuit_breakers ~consistent_hash ~failover_policy ~iap
-    ~log_config ~outlier_detection __id =
+    ?timeout_sec ?(cdn_policy = []) ?(circuit_breakers = [])
+    ?(consistent_hash = []) ?(failover_policy = []) ?(iap = [])
+    ?(log_config = []) ?(outlier_detection = []) ?timeouts ~name
+    ~backend __id =
   let (r : _ Tf_core.resource) =
     make ?affinity_cookie_ttl_sec ?connection_draining_timeout_sec
       ?description ?enable_cdn ?health_checks ?id
       ?load_balancing_scheme ?locality_lb_policy ?network ?port_name
       ?project ?protocol ?region ?session_affinity ?timeout_sec
-      ?timeouts ~name ~backend ~cdn_policy ~circuit_breakers
-      ~consistent_hash ~failover_policy ~iap ~log_config
-      ~outlier_detection __id
+      ~cdn_policy ~circuit_breakers ~consistent_hash ~failover_policy
+      ~iap ~log_config ~outlier_detection ?timeouts ~name ~backend
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -151,8 +151,8 @@ let sse_configuration ?customer_managed_key_enabled ?kms_key_arn () :
   { customer_managed_key_enabled; kms_key_arn }
 
 let aws_verifiedaccess_group ?description ?id ?policy_document ?tags
-    ?tags_all ~verifiedaccess_instance_id ~sse_configuration () :
-    aws_verifiedaccess_group =
+    ?tags_all ?(sse_configuration = []) ~verifiedaccess_instance_id
+    () : aws_verifiedaccess_group =
   {
     description;
     id;
@@ -179,7 +179,7 @@ type t = {
 }
 
 let make ?description ?id ?policy_document ?tags ?tags_all
-    ~verifiedaccess_instance_id ~sse_configuration __id =
+    ?(sse_configuration = []) ~verifiedaccess_instance_id __id =
   let __type = "aws_verifiedaccess_group" in
   let __attrs =
     ({
@@ -208,16 +208,17 @@ let make ?description ?id ?policy_document ?tags ?tags_all
     json =
       yojson_of_aws_verifiedaccess_group
         (aws_verifiedaccess_group ?description ?id ?policy_document
-           ?tags ?tags_all ~verifiedaccess_instance_id
-           ~sse_configuration ());
+           ?tags ?tags_all ~sse_configuration
+           ~verifiedaccess_instance_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?policy_document ?tags
-    ?tags_all ~verifiedaccess_instance_id ~sse_configuration __id =
+    ?tags_all ?(sse_configuration = []) ~verifiedaccess_instance_id
+    __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?policy_document ?tags ?tags_all
-      ~verifiedaccess_instance_id ~sse_configuration __id
+      ~sse_configuration ~verifiedaccess_instance_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -59,12 +59,12 @@ val actions__url_rewrite_action :
 type actions
 
 val actions :
-  request_header_action:actions__request_header_action list ->
-  response_header_action:actions__response_header_action list ->
-  route_configuration_override_action:
+  ?request_header_action:actions__request_header_action list ->
+  ?response_header_action:actions__response_header_action list ->
+  ?route_configuration_override_action:
     actions__route_configuration_override_action list ->
-  url_redirect_action:actions__url_redirect_action list ->
-  url_rewrite_action:actions__url_rewrite_action list ->
+  ?url_redirect_action:actions__url_redirect_action list ->
+  ?url_rewrite_action:actions__url_rewrite_action list ->
   unit ->
   actions
 
@@ -255,26 +255,26 @@ val conditions__url_path_condition :
 type conditions
 
 val conditions :
-  client_port_condition:conditions__client_port_condition list ->
-  cookies_condition:conditions__cookies_condition list ->
-  host_name_condition:conditions__host_name_condition list ->
-  http_version_condition:conditions__http_version_condition list ->
-  is_device_condition:conditions__is_device_condition list ->
-  post_args_condition:conditions__post_args_condition list ->
-  query_string_condition:conditions__query_string_condition list ->
-  remote_address_condition:conditions__remote_address_condition list ->
-  request_body_condition:conditions__request_body_condition list ->
-  request_header_condition:conditions__request_header_condition list ->
-  request_method_condition:conditions__request_method_condition list ->
-  request_scheme_condition:conditions__request_scheme_condition list ->
-  request_uri_condition:conditions__request_uri_condition list ->
-  server_port_condition:conditions__server_port_condition list ->
-  socket_address_condition:conditions__socket_address_condition list ->
-  ssl_protocol_condition:conditions__ssl_protocol_condition list ->
-  url_file_extension_condition:
+  ?client_port_condition:conditions__client_port_condition list ->
+  ?cookies_condition:conditions__cookies_condition list ->
+  ?host_name_condition:conditions__host_name_condition list ->
+  ?http_version_condition:conditions__http_version_condition list ->
+  ?is_device_condition:conditions__is_device_condition list ->
+  ?post_args_condition:conditions__post_args_condition list ->
+  ?query_string_condition:conditions__query_string_condition list ->
+  ?remote_address_condition:conditions__remote_address_condition list ->
+  ?request_body_condition:conditions__request_body_condition list ->
+  ?request_header_condition:conditions__request_header_condition list ->
+  ?request_method_condition:conditions__request_method_condition list ->
+  ?request_scheme_condition:conditions__request_scheme_condition list ->
+  ?request_uri_condition:conditions__request_uri_condition list ->
+  ?server_port_condition:conditions__server_port_condition list ->
+  ?socket_address_condition:conditions__socket_address_condition list ->
+  ?ssl_protocol_condition:conditions__ssl_protocol_condition list ->
+  ?url_file_extension_condition:
     conditions__url_file_extension_condition list ->
-  url_filename_condition:conditions__url_filename_condition list ->
-  url_path_condition:conditions__url_path_condition list ->
+  ?url_filename_condition:conditions__url_filename_condition list ->
+  ?url_path_condition:conditions__url_path_condition list ->
   unit ->
   conditions
 
@@ -293,12 +293,12 @@ type azurerm_cdn_frontdoor_rule
 val azurerm_cdn_frontdoor_rule :
   ?behavior_on_match:string prop ->
   ?id:string prop ->
+  ?conditions:conditions list ->
   ?timeouts:timeouts ->
   cdn_frontdoor_rule_set_id:string prop ->
   name:string prop ->
   order:float prop ->
   actions:actions list ->
-  conditions:conditions list ->
   unit ->
   azurerm_cdn_frontdoor_rule
 
@@ -320,23 +320,23 @@ val register :
   ?tf_module:tf_module ->
   ?behavior_on_match:string prop ->
   ?id:string prop ->
+  ?conditions:conditions list ->
   ?timeouts:timeouts ->
   cdn_frontdoor_rule_set_id:string prop ->
   name:string prop ->
   order:float prop ->
   actions:actions list ->
-  conditions:conditions list ->
   string ->
   t
 
 val make :
   ?behavior_on_match:string prop ->
   ?id:string prop ->
+  ?conditions:conditions list ->
   ?timeouts:timeouts ->
   cdn_frontdoor_rule_set_id:string prop ->
   name:string prop ->
   order:float prop ->
   actions:actions list ->
-  conditions:conditions list ->
   string ->
   t Tf_core.resource

@@ -176,8 +176,9 @@ let connection_pool_config ?connection_borrow_timeout ?init_query
 
 let timeouts ?create ?update () : timeouts = { create; update }
 
-let aws_db_proxy_default_target_group ?id ?timeouts ~db_proxy_name
-    ~connection_pool_config () : aws_db_proxy_default_target_group =
+let aws_db_proxy_default_target_group ?id
+    ?(connection_pool_config = []) ?timeouts ~db_proxy_name () :
+    aws_db_proxy_default_target_group =
   { db_proxy_name; id; connection_pool_config; timeouts }
 
 type t = {
@@ -187,7 +188,8 @@ type t = {
   name : string prop;
 }
 
-let make ?id ?timeouts ~db_proxy_name ~connection_pool_config __id =
+let make ?id ?(connection_pool_config = []) ?timeouts ~db_proxy_name
+    __id =
   let __type = "aws_db_proxy_default_target_group" in
   let __attrs =
     ({
@@ -203,15 +205,15 @@ let make ?id ?timeouts ~db_proxy_name ~connection_pool_config __id =
     type_ = __type;
     json =
       yojson_of_aws_db_proxy_default_target_group
-        (aws_db_proxy_default_target_group ?id ?timeouts
-           ~db_proxy_name ~connection_pool_config ());
+        (aws_db_proxy_default_target_group ?id
+           ~connection_pool_config ?timeouts ~db_proxy_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~db_proxy_name
-    ~connection_pool_config __id =
+let register ?tf_module ?id ?(connection_pool_config = []) ?timeouts
+    ~db_proxy_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~db_proxy_name ~connection_pool_config __id
+    make ?id ~connection_pool_config ?timeouts ~db_proxy_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

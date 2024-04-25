@@ -403,11 +403,12 @@ let custom_config__custom_output__properties__value_expression
     custom_config__custom_output__properties__value_expression =
   { description; expression; location; title }
 
-let custom_config__custom_output__properties ?name ~value_expression
-    () : custom_config__custom_output__properties =
+let custom_config__custom_output__properties ?name
+    ?(value_expression = []) () :
+    custom_config__custom_output__properties =
   { name; value_expression }
 
-let custom_config__custom_output ~properties () :
+let custom_config__custom_output ?(properties = []) () :
     custom_config__custom_output =
   { properties }
 
@@ -419,8 +420,8 @@ let custom_config__resource_selector ~resource_types () :
     custom_config__resource_selector =
   { resource_types }
 
-let custom_config ?description ~recommendation ~severity
-    ~custom_output ~predicate ~resource_selector () : custom_config =
+let custom_config ?description ?(custom_output = []) ~recommendation
+    ~severity ~predicate ~resource_selector () : custom_config =
   {
     description;
     recommendation;

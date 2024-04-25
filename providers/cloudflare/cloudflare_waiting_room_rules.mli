@@ -20,9 +20,9 @@ type cloudflare_waiting_room_rules
 
 val cloudflare_waiting_room_rules :
   ?id:string prop ->
+  ?rules:rules list ->
   waiting_room_id:string prop ->
   zone_id:string prop ->
-  rules:rules list ->
   unit ->
   cloudflare_waiting_room_rules
 
@@ -40,16 +40,16 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?rules:rules list ->
   waiting_room_id:string prop ->
   zone_id:string prop ->
-  rules:rules list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?rules:rules list ->
   waiting_room_id:string prop ->
   zone_id:string prop ->
-  rules:rules list ->
   string ->
   t Tf_core.resource

@@ -109,13 +109,13 @@ type routing_rule
 
 val routing_rule :
   ?enabled:bool prop ->
+  ?forwarding_configuration:
+    routing_rule__forwarding_configuration list ->
+  ?redirect_configuration:routing_rule__redirect_configuration list ->
   accepted_protocols:string prop list ->
   frontend_endpoints:string prop list ->
   name:string prop ->
   patterns_to_match:string prop list ->
-  forwarding_configuration:
-    routing_rule__forwarding_configuration list ->
-  redirect_configuration:routing_rule__redirect_configuration list ->
   unit ->
   routing_rule
 
@@ -136,13 +136,13 @@ val azurerm_frontdoor :
   ?id:string prop ->
   ?load_balancer_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?backend_pool_settings:backend_pool_settings list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   backend_pool:backend_pool list ->
   backend_pool_health_probe:backend_pool_health_probe list ->
   backend_pool_load_balancing:backend_pool_load_balancing list ->
-  backend_pool_settings:backend_pool_settings list ->
   frontend_endpoint:frontend_endpoint list ->
   routing_rule:routing_rule list ->
   unit ->
@@ -175,13 +175,13 @@ val register :
   ?id:string prop ->
   ?load_balancer_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?backend_pool_settings:backend_pool_settings list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   backend_pool:backend_pool list ->
   backend_pool_health_probe:backend_pool_health_probe list ->
   backend_pool_load_balancing:backend_pool_load_balancing list ->
-  backend_pool_settings:backend_pool_settings list ->
   frontend_endpoint:frontend_endpoint list ->
   routing_rule:routing_rule list ->
   string ->
@@ -192,13 +192,13 @@ val make :
   ?id:string prop ->
   ?load_balancer_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?backend_pool_settings:backend_pool_settings list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   backend_pool:backend_pool list ->
   backend_pool_health_probe:backend_pool_health_probe list ->
   backend_pool_load_balancing:backend_pool_load_balancing list ->
-  backend_pool_settings:backend_pool_settings list ->
   frontend_endpoint:frontend_endpoint list ->
   routing_rule:routing_rule list ->
   string ->

@@ -31,12 +31,12 @@ type aws_ses_event_destination
 val aws_ses_event_destination :
   ?enabled:bool prop ->
   ?id:string prop ->
+  ?kinesis_destination:kinesis_destination list ->
+  ?sns_destination:sns_destination list ->
   configuration_set_name:string prop ->
   matching_types:string prop list ->
   name:string prop ->
   cloudwatch_destination:cloudwatch_destination list ->
-  kinesis_destination:kinesis_destination list ->
-  sns_destination:sns_destination list ->
   unit ->
   aws_ses_event_destination
 
@@ -58,23 +58,23 @@ val register :
   ?tf_module:tf_module ->
   ?enabled:bool prop ->
   ?id:string prop ->
+  ?kinesis_destination:kinesis_destination list ->
+  ?sns_destination:sns_destination list ->
   configuration_set_name:string prop ->
   matching_types:string prop list ->
   name:string prop ->
   cloudwatch_destination:cloudwatch_destination list ->
-  kinesis_destination:kinesis_destination list ->
-  sns_destination:sns_destination list ->
   string ->
   t
 
 val make :
   ?enabled:bool prop ->
   ?id:string prop ->
+  ?kinesis_destination:kinesis_destination list ->
+  ?sns_destination:sns_destination list ->
   configuration_set_name:string prop ->
   matching_types:string prop list ->
   name:string prop ->
   cloudwatch_destination:cloudwatch_destination list ->
-  kinesis_destination:kinesis_destination list ->
-  sns_destination:sns_destination list ->
   string ->
   t Tf_core.resource

@@ -26,8 +26,8 @@ type install_patches
 
 val install_patches :
   ?reboot:string prop ->
-  linux:install_patches__linux list ->
-  windows:install_patches__windows list ->
+  ?linux:install_patches__linux list ->
+  ?windows:install_patches__windows list ->
   unit ->
   install_patches
 
@@ -60,13 +60,13 @@ val azurerm_maintenance_configuration :
   ?properties:(string * string prop) list ->
   ?tags:(string * string prop) list ->
   ?visibility:string prop ->
+  ?install_patches:install_patches list ->
   ?timeouts:timeouts ->
+  ?window:window list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   scope:string prop ->
-  install_patches:install_patches list ->
-  window:window list ->
   unit ->
   azurerm_maintenance_configuration
 
@@ -94,13 +94,13 @@ val register :
   ?properties:(string * string prop) list ->
   ?tags:(string * string prop) list ->
   ?visibility:string prop ->
+  ?install_patches:install_patches list ->
   ?timeouts:timeouts ->
+  ?window:window list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   scope:string prop ->
-  install_patches:install_patches list ->
-  window:window list ->
   string ->
   t
 
@@ -110,12 +110,12 @@ val make :
   ?properties:(string * string prop) list ->
   ?tags:(string * string prop) list ->
   ?visibility:string prop ->
+  ?install_patches:install_patches list ->
   ?timeouts:timeouts ->
+  ?window:window list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   scope:string prop ->
-  install_patches:install_patches list ->
-  window:window list ->
   string ->
   t Tf_core.resource

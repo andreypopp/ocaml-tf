@@ -25,10 +25,10 @@ val google_vertex_ai_dataset :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
+  ?encryption_spec:encryption_spec list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   metadata_schema_uri:string prop ->
-  encryption_spec:encryption_spec list ->
   unit ->
   google_vertex_ai_dataset
 
@@ -57,10 +57,10 @@ val register :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
+  ?encryption_spec:encryption_spec list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   metadata_schema_uri:string prop ->
-  encryption_spec:encryption_spec list ->
   string ->
   t
 
@@ -69,9 +69,9 @@ val make :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
+  ?encryption_spec:encryption_spec list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   metadata_schema_uri:string prop ->
-  encryption_spec:encryption_spec list ->
   string ->
   t Tf_core.resource

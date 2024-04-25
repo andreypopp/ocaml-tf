@@ -166,7 +166,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_pubsub_lite_subscription ?id ?project ?region ?zone
-    ?timeouts ~name ~topic ~delivery_config () :
+    ?(delivery_config = []) ?timeouts ~name ~topic () :
     google_pubsub_lite_subscription =
   {
     id;
@@ -188,8 +188,8 @@ type t = {
   zone : string prop;
 }
 
-let make ?id ?project ?region ?zone ?timeouts ~name ~topic
-    ~delivery_config __id =
+let make ?id ?project ?region ?zone ?(delivery_config = []) ?timeouts
+    ~name ~topic __id =
   let __type = "google_pubsub_lite_subscription" in
   let __attrs =
     ({
@@ -208,15 +208,15 @@ let make ?id ?project ?region ?zone ?timeouts ~name ~topic
     json =
       yojson_of_google_pubsub_lite_subscription
         (google_pubsub_lite_subscription ?id ?project ?region ?zone
-           ?timeouts ~name ~topic ~delivery_config ());
+           ~delivery_config ?timeouts ~name ~topic ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ?region ?zone ?timeouts ~name
-    ~topic ~delivery_config __id =
+let register ?tf_module ?id ?project ?region ?zone
+    ?(delivery_config = []) ?timeouts ~name ~topic __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ?region ?zone ?timeouts ~name ~topic
-      ~delivery_config __id
+    make ?id ?project ?region ?zone ~delivery_config ?timeouts ~name
+      ~topic __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

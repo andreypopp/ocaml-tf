@@ -37,10 +37,10 @@ val security_service_policy_data__policy_option__third_party_firewall_policy :
 type security_service_policy_data__policy_option
 
 val security_service_policy_data__policy_option :
-  network_firewall_policy:
+  ?network_firewall_policy:
     security_service_policy_data__policy_option__network_firewall_policy
     list ->
-  third_party_firewall_policy:
+  ?third_party_firewall_policy:
     security_service_policy_data__policy_option__third_party_firewall_policy
     list ->
   unit ->
@@ -50,8 +50,8 @@ type security_service_policy_data
 
 val security_service_policy_data :
   ?managed_service_data:string prop ->
+  ?policy_option:security_service_policy_data__policy_option list ->
   type_:string prop ->
-  policy_option:security_service_policy_data__policy_option list ->
   unit ->
   security_service_policy_data
 
@@ -68,10 +68,10 @@ val aws_fms_policy :
   ?resource_type_list:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?exclude_map:exclude_map list ->
+  ?include_map:include_map list ->
   exclude_resource_tags:bool prop ->
   name:string prop ->
-  exclude_map:exclude_map list ->
-  include_map:include_map list ->
   security_service_policy_data:security_service_policy_data list ->
   unit ->
   aws_fms_policy
@@ -109,10 +109,10 @@ val register :
   ?resource_type_list:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?exclude_map:exclude_map list ->
+  ?include_map:include_map list ->
   exclude_resource_tags:bool prop ->
   name:string prop ->
-  exclude_map:exclude_map list ->
-  include_map:include_map list ->
   security_service_policy_data:security_service_policy_data list ->
   string ->
   t
@@ -128,10 +128,10 @@ val make :
   ?resource_type_list:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?exclude_map:exclude_map list ->
+  ?include_map:include_map list ->
   exclude_resource_tags:bool prop ->
   name:string prop ->
-  exclude_map:exclude_map list ->
-  include_map:include_map list ->
   security_service_policy_data:security_service_policy_data list ->
   string ->
   t Tf_core.resource

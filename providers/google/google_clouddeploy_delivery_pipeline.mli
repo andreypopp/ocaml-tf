@@ -57,13 +57,13 @@ type serial_pipeline__stages__strategy__canary__canary_deployment
 
 val serial_pipeline__stages__strategy__canary__canary_deployment :
   ?verify:bool prop ->
-  percentages:float prop list ->
-  postdeploy:
+  ?postdeploy:
     serial_pipeline__stages__strategy__canary__canary_deployment__postdeploy
     list ->
-  predeploy:
+  ?predeploy:
     serial_pipeline__stages__strategy__canary__canary_deployment__predeploy
     list ->
+  percentages:float prop list ->
   unit ->
   serial_pipeline__stages__strategy__canary__canary_deployment
 
@@ -86,14 +86,14 @@ type serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_
 val serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs :
   ?profiles:string prop list ->
   ?verify:bool prop ->
-  percentage:float prop ->
-  phase_id:string prop ->
-  postdeploy:
+  ?postdeploy:
     serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__postdeploy
     list ->
-  predeploy:
+  ?predeploy:
     serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__predeploy
     list ->
+  percentage:float prop ->
+  phase_id:string prop ->
   unit ->
   serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs
 
@@ -139,10 +139,10 @@ val serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__servi
 type serial_pipeline__stages__strategy__canary__runtime_config__kubernetes
 
 val serial_pipeline__stages__strategy__canary__runtime_config__kubernetes :
-  gateway_service_mesh:
+  ?gateway_service_mesh:
     serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__gateway_service_mesh
     list ->
-  service_networking:
+  ?service_networking:
     serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__service_networking
     list ->
   unit ->
@@ -151,10 +151,10 @@ val serial_pipeline__stages__strategy__canary__runtime_config__kubernetes :
 type serial_pipeline__stages__strategy__canary__runtime_config
 
 val serial_pipeline__stages__strategy__canary__runtime_config :
-  cloud_run:
+  ?cloud_run:
     serial_pipeline__stages__strategy__canary__runtime_config__cloud_run
     list ->
-  kubernetes:
+  ?kubernetes:
     serial_pipeline__stages__strategy__canary__runtime_config__kubernetes
     list ->
   unit ->
@@ -163,12 +163,12 @@ val serial_pipeline__stages__strategy__canary__runtime_config :
 type serial_pipeline__stages__strategy__canary
 
 val serial_pipeline__stages__strategy__canary :
-  canary_deployment:
+  ?canary_deployment:
     serial_pipeline__stages__strategy__canary__canary_deployment list ->
-  custom_canary_deployment:
+  ?custom_canary_deployment:
     serial_pipeline__stages__strategy__canary__custom_canary_deployment
     list ->
-  runtime_config:
+  ?runtime_config:
     serial_pipeline__stages__strategy__canary__runtime_config list ->
   unit ->
   serial_pipeline__stages__strategy__canary
@@ -191,9 +191,9 @@ type serial_pipeline__stages__strategy__standard
 
 val serial_pipeline__stages__strategy__standard :
   ?verify:bool prop ->
-  postdeploy:
+  ?postdeploy:
     serial_pipeline__stages__strategy__standard__postdeploy list ->
-  predeploy:
+  ?predeploy:
     serial_pipeline__stages__strategy__standard__predeploy list ->
   unit ->
   serial_pipeline__stages__strategy__standard
@@ -201,8 +201,8 @@ val serial_pipeline__stages__strategy__standard :
 type serial_pipeline__stages__strategy
 
 val serial_pipeline__stages__strategy :
-  canary:serial_pipeline__stages__strategy__canary list ->
-  standard:serial_pipeline__stages__strategy__standard list ->
+  ?canary:serial_pipeline__stages__strategy__canary list ->
+  ?standard:serial_pipeline__stages__strategy__standard list ->
   unit ->
   serial_pipeline__stages__strategy
 
@@ -211,15 +211,15 @@ type serial_pipeline__stages
 val serial_pipeline__stages :
   ?profiles:string prop list ->
   ?target_id:string prop ->
-  deploy_parameters:serial_pipeline__stages__deploy_parameters list ->
-  strategy:serial_pipeline__stages__strategy list ->
+  ?deploy_parameters:serial_pipeline__stages__deploy_parameters list ->
+  ?strategy:serial_pipeline__stages__strategy list ->
   unit ->
   serial_pipeline__stages
 
 type serial_pipeline
 
 val serial_pipeline :
-  stages:serial_pipeline__stages list -> unit -> serial_pipeline
+  ?stages:serial_pipeline__stages list -> unit -> serial_pipeline
 
 type timeouts
 
@@ -239,10 +239,10 @@ val google_clouddeploy_delivery_pipeline :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?suspended:bool prop ->
+  ?serial_pipeline:serial_pipeline list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  serial_pipeline:serial_pipeline list ->
   unit ->
   google_clouddeploy_delivery_pipeline
 
@@ -278,10 +278,10 @@ val register :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?suspended:bool prop ->
+  ?serial_pipeline:serial_pipeline list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  serial_pipeline:serial_pipeline list ->
   string ->
   t
 
@@ -292,9 +292,9 @@ val make :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?suspended:bool prop ->
+  ?serial_pipeline:serial_pipeline list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  serial_pipeline:serial_pipeline list ->
   string ->
   t Tf_core.resource

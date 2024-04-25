@@ -17,7 +17,7 @@ type application_configuration__application_code_configuration__code_content
 
 val application_configuration__application_code_configuration__code_content :
   ?text_content:string prop ->
-  s3_content_location:
+  ?s3_content_location:
     application_configuration__application_code_configuration__code_content__s3_content_location
     list ->
   unit ->
@@ -26,10 +26,10 @@ val application_configuration__application_code_configuration__code_content :
 type application_configuration__application_code_configuration
 
 val application_configuration__application_code_configuration :
-  code_content_type:string prop ->
-  code_content:
+  ?code_content:
     application_configuration__application_code_configuration__code_content
     list ->
+  code_content_type:string prop ->
   unit ->
   application_configuration__application_code_configuration
 
@@ -89,13 +89,13 @@ val application_configuration__flink_application_configuration__parallelism_conf
 type application_configuration__flink_application_configuration
 
 val application_configuration__flink_application_configuration :
-  checkpoint_configuration:
+  ?checkpoint_configuration:
     application_configuration__flink_application_configuration__checkpoint_configuration
     list ->
-  monitoring_configuration:
+  ?monitoring_configuration:
     application_configuration__flink_application_configuration__monitoring_configuration
     list ->
-  parallelism_configuration:
+  ?parallelism_configuration:
     application_configuration__flink_application_configuration__parallelism_configuration
     list ->
   unit ->
@@ -119,10 +119,10 @@ val application_configuration__run_configuration__flink_run_configuration :
 type application_configuration__run_configuration
 
 val application_configuration__run_configuration :
-  application_restore_configuration:
+  ?application_restore_configuration:
     application_configuration__run_configuration__application_restore_configuration
     list ->
-  flink_run_configuration:
+  ?flink_run_configuration:
     application_configuration__run_configuration__flink_run_configuration
     list ->
   unit ->
@@ -178,10 +178,10 @@ val application_configuration__sql_application_configuration__input__input_schem
 type application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters
 
 val application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters :
-  csv_mapping_parameters:
+  ?csv_mapping_parameters:
     application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters__csv_mapping_parameters
     list ->
-  json_mapping_parameters:
+  ?json_mapping_parameters:
     application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters__json_mapping_parameters
     list ->
   unit ->
@@ -234,24 +234,24 @@ val application_configuration__sql_application_configuration__input__kinesis_str
 type application_configuration__sql_application_configuration__input
 
 val application_configuration__sql_application_configuration__input :
-  name_prefix:string prop ->
-  input_parallelism:
+  ?input_parallelism:
     application_configuration__sql_application_configuration__input__input_parallelism
     list ->
-  input_processing_configuration:
+  ?input_processing_configuration:
     application_configuration__sql_application_configuration__input__input_processing_configuration
     list ->
-  input_schema:
-    application_configuration__sql_application_configuration__input__input_schema
-    list ->
-  input_starting_position_configuration:
+  ?input_starting_position_configuration:
     application_configuration__sql_application_configuration__input__input_starting_position_configuration
     list ->
-  kinesis_firehose_input:
+  ?kinesis_firehose_input:
     application_configuration__sql_application_configuration__input__kinesis_firehose_input
     list ->
-  kinesis_streams_input:
+  ?kinesis_streams_input:
     application_configuration__sql_application_configuration__input__kinesis_streams_input
+    list ->
+  name_prefix:string prop ->
+  input_schema:
+    application_configuration__sql_application_configuration__input__input_schema
     list ->
   unit ->
   application_configuration__sql_application_configuration__input
@@ -287,18 +287,18 @@ val application_configuration__sql_application_configuration__output__lambda_out
 type application_configuration__sql_application_configuration__output
 
 val application_configuration__sql_application_configuration__output :
+  ?kinesis_firehose_output:
+    application_configuration__sql_application_configuration__output__kinesis_firehose_output
+    list ->
+  ?kinesis_streams_output:
+    application_configuration__sql_application_configuration__output__kinesis_streams_output
+    list ->
+  ?lambda_output:
+    application_configuration__sql_application_configuration__output__lambda_output
+    list ->
   name:string prop ->
   destination_schema:
     application_configuration__sql_application_configuration__output__destination_schema
-    list ->
-  kinesis_firehose_output:
-    application_configuration__sql_application_configuration__output__kinesis_firehose_output
-    list ->
-  kinesis_streams_output:
-    application_configuration__sql_application_configuration__output__kinesis_streams_output
-    list ->
-  lambda_output:
-    application_configuration__sql_application_configuration__output__lambda_output
     list ->
   unit ->
   application_configuration__sql_application_configuration__output
@@ -330,10 +330,10 @@ val application_configuration__sql_application_configuration__reference_data_sou
 type application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters
 
 val application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters :
-  csv_mapping_parameters:
+  ?csv_mapping_parameters:
     application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters__csv_mapping_parameters
     list ->
-  json_mapping_parameters:
+  ?json_mapping_parameters:
     application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters__json_mapping_parameters
     list ->
   unit ->
@@ -386,14 +386,14 @@ val application_configuration__sql_application_configuration__reference_data_sou
 type application_configuration__sql_application_configuration
 
 val application_configuration__sql_application_configuration :
-  input:
+  ?input:
     application_configuration__sql_application_configuration__input
+    list ->
+  ?reference_data_source:
+    application_configuration__sql_application_configuration__reference_data_source
     list ->
   output:
     application_configuration__sql_application_configuration__output
-    list ->
-  reference_data_source:
-    application_configuration__sql_application_configuration__reference_data_source
     list ->
   unit ->
   application_configuration__sql_application_configuration
@@ -409,19 +409,21 @@ val application_configuration__vpc_configuration :
 type application_configuration
 
 val application_configuration :
-  application_code_configuration:
-    application_configuration__application_code_configuration list ->
-  application_snapshot_configuration:
+  ?application_snapshot_configuration:
     application_configuration__application_snapshot_configuration
     list ->
-  environment_properties:
+  ?environment_properties:
     application_configuration__environment_properties list ->
-  flink_application_configuration:
+  ?flink_application_configuration:
     application_configuration__flink_application_configuration list ->
-  run_configuration:application_configuration__run_configuration list ->
-  sql_application_configuration:
+  ?run_configuration:
+    application_configuration__run_configuration list ->
+  ?sql_application_configuration:
     application_configuration__sql_application_configuration list ->
-  vpc_configuration:application_configuration__vpc_configuration list ->
+  ?vpc_configuration:
+    application_configuration__vpc_configuration list ->
+  application_code_configuration:
+    application_configuration__application_code_configuration list ->
   unit ->
   application_configuration
 
@@ -448,12 +450,12 @@ val aws_kinesisanalyticsv2_application :
   ?start_application:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?application_configuration:application_configuration list ->
+  ?cloudwatch_logging_options:cloudwatch_logging_options list ->
   ?timeouts:timeouts ->
   name:string prop ->
   runtime_environment:string prop ->
   service_execution_role:string prop ->
-  application_configuration:application_configuration list ->
-  cloudwatch_logging_options:cloudwatch_logging_options list ->
   unit ->
   aws_kinesisanalyticsv2_application
 
@@ -487,12 +489,12 @@ val register :
   ?start_application:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?application_configuration:application_configuration list ->
+  ?cloudwatch_logging_options:cloudwatch_logging_options list ->
   ?timeouts:timeouts ->
   name:string prop ->
   runtime_environment:string prop ->
   service_execution_role:string prop ->
-  application_configuration:application_configuration list ->
-  cloudwatch_logging_options:cloudwatch_logging_options list ->
   string ->
   t
 
@@ -503,11 +505,11 @@ val make :
   ?start_application:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?application_configuration:application_configuration list ->
+  ?cloudwatch_logging_options:cloudwatch_logging_options list ->
   ?timeouts:timeouts ->
   name:string prop ->
   runtime_environment:string prop ->
   service_execution_role:string prop ->
-  application_configuration:application_configuration list ->
-  cloudwatch_logging_options:cloudwatch_logging_options list ->
   string ->
   t Tf_core.resource

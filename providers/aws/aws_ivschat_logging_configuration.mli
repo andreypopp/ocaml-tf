@@ -26,9 +26,9 @@ val destination_configuration__s3 :
 type destination_configuration
 
 val destination_configuration :
-  cloudwatch_logs:destination_configuration__cloudwatch_logs list ->
-  firehose:destination_configuration__firehose list ->
-  s3:destination_configuration__s3 list ->
+  ?cloudwatch_logs:destination_configuration__cloudwatch_logs list ->
+  ?firehose:destination_configuration__firehose list ->
+  ?s3:destination_configuration__s3 list ->
   unit ->
   destination_configuration
 
@@ -48,8 +48,8 @@ val aws_ivschat_logging_configuration :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?destination_configuration:destination_configuration list ->
   ?timeouts:timeouts ->
-  destination_configuration:destination_configuration list ->
   unit ->
   aws_ivschat_logging_configuration
 
@@ -73,8 +73,8 @@ val register :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?destination_configuration:destination_configuration list ->
   ?timeouts:timeouts ->
-  destination_configuration:destination_configuration list ->
   string ->
   t
 
@@ -83,7 +83,7 @@ val make :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?destination_configuration:destination_configuration list ->
   ?timeouts:timeouts ->
-  destination_configuration:destination_configuration list ->
   string ->
   t Tf_core.resource

@@ -74,14 +74,14 @@ val google_assured_workloads_workload :
   ?partner:string prop ->
   ?provisioned_resources_parent:string prop ->
   ?violation_notifications_enabled:bool prop ->
+  ?kms_settings:kms_settings list ->
+  ?partner_permissions:partner_permissions list ->
+  ?resource_settings:resource_settings list ->
   ?timeouts:timeouts ->
   compliance_regime:string prop ->
   display_name:string prop ->
   location:string prop ->
   organization:string prop ->
-  kms_settings:kms_settings list ->
-  partner_permissions:partner_permissions list ->
-  resource_settings:resource_settings list ->
   unit ->
   google_assured_workloads_workload
 
@@ -123,14 +123,14 @@ val register :
   ?partner:string prop ->
   ?provisioned_resources_parent:string prop ->
   ?violation_notifications_enabled:bool prop ->
+  ?kms_settings:kms_settings list ->
+  ?partner_permissions:partner_permissions list ->
+  ?resource_settings:resource_settings list ->
   ?timeouts:timeouts ->
   compliance_regime:string prop ->
   display_name:string prop ->
   location:string prop ->
   organization:string prop ->
-  kms_settings:kms_settings list ->
-  partner_permissions:partner_permissions list ->
-  resource_settings:resource_settings list ->
   string ->
   t
 
@@ -142,13 +142,13 @@ val make :
   ?partner:string prop ->
   ?provisioned_resources_parent:string prop ->
   ?violation_notifications_enabled:bool prop ->
+  ?kms_settings:kms_settings list ->
+  ?partner_permissions:partner_permissions list ->
+  ?resource_settings:resource_settings list ->
   ?timeouts:timeouts ->
   compliance_regime:string prop ->
   display_name:string prop ->
   location:string prop ->
   organization:string prop ->
-  kms_settings:kms_settings list ->
-  partner_permissions:partner_permissions list ->
-  resource_settings:resource_settings list ->
   string ->
   t Tf_core.resource

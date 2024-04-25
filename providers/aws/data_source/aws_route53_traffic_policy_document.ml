@@ -715,8 +715,8 @@ let rule__secondary ?endpoint_reference ?evaluate_target_health
     rule_reference;
   }
 
-let rule ?type_ ~id ~geo_proximity_location ~items ~location ~primary
-    ~region ~secondary () : rule =
+let rule ?type_ ?(primary = []) ?(secondary = []) ~id
+    ~geo_proximity_location ~items ~location ~region () : rule =
   {
     id;
     type_;

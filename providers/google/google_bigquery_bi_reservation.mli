@@ -28,9 +28,9 @@ val google_bigquery_bi_reservation :
   ?id:string prop ->
   ?project:string prop ->
   ?size:float prop ->
+  ?preferred_tables:preferred_tables list ->
   ?timeouts:timeouts ->
   location:string prop ->
-  preferred_tables:preferred_tables list ->
   unit ->
   google_bigquery_bi_reservation
 
@@ -53,9 +53,9 @@ val register :
   ?id:string prop ->
   ?project:string prop ->
   ?size:float prop ->
+  ?preferred_tables:preferred_tables list ->
   ?timeouts:timeouts ->
   location:string prop ->
-  preferred_tables:preferred_tables list ->
   string ->
   t
 
@@ -63,8 +63,8 @@ val make :
   ?id:string prop ->
   ?project:string prop ->
   ?size:float prop ->
+  ?preferred_tables:preferred_tables list ->
   ?timeouts:timeouts ->
   location:string prop ->
-  preferred_tables:preferred_tables list ->
   string ->
   t Tf_core.resource

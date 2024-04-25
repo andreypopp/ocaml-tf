@@ -28,7 +28,7 @@ type spec__selector
 
 val spec__selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:spec__selector__match_expressions list ->
+  ?match_expressions:spec__selector__match_expressions list ->
   unit ->
   spec__selector
 
@@ -44,7 +44,7 @@ type spec__strategy
 
 val spec__strategy :
   ?type_:string prop ->
-  rolling_update:spec__strategy__rolling_update list ->
+  ?rolling_update:spec__strategy__rolling_update list ->
   unit ->
   spec__strategy
 
@@ -80,10 +80,10 @@ val spec__template__spec__affinity__node_affinity__preferred_during_scheduling_i
 type spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference
 
 val spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference :
-  match_expressions:
+  ?match_expressions:
     spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions
     list ->
-  match_fields:
+  ?match_fields:
     spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields
     list ->
   unit ->
@@ -120,10 +120,10 @@ val spec__template__spec__affinity__node_affinity__required_during_scheduling_ig
 type spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term
 
 val spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term :
-  match_expressions:
+  ?match_expressions:
     spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions
     list ->
-  match_fields:
+  ?match_fields:
     spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields
     list ->
   unit ->
@@ -132,7 +132,7 @@ val spec__template__spec__affinity__node_affinity__required_during_scheduling_ig
 type spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution
 
 val spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution :
-  node_selector_term:
+  ?node_selector_term:
     spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term
     list ->
   unit ->
@@ -141,10 +141,10 @@ val spec__template__spec__affinity__node_affinity__required_during_scheduling_ig
 type spec__template__spec__affinity__node_affinity
 
 val spec__template__spec__affinity__node_affinity :
-  preferred_during_scheduling_ignored_during_execution:
+  ?preferred_during_scheduling_ignored_during_execution:
     spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution
     list ->
-  required_during_scheduling_ignored_during_execution:
+  ?required_during_scheduling_ignored_during_execution:
     spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution
     list ->
   unit ->
@@ -163,7 +163,7 @@ type spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_i
 
 val spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:
+  ?match_expressions:
     spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
     list ->
   unit ->
@@ -173,10 +173,10 @@ type spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_i
 
 val spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term :
   ?namespaces:string prop list ->
-  topology_key:string prop ->
-  label_selector:
+  ?label_selector:
     spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
     list ->
+  topology_key:string prop ->
   unit ->
   spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
 
@@ -203,7 +203,7 @@ type spec__template__spec__affinity__pod_affinity__required_during_scheduling_ig
 
 val spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:
+  ?match_expressions:
     spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
     list ->
   unit ->
@@ -213,20 +213,20 @@ type spec__template__spec__affinity__pod_affinity__required_during_scheduling_ig
 
 val spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution :
   ?namespaces:string prop list ->
-  topology_key:string prop ->
-  label_selector:
+  ?label_selector:
     spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector
     list ->
+  topology_key:string prop ->
   unit ->
   spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution
 
 type spec__template__spec__affinity__pod_affinity
 
 val spec__template__spec__affinity__pod_affinity :
-  preferred_during_scheduling_ignored_during_execution:
+  ?preferred_during_scheduling_ignored_during_execution:
     spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution
     list ->
-  required_during_scheduling_ignored_during_execution:
+  ?required_during_scheduling_ignored_during_execution:
     spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution
     list ->
   unit ->
@@ -245,7 +245,7 @@ type spec__template__spec__affinity__pod_anti_affinity__preferred_during_schedul
 
 val spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:
+  ?match_expressions:
     spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
     list ->
   unit ->
@@ -255,10 +255,10 @@ type spec__template__spec__affinity__pod_anti_affinity__preferred_during_schedul
 
 val spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term :
   ?namespaces:string prop list ->
-  topology_key:string prop ->
-  label_selector:
+  ?label_selector:
     spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
     list ->
+  topology_key:string prop ->
   unit ->
   spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
 
@@ -285,7 +285,7 @@ type spec__template__spec__affinity__pod_anti_affinity__required_during_scheduli
 
 val spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:
+  ?match_expressions:
     spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
     list ->
   unit ->
@@ -295,20 +295,20 @@ type spec__template__spec__affinity__pod_anti_affinity__required_during_scheduli
 
 val spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution :
   ?namespaces:string prop list ->
-  topology_key:string prop ->
-  label_selector:
+  ?label_selector:
     spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector
     list ->
+  topology_key:string prop ->
   unit ->
   spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution
 
 type spec__template__spec__affinity__pod_anti_affinity
 
 val spec__template__spec__affinity__pod_anti_affinity :
-  preferred_during_scheduling_ignored_during_execution:
+  ?preferred_during_scheduling_ignored_during_execution:
     spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution
     list ->
-  required_during_scheduling_ignored_during_execution:
+  ?required_during_scheduling_ignored_during_execution:
     spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution
     list ->
   unit ->
@@ -317,9 +317,9 @@ val spec__template__spec__affinity__pod_anti_affinity :
 type spec__template__spec__affinity
 
 val spec__template__spec__affinity :
-  node_affinity:spec__template__spec__affinity__node_affinity list ->
-  pod_affinity:spec__template__spec__affinity__pod_affinity list ->
-  pod_anti_affinity:
+  ?node_affinity:spec__template__spec__affinity__node_affinity list ->
+  ?pod_affinity:spec__template__spec__affinity__pod_affinity list ->
+  ?pod_anti_affinity:
     spec__template__spec__affinity__pod_anti_affinity list ->
   unit ->
   spec__template__spec__affinity
@@ -362,15 +362,15 @@ val spec__template__spec__container__env__value_from__secret_key_ref :
 type spec__template__spec__container__env__value_from
 
 val spec__template__spec__container__env__value_from :
-  config_map_key_ref:
+  ?config_map_key_ref:
     spec__template__spec__container__env__value_from__config_map_key_ref
     list ->
-  field_ref:
+  ?field_ref:
     spec__template__spec__container__env__value_from__field_ref list ->
-  resource_field_ref:
+  ?resource_field_ref:
     spec__template__spec__container__env__value_from__resource_field_ref
     list ->
-  secret_key_ref:
+  ?secret_key_ref:
     spec__template__spec__container__env__value_from__secret_key_ref
     list ->
   unit ->
@@ -380,8 +380,8 @@ type spec__template__spec__container__env
 
 val spec__template__spec__container__env :
   ?value:string prop ->
+  ?value_from:spec__template__spec__container__env__value_from list ->
   name:string prop ->
-  value_from:spec__template__spec__container__env__value_from list ->
   unit ->
   spec__template__spec__container__env
 
@@ -405,9 +405,9 @@ type spec__template__spec__container__env_from
 
 val spec__template__spec__container__env_from :
   ?prefix:string prop ->
-  config_map_ref:
+  ?config_map_ref:
     spec__template__spec__container__env_from__config_map_ref list ->
-  secret_ref:
+  ?secret_ref:
     spec__template__spec__container__env_from__secret_ref list ->
   unit ->
   spec__template__spec__container__env_from
@@ -434,7 +434,7 @@ val spec__template__spec__container__lifecycle__post_start__http_get :
   ?path:string prop ->
   ?port:string prop ->
   ?scheme:string prop ->
-  http_header:
+  ?http_header:
     spec__template__spec__container__lifecycle__post_start__http_get__http_header
     list ->
   unit ->
@@ -450,12 +450,12 @@ val spec__template__spec__container__lifecycle__post_start__tcp_socket :
 type spec__template__spec__container__lifecycle__post_start
 
 val spec__template__spec__container__lifecycle__post_start :
-  exec:
+  ?exec:
     spec__template__spec__container__lifecycle__post_start__exec list ->
-  http_get:
+  ?http_get:
     spec__template__spec__container__lifecycle__post_start__http_get
     list ->
-  tcp_socket:
+  ?tcp_socket:
     spec__template__spec__container__lifecycle__post_start__tcp_socket
     list ->
   unit ->
@@ -483,7 +483,7 @@ val spec__template__spec__container__lifecycle__pre_stop__http_get :
   ?path:string prop ->
   ?port:string prop ->
   ?scheme:string prop ->
-  http_header:
+  ?http_header:
     spec__template__spec__container__lifecycle__pre_stop__http_get__http_header
     list ->
   unit ->
@@ -499,12 +499,12 @@ val spec__template__spec__container__lifecycle__pre_stop__tcp_socket :
 type spec__template__spec__container__lifecycle__pre_stop
 
 val spec__template__spec__container__lifecycle__pre_stop :
-  exec:
+  ?exec:
     spec__template__spec__container__lifecycle__pre_stop__exec list ->
-  http_get:
+  ?http_get:
     spec__template__spec__container__lifecycle__pre_stop__http_get
     list ->
-  tcp_socket:
+  ?tcp_socket:
     spec__template__spec__container__lifecycle__pre_stop__tcp_socket
     list ->
   unit ->
@@ -513,9 +513,9 @@ val spec__template__spec__container__lifecycle__pre_stop :
 type spec__template__spec__container__lifecycle
 
 val spec__template__spec__container__lifecycle :
-  post_start:
+  ?post_start:
     spec__template__spec__container__lifecycle__post_start list ->
-  pre_stop:spec__template__spec__container__lifecycle__pre_stop list ->
+  ?pre_stop:spec__template__spec__container__lifecycle__pre_stop list ->
   unit ->
   spec__template__spec__container__lifecycle
 
@@ -549,7 +549,7 @@ val spec__template__spec__container__liveness_probe__http_get :
   ?path:string prop ->
   ?port:string prop ->
   ?scheme:string prop ->
-  http_header:
+  ?http_header:
     spec__template__spec__container__liveness_probe__http_get__http_header
     list ->
   unit ->
@@ -570,11 +570,11 @@ val spec__template__spec__container__liveness_probe :
   ?period_seconds:float prop ->
   ?success_threshold:float prop ->
   ?timeout_seconds:float prop ->
-  exec:spec__template__spec__container__liveness_probe__exec list ->
-  grpc:spec__template__spec__container__liveness_probe__grpc list ->
-  http_get:
+  ?exec:spec__template__spec__container__liveness_probe__exec list ->
+  ?grpc:spec__template__spec__container__liveness_probe__grpc list ->
+  ?http_get:
     spec__template__spec__container__liveness_probe__http_get list ->
-  tcp_socket:
+  ?tcp_socket:
     spec__template__spec__container__liveness_probe__tcp_socket list ->
   unit ->
   spec__template__spec__container__liveness_probe
@@ -620,7 +620,7 @@ val spec__template__spec__container__readiness_probe__http_get :
   ?path:string prop ->
   ?port:string prop ->
   ?scheme:string prop ->
-  http_header:
+  ?http_header:
     spec__template__spec__container__readiness_probe__http_get__http_header
     list ->
   unit ->
@@ -641,11 +641,11 @@ val spec__template__spec__container__readiness_probe :
   ?period_seconds:float prop ->
   ?success_threshold:float prop ->
   ?timeout_seconds:float prop ->
-  exec:spec__template__spec__container__readiness_probe__exec list ->
-  grpc:spec__template__spec__container__readiness_probe__grpc list ->
-  http_get:
+  ?exec:spec__template__spec__container__readiness_probe__exec list ->
+  ?grpc:spec__template__spec__container__readiness_probe__grpc list ->
+  ?http_get:
     spec__template__spec__container__readiness_probe__http_get list ->
-  tcp_socket:
+  ?tcp_socket:
     spec__template__spec__container__readiness_probe__tcp_socket list ->
   unit ->
   spec__template__spec__container__readiness_probe
@@ -693,13 +693,13 @@ val spec__template__spec__container__security_context :
   ?run_as_group:string prop ->
   ?run_as_non_root:bool prop ->
   ?run_as_user:string prop ->
-  capabilities:
+  ?capabilities:
     spec__template__spec__container__security_context__capabilities
     list ->
-  se_linux_options:
+  ?se_linux_options:
     spec__template__spec__container__security_context__se_linux_options
     list ->
-  seccomp_profile:
+  ?seccomp_profile:
     spec__template__spec__container__security_context__seccomp_profile
     list ->
   unit ->
@@ -735,7 +735,7 @@ val spec__template__spec__container__startup_probe__http_get :
   ?path:string prop ->
   ?port:string prop ->
   ?scheme:string prop ->
-  http_header:
+  ?http_header:
     spec__template__spec__container__startup_probe__http_get__http_header
     list ->
   unit ->
@@ -756,11 +756,11 @@ val spec__template__spec__container__startup_probe :
   ?period_seconds:float prop ->
   ?success_threshold:float prop ->
   ?timeout_seconds:float prop ->
-  exec:spec__template__spec__container__startup_probe__exec list ->
-  grpc:spec__template__spec__container__startup_probe__grpc list ->
-  http_get:
+  ?exec:spec__template__spec__container__startup_probe__exec list ->
+  ?grpc:spec__template__spec__container__startup_probe__grpc list ->
+  ?http_get:
     spec__template__spec__container__startup_probe__http_get list ->
-  tcp_socket:
+  ?tcp_socket:
     spec__template__spec__container__startup_probe__tcp_socket list ->
   unit ->
   spec__template__spec__container__startup_probe
@@ -789,19 +789,20 @@ val spec__template__spec__container :
   ?termination_message_policy:string prop ->
   ?tty:bool prop ->
   ?working_dir:string prop ->
-  name:string prop ->
-  env:spec__template__spec__container__env list ->
-  env_from:spec__template__spec__container__env_from list ->
-  lifecycle:spec__template__spec__container__lifecycle list ->
-  liveness_probe:spec__template__spec__container__liveness_probe list ->
-  port:spec__template__spec__container__port list ->
-  readiness_probe:
+  ?env:spec__template__spec__container__env list ->
+  ?env_from:spec__template__spec__container__env_from list ->
+  ?lifecycle:spec__template__spec__container__lifecycle list ->
+  ?liveness_probe:
+    spec__template__spec__container__liveness_probe list ->
+  ?port:spec__template__spec__container__port list ->
+  ?readiness_probe:
     spec__template__spec__container__readiness_probe list ->
-  resources:spec__template__spec__container__resources list ->
-  security_context:
+  ?resources:spec__template__spec__container__resources list ->
+  ?security_context:
     spec__template__spec__container__security_context list ->
-  startup_probe:spec__template__spec__container__startup_probe list ->
-  volume_mount:spec__template__spec__container__volume_mount list ->
+  ?startup_probe:spec__template__spec__container__startup_probe list ->
+  ?volume_mount:spec__template__spec__container__volume_mount list ->
+  name:string prop ->
   unit ->
   spec__template__spec__container
 
@@ -818,7 +819,7 @@ type spec__template__spec__dns_config
 val spec__template__spec__dns_config :
   ?nameservers:string prop list ->
   ?searches:string prop list ->
-  option_:spec__template__spec__dns_config__option list ->
+  ?option_:spec__template__spec__dns_config__option list ->
   unit ->
   spec__template__spec__dns_config
 
@@ -875,16 +876,16 @@ val spec__template__spec__init_container__env__value_from__secret_key_ref :
 type spec__template__spec__init_container__env__value_from
 
 val spec__template__spec__init_container__env__value_from :
-  config_map_key_ref:
+  ?config_map_key_ref:
     spec__template__spec__init_container__env__value_from__config_map_key_ref
     list ->
-  field_ref:
+  ?field_ref:
     spec__template__spec__init_container__env__value_from__field_ref
     list ->
-  resource_field_ref:
+  ?resource_field_ref:
     spec__template__spec__init_container__env__value_from__resource_field_ref
     list ->
-  secret_key_ref:
+  ?secret_key_ref:
     spec__template__spec__init_container__env__value_from__secret_key_ref
     list ->
   unit ->
@@ -894,9 +895,9 @@ type spec__template__spec__init_container__env
 
 val spec__template__spec__init_container__env :
   ?value:string prop ->
-  name:string prop ->
-  value_from:
+  ?value_from:
     spec__template__spec__init_container__env__value_from list ->
+  name:string prop ->
   unit ->
   spec__template__spec__init_container__env
 
@@ -920,10 +921,10 @@ type spec__template__spec__init_container__env_from
 
 val spec__template__spec__init_container__env_from :
   ?prefix:string prop ->
-  config_map_ref:
+  ?config_map_ref:
     spec__template__spec__init_container__env_from__config_map_ref
     list ->
-  secret_ref:
+  ?secret_ref:
     spec__template__spec__init_container__env_from__secret_ref list ->
   unit ->
   spec__template__spec__init_container__env_from
@@ -950,7 +951,7 @@ val spec__template__spec__init_container__lifecycle__post_start__http_get :
   ?path:string prop ->
   ?port:string prop ->
   ?scheme:string prop ->
-  http_header:
+  ?http_header:
     spec__template__spec__init_container__lifecycle__post_start__http_get__http_header
     list ->
   unit ->
@@ -966,13 +967,13 @@ val spec__template__spec__init_container__lifecycle__post_start__tcp_socket :
 type spec__template__spec__init_container__lifecycle__post_start
 
 val spec__template__spec__init_container__lifecycle__post_start :
-  exec:
+  ?exec:
     spec__template__spec__init_container__lifecycle__post_start__exec
     list ->
-  http_get:
+  ?http_get:
     spec__template__spec__init_container__lifecycle__post_start__http_get
     list ->
-  tcp_socket:
+  ?tcp_socket:
     spec__template__spec__init_container__lifecycle__post_start__tcp_socket
     list ->
   unit ->
@@ -1000,7 +1001,7 @@ val spec__template__spec__init_container__lifecycle__pre_stop__http_get :
   ?path:string prop ->
   ?port:string prop ->
   ?scheme:string prop ->
-  http_header:
+  ?http_header:
     spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_header
     list ->
   unit ->
@@ -1016,13 +1017,13 @@ val spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket :
 type spec__template__spec__init_container__lifecycle__pre_stop
 
 val spec__template__spec__init_container__lifecycle__pre_stop :
-  exec:
+  ?exec:
     spec__template__spec__init_container__lifecycle__pre_stop__exec
     list ->
-  http_get:
+  ?http_get:
     spec__template__spec__init_container__lifecycle__pre_stop__http_get
     list ->
-  tcp_socket:
+  ?tcp_socket:
     spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket
     list ->
   unit ->
@@ -1031,9 +1032,9 @@ val spec__template__spec__init_container__lifecycle__pre_stop :
 type spec__template__spec__init_container__lifecycle
 
 val spec__template__spec__init_container__lifecycle :
-  post_start:
+  ?post_start:
     spec__template__spec__init_container__lifecycle__post_start list ->
-  pre_stop:
+  ?pre_stop:
     spec__template__spec__init_container__lifecycle__pre_stop list ->
   unit ->
   spec__template__spec__init_container__lifecycle
@@ -1068,7 +1069,7 @@ val spec__template__spec__init_container__liveness_probe__http_get :
   ?path:string prop ->
   ?port:string prop ->
   ?scheme:string prop ->
-  http_header:
+  ?http_header:
     spec__template__spec__init_container__liveness_probe__http_get__http_header
     list ->
   unit ->
@@ -1089,14 +1090,14 @@ val spec__template__spec__init_container__liveness_probe :
   ?period_seconds:float prop ->
   ?success_threshold:float prop ->
   ?timeout_seconds:float prop ->
-  exec:
+  ?exec:
     spec__template__spec__init_container__liveness_probe__exec list ->
-  grpc:
+  ?grpc:
     spec__template__spec__init_container__liveness_probe__grpc list ->
-  http_get:
+  ?http_get:
     spec__template__spec__init_container__liveness_probe__http_get
     list ->
-  tcp_socket:
+  ?tcp_socket:
     spec__template__spec__init_container__liveness_probe__tcp_socket
     list ->
   unit ->
@@ -1143,7 +1144,7 @@ val spec__template__spec__init_container__readiness_probe__http_get :
   ?path:string prop ->
   ?port:string prop ->
   ?scheme:string prop ->
-  http_header:
+  ?http_header:
     spec__template__spec__init_container__readiness_probe__http_get__http_header
     list ->
   unit ->
@@ -1164,14 +1165,14 @@ val spec__template__spec__init_container__readiness_probe :
   ?period_seconds:float prop ->
   ?success_threshold:float prop ->
   ?timeout_seconds:float prop ->
-  exec:
+  ?exec:
     spec__template__spec__init_container__readiness_probe__exec list ->
-  grpc:
+  ?grpc:
     spec__template__spec__init_container__readiness_probe__grpc list ->
-  http_get:
+  ?http_get:
     spec__template__spec__init_container__readiness_probe__http_get
     list ->
-  tcp_socket:
+  ?tcp_socket:
     spec__template__spec__init_container__readiness_probe__tcp_socket
     list ->
   unit ->
@@ -1220,13 +1221,13 @@ val spec__template__spec__init_container__security_context :
   ?run_as_group:string prop ->
   ?run_as_non_root:bool prop ->
   ?run_as_user:string prop ->
-  capabilities:
+  ?capabilities:
     spec__template__spec__init_container__security_context__capabilities
     list ->
-  se_linux_options:
+  ?se_linux_options:
     spec__template__spec__init_container__security_context__se_linux_options
     list ->
-  seccomp_profile:
+  ?seccomp_profile:
     spec__template__spec__init_container__security_context__seccomp_profile
     list ->
   unit ->
@@ -1262,7 +1263,7 @@ val spec__template__spec__init_container__startup_probe__http_get :
   ?path:string prop ->
   ?port:string prop ->
   ?scheme:string prop ->
-  http_header:
+  ?http_header:
     spec__template__spec__init_container__startup_probe__http_get__http_header
     list ->
   unit ->
@@ -1283,12 +1284,14 @@ val spec__template__spec__init_container__startup_probe :
   ?period_seconds:float prop ->
   ?success_threshold:float prop ->
   ?timeout_seconds:float prop ->
-  exec:spec__template__spec__init_container__startup_probe__exec list ->
-  grpc:spec__template__spec__init_container__startup_probe__grpc list ->
-  http_get:
+  ?exec:
+    spec__template__spec__init_container__startup_probe__exec list ->
+  ?grpc:
+    spec__template__spec__init_container__startup_probe__grpc list ->
+  ?http_get:
     spec__template__spec__init_container__startup_probe__http_get
     list ->
-  tcp_socket:
+  ?tcp_socket:
     spec__template__spec__init_container__startup_probe__tcp_socket
     list ->
   unit ->
@@ -1318,22 +1321,22 @@ val spec__template__spec__init_container :
   ?termination_message_policy:string prop ->
   ?tty:bool prop ->
   ?working_dir:string prop ->
-  name:string prop ->
-  env:spec__template__spec__init_container__env list ->
-  env_from:spec__template__spec__init_container__env_from list ->
-  lifecycle:spec__template__spec__init_container__lifecycle list ->
-  liveness_probe:
+  ?env:spec__template__spec__init_container__env list ->
+  ?env_from:spec__template__spec__init_container__env_from list ->
+  ?lifecycle:spec__template__spec__init_container__lifecycle list ->
+  ?liveness_probe:
     spec__template__spec__init_container__liveness_probe list ->
-  port:spec__template__spec__init_container__port list ->
-  readiness_probe:
+  ?port:spec__template__spec__init_container__port list ->
+  ?readiness_probe:
     spec__template__spec__init_container__readiness_probe list ->
-  resources:spec__template__spec__init_container__resources list ->
-  security_context:
+  ?resources:spec__template__spec__init_container__resources list ->
+  ?security_context:
     spec__template__spec__init_container__security_context list ->
-  startup_probe:
+  ?startup_probe:
     spec__template__spec__init_container__startup_probe list ->
-  volume_mount:
+  ?volume_mount:
     spec__template__spec__init_container__volume_mount list ->
+  name:string prop ->
   unit ->
   spec__template__spec__init_container
 
@@ -1394,12 +1397,12 @@ val spec__template__spec__security_context :
   ?run_as_non_root:bool prop ->
   ?run_as_user:string prop ->
   ?supplemental_groups:float prop list ->
-  se_linux_options:
+  ?se_linux_options:
     spec__template__spec__security_context__se_linux_options list ->
-  seccomp_profile:
+  ?seccomp_profile:
     spec__template__spec__security_context__seccomp_profile list ->
-  sysctl:spec__template__spec__security_context__sysctl list ->
-  windows_options:
+  ?sysctl:spec__template__spec__security_context__sysctl list ->
+  ?windows_options:
     spec__template__spec__security_context__windows_options list ->
   unit ->
   spec__template__spec__security_context
@@ -1428,7 +1431,7 @@ type spec__template__spec__topology_spread_constraint__label_selector
 
 val spec__template__spec__topology_spread_constraint__label_selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:
+  ?match_expressions:
     spec__template__spec__topology_spread_constraint__label_selector__match_expressions
     list ->
   unit ->
@@ -1444,7 +1447,7 @@ val spec__template__spec__topology_spread_constraint :
   ?node_taints_policy:string prop ->
   ?topology_key:string prop ->
   ?when_unsatisfiable:string prop ->
-  label_selector:
+  ?label_selector:
     spec__template__spec__topology_spread_constraint__label_selector
     list ->
   unit ->
@@ -1497,8 +1500,8 @@ val spec__template__spec__volume__ceph_fs :
   ?read_only:bool prop ->
   ?secret_file:string prop ->
   ?user:string prop ->
+  ?secret_ref:spec__template__spec__volume__ceph_fs__secret_ref list ->
   monitors:string prop list ->
-  secret_ref:spec__template__spec__volume__ceph_fs__secret_ref list ->
   unit ->
   spec__template__spec__volume__ceph_fs
 
@@ -1526,7 +1529,7 @@ val spec__template__spec__volume__config_map :
   ?default_mode:string prop ->
   ?name:string prop ->
   ?optional:bool prop ->
-  items:spec__template__spec__volume__config_map__items list ->
+  ?items:spec__template__spec__volume__config_map__items list ->
   unit ->
   spec__template__spec__volume__config_map
 
@@ -1543,9 +1546,9 @@ val spec__template__spec__volume__csi :
   ?fs_type:string prop ->
   ?read_only:bool prop ->
   ?volume_attributes:(string * string prop) list ->
-  driver:string prop ->
-  node_publish_secret_ref:
+  ?node_publish_secret_ref:
     spec__template__spec__volume__csi__node_publish_secret_ref list ->
+  driver:string prop ->
   unit ->
   spec__template__spec__volume__csi
 
@@ -1570,12 +1573,12 @@ type spec__template__spec__volume__downward_api__items
 
 val spec__template__spec__volume__downward_api__items :
   ?mode:string prop ->
+  ?resource_field_ref:
+    spec__template__spec__volume__downward_api__items__resource_field_ref
+    list ->
   path:string prop ->
   field_ref:
     spec__template__spec__volume__downward_api__items__field_ref list ->
-  resource_field_ref:
-    spec__template__spec__volume__downward_api__items__resource_field_ref
-    list ->
   unit ->
   spec__template__spec__volume__downward_api__items
 
@@ -1583,7 +1586,7 @@ type spec__template__spec__volume__downward_api
 
 val spec__template__spec__volume__downward_api :
   ?default_mode:string prop ->
-  items:spec__template__spec__volume__downward_api__items list ->
+  ?items:spec__template__spec__volume__downward_api__items list ->
   unit ->
   spec__template__spec__volume__downward_api
 
@@ -1624,7 +1627,7 @@ type spec__template__spec__volume__ephemeral__volume_claim_template__spec__selec
 
 val spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:
+  ?match_expressions:
     spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions
     list ->
   unit ->
@@ -1636,12 +1639,12 @@ val spec__template__spec__volume__ephemeral__volume_claim_template__spec :
   ?storage_class_name:string prop ->
   ?volume_mode:string prop ->
   ?volume_name:string prop ->
+  ?selector:
+    spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector
+    list ->
   access_modes:string prop list ->
   resources:
     spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources
-    list ->
-  selector:
-    spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector
     list ->
   unit ->
   spec__template__spec__volume__ephemeral__volume_claim_template__spec
@@ -1649,7 +1652,7 @@ val spec__template__spec__volume__ephemeral__volume_claim_template__spec :
 type spec__template__spec__volume__ephemeral__volume_claim_template
 
 val spec__template__spec__volume__ephemeral__volume_claim_template :
-  metadata:
+  ?metadata:
     spec__template__spec__volume__ephemeral__volume_claim_template__metadata
     list ->
   spec:
@@ -1691,9 +1694,9 @@ val spec__template__spec__volume__flex_volume :
   ?fs_type:string prop ->
   ?options:(string * string prop) list ->
   ?read_only:bool prop ->
-  driver:string prop ->
-  secret_ref:
+  ?secret_ref:
     spec__template__spec__volume__flex_volume__secret_ref list ->
+  driver:string prop ->
   unit ->
   spec__template__spec__volume__flex_volume
 
@@ -1797,7 +1800,7 @@ type spec__template__spec__volume__projected__sources__config_map
 val spec__template__spec__volume__projected__sources__config_map :
   ?name:string prop ->
   ?optional:bool prop ->
-  items:
+  ?items:
     spec__template__spec__volume__projected__sources__config_map__items
     list ->
   unit ->
@@ -1824,20 +1827,20 @@ type spec__template__spec__volume__projected__sources__downward_api__items
 
 val spec__template__spec__volume__projected__sources__downward_api__items :
   ?mode:string prop ->
-  path:string prop ->
-  field_ref:
+  ?field_ref:
     spec__template__spec__volume__projected__sources__downward_api__items__field_ref
     list ->
-  resource_field_ref:
+  ?resource_field_ref:
     spec__template__spec__volume__projected__sources__downward_api__items__resource_field_ref
     list ->
+  path:string prop ->
   unit ->
   spec__template__spec__volume__projected__sources__downward_api__items
 
 type spec__template__spec__volume__projected__sources__downward_api
 
 val spec__template__spec__volume__projected__sources__downward_api :
-  items:
+  ?items:
     spec__template__spec__volume__projected__sources__downward_api__items
     list ->
   unit ->
@@ -1857,7 +1860,7 @@ type spec__template__spec__volume__projected__sources__secret
 val spec__template__spec__volume__projected__sources__secret :
   ?name:string prop ->
   ?optional:bool prop ->
-  items:
+  ?items:
     spec__template__spec__volume__projected__sources__secret__items
     list ->
   unit ->
@@ -1875,14 +1878,14 @@ val spec__template__spec__volume__projected__sources__service_account_token :
 type spec__template__spec__volume__projected__sources
 
 val spec__template__spec__volume__projected__sources :
-  config_map:
+  ?config_map:
     spec__template__spec__volume__projected__sources__config_map list ->
-  downward_api:
+  ?downward_api:
     spec__template__spec__volume__projected__sources__downward_api
     list ->
-  secret:
+  ?secret:
     spec__template__spec__volume__projected__sources__secret list ->
-  service_account_token:
+  ?service_account_token:
     spec__template__spec__volume__projected__sources__service_account_token
     list ->
   unit ->
@@ -1923,9 +1926,9 @@ val spec__template__spec__volume__rbd :
   ?rados_user:string prop ->
   ?rbd_pool:string prop ->
   ?read_only:bool prop ->
+  ?secret_ref:spec__template__spec__volume__rbd__secret_ref list ->
   ceph_monitors:string prop list ->
   rbd_image:string prop ->
-  secret_ref:spec__template__spec__volume__rbd__secret_ref list ->
   unit ->
   spec__template__spec__volume__rbd
 
@@ -1944,7 +1947,7 @@ val spec__template__spec__volume__secret :
   ?default_mode:string prop ->
   ?optional:bool prop ->
   ?secret_name:string prop ->
-  items:spec__template__spec__volume__secret__items list ->
+  ?items:spec__template__spec__volume__secret__items list ->
   unit ->
   spec__template__spec__volume__secret
 
@@ -1960,37 +1963,37 @@ type spec__template__spec__volume
 
 val spec__template__spec__volume :
   ?name:string prop ->
-  aws_elastic_block_store:
+  ?aws_elastic_block_store:
     spec__template__spec__volume__aws_elastic_block_store list ->
-  azure_disk:spec__template__spec__volume__azure_disk list ->
-  azure_file:spec__template__spec__volume__azure_file list ->
-  ceph_fs:spec__template__spec__volume__ceph_fs list ->
-  cinder:spec__template__spec__volume__cinder list ->
-  config_map:spec__template__spec__volume__config_map list ->
-  csi:spec__template__spec__volume__csi list ->
-  downward_api:spec__template__spec__volume__downward_api list ->
-  empty_dir:spec__template__spec__volume__empty_dir list ->
-  ephemeral:spec__template__spec__volume__ephemeral list ->
-  fc:spec__template__spec__volume__fc list ->
-  flex_volume:spec__template__spec__volume__flex_volume list ->
-  flocker:spec__template__spec__volume__flocker list ->
-  gce_persistent_disk:
+  ?azure_disk:spec__template__spec__volume__azure_disk list ->
+  ?azure_file:spec__template__spec__volume__azure_file list ->
+  ?ceph_fs:spec__template__spec__volume__ceph_fs list ->
+  ?cinder:spec__template__spec__volume__cinder list ->
+  ?config_map:spec__template__spec__volume__config_map list ->
+  ?csi:spec__template__spec__volume__csi list ->
+  ?downward_api:spec__template__spec__volume__downward_api list ->
+  ?empty_dir:spec__template__spec__volume__empty_dir list ->
+  ?ephemeral:spec__template__spec__volume__ephemeral list ->
+  ?fc:spec__template__spec__volume__fc list ->
+  ?flex_volume:spec__template__spec__volume__flex_volume list ->
+  ?flocker:spec__template__spec__volume__flocker list ->
+  ?gce_persistent_disk:
     spec__template__spec__volume__gce_persistent_disk list ->
-  git_repo:spec__template__spec__volume__git_repo list ->
-  glusterfs:spec__template__spec__volume__glusterfs list ->
-  host_path:spec__template__spec__volume__host_path list ->
-  iscsi:spec__template__spec__volume__iscsi list ->
-  local:spec__template__spec__volume__local list ->
-  nfs:spec__template__spec__volume__nfs list ->
-  persistent_volume_claim:
+  ?git_repo:spec__template__spec__volume__git_repo list ->
+  ?glusterfs:spec__template__spec__volume__glusterfs list ->
+  ?host_path:spec__template__spec__volume__host_path list ->
+  ?iscsi:spec__template__spec__volume__iscsi list ->
+  ?local:spec__template__spec__volume__local list ->
+  ?nfs:spec__template__spec__volume__nfs list ->
+  ?persistent_volume_claim:
     spec__template__spec__volume__persistent_volume_claim list ->
-  photon_persistent_disk:
+  ?photon_persistent_disk:
     spec__template__spec__volume__photon_persistent_disk list ->
-  projected:spec__template__spec__volume__projected list ->
-  quobyte:spec__template__spec__volume__quobyte list ->
-  rbd:spec__template__spec__volume__rbd list ->
-  secret:spec__template__spec__volume__secret list ->
-  vsphere_volume:spec__template__spec__volume__vsphere_volume list ->
+  ?projected:spec__template__spec__volume__projected list ->
+  ?quobyte:spec__template__spec__volume__quobyte list ->
+  ?rbd:spec__template__spec__volume__rbd list ->
+  ?secret:spec__template__spec__volume__secret list ->
+  ?vsphere_volume:spec__template__spec__volume__vsphere_volume list ->
   unit ->
   spec__template__spec__volume
 
@@ -2015,19 +2018,19 @@ val spec__template__spec :
   ?share_process_namespace:bool prop ->
   ?subdomain:string prop ->
   ?termination_grace_period_seconds:float prop ->
-  affinity:spec__template__spec__affinity list ->
-  container:spec__template__spec__container list ->
-  dns_config:spec__template__spec__dns_config list ->
-  host_aliases:spec__template__spec__host_aliases list ->
-  image_pull_secrets:spec__template__spec__image_pull_secrets list ->
-  init_container:spec__template__spec__init_container list ->
-  os:spec__template__spec__os list ->
-  readiness_gate:spec__template__spec__readiness_gate list ->
-  security_context:spec__template__spec__security_context list ->
-  toleration:spec__template__spec__toleration list ->
-  topology_spread_constraint:
+  ?affinity:spec__template__spec__affinity list ->
+  ?container:spec__template__spec__container list ->
+  ?dns_config:spec__template__spec__dns_config list ->
+  ?host_aliases:spec__template__spec__host_aliases list ->
+  ?image_pull_secrets:spec__template__spec__image_pull_secrets list ->
+  ?init_container:spec__template__spec__init_container list ->
+  ?os:spec__template__spec__os list ->
+  ?readiness_gate:spec__template__spec__readiness_gate list ->
+  ?security_context:spec__template__spec__security_context list ->
+  ?toleration:spec__template__spec__toleration list ->
+  ?topology_spread_constraint:
     spec__template__spec__topology_spread_constraint list ->
-  volume:spec__template__spec__volume list ->
+  ?volume:spec__template__spec__volume list ->
   unit ->
   spec__template__spec
 
@@ -2047,8 +2050,8 @@ val spec :
   ?progress_deadline_seconds:float prop ->
   ?replicas:string prop ->
   ?revision_history_limit:float prop ->
-  selector:spec__selector list ->
-  strategy:spec__strategy list ->
+  ?selector:spec__selector list ->
+  ?strategy:spec__strategy list ->
   template:spec__template list ->
   unit ->
   spec

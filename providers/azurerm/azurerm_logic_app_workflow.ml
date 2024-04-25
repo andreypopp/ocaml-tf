@@ -559,8 +559,8 @@ let access_control__workflow_management
     access_control__workflow_management =
   { allowed_caller_ip_address_range }
 
-let access_control ~action ~content ~trigger ~workflow_management ()
-    : access_control =
+let access_control ?(action = []) ?(content = []) ?(trigger = [])
+    ?(workflow_management = []) () : access_control =
   { action; content; trigger; workflow_management }
 
 let identity ?identity_ids ~type_ () : identity =
@@ -572,9 +572,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_logic_app_workflow ?enabled ?id
     ?integration_service_environment_id
     ?logic_app_integration_account_id ?parameters ?tags
-    ?workflow_parameters ?workflow_schema ?workflow_version ?timeouts
-    ~location ~name ~resource_group_name ~access_control ~identity ()
-    : azurerm_logic_app_workflow =
+    ?workflow_parameters ?workflow_schema ?workflow_version
+    ?(access_control = []) ?(identity = []) ?timeouts ~location ~name
+    ~resource_group_name () : azurerm_logic_app_workflow =
   {
     enabled;
     id;
@@ -615,9 +615,9 @@ type t = {
 
 let make ?enabled ?id ?integration_service_environment_id
     ?logic_app_integration_account_id ?parameters ?tags
-    ?workflow_parameters ?workflow_schema ?workflow_version ?timeouts
-    ~location ~name ~resource_group_name ~access_control ~identity
-    __id =
+    ?workflow_parameters ?workflow_schema ?workflow_version
+    ?(access_control = []) ?(identity = []) ?timeouts ~location ~name
+    ~resource_group_name __id =
   let __type = "azurerm_logic_app_workflow" in
   let __attrs =
     ({
@@ -660,23 +660,23 @@ let make ?enabled ?id ?integration_service_environment_id
            ?integration_service_environment_id
            ?logic_app_integration_account_id ?parameters ?tags
            ?workflow_parameters ?workflow_schema ?workflow_version
-           ?timeouts ~location ~name ~resource_group_name
-           ~access_control ~identity ());
+           ~access_control ~identity ?timeouts ~location ~name
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?enabled ?id
     ?integration_service_environment_id
     ?logic_app_integration_account_id ?parameters ?tags
-    ?workflow_parameters ?workflow_schema ?workflow_version ?timeouts
-    ~location ~name ~resource_group_name ~access_control ~identity
-    __id =
+    ?workflow_parameters ?workflow_schema ?workflow_version
+    ?(access_control = []) ?(identity = []) ?timeouts ~location ~name
+    ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?enabled ?id ?integration_service_environment_id
       ?logic_app_integration_account_id ?parameters ?tags
       ?workflow_parameters ?workflow_schema ?workflow_version
-      ?timeouts ~location ~name ~resource_group_name ~access_control
-      ~identity __id
+      ~access_control ~identity ?timeouts ~location ~name
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

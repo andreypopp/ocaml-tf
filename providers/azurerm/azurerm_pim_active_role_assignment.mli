@@ -17,7 +17,7 @@ type schedule
 
 val schedule :
   ?start_date_time:string prop ->
-  expiration:schedule__expiration list ->
+  ?expiration:schedule__expiration list ->
   unit ->
   schedule
 
@@ -40,12 +40,12 @@ type azurerm_pim_active_role_assignment
 val azurerm_pim_active_role_assignment :
   ?id:string prop ->
   ?justification:string prop ->
+  ?schedule:schedule list ->
+  ?ticket:ticket list ->
   ?timeouts:timeouts ->
   principal_id:string prop ->
   role_definition_id:string prop ->
   scope:string prop ->
-  schedule:schedule list ->
-  ticket:ticket list ->
   unit ->
   azurerm_pim_active_role_assignment
 
@@ -67,23 +67,23 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?justification:string prop ->
+  ?schedule:schedule list ->
+  ?ticket:ticket list ->
   ?timeouts:timeouts ->
   principal_id:string prop ->
   role_definition_id:string prop ->
   scope:string prop ->
-  schedule:schedule list ->
-  ticket:ticket list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?justification:string prop ->
+  ?schedule:schedule list ->
+  ?ticket:ticket list ->
   ?timeouts:timeouts ->
   principal_id:string prop ->
   role_definition_id:string prop ->
   scope:string prop ->
-  schedule:schedule list ->
-  ticket:ticket list ->
   string ->
   t Tf_core.resource

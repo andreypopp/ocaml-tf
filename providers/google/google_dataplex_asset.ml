@@ -587,7 +587,8 @@ let discovery_spec__json_options ?disable_type_inference ?encoding ()
   { disable_type_inference; encoding }
 
 let discovery_spec ?exclude_patterns ?include_patterns ?schedule
-    ~enabled ~csv_options ~json_options () : discovery_spec =
+    ?(csv_options = []) ?(json_options = []) ~enabled () :
+    discovery_spec =
   {
     enabled;
     exclude_patterns;

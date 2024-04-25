@@ -4898,12 +4898,12 @@ let default_route_action__fault_injection_policy__delay__fixed_delay
   { nanos; seconds }
 
 let default_route_action__fault_injection_policy__delay ?percentage
-    ~fixed_delay () :
+    ?(fixed_delay = []) () :
     default_route_action__fault_injection_policy__delay =
   { percentage; fixed_delay }
 
-let default_route_action__fault_injection_policy ~abort ~delay () :
-    default_route_action__fault_injection_policy =
+let default_route_action__fault_injection_policy ?(abort = [])
+    ?(delay = []) () : default_route_action__fault_injection_policy =
   { abort; delay }
 
 let default_route_action__request_mirror_policy ~backend_service () :
@@ -4916,7 +4916,7 @@ let default_route_action__retry_policy__per_try_timeout ?nanos
   { nanos; seconds }
 
 let default_route_action__retry_policy ?num_retries ?retry_conditions
-    ~per_try_timeout () : default_route_action__retry_policy =
+    ?(per_try_timeout = []) () : default_route_action__retry_policy =
   { num_retries; retry_conditions; per_try_timeout }
 
 let default_route_action__timeout ?nanos ?seconds () :
@@ -4941,8 +4941,9 @@ let default_route_action__weighted_backend_services__header_action__response_hea
 
 let default_route_action__weighted_backend_services__header_action
     ?request_headers_to_remove ?response_headers_to_remove
-    ~request_headers_to_add ~response_headers_to_add () :
-    default_route_action__weighted_backend_services__header_action =
+    ?(request_headers_to_add = []) ?(response_headers_to_add = []) ()
+    : default_route_action__weighted_backend_services__header_action
+    =
   {
     request_headers_to_remove;
     response_headers_to_remove;
@@ -4951,13 +4952,14 @@ let default_route_action__weighted_backend_services__header_action
   }
 
 let default_route_action__weighted_backend_services ?backend_service
-    ?weight ~header_action () :
+    ?weight ?(header_action = []) () :
     default_route_action__weighted_backend_services =
   { backend_service; weight; header_action }
 
-let default_route_action ~cors_policy ~fault_injection_policy
-    ~request_mirror_policy ~retry_policy ~timeout ~url_rewrite
-    ~weighted_backend_services () : default_route_action =
+let default_route_action ?(cors_policy = [])
+    ?(fault_injection_policy = []) ?(request_mirror_policy = [])
+    ?(retry_policy = []) ?(timeout = []) ?(url_rewrite = [])
+    ?(weighted_backend_services = []) () : default_route_action =
   {
     cors_policy;
     fault_injection_policy;
@@ -4989,8 +4991,8 @@ let header_action__response_headers_to_add ~header_name ~header_value
   { header_name; header_value; replace }
 
 let header_action ?request_headers_to_remove
-    ?response_headers_to_remove ~request_headers_to_add
-    ~response_headers_to_add () : header_action =
+    ?response_headers_to_remove ?(request_headers_to_add = [])
+    ?(response_headers_to_add = []) () : header_action =
   {
     request_headers_to_remove;
     response_headers_to_remove;
@@ -5029,13 +5031,13 @@ let path_matcher__default_route_action__fault_injection_policy__delay__fixed_del
   { nanos; seconds }
 
 let path_matcher__default_route_action__fault_injection_policy__delay
-    ?percentage ~fixed_delay () :
+    ?percentage ?(fixed_delay = []) () :
     path_matcher__default_route_action__fault_injection_policy__delay
     =
   { percentage; fixed_delay }
 
-let path_matcher__default_route_action__fault_injection_policy ~abort
-    ~delay () :
+let path_matcher__default_route_action__fault_injection_policy
+    ?(abort = []) ?(delay = []) () :
     path_matcher__default_route_action__fault_injection_policy =
   { abort; delay }
 
@@ -5051,7 +5053,7 @@ let path_matcher__default_route_action__retry_policy__per_try_timeout
   { nanos; seconds }
 
 let path_matcher__default_route_action__retry_policy ?num_retries
-    ?retry_conditions ~per_try_timeout () :
+    ?retry_conditions ?(per_try_timeout = []) () :
     path_matcher__default_route_action__retry_policy =
   { num_retries; retry_conditions; per_try_timeout }
 
@@ -5078,7 +5080,8 @@ let path_matcher__default_route_action__weighted_backend_services__header_action
 
 let path_matcher__default_route_action__weighted_backend_services__header_action
     ?request_headers_to_remove ?response_headers_to_remove
-    ~request_headers_to_add ~response_headers_to_add () :
+    ?(request_headers_to_add = []) ?(response_headers_to_add = []) ()
+    :
     path_matcher__default_route_action__weighted_backend_services__header_action
     =
   {
@@ -5089,13 +5092,14 @@ let path_matcher__default_route_action__weighted_backend_services__header_action
   }
 
 let path_matcher__default_route_action__weighted_backend_services
-    ?backend_service ?weight ~header_action () :
+    ?backend_service ?weight ?(header_action = []) () :
     path_matcher__default_route_action__weighted_backend_services =
   { backend_service; weight; header_action }
 
-let path_matcher__default_route_action ~cors_policy
-    ~fault_injection_policy ~request_mirror_policy ~retry_policy
-    ~timeout ~url_rewrite ~weighted_backend_services () :
+let path_matcher__default_route_action ?(cors_policy = [])
+    ?(fault_injection_policy = []) ?(request_mirror_policy = [])
+    ?(retry_policy = []) ?(timeout = []) ?(url_rewrite = [])
+    ?(weighted_backend_services = []) () :
     path_matcher__default_route_action =
   {
     cors_policy;
@@ -5130,8 +5134,9 @@ let path_matcher__header_action__response_headers_to_add ~header_name
   { header_name; header_value; replace }
 
 let path_matcher__header_action ?request_headers_to_remove
-    ?response_headers_to_remove ~request_headers_to_add
-    ~response_headers_to_add () : path_matcher__header_action =
+    ?response_headers_to_remove ?(request_headers_to_add = [])
+    ?(response_headers_to_add = []) () : path_matcher__header_action
+    =
   {
     request_headers_to_remove;
     response_headers_to_remove;
@@ -5174,7 +5179,7 @@ let path_matcher__path_rule__route_action__fault_injection_policy__delay
   { percentage; fixed_delay }
 
 let path_matcher__path_rule__route_action__fault_injection_policy
-    ~abort ~delay () :
+    ?(abort = []) ?(delay = []) () :
     path_matcher__path_rule__route_action__fault_injection_policy =
   { abort; delay }
 
@@ -5190,7 +5195,7 @@ let path_matcher__path_rule__route_action__retry_policy__per_try_timeout
   { nanos; seconds }
 
 let path_matcher__path_rule__route_action__retry_policy ?num_retries
-    ?retry_conditions ~per_try_timeout () :
+    ?retry_conditions ?(per_try_timeout = []) () :
     path_matcher__path_rule__route_action__retry_policy =
   { num_retries; retry_conditions; per_try_timeout }
 
@@ -5217,7 +5222,8 @@ let path_matcher__path_rule__route_action__weighted_backend_services__header_act
 
 let path_matcher__path_rule__route_action__weighted_backend_services__header_action
     ?request_headers_to_remove ?response_headers_to_remove
-    ~request_headers_to_add ~response_headers_to_add () :
+    ?(request_headers_to_add = []) ?(response_headers_to_add = []) ()
+    :
     path_matcher__path_rule__route_action__weighted_backend_services__header_action
     =
   {
@@ -5228,14 +5234,15 @@ let path_matcher__path_rule__route_action__weighted_backend_services__header_act
   }
 
 let path_matcher__path_rule__route_action__weighted_backend_services
-    ~backend_service ~weight ~header_action () :
+    ?(header_action = []) ~backend_service ~weight () :
     path_matcher__path_rule__route_action__weighted_backend_services
     =
   { backend_service; weight; header_action }
 
-let path_matcher__path_rule__route_action ~cors_policy
-    ~fault_injection_policy ~request_mirror_policy ~retry_policy
-    ~timeout ~url_rewrite ~weighted_backend_services () :
+let path_matcher__path_rule__route_action ?(cors_policy = [])
+    ?(fault_injection_policy = []) ?(request_mirror_policy = [])
+    ?(retry_policy = []) ?(timeout = []) ?(url_rewrite = [])
+    ?(weighted_backend_services = []) () :
     path_matcher__path_rule__route_action =
   {
     cors_policy;
@@ -5260,8 +5267,8 @@ let path_matcher__path_rule__url_redirect ?host_redirect
     strip_query;
   }
 
-let path_matcher__path_rule ?service ~paths ~route_action
-    ~url_redirect () : path_matcher__path_rule =
+let path_matcher__path_rule ?service ?(route_action = [])
+    ?(url_redirect = []) ~paths () : path_matcher__path_rule =
   { paths; service; route_action; url_redirect }
 
 let path_matcher__route_rules__header_action__request_headers_to_add
@@ -5278,8 +5285,8 @@ let path_matcher__route_rules__header_action__response_headers_to_add
 
 let path_matcher__route_rules__header_action
     ?request_headers_to_remove ?response_headers_to_remove
-    ~request_headers_to_add ~response_headers_to_add () :
-    path_matcher__route_rules__header_action =
+    ?(request_headers_to_add = []) ?(response_headers_to_add = []) ()
+    : path_matcher__route_rules__header_action =
   {
     request_headers_to_remove;
     response_headers_to_remove;
@@ -5295,7 +5302,7 @@ let path_matcher__route_rules__match_rules__header_matches__range_match
 
 let path_matcher__route_rules__match_rules__header_matches
     ?exact_match ?invert_match ?prefix_match ?present_match
-    ?regex_match ?suffix_match ~header_name ~range_match () :
+    ?regex_match ?suffix_match ?(range_match = []) ~header_name () :
     path_matcher__route_rules__match_rules__header_matches =
   {
     exact_match;
@@ -5326,7 +5333,8 @@ let path_matcher__route_rules__match_rules__query_parameter_matches
 
 let path_matcher__route_rules__match_rules ?full_path_match
     ?ignore_case ?path_template_match ?prefix_match ?regex_match
-    ~header_matches ~metadata_filters ~query_parameter_matches () :
+    ?(header_matches = []) ?(metadata_filters = [])
+    ?(query_parameter_matches = []) () :
     path_matcher__route_rules__match_rules =
   {
     full_path_match;
@@ -5368,13 +5376,13 @@ let path_matcher__route_rules__route_action__fault_injection_policy__delay__fixe
   { nanos; seconds }
 
 let path_matcher__route_rules__route_action__fault_injection_policy__delay
-    ?percentage ~fixed_delay () :
+    ?percentage ?(fixed_delay = []) () :
     path_matcher__route_rules__route_action__fault_injection_policy__delay
     =
   { percentage; fixed_delay }
 
 let path_matcher__route_rules__route_action__fault_injection_policy
-    ~abort ~delay () :
+    ?(abort = []) ?(delay = []) () :
     path_matcher__route_rules__route_action__fault_injection_policy =
   { abort; delay }
 
@@ -5390,7 +5398,7 @@ let path_matcher__route_rules__route_action__retry_policy__per_try_timeout
   { nanos; seconds }
 
 let path_matcher__route_rules__route_action__retry_policy
-    ?retry_conditions ~num_retries ~per_try_timeout () :
+    ?retry_conditions ?(per_try_timeout = []) ~num_retries () :
     path_matcher__route_rules__route_action__retry_policy =
   { num_retries; retry_conditions; per_try_timeout }
 
@@ -5417,7 +5425,8 @@ let path_matcher__route_rules__route_action__weighted_backend_services__header_a
 
 let path_matcher__route_rules__route_action__weighted_backend_services__header_action
     ?request_headers_to_remove ?response_headers_to_remove
-    ~request_headers_to_add ~response_headers_to_add () :
+    ?(request_headers_to_add = []) ?(response_headers_to_add = []) ()
+    :
     path_matcher__route_rules__route_action__weighted_backend_services__header_action
     =
   {
@@ -5428,14 +5437,15 @@ let path_matcher__route_rules__route_action__weighted_backend_services__header_a
   }
 
 let path_matcher__route_rules__route_action__weighted_backend_services
-    ~backend_service ~weight ~header_action () :
+    ?(header_action = []) ~backend_service ~weight () :
     path_matcher__route_rules__route_action__weighted_backend_services
     =
   { backend_service; weight; header_action }
 
-let path_matcher__route_rules__route_action ~cors_policy
-    ~fault_injection_policy ~request_mirror_policy ~retry_policy
-    ~timeout ~url_rewrite ~weighted_backend_services () :
+let path_matcher__route_rules__route_action ?(cors_policy = [])
+    ?(fault_injection_policy = []) ?(request_mirror_policy = [])
+    ?(retry_policy = []) ?(timeout = []) ?(url_rewrite = [])
+    ?(weighted_backend_services = []) () :
     path_matcher__route_rules__route_action =
   {
     cors_policy;
@@ -5460,9 +5470,9 @@ let path_matcher__route_rules__url_redirect ?host_redirect
     strip_query;
   }
 
-let path_matcher__route_rules ?service ~priority ~header_action
-    ~match_rules ~route_action ~url_redirect () :
-    path_matcher__route_rules =
+let path_matcher__route_rules ?service ?(header_action = [])
+    ?(match_rules = []) ?(route_action = []) ?(url_redirect = [])
+    ~priority () : path_matcher__route_rules =
   {
     priority;
     service;
@@ -5472,9 +5482,10 @@ let path_matcher__route_rules ?service ~priority ~header_action
     url_redirect;
   }
 
-let path_matcher ?default_service ?description ~name
-    ~default_route_action ~default_url_redirect ~header_action
-    ~path_rule ~route_rules () : path_matcher =
+let path_matcher ?default_service ?description
+    ?(default_route_action = []) ?(default_url_redirect = [])
+    ?(header_action = []) ?(path_rule = []) ?(route_rules = []) ~name
+    () : path_matcher =
   {
     default_service;
     description;
@@ -5493,9 +5504,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_compute_url_map ?default_service ?description ?id ?project
-    ?timeouts ~name ~default_route_action ~default_url_redirect
-    ~header_action ~host_rule ~path_matcher ~test () :
-    google_compute_url_map =
+    ?(default_route_action = []) ?(default_url_redirect = [])
+    ?(header_action = []) ?(path_matcher = []) ?(test = []) ?timeouts
+    ~name ~host_rule () : google_compute_url_map =
   {
     default_service;
     description;
@@ -5523,9 +5534,10 @@ type t = {
   self_link : string prop;
 }
 
-let make ?default_service ?description ?id ?project ?timeouts ~name
-    ~default_route_action ~default_url_redirect ~header_action
-    ~host_rule ~path_matcher ~test __id =
+let make ?default_service ?description ?id ?project
+    ?(default_route_action = []) ?(default_url_redirect = [])
+    ?(header_action = []) ?(path_matcher = []) ?(test = []) ?timeouts
+    ~name ~host_rule __id =
   let __type = "google_compute_url_map" in
   let __attrs =
     ({
@@ -5548,19 +5560,20 @@ let make ?default_service ?description ?id ?project ?timeouts ~name
     json =
       yojson_of_google_compute_url_map
         (google_compute_url_map ?default_service ?description ?id
-           ?project ?timeouts ~name ~default_route_action
-           ~default_url_redirect ~header_action ~host_rule
-           ~path_matcher ~test ());
+           ?project ~default_route_action ~default_url_redirect
+           ~header_action ~path_matcher ~test ?timeouts ~name
+           ~host_rule ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?default_service ?description ?id ?project
-    ?timeouts ~name ~default_route_action ~default_url_redirect
-    ~header_action ~host_rule ~path_matcher ~test __id =
+    ?(default_route_action = []) ?(default_url_redirect = [])
+    ?(header_action = []) ?(path_matcher = []) ?(test = []) ?timeouts
+    ~name ~host_rule __id =
   let (r : _ Tf_core.resource) =
-    make ?default_service ?description ?id ?project ?timeouts ~name
+    make ?default_service ?description ?id ?project
       ~default_route_action ~default_url_redirect ~header_action
-      ~host_rule ~path_matcher ~test __id
+      ~path_matcher ~test ?timeouts ~name ~host_rule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

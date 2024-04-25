@@ -40,12 +40,12 @@ val google_iam_workload_identity_pool_provider :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?aws:aws list ->
+  ?oidc:oidc list ->
+  ?saml:saml list ->
   ?timeouts:timeouts ->
   workload_identity_pool_id:string prop ->
   workload_identity_pool_provider_id:string prop ->
-  aws:aws list ->
-  oidc:oidc list ->
-  saml:saml list ->
   unit ->
   google_iam_workload_identity_pool_provider
 
@@ -77,12 +77,12 @@ val register :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?aws:aws list ->
+  ?oidc:oidc list ->
+  ?saml:saml list ->
   ?timeouts:timeouts ->
   workload_identity_pool_id:string prop ->
   workload_identity_pool_provider_id:string prop ->
-  aws:aws list ->
-  oidc:oidc list ->
-  saml:saml list ->
   string ->
   t
 
@@ -94,11 +94,11 @@ val make :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?aws:aws list ->
+  ?oidc:oidc list ->
+  ?saml:saml list ->
   ?timeouts:timeouts ->
   workload_identity_pool_id:string prop ->
   workload_identity_pool_provider_id:string prop ->
-  aws:aws list ->
-  oidc:oidc list ->
-  saml:saml list ->
   string ->
   t Tf_core.resource

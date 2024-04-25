@@ -17,7 +17,7 @@ type enrichment_parameters
 
 val enrichment_parameters :
   ?input_template:string prop ->
-  http_parameters:enrichment_parameters__http_parameters list ->
+  ?http_parameters:enrichment_parameters__http_parameters list ->
   unit ->
   enrichment_parameters
 
@@ -55,10 +55,10 @@ val source_parameters__dynamodb_stream_parameters :
   ?maximum_retry_attempts:float prop ->
   ?on_partial_batch_item_failure:string prop ->
   ?parallelization_factor:float prop ->
-  starting_position:string prop ->
-  dead_letter_config:
+  ?dead_letter_config:
     source_parameters__dynamodb_stream_parameters__dead_letter_config
     list ->
+  starting_position:string prop ->
   unit ->
   source_parameters__dynamodb_stream_parameters
 
@@ -72,7 +72,7 @@ val source_parameters__filter_criteria__filter :
 type source_parameters__filter_criteria
 
 val source_parameters__filter_criteria :
-  filter:source_parameters__filter_criteria__filter list ->
+  ?filter:source_parameters__filter_criteria__filter list ->
   unit ->
   source_parameters__filter_criteria
 
@@ -93,10 +93,10 @@ val source_parameters__kinesis_stream_parameters :
   ?on_partial_batch_item_failure:string prop ->
   ?parallelization_factor:float prop ->
   ?starting_position_timestamp:string prop ->
-  starting_position:string prop ->
-  dead_letter_config:
+  ?dead_letter_config:
     source_parameters__kinesis_stream_parameters__dead_letter_config
     list ->
+  starting_position:string prop ->
   unit ->
   source_parameters__kinesis_stream_parameters
 
@@ -115,10 +115,10 @@ val source_parameters__managed_streaming_kafka_parameters :
   ?consumer_group_id:string prop ->
   ?maximum_batching_window_in_seconds:float prop ->
   ?starting_position:string prop ->
-  topic_name:string prop ->
-  credentials:
+  ?credentials:
     source_parameters__managed_streaming_kafka_parameters__credentials
     list ->
+  topic_name:string prop ->
   unit ->
   source_parameters__managed_streaming_kafka_parameters
 
@@ -168,11 +168,11 @@ val source_parameters__self_managed_kafka_parameters :
   ?maximum_batching_window_in_seconds:float prop ->
   ?server_root_ca_certificate:string prop ->
   ?starting_position:string prop ->
-  topic_name:string prop ->
-  credentials:
+  ?credentials:
     source_parameters__self_managed_kafka_parameters__credentials
     list ->
-  vpc:source_parameters__self_managed_kafka_parameters__vpc list ->
+  ?vpc:source_parameters__self_managed_kafka_parameters__vpc list ->
+  topic_name:string prop ->
   unit ->
   source_parameters__self_managed_kafka_parameters
 
@@ -187,20 +187,20 @@ val source_parameters__sqs_queue_parameters :
 type source_parameters
 
 val source_parameters :
-  activemq_broker_parameters:
+  ?activemq_broker_parameters:
     source_parameters__activemq_broker_parameters list ->
-  dynamodb_stream_parameters:
+  ?dynamodb_stream_parameters:
     source_parameters__dynamodb_stream_parameters list ->
-  filter_criteria:source_parameters__filter_criteria list ->
-  kinesis_stream_parameters:
+  ?filter_criteria:source_parameters__filter_criteria list ->
+  ?kinesis_stream_parameters:
     source_parameters__kinesis_stream_parameters list ->
-  managed_streaming_kafka_parameters:
+  ?managed_streaming_kafka_parameters:
     source_parameters__managed_streaming_kafka_parameters list ->
-  rabbitmq_broker_parameters:
+  ?rabbitmq_broker_parameters:
     source_parameters__rabbitmq_broker_parameters list ->
-  self_managed_kafka_parameters:
+  ?self_managed_kafka_parameters:
     source_parameters__self_managed_kafka_parameters list ->
-  sqs_queue_parameters:source_parameters__sqs_queue_parameters list ->
+  ?sqs_queue_parameters:source_parameters__sqs_queue_parameters list ->
   unit ->
   source_parameters
 
@@ -232,10 +232,10 @@ type target_parameters__batch_job_parameters__container_overrides
 val target_parameters__batch_job_parameters__container_overrides :
   ?command:string prop list ->
   ?instance_type:string prop ->
-  environment:
+  ?environment:
     target_parameters__batch_job_parameters__container_overrides__environment
     list ->
-  resource_requirement:
+  ?resource_requirement:
     target_parameters__batch_job_parameters__container_overrides__resource_requirement
     list ->
   unit ->
@@ -260,15 +260,16 @@ type target_parameters__batch_job_parameters
 
 val target_parameters__batch_job_parameters :
   ?parameters:(string * string prop) list ->
+  ?array_properties:
+    target_parameters__batch_job_parameters__array_properties list ->
+  ?container_overrides:
+    target_parameters__batch_job_parameters__container_overrides list ->
+  ?depends_on:
+    target_parameters__batch_job_parameters__depends_on list ->
+  ?retry_strategy:
+    target_parameters__batch_job_parameters__retry_strategy list ->
   job_definition:string prop ->
   job_name:string prop ->
-  array_properties:
-    target_parameters__batch_job_parameters__array_properties list ->
-  container_overrides:
-    target_parameters__batch_job_parameters__container_overrides list ->
-  depends_on:target_parameters__batch_job_parameters__depends_on list ->
-  retry_strategy:
-    target_parameters__batch_job_parameters__retry_strategy list ->
   unit ->
   target_parameters__batch_job_parameters
 
@@ -301,7 +302,7 @@ val target_parameters__ecs_task_parameters__network_configuration__aws_vpc_confi
 type target_parameters__ecs_task_parameters__network_configuration
 
 val target_parameters__ecs_task_parameters__network_configuration :
-  aws_vpc_configuration:
+  ?aws_vpc_configuration:
     target_parameters__ecs_task_parameters__network_configuration__aws_vpc_configuration
     list ->
   unit ->
@@ -339,13 +340,13 @@ val target_parameters__ecs_task_parameters__overrides__container_override :
   ?memory:float prop ->
   ?memory_reservation:float prop ->
   ?name:string prop ->
-  environment:
+  ?environment:
     target_parameters__ecs_task_parameters__overrides__container_override__environment
     list ->
-  environment_file:
+  ?environment_file:
     target_parameters__ecs_task_parameters__overrides__container_override__environment_file
     list ->
-  resource_requirement:
+  ?resource_requirement:
     target_parameters__ecs_task_parameters__overrides__container_override__resource_requirement
     list ->
   unit ->
@@ -373,13 +374,13 @@ val target_parameters__ecs_task_parameters__overrides :
   ?execution_role_arn:string prop ->
   ?memory:string prop ->
   ?task_role_arn:string prop ->
-  container_override:
+  ?container_override:
     target_parameters__ecs_task_parameters__overrides__container_override
     list ->
-  ephemeral_storage:
+  ?ephemeral_storage:
     target_parameters__ecs_task_parameters__overrides__ephemeral_storage
     list ->
-  inference_accelerator_override:
+  ?inference_accelerator_override:
     target_parameters__ecs_task_parameters__overrides__inference_accelerator_override
     list ->
   unit ->
@@ -413,18 +414,18 @@ val target_parameters__ecs_task_parameters :
   ?reference_id:string prop ->
   ?tags:(string * string prop) list ->
   ?task_count:float prop ->
-  task_definition_arn:string prop ->
-  capacity_provider_strategy:
+  ?capacity_provider_strategy:
     target_parameters__ecs_task_parameters__capacity_provider_strategy
     list ->
-  network_configuration:
+  ?network_configuration:
     target_parameters__ecs_task_parameters__network_configuration
     list ->
-  overrides:target_parameters__ecs_task_parameters__overrides list ->
-  placement_constraint:
+  ?overrides:target_parameters__ecs_task_parameters__overrides list ->
+  ?placement_constraint:
     target_parameters__ecs_task_parameters__placement_constraint list ->
-  placement_strategy:
+  ?placement_strategy:
     target_parameters__ecs_task_parameters__placement_strategy list ->
+  task_definition_arn:string prop ->
   unit ->
   target_parameters__ecs_task_parameters
 
@@ -485,7 +486,7 @@ val target_parameters__sagemaker_pipeline_parameters__pipeline_parameter :
 type target_parameters__sagemaker_pipeline_parameters
 
 val target_parameters__sagemaker_pipeline_parameters :
-  pipeline_parameter:
+  ?pipeline_parameter:
     target_parameters__sagemaker_pipeline_parameters__pipeline_parameter
     list ->
   unit ->
@@ -510,23 +511,23 @@ type target_parameters
 
 val target_parameters :
   ?input_template:string prop ->
-  batch_job_parameters:target_parameters__batch_job_parameters list ->
-  cloudwatch_logs_parameters:
+  ?batch_job_parameters:target_parameters__batch_job_parameters list ->
+  ?cloudwatch_logs_parameters:
     target_parameters__cloudwatch_logs_parameters list ->
-  ecs_task_parameters:target_parameters__ecs_task_parameters list ->
-  eventbridge_event_bus_parameters:
+  ?ecs_task_parameters:target_parameters__ecs_task_parameters list ->
+  ?eventbridge_event_bus_parameters:
     target_parameters__eventbridge_event_bus_parameters list ->
-  http_parameters:target_parameters__http_parameters list ->
-  kinesis_stream_parameters:
+  ?http_parameters:target_parameters__http_parameters list ->
+  ?kinesis_stream_parameters:
     target_parameters__kinesis_stream_parameters list ->
-  lambda_function_parameters:
+  ?lambda_function_parameters:
     target_parameters__lambda_function_parameters list ->
-  redshift_data_parameters:
+  ?redshift_data_parameters:
     target_parameters__redshift_data_parameters list ->
-  sagemaker_pipeline_parameters:
+  ?sagemaker_pipeline_parameters:
     target_parameters__sagemaker_pipeline_parameters list ->
-  sqs_queue_parameters:target_parameters__sqs_queue_parameters list ->
-  step_function_state_machine_parameters:
+  ?sqs_queue_parameters:target_parameters__sqs_queue_parameters list ->
+  ?step_function_state_machine_parameters:
     target_parameters__step_function_state_machine_parameters list ->
   unit ->
   target_parameters
@@ -551,13 +552,13 @@ val aws_pipes_pipe :
   ?name_prefix:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?enrichment_parameters:enrichment_parameters list ->
+  ?source_parameters:source_parameters list ->
+  ?target_parameters:target_parameters list ->
   ?timeouts:timeouts ->
   role_arn:string prop ->
   source:string prop ->
   target:string prop ->
-  enrichment_parameters:enrichment_parameters list ->
-  source_parameters:source_parameters list ->
-  target_parameters:target_parameters list ->
   unit ->
   aws_pipes_pipe
 
@@ -590,13 +591,13 @@ val register :
   ?name_prefix:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?enrichment_parameters:enrichment_parameters list ->
+  ?source_parameters:source_parameters list ->
+  ?target_parameters:target_parameters list ->
   ?timeouts:timeouts ->
   role_arn:string prop ->
   source:string prop ->
   target:string prop ->
-  enrichment_parameters:enrichment_parameters list ->
-  source_parameters:source_parameters list ->
-  target_parameters:target_parameters list ->
   string ->
   t
 
@@ -609,12 +610,12 @@ val make :
   ?name_prefix:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?enrichment_parameters:enrichment_parameters list ->
+  ?source_parameters:source_parameters list ->
+  ?target_parameters:target_parameters list ->
   ?timeouts:timeouts ->
   role_arn:string prop ->
   source:string prop ->
   target:string prop ->
-  enrichment_parameters:enrichment_parameters list ->
-  source_parameters:source_parameters list ->
-  target_parameters:target_parameters list ->
   string ->
   t Tf_core.resource

@@ -29,8 +29,8 @@ val cloud_storage_config :
   ?filename_suffix:string prop ->
   ?max_bytes:float prop ->
   ?max_duration:string prop ->
+  ?avro_config:cloud_storage_config__avro_config list ->
   bucket:string prop ->
-  avro_config:cloud_storage_config__avro_config list ->
   unit ->
   cloud_storage_config
 
@@ -63,9 +63,9 @@ type push_config
 
 val push_config :
   ?attributes:(string * string prop) list ->
+  ?no_wrapper:push_config__no_wrapper list ->
+  ?oidc_token:push_config__oidc_token list ->
   push_endpoint:string prop ->
-  no_wrapper:push_config__no_wrapper list ->
-  oidc_token:push_config__oidc_token list ->
   unit ->
   push_config
 
@@ -98,15 +98,15 @@ val google_pubsub_subscription :
   ?message_retention_duration:string prop ->
   ?project:string prop ->
   ?retain_acked_messages:bool prop ->
+  ?bigquery_config:bigquery_config list ->
+  ?cloud_storage_config:cloud_storage_config list ->
+  ?dead_letter_policy:dead_letter_policy list ->
+  ?expiration_policy:expiration_policy list ->
+  ?push_config:push_config list ->
+  ?retry_policy:retry_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
   topic:string prop ->
-  bigquery_config:bigquery_config list ->
-  cloud_storage_config:cloud_storage_config list ->
-  dead_letter_policy:dead_letter_policy list ->
-  expiration_policy:expiration_policy list ->
-  push_config:push_config list ->
-  retry_policy:retry_policy list ->
   unit ->
   google_pubsub_subscription
 
@@ -142,15 +142,15 @@ val register :
   ?message_retention_duration:string prop ->
   ?project:string prop ->
   ?retain_acked_messages:bool prop ->
+  ?bigquery_config:bigquery_config list ->
+  ?cloud_storage_config:cloud_storage_config list ->
+  ?dead_letter_policy:dead_letter_policy list ->
+  ?expiration_policy:expiration_policy list ->
+  ?push_config:push_config list ->
+  ?retry_policy:retry_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
   topic:string prop ->
-  bigquery_config:bigquery_config list ->
-  cloud_storage_config:cloud_storage_config list ->
-  dead_letter_policy:dead_letter_policy list ->
-  expiration_policy:expiration_policy list ->
-  push_config:push_config list ->
-  retry_policy:retry_policy list ->
   string ->
   t
 
@@ -164,14 +164,14 @@ val make :
   ?message_retention_duration:string prop ->
   ?project:string prop ->
   ?retain_acked_messages:bool prop ->
+  ?bigquery_config:bigquery_config list ->
+  ?cloud_storage_config:cloud_storage_config list ->
+  ?dead_letter_policy:dead_letter_policy list ->
+  ?expiration_policy:expiration_policy list ->
+  ?push_config:push_config list ->
+  ?retry_policy:retry_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
   topic:string prop ->
-  bigquery_config:bigquery_config list ->
-  cloud_storage_config:cloud_storage_config list ->
-  dead_letter_policy:dead_letter_policy list ->
-  expiration_policy:expiration_policy list ->
-  push_config:push_config list ->
-  retry_policy:retry_policy list ->
   string ->
   t Tf_core.resource

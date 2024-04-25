@@ -125,8 +125,8 @@ let signing_attributes ~algorithm ~flags ~public_key () :
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
-let aws_route53domains_delegation_signer_record ?timeouts
-    ~domain_name ~signing_attributes () :
+let aws_route53domains_delegation_signer_record
+    ?(signing_attributes = []) ?timeouts ~domain_name () :
     aws_route53domains_delegation_signer_record =
   { domain_name; signing_attributes; timeouts }
 
@@ -136,7 +136,7 @@ type t = {
   id : string prop;
 }
 
-let make ?timeouts ~domain_name ~signing_attributes __id =
+let make ?(signing_attributes = []) ?timeouts ~domain_name __id =
   let __type = "aws_route53domains_delegation_signer_record" in
   let __attrs =
     ({
@@ -151,15 +151,15 @@ let make ?timeouts ~domain_name ~signing_attributes __id =
     type_ = __type;
     json =
       yojson_of_aws_route53domains_delegation_signer_record
-        (aws_route53domains_delegation_signer_record ?timeouts
-           ~domain_name ~signing_attributes ());
+        (aws_route53domains_delegation_signer_record
+           ~signing_attributes ?timeouts ~domain_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?timeouts ~domain_name ~signing_attributes
-    __id =
+let register ?tf_module ?(signing_attributes = []) ?timeouts
+    ~domain_name __id =
   let (r : _ Tf_core.resource) =
-    make ?timeouts ~domain_name ~signing_attributes __id
+    make ~signing_attributes ?timeouts ~domain_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

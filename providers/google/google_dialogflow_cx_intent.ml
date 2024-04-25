@@ -331,9 +331,9 @@ let training_phrases ?repeat_count ~parts () : training_phrases =
 
 let google_dialogflow_cx_intent ?description ?id
     ?is_default_negative_intent ?is_default_welcome_intent
-    ?is_fallback ?labels ?language_code ?parent ?priority ?timeouts
-    ~display_name ~parameters ~training_phrases () :
-    google_dialogflow_cx_intent =
+    ?is_fallback ?labels ?language_code ?parent ?priority
+    ?(parameters = []) ?timeouts ?(training_phrases = [])
+    ~display_name () : google_dialogflow_cx_intent =
   {
     description;
     display_name;
@@ -368,8 +368,8 @@ type t = {
 
 let make ?description ?id ?is_default_negative_intent
     ?is_default_welcome_intent ?is_fallback ?labels ?language_code
-    ?parent ?priority ?timeouts ~display_name ~parameters
-    ~training_phrases __id =
+    ?parent ?priority ?(parameters = []) ?timeouts
+    ?(training_phrases = []) ~display_name __id =
   let __type = "google_dialogflow_cx_intent" in
   let __attrs =
     ({
@@ -401,19 +401,19 @@ let make ?description ?id ?is_default_negative_intent
         (google_dialogflow_cx_intent ?description ?id
            ?is_default_negative_intent ?is_default_welcome_intent
            ?is_fallback ?labels ?language_code ?parent ?priority
-           ?timeouts ~display_name ~parameters ~training_phrases ());
+           ~parameters ?timeouts ~training_phrases ~display_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?is_default_negative_intent
     ?is_default_welcome_intent ?is_fallback ?labels ?language_code
-    ?parent ?priority ?timeouts ~display_name ~parameters
-    ~training_phrases __id =
+    ?parent ?priority ?(parameters = []) ?timeouts
+    ?(training_phrases = []) ~display_name __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?is_default_negative_intent
       ?is_default_welcome_intent ?is_fallback ?labels ?language_code
-      ?parent ?priority ?timeouts ~display_name ~parameters
-      ~training_phrases __id
+      ?parent ?priority ~parameters ?timeouts ~training_phrases
+      ~display_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -11553,8 +11553,8 @@ let spec__pod_failure_policy__rule__on_pod_condition ?status ?type_
     () : spec__pod_failure_policy__rule__on_pod_condition =
   { status; type_ }
 
-let spec__pod_failure_policy__rule ?action ~on_exit_codes
-    ~on_pod_condition () : spec__pod_failure_policy__rule =
+let spec__pod_failure_policy__rule ?action ?(on_exit_codes = [])
+    ?(on_pod_condition = []) () : spec__pod_failure_policy__rule =
   { action; on_exit_codes; on_pod_condition }
 
 let spec__pod_failure_policy ~rule () : spec__pod_failure_policy =
@@ -11564,7 +11564,7 @@ let spec__selector__match_expressions ?key ?operator ?values () :
     spec__selector__match_expressions =
   { key; operator; values }
 
-let spec__selector ?match_labels ~match_expressions () :
+let spec__selector ?match_labels ?(match_expressions = []) () :
     spec__selector =
   { match_labels; match_expressions }
 
@@ -11585,7 +11585,7 @@ let spec__template__spec__affinity__node_affinity__preferred_during_scheduling_i
   { key; operator; values }
 
 let spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference
-    ~match_expressions ~match_fields () :
+    ?(match_expressions = []) ?(match_fields = []) () :
     spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference
     =
   { match_expressions; match_fields }
@@ -11609,20 +11609,20 @@ let spec__template__spec__affinity__node_affinity__required_during_scheduling_ig
   { key; operator; values }
 
 let spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term
-    ~match_expressions ~match_fields () :
+    ?(match_expressions = []) ?(match_fields = []) () :
     spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term
     =
   { match_expressions; match_fields }
 
 let spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution
-    ~node_selector_term () :
+    ?(node_selector_term = []) () :
     spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution
     =
   { node_selector_term }
 
 let spec__template__spec__affinity__node_affinity
-    ~preferred_during_scheduling_ignored_during_execution
-    ~required_during_scheduling_ignored_during_execution () :
+    ?(preferred_during_scheduling_ignored_during_execution = [])
+    ?(required_during_scheduling_ignored_during_execution = []) () :
     spec__template__spec__affinity__node_affinity =
   {
     preferred_during_scheduling_ignored_during_execution;
@@ -11636,13 +11636,13 @@ let spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ig
   { key; operator; values }
 
 let spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
-    ?match_labels ~match_expressions () :
+    ?match_labels ?(match_expressions = []) () :
     spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
     =
   { match_labels; match_expressions }
 
 let spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
-    ?namespaces ~topology_key ~label_selector () :
+    ?namespaces ?(label_selector = []) ~topology_key () :
     spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
     =
   { namespaces; topology_key; label_selector }
@@ -11660,20 +11660,20 @@ let spec__template__spec__affinity__pod_affinity__required_during_scheduling_ign
   { key; operator; values }
 
 let spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector
-    ?match_labels ~match_expressions () :
+    ?match_labels ?(match_expressions = []) () :
     spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector
     =
   { match_labels; match_expressions }
 
 let spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution
-    ?namespaces ~topology_key ~label_selector () :
+    ?namespaces ?(label_selector = []) ~topology_key () :
     spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution
     =
   { namespaces; topology_key; label_selector }
 
 let spec__template__spec__affinity__pod_affinity
-    ~preferred_during_scheduling_ignored_during_execution
-    ~required_during_scheduling_ignored_during_execution () :
+    ?(preferred_during_scheduling_ignored_during_execution = [])
+    ?(required_during_scheduling_ignored_during_execution = []) () :
     spec__template__spec__affinity__pod_affinity =
   {
     preferred_during_scheduling_ignored_during_execution;
@@ -11687,13 +11687,13 @@ let spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduli
   { key; operator; values }
 
 let spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
-    ?match_labels ~match_expressions () :
+    ?match_labels ?(match_expressions = []) () :
     spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
     =
   { match_labels; match_expressions }
 
 let spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
-    ?namespaces ~topology_key ~label_selector () :
+    ?namespaces ?(label_selector = []) ~topology_key () :
     spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
     =
   { namespaces; topology_key; label_selector }
@@ -11711,28 +11711,29 @@ let spec__template__spec__affinity__pod_anti_affinity__required_during_schedulin
   { key; operator; values }
 
 let spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector
-    ?match_labels ~match_expressions () :
+    ?match_labels ?(match_expressions = []) () :
     spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector
     =
   { match_labels; match_expressions }
 
 let spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution
-    ?namespaces ~topology_key ~label_selector () :
+    ?namespaces ?(label_selector = []) ~topology_key () :
     spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution
     =
   { namespaces; topology_key; label_selector }
 
 let spec__template__spec__affinity__pod_anti_affinity
-    ~preferred_during_scheduling_ignored_during_execution
-    ~required_during_scheduling_ignored_during_execution () :
+    ?(preferred_during_scheduling_ignored_during_execution = [])
+    ?(required_during_scheduling_ignored_during_execution = []) () :
     spec__template__spec__affinity__pod_anti_affinity =
   {
     preferred_during_scheduling_ignored_during_execution;
     required_during_scheduling_ignored_during_execution;
   }
 
-let spec__template__spec__affinity ~node_affinity ~pod_affinity
-    ~pod_anti_affinity () : spec__template__spec__affinity =
+let spec__template__spec__affinity ?(node_affinity = [])
+    ?(pod_affinity = []) ?(pod_anti_affinity = []) () :
+    spec__template__spec__affinity =
   { node_affinity; pod_affinity; pod_anti_affinity }
 
 let spec__template__spec__container__env__value_from__config_map_key_ref
@@ -11759,8 +11760,8 @@ let spec__template__spec__container__env__value_from__secret_key_ref
   { key; name; optional }
 
 let spec__template__spec__container__env__value_from
-    ~config_map_key_ref ~field_ref ~resource_field_ref
-    ~secret_key_ref () :
+    ?(config_map_key_ref = []) ?(field_ref = [])
+    ?(resource_field_ref = []) ?(secret_key_ref = []) () :
     spec__template__spec__container__env__value_from =
   {
     config_map_key_ref;
@@ -11769,8 +11770,8 @@ let spec__template__spec__container__env__value_from
     secret_key_ref;
   }
 
-let spec__template__spec__container__env ?value ~name ~value_from ()
-    : spec__template__spec__container__env =
+let spec__template__spec__container__env ?value ?(value_from = [])
+    ~name () : spec__template__spec__container__env =
   { name; value; value_from }
 
 let spec__template__spec__container__env_from__config_map_ref
@@ -11783,8 +11784,9 @@ let spec__template__spec__container__env_from__secret_ref ?optional
     =
   { name; optional }
 
-let spec__template__spec__container__env_from ?prefix ~config_map_ref
-    ~secret_ref () : spec__template__spec__container__env_from =
+let spec__template__spec__container__env_from ?prefix
+    ?(config_map_ref = []) ?(secret_ref = []) () :
+    spec__template__spec__container__env_from =
   { prefix; config_map_ref; secret_ref }
 
 let spec__template__spec__container__lifecycle__post_start__exec
@@ -11799,7 +11801,7 @@ let spec__template__spec__container__lifecycle__post_start__http_get__http_heade
   { name; value }
 
 let spec__template__spec__container__lifecycle__post_start__http_get
-    ?host ?path ?port ?scheme ~http_header () :
+    ?host ?path ?port ?scheme ?(http_header = []) () :
     spec__template__spec__container__lifecycle__post_start__http_get
     =
   { host; path; port; scheme; http_header }
@@ -11810,8 +11812,8 @@ let spec__template__spec__container__lifecycle__post_start__tcp_socket
     =
   { port }
 
-let spec__template__spec__container__lifecycle__post_start ~exec
-    ~http_get ~tcp_socket () :
+let spec__template__spec__container__lifecycle__post_start
+    ?(exec = []) ?(http_get = []) ?(tcp_socket = []) () :
     spec__template__spec__container__lifecycle__post_start =
   { exec; http_get; tcp_socket }
 
@@ -11827,7 +11829,7 @@ let spec__template__spec__container__lifecycle__pre_stop__http_get__http_header
   { name; value }
 
 let spec__template__spec__container__lifecycle__pre_stop__http_get
-    ?host ?path ?port ?scheme ~http_header () :
+    ?host ?path ?port ?scheme ?(http_header = []) () :
     spec__template__spec__container__lifecycle__pre_stop__http_get =
   { host; path; port; scheme; http_header }
 
@@ -11837,13 +11839,14 @@ let spec__template__spec__container__lifecycle__pre_stop__tcp_socket
     =
   { port }
 
-let spec__template__spec__container__lifecycle__pre_stop ~exec
-    ~http_get ~tcp_socket () :
+let spec__template__spec__container__lifecycle__pre_stop ?(exec = [])
+    ?(http_get = []) ?(tcp_socket = []) () :
     spec__template__spec__container__lifecycle__pre_stop =
   { exec; http_get; tcp_socket }
 
-let spec__template__spec__container__lifecycle ~post_start ~pre_stop
-    () : spec__template__spec__container__lifecycle =
+let spec__template__spec__container__lifecycle ?(post_start = [])
+    ?(pre_stop = []) () : spec__template__spec__container__lifecycle
+    =
   { post_start; pre_stop }
 
 let spec__template__spec__container__liveness_probe__exec ?command ()
@@ -11862,7 +11865,7 @@ let spec__template__spec__container__liveness_probe__http_get__http_header
   { name; value }
 
 let spec__template__spec__container__liveness_probe__http_get ?host
-    ?path ?port ?scheme ~http_header () :
+    ?path ?port ?scheme ?(http_header = []) () :
     spec__template__spec__container__liveness_probe__http_get =
   { host; path; port; scheme; http_header }
 
@@ -11873,9 +11876,9 @@ let spec__template__spec__container__liveness_probe__tcp_socket ~port
 
 let spec__template__spec__container__liveness_probe
     ?failure_threshold ?initial_delay_seconds ?period_seconds
-    ?success_threshold ?timeout_seconds ~exec ~grpc ~http_get
-    ~tcp_socket () : spec__template__spec__container__liveness_probe
-    =
+    ?success_threshold ?timeout_seconds ?(exec = []) ?(grpc = [])
+    ?(http_get = []) ?(tcp_socket = []) () :
+    spec__template__spec__container__liveness_probe =
   {
     failure_threshold;
     initial_delay_seconds;
@@ -11909,7 +11912,7 @@ let spec__template__spec__container__readiness_probe__http_get__http_header
   { name; value }
 
 let spec__template__spec__container__readiness_probe__http_get ?host
-    ?path ?port ?scheme ~http_header () :
+    ?path ?port ?scheme ?(http_header = []) () :
     spec__template__spec__container__readiness_probe__http_get =
   { host; path; port; scheme; http_header }
 
@@ -11920,9 +11923,9 @@ let spec__template__spec__container__readiness_probe__tcp_socket
 
 let spec__template__spec__container__readiness_probe
     ?failure_threshold ?initial_delay_seconds ?period_seconds
-    ?success_threshold ?timeout_seconds ~exec ~grpc ~http_get
-    ~tcp_socket () : spec__template__spec__container__readiness_probe
-    =
+    ?success_threshold ?timeout_seconds ?(exec = []) ?(grpc = [])
+    ?(http_get = []) ?(tcp_socket = []) () :
+    spec__template__spec__container__readiness_probe =
   {
     failure_threshold;
     initial_delay_seconds;
@@ -11959,8 +11962,9 @@ let spec__template__spec__container__security_context__seccomp_profile
 let spec__template__spec__container__security_context
     ?allow_privilege_escalation ?privileged
     ?read_only_root_filesystem ?run_as_group ?run_as_non_root
-    ?run_as_user ~capabilities ~se_linux_options ~seccomp_profile ()
-    : spec__template__spec__container__security_context =
+    ?run_as_user ?(capabilities = []) ?(se_linux_options = [])
+    ?(seccomp_profile = []) () :
+    spec__template__spec__container__security_context =
   {
     allow_privilege_escalation;
     privileged;
@@ -11988,7 +11992,7 @@ let spec__template__spec__container__startup_probe__http_get__http_header
   { name; value }
 
 let spec__template__spec__container__startup_probe__http_get ?host
-    ?path ?port ?scheme ~http_header () :
+    ?path ?port ?scheme ?(http_header = []) () :
     spec__template__spec__container__startup_probe__http_get =
   { host; path; port; scheme; http_header }
 
@@ -11998,7 +12002,8 @@ let spec__template__spec__container__startup_probe__tcp_socket ~port
 
 let spec__template__spec__container__startup_probe ?failure_threshold
     ?initial_delay_seconds ?period_seconds ?success_threshold
-    ?timeout_seconds ~exec ~grpc ~http_get ~tcp_socket () :
+    ?timeout_seconds ?(exec = []) ?(grpc = []) ?(http_get = [])
+    ?(tcp_socket = []) () :
     spec__template__spec__container__startup_probe =
   {
     failure_threshold;
@@ -12019,10 +12024,11 @@ let spec__template__spec__container__volume_mount ?mount_propagation
 
 let spec__template__spec__container ?args ?command ?image
     ?image_pull_policy ?stdin ?stdin_once ?termination_message_path
-    ?termination_message_policy ?tty ?working_dir ~name ~env
-    ~env_from ~lifecycle ~liveness_probe ~port ~readiness_probe
-    ~resources ~security_context ~startup_probe ~volume_mount () :
-    spec__template__spec__container =
+    ?termination_message_policy ?tty ?working_dir ?(env = [])
+    ?(env_from = []) ?(lifecycle = []) ?(liveness_probe = [])
+    ?(port = []) ?(readiness_probe = []) ?(resources = [])
+    ?(security_context = []) ?(startup_probe = [])
+    ?(volume_mount = []) ~name () : spec__template__spec__container =
   {
     args;
     command;
@@ -12051,8 +12057,8 @@ let spec__template__spec__dns_config__option ?value ~name () :
     spec__template__spec__dns_config__option =
   { name; value }
 
-let spec__template__spec__dns_config ?nameservers ?searches ~option_
-    () : spec__template__spec__dns_config =
+let spec__template__spec__dns_config ?nameservers ?searches
+    ?(option_ = []) () : spec__template__spec__dns_config =
   { nameservers; searches; option_ }
 
 let spec__template__spec__host_aliases ~hostnames ~ip () :
@@ -12088,8 +12094,8 @@ let spec__template__spec__init_container__env__value_from__secret_key_ref
   { key; name; optional }
 
 let spec__template__spec__init_container__env__value_from
-    ~config_map_key_ref ~field_ref ~resource_field_ref
-    ~secret_key_ref () :
+    ?(config_map_key_ref = []) ?(field_ref = [])
+    ?(resource_field_ref = []) ?(secret_key_ref = []) () :
     spec__template__spec__init_container__env__value_from =
   {
     config_map_key_ref;
@@ -12098,8 +12104,9 @@ let spec__template__spec__init_container__env__value_from
     secret_key_ref;
   }
 
-let spec__template__spec__init_container__env ?value ~name
-    ~value_from () : spec__template__spec__init_container__env =
+let spec__template__spec__init_container__env ?value
+    ?(value_from = []) ~name () :
+    spec__template__spec__init_container__env =
   { name; value; value_from }
 
 let spec__template__spec__init_container__env_from__config_map_ref
@@ -12113,7 +12120,7 @@ let spec__template__spec__init_container__env_from__secret_ref
   { name; optional }
 
 let spec__template__spec__init_container__env_from ?prefix
-    ~config_map_ref ~secret_ref () :
+    ?(config_map_ref = []) ?(secret_ref = []) () :
     spec__template__spec__init_container__env_from =
   { prefix; config_map_ref; secret_ref }
 
@@ -12130,7 +12137,7 @@ let spec__template__spec__init_container__lifecycle__post_start__http_get__http_
   { name; value }
 
 let spec__template__spec__init_container__lifecycle__post_start__http_get
-    ?host ?path ?port ?scheme ~http_header () :
+    ?host ?path ?port ?scheme ?(http_header = []) () :
     spec__template__spec__init_container__lifecycle__post_start__http_get
     =
   { host; path; port; scheme; http_header }
@@ -12141,8 +12148,8 @@ let spec__template__spec__init_container__lifecycle__post_start__tcp_socket
     =
   { port }
 
-let spec__template__spec__init_container__lifecycle__post_start ~exec
-    ~http_get ~tcp_socket () :
+let spec__template__spec__init_container__lifecycle__post_start
+    ?(exec = []) ?(http_get = []) ?(tcp_socket = []) () :
     spec__template__spec__init_container__lifecycle__post_start =
   { exec; http_get; tcp_socket }
 
@@ -12158,7 +12165,7 @@ let spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_he
   { name; value }
 
 let spec__template__spec__init_container__lifecycle__pre_stop__http_get
-    ?host ?path ?port ?scheme ~http_header () :
+    ?host ?path ?port ?scheme ?(http_header = []) () :
     spec__template__spec__init_container__lifecycle__pre_stop__http_get
     =
   { host; path; port; scheme; http_header }
@@ -12169,13 +12176,14 @@ let spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket
     =
   { port }
 
-let spec__template__spec__init_container__lifecycle__pre_stop ~exec
-    ~http_get ~tcp_socket () :
+let spec__template__spec__init_container__lifecycle__pre_stop
+    ?(exec = []) ?(http_get = []) ?(tcp_socket = []) () :
     spec__template__spec__init_container__lifecycle__pre_stop =
   { exec; http_get; tcp_socket }
 
-let spec__template__spec__init_container__lifecycle ~post_start
-    ~pre_stop () : spec__template__spec__init_container__lifecycle =
+let spec__template__spec__init_container__lifecycle
+    ?(post_start = []) ?(pre_stop = []) () :
+    spec__template__spec__init_container__lifecycle =
   { post_start; pre_stop }
 
 let spec__template__spec__init_container__liveness_probe__exec
@@ -12195,7 +12203,7 @@ let spec__template__spec__init_container__liveness_probe__http_get__http_header
   { name; value }
 
 let spec__template__spec__init_container__liveness_probe__http_get
-    ?host ?path ?port ?scheme ~http_header () :
+    ?host ?path ?port ?scheme ?(http_header = []) () :
     spec__template__spec__init_container__liveness_probe__http_get =
   { host; path; port; scheme; http_header }
 
@@ -12207,8 +12215,8 @@ let spec__template__spec__init_container__liveness_probe__tcp_socket
 
 let spec__template__spec__init_container__liveness_probe
     ?failure_threshold ?initial_delay_seconds ?period_seconds
-    ?success_threshold ?timeout_seconds ~exec ~grpc ~http_get
-    ~tcp_socket () :
+    ?success_threshold ?timeout_seconds ?(exec = []) ?(grpc = [])
+    ?(http_get = []) ?(tcp_socket = []) () :
     spec__template__spec__init_container__liveness_probe =
   {
     failure_threshold;
@@ -12244,7 +12252,7 @@ let spec__template__spec__init_container__readiness_probe__http_get__http_header
   { name; value }
 
 let spec__template__spec__init_container__readiness_probe__http_get
-    ?host ?path ?port ?scheme ~http_header () :
+    ?host ?path ?port ?scheme ?(http_header = []) () :
     spec__template__spec__init_container__readiness_probe__http_get =
   { host; path; port; scheme; http_header }
 
@@ -12256,8 +12264,8 @@ let spec__template__spec__init_container__readiness_probe__tcp_socket
 
 let spec__template__spec__init_container__readiness_probe
     ?failure_threshold ?initial_delay_seconds ?period_seconds
-    ?success_threshold ?timeout_seconds ~exec ~grpc ~http_get
-    ~tcp_socket () :
+    ?success_threshold ?timeout_seconds ?(exec = []) ?(grpc = [])
+    ?(http_get = []) ?(tcp_socket = []) () :
     spec__template__spec__init_container__readiness_probe =
   {
     failure_threshold;
@@ -12296,8 +12304,9 @@ let spec__template__spec__init_container__security_context__seccomp_profile
 let spec__template__spec__init_container__security_context
     ?allow_privilege_escalation ?privileged
     ?read_only_root_filesystem ?run_as_group ?run_as_non_root
-    ?run_as_user ~capabilities ~se_linux_options ~seccomp_profile ()
-    : spec__template__spec__init_container__security_context =
+    ?run_as_user ?(capabilities = []) ?(se_linux_options = [])
+    ?(seccomp_profile = []) () :
+    spec__template__spec__init_container__security_context =
   {
     allow_privilege_escalation;
     privileged;
@@ -12327,7 +12336,7 @@ let spec__template__spec__init_container__startup_probe__http_get__http_header
   { name; value }
 
 let spec__template__spec__init_container__startup_probe__http_get
-    ?host ?path ?port ?scheme ~http_header () :
+    ?host ?path ?port ?scheme ?(http_header = []) () :
     spec__template__spec__init_container__startup_probe__http_get =
   { host; path; port; scheme; http_header }
 
@@ -12338,8 +12347,8 @@ let spec__template__spec__init_container__startup_probe__tcp_socket
 
 let spec__template__spec__init_container__startup_probe
     ?failure_threshold ?initial_delay_seconds ?period_seconds
-    ?success_threshold ?timeout_seconds ~exec ~grpc ~http_get
-    ~tcp_socket () :
+    ?success_threshold ?timeout_seconds ?(exec = []) ?(grpc = [])
+    ?(http_get = []) ?(tcp_socket = []) () :
     spec__template__spec__init_container__startup_probe =
   {
     failure_threshold;
@@ -12360,9 +12369,11 @@ let spec__template__spec__init_container__volume_mount
 
 let spec__template__spec__init_container ?args ?command ?image
     ?image_pull_policy ?stdin ?stdin_once ?termination_message_path
-    ?termination_message_policy ?tty ?working_dir ~name ~env
-    ~env_from ~lifecycle ~liveness_probe ~port ~readiness_probe
-    ~resources ~security_context ~startup_probe ~volume_mount () :
+    ?termination_message_policy ?tty ?working_dir ?(env = [])
+    ?(env_from = []) ?(lifecycle = []) ?(liveness_probe = [])
+    ?(port = []) ?(readiness_probe = []) ?(resources = [])
+    ?(security_context = []) ?(startup_probe = [])
+    ?(volume_mount = []) ~name () :
     spec__template__spec__init_container =
   {
     args;
@@ -12422,9 +12433,9 @@ let spec__template__spec__security_context__windows_options
 
 let spec__template__spec__security_context ?fs_group
     ?fs_group_change_policy ?run_as_group ?run_as_non_root
-    ?run_as_user ?supplemental_groups ~se_linux_options
-    ~seccomp_profile ~sysctl ~windows_options () :
-    spec__template__spec__security_context =
+    ?run_as_user ?supplemental_groups ?(se_linux_options = [])
+    ?(seccomp_profile = []) ?(sysctl = []) ?(windows_options = []) ()
+    : spec__template__spec__security_context =
   {
     fs_group;
     fs_group_change_policy;
@@ -12450,7 +12461,7 @@ let spec__template__spec__topology_spread_constraint__label_selector__match_expr
   { key; operator; values }
 
 let spec__template__spec__topology_spread_constraint__label_selector
-    ?match_labels ~match_expressions () :
+    ?match_labels ?(match_expressions = []) () :
     spec__template__spec__topology_spread_constraint__label_selector
     =
   { match_labels; match_expressions }
@@ -12458,7 +12469,7 @@ let spec__template__spec__topology_spread_constraint__label_selector
 let spec__template__spec__topology_spread_constraint
     ?match_label_keys ?max_skew ?min_domains ?node_affinity_policy
     ?node_taints_policy ?topology_key ?when_unsatisfiable
-    ~label_selector () :
+    ?(label_selector = []) () :
     spec__template__spec__topology_spread_constraint =
   {
     match_label_keys;
@@ -12499,7 +12510,7 @@ let spec__template__spec__volume__ceph_fs__secret_ref ?name
   { name; namespace }
 
 let spec__template__spec__volume__ceph_fs ?path ?read_only
-    ?secret_file ?user ~monitors ~secret_ref () :
+    ?secret_file ?user ?(secret_ref = []) ~monitors () :
     spec__template__spec__volume__ceph_fs =
   { monitors; path; read_only; secret_file; user; secret_ref }
 
@@ -12512,7 +12523,8 @@ let spec__template__spec__volume__config_map__items ?key ?mode ?path
   { key; mode; path }
 
 let spec__template__spec__volume__config_map ?default_mode ?name
-    ?optional ~items () : spec__template__spec__volume__config_map =
+    ?optional ?(items = []) () :
+    spec__template__spec__volume__config_map =
   { default_mode; name; optional; items }
 
 let spec__template__spec__volume__csi__node_publish_secret_ref ?name
@@ -12520,7 +12532,7 @@ let spec__template__spec__volume__csi__node_publish_secret_ref ?name
   { name }
 
 let spec__template__spec__volume__csi ?fs_type ?read_only
-    ?volume_attributes ~driver ~node_publish_secret_ref () :
+    ?volume_attributes ?(node_publish_secret_ref = []) ~driver () :
     spec__template__spec__volume__csi =
   {
     driver;
@@ -12541,13 +12553,13 @@ let spec__template__spec__volume__downward_api__items__resource_field_ref
     =
   { container_name; divisor; resource }
 
-let spec__template__spec__volume__downward_api__items ?mode ~path
-    ~field_ref ~resource_field_ref () :
+let spec__template__spec__volume__downward_api__items ?mode
+    ?(resource_field_ref = []) ~path ~field_ref () :
     spec__template__spec__volume__downward_api__items =
   { mode; path; field_ref; resource_field_ref }
 
-let spec__template__spec__volume__downward_api ?default_mode ~items
-    () : spec__template__spec__volume__downward_api =
+let spec__template__spec__volume__downward_api ?default_mode
+    ?(items = []) () : spec__template__spec__volume__downward_api =
   { default_mode; items }
 
 let spec__template__spec__volume__empty_dir ?medium ?size_limit () :
@@ -12573,14 +12585,14 @@ let spec__template__spec__volume__ephemeral__volume_claim_template__spec__select
   { key; operator; values }
 
 let spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector
-    ?match_labels ~match_expressions () :
+    ?match_labels ?(match_expressions = []) () :
     spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector
     =
   { match_labels; match_expressions }
 
 let spec__template__spec__volume__ephemeral__volume_claim_template__spec
-    ?storage_class_name ?volume_mode ?volume_name ~access_modes
-    ~resources ~selector () :
+    ?storage_class_name ?volume_mode ?volume_name ?(selector = [])
+    ~access_modes ~resources () :
     spec__template__spec__volume__ephemeral__volume_claim_template__spec
     =
   {
@@ -12593,7 +12605,7 @@ let spec__template__spec__volume__ephemeral__volume_claim_template__spec
   }
 
 let spec__template__spec__volume__ephemeral__volume_claim_template
-    ~metadata ~spec () :
+    ?(metadata = []) ~spec () :
     spec__template__spec__volume__ephemeral__volume_claim_template =
   { metadata; spec }
 
@@ -12611,7 +12623,7 @@ let spec__template__spec__volume__flex_volume__secret_ref ?name
   { name; namespace }
 
 let spec__template__spec__volume__flex_volume ?fs_type ?options
-    ?read_only ~driver ~secret_ref () :
+    ?read_only ?(secret_ref = []) ~driver () :
     spec__template__spec__volume__flex_volume =
   { driver; fs_type; options; read_only; secret_ref }
 
@@ -12667,7 +12679,7 @@ let spec__template__spec__volume__projected__sources__config_map__items
   { key; mode; path }
 
 let spec__template__spec__volume__projected__sources__config_map
-    ?name ?optional ~items () :
+    ?name ?optional ?(items = []) () :
     spec__template__spec__volume__projected__sources__config_map =
   { name; optional; items }
 
@@ -12684,13 +12696,13 @@ let spec__template__spec__volume__projected__sources__downward_api__items__resou
   { container_name; divisor; resource }
 
 let spec__template__spec__volume__projected__sources__downward_api__items
-    ?mode ~path ~field_ref ~resource_field_ref () :
+    ?mode ?(field_ref = []) ?(resource_field_ref = []) ~path () :
     spec__template__spec__volume__projected__sources__downward_api__items
     =
   { mode; path; field_ref; resource_field_ref }
 
 let spec__template__spec__volume__projected__sources__downward_api
-    ~items () :
+    ?(items = []) () :
     spec__template__spec__volume__projected__sources__downward_api =
   { items }
 
@@ -12700,7 +12712,7 @@ let spec__template__spec__volume__projected__sources__secret__items
   { key; mode; path }
 
 let spec__template__spec__volume__projected__sources__secret ?name
-    ?optional ~items () :
+    ?optional ?(items = []) () :
     spec__template__spec__volume__projected__sources__secret =
   { name; optional; items }
 
@@ -12710,8 +12722,9 @@ let spec__template__spec__volume__projected__sources__service_account_token
     =
   { audience; expiration_seconds; path }
 
-let spec__template__spec__volume__projected__sources ~config_map
-    ~downward_api ~secret ~service_account_token () :
+let spec__template__spec__volume__projected__sources
+    ?(config_map = []) ?(downward_api = []) ?(secret = [])
+    ?(service_account_token = []) () :
     spec__template__spec__volume__projected__sources =
   { config_map; downward_api; secret; service_account_token }
 
@@ -12728,8 +12741,8 @@ let spec__template__spec__volume__rbd__secret_ref ?name ?namespace ()
   { name; namespace }
 
 let spec__template__spec__volume__rbd ?fs_type ?keyring ?rados_user
-    ?rbd_pool ?read_only ~ceph_monitors ~rbd_image ~secret_ref () :
-    spec__template__spec__volume__rbd =
+    ?rbd_pool ?read_only ?(secret_ref = []) ~ceph_monitors ~rbd_image
+    () : spec__template__spec__volume__rbd =
   {
     ceph_monitors;
     fs_type;
@@ -12746,20 +12759,25 @@ let spec__template__spec__volume__secret__items ?key ?mode ?path () :
   { key; mode; path }
 
 let spec__template__spec__volume__secret ?default_mode ?optional
-    ?secret_name ~items () : spec__template__spec__volume__secret =
+    ?secret_name ?(items = []) () :
+    spec__template__spec__volume__secret =
   { default_mode; optional; secret_name; items }
 
 let spec__template__spec__volume__vsphere_volume ?fs_type
     ~volume_path () : spec__template__spec__volume__vsphere_volume =
   { fs_type; volume_path }
 
-let spec__template__spec__volume ?name ~aws_elastic_block_store
-    ~azure_disk ~azure_file ~ceph_fs ~cinder ~config_map ~csi
-    ~downward_api ~empty_dir ~ephemeral ~fc ~flex_volume ~flocker
-    ~gce_persistent_disk ~git_repo ~glusterfs ~host_path ~iscsi
-    ~local ~nfs ~persistent_volume_claim ~photon_persistent_disk
-    ~projected ~quobyte ~rbd ~secret ~vsphere_volume () :
-    spec__template__spec__volume =
+let spec__template__spec__volume ?name
+    ?(aws_elastic_block_store = []) ?(azure_disk = [])
+    ?(azure_file = []) ?(ceph_fs = []) ?(cinder = [])
+    ?(config_map = []) ?(csi = []) ?(downward_api = [])
+    ?(empty_dir = []) ?(ephemeral = []) ?(fc = [])
+    ?(flex_volume = []) ?(flocker = []) ?(gce_persistent_disk = [])
+    ?(git_repo = []) ?(glusterfs = []) ?(host_path = [])
+    ?(iscsi = []) ?(local = []) ?(nfs = [])
+    ?(persistent_volume_claim = []) ?(photon_persistent_disk = [])
+    ?(projected = []) ?(quobyte = []) ?(rbd = []) ?(secret = [])
+    ?(vsphere_volume = []) () : spec__template__spec__volume =
   {
     name;
     aws_elastic_block_store;
@@ -12797,10 +12815,12 @@ let spec__template__spec ?active_deadline_seconds
     ?node_name ?node_selector ?priority_class_name ?restart_policy
     ?runtime_class_name ?scheduler_name ?service_account_name
     ?share_process_namespace ?subdomain
-    ?termination_grace_period_seconds ~affinity ~container
-    ~dns_config ~host_aliases ~image_pull_secrets ~init_container ~os
-    ~readiness_gate ~security_context ~toleration
-    ~topology_spread_constraint ~volume () : spec__template__spec =
+    ?termination_grace_period_seconds ?(affinity = [])
+    ?(container = []) ?(dns_config = []) ?(host_aliases = [])
+    ?(image_pull_secrets = []) ?(init_container = []) ?(os = [])
+    ?(readiness_gate = []) ?(security_context = [])
+    ?(toleration = []) ?(topology_spread_constraint = [])
+    ?(volume = []) () : spec__template__spec =
   {
     active_deadline_seconds;
     automount_service_account_token;
@@ -12834,13 +12854,13 @@ let spec__template__spec ?active_deadline_seconds
     volume;
   }
 
-let spec__template ~metadata ~spec () : spec__template =
+let spec__template ?(spec = []) ~metadata () : spec__template =
   { metadata; spec }
 
 let spec ?active_deadline_seconds ?backoff_limit ?completion_mode
     ?completions ?manual_selector ?parallelism
-    ?ttl_seconds_after_finished ~pod_failure_policy ~selector
-    ~template () : spec =
+    ?ttl_seconds_after_finished ?(pod_failure_policy = [])
+    ?(selector = []) ~template () : spec =
   {
     active_deadline_seconds;
     backoff_limit;

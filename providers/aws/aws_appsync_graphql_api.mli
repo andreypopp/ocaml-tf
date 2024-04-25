@@ -35,13 +35,13 @@ val additional_authentication_provider__user_pool_config :
 type additional_authentication_provider
 
 val additional_authentication_provider :
-  authentication_type:string prop ->
-  lambda_authorizer_config:
+  ?lambda_authorizer_config:
     additional_authentication_provider__lambda_authorizer_config list ->
-  openid_connect_config:
+  ?openid_connect_config:
     additional_authentication_provider__openid_connect_config list ->
-  user_pool_config:
+  ?user_pool_config:
     additional_authentication_provider__user_pool_config list ->
+  authentication_type:string prop ->
   unit ->
   additional_authentication_provider
 
@@ -95,14 +95,14 @@ val aws_appsync_graphql_api :
   ?tags_all:(string * string prop) list ->
   ?visibility:string prop ->
   ?xray_enabled:bool prop ->
+  ?additional_authentication_provider:
+    additional_authentication_provider list ->
+  ?lambda_authorizer_config:lambda_authorizer_config list ->
+  ?log_config:log_config list ->
+  ?openid_connect_config:openid_connect_config list ->
+  ?user_pool_config:user_pool_config list ->
   authentication_type:string prop ->
   name:string prop ->
-  additional_authentication_provider:
-    additional_authentication_provider list ->
-  lambda_authorizer_config:lambda_authorizer_config list ->
-  log_config:log_config list ->
-  openid_connect_config:openid_connect_config list ->
-  user_pool_config:user_pool_config list ->
   unit ->
   aws_appsync_graphql_api
 
@@ -138,14 +138,14 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?visibility:string prop ->
   ?xray_enabled:bool prop ->
+  ?additional_authentication_provider:
+    additional_authentication_provider list ->
+  ?lambda_authorizer_config:lambda_authorizer_config list ->
+  ?log_config:log_config list ->
+  ?openid_connect_config:openid_connect_config list ->
+  ?user_pool_config:user_pool_config list ->
   authentication_type:string prop ->
   name:string prop ->
-  additional_authentication_provider:
-    additional_authentication_provider list ->
-  lambda_authorizer_config:lambda_authorizer_config list ->
-  log_config:log_config list ->
-  openid_connect_config:openid_connect_config list ->
-  user_pool_config:user_pool_config list ->
   string ->
   t
 
@@ -159,13 +159,13 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?visibility:string prop ->
   ?xray_enabled:bool prop ->
+  ?additional_authentication_provider:
+    additional_authentication_provider list ->
+  ?lambda_authorizer_config:lambda_authorizer_config list ->
+  ?log_config:log_config list ->
+  ?openid_connect_config:openid_connect_config list ->
+  ?user_pool_config:user_pool_config list ->
   authentication_type:string prop ->
   name:string prop ->
-  additional_authentication_provider:
-    additional_authentication_provider list ->
-  lambda_authorizer_config:lambda_authorizer_config list ->
-  log_config:log_config list ->
-  openid_connect_config:openid_connect_config list ->
-  user_pool_config:user_pool_config list ->
   string ->
   t Tf_core.resource

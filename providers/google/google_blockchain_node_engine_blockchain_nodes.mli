@@ -47,8 +47,8 @@ val ethereum_details :
   ?execution_client:string prop ->
   ?network:string prop ->
   ?node_type:string prop ->
-  geth_details:ethereum_details__geth_details list ->
-  validator_config:ethereum_details__validator_config list ->
+  ?geth_details:ethereum_details__geth_details list ->
+  ?validator_config:ethereum_details__validator_config list ->
   unit ->
   ethereum_details
 
@@ -68,10 +68,10 @@ val google_blockchain_node_engine_blockchain_nodes :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?ethereum_details:ethereum_details list ->
   ?timeouts:timeouts ->
   blockchain_node_id:string prop ->
   location:string prop ->
-  ethereum_details:ethereum_details list ->
   unit ->
   google_blockchain_node_engine_blockchain_nodes
 
@@ -101,10 +101,10 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?ethereum_details:ethereum_details list ->
   ?timeouts:timeouts ->
   blockchain_node_id:string prop ->
   location:string prop ->
-  ethereum_details:ethereum_details list ->
   string ->
   t
 
@@ -113,9 +113,9 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?ethereum_details:ethereum_details list ->
   ?timeouts:timeouts ->
   blockchain_node_id:string prop ->
   location:string prop ->
-  ethereum_details:ethereum_details list ->
   string ->
   t Tf_core.resource

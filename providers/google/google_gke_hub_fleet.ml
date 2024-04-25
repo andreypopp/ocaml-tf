@@ -300,7 +300,7 @@ let default_cluster_config__binary_authorization_config__policy_bindings
   { name }
 
 let default_cluster_config__binary_authorization_config
-    ?evaluation_mode ~policy_bindings () :
+    ?evaluation_mode ?(policy_bindings = []) () :
     default_cluster_config__binary_authorization_config =
   { evaluation_mode; policy_bindings }
 
@@ -309,15 +309,16 @@ let default_cluster_config__security_posture_config ?mode
     default_cluster_config__security_posture_config =
   { mode; vulnerability_mode }
 
-let default_cluster_config ~binary_authorization_config
-    ~security_posture_config () : default_cluster_config =
+let default_cluster_config ?(binary_authorization_config = [])
+    ?(security_posture_config = []) () : default_cluster_config =
   { binary_authorization_config; security_posture_config }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_gke_hub_fleet ?display_name ?id ?project ?timeouts
-    ~default_cluster_config () : google_gke_hub_fleet =
+let google_gke_hub_fleet ?display_name ?id ?project
+    ?(default_cluster_config = []) ?timeouts () :
+    google_gke_hub_fleet =
   { display_name; id; project; default_cluster_config; timeouts }
 
 type t = {
@@ -331,8 +332,8 @@ type t = {
   update_time : string prop;
 }
 
-let make ?display_name ?id ?project ?timeouts ~default_cluster_config
-    __id =
+let make ?display_name ?id ?project ?(default_cluster_config = [])
+    ?timeouts __id =
   let __type = "google_gke_hub_fleet" in
   let __attrs =
     ({
@@ -352,15 +353,15 @@ let make ?display_name ?id ?project ?timeouts ~default_cluster_config
     type_ = __type;
     json =
       yojson_of_google_gke_hub_fleet
-        (google_gke_hub_fleet ?display_name ?id ?project ?timeouts
-           ~default_cluster_config ());
+        (google_gke_hub_fleet ?display_name ?id ?project
+           ~default_cluster_config ?timeouts ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?display_name ?id ?project ?timeouts
-    ~default_cluster_config __id =
+let register ?tf_module ?display_name ?id ?project
+    ?(default_cluster_config = []) ?timeouts __id =
   let (r : _ Tf_core.resource) =
-    make ?display_name ?id ?project ?timeouts ~default_cluster_config
+    make ?display_name ?id ?project ~default_cluster_config ?timeouts
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

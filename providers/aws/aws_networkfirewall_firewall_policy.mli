@@ -55,9 +55,9 @@ type firewall_policy__stateful_rule_group_reference
 
 val firewall_policy__stateful_rule_group_reference :
   ?priority:float prop ->
-  resource_arn:string prop ->
-  override:
+  ?override:
     firewall_policy__stateful_rule_group_reference__override list ->
+  resource_arn:string prop ->
   unit ->
   firewall_policy__stateful_rule_group_reference
 
@@ -108,11 +108,11 @@ type firewall_policy
 val firewall_policy :
   ?stateful_default_actions:string prop list ->
   ?tls_inspection_configuration_arn:string prop ->
+  ?policy_variables:firewall_policy__policy_variables list ->
+  ?stateful_engine_options:
+    firewall_policy__stateful_engine_options list ->
   stateless_default_actions:string prop list ->
   stateless_fragment_default_actions:string prop list ->
-  policy_variables:firewall_policy__policy_variables list ->
-  stateful_engine_options:
-    firewall_policy__stateful_engine_options list ->
   stateful_rule_group_reference:
     firewall_policy__stateful_rule_group_reference list ->
   stateless_custom_action:
@@ -129,8 +129,8 @@ val aws_networkfirewall_firewall_policy :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?encryption_configuration:encryption_configuration list ->
   name:string prop ->
-  encryption_configuration:encryption_configuration list ->
   firewall_policy:firewall_policy list ->
   unit ->
   aws_networkfirewall_firewall_policy
@@ -156,8 +156,8 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?encryption_configuration:encryption_configuration list ->
   name:string prop ->
-  encryption_configuration:encryption_configuration list ->
   firewall_policy:firewall_policy list ->
   string ->
   t
@@ -167,8 +167,8 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?encryption_configuration:encryption_configuration list ->
   name:string prop ->
-  encryption_configuration:encryption_configuration list ->
   firewall_policy:firewall_policy list ->
   string ->
   t Tf_core.resource

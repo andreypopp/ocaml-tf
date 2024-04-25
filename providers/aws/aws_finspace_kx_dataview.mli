@@ -30,13 +30,13 @@ val aws_finspace_kx_dataview :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?segment_configurations:segment_configurations list ->
   ?timeouts:timeouts ->
   auto_update:bool prop ->
   az_mode:string prop ->
   database_name:string prop ->
   environment_id:string prop ->
   name:string prop ->
-  segment_configurations:segment_configurations list ->
   unit ->
   aws_finspace_kx_dataview
 
@@ -71,13 +71,13 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?segment_configurations:segment_configurations list ->
   ?timeouts:timeouts ->
   auto_update:bool prop ->
   az_mode:string prop ->
   database_name:string prop ->
   environment_id:string prop ->
   name:string prop ->
-  segment_configurations:segment_configurations list ->
   string ->
   t
 
@@ -88,12 +88,12 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?segment_configurations:segment_configurations list ->
   ?timeouts:timeouts ->
   auto_update:bool prop ->
   az_mode:string prop ->
   database_name:string prop ->
   environment_id:string prop ->
   name:string prop ->
-  segment_configurations:segment_configurations list ->
   string ->
   t Tf_core.resource

@@ -248,8 +248,8 @@ val aws_quicksight_data_set :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?column_level_permission_rules:column_level_permission_rules list ->
   data_set_id:string prop ->
-  column_level_permission_rules:column_level_permission_rules list ->
   unit ->
   aws_quicksight_data_set
 
@@ -286,8 +286,8 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?column_level_permission_rules:column_level_permission_rules list ->
   data_set_id:string prop ->
-  column_level_permission_rules:column_level_permission_rules list ->
   string ->
   t
 
@@ -296,7 +296,7 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?column_level_permission_rules:column_level_permission_rules list ->
   data_set_id:string prop ->
-  column_level_permission_rules:column_level_permission_rules list ->
   string ->
   t Tf_core.resource

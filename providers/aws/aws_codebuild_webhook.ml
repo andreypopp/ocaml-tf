@@ -136,7 +136,7 @@ let filter_group__filter ?exclude_matched_pattern ~pattern ~type_ ()
     : filter_group__filter =
   { exclude_matched_pattern; pattern; type_ }
 
-let filter_group ~filter () : filter_group = { filter }
+let filter_group ?(filter = []) () : filter_group = { filter }
 
 let aws_codebuild_webhook ?branch_filter ?build_type ?id
     ~project_name ~filter_group () : aws_codebuild_webhook =

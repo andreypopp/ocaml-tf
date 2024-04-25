@@ -222,8 +222,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_static_site ?app_settings ?id ?sku_size ?sku_tier ?tags
-    ?timeouts ~location ~name ~resource_group_name ~identity () :
-    azurerm_static_site =
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    () : azurerm_static_site =
   {
     app_settings;
     id;
@@ -250,8 +250,8 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?app_settings ?id ?sku_size ?sku_tier ?tags ?timeouts
-    ~location ~name ~resource_group_name ~identity __id =
+let make ?app_settings ?id ?sku_size ?sku_tier ?tags ?(identity = [])
+    ?timeouts ~location ~name ~resource_group_name __id =
   let __type = "azurerm_static_site" in
   let __attrs =
     ({
@@ -276,16 +276,17 @@ let make ?app_settings ?id ?sku_size ?sku_tier ?tags ?timeouts
     json =
       yojson_of_azurerm_static_site
         (azurerm_static_site ?app_settings ?id ?sku_size ?sku_tier
-           ?tags ?timeouts ~location ~name ~resource_group_name
-           ~identity ());
+           ?tags ~identity ?timeouts ~location ~name
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?app_settings ?id ?sku_size ?sku_tier ?tags
-    ?timeouts ~location ~name ~resource_group_name ~identity __id =
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?app_settings ?id ?sku_size ?sku_tier ?tags ?timeouts
-      ~location ~name ~resource_group_name ~identity __id
+    make ?app_settings ?id ?sku_size ?sku_tier ?tags ~identity
+      ?timeouts ~location ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

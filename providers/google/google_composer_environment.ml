@@ -1499,7 +1499,7 @@ let config__recovery_config__scheduled_snapshots_config
     time_zone;
   }
 
-let config__recovery_config ~scheduled_snapshots_config () :
+let config__recovery_config ?(scheduled_snapshots_config = []) () :
     config__recovery_config =
   { scheduled_snapshots_config }
 
@@ -1544,17 +1544,18 @@ let config__workloads_config__worker ?cpu ?max_count ?memory_gb
     ?min_count ?storage_gb () : config__workloads_config__worker =
   { cpu; max_count; memory_gb; min_count; storage_gb }
 
-let config__workloads_config ~scheduler ~triggerer ~web_server
-    ~worker () : config__workloads_config =
+let config__workloads_config ?(scheduler = []) ?(triggerer = [])
+    ?(web_server = []) ?(worker = []) () : config__workloads_config =
   { scheduler; triggerer; web_server; worker }
 
 let config ?environment_size ?node_count ?resilience_mode
-    ~data_retention_config ~database_config ~encryption_config
-    ~maintenance_window ~master_authorized_networks_config
-    ~node_config ~private_environment_config ~recovery_config
-    ~software_config ~web_server_config
-    ~web_server_network_access_control ~workloads_config () : config
-    =
+    ?(data_retention_config = []) ?(database_config = [])
+    ?(encryption_config = []) ?(maintenance_window = [])
+    ?(master_authorized_networks_config = []) ?(node_config = [])
+    ?(private_environment_config = []) ?(recovery_config = [])
+    ?(software_config = []) ?(web_server_config = [])
+    ?(web_server_network_access_control = [])
+    ?(workloads_config = []) () : config =
   {
     environment_size;
     node_count;
@@ -1579,7 +1580,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_composer_environment ?id ?labels ?project ?region
-    ?timeouts ~name ~config ~storage_config () :
+    ?(config = []) ?(storage_config = []) ?timeouts ~name () :
     google_composer_environment =
   {
     id;
@@ -1602,8 +1603,8 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let make ?id ?labels ?project ?region ?timeouts ~name ~config
-    ~storage_config __id =
+let make ?id ?labels ?project ?region ?(config = [])
+    ?(storage_config = []) ?timeouts ~name __id =
   let __type = "google_composer_environment" in
   let __attrs =
     ({
@@ -1625,15 +1626,15 @@ let make ?id ?labels ?project ?region ?timeouts ~name ~config
     json =
       yojson_of_google_composer_environment
         (google_composer_environment ?id ?labels ?project ?region
-           ?timeouts ~name ~config ~storage_config ());
+           ~config ~storage_config ?timeouts ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?labels ?project ?region ?timeouts ~name
-    ~config ~storage_config __id =
+let register ?tf_module ?id ?labels ?project ?region ?(config = [])
+    ?(storage_config = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?labels ?project ?region ?timeouts ~name ~config
-      ~storage_config __id
+    make ?id ?labels ?project ?region ~config ~storage_config
+      ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -44,11 +44,11 @@ val google_compute_subnetwork :
   ?role:string prop ->
   ?secondary_ip_range:secondary_ip_range list ->
   ?stack_type:string prop ->
+  ?log_config:log_config list ->
   ?timeouts:timeouts ->
   ip_cidr_range:string prop ->
   name:string prop ->
   network:string prop ->
-  log_config:log_config list ->
   unit ->
   google_compute_subnetwork
 
@@ -95,11 +95,11 @@ val register :
   ?role:string prop ->
   ?secondary_ip_range:secondary_ip_range list ->
   ?stack_type:string prop ->
+  ?log_config:log_config list ->
   ?timeouts:timeouts ->
   ip_cidr_range:string prop ->
   name:string prop ->
   network:string prop ->
-  log_config:log_config list ->
   string ->
   t
 
@@ -116,10 +116,10 @@ val make :
   ?role:string prop ->
   ?secondary_ip_range:secondary_ip_range list ->
   ?stack_type:string prop ->
+  ?log_config:log_config list ->
   ?timeouts:timeouts ->
   ip_cidr_range:string prop ->
   name:string prop ->
   network:string prop ->
-  log_config:log_config list ->
   string ->
   t Tf_core.resource

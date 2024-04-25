@@ -53,11 +53,11 @@ val google_compute_node_group :
   ?name:string prop ->
   ?project:string prop ->
   ?zone:string prop ->
+  ?autoscaling_policy:autoscaling_policy list ->
+  ?maintenance_window:maintenance_window list ->
+  ?share_settings:share_settings list ->
   ?timeouts:timeouts ->
   node_template:string prop ->
-  autoscaling_policy:autoscaling_policy list ->
-  maintenance_window:maintenance_window list ->
-  share_settings:share_settings list ->
   unit ->
   google_compute_node_group
 
@@ -89,11 +89,11 @@ val register :
   ?name:string prop ->
   ?project:string prop ->
   ?zone:string prop ->
+  ?autoscaling_policy:autoscaling_policy list ->
+  ?maintenance_window:maintenance_window list ->
+  ?share_settings:share_settings list ->
   ?timeouts:timeouts ->
   node_template:string prop ->
-  autoscaling_policy:autoscaling_policy list ->
-  maintenance_window:maintenance_window list ->
-  share_settings:share_settings list ->
   string ->
   t
 
@@ -105,10 +105,10 @@ val make :
   ?name:string prop ->
   ?project:string prop ->
   ?zone:string prop ->
+  ?autoscaling_policy:autoscaling_policy list ->
+  ?maintenance_window:maintenance_window list ->
+  ?share_settings:share_settings list ->
   ?timeouts:timeouts ->
   node_template:string prop ->
-  autoscaling_policy:autoscaling_policy list ->
-  maintenance_window:maintenance_window list ->
-  share_settings:share_settings list ->
   string ->
   t Tf_core.resource

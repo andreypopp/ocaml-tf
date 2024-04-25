@@ -258,9 +258,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_managed_application ?application_definition_id ?id
-    ?parameter_values ?parameters ?tags ?timeouts ~kind ~location
-    ~managed_resource_group_name ~name ~resource_group_name ~plan ()
-    : azurerm_managed_application =
+    ?parameter_values ?parameters ?tags ?(plan = []) ?timeouts ~kind
+    ~location ~managed_resource_group_name ~name ~resource_group_name
+    () : azurerm_managed_application =
   {
     application_definition_id;
     id;
@@ -291,8 +291,8 @@ type t = {
 }
 
 let make ?application_definition_id ?id ?parameter_values ?parameters
-    ?tags ?timeouts ~kind ~location ~managed_resource_group_name
-    ~name ~resource_group_name ~plan __id =
+    ?tags ?(plan = []) ?timeouts ~kind ~location
+    ~managed_resource_group_name ~name ~resource_group_name __id =
   let __type = "azurerm_managed_application" in
   let __attrs =
     ({
@@ -320,20 +320,20 @@ let make ?application_definition_id ?id ?parameter_values ?parameters
     json =
       yojson_of_azurerm_managed_application
         (azurerm_managed_application ?application_definition_id ?id
-           ?parameter_values ?parameters ?tags ?timeouts ~kind
+           ?parameter_values ?parameters ?tags ~plan ?timeouts ~kind
            ~location ~managed_resource_group_name ~name
-           ~resource_group_name ~plan ());
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?application_definition_id ?id
-    ?parameter_values ?parameters ?tags ?timeouts ~kind ~location
-    ~managed_resource_group_name ~name ~resource_group_name ~plan
+    ?parameter_values ?parameters ?tags ?(plan = []) ?timeouts ~kind
+    ~location ~managed_resource_group_name ~name ~resource_group_name
     __id =
   let (r : _ Tf_core.resource) =
     make ?application_definition_id ?id ?parameter_values ?parameters
-      ?tags ?timeouts ~kind ~location ~managed_resource_group_name
-      ~name ~resource_group_name ~plan __id
+      ?tags ~plan ?timeouts ~kind ~location
+      ~managed_resource_group_name ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

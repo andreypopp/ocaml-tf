@@ -250,9 +250,9 @@ let nas1_configuration ~size ~type_ () : nas1_configuration =
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let aws_finspace_kx_volume ?description ?id ?tags ?tags_all ?timeouts
-    ~availability_zones ~az_mode ~environment_id ~name ~type_
-    ~nas1_configuration () : aws_finspace_kx_volume =
+let aws_finspace_kx_volume ?description ?id ?tags ?tags_all
+    ?(nas1_configuration = []) ?timeouts ~availability_zones ~az_mode
+    ~environment_id ~name ~type_ () : aws_finspace_kx_volume =
   {
     availability_zones;
     az_mode;
@@ -285,9 +285,9 @@ type t = {
   type_ : string prop;
 }
 
-let make ?description ?id ?tags ?tags_all ?timeouts
-    ~availability_zones ~az_mode ~environment_id ~name ~type_
-    ~nas1_configuration __id =
+let make ?description ?id ?tags ?tags_all ?(nas1_configuration = [])
+    ?timeouts ~availability_zones ~az_mode ~environment_id ~name
+    ~type_ __id =
   let __type = "aws_finspace_kx_volume" in
   let __attrs =
     ({
@@ -319,18 +319,18 @@ let make ?description ?id ?tags ?tags_all ?timeouts
     json =
       yojson_of_aws_finspace_kx_volume
         (aws_finspace_kx_volume ?description ?id ?tags ?tags_all
-           ?timeouts ~availability_zones ~az_mode ~environment_id
-           ~name ~type_ ~nas1_configuration ());
+           ~nas1_configuration ?timeouts ~availability_zones ~az_mode
+           ~environment_id ~name ~type_ ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
-    ~availability_zones ~az_mode ~environment_id ~name ~type_
-    ~nas1_configuration __id =
+let register ?tf_module ?description ?id ?tags ?tags_all
+    ?(nas1_configuration = []) ?timeouts ~availability_zones ~az_mode
+    ~environment_id ~name ~type_ __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?tags ?tags_all ?timeouts
-      ~availability_zones ~az_mode ~environment_id ~name ~type_
-      ~nas1_configuration __id
+    make ?description ?id ?tags ?tags_all ~nas1_configuration
+      ?timeouts ~availability_zones ~az_mode ~environment_id ~name
+      ~type_ __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -59,10 +59,10 @@ val repository__s3_bucket :
 type repository
 
 val repository :
-  bitbucket:repository__bitbucket list ->
-  codecommit:repository__codecommit list ->
-  github_enterprise_server:repository__github_enterprise_server list ->
-  s3_bucket:repository__s3_bucket list ->
+  ?bitbucket:repository__bitbucket list ->
+  ?codecommit:repository__codecommit list ->
+  ?github_enterprise_server:repository__github_enterprise_server list ->
+  ?s3_bucket:repository__s3_bucket list ->
   unit ->
   repository
 
@@ -81,8 +81,8 @@ val aws_codegurureviewer_repository_association :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?kms_key_details:kms_key_details list ->
   ?timeouts:timeouts ->
-  kms_key_details:kms_key_details list ->
   repository:repository list ->
   unit ->
   aws_codegurureviewer_repository_association
@@ -112,8 +112,8 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?kms_key_details:kms_key_details list ->
   ?timeouts:timeouts ->
-  kms_key_details:kms_key_details list ->
   repository:repository list ->
   string ->
   t
@@ -122,8 +122,8 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?kms_key_details:kms_key_details list ->
   ?timeouts:timeouts ->
-  kms_key_details:kms_key_details list ->
   repository:repository list ->
   string ->
   t Tf_core.resource

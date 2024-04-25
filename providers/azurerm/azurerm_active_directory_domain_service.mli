@@ -58,6 +58,9 @@ val azurerm_active_directory_domain_service :
   ?filtered_sync_enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?notifications:notifications list ->
+  ?secure_ldap:secure_ldap list ->
+  ?security:security list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
   location:string prop ->
@@ -65,9 +68,6 @@ val azurerm_active_directory_domain_service :
   resource_group_name:string prop ->
   sku:string prop ->
   initial_replica_set:initial_replica_set list ->
-  notifications:notifications list ->
-  secure_ldap:secure_ldap list ->
-  security:security list ->
   unit ->
   azurerm_active_directory_domain_service
 
@@ -99,6 +99,9 @@ val register :
   ?filtered_sync_enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?notifications:notifications list ->
+  ?secure_ldap:secure_ldap list ->
+  ?security:security list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
   location:string prop ->
@@ -106,9 +109,6 @@ val register :
   resource_group_name:string prop ->
   sku:string prop ->
   initial_replica_set:initial_replica_set list ->
-  notifications:notifications list ->
-  secure_ldap:secure_ldap list ->
-  security:security list ->
   string ->
   t
 
@@ -117,6 +117,9 @@ val make :
   ?filtered_sync_enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?notifications:notifications list ->
+  ?secure_ldap:secure_ldap list ->
+  ?security:security list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
   location:string prop ->
@@ -124,8 +127,5 @@ val make :
   resource_group_name:string prop ->
   sku:string prop ->
   initial_replica_set:initial_replica_set list ->
-  notifications:notifications list ->
-  secure_ldap:secure_ldap list ->
-  security:security list ->
   string ->
   t Tf_core.resource

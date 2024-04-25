@@ -54,8 +54,8 @@ type database
 val database :
   ?changeset_id:string prop ->
   ?dataview_name:string prop ->
+  ?cache_configurations:database__cache_configurations list ->
   database_name:string prop ->
-  cache_configurations:database__cache_configurations list ->
   unit ->
   database
 
@@ -116,20 +116,20 @@ val aws_finspace_kx_cluster :
   ?initialization_script:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?auto_scaling_configuration:auto_scaling_configuration list ->
+  ?cache_storage_configurations:cache_storage_configurations list ->
+  ?capacity_configuration:capacity_configuration list ->
+  ?code:code list ->
+  ?database:database list ->
+  ?savedown_storage_configuration:savedown_storage_configuration list ->
+  ?scaling_group_configuration:scaling_group_configuration list ->
+  ?tickerplant_log_configuration:tickerplant_log_configuration list ->
   ?timeouts:timeouts ->
   az_mode:string prop ->
   environment_id:string prop ->
   name:string prop ->
   release_label:string prop ->
   type_:string prop ->
-  auto_scaling_configuration:auto_scaling_configuration list ->
-  cache_storage_configurations:cache_storage_configurations list ->
-  capacity_configuration:capacity_configuration list ->
-  code:code list ->
-  database:database list ->
-  savedown_storage_configuration:savedown_storage_configuration list ->
-  scaling_group_configuration:scaling_group_configuration list ->
-  tickerplant_log_configuration:tickerplant_log_configuration list ->
   vpc_configuration:vpc_configuration list ->
   unit ->
   aws_finspace_kx_cluster
@@ -170,20 +170,20 @@ val register :
   ?initialization_script:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?auto_scaling_configuration:auto_scaling_configuration list ->
+  ?cache_storage_configurations:cache_storage_configurations list ->
+  ?capacity_configuration:capacity_configuration list ->
+  ?code:code list ->
+  ?database:database list ->
+  ?savedown_storage_configuration:savedown_storage_configuration list ->
+  ?scaling_group_configuration:scaling_group_configuration list ->
+  ?tickerplant_log_configuration:tickerplant_log_configuration list ->
   ?timeouts:timeouts ->
   az_mode:string prop ->
   environment_id:string prop ->
   name:string prop ->
   release_label:string prop ->
   type_:string prop ->
-  auto_scaling_configuration:auto_scaling_configuration list ->
-  cache_storage_configurations:cache_storage_configurations list ->
-  capacity_configuration:capacity_configuration list ->
-  code:code list ->
-  database:database list ->
-  savedown_storage_configuration:savedown_storage_configuration list ->
-  scaling_group_configuration:scaling_group_configuration list ->
-  tickerplant_log_configuration:tickerplant_log_configuration list ->
   vpc_configuration:vpc_configuration list ->
   string ->
   t
@@ -197,20 +197,20 @@ val make :
   ?initialization_script:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?auto_scaling_configuration:auto_scaling_configuration list ->
+  ?cache_storage_configurations:cache_storage_configurations list ->
+  ?capacity_configuration:capacity_configuration list ->
+  ?code:code list ->
+  ?database:database list ->
+  ?savedown_storage_configuration:savedown_storage_configuration list ->
+  ?scaling_group_configuration:scaling_group_configuration list ->
+  ?tickerplant_log_configuration:tickerplant_log_configuration list ->
   ?timeouts:timeouts ->
   az_mode:string prop ->
   environment_id:string prop ->
   name:string prop ->
   release_label:string prop ->
   type_:string prop ->
-  auto_scaling_configuration:auto_scaling_configuration list ->
-  cache_storage_configurations:cache_storage_configurations list ->
-  capacity_configuration:capacity_configuration list ->
-  code:code list ->
-  database:database list ->
-  savedown_storage_configuration:savedown_storage_configuration list ->
-  scaling_group_configuration:scaling_group_configuration list ->
-  tickerplant_log_configuration:tickerplant_log_configuration list ->
   vpc_configuration:vpc_configuration list ->
   string ->
   t Tf_core.resource

@@ -2027,7 +2027,7 @@ let filter ?id ?kind ?name ?phase ?version () : filter =
   { id; kind; name; phase; version }
 
 let cloudflare_rulesets ?account_id ?id ?include_rules ?zone_id
-    ~filter () : cloudflare_rulesets =
+    ?(filter = []) () : cloudflare_rulesets =
   { account_id; id; include_rules; zone_id; filter }
 
 type t = {
@@ -2038,7 +2038,8 @@ type t = {
   zone_id : string prop;
 }
 
-let make ?account_id ?id ?include_rules ?zone_id ~filter __id =
+let make ?account_id ?id ?include_rules ?zone_id ?(filter = []) __id
+    =
   let __type = "cloudflare_rulesets" in
   let __attrs =
     ({
@@ -2061,7 +2062,7 @@ let make ?account_id ?id ?include_rules ?zone_id ~filter __id =
   }
 
 let register ?tf_module ?account_id ?id ?include_rules ?zone_id
-    ~filter __id =
+    ?(filter = []) __id =
   let (r : _ Tf_core.resource) =
     make ?account_id ?id ?include_rules ?zone_id ~filter __id
   in

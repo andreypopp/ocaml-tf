@@ -63,6 +63,9 @@ val azurerm_sentinel_threat_intelligence_indicator :
   ?tags:string prop list ->
   ?threat_types:string prop list ->
   ?validate_until_utc:string prop ->
+  ?external_reference:external_reference list ->
+  ?granular_marking:granular_marking list ->
+  ?kill_chain_phase:kill_chain_phase list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   pattern:string prop ->
@@ -70,9 +73,6 @@ val azurerm_sentinel_threat_intelligence_indicator :
   source:string prop ->
   validate_from_utc:string prop ->
   workspace_id:string prop ->
-  external_reference:external_reference list ->
-  granular_marking:granular_marking list ->
-  kill_chain_phase:kill_chain_phase list ->
   unit ->
   azurerm_sentinel_threat_intelligence_indicator
 
@@ -124,6 +124,9 @@ val register :
   ?tags:string prop list ->
   ?threat_types:string prop list ->
   ?validate_until_utc:string prop ->
+  ?external_reference:external_reference list ->
+  ?granular_marking:granular_marking list ->
+  ?kill_chain_phase:kill_chain_phase list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   pattern:string prop ->
@@ -131,9 +134,6 @@ val register :
   source:string prop ->
   validate_from_utc:string prop ->
   workspace_id:string prop ->
-  external_reference:external_reference list ->
-  granular_marking:granular_marking list ->
-  kill_chain_phase:kill_chain_phase list ->
   string ->
   t
 
@@ -150,6 +150,9 @@ val make :
   ?tags:string prop list ->
   ?threat_types:string prop list ->
   ?validate_until_utc:string prop ->
+  ?external_reference:external_reference list ->
+  ?granular_marking:granular_marking list ->
+  ?kill_chain_phase:kill_chain_phase list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   pattern:string prop ->
@@ -157,8 +160,5 @@ val make :
   source:string prop ->
   validate_from_utc:string prop ->
   workspace_id:string prop ->
-  external_reference:external_reference list ->
-  granular_marking:granular_marking list ->
-  kill_chain_phase:kill_chain_phase list ->
   string ->
   t Tf_core.resource

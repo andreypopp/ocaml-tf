@@ -39,13 +39,13 @@ val azurerm_machine_learning_inference_cluster :
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?ssl:ssl list ->
   ?timeouts:timeouts ->
   kubernetes_cluster_id:string prop ->
   location:string prop ->
   machine_learning_workspace_id:string prop ->
   name:string prop ->
-  identity:identity list ->
-  ssl:ssl list ->
   unit ->
   azurerm_machine_learning_inference_cluster
 
@@ -71,13 +71,13 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?ssl:ssl list ->
   ?timeouts:timeouts ->
   kubernetes_cluster_id:string prop ->
   location:string prop ->
   machine_learning_workspace_id:string prop ->
   name:string prop ->
-  identity:identity list ->
-  ssl:ssl list ->
   string ->
   t
 
@@ -86,12 +86,12 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?ssl:ssl list ->
   ?timeouts:timeouts ->
   kubernetes_cluster_id:string prop ->
   location:string prop ->
   machine_learning_workspace_id:string prop ->
   name:string prop ->
-  identity:identity list ->
-  ssl:ssl list ->
   string ->
   t Tf_core.resource

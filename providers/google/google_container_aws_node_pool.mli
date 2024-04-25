@@ -65,14 +65,14 @@ val config :
   ?labels:(string * string prop) list ->
   ?security_group_ids:string prop list ->
   ?tags:(string * string prop) list ->
-  iam_instance_profile:string prop ->
-  autoscaling_metrics_collection:
+  ?autoscaling_metrics_collection:
     config__autoscaling_metrics_collection list ->
+  ?proxy_config:config__proxy_config list ->
+  ?root_volume:config__root_volume list ->
+  ?ssh_config:config__ssh_config list ->
+  ?taints:config__taints list ->
+  iam_instance_profile:string prop ->
   config_encryption:config__config_encryption list ->
-  proxy_config:config__proxy_config list ->
-  root_volume:config__root_volume list ->
-  ssh_config:config__ssh_config list ->
-  taints:config__taints list ->
   unit ->
   config
 
@@ -105,7 +105,7 @@ val update_settings__surge_settings :
 type update_settings
 
 val update_settings :
-  surge_settings:update_settings__surge_settings list ->
+  ?surge_settings:update_settings__surge_settings list ->
   unit ->
   update_settings
 
@@ -115,7 +115,9 @@ val google_container_aws_node_pool :
   ?annotations:(string * string prop) list ->
   ?id:string prop ->
   ?project:string prop ->
+  ?management:management list ->
   ?timeouts:timeouts ->
+  ?update_settings:update_settings list ->
   cluster:string prop ->
   location:string prop ->
   name:string prop ->
@@ -123,9 +125,7 @@ val google_container_aws_node_pool :
   version:string prop ->
   autoscaling:autoscaling list ->
   config:config list ->
-  management:management list ->
   max_pods_constraint:max_pods_constraint list ->
-  update_settings:update_settings list ->
   unit ->
   google_container_aws_node_pool
 
@@ -157,7 +157,9 @@ val register :
   ?annotations:(string * string prop) list ->
   ?id:string prop ->
   ?project:string prop ->
+  ?management:management list ->
   ?timeouts:timeouts ->
+  ?update_settings:update_settings list ->
   cluster:string prop ->
   location:string prop ->
   name:string prop ->
@@ -165,9 +167,7 @@ val register :
   version:string prop ->
   autoscaling:autoscaling list ->
   config:config list ->
-  management:management list ->
   max_pods_constraint:max_pods_constraint list ->
-  update_settings:update_settings list ->
   string ->
   t
 
@@ -175,7 +175,9 @@ val make :
   ?annotations:(string * string prop) list ->
   ?id:string prop ->
   ?project:string prop ->
+  ?management:management list ->
   ?timeouts:timeouts ->
+  ?update_settings:update_settings list ->
   cluster:string prop ->
   location:string prop ->
   name:string prop ->
@@ -183,8 +185,6 @@ val make :
   version:string prop ->
   autoscaling:autoscaling list ->
   config:config list ->
-  management:management list ->
   max_pods_constraint:max_pods_constraint list ->
-  update_settings:update_settings list ->
   string ->
   t Tf_core.resource

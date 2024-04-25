@@ -498,11 +498,12 @@ let volume__export_policy_rule ?root_access_enabled ?unix_read_only
     unix_read_write;
   }
 
-let volume ?proximity_placement_group_id ?tags ~capacity_pool_id
-    ~name ~protocols ~security_style ~service_level
+let volume ?proximity_placement_group_id ?tags
+    ?(data_protection_replication = [])
+    ?(data_protection_snapshot_policy = []) ~capacity_pool_id ~name
+    ~protocols ~security_style ~service_level
     ~snapshot_directory_visible ~storage_quota_in_gb ~subnet_id
     ~throughput_in_mibps ~volume_path ~volume_spec_name
-    ~data_protection_replication ~data_protection_snapshot_policy
     ~export_policy_rule () : volume =
   {
     capacity_pool_id;

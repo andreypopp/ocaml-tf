@@ -729,9 +729,10 @@ let user_metadata ?additional_developer_user_count
 
 let google_looker_instance ?consumer_network ?id ?platform_edition
     ?private_ip_enabled ?project ?public_ip_enabled ?region
-    ?reserved_range ?timeouts ~name ~admin_settings ~custom_domain
-    ~deny_maintenance_period ~encryption_config ~maintenance_window
-    ~oauth_config ~user_metadata () : google_looker_instance =
+    ?reserved_range ?(admin_settings = []) ?(custom_domain = [])
+    ?(deny_maintenance_period = []) ?(encryption_config = [])
+    ?(maintenance_window = []) ?(oauth_config = []) ?timeouts
+    ?(user_metadata = []) ~name () : google_looker_instance =
   {
     consumer_network;
     id;
@@ -772,10 +773,11 @@ type t = {
 }
 
 let make ?consumer_network ?id ?platform_edition ?private_ip_enabled
-    ?project ?public_ip_enabled ?region ?reserved_range ?timeouts
-    ~name ~admin_settings ~custom_domain ~deny_maintenance_period
-    ~encryption_config ~maintenance_window ~oauth_config
-    ~user_metadata __id =
+    ?project ?public_ip_enabled ?region ?reserved_range
+    ?(admin_settings = []) ?(custom_domain = [])
+    ?(deny_maintenance_period = []) ?(encryption_config = [])
+    ?(maintenance_window = []) ?(oauth_config = []) ?timeouts
+    ?(user_metadata = []) ~name __id =
   let __type = "google_looker_instance" in
   let __attrs =
     ({
@@ -812,24 +814,25 @@ let make ?consumer_network ?id ?platform_edition ?private_ip_enabled
       yojson_of_google_looker_instance
         (google_looker_instance ?consumer_network ?id
            ?platform_edition ?private_ip_enabled ?project
-           ?public_ip_enabled ?region ?reserved_range ?timeouts ~name
-           ~admin_settings ~custom_domain ~deny_maintenance_period
-           ~encryption_config ~maintenance_window ~oauth_config
-           ~user_metadata ());
+           ?public_ip_enabled ?region ?reserved_range ~admin_settings
+           ~custom_domain ~deny_maintenance_period ~encryption_config
+           ~maintenance_window ~oauth_config ?timeouts ~user_metadata
+           ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?consumer_network ?id ?platform_edition
     ?private_ip_enabled ?project ?public_ip_enabled ?region
-    ?reserved_range ?timeouts ~name ~admin_settings ~custom_domain
-    ~deny_maintenance_period ~encryption_config ~maintenance_window
-    ~oauth_config ~user_metadata __id =
+    ?reserved_range ?(admin_settings = []) ?(custom_domain = [])
+    ?(deny_maintenance_period = []) ?(encryption_config = [])
+    ?(maintenance_window = []) ?(oauth_config = []) ?timeouts
+    ?(user_metadata = []) ~name __id =
   let (r : _ Tf_core.resource) =
     make ?consumer_network ?id ?platform_edition ?private_ip_enabled
-      ?project ?public_ip_enabled ?region ?reserved_range ?timeouts
-      ~name ~admin_settings ~custom_domain ~deny_maintenance_period
-      ~encryption_config ~maintenance_window ~oauth_config
-      ~user_metadata __id
+      ?project ?public_ip_enabled ?region ?reserved_range
+      ~admin_settings ~custom_domain ~deny_maintenance_period
+      ~encryption_config ~maintenance_window ~oauth_config ?timeouts
+      ~user_metadata ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

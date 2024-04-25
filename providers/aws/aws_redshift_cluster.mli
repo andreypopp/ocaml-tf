@@ -83,11 +83,11 @@ val aws_redshift_cluster :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
+  ?logging:logging list ->
+  ?snapshot_copy:snapshot_copy list ->
   ?timeouts:timeouts ->
   cluster_identifier:string prop ->
   node_type:string prop ->
-  logging:logging list ->
-  snapshot_copy:snapshot_copy list ->
   unit ->
   aws_redshift_cluster
 
@@ -189,11 +189,11 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
+  ?logging:logging list ->
+  ?snapshot_copy:snapshot_copy list ->
   ?timeouts:timeouts ->
   cluster_identifier:string prop ->
   node_type:string prop ->
-  logging:logging list ->
-  snapshot_copy:snapshot_copy list ->
   string ->
   t
 
@@ -239,10 +239,10 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
+  ?logging:logging list ->
+  ?snapshot_copy:snapshot_copy list ->
   ?timeouts:timeouts ->
   cluster_identifier:string prop ->
   node_type:string prop ->
-  logging:logging list ->
-  snapshot_copy:snapshot_copy list ->
   string ->
   t Tf_core.resource

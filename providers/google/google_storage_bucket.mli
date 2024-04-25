@@ -117,18 +117,18 @@ val google_storage_bucket :
   ?rpo:string prop ->
   ?storage_class:string prop ->
   ?uniform_bucket_level_access:bool prop ->
+  ?autoclass:autoclass list ->
+  ?cors:cors list ->
+  ?custom_placement_config:custom_placement_config list ->
+  ?encryption:encryption list ->
+  ?lifecycle_rule:lifecycle_rule list ->
+  ?logging:logging list ->
+  ?retention_policy:retention_policy list ->
   ?timeouts:timeouts ->
+  ?versioning:versioning list ->
+  ?website:website list ->
   location:string prop ->
   name:string prop ->
-  autoclass:autoclass list ->
-  cors:cors list ->
-  custom_placement_config:custom_placement_config list ->
-  encryption:encryption list ->
-  lifecycle_rule:lifecycle_rule list ->
-  logging:logging list ->
-  retention_policy:retention_policy list ->
-  versioning:versioning list ->
-  website:website list ->
   unit ->
   google_storage_bucket
 
@@ -169,18 +169,18 @@ val register :
   ?rpo:string prop ->
   ?storage_class:string prop ->
   ?uniform_bucket_level_access:bool prop ->
+  ?autoclass:autoclass list ->
+  ?cors:cors list ->
+  ?custom_placement_config:custom_placement_config list ->
+  ?encryption:encryption list ->
+  ?lifecycle_rule:lifecycle_rule list ->
+  ?logging:logging list ->
+  ?retention_policy:retention_policy list ->
   ?timeouts:timeouts ->
+  ?versioning:versioning list ->
+  ?website:website list ->
   location:string prop ->
   name:string prop ->
-  autoclass:autoclass list ->
-  cors:cors list ->
-  custom_placement_config:custom_placement_config list ->
-  encryption:encryption list ->
-  lifecycle_rule:lifecycle_rule list ->
-  logging:logging list ->
-  retention_policy:retention_policy list ->
-  versioning:versioning list ->
-  website:website list ->
   string ->
   t
 
@@ -196,17 +196,17 @@ val make :
   ?rpo:string prop ->
   ?storage_class:string prop ->
   ?uniform_bucket_level_access:bool prop ->
+  ?autoclass:autoclass list ->
+  ?cors:cors list ->
+  ?custom_placement_config:custom_placement_config list ->
+  ?encryption:encryption list ->
+  ?lifecycle_rule:lifecycle_rule list ->
+  ?logging:logging list ->
+  ?retention_policy:retention_policy list ->
   ?timeouts:timeouts ->
+  ?versioning:versioning list ->
+  ?website:website list ->
   location:string prop ->
   name:string prop ->
-  autoclass:autoclass list ->
-  cors:cors list ->
-  custom_placement_config:custom_placement_config list ->
-  encryption:encryption list ->
-  lifecycle_rule:lifecycle_rule list ->
-  logging:logging list ->
-  retention_policy:retention_policy list ->
-  versioning:versioning list ->
-  website:website list ->
   string ->
   t Tf_core.resource

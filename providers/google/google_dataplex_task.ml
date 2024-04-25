@@ -1059,12 +1059,13 @@ let notebook__infrastructure_spec__vpc_network ?network ?network_tags
     ?sub_network () : notebook__infrastructure_spec__vpc_network =
   { network; network_tags; sub_network }
 
-let notebook__infrastructure_spec ~batch ~container_image
-    ~vpc_network () : notebook__infrastructure_spec =
+let notebook__infrastructure_spec ?(batch = [])
+    ?(container_image = []) ?(vpc_network = []) () :
+    notebook__infrastructure_spec =
   { batch; container_image; vpc_network }
 
-let notebook ?archive_uris ?file_uris ~notebook ~infrastructure_spec
-    () : notebook =
+let notebook ?archive_uris ?file_uris ?(infrastructure_spec = [])
+    ~notebook () : notebook =
   { archive_uris; file_uris; notebook; infrastructure_spec }
 
 let spark__infrastructure_spec__batch ?executors_count
@@ -1080,13 +1081,13 @@ let spark__infrastructure_spec__vpc_network ?network ?network_tags
     ?sub_network () : spark__infrastructure_spec__vpc_network =
   { network; network_tags; sub_network }
 
-let spark__infrastructure_spec ~batch ~container_image ~vpc_network
-    () : spark__infrastructure_spec =
+let spark__infrastructure_spec ?(batch = []) ?(container_image = [])
+    ?(vpc_network = []) () : spark__infrastructure_spec =
   { batch; container_image; vpc_network }
 
 let spark ?archive_uris ?file_uris ?main_class ?main_jar_file_uri
     ?python_script_file ?sql_script ?sql_script_file
-    ~infrastructure_spec () : spark =
+    ?(infrastructure_spec = []) () : spark =
   {
     archive_uris;
     file_uris;
@@ -1106,8 +1107,9 @@ let trigger_spec ?disabled ?max_retries ?schedule ?start_time ~type_
   { disabled; max_retries; schedule; start_time; type_ }
 
 let google_dataplex_task ?description ?display_name ?id ?labels ?lake
-    ?location ?project ?task_id ?timeouts ~execution_spec ~notebook
-    ~spark ~trigger_spec () : google_dataplex_task =
+    ?location ?project ?task_id ?(notebook = []) ?(spark = [])
+    ?timeouts ~execution_spec ~trigger_spec () : google_dataplex_task
+    =
   {
     description;
     display_name;
@@ -1144,8 +1146,8 @@ type t = {
 }
 
 let make ?description ?display_name ?id ?labels ?lake ?location
-    ?project ?task_id ?timeouts ~execution_spec ~notebook ~spark
-    ~trigger_spec __id =
+    ?project ?task_id ?(notebook = []) ?(spark = []) ?timeouts
+    ~execution_spec ~trigger_spec __id =
   let __type = "google_dataplex_task" in
   let __attrs =
     ({
@@ -1177,17 +1179,17 @@ let make ?description ?display_name ?id ?labels ?lake ?location
     json =
       yojson_of_google_dataplex_task
         (google_dataplex_task ?description ?display_name ?id ?labels
-           ?lake ?location ?project ?task_id ?timeouts
-           ~execution_spec ~notebook ~spark ~trigger_spec ());
+           ?lake ?location ?project ?task_id ~notebook ~spark
+           ?timeouts ~execution_spec ~trigger_spec ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?display_name ?id ?labels ?lake
-    ?location ?project ?task_id ?timeouts ~execution_spec ~notebook
-    ~spark ~trigger_spec __id =
+    ?location ?project ?task_id ?(notebook = []) ?(spark = [])
+    ?timeouts ~execution_spec ~trigger_spec __id =
   let (r : _ Tf_core.resource) =
     make ?description ?display_name ?id ?labels ?lake ?location
-      ?project ?task_id ?timeouts ~execution_spec ~notebook ~spark
+      ?project ?task_id ~notebook ~spark ?timeouts ~execution_spec
       ~trigger_spec __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

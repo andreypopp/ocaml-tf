@@ -22,7 +22,7 @@ val automatic_scaling :
   ?max_pending_latency:string prop ->
   ?min_idle_instances:float prop ->
   ?min_pending_latency:string prop ->
-  standard_scheduler_settings:
+  ?standard_scheduler_settings:
     automatic_scaling__standard_scheduler_settings list ->
   unit ->
   automatic_scaling
@@ -55,8 +55,8 @@ val deployment__zip :
 type deployment
 
 val deployment :
+  ?zip:deployment__zip list ->
   files:deployment__files list ->
-  zip:deployment__zip list ->
   unit ->
   deployment
 
@@ -90,8 +90,8 @@ val handlers :
   ?redirect_http_response_code:string prop ->
   ?security_level:string prop ->
   ?url_regex:string prop ->
-  script:handlers__script list ->
-  static_files:handlers__static_files list ->
+  ?script:handlers__script list ->
+  ?static_files:handlers__static_files list ->
   unit ->
   handlers
 
@@ -136,17 +136,17 @@ val google_app_engine_standard_app_version :
   ?service_account:string prop ->
   ?threadsafe:bool prop ->
   ?version_id:string prop ->
+  ?automatic_scaling:automatic_scaling list ->
+  ?basic_scaling:basic_scaling list ->
+  ?handlers:handlers list ->
+  ?libraries:libraries list ->
+  ?manual_scaling:manual_scaling list ->
   ?timeouts:timeouts ->
+  ?vpc_access_connector:vpc_access_connector list ->
   runtime:string prop ->
   service:string prop ->
-  automatic_scaling:automatic_scaling list ->
-  basic_scaling:basic_scaling list ->
   deployment:deployment list ->
   entrypoint:entrypoint list ->
-  handlers:handlers list ->
-  libraries:libraries list ->
-  manual_scaling:manual_scaling list ->
-  vpc_access_connector:vpc_access_connector list ->
   unit ->
   google_app_engine_standard_app_version
 
@@ -187,17 +187,17 @@ val register :
   ?service_account:string prop ->
   ?threadsafe:bool prop ->
   ?version_id:string prop ->
+  ?automatic_scaling:automatic_scaling list ->
+  ?basic_scaling:basic_scaling list ->
+  ?handlers:handlers list ->
+  ?libraries:libraries list ->
+  ?manual_scaling:manual_scaling list ->
   ?timeouts:timeouts ->
+  ?vpc_access_connector:vpc_access_connector list ->
   runtime:string prop ->
   service:string prop ->
-  automatic_scaling:automatic_scaling list ->
-  basic_scaling:basic_scaling list ->
   deployment:deployment list ->
   entrypoint:entrypoint list ->
-  handlers:handlers list ->
-  libraries:libraries list ->
-  manual_scaling:manual_scaling list ->
-  vpc_access_connector:vpc_access_connector list ->
   string ->
   t
 
@@ -214,16 +214,16 @@ val make :
   ?service_account:string prop ->
   ?threadsafe:bool prop ->
   ?version_id:string prop ->
+  ?automatic_scaling:automatic_scaling list ->
+  ?basic_scaling:basic_scaling list ->
+  ?handlers:handlers list ->
+  ?libraries:libraries list ->
+  ?manual_scaling:manual_scaling list ->
   ?timeouts:timeouts ->
+  ?vpc_access_connector:vpc_access_connector list ->
   runtime:string prop ->
   service:string prop ->
-  automatic_scaling:automatic_scaling list ->
-  basic_scaling:basic_scaling list ->
   deployment:deployment list ->
   entrypoint:entrypoint list ->
-  handlers:handlers list ->
-  libraries:libraries list ->
-  manual_scaling:manual_scaling list ->
-  vpc_access_connector:vpc_access_connector list ->
   string ->
   t Tf_core.resource

@@ -1049,8 +1049,8 @@ let automated_backup_policy__weekly_schedule ?days_of_week
   { days_of_week; start_times }
 
 let automated_backup_policy ?backup_window ?enabled ?labels ?location
-    ~encryption_config ~quantity_based_retention
-    ~time_based_retention ~weekly_schedule () :
+    ?(encryption_config = []) ?(quantity_based_retention = [])
+    ?(time_based_retention = []) ?(weekly_schedule = []) () :
     automated_backup_policy =
   {
     backup_window;
@@ -1068,7 +1068,7 @@ let continuous_backup_config__encryption_config ?kms_key_name () :
   { kms_key_name }
 
 let continuous_backup_config ?enabled ?recovery_window_days
-    ~encryption_config () : continuous_backup_config =
+    ?(encryption_config = []) () : continuous_backup_config =
   { enabled; recovery_window_days; encryption_config }
 
 let encryption_config ?kms_key_name () : encryption_config =
@@ -1095,11 +1095,12 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_alloydb_cluster ?annotations ?cluster_type
     ?database_version ?deletion_policy ?display_name ?etag ?id
-    ?labels ?network ?project ?timeouts ~cluster_id ~location
-    ~automated_backup_policy ~continuous_backup_config
-    ~encryption_config ~initial_user ~network_config
-    ~restore_backup_source ~restore_continuous_backup_source
-    ~secondary_config () : google_alloydb_cluster =
+    ?labels ?network ?project ?(automated_backup_policy = [])
+    ?(continuous_backup_config = []) ?(encryption_config = [])
+    ?(initial_user = []) ?(network_config = [])
+    ?(restore_backup_source = [])
+    ?(restore_continuous_backup_source = []) ?(secondary_config = [])
+    ?timeouts ~cluster_id ~location () : google_alloydb_cluster =
   {
     annotations;
     cluster_id;
@@ -1152,10 +1153,12 @@ type t = {
 
 let make ?annotations ?cluster_type ?database_version
     ?deletion_policy ?display_name ?etag ?id ?labels ?network
-    ?project ?timeouts ~cluster_id ~location ~automated_backup_policy
-    ~continuous_backup_config ~encryption_config ~initial_user
-    ~network_config ~restore_backup_source
-    ~restore_continuous_backup_source ~secondary_config __id =
+    ?project ?(automated_backup_policy = [])
+    ?(continuous_backup_config = []) ?(encryption_config = [])
+    ?(initial_user = []) ?(network_config = [])
+    ?(restore_backup_source = [])
+    ?(restore_continuous_backup_source = []) ?(secondary_config = [])
+    ?timeouts ~cluster_id ~location __id =
   let __type = "google_alloydb_cluster" in
   let __attrs =
     ({
@@ -1198,28 +1201,29 @@ let make ?annotations ?cluster_type ?database_version
       yojson_of_google_alloydb_cluster
         (google_alloydb_cluster ?annotations ?cluster_type
            ?database_version ?deletion_policy ?display_name ?etag ?id
-           ?labels ?network ?project ?timeouts ~cluster_id ~location
-           ~automated_backup_policy ~continuous_backup_config
-           ~encryption_config ~initial_user ~network_config
-           ~restore_backup_source ~restore_continuous_backup_source
-           ~secondary_config ());
+           ?labels ?network ?project ~automated_backup_policy
+           ~continuous_backup_config ~encryption_config ~initial_user
+           ~network_config ~restore_backup_source
+           ~restore_continuous_backup_source ~secondary_config
+           ?timeouts ~cluster_id ~location ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?cluster_type ?database_version
     ?deletion_policy ?display_name ?etag ?id ?labels ?network
-    ?project ?timeouts ~cluster_id ~location ~automated_backup_policy
-    ~continuous_backup_config ~encryption_config ~initial_user
-    ~network_config ~restore_backup_source
-    ~restore_continuous_backup_source ~secondary_config __id =
+    ?project ?(automated_backup_policy = [])
+    ?(continuous_backup_config = []) ?(encryption_config = [])
+    ?(initial_user = []) ?(network_config = [])
+    ?(restore_backup_source = [])
+    ?(restore_continuous_backup_source = []) ?(secondary_config = [])
+    ?timeouts ~cluster_id ~location __id =
   let (r : _ Tf_core.resource) =
     make ?annotations ?cluster_type ?database_version
       ?deletion_policy ?display_name ?etag ?id ?labels ?network
-      ?project ?timeouts ~cluster_id ~location
-      ~automated_backup_policy ~continuous_backup_config
+      ?project ~automated_backup_policy ~continuous_backup_config
       ~encryption_config ~initial_user ~network_config
       ~restore_backup_source ~restore_continuous_backup_source
-      ~secondary_config __id
+      ~secondary_config ?timeouts ~cluster_id ~location __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -996,9 +996,9 @@ let routing_rule__redirect_configuration ?custom_fragment
     redirect_type;
   }
 
-let routing_rule ?enabled ~accepted_protocols ~frontend_endpoints
-    ~name ~patterns_to_match ~forwarding_configuration
-    ~redirect_configuration () : routing_rule =
+let routing_rule ?enabled ?(forwarding_configuration = [])
+    ?(redirect_configuration = []) ~accepted_protocols
+    ~frontend_endpoints ~name ~patterns_to_match () : routing_rule =
   {
     accepted_protocols;
     enabled;
@@ -1013,10 +1013,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_frontdoor ?friendly_name ?id ?load_balancer_enabled ?tags
-    ?timeouts ~name ~resource_group_name ~backend_pool
-    ~backend_pool_health_probe ~backend_pool_load_balancing
-    ~backend_pool_settings ~frontend_endpoint ~routing_rule () :
-    azurerm_frontdoor =
+    ?(backend_pool_settings = []) ?timeouts ~name
+    ~resource_group_name ~backend_pool ~backend_pool_health_probe
+    ~backend_pool_load_balancing ~frontend_endpoint ~routing_rule ()
+    : azurerm_frontdoor =
   {
     friendly_name;
     id;
@@ -1050,10 +1050,11 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?friendly_name ?id ?load_balancer_enabled ?tags ?timeouts
-    ~name ~resource_group_name ~backend_pool
-    ~backend_pool_health_probe ~backend_pool_load_balancing
-    ~backend_pool_settings ~frontend_endpoint ~routing_rule __id =
+let make ?friendly_name ?id ?load_balancer_enabled ?tags
+    ?(backend_pool_settings = []) ?timeouts ~name
+    ~resource_group_name ~backend_pool ~backend_pool_health_probe
+    ~backend_pool_load_balancing ~frontend_endpoint ~routing_rule
+    __id =
   let __type = "azurerm_frontdoor" in
   let __attrs =
     ({
@@ -1088,21 +1089,24 @@ let make ?friendly_name ?id ?load_balancer_enabled ?tags ?timeouts
     json =
       yojson_of_azurerm_frontdoor
         (azurerm_frontdoor ?friendly_name ?id ?load_balancer_enabled
-           ?tags ?timeouts ~name ~resource_group_name ~backend_pool
+           ?tags ~backend_pool_settings ?timeouts ~name
+           ~resource_group_name ~backend_pool
            ~backend_pool_health_probe ~backend_pool_load_balancing
-           ~backend_pool_settings ~frontend_endpoint ~routing_rule ());
+           ~frontend_endpoint ~routing_rule ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?friendly_name ?id ?load_balancer_enabled
-    ?tags ?timeouts ~name ~resource_group_name ~backend_pool
-    ~backend_pool_health_probe ~backend_pool_load_balancing
-    ~backend_pool_settings ~frontend_endpoint ~routing_rule __id =
+    ?tags ?(backend_pool_settings = []) ?timeouts ~name
+    ~resource_group_name ~backend_pool ~backend_pool_health_probe
+    ~backend_pool_load_balancing ~frontend_endpoint ~routing_rule
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?friendly_name ?id ?load_balancer_enabled ?tags ?timeouts
-      ~name ~resource_group_name ~backend_pool
-      ~backend_pool_health_probe ~backend_pool_load_balancing
-      ~backend_pool_settings ~frontend_endpoint ~routing_rule __id
+    make ?friendly_name ?id ?load_balancer_enabled ?tags
+      ~backend_pool_settings ?timeouts ~name ~resource_group_name
+      ~backend_pool ~backend_pool_health_probe
+      ~backend_pool_load_balancing ~frontend_endpoint ~routing_rule
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

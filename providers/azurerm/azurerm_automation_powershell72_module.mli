@@ -15,8 +15,8 @@ val module_link__hash :
 type module_link
 
 val module_link :
+  ?hash:module_link__hash list ->
   uri:string prop ->
-  hash:module_link__hash list ->
   unit ->
   module_link
 

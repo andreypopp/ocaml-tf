@@ -114,7 +114,7 @@ val config__recovery_config__scheduled_snapshots_config :
 type config__recovery_config
 
 val config__recovery_config :
-  scheduled_snapshots_config:
+  ?scheduled_snapshots_config:
     config__recovery_config__scheduled_snapshots_config list ->
   unit ->
   config__recovery_config
@@ -194,10 +194,10 @@ val config__workloads_config__worker :
 type config__workloads_config
 
 val config__workloads_config :
-  scheduler:config__workloads_config__scheduler list ->
-  triggerer:config__workloads_config__triggerer list ->
-  web_server:config__workloads_config__web_server list ->
-  worker:config__workloads_config__worker list ->
+  ?scheduler:config__workloads_config__scheduler list ->
+  ?triggerer:config__workloads_config__triggerer list ->
+  ?web_server:config__workloads_config__web_server list ->
+  ?worker:config__workloads_config__worker list ->
   unit ->
   config__workloads_config
 
@@ -207,20 +207,20 @@ val config :
   ?environment_size:string prop ->
   ?node_count:float prop ->
   ?resilience_mode:string prop ->
-  data_retention_config:config__data_retention_config list ->
-  database_config:config__database_config list ->
-  encryption_config:config__encryption_config list ->
-  maintenance_window:config__maintenance_window list ->
-  master_authorized_networks_config:
+  ?data_retention_config:config__data_retention_config list ->
+  ?database_config:config__database_config list ->
+  ?encryption_config:config__encryption_config list ->
+  ?maintenance_window:config__maintenance_window list ->
+  ?master_authorized_networks_config:
     config__master_authorized_networks_config list ->
-  node_config:config__node_config list ->
-  private_environment_config:config__private_environment_config list ->
-  recovery_config:config__recovery_config list ->
-  software_config:config__software_config list ->
-  web_server_config:config__web_server_config list ->
-  web_server_network_access_control:
+  ?node_config:config__node_config list ->
+  ?private_environment_config:config__private_environment_config list ->
+  ?recovery_config:config__recovery_config list ->
+  ?software_config:config__software_config list ->
+  ?web_server_config:config__web_server_config list ->
+  ?web_server_network_access_control:
     config__web_server_network_access_control list ->
-  workloads_config:config__workloads_config list ->
+  ?workloads_config:config__workloads_config list ->
   unit ->
   config
 
@@ -244,10 +244,10 @@ val google_composer_environment :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
+  ?config:config list ->
+  ?storage_config:storage_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  config:config list ->
-  storage_config:storage_config list ->
   unit ->
   google_composer_environment
 
@@ -272,10 +272,10 @@ val register :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
+  ?config:config list ->
+  ?storage_config:storage_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  config:config list ->
-  storage_config:storage_config list ->
   string ->
   t
 
@@ -284,9 +284,9 @@ val make :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
+  ?config:config list ->
+  ?storage_config:storage_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  config:config list ->
-  storage_config:storage_config list ->
   string ->
   t Tf_core.resource

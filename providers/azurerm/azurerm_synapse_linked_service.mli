@@ -30,12 +30,12 @@ val azurerm_synapse_linked_service :
   ?description:string prop ->
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
+  ?integration_runtime:integration_runtime list ->
   ?timeouts:timeouts ->
   name:string prop ->
   synapse_workspace_id:string prop ->
   type_:string prop ->
   type_properties_json:string prop ->
-  integration_runtime:integration_runtime list ->
   unit ->
   azurerm_synapse_linked_service
 
@@ -63,12 +63,12 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
+  ?integration_runtime:integration_runtime list ->
   ?timeouts:timeouts ->
   name:string prop ->
   synapse_workspace_id:string prop ->
   type_:string prop ->
   type_properties_json:string prop ->
-  integration_runtime:integration_runtime list ->
   string ->
   t
 
@@ -78,11 +78,11 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
+  ?integration_runtime:integration_runtime list ->
   ?timeouts:timeouts ->
   name:string prop ->
   synapse_workspace_id:string prop ->
   type_:string prop ->
   type_properties_json:string prop ->
-  integration_runtime:integration_runtime list ->
   string ->
   t Tf_core.resource

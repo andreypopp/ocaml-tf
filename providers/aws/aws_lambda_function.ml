@@ -780,11 +780,12 @@ let aws_lambda_function ?architectures ?code_signing_config_arn
     ?replace_security_groups_on_destroy
     ?replacement_security_group_ids ?reserved_concurrent_executions
     ?runtime ?s3_bucket ?s3_key ?s3_object_version ?skip_destroy
-    ?source_code_hash ?tags ?tags_all ?timeout ?timeouts
-    ~function_name ~role ~dead_letter_config ~environment
-    ~ephemeral_storage ~file_system_config ~image_config
-    ~logging_config ~snap_start ~tracing_config ~vpc_config () :
-    aws_lambda_function =
+    ?source_code_hash ?tags ?tags_all ?timeout
+    ?(dead_letter_config = []) ?(environment = [])
+    ?(ephemeral_storage = []) ?(file_system_config = [])
+    ?(image_config = []) ?(logging_config = []) ?(snap_start = [])
+    ?timeouts ?(tracing_config = []) ?(vpc_config = [])
+    ~function_name ~role () : aws_lambda_function =
   {
     architectures;
     code_signing_config_arn;
@@ -868,10 +869,12 @@ let make ?architectures ?code_signing_config_arn ?description
     ?replace_security_groups_on_destroy
     ?replacement_security_group_ids ?reserved_concurrent_executions
     ?runtime ?s3_bucket ?s3_key ?s3_object_version ?skip_destroy
-    ?source_code_hash ?tags ?tags_all ?timeout ?timeouts
-    ~function_name ~role ~dead_letter_config ~environment
-    ~ephemeral_storage ~file_system_config ~image_config
-    ~logging_config ~snap_start ~tracing_config ~vpc_config __id =
+    ?source_code_hash ?tags ?tags_all ?timeout
+    ?(dead_letter_config = []) ?(environment = [])
+    ?(ephemeral_storage = []) ?(file_system_config = [])
+    ?(image_config = []) ?(logging_config = []) ?(snap_start = [])
+    ?timeouts ?(tracing_config = []) ?(vpc_config = [])
+    ~function_name ~role __id =
   let __type = "aws_lambda_function" in
   let __attrs =
     ({
@@ -935,10 +938,10 @@ let make ?architectures ?code_signing_config_arn ?description
            ?replacement_security_group_ids
            ?reserved_concurrent_executions ?runtime ?s3_bucket
            ?s3_key ?s3_object_version ?skip_destroy ?source_code_hash
-           ?tags ?tags_all ?timeout ?timeouts ~function_name ~role
-           ~dead_letter_config ~environment ~ephemeral_storage
-           ~file_system_config ~image_config ~logging_config
-           ~snap_start ~tracing_config ~vpc_config ());
+           ?tags ?tags_all ?timeout ~dead_letter_config ~environment
+           ~ephemeral_storage ~file_system_config ~image_config
+           ~logging_config ~snap_start ?timeouts ~tracing_config
+           ~vpc_config ~function_name ~role ());
     attrs = __attrs;
   }
 
@@ -948,10 +951,12 @@ let register ?tf_module ?architectures ?code_signing_config_arn
     ?replace_security_groups_on_destroy
     ?replacement_security_group_ids ?reserved_concurrent_executions
     ?runtime ?s3_bucket ?s3_key ?s3_object_version ?skip_destroy
-    ?source_code_hash ?tags ?tags_all ?timeout ?timeouts
-    ~function_name ~role ~dead_letter_config ~environment
-    ~ephemeral_storage ~file_system_config ~image_config
-    ~logging_config ~snap_start ~tracing_config ~vpc_config __id =
+    ?source_code_hash ?tags ?tags_all ?timeout
+    ?(dead_letter_config = []) ?(environment = [])
+    ?(ephemeral_storage = []) ?(file_system_config = [])
+    ?(image_config = []) ?(logging_config = []) ?(snap_start = [])
+    ?timeouts ?(tracing_config = []) ?(vpc_config = [])
+    ~function_name ~role __id =
   let (r : _ Tf_core.resource) =
     make ?architectures ?code_signing_config_arn ?description
       ?filename ?handler ?id ?image_uri ?kms_key_arn ?layers
@@ -959,10 +964,10 @@ let register ?tf_module ?architectures ?code_signing_config_arn
       ?replace_security_groups_on_destroy
       ?replacement_security_group_ids ?reserved_concurrent_executions
       ?runtime ?s3_bucket ?s3_key ?s3_object_version ?skip_destroy
-      ?source_code_hash ?tags ?tags_all ?timeout ?timeouts
-      ~function_name ~role ~dead_letter_config ~environment
-      ~ephemeral_storage ~file_system_config ~image_config
-      ~logging_config ~snap_start ~tracing_config ~vpc_config __id
+      ?source_code_hash ?tags ?tags_all ?timeout ~dead_letter_config
+      ~environment ~ephemeral_storage ~file_system_config
+      ~image_config ~logging_config ~snap_start ?timeouts
+      ~tracing_config ~vpc_config ~function_name ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

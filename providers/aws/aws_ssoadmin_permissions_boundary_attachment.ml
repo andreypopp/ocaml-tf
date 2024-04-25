@@ -185,7 +185,8 @@ let permissions_boundary__customer_managed_policy_reference ?path
   { name; path }
 
 let permissions_boundary ?managed_policy_arn
-    ~customer_managed_policy_reference () : permissions_boundary =
+    ?(customer_managed_policy_reference = []) () :
+    permissions_boundary =
   { managed_policy_arn; customer_managed_policy_reference }
 
 let timeouts ?create ?delete () : timeouts = { create; delete }

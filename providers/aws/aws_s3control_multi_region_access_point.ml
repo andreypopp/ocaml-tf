@@ -243,7 +243,7 @@ let details__public_access_block ?block_public_acls
 let details__region ?bucket_account_id ~bucket () : details__region =
   { bucket; bucket_account_id }
 
-let details ~name ~public_access_block ~region () : details =
+let details ?(public_access_block = []) ~name ~region () : details =
   { name; public_access_block; region }
 
 let timeouts ?create ?delete () : timeouts = { create; delete }

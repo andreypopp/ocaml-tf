@@ -31,11 +31,11 @@ val account_takeover_risk_configuration__actions__medium_action :
 type account_takeover_risk_configuration__actions
 
 val account_takeover_risk_configuration__actions :
-  high_action:
+  ?high_action:
     account_takeover_risk_configuration__actions__high_action list ->
-  low_action:
+  ?low_action:
     account_takeover_risk_configuration__actions__low_action list ->
-  medium_action:
+  ?medium_action:
     account_takeover_risk_configuration__actions__medium_action list ->
   unit ->
   account_takeover_risk_configuration__actions
@@ -72,16 +72,16 @@ type account_takeover_risk_configuration__notify_configuration
 val account_takeover_risk_configuration__notify_configuration :
   ?from:string prop ->
   ?reply_to:string prop ->
-  source_arn:string prop ->
-  block_email:
+  ?block_email:
     account_takeover_risk_configuration__notify_configuration__block_email
     list ->
-  mfa_email:
+  ?mfa_email:
     account_takeover_risk_configuration__notify_configuration__mfa_email
     list ->
-  no_action_email:
+  ?no_action_email:
     account_takeover_risk_configuration__notify_configuration__no_action_email
     list ->
+  source_arn:string prop ->
   unit ->
   account_takeover_risk_configuration__notify_configuration
 
@@ -122,12 +122,12 @@ type aws_cognito_risk_configuration
 val aws_cognito_risk_configuration :
   ?client_id:string prop ->
   ?id:string prop ->
-  user_pool_id:string prop ->
-  account_takeover_risk_configuration:
+  ?account_takeover_risk_configuration:
     account_takeover_risk_configuration list ->
-  compromised_credentials_risk_configuration:
+  ?compromised_credentials_risk_configuration:
     compromised_credentials_risk_configuration list ->
-  risk_exception_configuration:risk_exception_configuration list ->
+  ?risk_exception_configuration:risk_exception_configuration list ->
+  user_pool_id:string prop ->
   unit ->
   aws_cognito_risk_configuration
 
@@ -146,23 +146,23 @@ val register :
   ?tf_module:tf_module ->
   ?client_id:string prop ->
   ?id:string prop ->
-  user_pool_id:string prop ->
-  account_takeover_risk_configuration:
+  ?account_takeover_risk_configuration:
     account_takeover_risk_configuration list ->
-  compromised_credentials_risk_configuration:
+  ?compromised_credentials_risk_configuration:
     compromised_credentials_risk_configuration list ->
-  risk_exception_configuration:risk_exception_configuration list ->
+  ?risk_exception_configuration:risk_exception_configuration list ->
+  user_pool_id:string prop ->
   string ->
   t
 
 val make :
   ?client_id:string prop ->
   ?id:string prop ->
-  user_pool_id:string prop ->
-  account_takeover_risk_configuration:
+  ?account_takeover_risk_configuration:
     account_takeover_risk_configuration list ->
-  compromised_credentials_risk_configuration:
+  ?compromised_credentials_risk_configuration:
     compromised_credentials_risk_configuration list ->
-  risk_exception_configuration:risk_exception_configuration list ->
+  ?risk_exception_configuration:risk_exception_configuration list ->
+  user_pool_id:string prop ->
   string ->
   t Tf_core.resource

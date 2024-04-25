@@ -440,9 +440,9 @@ let azurerm_shared_image ?accelerated_network_support_enabled
     ?max_recommended_vcpu_count ?min_recommended_memory_in_gb
     ?min_recommended_vcpu_count ?privacy_statement_uri
     ?release_note_uri ?specialized ?tags ?trusted_launch_enabled
-    ?trusted_launch_supported ?timeouts ~gallery_name ~location ~name
-    ~os_type ~resource_group_name ~identifier ~purchase_plan () :
-    azurerm_shared_image =
+    ?trusted_launch_supported ?(purchase_plan = []) ?timeouts
+    ~gallery_name ~location ~name ~os_type ~resource_group_name
+    ~identifier () : azurerm_shared_image =
   {
     accelerated_network_support_enabled;
     architecture;
@@ -509,8 +509,9 @@ let make ?accelerated_network_support_enabled ?architecture
     ?max_recommended_vcpu_count ?min_recommended_memory_in_gb
     ?min_recommended_vcpu_count ?privacy_statement_uri
     ?release_note_uri ?specialized ?tags ?trusted_launch_enabled
-    ?trusted_launch_supported ?timeouts ~gallery_name ~location ~name
-    ~os_type ~resource_group_name ~identifier ~purchase_plan __id =
+    ?trusted_launch_supported ?(purchase_plan = []) ?timeouts
+    ~gallery_name ~location ~name ~os_type ~resource_group_name
+    ~identifier __id =
   let __type = "azurerm_shared_image" in
   let __attrs =
     ({
@@ -572,8 +573,8 @@ let make ?accelerated_network_support_enabled ?architecture
            ?min_recommended_vcpu_count ?privacy_statement_uri
            ?release_note_uri ?specialized ?tags
            ?trusted_launch_enabled ?trusted_launch_supported
-           ?timeouts ~gallery_name ~location ~name ~os_type
-           ~resource_group_name ~identifier ~purchase_plan ());
+           ~purchase_plan ?timeouts ~gallery_name ~location ~name
+           ~os_type ~resource_group_name ~identifier ());
     attrs = __attrs;
   }
 
@@ -584,8 +585,9 @@ let register ?tf_module ?accelerated_network_support_enabled
     ?max_recommended_vcpu_count ?min_recommended_memory_in_gb
     ?min_recommended_vcpu_count ?privacy_statement_uri
     ?release_note_uri ?specialized ?tags ?trusted_launch_enabled
-    ?trusted_launch_supported ?timeouts ~gallery_name ~location ~name
-    ~os_type ~resource_group_name ~identifier ~purchase_plan __id =
+    ?trusted_launch_supported ?(purchase_plan = []) ?timeouts
+    ~gallery_name ~location ~name ~os_type ~resource_group_name
+    ~identifier __id =
   let (r : _ Tf_core.resource) =
     make ?accelerated_network_support_enabled ?architecture
       ?confidential_vm_enabled ?confidential_vm_supported
@@ -594,9 +596,9 @@ let register ?tf_module ?accelerated_network_support_enabled
       ?max_recommended_vcpu_count ?min_recommended_memory_in_gb
       ?min_recommended_vcpu_count ?privacy_statement_uri
       ?release_note_uri ?specialized ?tags ?trusted_launch_enabled
-      ?trusted_launch_supported ?timeouts ~gallery_name ~location
-      ~name ~os_type ~resource_group_name ~identifier ~purchase_plan
-      __id
+      ?trusted_launch_supported ~purchase_plan ?timeouts
+      ~gallery_name ~location ~name ~os_type ~resource_group_name
+      ~identifier __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

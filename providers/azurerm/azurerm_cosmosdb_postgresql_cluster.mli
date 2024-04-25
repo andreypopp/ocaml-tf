@@ -45,12 +45,12 @@ val azurerm_cosmosdb_postgresql_cluster :
   ?source_resource_id:string prop ->
   ?sql_version:string prop ->
   ?tags:(string * string prop) list ->
+  ?maintenance_window:maintenance_window list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   node_count:float prop ->
   resource_group_name:string prop ->
-  maintenance_window:maintenance_window list ->
   unit ->
   azurerm_cosmosdb_postgresql_cluster
 
@@ -107,12 +107,12 @@ val register :
   ?source_resource_id:string prop ->
   ?sql_version:string prop ->
   ?tags:(string * string prop) list ->
+  ?maintenance_window:maintenance_window list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   node_count:float prop ->
   resource_group_name:string prop ->
-  maintenance_window:maintenance_window list ->
   string ->
   t
 
@@ -136,11 +136,11 @@ val make :
   ?source_resource_id:string prop ->
   ?sql_version:string prop ->
   ?tags:(string * string prop) list ->
+  ?maintenance_window:maintenance_window list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   node_count:float prop ->
   resource_group_name:string prop ->
-  maintenance_window:maintenance_window list ->
   string ->
   t Tf_core.resource

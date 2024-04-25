@@ -197,8 +197,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_spanner_database ?database_dialect ?ddl
     ?deletion_protection ?enable_drop_protection ?id ?project
-    ?version_retention_period ?timeouts ~instance ~name
-    ~encryption_config () : google_spanner_database =
+    ?version_retention_period ?(encryption_config = []) ?timeouts
+    ~instance ~name () : google_spanner_database =
   {
     database_dialect;
     ddl;
@@ -228,7 +228,7 @@ type t = {
 
 let make ?database_dialect ?ddl ?deletion_protection
     ?enable_drop_protection ?id ?project ?version_retention_period
-    ?timeouts ~instance ~name ~encryption_config __id =
+    ?(encryption_config = []) ?timeouts ~instance ~name __id =
   let __type = "google_spanner_database" in
   let __attrs =
     ({
@@ -256,18 +256,18 @@ let make ?database_dialect ?ddl ?deletion_protection
       yojson_of_google_spanner_database
         (google_spanner_database ?database_dialect ?ddl
            ?deletion_protection ?enable_drop_protection ?id ?project
-           ?version_retention_period ?timeouts ~instance ~name
-           ~encryption_config ());
+           ?version_retention_period ~encryption_config ?timeouts
+           ~instance ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?database_dialect ?ddl ?deletion_protection
     ?enable_drop_protection ?id ?project ?version_retention_period
-    ?timeouts ~instance ~name ~encryption_config __id =
+    ?(encryption_config = []) ?timeouts ~instance ~name __id =
   let (r : _ Tf_core.resource) =
     make ?database_dialect ?ddl ?deletion_protection
       ?enable_drop_protection ?id ?project ?version_retention_period
-      ?timeouts ~instance ~name ~encryption_config __id
+      ~encryption_config ?timeouts ~instance ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

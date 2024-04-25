@@ -220,7 +220,7 @@ let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let google_vpc_access_connector ?id ?ip_cidr_range ?machine_type
     ?max_instances ?max_throughput ?min_instances ?min_throughput
-    ?network ?project ?region ?timeouts ~name ~subnet () :
+    ?network ?project ?region ?(subnet = []) ?timeouts ~name () :
     google_vpc_access_connector =
   {
     id;
@@ -257,7 +257,7 @@ type t = {
 
 let make ?id ?ip_cidr_range ?machine_type ?max_instances
     ?max_throughput ?min_instances ?min_throughput ?network ?project
-    ?region ?timeouts ~name ~subnet __id =
+    ?region ?(subnet = []) ?timeouts ~name __id =
   let __type = "google_vpc_access_connector" in
   let __attrs =
     ({
@@ -286,18 +286,18 @@ let make ?id ?ip_cidr_range ?machine_type ?max_instances
       yojson_of_google_vpc_access_connector
         (google_vpc_access_connector ?id ?ip_cidr_range ?machine_type
            ?max_instances ?max_throughput ?min_instances
-           ?min_throughput ?network ?project ?region ?timeouts ~name
-           ~subnet ());
+           ?min_throughput ?network ?project ?region ~subnet
+           ?timeouts ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?ip_cidr_range ?machine_type
     ?max_instances ?max_throughput ?min_instances ?min_throughput
-    ?network ?project ?region ?timeouts ~name ~subnet __id =
+    ?network ?project ?region ?(subnet = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?ip_cidr_range ?machine_type ?max_instances
       ?max_throughput ?min_instances ?min_throughput ?network
-      ?project ?region ?timeouts ~name ~subnet __id
+      ?project ?region ~subnet ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

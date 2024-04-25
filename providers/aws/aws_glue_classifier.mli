@@ -45,11 +45,11 @@ type aws_glue_classifier
 
 val aws_glue_classifier :
   ?id:string prop ->
+  ?csv_classifier:csv_classifier list ->
+  ?grok_classifier:grok_classifier list ->
+  ?json_classifier:json_classifier list ->
+  ?xml_classifier:xml_classifier list ->
   name:string prop ->
-  csv_classifier:csv_classifier list ->
-  grok_classifier:grok_classifier list ->
-  json_classifier:json_classifier list ->
-  xml_classifier:xml_classifier list ->
   unit ->
   aws_glue_classifier
 
@@ -62,20 +62,20 @@ type t = private { id : string prop; name : string prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?csv_classifier:csv_classifier list ->
+  ?grok_classifier:grok_classifier list ->
+  ?json_classifier:json_classifier list ->
+  ?xml_classifier:xml_classifier list ->
   name:string prop ->
-  csv_classifier:csv_classifier list ->
-  grok_classifier:grok_classifier list ->
-  json_classifier:json_classifier list ->
-  xml_classifier:xml_classifier list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?csv_classifier:csv_classifier list ->
+  ?grok_classifier:grok_classifier list ->
+  ?json_classifier:json_classifier list ->
+  ?xml_classifier:xml_classifier list ->
   name:string prop ->
-  csv_classifier:csv_classifier list ->
-  grok_classifier:grok_classifier list ->
-  json_classifier:json_classifier list ->
-  xml_classifier:xml_classifier list ->
   string ->
   t Tf_core.resource

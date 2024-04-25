@@ -267,8 +267,8 @@ let azurerm_key_vault_managed_hardware_security_module ?id
     ?public_network_access_enabled ?purge_protection_enabled
     ?security_domain_key_vault_certificate_ids
     ?security_domain_quorum ?soft_delete_retention_days ?tags
-    ?timeouts ~admin_object_ids ~location ~name ~resource_group_name
-    ~sku_name ~tenant_id ~network_acls () :
+    ?(network_acls = []) ?timeouts ~admin_object_ids ~location ~name
+    ~resource_group_name ~sku_name ~tenant_id () :
     azurerm_key_vault_managed_hardware_security_module =
   {
     admin_object_ids;
@@ -309,8 +309,8 @@ type t = {
 let make ?id ?public_network_access_enabled ?purge_protection_enabled
     ?security_domain_key_vault_certificate_ids
     ?security_domain_quorum ?soft_delete_retention_days ?tags
-    ?timeouts ~admin_object_ids ~location ~name ~resource_group_name
-    ~sku_name ~tenant_id ~network_acls __id =
+    ?(network_acls = []) ?timeouts ~admin_object_ids ~location ~name
+    ~resource_group_name ~sku_name ~tenant_id __id =
   let __type =
     "azurerm_key_vault_managed_hardware_security_module"
   in
@@ -352,8 +352,8 @@ let make ?id ?public_network_access_enabled ?purge_protection_enabled
            ?public_network_access_enabled ?purge_protection_enabled
            ?security_domain_key_vault_certificate_ids
            ?security_domain_quorum ?soft_delete_retention_days ?tags
-           ?timeouts ~admin_object_ids ~location ~name
-           ~resource_group_name ~sku_name ~tenant_id ~network_acls ());
+           ~network_acls ?timeouts ~admin_object_ids ~location ~name
+           ~resource_group_name ~sku_name ~tenant_id ());
     attrs = __attrs;
   }
 
@@ -361,14 +361,14 @@ let register ?tf_module ?id ?public_network_access_enabled
     ?purge_protection_enabled
     ?security_domain_key_vault_certificate_ids
     ?security_domain_quorum ?soft_delete_retention_days ?tags
-    ?timeouts ~admin_object_ids ~location ~name ~resource_group_name
-    ~sku_name ~tenant_id ~network_acls __id =
+    ?(network_acls = []) ?timeouts ~admin_object_ids ~location ~name
+    ~resource_group_name ~sku_name ~tenant_id __id =
   let (r : _ Tf_core.resource) =
     make ?id ?public_network_access_enabled ?purge_protection_enabled
       ?security_domain_key_vault_certificate_ids
       ?security_domain_quorum ?soft_delete_retention_days ?tags
-      ?timeouts ~admin_object_ids ~location ~name
-      ~resource_group_name ~sku_name ~tenant_id ~network_acls __id
+      ~network_acls ?timeouts ~admin_object_ids ~location ~name
+      ~resource_group_name ~sku_name ~tenant_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

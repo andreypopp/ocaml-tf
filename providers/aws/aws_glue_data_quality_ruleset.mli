@@ -20,9 +20,9 @@ val aws_glue_data_quality_ruleset :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?target_table:target_table list ->
   name:string prop ->
   ruleset:string prop ->
-  target_table:target_table list ->
   unit ->
   aws_glue_data_quality_ruleset
 
@@ -50,9 +50,9 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?target_table:target_table list ->
   name:string prop ->
   ruleset:string prop ->
-  target_table:target_table list ->
   string ->
   t
 
@@ -61,8 +61,8 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?target_table:target_table list ->
   name:string prop ->
   ruleset:string prop ->
-  target_table:target_table list ->
   string ->
   t Tf_core.resource

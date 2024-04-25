@@ -25,7 +25,7 @@ val origin_override_action__header_action__request_headers_to_add :
 type origin_override_action__header_action
 
 val origin_override_action__header_action :
-  request_headers_to_add:
+  ?request_headers_to_add:
     origin_override_action__header_action__request_headers_to_add
     list ->
   unit ->
@@ -41,8 +41,8 @@ val origin_override_action__url_rewrite :
 type origin_override_action
 
 val origin_override_action :
-  header_action:origin_override_action__header_action list ->
-  url_rewrite:origin_override_action__url_rewrite list ->
+  ?header_action:origin_override_action__header_action list ->
+  ?url_rewrite:origin_override_action__url_rewrite list ->
   unit ->
   origin_override_action
 
@@ -82,13 +82,13 @@ val google_network_services_edge_cache_origin :
   ?project:string prop ->
   ?protocol:string prop ->
   ?retry_conditions:string prop list ->
+  ?aws_v4_authentication:aws_v4_authentication list ->
+  ?origin_override_action:origin_override_action list ->
+  ?origin_redirect:origin_redirect list ->
+  ?timeout:timeout list ->
   ?timeouts:timeouts ->
   name:string prop ->
   origin_address:string prop ->
-  aws_v4_authentication:aws_v4_authentication list ->
-  origin_override_action:origin_override_action list ->
-  origin_redirect:origin_redirect list ->
-  timeout:timeout list ->
   unit ->
   google_network_services_edge_cache_origin
 
@@ -124,13 +124,13 @@ val register :
   ?project:string prop ->
   ?protocol:string prop ->
   ?retry_conditions:string prop list ->
+  ?aws_v4_authentication:aws_v4_authentication list ->
+  ?origin_override_action:origin_override_action list ->
+  ?origin_redirect:origin_redirect list ->
+  ?timeout:timeout list ->
   ?timeouts:timeouts ->
   name:string prop ->
   origin_address:string prop ->
-  aws_v4_authentication:aws_v4_authentication list ->
-  origin_override_action:origin_override_action list ->
-  origin_redirect:origin_redirect list ->
-  timeout:timeout list ->
   string ->
   t
 
@@ -144,12 +144,12 @@ val make :
   ?project:string prop ->
   ?protocol:string prop ->
   ?retry_conditions:string prop list ->
+  ?aws_v4_authentication:aws_v4_authentication list ->
+  ?origin_override_action:origin_override_action list ->
+  ?origin_redirect:origin_redirect list ->
+  ?timeout:timeout list ->
   ?timeouts:timeouts ->
   name:string prop ->
   origin_address:string prop ->
-  aws_v4_authentication:aws_v4_authentication list ->
-  origin_override_action:origin_override_action list ->
-  origin_redirect:origin_redirect list ->
-  timeout:timeout list ->
   string ->
   t Tf_core.resource

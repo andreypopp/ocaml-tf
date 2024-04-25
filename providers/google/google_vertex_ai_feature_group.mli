@@ -35,8 +35,8 @@ val google_vertex_ai_feature_group :
   ?name:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?big_query:big_query list ->
   ?timeouts:timeouts ->
-  big_query:big_query list ->
   unit ->
   google_vertex_ai_feature_group
 
@@ -67,8 +67,8 @@ val register :
   ?name:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?big_query:big_query list ->
   ?timeouts:timeouts ->
-  big_query:big_query list ->
   string ->
   t
 
@@ -79,7 +79,7 @@ val make :
   ?name:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?big_query:big_query list ->
   ?timeouts:timeouts ->
-  big_query:big_query list ->
   string ->
   t Tf_core.resource

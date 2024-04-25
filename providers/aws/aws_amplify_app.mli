@@ -58,9 +58,9 @@ val aws_amplify_app :
   ?repository:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?auto_branch_creation_config:auto_branch_creation_config list ->
+  ?custom_rule:custom_rule list ->
   name:string prop ->
-  auto_branch_creation_config:auto_branch_creation_config list ->
-  custom_rule:custom_rule list ->
   unit ->
   aws_amplify_app
 
@@ -113,9 +113,9 @@ val register :
   ?repository:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?auto_branch_creation_config:auto_branch_creation_config list ->
+  ?custom_rule:custom_rule list ->
   name:string prop ->
-  auto_branch_creation_config:auto_branch_creation_config list ->
-  custom_rule:custom_rule list ->
   string ->
   t
 
@@ -138,8 +138,8 @@ val make :
   ?repository:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?auto_branch_creation_config:auto_branch_creation_config list ->
+  ?custom_rule:custom_rule list ->
   name:string prop ->
-  auto_branch_creation_config:auto_branch_creation_config list ->
-  custom_rule:custom_rule list ->
   string ->
   t Tf_core.resource

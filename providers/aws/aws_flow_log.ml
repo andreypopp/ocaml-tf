@@ -266,7 +266,7 @@ let aws_flow_log ?deliver_cross_account_role ?eni_id ?iam_role_arn
     ?id ?log_destination ?log_destination_type ?log_format
     ?log_group_name ?max_aggregation_interval ?subnet_id ?tags
     ?tags_all ?traffic_type ?transit_gateway_attachment_id
-    ?transit_gateway_id ?vpc_id ~destination_options () :
+    ?transit_gateway_id ?vpc_id ?(destination_options = []) () :
     aws_flow_log =
   {
     deliver_cross_account_role;
@@ -312,7 +312,7 @@ let make ?deliver_cross_account_role ?eni_id ?iam_role_arn ?id
     ?log_destination ?log_destination_type ?log_format
     ?log_group_name ?max_aggregation_interval ?subnet_id ?tags
     ?tags_all ?traffic_type ?transit_gateway_attachment_id
-    ?transit_gateway_id ?vpc_id ~destination_options __id =
+    ?transit_gateway_id ?vpc_id ?(destination_options = []) __id =
   let __type = "aws_flow_log" in
   let __attrs =
     ({
@@ -359,7 +359,7 @@ let register ?tf_module ?deliver_cross_account_role ?eni_id
     ?iam_role_arn ?id ?log_destination ?log_destination_type
     ?log_format ?log_group_name ?max_aggregation_interval ?subnet_id
     ?tags ?tags_all ?traffic_type ?transit_gateway_attachment_id
-    ?transit_gateway_id ?vpc_id ~destination_options __id =
+    ?transit_gateway_id ?vpc_id ?(destination_options = []) __id =
   let (r : _ Tf_core.resource) =
     make ?deliver_cross_account_role ?eni_id ?iam_role_arn ?id
       ?log_destination ?log_destination_type ?log_format

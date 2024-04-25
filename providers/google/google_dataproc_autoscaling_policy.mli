@@ -56,11 +56,11 @@ val google_dataproc_autoscaling_policy :
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
+  ?basic_algorithm:basic_algorithm list ->
+  ?secondary_worker_config:secondary_worker_config list ->
   ?timeouts:timeouts ->
+  ?worker_config:worker_config list ->
   policy_id:string prop ->
-  basic_algorithm:basic_algorithm list ->
-  secondary_worker_config:secondary_worker_config list ->
-  worker_config:worker_config list ->
   unit ->
   google_dataproc_autoscaling_policy
 
@@ -82,11 +82,11 @@ val register :
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
+  ?basic_algorithm:basic_algorithm list ->
+  ?secondary_worker_config:secondary_worker_config list ->
   ?timeouts:timeouts ->
+  ?worker_config:worker_config list ->
   policy_id:string prop ->
-  basic_algorithm:basic_algorithm list ->
-  secondary_worker_config:secondary_worker_config list ->
-  worker_config:worker_config list ->
   string ->
   t
 
@@ -94,10 +94,10 @@ val make :
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
+  ?basic_algorithm:basic_algorithm list ->
+  ?secondary_worker_config:secondary_worker_config list ->
   ?timeouts:timeouts ->
+  ?worker_config:worker_config list ->
   policy_id:string prop ->
-  basic_algorithm:basic_algorithm list ->
-  secondary_worker_config:secondary_worker_config list ->
-  worker_config:worker_config list ->
   string ->
   t Tf_core.resource

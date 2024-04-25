@@ -268,7 +268,8 @@ let limits ?daily ?maximum_duration ?messages_per_second ?total () :
 let quiet_time ?end_ ?start () : quiet_time = { end_; start }
 
 let aws_pinpoint_app ?id ?name ?name_prefix ?tags ?tags_all
-    ~campaign_hook ~limits ~quiet_time () : aws_pinpoint_app =
+    ?(campaign_hook = []) ?(limits = []) ?(quiet_time = []) () :
+    aws_pinpoint_app =
   {
     id;
     name;
@@ -290,8 +291,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?name ?name_prefix ?tags ?tags_all ~campaign_hook
-    ~limits ~quiet_time __id =
+let make ?id ?name ?name_prefix ?tags ?tags_all ?(campaign_hook = [])
+    ?(limits = []) ?(quiet_time = []) __id =
   let __type = "aws_pinpoint_app" in
   let __attrs =
     ({
@@ -316,7 +317,7 @@ let make ?id ?name ?name_prefix ?tags ?tags_all ~campaign_hook
   }
 
 let register ?tf_module ?id ?name ?name_prefix ?tags ?tags_all
-    ~campaign_hook ~limits ~quiet_time __id =
+    ?(campaign_hook = []) ?(limits = []) ?(quiet_time = []) __id =
   let (r : _ Tf_core.resource) =
     make ?id ?name ?name_prefix ?tags ?tags_all ~campaign_hook
       ~limits ~quiet_time __id

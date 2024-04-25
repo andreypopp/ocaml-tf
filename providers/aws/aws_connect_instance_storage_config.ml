@@ -351,13 +351,13 @@ let storage_config__s3_config__encryption_config ~encryption_type
     ~key_id () : storage_config__s3_config__encryption_config =
   { encryption_type; key_id }
 
-let storage_config__s3_config ~bucket_name ~bucket_prefix
-    ~encryption_config () : storage_config__s3_config =
+let storage_config__s3_config ?(encryption_config = []) ~bucket_name
+    ~bucket_prefix () : storage_config__s3_config =
   { bucket_name; bucket_prefix; encryption_config }
 
-let storage_config ~storage_type ~kinesis_firehose_config
-    ~kinesis_stream_config ~kinesis_video_stream_config ~s3_config ()
-    : storage_config =
+let storage_config ?(kinesis_firehose_config = [])
+    ?(kinesis_stream_config = []) ?(kinesis_video_stream_config = [])
+    ?(s3_config = []) ~storage_type () : storage_config =
   {
     storage_type;
     kinesis_firehose_config;

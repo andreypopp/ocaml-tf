@@ -521,9 +521,10 @@ let root_block_device ?delete_on_termination ?encrypted ?iops
 let aws_launch_configuration ?associate_public_ip_address
     ?ebs_optimized ?enable_monitoring ?iam_instance_profile ?id
     ?key_name ?name ?name_prefix ?placement_tenancy ?security_groups
-    ?spot_price ?user_data ?user_data_base64 ~image_id ~instance_type
-    ~ebs_block_device ~ephemeral_block_device ~metadata_options
-    ~root_block_device () : aws_launch_configuration =
+    ?spot_price ?user_data ?user_data_base64 ?(metadata_options = [])
+    ?(root_block_device = []) ~image_id ~instance_type
+    ~ebs_block_device ~ephemeral_block_device () :
+    aws_launch_configuration =
   {
     associate_public_ip_address;
     ebs_optimized;
@@ -568,9 +569,9 @@ type t = {
 let make ?associate_public_ip_address ?ebs_optimized
     ?enable_monitoring ?iam_instance_profile ?id ?key_name ?name
     ?name_prefix ?placement_tenancy ?security_groups ?spot_price
-    ?user_data ?user_data_base64 ~image_id ~instance_type
-    ~ebs_block_device ~ephemeral_block_device ~metadata_options
-    ~root_block_device __id =
+    ?user_data ?user_data_base64 ?(metadata_options = [])
+    ?(root_block_device = []) ~image_id ~instance_type
+    ~ebs_block_device ~ephemeral_block_device __id =
   let __type = "aws_launch_configuration" in
   let __attrs =
     ({
@@ -607,25 +608,25 @@ let make ?associate_public_ip_address ?ebs_optimized
            ?ebs_optimized ?enable_monitoring ?iam_instance_profile
            ?id ?key_name ?name ?name_prefix ?placement_tenancy
            ?security_groups ?spot_price ?user_data ?user_data_base64
-           ~image_id ~instance_type ~ebs_block_device
-           ~ephemeral_block_device ~metadata_options
-           ~root_block_device ());
+           ~metadata_options ~root_block_device ~image_id
+           ~instance_type ~ebs_block_device ~ephemeral_block_device
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?associate_public_ip_address ?ebs_optimized
     ?enable_monitoring ?iam_instance_profile ?id ?key_name ?name
     ?name_prefix ?placement_tenancy ?security_groups ?spot_price
-    ?user_data ?user_data_base64 ~image_id ~instance_type
-    ~ebs_block_device ~ephemeral_block_device ~metadata_options
-    ~root_block_device __id =
+    ?user_data ?user_data_base64 ?(metadata_options = [])
+    ?(root_block_device = []) ~image_id ~instance_type
+    ~ebs_block_device ~ephemeral_block_device __id =
   let (r : _ Tf_core.resource) =
     make ?associate_public_ip_address ?ebs_optimized
       ?enable_monitoring ?iam_instance_profile ?id ?key_name ?name
       ?name_prefix ?placement_tenancy ?security_groups ?spot_price
-      ?user_data ?user_data_base64 ~image_id ~instance_type
-      ~ebs_block_device ~ephemeral_block_device ~metadata_options
-      ~root_block_device __id
+      ?user_data ?user_data_base64 ~metadata_options
+      ~root_block_device ~image_id ~instance_type ~ebs_block_device
+      ~ephemeral_block_device __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

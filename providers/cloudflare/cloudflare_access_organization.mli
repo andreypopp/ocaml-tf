@@ -40,9 +40,9 @@ val cloudflare_access_organization :
   ?user_seat_expiration_inactive_time:string prop ->
   ?warp_auth_session_duration:string prop ->
   ?zone_id:string prop ->
+  ?custom_pages:custom_pages list ->
+  ?login_design:login_design list ->
   auth_domain:string prop ->
-  custom_pages:custom_pages list ->
-  login_design:login_design list ->
   unit ->
   cloudflare_access_organization
 
@@ -79,9 +79,9 @@ val register :
   ?user_seat_expiration_inactive_time:string prop ->
   ?warp_auth_session_duration:string prop ->
   ?zone_id:string prop ->
+  ?custom_pages:custom_pages list ->
+  ?login_design:login_design list ->
   auth_domain:string prop ->
-  custom_pages:custom_pages list ->
-  login_design:login_design list ->
   string ->
   t
 
@@ -97,8 +97,8 @@ val make :
   ?user_seat_expiration_inactive_time:string prop ->
   ?warp_auth_session_duration:string prop ->
   ?zone_id:string prop ->
+  ?custom_pages:custom_pages list ->
+  ?login_design:login_design list ->
   auth_domain:string prop ->
-  custom_pages:custom_pages list ->
-  login_design:login_design list ->
   string ->
   t Tf_core.resource

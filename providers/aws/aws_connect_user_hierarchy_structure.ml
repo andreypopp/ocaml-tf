@@ -248,8 +248,9 @@ let hierarchy_structure__level_two ~name () :
     hierarchy_structure__level_two =
   { name }
 
-let hierarchy_structure ~level_five ~level_four ~level_one
-    ~level_three ~level_two () : hierarchy_structure =
+let hierarchy_structure ?(level_five = []) ?(level_four = [])
+    ?(level_one = []) ?(level_three = []) ?(level_two = []) () :
+    hierarchy_structure =
   { level_five; level_four; level_one; level_three; level_two }
 
 let aws_connect_user_hierarchy_structure ?id ~instance_id

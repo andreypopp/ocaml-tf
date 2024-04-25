@@ -412,9 +412,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_eventgrid_topic ?id ?inbound_ip_rule ?input_schema
     ?local_auth_enabled ?public_network_access_enabled ?tags
-    ?timeouts ~location ~name ~resource_group_name ~identity
-    ~input_mapping_default_values ~input_mapping_fields () :
-    azurerm_eventgrid_topic =
+    ?(identity = []) ?(input_mapping_default_values = [])
+    ?(input_mapping_fields = []) ?timeouts ~location ~name
+    ~resource_group_name () : azurerm_eventgrid_topic =
   {
     id;
     inbound_ip_rule;
@@ -447,9 +447,9 @@ type t = {
 }
 
 let make ?id ?inbound_ip_rule ?input_schema ?local_auth_enabled
-    ?public_network_access_enabled ?tags ?timeouts ~location ~name
-    ~resource_group_name ~identity ~input_mapping_default_values
-    ~input_mapping_fields __id =
+    ?public_network_access_enabled ?tags ?(identity = [])
+    ?(input_mapping_default_values = []) ?(input_mapping_fields = [])
+    ?timeouts ~location ~name ~resource_group_name __id =
   let __type = "azurerm_eventgrid_topic" in
   let __attrs =
     ({
@@ -480,20 +480,22 @@ let make ?id ?inbound_ip_rule ?input_schema ?local_auth_enabled
       yojson_of_azurerm_eventgrid_topic
         (azurerm_eventgrid_topic ?id ?inbound_ip_rule ?input_schema
            ?local_auth_enabled ?public_network_access_enabled ?tags
-           ?timeouts ~location ~name ~resource_group_name ~identity
-           ~input_mapping_default_values ~input_mapping_fields ());
+           ~identity ~input_mapping_default_values
+           ~input_mapping_fields ?timeouts ~location ~name
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?inbound_ip_rule ?input_schema
     ?local_auth_enabled ?public_network_access_enabled ?tags
-    ?timeouts ~location ~name ~resource_group_name ~identity
-    ~input_mapping_default_values ~input_mapping_fields __id =
+    ?(identity = []) ?(input_mapping_default_values = [])
+    ?(input_mapping_fields = []) ?timeouts ~location ~name
+    ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?inbound_ip_rule ?input_schema ?local_auth_enabled
-      ?public_network_access_enabled ?tags ?timeouts ~location ~name
-      ~resource_group_name ~identity ~input_mapping_default_values
-      ~input_mapping_fields __id
+      ?public_network_access_enabled ?tags ~identity
+      ~input_mapping_default_values ~input_mapping_fields ?timeouts
+      ~location ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

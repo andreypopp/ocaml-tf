@@ -37,10 +37,10 @@ val google_app_engine_application :
   ?id:string prop ->
   ?project:string prop ->
   ?serving_status:string prop ->
+  ?feature_settings:feature_settings list ->
+  ?iap:iap list ->
   ?timeouts:timeouts ->
   location_id:string prop ->
-  feature_settings:feature_settings list ->
-  iap:iap list ->
   unit ->
   google_app_engine_application
 
@@ -72,10 +72,10 @@ val register :
   ?id:string prop ->
   ?project:string prop ->
   ?serving_status:string prop ->
+  ?feature_settings:feature_settings list ->
+  ?iap:iap list ->
   ?timeouts:timeouts ->
   location_id:string prop ->
-  feature_settings:feature_settings list ->
-  iap:iap list ->
   string ->
   t
 
@@ -85,9 +85,9 @@ val make :
   ?id:string prop ->
   ?project:string prop ->
   ?serving_status:string prop ->
+  ?feature_settings:feature_settings list ->
+  ?iap:iap list ->
   ?timeouts:timeouts ->
   location_id:string prop ->
-  feature_settings:feature_settings list ->
-  iap:iap list ->
   string ->
   t Tf_core.resource

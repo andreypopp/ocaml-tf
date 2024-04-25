@@ -371,8 +371,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_certificate_manager_certificate ?description ?id ?labels
-    ?location ?project ?scope ?timeouts ~name ~managed ~self_managed
-    () : google_certificate_manager_certificate =
+    ?location ?project ?scope ?(managed = []) ?(self_managed = [])
+    ?timeouts ~name () : google_certificate_manager_certificate =
   {
     description;
     id;
@@ -398,8 +398,8 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let make ?description ?id ?labels ?location ?project ?scope ?timeouts
-    ~name ~managed ~self_managed __id =
+let make ?description ?id ?labels ?location ?project ?scope
+    ?(managed = []) ?(self_managed = []) ?timeouts ~name __id =
   let __type = "google_certificate_manager_certificate" in
   let __attrs =
     ({
@@ -423,16 +423,17 @@ let make ?description ?id ?labels ?location ?project ?scope ?timeouts
     json =
       yojson_of_google_certificate_manager_certificate
         (google_certificate_manager_certificate ?description ?id
-           ?labels ?location ?project ?scope ?timeouts ~name ~managed
-           ~self_managed ());
+           ?labels ?location ?project ?scope ~managed ~self_managed
+           ?timeouts ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?labels ?location ?project
-    ?scope ?timeouts ~name ~managed ~self_managed __id =
+    ?scope ?(managed = []) ?(self_managed = []) ?timeouts ~name __id
+    =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?labels ?location ?project ?scope ?timeouts
-      ~name ~managed ~self_managed __id
+    make ?description ?id ?labels ?location ?project ?scope ~managed
+      ~self_managed ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

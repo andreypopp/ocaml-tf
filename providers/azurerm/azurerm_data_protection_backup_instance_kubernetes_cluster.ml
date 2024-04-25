@@ -261,9 +261,9 @@ let timeouts ?create ?delete ?read () : timeouts =
   { create; delete; read }
 
 let azurerm_data_protection_backup_instance_kubernetes_cluster ?id
-    ?timeouts ~backup_policy_id ~kubernetes_cluster_id ~location
-    ~name ~snapshot_resource_group_name ~vault_id
-    ~backup_datasource_parameters () :
+    ?(backup_datasource_parameters = []) ?timeouts ~backup_policy_id
+    ~kubernetes_cluster_id ~location ~name
+    ~snapshot_resource_group_name ~vault_id () :
     azurerm_data_protection_backup_instance_kubernetes_cluster =
   {
     backup_policy_id;
@@ -287,9 +287,9 @@ type t = {
   vault_id : string prop;
 }
 
-let make ?id ?timeouts ~backup_policy_id ~kubernetes_cluster_id
-    ~location ~name ~snapshot_resource_group_name ~vault_id
-    ~backup_datasource_parameters __id =
+let make ?id ?(backup_datasource_parameters = []) ?timeouts
+    ~backup_policy_id ~kubernetes_cluster_id ~location ~name
+    ~snapshot_resource_group_name ~vault_id __id =
   let __type =
     "azurerm_data_protection_backup_instance_kubernetes_cluster"
   in
@@ -314,20 +314,19 @@ let make ?id ?timeouts ~backup_policy_id ~kubernetes_cluster_id
     json =
       yojson_of_azurerm_data_protection_backup_instance_kubernetes_cluster
         (azurerm_data_protection_backup_instance_kubernetes_cluster
-           ?id ?timeouts ~backup_policy_id ~kubernetes_cluster_id
-           ~location ~name ~snapshot_resource_group_name ~vault_id
-           ~backup_datasource_parameters ());
+           ?id ~backup_datasource_parameters ?timeouts
+           ~backup_policy_id ~kubernetes_cluster_id ~location ~name
+           ~snapshot_resource_group_name ~vault_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~backup_policy_id
-    ~kubernetes_cluster_id ~location ~name
-    ~snapshot_resource_group_name ~vault_id
-    ~backup_datasource_parameters __id =
+let register ?tf_module ?id ?(backup_datasource_parameters = [])
+    ?timeouts ~backup_policy_id ~kubernetes_cluster_id ~location
+    ~name ~snapshot_resource_group_name ~vault_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~backup_policy_id ~kubernetes_cluster_id
-      ~location ~name ~snapshot_resource_group_name ~vault_id
-      ~backup_datasource_parameters __id
+    make ?id ~backup_datasource_parameters ?timeouts
+      ~backup_policy_id ~kubernetes_cluster_id ~location ~name
+      ~snapshot_resource_group_name ~vault_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

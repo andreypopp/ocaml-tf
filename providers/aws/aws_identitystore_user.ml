@@ -469,9 +469,9 @@ let phone_numbers ?primary ?type_ ?value () : phone_numbers =
   { primary; type_; value }
 
 let aws_identitystore_user ?id ?locale ?nickname ?preferred_language
-    ?profile_url ?timezone ?title ?user_type ~display_name
-    ~identity_store_id ~user_name ~addresses ~emails ~name
-    ~phone_numbers () : aws_identitystore_user =
+    ?profile_url ?timezone ?title ?user_type ?(addresses = [])
+    ?(emails = []) ?(phone_numbers = []) ~display_name
+    ~identity_store_id ~user_name ~name () : aws_identitystore_user =
   {
     display_name;
     id;
@@ -507,8 +507,9 @@ type t = {
 }
 
 let make ?id ?locale ?nickname ?preferred_language ?profile_url
-    ?timezone ?title ?user_type ~display_name ~identity_store_id
-    ~user_name ~addresses ~emails ~name ~phone_numbers __id =
+    ?timezone ?title ?user_type ?(addresses = []) ?(emails = [])
+    ?(phone_numbers = []) ~display_name ~identity_store_id ~user_name
+    ~name __id =
   let __type = "aws_identitystore_user" in
   let __attrs =
     ({
@@ -537,19 +538,19 @@ let make ?id ?locale ?nickname ?preferred_language ?profile_url
       yojson_of_aws_identitystore_user
         (aws_identitystore_user ?id ?locale ?nickname
            ?preferred_language ?profile_url ?timezone ?title
-           ?user_type ~display_name ~identity_store_id ~user_name
-           ~addresses ~emails ~name ~phone_numbers ());
+           ?user_type ~addresses ~emails ~phone_numbers ~display_name
+           ~identity_store_id ~user_name ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?locale ?nickname ?preferred_language
-    ?profile_url ?timezone ?title ?user_type ~display_name
-    ~identity_store_id ~user_name ~addresses ~emails ~name
-    ~phone_numbers __id =
+    ?profile_url ?timezone ?title ?user_type ?(addresses = [])
+    ?(emails = []) ?(phone_numbers = []) ~display_name
+    ~identity_store_id ~user_name ~name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?locale ?nickname ?preferred_language ?profile_url
-      ?timezone ?title ?user_type ~display_name ~identity_store_id
-      ~user_name ~addresses ~emails ~name ~phone_numbers __id
+      ?timezone ?title ?user_type ~addresses ~emails ~phone_numbers
+      ~display_name ~identity_store_id ~user_name ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -48,10 +48,10 @@ val aws_workspaces_directory :
   ?subnet_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?self_service_permissions:self_service_permissions list ->
+  ?workspace_access_properties:workspace_access_properties list ->
+  ?workspace_creation_properties:workspace_creation_properties list ->
   directory_id:string prop ->
-  self_service_permissions:self_service_permissions list ->
-  workspace_access_properties:workspace_access_properties list ->
-  workspace_creation_properties:workspace_creation_properties list ->
   unit ->
   aws_workspaces_directory
 
@@ -84,10 +84,10 @@ val register :
   ?subnet_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?self_service_permissions:self_service_permissions list ->
+  ?workspace_access_properties:workspace_access_properties list ->
+  ?workspace_creation_properties:workspace_creation_properties list ->
   directory_id:string prop ->
-  self_service_permissions:self_service_permissions list ->
-  workspace_access_properties:workspace_access_properties list ->
-  workspace_creation_properties:workspace_creation_properties list ->
   string ->
   t
 
@@ -97,9 +97,9 @@ val make :
   ?subnet_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?self_service_permissions:self_service_permissions list ->
+  ?workspace_access_properties:workspace_access_properties list ->
+  ?workspace_creation_properties:workspace_creation_properties list ->
   directory_id:string prop ->
-  self_service_permissions:self_service_permissions list ->
-  workspace_access_properties:workspace_access_properties list ->
-  workspace_creation_properties:workspace_creation_properties list ->
   string ->
   t Tf_core.resource

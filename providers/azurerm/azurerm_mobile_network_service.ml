@@ -540,9 +540,9 @@ let pcc_rule__qos_policy__maximum_bit_rate ~downlink ~uplink () :
   { downlink; uplink }
 
 let pcc_rule__qos_policy ?allocation_and_retention_priority_level
-    ?preemption_capability ?preemption_vulnerability ~qos_indicator
-    ~guaranteed_bit_rate ~maximum_bit_rate () : pcc_rule__qos_policy
-    =
+    ?preemption_capability ?preemption_vulnerability
+    ?(guaranteed_bit_rate = []) ~qos_indicator ~maximum_bit_rate () :
+    pcc_rule__qos_policy =
   {
     allocation_and_retention_priority_level;
     preemption_capability;
@@ -557,8 +557,8 @@ let pcc_rule__service_data_flow_template ?ports ~direction ~name
     pcc_rule__service_data_flow_template =
   { direction; name; ports; protocol; remote_ip_list }
 
-let pcc_rule ?traffic_control_enabled ~name ~precedence ~qos_policy
-    ~service_data_flow_template () : pcc_rule =
+let pcc_rule ?traffic_control_enabled ?(qos_policy = []) ~name
+    ~precedence ~service_data_flow_template () : pcc_rule =
   {
     name;
     precedence;
@@ -585,9 +585,10 @@ let service_qos_policy ?allocation_and_retention_priority_level
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_mobile_network_service ?id ?tags ?timeouts ~location
-    ~mobile_network_id ~name ~service_precedence ~pcc_rule
-    ~service_qos_policy () : azurerm_mobile_network_service =
+let azurerm_mobile_network_service ?id ?tags
+    ?(service_qos_policy = []) ?timeouts ~location ~mobile_network_id
+    ~name ~service_precedence ~pcc_rule () :
+    azurerm_mobile_network_service =
   {
     id;
     location;
@@ -609,8 +610,8 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?id ?tags ?timeouts ~location ~mobile_network_id ~name
-    ~service_precedence ~pcc_rule ~service_qos_policy __id =
+let make ?id ?tags ?(service_qos_policy = []) ?timeouts ~location
+    ~mobile_network_id ~name ~service_precedence ~pcc_rule __id =
   let __type = "azurerm_mobile_network_service" in
   let __attrs =
     ({
@@ -630,18 +631,18 @@ let make ?id ?tags ?timeouts ~location ~mobile_network_id ~name
     type_ = __type;
     json =
       yojson_of_azurerm_mobile_network_service
-        (azurerm_mobile_network_service ?id ?tags ?timeouts ~location
-           ~mobile_network_id ~name ~service_precedence ~pcc_rule
-           ~service_qos_policy ());
+        (azurerm_mobile_network_service ?id ?tags ~service_qos_policy
+           ?timeouts ~location ~mobile_network_id ~name
+           ~service_precedence ~pcc_rule ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?timeouts ~location
-    ~mobile_network_id ~name ~service_precedence ~pcc_rule
-    ~service_qos_policy __id =
+let register ?tf_module ?id ?tags ?(service_qos_policy = [])
+    ?timeouts ~location ~mobile_network_id ~name ~service_precedence
+    ~pcc_rule __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?timeouts ~location ~mobile_network_id ~name
-      ~service_precedence ~pcc_rule ~service_qos_policy __id
+    make ?id ?tags ~service_qos_policy ?timeouts ~location
+      ~mobile_network_id ~name ~service_precedence ~pcc_rule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

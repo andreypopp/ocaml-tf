@@ -31,13 +31,13 @@ val aws_finspace_kx_volume :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?nas1_configuration:nas1_configuration list ->
   ?timeouts:timeouts ->
   availability_zones:string prop list ->
   az_mode:string prop ->
   environment_id:string prop ->
   name:string prop ->
   type_:string prop ->
-  nas1_configuration:nas1_configuration list ->
   unit ->
   aws_finspace_kx_volume
 
@@ -69,13 +69,13 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?nas1_configuration:nas1_configuration list ->
   ?timeouts:timeouts ->
   availability_zones:string prop list ->
   az_mode:string prop ->
   environment_id:string prop ->
   name:string prop ->
   type_:string prop ->
-  nas1_configuration:nas1_configuration list ->
   string ->
   t
 
@@ -84,12 +84,12 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?nas1_configuration:nas1_configuration list ->
   ?timeouts:timeouts ->
   availability_zones:string prop list ->
   az_mode:string prop ->
   environment_id:string prop ->
   name:string prop ->
   type_:string prop ->
-  nas1_configuration:nas1_configuration list ->
   string ->
   t Tf_core.resource

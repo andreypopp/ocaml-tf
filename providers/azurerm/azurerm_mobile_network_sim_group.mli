@@ -28,11 +28,11 @@ val azurerm_mobile_network_sim_group :
   ?encryption_key_url:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   mobile_network_id:string prop ->
   name:string prop ->
-  identity:identity list ->
   unit ->
   azurerm_mobile_network_sim_group
 
@@ -55,11 +55,11 @@ val register :
   ?encryption_key_url:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   mobile_network_id:string prop ->
   name:string prop ->
-  identity:identity list ->
   string ->
   t
 
@@ -67,10 +67,10 @@ val make :
   ?encryption_key_url:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   mobile_network_id:string prop ->
   name:string prop ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

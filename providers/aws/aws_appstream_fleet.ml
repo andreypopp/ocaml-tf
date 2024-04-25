@@ -345,8 +345,8 @@ let aws_appstream_fleet ?description ?disconnect_timeout_in_seconds
     ?display_name ?enable_default_internet_access ?fleet_type
     ?iam_role_arn ?id ?idle_disconnect_timeout_in_seconds ?image_arn
     ?image_name ?max_user_duration_in_seconds ?stream_view ?tags
-    ?tags_all ~instance_type ~name ~compute_capacity
-    ~domain_join_info ~vpc_config () : aws_appstream_fleet =
+    ?tags_all ?(domain_join_info = []) ?(vpc_config = [])
+    ~instance_type ~name ~compute_capacity () : aws_appstream_fleet =
   {
     description;
     disconnect_timeout_in_seconds;
@@ -395,8 +395,8 @@ let make ?description ?disconnect_timeout_in_seconds ?display_name
     ?enable_default_internet_access ?fleet_type ?iam_role_arn ?id
     ?idle_disconnect_timeout_in_seconds ?image_arn ?image_name
     ?max_user_duration_in_seconds ?stream_view ?tags ?tags_all
-    ~instance_type ~name ~compute_capacity ~domain_join_info
-    ~vpc_config __id =
+    ?(domain_join_info = []) ?(vpc_config = []) ~instance_type ~name
+    ~compute_capacity __id =
   let __type = "aws_appstream_fleet" in
   let __attrs =
     ({
@@ -437,8 +437,8 @@ let make ?description ?disconnect_timeout_in_seconds ?display_name
            ?enable_default_internet_access ?fleet_type ?iam_role_arn
            ?id ?idle_disconnect_timeout_in_seconds ?image_arn
            ?image_name ?max_user_duration_in_seconds ?stream_view
-           ?tags ?tags_all ~instance_type ~name ~compute_capacity
-           ~domain_join_info ~vpc_config ());
+           ?tags ?tags_all ~domain_join_info ~vpc_config
+           ~instance_type ~name ~compute_capacity ());
     attrs = __attrs;
   }
 
@@ -446,15 +446,15 @@ let register ?tf_module ?description ?disconnect_timeout_in_seconds
     ?display_name ?enable_default_internet_access ?fleet_type
     ?iam_role_arn ?id ?idle_disconnect_timeout_in_seconds ?image_arn
     ?image_name ?max_user_duration_in_seconds ?stream_view ?tags
-    ?tags_all ~instance_type ~name ~compute_capacity
-    ~domain_join_info ~vpc_config __id =
+    ?tags_all ?(domain_join_info = []) ?(vpc_config = [])
+    ~instance_type ~name ~compute_capacity __id =
   let (r : _ Tf_core.resource) =
     make ?description ?disconnect_timeout_in_seconds ?display_name
       ?enable_default_internet_access ?fleet_type ?iam_role_arn ?id
       ?idle_disconnect_timeout_in_seconds ?image_arn ?image_name
       ?max_user_duration_in_seconds ?stream_view ?tags ?tags_all
-      ~instance_type ~name ~compute_capacity ~domain_join_info
-      ~vpc_config __id
+      ~domain_join_info ~vpc_config ~instance_type ~name
+      ~compute_capacity __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

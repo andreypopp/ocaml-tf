@@ -313,22 +313,22 @@ let spec__scope_selector__match_expression ?values ~operator
     ~scope_name () : spec__scope_selector__match_expression =
   { operator; scope_name; values }
 
-let spec__scope_selector ~match_expression () : spec__scope_selector
-    =
+let spec__scope_selector ?(match_expression = []) () :
+    spec__scope_selector =
   { match_expression }
 
-let spec ?hard ?scopes ~scope_selector () : spec =
+let spec ?hard ?scopes ?(scope_selector = []) () : spec =
   { hard; scopes; scope_selector }
 
 let timeouts ?create ?update () : timeouts = { create; update }
 
-let kubernetes_resource_quota ?id ?timeouts ~metadata ~spec () :
-    kubernetes_resource_quota =
+let kubernetes_resource_quota ?id ?(spec = []) ?timeouts ~metadata ()
+    : kubernetes_resource_quota =
   { id; metadata; spec; timeouts }
 
 type t = { id : string prop }
 
-let make ?id ?timeouts ~metadata ~spec __id =
+let make ?id ?(spec = []) ?timeouts ~metadata __id =
   let __type = "kubernetes_resource_quota" in
   let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
   {
@@ -336,13 +336,13 @@ let make ?id ?timeouts ~metadata ~spec __id =
     type_ = __type;
     json =
       yojson_of_kubernetes_resource_quota
-        (kubernetes_resource_quota ?id ?timeouts ~metadata ~spec ());
+        (kubernetes_resource_quota ?id ~spec ?timeouts ~metadata ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~metadata ~spec __id =
+let register ?tf_module ?id ?(spec = []) ?timeouts ~metadata __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~metadata ~spec __id
+    make ?id ~spec ?timeouts ~metadata __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -23,8 +23,8 @@ val recurrence__monthly_settings__hand_off_time :
 type recurrence__monthly_settings
 
 val recurrence__monthly_settings :
+  ?hand_off_time:recurrence__monthly_settings__hand_off_time list ->
   day_of_month:float prop ->
-  hand_off_time:recurrence__monthly_settings__hand_off_time list ->
   unit ->
   recurrence__monthly_settings
 
@@ -47,16 +47,16 @@ val recurrence__shift_coverages__coverage_times__start :
 type recurrence__shift_coverages__coverage_times
 
 val recurrence__shift_coverages__coverage_times :
-  end_:recurrence__shift_coverages__coverage_times__end list ->
-  start:recurrence__shift_coverages__coverage_times__start list ->
+  ?end_:recurrence__shift_coverages__coverage_times__end list ->
+  ?start:recurrence__shift_coverages__coverage_times__start list ->
   unit ->
   recurrence__shift_coverages__coverage_times
 
 type recurrence__shift_coverages
 
 val recurrence__shift_coverages :
+  ?coverage_times:recurrence__shift_coverages__coverage_times list ->
   map_block_key:string prop ->
-  coverage_times:recurrence__shift_coverages__coverage_times list ->
   unit ->
   recurrence__shift_coverages
 
@@ -71,20 +71,20 @@ val recurrence__weekly_settings__hand_off_time :
 type recurrence__weekly_settings
 
 val recurrence__weekly_settings :
+  ?hand_off_time:recurrence__weekly_settings__hand_off_time list ->
   day_of_week:string prop ->
-  hand_off_time:recurrence__weekly_settings__hand_off_time list ->
   unit ->
   recurrence__weekly_settings
 
 type recurrence
 
 val recurrence :
+  ?daily_settings:recurrence__daily_settings list ->
+  ?monthly_settings:recurrence__monthly_settings list ->
+  ?shift_coverages:recurrence__shift_coverages list ->
+  ?weekly_settings:recurrence__weekly_settings list ->
   number_of_on_calls:float prop ->
   recurrence_multiplier:float prop ->
-  daily_settings:recurrence__daily_settings list ->
-  monthly_settings:recurrence__monthly_settings list ->
-  shift_coverages:recurrence__shift_coverages list ->
-  weekly_settings:recurrence__weekly_settings list ->
   unit ->
   recurrence
 
@@ -93,10 +93,10 @@ type aws_ssmcontacts_rotation
 val aws_ssmcontacts_rotation :
   ?start_time:string prop ->
   ?tags:(string * string prop) list ->
+  ?recurrence:recurrence list ->
   contact_ids:string prop list ->
   name:string prop ->
   time_zone_id:string prop ->
-  recurrence:recurrence list ->
   unit ->
   aws_ssmcontacts_rotation
 
@@ -120,19 +120,19 @@ val register :
   ?tf_module:tf_module ->
   ?start_time:string prop ->
   ?tags:(string * string prop) list ->
+  ?recurrence:recurrence list ->
   contact_ids:string prop list ->
   name:string prop ->
   time_zone_id:string prop ->
-  recurrence:recurrence list ->
   string ->
   t
 
 val make :
   ?start_time:string prop ->
   ?tags:(string * string prop) list ->
+  ?recurrence:recurrence list ->
   contact_ids:string prop list ->
   name:string prop ->
   time_zone_id:string prop ->
-  recurrence:recurrence list ->
   string ->
   t Tf_core.resource

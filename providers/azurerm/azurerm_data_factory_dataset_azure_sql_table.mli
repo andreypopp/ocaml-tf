@@ -34,11 +34,11 @@ val azurerm_data_factory_dataset_azure_sql_table :
   ?parameters:(string * string prop) list ->
   ?schema:string prop ->
   ?table:string prop ->
+  ?schema_column:schema_column list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_id:string prop ->
   name:string prop ->
-  schema_column:schema_column list ->
   unit ->
   azurerm_data_factory_dataset_azure_sql_table
 
@@ -71,11 +71,11 @@ val register :
   ?parameters:(string * string prop) list ->
   ?schema:string prop ->
   ?table:string prop ->
+  ?schema_column:schema_column list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_id:string prop ->
   name:string prop ->
-  schema_column:schema_column list ->
   string ->
   t
 
@@ -88,10 +88,10 @@ val make :
   ?parameters:(string * string prop) list ->
   ?schema:string prop ->
   ?table:string prop ->
+  ?schema_column:schema_column list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_id:string prop ->
   name:string prop ->
-  schema_column:schema_column list ->
   string ->
   t Tf_core.resource

@@ -42,13 +42,13 @@ val azurerm_web_pubsub :
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?tls_client_cert_enabled:bool prop ->
+  ?identity:identity list ->
+  ?live_trace:live_trace list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  identity:identity list ->
-  live_trace:live_trace list ->
   unit ->
   azurerm_web_pubsub
 
@@ -88,13 +88,13 @@ val register :
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?tls_client_cert_enabled:bool prop ->
+  ?identity:identity list ->
+  ?live_trace:live_trace list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  identity:identity list ->
-  live_trace:live_trace list ->
   string ->
   t
 
@@ -106,12 +106,12 @@ val make :
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?tls_client_cert_enabled:bool prop ->
+  ?identity:identity list ->
+  ?live_trace:live_trace list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  identity:identity list ->
-  live_trace:live_trace list ->
   string ->
   t Tf_core.resource

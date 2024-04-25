@@ -42910,7 +42910,7 @@ let closing_setting__closing_response__message_group__message__image_response_ca
   { text; value }
 
 let closing_setting__closing_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     closing_setting__closing_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -42928,8 +42928,8 @@ let closing_setting__closing_response__message_group__message__ssml_message
   { value }
 
 let closing_setting__closing_response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     closing_setting__closing_response__message_group__message =
   {
     custom_payload;
@@ -42951,7 +42951,7 @@ let closing_setting__closing_response__message_group__variation__image_response_
   { text; value }
 
 let closing_setting__closing_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     closing_setting__closing_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -42969,8 +42969,8 @@ let closing_setting__closing_response__message_group__variation__ssml_message
   { value }
 
 let closing_setting__closing_response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     closing_setting__closing_response__message_group__variation =
   {
     custom_payload;
@@ -42979,13 +42979,13 @@ let closing_setting__closing_response__message_group__variation
     ssml_message;
   }
 
-let closing_setting__closing_response__message_group ~message
-    ~variation () : closing_setting__closing_response__message_group
-    =
+let closing_setting__closing_response__message_group ?(message = [])
+    ?(variation = []) () :
+    closing_setting__closing_response__message_group =
   { message; variation }
 
-let closing_setting__closing_response ?allow_interrupt ~message_group
-    () : closing_setting__closing_response =
+let closing_setting__closing_response ?allow_interrupt
+    ?(message_group = []) () : closing_setting__closing_response =
   { allow_interrupt; message_group }
 
 let closing_setting__conditional__conditional_branch__condition
@@ -43006,7 +43006,7 @@ let closing_setting__conditional__conditional_branch__next_step__intent__slot__v
   { interpreted_value }
 
 let closing_setting__conditional__conditional_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     closing_setting__conditional__conditional_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -43018,7 +43018,7 @@ let closing_setting__conditional__conditional_branch__next_step__intent
   { name; slot }
 
 let closing_setting__conditional__conditional_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     closing_setting__conditional__conditional_branch__next_step =
   { session_attributes; dialog_action; intent }
 
@@ -43035,7 +43035,7 @@ let closing_setting__conditional__conditional_branch__response__message_group__m
   { text; value }
 
 let closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -43053,8 +43053,8 @@ let closing_setting__conditional__conditional_branch__response__message_group__m
   { value }
 
 let closing_setting__conditional__conditional_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     closing_setting__conditional__conditional_branch__response__message_group__message
     =
   {
@@ -43077,7 +43077,7 @@ let closing_setting__conditional__conditional_branch__response__message_group__v
   { text; value }
 
 let closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -43095,8 +43095,8 @@ let closing_setting__conditional__conditional_branch__response__message_group__v
   { value }
 
 let closing_setting__conditional__conditional_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     closing_setting__conditional__conditional_branch__response__message_group__variation
     =
   {
@@ -43107,18 +43107,18 @@ let closing_setting__conditional__conditional_branch__response__message_group__v
   }
 
 let closing_setting__conditional__conditional_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     closing_setting__conditional__conditional_branch__response__message_group
     =
   { message; variation }
 
 let closing_setting__conditional__conditional_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     closing_setting__conditional__conditional_branch__response =
   { allow_interrupt; message_group }
 
-let closing_setting__conditional__conditional_branch ~name ~condition
-    ~next_step ~response () :
+let closing_setting__conditional__conditional_branch
+    ?(condition = []) ?(next_step = []) ?(response = []) ~name () :
     closing_setting__conditional__conditional_branch =
   { name; condition; next_step; response }
 
@@ -43135,7 +43135,7 @@ let closing_setting__conditional__default_branch__next_step__intent__slot__value
   { interpreted_value }
 
 let closing_setting__conditional__default_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     closing_setting__conditional__default_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -43146,7 +43146,7 @@ let closing_setting__conditional__default_branch__next_step__intent
   { name; slot }
 
 let closing_setting__conditional__default_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     closing_setting__conditional__default_branch__next_step =
   { session_attributes; dialog_action; intent }
 
@@ -43163,7 +43163,7 @@ let closing_setting__conditional__default_branch__response__message_group__messa
   { text; value }
 
 let closing_setting__conditional__default_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     closing_setting__conditional__default_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -43181,8 +43181,8 @@ let closing_setting__conditional__default_branch__response__message_group__messa
   { value }
 
 let closing_setting__conditional__default_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     closing_setting__conditional__default_branch__response__message_group__message
     =
   {
@@ -43205,7 +43205,7 @@ let closing_setting__conditional__default_branch__response__message_group__varia
   { text; value }
 
 let closing_setting__conditional__default_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     closing_setting__conditional__default_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -43223,8 +43223,8 @@ let closing_setting__conditional__default_branch__response__message_group__varia
   { value }
 
 let closing_setting__conditional__default_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     closing_setting__conditional__default_branch__response__message_group__variation
     =
   {
@@ -43235,22 +43235,24 @@ let closing_setting__conditional__default_branch__response__message_group__varia
   }
 
 let closing_setting__conditional__default_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     closing_setting__conditional__default_branch__response__message_group
     =
   { message; variation }
 
 let closing_setting__conditional__default_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     closing_setting__conditional__default_branch__response =
   { allow_interrupt; message_group }
 
-let closing_setting__conditional__default_branch ~next_step ~response
-    () : closing_setting__conditional__default_branch =
+let closing_setting__conditional__default_branch ?(next_step = [])
+    ?(response = []) () :
+    closing_setting__conditional__default_branch =
   { next_step; response }
 
-let closing_setting__conditional ~active ~conditional_branch
-    ~default_branch () : closing_setting__conditional =
+let closing_setting__conditional ?(conditional_branch = [])
+    ?(default_branch = []) ~active () : closing_setting__conditional
+    =
   { active; conditional_branch; default_branch }
 
 let closing_setting__next_step__dialog_action ?slot_to_elicit
@@ -43263,20 +43265,21 @@ let closing_setting__next_step__intent__slot__value
     closing_setting__next_step__intent__slot__value =
   { interpreted_value }
 
-let closing_setting__next_step__intent__slot ?shape ~map_block_key
-    ~value () : closing_setting__next_step__intent__slot =
+let closing_setting__next_step__intent__slot ?shape ?(value = [])
+    ~map_block_key () : closing_setting__next_step__intent__slot =
   { map_block_key; shape; value }
 
 let closing_setting__next_step__intent ?name ~slot () :
     closing_setting__next_step__intent =
   { name; slot }
 
-let closing_setting__next_step ?session_attributes ~dialog_action
-    ~intent () : closing_setting__next_step =
+let closing_setting__next_step ?session_attributes
+    ?(dialog_action = []) ?(intent = []) () :
+    closing_setting__next_step =
   { session_attributes; dialog_action; intent }
 
-let closing_setting ?active ~closing_response ~conditional ~next_step
-    () : closing_setting =
+let closing_setting ?active ?(closing_response = [])
+    ?(conditional = []) ?(next_step = []) () : closing_setting =
   { active; closing_response; conditional; next_step }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition
@@ -43298,7 +43301,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_condi
   { interpreted_value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -43310,7 +43313,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_condi
   { name; slot }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -43328,7 +43331,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_condi
   { text; value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -43346,8 +43349,8 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_condi
   { value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message
     =
   {
@@ -43370,7 +43373,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_condi
   { text; value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -43388,8 +43391,8 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_condi
   { value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation
     =
   {
@@ -43400,19 +43403,19 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_condi
   }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group
     =
   { message; variation }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response
     =
   { allow_interrupt; message_group }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch
-    ~name ~condition ~next_step ~response () :
+    ?(condition = []) ?(next_step = []) ?(response = []) ~name () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch
     =
   { name; condition; next_step; response }
@@ -43430,7 +43433,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_condi
   { interpreted_value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -43442,7 +43445,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_condi
   { name; slot }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -43460,7 +43463,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_condi
   { text; value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -43478,8 +43481,8 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_condi
   { value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message
     =
   {
@@ -43502,7 +43505,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_condi
   { text; value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -43520,8 +43523,8 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_condi
   { value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation
     =
   {
@@ -43532,25 +43535,25 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_condi
   }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group
     =
   { message; variation }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response
     =
   { allow_interrupt; message_group }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch
-    ~next_step ~response () :
+    ?(next_step = []) ?(response = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch
     =
   { next_step; response }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_conditional
-    ~active ~conditional_branch ~default_branch () :
+    ?(conditional_branch = []) ?(default_branch = []) ~active () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional
     =
   { active; conditional_branch; default_branch }
@@ -43568,7 +43571,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_next_
   { interpreted_value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -43580,7 +43583,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_next_
   { name; slot }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_next_step
     =
   { session_attributes; dialog_action; intent }
@@ -43598,7 +43601,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_respo
   { text; value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -43616,8 +43619,8 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_respo
   { value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message
     =
   {
@@ -43640,7 +43643,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_respo
   { text; value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -43658,8 +43661,8 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_respo
   { value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation
     =
   {
@@ -43670,13 +43673,13 @@ let confirmation_setting__code_hook__post_code_hook_specification__failure_respo
   }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group
     =
   { message; variation }
 
 let confirmation_setting__code_hook__post_code_hook_specification__failure_response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response
     =
   { allow_interrupt; message_group }
@@ -43700,7 +43703,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_condi
   { interpreted_value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -43712,7 +43715,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_condi
   { name; slot }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -43730,7 +43733,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_condi
   { text; value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -43748,8 +43751,8 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_condi
   { value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message
     =
   {
@@ -43772,7 +43775,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_condi
   { text; value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -43790,8 +43793,8 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_condi
   { value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation
     =
   {
@@ -43802,19 +43805,19 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_condi
   }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group
     =
   { message; variation }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response
     =
   { allow_interrupt; message_group }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch
-    ~name ~condition ~next_step ~response () :
+    ?(condition = []) ?(next_step = []) ?(response = []) ~name () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch
     =
   { name; condition; next_step; response }
@@ -43832,7 +43835,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_condi
   { interpreted_value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -43844,7 +43847,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_condi
   { name; slot }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -43862,7 +43865,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_condi
   { text; value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -43880,8 +43883,8 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_condi
   { value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message
     =
   {
@@ -43904,7 +43907,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_condi
   { text; value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -43922,8 +43925,8 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_condi
   { value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation
     =
   {
@@ -43934,25 +43937,25 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_condi
   }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group
     =
   { message; variation }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response
     =
   { allow_interrupt; message_group }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch
-    ~next_step ~response () :
+    ?(next_step = []) ?(response = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch
     =
   { next_step; response }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_conditional
-    ~active ~conditional_branch ~default_branch () :
+    ?(conditional_branch = []) ?(default_branch = []) ~active () :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional
     =
   { active; conditional_branch; default_branch }
@@ -43970,7 +43973,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_next_
   { interpreted_value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -43982,7 +43985,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_next_
   { name; slot }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__success_next_step
     =
   { session_attributes; dialog_action; intent }
@@ -44000,7 +44003,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_respo
   { text; value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -44018,8 +44021,8 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_respo
   { value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message
     =
   {
@@ -44042,7 +44045,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_respo
   { text; value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -44060,8 +44063,8 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_respo
   { value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation
     =
   {
@@ -44072,13 +44075,13 @@ let confirmation_setting__code_hook__post_code_hook_specification__success_respo
   }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group
     =
   { message; variation }
 
 let confirmation_setting__code_hook__post_code_hook_specification__success_response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__success_response
     =
   { allow_interrupt; message_group }
@@ -44102,7 +44105,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_condi
   { interpreted_value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -44114,7 +44117,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_condi
   { name; slot }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -44132,7 +44135,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_condi
   { text; value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -44150,8 +44153,8 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_condi
   { value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message
     =
   {
@@ -44174,7 +44177,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_condi
   { text; value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -44192,8 +44195,8 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_condi
   { value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation
     =
   {
@@ -44204,19 +44207,19 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_condi
   }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group
     =
   { message; variation }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response
     =
   { allow_interrupt; message_group }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch
-    ~name ~condition ~next_step ~response () :
+    ?(condition = []) ?(next_step = []) ?(response = []) ~name () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch
     =
   { name; condition; next_step; response }
@@ -44234,7 +44237,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_condi
   { interpreted_value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -44246,7 +44249,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_condi
   { name; slot }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -44264,7 +44267,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_condi
   { text; value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -44282,8 +44285,8 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_condi
   { value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message
     =
   {
@@ -44306,7 +44309,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_condi
   { text; value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -44324,8 +44327,8 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_condi
   { value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation
     =
   {
@@ -44336,25 +44339,25 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_condi
   }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group
     =
   { message; variation }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response
     =
   { allow_interrupt; message_group }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch
-    ~next_step ~response () :
+    ?(next_step = []) ?(response = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch
     =
   { next_step; response }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional
-    ~active ~conditional_branch ~default_branch () :
+    ?(conditional_branch = []) ?(default_branch = []) ~active () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional
     =
   { active; conditional_branch; default_branch }
@@ -44372,7 +44375,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_next_
   { interpreted_value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -44384,7 +44387,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_next_
   { name; slot }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step
     =
   { session_attributes; dialog_action; intent }
@@ -44402,7 +44405,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_respo
   { text; value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -44420,8 +44423,8 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_respo
   { value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message
     =
   {
@@ -44444,7 +44447,7 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_respo
   { text; value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -44462,8 +44465,8 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_respo
   { value }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation
     =
   {
@@ -44474,21 +44477,23 @@ let confirmation_setting__code_hook__post_code_hook_specification__timeout_respo
   }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group
     =
   { message; variation }
 
 let confirmation_setting__code_hook__post_code_hook_specification__timeout_response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response
     =
   { allow_interrupt; message_group }
 
 let confirmation_setting__code_hook__post_code_hook_specification
-    ~failure_conditional ~failure_next_step ~failure_response
-    ~success_conditional ~success_next_step ~success_response
-    ~timeout_conditional ~timeout_next_step ~timeout_response () :
+    ?(failure_conditional = []) ?(failure_next_step = [])
+    ?(failure_response = []) ?(success_conditional = [])
+    ?(success_next_step = []) ?(success_response = [])
+    ?(timeout_conditional = []) ?(timeout_next_step = [])
+    ?(timeout_response = []) () :
     confirmation_setting__code_hook__post_code_hook_specification =
   {
     failure_conditional;
@@ -44502,9 +44507,10 @@ let confirmation_setting__code_hook__post_code_hook_specification
     timeout_response;
   }
 
-let confirmation_setting__code_hook ?invocation_label ~active
-    ~enable_code_hook_invocation ~post_code_hook_specification () :
-    confirmation_setting__code_hook =
+let confirmation_setting__code_hook ?invocation_label
+    ?(post_code_hook_specification = []) ~active
+    ~enable_code_hook_invocation () : confirmation_setting__code_hook
+    =
   {
     active;
     enable_code_hook_invocation;
@@ -44531,7 +44537,7 @@ let confirmation_setting__confirmation_conditional__conditional_branch__next_ste
   { interpreted_value }
 
 let confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -44543,7 +44549,7 @@ let confirmation_setting__confirmation_conditional__conditional_branch__next_ste
   { name; slot }
 
 let confirmation_setting__confirmation_conditional__conditional_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     confirmation_setting__confirmation_conditional__conditional_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -44561,7 +44567,7 @@ let confirmation_setting__confirmation_conditional__conditional_branch__response
   { text; value }
 
 let confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -44579,8 +44585,8 @@ let confirmation_setting__confirmation_conditional__conditional_branch__response
   { value }
 
 let confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message
     =
   {
@@ -44603,7 +44609,7 @@ let confirmation_setting__confirmation_conditional__conditional_branch__response
   { text; value }
 
 let confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -44621,8 +44627,8 @@ let confirmation_setting__confirmation_conditional__conditional_branch__response
   { value }
 
 let confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation
     =
   {
@@ -44633,19 +44639,19 @@ let confirmation_setting__confirmation_conditional__conditional_branch__response
   }
 
 let confirmation_setting__confirmation_conditional__conditional_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__confirmation_conditional__conditional_branch__response__message_group
     =
   { message; variation }
 
 let confirmation_setting__confirmation_conditional__conditional_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     confirmation_setting__confirmation_conditional__conditional_branch__response
     =
   { allow_interrupt; message_group }
 
 let confirmation_setting__confirmation_conditional__conditional_branch
-    ~name ~condition ~next_step ~response () :
+    ?(condition = []) ?(next_step = []) ?(response = []) ~name () :
     confirmation_setting__confirmation_conditional__conditional_branch
     =
   { name; condition; next_step; response }
@@ -44663,7 +44669,7 @@ let confirmation_setting__confirmation_conditional__default_branch__next_step__i
   { interpreted_value }
 
 let confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -44675,7 +44681,7 @@ let confirmation_setting__confirmation_conditional__default_branch__next_step__i
   { name; slot }
 
 let confirmation_setting__confirmation_conditional__default_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     confirmation_setting__confirmation_conditional__default_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -44693,7 +44699,7 @@ let confirmation_setting__confirmation_conditional__default_branch__response__me
   { text; value }
 
 let confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -44711,8 +44717,8 @@ let confirmation_setting__confirmation_conditional__default_branch__response__me
   { value }
 
 let confirmation_setting__confirmation_conditional__default_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__confirmation_conditional__default_branch__response__message_group__message
     =
   {
@@ -44735,7 +44741,7 @@ let confirmation_setting__confirmation_conditional__default_branch__response__me
   { text; value }
 
 let confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -44753,8 +44759,8 @@ let confirmation_setting__confirmation_conditional__default_branch__response__me
   { value }
 
 let confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation
     =
   {
@@ -44765,24 +44771,24 @@ let confirmation_setting__confirmation_conditional__default_branch__response__me
   }
 
 let confirmation_setting__confirmation_conditional__default_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__confirmation_conditional__default_branch__response__message_group
     =
   { message; variation }
 
 let confirmation_setting__confirmation_conditional__default_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     confirmation_setting__confirmation_conditional__default_branch__response
     =
   { allow_interrupt; message_group }
 
 let confirmation_setting__confirmation_conditional__default_branch
-    ~next_step ~response () :
+    ?(next_step = []) ?(response = []) () :
     confirmation_setting__confirmation_conditional__default_branch =
   { next_step; response }
 
-let confirmation_setting__confirmation_conditional ~active
-    ~conditional_branch ~default_branch () :
+let confirmation_setting__confirmation_conditional
+    ?(conditional_branch = []) ?(default_branch = []) ~active () :
     confirmation_setting__confirmation_conditional =
   { active; conditional_branch; default_branch }
 
@@ -44798,7 +44804,7 @@ let confirmation_setting__confirmation_next_step__intent__slot__value
   { interpreted_value }
 
 let confirmation_setting__confirmation_next_step__intent__slot ?shape
-    ~map_block_key ~value () :
+    ?(value = []) ~map_block_key () :
     confirmation_setting__confirmation_next_step__intent__slot =
   { map_block_key; shape; value }
 
@@ -44807,7 +44813,7 @@ let confirmation_setting__confirmation_next_step__intent ?name ~slot
   { name; slot }
 
 let confirmation_setting__confirmation_next_step ?session_attributes
-    ~dialog_action ~intent () :
+    ?(dialog_action = []) ?(intent = []) () :
     confirmation_setting__confirmation_next_step =
   { session_attributes; dialog_action; intent }
 
@@ -44824,7 +44830,7 @@ let confirmation_setting__confirmation_response__message_group__message__image_r
   { text; value }
 
 let confirmation_setting__confirmation_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__confirmation_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -44842,8 +44848,8 @@ let confirmation_setting__confirmation_response__message_group__message__ssml_me
   { value }
 
 let confirmation_setting__confirmation_response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__confirmation_response__message_group__message
     =
   {
@@ -44866,7 +44872,7 @@ let confirmation_setting__confirmation_response__message_group__variation__image
   { text; value }
 
 let confirmation_setting__confirmation_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__confirmation_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -44884,8 +44890,8 @@ let confirmation_setting__confirmation_response__message_group__variation__ssml_
   { value }
 
 let confirmation_setting__confirmation_response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__confirmation_response__message_group__variation
     =
   {
@@ -44896,12 +44902,13 @@ let confirmation_setting__confirmation_response__message_group__variation
   }
 
 let confirmation_setting__confirmation_response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__confirmation_response__message_group =
   { message; variation }
 
 let confirmation_setting__confirmation_response ?allow_interrupt
-    ~message_group () : confirmation_setting__confirmation_response =
+    ?(message_group = []) () :
+    confirmation_setting__confirmation_response =
   { allow_interrupt; message_group }
 
 let confirmation_setting__declination_conditional__conditional_branch__condition
@@ -44923,7 +44930,7 @@ let confirmation_setting__declination_conditional__conditional_branch__next_step
   { interpreted_value }
 
 let confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -44935,7 +44942,7 @@ let confirmation_setting__declination_conditional__conditional_branch__next_step
   { name; slot }
 
 let confirmation_setting__declination_conditional__conditional_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     confirmation_setting__declination_conditional__conditional_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -44953,7 +44960,7 @@ let confirmation_setting__declination_conditional__conditional_branch__response_
   { text; value }
 
 let confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -44971,8 +44978,8 @@ let confirmation_setting__declination_conditional__conditional_branch__response_
   { value }
 
 let confirmation_setting__declination_conditional__conditional_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__declination_conditional__conditional_branch__response__message_group__message
     =
   {
@@ -44995,7 +45002,7 @@ let confirmation_setting__declination_conditional__conditional_branch__response_
   { text; value }
 
 let confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -45013,8 +45020,8 @@ let confirmation_setting__declination_conditional__conditional_branch__response_
   { value }
 
 let confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation
     =
   {
@@ -45025,19 +45032,19 @@ let confirmation_setting__declination_conditional__conditional_branch__response_
   }
 
 let confirmation_setting__declination_conditional__conditional_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__declination_conditional__conditional_branch__response__message_group
     =
   { message; variation }
 
 let confirmation_setting__declination_conditional__conditional_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     confirmation_setting__declination_conditional__conditional_branch__response
     =
   { allow_interrupt; message_group }
 
 let confirmation_setting__declination_conditional__conditional_branch
-    ~name ~condition ~next_step ~response () :
+    ?(condition = []) ?(next_step = []) ?(response = []) ~name () :
     confirmation_setting__declination_conditional__conditional_branch
     =
   { name; condition; next_step; response }
@@ -45055,7 +45062,7 @@ let confirmation_setting__declination_conditional__default_branch__next_step__in
   { interpreted_value }
 
 let confirmation_setting__declination_conditional__default_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     confirmation_setting__declination_conditional__default_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -45067,7 +45074,7 @@ let confirmation_setting__declination_conditional__default_branch__next_step__in
   { name; slot }
 
 let confirmation_setting__declination_conditional__default_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     confirmation_setting__declination_conditional__default_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -45085,7 +45092,7 @@ let confirmation_setting__declination_conditional__default_branch__response__mes
   { text; value }
 
 let confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -45103,8 +45110,8 @@ let confirmation_setting__declination_conditional__default_branch__response__mes
   { value }
 
 let confirmation_setting__declination_conditional__default_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__declination_conditional__default_branch__response__message_group__message
     =
   {
@@ -45127,7 +45134,7 @@ let confirmation_setting__declination_conditional__default_branch__response__mes
   { text; value }
 
 let confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -45145,8 +45152,8 @@ let confirmation_setting__declination_conditional__default_branch__response__mes
   { value }
 
 let confirmation_setting__declination_conditional__default_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__declination_conditional__default_branch__response__message_group__variation
     =
   {
@@ -45157,24 +45164,24 @@ let confirmation_setting__declination_conditional__default_branch__response__mes
   }
 
 let confirmation_setting__declination_conditional__default_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__declination_conditional__default_branch__response__message_group
     =
   { message; variation }
 
 let confirmation_setting__declination_conditional__default_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     confirmation_setting__declination_conditional__default_branch__response
     =
   { allow_interrupt; message_group }
 
 let confirmation_setting__declination_conditional__default_branch
-    ~next_step ~response () :
+    ?(next_step = []) ?(response = []) () :
     confirmation_setting__declination_conditional__default_branch =
   { next_step; response }
 
-let confirmation_setting__declination_conditional ~active
-    ~conditional_branch ~default_branch () :
+let confirmation_setting__declination_conditional
+    ?(conditional_branch = []) ?(default_branch = []) ~active () :
     confirmation_setting__declination_conditional =
   { active; conditional_branch; default_branch }
 
@@ -45190,7 +45197,7 @@ let confirmation_setting__declination_next_step__intent__slot__value
   { interpreted_value }
 
 let confirmation_setting__declination_next_step__intent__slot ?shape
-    ~map_block_key ~value () :
+    ?(value = []) ~map_block_key () :
     confirmation_setting__declination_next_step__intent__slot =
   { map_block_key; shape; value }
 
@@ -45199,7 +45206,7 @@ let confirmation_setting__declination_next_step__intent ?name ~slot
   { name; slot }
 
 let confirmation_setting__declination_next_step ?session_attributes
-    ~dialog_action ~intent () :
+    ?(dialog_action = []) ?(intent = []) () :
     confirmation_setting__declination_next_step =
   { session_attributes; dialog_action; intent }
 
@@ -45216,7 +45223,7 @@ let confirmation_setting__declination_response__message_group__message__image_re
   { text; value }
 
 let confirmation_setting__declination_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__declination_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -45234,8 +45241,8 @@ let confirmation_setting__declination_response__message_group__message__ssml_mes
   { value }
 
 let confirmation_setting__declination_response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__declination_response__message_group__message
     =
   {
@@ -45258,7 +45265,7 @@ let confirmation_setting__declination_response__message_group__variation__image_
   { text; value }
 
 let confirmation_setting__declination_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__declination_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -45276,8 +45283,8 @@ let confirmation_setting__declination_response__message_group__variation__ssml_m
   { value }
 
 let confirmation_setting__declination_response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__declination_response__message_group__variation
     =
   {
@@ -45288,12 +45295,13 @@ let confirmation_setting__declination_response__message_group__variation
   }
 
 let confirmation_setting__declination_response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__declination_response__message_group =
   { message; variation }
 
 let confirmation_setting__declination_response ?allow_interrupt
-    ~message_group () : confirmation_setting__declination_response =
+    ?(message_group = []) () :
+    confirmation_setting__declination_response =
   { allow_interrupt; message_group }
 
 let confirmation_setting__elicitation_code_hook
@@ -45320,7 +45328,7 @@ let confirmation_setting__failure_conditional__conditional_branch__next_step__in
   { interpreted_value }
 
 let confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -45332,7 +45340,7 @@ let confirmation_setting__failure_conditional__conditional_branch__next_step__in
   { name; slot }
 
 let confirmation_setting__failure_conditional__conditional_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     confirmation_setting__failure_conditional__conditional_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -45350,7 +45358,7 @@ let confirmation_setting__failure_conditional__conditional_branch__response__mes
   { text; value }
 
 let confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -45368,8 +45376,8 @@ let confirmation_setting__failure_conditional__conditional_branch__response__mes
   { value }
 
 let confirmation_setting__failure_conditional__conditional_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__failure_conditional__conditional_branch__response__message_group__message
     =
   {
@@ -45392,7 +45400,7 @@ let confirmation_setting__failure_conditional__conditional_branch__response__mes
   { text; value }
 
 let confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -45410,8 +45418,8 @@ let confirmation_setting__failure_conditional__conditional_branch__response__mes
   { value }
 
 let confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation
     =
   {
@@ -45422,19 +45430,19 @@ let confirmation_setting__failure_conditional__conditional_branch__response__mes
   }
 
 let confirmation_setting__failure_conditional__conditional_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__failure_conditional__conditional_branch__response__message_group
     =
   { message; variation }
 
 let confirmation_setting__failure_conditional__conditional_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     confirmation_setting__failure_conditional__conditional_branch__response
     =
   { allow_interrupt; message_group }
 
 let confirmation_setting__failure_conditional__conditional_branch
-    ~name ~condition ~next_step ~response () :
+    ?(condition = []) ?(next_step = []) ?(response = []) ~name () :
     confirmation_setting__failure_conditional__conditional_branch =
   { name; condition; next_step; response }
 
@@ -45451,7 +45459,7 @@ let confirmation_setting__failure_conditional__default_branch__next_step__intent
   { interpreted_value }
 
 let confirmation_setting__failure_conditional__default_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     confirmation_setting__failure_conditional__default_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -45463,7 +45471,7 @@ let confirmation_setting__failure_conditional__default_branch__next_step__intent
   { name; slot }
 
 let confirmation_setting__failure_conditional__default_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     confirmation_setting__failure_conditional__default_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -45481,7 +45489,7 @@ let confirmation_setting__failure_conditional__default_branch__response__message
   { text; value }
 
 let confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -45499,8 +45507,8 @@ let confirmation_setting__failure_conditional__default_branch__response__message
   { value }
 
 let confirmation_setting__failure_conditional__default_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__failure_conditional__default_branch__response__message_group__message
     =
   {
@@ -45523,7 +45531,7 @@ let confirmation_setting__failure_conditional__default_branch__response__message
   { text; value }
 
 let confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -45541,8 +45549,8 @@ let confirmation_setting__failure_conditional__default_branch__response__message
   { value }
 
 let confirmation_setting__failure_conditional__default_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__failure_conditional__default_branch__response__message_group__variation
     =
   {
@@ -45553,24 +45561,24 @@ let confirmation_setting__failure_conditional__default_branch__response__message
   }
 
 let confirmation_setting__failure_conditional__default_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__failure_conditional__default_branch__response__message_group
     =
   { message; variation }
 
 let confirmation_setting__failure_conditional__default_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     confirmation_setting__failure_conditional__default_branch__response
     =
   { allow_interrupt; message_group }
 
 let confirmation_setting__failure_conditional__default_branch
-    ~next_step ~response () :
+    ?(next_step = []) ?(response = []) () :
     confirmation_setting__failure_conditional__default_branch =
   { next_step; response }
 
-let confirmation_setting__failure_conditional ~active
-    ~conditional_branch ~default_branch () :
+let confirmation_setting__failure_conditional
+    ?(conditional_branch = []) ?(default_branch = []) ~active () :
     confirmation_setting__failure_conditional =
   { active; conditional_branch; default_branch }
 
@@ -45585,7 +45593,7 @@ let confirmation_setting__failure_next_step__intent__slot__value
   { interpreted_value }
 
 let confirmation_setting__failure_next_step__intent__slot ?shape
-    ~map_block_key ~value () :
+    ?(value = []) ~map_block_key () :
     confirmation_setting__failure_next_step__intent__slot =
   { map_block_key; shape; value }
 
@@ -45594,7 +45602,7 @@ let confirmation_setting__failure_next_step__intent ?name ~slot () :
   { name; slot }
 
 let confirmation_setting__failure_next_step ?session_attributes
-    ~dialog_action ~intent () :
+    ?(dialog_action = []) ?(intent = []) () :
     confirmation_setting__failure_next_step =
   { session_attributes; dialog_action; intent }
 
@@ -45611,7 +45619,7 @@ let confirmation_setting__failure_response__message_group__message__image_respon
   { text; value }
 
 let confirmation_setting__failure_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__failure_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -45629,8 +45637,8 @@ let confirmation_setting__failure_response__message_group__message__ssml_message
   { value }
 
 let confirmation_setting__failure_response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__failure_response__message_group__message =
   {
     custom_payload;
@@ -45652,7 +45660,7 @@ let confirmation_setting__failure_response__message_group__variation__image_resp
   { text; value }
 
 let confirmation_setting__failure_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__failure_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -45670,8 +45678,8 @@ let confirmation_setting__failure_response__message_group__variation__ssml_messa
   { value }
 
 let confirmation_setting__failure_response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__failure_response__message_group__variation
     =
   {
@@ -45681,13 +45689,14 @@ let confirmation_setting__failure_response__message_group__variation
     ssml_message;
   }
 
-let confirmation_setting__failure_response__message_group ~message
-    ~variation () :
+let confirmation_setting__failure_response__message_group
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__failure_response__message_group =
   { message; variation }
 
 let confirmation_setting__failure_response ?allow_interrupt
-    ~message_group () : confirmation_setting__failure_response =
+    ?(message_group = []) () : confirmation_setting__failure_response
+    =
   { allow_interrupt; message_group }
 
 let confirmation_setting__prompt_specification__message_group__message__custom_payload
@@ -45703,7 +45712,7 @@ let confirmation_setting__prompt_specification__message_group__message__image_re
   { text; value }
 
 let confirmation_setting__prompt_specification__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__prompt_specification__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -45721,8 +45730,8 @@ let confirmation_setting__prompt_specification__message_group__message__ssml_mes
   { value }
 
 let confirmation_setting__prompt_specification__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__prompt_specification__message_group__message
     =
   {
@@ -45745,7 +45754,7 @@ let confirmation_setting__prompt_specification__message_group__variation__image_
   { text; value }
 
 let confirmation_setting__prompt_specification__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     confirmation_setting__prompt_specification__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -45763,8 +45772,8 @@ let confirmation_setting__prompt_specification__message_group__variation__ssml_m
   { value }
 
 let confirmation_setting__prompt_specification__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     confirmation_setting__prompt_specification__message_group__variation
     =
   {
@@ -45775,7 +45784,7 @@ let confirmation_setting__prompt_specification__message_group__variation
   }
 
 let confirmation_setting__prompt_specification__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     confirmation_setting__prompt_specification__message_group =
   { message; variation }
 
@@ -45799,7 +45808,8 @@ let confirmation_setting__prompt_specification__prompt_attempts_specification__a
   { deletion_character; end_character; end_timeout_ms; max_length }
 
 let confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification
-    ~start_timeout_ms ~audio_specification ~dtmf_specification () :
+    ?(audio_specification = []) ?(dtmf_specification = [])
+    ~start_timeout_ms () :
     confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification
     =
   { start_timeout_ms; audio_specification; dtmf_specification }
@@ -45811,9 +45821,9 @@ let confirmation_setting__prompt_specification__prompt_attempts_specification__t
   { start_timeout_ms }
 
 let confirmation_setting__prompt_specification__prompt_attempts_specification
-    ?allow_interrupt ~map_block_key ~allowed_input_types
-    ~audio_and_dtmf_input_specification ~text_input_specification ()
-    :
+    ?allow_interrupt ?(allowed_input_types = [])
+    ?(audio_and_dtmf_input_specification = [])
+    ?(text_input_specification = []) ~map_block_key () :
     confirmation_setting__prompt_specification__prompt_attempts_specification
     =
   {
@@ -45825,7 +45835,7 @@ let confirmation_setting__prompt_specification__prompt_attempts_specification
   }
 
 let confirmation_setting__prompt_specification ?allow_interrupt
-    ?message_selection_strategy ~max_retries ~message_group
+    ?message_selection_strategy ?(message_group = []) ~max_retries
     ~prompt_attempts_specification () :
     confirmation_setting__prompt_specification =
   {
@@ -45836,12 +45846,13 @@ let confirmation_setting__prompt_specification ?allow_interrupt
     prompt_attempts_specification;
   }
 
-let confirmation_setting ?active ~code_hook ~confirmation_conditional
-    ~confirmation_next_step ~confirmation_response
-    ~declination_conditional ~declination_next_step
-    ~declination_response ~elicitation_code_hook ~failure_conditional
-    ~failure_next_step ~failure_response ~prompt_specification () :
-    confirmation_setting =
+let confirmation_setting ?active ?(code_hook = [])
+    ?(confirmation_conditional = []) ?(confirmation_next_step = [])
+    ?(confirmation_response = []) ?(declination_conditional = [])
+    ?(declination_next_step = []) ?(declination_response = [])
+    ?(elicitation_code_hook = []) ?(failure_conditional = [])
+    ?(failure_next_step = []) ?(failure_response = [])
+    ?(prompt_specification = []) () : confirmation_setting =
   {
     active;
     code_hook;
@@ -45873,7 +45884,7 @@ let fulfillment_code_hook__fulfillment_updates_specification__start_response__me
   { text; value }
 
 let fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -45891,8 +45902,8 @@ let fulfillment_code_hook__fulfillment_updates_specification__start_response__me
   { value }
 
 let fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message
     =
   {
@@ -45915,7 +45926,7 @@ let fulfillment_code_hook__fulfillment_updates_specification__start_response__me
   { text; value }
 
 let fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -45933,8 +45944,8 @@ let fulfillment_code_hook__fulfillment_updates_specification__start_response__me
   { value }
 
 let fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation
     =
   {
@@ -45945,13 +45956,13 @@ let fulfillment_code_hook__fulfillment_updates_specification__start_response__me
   }
 
 let fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group
     =
   { message; variation }
 
 let fulfillment_code_hook__fulfillment_updates_specification__start_response
-    ?allow_interrupt ?delay_in_seconds ~message_group () :
+    ?allow_interrupt ?delay_in_seconds ?(message_group = []) () :
     fulfillment_code_hook__fulfillment_updates_specification__start_response
     =
   { allow_interrupt; delay_in_seconds; message_group }
@@ -45969,7 +45980,7 @@ let fulfillment_code_hook__fulfillment_updates_specification__update_response__m
   { text; value }
 
 let fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -45987,8 +45998,8 @@ let fulfillment_code_hook__fulfillment_updates_specification__update_response__m
   { value }
 
 let fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message
     =
   {
@@ -46011,7 +46022,7 @@ let fulfillment_code_hook__fulfillment_updates_specification__update_response__m
   { text; value }
 
 let fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -46029,8 +46040,8 @@ let fulfillment_code_hook__fulfillment_updates_specification__update_response__m
   { value }
 
 let fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation
     =
   {
@@ -46041,19 +46052,20 @@ let fulfillment_code_hook__fulfillment_updates_specification__update_response__m
   }
 
 let fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group
     =
   { message; variation }
 
 let fulfillment_code_hook__fulfillment_updates_specification__update_response
-    ?allow_interrupt ~frequency_in_seconds ~message_group () :
+    ?allow_interrupt ?(message_group = []) ~frequency_in_seconds () :
     fulfillment_code_hook__fulfillment_updates_specification__update_response
     =
   { allow_interrupt; frequency_in_seconds; message_group }
 
 let fulfillment_code_hook__fulfillment_updates_specification
-    ?timeout_in_seconds ~active ~start_response ~update_response () :
+    ?timeout_in_seconds ?(start_response = [])
+    ?(update_response = []) ~active () :
     fulfillment_code_hook__fulfillment_updates_specification =
   { active; timeout_in_seconds; start_response; update_response }
 
@@ -46076,7 +46088,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_condit
   { interpreted_value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -46088,7 +46100,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_condit
   { name; slot }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -46106,7 +46118,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_condit
   { text; value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -46124,8 +46136,8 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_condit
   { value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message
     =
   {
@@ -46148,7 +46160,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_condit
   { text; value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -46166,8 +46178,8 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_condit
   { value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation
     =
   {
@@ -46178,19 +46190,19 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_condit
   }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group
     =
   { message; variation }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response
     =
   { allow_interrupt; message_group }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch
-    ~name ~condition ~next_step ~response () :
+    ?(condition = []) ?(next_step = []) ?(response = []) ~name () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch
     =
   { name; condition; next_step; response }
@@ -46208,7 +46220,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_condit
   { interpreted_value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -46220,7 +46232,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_condit
   { name; slot }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -46238,7 +46250,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_condit
   { text; value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -46256,8 +46268,8 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_condit
   { value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message
     =
   {
@@ -46280,7 +46292,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_condit
   { text; value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -46298,8 +46310,8 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_condit
   { value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation
     =
   {
@@ -46310,25 +46322,25 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_condit
   }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group
     =
   { message; variation }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response
     =
   { allow_interrupt; message_group }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch
-    ~next_step ~response () :
+    ?(next_step = []) ?(response = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch
     =
   { next_step; response }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional
-    ~active ~conditional_branch ~default_branch () :
+    ?(conditional_branch = []) ?(default_branch = []) ~active () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional
     =
   { active; conditional_branch; default_branch }
@@ -46346,7 +46358,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_next_s
   { interpreted_value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -46358,7 +46370,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_next_s
   { name; slot }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step
     =
   { session_attributes; dialog_action; intent }
@@ -46376,7 +46388,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_respon
   { text; value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -46394,8 +46406,8 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_respon
   { value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message
     =
   {
@@ -46418,7 +46430,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_respon
   { text; value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -46436,8 +46448,8 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_respon
   { value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation
     =
   {
@@ -46448,13 +46460,13 @@ let fulfillment_code_hook__post_fulfillment_status_specification__failure_respon
   }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group
     =
   { message; variation }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__failure_response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response
     =
   { allow_interrupt; message_group }
@@ -46478,7 +46490,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_condit
   { interpreted_value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -46490,7 +46502,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_condit
   { name; slot }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -46508,7 +46520,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_condit
   { text; value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -46526,8 +46538,8 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_condit
   { value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message
     =
   {
@@ -46550,7 +46562,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_condit
   { text; value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -46568,8 +46580,8 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_condit
   { value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation
     =
   {
@@ -46580,19 +46592,19 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_condit
   }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group
     =
   { message; variation }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response
     =
   { allow_interrupt; message_group }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch
-    ~name ~condition ~next_step ~response () :
+    ?(condition = []) ?(next_step = []) ?(response = []) ~name () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch
     =
   { name; condition; next_step; response }
@@ -46610,7 +46622,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_condit
   { interpreted_value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -46622,7 +46634,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_condit
   { name; slot }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -46640,7 +46652,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_condit
   { text; value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -46658,8 +46670,8 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_condit
   { value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message
     =
   {
@@ -46682,7 +46694,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_condit
   { text; value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -46700,8 +46712,8 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_condit
   { value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation
     =
   {
@@ -46712,25 +46724,25 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_condit
   }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group
     =
   { message; variation }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response
     =
   { allow_interrupt; message_group }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch
-    ~next_step ~response () :
+    ?(next_step = []) ?(response = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch
     =
   { next_step; response }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_conditional
-    ~active ~conditional_branch ~default_branch () :
+    ?(conditional_branch = []) ?(default_branch = []) ~active () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional
     =
   { active; conditional_branch; default_branch }
@@ -46748,7 +46760,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_next_s
   { interpreted_value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -46760,7 +46772,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_next_s
   { name; slot }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_next_step
     =
   { session_attributes; dialog_action; intent }
@@ -46778,7 +46790,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_respon
   { text; value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -46796,8 +46808,8 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_respon
   { value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message
     =
   {
@@ -46820,7 +46832,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_respon
   { text; value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -46838,8 +46850,8 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_respon
   { value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation
     =
   {
@@ -46850,13 +46862,13 @@ let fulfillment_code_hook__post_fulfillment_status_specification__success_respon
   }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group
     =
   { message; variation }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__success_response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response
     =
   { allow_interrupt; message_group }
@@ -46880,7 +46892,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_condit
   { interpreted_value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -46892,7 +46904,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_condit
   { name; slot }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -46910,7 +46922,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_condit
   { text; value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -46928,8 +46940,8 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_condit
   { value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message
     =
   {
@@ -46952,7 +46964,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_condit
   { text; value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -46970,8 +46982,8 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_condit
   { value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation
     =
   {
@@ -46982,19 +46994,19 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_condit
   }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group
     =
   { message; variation }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response
     =
   { allow_interrupt; message_group }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch
-    ~name ~condition ~next_step ~response () :
+    ?(condition = []) ?(next_step = []) ?(response = []) ~name () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch
     =
   { name; condition; next_step; response }
@@ -47012,7 +47024,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_condit
   { interpreted_value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -47024,7 +47036,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_condit
   { name; slot }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -47042,7 +47054,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_condit
   { text; value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -47060,8 +47072,8 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_condit
   { value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message
     =
   {
@@ -47084,7 +47096,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_condit
   { text; value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -47102,8 +47114,8 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_condit
   { value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation
     =
   {
@@ -47114,25 +47126,25 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_condit
   }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group
     =
   { message; variation }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response
     =
   { allow_interrupt; message_group }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch
-    ~next_step ~response () :
+    ?(next_step = []) ?(response = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch
     =
   { next_step; response }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional
-    ~active ~conditional_branch ~default_branch () :
+    ?(conditional_branch = []) ?(default_branch = []) ~active () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional
     =
   { active; conditional_branch; default_branch }
@@ -47150,7 +47162,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_s
   { interpreted_value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -47162,7 +47174,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_s
   { name; slot }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step
     =
   { session_attributes; dialog_action; intent }
@@ -47180,7 +47192,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_respon
   { text; value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -47198,8 +47210,8 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_respon
   { value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message
     =
   {
@@ -47222,7 +47234,7 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_respon
   { text; value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -47240,8 +47252,8 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_respon
   { value }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation
     =
   {
@@ -47252,21 +47264,23 @@ let fulfillment_code_hook__post_fulfillment_status_specification__timeout_respon
   }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group
     =
   { message; variation }
 
 let fulfillment_code_hook__post_fulfillment_status_specification__timeout_response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response
     =
   { allow_interrupt; message_group }
 
 let fulfillment_code_hook__post_fulfillment_status_specification
-    ~failure_conditional ~failure_next_step ~failure_response
-    ~success_conditional ~success_next_step ~success_response
-    ~timeout_conditional ~timeout_next_step ~timeout_response () :
+    ?(failure_conditional = []) ?(failure_next_step = [])
+    ?(failure_response = []) ?(success_conditional = [])
+    ?(success_next_step = []) ?(success_response = [])
+    ?(timeout_conditional = []) ?(timeout_next_step = [])
+    ?(timeout_response = []) () :
     fulfillment_code_hook__post_fulfillment_status_specification =
   {
     failure_conditional;
@@ -47280,10 +47294,10 @@ let fulfillment_code_hook__post_fulfillment_status_specification
     timeout_response;
   }
 
-let fulfillment_code_hook ?active ~enabled
-    ~fulfillment_updates_specification
-    ~post_fulfillment_status_specification () : fulfillment_code_hook
-    =
+let fulfillment_code_hook ?active
+    ?(fulfillment_updates_specification = [])
+    ?(post_fulfillment_status_specification = []) ~enabled () :
+    fulfillment_code_hook =
   {
     active;
     enabled;
@@ -47310,7 +47324,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_c
   { interpreted_value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -47322,7 +47336,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_c
   { name; slot }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -47340,7 +47354,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_c
   { text; value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -47358,8 +47372,8 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_c
   { value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message
     =
   {
@@ -47382,7 +47396,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_c
   { text; value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -47400,8 +47414,8 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_c
   { value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation
     =
   {
@@ -47412,19 +47426,19 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_c
   }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group
     =
   { message; variation }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response
     =
   { allow_interrupt; message_group }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch
-    ~name ~condition ~next_step ~response () :
+    ?(condition = []) ?(next_step = []) ?(response = []) ~name () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch
     =
   { name; condition; next_step; response }
@@ -47442,7 +47456,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_c
   { interpreted_value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -47454,7 +47468,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_c
   { name; slot }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -47472,7 +47486,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_c
   { text; value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -47490,8 +47504,8 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_c
   { value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message
     =
   {
@@ -47514,7 +47528,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_c
   { text; value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -47532,8 +47546,8 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_c
   { value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation
     =
   {
@@ -47544,25 +47558,25 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_c
   }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group
     =
   { message; variation }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response
     =
   { allow_interrupt; message_group }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch
-    ~next_step ~response () :
+    ?(next_step = []) ?(response = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch
     =
   { next_step; response }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_conditional
-    ~active ~conditional_branch ~default_branch () :
+    ?(conditional_branch = []) ?(default_branch = []) ~active () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional
     =
   { active; conditional_branch; default_branch }
@@ -47580,7 +47594,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_n
   { interpreted_value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -47592,7 +47606,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_n
   { name; slot }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_next_step
     =
   { session_attributes; dialog_action; intent }
@@ -47610,7 +47624,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_r
   { text; value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -47628,8 +47642,8 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_r
   { value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message
     =
   {
@@ -47652,7 +47666,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_r
   { text; value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -47670,8 +47684,8 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_r
   { value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation
     =
   {
@@ -47682,13 +47696,13 @@ let initial_response_setting__code_hook__post_code_hook_specification__failure_r
   }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group
     =
   { message; variation }
 
 let initial_response_setting__code_hook__post_code_hook_specification__failure_response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response
     =
   { allow_interrupt; message_group }
@@ -47712,7 +47726,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_c
   { interpreted_value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -47724,7 +47738,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_c
   { name; slot }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -47742,7 +47756,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_c
   { text; value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -47760,8 +47774,8 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_c
   { value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message
     =
   {
@@ -47784,7 +47798,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_c
   { text; value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -47802,8 +47816,8 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_c
   { value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation
     =
   {
@@ -47814,19 +47828,19 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_c
   }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group
     =
   { message; variation }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response
     =
   { allow_interrupt; message_group }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch
-    ~name ~condition ~next_step ~response () :
+    ?(condition = []) ?(next_step = []) ?(response = []) ~name () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch
     =
   { name; condition; next_step; response }
@@ -47844,7 +47858,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_c
   { interpreted_value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -47856,7 +47870,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_c
   { name; slot }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -47874,7 +47888,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_c
   { text; value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -47892,8 +47906,8 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_c
   { value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message
     =
   {
@@ -47916,7 +47930,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_c
   { text; value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -47934,8 +47948,8 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_c
   { value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation
     =
   {
@@ -47946,25 +47960,25 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_c
   }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group
     =
   { message; variation }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response
     =
   { allow_interrupt; message_group }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch
-    ~next_step ~response () :
+    ?(next_step = []) ?(response = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch
     =
   { next_step; response }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_conditional
-    ~active ~conditional_branch ~default_branch () :
+    ?(conditional_branch = []) ?(default_branch = []) ~active () :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional
     =
   { active; conditional_branch; default_branch }
@@ -47982,7 +47996,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_n
   { interpreted_value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -47994,7 +48008,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_n
   { name; slot }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__success_next_step
     =
   { session_attributes; dialog_action; intent }
@@ -48012,7 +48026,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_r
   { text; value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -48030,8 +48044,8 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_r
   { value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message
     =
   {
@@ -48054,7 +48068,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_r
   { text; value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -48072,8 +48086,8 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_r
   { value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation
     =
   {
@@ -48084,13 +48098,13 @@ let initial_response_setting__code_hook__post_code_hook_specification__success_r
   }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group
     =
   { message; variation }
 
 let initial_response_setting__code_hook__post_code_hook_specification__success_response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__success_response
     =
   { allow_interrupt; message_group }
@@ -48114,7 +48128,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_c
   { interpreted_value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -48126,7 +48140,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_c
   { name; slot }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -48144,7 +48158,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_c
   { text; value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -48162,8 +48176,8 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_c
   { value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message
     =
   {
@@ -48186,7 +48200,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_c
   { text; value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -48204,8 +48218,8 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_c
   { value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation
     =
   {
@@ -48216,19 +48230,19 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_c
   }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group
     =
   { message; variation }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response
     =
   { allow_interrupt; message_group }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch
-    ~name ~condition ~next_step ~response () :
+    ?(condition = []) ?(next_step = []) ?(response = []) ~name () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch
     =
   { name; condition; next_step; response }
@@ -48246,7 +48260,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_c
   { interpreted_value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -48258,7 +48272,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_c
   { name; slot }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -48276,7 +48290,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_c
   { text; value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -48294,8 +48308,8 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_c
   { value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message
     =
   {
@@ -48318,7 +48332,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_c
   { text; value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -48336,8 +48350,8 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_c
   { value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation
     =
   {
@@ -48348,25 +48362,25 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_c
   }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group
     =
   { message; variation }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response
     =
   { allow_interrupt; message_group }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch
-    ~next_step ~response () :
+    ?(next_step = []) ?(response = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch
     =
   { next_step; response }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional
-    ~active ~conditional_branch ~default_branch () :
+    ?(conditional_branch = []) ?(default_branch = []) ~active () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional
     =
   { active; conditional_branch; default_branch }
@@ -48384,7 +48398,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_n
   { interpreted_value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -48396,7 +48410,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_n
   { name; slot }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step
     =
   { session_attributes; dialog_action; intent }
@@ -48414,7 +48428,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_r
   { text; value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -48432,8 +48446,8 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_r
   { value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message
     =
   {
@@ -48456,7 +48470,7 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_r
   { text; value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -48474,8 +48488,8 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_r
   { value }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation
     =
   {
@@ -48486,21 +48500,23 @@ let initial_response_setting__code_hook__post_code_hook_specification__timeout_r
   }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group
     =
   { message; variation }
 
 let initial_response_setting__code_hook__post_code_hook_specification__timeout_response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response
     =
   { allow_interrupt; message_group }
 
 let initial_response_setting__code_hook__post_code_hook_specification
-    ~failure_conditional ~failure_next_step ~failure_response
-    ~success_conditional ~success_next_step ~success_response
-    ~timeout_conditional ~timeout_next_step ~timeout_response () :
+    ?(failure_conditional = []) ?(failure_next_step = [])
+    ?(failure_response = []) ?(success_conditional = [])
+    ?(success_next_step = []) ?(success_response = [])
+    ?(timeout_conditional = []) ?(timeout_next_step = [])
+    ?(timeout_response = []) () :
     initial_response_setting__code_hook__post_code_hook_specification
     =
   {
@@ -48515,8 +48531,9 @@ let initial_response_setting__code_hook__post_code_hook_specification
     timeout_response;
   }
 
-let initial_response_setting__code_hook ?invocation_label ~active
-    ~enable_code_hook_invocation ~post_code_hook_specification () :
+let initial_response_setting__code_hook ?invocation_label
+    ?(post_code_hook_specification = []) ~active
+    ~enable_code_hook_invocation () :
     initial_response_setting__code_hook =
   {
     active;
@@ -48544,7 +48561,7 @@ let initial_response_setting__conditional__conditional_branch__next_step__intent
   { interpreted_value }
 
 let initial_response_setting__conditional__conditional_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     initial_response_setting__conditional__conditional_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -48556,7 +48573,7 @@ let initial_response_setting__conditional__conditional_branch__next_step__intent
   { name; slot }
 
 let initial_response_setting__conditional__conditional_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     initial_response_setting__conditional__conditional_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -48574,7 +48591,7 @@ let initial_response_setting__conditional__conditional_branch__response__message
   { text; value }
 
 let initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -48592,8 +48609,8 @@ let initial_response_setting__conditional__conditional_branch__response__message
   { value }
 
 let initial_response_setting__conditional__conditional_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__conditional__conditional_branch__response__message_group__message
     =
   {
@@ -48616,7 +48633,7 @@ let initial_response_setting__conditional__conditional_branch__response__message
   { text; value }
 
 let initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -48634,8 +48651,8 @@ let initial_response_setting__conditional__conditional_branch__response__message
   { value }
 
 let initial_response_setting__conditional__conditional_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__conditional__conditional_branch__response__message_group__variation
     =
   {
@@ -48646,19 +48663,19 @@ let initial_response_setting__conditional__conditional_branch__response__message
   }
 
 let initial_response_setting__conditional__conditional_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     initial_response_setting__conditional__conditional_branch__response__message_group
     =
   { message; variation }
 
 let initial_response_setting__conditional__conditional_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     initial_response_setting__conditional__conditional_branch__response
     =
   { allow_interrupt; message_group }
 
-let initial_response_setting__conditional__conditional_branch ~name
-    ~condition ~next_step ~response () :
+let initial_response_setting__conditional__conditional_branch
+    ?(condition = []) ?(next_step = []) ?(response = []) ~name () :
     initial_response_setting__conditional__conditional_branch =
   { name; condition; next_step; response }
 
@@ -48675,7 +48692,7 @@ let initial_response_setting__conditional__default_branch__next_step__intent__sl
   { interpreted_value }
 
 let initial_response_setting__conditional__default_branch__next_step__intent__slot
-    ?shape ~map_block_key ~value () :
+    ?shape ?(value = []) ~map_block_key () :
     initial_response_setting__conditional__default_branch__next_step__intent__slot
     =
   { map_block_key; shape; value }
@@ -48687,7 +48704,7 @@ let initial_response_setting__conditional__default_branch__next_step__intent
   { name; slot }
 
 let initial_response_setting__conditional__default_branch__next_step
-    ?session_attributes ~dialog_action ~intent () :
+    ?session_attributes ?(dialog_action = []) ?(intent = []) () :
     initial_response_setting__conditional__default_branch__next_step
     =
   { session_attributes; dialog_action; intent }
@@ -48705,7 +48722,7 @@ let initial_response_setting__conditional__default_branch__response__message_gro
   { text; value }
 
 let initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -48723,8 +48740,8 @@ let initial_response_setting__conditional__default_branch__response__message_gro
   { value }
 
 let initial_response_setting__conditional__default_branch__response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__conditional__default_branch__response__message_group__message
     =
   {
@@ -48747,7 +48764,7 @@ let initial_response_setting__conditional__default_branch__response__message_gro
   { text; value }
 
 let initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -48765,8 +48782,8 @@ let initial_response_setting__conditional__default_branch__response__message_gro
   { value }
 
 let initial_response_setting__conditional__default_branch__response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__conditional__default_branch__response__message_group__variation
     =
   {
@@ -48777,23 +48794,24 @@ let initial_response_setting__conditional__default_branch__response__message_gro
   }
 
 let initial_response_setting__conditional__default_branch__response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     initial_response_setting__conditional__default_branch__response__message_group
     =
   { message; variation }
 
 let initial_response_setting__conditional__default_branch__response
-    ?allow_interrupt ~message_group () :
+    ?allow_interrupt ?(message_group = []) () :
     initial_response_setting__conditional__default_branch__response =
   { allow_interrupt; message_group }
 
-let initial_response_setting__conditional__default_branch ~next_step
-    ~response () :
+let initial_response_setting__conditional__default_branch
+    ?(next_step = []) ?(response = []) () :
     initial_response_setting__conditional__default_branch =
   { next_step; response }
 
-let initial_response_setting__conditional ~active ~conditional_branch
-    ~default_branch () : initial_response_setting__conditional =
+let initial_response_setting__conditional ?(conditional_branch = [])
+    ?(default_branch = []) ~active () :
+    initial_response_setting__conditional =
   { active; conditional_branch; default_branch }
 
 let initial_response_setting__initial_response__message_group__message__custom_payload
@@ -48809,7 +48827,7 @@ let initial_response_setting__initial_response__message_group__message__image_re
   { text; value }
 
 let initial_response_setting__initial_response__message_group__message__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__initial_response__message_group__message__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -48827,8 +48845,8 @@ let initial_response_setting__initial_response__message_group__message__ssml_mes
   { value }
 
 let initial_response_setting__initial_response__message_group__message
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__initial_response__message_group__message
     =
   {
@@ -48851,7 +48869,7 @@ let initial_response_setting__initial_response__message_group__variation__image_
   { text; value }
 
 let initial_response_setting__initial_response__message_group__variation__image_response_card
-    ?image_url ?subtitle ~title ~button () :
+    ?image_url ?subtitle ?(button = []) ~title () :
     initial_response_setting__initial_response__message_group__variation__image_response_card
     =
   { image_url; subtitle; title; button }
@@ -48869,8 +48887,8 @@ let initial_response_setting__initial_response__message_group__variation__ssml_m
   { value }
 
 let initial_response_setting__initial_response__message_group__variation
-    ~custom_payload ~image_response_card ~plain_text_message
-    ~ssml_message () :
+    ?(custom_payload = []) ?(image_response_card = [])
+    ?(plain_text_message = []) ?(ssml_message = []) () :
     initial_response_setting__initial_response__message_group__variation
     =
   {
@@ -48881,12 +48899,13 @@ let initial_response_setting__initial_response__message_group__variation
   }
 
 let initial_response_setting__initial_response__message_group
-    ~message ~variation () :
+    ?(message = []) ?(variation = []) () :
     initial_response_setting__initial_response__message_group =
   { message; variation }
 
 let initial_response_setting__initial_response ?allow_interrupt
-    ~message_group () : initial_response_setting__initial_response =
+    ?(message_group = []) () :
+    initial_response_setting__initial_response =
   { allow_interrupt; message_group }
 
 let initial_response_setting__next_step__dialog_action
@@ -48900,7 +48919,7 @@ let initial_response_setting__next_step__intent__slot__value
   { interpreted_value }
 
 let initial_response_setting__next_step__intent__slot ?shape
-    ~map_block_key ~value () :
+    ?(value = []) ~map_block_key () :
     initial_response_setting__next_step__intent__slot =
   { map_block_key; shape; value }
 
@@ -48909,11 +48928,13 @@ let initial_response_setting__next_step__intent ?name ~slot () :
   { name; slot }
 
 let initial_response_setting__next_step ?session_attributes
-    ~dialog_action ~intent () : initial_response_setting__next_step =
+    ?(dialog_action = []) ?(intent = []) () :
+    initial_response_setting__next_step =
   { session_attributes; dialog_action; intent }
 
-let initial_response_setting ~code_hook ~conditional
-    ~initial_response ~next_step () : initial_response_setting =
+let initial_response_setting ?(code_hook = []) ?(conditional = [])
+    ?(initial_response = []) ?(next_step = []) () :
+    initial_response_setting =
   { code_hook; conditional; initial_response; next_step }
 
 let input_context ~name () : input_context = { name }
@@ -48936,11 +48957,12 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_lexv2models_intent ?description ?parent_intent_signature
-    ?timeouts ~bot_id ~bot_version ~locale_id ~name ~closing_setting
-    ~confirmation_setting ~dialog_code_hook ~fulfillment_code_hook
-    ~initial_response_setting ~input_context ~kendra_configuration
-    ~output_context ~sample_utterance ~slot_priority () :
-    aws_lexv2models_intent =
+    ?(closing_setting = []) ?(confirmation_setting = [])
+    ?(dialog_code_hook = []) ?(fulfillment_code_hook = [])
+    ?(initial_response_setting = []) ?(input_context = [])
+    ?(kendra_configuration = []) ?(output_context = [])
+    ?(sample_utterance = []) ?(slot_priority = []) ?timeouts ~bot_id
+    ~bot_version ~locale_id ~name () : aws_lexv2models_intent =
   {
     bot_id;
     bot_version;
@@ -48974,11 +48996,13 @@ type t = {
   parent_intent_signature : string prop;
 }
 
-let make ?description ?parent_intent_signature ?timeouts ~bot_id
-    ~bot_version ~locale_id ~name ~closing_setting
-    ~confirmation_setting ~dialog_code_hook ~fulfillment_code_hook
-    ~initial_response_setting ~input_context ~kendra_configuration
-    ~output_context ~sample_utterance ~slot_priority __id =
+let make ?description ?parent_intent_signature
+    ?(closing_setting = []) ?(confirmation_setting = [])
+    ?(dialog_code_hook = []) ?(fulfillment_code_hook = [])
+    ?(initial_response_setting = []) ?(input_context = [])
+    ?(kendra_configuration = []) ?(output_context = [])
+    ?(sample_utterance = []) ?(slot_priority = []) ?timeouts ~bot_id
+    ~bot_version ~locale_id ~name __id =
   let __type = "aws_lexv2models_intent" in
   let __attrs =
     ({
@@ -49004,25 +49028,27 @@ let make ?description ?parent_intent_signature ?timeouts ~bot_id
     json =
       yojson_of_aws_lexv2models_intent
         (aws_lexv2models_intent ?description ?parent_intent_signature
-           ?timeouts ~bot_id ~bot_version ~locale_id ~name
            ~closing_setting ~confirmation_setting ~dialog_code_hook
            ~fulfillment_code_hook ~initial_response_setting
            ~input_context ~kendra_configuration ~output_context
-           ~sample_utterance ~slot_priority ());
+           ~sample_utterance ~slot_priority ?timeouts ~bot_id
+           ~bot_version ~locale_id ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?parent_intent_signature
-    ?timeouts ~bot_id ~bot_version ~locale_id ~name ~closing_setting
-    ~confirmation_setting ~dialog_code_hook ~fulfillment_code_hook
-    ~initial_response_setting ~input_context ~kendra_configuration
-    ~output_context ~sample_utterance ~slot_priority __id =
+    ?(closing_setting = []) ?(confirmation_setting = [])
+    ?(dialog_code_hook = []) ?(fulfillment_code_hook = [])
+    ?(initial_response_setting = []) ?(input_context = [])
+    ?(kendra_configuration = []) ?(output_context = [])
+    ?(sample_utterance = []) ?(slot_priority = []) ?timeouts ~bot_id
+    ~bot_version ~locale_id ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?parent_intent_signature ?timeouts ~bot_id
-      ~bot_version ~locale_id ~name ~closing_setting
+    make ?description ?parent_intent_signature ~closing_setting
       ~confirmation_setting ~dialog_code_hook ~fulfillment_code_hook
       ~initial_response_setting ~input_context ~kendra_configuration
-      ~output_context ~sample_utterance ~slot_priority __id
+      ~output_context ~sample_utterance ~slot_priority ?timeouts
+      ~bot_id ~bot_version ~locale_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -22,9 +22,9 @@ type aws_s3_bucket_intelligent_tiering_configuration
 val aws_s3_bucket_intelligent_tiering_configuration :
   ?id:string prop ->
   ?status:string prop ->
+  ?filter:filter list ->
   bucket:string prop ->
   name:string prop ->
-  filter:filter list ->
   tiering:tiering list ->
   unit ->
   aws_s3_bucket_intelligent_tiering_configuration
@@ -45,9 +45,9 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?status:string prop ->
+  ?filter:filter list ->
   bucket:string prop ->
   name:string prop ->
-  filter:filter list ->
   tiering:tiering list ->
   string ->
   t
@@ -55,9 +55,9 @@ val register :
 val make :
   ?id:string prop ->
   ?status:string prop ->
+  ?filter:filter list ->
   bucket:string prop ->
   name:string prop ->
-  filter:filter list ->
   tiering:tiering list ->
   string ->
   t Tf_core.resource

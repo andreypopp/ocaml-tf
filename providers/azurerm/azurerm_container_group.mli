@@ -41,7 +41,7 @@ val container__liveness_probe :
   ?period_seconds:float prop ->
   ?success_threshold:float prop ->
   ?timeout_seconds:float prop ->
-  http_get:container__liveness_probe__http_get list ->
+  ?http_get:container__liveness_probe__http_get list ->
   unit ->
   container__liveness_probe
 
@@ -72,7 +72,7 @@ val container__readiness_probe :
   ?period_seconds:float prop ->
   ?success_threshold:float prop ->
   ?timeout_seconds:float prop ->
-  http_get:container__readiness_probe__http_get list ->
+  ?http_get:container__readiness_probe__http_get list ->
   unit ->
   container__readiness_probe
 
@@ -99,9 +99,9 @@ val container__volume :
   ?share_name:string prop ->
   ?storage_account_key:string prop ->
   ?storage_account_name:string prop ->
+  ?git_repo:container__volume__git_repo list ->
   mount_path:string prop ->
   name:string prop ->
-  git_repo:container__volume__git_repo list ->
   unit ->
   container__volume
 
@@ -113,17 +113,17 @@ val container :
   ?environment_variables:(string * string prop) list ->
   ?memory_limit:float prop ->
   ?secure_environment_variables:(string * string prop) list ->
+  ?gpu:container__gpu list ->
+  ?gpu_limit:container__gpu_limit list ->
+  ?liveness_probe:container__liveness_probe list ->
+  ?readiness_probe:container__readiness_probe list ->
+  ?security:container__security list ->
+  ?volume:container__volume list ->
   cpu:float prop ->
   image:string prop ->
   memory:float prop ->
   name:string prop ->
-  gpu:container__gpu list ->
-  gpu_limit:container__gpu_limit list ->
-  liveness_probe:container__liveness_probe list ->
   ports:container__ports list ->
-  readiness_probe:container__readiness_probe list ->
-  security:container__security list ->
-  volume:container__volume list ->
   unit ->
   container
 
@@ -194,9 +194,9 @@ val init_container__volume :
   ?share_name:string prop ->
   ?storage_account_key:string prop ->
   ?storage_account_name:string prop ->
+  ?git_repo:init_container__volume__git_repo list ->
   mount_path:string prop ->
   name:string prop ->
-  git_repo:init_container__volume__git_repo list ->
   unit ->
   init_container__volume
 
@@ -206,10 +206,10 @@ val init_container :
   ?commands:string prop list ->
   ?environment_variables:(string * string prop) list ->
   ?secure_environment_variables:(string * string prop) list ->
+  ?security:init_container__security list ->
+  ?volume:init_container__volume list ->
   image:string prop ->
   name:string prop ->
-  security:init_container__security list ->
-  volume:init_container__volume list ->
   unit ->
   init_container
 
@@ -240,17 +240,17 @@ val azurerm_container_group :
   ?subnet_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?zones:string prop list ->
+  ?diagnostics:diagnostics list ->
+  ?dns_config:dns_config list ->
+  ?identity:identity list ->
+  ?image_registry_credential:image_registry_credential list ->
+  ?init_container:init_container list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   os_type:string prop ->
   resource_group_name:string prop ->
   container:container list ->
-  diagnostics:diagnostics list ->
-  dns_config:dns_config list ->
-  identity:identity list ->
-  image_registry_credential:image_registry_credential list ->
-  init_container:init_container list ->
   unit ->
   azurerm_container_group
 
@@ -298,17 +298,17 @@ val register :
   ?subnet_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?zones:string prop list ->
+  ?diagnostics:diagnostics list ->
+  ?dns_config:dns_config list ->
+  ?identity:identity list ->
+  ?image_registry_credential:image_registry_credential list ->
+  ?init_container:init_container list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   os_type:string prop ->
   resource_group_name:string prop ->
   container:container list ->
-  diagnostics:diagnostics list ->
-  dns_config:dns_config list ->
-  identity:identity list ->
-  image_registry_credential:image_registry_credential list ->
-  init_container:init_container list ->
   string ->
   t
 
@@ -327,16 +327,16 @@ val make :
   ?subnet_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?zones:string prop list ->
+  ?diagnostics:diagnostics list ->
+  ?dns_config:dns_config list ->
+  ?identity:identity list ->
+  ?image_registry_credential:image_registry_credential list ->
+  ?init_container:init_container list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   os_type:string prop ->
   resource_group_name:string prop ->
   container:container list ->
-  diagnostics:diagnostics list ->
-  dns_config:dns_config list ->
-  identity:identity list ->
-  image_registry_credential:image_registry_credential list ->
-  init_container:init_container list ->
   string ->
   t Tf_core.resource

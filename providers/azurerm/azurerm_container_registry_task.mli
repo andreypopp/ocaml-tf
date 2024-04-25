@@ -93,8 +93,8 @@ val registry_credential__source :
 type registry_credential
 
 val registry_credential :
+  ?source:registry_credential__source list ->
   custom:registry_credential__custom list ->
-  source:registry_credential__source list ->
   unit ->
   registry_credential
 
@@ -114,11 +114,11 @@ type source_trigger
 val source_trigger :
   ?branch:string prop ->
   ?enabled:bool prop ->
+  ?authentication:source_trigger__authentication list ->
   events:string prop list ->
   name:string prop ->
   repository_url:string prop ->
   source_type:string prop ->
-  authentication:source_trigger__authentication list ->
   unit ->
   source_trigger
 
@@ -151,19 +151,19 @@ val azurerm_container_registry_task :
   ?log_template:string prop ->
   ?tags:(string * string prop) list ->
   ?timeout_in_seconds:float prop ->
+  ?agent_setting:agent_setting list ->
+  ?base_image_trigger:base_image_trigger list ->
+  ?docker_step:docker_step list ->
+  ?encoded_step:encoded_step list ->
+  ?file_step:file_step list ->
+  ?identity:identity list ->
+  ?platform:platform list ->
+  ?registry_credential:registry_credential list ->
+  ?source_trigger:source_trigger list ->
   ?timeouts:timeouts ->
+  ?timer_trigger:timer_trigger list ->
   container_registry_id:string prop ->
   name:string prop ->
-  agent_setting:agent_setting list ->
-  base_image_trigger:base_image_trigger list ->
-  docker_step:docker_step list ->
-  encoded_step:encoded_step list ->
-  file_step:file_step list ->
-  identity:identity list ->
-  platform:platform list ->
-  registry_credential:registry_credential list ->
-  source_trigger:source_trigger list ->
-  timer_trigger:timer_trigger list ->
   unit ->
   azurerm_container_registry_task
 
@@ -193,19 +193,19 @@ val register :
   ?log_template:string prop ->
   ?tags:(string * string prop) list ->
   ?timeout_in_seconds:float prop ->
+  ?agent_setting:agent_setting list ->
+  ?base_image_trigger:base_image_trigger list ->
+  ?docker_step:docker_step list ->
+  ?encoded_step:encoded_step list ->
+  ?file_step:file_step list ->
+  ?identity:identity list ->
+  ?platform:platform list ->
+  ?registry_credential:registry_credential list ->
+  ?source_trigger:source_trigger list ->
   ?timeouts:timeouts ->
+  ?timer_trigger:timer_trigger list ->
   container_registry_id:string prop ->
   name:string prop ->
-  agent_setting:agent_setting list ->
-  base_image_trigger:base_image_trigger list ->
-  docker_step:docker_step list ->
-  encoded_step:encoded_step list ->
-  file_step:file_step list ->
-  identity:identity list ->
-  platform:platform list ->
-  registry_credential:registry_credential list ->
-  source_trigger:source_trigger list ->
-  timer_trigger:timer_trigger list ->
   string ->
   t
 
@@ -217,18 +217,18 @@ val make :
   ?log_template:string prop ->
   ?tags:(string * string prop) list ->
   ?timeout_in_seconds:float prop ->
+  ?agent_setting:agent_setting list ->
+  ?base_image_trigger:base_image_trigger list ->
+  ?docker_step:docker_step list ->
+  ?encoded_step:encoded_step list ->
+  ?file_step:file_step list ->
+  ?identity:identity list ->
+  ?platform:platform list ->
+  ?registry_credential:registry_credential list ->
+  ?source_trigger:source_trigger list ->
   ?timeouts:timeouts ->
+  ?timer_trigger:timer_trigger list ->
   container_registry_id:string prop ->
   name:string prop ->
-  agent_setting:agent_setting list ->
-  base_image_trigger:base_image_trigger list ->
-  docker_step:docker_step list ->
-  encoded_step:encoded_step list ->
-  file_step:file_step list ->
-  identity:identity list ->
-  platform:platform list ->
-  registry_credential:registry_credential list ->
-  source_trigger:source_trigger list ->
-  timer_trigger:timer_trigger list ->
   string ->
   t Tf_core.resource

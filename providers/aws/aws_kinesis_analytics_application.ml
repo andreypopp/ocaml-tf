@@ -1175,11 +1175,12 @@ let inputs__schema__record_format__mapping_parameters__json
     inputs__schema__record_format__mapping_parameters__json =
   { record_row_path }
 
-let inputs__schema__record_format__mapping_parameters ~csv ~json () :
+let inputs__schema__record_format__mapping_parameters ?(csv = [])
+    ?(json = []) () :
     inputs__schema__record_format__mapping_parameters =
   { csv; json }
 
-let inputs__schema__record_format ~mapping_parameters () :
+let inputs__schema__record_format ?(mapping_parameters = []) () :
     inputs__schema__record_format =
   { mapping_parameters }
 
@@ -1191,9 +1192,10 @@ let inputs__starting_position_configuration ?starting_position () :
     inputs__starting_position_configuration =
   { starting_position }
 
-let inputs ~name_prefix ~kinesis_firehose ~kinesis_stream
-    ~parallelism ~processing_configuration ~schema
-    ~starting_position_configuration () : inputs =
+let inputs ?(kinesis_firehose = []) ?(kinesis_stream = [])
+    ?(parallelism = []) ?(processing_configuration = [])
+    ?(starting_position_configuration = []) ~name_prefix ~schema () :
+    inputs =
   {
     name_prefix;
     kinesis_firehose;
@@ -1218,8 +1220,8 @@ let outputs__lambda ~resource_arn ~role_arn () : outputs__lambda =
 let outputs__schema ~record_format_type () : outputs__schema =
   { record_format_type }
 
-let outputs ~name ~kinesis_firehose ~kinesis_stream ~lambda ~schema
-    () : outputs =
+let outputs ?(kinesis_firehose = []) ?(kinesis_stream = [])
+    ?(lambda = []) ~name ~schema () : outputs =
   { name; kinesis_firehose; kinesis_stream; lambda; schema }
 
 let reference_data_sources__s3 ~bucket_arn ~file_key ~role_arn () :
@@ -1243,13 +1245,14 @@ let reference_data_sources__schema__record_format__mapping_parameters__json
   { record_row_path }
 
 let reference_data_sources__schema__record_format__mapping_parameters
-    ~csv ~json () :
+    ?(csv = []) ?(json = []) () :
     reference_data_sources__schema__record_format__mapping_parameters
     =
   { csv; json }
 
-let reference_data_sources__schema__record_format ~mapping_parameters
-    () : reference_data_sources__schema__record_format =
+let reference_data_sources__schema__record_format
+    ?(mapping_parameters = []) () :
+    reference_data_sources__schema__record_format =
   { mapping_parameters }
 
 let reference_data_sources__schema ?record_encoding ~record_columns
@@ -1261,9 +1264,10 @@ let reference_data_sources ~table_name ~s3 ~schema () :
   { table_name; s3; schema }
 
 let aws_kinesis_analytics_application ?code ?description ?id
-    ?start_application ?tags ?tags_all ~name
-    ~cloudwatch_logging_options ~inputs ~outputs
-    ~reference_data_sources () : aws_kinesis_analytics_application =
+    ?start_application ?tags ?tags_all
+    ?(cloudwatch_logging_options = []) ?(inputs = [])
+    ?(reference_data_sources = []) ~name ~outputs () :
+    aws_kinesis_analytics_application =
   {
     code;
     description;
@@ -1294,8 +1298,8 @@ type t = {
 }
 
 let make ?code ?description ?id ?start_application ?tags ?tags_all
-    ~name ~cloudwatch_logging_options ~inputs ~outputs
-    ~reference_data_sources __id =
+    ?(cloudwatch_logging_options = []) ?(inputs = [])
+    ?(reference_data_sources = []) ~name ~outputs __id =
   let __type = "aws_kinesis_analytics_application" in
   let __attrs =
     ({
@@ -1323,19 +1327,19 @@ let make ?code ?description ?id ?start_application ?tags ?tags_all
     json =
       yojson_of_aws_kinesis_analytics_application
         (aws_kinesis_analytics_application ?code ?description ?id
-           ?start_application ?tags ?tags_all ~name
-           ~cloudwatch_logging_options ~inputs ~outputs
-           ~reference_data_sources ());
+           ?start_application ?tags ?tags_all
+           ~cloudwatch_logging_options ~inputs
+           ~reference_data_sources ~name ~outputs ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?code ?description ?id ?start_application
-    ?tags ?tags_all ~name ~cloudwatch_logging_options ~inputs
-    ~outputs ~reference_data_sources __id =
+    ?tags ?tags_all ?(cloudwatch_logging_options = []) ?(inputs = [])
+    ?(reference_data_sources = []) ~name ~outputs __id =
   let (r : _ Tf_core.resource) =
     make ?code ?description ?id ?start_application ?tags ?tags_all
-      ~name ~cloudwatch_logging_options ~inputs ~outputs
-      ~reference_data_sources __id
+      ~cloudwatch_logging_options ~inputs ~reference_data_sources
+      ~name ~outputs __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -320,8 +320,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_web_pubsub ?aad_auth_enabled ?capacity ?id
     ?local_auth_enabled ?public_network_access_enabled ?tags
-    ?tls_client_cert_enabled ?timeouts ~location ~name
-    ~resource_group_name ~sku ~identity ~live_trace () :
+    ?tls_client_cert_enabled ?(identity = []) ?(live_trace = [])
+    ?timeouts ~location ~name ~resource_group_name ~sku () :
     azurerm_web_pubsub =
   {
     aad_auth_enabled;
@@ -365,8 +365,8 @@ type t = {
 
 let make ?aad_auth_enabled ?capacity ?id ?local_auth_enabled
     ?public_network_access_enabled ?tags ?tls_client_cert_enabled
-    ?timeouts ~location ~name ~resource_group_name ~sku ~identity
-    ~live_trace __id =
+    ?(identity = []) ?(live_trace = []) ?timeouts ~location ~name
+    ~resource_group_name ~sku __id =
   let __type = "azurerm_web_pubsub" in
   let __attrs =
     ({
@@ -409,20 +409,20 @@ let make ?aad_auth_enabled ?capacity ?id ?local_auth_enabled
       yojson_of_azurerm_web_pubsub
         (azurerm_web_pubsub ?aad_auth_enabled ?capacity ?id
            ?local_auth_enabled ?public_network_access_enabled ?tags
-           ?tls_client_cert_enabled ?timeouts ~location ~name
-           ~resource_group_name ~sku ~identity ~live_trace ());
+           ?tls_client_cert_enabled ~identity ~live_trace ?timeouts
+           ~location ~name ~resource_group_name ~sku ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?aad_auth_enabled ?capacity ?id
     ?local_auth_enabled ?public_network_access_enabled ?tags
-    ?tls_client_cert_enabled ?timeouts ~location ~name
-    ~resource_group_name ~sku ~identity ~live_trace __id =
+    ?tls_client_cert_enabled ?(identity = []) ?(live_trace = [])
+    ?timeouts ~location ~name ~resource_group_name ~sku __id =
   let (r : _ Tf_core.resource) =
     make ?aad_auth_enabled ?capacity ?id ?local_auth_enabled
       ?public_network_access_enabled ?tags ?tls_client_cert_enabled
-      ?timeouts ~location ~name ~resource_group_name ~sku ~identity
-      ~live_trace __id
+      ~identity ~live_trace ?timeouts ~location ~name
+      ~resource_group_name ~sku __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

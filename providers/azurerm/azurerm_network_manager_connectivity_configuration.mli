@@ -36,12 +36,12 @@ val azurerm_network_manager_connectivity_configuration :
   ?description:string prop ->
   ?global_mesh_enabled:bool prop ->
   ?id:string prop ->
+  ?hub:hub list ->
   ?timeouts:timeouts ->
   connectivity_topology:string prop ->
   name:string prop ->
   network_manager_id:string prop ->
   applies_to_group:applies_to_group list ->
-  hub:hub list ->
   unit ->
   azurerm_network_manager_connectivity_configuration
 
@@ -66,12 +66,12 @@ val register :
   ?description:string prop ->
   ?global_mesh_enabled:bool prop ->
   ?id:string prop ->
+  ?hub:hub list ->
   ?timeouts:timeouts ->
   connectivity_topology:string prop ->
   name:string prop ->
   network_manager_id:string prop ->
   applies_to_group:applies_to_group list ->
-  hub:hub list ->
   string ->
   t
 
@@ -80,11 +80,11 @@ val make :
   ?description:string prop ->
   ?global_mesh_enabled:bool prop ->
   ?id:string prop ->
+  ?hub:hub list ->
   ?timeouts:timeouts ->
   connectivity_topology:string prop ->
   name:string prop ->
   network_manager_id:string prop ->
   applies_to_group:applies_to_group list ->
-  hub:hub list ->
   string ->
   t Tf_core.resource

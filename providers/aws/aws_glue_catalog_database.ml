@@ -309,8 +309,8 @@ let create_table_default_permission__principal
     create_table_default_permission__principal =
   { data_lake_principal_identifier }
 
-let create_table_default_permission ?permissions ~principal () :
-    create_table_default_permission =
+let create_table_default_permission ?permissions ?(principal = []) ()
+    : create_table_default_permission =
   { permissions; principal }
 
 let federated_database ?connection_name ?identifier () :
@@ -322,9 +322,10 @@ let target_database ?region ~catalog_id ~database_name () :
   { catalog_id; database_name; region }
 
 let aws_glue_catalog_database ?catalog_id ?description ?id
-    ?location_uri ?parameters ?tags ?tags_all ~name
-    ~create_table_default_permission ~federated_database
-    ~target_database () : aws_glue_catalog_database =
+    ?location_uri ?parameters ?tags ?tags_all
+    ?(create_table_default_permission = [])
+    ?(federated_database = []) ?(target_database = []) ~name () :
+    aws_glue_catalog_database =
   {
     catalog_id;
     description;
@@ -352,8 +353,8 @@ type t = {
 }
 
 let make ?catalog_id ?description ?id ?location_uri ?parameters ?tags
-    ?tags_all ~name ~create_table_default_permission
-    ~federated_database ~target_database __id =
+    ?tags_all ?(create_table_default_permission = [])
+    ?(federated_database = []) ?(target_database = []) ~name __id =
   let __type = "aws_glue_catalog_database" in
   let __attrs =
     ({
@@ -375,20 +376,20 @@ let make ?catalog_id ?description ?id ?location_uri ?parameters ?tags
     json =
       yojson_of_aws_glue_catalog_database
         (aws_glue_catalog_database ?catalog_id ?description ?id
-           ?location_uri ?parameters ?tags ?tags_all ~name
+           ?location_uri ?parameters ?tags ?tags_all
            ~create_table_default_permission ~federated_database
-           ~target_database ());
+           ~target_database ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?catalog_id ?description ?id ?location_uri
-    ?parameters ?tags ?tags_all ~name
-    ~create_table_default_permission ~federated_database
-    ~target_database __id =
+    ?parameters ?tags ?tags_all
+    ?(create_table_default_permission = [])
+    ?(federated_database = []) ?(target_database = []) ~name __id =
   let (r : _ Tf_core.resource) =
     make ?catalog_id ?description ?id ?location_uri ?parameters ?tags
-      ?tags_all ~name ~create_table_default_permission
-      ~federated_database ~target_database __id
+      ?tags_all ~create_table_default_permission ~federated_database
+      ~target_database ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -104,8 +104,8 @@ let _ = yojson_of_google_data_catalog_policy_tag_iam_binding
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_data_catalog_policy_tag_iam_binding ?id ~members
-    ~policy_tag ~role ~condition () :
+let google_data_catalog_policy_tag_iam_binding ?id ?(condition = [])
+    ~members ~policy_tag ~role () :
     google_data_catalog_policy_tag_iam_binding =
   { id; members; policy_tag; role; condition }
 
@@ -117,7 +117,7 @@ type t = {
   role : string prop;
 }
 
-let make ?id ~members ~policy_tag ~role ~condition __id =
+let make ?id ?(condition = []) ~members ~policy_tag ~role __id =
   let __type = "google_data_catalog_policy_tag_iam_binding" in
   let __attrs =
     ({
@@ -134,15 +134,15 @@ let make ?id ~members ~policy_tag ~role ~condition __id =
     type_ = __type;
     json =
       yojson_of_google_data_catalog_policy_tag_iam_binding
-        (google_data_catalog_policy_tag_iam_binding ?id ~members
-           ~policy_tag ~role ~condition ());
+        (google_data_catalog_policy_tag_iam_binding ?id ~condition
+           ~members ~policy_tag ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~members ~policy_tag ~role ~condition
-    __id =
+let register ?tf_module ?id ?(condition = []) ~members ~policy_tag
+    ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~members ~policy_tag ~role ~condition __id
+    make ?id ~condition ~members ~policy_tag ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

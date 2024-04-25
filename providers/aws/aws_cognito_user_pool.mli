@@ -33,7 +33,7 @@ type admin_create_user_config
 
 val admin_create_user_config :
   ?allow_admin_create_user_only:bool prop ->
-  invite_message_template:
+  ?invite_message_template:
     admin_create_user_config__invite_message_template list ->
   unit ->
   admin_create_user_config
@@ -95,9 +95,9 @@ val lambda_config :
   ?pre_token_generation:string prop ->
   ?user_migration:string prop ->
   ?verify_auth_challenge_response:string prop ->
-  custom_email_sender:lambda_config__custom_email_sender list ->
-  custom_sms_sender:lambda_config__custom_sms_sender list ->
-  pre_token_generation_config:
+  ?custom_email_sender:lambda_config__custom_email_sender list ->
+  ?custom_sms_sender:lambda_config__custom_sms_sender list ->
+  ?pre_token_generation_config:
     lambda_config__pre_token_generation_config list ->
   unit ->
   lambda_config
@@ -136,12 +136,12 @@ val schema :
   ?developer_only_attribute:bool prop ->
   ?mutable_:bool prop ->
   ?required:bool prop ->
+  ?number_attribute_constraints:
+    schema__number_attribute_constraints list ->
+  ?string_attribute_constraints:
+    schema__string_attribute_constraints list ->
   attribute_data_type:string prop ->
   name:string prop ->
-  number_attribute_constraints:
-    schema__number_attribute_constraints list ->
-  string_attribute_constraints:
-    schema__string_attribute_constraints list ->
   unit ->
   schema
 
@@ -203,21 +203,21 @@ val aws_cognito_user_pool :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?username_attributes:string prop list ->
-  name:string prop ->
-  account_recovery_setting:account_recovery_setting list ->
-  admin_create_user_config:admin_create_user_config list ->
-  device_configuration:device_configuration list ->
-  email_configuration:email_configuration list ->
-  lambda_config:lambda_config list ->
-  password_policy:password_policy list ->
-  schema:schema list ->
-  sms_configuration:sms_configuration list ->
-  software_token_mfa_configuration:
+  ?account_recovery_setting:account_recovery_setting list ->
+  ?admin_create_user_config:admin_create_user_config list ->
+  ?device_configuration:device_configuration list ->
+  ?email_configuration:email_configuration list ->
+  ?lambda_config:lambda_config list ->
+  ?password_policy:password_policy list ->
+  ?sms_configuration:sms_configuration list ->
+  ?software_token_mfa_configuration:
     software_token_mfa_configuration list ->
-  user_attribute_update_settings:user_attribute_update_settings list ->
-  user_pool_add_ons:user_pool_add_ons list ->
-  username_configuration:username_configuration list ->
-  verification_message_template:verification_message_template list ->
+  ?user_attribute_update_settings:user_attribute_update_settings list ->
+  ?user_pool_add_ons:user_pool_add_ons list ->
+  ?username_configuration:username_configuration list ->
+  ?verification_message_template:verification_message_template list ->
+  name:string prop ->
+  schema:schema list ->
   unit ->
   aws_cognito_user_pool
 
@@ -262,21 +262,21 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?username_attributes:string prop list ->
-  name:string prop ->
-  account_recovery_setting:account_recovery_setting list ->
-  admin_create_user_config:admin_create_user_config list ->
-  device_configuration:device_configuration list ->
-  email_configuration:email_configuration list ->
-  lambda_config:lambda_config list ->
-  password_policy:password_policy list ->
-  schema:schema list ->
-  sms_configuration:sms_configuration list ->
-  software_token_mfa_configuration:
+  ?account_recovery_setting:account_recovery_setting list ->
+  ?admin_create_user_config:admin_create_user_config list ->
+  ?device_configuration:device_configuration list ->
+  ?email_configuration:email_configuration list ->
+  ?lambda_config:lambda_config list ->
+  ?password_policy:password_policy list ->
+  ?sms_configuration:sms_configuration list ->
+  ?software_token_mfa_configuration:
     software_token_mfa_configuration list ->
-  user_attribute_update_settings:user_attribute_update_settings list ->
-  user_pool_add_ons:user_pool_add_ons list ->
-  username_configuration:username_configuration list ->
-  verification_message_template:verification_message_template list ->
+  ?user_attribute_update_settings:user_attribute_update_settings list ->
+  ?user_pool_add_ons:user_pool_add_ons list ->
+  ?username_configuration:username_configuration list ->
+  ?verification_message_template:verification_message_template list ->
+  name:string prop ->
+  schema:schema list ->
   string ->
   t
 
@@ -293,20 +293,20 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?username_attributes:string prop list ->
-  name:string prop ->
-  account_recovery_setting:account_recovery_setting list ->
-  admin_create_user_config:admin_create_user_config list ->
-  device_configuration:device_configuration list ->
-  email_configuration:email_configuration list ->
-  lambda_config:lambda_config list ->
-  password_policy:password_policy list ->
-  schema:schema list ->
-  sms_configuration:sms_configuration list ->
-  software_token_mfa_configuration:
+  ?account_recovery_setting:account_recovery_setting list ->
+  ?admin_create_user_config:admin_create_user_config list ->
+  ?device_configuration:device_configuration list ->
+  ?email_configuration:email_configuration list ->
+  ?lambda_config:lambda_config list ->
+  ?password_policy:password_policy list ->
+  ?sms_configuration:sms_configuration list ->
+  ?software_token_mfa_configuration:
     software_token_mfa_configuration list ->
-  user_attribute_update_settings:user_attribute_update_settings list ->
-  user_pool_add_ons:user_pool_add_ons list ->
-  username_configuration:username_configuration list ->
-  verification_message_template:verification_message_template list ->
+  ?user_attribute_update_settings:user_attribute_update_settings list ->
+  ?user_pool_add_ons:user_pool_add_ons list ->
+  ?username_configuration:username_configuration list ->
+  ?verification_message_template:verification_message_template list ->
+  name:string prop ->
+  schema:schema list ->
   string ->
   t Tf_core.resource

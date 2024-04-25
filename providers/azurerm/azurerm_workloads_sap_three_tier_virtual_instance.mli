@@ -180,7 +180,7 @@ type three_tier_configuration__resource_names__application_server
 
 val three_tier_configuration__resource_names__application_server :
   ?availability_set_name:string prop ->
-  virtual_machine:
+  ?virtual_machine:
     three_tier_configuration__resource_names__application_server__virtual_machine
     list ->
   unit ->
@@ -221,10 +221,10 @@ type three_tier_configuration__resource_names__central_server
 
 val three_tier_configuration__resource_names__central_server :
   ?availability_set_name:string prop ->
-  load_balancer:
+  ?load_balancer:
     three_tier_configuration__resource_names__central_server__load_balancer
     list ->
-  virtual_machine:
+  ?virtual_machine:
     three_tier_configuration__resource_names__central_server__virtual_machine
     list ->
   unit ->
@@ -265,10 +265,10 @@ type three_tier_configuration__resource_names__database_server
 
 val three_tier_configuration__resource_names__database_server :
   ?availability_set_name:string prop ->
-  load_balancer:
+  ?load_balancer:
     three_tier_configuration__resource_names__database_server__load_balancer
     list ->
-  virtual_machine:
+  ?virtual_machine:
     three_tier_configuration__resource_names__database_server__virtual_machine
     list ->
   unit ->
@@ -285,13 +285,13 @@ val three_tier_configuration__resource_names__shared_storage :
 type three_tier_configuration__resource_names
 
 val three_tier_configuration__resource_names :
-  application_server:
+  ?application_server:
     three_tier_configuration__resource_names__application_server list ->
-  central_server:
+  ?central_server:
     three_tier_configuration__resource_names__central_server list ->
-  database_server:
+  ?database_server:
     three_tier_configuration__resource_names__database_server list ->
-  shared_storage:
+  ?shared_storage:
     three_tier_configuration__resource_names__shared_storage list ->
   unit ->
   three_tier_configuration__resource_names
@@ -309,6 +309,9 @@ type three_tier_configuration
 val three_tier_configuration :
   ?high_availability_type:string prop ->
   ?secondary_ip_enabled:bool prop ->
+  ?resource_names:three_tier_configuration__resource_names list ->
+  ?transport_create_and_mount:
+    three_tier_configuration__transport_create_and_mount list ->
   app_resource_group_name:string prop ->
   application_server_configuration:
     three_tier_configuration__application_server_configuration list ->
@@ -316,9 +319,6 @@ val three_tier_configuration :
     three_tier_configuration__central_server_configuration list ->
   database_server_configuration:
     three_tier_configuration__database_server_configuration list ->
-  resource_names:three_tier_configuration__resource_names list ->
-  transport_create_and_mount:
-    three_tier_configuration__transport_create_and_mount list ->
   unit ->
   three_tier_configuration
 
@@ -338,6 +338,7 @@ val azurerm_workloads_sap_three_tier_virtual_instance :
   ?id:string prop ->
   ?managed_resource_group_name:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   app_location:string prop ->
   environment:string prop ->
@@ -346,7 +347,6 @@ val azurerm_workloads_sap_three_tier_virtual_instance :
   resource_group_name:string prop ->
   sap_fqdn:string prop ->
   sap_product:string prop ->
-  identity:identity list ->
   three_tier_configuration:three_tier_configuration list ->
   unit ->
   azurerm_workloads_sap_three_tier_virtual_instance
@@ -374,6 +374,7 @@ val register :
   ?id:string prop ->
   ?managed_resource_group_name:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   app_location:string prop ->
   environment:string prop ->
@@ -382,7 +383,6 @@ val register :
   resource_group_name:string prop ->
   sap_fqdn:string prop ->
   sap_product:string prop ->
-  identity:identity list ->
   three_tier_configuration:three_tier_configuration list ->
   string ->
   t
@@ -391,6 +391,7 @@ val make :
   ?id:string prop ->
   ?managed_resource_group_name:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   app_location:string prop ->
   environment:string prop ->
@@ -399,7 +400,6 @@ val make :
   resource_group_name:string prop ->
   sap_fqdn:string prop ->
   sap_product:string prop ->
-  identity:identity list ->
   three_tier_configuration:three_tier_configuration list ->
   string ->
   t Tf_core.resource

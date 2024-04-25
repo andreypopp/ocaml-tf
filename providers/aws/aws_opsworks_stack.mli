@@ -42,12 +42,12 @@ val aws_opsworks_stack :
   ?use_custom_cookbooks:bool prop ->
   ?use_opsworks_security_groups:bool prop ->
   ?vpc_id:string prop ->
+  ?custom_cookbooks_source:custom_cookbooks_source list ->
   ?timeouts:timeouts ->
   default_instance_profile_arn:string prop ->
   name:string prop ->
   region:string prop ->
   service_role_arn:string prop ->
-  custom_cookbooks_source:custom_cookbooks_source list ->
   unit ->
   aws_opsworks_stack
 
@@ -104,12 +104,12 @@ val register :
   ?use_custom_cookbooks:bool prop ->
   ?use_opsworks_security_groups:bool prop ->
   ?vpc_id:string prop ->
+  ?custom_cookbooks_source:custom_cookbooks_source list ->
   ?timeouts:timeouts ->
   default_instance_profile_arn:string prop ->
   name:string prop ->
   region:string prop ->
   service_role_arn:string prop ->
-  custom_cookbooks_source:custom_cookbooks_source list ->
   string ->
   t
 
@@ -133,11 +133,11 @@ val make :
   ?use_custom_cookbooks:bool prop ->
   ?use_opsworks_security_groups:bool prop ->
   ?vpc_id:string prop ->
+  ?custom_cookbooks_source:custom_cookbooks_source list ->
   ?timeouts:timeouts ->
   default_instance_profile_arn:string prop ->
   name:string prop ->
   region:string prop ->
   service_role_arn:string prop ->
-  custom_cookbooks_source:custom_cookbooks_source list ->
   string ->
   t Tf_core.resource

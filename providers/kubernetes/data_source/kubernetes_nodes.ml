@@ -453,12 +453,12 @@ let _ = yojson_of_kubernetes_nodes
 
 let metadata ~labels () : metadata = { labels }
 
-let kubernetes_nodes ?id ~metadata () : kubernetes_nodes =
+let kubernetes_nodes ?id ?(metadata = []) () : kubernetes_nodes =
   { id; metadata }
 
 type t = { id : string prop; nodes : nodes list prop }
 
-let make ?id ~metadata __id =
+let make ?id ?(metadata = []) __id =
   let __type = "kubernetes_nodes" in
   let __attrs =
     ({
@@ -475,7 +475,7 @@ let make ?id ~metadata __id =
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~metadata __id =
+let register ?tf_module ?id ?(metadata = []) __id =
   let (r : _ Tf_core.resource) = make ?id ~metadata __id in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -32,11 +32,11 @@ type rule
 
 val rule :
   ?status:string prop ->
-  id:string prop ->
-  abort_incomplete_multipart_upload:
+  ?abort_incomplete_multipart_upload:
     rule__abort_incomplete_multipart_upload list ->
-  expiration:rule__expiration list ->
-  filter:rule__filter list ->
+  ?expiration:rule__expiration list ->
+  ?filter:rule__filter list ->
+  id:string prop ->
   unit ->
   rule
 

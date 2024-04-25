@@ -42,7 +42,7 @@ val input :
   ?access_token:string prop ->
   ?key_frame_interval_duration:string prop ->
   ?streaming_protocol:string prop ->
-  ip_access_control_allow:input__ip_access_control_allow list ->
+  ?ip_access_control_allow:input__ip_access_control_allow list ->
   unit ->
   input
 
@@ -66,7 +66,7 @@ val preview :
   ?alternative_media_id:string prop ->
   ?preview_locator:string prop ->
   ?streaming_policy_name:string prop ->
-  ip_access_control_allow:preview__ip_access_control_allow list ->
+  ?ip_access_control_allow:preview__ip_access_control_allow list ->
   unit ->
   preview
 
@@ -91,15 +91,15 @@ val azurerm_media_live_event :
   ?tags:(string * string prop) list ->
   ?transcription_languages:string prop list ->
   ?use_static_hostname:bool prop ->
+  ?cross_site_access_policy:cross_site_access_policy list ->
+  ?encoding:encoding list ->
+  ?preview:preview list ->
   ?timeouts:timeouts ->
   location:string prop ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  cross_site_access_policy:cross_site_access_policy list ->
-  encoding:encoding list ->
   input:input list ->
-  preview:preview list ->
   unit ->
   azurerm_media_live_event
 
@@ -133,15 +133,15 @@ val register :
   ?tags:(string * string prop) list ->
   ?transcription_languages:string prop list ->
   ?use_static_hostname:bool prop ->
+  ?cross_site_access_policy:cross_site_access_policy list ->
+  ?encoding:encoding list ->
+  ?preview:preview list ->
   ?timeouts:timeouts ->
   location:string prop ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  cross_site_access_policy:cross_site_access_policy list ->
-  encoding:encoding list ->
   input:input list ->
-  preview:preview list ->
   string ->
   t
 
@@ -154,14 +154,14 @@ val make :
   ?tags:(string * string prop) list ->
   ?transcription_languages:string prop list ->
   ?use_static_hostname:bool prop ->
+  ?cross_site_access_policy:cross_site_access_policy list ->
+  ?encoding:encoding list ->
+  ?preview:preview list ->
   ?timeouts:timeouts ->
   location:string prop ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  cross_site_access_policy:cross_site_access_policy list ->
-  encoding:encoding list ->
   input:input list ->
-  preview:preview list ->
   string ->
   t Tf_core.resource

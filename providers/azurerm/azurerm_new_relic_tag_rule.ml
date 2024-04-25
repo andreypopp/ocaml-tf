@@ -241,8 +241,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_new_relic_tag_rule ?activity_log_enabled
     ?azure_active_directory_log_enabled ?id ?metric_enabled
-    ?subscription_log_enabled ?timeouts ~monitor_id ~log_tag_filter
-    ~metric_tag_filter () : azurerm_new_relic_tag_rule =
+    ?subscription_log_enabled ?(log_tag_filter = [])
+    ?(metric_tag_filter = []) ?timeouts ~monitor_id () :
+    azurerm_new_relic_tag_rule =
   {
     activity_log_enabled;
     azure_active_directory_log_enabled;
@@ -265,8 +266,9 @@ type t = {
 }
 
 let make ?activity_log_enabled ?azure_active_directory_log_enabled
-    ?id ?metric_enabled ?subscription_log_enabled ?timeouts
-    ~monitor_id ~log_tag_filter ~metric_tag_filter __id =
+    ?id ?metric_enabled ?subscription_log_enabled
+    ?(log_tag_filter = []) ?(metric_tag_filter = []) ?timeouts
+    ~monitor_id __id =
   let __type = "azurerm_new_relic_tag_rule" in
   let __attrs =
     ({
@@ -290,19 +292,19 @@ let make ?activity_log_enabled ?azure_active_directory_log_enabled
       yojson_of_azurerm_new_relic_tag_rule
         (azurerm_new_relic_tag_rule ?activity_log_enabled
            ?azure_active_directory_log_enabled ?id ?metric_enabled
-           ?subscription_log_enabled ?timeouts ~monitor_id
-           ~log_tag_filter ~metric_tag_filter ());
+           ?subscription_log_enabled ~log_tag_filter
+           ~metric_tag_filter ?timeouts ~monitor_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?activity_log_enabled
     ?azure_active_directory_log_enabled ?id ?metric_enabled
-    ?subscription_log_enabled ?timeouts ~monitor_id ~log_tag_filter
-    ~metric_tag_filter __id =
+    ?subscription_log_enabled ?(log_tag_filter = [])
+    ?(metric_tag_filter = []) ?timeouts ~monitor_id __id =
   let (r : _ Tf_core.resource) =
     make ?activity_log_enabled ?azure_active_directory_log_enabled
-      ?id ?metric_enabled ?subscription_log_enabled ?timeouts
-      ~monitor_id ~log_tag_filter ~metric_tag_filter __id
+      ?id ?metric_enabled ?subscription_log_enabled ~log_tag_filter
+      ~metric_tag_filter ?timeouts ~monitor_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -299,9 +299,9 @@ let azurerm_traffic_manager_nested_endpoint ?enabled
     ?endpoint_location ?geo_mappings ?id
     ?minimum_required_child_endpoints_ipv4
     ?minimum_required_child_endpoints_ipv6 ?priority ?weight
-    ?timeouts ~minimum_child_endpoints ~name ~profile_id
-    ~target_resource_id ~custom_header ~subnet () :
-    azurerm_traffic_manager_nested_endpoint =
+    ?(custom_header = []) ?(subnet = []) ?timeouts
+    ~minimum_child_endpoints ~name ~profile_id ~target_resource_id ()
+    : azurerm_traffic_manager_nested_endpoint =
   {
     enabled;
     endpoint_location;
@@ -338,8 +338,9 @@ type t = {
 let make ?enabled ?endpoint_location ?geo_mappings ?id
     ?minimum_required_child_endpoints_ipv4
     ?minimum_required_child_endpoints_ipv6 ?priority ?weight
-    ?timeouts ~minimum_child_endpoints ~name ~profile_id
-    ~target_resource_id ~custom_header ~subnet __id =
+    ?(custom_header = []) ?(subnet = []) ?timeouts
+    ~minimum_child_endpoints ~name ~profile_id ~target_resource_id
+    __id =
   let __type = "azurerm_traffic_manager_nested_endpoint" in
   let __attrs =
     ({
@@ -374,22 +375,23 @@ let make ?enabled ?endpoint_location ?geo_mappings ?id
            ?endpoint_location ?geo_mappings ?id
            ?minimum_required_child_endpoints_ipv4
            ?minimum_required_child_endpoints_ipv6 ?priority ?weight
-           ?timeouts ~minimum_child_endpoints ~name ~profile_id
-           ~target_resource_id ~custom_header ~subnet ());
+           ~custom_header ~subnet ?timeouts ~minimum_child_endpoints
+           ~name ~profile_id ~target_resource_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?enabled ?endpoint_location ?geo_mappings ?id
     ?minimum_required_child_endpoints_ipv4
     ?minimum_required_child_endpoints_ipv6 ?priority ?weight
-    ?timeouts ~minimum_child_endpoints ~name ~profile_id
-    ~target_resource_id ~custom_header ~subnet __id =
+    ?(custom_header = []) ?(subnet = []) ?timeouts
+    ~minimum_child_endpoints ~name ~profile_id ~target_resource_id
+    __id =
   let (r : _ Tf_core.resource) =
     make ?enabled ?endpoint_location ?geo_mappings ?id
       ?minimum_required_child_endpoints_ipv4
       ?minimum_required_child_endpoints_ipv6 ?priority ?weight
-      ?timeouts ~minimum_child_endpoints ~name ~profile_id
-      ~target_resource_id ~custom_header ~subnet __id
+      ~custom_header ~subnet ?timeouts ~minimum_child_endpoints ~name
+      ~profile_id ~target_resource_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -22,8 +22,8 @@ val aws_media_convert_queue :
   ?status:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?reservation_plan_settings:reservation_plan_settings list ->
   name:string prop ->
-  reservation_plan_settings:reservation_plan_settings list ->
   unit ->
   aws_media_convert_queue
 
@@ -51,8 +51,8 @@ val register :
   ?status:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?reservation_plan_settings:reservation_plan_settings list ->
   name:string prop ->
-  reservation_plan_settings:reservation_plan_settings list ->
   string ->
   t
 
@@ -63,7 +63,7 @@ val make :
   ?status:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?reservation_plan_settings:reservation_plan_settings list ->
   name:string prop ->
-  reservation_plan_settings:reservation_plan_settings list ->
   string ->
   t Tf_core.resource

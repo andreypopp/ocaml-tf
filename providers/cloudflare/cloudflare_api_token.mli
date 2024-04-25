@@ -21,7 +21,7 @@ val condition__request_ip :
 type condition
 
 val condition :
-  request_ip:condition__request_ip list -> unit -> condition
+  ?request_ip:condition__request_ip list -> unit -> condition
 
 type policy
 
@@ -38,8 +38,8 @@ val cloudflare_api_token :
   ?expires_on:string prop ->
   ?id:string prop ->
   ?not_before:string prop ->
+  ?condition:condition list ->
   name:string prop ->
-  condition:condition list ->
   policy:policy list ->
   unit ->
   cloudflare_api_token
@@ -64,8 +64,8 @@ val register :
   ?expires_on:string prop ->
   ?id:string prop ->
   ?not_before:string prop ->
+  ?condition:condition list ->
   name:string prop ->
-  condition:condition list ->
   policy:policy list ->
   string ->
   t
@@ -74,8 +74,8 @@ val make :
   ?expires_on:string prop ->
   ?id:string prop ->
   ?not_before:string prop ->
+  ?condition:condition list ->
   name:string prop ->
-  condition:condition list ->
   policy:policy list ->
   string ->
   t Tf_core.resource

@@ -709,7 +709,7 @@ let matching__auto_merging__consolidation ~matching_attributes_list
   { matching_attributes_list }
 
 let matching__auto_merging ?min_allowed_confidence_score_for_merging
-    ~enabled ~conflict_resolution ~consolidation () :
+    ?(conflict_resolution = []) ?(consolidation = []) ~enabled () :
     matching__auto_merging =
   {
     enabled;
@@ -722,7 +722,7 @@ let matching__exporting_config__s3_exporting ?s3_key_name
     ~s3_bucket_name () : matching__exporting_config__s3_exporting =
   { s3_bucket_name; s3_key_name }
 
-let matching__exporting_config ~s3_exporting () :
+let matching__exporting_config ?(s3_exporting = []) () :
     matching__exporting_config =
   { s3_exporting }
 
@@ -730,8 +730,8 @@ let matching__job_schedule ~day_of_the_week ~time () :
     matching__job_schedule =
   { day_of_the_week; time }
 
-let matching ~enabled ~auto_merging ~exporting_config ~job_schedule
-    () : matching =
+let matching ?(auto_merging = []) ?(exporting_config = [])
+    ?(job_schedule = []) ~enabled () : matching =
   { enabled; auto_merging; exporting_config; job_schedule }
 
 let rule_based_matching__attribute_types_selector ?address
@@ -749,7 +749,7 @@ let rule_based_matching__exporting_config__s3_exporting ?s3_key_name
     rule_based_matching__exporting_config__s3_exporting =
   { s3_bucket_name; s3_key_name }
 
-let rule_based_matching__exporting_config ~s3_exporting () :
+let rule_based_matching__exporting_config ?(s3_exporting = []) () :
     rule_based_matching__exporting_config =
   { s3_exporting }
 
@@ -758,9 +758,10 @@ let rule_based_matching__matching_rules ~rule () :
   { rule }
 
 let rule_based_matching ?max_allowed_rule_level_for_matching
-    ?max_allowed_rule_level_for_merging ?status ~enabled
-    ~attribute_types_selector ~conflict_resolution ~exporting_config
-    ~matching_rules () : rule_based_matching =
+    ?max_allowed_rule_level_for_merging ?status
+    ?(attribute_types_selector = []) ?(conflict_resolution = [])
+    ?(exporting_config = []) ~enabled ~matching_rules () :
+    rule_based_matching =
   {
     enabled;
     max_allowed_rule_level_for_matching;
@@ -773,9 +774,9 @@ let rule_based_matching ?max_allowed_rule_level_for_matching
   }
 
 let aws_customerprofiles_domain ?dead_letter_queue_url
-    ?default_encryption_key ?id ?tags ?tags_all
-    ~default_expiration_days ~domain_name ~matching
-    ~rule_based_matching () : aws_customerprofiles_domain =
+    ?default_encryption_key ?id ?tags ?tags_all ?(matching = [])
+    ?(rule_based_matching = []) ~default_expiration_days ~domain_name
+    () : aws_customerprofiles_domain =
   {
     dead_letter_queue_url;
     default_encryption_key;
@@ -800,8 +801,8 @@ type t = {
 }
 
 let make ?dead_letter_queue_url ?default_encryption_key ?id ?tags
-    ?tags_all ~default_expiration_days ~domain_name ~matching
-    ~rule_based_matching __id =
+    ?tags_all ?(matching = []) ?(rule_based_matching = [])
+    ~default_expiration_days ~domain_name __id =
   let __type = "aws_customerprofiles_domain" in
   let __attrs =
     ({
@@ -825,20 +826,20 @@ let make ?dead_letter_queue_url ?default_encryption_key ?id ?tags
     json =
       yojson_of_aws_customerprofiles_domain
         (aws_customerprofiles_domain ?dead_letter_queue_url
-           ?default_encryption_key ?id ?tags ?tags_all
-           ~default_expiration_days ~domain_name ~matching
-           ~rule_based_matching ());
+           ?default_encryption_key ?id ?tags ?tags_all ~matching
+           ~rule_based_matching ~default_expiration_days ~domain_name
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?dead_letter_queue_url
-    ?default_encryption_key ?id ?tags ?tags_all
-    ~default_expiration_days ~domain_name ~matching
-    ~rule_based_matching __id =
+    ?default_encryption_key ?id ?tags ?tags_all ?(matching = [])
+    ?(rule_based_matching = []) ~default_expiration_days ~domain_name
+    __id =
   let (r : _ Tf_core.resource) =
     make ?dead_letter_queue_url ?default_encryption_key ?id ?tags
-      ?tags_all ~default_expiration_days ~domain_name ~matching
-      ~rule_based_matching __id
+      ?tags_all ~matching ~rule_based_matching
+      ~default_expiration_days ~domain_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

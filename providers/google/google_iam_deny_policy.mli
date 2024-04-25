@@ -21,7 +21,7 @@ val rules__deny_rule :
   ?denied_principals:string prop list ->
   ?exception_permissions:string prop list ->
   ?exception_principals:string prop list ->
-  denial_condition:rules__deny_rule__denial_condition list ->
+  ?denial_condition:rules__deny_rule__denial_condition list ->
   unit ->
   rules__deny_rule
 
@@ -29,7 +29,7 @@ type rules
 
 val rules :
   ?description:string prop ->
-  deny_rule:rules__deny_rule list ->
+  ?deny_rule:rules__deny_rule list ->
   unit ->
   rules
 

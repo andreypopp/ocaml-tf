@@ -269,8 +269,9 @@ let workspace_properties ?compute_type_name ?root_volume_size_gib
 
 let aws_workspaces_workspace ?id ?root_volume_encryption_enabled
     ?tags ?tags_all ?user_volume_encryption_enabled
-    ?volume_encryption_key ?timeouts ~bundle_id ~directory_id
-    ~user_name ~workspace_properties () : aws_workspaces_workspace =
+    ?volume_encryption_key ?timeouts ?(workspace_properties = [])
+    ~bundle_id ~directory_id ~user_name () : aws_workspaces_workspace
+    =
   {
     bundle_id;
     directory_id;
@@ -302,7 +303,8 @@ type t = {
 
 let make ?id ?root_volume_encryption_enabled ?tags ?tags_all
     ?user_volume_encryption_enabled ?volume_encryption_key ?timeouts
-    ~bundle_id ~directory_id ~user_name ~workspace_properties __id =
+    ?(workspace_properties = []) ~bundle_id ~directory_id ~user_name
+    __id =
   let __type = "aws_workspaces_workspace" in
   let __attrs =
     ({
@@ -331,20 +333,20 @@ let make ?id ?root_volume_encryption_enabled ?tags ?tags_all
       yojson_of_aws_workspaces_workspace
         (aws_workspaces_workspace ?id ?root_volume_encryption_enabled
            ?tags ?tags_all ?user_volume_encryption_enabled
-           ?volume_encryption_key ?timeouts ~bundle_id ~directory_id
-           ~user_name ~workspace_properties ());
+           ?volume_encryption_key ?timeouts ~workspace_properties
+           ~bundle_id ~directory_id ~user_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?root_volume_encryption_enabled ?tags
     ?tags_all ?user_volume_encryption_enabled ?volume_encryption_key
-    ?timeouts ~bundle_id ~directory_id ~user_name
-    ~workspace_properties __id =
+    ?timeouts ?(workspace_properties = []) ~bundle_id ~directory_id
+    ~user_name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?root_volume_encryption_enabled ?tags ?tags_all
       ?user_volume_encryption_enabled ?volume_encryption_key
-      ?timeouts ~bundle_id ~directory_id ~user_name
-      ~workspace_properties __id
+      ?timeouts ~workspace_properties ~bundle_id ~directory_id
+      ~user_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

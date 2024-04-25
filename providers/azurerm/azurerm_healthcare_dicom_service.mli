@@ -38,11 +38,11 @@ val azurerm_healthcare_dicom_service :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   workspace_id:string prop ->
-  identity:identity list ->
   unit ->
   azurerm_healthcare_dicom_service
 
@@ -68,11 +68,11 @@ val register :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   workspace_id:string prop ->
-  identity:identity list ->
   string ->
   t
 
@@ -80,10 +80,10 @@ val make :
   ?id:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   workspace_id:string prop ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

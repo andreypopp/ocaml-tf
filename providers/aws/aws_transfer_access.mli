@@ -29,10 +29,10 @@ val aws_transfer_access :
   ?id:string prop ->
   ?policy:string prop ->
   ?role:string prop ->
+  ?home_directory_mappings:home_directory_mappings list ->
+  ?posix_profile:posix_profile list ->
   external_id:string prop ->
   server_id:string prop ->
-  home_directory_mappings:home_directory_mappings list ->
-  posix_profile:posix_profile list ->
   unit ->
   aws_transfer_access
 
@@ -57,10 +57,10 @@ val register :
   ?id:string prop ->
   ?policy:string prop ->
   ?role:string prop ->
+  ?home_directory_mappings:home_directory_mappings list ->
+  ?posix_profile:posix_profile list ->
   external_id:string prop ->
   server_id:string prop ->
-  home_directory_mappings:home_directory_mappings list ->
-  posix_profile:posix_profile list ->
   string ->
   t
 
@@ -70,9 +70,9 @@ val make :
   ?id:string prop ->
   ?policy:string prop ->
   ?role:string prop ->
+  ?home_directory_mappings:home_directory_mappings list ->
+  ?posix_profile:posix_profile list ->
   external_id:string prop ->
   server_id:string prop ->
-  home_directory_mappings:home_directory_mappings list ->
-  posix_profile:posix_profile list ->
   string ->
   t Tf_core.resource

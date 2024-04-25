@@ -150,9 +150,9 @@ let _ = yojson_of_aws_datasync_location_smb
 
 let mount_options ?version () : mount_options = { version }
 
-let aws_datasync_location_smb ?domain ?id ?tags ?tags_all ~agent_arns
-    ~password ~server_hostname ~subdirectory ~user ~mount_options ()
-    : aws_datasync_location_smb =
+let aws_datasync_location_smb ?domain ?id ?tags ?tags_all
+    ?(mount_options = []) ~agent_arns ~password ~server_hostname
+    ~subdirectory ~user () : aws_datasync_location_smb =
   {
     agent_arns;
     domain;
@@ -180,8 +180,8 @@ type t = {
   user : string prop;
 }
 
-let make ?domain ?id ?tags ?tags_all ~agent_arns ~password
-    ~server_hostname ~subdirectory ~user ~mount_options __id =
+let make ?domain ?id ?tags ?tags_all ?(mount_options = [])
+    ~agent_arns ~password ~server_hostname ~subdirectory ~user __id =
   let __type = "aws_datasync_location_smb" in
   let __attrs =
     ({
@@ -205,17 +205,17 @@ let make ?domain ?id ?tags ?tags_all ~agent_arns ~password
     json =
       yojson_of_aws_datasync_location_smb
         (aws_datasync_location_smb ?domain ?id ?tags ?tags_all
-           ~agent_arns ~password ~server_hostname ~subdirectory ~user
-           ~mount_options ());
+           ~mount_options ~agent_arns ~password ~server_hostname
+           ~subdirectory ~user ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?domain ?id ?tags ?tags_all ~agent_arns
-    ~password ~server_hostname ~subdirectory ~user ~mount_options
-    __id =
+let register ?tf_module ?domain ?id ?tags ?tags_all
+    ?(mount_options = []) ~agent_arns ~password ~server_hostname
+    ~subdirectory ~user __id =
   let (r : _ Tf_core.resource) =
-    make ?domain ?id ?tags ?tags_all ~agent_arns ~password
-      ~server_hostname ~subdirectory ~user ~mount_options __id
+    make ?domain ?id ?tags ?tags_all ~mount_options ~agent_arns
+      ~password ~server_hostname ~subdirectory ~user __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

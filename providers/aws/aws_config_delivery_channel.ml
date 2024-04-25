@@ -124,8 +124,9 @@ let snapshot_delivery_properties ?delivery_frequency () :
   { delivery_frequency }
 
 let aws_config_delivery_channel ?id ?name ?s3_key_prefix
-    ?s3_kms_key_arn ?sns_topic_arn ~s3_bucket_name
-    ~snapshot_delivery_properties () : aws_config_delivery_channel =
+    ?s3_kms_key_arn ?sns_topic_arn
+    ?(snapshot_delivery_properties = []) ~s3_bucket_name () :
+    aws_config_delivery_channel =
   {
     id;
     name;
@@ -146,7 +147,7 @@ type t = {
 }
 
 let make ?id ?name ?s3_key_prefix ?s3_kms_key_arn ?sns_topic_arn
-    ~s3_bucket_name ~snapshot_delivery_properties __id =
+    ?(snapshot_delivery_properties = []) ~s3_bucket_name __id =
   let __type = "aws_config_delivery_channel" in
   let __attrs =
     ({
@@ -165,17 +166,17 @@ let make ?id ?name ?s3_key_prefix ?s3_kms_key_arn ?sns_topic_arn
     json =
       yojson_of_aws_config_delivery_channel
         (aws_config_delivery_channel ?id ?name ?s3_key_prefix
-           ?s3_kms_key_arn ?sns_topic_arn ~s3_bucket_name
-           ~snapshot_delivery_properties ());
+           ?s3_kms_key_arn ?sns_topic_arn
+           ~snapshot_delivery_properties ~s3_bucket_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?name ?s3_key_prefix ?s3_kms_key_arn
-    ?sns_topic_arn ~s3_bucket_name ~snapshot_delivery_properties __id
-    =
+    ?sns_topic_arn ?(snapshot_delivery_properties = [])
+    ~s3_bucket_name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?name ?s3_key_prefix ?s3_kms_key_arn ?sns_topic_arn
-      ~s3_bucket_name ~snapshot_delivery_properties __id
+      ~snapshot_delivery_properties ~s3_bucket_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

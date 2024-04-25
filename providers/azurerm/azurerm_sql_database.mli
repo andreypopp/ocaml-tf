@@ -58,13 +58,13 @@ val azurerm_sql_database :
   ?source_database_id:string prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundant:bool prop ->
+  ?import:import list ->
+  ?threat_detection_policy:threat_detection_policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   server_name:string prop ->
-  import:import list ->
-  threat_detection_policy:threat_detection_policy list ->
   unit ->
   azurerm_sql_database
 
@@ -114,13 +114,13 @@ val register :
   ?source_database_id:string prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundant:bool prop ->
+  ?import:import list ->
+  ?threat_detection_policy:threat_detection_policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   server_name:string prop ->
-  import:import list ->
-  threat_detection_policy:threat_detection_policy list ->
   string ->
   t
 
@@ -140,12 +140,12 @@ val make :
   ?source_database_id:string prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundant:bool prop ->
+  ?import:import list ->
+  ?threat_detection_policy:threat_detection_policy list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   server_name:string prop ->
-  import:import list ->
-  threat_detection_policy:threat_detection_policy list ->
   string ->
   t Tf_core.resource

@@ -2550,8 +2550,8 @@ let cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_c
   { boot_disk_size_gb; boot_disk_type; num_local_ssds }
 
 let cluster_config__auxiliary_node_groups__node_group__node_group_config
-    ?machine_type ?min_cpu_platform ?num_instances ~accelerators
-    ~disk_config () :
+    ?machine_type ?min_cpu_platform ?num_instances
+    ?(disk_config = []) ~accelerators () :
     cluster_config__auxiliary_node_groups__node_group__node_group_config
     =
   {
@@ -2562,8 +2562,8 @@ let cluster_config__auxiliary_node_groups__node_group__node_group_config
     disk_config;
   }
 
-let cluster_config__auxiliary_node_groups__node_group ~roles
-    ~node_group_config () :
+let cluster_config__auxiliary_node_groups__node_group
+    ?(node_group_config = []) ~roles () :
     cluster_config__auxiliary_node_groups__node_group =
   { roles; node_group_config }
 
@@ -2605,9 +2605,9 @@ let cluster_config__gce_cluster_config__shielded_instance_config
 
 let cluster_config__gce_cluster_config ?internal_ip_only ?metadata
     ?network ?service_account ?service_account_scopes ?subnetwork
-    ?tags ?zone ~node_group_affinity ~reservation_affinity
-    ~shielded_instance_config () : cluster_config__gce_cluster_config
-    =
+    ?tags ?zone ?(node_group_affinity = [])
+    ?(reservation_affinity = []) ?(shielded_instance_config = []) ()
+    : cluster_config__gce_cluster_config =
   {
     internal_ip_only;
     metadata;
@@ -2641,8 +2641,8 @@ let cluster_config__master_config__disk_config ?boot_disk_size_gb
   { boot_disk_size_gb; boot_disk_type; num_local_ssds }
 
 let cluster_config__master_config ?image_uri ?machine_type
-    ?min_cpu_platform ?num_instances ~accelerators ~disk_config () :
-    cluster_config__master_config =
+    ?min_cpu_platform ?num_instances ?(disk_config = [])
+    ~accelerators () : cluster_config__master_config =
   {
     image_uri;
     machine_type;
@@ -2668,13 +2668,14 @@ let cluster_config__preemptible_worker_config__instance_flexibility_policy__inst
   { machine_types; rank }
 
 let cluster_config__preemptible_worker_config__instance_flexibility_policy
-    ~instance_selection_list () :
+    ?(instance_selection_list = []) () :
     cluster_config__preemptible_worker_config__instance_flexibility_policy
     =
   { instance_selection_list }
 
 let cluster_config__preemptible_worker_config ?num_instances
-    ?preemptibility ~disk_config ~instance_flexibility_policy () :
+    ?preemptibility ?(disk_config = [])
+    ?(instance_flexibility_policy = []) () :
     cluster_config__preemptible_worker_config =
   {
     num_instances;
@@ -2729,8 +2730,9 @@ let cluster_config__worker_config__disk_config ?boot_disk_size_gb
   { boot_disk_size_gb; boot_disk_type; num_local_ssds }
 
 let cluster_config__worker_config ?image_uri ?machine_type
-    ?min_cpu_platform ?min_num_instances ?num_instances ~accelerators
-    ~disk_config () : cluster_config__worker_config =
+    ?min_cpu_platform ?min_num_instances ?num_instances
+    ?(disk_config = []) ~accelerators () :
+    cluster_config__worker_config =
   {
     image_uri;
     machine_type;
@@ -2741,12 +2743,15 @@ let cluster_config__worker_config ?image_uri ?machine_type
     disk_config;
   }
 
-let cluster_config ?staging_bucket ?temp_bucket ~autoscaling_config
-    ~auxiliary_node_groups ~dataproc_metric_config ~encryption_config
-    ~endpoint_config ~gce_cluster_config ~initialization_action
-    ~lifecycle_config ~master_config ~metastore_config
-    ~preemptible_worker_config ~security_config ~software_config
-    ~worker_config () : cluster_config =
+let cluster_config ?staging_bucket ?temp_bucket
+    ?(autoscaling_config = []) ?(auxiliary_node_groups = [])
+    ?(dataproc_metric_config = []) ?(encryption_config = [])
+    ?(endpoint_config = []) ?(gce_cluster_config = [])
+    ?(initialization_action = []) ?(lifecycle_config = [])
+    ?(master_config = []) ?(metastore_config = [])
+    ?(preemptible_worker_config = []) ?(security_config = [])
+    ?(software_config = []) ?(worker_config = []) () : cluster_config
+    =
   {
     staging_bucket;
     temp_bucket;
@@ -2782,7 +2787,7 @@ let virtual_cluster_config__auxiliary_services_config__spark_history_server_conf
   { dataproc_cluster }
 
 let virtual_cluster_config__auxiliary_services_config
-    ~metastore_config ~spark_history_server_config () :
+    ?(metastore_config = []) ?(spark_history_server_config = []) () :
     virtual_cluster_config__auxiliary_services_config =
   { metastore_config; spark_history_server_config }
 
@@ -2806,19 +2811,19 @@ let virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_
   }
 
 let virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config
-    ~locations ~autoscaling ~config () :
+    ?(autoscaling = []) ?(config = []) ~locations () :
     virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config
     =
   { locations; autoscaling; config }
 
 let virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target
-    ~node_pool ~roles ~node_pool_config () :
+    ?(node_pool_config = []) ~node_pool ~roles () :
     virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target
     =
   { node_pool; roles; node_pool_config }
 
 let virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config
-    ?gke_cluster_target ~node_pool_target () :
+    ?gke_cluster_target ?(node_pool_target = []) () :
     virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config
     =
   { gke_cluster_target; node_pool_target }
@@ -2839,8 +2844,9 @@ let virtual_cluster_config__kubernetes_cluster_config
     kubernetes_software_config;
   }
 
-let virtual_cluster_config ?staging_bucket ~auxiliary_services_config
-    ~kubernetes_cluster_config () : virtual_cluster_config =
+let virtual_cluster_config ?staging_bucket
+    ?(auxiliary_services_config = [])
+    ?(kubernetes_cluster_config = []) () : virtual_cluster_config =
   {
     staging_bucket;
     auxiliary_services_config;
@@ -2848,8 +2854,9 @@ let virtual_cluster_config ?staging_bucket ~auxiliary_services_config
   }
 
 let google_dataproc_cluster ?graceful_decommission_timeout ?id
-    ?labels ?project ?region ?timeouts ~name ~cluster_config
-    ~virtual_cluster_config () : google_dataproc_cluster =
+    ?labels ?project ?region ?(cluster_config = []) ?timeouts
+    ?(virtual_cluster_config = []) ~name () : google_dataproc_cluster
+    =
   {
     graceful_decommission_timeout;
     id;
@@ -2874,7 +2881,8 @@ type t = {
 }
 
 let make ?graceful_decommission_timeout ?id ?labels ?project ?region
-    ?timeouts ~name ~cluster_config ~virtual_cluster_config __id =
+    ?(cluster_config = []) ?timeouts ?(virtual_cluster_config = [])
+    ~name __id =
   let __type = "google_dataproc_cluster" in
   let __attrs =
     ({
@@ -2898,17 +2906,17 @@ let make ?graceful_decommission_timeout ?id ?labels ?project ?region
     json =
       yojson_of_google_dataproc_cluster
         (google_dataproc_cluster ?graceful_decommission_timeout ?id
-           ?labels ?project ?region ?timeouts ~name ~cluster_config
-           ~virtual_cluster_config ());
+           ?labels ?project ?region ~cluster_config ?timeouts
+           ~virtual_cluster_config ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?graceful_decommission_timeout ?id ?labels
-    ?project ?region ?timeouts ~name ~cluster_config
-    ~virtual_cluster_config __id =
+    ?project ?region ?(cluster_config = []) ?timeouts
+    ?(virtual_cluster_config = []) ~name __id =
   let (r : _ Tf_core.resource) =
     make ?graceful_decommission_timeout ?id ?labels ?project ?region
-      ?timeouts ~name ~cluster_config ~virtual_cluster_config __id
+      ~cluster_config ?timeouts ~virtual_cluster_config ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

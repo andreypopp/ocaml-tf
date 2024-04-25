@@ -20,8 +20,8 @@ val aws_sesv2_email_identity :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?dkim_signing_attributes:dkim_signing_attributes list ->
   email_identity:string prop ->
-  dkim_signing_attributes:dkim_signing_attributes list ->
   unit ->
   aws_sesv2_email_identity
 
@@ -47,8 +47,8 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?dkim_signing_attributes:dkim_signing_attributes list ->
   email_identity:string prop ->
-  dkim_signing_attributes:dkim_signing_attributes list ->
   string ->
   t
 
@@ -57,7 +57,7 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?dkim_signing_attributes:dkim_signing_attributes list ->
   email_identity:string prop ->
-  dkim_signing_attributes:dkim_signing_attributes list ->
   string ->
   t Tf_core.resource

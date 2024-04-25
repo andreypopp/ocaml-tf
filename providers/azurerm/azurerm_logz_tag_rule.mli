@@ -30,9 +30,9 @@ val azurerm_logz_tag_rule :
   ?send_aad_logs:bool prop ->
   ?send_activity_logs:bool prop ->
   ?send_subscription_logs:bool prop ->
+  ?tag_filter:tag_filter list ->
   ?timeouts:timeouts ->
   logz_monitor_id:string prop ->
-  tag_filter:tag_filter list ->
   unit ->
   azurerm_logz_tag_rule
 
@@ -54,9 +54,9 @@ val register :
   ?send_aad_logs:bool prop ->
   ?send_activity_logs:bool prop ->
   ?send_subscription_logs:bool prop ->
+  ?tag_filter:tag_filter list ->
   ?timeouts:timeouts ->
   logz_monitor_id:string prop ->
-  tag_filter:tag_filter list ->
   string ->
   t
 
@@ -65,8 +65,8 @@ val make :
   ?send_aad_logs:bool prop ->
   ?send_activity_logs:bool prop ->
   ?send_subscription_logs:bool prop ->
+  ?tag_filter:tag_filter list ->
   ?timeouts:timeouts ->
   logz_monitor_id:string prop ->
-  tag_filter:tag_filter list ->
   string ->
   t Tf_core.resource

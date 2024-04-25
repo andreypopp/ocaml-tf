@@ -15,7 +15,7 @@ type create_table_default_permission
 
 val create_table_default_permission :
   ?permissions:string prop list ->
-  principal:create_table_default_permission__principal list ->
+  ?principal:create_table_default_permission__principal list ->
   unit ->
   create_table_default_permission
 
@@ -46,11 +46,11 @@ val aws_glue_catalog_database :
   ?parameters:(string * string prop) list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  name:string prop ->
-  create_table_default_permission:
+  ?create_table_default_permission:
     create_table_default_permission list ->
-  federated_database:federated_database list ->
-  target_database:target_database list ->
+  ?federated_database:federated_database list ->
+  ?target_database:target_database list ->
+  name:string prop ->
   unit ->
   aws_glue_catalog_database
 
@@ -80,11 +80,11 @@ val register :
   ?parameters:(string * string prop) list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  name:string prop ->
-  create_table_default_permission:
+  ?create_table_default_permission:
     create_table_default_permission list ->
-  federated_database:federated_database list ->
-  target_database:target_database list ->
+  ?federated_database:federated_database list ->
+  ?target_database:target_database list ->
+  name:string prop ->
   string ->
   t
 
@@ -96,10 +96,10 @@ val make :
   ?parameters:(string * string prop) list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  name:string prop ->
-  create_table_default_permission:
+  ?create_table_default_permission:
     create_table_default_permission list ->
-  federated_database:federated_database list ->
-  target_database:target_database list ->
+  ?federated_database:federated_database list ->
+  ?target_database:target_database list ->
+  name:string prop ->
   string ->
   t Tf_core.resource

@@ -1432,8 +1432,8 @@ let advanced_settings__dtmf_settings ?enabled ?finish_digit
     ?max_digits () : advanced_settings__dtmf_settings =
   { enabled; finish_digit; max_digits }
 
-let advanced_settings ~audio_export_gcs_destination ~dtmf_settings ()
-    : advanced_settings =
+let advanced_settings ?(audio_export_gcs_destination = [])
+    ?(dtmf_settings = []) () : advanced_settings =
   { audio_export_gcs_destination; dtmf_settings }
 
 let event_handlers__trigger_fulfillment__conditional_cases ?cases ()
@@ -1474,8 +1474,9 @@ let event_handlers__trigger_fulfillment__messages__text ?text () :
   { text }
 
 let event_handlers__trigger_fulfillment__messages ?channel ?payload
-    ~conversation_success ~live_agent_handoff ~output_audio_text
-    ~play_audio ~telephony_transfer_call ~text () :
+    ?(conversation_success = []) ?(live_agent_handoff = [])
+    ?(output_audio_text = []) ?(play_audio = [])
+    ?(telephony_transfer_call = []) ?(text = []) () :
     event_handlers__trigger_fulfillment__messages =
   {
     channel;
@@ -1494,8 +1495,9 @@ let event_handlers__trigger_fulfillment__set_parameter_actions
   { parameter; value }
 
 let event_handlers__trigger_fulfillment ?return_partial_responses
-    ?tag ?webhook ~conditional_cases ~messages ~set_parameter_actions
-    () : event_handlers__trigger_fulfillment =
+    ?tag ?webhook ?(conditional_cases = []) ?(messages = [])
+    ?(set_parameter_actions = []) () :
+    event_handlers__trigger_fulfillment =
   {
     return_partial_responses;
     tag;
@@ -1506,7 +1508,7 @@ let event_handlers__trigger_fulfillment ?return_partial_responses
   }
 
 let event_handlers ?event ?target_flow ?target_page
-    ~trigger_fulfillment () : event_handlers =
+    ?(trigger_fulfillment = []) () : event_handlers =
   { event; target_flow; target_page; trigger_fulfillment }
 
 let nlu_settings ?classification_threshold ?model_training_mode
@@ -1554,9 +1556,10 @@ let transition_routes__trigger_fulfillment__messages__text ?text () :
   { text }
 
 let transition_routes__trigger_fulfillment__messages ?channel
-    ?payload ~conversation_success ~live_agent_handoff
-    ~output_audio_text ~play_audio ~telephony_transfer_call ~text ()
-    : transition_routes__trigger_fulfillment__messages =
+    ?payload ?(conversation_success = []) ?(live_agent_handoff = [])
+    ?(output_audio_text = []) ?(play_audio = [])
+    ?(telephony_transfer_call = []) ?(text = []) () :
+    transition_routes__trigger_fulfillment__messages =
   {
     channel;
     payload;
@@ -1574,8 +1577,9 @@ let transition_routes__trigger_fulfillment__set_parameter_actions
   { parameter; value }
 
 let transition_routes__trigger_fulfillment ?return_partial_responses
-    ?tag ?webhook ~conditional_cases ~messages ~set_parameter_actions
-    () : transition_routes__trigger_fulfillment =
+    ?tag ?webhook ?(conditional_cases = []) ?(messages = [])
+    ?(set_parameter_actions = []) () :
+    transition_routes__trigger_fulfillment =
   {
     return_partial_responses;
     tag;
@@ -1586,7 +1590,7 @@ let transition_routes__trigger_fulfillment ?return_partial_responses
   }
 
 let transition_routes ?condition ?intent ?target_flow ?target_page
-    ~trigger_fulfillment () : transition_routes =
+    ?(trigger_fulfillment = []) () : transition_routes =
   {
     condition;
     intent;
@@ -1596,9 +1600,10 @@ let transition_routes ?condition ?intent ?target_flow ?target_page
   }
 
 let google_dialogflow_cx_flow ?description ?id ?is_default_start_flow
-    ?language_code ?parent ?transition_route_groups ?timeouts
-    ~display_name ~advanced_settings ~event_handlers ~nlu_settings
-    ~transition_routes () : google_dialogflow_cx_flow =
+    ?language_code ?parent ?transition_route_groups
+    ?(advanced_settings = []) ?(event_handlers = [])
+    ?(nlu_settings = []) ?timeouts ?(transition_routes = [])
+    ~display_name () : google_dialogflow_cx_flow =
   {
     description;
     display_name;
@@ -1626,9 +1631,9 @@ type t = {
 }
 
 let make ?description ?id ?is_default_start_flow ?language_code
-    ?parent ?transition_route_groups ?timeouts ~display_name
-    ~advanced_settings ~event_handlers ~nlu_settings
-    ~transition_routes __id =
+    ?parent ?transition_route_groups ?(advanced_settings = [])
+    ?(event_handlers = []) ?(nlu_settings = []) ?timeouts
+    ?(transition_routes = []) ~display_name __id =
   let __type = "google_dialogflow_cx_flow" in
   let __attrs =
     ({
@@ -1652,21 +1657,22 @@ let make ?description ?id ?is_default_start_flow ?language_code
       yojson_of_google_dialogflow_cx_flow
         (google_dialogflow_cx_flow ?description ?id
            ?is_default_start_flow ?language_code ?parent
-           ?transition_route_groups ?timeouts ~display_name
-           ~advanced_settings ~event_handlers ~nlu_settings
-           ~transition_routes ());
+           ?transition_route_groups ~advanced_settings
+           ~event_handlers ~nlu_settings ?timeouts ~transition_routes
+           ~display_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?is_default_start_flow
-    ?language_code ?parent ?transition_route_groups ?timeouts
-    ~display_name ~advanced_settings ~event_handlers ~nlu_settings
-    ~transition_routes __id =
+    ?language_code ?parent ?transition_route_groups
+    ?(advanced_settings = []) ?(event_handlers = [])
+    ?(nlu_settings = []) ?timeouts ?(transition_routes = [])
+    ~display_name __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?is_default_start_flow ?language_code
-      ?parent ?transition_route_groups ?timeouts ~display_name
-      ~advanced_settings ~event_handlers ~nlu_settings
-      ~transition_routes __id
+      ?parent ?transition_route_groups ~advanced_settings
+      ~event_handlers ~nlu_settings ?timeouts ~transition_routes
+      ~display_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -2385,8 +2385,9 @@ let instance_filter__inventories ?os_version ~os_short_name () :
     instance_filter__inventories =
   { os_short_name; os_version }
 
-let instance_filter ?all ~exclusion_labels ~inclusion_labels
-    ~inventories () : instance_filter =
+let instance_filter ?all ?(exclusion_labels = [])
+    ?(inclusion_labels = []) ?(inventories = []) () : instance_filter
+    =
   { all; exclusion_labels; inclusion_labels; inventories }
 
 let os_policies__resource_groups__inventory_filters ?os_version
@@ -2407,12 +2408,12 @@ let os_policies__resource_groups__resources__exec__enforce__file__remote
   { sha256_checksum; uri }
 
 let os_policies__resource_groups__resources__exec__enforce__file
-    ?allow_insecure ?local_path ~gcs ~remote () :
+    ?allow_insecure ?local_path ?(gcs = []) ?(remote = []) () :
     os_policies__resource_groups__resources__exec__enforce__file =
   { allow_insecure; local_path; gcs; remote }
 
 let os_policies__resource_groups__resources__exec__enforce ?args
-    ?output_file_path ?script ~interpreter ~file () :
+    ?output_file_path ?script ?(file = []) ~interpreter () :
     os_policies__resource_groups__resources__exec__enforce =
   { args; interpreter; output_file_path; script; file }
 
@@ -2429,17 +2430,17 @@ let os_policies__resource_groups__resources__exec__validate__file__remote
   { sha256_checksum; uri }
 
 let os_policies__resource_groups__resources__exec__validate__file
-    ?allow_insecure ?local_path ~gcs ~remote () :
+    ?allow_insecure ?local_path ?(gcs = []) ?(remote = []) () :
     os_policies__resource_groups__resources__exec__validate__file =
   { allow_insecure; local_path; gcs; remote }
 
 let os_policies__resource_groups__resources__exec__validate ?args
-    ?output_file_path ?script ~interpreter ~file () :
+    ?output_file_path ?script ?(file = []) ~interpreter () :
     os_policies__resource_groups__resources__exec__validate =
   { args; interpreter; output_file_path; script; file }
 
-let os_policies__resource_groups__resources__exec ~enforce ~validate
-    () : os_policies__resource_groups__resources__exec =
+let os_policies__resource_groups__resources__exec ?(enforce = [])
+    ~validate () : os_policies__resource_groups__resources__exec =
   { enforce; validate }
 
 let os_policies__resource_groups__resources__file__file__gcs
@@ -2453,12 +2454,13 @@ let os_policies__resource_groups__resources__file__file__remote
   { sha256_checksum; uri }
 
 let os_policies__resource_groups__resources__file__file
-    ?allow_insecure ?local_path ~gcs ~remote () :
+    ?allow_insecure ?local_path ?(gcs = []) ?(remote = []) () :
     os_policies__resource_groups__resources__file__file =
   { allow_insecure; local_path; gcs; remote }
 
-let os_policies__resource_groups__resources__file ?content ~path
-    ~state ~file () : os_policies__resource_groups__resources__file =
+let os_policies__resource_groups__resources__file ?content
+    ?(file = []) ~path ~state () :
+    os_policies__resource_groups__resources__file =
   { content; path; state; file }
 
 let os_policies__resource_groups__resources__pkg__apt ~name () :
@@ -2477,7 +2479,7 @@ let os_policies__resource_groups__resources__pkg__deb__source__remote
   { sha256_checksum; uri }
 
 let os_policies__resource_groups__resources__pkg__deb__source
-    ?allow_insecure ?local_path ~gcs ~remote () :
+    ?allow_insecure ?local_path ?(gcs = []) ?(remote = []) () :
     os_policies__resource_groups__resources__pkg__deb__source =
   { allow_insecure; local_path; gcs; remote }
 
@@ -2501,7 +2503,7 @@ let os_policies__resource_groups__resources__pkg__msi__source__remote
   { sha256_checksum; uri }
 
 let os_policies__resource_groups__resources__pkg__msi__source
-    ?allow_insecure ?local_path ~gcs ~remote () :
+    ?allow_insecure ?local_path ?(gcs = []) ?(remote = []) () :
     os_policies__resource_groups__resources__pkg__msi__source =
   { allow_insecure; local_path; gcs; remote }
 
@@ -2521,7 +2523,7 @@ let os_policies__resource_groups__resources__pkg__rpm__source__remote
   { sha256_checksum; uri }
 
 let os_policies__resource_groups__resources__pkg__rpm__source
-    ?allow_insecure ?local_path ~gcs ~remote () :
+    ?allow_insecure ?local_path ?(gcs = []) ?(remote = []) () :
     os_policies__resource_groups__resources__pkg__rpm__source =
   { allow_insecure; local_path; gcs; remote }
 
@@ -2537,8 +2539,9 @@ let os_policies__resource_groups__resources__pkg__zypper ~name () :
     os_policies__resource_groups__resources__pkg__zypper =
   { name }
 
-let os_policies__resource_groups__resources__pkg ~desired_state ~apt
-    ~deb ~googet ~msi ~rpm ~yum ~zypper () :
+let os_policies__resource_groups__resources__pkg ?(apt = [])
+    ?(deb = []) ?(googet = []) ?(msi = []) ?(rpm = []) ?(yum = [])
+    ?(zypper = []) ~desired_state () :
     os_policies__resource_groups__resources__pkg =
   { desired_state; apt; deb; googet; msi; rpm; yum; zypper }
 
@@ -2562,17 +2565,18 @@ let os_policies__resource_groups__resources__repository__zypper
     os_policies__resource_groups__resources__repository__zypper =
   { base_url; display_name; gpg_keys; id }
 
-let os_policies__resource_groups__resources__repository ~apt ~goo
-    ~yum ~zypper () :
+let os_policies__resource_groups__resources__repository ?(apt = [])
+    ?(goo = []) ?(yum = []) ?(zypper = []) () :
     os_policies__resource_groups__resources__repository =
   { apt; goo; yum; zypper }
 
-let os_policies__resource_groups__resources ~id ~exec ~file ~pkg
-    ~repository () : os_policies__resource_groups__resources =
+let os_policies__resource_groups__resources ?(exec = []) ?(file = [])
+    ?(pkg = []) ?(repository = []) ~id () :
+    os_policies__resource_groups__resources =
   { id; exec; file; pkg; repository }
 
-let os_policies__resource_groups ~inventory_filters ~resources () :
-    os_policies__resource_groups =
+let os_policies__resource_groups ?(inventory_filters = []) ~resources
+    () : os_policies__resource_groups =
   { inventory_filters; resources }
 
 let os_policies ?allow_no_resource_group_match ?description ~id ~mode

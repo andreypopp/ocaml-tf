@@ -226,13 +226,13 @@ let _ = yojson_of_cloudflare_load_balancer_pools
 let filter ?name () : filter = { name }
 let pools () = ()
 
-let cloudflare_load_balancer_pools ?id ~account_id ~filter ~pools ()
-    : cloudflare_load_balancer_pools =
+let cloudflare_load_balancer_pools ?id ?(filter = []) ?(pools = [])
+    ~account_id () : cloudflare_load_balancer_pools =
   { account_id; id; filter; pools }
 
 type t = { account_id : string prop; id : string prop }
 
-let make ?id ~account_id ~filter ~pools __id =
+let make ?id ?(filter = []) ?(pools = []) ~account_id __id =
   let __type = "cloudflare_load_balancer_pools" in
   let __attrs =
     ({
@@ -246,14 +246,15 @@ let make ?id ~account_id ~filter ~pools __id =
     type_ = __type;
     json =
       yojson_of_cloudflare_load_balancer_pools
-        (cloudflare_load_balancer_pools ?id ~account_id ~filter
-           ~pools ());
+        (cloudflare_load_balancer_pools ?id ~filter ~pools
+           ~account_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~account_id ~filter ~pools __id =
+let register ?tf_module ?id ?(filter = []) ?(pools = []) ~account_id
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~account_id ~filter ~pools __id
+    make ?id ~filter ~pools ~account_id __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

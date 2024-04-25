@@ -14,7 +14,7 @@ val certificate_authority_config__certificate_authority_service_config :
 type certificate_authority_config
 
 val certificate_authority_config :
-  certificate_authority_service_config:
+  ?certificate_authority_service_config:
     certificate_authority_config__certificate_authority_service_config
     list ->
   unit ->

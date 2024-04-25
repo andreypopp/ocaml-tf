@@ -1517,9 +1517,9 @@ let network_profile__ip_configuration
     ?application_gateway_backend_address_pool_ids
     ?application_security_group_ids
     ?load_balancer_backend_address_pool_ids
-    ?load_balancer_inbound_nat_rules_ids ~name ~primary ~subnet_id
-    ~public_ip_address_configuration () :
-    network_profile__ip_configuration =
+    ?load_balancer_inbound_nat_rules_ids
+    ?(public_ip_address_configuration = []) ~name ~primary ~subnet_id
+    () : network_profile__ip_configuration =
   {
     application_gateway_backend_address_pool_ids;
     application_security_group_ids;
@@ -1532,7 +1532,7 @@ let network_profile__ip_configuration
   }
 
 let network_profile ?accelerated_networking ?ip_forwarding
-    ?network_security_group_id ~name ~primary ~dns_settings
+    ?network_security_group_id ?(dns_settings = []) ~name ~primary
     ~ip_configuration () : network_profile =
   {
     accelerated_networking;
@@ -1558,15 +1558,15 @@ let os_profile_linux_config__ssh_keys ?key_data ~path () :
   { key_data; path }
 
 let os_profile_linux_config ?disable_password_authentication
-    ~ssh_keys () : os_profile_linux_config =
+    ?(ssh_keys = []) () : os_profile_linux_config =
   { disable_password_authentication; ssh_keys }
 
 let os_profile_secrets__vault_certificates ?certificate_store
     ~certificate_url () : os_profile_secrets__vault_certificates =
   { certificate_store; certificate_url }
 
-let os_profile_secrets ~source_vault_id ~vault_certificates () :
-    os_profile_secrets =
+let os_profile_secrets ?(vault_certificates = []) ~source_vault_id ()
+    : os_profile_secrets =
   { source_vault_id; vault_certificates }
 
 let os_profile_windows_config__additional_unattend_config ~component
@@ -1579,8 +1579,8 @@ let os_profile_windows_config__winrm ?certificate_url ~protocol () :
   { certificate_url; protocol }
 
 let os_profile_windows_config ?enable_automatic_upgrades
-    ?provision_vm_agent ~additional_unattend_config ~winrm () :
-    os_profile_windows_config =
+    ?provision_vm_agent ?(additional_unattend_config = [])
+    ?(winrm = []) () : os_profile_windows_config =
   {
     enable_automatic_upgrades;
     provision_vm_agent;
@@ -1632,13 +1632,14 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_virtual_machine_scale_set ?automatic_os_upgrade
     ?eviction_policy ?health_probe_id ?id ?license_type
     ?overprovision ?priority ?proximity_placement_group_id
-    ?single_placement_group ?tags ?zones ?timeouts ~location ~name
-    ~resource_group_name ~upgrade_policy_mode ~boot_diagnostics
-    ~extension ~identity ~network_profile ~os_profile
-    ~os_profile_linux_config ~os_profile_secrets
-    ~os_profile_windows_config ~plan ~rolling_upgrade_policy ~sku
-    ~storage_profile_data_disk ~storage_profile_image_reference
-    ~storage_profile_os_disk () : azurerm_virtual_machine_scale_set =
+    ?single_placement_group ?tags ?zones ?(boot_diagnostics = [])
+    ?(identity = []) ?(rolling_upgrade_policy = [])
+    ?(storage_profile_data_disk = []) ?timeouts ~location ~name
+    ~resource_group_name ~upgrade_policy_mode ~extension
+    ~network_profile ~os_profile ~os_profile_linux_config
+    ~os_profile_secrets ~os_profile_windows_config ~plan ~sku
+    ~storage_profile_image_reference ~storage_profile_os_disk () :
+    azurerm_virtual_machine_scale_set =
   {
     automatic_os_upgrade;
     eviction_policy;
@@ -1693,11 +1694,12 @@ type t = {
 let make ?automatic_os_upgrade ?eviction_policy ?health_probe_id ?id
     ?license_type ?overprovision ?priority
     ?proximity_placement_group_id ?single_placement_group ?tags
-    ?zones ?timeouts ~location ~name ~resource_group_name
-    ~upgrade_policy_mode ~boot_diagnostics ~extension ~identity
-    ~network_profile ~os_profile ~os_profile_linux_config
-    ~os_profile_secrets ~os_profile_windows_config ~plan
-    ~rolling_upgrade_policy ~sku ~storage_profile_data_disk
+    ?zones ?(boot_diagnostics = []) ?(identity = [])
+    ?(rolling_upgrade_policy = []) ?(storage_profile_data_disk = [])
+    ?timeouts ~location ~name ~resource_group_name
+    ~upgrade_policy_mode ~extension ~network_profile ~os_profile
+    ~os_profile_linux_config ~os_profile_secrets
+    ~os_profile_windows_config ~plan ~sku
     ~storage_profile_image_reference ~storage_profile_os_disk __id =
   let __type = "azurerm_virtual_machine_scale_set" in
   let __attrs =
@@ -1733,12 +1735,12 @@ let make ?automatic_os_upgrade ?eviction_policy ?health_probe_id ?id
         (azurerm_virtual_machine_scale_set ?automatic_os_upgrade
            ?eviction_policy ?health_probe_id ?id ?license_type
            ?overprovision ?priority ?proximity_placement_group_id
-           ?single_placement_group ?tags ?zones ?timeouts ~location
-           ~name ~resource_group_name ~upgrade_policy_mode
-           ~boot_diagnostics ~extension ~identity ~network_profile
-           ~os_profile ~os_profile_linux_config ~os_profile_secrets
-           ~os_profile_windows_config ~plan ~rolling_upgrade_policy
-           ~sku ~storage_profile_data_disk
+           ?single_placement_group ?tags ?zones ~boot_diagnostics
+           ~identity ~rolling_upgrade_policy
+           ~storage_profile_data_disk ?timeouts ~location ~name
+           ~resource_group_name ~upgrade_policy_mode ~extension
+           ~network_profile ~os_profile ~os_profile_linux_config
+           ~os_profile_secrets ~os_profile_windows_config ~plan ~sku
            ~storage_profile_image_reference ~storage_profile_os_disk
            ());
     attrs = __attrs;
@@ -1747,21 +1749,22 @@ let make ?automatic_os_upgrade ?eviction_policy ?health_probe_id ?id
 let register ?tf_module ?automatic_os_upgrade ?eviction_policy
     ?health_probe_id ?id ?license_type ?overprovision ?priority
     ?proximity_placement_group_id ?single_placement_group ?tags
-    ?zones ?timeouts ~location ~name ~resource_group_name
-    ~upgrade_policy_mode ~boot_diagnostics ~extension ~identity
-    ~network_profile ~os_profile ~os_profile_linux_config
-    ~os_profile_secrets ~os_profile_windows_config ~plan
-    ~rolling_upgrade_policy ~sku ~storage_profile_data_disk
+    ?zones ?(boot_diagnostics = []) ?(identity = [])
+    ?(rolling_upgrade_policy = []) ?(storage_profile_data_disk = [])
+    ?timeouts ~location ~name ~resource_group_name
+    ~upgrade_policy_mode ~extension ~network_profile ~os_profile
+    ~os_profile_linux_config ~os_profile_secrets
+    ~os_profile_windows_config ~plan ~sku
     ~storage_profile_image_reference ~storage_profile_os_disk __id =
   let (r : _ Tf_core.resource) =
     make ?automatic_os_upgrade ?eviction_policy ?health_probe_id ?id
       ?license_type ?overprovision ?priority
       ?proximity_placement_group_id ?single_placement_group ?tags
-      ?zones ?timeouts ~location ~name ~resource_group_name
-      ~upgrade_policy_mode ~boot_diagnostics ~extension ~identity
+      ?zones ~boot_diagnostics ~identity ~rolling_upgrade_policy
+      ~storage_profile_data_disk ?timeouts ~location ~name
+      ~resource_group_name ~upgrade_policy_mode ~extension
       ~network_profile ~os_profile ~os_profile_linux_config
-      ~os_profile_secrets ~os_profile_windows_config ~plan
-      ~rolling_upgrade_policy ~sku ~storage_profile_data_disk
+      ~os_profile_secrets ~os_profile_windows_config ~plan ~sku
       ~storage_profile_image_reference ~storage_profile_os_disk __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

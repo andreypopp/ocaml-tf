@@ -296,8 +296,8 @@ let s_sl_info__common_name ?value ?wildcard_match () :
   { value; wildcard_match }
 
 let s_sl_info ?ciphers ?client_auth_enabled ?ignore_validation_errors
-    ?key_alias ?key_store ?protocols ?trust_store ~enabled
-    ~common_name () : s_sl_info =
+    ?key_alias ?key_store ?protocols ?trust_store ?(common_name = [])
+    ~enabled () : s_sl_info =
   {
     ciphers;
     client_auth_enabled;
@@ -314,8 +314,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_apigee_target_server ?description ?id ?is_enabled
-    ?protocol ?timeouts ~env_id ~host ~name ~port ~s_sl_info () :
-    google_apigee_target_server =
+    ?protocol ?(s_sl_info = []) ?timeouts ~env_id ~host ~name ~port
+    () : google_apigee_target_server =
   {
     description;
     env_id;
@@ -340,8 +340,8 @@ type t = {
   protocol : string prop;
 }
 
-let make ?description ?id ?is_enabled ?protocol ?timeouts ~env_id
-    ~host ~name ~port ~s_sl_info __id =
+let make ?description ?id ?is_enabled ?protocol ?(s_sl_info = [])
+    ?timeouts ~env_id ~host ~name ~port __id =
   let __type = "google_apigee_target_server" in
   let __attrs =
     ({
@@ -362,16 +362,16 @@ let make ?description ?id ?is_enabled ?protocol ?timeouts ~env_id
     json =
       yojson_of_google_apigee_target_server
         (google_apigee_target_server ?description ?id ?is_enabled
-           ?protocol ?timeouts ~env_id ~host ~name ~port ~s_sl_info
+           ?protocol ~s_sl_info ?timeouts ~env_id ~host ~name ~port
            ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?is_enabled ?protocol
-    ?timeouts ~env_id ~host ~name ~port ~s_sl_info __id =
+    ?(s_sl_info = []) ?timeouts ~env_id ~host ~name ~port __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?is_enabled ?protocol ?timeouts ~env_id
-      ~host ~name ~port ~s_sl_info __id
+    make ?description ?id ?is_enabled ?protocol ~s_sl_info ?timeouts
+      ~env_id ~host ~name ~port __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -311,7 +311,7 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_kubernetes_cluster_extension
     ?configuration_protected_settings ?configuration_settings ?id
     ?release_namespace ?release_train ?target_namespace ?version
-    ?timeouts ~cluster_id ~extension_type ~name ~plan () :
+    ?(plan = []) ?timeouts ~cluster_id ~extension_type ~name () :
     azurerm_kubernetes_cluster_extension =
   {
     cluster_id;
@@ -345,7 +345,7 @@ type t = {
 
 let make ?configuration_protected_settings ?configuration_settings
     ?id ?release_namespace ?release_train ?target_namespace ?version
-    ?timeouts ~cluster_id ~extension_type ~name ~plan __id =
+    ?(plan = []) ?timeouts ~cluster_id ~extension_type ~name __id =
   let __type = "azurerm_kubernetes_cluster_extension" in
   let __attrs =
     ({
@@ -377,19 +377,19 @@ let make ?configuration_protected_settings ?configuration_settings
         (azurerm_kubernetes_cluster_extension
            ?configuration_protected_settings ?configuration_settings
            ?id ?release_namespace ?release_train ?target_namespace
-           ?version ?timeouts ~cluster_id ~extension_type ~name ~plan
+           ?version ~plan ?timeouts ~cluster_id ~extension_type ~name
            ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?configuration_protected_settings
     ?configuration_settings ?id ?release_namespace ?release_train
-    ?target_namespace ?version ?timeouts ~cluster_id ~extension_type
-    ~name ~plan __id =
+    ?target_namespace ?version ?(plan = []) ?timeouts ~cluster_id
+    ~extension_type ~name __id =
   let (r : _ Tf_core.resource) =
     make ?configuration_protected_settings ?configuration_settings
       ?id ?release_namespace ?release_train ?target_namespace
-      ?version ?timeouts ~cluster_id ~extension_type ~name ~plan __id
+      ?version ~plan ?timeouts ~cluster_id ~extension_type ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

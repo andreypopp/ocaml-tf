@@ -496,7 +496,7 @@ let instance_configuration__block_device_mapping__ebs
   }
 
 let instance_configuration__block_device_mapping ?device_name
-    ?no_device ?virtual_name ~ebs () :
+    ?no_device ?virtual_name ?(ebs = []) () :
     instance_configuration__block_device_mapping =
   { device_name; no_device; virtual_name; ebs }
 
@@ -511,8 +511,8 @@ let target_repository ~repository_name ~service () :
 let aws_imagebuilder_container_recipe ?description
     ?dockerfile_template_data ?dockerfile_template_uri ?id
     ?kms_key_id ?platform_override ?tags ?tags_all ?working_directory
-    ~container_type ~name ~parent_image ~version ~component
-    ~instance_configuration ~target_repository () :
+    ?(instance_configuration = []) ~container_type ~name
+    ~parent_image ~version ~component ~target_repository () :
     aws_imagebuilder_container_recipe =
   {
     container_type;
@@ -556,9 +556,9 @@ type t = {
 
 let make ?description ?dockerfile_template_data
     ?dockerfile_template_uri ?id ?kms_key_id ?platform_override ?tags
-    ?tags_all ?working_directory ~container_type ~name ~parent_image
-    ~version ~component ~instance_configuration ~target_repository
-    __id =
+    ?tags_all ?working_directory ?(instance_configuration = [])
+    ~container_type ~name ~parent_image ~version ~component
+    ~target_repository __id =
   let __type = "aws_imagebuilder_container_recipe" in
   let __attrs =
     ({
@@ -595,22 +595,22 @@ let make ?description ?dockerfile_template_data
         (aws_imagebuilder_container_recipe ?description
            ?dockerfile_template_data ?dockerfile_template_uri ?id
            ?kms_key_id ?platform_override ?tags ?tags_all
-           ?working_directory ~container_type ~name ~parent_image
-           ~version ~component ~instance_configuration
-           ~target_repository ());
+           ?working_directory ~instance_configuration ~container_type
+           ~name ~parent_image ~version ~component ~target_repository
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?dockerfile_template_data
     ?dockerfile_template_uri ?id ?kms_key_id ?platform_override ?tags
-    ?tags_all ?working_directory ~container_type ~name ~parent_image
-    ~version ~component ~instance_configuration ~target_repository
-    __id =
+    ?tags_all ?working_directory ?(instance_configuration = [])
+    ~container_type ~name ~parent_image ~version ~component
+    ~target_repository __id =
   let (r : _ Tf_core.resource) =
     make ?description ?dockerfile_template_data
       ?dockerfile_template_uri ?id ?kms_key_id ?platform_override
-      ?tags ?tags_all ?working_directory ~container_type ~name
-      ~parent_image ~version ~component ~instance_configuration
+      ?tags ?tags_all ?working_directory ~instance_configuration
+      ~container_type ~name ~parent_image ~version ~component
       ~target_repository __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

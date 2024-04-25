@@ -171,7 +171,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_monitoring_custom_service ?display_name ?id ?project
-    ?service_id ?user_labels ?timeouts ~telemetry () :
+    ?service_id ?user_labels ?(telemetry = []) ?timeouts () :
     google_monitoring_custom_service =
   {
     display_name;
@@ -193,7 +193,7 @@ type t = {
 }
 
 let make ?display_name ?id ?project ?service_id ?user_labels
-    ?timeouts ~telemetry __id =
+    ?(telemetry = []) ?timeouts __id =
   let __type = "google_monitoring_custom_service" in
   let __attrs =
     ({
@@ -212,15 +212,15 @@ let make ?display_name ?id ?project ?service_id ?user_labels
     json =
       yojson_of_google_monitoring_custom_service
         (google_monitoring_custom_service ?display_name ?id ?project
-           ?service_id ?user_labels ?timeouts ~telemetry ());
+           ?service_id ?user_labels ~telemetry ?timeouts ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?display_name ?id ?project ?service_id
-    ?user_labels ?timeouts ~telemetry __id =
+    ?user_labels ?(telemetry = []) ?timeouts __id =
   let (r : _ Tf_core.resource) =
     make ?display_name ?id ?project ?service_id ?user_labels
-      ?timeouts ~telemetry __id
+      ~telemetry ?timeouts __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -1053,8 +1053,8 @@ let elements__amazon_transcribe_call_analytics_processor_configuration
     ?filter_partial_results ?language_model_name
     ?partial_results_stability ?pii_entity_types
     ?vocabulary_filter_method ?vocabulary_filter_name
-    ?vocabulary_name ~language_code ~post_call_analytics_settings ()
-    :
+    ?vocabulary_name ?(post_call_analytics_settings = [])
+    ~language_code () :
     elements__amazon_transcribe_call_analytics_processor_configuration
     =
   {
@@ -1120,14 +1120,16 @@ let elements__voice_analytics_processor_configuration
     elements__voice_analytics_processor_configuration =
   { speaker_search_status; voice_tone_analysis_status }
 
-let elements ~type_
-    ~amazon_transcribe_call_analytics_processor_configuration
-    ~amazon_transcribe_processor_configuration
-    ~kinesis_data_stream_sink_configuration
-    ~lambda_function_sink_configuration
-    ~s3_recording_sink_configuration ~sns_topic_sink_configuration
-    ~sqs_queue_sink_configuration
-    ~voice_analytics_processor_configuration () : elements =
+let elements
+    ?(amazon_transcribe_call_analytics_processor_configuration = [])
+    ?(amazon_transcribe_processor_configuration = [])
+    ?(kinesis_data_stream_sink_configuration = [])
+    ?(lambda_function_sink_configuration = [])
+    ?(s3_recording_sink_configuration = [])
+    ?(sns_topic_sink_configuration = [])
+    ?(sqs_queue_sink_configuration = [])
+    ?(voice_analytics_processor_configuration = []) ~type_ () :
+    elements =
   {
     type_;
     amazon_transcribe_call_analytics_processor_configuration;
@@ -1157,9 +1159,10 @@ let real_time_alert_configuration__rules__sentiment_configuration
     real_time_alert_configuration__rules__sentiment_configuration =
   { rule_name; sentiment_type; time_period }
 
-let real_time_alert_configuration__rules ~type_
-    ~issue_detection_configuration ~keyword_match_configuration
-    ~sentiment_configuration () :
+let real_time_alert_configuration__rules
+    ?(issue_detection_configuration = [])
+    ?(keyword_match_configuration = [])
+    ?(sentiment_configuration = []) ~type_ () :
     real_time_alert_configuration__rules =
   {
     type_;
@@ -1176,8 +1179,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_chimesdkmediapipelines_media_insights_pipeline_configuration
-    ?tags ?tags_all ?timeouts ~name ~resource_access_role_arn
-    ~elements ~real_time_alert_configuration () :
+    ?tags ?tags_all ?(real_time_alert_configuration = []) ?timeouts
+    ~name ~resource_access_role_arn ~elements () :
     aws_chimesdkmediapipelines_media_insights_pipeline_configuration
     =
   {
@@ -1199,8 +1202,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?tags ?tags_all ?timeouts ~name ~resource_access_role_arn
-    ~elements ~real_time_alert_configuration __id =
+let make ?tags ?tags_all ?(real_time_alert_configuration = [])
+    ?timeouts ~name ~resource_access_role_arn ~elements __id =
   let __type =
     "aws_chimesdkmediapipelines_media_insights_pipeline_configuration"
   in
@@ -1222,17 +1225,17 @@ let make ?tags ?tags_all ?timeouts ~name ~resource_access_role_arn
     json =
       yojson_of_aws_chimesdkmediapipelines_media_insights_pipeline_configuration
         (aws_chimesdkmediapipelines_media_insights_pipeline_configuration
-           ?tags ?tags_all ?timeouts ~name ~resource_access_role_arn
-           ~elements ~real_time_alert_configuration ());
+           ?tags ?tags_all ~real_time_alert_configuration ?timeouts
+           ~name ~resource_access_role_arn ~elements ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?tags ?tags_all ?timeouts ~name
-    ~resource_access_role_arn ~elements
-    ~real_time_alert_configuration __id =
+let register ?tf_module ?tags ?tags_all
+    ?(real_time_alert_configuration = []) ?timeouts ~name
+    ~resource_access_role_arn ~elements __id =
   let (r : _ Tf_core.resource) =
-    make ?tags ?tags_all ?timeouts ~name ~resource_access_role_arn
-      ~elements ~real_time_alert_configuration __id
+    make ?tags ?tags_all ~real_time_alert_configuration ?timeouts
+      ~name ~resource_access_role_arn ~elements __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

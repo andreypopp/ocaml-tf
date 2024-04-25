@@ -82,11 +82,11 @@ val aws_elastictranscoder_preset :
   ?name:string prop ->
   ?type_:string prop ->
   ?video_codec_options:(string * string prop) list ->
+  ?audio:audio list ->
+  ?audio_codec_options:audio_codec_options list ->
+  ?thumbnails:thumbnails list ->
+  ?video:video list ->
   container:string prop ->
-  audio:audio list ->
-  audio_codec_options:audio_codec_options list ->
-  thumbnails:thumbnails list ->
-  video:video list ->
   video_watermarks:video_watermarks list ->
   unit ->
   aws_elastictranscoder_preset
@@ -113,11 +113,11 @@ val register :
   ?name:string prop ->
   ?type_:string prop ->
   ?video_codec_options:(string * string prop) list ->
+  ?audio:audio list ->
+  ?audio_codec_options:audio_codec_options list ->
+  ?thumbnails:thumbnails list ->
+  ?video:video list ->
   container:string prop ->
-  audio:audio list ->
-  audio_codec_options:audio_codec_options list ->
-  thumbnails:thumbnails list ->
-  video:video list ->
   video_watermarks:video_watermarks list ->
   string ->
   t
@@ -128,11 +128,11 @@ val make :
   ?name:string prop ->
   ?type_:string prop ->
   ?video_codec_options:(string * string prop) list ->
+  ?audio:audio list ->
+  ?audio_codec_options:audio_codec_options list ->
+  ?thumbnails:thumbnails list ->
+  ?video:video list ->
   container:string prop ->
-  audio:audio list ->
-  audio_codec_options:audio_codec_options list ->
-  thumbnails:thumbnails list ->
-  video:video list ->
   video_watermarks:video_watermarks list ->
   string ->
   t Tf_core.resource

@@ -319,10 +319,10 @@ let threat_detection_policy ?disabled_alerts ?email_account_admins
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_sql_server ?connection_policy ?id ?tags ?timeouts
-    ~administrator_login ~administrator_login_password ~location
-    ~name ~resource_group_name ~version ~identity
-    ~threat_detection_policy () : azurerm_sql_server =
+let azurerm_sql_server ?connection_policy ?id ?tags ?(identity = [])
+    ?(threat_detection_policy = []) ?timeouts ~administrator_login
+    ~administrator_login_password ~location ~name
+    ~resource_group_name ~version () : azurerm_sql_server =
   {
     administrator_login;
     administrator_login_password;
@@ -351,10 +351,10 @@ type t = {
   version : string prop;
 }
 
-let make ?connection_policy ?id ?tags ?timeouts ~administrator_login
+let make ?connection_policy ?id ?tags ?(identity = [])
+    ?(threat_detection_policy = []) ?timeouts ~administrator_login
     ~administrator_login_password ~location ~name
-    ~resource_group_name ~version ~identity ~threat_detection_policy
-    __id =
+    ~resource_group_name ~version __id =
   let __type = "azurerm_sql_server" in
   let __attrs =
     ({
@@ -381,22 +381,22 @@ let make ?connection_policy ?id ?tags ?timeouts ~administrator_login
     type_ = __type;
     json =
       yojson_of_azurerm_sql_server
-        (azurerm_sql_server ?connection_policy ?id ?tags ?timeouts
-           ~administrator_login ~administrator_login_password
-           ~location ~name ~resource_group_name ~version ~identity
-           ~threat_detection_policy ());
+        (azurerm_sql_server ?connection_policy ?id ?tags ~identity
+           ~threat_detection_policy ?timeouts ~administrator_login
+           ~administrator_login_password ~location ~name
+           ~resource_group_name ~version ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?connection_policy ?id ?tags ?timeouts
-    ~administrator_login ~administrator_login_password ~location
-    ~name ~resource_group_name ~version ~identity
-    ~threat_detection_policy __id =
+let register ?tf_module ?connection_policy ?id ?tags ?(identity = [])
+    ?(threat_detection_policy = []) ?timeouts ~administrator_login
+    ~administrator_login_password ~location ~name
+    ~resource_group_name ~version __id =
   let (r : _ Tf_core.resource) =
-    make ?connection_policy ?id ?tags ?timeouts ~administrator_login
+    make ?connection_policy ?id ?tags ~identity
+      ~threat_detection_policy ?timeouts ~administrator_login
       ~administrator_login_password ~location ~name
-      ~resource_group_name ~version ~identity
-      ~threat_detection_policy __id
+      ~resource_group_name ~version __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

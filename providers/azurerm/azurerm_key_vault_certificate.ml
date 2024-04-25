@@ -682,8 +682,8 @@ let certificate_policy__x509_certificate_properties__subject_alternative_names
   { dns_names; emails; upns }
 
 let certificate_policy__x509_certificate_properties
-    ?extended_key_usage ~key_usage ~subject ~validity_in_months
-    ~subject_alternative_names () :
+    ?extended_key_usage ?(subject_alternative_names = []) ~key_usage
+    ~subject ~validity_in_months () :
     certificate_policy__x509_certificate_properties =
   {
     extended_key_usage;
@@ -693,9 +693,9 @@ let certificate_policy__x509_certificate_properties
     subject_alternative_names;
   }
 
-let certificate_policy ~issuer_parameters ~key_properties
-    ~lifetime_action ~secret_properties ~x509_certificate_properties
-    () : certificate_policy =
+let certificate_policy ?(lifetime_action = [])
+    ?(x509_certificate_properties = []) ~issuer_parameters
+    ~key_properties ~secret_properties () : certificate_policy =
   {
     issuer_parameters;
     key_properties;
@@ -707,8 +707,8 @@ let certificate_policy ~issuer_parameters ~key_properties
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_key_vault_certificate ?id ?tags ?timeouts ~key_vault_id
-    ~name ~certificate ~certificate_policy () :
+let azurerm_key_vault_certificate ?id ?tags ?(certificate = [])
+    ?(certificate_policy = []) ?timeouts ~key_vault_id ~name () :
     azurerm_key_vault_certificate =
   {
     id;
@@ -737,8 +737,8 @@ type t = {
   versionless_secret_id : string prop;
 }
 
-let make ?id ?tags ?timeouts ~key_vault_id ~name ~certificate
-    ~certificate_policy __id =
+let make ?id ?tags ?(certificate = []) ?(certificate_policy = [])
+    ?timeouts ~key_vault_id ~name __id =
   let __type = "azurerm_key_vault_certificate" in
   let __attrs =
     ({
@@ -770,16 +770,16 @@ let make ?id ?tags ?timeouts ~key_vault_id ~name ~certificate
     type_ = __type;
     json =
       yojson_of_azurerm_key_vault_certificate
-        (azurerm_key_vault_certificate ?id ?tags ?timeouts
-           ~key_vault_id ~name ~certificate ~certificate_policy ());
+        (azurerm_key_vault_certificate ?id ?tags ~certificate
+           ~certificate_policy ?timeouts ~key_vault_id ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?timeouts ~key_vault_id ~name
-    ~certificate ~certificate_policy __id =
+let register ?tf_module ?id ?tags ?(certificate = [])
+    ?(certificate_policy = []) ?timeouts ~key_vault_id ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?timeouts ~key_vault_id ~name ~certificate
-      ~certificate_policy __id
+    make ?id ?tags ~certificate ~certificate_policy ?timeouts
+      ~key_vault_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

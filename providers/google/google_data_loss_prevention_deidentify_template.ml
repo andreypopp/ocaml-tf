@@ -10537,7 +10537,7 @@ let deidentify_config__image_transformations__transforms__selected_info_types__i
   { score }
 
 let deidentify_config__image_transformations__transforms__selected_info_types__info_types
-    ?version ~name ~sensitivity_score () :
+    ?version ?(sensitivity_score = []) ~name () :
     deidentify_config__image_transformations__transforms__selected_info_types__info_types
     =
   { name; version; sensitivity_score }
@@ -10549,8 +10549,9 @@ let deidentify_config__image_transformations__transforms__selected_info_types
   { info_types }
 
 let deidentify_config__image_transformations__transforms
-    ~all_info_types ~all_text ~redaction_color ~selected_info_types
-    () : deidentify_config__image_transformations__transforms =
+    ?(all_info_types = []) ?(all_text = []) ?(redaction_color = [])
+    ?(selected_info_types = []) () :
+    deidentify_config__image_transformations__transforms =
   { all_info_types; all_text; redaction_color; selected_info_types }
 
 let deidentify_config__image_transformations ~transforms () :
@@ -10564,7 +10565,7 @@ let deidentify_config__info_type_transformations__transformations__info_types__s
   { score }
 
 let deidentify_config__info_type_transformations__transformations__info_types
-    ?version ~name ~sensitivity_score () :
+    ?version ?(sensitivity_score = []) ~name () :
     deidentify_config__info_type_transformations__transformations__info_types
     =
   { name; version; sensitivity_score }
@@ -10583,7 +10584,7 @@ let deidentify_config__info_type_transformations__transformations__primitive_tra
 
 let deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
     ?day_of_week_value ?float_value ?integer_value ?string_value
-    ?timestamp_value ~date_value ~time_value () :
+    ?timestamp_value ?(date_value = []) ?(time_value = []) () :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
     =
   {
@@ -10610,7 +10611,7 @@ let deidentify_config__info_type_transformations__transformations__primitive_tra
 
 let deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
     ?day_of_week_value ?float_value ?integer_value ?string_value
-    ?timestamp_value ~date_value ~time_value () :
+    ?timestamp_value ?(date_value = []) ?(time_value = []) () :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
     =
   {
@@ -10637,7 +10638,7 @@ let deidentify_config__info_type_transformations__transformations__primitive_tra
 
 let deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
     ?day_of_week_value ?float_value ?integer_value ?string_value
-    ?timestamp_value ~date_value ~time_value () :
+    ?timestamp_value ?(date_value = []) ?(time_value = []) () :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
     =
   {
@@ -10651,13 +10652,13 @@ let deidentify_config__info_type_transformations__transformations__primitive_tra
   }
 
 let deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
-    ~max ~min ~replacement_value () :
+    ?(max = []) ?(min = []) ~replacement_value () :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
     =
   { max; min; replacement_value }
 
 let deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config
-    ~buckets () :
+    ?(buckets = []) () :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config
     =
   { buckets }
@@ -10670,7 +10671,7 @@ let deidentify_config__info_type_transformations__transformations__primitive_tra
 
 let deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config
     ?masking_character ?number_to_mask ?reverse_order
-    ~characters_to_ignore () :
+    ?(characters_to_ignore = []) () :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config
     =
   {
@@ -10705,7 +10706,7 @@ let deidentify_config__info_type_transformations__transformations__primitive_tra
   { key }
 
 let deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
-    ~kms_wrapped ~transient ~unwrapped () :
+    ?(kms_wrapped = []) ?(transient = []) ?(unwrapped = []) () :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
     =
   { kms_wrapped; transient; unwrapped }
@@ -10717,13 +10718,14 @@ let deidentify_config__info_type_transformations__transformations__primitive_tra
   { score }
 
 let deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
-    ?name ?version ~sensitivity_score () :
+    ?name ?version ?(sensitivity_score = []) () :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
     =
   { name; version; sensitivity_score }
 
 let deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
-    ~context ~crypto_key ~surrogate_info_type () :
+    ?(context = []) ?(crypto_key = []) ?(surrogate_info_type = []) ()
+    :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
     =
   { context; crypto_key; surrogate_info_type }
@@ -10747,13 +10749,13 @@ let deidentify_config__info_type_transformations__transformations__primitive_tra
   { key }
 
 let deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
-    ~kms_wrapped ~transient ~unwrapped () :
+    ?(kms_wrapped = []) ?(transient = []) ?(unwrapped = []) () :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
     =
   { kms_wrapped; transient; unwrapped }
 
 let deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
-    ~crypto_key () :
+    ?(crypto_key = []) () :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
     =
   { crypto_key }
@@ -10783,7 +10785,7 @@ let deidentify_config__info_type_transformations__transformations__primitive_tra
   { key }
 
 let deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
-    ~kms_wrapped ~transient ~unwrapped () :
+    ?(kms_wrapped = []) ?(transient = []) ?(unwrapped = []) () :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
     =
   { kms_wrapped; transient; unwrapped }
@@ -10795,14 +10797,14 @@ let deidentify_config__info_type_transformations__transformations__primitive_tra
   { score }
 
 let deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
-    ?name ?version ~sensitivity_score () :
+    ?name ?version ?(sensitivity_score = []) () :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
     =
   { name; version; sensitivity_score }
 
 let deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
-    ?common_alphabet ?custom_alphabet ?radix ~context ~crypto_key
-    ~surrogate_info_type () :
+    ?common_alphabet ?custom_alphabet ?radix ?(context = [])
+    ?(crypto_key = []) ?(surrogate_info_type = []) () :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
     =
   {
@@ -10839,13 +10841,14 @@ let deidentify_config__info_type_transformations__transformations__primitive_tra
   { key }
 
 let deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
-    ~kms_wrapped ~transient ~unwrapped () :
+    ?(kms_wrapped = []) ?(transient = []) ?(unwrapped = []) () :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
     =
   { kms_wrapped; transient; unwrapped }
 
 let deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config
-    ~lower_bound_days ~upper_bound_days ~context ~crypto_key () :
+    ?(context = []) ?(crypto_key = []) ~lower_bound_days
+    ~upper_bound_days () :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config
     =
   { lower_bound_days; upper_bound_days; context; crypto_key }
@@ -10886,7 +10889,8 @@ let deidentify_config__info_type_transformations__transformations__primitive_tra
 
 let deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
     ?boolean_value ?day_of_week_value ?float_value ?integer_value
-    ?string_value ?timestamp_value ~date_value ~time_value () :
+    ?string_value ?timestamp_value ?(date_value = [])
+    ?(time_value = []) () :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
     =
   {
@@ -10925,11 +10929,12 @@ let deidentify_config__info_type_transformations__transformations__primitive_tra
   { part_to_extract }
 
 let deidentify_config__info_type_transformations__transformations__primitive_transformation
-    ?replace_with_info_type_config ~bucketing_config
-    ~character_mask_config ~crypto_deterministic_config
-    ~crypto_hash_config ~crypto_replace_ffx_fpe_config
-    ~date_shift_config ~fixed_size_bucketing_config ~redact_config
-    ~replace_config ~replace_dictionary_config ~time_part_config () :
+    ?replace_with_info_type_config ?(bucketing_config = [])
+    ?(character_mask_config = []) ?(crypto_deterministic_config = [])
+    ?(crypto_hash_config = []) ?(crypto_replace_ffx_fpe_config = [])
+    ?(date_shift_config = []) ?(fixed_size_bucketing_config = [])
+    ?(redact_config = []) ?(replace_config = [])
+    ?(replace_dictionary_config = []) ?(time_part_config = []) () :
     deidentify_config__info_type_transformations__transformations__primitive_transformation
     =
   {
@@ -10948,7 +10953,7 @@ let deidentify_config__info_type_transformations__transformations__primitive_tra
   }
 
 let deidentify_config__info_type_transformations__transformations
-    ~info_types ~primitive_transformation () :
+    ?(info_types = []) ~primitive_transformation () :
     deidentify_config__info_type_transformations__transformations =
   { info_types; primitive_transformation }
 
@@ -10976,7 +10981,8 @@ let deidentify_config__record_transformations__field_transformations__condition_
 
 let deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value
     ?boolean_value ?day_of_week_value ?float_value ?integer_value
-    ?string_value ?timestamp_value ~date_value ~time_value () :
+    ?string_value ?timestamp_value ?(date_value = [])
+    ?(time_value = []) () :
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value
     =
   {
@@ -10991,25 +10997,25 @@ let deidentify_config__record_transformations__field_transformations__condition_
   }
 
 let deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions
-    ~operator ~field ~value () :
+    ?(value = []) ~operator ~field () :
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions
     =
   { operator; field; value }
 
 let deidentify_config__record_transformations__field_transformations__condition__expressions__conditions
-    ~conditions () :
+    ?(conditions = []) () :
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions
     =
   { conditions }
 
 let deidentify_config__record_transformations__field_transformations__condition__expressions
-    ?logical_operator ~conditions () :
+    ?logical_operator ?(conditions = []) () :
     deidentify_config__record_transformations__field_transformations__condition__expressions
     =
   { logical_operator; conditions }
 
 let deidentify_config__record_transformations__field_transformations__condition
-    ~expressions () :
+    ?(expressions = []) () :
     deidentify_config__record_transformations__field_transformations__condition
     =
   { expressions }
@@ -11027,7 +11033,7 @@ let deidentify_config__record_transformations__field_transformations__info_type_
   { score }
 
 let deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types
-    ?version ~name ~sensitivity_score () :
+    ?version ?(sensitivity_score = []) ~name () :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types
     =
   { name; version; sensitivity_score }
@@ -11046,7 +11052,7 @@ let deidentify_config__record_transformations__field_transformations__info_type_
 
 let deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
     ?day_of_week_value ?float_value ?integer_value ?string_value
-    ?timestamp_value ~date_value ~time_value () :
+    ?timestamp_value ?(date_value = []) ?(time_value = []) () :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
     =
   {
@@ -11073,7 +11079,7 @@ let deidentify_config__record_transformations__field_transformations__info_type_
 
 let deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
     ?day_of_week_value ?float_value ?integer_value ?string_value
-    ?timestamp_value ~date_value ~time_value () :
+    ?timestamp_value ?(date_value = []) ?(time_value = []) () :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
     =
   {
@@ -11100,7 +11106,7 @@ let deidentify_config__record_transformations__field_transformations__info_type_
 
 let deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
     ?day_of_week_value ?float_value ?integer_value ?string_value
-    ?timestamp_value ~date_value ~time_value () :
+    ?timestamp_value ?(date_value = []) ?(time_value = []) () :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
     =
   {
@@ -11114,7 +11120,7 @@ let deidentify_config__record_transformations__field_transformations__info_type_
   }
 
 let deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
-    ~max ~min ~replacement_value () :
+    ?(max = []) ?(min = []) ~replacement_value () :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
     =
   { max; min; replacement_value }
@@ -11133,7 +11139,7 @@ let deidentify_config__record_transformations__field_transformations__info_type_
 
 let deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config
     ?masking_character ?number_to_mask ?reverse_order
-    ~characters_to_ignore () :
+    ?(characters_to_ignore = []) () :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config
     =
   {
@@ -11168,7 +11174,7 @@ let deidentify_config__record_transformations__field_transformations__info_type_
   { key }
 
 let deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
-    ~kms_wrapped ~transient ~unwrapped () :
+    ?(kms_wrapped = []) ?(transient = []) ?(unwrapped = []) () :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
     =
   { kms_wrapped; transient; unwrapped }
@@ -11180,13 +11186,13 @@ let deidentify_config__record_transformations__field_transformations__info_type_
   { score }
 
 let deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
-    ?version ~name ~sensitivity_score () :
+    ?version ?(sensitivity_score = []) ~name () :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
     =
   { name; version; sensitivity_score }
 
 let deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
-    ~context ~crypto_key ~surrogate_info_type () :
+    ?(context = []) ~crypto_key ~surrogate_info_type () :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
     =
   { context; crypto_key; surrogate_info_type }
@@ -11210,7 +11216,7 @@ let deidentify_config__record_transformations__field_transformations__info_type_
   { key }
 
 let deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
-    ~kms_wrapped ~transient ~unwrapped () :
+    ?(kms_wrapped = []) ?(transient = []) ?(unwrapped = []) () :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
     =
   { kms_wrapped; transient; unwrapped }
@@ -11246,7 +11252,7 @@ let deidentify_config__record_transformations__field_transformations__info_type_
   { key }
 
 let deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
-    ~kms_wrapped ~transient ~unwrapped () :
+    ?(kms_wrapped = []) ?(transient = []) ?(unwrapped = []) () :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
     =
   { kms_wrapped; transient; unwrapped }
@@ -11258,14 +11264,14 @@ let deidentify_config__record_transformations__field_transformations__info_type_
   { score }
 
 let deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
-    ?version ~name ~sensitivity_score () :
+    ?version ?(sensitivity_score = []) ~name () :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
     =
   { name; version; sensitivity_score }
 
 let deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
-    ?common_alphabet ?custom_alphabet ?radix ~context ~crypto_key
-    ~surrogate_info_type () :
+    ?common_alphabet ?custom_alphabet ?radix ?(context = [])
+    ?(surrogate_info_type = []) ~crypto_key () :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
     =
   {
@@ -11302,13 +11308,14 @@ let deidentify_config__record_transformations__field_transformations__info_type_
   { key }
 
 let deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
-    ~kms_wrapped ~transient ~unwrapped () :
+    ?(kms_wrapped = []) ?(transient = []) ?(unwrapped = []) () :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
     =
   { kms_wrapped; transient; unwrapped }
 
 let deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config
-    ~lower_bound_days ~upper_bound_days ~context ~crypto_key () :
+    ?(context = []) ?(crypto_key = []) ~lower_bound_days
+    ~upper_bound_days () :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config
     =
   { lower_bound_days; upper_bound_days; context; crypto_key }
@@ -11349,7 +11356,8 @@ let deidentify_config__record_transformations__field_transformations__info_type_
 
 let deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
     ?boolean_value ?day_of_week_value ?float_value ?integer_value
-    ?string_value ?timestamp_value ~date_value ~time_value () :
+    ?string_value ?timestamp_value ?(date_value = [])
+    ?(time_value = []) () :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
     =
   {
@@ -11392,12 +11400,13 @@ let deidentify_config__record_transformations__field_transformations__info_type_
   { part_to_extract }
 
 let deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation
-    ~bucketing_config ~character_mask_config
-    ~crypto_deterministic_config ~crypto_hash_config
-    ~crypto_replace_ffx_fpe_config ~date_shift_config
-    ~fixed_size_bucketing_config ~redact_config ~replace_config
-    ~replace_dictionary_config ~replace_with_info_type_config
-    ~time_part_config () :
+    ?(bucketing_config = []) ?(character_mask_config = [])
+    ?(crypto_deterministic_config = []) ?(crypto_hash_config = [])
+    ?(crypto_replace_ffx_fpe_config = []) ?(date_shift_config = [])
+    ?(fixed_size_bucketing_config = []) ?(redact_config = [])
+    ?(replace_config = []) ?(replace_dictionary_config = [])
+    ?(replace_with_info_type_config = []) ?(time_part_config = []) ()
+    :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation
     =
   {
@@ -11416,7 +11425,7 @@ let deidentify_config__record_transformations__field_transformations__info_type_
   }
 
 let deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations
-    ~info_types ~primitive_transformation () :
+    ?(info_types = []) ~primitive_transformation () :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations
     =
   { info_types; primitive_transformation }
@@ -11441,7 +11450,8 @@ let deidentify_config__record_transformations__field_transformations__primitive_
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max
     ?boolean_value ?day_of_week_value ?float_value ?integer_value
-    ?string_value ?timestamp_value ~date_value ~time_value () :
+    ?string_value ?timestamp_value ?(date_value = [])
+    ?(time_value = []) () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max
     =
   {
@@ -11469,7 +11479,8 @@ let deidentify_config__record_transformations__field_transformations__primitive_
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min
     ?boolean_value ?day_of_week_value ?float_value ?integer_value
-    ?string_value ?timestamp_value ~date_value ~time_value () :
+    ?string_value ?timestamp_value ?(date_value = [])
+    ?(time_value = []) () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min
     =
   {
@@ -11497,7 +11508,8 @@ let deidentify_config__record_transformations__field_transformations__primitive_
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value
     ?boolean_value ?day_of_week_value ?float_value ?integer_value
-    ?string_value ?timestamp_value ~date_value ~time_value () :
+    ?string_value ?timestamp_value ?(date_value = [])
+    ?(time_value = []) () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value
     =
   {
@@ -11512,13 +11524,13 @@ let deidentify_config__record_transformations__field_transformations__primitive_
   }
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets
-    ~max ~min ~replacement_value () :
+    ?(max = []) ?(min = []) ~replacement_value () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets
     =
   { max; min; replacement_value }
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config
-    ~buckets () :
+    ?(buckets = []) () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config
     =
   { buckets }
@@ -11531,7 +11543,7 @@ let deidentify_config__record_transformations__field_transformations__primitive_
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config
     ?masking_character ?number_to_mask ?reverse_order
-    ~characters_to_ignore () :
+    ?(characters_to_ignore = []) () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config
     =
   {
@@ -11566,7 +11578,7 @@ let deidentify_config__record_transformations__field_transformations__primitive_
   { key }
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key
-    ~kms_wrapped ~transient ~unwrapped () :
+    ?(kms_wrapped = []) ?(transient = []) ?(unwrapped = []) () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key
     =
   { kms_wrapped; transient; unwrapped }
@@ -11578,13 +11590,14 @@ let deidentify_config__record_transformations__field_transformations__primitive_
   { score }
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
-    ?name ?version ~sensitivity_score () :
+    ?name ?version ?(sensitivity_score = []) () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
     =
   { name; version; sensitivity_score }
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config
-    ~context ~crypto_key ~surrogate_info_type () :
+    ?(context = []) ?(crypto_key = []) ?(surrogate_info_type = []) ()
+    :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config
     =
   { context; crypto_key; surrogate_info_type }
@@ -11608,13 +11621,13 @@ let deidentify_config__record_transformations__field_transformations__primitive_
   { key }
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key
-    ~kms_wrapped ~transient ~unwrapped () :
+    ?(kms_wrapped = []) ?(transient = []) ?(unwrapped = []) () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key
     =
   { kms_wrapped; transient; unwrapped }
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config
-    ~crypto_key () :
+    ?(crypto_key = []) () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config
     =
   { crypto_key }
@@ -11644,7 +11657,7 @@ let deidentify_config__record_transformations__field_transformations__primitive_
   { key }
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
-    ~kms_wrapped ~transient ~unwrapped () :
+    ?(kms_wrapped = []) ?(transient = []) ?(unwrapped = []) () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
     =
   { kms_wrapped; transient; unwrapped }
@@ -11656,14 +11669,14 @@ let deidentify_config__record_transformations__field_transformations__primitive_
   { score }
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
-    ?name ?version ~sensitivity_score () :
+    ?name ?version ?(sensitivity_score = []) () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
     =
   { name; version; sensitivity_score }
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config
-    ?common_alphabet ?custom_alphabet ?radix ~context ~crypto_key
-    ~surrogate_info_type () :
+    ?common_alphabet ?custom_alphabet ?radix ?(context = [])
+    ?(crypto_key = []) ?(surrogate_info_type = []) () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config
     =
   {
@@ -11700,13 +11713,14 @@ let deidentify_config__record_transformations__field_transformations__primitive_
   { key }
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key
-    ~kms_wrapped ~transient ~unwrapped () :
+    ?(kms_wrapped = []) ?(transient = []) ?(unwrapped = []) () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key
     =
   { kms_wrapped; transient; unwrapped }
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config
-    ~lower_bound_days ~upper_bound_days ~context ~crypto_key () :
+    ?(context = []) ?(crypto_key = []) ~lower_bound_days
+    ~upper_bound_days () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config
     =
   { lower_bound_days; upper_bound_days; context; crypto_key }
@@ -11725,7 +11739,8 @@ let deidentify_config__record_transformations__field_transformations__primitive_
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
     ?boolean_value ?day_of_week_value ?float_value ?integer_value
-    ?string_value ?timestamp_value ~date_value ~time_value () :
+    ?string_value ?timestamp_value ?(date_value = [])
+    ?(time_value = []) () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
     =
   {
@@ -11753,7 +11768,8 @@ let deidentify_config__record_transformations__field_transformations__primitive_
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
     ?boolean_value ?day_of_week_value ?float_value ?integer_value
-    ?string_value ?timestamp_value ~date_value ~time_value () :
+    ?string_value ?timestamp_value ?(date_value = [])
+    ?(time_value = []) () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
     =
   {
@@ -11791,7 +11807,8 @@ let deidentify_config__record_transformations__field_transformations__primitive_
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value
     ?boolean_value ?day_of_week_value ?float_value ?integer_value
-    ?string_value ?timestamp_value ~date_value ~time_value () :
+    ?string_value ?timestamp_value ?(date_value = [])
+    ?(time_value = []) () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value
     =
   {
@@ -11818,7 +11835,7 @@ let deidentify_config__record_transformations__field_transformations__primitive_
   { words }
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config
-    ~word_list () :
+    ?(word_list = []) () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config
     =
   { word_list }
@@ -11830,11 +11847,12 @@ let deidentify_config__record_transformations__field_transformations__primitive_
   { part_to_extract }
 
 let deidentify_config__record_transformations__field_transformations__primitive_transformation
-    ~bucketing_config ~character_mask_config
-    ~crypto_deterministic_config ~crypto_hash_config
-    ~crypto_replace_ffx_fpe_config ~date_shift_config
-    ~fixed_size_bucketing_config ~redact_config ~replace_config
-    ~replace_dictionary_config ~time_part_config () :
+    ?(bucketing_config = []) ?(character_mask_config = [])
+    ?(crypto_deterministic_config = []) ?(crypto_hash_config = [])
+    ?(crypto_replace_ffx_fpe_config = []) ?(date_shift_config = [])
+    ?(fixed_size_bucketing_config = []) ?(redact_config = [])
+    ?(replace_config = []) ?(replace_dictionary_config = [])
+    ?(time_part_config = []) () :
     deidentify_config__record_transformations__field_transformations__primitive_transformation
     =
   {
@@ -11852,8 +11870,8 @@ let deidentify_config__record_transformations__field_transformations__primitive_
   }
 
 let deidentify_config__record_transformations__field_transformations
-    ~condition ~fields ~info_type_transformations
-    ~primitive_transformation () :
+    ?(condition = []) ?(info_type_transformations = [])
+    ?(primitive_transformation = []) ~fields () :
     deidentify_config__record_transformations__field_transformations
     =
   {
@@ -11883,7 +11901,8 @@ let deidentify_config__record_transformations__record_suppressions__condition__e
 
 let deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value
     ?boolean_value ?day_of_week_value ?float_value ?integer_value
-    ?string_value ?timestamp_value ~date_value ~time_value () :
+    ?string_value ?timestamp_value ?(date_value = [])
+    ?(time_value = []) () :
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value
     =
   {
@@ -11898,42 +11917,42 @@ let deidentify_config__record_transformations__record_suppressions__condition__e
   }
 
 let deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions
-    ~operator ~field ~value () :
+    ?(value = []) ~operator ~field () :
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions
     =
   { operator; field; value }
 
 let deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions
-    ~conditions () :
+    ?(conditions = []) () :
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions
     =
   { conditions }
 
 let deidentify_config__record_transformations__record_suppressions__condition__expressions
-    ?logical_operator ~conditions () :
+    ?logical_operator ?(conditions = []) () :
     deidentify_config__record_transformations__record_suppressions__condition__expressions
     =
   { logical_operator; conditions }
 
 let deidentify_config__record_transformations__record_suppressions__condition
-    ~expressions () :
+    ?(expressions = []) () :
     deidentify_config__record_transformations__record_suppressions__condition
     =
   { expressions }
 
 let deidentify_config__record_transformations__record_suppressions
-    ~condition () :
+    ?(condition = []) () :
     deidentify_config__record_transformations__record_suppressions =
   { condition }
 
-let deidentify_config__record_transformations ~field_transformations
-    ~record_suppressions () :
+let deidentify_config__record_transformations
+    ?(field_transformations = []) ?(record_suppressions = []) () :
     deidentify_config__record_transformations =
   { field_transformations; record_suppressions }
 
-let deidentify_config ~image_transformations
-    ~info_type_transformations ~record_transformations () :
-    deidentify_config =
+let deidentify_config ?(image_transformations = [])
+    ?(info_type_transformations = []) ?(record_transformations = [])
+    () : deidentify_config =
   {
     image_transformations;
     info_type_transformations;

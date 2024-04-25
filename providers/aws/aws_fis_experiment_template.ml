@@ -579,8 +579,8 @@ let action__parameter ~key ~value () : action__parameter =
 
 let action__target ~key ~value () : action__target = { key; value }
 
-let action ?description ?start_after ~action_id ~name ~parameter
-    ~target () : action =
+let action ?description ?start_after ?(target = []) ~action_id ~name
+    ~parameter () : action =
   { action_id; description; name; start_after; parameter; target }
 
 let log_configuration__cloudwatch_logs_configuration ~log_group_arn
@@ -591,8 +591,8 @@ let log_configuration__s3_configuration ?prefix ~bucket_name () :
     log_configuration__s3_configuration =
   { bucket_name; prefix }
 
-let log_configuration ~log_schema_version
-    ~cloudwatch_logs_configuration ~s3_configuration () :
+let log_configuration ?(cloudwatch_logs_configuration = [])
+    ?(s3_configuration = []) ~log_schema_version () :
     log_configuration =
   {
     log_schema_version;
@@ -609,8 +609,8 @@ let target__filter ~path ~values () : target__filter =
 let target__resource_tag ~key ~value () : target__resource_tag =
   { key; value }
 
-let target ?parameters ?resource_arns ~name ~resource_type
-    ~selection_mode ~filter ~resource_tag () : target =
+let target ?parameters ?resource_arns ?(filter = []) ~name
+    ~resource_type ~selection_mode ~resource_tag () : target =
   {
     name;
     parameters;
@@ -624,9 +624,10 @@ let target ?parameters ?resource_arns ~name ~resource_type
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let aws_fis_experiment_template ?id ?tags ?tags_all ?timeouts
-    ~description ~role_arn ~action ~log_configuration ~stop_condition
-    ~target () : aws_fis_experiment_template =
+let aws_fis_experiment_template ?id ?tags ?tags_all
+    ?(log_configuration = []) ?timeouts ~description ~role_arn
+    ~action ~stop_condition ~target () : aws_fis_experiment_template
+    =
   {
     description;
     id;
@@ -648,8 +649,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?tags ?tags_all ?timeouts ~description ~role_arn ~action
-    ~log_configuration ~stop_condition ~target __id =
+let make ?id ?tags ?tags_all ?(log_configuration = []) ?timeouts
+    ~description ~role_arn ~action ~stop_condition ~target __id =
   let __type = "aws_fis_experiment_template" in
   let __attrs =
     ({
@@ -666,18 +667,18 @@ let make ?id ?tags ?tags_all ?timeouts ~description ~role_arn ~action
     type_ = __type;
     json =
       yojson_of_aws_fis_experiment_template
-        (aws_fis_experiment_template ?id ?tags ?tags_all ?timeouts
-           ~description ~role_arn ~action ~log_configuration
-           ~stop_condition ~target ());
+        (aws_fis_experiment_template ?id ?tags ?tags_all
+           ~log_configuration ?timeouts ~description ~role_arn
+           ~action ~stop_condition ~target ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ?timeouts ~description
-    ~role_arn ~action ~log_configuration ~stop_condition ~target __id
-    =
+let register ?tf_module ?id ?tags ?tags_all ?(log_configuration = [])
+    ?timeouts ~description ~role_arn ~action ~stop_condition ~target
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ?timeouts ~description ~role_arn ~action
-      ~log_configuration ~stop_condition ~target __id
+    make ?id ?tags ?tags_all ~log_configuration ?timeouts
+      ~description ~role_arn ~action ~stop_condition ~target __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

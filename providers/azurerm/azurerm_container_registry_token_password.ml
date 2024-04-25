@@ -178,8 +178,8 @@ let password2 ?expiry () : password2 = { expiry }
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_container_registry_token_password ?id ?timeouts
-    ~container_registry_token_id ~password1 ~password2 () :
+let azurerm_container_registry_token_password ?id ?(password2 = [])
+    ?timeouts ~container_registry_token_id ~password1 () :
     azurerm_container_registry_token_password =
   { container_registry_token_id; id; password1; password2; timeouts }
 
@@ -188,8 +188,8 @@ type t = {
   id : string prop;
 }
 
-let make ?id ?timeouts ~container_registry_token_id ~password1
-    ~password2 __id =
+let make ?id ?(password2 = []) ?timeouts ~container_registry_token_id
+    ~password1 __id =
   let __type = "azurerm_container_registry_token_password" in
   let __attrs =
     ({
@@ -204,16 +204,16 @@ let make ?id ?timeouts ~container_registry_token_id ~password1
     type_ = __type;
     json =
       yojson_of_azurerm_container_registry_token_password
-        (azurerm_container_registry_token_password ?id ?timeouts
-           ~container_registry_token_id ~password1 ~password2 ());
+        (azurerm_container_registry_token_password ?id ~password2
+           ?timeouts ~container_registry_token_id ~password1 ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~container_registry_token_id
-    ~password1 ~password2 __id =
+let register ?tf_module ?id ?(password2 = []) ?timeouts
+    ~container_registry_token_id ~password1 __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~container_registry_token_id ~password1
-      ~password2 __id
+    make ?id ~password2 ?timeouts ~container_registry_token_id
+      ~password1 __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

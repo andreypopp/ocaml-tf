@@ -1863,8 +1863,9 @@ let ingress__traffic_weight ?label ?latest_revision ?revision_suffix
   { label; latest_revision; percentage; revision_suffix }
 
 let ingress ?allow_insecure_connections ?exposed_port
-    ?external_enabled ?transport ~target_port ~custom_domain
-    ~ip_security_restriction ~traffic_weight () : ingress =
+    ?external_enabled ?transport ?(custom_domain = [])
+    ?(ip_security_restriction = []) ~target_port ~traffic_weight () :
+    ingress =
   {
     allow_insecure_connections;
     exposed_port;
@@ -1900,8 +1901,9 @@ let template__container__liveness_probe__header ~name ~value () :
   { name; value }
 
 let template__container__liveness_probe ?failure_count_threshold
-    ?host ?initial_delay ?interval_seconds ?path ?timeout ~port
-    ~transport ~header () : template__container__liveness_probe =
+    ?host ?initial_delay ?interval_seconds ?path ?timeout
+    ?(header = []) ~port ~transport () :
+    template__container__liveness_probe =
   {
     failure_count_threshold;
     host;
@@ -1920,7 +1922,7 @@ let template__container__readiness_probe__header ~name ~value () :
 
 let template__container__readiness_probe ?failure_count_threshold
     ?host ?interval_seconds ?path ?success_count_threshold ?timeout
-    ~port ~transport ~header () :
+    ?(header = []) ~port ~transport () :
     template__container__readiness_probe =
   {
     failure_count_threshold;
@@ -1939,8 +1941,8 @@ let template__container__startup_probe__header ~name ~value () :
   { name; value }
 
 let template__container__startup_probe ?failure_count_threshold ?host
-    ?interval_seconds ?path ?timeout ~port ~transport ~header () :
-    template__container__startup_probe =
+    ?interval_seconds ?path ?timeout ?(header = []) ~port ~transport
+    () : template__container__startup_probe =
   {
     failure_count_threshold;
     host;
@@ -1956,9 +1958,10 @@ let template__container__volume_mounts ~name ~path () :
     template__container__volume_mounts =
   { name; path }
 
-let template__container ?args ?command ~cpu ~image ~memory ~name ~env
-    ~liveness_probe ~readiness_probe ~startup_probe ~volume_mounts ()
-    : template__container =
+let template__container ?args ?command ?(env = [])
+    ?(liveness_probe = []) ?(readiness_probe = [])
+    ?(startup_probe = []) ?(volume_mounts = []) ~cpu ~image ~memory
+    ~name () : template__container =
   {
     args;
     command;
@@ -1978,16 +1981,17 @@ let template__custom_scale_rule__authentication ~secret_name
     template__custom_scale_rule__authentication =
   { secret_name; trigger_parameter }
 
-let template__custom_scale_rule ~custom_rule_type ~metadata ~name
-    ~authentication () : template__custom_scale_rule =
+let template__custom_scale_rule ?(authentication = [])
+    ~custom_rule_type ~metadata ~name () :
+    template__custom_scale_rule =
   { custom_rule_type; metadata; name; authentication }
 
 let template__http_scale_rule__authentication ?trigger_parameter
     ~secret_name () : template__http_scale_rule__authentication =
   { secret_name; trigger_parameter }
 
-let template__http_scale_rule ~concurrent_requests ~name
-    ~authentication () : template__http_scale_rule =
+let template__http_scale_rule ?(authentication = [])
+    ~concurrent_requests ~name () : template__http_scale_rule =
   { concurrent_requests; name; authentication }
 
 let template__init_container__env ?secret_name ?value ~name () :
@@ -1998,16 +2002,17 @@ let template__init_container__volume_mounts ~name ~path () :
     template__init_container__volume_mounts =
   { name; path }
 
-let template__init_container ?args ?command ?cpu ?memory ~image ~name
-    ~env ~volume_mounts () : template__init_container =
+let template__init_container ?args ?command ?cpu ?memory ?(env = [])
+    ?(volume_mounts = []) ~image ~name () : template__init_container
+    =
   { args; command; cpu; image; memory; name; env; volume_mounts }
 
 let template__tcp_scale_rule__authentication ?trigger_parameter
     ~secret_name () : template__tcp_scale_rule__authentication =
   { secret_name; trigger_parameter }
 
-let template__tcp_scale_rule ~concurrent_requests ~name
-    ~authentication () : template__tcp_scale_rule =
+let template__tcp_scale_rule ?(authentication = [])
+    ~concurrent_requests ~name () : template__tcp_scale_rule =
   { concurrent_requests; name; authentication }
 
 let template__volume ?storage_name ?storage_type ~name () :
@@ -2015,9 +2020,9 @@ let template__volume ?storage_name ?storage_type ~name () :
   { name; storage_name; storage_type }
 
 let template ?max_replicas ?min_replicas ?revision_suffix
-    ~azure_queue_scale_rule ~container ~custom_scale_rule
-    ~http_scale_rule ~init_container ~tcp_scale_rule ~volume () :
-    template =
+    ?(azure_queue_scale_rule = []) ?(custom_scale_rule = [])
+    ?(http_scale_rule = []) ?(init_container = [])
+    ?(tcp_scale_rule = []) ?(volume = []) ~container () : template =
   {
     max_replicas;
     min_replicas;
@@ -2034,10 +2039,11 @@ let template ?max_replicas ?min_replicas ?revision_suffix
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_container_app ?id ?tags ?workload_profile_name ?timeouts
-    ~container_app_environment_id ~name ~resource_group_name
-    ~revision_mode ~dapr ~identity ~ingress ~registry ~secret
-    ~template () : azurerm_container_app =
+let azurerm_container_app ?id ?tags ?workload_profile_name
+    ?(dapr = []) ?(identity = []) ?(ingress = []) ?(registry = [])
+    ?timeouts ~container_app_environment_id ~name
+    ~resource_group_name ~revision_mode ~secret ~template () :
+    azurerm_container_app =
   {
     container_app_environment_id;
     id;
@@ -2070,10 +2076,10 @@ type t = {
   workload_profile_name : string prop;
 }
 
-let make ?id ?tags ?workload_profile_name ?timeouts
+let make ?id ?tags ?workload_profile_name ?(dapr = [])
+    ?(identity = []) ?(ingress = []) ?(registry = []) ?timeouts
     ~container_app_environment_id ~name ~resource_group_name
-    ~revision_mode ~dapr ~identity ~ingress ~registry ~secret
-    ~template __id =
+    ~revision_mode ~secret ~template __id =
   let __type = "azurerm_container_app" in
   let __attrs =
     ({
@@ -2104,22 +2110,21 @@ let make ?id ?tags ?workload_profile_name ?timeouts
     type_ = __type;
     json =
       yojson_of_azurerm_container_app
-        (azurerm_container_app ?id ?tags ?workload_profile_name
-           ?timeouts ~container_app_environment_id ~name
-           ~resource_group_name ~revision_mode ~dapr ~identity
-           ~ingress ~registry ~secret ~template ());
+        (azurerm_container_app ?id ?tags ?workload_profile_name ~dapr
+           ~identity ~ingress ~registry ?timeouts
+           ~container_app_environment_id ~name ~resource_group_name
+           ~revision_mode ~secret ~template ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?workload_profile_name ?timeouts
+let register ?tf_module ?id ?tags ?workload_profile_name ?(dapr = [])
+    ?(identity = []) ?(ingress = []) ?(registry = []) ?timeouts
     ~container_app_environment_id ~name ~resource_group_name
-    ~revision_mode ~dapr ~identity ~ingress ~registry ~secret
-    ~template __id =
+    ~revision_mode ~secret ~template __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?workload_profile_name ?timeouts
-      ~container_app_environment_id ~name ~resource_group_name
-      ~revision_mode ~dapr ~identity ~ingress ~registry ~secret
-      ~template __id
+    make ?id ?tags ?workload_profile_name ~dapr ~identity ~ingress
+      ~registry ?timeouts ~container_app_environment_id ~name
+      ~resource_group_name ~revision_mode ~secret ~template __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

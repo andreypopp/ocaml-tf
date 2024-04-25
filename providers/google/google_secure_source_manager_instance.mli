@@ -35,10 +35,10 @@ val google_secure_source_manager_instance :
   ?kms_key:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?private_config:private_config list ->
   ?timeouts:timeouts ->
   instance_id:string prop ->
   location:string prop ->
-  private_config:private_config list ->
   unit ->
   google_secure_source_manager_instance
 
@@ -70,10 +70,10 @@ val register :
   ?kms_key:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?private_config:private_config list ->
   ?timeouts:timeouts ->
   instance_id:string prop ->
   location:string prop ->
-  private_config:private_config list ->
   string ->
   t
 
@@ -82,9 +82,9 @@ val make :
   ?kms_key:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?private_config:private_config list ->
   ?timeouts:timeouts ->
   instance_id:string prop ->
   location:string prop ->
-  private_config:private_config list ->
   string ->
   t Tf_core.resource

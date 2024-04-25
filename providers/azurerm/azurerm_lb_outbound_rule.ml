@@ -194,9 +194,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_lb_outbound_rule ?allocated_outbound_ports
-    ?enable_tcp_reset ?id ?idle_timeout_in_minutes ?timeouts
-    ~backend_address_pool_id ~loadbalancer_id ~name ~protocol
-    ~frontend_ip_configuration () : azurerm_lb_outbound_rule =
+    ?enable_tcp_reset ?id ?idle_timeout_in_minutes
+    ?(frontend_ip_configuration = []) ?timeouts
+    ~backend_address_pool_id ~loadbalancer_id ~name ~protocol () :
+    azurerm_lb_outbound_rule =
   {
     allocated_outbound_ports;
     backend_address_pool_id;
@@ -222,9 +223,9 @@ type t = {
 }
 
 let make ?allocated_outbound_ports ?enable_tcp_reset ?id
-    ?idle_timeout_in_minutes ?timeouts ~backend_address_pool_id
-    ~loadbalancer_id ~name ~protocol ~frontend_ip_configuration __id
-    =
+    ?idle_timeout_in_minutes ?(frontend_ip_configuration = [])
+    ?timeouts ~backend_address_pool_id ~loadbalancer_id ~name
+    ~protocol __id =
   let __type = "azurerm_lb_outbound_rule" in
   let __attrs =
     ({
@@ -249,21 +250,21 @@ let make ?allocated_outbound_ports ?enable_tcp_reset ?id
     json =
       yojson_of_azurerm_lb_outbound_rule
         (azurerm_lb_outbound_rule ?allocated_outbound_ports
-           ?enable_tcp_reset ?id ?idle_timeout_in_minutes ?timeouts
+           ?enable_tcp_reset ?id ?idle_timeout_in_minutes
+           ~frontend_ip_configuration ?timeouts
            ~backend_address_pool_id ~loadbalancer_id ~name ~protocol
-           ~frontend_ip_configuration ());
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?allocated_outbound_ports ?enable_tcp_reset
-    ?id ?idle_timeout_in_minutes ?timeouts ~backend_address_pool_id
-    ~loadbalancer_id ~name ~protocol ~frontend_ip_configuration __id
-    =
+    ?id ?idle_timeout_in_minutes ?(frontend_ip_configuration = [])
+    ?timeouts ~backend_address_pool_id ~loadbalancer_id ~name
+    ~protocol __id =
   let (r : _ Tf_core.resource) =
     make ?allocated_outbound_ports ?enable_tcp_reset ?id
-      ?idle_timeout_in_minutes ?timeouts ~backend_address_pool_id
-      ~loadbalancer_id ~name ~protocol ~frontend_ip_configuration
-      __id
+      ?idle_timeout_in_minutes ~frontend_ip_configuration ?timeouts
+      ~backend_address_pool_id ~loadbalancer_id ~name ~protocol __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

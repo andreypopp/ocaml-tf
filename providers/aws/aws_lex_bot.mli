@@ -69,11 +69,11 @@ val aws_lex_bot :
   ?nlu_intent_confidence_threshold:float prop ->
   ?process_behavior:string prop ->
   ?voice_id:string prop ->
+  ?clarification_prompt:clarification_prompt list ->
   ?timeouts:timeouts ->
   child_directed:bool prop ->
   name:string prop ->
   abort_statement:abort_statement list ->
-  clarification_prompt:clarification_prompt list ->
   intent:intent list ->
   unit ->
   aws_lex_bot
@@ -116,11 +116,11 @@ val register :
   ?nlu_intent_confidence_threshold:float prop ->
   ?process_behavior:string prop ->
   ?voice_id:string prop ->
+  ?clarification_prompt:clarification_prompt list ->
   ?timeouts:timeouts ->
   child_directed:bool prop ->
   name:string prop ->
   abort_statement:abort_statement list ->
-  clarification_prompt:clarification_prompt list ->
   intent:intent list ->
   string ->
   t
@@ -136,11 +136,11 @@ val make :
   ?nlu_intent_confidence_threshold:float prop ->
   ?process_behavior:string prop ->
   ?voice_id:string prop ->
+  ?clarification_prompt:clarification_prompt list ->
   ?timeouts:timeouts ->
   child_directed:bool prop ->
   name:string prop ->
   abort_statement:abort_statement list ->
-  clarification_prompt:clarification_prompt list ->
   intent:intent list ->
   string ->
   t Tf_core.resource

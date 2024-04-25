@@ -127,13 +127,14 @@ let traffic_source ~identifier ~type_ () : traffic_source =
   { identifier; type_ }
 
 let aws_autoscaling_traffic_source_attachment ?id ?timeouts
-    ~autoscaling_group_name ~traffic_source () :
+    ?(traffic_source = []) ~autoscaling_group_name () :
     aws_autoscaling_traffic_source_attachment =
   { autoscaling_group_name; id; timeouts; traffic_source }
 
 type t = { autoscaling_group_name : string prop; id : string prop }
 
-let make ?id ?timeouts ~autoscaling_group_name ~traffic_source __id =
+let make ?id ?timeouts ?(traffic_source = []) ~autoscaling_group_name
+    __id =
   let __type = "aws_autoscaling_traffic_source_attachment" in
   let __attrs =
     ({
@@ -149,14 +150,14 @@ let make ?id ?timeouts ~autoscaling_group_name ~traffic_source __id =
     json =
       yojson_of_aws_autoscaling_traffic_source_attachment
         (aws_autoscaling_traffic_source_attachment ?id ?timeouts
-           ~autoscaling_group_name ~traffic_source ());
+           ~traffic_source ~autoscaling_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~autoscaling_group_name
-    ~traffic_source __id =
+let register ?tf_module ?id ?timeouts ?(traffic_source = [])
+    ~autoscaling_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~autoscaling_group_name ~traffic_source __id
+    make ?id ?timeouts ~traffic_source ~autoscaling_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

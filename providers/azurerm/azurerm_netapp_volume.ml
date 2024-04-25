@@ -524,11 +524,12 @@ let azurerm_netapp_volume ?azure_vmware_data_store_enabled
     ?key_vault_private_endpoint_id ?network_features ?protocols
     ?security_style ?smb_access_based_enumeration_enabled
     ?smb_non_browsable_enabled ?snapshot_directory_visible ?tags
-    ?throughput_in_mibps ?zone ?timeouts ~account_name ~location
+    ?throughput_in_mibps ?zone ?(data_protection_replication = [])
+    ?(data_protection_snapshot_policy = [])
+    ?(export_policy_rule = []) ?timeouts ~account_name ~location
     ~name ~pool_name ~resource_group_name ~service_level
-    ~storage_quota_in_gb ~subnet_id ~volume_path
-    ~data_protection_replication ~data_protection_snapshot_policy
-    ~export_policy_rule () : azurerm_netapp_volume =
+    ~storage_quota_in_gb ~subnet_id ~volume_path () :
+    azurerm_netapp_volume =
   {
     account_name;
     azure_vmware_data_store_enabled;
@@ -591,11 +592,11 @@ let make ?azure_vmware_data_store_enabled
     ?key_vault_private_endpoint_id ?network_features ?protocols
     ?security_style ?smb_access_based_enumeration_enabled
     ?smb_non_browsable_enabled ?snapshot_directory_visible ?tags
-    ?throughput_in_mibps ?zone ?timeouts ~account_name ~location
+    ?throughput_in_mibps ?zone ?(data_protection_replication = [])
+    ?(data_protection_snapshot_policy = [])
+    ?(export_policy_rule = []) ?timeouts ~account_name ~location
     ~name ~pool_name ~resource_group_name ~service_level
-    ~storage_quota_in_gb ~subnet_id ~volume_path
-    ~data_protection_replication ~data_protection_snapshot_policy
-    ~export_policy_rule __id =
+    ~storage_quota_in_gb ~subnet_id ~volume_path __id =
   let __type = "azurerm_netapp_volume" in
   let __attrs =
     ({
@@ -650,11 +651,12 @@ let make ?azure_vmware_data_store_enabled
            ?protocols ?security_style
            ?smb_access_based_enumeration_enabled
            ?smb_non_browsable_enabled ?snapshot_directory_visible
-           ?tags ?throughput_in_mibps ?zone ?timeouts ~account_name
-           ~location ~name ~pool_name ~resource_group_name
-           ~service_level ~storage_quota_in_gb ~subnet_id
-           ~volume_path ~data_protection_replication
-           ~data_protection_snapshot_policy ~export_policy_rule ());
+           ?tags ?throughput_in_mibps ?zone
+           ~data_protection_replication
+           ~data_protection_snapshot_policy ~export_policy_rule
+           ?timeouts ~account_name ~location ~name ~pool_name
+           ~resource_group_name ~service_level ~storage_quota_in_gb
+           ~subnet_id ~volume_path ());
     attrs = __attrs;
   }
 
@@ -663,22 +665,22 @@ let register ?tf_module ?azure_vmware_data_store_enabled
     ?key_vault_private_endpoint_id ?network_features ?protocols
     ?security_style ?smb_access_based_enumeration_enabled
     ?smb_non_browsable_enabled ?snapshot_directory_visible ?tags
-    ?throughput_in_mibps ?zone ?timeouts ~account_name ~location
+    ?throughput_in_mibps ?zone ?(data_protection_replication = [])
+    ?(data_protection_snapshot_policy = [])
+    ?(export_policy_rule = []) ?timeouts ~account_name ~location
     ~name ~pool_name ~resource_group_name ~service_level
-    ~storage_quota_in_gb ~subnet_id ~volume_path
-    ~data_protection_replication ~data_protection_snapshot_policy
-    ~export_policy_rule __id =
+    ~storage_quota_in_gb ~subnet_id ~volume_path __id =
   let (r : _ Tf_core.resource) =
     make ?azure_vmware_data_store_enabled
       ?create_from_snapshot_resource_id ?encryption_key_source ?id
       ?key_vault_private_endpoint_id ?network_features ?protocols
       ?security_style ?smb_access_based_enumeration_enabled
       ?smb_non_browsable_enabled ?snapshot_directory_visible ?tags
-      ?throughput_in_mibps ?zone ?timeouts ~account_name ~location
-      ~name ~pool_name ~resource_group_name ~service_level
-      ~storage_quota_in_gb ~subnet_id ~volume_path
-      ~data_protection_replication ~data_protection_snapshot_policy
-      ~export_policy_rule __id
+      ?throughput_in_mibps ?zone ~data_protection_replication
+      ~data_protection_snapshot_policy ~export_policy_rule ?timeouts
+      ~account_name ~location ~name ~pool_name ~resource_group_name
+      ~service_level ~storage_quota_in_gb ~subnet_id ~volume_path
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

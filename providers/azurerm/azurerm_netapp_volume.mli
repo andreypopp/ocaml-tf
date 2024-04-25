@@ -60,6 +60,10 @@ val azurerm_netapp_volume :
   ?tags:(string * string prop) list ->
   ?throughput_in_mibps:float prop ->
   ?zone:string prop ->
+  ?data_protection_replication:data_protection_replication list ->
+  ?data_protection_snapshot_policy:
+    data_protection_snapshot_policy list ->
+  ?export_policy_rule:export_policy_rule list ->
   ?timeouts:timeouts ->
   account_name:string prop ->
   location:string prop ->
@@ -70,10 +74,6 @@ val azurerm_netapp_volume :
   storage_quota_in_gb:float prop ->
   subnet_id:string prop ->
   volume_path:string prop ->
-  data_protection_replication:data_protection_replication list ->
-  data_protection_snapshot_policy:
-    data_protection_snapshot_policy list ->
-  export_policy_rule:export_policy_rule list ->
   unit ->
   azurerm_netapp_volume
 
@@ -124,6 +124,10 @@ val register :
   ?tags:(string * string prop) list ->
   ?throughput_in_mibps:float prop ->
   ?zone:string prop ->
+  ?data_protection_replication:data_protection_replication list ->
+  ?data_protection_snapshot_policy:
+    data_protection_snapshot_policy list ->
+  ?export_policy_rule:export_policy_rule list ->
   ?timeouts:timeouts ->
   account_name:string prop ->
   location:string prop ->
@@ -134,10 +138,6 @@ val register :
   storage_quota_in_gb:float prop ->
   subnet_id:string prop ->
   volume_path:string prop ->
-  data_protection_replication:data_protection_replication list ->
-  data_protection_snapshot_policy:
-    data_protection_snapshot_policy list ->
-  export_policy_rule:export_policy_rule list ->
   string ->
   t
 
@@ -156,6 +156,10 @@ val make :
   ?tags:(string * string prop) list ->
   ?throughput_in_mibps:float prop ->
   ?zone:string prop ->
+  ?data_protection_replication:data_protection_replication list ->
+  ?data_protection_snapshot_policy:
+    data_protection_snapshot_policy list ->
+  ?export_policy_rule:export_policy_rule list ->
   ?timeouts:timeouts ->
   account_name:string prop ->
   location:string prop ->
@@ -166,9 +170,5 @@ val make :
   storage_quota_in_gb:float prop ->
   subnet_id:string prop ->
   volume_path:string prop ->
-  data_protection_replication:data_protection_replication list ->
-  data_protection_snapshot_policy:
-    data_protection_snapshot_policy list ->
-  export_policy_rule:export_policy_rule list ->
   string ->
   t Tf_core.resource

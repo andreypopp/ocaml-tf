@@ -221,11 +221,11 @@ let spec__provider__virtual_router ~virtual_router_name () :
     spec__provider__virtual_router =
   { virtual_router_name }
 
-let spec__provider ~virtual_node ~virtual_router () : spec__provider
-    =
+let spec__provider ?(virtual_node = []) ?(virtual_router = []) () :
+    spec__provider =
   { virtual_node; virtual_router }
 
-let spec ~provider () : spec = { provider }
+let spec ?(provider = []) () : spec = { provider }
 
 let aws_appmesh_virtual_service ?id ?mesh_owner ?tags ?tags_all
     ~mesh_name ~name ~spec () : aws_appmesh_virtual_service =

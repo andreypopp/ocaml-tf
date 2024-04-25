@@ -29,7 +29,7 @@ type spec
 
 val spec :
   ?controller:string prop ->
-  parameters:spec__parameters list ->
+  ?parameters:spec__parameters list ->
   unit ->
   spec
 

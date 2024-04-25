@@ -369,9 +369,10 @@ let trigger_dependency ?offset ?size ?trigger_name () :
 
 let azurerm_data_factory_trigger_tumbling_window ?activated
     ?additional_properties ?annotations ?delay ?description ?end_time
-    ?id ?max_concurrency ?timeouts ~data_factory_id ~frequency
-    ~interval ~name ~start_time ~pipeline ~retry ~trigger_dependency
-    () : azurerm_data_factory_trigger_tumbling_window =
+    ?id ?max_concurrency ?(retry = []) ?timeouts ~data_factory_id
+    ~frequency ~interval ~name ~start_time ~pipeline
+    ~trigger_dependency () :
+    azurerm_data_factory_trigger_tumbling_window =
   {
     activated;
     additional_properties;
@@ -409,9 +410,9 @@ type t = {
 }
 
 let make ?activated ?additional_properties ?annotations ?delay
-    ?description ?end_time ?id ?max_concurrency ?timeouts
-    ~data_factory_id ~frequency ~interval ~name ~start_time ~pipeline
-    ~retry ~trigger_dependency __id =
+    ?description ?end_time ?id ?max_concurrency ?(retry = [])
+    ?timeouts ~data_factory_id ~frequency ~interval ~name ~start_time
+    ~pipeline ~trigger_dependency __id =
   let __type = "azurerm_data_factory_trigger_tumbling_window" in
   let __attrs =
     ({
@@ -439,21 +440,21 @@ let make ?activated ?additional_properties ?annotations ?delay
       yojson_of_azurerm_data_factory_trigger_tumbling_window
         (azurerm_data_factory_trigger_tumbling_window ?activated
            ?additional_properties ?annotations ?delay ?description
-           ?end_time ?id ?max_concurrency ?timeouts ~data_factory_id
-           ~frequency ~interval ~name ~start_time ~pipeline ~retry
-           ~trigger_dependency ());
+           ?end_time ?id ?max_concurrency ~retry ?timeouts
+           ~data_factory_id ~frequency ~interval ~name ~start_time
+           ~pipeline ~trigger_dependency ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?activated ?additional_properties
     ?annotations ?delay ?description ?end_time ?id ?max_concurrency
-    ?timeouts ~data_factory_id ~frequency ~interval ~name ~start_time
-    ~pipeline ~retry ~trigger_dependency __id =
+    ?(retry = []) ?timeouts ~data_factory_id ~frequency ~interval
+    ~name ~start_time ~pipeline ~trigger_dependency __id =
   let (r : _ Tf_core.resource) =
     make ?activated ?additional_properties ?annotations ?delay
-      ?description ?end_time ?id ?max_concurrency ?timeouts
+      ?description ?end_time ?id ?max_concurrency ~retry ?timeouts
       ~data_factory_id ~frequency ~interval ~name ~start_time
-      ~pipeline ~retry ~trigger_dependency __id
+      ~pipeline ~trigger_dependency __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -30,10 +30,10 @@ val aws_rum_app_monitor :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?app_monitor_configuration:app_monitor_configuration list ->
+  ?custom_events:custom_events list ->
   domain:string prop ->
   name:string prop ->
-  app_monitor_configuration:app_monitor_configuration list ->
-  custom_events:custom_events list ->
   unit ->
   aws_rum_app_monitor
 
@@ -59,10 +59,10 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?app_monitor_configuration:app_monitor_configuration list ->
+  ?custom_events:custom_events list ->
   domain:string prop ->
   name:string prop ->
-  app_monitor_configuration:app_monitor_configuration list ->
-  custom_events:custom_events list ->
   string ->
   t
 
@@ -71,9 +71,9 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?app_monitor_configuration:app_monitor_configuration list ->
+  ?custom_events:custom_events list ->
   domain:string prop ->
   name:string prop ->
-  app_monitor_configuration:app_monitor_configuration list ->
-  custom_events:custom_events list ->
   string ->
   t Tf_core.resource

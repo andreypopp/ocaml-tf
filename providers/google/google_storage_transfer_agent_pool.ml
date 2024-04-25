@@ -147,7 +147,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_storage_transfer_agent_pool ?display_name ?id ?project
-    ?timeouts ~name ~bandwidth_limit () :
+    ?(bandwidth_limit = []) ?timeouts ~name () :
     google_storage_transfer_agent_pool =
   { display_name; id; name; project; bandwidth_limit; timeouts }
 
@@ -159,8 +159,8 @@ type t = {
   state : string prop;
 }
 
-let make ?display_name ?id ?project ?timeouts ~name ~bandwidth_limit
-    __id =
+let make ?display_name ?id ?project ?(bandwidth_limit = []) ?timeouts
+    ~name __id =
   let __type = "google_storage_transfer_agent_pool" in
   let __attrs =
     ({
@@ -178,14 +178,14 @@ let make ?display_name ?id ?project ?timeouts ~name ~bandwidth_limit
     json =
       yojson_of_google_storage_transfer_agent_pool
         (google_storage_transfer_agent_pool ?display_name ?id
-           ?project ?timeouts ~name ~bandwidth_limit ());
+           ?project ~bandwidth_limit ?timeouts ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?display_name ?id ?project ?timeouts ~name
-    ~bandwidth_limit __id =
+let register ?tf_module ?display_name ?id ?project
+    ?(bandwidth_limit = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?display_name ?id ?project ?timeouts ~name ~bandwidth_limit
+    make ?display_name ?id ?project ~bandwidth_limit ?timeouts ~name
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

@@ -37,11 +37,11 @@ val azurerm_servicebus_subscription :
   ?lock_duration:string prop ->
   ?requires_session:bool prop ->
   ?status:string prop ->
+  ?client_scoped_subscription:client_scoped_subscription list ->
   ?timeouts:timeouts ->
   max_delivery_count:float prop ->
   name:string prop ->
   topic_id:string prop ->
-  client_scoped_subscription:client_scoped_subscription list ->
   unit ->
   azurerm_servicebus_subscription
 
@@ -82,11 +82,11 @@ val register :
   ?lock_duration:string prop ->
   ?requires_session:bool prop ->
   ?status:string prop ->
+  ?client_scoped_subscription:client_scoped_subscription list ->
   ?timeouts:timeouts ->
   max_delivery_count:float prop ->
   name:string prop ->
   topic_id:string prop ->
-  client_scoped_subscription:client_scoped_subscription list ->
   string ->
   t
 
@@ -103,10 +103,10 @@ val make :
   ?lock_duration:string prop ->
   ?requires_session:bool prop ->
   ?status:string prop ->
+  ?client_scoped_subscription:client_scoped_subscription list ->
   ?timeouts:timeouts ->
   max_delivery_count:float prop ->
   name:string prop ->
   topic_id:string prop ->
-  client_scoped_subscription:client_scoped_subscription list ->
   string ->
   t Tf_core.resource

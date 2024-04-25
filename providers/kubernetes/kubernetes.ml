@@ -310,8 +310,8 @@ let kubernetes ?client_certificate ?client_key
     ?cluster_ca_certificate ?config_context ?config_context_auth_info
     ?config_context_cluster ?config_path ?config_paths ?host
     ?ignore_annotations ?ignore_labels ?insecure ?password ?proxy_url
-    ?tls_server_name ?token ?username ~exec ~experiments () :
-    kubernetes =
+    ?tls_server_name ?token ?username ?(exec = [])
+    ?(experiments = []) () : kubernetes =
   {
     client_certificate;
     client_key;
@@ -338,7 +338,7 @@ let make ?client_certificate ?client_key ?cluster_ca_certificate
     ?config_context ?config_context_auth_info ?config_context_cluster
     ?config_path ?config_paths ?host ?ignore_annotations
     ?ignore_labels ?insecure ?password ?proxy_url ?tls_server_name
-    ?token ?username ~exec ~experiments () =
+    ?token ?username ?(exec = []) ?(experiments = []) () =
   {
     Tf_core.id = "kubernetes";
     json =
@@ -355,8 +355,8 @@ let register ?tf_module ?client_certificate ?client_key
     ?cluster_ca_certificate ?config_context ?config_context_auth_info
     ?config_context_cluster ?config_path ?config_paths ?host
     ?ignore_annotations ?ignore_labels ?insecure ?password ?proxy_url
-    ?tls_server_name ?token ?username ~exec ~experiments ~version ()
-    =
+    ?tls_server_name ?token ?username ?(exec = [])
+    ?(experiments = []) ~version () =
   let (p : Tf_core.provider) =
     make ?client_certificate ?client_key ?cluster_ca_certificate
       ?config_context ?config_context_auth_info

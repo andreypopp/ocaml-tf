@@ -3787,8 +3787,9 @@ let aws ?access_key ?allowed_account_ids ?custom_ca_bundle
     ?skip_metadata_api_check ?skip_region_validation
     ?skip_requesting_account_id ?sts_region ?token
     ?token_bucket_rate_limiter_capacity ?use_dualstack_endpoint
-    ?use_fips_endpoint ~assume_role ~assume_role_with_web_identity
-    ~default_tags ~endpoints ~ignore_tags () : aws =
+    ?use_fips_endpoint ?(assume_role = [])
+    ?(assume_role_with_web_identity = []) ?(default_tags = [])
+    ?(ignore_tags = []) ~endpoints () : aws =
   {
     access_key;
     allowed_account_ids;
@@ -3835,8 +3836,9 @@ let make ?access_key ?allowed_account_ids ?custom_ca_bundle
     ?skip_metadata_api_check ?skip_region_validation
     ?skip_requesting_account_id ?sts_region ?token
     ?token_bucket_rate_limiter_capacity ?use_dualstack_endpoint
-    ?use_fips_endpoint ~assume_role ~assume_role_with_web_identity
-    ~default_tags ~endpoints ~ignore_tags () =
+    ?use_fips_endpoint ?(assume_role = [])
+    ?(assume_role_with_web_identity = []) ?(default_tags = [])
+    ?(ignore_tags = []) ~endpoints () =
   {
     Tf_core.id = "aws";
     json =
@@ -3852,8 +3854,8 @@ let make ?access_key ?allowed_account_ids ?custom_ca_bundle
            ?skip_region_validation ?skip_requesting_account_id
            ?sts_region ?token ?token_bucket_rate_limiter_capacity
            ?use_dualstack_endpoint ?use_fips_endpoint ~assume_role
-           ~assume_role_with_web_identity ~default_tags ~endpoints
-           ~ignore_tags ());
+           ~assume_role_with_web_identity ~default_tags ~ignore_tags
+           ~endpoints ());
   }
 
 let register ?tf_module ?access_key ?allowed_account_ids
@@ -3866,8 +3868,9 @@ let register ?tf_module ?access_key ?allowed_account_ids
     ?skip_metadata_api_check ?skip_region_validation
     ?skip_requesting_account_id ?sts_region ?token
     ?token_bucket_rate_limiter_capacity ?use_dualstack_endpoint
-    ?use_fips_endpoint ~assume_role ~assume_role_with_web_identity
-    ~default_tags ~endpoints ~ignore_tags ~version () =
+    ?use_fips_endpoint ?(assume_role = [])
+    ?(assume_role_with_web_identity = []) ?(default_tags = [])
+    ?(ignore_tags = []) ~endpoints ~version () =
   let (p : Tf_core.provider) =
     make ?access_key ?allowed_account_ids ?custom_ca_bundle
       ?ec2_metadata_service_endpoint
@@ -3880,7 +3883,7 @@ let register ?tf_module ?access_key ?allowed_account_ids
       ?skip_requesting_account_id ?sts_region ?token
       ?token_bucket_rate_limiter_capacity ?use_dualstack_endpoint
       ?use_fips_endpoint ~assume_role ~assume_role_with_web_identity
-      ~default_tags ~endpoints ~ignore_tags ()
+      ~default_tags ~ignore_tags ~endpoints ()
   in
   Provider.add ?tf_module ~id:p.id p.json;
   Required_providers.add ?tf_module ~id:p.id

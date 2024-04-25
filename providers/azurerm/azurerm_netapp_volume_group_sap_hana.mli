@@ -49,6 +49,10 @@ type volume
 val volume :
   ?proximity_placement_group_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?data_protection_replication:
+    volume__data_protection_replication list ->
+  ?data_protection_snapshot_policy:
+    volume__data_protection_snapshot_policy list ->
   capacity_pool_id:string prop ->
   name:string prop ->
   protocols:string prop list ->
@@ -60,10 +64,6 @@ val volume :
   throughput_in_mibps:float prop ->
   volume_path:string prop ->
   volume_spec_name:string prop ->
-  data_protection_replication:
-    volume__data_protection_replication list ->
-  data_protection_snapshot_policy:
-    volume__data_protection_snapshot_policy list ->
   export_policy_rule:volume__export_policy_rule list ->
   unit ->
   volume

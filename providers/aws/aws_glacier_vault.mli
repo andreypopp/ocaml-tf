@@ -19,8 +19,8 @@ val aws_glacier_vault :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?notification:notification list ->
   name:string prop ->
-  notification:notification list ->
   unit ->
   aws_glacier_vault
 
@@ -44,8 +44,8 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?notification:notification list ->
   name:string prop ->
-  notification:notification list ->
   string ->
   t
 
@@ -54,7 +54,7 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?notification:notification list ->
   name:string prop ->
-  notification:notification list ->
   string ->
   t Tf_core.resource

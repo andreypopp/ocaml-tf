@@ -37,14 +37,14 @@ val deployment_config__blue_green_update_policy__traffic_routing_configuration__
 type deployment_config__blue_green_update_policy__traffic_routing_configuration
 
 val deployment_config__blue_green_update_policy__traffic_routing_configuration :
-  type_:string prop ->
-  wait_interval_in_seconds:float prop ->
-  canary_size:
+  ?canary_size:
     deployment_config__blue_green_update_policy__traffic_routing_configuration__canary_size
     list ->
-  linear_step_size:
+  ?linear_step_size:
     deployment_config__blue_green_update_policy__traffic_routing_configuration__linear_step_size
     list ->
+  type_:string prop ->
+  wait_interval_in_seconds:float prop ->
   unit ->
   deployment_config__blue_green_update_policy__traffic_routing_configuration
 
@@ -79,23 +79,24 @@ type deployment_config__rolling_update_policy
 
 val deployment_config__rolling_update_policy :
   ?maximum_execution_timeout_in_seconds:float prop ->
+  ?rollback_maximum_batch_size:
+    deployment_config__rolling_update_policy__rollback_maximum_batch_size
+    list ->
   wait_interval_in_seconds:float prop ->
   maximum_batch_size:
     deployment_config__rolling_update_policy__maximum_batch_size list ->
-  rollback_maximum_batch_size:
-    deployment_config__rolling_update_policy__rollback_maximum_batch_size
-    list ->
   unit ->
   deployment_config__rolling_update_policy
 
 type deployment_config
 
 val deployment_config :
-  auto_rollback_configuration:
+  ?auto_rollback_configuration:
     deployment_config__auto_rollback_configuration list ->
-  blue_green_update_policy:
+  ?blue_green_update_policy:
     deployment_config__blue_green_update_policy list ->
-  rolling_update_policy:deployment_config__rolling_update_policy list ->
+  ?rolling_update_policy:
+    deployment_config__rolling_update_policy list ->
   unit ->
   deployment_config
 
@@ -106,8 +107,8 @@ val aws_sagemaker_endpoint :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?deployment_config:deployment_config list ->
   endpoint_config_name:string prop ->
-  deployment_config:deployment_config list ->
   unit ->
   aws_sagemaker_endpoint
 
@@ -130,8 +131,8 @@ val register :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?deployment_config:deployment_config list ->
   endpoint_config_name:string prop ->
-  deployment_config:deployment_config list ->
   string ->
   t
 
@@ -140,7 +141,7 @@ val make :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?deployment_config:deployment_config list ->
   endpoint_config_name:string prop ->
-  deployment_config:deployment_config list ->
   string ->
   t Tf_core.resource

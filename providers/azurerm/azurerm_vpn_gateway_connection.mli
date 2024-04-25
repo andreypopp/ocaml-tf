@@ -17,8 +17,8 @@ type routing
 val routing :
   ?inbound_route_map_id:string prop ->
   ?outbound_route_map_id:string prop ->
+  ?propagated_route_table:routing__propagated_route_table list ->
   associated_route_table:string prop ->
-  propagated_route_table:routing__propagated_route_table list ->
   unit ->
   routing
 
@@ -76,10 +76,10 @@ val vpn_link :
   ?ratelimit_enabled:bool prop ->
   ?route_weight:float prop ->
   ?shared_key:string prop ->
+  ?ipsec_policy:vpn_link__ipsec_policy list ->
   name:string prop ->
   vpn_site_link_id:string prop ->
   custom_bgp_address:vpn_link__custom_bgp_address list ->
-  ipsec_policy:vpn_link__ipsec_policy list ->
   unit ->
   vpn_link
 
@@ -88,11 +88,11 @@ type azurerm_vpn_gateway_connection
 val azurerm_vpn_gateway_connection :
   ?id:string prop ->
   ?internet_security_enabled:bool prop ->
+  ?routing:routing list ->
   ?timeouts:timeouts ->
   name:string prop ->
   remote_vpn_site_id:string prop ->
   vpn_gateway_id:string prop ->
-  routing:routing list ->
   traffic_selector_policy:traffic_selector_policy list ->
   vpn_link:vpn_link list ->
   unit ->
@@ -115,11 +115,11 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?internet_security_enabled:bool prop ->
+  ?routing:routing list ->
   ?timeouts:timeouts ->
   name:string prop ->
   remote_vpn_site_id:string prop ->
   vpn_gateway_id:string prop ->
-  routing:routing list ->
   traffic_selector_policy:traffic_selector_policy list ->
   vpn_link:vpn_link list ->
   string ->
@@ -128,11 +128,11 @@ val register :
 val make :
   ?id:string prop ->
   ?internet_security_enabled:bool prop ->
+  ?routing:routing list ->
   ?timeouts:timeouts ->
   name:string prop ->
   remote_vpn_site_id:string prop ->
   vpn_gateway_id:string prop ->
-  routing:routing list ->
   traffic_selector_policy:traffic_selector_policy list ->
   vpn_link:vpn_link list ->
   string ->

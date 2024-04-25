@@ -399,7 +399,8 @@ let trigger__metric_trigger ?metric_column ~metric_trigger_type
     ~operator ~threshold () : trigger__metric_trigger =
   { metric_column; metric_trigger_type; operator; threshold }
 
-let trigger ~operator ~threshold ~metric_trigger () : trigger =
+let trigger ?(metric_trigger = []) ~operator ~threshold () : trigger
+    =
   { operator; threshold; metric_trigger }
 
 let azurerm_monitor_scheduled_query_rules_alert

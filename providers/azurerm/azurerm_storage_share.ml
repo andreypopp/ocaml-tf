@@ -244,7 +244,7 @@ let acl__access_policy ?expiry ?start ~permissions () :
     acl__access_policy =
   { expiry; permissions; start }
 
-let acl ~id ~access_policy () : acl = { id; access_policy }
+let acl ?(access_policy = []) ~id () : acl = { id; access_policy }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }

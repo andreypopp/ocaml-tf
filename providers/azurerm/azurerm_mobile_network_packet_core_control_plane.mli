@@ -54,15 +54,15 @@ val azurerm_mobile_network_packet_core_control_plane :
   ?software_version:string prop ->
   ?tags:(string * string prop) list ->
   ?user_equipment_mtu_in_bytes:float prop ->
+  ?identity:identity list ->
+  ?platform:platform list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   site_ids:string prop list ->
   sku:string prop ->
-  identity:identity list ->
   local_diagnostics_access:local_diagnostics_access list ->
-  platform:platform list ->
   unit ->
   azurerm_mobile_network_packet_core_control_plane
 
@@ -101,15 +101,15 @@ val register :
   ?software_version:string prop ->
   ?tags:(string * string prop) list ->
   ?user_equipment_mtu_in_bytes:float prop ->
+  ?identity:identity list ->
+  ?platform:platform list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   site_ids:string prop list ->
   sku:string prop ->
-  identity:identity list ->
   local_diagnostics_access:local_diagnostics_access list ->
-  platform:platform list ->
   string ->
   t
 
@@ -124,14 +124,14 @@ val make :
   ?software_version:string prop ->
   ?tags:(string * string prop) list ->
   ?user_equipment_mtu_in_bytes:float prop ->
+  ?identity:identity list ->
+  ?platform:platform list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   site_ids:string prop list ->
   sku:string prop ->
-  identity:identity list ->
   local_diagnostics_access:local_diagnostics_access list ->
-  platform:platform list ->
   string ->
   t Tf_core.resource

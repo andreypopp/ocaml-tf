@@ -30,13 +30,13 @@ val azurerm_cosmosdb_cassandra_cluster :
   ?repair_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?version:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   default_admin_password:string prop ->
   delegated_management_subnet_id:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   unit ->
   azurerm_cosmosdb_cassandra_cluster
 
@@ -73,13 +73,13 @@ val register :
   ?repair_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?version:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   default_admin_password:string prop ->
   delegated_management_subnet_id:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   string ->
   t
 
@@ -93,12 +93,12 @@ val make :
   ?repair_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?version:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   default_admin_password:string prop ->
   delegated_management_subnet_id:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

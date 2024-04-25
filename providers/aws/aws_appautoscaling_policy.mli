@@ -69,10 +69,10 @@ val target_tracking_scaling_policy_configuration__customized_metric_specificatio
   ?expression:string prop ->
   ?label:string prop ->
   ?return_data:bool prop ->
-  id:string prop ->
-  metric_stat:
+  ?metric_stat:
     target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat
     list ->
+  id:string prop ->
   unit ->
   target_tracking_scaling_policy_configuration__customized_metric_specification__metrics
 
@@ -106,13 +106,13 @@ val target_tracking_scaling_policy_configuration :
   ?disable_scale_in:bool prop ->
   ?scale_in_cooldown:float prop ->
   ?scale_out_cooldown:float prop ->
-  target_value:float prop ->
-  customized_metric_specification:
+  ?customized_metric_specification:
     target_tracking_scaling_policy_configuration__customized_metric_specification
     list ->
-  predefined_metric_specification:
+  ?predefined_metric_specification:
     target_tracking_scaling_policy_configuration__predefined_metric_specification
     list ->
+  target_value:float prop ->
   unit ->
   target_tracking_scaling_policy_configuration
 
@@ -121,14 +121,14 @@ type aws_appautoscaling_policy
 val aws_appautoscaling_policy :
   ?id:string prop ->
   ?policy_type:string prop ->
+  ?step_scaling_policy_configuration:
+    step_scaling_policy_configuration list ->
+  ?target_tracking_scaling_policy_configuration:
+    target_tracking_scaling_policy_configuration list ->
   name:string prop ->
   resource_id:string prop ->
   scalable_dimension:string prop ->
   service_namespace:string prop ->
-  step_scaling_policy_configuration:
-    step_scaling_policy_configuration list ->
-  target_tracking_scaling_policy_configuration:
-    target_tracking_scaling_policy_configuration list ->
   unit ->
   aws_appautoscaling_policy
 
@@ -152,27 +152,27 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?policy_type:string prop ->
+  ?step_scaling_policy_configuration:
+    step_scaling_policy_configuration list ->
+  ?target_tracking_scaling_policy_configuration:
+    target_tracking_scaling_policy_configuration list ->
   name:string prop ->
   resource_id:string prop ->
   scalable_dimension:string prop ->
   service_namespace:string prop ->
-  step_scaling_policy_configuration:
-    step_scaling_policy_configuration list ->
-  target_tracking_scaling_policy_configuration:
-    target_tracking_scaling_policy_configuration list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?policy_type:string prop ->
+  ?step_scaling_policy_configuration:
+    step_scaling_policy_configuration list ->
+  ?target_tracking_scaling_policy_configuration:
+    target_tracking_scaling_policy_configuration list ->
   name:string prop ->
   resource_id:string prop ->
   scalable_dimension:string prop ->
   service_namespace:string prop ->
-  step_scaling_policy_configuration:
-    step_scaling_policy_configuration list ->
-  target_tracking_scaling_policy_configuration:
-    target_tracking_scaling_policy_configuration list ->
   string ->
   t Tf_core.resource

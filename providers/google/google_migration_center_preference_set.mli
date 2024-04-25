@@ -23,7 +23,7 @@ val virtual_machine_preferences__compute_engine_preferences__machine_preferences
 type virtual_machine_preferences__compute_engine_preferences__machine_preferences
 
 val virtual_machine_preferences__compute_engine_preferences__machine_preferences :
-  allowed_machine_series:
+  ?allowed_machine_series:
     virtual_machine_preferences__compute_engine_preferences__machine_preferences__allowed_machine_series
     list ->
   unit ->
@@ -33,7 +33,7 @@ type virtual_machine_preferences__compute_engine_preferences
 
 val virtual_machine_preferences__compute_engine_preferences :
   ?license_type:string prop ->
-  machine_preferences:
+  ?machine_preferences:
     virtual_machine_preferences__compute_engine_preferences__machine_preferences
     list ->
   unit ->
@@ -59,7 +59,7 @@ val virtual_machine_preferences__sole_tenancy_preferences :
   ?commitment_plan:string prop ->
   ?cpu_overcommit_ratio:float prop ->
   ?host_maintenance_policy:string prop ->
-  node_types:
+  ?node_types:
     virtual_machine_preferences__sole_tenancy_preferences__node_types
     list ->
   unit ->
@@ -81,13 +81,13 @@ val virtual_machine_preferences :
   ?commitment_plan:string prop ->
   ?sizing_optimization_strategy:string prop ->
   ?target_product:string prop ->
-  compute_engine_preferences:
+  ?compute_engine_preferences:
     virtual_machine_preferences__compute_engine_preferences list ->
-  region_preferences:
+  ?region_preferences:
     virtual_machine_preferences__region_preferences list ->
-  sole_tenancy_preferences:
+  ?sole_tenancy_preferences:
     virtual_machine_preferences__sole_tenancy_preferences list ->
-  vmware_engine_preferences:
+  ?vmware_engine_preferences:
     virtual_machine_preferences__vmware_engine_preferences list ->
   unit ->
   virtual_machine_preferences
@@ -100,9 +100,9 @@ val google_migration_center_preference_set :
   ?id:string prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->
+  ?virtual_machine_preferences:virtual_machine_preferences list ->
   location:string prop ->
   preference_set_id:string prop ->
-  virtual_machine_preferences:virtual_machine_preferences list ->
   unit ->
   google_migration_center_preference_set
 
@@ -130,9 +130,9 @@ val register :
   ?id:string prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->
+  ?virtual_machine_preferences:virtual_machine_preferences list ->
   location:string prop ->
   preference_set_id:string prop ->
-  virtual_machine_preferences:virtual_machine_preferences list ->
   string ->
   t
 
@@ -142,8 +142,8 @@ val make :
   ?id:string prop ->
   ?project:string prop ->
   ?timeouts:timeouts ->
+  ?virtual_machine_preferences:virtual_machine_preferences list ->
   location:string prop ->
   preference_set_id:string prop ->
-  virtual_machine_preferences:virtual_machine_preferences list ->
   string ->
   t Tf_core.resource

@@ -55,6 +55,7 @@ val azurerm_shared_image :
   ?tags:(string * string prop) list ->
   ?trusted_launch_enabled:bool prop ->
   ?trusted_launch_supported:bool prop ->
+  ?purchase_plan:purchase_plan list ->
   ?timeouts:timeouts ->
   gallery_name:string prop ->
   location:string prop ->
@@ -62,7 +63,6 @@ val azurerm_shared_image :
   os_type:string prop ->
   resource_group_name:string prop ->
   identifier:identifier list ->
-  purchase_plan:purchase_plan list ->
   unit ->
   azurerm_shared_image
 
@@ -120,6 +120,7 @@ val register :
   ?tags:(string * string prop) list ->
   ?trusted_launch_enabled:bool prop ->
   ?trusted_launch_supported:bool prop ->
+  ?purchase_plan:purchase_plan list ->
   ?timeouts:timeouts ->
   gallery_name:string prop ->
   location:string prop ->
@@ -127,7 +128,6 @@ val register :
   os_type:string prop ->
   resource_group_name:string prop ->
   identifier:identifier list ->
-  purchase_plan:purchase_plan list ->
   string ->
   t
 
@@ -152,6 +152,7 @@ val make :
   ?tags:(string * string prop) list ->
   ?trusted_launch_enabled:bool prop ->
   ?trusted_launch_supported:bool prop ->
+  ?purchase_plan:purchase_plan list ->
   ?timeouts:timeouts ->
   gallery_name:string prop ->
   location:string prop ->
@@ -159,6 +160,5 @@ val make :
   os_type:string prop ->
   resource_group_name:string prop ->
   identifier:identifier list ->
-  purchase_plan:purchase_plan list ->
   string ->
   t Tf_core.resource

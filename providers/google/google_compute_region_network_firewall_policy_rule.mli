@@ -30,8 +30,8 @@ val match_ :
   ?src_ip_ranges:string prop list ->
   ?src_region_codes:string prop list ->
   ?src_threat_intelligences:string prop list ->
+  ?src_secure_tags:match__src_secure_tags list ->
   layer4_configs:match__layer4_configs list ->
-  src_secure_tags:match__src_secure_tags list ->
   unit ->
   match_
 
@@ -60,13 +60,13 @@ val google_compute_region_network_firewall_policy_rule :
   ?region:string prop ->
   ?rule_name:string prop ->
   ?target_service_accounts:string prop list ->
+  ?target_secure_tags:target_secure_tags list ->
   ?timeouts:timeouts ->
   action:string prop ->
   direction:string prop ->
   firewall_policy:string prop ->
   priority:float prop ->
   match_:match_ list ->
-  target_secure_tags:target_secure_tags list ->
   unit ->
   google_compute_region_network_firewall_policy_rule
 
@@ -102,13 +102,13 @@ val register :
   ?region:string prop ->
   ?rule_name:string prop ->
   ?target_service_accounts:string prop list ->
+  ?target_secure_tags:target_secure_tags list ->
   ?timeouts:timeouts ->
   action:string prop ->
   direction:string prop ->
   firewall_policy:string prop ->
   priority:float prop ->
   match_:match_ list ->
-  target_secure_tags:target_secure_tags list ->
   string ->
   t
 
@@ -121,12 +121,12 @@ val make :
   ?region:string prop ->
   ?rule_name:string prop ->
   ?target_service_accounts:string prop list ->
+  ?target_secure_tags:target_secure_tags list ->
   ?timeouts:timeouts ->
   action:string prop ->
   direction:string prop ->
   firewall_policy:string prop ->
   priority:float prop ->
   match_:match_ list ->
-  target_secure_tags:target_secure_tags list ->
   string ->
   t Tf_core.resource

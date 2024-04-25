@@ -38,10 +38,10 @@ type express_custom_setup__command_key
 
 val express_custom_setup__command_key :
   ?password:string prop ->
+  ?key_vault_password:
+    express_custom_setup__command_key__key_vault_password list ->
   target_name:string prop ->
   user_name:string prop ->
-  key_vault_password:
-    express_custom_setup__command_key__key_vault_password list ->
   unit ->
   express_custom_setup__command_key
 
@@ -59,9 +59,9 @@ type express_custom_setup__component
 
 val express_custom_setup__component :
   ?license:string prop ->
-  name:string prop ->
-  key_vault_license:
+  ?key_vault_license:
     express_custom_setup__component__key_vault_license list ->
+  name:string prop ->
   unit ->
   express_custom_setup__component
 
@@ -70,8 +70,8 @@ type express_custom_setup
 val express_custom_setup :
   ?environment:(string * string prop) list ->
   ?powershell_version:string prop ->
-  command_key:express_custom_setup__command_key list ->
-  component:express_custom_setup__component list ->
+  ?command_key:express_custom_setup__command_key list ->
+  ?component:express_custom_setup__component list ->
   unit ->
   express_custom_setup
 
@@ -127,18 +127,18 @@ val azurerm_data_factory_integration_runtime_azure_ssis :
   ?license_type:string prop ->
   ?max_parallel_executions_per_node:float prop ->
   ?number_of_nodes:float prop ->
+  ?catalog_info:catalog_info list ->
+  ?custom_setup_script:custom_setup_script list ->
+  ?express_custom_setup:express_custom_setup list ->
+  ?express_vnet_integration:express_vnet_integration list ->
+  ?package_store:package_store list ->
+  ?proxy:proxy list ->
   ?timeouts:timeouts ->
+  ?vnet_integration:vnet_integration list ->
   data_factory_id:string prop ->
   location:string prop ->
   name:string prop ->
   node_size:string prop ->
-  catalog_info:catalog_info list ->
-  custom_setup_script:custom_setup_script list ->
-  express_custom_setup:express_custom_setup list ->
-  express_vnet_integration:express_vnet_integration list ->
-  package_store:package_store list ->
-  proxy:proxy list ->
-  vnet_integration:vnet_integration list ->
   unit ->
   azurerm_data_factory_integration_runtime_azure_ssis
 
@@ -170,18 +170,18 @@ val register :
   ?license_type:string prop ->
   ?max_parallel_executions_per_node:float prop ->
   ?number_of_nodes:float prop ->
+  ?catalog_info:catalog_info list ->
+  ?custom_setup_script:custom_setup_script list ->
+  ?express_custom_setup:express_custom_setup list ->
+  ?express_vnet_integration:express_vnet_integration list ->
+  ?package_store:package_store list ->
+  ?proxy:proxy list ->
   ?timeouts:timeouts ->
+  ?vnet_integration:vnet_integration list ->
   data_factory_id:string prop ->
   location:string prop ->
   name:string prop ->
   node_size:string prop ->
-  catalog_info:catalog_info list ->
-  custom_setup_script:custom_setup_script list ->
-  express_custom_setup:express_custom_setup list ->
-  express_vnet_integration:express_vnet_integration list ->
-  package_store:package_store list ->
-  proxy:proxy list ->
-  vnet_integration:vnet_integration list ->
   string ->
   t
 
@@ -193,17 +193,17 @@ val make :
   ?license_type:string prop ->
   ?max_parallel_executions_per_node:float prop ->
   ?number_of_nodes:float prop ->
+  ?catalog_info:catalog_info list ->
+  ?custom_setup_script:custom_setup_script list ->
+  ?express_custom_setup:express_custom_setup list ->
+  ?express_vnet_integration:express_vnet_integration list ->
+  ?package_store:package_store list ->
+  ?proxy:proxy list ->
   ?timeouts:timeouts ->
+  ?vnet_integration:vnet_integration list ->
   data_factory_id:string prop ->
   location:string prop ->
   name:string prop ->
   node_size:string prop ->
-  catalog_info:catalog_info list ->
-  custom_setup_script:custom_setup_script list ->
-  express_custom_setup:express_custom_setup list ->
-  express_vnet_integration:express_vnet_integration list ->
-  package_store:package_store list ->
-  proxy:proxy list ->
-  vnet_integration:vnet_integration list ->
   string ->
   t Tf_core.resource

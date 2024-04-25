@@ -535,7 +535,7 @@ let workflow_details__on_upload ~execution_role ~workflow_id () :
     workflow_details__on_upload =
   { execution_role; workflow_id }
 
-let workflow_details ~on_partial_upload ~on_upload () :
+let workflow_details ?(on_partial_upload = []) ?(on_upload = []) () :
     workflow_details =
   { on_partial_upload; on_upload }
 
@@ -545,8 +545,8 @@ let aws_transfer_server ?certificate ?directory_id ?domain
     ?post_authentication_login_banner
     ?pre_authentication_login_banner ?protocols ?security_policy_name
     ?structured_log_destinations ?tags ?tags_all ?url
-    ~endpoint_details ~protocol_details ~workflow_details () :
-    aws_transfer_server =
+    ?(endpoint_details = []) ?(protocol_details = [])
+    ?(workflow_details = []) () : aws_transfer_server =
   {
     certificate;
     directory_id;
@@ -602,7 +602,8 @@ let make ?certificate ?directory_id ?domain ?endpoint_type
     ?invocation_role ?logging_role ?post_authentication_login_banner
     ?pre_authentication_login_banner ?protocols ?security_policy_name
     ?structured_log_destinations ?tags ?tags_all ?url
-    ~endpoint_details ~protocol_details ~workflow_details __id =
+    ?(endpoint_details = []) ?(protocol_details = [])
+    ?(workflow_details = []) __id =
   let __type = "aws_transfer_server" in
   let __attrs =
     ({
@@ -659,7 +660,8 @@ let register ?tf_module ?certificate ?directory_id ?domain
     ?post_authentication_login_banner
     ?pre_authentication_login_banner ?protocols ?security_policy_name
     ?structured_log_destinations ?tags ?tags_all ?url
-    ~endpoint_details ~protocol_details ~workflow_details __id =
+    ?(endpoint_details = []) ?(protocol_details = [])
+    ?(workflow_details = []) __id =
   let (r : _ Tf_core.resource) =
     make ?certificate ?directory_id ?domain ?endpoint_type
       ?force_destroy ?function_ ?host_key ?id ?identity_provider_type

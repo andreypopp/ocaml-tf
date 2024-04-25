@@ -367,8 +367,8 @@ let aws_ssm_patch_baseline ?approved_patches
     ?approved_patches_compliance_level
     ?approved_patches_enable_non_security ?description ?id
     ?operating_system ?rejected_patches ?rejected_patches_action
-    ?tags ?tags_all ~name ~approval_rule ~global_filter ~source () :
-    aws_ssm_patch_baseline =
+    ?tags ?tags_all ?(approval_rule = []) ?(global_filter = [])
+    ?(source = []) ~name () : aws_ssm_patch_baseline =
   {
     approved_patches;
     approved_patches_compliance_level;
@@ -405,8 +405,8 @@ type t = {
 let make ?approved_patches ?approved_patches_compliance_level
     ?approved_patches_enable_non_security ?description ?id
     ?operating_system ?rejected_patches ?rejected_patches_action
-    ?tags ?tags_all ~name ~approval_rule ~global_filter ~source __id
-    =
+    ?tags ?tags_all ?(approval_rule = []) ?(global_filter = [])
+    ?(source = []) ~name __id =
   let __type = "aws_ssm_patch_baseline" in
   let __attrs =
     ({
@@ -443,8 +443,8 @@ let make ?approved_patches ?approved_patches_compliance_level
            ?approved_patches_compliance_level
            ?approved_patches_enable_non_security ?description ?id
            ?operating_system ?rejected_patches
-           ?rejected_patches_action ?tags ?tags_all ~name
-           ~approval_rule ~global_filter ~source ());
+           ?rejected_patches_action ?tags ?tags_all ~approval_rule
+           ~global_filter ~source ~name ());
     attrs = __attrs;
   }
 
@@ -452,13 +452,13 @@ let register ?tf_module ?approved_patches
     ?approved_patches_compliance_level
     ?approved_patches_enable_non_security ?description ?id
     ?operating_system ?rejected_patches ?rejected_patches_action
-    ?tags ?tags_all ~name ~approval_rule ~global_filter ~source __id
-    =
+    ?tags ?tags_all ?(approval_rule = []) ?(global_filter = [])
+    ?(source = []) ~name __id =
   let (r : _ Tf_core.resource) =
     make ?approved_patches ?approved_patches_compliance_level
       ?approved_patches_enable_non_security ?description ?id
       ?operating_system ?rejected_patches ?rejected_patches_action
-      ?tags ?tags_all ~name ~approval_rule ~global_filter ~source
+      ?tags ?tags_all ~approval_rule ~global_filter ~source ~name
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

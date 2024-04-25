@@ -29,10 +29,10 @@ val cloudflare_device_posture_integration :
   ?id:string prop ->
   ?identifier:string prop ->
   ?interval:string prop ->
+  ?config:config list ->
   account_id:string prop ->
   name:string prop ->
   type_:string prop ->
-  config:config list ->
   unit ->
   cloudflare_device_posture_integration
 
@@ -55,10 +55,10 @@ val register :
   ?id:string prop ->
   ?identifier:string prop ->
   ?interval:string prop ->
+  ?config:config list ->
   account_id:string prop ->
   name:string prop ->
   type_:string prop ->
-  config:config list ->
   string ->
   t
 
@@ -66,9 +66,9 @@ val make :
   ?id:string prop ->
   ?identifier:string prop ->
   ?interval:string prop ->
+  ?config:config list ->
   account_id:string prop ->
   name:string prop ->
   type_:string prop ->
-  config:config list ->
   string ->
   t Tf_core.resource

@@ -159,7 +159,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_dialogflow_entity_type ?enable_fuzzy_extraction ?id
-    ?project ?timeouts ~display_name ~kind ~entities () :
+    ?project ?(entities = []) ?timeouts ~display_name ~kind () :
     google_dialogflow_entity_type =
   {
     display_name;
@@ -180,8 +180,8 @@ type t = {
   project : string prop;
 }
 
-let make ?enable_fuzzy_extraction ?id ?project ?timeouts
-    ~display_name ~kind ~entities __id =
+let make ?enable_fuzzy_extraction ?id ?project ?(entities = [])
+    ?timeouts ~display_name ~kind __id =
   let __type = "google_dialogflow_entity_type" in
   let __attrs =
     ({
@@ -201,15 +201,15 @@ let make ?enable_fuzzy_extraction ?id ?project ?timeouts
     json =
       yojson_of_google_dialogflow_entity_type
         (google_dialogflow_entity_type ?enable_fuzzy_extraction ?id
-           ?project ?timeouts ~display_name ~kind ~entities ());
+           ?project ~entities ?timeouts ~display_name ~kind ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?enable_fuzzy_extraction ?id ?project
-    ?timeouts ~display_name ~kind ~entities __id =
+    ?(entities = []) ?timeouts ~display_name ~kind __id =
   let (r : _ Tf_core.resource) =
-    make ?enable_fuzzy_extraction ?id ?project ?timeouts
-      ~display_name ~kind ~entities __id
+    make ?enable_fuzzy_extraction ?id ?project ~entities ?timeouts
+      ~display_name ~kind __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

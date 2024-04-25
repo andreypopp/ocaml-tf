@@ -33,10 +33,10 @@ val aws_apigatewayv2_domain_name :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?mutual_tls_authentication:mutual_tls_authentication list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
   domain_name_configuration:domain_name_configuration list ->
-  mutual_tls_authentication:mutual_tls_authentication list ->
   unit ->
   aws_apigatewayv2_domain_name
 
@@ -59,10 +59,10 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?mutual_tls_authentication:mutual_tls_authentication list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
   domain_name_configuration:domain_name_configuration list ->
-  mutual_tls_authentication:mutual_tls_authentication list ->
   string ->
   t
 
@@ -70,9 +70,9 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?mutual_tls_authentication:mutual_tls_authentication list ->
   ?timeouts:timeouts ->
   domain_name:string prop ->
   domain_name_configuration:domain_name_configuration list ->
-  mutual_tls_authentication:mutual_tls_authentication list ->
   string ->
   t Tf_core.resource

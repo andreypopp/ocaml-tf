@@ -192,8 +192,8 @@ let actions_suppressor ~alarm ~extension_period ~wait_period () :
 
 let aws_cloudwatch_composite_alarm ?actions_enabled ?alarm_actions
     ?alarm_description ?id ?insufficient_data_actions ?ok_actions
-    ?tags ?tags_all ~alarm_name ~alarm_rule ~actions_suppressor () :
-    aws_cloudwatch_composite_alarm =
+    ?tags ?tags_all ?(actions_suppressor = []) ~alarm_name
+    ~alarm_rule () : aws_cloudwatch_composite_alarm =
   {
     actions_enabled;
     alarm_actions;
@@ -224,7 +224,7 @@ type t = {
 
 let make ?actions_enabled ?alarm_actions ?alarm_description ?id
     ?insufficient_data_actions ?ok_actions ?tags ?tags_all
-    ~alarm_name ~alarm_rule ~actions_suppressor __id =
+    ?(actions_suppressor = []) ~alarm_name ~alarm_rule __id =
   let __type = "aws_cloudwatch_composite_alarm" in
   let __attrs =
     ({
@@ -252,18 +252,18 @@ let make ?actions_enabled ?alarm_actions ?alarm_description ?id
         (aws_cloudwatch_composite_alarm ?actions_enabled
            ?alarm_actions ?alarm_description ?id
            ?insufficient_data_actions ?ok_actions ?tags ?tags_all
-           ~alarm_name ~alarm_rule ~actions_suppressor ());
+           ~actions_suppressor ~alarm_name ~alarm_rule ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?actions_enabled ?alarm_actions
     ?alarm_description ?id ?insufficient_data_actions ?ok_actions
-    ?tags ?tags_all ~alarm_name ~alarm_rule ~actions_suppressor __id
-    =
+    ?tags ?tags_all ?(actions_suppressor = []) ~alarm_name
+    ~alarm_rule __id =
   let (r : _ Tf_core.resource) =
     make ?actions_enabled ?alarm_actions ?alarm_description ?id
       ?insufficient_data_actions ?ok_actions ?tags ?tags_all
-      ~alarm_name ~alarm_rule ~actions_suppressor __id
+      ~actions_suppressor ~alarm_name ~alarm_rule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -31,8 +31,8 @@ type mirrored_resources
 
 val mirrored_resources :
   ?tags:string prop list ->
-  instances:mirrored_resources__instances list ->
-  subnetworks:mirrored_resources__subnetworks list ->
+  ?instances:mirrored_resources__instances list ->
+  ?subnetworks:mirrored_resources__subnetworks list ->
   unit ->
   mirrored_resources
 
@@ -57,10 +57,10 @@ val google_compute_packet_mirroring :
   ?priority:float prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?filter:filter list ->
   ?timeouts:timeouts ->
   name:string prop ->
   collector_ilb:collector_ilb list ->
-  filter:filter list ->
   mirrored_resources:mirrored_resources list ->
   network:network list ->
   unit ->
@@ -87,10 +87,10 @@ val register :
   ?priority:float prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?filter:filter list ->
   ?timeouts:timeouts ->
   name:string prop ->
   collector_ilb:collector_ilb list ->
-  filter:filter list ->
   mirrored_resources:mirrored_resources list ->
   network:network list ->
   string ->
@@ -102,10 +102,10 @@ val make :
   ?priority:float prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?filter:filter list ->
   ?timeouts:timeouts ->
   name:string prop ->
   collector_ilb:collector_ilb list ->
-  filter:filter list ->
   mirrored_resources:mirrored_resources list ->
   network:network list ->
   string ->

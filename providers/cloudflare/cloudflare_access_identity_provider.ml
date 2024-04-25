@@ -483,7 +483,7 @@ let scim_config ?enabled ?group_member_deprovision ?seat_deprovision
   }
 
 let cloudflare_access_identity_provider ?account_id ?id ?zone_id
-    ~name ~type_ ~config ~scim_config () :
+    ?(config = []) ?(scim_config = []) ~name ~type_ () :
     cloudflare_access_identity_provider =
   { account_id; id; name; type_; zone_id; config; scim_config }
 
@@ -495,8 +495,8 @@ type t = {
   zone_id : string prop;
 }
 
-let make ?account_id ?id ?zone_id ~name ~type_ ~config ~scim_config
-    __id =
+let make ?account_id ?id ?zone_id ?(config = []) ?(scim_config = [])
+    ~name ~type_ __id =
   let __type = "cloudflare_access_identity_provider" in
   let __attrs =
     ({
@@ -514,14 +514,14 @@ let make ?account_id ?id ?zone_id ~name ~type_ ~config ~scim_config
     json =
       yojson_of_cloudflare_access_identity_provider
         (cloudflare_access_identity_provider ?account_id ?id ?zone_id
-           ~name ~type_ ~config ~scim_config ());
+           ~config ~scim_config ~name ~type_ ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?account_id ?id ?zone_id ~name ~type_ ~config
-    ~scim_config __id =
+let register ?tf_module ?account_id ?id ?zone_id ?(config = [])
+    ?(scim_config = []) ~name ~type_ __id =
   let (r : _ Tf_core.resource) =
-    make ?account_id ?id ?zone_id ~name ~type_ ~config ~scim_config
+    make ?account_id ?id ?zone_id ~config ~scim_config ~name ~type_
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

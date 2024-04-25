@@ -114,8 +114,8 @@ let _ = yojson_of_google_compute_image_iam_binding
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_compute_image_iam_binding ?id ?project ~image ~members
-    ~role ~condition () : google_compute_image_iam_binding =
+let google_compute_image_iam_binding ?id ?project ?(condition = [])
+    ~image ~members ~role () : google_compute_image_iam_binding =
   { id; image; members; project; role; condition }
 
 type t = {
@@ -127,7 +127,7 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?project ~image ~members ~role ~condition __id =
+let make ?id ?project ?(condition = []) ~image ~members ~role __id =
   let __type = "google_compute_image_iam_binding" in
   let __attrs =
     ({
@@ -145,15 +145,15 @@ let make ?id ?project ~image ~members ~role ~condition __id =
     type_ = __type;
     json =
       yojson_of_google_compute_image_iam_binding
-        (google_compute_image_iam_binding ?id ?project ~image
-           ~members ~role ~condition ());
+        (google_compute_image_iam_binding ?id ?project ~condition
+           ~image ~members ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ~image ~members ~role ~condition
-    __id =
+let register ?tf_module ?id ?project ?(condition = []) ~image
+    ~members ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ~image ~members ~role ~condition __id
+    make ?id ?project ~condition ~image ~members ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

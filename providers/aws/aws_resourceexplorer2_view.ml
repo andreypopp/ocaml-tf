@@ -118,8 +118,8 @@ let _ = yojson_of_aws_resourceexplorer2_view
 let filters ~filter_string () : filters = { filter_string }
 let included_property ~name () : included_property = { name }
 
-let aws_resourceexplorer2_view ?default_view ?tags ~name ~filters
-    ~included_property () : aws_resourceexplorer2_view =
+let aws_resourceexplorer2_view ?default_view ?tags ?(filters = [])
+    ?(included_property = []) ~name () : aws_resourceexplorer2_view =
   { default_view; name; tags; filters; included_property }
 
 type t = {
@@ -131,7 +131,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?default_view ?tags ~name ~filters ~included_property __id =
+let make ?default_view ?tags ?(filters = [])
+    ?(included_property = []) ~name __id =
   let __type = "aws_resourceexplorer2_view" in
   let __attrs =
     ({
@@ -149,15 +150,15 @@ let make ?default_view ?tags ~name ~filters ~included_property __id =
     type_ = __type;
     json =
       yojson_of_aws_resourceexplorer2_view
-        (aws_resourceexplorer2_view ?default_view ?tags ~name
-           ~filters ~included_property ());
+        (aws_resourceexplorer2_view ?default_view ?tags ~filters
+           ~included_property ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?default_view ?tags ~name ~filters
-    ~included_property __id =
+let register ?tf_module ?default_view ?tags ?(filters = [])
+    ?(included_property = []) ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?default_view ?tags ~name ~filters ~included_property __id
+    make ?default_view ?tags ~filters ~included_property ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -1285,8 +1285,8 @@ let hadoop_config__logging_config ~driver_log_levels () :
   { driver_log_levels }
 
 let hadoop_config ?archive_uris ?args ?file_uris ?jar_file_uris
-    ?main_class ?main_jar_file_uri ?properties ~logging_config () :
-    hadoop_config =
+    ?main_class ?main_jar_file_uri ?properties ?(logging_config = [])
+    () : hadoop_config =
   {
     archive_uris;
     args;
@@ -1314,8 +1314,8 @@ let pig_config__logging_config ~driver_log_levels () :
   { driver_log_levels }
 
 let pig_config ?continue_on_failure ?jar_file_uris ?properties
-    ?query_file_uri ?query_list ?script_variables ~logging_config ()
-    : pig_config =
+    ?query_file_uri ?query_list ?script_variables
+    ?(logging_config = []) () : pig_config =
   {
     continue_on_failure;
     jar_file_uris;
@@ -1333,8 +1333,8 @@ let presto_config__logging_config ~driver_log_levels () :
   { driver_log_levels }
 
 let presto_config ?client_tags ?continue_on_failure ?output_format
-    ?properties ?query_file_uri ?query_list ~logging_config () :
-    presto_config =
+    ?properties ?query_file_uri ?query_list ?(logging_config = []) ()
+    : presto_config =
   {
     client_tags;
     continue_on_failure;
@@ -1350,8 +1350,8 @@ let pyspark_config__logging_config ~driver_log_levels () :
   { driver_log_levels }
 
 let pyspark_config ?archive_uris ?args ?file_uris ?jar_file_uris
-    ?properties ?python_file_uris ~main_python_file_uri
-    ~logging_config () : pyspark_config =
+    ?properties ?python_file_uris ?(logging_config = [])
+    ~main_python_file_uri () : pyspark_config =
   {
     archive_uris;
     args;
@@ -1374,8 +1374,8 @@ let spark_config__logging_config ~driver_log_levels () :
   { driver_log_levels }
 
 let spark_config ?archive_uris ?args ?file_uris ?jar_file_uris
-    ?main_class ?main_jar_file_uri ?properties ~logging_config () :
-    spark_config =
+    ?main_class ?main_jar_file_uri ?properties ?(logging_config = [])
+    () : spark_config =
   {
     archive_uris;
     args;
@@ -1392,7 +1392,7 @@ let sparksql_config__logging_config ~driver_log_levels () :
   { driver_log_levels }
 
 let sparksql_config ?jar_file_uris ?properties ?query_file_uri
-    ?query_list ?script_variables ~logging_config () :
+    ?query_list ?script_variables ?(logging_config = []) () :
     sparksql_config =
   {
     jar_file_uris;
@@ -1406,9 +1406,10 @@ let sparksql_config ?jar_file_uris ?properties ?query_file_uri
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let google_dataproc_job ?force_delete ?id ?labels ?project ?region
-    ?timeouts ~hadoop_config ~hive_config ~pig_config ~placement
-    ~presto_config ~pyspark_config ~reference ~scheduling
-    ~spark_config ~sparksql_config () : google_dataproc_job =
+    ?(hadoop_config = []) ?(hive_config = []) ?(pig_config = [])
+    ?(presto_config = []) ?(pyspark_config = []) ?(reference = [])
+    ?(scheduling = []) ?(spark_config = []) ?(sparksql_config = [])
+    ?timeouts ~placement () : google_dataproc_job =
   {
     force_delete;
     id;
@@ -1441,10 +1442,11 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let make ?force_delete ?id ?labels ?project ?region ?timeouts
-    ~hadoop_config ~hive_config ~pig_config ~placement ~presto_config
-    ~pyspark_config ~reference ~scheduling ~spark_config
-    ~sparksql_config __id =
+let make ?force_delete ?id ?labels ?project ?region
+    ?(hadoop_config = []) ?(hive_config = []) ?(pig_config = [])
+    ?(presto_config = []) ?(pyspark_config = []) ?(reference = [])
+    ?(scheduling = []) ?(spark_config = []) ?(sparksql_config = [])
+    ?timeouts ~placement __id =
   let __type = "google_dataproc_job" in
   let __attrs =
     ({
@@ -1471,21 +1473,22 @@ let make ?force_delete ?id ?labels ?project ?region ?timeouts
     json =
       yojson_of_google_dataproc_job
         (google_dataproc_job ?force_delete ?id ?labels ?project
-           ?region ?timeouts ~hadoop_config ~hive_config ~pig_config
-           ~placement ~presto_config ~pyspark_config ~reference
-           ~scheduling ~spark_config ~sparksql_config ());
+           ?region ~hadoop_config ~hive_config ~pig_config
+           ~presto_config ~pyspark_config ~reference ~scheduling
+           ~spark_config ~sparksql_config ?timeouts ~placement ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?force_delete ?id ?labels ?project ?region
-    ?timeouts ~hadoop_config ~hive_config ~pig_config ~placement
-    ~presto_config ~pyspark_config ~reference ~scheduling
-    ~spark_config ~sparksql_config __id =
+    ?(hadoop_config = []) ?(hive_config = []) ?(pig_config = [])
+    ?(presto_config = []) ?(pyspark_config = []) ?(reference = [])
+    ?(scheduling = []) ?(spark_config = []) ?(sparksql_config = [])
+    ?timeouts ~placement __id =
   let (r : _ Tf_core.resource) =
-    make ?force_delete ?id ?labels ?project ?region ?timeouts
-      ~hadoop_config ~hive_config ~pig_config ~placement
-      ~presto_config ~pyspark_config ~reference ~scheduling
-      ~spark_config ~sparksql_config __id
+    make ?force_delete ?id ?labels ?project ?region ~hadoop_config
+      ~hive_config ~pig_config ~presto_config ~pyspark_config
+      ~reference ~scheduling ~spark_config ~sparksql_config ?timeouts
+      ~placement __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

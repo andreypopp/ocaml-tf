@@ -35,9 +35,9 @@ val google_vertex_ai_feature_online_store :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
+  ?bigtable:bigtable list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  bigtable:bigtable list ->
   unit ->
   google_vertex_ai_feature_online_store
 
@@ -68,9 +68,9 @@ val register :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
+  ?bigtable:bigtable list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  bigtable:bigtable list ->
   string ->
   t
 
@@ -80,8 +80,8 @@ val make :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?region:string prop ->
+  ?bigtable:bigtable list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  bigtable:bigtable list ->
   string ->
   t Tf_core.resource

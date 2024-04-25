@@ -437,9 +437,9 @@ let azurerm_key_vault ?access_policy ?enable_rbac_authorization
     ?enabled_for_deployment ?enabled_for_disk_encryption
     ?enabled_for_template_deployment ?id
     ?public_network_access_enabled ?purge_protection_enabled
-    ?soft_delete_retention_days ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku_name ~tenant_id ~contact ~network_acls
-    () : azurerm_key_vault =
+    ?soft_delete_retention_days ?tags ?(network_acls = []) ?timeouts
+    ~location ~name ~resource_group_name ~sku_name ~tenant_id
+    ~contact () : azurerm_key_vault =
   {
     access_policy;
     enable_rbac_authorization;
@@ -484,9 +484,9 @@ let make ?access_policy ?enable_rbac_authorization
     ?enabled_for_deployment ?enabled_for_disk_encryption
     ?enabled_for_template_deployment ?id
     ?public_network_access_enabled ?purge_protection_enabled
-    ?soft_delete_retention_days ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku_name ~tenant_id ~contact ~network_acls
-    __id =
+    ?soft_delete_retention_days ?tags ?(network_acls = []) ?timeouts
+    ~location ~name ~resource_group_name ~sku_name ~tenant_id
+    ~contact __id =
   let __type = "azurerm_key_vault" in
   let __attrs =
     ({
@@ -526,9 +526,9 @@ let make ?access_policy ?enable_rbac_authorization
            ?enabled_for_deployment ?enabled_for_disk_encryption
            ?enabled_for_template_deployment ?id
            ?public_network_access_enabled ?purge_protection_enabled
-           ?soft_delete_retention_days ?tags ?timeouts ~location
-           ~name ~resource_group_name ~sku_name ~tenant_id ~contact
-           ~network_acls ());
+           ?soft_delete_retention_days ?tags ~network_acls ?timeouts
+           ~location ~name ~resource_group_name ~sku_name ~tenant_id
+           ~contact ());
     attrs = __attrs;
   }
 
@@ -536,17 +536,17 @@ let register ?tf_module ?access_policy ?enable_rbac_authorization
     ?enabled_for_deployment ?enabled_for_disk_encryption
     ?enabled_for_template_deployment ?id
     ?public_network_access_enabled ?purge_protection_enabled
-    ?soft_delete_retention_days ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku_name ~tenant_id ~contact ~network_acls
-    __id =
+    ?soft_delete_retention_days ?tags ?(network_acls = []) ?timeouts
+    ~location ~name ~resource_group_name ~sku_name ~tenant_id
+    ~contact __id =
   let (r : _ Tf_core.resource) =
     make ?access_policy ?enable_rbac_authorization
       ?enabled_for_deployment ?enabled_for_disk_encryption
       ?enabled_for_template_deployment ?id
       ?public_network_access_enabled ?purge_protection_enabled
-      ?soft_delete_retention_days ?tags ?timeouts ~location ~name
-      ~resource_group_name ~sku_name ~tenant_id ~contact
-      ~network_acls __id
+      ?soft_delete_retention_days ?tags ~network_acls ?timeouts
+      ~location ~name ~resource_group_name ~sku_name ~tenant_id
+      ~contact __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

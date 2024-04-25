@@ -62,10 +62,10 @@ val automatic_scaling :
   ?min_idle_instances:float prop ->
   ?min_pending_latency:string prop ->
   ?min_total_instances:float prop ->
+  ?disk_utilization:automatic_scaling__disk_utilization list ->
+  ?network_utilization:automatic_scaling__network_utilization list ->
+  ?request_utilization:automatic_scaling__request_utilization list ->
   cpu_utilization:automatic_scaling__cpu_utilization list ->
-  disk_utilization:automatic_scaling__disk_utilization list ->
-  network_utilization:automatic_scaling__network_utilization list ->
-  request_utilization:automatic_scaling__request_utilization list ->
   unit ->
   automatic_scaling
 
@@ -102,10 +102,10 @@ val deployment__zip :
 type deployment
 
 val deployment :
-  cloud_build_options:deployment__cloud_build_options list ->
-  container:deployment__container list ->
+  ?cloud_build_options:deployment__cloud_build_options list ->
+  ?container:deployment__container list ->
+  ?zip:deployment__zip list ->
   files:deployment__files list ->
-  zip:deployment__zip list ->
   unit ->
   deployment
 
@@ -149,8 +149,8 @@ val handlers :
   ?redirect_http_response_code:string prop ->
   ?security_level:string prop ->
   ?url_regex:string prop ->
-  script:handlers__script list ->
-  static_files:handlers__static_files list ->
+  ?script:handlers__script list ->
+  ?static_files:handlers__static_files list ->
   unit ->
   handlers
 
@@ -210,7 +210,7 @@ val resources :
   ?cpu:float prop ->
   ?disk_gb:float prop ->
   ?memory_gb:float prop ->
-  volumes:resources__volumes list ->
+  ?volumes:resources__volumes list ->
   unit ->
   resources
 
@@ -247,21 +247,21 @@ val google_app_engine_flexible_app_version :
   ?service_account:string prop ->
   ?serving_status:string prop ->
   ?version_id:string prop ->
+  ?api_config:api_config list ->
+  ?automatic_scaling:automatic_scaling list ->
+  ?deployment:deployment list ->
+  ?endpoints_api_service:endpoints_api_service list ->
+  ?entrypoint:entrypoint list ->
+  ?handlers:handlers list ->
+  ?manual_scaling:manual_scaling list ->
+  ?network:network list ->
+  ?resources:resources list ->
   ?timeouts:timeouts ->
+  ?vpc_access_connector:vpc_access_connector list ->
   runtime:string prop ->
   service:string prop ->
-  api_config:api_config list ->
-  automatic_scaling:automatic_scaling list ->
-  deployment:deployment list ->
-  endpoints_api_service:endpoints_api_service list ->
-  entrypoint:entrypoint list ->
-  handlers:handlers list ->
   liveness_check:liveness_check list ->
-  manual_scaling:manual_scaling list ->
-  network:network list ->
   readiness_check:readiness_check list ->
-  resources:resources list ->
-  vpc_access_connector:vpc_access_connector list ->
   unit ->
   google_app_engine_flexible_app_version
 
@@ -310,21 +310,21 @@ val register :
   ?service_account:string prop ->
   ?serving_status:string prop ->
   ?version_id:string prop ->
+  ?api_config:api_config list ->
+  ?automatic_scaling:automatic_scaling list ->
+  ?deployment:deployment list ->
+  ?endpoints_api_service:endpoints_api_service list ->
+  ?entrypoint:entrypoint list ->
+  ?handlers:handlers list ->
+  ?manual_scaling:manual_scaling list ->
+  ?network:network list ->
+  ?resources:resources list ->
   ?timeouts:timeouts ->
+  ?vpc_access_connector:vpc_access_connector list ->
   runtime:string prop ->
   service:string prop ->
-  api_config:api_config list ->
-  automatic_scaling:automatic_scaling list ->
-  deployment:deployment list ->
-  endpoints_api_service:endpoints_api_service list ->
-  entrypoint:entrypoint list ->
-  handlers:handlers list ->
   liveness_check:liveness_check list ->
-  manual_scaling:manual_scaling list ->
-  network:network list ->
   readiness_check:readiness_check list ->
-  resources:resources list ->
-  vpc_access_connector:vpc_access_connector list ->
   string ->
   t
 
@@ -345,20 +345,20 @@ val make :
   ?service_account:string prop ->
   ?serving_status:string prop ->
   ?version_id:string prop ->
+  ?api_config:api_config list ->
+  ?automatic_scaling:automatic_scaling list ->
+  ?deployment:deployment list ->
+  ?endpoints_api_service:endpoints_api_service list ->
+  ?entrypoint:entrypoint list ->
+  ?handlers:handlers list ->
+  ?manual_scaling:manual_scaling list ->
+  ?network:network list ->
+  ?resources:resources list ->
   ?timeouts:timeouts ->
+  ?vpc_access_connector:vpc_access_connector list ->
   runtime:string prop ->
   service:string prop ->
-  api_config:api_config list ->
-  automatic_scaling:automatic_scaling list ->
-  deployment:deployment list ->
-  endpoints_api_service:endpoints_api_service list ->
-  entrypoint:entrypoint list ->
-  handlers:handlers list ->
   liveness_check:liveness_check list ->
-  manual_scaling:manual_scaling list ->
-  network:network list ->
   readiness_check:readiness_check list ->
-  resources:resources list ->
-  vpc_access_connector:vpc_access_connector list ->
   string ->
   t Tf_core.resource

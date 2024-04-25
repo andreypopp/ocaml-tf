@@ -20,7 +20,7 @@ type configuration__execute_command_configuration
 val configuration__execute_command_configuration :
   ?kms_key_id:string prop ->
   ?logging:string prop ->
-  log_configuration:
+  ?log_configuration:
     configuration__execute_command_configuration__log_configuration
     list ->
   unit ->
@@ -29,7 +29,7 @@ val configuration__execute_command_configuration :
 type configuration
 
 val configuration :
-  execute_command_configuration:
+  ?execute_command_configuration:
     configuration__execute_command_configuration list ->
   unit ->
   configuration
@@ -50,9 +50,9 @@ val aws_ecs_cluster :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?configuration:configuration list ->
+  ?service_connect_defaults:service_connect_defaults list ->
   name:string prop ->
-  configuration:configuration list ->
-  service_connect_defaults:service_connect_defaults list ->
   setting:setting list ->
   unit ->
   aws_ecs_cluster
@@ -74,9 +74,9 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?configuration:configuration list ->
+  ?service_connect_defaults:service_connect_defaults list ->
   name:string prop ->
-  configuration:configuration list ->
-  service_connect_defaults:service_connect_defaults list ->
   setting:setting list ->
   string ->
   t
@@ -85,9 +85,9 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?configuration:configuration list ->
+  ?service_connect_defaults:service_connect_defaults list ->
   name:string prop ->
-  configuration:configuration list ->
-  service_connect_defaults:service_connect_defaults list ->
   setting:setting list ->
   string ->
   t Tf_core.resource

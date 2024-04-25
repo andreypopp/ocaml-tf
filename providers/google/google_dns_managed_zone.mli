@@ -25,7 +25,7 @@ val dnssec_config :
   ?kind:string prop ->
   ?non_existence:string prop ->
   ?state:string prop ->
-  default_key_specs:dnssec_config__default_key_specs list ->
+  ?default_key_specs:dnssec_config__default_key_specs list ->
   unit ->
   dnssec_config
 
@@ -73,7 +73,7 @@ val private_visibility_config__networks :
 type private_visibility_config
 
 val private_visibility_config :
-  gke_clusters:private_visibility_config__gke_clusters list ->
+  ?gke_clusters:private_visibility_config__gke_clusters list ->
   networks:private_visibility_config__networks list ->
   unit ->
   private_visibility_config
@@ -96,14 +96,14 @@ val google_dns_managed_zone :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?visibility:string prop ->
+  ?cloud_logging_config:cloud_logging_config list ->
+  ?dnssec_config:dnssec_config list ->
+  ?forwarding_config:forwarding_config list ->
+  ?peering_config:peering_config list ->
+  ?private_visibility_config:private_visibility_config list ->
   ?timeouts:timeouts ->
   dns_name:string prop ->
   name:string prop ->
-  cloud_logging_config:cloud_logging_config list ->
-  dnssec_config:dnssec_config list ->
-  forwarding_config:forwarding_config list ->
-  peering_config:peering_config list ->
-  private_visibility_config:private_visibility_config list ->
   unit ->
   google_dns_managed_zone
 
@@ -136,14 +136,14 @@ val register :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?visibility:string prop ->
+  ?cloud_logging_config:cloud_logging_config list ->
+  ?dnssec_config:dnssec_config list ->
+  ?forwarding_config:forwarding_config list ->
+  ?peering_config:peering_config list ->
+  ?private_visibility_config:private_visibility_config list ->
   ?timeouts:timeouts ->
   dns_name:string prop ->
   name:string prop ->
-  cloud_logging_config:cloud_logging_config list ->
-  dnssec_config:dnssec_config list ->
-  forwarding_config:forwarding_config list ->
-  peering_config:peering_config list ->
-  private_visibility_config:private_visibility_config list ->
   string ->
   t
 
@@ -154,13 +154,13 @@ val make :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?visibility:string prop ->
+  ?cloud_logging_config:cloud_logging_config list ->
+  ?dnssec_config:dnssec_config list ->
+  ?forwarding_config:forwarding_config list ->
+  ?peering_config:peering_config list ->
+  ?private_visibility_config:private_visibility_config list ->
   ?timeouts:timeouts ->
   dns_name:string prop ->
   name:string prop ->
-  cloud_logging_config:cloud_logging_config list ->
-  dnssec_config:dnssec_config list ->
-  forwarding_config:forwarding_config list ->
-  peering_config:peering_config list ->
-  private_visibility_config:private_visibility_config list ->
   string ->
   t Tf_core.resource

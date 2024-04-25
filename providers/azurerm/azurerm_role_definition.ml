@@ -226,8 +226,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_role_definition ?assignable_scopes ?description ?id
-    ?role_definition_id ?timeouts ~name ~scope ~permissions () :
-    azurerm_role_definition =
+    ?role_definition_id ?(permissions = []) ?timeouts ~name ~scope ()
+    : azurerm_role_definition =
   {
     assignable_scopes;
     description;
@@ -250,7 +250,7 @@ type t = {
 }
 
 let make ?assignable_scopes ?description ?id ?role_definition_id
-    ?timeouts ~name ~scope ~permissions __id =
+    ?(permissions = []) ?timeouts ~name ~scope __id =
   let __type = "azurerm_role_definition" in
   let __attrs =
     ({
@@ -273,15 +273,16 @@ let make ?assignable_scopes ?description ?id ?role_definition_id
     json =
       yojson_of_azurerm_role_definition
         (azurerm_role_definition ?assignable_scopes ?description ?id
-           ?role_definition_id ?timeouts ~name ~scope ~permissions ());
+           ?role_definition_id ~permissions ?timeouts ~name ~scope ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?assignable_scopes ?description ?id
-    ?role_definition_id ?timeouts ~name ~scope ~permissions __id =
+    ?role_definition_id ?(permissions = []) ?timeouts ~name ~scope
+    __id =
   let (r : _ Tf_core.resource) =
     make ?assignable_scopes ?description ?id ?role_definition_id
-      ?timeouts ~name ~scope ~permissions __id
+      ~permissions ?timeouts ~name ~scope __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

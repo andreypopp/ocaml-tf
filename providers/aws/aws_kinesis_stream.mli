@@ -31,9 +31,9 @@ val aws_kinesis_stream :
   ?shard_level_metrics:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?stream_mode_details:stream_mode_details list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  stream_mode_details:stream_mode_details list ->
   unit ->
   aws_kinesis_stream
 
@@ -67,9 +67,9 @@ val register :
   ?shard_level_metrics:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?stream_mode_details:stream_mode_details list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  stream_mode_details:stream_mode_details list ->
   string ->
   t
 
@@ -84,8 +84,8 @@ val make :
   ?shard_level_metrics:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?stream_mode_details:stream_mode_details list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  stream_mode_details:stream_mode_details list ->
   string ->
   t Tf_core.resource

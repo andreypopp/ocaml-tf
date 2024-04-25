@@ -24,10 +24,10 @@ type azurerm_dashboard_grafana
 
 val azurerm_dashboard_grafana :
   ?id:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   unit ->
   azurerm_dashboard_grafana
 
@@ -59,18 +59,18 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

@@ -44,13 +44,13 @@ let _ = yojson_of_aws_cognito_user_groups
 
 let groups () = ()
 
-let aws_cognito_user_groups ~user_pool_id ~groups () :
+let aws_cognito_user_groups ?(groups = []) ~user_pool_id () :
     aws_cognito_user_groups =
   { user_pool_id; groups }
 
 type t = { id : string prop; user_pool_id : string prop }
 
-let make ~user_pool_id ~groups __id =
+let make ?(groups = []) ~user_pool_id __id =
   let __type = "aws_cognito_user_groups" in
   let __attrs =
     ({
@@ -64,11 +64,11 @@ let make ~user_pool_id ~groups __id =
     type_ = __type;
     json =
       yojson_of_aws_cognito_user_groups
-        (aws_cognito_user_groups ~user_pool_id ~groups ());
+        (aws_cognito_user_groups ~groups ~user_pool_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ~user_pool_id ~groups __id =
-  let (r : _ Tf_core.resource) = make ~user_pool_id ~groups __id in
+let register ?tf_module ?(groups = []) ~user_pool_id __id =
+  let (r : _ Tf_core.resource) = make ~groups ~user_pool_id __id in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -1212,9 +1212,10 @@ let external_data_configuration__parquet_options
 let external_data_configuration ?compression ?connection_id
     ?file_set_spec_type ?ignore_unknown_values ?max_bad_records
     ?metadata_cache_mode ?object_metadata ?reference_file_schema_uri
-    ?schema ?source_format ~autodetect ~source_uris ~avro_options
-    ~csv_options ~google_sheets_options ~hive_partitioning_options
-    ~json_options ~parquet_options () : external_data_configuration =
+    ?schema ?source_format ?(avro_options = []) ?(csv_options = [])
+    ?(google_sheets_options = []) ?(hive_partitioning_options = [])
+    ?(json_options = []) ?(parquet_options = []) ~autodetect
+    ~source_uris () : external_data_configuration =
   {
     autodetect;
     compression;
@@ -1271,7 +1272,7 @@ let table_constraints__primary_key ~columns () :
     table_constraints__primary_key =
   { columns }
 
-let table_constraints ~foreign_keys ~primary_key () :
+let table_constraints ?(foreign_keys = []) ?(primary_key = []) () :
     table_constraints =
   { foreign_keys; primary_key }
 
@@ -1294,10 +1295,11 @@ let view ?use_legacy_sql ~query () : view = { query; use_legacy_sql }
 let google_bigquery_table ?clustering ?deletion_protection
     ?description ?expiration_time ?friendly_name ?id ?labels
     ?max_staleness ?project ?require_partition_filter ?schema
-    ~dataset_id ~table_id ~encryption_configuration
-    ~external_data_configuration ~materialized_view
-    ~range_partitioning ~table_constraints ~table_replication_info
-    ~time_partitioning ~view () : google_bigquery_table =
+    ?(encryption_configuration = [])
+    ?(external_data_configuration = []) ?(materialized_view = [])
+    ?(range_partitioning = []) ?(table_constraints = [])
+    ?(table_replication_info = []) ?(time_partitioning = [])
+    ?(view = []) ~dataset_id ~table_id () : google_bigquery_table =
   {
     clustering;
     dataset_id;
@@ -1351,10 +1353,12 @@ type t = {
 
 let make ?clustering ?deletion_protection ?description
     ?expiration_time ?friendly_name ?id ?labels ?max_staleness
-    ?project ?require_partition_filter ?schema ~dataset_id ~table_id
-    ~encryption_configuration ~external_data_configuration
-    ~materialized_view ~range_partitioning ~table_constraints
-    ~table_replication_info ~time_partitioning ~view __id =
+    ?project ?require_partition_filter ?schema
+    ?(encryption_configuration = [])
+    ?(external_data_configuration = []) ?(materialized_view = [])
+    ?(range_partitioning = []) ?(table_constraints = [])
+    ?(table_replication_info = []) ?(time_partitioning = [])
+    ?(view = []) ~dataset_id ~table_id __id =
   let __type = "google_bigquery_table" in
   let __attrs =
     ({
@@ -1399,27 +1403,29 @@ let make ?clustering ?deletion_protection ?description
         (google_bigquery_table ?clustering ?deletion_protection
            ?description ?expiration_time ?friendly_name ?id ?labels
            ?max_staleness ?project ?require_partition_filter ?schema
-           ~dataset_id ~table_id ~encryption_configuration
-           ~external_data_configuration ~materialized_view
-           ~range_partitioning ~table_constraints
-           ~table_replication_info ~time_partitioning ~view ());
+           ~encryption_configuration ~external_data_configuration
+           ~materialized_view ~range_partitioning ~table_constraints
+           ~table_replication_info ~time_partitioning ~view
+           ~dataset_id ~table_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?clustering ?deletion_protection ?description
     ?expiration_time ?friendly_name ?id ?labels ?max_staleness
-    ?project ?require_partition_filter ?schema ~dataset_id ~table_id
-    ~encryption_configuration ~external_data_configuration
-    ~materialized_view ~range_partitioning ~table_constraints
-    ~table_replication_info ~time_partitioning ~view __id =
+    ?project ?require_partition_filter ?schema
+    ?(encryption_configuration = [])
+    ?(external_data_configuration = []) ?(materialized_view = [])
+    ?(range_partitioning = []) ?(table_constraints = [])
+    ?(table_replication_info = []) ?(time_partitioning = [])
+    ?(view = []) ~dataset_id ~table_id __id =
   let (r : _ Tf_core.resource) =
     make ?clustering ?deletion_protection ?description
       ?expiration_time ?friendly_name ?id ?labels ?max_staleness
-      ?project ?require_partition_filter ?schema ~dataset_id
-      ~table_id ~encryption_configuration
-      ~external_data_configuration ~materialized_view
-      ~range_partitioning ~table_constraints ~table_replication_info
-      ~time_partitioning ~view __id
+      ?project ?require_partition_filter ?schema
+      ~encryption_configuration ~external_data_configuration
+      ~materialized_view ~range_partitioning ~table_constraints
+      ~table_replication_info ~time_partitioning ~view ~dataset_id
+      ~table_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

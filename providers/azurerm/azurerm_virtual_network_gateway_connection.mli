@@ -64,15 +64,15 @@ val azurerm_virtual_network_gateway_connection :
   ?shared_key:string prop ->
   ?tags:(string * string prop) list ->
   ?use_policy_based_traffic_selectors:bool prop ->
+  ?custom_bgp_addresses:custom_bgp_addresses list ->
+  ?ipsec_policy:ipsec_policy list ->
   ?timeouts:timeouts ->
+  ?traffic_selector_policy:traffic_selector_policy list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   type_:string prop ->
   virtual_network_gateway_id:string prop ->
-  custom_bgp_addresses:custom_bgp_addresses list ->
-  ipsec_policy:ipsec_policy list ->
-  traffic_selector_policy:traffic_selector_policy list ->
   unit ->
   azurerm_virtual_network_gateway_connection
 
@@ -125,15 +125,15 @@ val register :
   ?shared_key:string prop ->
   ?tags:(string * string prop) list ->
   ?use_policy_based_traffic_selectors:bool prop ->
+  ?custom_bgp_addresses:custom_bgp_addresses list ->
+  ?ipsec_policy:ipsec_policy list ->
   ?timeouts:timeouts ->
+  ?traffic_selector_policy:traffic_selector_policy list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   type_:string prop ->
   virtual_network_gateway_id:string prop ->
-  custom_bgp_addresses:custom_bgp_addresses list ->
-  ipsec_policy:ipsec_policy list ->
-  traffic_selector_policy:traffic_selector_policy list ->
   string ->
   t
 
@@ -155,14 +155,14 @@ val make :
   ?shared_key:string prop ->
   ?tags:(string * string prop) list ->
   ?use_policy_based_traffic_selectors:bool prop ->
+  ?custom_bgp_addresses:custom_bgp_addresses list ->
+  ?ipsec_policy:ipsec_policy list ->
   ?timeouts:timeouts ->
+  ?traffic_selector_policy:traffic_selector_policy list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   type_:string prop ->
   virtual_network_gateway_id:string prop ->
-  custom_bgp_addresses:custom_bgp_addresses list ->
-  ipsec_policy:ipsec_policy list ->
-  traffic_selector_policy:traffic_selector_policy list ->
   string ->
   t Tf_core.resource

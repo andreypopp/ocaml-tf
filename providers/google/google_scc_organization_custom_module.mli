@@ -18,7 +18,7 @@ type custom_config__custom_output__properties
 
 val custom_config__custom_output__properties :
   ?name:string prop ->
-  value_expression:
+  ?value_expression:
     custom_config__custom_output__properties__value_expression list ->
   unit ->
   custom_config__custom_output__properties
@@ -26,7 +26,7 @@ val custom_config__custom_output__properties :
 type custom_config__custom_output
 
 val custom_config__custom_output :
-  properties:custom_config__custom_output__properties list ->
+  ?properties:custom_config__custom_output__properties list ->
   unit ->
   custom_config__custom_output
 
@@ -51,9 +51,9 @@ type custom_config
 
 val custom_config :
   ?description:string prop ->
+  ?custom_output:custom_config__custom_output list ->
   recommendation:string prop ->
   severity:string prop ->
-  custom_output:custom_config__custom_output list ->
   predicate:custom_config__predicate list ->
   resource_selector:custom_config__resource_selector list ->
   unit ->

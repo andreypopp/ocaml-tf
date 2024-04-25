@@ -188,7 +188,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_compute_external_vpn_gateway ?description ?id ?labels
-    ?project ?redundancy_type ?timeouts ~name ~interface () :
+    ?project ?redundancy_type ?(interface = []) ?timeouts ~name () :
     google_compute_external_vpn_gateway =
   {
     description;
@@ -214,8 +214,8 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let make ?description ?id ?labels ?project ?redundancy_type ?timeouts
-    ~name ~interface __id =
+let make ?description ?id ?labels ?project ?redundancy_type
+    ?(interface = []) ?timeouts ~name __id =
   let __type = "google_compute_external_vpn_gateway" in
   let __attrs =
     ({
@@ -241,15 +241,15 @@ let make ?description ?id ?labels ?project ?redundancy_type ?timeouts
     json =
       yojson_of_google_compute_external_vpn_gateway
         (google_compute_external_vpn_gateway ?description ?id ?labels
-           ?project ?redundancy_type ?timeouts ~name ~interface ());
+           ?project ?redundancy_type ~interface ?timeouts ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?labels ?project
-    ?redundancy_type ?timeouts ~name ~interface __id =
+    ?redundancy_type ?(interface = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?labels ?project ?redundancy_type ?timeouts
-      ~name ~interface __id
+    make ?description ?id ?labels ?project ?redundancy_type
+      ~interface ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -348,8 +348,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_compute_image ?description ?disk_size_gb ?family ?id
     ?labels ?licenses ?project ?source_disk ?source_image
-    ?source_snapshot ?storage_locations ?timeouts ~name
-    ~guest_os_features ~image_encryption_key ~raw_disk () :
+    ?source_snapshot ?storage_locations ?(image_encryption_key = [])
+    ?(raw_disk = []) ?timeouts ~name ~guest_os_features () :
     google_compute_image =
   {
     description;
@@ -393,8 +393,8 @@ type t = {
 
 let make ?description ?disk_size_gb ?family ?id ?labels ?licenses
     ?project ?source_disk ?source_image ?source_snapshot
-    ?storage_locations ?timeouts ~name ~guest_os_features
-    ~image_encryption_key ~raw_disk __id =
+    ?storage_locations ?(image_encryption_key = []) ?(raw_disk = [])
+    ?timeouts ~name ~guest_os_features __id =
   let __type = "google_compute_image" in
   let __attrs =
     ({
@@ -432,20 +432,20 @@ let make ?description ?disk_size_gb ?family ?id ?labels ?licenses
       yojson_of_google_compute_image
         (google_compute_image ?description ?disk_size_gb ?family ?id
            ?labels ?licenses ?project ?source_disk ?source_image
-           ?source_snapshot ?storage_locations ?timeouts ~name
-           ~guest_os_features ~image_encryption_key ~raw_disk ());
+           ?source_snapshot ?storage_locations ~image_encryption_key
+           ~raw_disk ?timeouts ~name ~guest_os_features ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?disk_size_gb ?family ?id
     ?labels ?licenses ?project ?source_disk ?source_image
-    ?source_snapshot ?storage_locations ?timeouts ~name
-    ~guest_os_features ~image_encryption_key ~raw_disk __id =
+    ?source_snapshot ?storage_locations ?(image_encryption_key = [])
+    ?(raw_disk = []) ?timeouts ~name ~guest_os_features __id =
   let (r : _ Tf_core.resource) =
     make ?description ?disk_size_gb ?family ?id ?labels ?licenses
       ?project ?source_disk ?source_image ?source_snapshot
-      ?storage_locations ?timeouts ~name ~guest_os_features
-      ~image_encryption_key ~raw_disk __id
+      ?storage_locations ~image_encryption_key ~raw_disk ?timeouts
+      ~name ~guest_os_features __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

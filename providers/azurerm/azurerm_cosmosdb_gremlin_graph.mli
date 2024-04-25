@@ -44,9 +44,9 @@ val index_policy :
   ?automatic:bool prop ->
   ?excluded_paths:string prop list ->
   ?included_paths:string prop list ->
+  ?composite_index:index_policy__composite_index list ->
+  ?spatial_index:index_policy__spatial_index list ->
   indexing_mode:string prop ->
-  composite_index:index_policy__composite_index list ->
-  spatial_index:index_policy__spatial_index list ->
   unit ->
   index_policy
 
@@ -72,15 +72,15 @@ val azurerm_cosmosdb_gremlin_graph :
   ?id:string prop ->
   ?partition_key_version:float prop ->
   ?throughput:float prop ->
+  ?autoscale_settings:autoscale_settings list ->
+  ?conflict_resolution_policy:conflict_resolution_policy list ->
+  ?index_policy:index_policy list ->
   ?timeouts:timeouts ->
   account_name:string prop ->
   database_name:string prop ->
   name:string prop ->
   partition_key_path:string prop ->
   resource_group_name:string prop ->
-  autoscale_settings:autoscale_settings list ->
-  conflict_resolution_policy:conflict_resolution_policy list ->
-  index_policy:index_policy list ->
   unique_key:unique_key list ->
   unit ->
   azurerm_cosmosdb_gremlin_graph
@@ -110,15 +110,15 @@ val register :
   ?id:string prop ->
   ?partition_key_version:float prop ->
   ?throughput:float prop ->
+  ?autoscale_settings:autoscale_settings list ->
+  ?conflict_resolution_policy:conflict_resolution_policy list ->
+  ?index_policy:index_policy list ->
   ?timeouts:timeouts ->
   account_name:string prop ->
   database_name:string prop ->
   name:string prop ->
   partition_key_path:string prop ->
   resource_group_name:string prop ->
-  autoscale_settings:autoscale_settings list ->
-  conflict_resolution_policy:conflict_resolution_policy list ->
-  index_policy:index_policy list ->
   unique_key:unique_key list ->
   string ->
   t
@@ -129,15 +129,15 @@ val make :
   ?id:string prop ->
   ?partition_key_version:float prop ->
   ?throughput:float prop ->
+  ?autoscale_settings:autoscale_settings list ->
+  ?conflict_resolution_policy:conflict_resolution_policy list ->
+  ?index_policy:index_policy list ->
   ?timeouts:timeouts ->
   account_name:string prop ->
   database_name:string prop ->
   name:string prop ->
   partition_key_path:string prop ->
   resource_group_name:string prop ->
-  autoscale_settings:autoscale_settings list ->
-  conflict_resolution_policy:conflict_resolution_policy list ->
-  index_policy:index_policy list ->
   unique_key:unique_key list ->
   string ->
   t Tf_core.resource

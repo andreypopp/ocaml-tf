@@ -49,8 +49,8 @@ val cdn_policy :
   ?negative_caching:bool prop ->
   ?serve_while_stale:float prop ->
   ?signed_url_cache_max_age_sec:float prop ->
-  cache_key_policy:cdn_policy__cache_key_policy list ->
-  negative_caching_policy:cdn_policy__negative_caching_policy list ->
+  ?cache_key_policy:cdn_policy__cache_key_policy list ->
+  ?negative_caching_policy:cdn_policy__negative_caching_policy list ->
   unit ->
   cdn_policy
 
@@ -78,7 +78,7 @@ type consistent_hash__http_cookie
 val consistent_hash__http_cookie :
   ?name:string prop ->
   ?path:string prop ->
-  ttl:consistent_hash__http_cookie__ttl list ->
+  ?ttl:consistent_hash__http_cookie__ttl list ->
   unit ->
   consistent_hash__http_cookie
 
@@ -87,7 +87,7 @@ type consistent_hash
 val consistent_hash :
   ?http_header_name:string prop ->
   ?minimum_ring_size:float prop ->
-  http_cookie:consistent_hash__http_cookie list ->
+  ?http_cookie:consistent_hash__http_cookie list ->
   unit ->
   consistent_hash
 
@@ -141,8 +141,8 @@ val outlier_detection :
   ?success_rate_minimum_hosts:float prop ->
   ?success_rate_request_volume:float prop ->
   ?success_rate_stdev_factor:float prop ->
-  base_ejection_time:outlier_detection__base_ejection_time list ->
-  interval:outlier_detection__interval list ->
+  ?base_ejection_time:outlier_detection__base_ejection_time list ->
+  ?interval:outlier_detection__interval list ->
   unit ->
   outlier_detection
 
@@ -173,16 +173,16 @@ val google_compute_region_backend_service :
   ?region:string prop ->
   ?session_affinity:string prop ->
   ?timeout_sec:float prop ->
+  ?cdn_policy:cdn_policy list ->
+  ?circuit_breakers:circuit_breakers list ->
+  ?consistent_hash:consistent_hash list ->
+  ?failover_policy:failover_policy list ->
+  ?iap:iap list ->
+  ?log_config:log_config list ->
+  ?outlier_detection:outlier_detection list ->
   ?timeouts:timeouts ->
   name:string prop ->
   backend:backend list ->
-  cdn_policy:cdn_policy list ->
-  circuit_breakers:circuit_breakers list ->
-  consistent_hash:consistent_hash list ->
-  failover_policy:failover_policy list ->
-  iap:iap list ->
-  log_config:log_config list ->
-  outlier_detection:outlier_detection list ->
   unit ->
   google_compute_region_backend_service
 
@@ -230,16 +230,16 @@ val register :
   ?region:string prop ->
   ?session_affinity:string prop ->
   ?timeout_sec:float prop ->
+  ?cdn_policy:cdn_policy list ->
+  ?circuit_breakers:circuit_breakers list ->
+  ?consistent_hash:consistent_hash list ->
+  ?failover_policy:failover_policy list ->
+  ?iap:iap list ->
+  ?log_config:log_config list ->
+  ?outlier_detection:outlier_detection list ->
   ?timeouts:timeouts ->
   name:string prop ->
   backend:backend list ->
-  cdn_policy:cdn_policy list ->
-  circuit_breakers:circuit_breakers list ->
-  consistent_hash:consistent_hash list ->
-  failover_policy:failover_policy list ->
-  iap:iap list ->
-  log_config:log_config list ->
-  outlier_detection:outlier_detection list ->
   string ->
   t
 
@@ -259,15 +259,15 @@ val make :
   ?region:string prop ->
   ?session_affinity:string prop ->
   ?timeout_sec:float prop ->
+  ?cdn_policy:cdn_policy list ->
+  ?circuit_breakers:circuit_breakers list ->
+  ?consistent_hash:consistent_hash list ->
+  ?failover_policy:failover_policy list ->
+  ?iap:iap list ->
+  ?log_config:log_config list ->
+  ?outlier_detection:outlier_detection list ->
   ?timeouts:timeouts ->
   name:string prop ->
   backend:backend list ->
-  cdn_policy:cdn_policy list ->
-  circuit_breakers:circuit_breakers list ->
-  consistent_hash:consistent_hash list ->
-  failover_policy:failover_policy list ->
-  iap:iap list ->
-  log_config:log_config list ->
-  outlier_detection:outlier_detection list ->
   string ->
   t Tf_core.resource

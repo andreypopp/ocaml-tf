@@ -231,10 +231,11 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_mobile_network_sim ?device_type ?id ?sim_policy_id
-    ?timeouts ~authentication_key ~integrated_circuit_card_identifier
+    ?(static_ip_configuration = []) ?timeouts ~authentication_key
+    ~integrated_circuit_card_identifier
     ~international_mobile_subscriber_identity
-    ~mobile_network_sim_group_id ~name ~operator_key_code
-    ~static_ip_configuration () : azurerm_mobile_network_sim =
+    ~mobile_network_sim_group_id ~name ~operator_key_code () :
+    azurerm_mobile_network_sim =
   {
     authentication_key;
     device_type;
@@ -264,11 +265,11 @@ type t = {
   vendor_name : string prop;
 }
 
-let make ?device_type ?id ?sim_policy_id ?timeouts
-    ~authentication_key ~integrated_circuit_card_identifier
+let make ?device_type ?id ?sim_policy_id
+    ?(static_ip_configuration = []) ?timeouts ~authentication_key
+    ~integrated_circuit_card_identifier
     ~international_mobile_subscriber_identity
-    ~mobile_network_sim_group_id ~name ~operator_key_code
-    ~static_ip_configuration __id =
+    ~mobile_network_sim_group_id ~name ~operator_key_code __id =
   let __type = "azurerm_mobile_network_sim" in
   let __attrs =
     ({
@@ -301,25 +302,24 @@ let make ?device_type ?id ?sim_policy_id ?timeouts
     json =
       yojson_of_azurerm_mobile_network_sim
         (azurerm_mobile_network_sim ?device_type ?id ?sim_policy_id
-           ?timeouts ~authentication_key
+           ~static_ip_configuration ?timeouts ~authentication_key
            ~integrated_circuit_card_identifier
            ~international_mobile_subscriber_identity
-           ~mobile_network_sim_group_id ~name ~operator_key_code
-           ~static_ip_configuration ());
+           ~mobile_network_sim_group_id ~name ~operator_key_code ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?device_type ?id ?sim_policy_id ?timeouts
-    ~authentication_key ~integrated_circuit_card_identifier
+let register ?tf_module ?device_type ?id ?sim_policy_id
+    ?(static_ip_configuration = []) ?timeouts ~authentication_key
+    ~integrated_circuit_card_identifier
     ~international_mobile_subscriber_identity
-    ~mobile_network_sim_group_id ~name ~operator_key_code
-    ~static_ip_configuration __id =
+    ~mobile_network_sim_group_id ~name ~operator_key_code __id =
   let (r : _ Tf_core.resource) =
-    make ?device_type ?id ?sim_policy_id ?timeouts
-      ~authentication_key ~integrated_circuit_card_identifier
+    make ?device_type ?id ?sim_policy_id ~static_ip_configuration
+      ?timeouts ~authentication_key
+      ~integrated_circuit_card_identifier
       ~international_mobile_subscriber_identity
-      ~mobile_network_sim_group_id ~name ~operator_key_code
-      ~static_ip_configuration __id
+      ~mobile_network_sim_group_id ~name ~operator_key_code __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

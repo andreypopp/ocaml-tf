@@ -39,9 +39,9 @@ type hive_metastore_config
 val hive_metastore_config :
   ?config_overrides:(string * string prop) list ->
   ?endpoint_protocol:string prop ->
+  ?kerberos_config:hive_metastore_config__kerberos_config list ->
   version:string prop ->
   auxiliary_versions:hive_metastore_config__auxiliary_versions list ->
-  kerberos_config:hive_metastore_config__kerberos_config list ->
   unit ->
   hive_metastore_config
 
@@ -111,15 +111,15 @@ val google_dataproc_metastore_service :
   ?project:string prop ->
   ?release_channel:string prop ->
   ?tier:string prop ->
+  ?encryption_config:encryption_config list ->
+  ?hive_metastore_config:hive_metastore_config list ->
+  ?maintenance_window:maintenance_window list ->
+  ?metadata_integration:metadata_integration list ->
+  ?network_config:network_config list ->
+  ?scaling_config:scaling_config list ->
+  ?telemetry_config:telemetry_config list ->
   ?timeouts:timeouts ->
   service_id:string prop ->
-  encryption_config:encryption_config list ->
-  hive_metastore_config:hive_metastore_config list ->
-  maintenance_window:maintenance_window list ->
-  metadata_integration:metadata_integration list ->
-  network_config:network_config list ->
-  scaling_config:scaling_config list ->
-  telemetry_config:telemetry_config list ->
   unit ->
   google_dataproc_metastore_service
 
@@ -160,15 +160,15 @@ val register :
   ?project:string prop ->
   ?release_channel:string prop ->
   ?tier:string prop ->
+  ?encryption_config:encryption_config list ->
+  ?hive_metastore_config:hive_metastore_config list ->
+  ?maintenance_window:maintenance_window list ->
+  ?metadata_integration:metadata_integration list ->
+  ?network_config:network_config list ->
+  ?scaling_config:scaling_config list ->
+  ?telemetry_config:telemetry_config list ->
   ?timeouts:timeouts ->
   service_id:string prop ->
-  encryption_config:encryption_config list ->
-  hive_metastore_config:hive_metastore_config list ->
-  maintenance_window:maintenance_window list ->
-  metadata_integration:metadata_integration list ->
-  network_config:network_config list ->
-  scaling_config:scaling_config list ->
-  telemetry_config:telemetry_config list ->
   string ->
   t
 
@@ -182,14 +182,14 @@ val make :
   ?project:string prop ->
   ?release_channel:string prop ->
   ?tier:string prop ->
+  ?encryption_config:encryption_config list ->
+  ?hive_metastore_config:hive_metastore_config list ->
+  ?maintenance_window:maintenance_window list ->
+  ?metadata_integration:metadata_integration list ->
+  ?network_config:network_config list ->
+  ?scaling_config:scaling_config list ->
+  ?telemetry_config:telemetry_config list ->
   ?timeouts:timeouts ->
   service_id:string prop ->
-  encryption_config:encryption_config list ->
-  hive_metastore_config:hive_metastore_config list ->
-  maintenance_window:maintenance_window list ->
-  metadata_integration:metadata_integration list ->
-  network_config:network_config list ->
-  scaling_config:scaling_config list ->
-  telemetry_config:telemetry_config list ->
   string ->
   t Tf_core.resource

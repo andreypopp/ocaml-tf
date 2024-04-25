@@ -1091,16 +1091,16 @@ let os_profile_linux_config__ssh_keys ~key_data ~path () :
     os_profile_linux_config__ssh_keys =
   { key_data; path }
 
-let os_profile_linux_config ~disable_password_authentication
-    ~ssh_keys () : os_profile_linux_config =
+let os_profile_linux_config ?(ssh_keys = [])
+    ~disable_password_authentication () : os_profile_linux_config =
   { disable_password_authentication; ssh_keys }
 
 let os_profile_secrets__vault_certificates ?certificate_store
     ~certificate_url () : os_profile_secrets__vault_certificates =
   { certificate_store; certificate_url }
 
-let os_profile_secrets ~source_vault_id ~vault_certificates () :
-    os_profile_secrets =
+let os_profile_secrets ?(vault_certificates = []) ~source_vault_id ()
+    : os_profile_secrets =
   { source_vault_id; vault_certificates }
 
 let os_profile_windows_config__additional_unattend_config ~component
@@ -1113,8 +1113,8 @@ let os_profile_windows_config__winrm ?certificate_url ~protocol () :
   { certificate_url; protocol }
 
 let os_profile_windows_config ?enable_automatic_upgrades
-    ?provision_vm_agent ?timezone ~additional_unattend_config ~winrm
-    () : os_profile_windows_config =
+    ?provision_vm_agent ?timezone ?(additional_unattend_config = [])
+    ?(winrm = []) () : os_profile_windows_config =
   {
     enable_automatic_upgrades;
     provision_vm_agent;
@@ -1168,11 +1168,12 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_virtual_machine ?availability_set_id
     ?delete_data_disks_on_termination ?delete_os_disk_on_termination
     ?id ?license_type ?primary_network_interface_id
-    ?proximity_placement_group_id ?tags ?zones ?timeouts ~location
-    ~name ~network_interface_ids ~resource_group_name ~vm_size
-    ~additional_capabilities ~boot_diagnostics ~identity ~os_profile
-    ~os_profile_linux_config ~os_profile_secrets
-    ~os_profile_windows_config ~plan ~storage_data_disk
+    ?proximity_placement_group_id ?tags ?zones
+    ?(additional_capabilities = []) ?(boot_diagnostics = [])
+    ?(identity = []) ?(os_profile_secrets = []) ?(plan = [])
+    ?(storage_data_disk = []) ?timeouts ~location ~name
+    ~network_interface_ids ~resource_group_name ~vm_size ~os_profile
+    ~os_profile_linux_config ~os_profile_windows_config
     ~storage_image_reference ~storage_os_disk () :
     azurerm_virtual_machine =
   {
@@ -1224,12 +1225,12 @@ type t = {
 let make ?availability_set_id ?delete_data_disks_on_termination
     ?delete_os_disk_on_termination ?id ?license_type
     ?primary_network_interface_id ?proximity_placement_group_id ?tags
-    ?zones ?timeouts ~location ~name ~network_interface_ids
-    ~resource_group_name ~vm_size ~additional_capabilities
-    ~boot_diagnostics ~identity ~os_profile ~os_profile_linux_config
-    ~os_profile_secrets ~os_profile_windows_config ~plan
-    ~storage_data_disk ~storage_image_reference ~storage_os_disk __id
-    =
+    ?zones ?(additional_capabilities = []) ?(boot_diagnostics = [])
+    ?(identity = []) ?(os_profile_secrets = []) ?(plan = [])
+    ?(storage_data_disk = []) ?timeouts ~location ~name
+    ~network_interface_ids ~resource_group_name ~vm_size ~os_profile
+    ~os_profile_linux_config ~os_profile_windows_config
+    ~storage_image_reference ~storage_os_disk __id =
   let __type = "azurerm_virtual_machine" in
   let __attrs =
     ({
@@ -1266,12 +1267,12 @@ let make ?availability_set_id ?delete_data_disks_on_termination
            ?delete_data_disks_on_termination
            ?delete_os_disk_on_termination ?id ?license_type
            ?primary_network_interface_id
-           ?proximity_placement_group_id ?tags ?zones ?timeouts
+           ?proximity_placement_group_id ?tags ?zones
+           ~additional_capabilities ~boot_diagnostics ~identity
+           ~os_profile_secrets ~plan ~storage_data_disk ?timeouts
            ~location ~name ~network_interface_ids
-           ~resource_group_name ~vm_size ~additional_capabilities
-           ~boot_diagnostics ~identity ~os_profile
-           ~os_profile_linux_config ~os_profile_secrets
-           ~os_profile_windows_config ~plan ~storage_data_disk
+           ~resource_group_name ~vm_size ~os_profile
+           ~os_profile_linux_config ~os_profile_windows_config
            ~storage_image_reference ~storage_os_disk ());
     attrs = __attrs;
   }
@@ -1279,21 +1280,22 @@ let make ?availability_set_id ?delete_data_disks_on_termination
 let register ?tf_module ?availability_set_id
     ?delete_data_disks_on_termination ?delete_os_disk_on_termination
     ?id ?license_type ?primary_network_interface_id
-    ?proximity_placement_group_id ?tags ?zones ?timeouts ~location
-    ~name ~network_interface_ids ~resource_group_name ~vm_size
-    ~additional_capabilities ~boot_diagnostics ~identity ~os_profile
-    ~os_profile_linux_config ~os_profile_secrets
-    ~os_profile_windows_config ~plan ~storage_data_disk
+    ?proximity_placement_group_id ?tags ?zones
+    ?(additional_capabilities = []) ?(boot_diagnostics = [])
+    ?(identity = []) ?(os_profile_secrets = []) ?(plan = [])
+    ?(storage_data_disk = []) ?timeouts ~location ~name
+    ~network_interface_ids ~resource_group_name ~vm_size ~os_profile
+    ~os_profile_linux_config ~os_profile_windows_config
     ~storage_image_reference ~storage_os_disk __id =
   let (r : _ Tf_core.resource) =
     make ?availability_set_id ?delete_data_disks_on_termination
       ?delete_os_disk_on_termination ?id ?license_type
       ?primary_network_interface_id ?proximity_placement_group_id
-      ?tags ?zones ?timeouts ~location ~name ~network_interface_ids
-      ~resource_group_name ~vm_size ~additional_capabilities
-      ~boot_diagnostics ~identity ~os_profile
-      ~os_profile_linux_config ~os_profile_secrets
-      ~os_profile_windows_config ~plan ~storage_data_disk
+      ?tags ?zones ~additional_capabilities ~boot_diagnostics
+      ~identity ~os_profile_secrets ~plan ~storage_data_disk
+      ?timeouts ~location ~name ~network_interface_ids
+      ~resource_group_name ~vm_size ~os_profile
+      ~os_profile_linux_config ~os_profile_windows_config
       ~storage_image_reference ~storage_os_disk __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

@@ -342,8 +342,8 @@ let monitor_config__custom_header ~name ~value () :
   { name; value }
 
 let monitor_config ?expected_status_code_ranges ?interval_in_seconds
-    ?path ?timeout_in_seconds ?tolerated_number_of_failures ~port
-    ~protocol ~custom_header () : monitor_config =
+    ?path ?timeout_in_seconds ?tolerated_number_of_failures
+    ?(custom_header = []) ~port ~protocol () : monitor_config =
   {
     expected_status_code_ranges;
     interval_in_seconds;

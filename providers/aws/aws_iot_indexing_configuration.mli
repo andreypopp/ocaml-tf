@@ -59,9 +59,9 @@ val thing_indexing_configuration :
   ?device_defender_indexing_mode:string prop ->
   ?named_shadow_indexing_mode:string prop ->
   ?thing_connectivity_indexing_mode:string prop ->
+  ?filter:thing_indexing_configuration__filter list ->
   thing_indexing_mode:string prop ->
   custom_field:thing_indexing_configuration__custom_field list ->
-  filter:thing_indexing_configuration__filter list ->
   managed_field:thing_indexing_configuration__managed_field list ->
   unit ->
   thing_indexing_configuration
@@ -70,9 +70,9 @@ type aws_iot_indexing_configuration
 
 val aws_iot_indexing_configuration :
   ?id:string prop ->
-  thing_group_indexing_configuration:
+  ?thing_group_indexing_configuration:
     thing_group_indexing_configuration list ->
-  thing_indexing_configuration:thing_indexing_configuration list ->
+  ?thing_indexing_configuration:thing_indexing_configuration list ->
   unit ->
   aws_iot_indexing_configuration
 
@@ -86,16 +86,16 @@ type t = private { id : string prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  thing_group_indexing_configuration:
+  ?thing_group_indexing_configuration:
     thing_group_indexing_configuration list ->
-  thing_indexing_configuration:thing_indexing_configuration list ->
+  ?thing_indexing_configuration:thing_indexing_configuration list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  thing_group_indexing_configuration:
+  ?thing_group_indexing_configuration:
     thing_group_indexing_configuration list ->
-  thing_indexing_configuration:thing_indexing_configuration list ->
+  ?thing_indexing_configuration:thing_indexing_configuration list ->
   string ->
   t Tf_core.resource

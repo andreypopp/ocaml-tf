@@ -123,7 +123,7 @@ let logging_configuration ~log_group_arn () : logging_configuration =
   { log_group_arn }
 
 let aws_prometheus_workspace ?alias ?id ?kms_key_arn ?tags ?tags_all
-    ~logging_configuration () : aws_prometheus_workspace =
+    ?(logging_configuration = []) () : aws_prometheus_workspace =
   { alias; id; kms_key_arn; tags; tags_all; logging_configuration }
 
 type t = {
@@ -137,7 +137,7 @@ type t = {
 }
 
 let make ?alias ?id ?kms_key_arn ?tags ?tags_all
-    ~logging_configuration __id =
+    ?(logging_configuration = []) __id =
   let __type = "aws_prometheus_workspace" in
   let __attrs =
     ({
@@ -163,7 +163,7 @@ let make ?alias ?id ?kms_key_arn ?tags ?tags_all
   }
 
 let register ?tf_module ?alias ?id ?kms_key_arn ?tags ?tags_all
-    ~logging_configuration __id =
+    ?(logging_configuration = []) __id =
   let (r : _ Tf_core.resource) =
     make ?alias ?id ?kms_key_arn ?tags ?tags_all
       ~logging_configuration __id

@@ -787,7 +787,8 @@ let restore_config__cluster_resource_restore_scope__selected_group_kinds
   { resource_group; resource_kind }
 
 let restore_config__cluster_resource_restore_scope ?all_group_kinds
-    ?no_group_kinds ~excluded_group_kinds ~selected_group_kinds () :
+    ?no_group_kinds ?(excluded_group_kinds = [])
+    ?(selected_group_kinds = []) () :
     restore_config__cluster_resource_restore_scope =
   {
     all_group_kinds;
@@ -825,19 +826,22 @@ let restore_config__transformation_rules__resource_filter__group_kinds
   { resource_group; resource_kind }
 
 let restore_config__transformation_rules__resource_filter ?json_path
-    ?namespaces ~group_kinds () :
+    ?namespaces ?(group_kinds = []) () :
     restore_config__transformation_rules__resource_filter =
   { json_path; namespaces; group_kinds }
 
-let restore_config__transformation_rules ?description ~field_actions
-    ~resource_filter () : restore_config__transformation_rules =
+let restore_config__transformation_rules ?description
+    ?(resource_filter = []) ~field_actions () :
+    restore_config__transformation_rules =
   { description; field_actions; resource_filter }
 
 let restore_config ?all_namespaces ?cluster_resource_conflict_policy
     ?namespaced_resource_restore_mode ?no_namespaces
-    ?volume_data_restore_policy ~cluster_resource_restore_scope
-    ~excluded_namespaces ~selected_applications ~selected_namespaces
-    ~transformation_rules () : restore_config =
+    ?volume_data_restore_policy
+    ?(cluster_resource_restore_scope = [])
+    ?(excluded_namespaces = []) ?(selected_applications = [])
+    ?(selected_namespaces = []) ?(transformation_rules = []) () :
+    restore_config =
   {
     all_namespaces;
     cluster_resource_conflict_policy;

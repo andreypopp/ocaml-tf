@@ -284,9 +284,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_static_web_app ?app_settings
     ?configuration_file_changes_enabled ?id
-    ?preview_environments_enabled ?sku_size ?sku_tier ?tags ?timeouts
-    ~location ~name ~resource_group_name ~basic_auth ~identity () :
-    azurerm_static_web_app =
+    ?preview_environments_enabled ?sku_size ?sku_tier ?tags
+    ?(basic_auth = []) ?(identity = []) ?timeouts ~location ~name
+    ~resource_group_name () : azurerm_static_web_app =
   {
     app_settings;
     configuration_file_changes_enabled;
@@ -319,8 +319,9 @@ type t = {
 }
 
 let make ?app_settings ?configuration_file_changes_enabled ?id
-    ?preview_environments_enabled ?sku_size ?sku_tier ?tags ?timeouts
-    ~location ~name ~resource_group_name ~basic_auth ~identity __id =
+    ?preview_environments_enabled ?sku_size ?sku_tier ?tags
+    ?(basic_auth = []) ?(identity = []) ?timeouts ~location ~name
+    ~resource_group_name __id =
   let __type = "azurerm_static_web_app" in
   let __attrs =
     ({
@@ -352,20 +353,21 @@ let make ?app_settings ?configuration_file_changes_enabled ?id
         (azurerm_static_web_app ?app_settings
            ?configuration_file_changes_enabled ?id
            ?preview_environments_enabled ?sku_size ?sku_tier ?tags
-           ?timeouts ~location ~name ~resource_group_name ~basic_auth
-           ~identity ());
+           ~basic_auth ~identity ?timeouts ~location ~name
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?app_settings
     ?configuration_file_changes_enabled ?id
-    ?preview_environments_enabled ?sku_size ?sku_tier ?tags ?timeouts
-    ~location ~name ~resource_group_name ~basic_auth ~identity __id =
+    ?preview_environments_enabled ?sku_size ?sku_tier ?tags
+    ?(basic_auth = []) ?(identity = []) ?timeouts ~location ~name
+    ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?app_settings ?configuration_file_changes_enabled ?id
       ?preview_environments_enabled ?sku_size ?sku_tier ?tags
-      ?timeouts ~location ~name ~resource_group_name ~basic_auth
-      ~identity __id
+      ~basic_auth ~identity ?timeouts ~location ~name
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

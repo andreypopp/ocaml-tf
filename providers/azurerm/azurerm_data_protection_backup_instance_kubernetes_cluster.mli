@@ -30,6 +30,7 @@ type azurerm_data_protection_backup_instance_kubernetes_cluster
 
 val azurerm_data_protection_backup_instance_kubernetes_cluster :
   ?id:string prop ->
+  ?backup_datasource_parameters:backup_datasource_parameters list ->
   ?timeouts:timeouts ->
   backup_policy_id:string prop ->
   kubernetes_cluster_id:string prop ->
@@ -37,7 +38,6 @@ val azurerm_data_protection_backup_instance_kubernetes_cluster :
   name:string prop ->
   snapshot_resource_group_name:string prop ->
   vault_id:string prop ->
-  backup_datasource_parameters:backup_datasource_parameters list ->
   unit ->
   azurerm_data_protection_backup_instance_kubernetes_cluster
 
@@ -59,6 +59,7 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?backup_datasource_parameters:backup_datasource_parameters list ->
   ?timeouts:timeouts ->
   backup_policy_id:string prop ->
   kubernetes_cluster_id:string prop ->
@@ -66,12 +67,12 @@ val register :
   name:string prop ->
   snapshot_resource_group_name:string prop ->
   vault_id:string prop ->
-  backup_datasource_parameters:backup_datasource_parameters list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?backup_datasource_parameters:backup_datasource_parameters list ->
   ?timeouts:timeouts ->
   backup_policy_id:string prop ->
   kubernetes_cluster_id:string prop ->
@@ -79,6 +80,5 @@ val make :
   name:string prop ->
   snapshot_resource_group_name:string prop ->
   vault_id:string prop ->
-  backup_datasource_parameters:backup_datasource_parameters list ->
   string ->
   t Tf_core.resource

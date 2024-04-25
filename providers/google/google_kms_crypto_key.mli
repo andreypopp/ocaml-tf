@@ -37,9 +37,9 @@ val google_kms_crypto_key :
   ?rotation_period:string prop ->
   ?skip_initial_version_creation:bool prop ->
   ?timeouts:timeouts ->
+  ?version_template:version_template list ->
   key_ring:string prop ->
   name:string prop ->
-  version_template:version_template list ->
   unit ->
   google_kms_crypto_key
 
@@ -72,9 +72,9 @@ val register :
   ?rotation_period:string prop ->
   ?skip_initial_version_creation:bool prop ->
   ?timeouts:timeouts ->
+  ?version_template:version_template list ->
   key_ring:string prop ->
   name:string prop ->
-  version_template:version_template list ->
   string ->
   t
 
@@ -87,8 +87,8 @@ val make :
   ?rotation_period:string prop ->
   ?skip_initial_version_creation:bool prop ->
   ?timeouts:timeouts ->
+  ?version_template:version_template list ->
   key_ring:string prop ->
   name:string prop ->
-  version_template:version_template list ->
   string ->
   t Tf_core.resource

@@ -1108,8 +1108,9 @@ let common_encryption_cbcs__enabled_protocols ?dash ?download ?hls
     =
   { dash; download; hls; smooth_streaming }
 
-let common_encryption_cbcs ~clear_key_encryption ~default_content_key
-    ~drm_fairplay ~enabled_protocols () : common_encryption_cbcs =
+let common_encryption_cbcs ?(clear_key_encryption = [])
+    ?(default_content_key = []) ?(drm_fairplay = [])
+    ?(enabled_protocols = []) () : common_encryption_cbcs =
   {
     clear_key_encryption;
     default_content_key;
@@ -1163,9 +1164,9 @@ let common_encryption_cenc__enabled_protocols ?dash ?download ?hls
 
 let common_encryption_cenc
     ?drm_widevine_custom_license_acquisition_url_template
-    ~clear_key_encryption ~clear_track ~content_key_to_track_mapping
-    ~default_content_key ~drm_playready ~enabled_protocols () :
-    common_encryption_cenc =
+    ?(clear_key_encryption = []) ?(default_content_key = [])
+    ?(drm_playready = []) ?(enabled_protocols = []) ~clear_track
+    ~content_key_to_track_mapping () : common_encryption_cenc =
   {
     drm_widevine_custom_license_acquisition_url_template;
     clear_key_encryption;
@@ -1185,8 +1186,8 @@ let envelope_encryption__enabled_protocols ?dash ?download ?hls
   { dash; download; hls; smooth_streaming }
 
 let envelope_encryption ?custom_keys_acquisition_url_template
-    ~default_content_key ~enabled_protocols () : envelope_encryption
-    =
+    ?(default_content_key = []) ?(enabled_protocols = []) () :
+    envelope_encryption =
   {
     custom_keys_acquisition_url_template;
     default_content_key;
@@ -1201,10 +1202,10 @@ let timeouts ?create ?delete ?read () : timeouts =
   { create; delete; read }
 
 let azurerm_media_streaming_policy ?default_content_key_policy_name
-    ?id ?timeouts ~media_services_account_name ~name
-    ~resource_group_name ~common_encryption_cbcs
-    ~common_encryption_cenc ~envelope_encryption
-    ~no_encryption_enabled_protocols () :
+    ?id ?(common_encryption_cbcs = []) ?(common_encryption_cenc = [])
+    ?(envelope_encryption = [])
+    ?(no_encryption_enabled_protocols = []) ?timeouts
+    ~media_services_account_name ~name ~resource_group_name () :
     azurerm_media_streaming_policy =
   {
     default_content_key_policy_name;
@@ -1227,10 +1228,11 @@ type t = {
   resource_group_name : string prop;
 }
 
-let make ?default_content_key_policy_name ?id ?timeouts
-    ~media_services_account_name ~name ~resource_group_name
-    ~common_encryption_cbcs ~common_encryption_cenc
-    ~envelope_encryption ~no_encryption_enabled_protocols __id =
+let make ?default_content_key_policy_name ?id
+    ?(common_encryption_cbcs = []) ?(common_encryption_cenc = [])
+    ?(envelope_encryption = [])
+    ?(no_encryption_enabled_protocols = []) ?timeouts
+    ~media_services_account_name ~name ~resource_group_name __id =
   let __type = "azurerm_media_streaming_policy" in
   let __attrs =
     ({
@@ -1251,22 +1253,24 @@ let make ?default_content_key_policy_name ?id ?timeouts
     json =
       yojson_of_azurerm_media_streaming_policy
         (azurerm_media_streaming_policy
-           ?default_content_key_policy_name ?id ?timeouts
-           ~media_services_account_name ~name ~resource_group_name
+           ?default_content_key_policy_name ?id
            ~common_encryption_cbcs ~common_encryption_cenc
-           ~envelope_encryption ~no_encryption_enabled_protocols ());
+           ~envelope_encryption ~no_encryption_enabled_protocols
+           ?timeouts ~media_services_account_name ~name
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?default_content_key_policy_name ?id
-    ?timeouts ~media_services_account_name ~name ~resource_group_name
-    ~common_encryption_cbcs ~common_encryption_cenc
-    ~envelope_encryption ~no_encryption_enabled_protocols __id =
+    ?(common_encryption_cbcs = []) ?(common_encryption_cenc = [])
+    ?(envelope_encryption = [])
+    ?(no_encryption_enabled_protocols = []) ?timeouts
+    ~media_services_account_name ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?default_content_key_policy_name ?id ?timeouts
-      ~media_services_account_name ~name ~resource_group_name
-      ~common_encryption_cbcs ~common_encryption_cenc
-      ~envelope_encryption ~no_encryption_enabled_protocols __id
+    make ?default_content_key_policy_name ?id ~common_encryption_cbcs
+      ~common_encryption_cenc ~envelope_encryption
+      ~no_encryption_enabled_protocols ?timeouts
+      ~media_services_account_name ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

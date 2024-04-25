@@ -33,10 +33,10 @@ val aws_transfer_connector :
   ?logging_role:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?as2_config:as2_config list ->
+  ?sftp_config:sftp_config list ->
   access_role:string prop ->
   url:string prop ->
-  as2_config:as2_config list ->
-  sftp_config:sftp_config list ->
   unit ->
   aws_transfer_connector
 
@@ -61,10 +61,10 @@ val register :
   ?logging_role:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?as2_config:as2_config list ->
+  ?sftp_config:sftp_config list ->
   access_role:string prop ->
   url:string prop ->
-  as2_config:as2_config list ->
-  sftp_config:sftp_config list ->
   string ->
   t
 
@@ -73,9 +73,9 @@ val make :
   ?logging_role:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?as2_config:as2_config list ->
+  ?sftp_config:sftp_config list ->
   access_role:string prop ->
   url:string prop ->
-  as2_config:as2_config list ->
-  sftp_config:sftp_config list ->
   string ->
   t Tf_core.resource

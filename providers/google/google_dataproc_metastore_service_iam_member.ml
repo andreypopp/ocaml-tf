@@ -123,7 +123,7 @@ let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
 let google_dataproc_metastore_service_iam_member ?id ?location
-    ?project ~member ~role ~service_id ~condition () :
+    ?project ?(condition = []) ~member ~role ~service_id () :
     google_dataproc_metastore_service_iam_member =
   { id; location; member; project; role; service_id; condition }
 
@@ -137,8 +137,8 @@ type t = {
   service_id : string prop;
 }
 
-let make ?id ?location ?project ~member ~role ~service_id ~condition
-    __id =
+let make ?id ?location ?project ?(condition = []) ~member ~role
+    ~service_id __id =
   let __type = "google_dataproc_metastore_service_iam_member" in
   let __attrs =
     ({
@@ -158,14 +158,14 @@ let make ?id ?location ?project ~member ~role ~service_id ~condition
     json =
       yojson_of_google_dataproc_metastore_service_iam_member
         (google_dataproc_metastore_service_iam_member ?id ?location
-           ?project ~member ~role ~service_id ~condition ());
+           ?project ~condition ~member ~role ~service_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?location ?project ~member ~role
-    ~service_id ~condition __id =
+let register ?tf_module ?id ?location ?project ?(condition = [])
+    ~member ~role ~service_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?location ?project ~member ~role ~service_id ~condition
+    make ?id ?location ?project ~condition ~member ~role ~service_id
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

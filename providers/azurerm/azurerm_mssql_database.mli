@@ -99,14 +99,14 @@ val azurerm_mssql_database :
     bool prop ->
   ?transparent_data_encryption_key_vault_key_id:string prop ->
   ?zone_redundant:bool prop ->
+  ?identity:identity list ->
+  ?import:import list ->
+  ?long_term_retention_policy:long_term_retention_policy list ->
+  ?short_term_retention_policy:short_term_retention_policy list ->
+  ?threat_detection_policy:threat_detection_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
   server_id:string prop ->
-  identity:identity list ->
-  import:import list ->
-  long_term_retention_policy:long_term_retention_policy list ->
-  short_term_retention_policy:short_term_retention_policy list ->
-  threat_detection_policy:threat_detection_policy list ->
   unit ->
   azurerm_mssql_database
 
@@ -179,14 +179,14 @@ val register :
     bool prop ->
   ?transparent_data_encryption_key_vault_key_id:string prop ->
   ?zone_redundant:bool prop ->
+  ?identity:identity list ->
+  ?import:import list ->
+  ?long_term_retention_policy:long_term_retention_policy list ->
+  ?short_term_retention_policy:short_term_retention_policy list ->
+  ?threat_detection_policy:threat_detection_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
   server_id:string prop ->
-  identity:identity list ->
-  import:import list ->
-  long_term_retention_policy:long_term_retention_policy list ->
-  short_term_retention_policy:short_term_retention_policy list ->
-  threat_detection_policy:threat_detection_policy list ->
   string ->
   t
 
@@ -220,13 +220,13 @@ val make :
     bool prop ->
   ?transparent_data_encryption_key_vault_key_id:string prop ->
   ?zone_redundant:bool prop ->
+  ?identity:identity list ->
+  ?import:import list ->
+  ?long_term_retention_policy:long_term_retention_policy list ->
+  ?short_term_retention_policy:short_term_retention_policy list ->
+  ?threat_detection_policy:threat_detection_policy list ->
   ?timeouts:timeouts ->
   name:string prop ->
   server_id:string prop ->
-  identity:identity list ->
-  import:import list ->
-  long_term_retention_policy:long_term_retention_policy list ->
-  short_term_retention_policy:short_term_retention_policy list ->
-  threat_detection_policy:threat_detection_policy list ->
   string ->
   t Tf_core.resource

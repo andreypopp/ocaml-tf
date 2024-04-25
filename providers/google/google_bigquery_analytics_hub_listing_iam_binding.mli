@@ -19,11 +19,11 @@ val google_bigquery_analytics_hub_listing_iam_binding :
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   data_exchange_id:string prop ->
   listing_id:string prop ->
   members:string prop list ->
   role:string prop ->
-  condition:condition list ->
   unit ->
   google_bigquery_analytics_hub_listing_iam_binding
 
@@ -48,11 +48,11 @@ val register :
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   data_exchange_id:string prop ->
   listing_id:string prop ->
   members:string prop list ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t
 
@@ -60,10 +60,10 @@ val make :
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   data_exchange_id:string prop ->
   listing_id:string prop ->
   members:string prop list ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t Tf_core.resource

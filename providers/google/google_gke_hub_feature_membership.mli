@@ -40,8 +40,8 @@ val configmanagement__config_sync :
   ?metrics_gcp_service_account_email:string prop ->
   ?prevent_drift:bool prop ->
   ?source_format:string prop ->
-  git:configmanagement__config_sync__git list ->
-  oci:configmanagement__config_sync__oci list ->
+  ?git:configmanagement__config_sync__git list ->
+  ?oci:configmanagement__config_sync__oci list ->
   unit ->
   configmanagement__config_sync
 
@@ -71,7 +71,7 @@ val configmanagement__policy_controller :
   ?mutation_enabled:bool prop ->
   ?referential_rules_enabled:bool prop ->
   ?template_library_installed:bool prop ->
-  monitoring:configmanagement__policy_controller__monitoring list ->
+  ?monitoring:configmanagement__policy_controller__monitoring list ->
   unit ->
   configmanagement__policy_controller
 
@@ -79,10 +79,10 @@ type configmanagement
 
 val configmanagement :
   ?version:string prop ->
-  binauthz:configmanagement__binauthz list ->
-  config_sync:configmanagement__config_sync list ->
-  hierarchy_controller:configmanagement__hierarchy_controller list ->
-  policy_controller:configmanagement__policy_controller list ->
+  ?binauthz:configmanagement__binauthz list ->
+  ?config_sync:configmanagement__config_sync list ->
+  ?hierarchy_controller:configmanagement__hierarchy_controller list ->
+  ?policy_controller:configmanagement__policy_controller list ->
   unit ->
   configmanagement
 
@@ -113,10 +113,10 @@ val policycontroller__policy_controller_hub_config__deployment_configs__containe
 type policycontroller__policy_controller_hub_config__deployment_configs__container_resources
 
 val policycontroller__policy_controller_hub_config__deployment_configs__container_resources :
-  limits:
+  ?limits:
     policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits
     list ->
-  requests:
+  ?requests:
     policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests
     list ->
   unit ->
@@ -137,13 +137,13 @@ type policycontroller__policy_controller_hub_config__deployment_configs
 val policycontroller__policy_controller_hub_config__deployment_configs :
   ?pod_affinity:string prop ->
   ?replica_count:float prop ->
-  component_name:string prop ->
-  container_resources:
+  ?container_resources:
     policycontroller__policy_controller_hub_config__deployment_configs__container_resources
     list ->
-  pod_tolerations:
+  ?pod_tolerations:
     policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations
     list ->
+  component_name:string prop ->
   unit ->
   policycontroller__policy_controller_hub_config__deployment_configs
 
@@ -172,11 +172,11 @@ val policycontroller__policy_controller_hub_config__policy_content__template_lib
 type policycontroller__policy_controller_hub_config__policy_content
 
 val policycontroller__policy_controller_hub_config__policy_content :
+  ?template_library:
+    policycontroller__policy_controller_hub_config__policy_content__template_library
+    list ->
   bundles:
     policycontroller__policy_controller_hub_config__policy_content__bundles
-    list ->
-  template_library:
-    policycontroller__policy_controller_hub_config__policy_content__template_library
     list ->
   unit ->
   policycontroller__policy_controller_hub_config__policy_content
@@ -191,13 +191,13 @@ val policycontroller__policy_controller_hub_config :
   ?log_denies_enabled:bool prop ->
   ?mutation_enabled:bool prop ->
   ?referential_rules_enabled:bool prop ->
+  ?monitoring:
+    policycontroller__policy_controller_hub_config__monitoring list ->
+  ?policy_content:
+    policycontroller__policy_controller_hub_config__policy_content
+    list ->
   deployment_configs:
     policycontroller__policy_controller_hub_config__deployment_configs
-    list ->
-  monitoring:
-    policycontroller__policy_controller_hub_config__monitoring list ->
-  policy_content:
-    policycontroller__policy_controller_hub_config__policy_content
     list ->
   unit ->
   policycontroller__policy_controller_hub_config
@@ -226,13 +226,13 @@ val google_gke_hub_feature_membership :
   ?id:string prop ->
   ?membership_location:string prop ->
   ?project:string prop ->
+  ?configmanagement:configmanagement list ->
+  ?mesh:mesh list ->
+  ?policycontroller:policycontroller list ->
   ?timeouts:timeouts ->
   feature:string prop ->
   location:string prop ->
   membership:string prop ->
-  configmanagement:configmanagement list ->
-  mesh:mesh list ->
-  policycontroller:policycontroller list ->
   unit ->
   google_gke_hub_feature_membership
 
@@ -255,13 +255,13 @@ val register :
   ?id:string prop ->
   ?membership_location:string prop ->
   ?project:string prop ->
+  ?configmanagement:configmanagement list ->
+  ?mesh:mesh list ->
+  ?policycontroller:policycontroller list ->
   ?timeouts:timeouts ->
   feature:string prop ->
   location:string prop ->
   membership:string prop ->
-  configmanagement:configmanagement list ->
-  mesh:mesh list ->
-  policycontroller:policycontroller list ->
   string ->
   t
 
@@ -269,12 +269,12 @@ val make :
   ?id:string prop ->
   ?membership_location:string prop ->
   ?project:string prop ->
+  ?configmanagement:configmanagement list ->
+  ?mesh:mesh list ->
+  ?policycontroller:policycontroller list ->
   ?timeouts:timeouts ->
   feature:string prop ->
   location:string prop ->
   membership:string prop ->
-  configmanagement:configmanagement list ->
-  mesh:mesh list ->
-  policycontroller:policycontroller list ->
   string ->
   t Tf_core.resource

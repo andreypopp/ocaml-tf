@@ -268,8 +268,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_network_manager_connectivity_configuration
     ?delete_existing_peering_enabled ?description
-    ?global_mesh_enabled ?id ?timeouts ~connectivity_topology ~name
-    ~network_manager_id ~applies_to_group ~hub () :
+    ?global_mesh_enabled ?id ?(hub = []) ?timeouts
+    ~connectivity_topology ~name ~network_manager_id
+    ~applies_to_group () :
     azurerm_network_manager_connectivity_configuration =
   {
     connectivity_topology;
@@ -295,8 +296,9 @@ type t = {
 }
 
 let make ?delete_existing_peering_enabled ?description
-    ?global_mesh_enabled ?id ?timeouts ~connectivity_topology ~name
-    ~network_manager_id ~applies_to_group ~hub __id =
+    ?global_mesh_enabled ?id ?(hub = []) ?timeouts
+    ~connectivity_topology ~name ~network_manager_id
+    ~applies_to_group __id =
   let __type =
     "azurerm_network_manager_connectivity_configuration"
   in
@@ -323,18 +325,20 @@ let make ?delete_existing_peering_enabled ?description
       yojson_of_azurerm_network_manager_connectivity_configuration
         (azurerm_network_manager_connectivity_configuration
            ?delete_existing_peering_enabled ?description
-           ?global_mesh_enabled ?id ?timeouts ~connectivity_topology
-           ~name ~network_manager_id ~applies_to_group ~hub ());
+           ?global_mesh_enabled ?id ~hub ?timeouts
+           ~connectivity_topology ~name ~network_manager_id
+           ~applies_to_group ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?delete_existing_peering_enabled ?description
-    ?global_mesh_enabled ?id ?timeouts ~connectivity_topology ~name
-    ~network_manager_id ~applies_to_group ~hub __id =
+    ?global_mesh_enabled ?id ?(hub = []) ?timeouts
+    ~connectivity_topology ~name ~network_manager_id
+    ~applies_to_group __id =
   let (r : _ Tf_core.resource) =
     make ?delete_existing_peering_enabled ?description
-      ?global_mesh_enabled ?id ?timeouts ~connectivity_topology ~name
-      ~network_manager_id ~applies_to_group ~hub __id
+      ?global_mesh_enabled ?id ~hub ?timeouts ~connectivity_topology
+      ~name ~network_manager_id ~applies_to_group __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

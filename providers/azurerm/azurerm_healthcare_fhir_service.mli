@@ -60,15 +60,15 @@ val azurerm_healthcare_fhir_service :
   ?id:string prop ->
   ?kind:string prop ->
   ?tags:(string * string prop) list ->
+  ?cors:cors list ->
+  ?identity:identity list ->
+  ?oci_artifact:oci_artifact list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   workspace_id:string prop ->
   authentication:authentication list ->
-  cors:cors list ->
-  identity:identity list ->
-  oci_artifact:oci_artifact list ->
   unit ->
   azurerm_healthcare_fhir_service
 
@@ -99,15 +99,15 @@ val register :
   ?id:string prop ->
   ?kind:string prop ->
   ?tags:(string * string prop) list ->
+  ?cors:cors list ->
+  ?identity:identity list ->
+  ?oci_artifact:oci_artifact list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   workspace_id:string prop ->
   authentication:authentication list ->
-  cors:cors list ->
-  identity:identity list ->
-  oci_artifact:oci_artifact list ->
   string ->
   t
 
@@ -118,14 +118,14 @@ val make :
   ?id:string prop ->
   ?kind:string prop ->
   ?tags:(string * string prop) list ->
+  ?cors:cors list ->
+  ?identity:identity list ->
+  ?oci_artifact:oci_artifact list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   workspace_id:string prop ->
   authentication:authentication list ->
-  cors:cors list ->
-  identity:identity list ->
-  oci_artifact:oci_artifact list ->
   string ->
   t Tf_core.resource

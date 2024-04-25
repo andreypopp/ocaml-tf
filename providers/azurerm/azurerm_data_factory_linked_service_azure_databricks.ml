@@ -513,9 +513,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_data_factory_linked_service_azure_databricks
     ?access_token ?additional_properties ?annotations ?description
     ?existing_cluster_id ?id ?integration_runtime_name
-    ?msi_work_space_resource_id ?parameters ?timeouts ~adb_domain
-    ~data_factory_id ~name ~instance_pool ~key_vault_password
-    ~new_cluster_config () :
+    ?msi_work_space_resource_id ?parameters ?(instance_pool = [])
+    ?(key_vault_password = []) ?(new_cluster_config = []) ?timeouts
+    ~adb_domain ~data_factory_id ~name () :
     azurerm_data_factory_linked_service_azure_databricks =
   {
     access_token;
@@ -553,9 +553,9 @@ type t = {
 
 let make ?access_token ?additional_properties ?annotations
     ?description ?existing_cluster_id ?id ?integration_runtime_name
-    ?msi_work_space_resource_id ?parameters ?timeouts ~adb_domain
-    ~data_factory_id ~name ~instance_pool ~key_vault_password
-    ~new_cluster_config __id =
+    ?msi_work_space_resource_id ?parameters ?(instance_pool = [])
+    ?(key_vault_password = []) ?(new_cluster_config = []) ?timeouts
+    ~adb_domain ~data_factory_id ~name __id =
   let __type =
     "azurerm_data_factory_linked_service_azure_databricks"
   in
@@ -589,22 +589,24 @@ let make ?access_token ?additional_properties ?annotations
            ?access_token ?additional_properties ?annotations
            ?description ?existing_cluster_id ?id
            ?integration_runtime_name ?msi_work_space_resource_id
-           ?parameters ?timeouts ~adb_domain ~data_factory_id ~name
-           ~instance_pool ~key_vault_password ~new_cluster_config ());
+           ?parameters ~instance_pool ~key_vault_password
+           ~new_cluster_config ?timeouts ~adb_domain ~data_factory_id
+           ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?access_token ?additional_properties
     ?annotations ?description ?existing_cluster_id ?id
     ?integration_runtime_name ?msi_work_space_resource_id ?parameters
-    ?timeouts ~adb_domain ~data_factory_id ~name ~instance_pool
-    ~key_vault_password ~new_cluster_config __id =
+    ?(instance_pool = []) ?(key_vault_password = [])
+    ?(new_cluster_config = []) ?timeouts ~adb_domain ~data_factory_id
+    ~name __id =
   let (r : _ Tf_core.resource) =
     make ?access_token ?additional_properties ?annotations
       ?description ?existing_cluster_id ?id ?integration_runtime_name
-      ?msi_work_space_resource_id ?parameters ?timeouts ~adb_domain
-      ~data_factory_id ~name ~instance_pool ~key_vault_password
-      ~new_cluster_config __id
+      ?msi_work_space_resource_id ?parameters ~instance_pool
+      ~key_vault_password ~new_cluster_config ?timeouts ~adb_domain
+      ~data_factory_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

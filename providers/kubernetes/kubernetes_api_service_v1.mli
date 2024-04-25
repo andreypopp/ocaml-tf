@@ -28,11 +28,11 @@ type spec
 val spec :
   ?ca_bundle:string prop ->
   ?insecure_skip_tls_verify:bool prop ->
+  ?service:spec__service list ->
   group:string prop ->
   group_priority_minimum:float prop ->
   version:string prop ->
   version_priority:float prop ->
-  service:spec__service list ->
   unit ->
   spec
 

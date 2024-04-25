@@ -284,7 +284,7 @@ let protocol__smb ?domain ~password ~user ~mount_options () :
     protocol__smb =
   { domain; password; user; mount_options }
 
-let protocol ~nfs ~smb () : protocol = { nfs; smb }
+let protocol ?(nfs = []) ?(smb = []) () : protocol = { nfs; smb }
 
 let aws_datasync_location_fsx_ontap_file_system ?id ?subdirectory
     ?tags ?tags_all ~security_group_arns ~storage_virtual_machine_arn

@@ -40,10 +40,10 @@ val aws_vpc_endpoint :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_endpoint_type:string prop ->
+  ?dns_options:dns_options list ->
   ?timeouts:timeouts ->
   service_name:string prop ->
   vpc_id:string prop ->
-  dns_options:dns_options list ->
   unit ->
   aws_vpc_endpoint
 
@@ -88,10 +88,10 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_endpoint_type:string prop ->
+  ?dns_options:dns_options list ->
   ?timeouts:timeouts ->
   service_name:string prop ->
   vpc_id:string prop ->
-  dns_options:dns_options list ->
   string ->
   t
 
@@ -107,9 +107,9 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_endpoint_type:string prop ->
+  ?dns_options:dns_options list ->
   ?timeouts:timeouts ->
   service_name:string prop ->
   vpc_id:string prop ->
-  dns_options:dns_options list ->
   string ->
   t Tf_core.resource

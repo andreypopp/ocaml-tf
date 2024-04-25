@@ -302,8 +302,8 @@ let azurerm_search_service ?allowed_ips ?authentication_failure_mode
     ?customer_managed_key_enforcement_enabled ?hosting_mode ?id
     ?local_authentication_enabled ?partition_count
     ?public_network_access_enabled ?replica_count
-    ?semantic_search_sku ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku ~identity () : azurerm_search_service =
+    ?semantic_search_sku ?tags ?(identity = []) ?timeouts ~location
+    ~name ~resource_group_name ~sku () : azurerm_search_service =
   {
     allowed_ips;
     authentication_failure_mode;
@@ -349,8 +349,8 @@ let make ?allowed_ips ?authentication_failure_mode
     ?customer_managed_key_enforcement_enabled ?hosting_mode ?id
     ?local_authentication_enabled ?partition_count
     ?public_network_access_enabled ?replica_count
-    ?semantic_search_sku ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku ~identity __id =
+    ?semantic_search_sku ?tags ?(identity = []) ?timeouts ~location
+    ~name ~resource_group_name ~sku __id =
   let __type = "azurerm_search_service" in
   let __attrs =
     ({
@@ -392,8 +392,8 @@ let make ?allowed_ips ?authentication_failure_mode
            ?customer_managed_key_enforcement_enabled ?hosting_mode
            ?id ?local_authentication_enabled ?partition_count
            ?public_network_access_enabled ?replica_count
-           ?semantic_search_sku ?tags ?timeouts ~location ~name
-           ~resource_group_name ~sku ~identity ());
+           ?semantic_search_sku ?tags ~identity ?timeouts ~location
+           ~name ~resource_group_name ~sku ());
     attrs = __attrs;
   }
 
@@ -401,15 +401,15 @@ let register ?tf_module ?allowed_ips ?authentication_failure_mode
     ?customer_managed_key_enforcement_enabled ?hosting_mode ?id
     ?local_authentication_enabled ?partition_count
     ?public_network_access_enabled ?replica_count
-    ?semantic_search_sku ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku ~identity __id =
+    ?semantic_search_sku ?tags ?(identity = []) ?timeouts ~location
+    ~name ~resource_group_name ~sku __id =
   let (r : _ Tf_core.resource) =
     make ?allowed_ips ?authentication_failure_mode
       ?customer_managed_key_enforcement_enabled ?hosting_mode ?id
       ?local_authentication_enabled ?partition_count
       ?public_network_access_enabled ?replica_count
-      ?semantic_search_sku ?tags ?timeouts ~location ~name
-      ~resource_group_name ~sku ~identity __id
+      ?semantic_search_sku ?tags ~identity ?timeouts ~location ~name
+      ~resource_group_name ~sku __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

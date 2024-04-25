@@ -342,12 +342,12 @@ let datasources__malware_protection ~scan_ec2_instance_with_findings
 let datasources__s3_logs ~enable () : datasources__s3_logs =
   { enable }
 
-let datasources ~kubernetes ~malware_protection ~s3_logs () :
-    datasources =
+let datasources ?(kubernetes = []) ?(malware_protection = [])
+    ?(s3_logs = []) () : datasources =
   { kubernetes; malware_protection; s3_logs }
 
 let aws_guardduty_detector ?enable ?finding_publishing_frequency ?id
-    ?tags ?tags_all ~datasources () : aws_guardduty_detector =
+    ?tags ?tags_all ?(datasources = []) () : aws_guardduty_detector =
   {
     enable;
     finding_publishing_frequency;
@@ -368,7 +368,7 @@ type t = {
 }
 
 let make ?enable ?finding_publishing_frequency ?id ?tags ?tags_all
-    ~datasources __id =
+    ?(datasources = []) __id =
   let __type = "aws_guardduty_detector" in
   let __attrs =
     ({
@@ -394,7 +394,7 @@ let make ?enable ?finding_publishing_frequency ?id ?tags ?tags_all
   }
 
 let register ?tf_module ?enable ?finding_publishing_frequency ?id
-    ?tags ?tags_all ~datasources __id =
+    ?tags ?tags_all ?(datasources = []) __id =
   let (r : _ Tf_core.resource) =
     make ?enable ?finding_publishing_frequency ?id ?tags ?tags_all
       ~datasources __id

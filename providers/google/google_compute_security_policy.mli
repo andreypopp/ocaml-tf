@@ -15,7 +15,7 @@ val adaptive_protection_config__layer_7_ddos_defense_config :
 type adaptive_protection_config
 
 val adaptive_protection_config :
-  layer_7_ddos_defense_config:
+  ?layer_7_ddos_defense_config:
     adaptive_protection_config__layer_7_ddos_defense_config list ->
   unit ->
   adaptive_protection_config
@@ -33,7 +33,8 @@ val advanced_options_config :
   ?json_parsing:string prop ->
   ?log_level:string prop ->
   ?user_ip_request_headers:string prop list ->
-  json_custom_config:advanced_options_config__json_custom_config list ->
+  ?json_custom_config:
+    advanced_options_config__json_custom_config list ->
   unit ->
   advanced_options_config
 
@@ -72,8 +73,8 @@ type rule__match
 
 val rule__match :
   ?versioned_expr:string prop ->
-  config:rule__match__config list ->
-  expr:rule__match__expr list ->
+  ?config:rule__match__config list ->
+  ?expr:rule__match__expr list ->
   unit ->
   rule__match
 
@@ -107,11 +108,11 @@ val rule__rate_limit_options :
   ?ban_duration_sec:float prop ->
   ?enforce_on_key:string prop ->
   ?enforce_on_key_name:string prop ->
+  ?ban_threshold:rule__rate_limit_options__ban_threshold list ->
+  ?exceed_redirect_options:
+    rule__rate_limit_options__exceed_redirect_options list ->
   conform_action:string prop ->
   exceed_action:string prop ->
-  ban_threshold:rule__rate_limit_options__ban_threshold list ->
-  exceed_redirect_options:
-    rule__rate_limit_options__exceed_redirect_options list ->
   rate_limit_threshold:
     rule__rate_limit_options__rate_limit_threshold list ->
   unit ->
@@ -130,12 +131,12 @@ type rule
 val rule :
   ?description:string prop ->
   ?preview:bool prop ->
+  ?header_action:rule__header_action list ->
+  ?rate_limit_options:rule__rate_limit_options list ->
+  ?redirect_options:rule__redirect_options list ->
   action:string prop ->
   priority:float prop ->
-  header_action:rule__header_action list ->
   match_:rule__match list ->
-  rate_limit_options:rule__rate_limit_options list ->
-  redirect_options:rule__redirect_options list ->
   unit ->
   rule
 
@@ -155,11 +156,11 @@ val google_compute_security_policy :
   ?id:string prop ->
   ?project:string prop ->
   ?type_:string prop ->
+  ?adaptive_protection_config:adaptive_protection_config list ->
+  ?advanced_options_config:advanced_options_config list ->
+  ?recaptcha_options_config:recaptcha_options_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  adaptive_protection_config:adaptive_protection_config list ->
-  advanced_options_config:advanced_options_config list ->
-  recaptcha_options_config:recaptcha_options_config list ->
   rule:rule list ->
   unit ->
   google_compute_security_policy
@@ -185,11 +186,11 @@ val register :
   ?id:string prop ->
   ?project:string prop ->
   ?type_:string prop ->
+  ?adaptive_protection_config:adaptive_protection_config list ->
+  ?advanced_options_config:advanced_options_config list ->
+  ?recaptcha_options_config:recaptcha_options_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  adaptive_protection_config:adaptive_protection_config list ->
-  advanced_options_config:advanced_options_config list ->
-  recaptcha_options_config:recaptcha_options_config list ->
   rule:rule list ->
   string ->
   t
@@ -199,11 +200,11 @@ val make :
   ?id:string prop ->
   ?project:string prop ->
   ?type_:string prop ->
+  ?adaptive_protection_config:adaptive_protection_config list ->
+  ?advanced_options_config:advanced_options_config list ->
+  ?recaptcha_options_config:recaptcha_options_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  adaptive_protection_config:adaptive_protection_config list ->
-  advanced_options_config:advanced_options_config list ->
-  recaptcha_options_config:recaptcha_options_config list ->
   rule:rule list ->
   string ->
   t Tf_core.resource

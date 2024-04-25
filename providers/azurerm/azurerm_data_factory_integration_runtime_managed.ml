@@ -355,10 +355,11 @@ let vnet_integration ~subnet_name ~vnet_id () : vnet_integration =
 
 let azurerm_data_factory_integration_runtime_managed ?credential_name
     ?description ?edition ?id ?license_type
-    ?max_parallel_executions_per_node ?number_of_nodes ?timeouts
-    ~data_factory_id ~location ~name ~node_size ~catalog_info
-    ~custom_setup_script ~vnet_integration () :
-    azurerm_data_factory_integration_runtime_managed =
+    ?max_parallel_executions_per_node ?number_of_nodes
+    ?(catalog_info = []) ?(custom_setup_script = []) ?timeouts
+    ?(vnet_integration = []) ~data_factory_id ~location ~name
+    ~node_size () : azurerm_data_factory_integration_runtime_managed
+    =
   {
     credential_name;
     data_factory_id;
@@ -392,9 +393,10 @@ type t = {
 }
 
 let make ?credential_name ?description ?edition ?id ?license_type
-    ?max_parallel_executions_per_node ?number_of_nodes ?timeouts
-    ~data_factory_id ~location ~name ~node_size ~catalog_info
-    ~custom_setup_script ~vnet_integration __id =
+    ?max_parallel_executions_per_node ?number_of_nodes
+    ?(catalog_info = []) ?(custom_setup_script = []) ?timeouts
+    ?(vnet_integration = []) ~data_factory_id ~location ~name
+    ~node_size __id =
   let __type = "azurerm_data_factory_integration_runtime_managed" in
   let __attrs =
     ({
@@ -421,20 +423,22 @@ let make ?credential_name ?description ?edition ?id ?license_type
         (azurerm_data_factory_integration_runtime_managed
            ?credential_name ?description ?edition ?id ?license_type
            ?max_parallel_executions_per_node ?number_of_nodes
-           ?timeouts ~data_factory_id ~location ~name ~node_size
-           ~catalog_info ~custom_setup_script ~vnet_integration ());
+           ~catalog_info ~custom_setup_script ?timeouts
+           ~vnet_integration ~data_factory_id ~location ~name
+           ~node_size ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?credential_name ?description ?edition ?id
     ?license_type ?max_parallel_executions_per_node ?number_of_nodes
-    ?timeouts ~data_factory_id ~location ~name ~node_size
-    ~catalog_info ~custom_setup_script ~vnet_integration __id =
+    ?(catalog_info = []) ?(custom_setup_script = []) ?timeouts
+    ?(vnet_integration = []) ~data_factory_id ~location ~name
+    ~node_size __id =
   let (r : _ Tf_core.resource) =
     make ?credential_name ?description ?edition ?id ?license_type
-      ?max_parallel_executions_per_node ?number_of_nodes ?timeouts
-      ~data_factory_id ~location ~name ~node_size ~catalog_info
-      ~custom_setup_script ~vnet_integration __id
+      ?max_parallel_executions_per_node ?number_of_nodes
+      ~catalog_info ~custom_setup_script ?timeouts ~vnet_integration
+      ~data_factory_id ~location ~name ~node_size __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

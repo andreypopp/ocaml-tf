@@ -409,12 +409,12 @@ let spec__selector__match_expressions ?key ?operator ?values () :
     spec__selector__match_expressions =
   { key; operator; values }
 
-let spec__selector ?match_labels ~match_expressions () :
+let spec__selector ?match_labels ?(match_expressions = []) () :
     spec__selector =
   { match_labels; match_expressions }
 
-let spec ?storage_class_name ?volume_mode ?volume_name ~access_modes
-    ~resources ~selector () : spec =
+let spec ?storage_class_name ?volume_mode ?volume_name
+    ?(selector = []) ~access_modes ~resources () : spec =
   {
     access_modes;
     storage_class_name;

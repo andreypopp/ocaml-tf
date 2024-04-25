@@ -49,8 +49,8 @@ val vdm_options__guardian_options :
 type vdm_options
 
 val vdm_options :
-  dashboard_options:vdm_options__dashboard_options list ->
-  guardian_options:vdm_options__guardian_options list ->
+  ?dashboard_options:vdm_options__dashboard_options list ->
+  ?guardian_options:vdm_options__guardian_options list ->
   unit ->
   vdm_options
 
@@ -60,13 +60,13 @@ val aws_sesv2_configuration_set :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?delivery_options:delivery_options list ->
+  ?reputation_options:reputation_options list ->
+  ?sending_options:sending_options list ->
+  ?suppression_options:suppression_options list ->
+  ?tracking_options:tracking_options list ->
+  ?vdm_options:vdm_options list ->
   configuration_set_name:string prop ->
-  delivery_options:delivery_options list ->
-  reputation_options:reputation_options list ->
-  sending_options:sending_options list ->
-  suppression_options:suppression_options list ->
-  tracking_options:tracking_options list ->
-  vdm_options:vdm_options list ->
   unit ->
   aws_sesv2_configuration_set
 
@@ -88,13 +88,13 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?delivery_options:delivery_options list ->
+  ?reputation_options:reputation_options list ->
+  ?sending_options:sending_options list ->
+  ?suppression_options:suppression_options list ->
+  ?tracking_options:tracking_options list ->
+  ?vdm_options:vdm_options list ->
   configuration_set_name:string prop ->
-  delivery_options:delivery_options list ->
-  reputation_options:reputation_options list ->
-  sending_options:sending_options list ->
-  suppression_options:suppression_options list ->
-  tracking_options:tracking_options list ->
-  vdm_options:vdm_options list ->
   string ->
   t
 
@@ -102,12 +102,12 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?delivery_options:delivery_options list ->
+  ?reputation_options:reputation_options list ->
+  ?sending_options:sending_options list ->
+  ?suppression_options:suppression_options list ->
+  ?tracking_options:tracking_options list ->
+  ?vdm_options:vdm_options list ->
   configuration_set_name:string prop ->
-  delivery_options:delivery_options list ->
-  reputation_options:reputation_options list ->
-  sending_options:sending_options list ->
-  suppression_options:suppression_options list ->
-  tracking_options:tracking_options list ->
-  vdm_options:vdm_options list ->
   string ->
   t Tf_core.resource

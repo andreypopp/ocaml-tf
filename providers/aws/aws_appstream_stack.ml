@@ -365,9 +365,9 @@ let user_settings ~action ~permission () : user_settings =
 
 let aws_appstream_stack ?description ?display_name
     ?embed_host_domains ?feedback_url ?id ?redirect_url ?tags
-    ?tags_all ~name ~access_endpoints ~application_settings
-    ~storage_connectors ~streaming_experience_settings ~user_settings
-    () : aws_appstream_stack =
+    ?tags_all ?(application_settings = [])
+    ?(streaming_experience_settings = []) ~name ~access_endpoints
+    ~storage_connectors ~user_settings () : aws_appstream_stack =
   {
     description;
     display_name;
@@ -400,9 +400,9 @@ type t = {
 }
 
 let make ?description ?display_name ?embed_host_domains ?feedback_url
-    ?id ?redirect_url ?tags ?tags_all ~name ~access_endpoints
-    ~application_settings ~storage_connectors
-    ~streaming_experience_settings ~user_settings __id =
+    ?id ?redirect_url ?tags ?tags_all ?(application_settings = [])
+    ?(streaming_experience_settings = []) ~name ~access_endpoints
+    ~storage_connectors ~user_settings __id =
   let __type = "aws_appstream_stack" in
   let __attrs =
     ({
@@ -428,22 +428,22 @@ let make ?description ?display_name ?embed_host_domains ?feedback_url
       yojson_of_aws_appstream_stack
         (aws_appstream_stack ?description ?display_name
            ?embed_host_domains ?feedback_url ?id ?redirect_url ?tags
-           ?tags_all ~name ~access_endpoints ~application_settings
-           ~storage_connectors ~streaming_experience_settings
-           ~user_settings ());
+           ?tags_all ~application_settings
+           ~streaming_experience_settings ~name ~access_endpoints
+           ~storage_connectors ~user_settings ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?display_name
     ?embed_host_domains ?feedback_url ?id ?redirect_url ?tags
-    ?tags_all ~name ~access_endpoints ~application_settings
-    ~storage_connectors ~streaming_experience_settings ~user_settings
-    __id =
+    ?tags_all ?(application_settings = [])
+    ?(streaming_experience_settings = []) ~name ~access_endpoints
+    ~storage_connectors ~user_settings __id =
   let (r : _ Tf_core.resource) =
     make ?description ?display_name ?embed_host_domains ?feedback_url
-      ?id ?redirect_url ?tags ?tags_all ~name ~access_endpoints
-      ~application_settings ~storage_connectors
-      ~streaming_experience_settings ~user_settings __id
+      ?id ?redirect_url ?tags ?tags_all ~application_settings
+      ~streaming_experience_settings ~name ~access_endpoints
+      ~storage_connectors ~user_settings __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

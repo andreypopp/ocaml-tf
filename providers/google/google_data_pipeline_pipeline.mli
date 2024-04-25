@@ -51,10 +51,10 @@ val workload__dataflow_flex_template_request__launch_parameter :
   ?parameters:(string * string prop) list ->
   ?transform_name_mappings:(string * string prop) list ->
   ?update:bool prop ->
-  job_name:string prop ->
-  environment:
+  ?environment:
     workload__dataflow_flex_template_request__launch_parameter__environment
     list ->
+  job_name:string prop ->
   unit ->
   workload__dataflow_flex_template_request__launch_parameter
 
@@ -97,10 +97,10 @@ val workload__dataflow_launch_template_request__launch_parameters :
   ?parameters:(string * string prop) list ->
   ?transform_name_mapping:(string * string prop) list ->
   ?update:bool prop ->
-  job_name:string prop ->
-  environment:
+  ?environment:
     workload__dataflow_launch_template_request__launch_parameters__environment
     list ->
+  job_name:string prop ->
   unit ->
   workload__dataflow_launch_template_request__launch_parameters
 
@@ -110,19 +110,19 @@ val workload__dataflow_launch_template_request :
   ?gcs_path:string prop ->
   ?location:string prop ->
   ?validate_only:bool prop ->
-  project_id:string prop ->
-  launch_parameters:
+  ?launch_parameters:
     workload__dataflow_launch_template_request__launch_parameters
     list ->
+  project_id:string prop ->
   unit ->
   workload__dataflow_launch_template_request
 
 type workload
 
 val workload :
-  dataflow_flex_template_request:
+  ?dataflow_flex_template_request:
     workload__dataflow_flex_template_request list ->
-  dataflow_launch_template_request:
+  ?dataflow_launch_template_request:
     workload__dataflow_launch_template_request list ->
   unit ->
   workload
@@ -136,12 +136,12 @@ val google_data_pipeline_pipeline :
   ?project:string prop ->
   ?region:string prop ->
   ?scheduler_service_account_email:string prop ->
+  ?schedule_info:schedule_info list ->
   ?timeouts:timeouts ->
+  ?workload:workload list ->
   name:string prop ->
   state:string prop ->
   type_:string prop ->
-  schedule_info:schedule_info list ->
-  workload:workload list ->
   unit ->
   google_data_pipeline_pipeline
 
@@ -173,12 +173,12 @@ val register :
   ?project:string prop ->
   ?region:string prop ->
   ?scheduler_service_account_email:string prop ->
+  ?schedule_info:schedule_info list ->
   ?timeouts:timeouts ->
+  ?workload:workload list ->
   name:string prop ->
   state:string prop ->
   type_:string prop ->
-  schedule_info:schedule_info list ->
-  workload:workload list ->
   string ->
   t
 
@@ -189,11 +189,11 @@ val make :
   ?project:string prop ->
   ?region:string prop ->
   ?scheduler_service_account_email:string prop ->
+  ?schedule_info:schedule_info list ->
   ?timeouts:timeouts ->
+  ?workload:workload list ->
   name:string prop ->
   state:string prop ->
   type_:string prop ->
-  schedule_info:schedule_info list ->
-  workload:workload list ->
   string ->
   t Tf_core.resource

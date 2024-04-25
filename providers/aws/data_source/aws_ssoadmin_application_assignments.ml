@@ -54,14 +54,14 @@ let _ = yojson_of_aws_ssoadmin_application_assignments
 
 let application_assignments () = ()
 
-let aws_ssoadmin_application_assignments ~application_arn
-    ~application_assignments () :
+let aws_ssoadmin_application_assignments
+    ?(application_assignments = []) ~application_arn () :
     aws_ssoadmin_application_assignments =
   { application_arn; application_assignments }
 
 type t = { application_arn : string prop; id : string prop }
 
-let make ~application_arn ~application_assignments __id =
+let make ?(application_assignments = []) ~application_arn __id =
   let __type = "aws_ssoadmin_application_assignments" in
   let __attrs =
     ({
@@ -75,15 +75,15 @@ let make ~application_arn ~application_assignments __id =
     type_ = __type;
     json =
       yojson_of_aws_ssoadmin_application_assignments
-        (aws_ssoadmin_application_assignments ~application_arn
-           ~application_assignments ());
+        (aws_ssoadmin_application_assignments
+           ~application_assignments ~application_arn ());
     attrs = __attrs;
   }
 
-let register ?tf_module ~application_arn ~application_assignments
-    __id =
+let register ?tf_module ?(application_assignments = [])
+    ~application_arn __id =
   let (r : _ Tf_core.resource) =
-    make ~application_arn ~application_assignments __id
+    make ~application_assignments ~application_arn __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

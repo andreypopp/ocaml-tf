@@ -460,15 +460,16 @@ let repository__s3_bucket ~bucket_name ~name () :
     repository__s3_bucket =
   { bucket_name; name }
 
-let repository ~bitbucket ~codecommit ~github_enterprise_server
-    ~s3_bucket () : repository =
+let repository ?(bitbucket = []) ?(codecommit = [])
+    ?(github_enterprise_server = []) ?(s3_bucket = []) () :
+    repository =
   { bitbucket; codecommit; github_enterprise_server; s3_bucket }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_codegurureviewer_repository_association ?id ?tags ?tags_all
-    ?timeouts ~kms_key_details ~repository () :
+    ?(kms_key_details = []) ?timeouts ~repository () :
     aws_codegurureviewer_repository_association =
   { id; tags; tags_all; kms_key_details; repository; timeouts }
 
@@ -487,8 +488,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?tags ?tags_all ?timeouts ~kms_key_details ~repository
-    __id =
+let make ?id ?tags ?tags_all ?(kms_key_details = []) ?timeouts
+    ~repository __id =
   let __type = "aws_codegurureviewer_repository_association" in
   let __attrs =
     ({
@@ -514,14 +515,14 @@ let make ?id ?tags ?tags_all ?timeouts ~kms_key_details ~repository
     json =
       yojson_of_aws_codegurureviewer_repository_association
         (aws_codegurureviewer_repository_association ?id ?tags
-           ?tags_all ?timeouts ~kms_key_details ~repository ());
+           ?tags_all ~kms_key_details ?timeouts ~repository ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ?timeouts
-    ~kms_key_details ~repository __id =
+let register ?tf_module ?id ?tags ?tags_all ?(kms_key_details = [])
+    ?timeouts ~repository __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ?timeouts ~kms_key_details ~repository
+    make ?id ?tags ?tags_all ~kms_key_details ?timeouts ~repository
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

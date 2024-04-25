@@ -246,8 +246,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_vpc_peering_connection ?auto_accept ?id ?peer_owner_id
-    ?peer_region ?tags ?tags_all ?timeouts ~peer_vpc_id ~vpc_id
-    ~accepter ~requester () : aws_vpc_peering_connection =
+    ?peer_region ?tags ?tags_all ?(accepter = []) ?(requester = [])
+    ?timeouts ~peer_vpc_id ~vpc_id () : aws_vpc_peering_connection =
   {
     auto_accept;
     id;
@@ -275,7 +275,8 @@ type t = {
 }
 
 let make ?auto_accept ?id ?peer_owner_id ?peer_region ?tags ?tags_all
-    ?timeouts ~peer_vpc_id ~vpc_id ~accepter ~requester __id =
+    ?(accepter = []) ?(requester = []) ?timeouts ~peer_vpc_id ~vpc_id
+    __id =
   let __type = "aws_vpc_peering_connection" in
   let __attrs =
     ({
@@ -297,17 +298,17 @@ let make ?auto_accept ?id ?peer_owner_id ?peer_region ?tags ?tags_all
     json =
       yojson_of_aws_vpc_peering_connection
         (aws_vpc_peering_connection ?auto_accept ?id ?peer_owner_id
-           ?peer_region ?tags ?tags_all ?timeouts ~peer_vpc_id
-           ~vpc_id ~accepter ~requester ());
+           ?peer_region ?tags ?tags_all ~accepter ~requester
+           ?timeouts ~peer_vpc_id ~vpc_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_accept ?id ?peer_owner_id ?peer_region
-    ?tags ?tags_all ?timeouts ~peer_vpc_id ~vpc_id ~accepter
-    ~requester __id =
+    ?tags ?tags_all ?(accepter = []) ?(requester = []) ?timeouts
+    ~peer_vpc_id ~vpc_id __id =
   let (r : _ Tf_core.resource) =
     make ?auto_accept ?id ?peer_owner_id ?peer_region ?tags ?tags_all
-      ?timeouts ~peer_vpc_id ~vpc_id ~accepter ~requester __id
+      ~accepter ~requester ?timeouts ~peer_vpc_id ~vpc_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

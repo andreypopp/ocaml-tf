@@ -177,9 +177,9 @@ let vpc_configuration ?tls_certificate ~security_group_ids
     ~subnet_ids ~vpc_id () : vpc_configuration =
   { security_group_ids; subnet_ids; tls_certificate; vpc_id }
 
-let aws_codestarconnections_host ?id ?timeouts ~name
-    ~provider_endpoint ~provider_type ~vpc_configuration () :
-    aws_codestarconnections_host =
+let aws_codestarconnections_host ?id ?timeouts
+    ?(vpc_configuration = []) ~name ~provider_endpoint ~provider_type
+    () : aws_codestarconnections_host =
   {
     id;
     name;
@@ -198,8 +198,8 @@ type t = {
   status : string prop;
 }
 
-let make ?id ?timeouts ~name ~provider_endpoint ~provider_type
-    ~vpc_configuration __id =
+let make ?id ?timeouts ?(vpc_configuration = []) ~name
+    ~provider_endpoint ~provider_type __id =
   let __type = "aws_codestarconnections_host" in
   let __attrs =
     ({
@@ -218,16 +218,17 @@ let make ?id ?timeouts ~name ~provider_endpoint ~provider_type
     type_ = __type;
     json =
       yojson_of_aws_codestarconnections_host
-        (aws_codestarconnections_host ?id ?timeouts ~name
-           ~provider_endpoint ~provider_type ~vpc_configuration ());
+        (aws_codestarconnections_host ?id ?timeouts
+           ~vpc_configuration ~name ~provider_endpoint ~provider_type
+           ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~name ~provider_endpoint
-    ~provider_type ~vpc_configuration __id =
+let register ?tf_module ?id ?timeouts ?(vpc_configuration = []) ~name
+    ~provider_endpoint ~provider_type __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~name ~provider_endpoint ~provider_type
-      ~vpc_configuration __id
+    make ?id ?timeouts ~vpc_configuration ~name ~provider_endpoint
+      ~provider_type __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

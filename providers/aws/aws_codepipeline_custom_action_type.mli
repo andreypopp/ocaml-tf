@@ -49,13 +49,13 @@ val aws_codepipeline_custom_action_type :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?configuration_property:configuration_property list ->
+  ?settings:settings list ->
   category:string prop ->
   provider_name:string prop ->
   version:string prop ->
-  configuration_property:configuration_property list ->
   input_artifact_details:input_artifact_details list ->
   output_artifact_details:output_artifact_details list ->
-  settings:settings list ->
   unit ->
   aws_codepipeline_custom_action_type
 
@@ -80,13 +80,13 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?configuration_property:configuration_property list ->
+  ?settings:settings list ->
   category:string prop ->
   provider_name:string prop ->
   version:string prop ->
-  configuration_property:configuration_property list ->
   input_artifact_details:input_artifact_details list ->
   output_artifact_details:output_artifact_details list ->
-  settings:settings list ->
   string ->
   t
 
@@ -94,12 +94,12 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?configuration_property:configuration_property list ->
+  ?settings:settings list ->
   category:string prop ->
   provider_name:string prop ->
   version:string prop ->
-  configuration_property:configuration_property list ->
   input_artifact_details:input_artifact_details list ->
   output_artifact_details:output_artifact_details list ->
-  settings:settings list ->
   string ->
   t Tf_core.resource

@@ -942,18 +942,19 @@ let update_policy ?instance_redistribution_type ?max_surge_fixed
 let version__target_size ?fixed ?percent () : version__target_size =
   { fixed; percent }
 
-let version ?name ~instance_template ~target_size () : version =
+let version ?name ?(target_size = []) ~instance_template () : version
+    =
   { instance_template; name; target_size }
 
 let google_compute_region_instance_group_manager ?description
     ?distribution_policy_target_shape ?distribution_policy_zones ?id
     ?list_managed_instances_results ?project ?region ?target_pools
     ?target_size ?wait_for_instances ?wait_for_instances_status
-    ?timeouts ~base_instance_name ~name ~all_instances_config
-    ~auto_healing_policies ~instance_lifecycle_policy ~named_port
-    ~stateful_disk ~stateful_external_ip ~stateful_internal_ip
-    ~update_policy ~version () :
-    google_compute_region_instance_group_manager =
+    ?(all_instances_config = []) ?(auto_healing_policies = [])
+    ?(instance_lifecycle_policy = []) ?(stateful_external_ip = [])
+    ?(stateful_internal_ip = []) ?timeouts ?(update_policy = [])
+    ~base_instance_name ~name ~named_port ~stateful_disk ~version ()
+    : google_compute_region_instance_group_manager =
   {
     base_instance_name;
     description;
@@ -1004,11 +1005,11 @@ type t = {
 let make ?description ?distribution_policy_target_shape
     ?distribution_policy_zones ?id ?list_managed_instances_results
     ?project ?region ?target_pools ?target_size ?wait_for_instances
-    ?wait_for_instances_status ?timeouts ~base_instance_name ~name
-    ~all_instances_config ~auto_healing_policies
-    ~instance_lifecycle_policy ~named_port ~stateful_disk
-    ~stateful_external_ip ~stateful_internal_ip ~update_policy
-    ~version __id =
+    ?wait_for_instances_status ?(all_instances_config = [])
+    ?(auto_healing_policies = []) ?(instance_lifecycle_policy = [])
+    ?(stateful_external_ip = []) ?(stateful_internal_ip = [])
+    ?timeouts ?(update_policy = []) ~base_instance_name ~name
+    ~named_port ~stateful_disk ~version __id =
   let __type = "google_compute_region_instance_group_manager" in
   let __attrs =
     ({
@@ -1050,11 +1051,11 @@ let make ?description ?distribution_policy_target_shape
            ?distribution_policy_zones ?id
            ?list_managed_instances_results ?project ?region
            ?target_pools ?target_size ?wait_for_instances
-           ?wait_for_instances_status ?timeouts ~base_instance_name
-           ~name ~all_instances_config ~auto_healing_policies
-           ~instance_lifecycle_policy ~named_port ~stateful_disk
-           ~stateful_external_ip ~stateful_internal_ip ~update_policy
-           ~version ());
+           ?wait_for_instances_status ~all_instances_config
+           ~auto_healing_policies ~instance_lifecycle_policy
+           ~stateful_external_ip ~stateful_internal_ip ?timeouts
+           ~update_policy ~base_instance_name ~name ~named_port
+           ~stateful_disk ~version ());
     attrs = __attrs;
   }
 
@@ -1062,19 +1063,20 @@ let register ?tf_module ?description
     ?distribution_policy_target_shape ?distribution_policy_zones ?id
     ?list_managed_instances_results ?project ?region ?target_pools
     ?target_size ?wait_for_instances ?wait_for_instances_status
-    ?timeouts ~base_instance_name ~name ~all_instances_config
-    ~auto_healing_policies ~instance_lifecycle_policy ~named_port
-    ~stateful_disk ~stateful_external_ip ~stateful_internal_ip
-    ~update_policy ~version __id =
+    ?(all_instances_config = []) ?(auto_healing_policies = [])
+    ?(instance_lifecycle_policy = []) ?(stateful_external_ip = [])
+    ?(stateful_internal_ip = []) ?timeouts ?(update_policy = [])
+    ~base_instance_name ~name ~named_port ~stateful_disk ~version
+    __id =
   let (r : _ Tf_core.resource) =
     make ?description ?distribution_policy_target_shape
       ?distribution_policy_zones ?id ?list_managed_instances_results
       ?project ?region ?target_pools ?target_size ?wait_for_instances
-      ?wait_for_instances_status ?timeouts ~base_instance_name ~name
-      ~all_instances_config ~auto_healing_policies
-      ~instance_lifecycle_policy ~named_port ~stateful_disk
-      ~stateful_external_ip ~stateful_internal_ip ~update_policy
-      ~version __id
+      ?wait_for_instances_status ~all_instances_config
+      ~auto_healing_policies ~instance_lifecycle_policy
+      ~stateful_external_ip ~stateful_internal_ip ?timeouts
+      ~update_policy ~base_instance_name ~name ~named_port
+      ~stateful_disk ~version __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

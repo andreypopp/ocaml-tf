@@ -30,9 +30,9 @@ type instance_filter
 
 val instance_filter :
   ?all:bool prop ->
-  exclusion_labels:instance_filter__exclusion_labels list ->
-  inclusion_labels:instance_filter__inclusion_labels list ->
-  inventories:instance_filter__inventories list ->
+  ?exclusion_labels:instance_filter__exclusion_labels list ->
+  ?inclusion_labels:instance_filter__inclusion_labels list ->
+  ?inventories:instance_filter__inventories list ->
   unit ->
   instance_filter
 
@@ -66,10 +66,10 @@ type os_policies__resource_groups__resources__exec__enforce__file
 val os_policies__resource_groups__resources__exec__enforce__file :
   ?allow_insecure:bool prop ->
   ?local_path:string prop ->
-  gcs:
+  ?gcs:
     os_policies__resource_groups__resources__exec__enforce__file__gcs
     list ->
-  remote:
+  ?remote:
     os_policies__resource_groups__resources__exec__enforce__file__remote
     list ->
   unit ->
@@ -81,9 +81,9 @@ val os_policies__resource_groups__resources__exec__enforce :
   ?args:string prop list ->
   ?output_file_path:string prop ->
   ?script:string prop ->
-  interpreter:string prop ->
-  file:
+  ?file:
     os_policies__resource_groups__resources__exec__enforce__file list ->
+  interpreter:string prop ->
   unit ->
   os_policies__resource_groups__resources__exec__enforce
 
@@ -109,10 +109,10 @@ type os_policies__resource_groups__resources__exec__validate__file
 val os_policies__resource_groups__resources__exec__validate__file :
   ?allow_insecure:bool prop ->
   ?local_path:string prop ->
-  gcs:
+  ?gcs:
     os_policies__resource_groups__resources__exec__validate__file__gcs
     list ->
-  remote:
+  ?remote:
     os_policies__resource_groups__resources__exec__validate__file__remote
     list ->
   unit ->
@@ -124,17 +124,18 @@ val os_policies__resource_groups__resources__exec__validate :
   ?args:string prop list ->
   ?output_file_path:string prop ->
   ?script:string prop ->
-  interpreter:string prop ->
-  file:
+  ?file:
     os_policies__resource_groups__resources__exec__validate__file
     list ->
+  interpreter:string prop ->
   unit ->
   os_policies__resource_groups__resources__exec__validate
 
 type os_policies__resource_groups__resources__exec
 
 val os_policies__resource_groups__resources__exec :
-  enforce:os_policies__resource_groups__resources__exec__enforce list ->
+  ?enforce:
+    os_policies__resource_groups__resources__exec__enforce list ->
   validate:
     os_policies__resource_groups__resources__exec__validate list ->
   unit ->
@@ -162,8 +163,8 @@ type os_policies__resource_groups__resources__file__file
 val os_policies__resource_groups__resources__file__file :
   ?allow_insecure:bool prop ->
   ?local_path:string prop ->
-  gcs:os_policies__resource_groups__resources__file__file__gcs list ->
-  remote:
+  ?gcs:os_policies__resource_groups__resources__file__file__gcs list ->
+  ?remote:
     os_policies__resource_groups__resources__file__file__remote list ->
   unit ->
   os_policies__resource_groups__resources__file__file
@@ -172,9 +173,9 @@ type os_policies__resource_groups__resources__file
 
 val os_policies__resource_groups__resources__file :
   ?content:string prop ->
+  ?file:os_policies__resource_groups__resources__file__file list ->
   path:string prop ->
   state:string prop ->
-  file:os_policies__resource_groups__resources__file__file list ->
   unit ->
   os_policies__resource_groups__resources__file
 
@@ -207,10 +208,10 @@ type os_policies__resource_groups__resources__pkg__deb__source
 val os_policies__resource_groups__resources__pkg__deb__source :
   ?allow_insecure:bool prop ->
   ?local_path:string prop ->
-  gcs:
+  ?gcs:
     os_policies__resource_groups__resources__pkg__deb__source__gcs
     list ->
-  remote:
+  ?remote:
     os_policies__resource_groups__resources__pkg__deb__source__remote
     list ->
   unit ->
@@ -254,10 +255,10 @@ type os_policies__resource_groups__resources__pkg__msi__source
 val os_policies__resource_groups__resources__pkg__msi__source :
   ?allow_insecure:bool prop ->
   ?local_path:string prop ->
-  gcs:
+  ?gcs:
     os_policies__resource_groups__resources__pkg__msi__source__gcs
     list ->
-  remote:
+  ?remote:
     os_policies__resource_groups__resources__pkg__msi__source__remote
     list ->
   unit ->
@@ -294,10 +295,10 @@ type os_policies__resource_groups__resources__pkg__rpm__source
 val os_policies__resource_groups__resources__pkg__rpm__source :
   ?allow_insecure:bool prop ->
   ?local_path:string prop ->
-  gcs:
+  ?gcs:
     os_policies__resource_groups__resources__pkg__rpm__source__gcs
     list ->
-  remote:
+  ?remote:
     os_policies__resource_groups__resources__pkg__rpm__source__remote
     list ->
   unit ->
@@ -329,14 +330,14 @@ val os_policies__resource_groups__resources__pkg__zypper :
 type os_policies__resource_groups__resources__pkg
 
 val os_policies__resource_groups__resources__pkg :
+  ?apt:os_policies__resource_groups__resources__pkg__apt list ->
+  ?deb:os_policies__resource_groups__resources__pkg__deb list ->
+  ?googet:os_policies__resource_groups__resources__pkg__googet list ->
+  ?msi:os_policies__resource_groups__resources__pkg__msi list ->
+  ?rpm:os_policies__resource_groups__resources__pkg__rpm list ->
+  ?yum:os_policies__resource_groups__resources__pkg__yum list ->
+  ?zypper:os_policies__resource_groups__resources__pkg__zypper list ->
   desired_state:string prop ->
-  apt:os_policies__resource_groups__resources__pkg__apt list ->
-  deb:os_policies__resource_groups__resources__pkg__deb list ->
-  googet:os_policies__resource_groups__resources__pkg__googet list ->
-  msi:os_policies__resource_groups__resources__pkg__msi list ->
-  rpm:os_policies__resource_groups__resources__pkg__rpm list ->
-  yum:os_policies__resource_groups__resources__pkg__yum list ->
-  zypper:os_policies__resource_groups__resources__pkg__zypper list ->
   unit ->
   os_policies__resource_groups__resources__pkg
 
@@ -382,10 +383,10 @@ val os_policies__resource_groups__resources__repository__zypper :
 type os_policies__resource_groups__resources__repository
 
 val os_policies__resource_groups__resources__repository :
-  apt:os_policies__resource_groups__resources__repository__apt list ->
-  goo:os_policies__resource_groups__resources__repository__goo list ->
-  yum:os_policies__resource_groups__resources__repository__yum list ->
-  zypper:
+  ?apt:os_policies__resource_groups__resources__repository__apt list ->
+  ?goo:os_policies__resource_groups__resources__repository__goo list ->
+  ?yum:os_policies__resource_groups__resources__repository__yum list ->
+  ?zypper:
     os_policies__resource_groups__resources__repository__zypper list ->
   unit ->
   os_policies__resource_groups__resources__repository
@@ -393,18 +394,19 @@ val os_policies__resource_groups__resources__repository :
 type os_policies__resource_groups__resources
 
 val os_policies__resource_groups__resources :
+  ?exec:os_policies__resource_groups__resources__exec list ->
+  ?file:os_policies__resource_groups__resources__file list ->
+  ?pkg:os_policies__resource_groups__resources__pkg list ->
+  ?repository:
+    os_policies__resource_groups__resources__repository list ->
   id:string prop ->
-  exec:os_policies__resource_groups__resources__exec list ->
-  file:os_policies__resource_groups__resources__file list ->
-  pkg:os_policies__resource_groups__resources__pkg list ->
-  repository:os_policies__resource_groups__resources__repository list ->
   unit ->
   os_policies__resource_groups__resources
 
 type os_policies__resource_groups
 
 val os_policies__resource_groups :
-  inventory_filters:
+  ?inventory_filters:
     os_policies__resource_groups__inventory_filters list ->
   resources:os_policies__resource_groups__resources list ->
   unit ->

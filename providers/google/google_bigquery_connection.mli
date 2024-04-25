@@ -72,8 +72,9 @@ val spark__spark_history_server_config :
 type spark
 
 val spark :
-  metastore_service_config:spark__metastore_service_config list ->
-  spark_history_server_config:spark__spark_history_server_config list ->
+  ?metastore_service_config:spark__metastore_service_config list ->
+  ?spark_history_server_config:
+    spark__spark_history_server_config list ->
   unit ->
   spark
 
@@ -95,13 +96,13 @@ val google_bigquery_connection :
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
+  ?aws:aws list ->
+  ?azure:azure list ->
+  ?cloud_resource:cloud_resource list ->
+  ?cloud_spanner:cloud_spanner list ->
+  ?cloud_sql:cloud_sql list ->
+  ?spark:spark list ->
   ?timeouts:timeouts ->
-  aws:aws list ->
-  azure:azure list ->
-  cloud_resource:cloud_resource list ->
-  cloud_spanner:cloud_spanner list ->
-  cloud_sql:cloud_sql list ->
-  spark:spark list ->
   unit ->
   google_bigquery_connection
 
@@ -129,13 +130,13 @@ val register :
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
+  ?aws:aws list ->
+  ?azure:azure list ->
+  ?cloud_resource:cloud_resource list ->
+  ?cloud_spanner:cloud_spanner list ->
+  ?cloud_sql:cloud_sql list ->
+  ?spark:spark list ->
   ?timeouts:timeouts ->
-  aws:aws list ->
-  azure:azure list ->
-  cloud_resource:cloud_resource list ->
-  cloud_spanner:cloud_spanner list ->
-  cloud_sql:cloud_sql list ->
-  spark:spark list ->
   string ->
   t
 
@@ -146,12 +147,12 @@ val make :
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
+  ?aws:aws list ->
+  ?azure:azure list ->
+  ?cloud_resource:cloud_resource list ->
+  ?cloud_spanner:cloud_spanner list ->
+  ?cloud_sql:cloud_sql list ->
+  ?spark:spark list ->
   ?timeouts:timeouts ->
-  aws:aws list ->
-  azure:azure list ->
-  cloud_resource:cloud_resource list ->
-  cloud_spanner:cloud_spanner list ->
-  cloud_sql:cloud_sql list ->
-  spark:spark list ->
   string ->
   t Tf_core.resource

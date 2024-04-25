@@ -569,8 +569,8 @@ let cache_behavior_settings__forwarded_query_strings ?option_
 
 let cache_behavior_settings ?allowed_http_methods
     ?cached_http_methods ?default_ttl ?maximum_ttl ?minimum_ttl
-    ~forwarded_cookies ~forwarded_headers ~forwarded_query_strings ()
-    : cache_behavior_settings =
+    ?(forwarded_cookies = []) ?(forwarded_headers = [])
+    ?(forwarded_query_strings = []) () : cache_behavior_settings =
   {
     allowed_http_methods;
     cached_http_methods;
@@ -592,9 +592,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_lightsail_distribution ?certificate_name ?id ?ip_address_type
-    ?is_enabled ?tags ?tags_all ?timeouts ~bundle_id ~name
-    ~cache_behavior ~cache_behavior_settings ~default_cache_behavior
-    ~origin () : aws_lightsail_distribution =
+    ?is_enabled ?tags ?tags_all ?(cache_behavior_settings = [])
+    ?timeouts ~bundle_id ~name ~cache_behavior
+    ~default_cache_behavior ~origin () : aws_lightsail_distribution =
   {
     bundle_id;
     certificate_name;
@@ -632,8 +632,8 @@ type t = {
 }
 
 let make ?certificate_name ?id ?ip_address_type ?is_enabled ?tags
-    ?tags_all ?timeouts ~bundle_id ~name ~cache_behavior
-    ~cache_behavior_settings ~default_cache_behavior ~origin __id =
+    ?tags_all ?(cache_behavior_settings = []) ?timeouts ~bundle_id
+    ~name ~cache_behavior ~default_cache_behavior ~origin __id =
   let __type = "aws_lightsail_distribution" in
   let __attrs =
     ({
@@ -666,20 +666,20 @@ let make ?certificate_name ?id ?ip_address_type ?is_enabled ?tags
     json =
       yojson_of_aws_lightsail_distribution
         (aws_lightsail_distribution ?certificate_name ?id
-           ?ip_address_type ?is_enabled ?tags ?tags_all ?timeouts
-           ~bundle_id ~name ~cache_behavior ~cache_behavior_settings
-           ~default_cache_behavior ~origin ());
+           ?ip_address_type ?is_enabled ?tags ?tags_all
+           ~cache_behavior_settings ?timeouts ~bundle_id ~name
+           ~cache_behavior ~default_cache_behavior ~origin ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?certificate_name ?id ?ip_address_type
-    ?is_enabled ?tags ?tags_all ?timeouts ~bundle_id ~name
-    ~cache_behavior ~cache_behavior_settings ~default_cache_behavior
-    ~origin __id =
+    ?is_enabled ?tags ?tags_all ?(cache_behavior_settings = [])
+    ?timeouts ~bundle_id ~name ~cache_behavior
+    ~default_cache_behavior ~origin __id =
   let (r : _ Tf_core.resource) =
     make ?certificate_name ?id ?ip_address_type ?is_enabled ?tags
-      ?tags_all ?timeouts ~bundle_id ~name ~cache_behavior
-      ~cache_behavior_settings ~default_cache_behavior ~origin __id
+      ?tags_all ~cache_behavior_settings ?timeouts ~bundle_id ~name
+      ~cache_behavior ~default_cache_behavior ~origin __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

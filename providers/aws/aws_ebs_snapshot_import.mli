@@ -27,8 +27,8 @@ type disk_container
 val disk_container :
   ?description:string prop ->
   ?url:string prop ->
+  ?user_bucket:disk_container__user_bucket list ->
   format:string prop ->
-  user_bucket:disk_container__user_bucket list ->
   unit ->
   disk_container
 
@@ -50,8 +50,8 @@ val aws_ebs_snapshot_import :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?temporary_restore_days:float prop ->
+  ?client_data:client_data list ->
   ?timeouts:timeouts ->
-  client_data:client_data list ->
   disk_container:disk_container list ->
   unit ->
   aws_ebs_snapshot_import
@@ -93,8 +93,8 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?temporary_restore_days:float prop ->
+  ?client_data:client_data list ->
   ?timeouts:timeouts ->
-  client_data:client_data list ->
   disk_container:disk_container list ->
   string ->
   t
@@ -110,8 +110,8 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?temporary_restore_days:float prop ->
+  ?client_data:client_data list ->
   ?timeouts:timeouts ->
-  client_data:client_data list ->
   disk_container:disk_container list ->
   string ->
   t Tf_core.resource

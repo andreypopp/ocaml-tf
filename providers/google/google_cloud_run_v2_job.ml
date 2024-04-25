@@ -1206,12 +1206,13 @@ let template__template__containers__env__value_source__secret_key_ref
     =
   { secret; version }
 
-let template__template__containers__env__value_source ~secret_key_ref
-    () : template__template__containers__env__value_source =
+let template__template__containers__env__value_source
+    ?(secret_key_ref = []) () :
+    template__template__containers__env__value_source =
   { secret_key_ref }
 
-let template__template__containers__env ?value ~name ~value_source ()
-    : template__template__containers__env =
+let template__template__containers__env ?value ?(value_source = [])
+    ~name () : template__template__containers__env =
   { name; value; value_source }
 
 let template__template__containers__ports ?container_port ?name () :
@@ -1227,8 +1228,8 @@ let template__template__containers__volume_mounts ~mount_path ~name
   { mount_path; name }
 
 let template__template__containers ?args ?command ?name ?working_dir
-    ~image ~env ~ports ~resources ~volume_mounts () :
-    template__template__containers =
+    ?(env = []) ?(ports = []) ?(resources = []) ?(volume_mounts = [])
+    ~image () : template__template__containers =
   {
     args;
     command;
@@ -1249,12 +1250,12 @@ let template__template__volumes__secret__items ?mode ~path ~version
     () : template__template__volumes__secret__items =
   { mode; path; version }
 
-let template__template__volumes__secret ?default_mode ~secret ~items
-    () : template__template__volumes__secret =
+let template__template__volumes__secret ?default_mode ?(items = [])
+    ~secret () : template__template__volumes__secret =
   { default_mode; secret; items }
 
-let template__template__volumes ~name ~cloud_sql_instance ~secret ()
-    : template__template__volumes =
+let template__template__volumes ?(cloud_sql_instance = [])
+    ?(secret = []) ~name () : template__template__volumes =
   { name; cloud_sql_instance; secret }
 
 let template__template__vpc_access__network_interfaces ?network
@@ -1263,12 +1264,12 @@ let template__template__vpc_access__network_interfaces ?network
   { network; subnetwork; tags }
 
 let template__template__vpc_access ?connector ?egress
-    ~network_interfaces () : template__template__vpc_access =
+    ?(network_interfaces = []) () : template__template__vpc_access =
   { connector; egress; network_interfaces }
 
 let template__template ?encryption_key ?execution_environment
-    ?max_retries ?service_account ?timeout ~containers ~volumes
-    ~vpc_access () : template__template =
+    ?max_retries ?service_account ?timeout ?(containers = [])
+    ?(volumes = []) ?(vpc_access = []) () : template__template =
   {
     encryption_key;
     execution_environment;
@@ -1288,8 +1289,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_cloud_run_v2_job ?annotations ?client ?client_version ?id
-    ?labels ?launch_stage ?project ?timeouts ~location ~name
-    ~binary_authorization ~template () : google_cloud_run_v2_job =
+    ?labels ?launch_stage ?project ?(binary_authorization = [])
+    ?timeouts ~location ~name ~template () : google_cloud_run_v2_job
+    =
   {
     annotations;
     client;
@@ -1336,8 +1338,8 @@ type t = {
 }
 
 let make ?annotations ?client ?client_version ?id ?labels
-    ?launch_stage ?project ?timeouts ~location ~name
-    ~binary_authorization ~template __id =
+    ?launch_stage ?project ?(binary_authorization = []) ?timeouts
+    ~location ~name ~template __id =
   let __type = "google_cloud_run_v2_job" in
   let __attrs =
     ({
@@ -1383,18 +1385,18 @@ let make ?annotations ?client ?client_version ?id ?labels
     json =
       yojson_of_google_cloud_run_v2_job
         (google_cloud_run_v2_job ?annotations ?client ?client_version
-           ?id ?labels ?launch_stage ?project ?timeouts ~location
-           ~name ~binary_authorization ~template ());
+           ?id ?labels ?launch_stage ?project ~binary_authorization
+           ?timeouts ~location ~name ~template ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?client ?client_version ?id
-    ?labels ?launch_stage ?project ?timeouts ~location ~name
-    ~binary_authorization ~template __id =
+    ?labels ?launch_stage ?project ?(binary_authorization = [])
+    ?timeouts ~location ~name ~template __id =
   let (r : _ Tf_core.resource) =
     make ?annotations ?client ?client_version ?id ?labels
-      ?launch_stage ?project ?timeouts ~location ~name
-      ~binary_authorization ~template __id
+      ?launch_stage ?project ~binary_authorization ?timeouts
+      ~location ~name ~template __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -355,10 +355,11 @@ let maintenance_window ~day_of_week ~time_of_day_in_utc () :
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_managed_lustre_file_system ?id ?tags ?timeouts ~location
-    ~name ~resource_group_name ~sku_name ~storage_capacity_in_tb
-    ~subnet_id ~zones ~encryption_key ~hsm_setting ~identity
-    ~maintenance_window () : azurerm_managed_lustre_file_system =
+let azurerm_managed_lustre_file_system ?id ?tags
+    ?(encryption_key = []) ?(hsm_setting = []) ?(identity = [])
+    ?timeouts ~location ~name ~resource_group_name ~sku_name
+    ~storage_capacity_in_tb ~subnet_id ~zones ~maintenance_window ()
+    : azurerm_managed_lustre_file_system =
   {
     id;
     location;
@@ -389,9 +390,10 @@ type t = {
   zones : string list prop;
 }
 
-let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
+let make ?id ?tags ?(encryption_key = []) ?(hsm_setting = [])
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
     ~sku_name ~storage_capacity_in_tb ~subnet_id ~zones
-    ~encryption_key ~hsm_setting ~identity ~maintenance_window __id =
+    ~maintenance_window __id =
   let __type = "azurerm_managed_lustre_file_system" in
   let __attrs =
     ({
@@ -415,21 +417,22 @@ let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
     type_ = __type;
     json =
       yojson_of_azurerm_managed_lustre_file_system
-        (azurerm_managed_lustre_file_system ?id ?tags ?timeouts
-           ~location ~name ~resource_group_name ~sku_name
-           ~storage_capacity_in_tb ~subnet_id ~zones ~encryption_key
-           ~hsm_setting ~identity ~maintenance_window ());
+        (azurerm_managed_lustre_file_system ?id ?tags ~encryption_key
+           ~hsm_setting ~identity ?timeouts ~location ~name
+           ~resource_group_name ~sku_name ~storage_capacity_in_tb
+           ~subnet_id ~zones ~maintenance_window ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?timeouts ~location ~name
+let register ?tf_module ?id ?tags ?(encryption_key = [])
+    ?(hsm_setting = []) ?(identity = []) ?timeouts ~location ~name
     ~resource_group_name ~sku_name ~storage_capacity_in_tb ~subnet_id
-    ~zones ~encryption_key ~hsm_setting ~identity ~maintenance_window
-    __id =
+    ~zones ~maintenance_window __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?timeouts ~location ~name ~resource_group_name
-      ~sku_name ~storage_capacity_in_tb ~subnet_id ~zones
-      ~encryption_key ~hsm_setting ~identity ~maintenance_window __id
+    make ?id ?tags ~encryption_key ~hsm_setting ~identity ?timeouts
+      ~location ~name ~resource_group_name ~sku_name
+      ~storage_capacity_in_tb ~subnet_id ~zones ~maintenance_window
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

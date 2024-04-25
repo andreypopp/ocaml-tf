@@ -311,7 +311,7 @@ let managed_cluster_update__upgrade ?kubernetes_version ~type_ () :
     managed_cluster_update__upgrade =
   { kubernetes_version; type_ }
 
-let managed_cluster_update ~node_image_selection ~upgrade () :
+let managed_cluster_update ?(node_image_selection = []) ~upgrade () :
     managed_cluster_update =
   { node_image_selection; upgrade }
 
@@ -324,9 +324,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_kubernetes_fleet_update_run ?fleet_update_strategy_id ?id
-    ?timeouts ~kubernetes_fleet_manager_id ~name
-    ~managed_cluster_update ~stage () :
-    azurerm_kubernetes_fleet_update_run =
+    ?(stage = []) ?timeouts ~kubernetes_fleet_manager_id ~name
+    ~managed_cluster_update () : azurerm_kubernetes_fleet_update_run
+    =
   {
     fleet_update_strategy_id;
     id;
@@ -344,9 +344,8 @@ type t = {
   name : string prop;
 }
 
-let make ?fleet_update_strategy_id ?id ?timeouts
-    ~kubernetes_fleet_manager_id ~name ~managed_cluster_update ~stage
-    __id =
+let make ?fleet_update_strategy_id ?id ?(stage = []) ?timeouts
+    ~kubernetes_fleet_manager_id ~name ~managed_cluster_update __id =
   let __type = "azurerm_kubernetes_fleet_update_run" in
   let __attrs =
     ({
@@ -365,19 +364,18 @@ let make ?fleet_update_strategy_id ?id ?timeouts
     json =
       yojson_of_azurerm_kubernetes_fleet_update_run
         (azurerm_kubernetes_fleet_update_run
-           ?fleet_update_strategy_id ?id ?timeouts
+           ?fleet_update_strategy_id ?id ~stage ?timeouts
            ~kubernetes_fleet_manager_id ~name ~managed_cluster_update
-           ~stage ());
+           ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?fleet_update_strategy_id ?id ?timeouts
-    ~kubernetes_fleet_manager_id ~name ~managed_cluster_update ~stage
-    __id =
+let register ?tf_module ?fleet_update_strategy_id ?id ?(stage = [])
+    ?timeouts ~kubernetes_fleet_manager_id ~name
+    ~managed_cluster_update __id =
   let (r : _ Tf_core.resource) =
-    make ?fleet_update_strategy_id ?id ?timeouts
-      ~kubernetes_fleet_manager_id ~name ~managed_cluster_update
-      ~stage __id
+    make ?fleet_update_strategy_id ?id ~stage ?timeouts
+      ~kubernetes_fleet_manager_id ~name ~managed_cluster_update __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -27,9 +27,9 @@ val google_ml_engine_model :
   ?online_prediction_logging:bool prop ->
   ?project:string prop ->
   ?regions:string prop list ->
+  ?default_version:default_version list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  default_version:default_version list ->
   unit ->
   google_ml_engine_model
 
@@ -59,9 +59,9 @@ val register :
   ?online_prediction_logging:bool prop ->
   ?project:string prop ->
   ?regions:string prop list ->
+  ?default_version:default_version list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  default_version:default_version list ->
   string ->
   t
 
@@ -73,8 +73,8 @@ val make :
   ?online_prediction_logging:bool prop ->
   ?project:string prop ->
   ?regions:string prop list ->
+  ?default_version:default_version list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  default_version:default_version list ->
   string ->
   t Tf_core.resource

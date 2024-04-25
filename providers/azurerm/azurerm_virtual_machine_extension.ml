@@ -269,8 +269,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_virtual_machine_extension ?auto_upgrade_minor_version
     ?automatic_upgrade_enabled ?failure_suppression_enabled ?id
     ?protected_settings ?provision_after_extensions ?settings ?tags
-    ?timeouts ~name ~publisher ~type_ ~type_handler_version
-    ~virtual_machine_id ~protected_settings_from_key_vault () :
+    ?(protected_settings_from_key_vault = []) ?timeouts ~name
+    ~publisher ~type_ ~type_handler_version ~virtual_machine_id () :
     azurerm_virtual_machine_extension =
   {
     auto_upgrade_minor_version;
@@ -308,9 +308,10 @@ type t = {
 
 let make ?auto_upgrade_minor_version ?automatic_upgrade_enabled
     ?failure_suppression_enabled ?id ?protected_settings
-    ?provision_after_extensions ?settings ?tags ?timeouts ~name
-    ~publisher ~type_ ~type_handler_version ~virtual_machine_id
-    ~protected_settings_from_key_vault __id =
+    ?provision_after_extensions ?settings ?tags
+    ?(protected_settings_from_key_vault = []) ?timeouts ~name
+    ~publisher ~type_ ~type_handler_version ~virtual_machine_id __id
+    =
   let __type = "azurerm_virtual_machine_extension" in
   let __attrs =
     ({
@@ -345,23 +346,25 @@ let make ?auto_upgrade_minor_version ?automatic_upgrade_enabled
         (azurerm_virtual_machine_extension
            ?auto_upgrade_minor_version ?automatic_upgrade_enabled
            ?failure_suppression_enabled ?id ?protected_settings
-           ?provision_after_extensions ?settings ?tags ?timeouts
-           ~name ~publisher ~type_ ~type_handler_version
-           ~virtual_machine_id ~protected_settings_from_key_vault ());
+           ?provision_after_extensions ?settings ?tags
+           ~protected_settings_from_key_vault ?timeouts ~name
+           ~publisher ~type_ ~type_handler_version
+           ~virtual_machine_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_upgrade_minor_version
     ?automatic_upgrade_enabled ?failure_suppression_enabled ?id
     ?protected_settings ?provision_after_extensions ?settings ?tags
-    ?timeouts ~name ~publisher ~type_ ~type_handler_version
-    ~virtual_machine_id ~protected_settings_from_key_vault __id =
+    ?(protected_settings_from_key_vault = []) ?timeouts ~name
+    ~publisher ~type_ ~type_handler_version ~virtual_machine_id __id
+    =
   let (r : _ Tf_core.resource) =
     make ?auto_upgrade_minor_version ?automatic_upgrade_enabled
       ?failure_suppression_enabled ?id ?protected_settings
-      ?provision_after_extensions ?settings ?tags ?timeouts ~name
-      ~publisher ~type_ ~type_handler_version ~virtual_machine_id
-      ~protected_settings_from_key_vault __id
+      ?provision_after_extensions ?settings ?tags
+      ~protected_settings_from_key_vault ?timeouts ~name ~publisher
+      ~type_ ~type_handler_version ~virtual_machine_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

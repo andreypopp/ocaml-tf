@@ -33,7 +33,7 @@ type network_profile__account_access
 
 val network_profile__account_access :
   ?default_action:string prop ->
-  ip_rule:network_profile__account_access__ip_rule list ->
+  ?ip_rule:network_profile__account_access__ip_rule list ->
   unit ->
   network_profile__account_access
 
@@ -49,15 +49,16 @@ type network_profile__node_management_access
 
 val network_profile__node_management_access :
   ?default_action:string prop ->
-  ip_rule:network_profile__node_management_access__ip_rule list ->
+  ?ip_rule:network_profile__node_management_access__ip_rule list ->
   unit ->
   network_profile__node_management_access
 
 type network_profile
 
 val network_profile :
-  account_access:network_profile__account_access list ->
-  node_management_access:network_profile__node_management_access list ->
+  ?account_access:network_profile__account_access list ->
+  ?node_management_access:
+    network_profile__node_management_access list ->
   unit ->
   network_profile
 
@@ -83,13 +84,13 @@ val azurerm_batch_account :
   ?storage_account_id:string prop ->
   ?storage_account_node_identity:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?key_vault_reference:key_vault_reference list ->
+  ?network_profile:network_profile list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
-  key_vault_reference:key_vault_reference list ->
-  network_profile:network_profile list ->
   unit ->
   azurerm_batch_account
 
@@ -126,13 +127,13 @@ val register :
   ?storage_account_id:string prop ->
   ?storage_account_node_identity:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?key_vault_reference:key_vault_reference list ->
+  ?network_profile:network_profile list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
-  key_vault_reference:key_vault_reference list ->
-  network_profile:network_profile list ->
   string ->
   t
 
@@ -146,12 +147,12 @@ val make :
   ?storage_account_id:string prop ->
   ?storage_account_node_identity:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
+  ?key_vault_reference:key_vault_reference list ->
+  ?network_profile:network_profile list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
-  key_vault_reference:key_vault_reference list ->
-  network_profile:network_profile list ->
   string ->
   t Tf_core.resource

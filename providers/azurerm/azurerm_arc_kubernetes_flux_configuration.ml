@@ -653,8 +653,8 @@ let blob_storage__service_principal ?client_certificate_base64
   }
 
 let blob_storage ?account_key ?local_auth_reference ?sas_token
-    ?sync_interval_in_seconds ?timeout_in_seconds ~container_id
-    ~service_principal () : blob_storage =
+    ?sync_interval_in_seconds ?timeout_in_seconds
+    ?(service_principal = []) ~container_id () : blob_storage =
   {
     account_key;
     container_id;
@@ -717,9 +717,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_arc_kubernetes_flux_configuration
-    ?continuous_reconciliation_enabled ?id ?scope ?timeouts
-    ~cluster_id ~name ~namespace ~blob_storage ~bucket
-    ~git_repository ~kustomizations () :
+    ?continuous_reconciliation_enabled ?id ?scope
+    ?(blob_storage = []) ?(bucket = []) ?(git_repository = [])
+    ?timeouts ~cluster_id ~name ~namespace ~kustomizations () :
     azurerm_arc_kubernetes_flux_configuration =
   {
     cluster_id;
@@ -744,9 +744,9 @@ type t = {
   scope : string prop;
 }
 
-let make ?continuous_reconciliation_enabled ?id ?scope ?timeouts
-    ~cluster_id ~name ~namespace ~blob_storage ~bucket
-    ~git_repository ~kustomizations __id =
+let make ?continuous_reconciliation_enabled ?id ?scope
+    ?(blob_storage = []) ?(bucket = []) ?(git_repository = [])
+    ?timeouts ~cluster_id ~name ~namespace ~kustomizations __id =
   let __type = "azurerm_arc_kubernetes_flux_configuration" in
   let __attrs =
     ({
@@ -767,19 +767,19 @@ let make ?continuous_reconciliation_enabled ?id ?scope ?timeouts
     json =
       yojson_of_azurerm_arc_kubernetes_flux_configuration
         (azurerm_arc_kubernetes_flux_configuration
-           ?continuous_reconciliation_enabled ?id ?scope ?timeouts
-           ~cluster_id ~name ~namespace ~blob_storage ~bucket
-           ~git_repository ~kustomizations ());
+           ?continuous_reconciliation_enabled ?id ?scope
+           ~blob_storage ~bucket ~git_repository ?timeouts
+           ~cluster_id ~name ~namespace ~kustomizations ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?continuous_reconciliation_enabled ?id ?scope
-    ?timeouts ~cluster_id ~name ~namespace ~blob_storage ~bucket
-    ~git_repository ~kustomizations __id =
+    ?(blob_storage = []) ?(bucket = []) ?(git_repository = [])
+    ?timeouts ~cluster_id ~name ~namespace ~kustomizations __id =
   let (r : _ Tf_core.resource) =
-    make ?continuous_reconciliation_enabled ?id ?scope ?timeouts
-      ~cluster_id ~name ~namespace ~blob_storage ~bucket
-      ~git_repository ~kustomizations __id
+    make ?continuous_reconciliation_enabled ?id ?scope ~blob_storage
+      ~bucket ~git_repository ?timeouts ~cluster_id ~name ~namespace
+      ~kustomizations __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -67,7 +67,7 @@ val overrides :
   ?execution_role_arn:string prop ->
   ?memory:string prop ->
   ?task_role_arn:string prop ->
-  container_overrides:overrides__container_overrides list ->
+  ?container_overrides:overrides__container_overrides list ->
   inference_accelerator_overrides:
     overrides__inference_accelerator_overrides list ->
   unit ->
@@ -104,13 +104,13 @@ val aws_ecs_task_execution :
   ?reference_id:string prop ->
   ?started_by:string prop ->
   ?tags:(string * string prop) list ->
+  ?network_configuration:network_configuration list ->
+  ?overrides:overrides list ->
+  ?placement_strategy:placement_strategy list ->
   cluster:string prop ->
   task_definition:string prop ->
   capacity_provider_strategy:capacity_provider_strategy list ->
-  network_configuration:network_configuration list ->
-  overrides:overrides list ->
   placement_constraints:placement_constraints list ->
-  placement_strategy:placement_strategy list ->
   unit ->
   aws_ecs_task_execution
 
@@ -150,13 +150,13 @@ val register :
   ?reference_id:string prop ->
   ?started_by:string prop ->
   ?tags:(string * string prop) list ->
+  ?network_configuration:network_configuration list ->
+  ?overrides:overrides list ->
+  ?placement_strategy:placement_strategy list ->
   cluster:string prop ->
   task_definition:string prop ->
   capacity_provider_strategy:capacity_provider_strategy list ->
-  network_configuration:network_configuration list ->
-  overrides:overrides list ->
   placement_constraints:placement_constraints list ->
-  placement_strategy:placement_strategy list ->
   string ->
   t
 
@@ -173,12 +173,12 @@ val make :
   ?reference_id:string prop ->
   ?started_by:string prop ->
   ?tags:(string * string prop) list ->
+  ?network_configuration:network_configuration list ->
+  ?overrides:overrides list ->
+  ?placement_strategy:placement_strategy list ->
   cluster:string prop ->
   task_definition:string prop ->
   capacity_provider_strategy:capacity_provider_strategy list ->
-  network_configuration:network_configuration list ->
-  overrides:overrides list ->
   placement_constraints:placement_constraints list ->
-  placement_strategy:placement_strategy list ->
   string ->
   t Tf_core.resource

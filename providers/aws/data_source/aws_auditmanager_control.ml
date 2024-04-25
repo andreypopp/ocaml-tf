@@ -87,7 +87,7 @@ let _ = yojson_of_aws_auditmanager_control
 
 let control_mapping_sources__source_keyword () = ()
 
-let control_mapping_sources ~source_keyword () :
+let control_mapping_sources ?(source_keyword = []) () :
     control_mapping_sources =
   { source_keyword }
 

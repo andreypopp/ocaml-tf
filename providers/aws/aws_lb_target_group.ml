@@ -537,8 +537,9 @@ let aws_lb_target_group ?connection_termination ?deregistration_delay
     ?load_balancing_cross_zone_enabled ?name ?name_prefix ?port
     ?preserve_client_ip ?protocol ?protocol_version
     ?proxy_protocol_v2 ?slow_start ?tags ?tags_all ?target_type
-    ?vpc_id ~health_check ~stickiness ~target_failover
-    ~target_health_state () : aws_lb_target_group =
+    ?vpc_id ?(health_check = []) ?(stickiness = [])
+    ?(target_failover = []) ?(target_health_state = []) () :
+    aws_lb_target_group =
   {
     connection_termination;
     deregistration_delay;
@@ -598,8 +599,8 @@ let make ?connection_termination ?deregistration_delay ?id
     ?load_balancing_cross_zone_enabled ?name ?name_prefix ?port
     ?preserve_client_ip ?protocol ?protocol_version
     ?proxy_protocol_v2 ?slow_start ?tags ?tags_all ?target_type
-    ?vpc_id ~health_check ~stickiness ~target_failover
-    ~target_health_state __id =
+    ?vpc_id ?(health_check = []) ?(stickiness = [])
+    ?(target_failover = []) ?(target_health_state = []) __id =
   let __type = "aws_lb_target_group" in
   let __attrs =
     ({
@@ -666,8 +667,8 @@ let register ?tf_module ?connection_termination ?deregistration_delay
     ?load_balancing_cross_zone_enabled ?name ?name_prefix ?port
     ?preserve_client_ip ?protocol ?protocol_version
     ?proxy_protocol_v2 ?slow_start ?tags ?tags_all ?target_type
-    ?vpc_id ~health_check ~stickiness ~target_failover
-    ~target_health_state __id =
+    ?vpc_id ?(health_check = []) ?(stickiness = [])
+    ?(target_failover = []) ?(target_health_state = []) __id =
   let (r : _ Tf_core.resource) =
     make ?connection_termination ?deregistration_delay ?id
       ?ip_address_type ?lambda_multi_value_headers_enabled

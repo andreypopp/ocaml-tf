@@ -42,7 +42,7 @@ val ssl :
   ?method_:string prop ->
   ?type_:string prop ->
   ?wildcard:bool prop ->
-  settings:ssl__settings list ->
+  ?settings:ssl__settings list ->
   unit ->
   ssl
 
@@ -54,9 +54,9 @@ val cloudflare_custom_hostname :
   ?custom_origin_sni:string prop ->
   ?id:string prop ->
   ?wait_for_ssl_pending_validation:bool prop ->
+  ?ssl:ssl list ->
   hostname:string prop ->
   zone_id:string prop ->
-  ssl:ssl list ->
   unit ->
   cloudflare_custom_hostname
 
@@ -85,9 +85,9 @@ val register :
   ?custom_origin_sni:string prop ->
   ?id:string prop ->
   ?wait_for_ssl_pending_validation:bool prop ->
+  ?ssl:ssl list ->
   hostname:string prop ->
   zone_id:string prop ->
-  ssl:ssl list ->
   string ->
   t
 
@@ -97,8 +97,8 @@ val make :
   ?custom_origin_sni:string prop ->
   ?id:string prop ->
   ?wait_for_ssl_pending_validation:bool prop ->
+  ?ssl:ssl list ->
   hostname:string prop ->
   zone_id:string prop ->
-  ssl:ssl list ->
   string ->
   t Tf_core.resource

@@ -382,8 +382,9 @@ let azurerm_data_factory_linked_service_azure_blob_storage
     ?connection_string_insecure ?description ?id
     ?integration_runtime_name ?parameters ?sas_uri ?service_endpoint
     ?service_principal_id ?service_principal_key ?storage_kind
-    ?tenant_id ?use_managed_identity ?timeouts ~data_factory_id ~name
-    ~key_vault_sas_token ~service_principal_linked_key_vault_key () :
+    ?tenant_id ?use_managed_identity ?(key_vault_sas_token = [])
+    ?(service_principal_linked_key_vault_key = []) ?timeouts
+    ~data_factory_id ~name () :
     azurerm_data_factory_linked_service_azure_blob_storage =
   {
     additional_properties;
@@ -432,9 +433,9 @@ let make ?additional_properties ?annotations ?connection_string
     ?connection_string_insecure ?description ?id
     ?integration_runtime_name ?parameters ?sas_uri ?service_endpoint
     ?service_principal_id ?service_principal_key ?storage_kind
-    ?tenant_id ?use_managed_identity ?timeouts ~data_factory_id ~name
-    ~key_vault_sas_token ~service_principal_linked_key_vault_key __id
-    =
+    ?tenant_id ?use_managed_identity ?(key_vault_sas_token = [])
+    ?(service_principal_linked_key_vault_key = []) ?timeouts
+    ~data_factory_id ~name __id =
   let __type =
     "azurerm_data_factory_linked_service_azure_blob_storage"
   in
@@ -479,9 +480,9 @@ let make ?additional_properties ?annotations ?connection_string
            ?integration_runtime_name ?parameters ?sas_uri
            ?service_endpoint ?service_principal_id
            ?service_principal_key ?storage_kind ?tenant_id
-           ?use_managed_identity ?timeouts ~data_factory_id ~name
-           ~key_vault_sas_token
-           ~service_principal_linked_key_vault_key ());
+           ?use_managed_identity ~key_vault_sas_token
+           ~service_principal_linked_key_vault_key ?timeouts
+           ~data_factory_id ~name ());
     attrs = __attrs;
   }
 
@@ -489,17 +490,17 @@ let register ?tf_module ?additional_properties ?annotations
     ?connection_string ?connection_string_insecure ?description ?id
     ?integration_runtime_name ?parameters ?sas_uri ?service_endpoint
     ?service_principal_id ?service_principal_key ?storage_kind
-    ?tenant_id ?use_managed_identity ?timeouts ~data_factory_id ~name
-    ~key_vault_sas_token ~service_principal_linked_key_vault_key __id
-    =
+    ?tenant_id ?use_managed_identity ?(key_vault_sas_token = [])
+    ?(service_principal_linked_key_vault_key = []) ?timeouts
+    ~data_factory_id ~name __id =
   let (r : _ Tf_core.resource) =
     make ?additional_properties ?annotations ?connection_string
       ?connection_string_insecure ?description ?id
       ?integration_runtime_name ?parameters ?sas_uri
       ?service_endpoint ?service_principal_id ?service_principal_key
-      ?storage_kind ?tenant_id ?use_managed_identity ?timeouts
-      ~data_factory_id ~name ~key_vault_sas_token
-      ~service_principal_linked_key_vault_key __id
+      ?storage_kind ?tenant_id ?use_managed_identity
+      ~key_vault_sas_token ~service_principal_linked_key_vault_key
+      ?timeouts ~data_factory_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

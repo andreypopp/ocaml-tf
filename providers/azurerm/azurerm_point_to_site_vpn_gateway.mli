@@ -17,9 +17,9 @@ type connection_configuration__route
 val connection_configuration__route :
   ?inbound_route_map_id:string prop ->
   ?outbound_route_map_id:string prop ->
-  associated_route_table_id:string prop ->
-  propagated_route_table:
+  ?propagated_route_table:
     connection_configuration__route__propagated_route_table list ->
+  associated_route_table_id:string prop ->
   unit ->
   connection_configuration__route
 
@@ -34,8 +34,8 @@ type connection_configuration
 
 val connection_configuration :
   ?internet_security_enabled:bool prop ->
+  ?route:connection_configuration__route list ->
   name:string prop ->
-  route:connection_configuration__route list ->
   vpn_client_address_pool:
     connection_configuration__vpn_client_address_pool list ->
   unit ->

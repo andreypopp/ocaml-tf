@@ -1918,9 +1918,9 @@ let auth_settings__twitter ~consumer_key ~consumer_secret () :
 let auth_settings ?additional_login_params
     ?allowed_external_redirect_urls ?default_provider ?issuer
     ?runtime_version ?token_refresh_extension_hours
-    ?token_store_enabled ?unauthenticated_client_action ~enabled
-    ~active_directory ~facebook ~google ~microsoft ~twitter () :
-    auth_settings =
+    ?token_store_enabled ?unauthenticated_client_action
+    ?(active_directory = []) ?(facebook = []) ?(google = [])
+    ?(microsoft = []) ?(twitter = []) ~enabled () : auth_settings =
   {
     additional_login_params;
     allowed_external_redirect_urls;
@@ -1964,8 +1964,8 @@ let logs__application_logs__azure_blob_storage ~level
     logs__application_logs__azure_blob_storage =
   { level; retention_in_days; sas_url }
 
-let logs__application_logs ?file_system_level ~azure_blob_storage ()
-    : logs__application_logs =
+let logs__application_logs ?file_system_level
+    ?(azure_blob_storage = []) () : logs__application_logs =
   { file_system_level; azure_blob_storage }
 
 let logs__http_logs__azure_blob_storage ~retention_in_days ~sas_url
@@ -1976,13 +1976,13 @@ let logs__http_logs__file_system ~retention_in_days ~retention_in_mb
     () : logs__http_logs__file_system =
   { retention_in_days; retention_in_mb }
 
-let logs__http_logs ~azure_blob_storage ~file_system () :
-    logs__http_logs =
+let logs__http_logs ?(azure_blob_storage = []) ?(file_system = []) ()
+    : logs__http_logs =
   { azure_blob_storage; file_system }
 
 let logs ?detailed_error_messages_enabled
-    ?failed_request_tracing_enabled ~application_logs ~http_logs () :
-    logs =
+    ?failed_request_tracing_enabled ?(application_logs = [])
+    ?(http_logs = []) () : logs =
   {
     detailed_error_messages_enabled;
     failed_request_tracing_enabled;
@@ -2004,7 +2004,8 @@ let site_config ?acr_use_managed_identity_credentials
     ?remote_debugging_enabled ?remote_debugging_version
     ?scm_ip_restriction ?scm_type ?scm_use_main_ip_restriction
     ?use_32_bit_worker_process ?vnet_route_all_enabled
-    ?websockets_enabled ?windows_fx_version ~cors () : site_config =
+    ?websockets_enabled ?windows_fx_version ?(cors = []) () :
+    site_config =
   {
     acr_use_managed_identity_credentials;
     acr_user_managed_identity_client_id;
@@ -2058,11 +2059,11 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_app_service ?app_settings ?client_affinity_enabled
     ?client_cert_enabled ?client_cert_mode ?enabled ?https_only ?id
-    ?key_vault_reference_identity_id ?tags ?timeouts
-    ~app_service_plan_id ~location ~name ~resource_group_name
-    ~auth_settings ~backup ~connection_string ~identity ~logs
-    ~site_config ~source_control ~storage_account () :
-    azurerm_app_service =
+    ?key_vault_reference_identity_id ?tags ?(auth_settings = [])
+    ?(backup = []) ?(identity = []) ?(logs = []) ?(site_config = [])
+    ?(source_control = []) ?timeouts ~app_service_plan_id ~location
+    ~name ~resource_group_name ~connection_string ~storage_account ()
+    : azurerm_app_service =
   {
     app_service_plan_id;
     app_settings;
@@ -2113,10 +2114,11 @@ type t = {
 
 let make ?app_settings ?client_affinity_enabled ?client_cert_enabled
     ?client_cert_mode ?enabled ?https_only ?id
-    ?key_vault_reference_identity_id ?tags ?timeouts
-    ~app_service_plan_id ~location ~name ~resource_group_name
-    ~auth_settings ~backup ~connection_string ~identity ~logs
-    ~site_config ~source_control ~storage_account __id =
+    ?key_vault_reference_identity_id ?tags ?(auth_settings = [])
+    ?(backup = []) ?(identity = []) ?(logs = []) ?(site_config = [])
+    ?(source_control = []) ?timeouts ~app_service_plan_id ~location
+    ~name ~resource_group_name ~connection_string ~storage_account
+    __id =
   let __type = "azurerm_app_service" in
   let __attrs =
     ({
@@ -2164,26 +2166,27 @@ let make ?app_settings ?client_affinity_enabled ?client_cert_enabled
         (azurerm_app_service ?app_settings ?client_affinity_enabled
            ?client_cert_enabled ?client_cert_mode ?enabled
            ?https_only ?id ?key_vault_reference_identity_id ?tags
-           ?timeouts ~app_service_plan_id ~location ~name
-           ~resource_group_name ~auth_settings ~backup
-           ~connection_string ~identity ~logs ~site_config
-           ~source_control ~storage_account ());
+           ~auth_settings ~backup ~identity ~logs ~site_config
+           ~source_control ?timeouts ~app_service_plan_id ~location
+           ~name ~resource_group_name ~connection_string
+           ~storage_account ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?app_settings ?client_affinity_enabled
     ?client_cert_enabled ?client_cert_mode ?enabled ?https_only ?id
-    ?key_vault_reference_identity_id ?tags ?timeouts
-    ~app_service_plan_id ~location ~name ~resource_group_name
-    ~auth_settings ~backup ~connection_string ~identity ~logs
-    ~site_config ~source_control ~storage_account __id =
+    ?key_vault_reference_identity_id ?tags ?(auth_settings = [])
+    ?(backup = []) ?(identity = []) ?(logs = []) ?(site_config = [])
+    ?(source_control = []) ?timeouts ~app_service_plan_id ~location
+    ~name ~resource_group_name ~connection_string ~storage_account
+    __id =
   let (r : _ Tf_core.resource) =
     make ?app_settings ?client_affinity_enabled ?client_cert_enabled
       ?client_cert_mode ?enabled ?https_only ?id
-      ?key_vault_reference_identity_id ?tags ?timeouts
+      ?key_vault_reference_identity_id ?tags ~auth_settings ~backup
+      ~identity ~logs ~site_config ~source_control ?timeouts
       ~app_service_plan_id ~location ~name ~resource_group_name
-      ~auth_settings ~backup ~connection_string ~identity ~logs
-      ~site_config ~source_control ~storage_account __id
+      ~connection_string ~storage_account __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

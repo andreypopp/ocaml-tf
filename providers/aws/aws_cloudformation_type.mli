@@ -18,9 +18,9 @@ val aws_cloudformation_type :
   ?execution_role_arn:string prop ->
   ?id:string prop ->
   ?type_:string prop ->
+  ?logging_config:logging_config list ->
   schema_handler_package:string prop ->
   type_name:string prop ->
-  logging_config:logging_config list ->
   unit ->
   aws_cloudformation_type
 
@@ -54,9 +54,9 @@ val register :
   ?execution_role_arn:string prop ->
   ?id:string prop ->
   ?type_:string prop ->
+  ?logging_config:logging_config list ->
   schema_handler_package:string prop ->
   type_name:string prop ->
-  logging_config:logging_config list ->
   string ->
   t
 
@@ -64,8 +64,8 @@ val make :
   ?execution_role_arn:string prop ->
   ?id:string prop ->
   ?type_:string prop ->
+  ?logging_config:logging_config list ->
   schema_handler_package:string prop ->
   type_name:string prop ->
-  logging_config:logging_config list ->
   string ->
   t Tf_core.resource

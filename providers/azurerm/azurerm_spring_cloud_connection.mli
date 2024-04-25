@@ -37,12 +37,12 @@ val azurerm_spring_cloud_connection :
   ?client_type:string prop ->
   ?id:string prop ->
   ?vnet_solution:string prop ->
+  ?secret_store:secret_store list ->
   ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_id:string prop ->
   target_resource_id:string prop ->
   authentication:authentication list ->
-  secret_store:secret_store list ->
   unit ->
   azurerm_spring_cloud_connection
 
@@ -65,12 +65,12 @@ val register :
   ?client_type:string prop ->
   ?id:string prop ->
   ?vnet_solution:string prop ->
+  ?secret_store:secret_store list ->
   ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_id:string prop ->
   target_resource_id:string prop ->
   authentication:authentication list ->
-  secret_store:secret_store list ->
   string ->
   t
 
@@ -78,11 +78,11 @@ val make :
   ?client_type:string prop ->
   ?id:string prop ->
   ?vnet_solution:string prop ->
+  ?secret_store:secret_store list ->
   ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_id:string prop ->
   target_resource_id:string prop ->
   authentication:authentication list ->
-  secret_store:secret_store list ->
   string ->
   t Tf_core.resource

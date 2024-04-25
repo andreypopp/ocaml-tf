@@ -55,11 +55,11 @@ val aws_ec2_client_vpn_endpoint :
   ?transport_protocol:string prop ->
   ?vpc_id:string prop ->
   ?vpn_port:float prop ->
+  ?client_connect_options:client_connect_options list ->
+  ?client_login_banner_options:client_login_banner_options list ->
   client_cidr_block:string prop ->
   server_certificate_arn:string prop ->
   authentication_options:authentication_options list ->
-  client_connect_options:client_connect_options list ->
-  client_login_banner_options:client_login_banner_options list ->
   connection_log_options:connection_log_options list ->
   unit ->
   aws_ec2_client_vpn_endpoint
@@ -103,11 +103,11 @@ val register :
   ?transport_protocol:string prop ->
   ?vpc_id:string prop ->
   ?vpn_port:float prop ->
+  ?client_connect_options:client_connect_options list ->
+  ?client_login_banner_options:client_login_banner_options list ->
   client_cidr_block:string prop ->
   server_certificate_arn:string prop ->
   authentication_options:authentication_options list ->
-  client_connect_options:client_connect_options list ->
-  client_login_banner_options:client_login_banner_options list ->
   connection_log_options:connection_log_options list ->
   string ->
   t
@@ -125,11 +125,11 @@ val make :
   ?transport_protocol:string prop ->
   ?vpc_id:string prop ->
   ?vpn_port:float prop ->
+  ?client_connect_options:client_connect_options list ->
+  ?client_login_banner_options:client_login_banner_options list ->
   client_cidr_block:string prop ->
   server_certificate_arn:string prop ->
   authentication_options:authentication_options list ->
-  client_connect_options:client_connect_options list ->
-  client_login_banner_options:client_login_banner_options list ->
   connection_log_options:connection_log_options list ->
   string ->
   t Tf_core.resource

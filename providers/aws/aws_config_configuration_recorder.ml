@@ -298,8 +298,8 @@ let recording_group__recording_strategy ?use_only () :
   { use_only }
 
 let recording_group ?all_supported ?include_global_resource_types
-    ?resource_types ~exclusion_by_resource_types ~recording_strategy
-    () : recording_group =
+    ?resource_types ?(exclusion_by_resource_types = [])
+    ?(recording_strategy = []) () : recording_group =
   {
     all_supported;
     include_global_resource_types;
@@ -313,12 +313,12 @@ let recording_mode__recording_mode_override ?description
     recording_mode__recording_mode_override =
   { description; recording_frequency; resource_types }
 
-let recording_mode ?recording_frequency ~recording_mode_override () :
-    recording_mode =
+let recording_mode ?recording_frequency
+    ?(recording_mode_override = []) () : recording_mode =
   { recording_frequency; recording_mode_override }
 
-let aws_config_configuration_recorder ?id ?name ~role_arn
-    ~recording_group ~recording_mode () :
+let aws_config_configuration_recorder ?id ?name
+    ?(recording_group = []) ?(recording_mode = []) ~role_arn () :
     aws_config_configuration_recorder =
   { id; name; role_arn; recording_group; recording_mode }
 
@@ -328,7 +328,8 @@ type t = {
   role_arn : string prop;
 }
 
-let make ?id ?name ~role_arn ~recording_group ~recording_mode __id =
+let make ?id ?name ?(recording_group = []) ?(recording_mode = [])
+    ~role_arn __id =
   let __type = "aws_config_configuration_recorder" in
   let __attrs =
     ({
@@ -343,15 +344,15 @@ let make ?id ?name ~role_arn ~recording_group ~recording_mode __id =
     type_ = __type;
     json =
       yojson_of_aws_config_configuration_recorder
-        (aws_config_configuration_recorder ?id ?name ~role_arn
-           ~recording_group ~recording_mode ());
+        (aws_config_configuration_recorder ?id ?name ~recording_group
+           ~recording_mode ~role_arn ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?name ~role_arn ~recording_group
-    ~recording_mode __id =
+let register ?tf_module ?id ?name ?(recording_group = [])
+    ?(recording_mode = []) ~role_arn __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?name ~role_arn ~recording_group ~recording_mode __id
+    make ?id ?name ~recording_group ~recording_mode ~role_arn __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

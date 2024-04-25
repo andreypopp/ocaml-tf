@@ -29,10 +29,10 @@ val azurerm_storage_account_network_rules :
   ?id:string prop ->
   ?ip_rules:string prop list ->
   ?virtual_network_subnet_ids:string prop list ->
+  ?private_link_access:private_link_access list ->
   ?timeouts:timeouts ->
   default_action:string prop ->
   storage_account_id:string prop ->
-  private_link_access:private_link_access list ->
   unit ->
   azurerm_storage_account_network_rules
 
@@ -56,10 +56,10 @@ val register :
   ?id:string prop ->
   ?ip_rules:string prop list ->
   ?virtual_network_subnet_ids:string prop list ->
+  ?private_link_access:private_link_access list ->
   ?timeouts:timeouts ->
   default_action:string prop ->
   storage_account_id:string prop ->
-  private_link_access:private_link_access list ->
   string ->
   t
 
@@ -68,9 +68,9 @@ val make :
   ?id:string prop ->
   ?ip_rules:string prop list ->
   ?virtual_network_subnet_ids:string prop list ->
+  ?private_link_access:private_link_access list ->
   ?timeouts:timeouts ->
   default_action:string prop ->
   storage_account_id:string prop ->
-  private_link_access:private_link_access list ->
   string ->
   t Tf_core.resource

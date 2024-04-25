@@ -58,12 +58,12 @@ val azurerm_databricks_workspace :
   ?network_security_group_rules_required:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?custom_parameters:custom_parameters list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  custom_parameters:custom_parameters list ->
   unit ->
   azurerm_databricks_workspace
 
@@ -109,12 +109,12 @@ val register :
   ?network_security_group_rules_required:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?custom_parameters:custom_parameters list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  custom_parameters:custom_parameters list ->
   string ->
   t
 
@@ -130,11 +130,11 @@ val make :
   ?network_security_group_rules_required:string prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?custom_parameters:custom_parameters list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  custom_parameters:custom_parameters list ->
   string ->
   t Tf_core.resource

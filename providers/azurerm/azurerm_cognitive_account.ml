@@ -551,8 +551,9 @@ let azurerm_cognitive_account
     ?metrics_advisor_aad_tenant_id ?metrics_advisor_super_user_name
     ?metrics_advisor_website_name ?outbound_network_access_restricted
     ?public_network_access_enabled ?qna_runtime_endpoint ?tags
-    ?timeouts ~kind ~location ~name ~resource_group_name ~sku_name
-    ~customer_managed_key ~identity ~network_acls ~storage () :
+    ?(customer_managed_key = []) ?(identity = [])
+    ?(network_acls = []) ?(storage = []) ?timeouts ~kind ~location
+    ~name ~resource_group_name ~sku_name () :
     azurerm_cognitive_account =
   {
     custom_question_answering_search_service_id;
@@ -615,8 +616,9 @@ let make ?custom_question_answering_search_service_id
     ?metrics_advisor_aad_tenant_id ?metrics_advisor_super_user_name
     ?metrics_advisor_website_name ?outbound_network_access_restricted
     ?public_network_access_enabled ?qna_runtime_endpoint ?tags
-    ?timeouts ~kind ~location ~name ~resource_group_name ~sku_name
-    ~customer_managed_key ~identity ~network_acls ~storage __id =
+    ?(customer_managed_key = []) ?(identity = [])
+    ?(network_acls = []) ?(storage = []) ?timeouts ~kind ~location
+    ~name ~resource_group_name ~sku_name __id =
   let __type = "azurerm_cognitive_account" in
   let __attrs =
     ({
@@ -679,9 +681,9 @@ let make ?custom_question_answering_search_service_id
            ?metrics_advisor_website_name
            ?outbound_network_access_restricted
            ?public_network_access_enabled ?qna_runtime_endpoint ?tags
+           ~customer_managed_key ~identity ~network_acls ~storage
            ?timeouts ~kind ~location ~name ~resource_group_name
-           ~sku_name ~customer_managed_key ~identity ~network_acls
-           ~storage ());
+           ~sku_name ());
     attrs = __attrs;
   }
 
@@ -692,8 +694,9 @@ let register ?tf_module ?custom_question_answering_search_service_id
     ?metrics_advisor_aad_tenant_id ?metrics_advisor_super_user_name
     ?metrics_advisor_website_name ?outbound_network_access_restricted
     ?public_network_access_enabled ?qna_runtime_endpoint ?tags
-    ?timeouts ~kind ~location ~name ~resource_group_name ~sku_name
-    ~customer_managed_key ~identity ~network_acls ~storage __id =
+    ?(customer_managed_key = []) ?(identity = [])
+    ?(network_acls = []) ?(storage = []) ?timeouts ~kind ~location
+    ~name ~resource_group_name ~sku_name __id =
   let (r : _ Tf_core.resource) =
     make ?custom_question_answering_search_service_id
       ?custom_question_answering_search_service_key
@@ -703,8 +706,9 @@ let register ?tf_module ?custom_question_answering_search_service_id
       ?metrics_advisor_website_name
       ?outbound_network_access_restricted
       ?public_network_access_enabled ?qna_runtime_endpoint ?tags
+      ~customer_managed_key ~identity ~network_acls ~storage
       ?timeouts ~kind ~location ~name ~resource_group_name ~sku_name
-      ~customer_managed_key ~identity ~network_acls ~storage __id
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

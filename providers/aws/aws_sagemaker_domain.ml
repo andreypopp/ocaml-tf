@@ -2630,8 +2630,9 @@ let default_space_settings__jupyter_server_app_settings__default_resource_spec
   }
 
 let default_space_settings__jupyter_server_app_settings
-    ?lifecycle_config_arns ~code_repository ~default_resource_spec ()
-    : default_space_settings__jupyter_server_app_settings =
+    ?lifecycle_config_arns ?(default_resource_spec = [])
+    ~code_repository () :
+    default_space_settings__jupyter_server_app_settings =
   { lifecycle_config_arns; code_repository; default_resource_spec }
 
 let default_space_settings__kernel_gateway_app_settings__custom_image
@@ -2654,12 +2655,14 @@ let default_space_settings__kernel_gateway_app_settings__default_resource_spec
   }
 
 let default_space_settings__kernel_gateway_app_settings
-    ?lifecycle_config_arns ~custom_image ~default_resource_spec () :
+    ?lifecycle_config_arns ?(custom_image = [])
+    ?(default_resource_spec = []) () :
     default_space_settings__kernel_gateway_app_settings =
   { lifecycle_config_arns; custom_image; default_resource_spec }
 
-let default_space_settings ?security_groups ~execution_role
-    ~jupyter_server_app_settings ~kernel_gateway_app_settings () :
+let default_space_settings ?security_groups
+    ?(jupyter_server_app_settings = [])
+    ?(kernel_gateway_app_settings = []) ~execution_role () :
     default_space_settings =
   {
     execution_role;
@@ -2703,9 +2706,11 @@ let default_user_settings__canvas_app_settings__workspace_settings
   { s3_artifact_path; s3_kms_key_id }
 
 let default_user_settings__canvas_app_settings
-    ~direct_deploy_settings ~identity_provider_oauth_settings
-    ~kendra_settings ~model_register_settings
-    ~time_series_forecasting_settings ~workspace_settings () :
+    ?(direct_deploy_settings = [])
+    ?(identity_provider_oauth_settings = []) ?(kendra_settings = [])
+    ?(model_register_settings = [])
+    ?(time_series_forecasting_settings = [])
+    ?(workspace_settings = []) () :
     default_user_settings__canvas_app_settings =
   {
     direct_deploy_settings;
@@ -2730,7 +2735,7 @@ let default_user_settings__code_editor_app_settings__default_resource_spec
   }
 
 let default_user_settings__code_editor_app_settings
-    ?lifecycle_config_arns ~default_resource_spec () :
+    ?lifecycle_config_arns ?(default_resource_spec = []) () :
     default_user_settings__code_editor_app_settings =
   { lifecycle_config_arns; default_resource_spec }
 
@@ -2741,7 +2746,7 @@ let default_user_settings__custom_file_system_config__efs_file_system_config
   { file_system_id; file_system_path }
 
 let default_user_settings__custom_file_system_config
-    ~efs_file_system_config () :
+    ?(efs_file_system_config = []) () :
     default_user_settings__custom_file_system_config =
   { efs_file_system_config }
 
@@ -2774,8 +2779,8 @@ let default_user_settings__jupyter_lab_app_settings__default_resource_spec
   }
 
 let default_user_settings__jupyter_lab_app_settings
-    ?lifecycle_config_arns ~code_repository ~custom_image
-    ~default_resource_spec () :
+    ?lifecycle_config_arns ?(custom_image = [])
+    ?(default_resource_spec = []) ~code_repository () :
     default_user_settings__jupyter_lab_app_settings =
   {
     lifecycle_config_arns;
@@ -2804,8 +2809,9 @@ let default_user_settings__jupyter_server_app_settings__default_resource_spec
   }
 
 let default_user_settings__jupyter_server_app_settings
-    ?lifecycle_config_arns ~code_repository ~default_resource_spec ()
-    : default_user_settings__jupyter_server_app_settings =
+    ?lifecycle_config_arns ?(default_resource_spec = [])
+    ~code_repository () :
+    default_user_settings__jupyter_server_app_settings =
   { lifecycle_config_arns; code_repository; default_resource_spec }
 
 let default_user_settings__kernel_gateway_app_settings__custom_image
@@ -2828,7 +2834,8 @@ let default_user_settings__kernel_gateway_app_settings__default_resource_spec
   }
 
 let default_user_settings__kernel_gateway_app_settings
-    ?lifecycle_config_arns ~custom_image ~default_resource_spec () :
+    ?lifecycle_config_arns ?(custom_image = [])
+    ?(default_resource_spec = []) () :
     default_user_settings__kernel_gateway_app_settings =
   { lifecycle_config_arns; custom_image; default_resource_spec }
 
@@ -2850,8 +2857,8 @@ let default_user_settings__r_session_app_settings__default_resource_spec
     sagemaker_image_version_arn;
   }
 
-let default_user_settings__r_session_app_settings ~custom_image
-    ~default_resource_spec () :
+let default_user_settings__r_session_app_settings
+    ?(custom_image = []) ?(default_resource_spec = []) () :
     default_user_settings__r_session_app_settings =
   { custom_image; default_resource_spec }
 
@@ -2873,7 +2880,7 @@ let default_user_settings__space_storage_settings__default_ebs_storage_settings
   { default_ebs_volume_size_in_gb; maximum_ebs_volume_size_in_gb }
 
 let default_user_settings__space_storage_settings
-    ~default_ebs_storage_settings () :
+    ?(default_ebs_storage_settings = []) () :
     default_user_settings__space_storage_settings =
   { default_ebs_storage_settings }
 
@@ -2891,18 +2898,21 @@ let default_user_settings__tensor_board_app_settings__default_resource_spec
   }
 
 let default_user_settings__tensor_board_app_settings
-    ~default_resource_spec () :
+    ?(default_resource_spec = []) () :
     default_user_settings__tensor_board_app_settings =
   { default_resource_spec }
 
 let default_user_settings ?default_landing_uri ?security_groups
-    ?studio_web_portal ~execution_role ~canvas_app_settings
-    ~code_editor_app_settings ~custom_file_system_config
-    ~custom_posix_user_config ~jupyter_lab_app_settings
-    ~jupyter_server_app_settings ~kernel_gateway_app_settings
-    ~r_session_app_settings ~r_studio_server_pro_app_settings
-    ~sharing_settings ~space_storage_settings
-    ~tensor_board_app_settings () : default_user_settings =
+    ?studio_web_portal ?(canvas_app_settings = [])
+    ?(code_editor_app_settings = [])
+    ?(custom_file_system_config = [])
+    ?(custom_posix_user_config = []) ?(jupyter_lab_app_settings = [])
+    ?(jupyter_server_app_settings = [])
+    ?(kernel_gateway_app_settings = [])
+    ?(r_session_app_settings = [])
+    ?(r_studio_server_pro_app_settings = []) ?(sharing_settings = [])
+    ?(space_storage_settings = []) ?(tensor_board_app_settings = [])
+    ~execution_role () : default_user_settings =
   {
     default_landing_uri;
     execution_role;
@@ -2937,7 +2947,7 @@ let domain_settings__r_studio_server_pro_domain_settings__default_resource_spec
 
 let domain_settings__r_studio_server_pro_domain_settings
     ?r_studio_connect_url ?r_studio_package_manager_url
-    ~domain_execution_role_arn ~default_resource_spec () :
+    ?(default_resource_spec = []) ~domain_execution_role_arn () :
     domain_settings__r_studio_server_pro_domain_settings =
   {
     domain_execution_role_arn;
@@ -2947,8 +2957,8 @@ let domain_settings__r_studio_server_pro_domain_settings
   }
 
 let domain_settings ?execution_role_identity_config
-    ?security_group_ids ~r_studio_server_pro_domain_settings () :
-    domain_settings =
+    ?security_group_ids ?(r_studio_server_pro_domain_settings = [])
+    () : domain_settings =
   {
     execution_role_identity_config;
     security_group_ids;
@@ -2960,9 +2970,9 @@ let retention_policy ?home_efs_file_system () : retention_policy =
 
 let aws_sagemaker_domain ?app_network_access_type
     ?app_security_group_management ?id ?kms_key_id ?tags ?tags_all
-    ~auth_mode ~domain_name ~subnet_ids ~vpc_id
-    ~default_space_settings ~default_user_settings ~domain_settings
-    ~retention_policy () : aws_sagemaker_domain =
+    ?(default_space_settings = []) ?(domain_settings = [])
+    ?(retention_policy = []) ~auth_mode ~domain_name ~subnet_ids
+    ~vpc_id ~default_user_settings () : aws_sagemaker_domain =
   {
     app_network_access_type;
     app_security_group_management;
@@ -3000,9 +3010,9 @@ type t = {
 }
 
 let make ?app_network_access_type ?app_security_group_management ?id
-    ?kms_key_id ?tags ?tags_all ~auth_mode ~domain_name ~subnet_ids
-    ~vpc_id ~default_space_settings ~default_user_settings
-    ~domain_settings ~retention_policy __id =
+    ?kms_key_id ?tags ?tags_all ?(default_space_settings = [])
+    ?(domain_settings = []) ?(retention_policy = []) ~auth_mode
+    ~domain_name ~subnet_ids ~vpc_id ~default_user_settings __id =
   let __type = "aws_sagemaker_domain" in
   let __attrs =
     ({
@@ -3040,22 +3050,22 @@ let make ?app_network_access_type ?app_security_group_management ?id
       yojson_of_aws_sagemaker_domain
         (aws_sagemaker_domain ?app_network_access_type
            ?app_security_group_management ?id ?kms_key_id ?tags
-           ?tags_all ~auth_mode ~domain_name ~subnet_ids ~vpc_id
-           ~default_space_settings ~default_user_settings
-           ~domain_settings ~retention_policy ());
+           ?tags_all ~default_space_settings ~domain_settings
+           ~retention_policy ~auth_mode ~domain_name ~subnet_ids
+           ~vpc_id ~default_user_settings ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?app_network_access_type
     ?app_security_group_management ?id ?kms_key_id ?tags ?tags_all
-    ~auth_mode ~domain_name ~subnet_ids ~vpc_id
-    ~default_space_settings ~default_user_settings ~domain_settings
-    ~retention_policy __id =
+    ?(default_space_settings = []) ?(domain_settings = [])
+    ?(retention_policy = []) ~auth_mode ~domain_name ~subnet_ids
+    ~vpc_id ~default_user_settings __id =
   let (r : _ Tf_core.resource) =
     make ?app_network_access_type ?app_security_group_management ?id
-      ?kms_key_id ?tags ?tags_all ~auth_mode ~domain_name ~subnet_ids
-      ~vpc_id ~default_space_settings ~default_user_settings
-      ~domain_settings ~retention_policy __id
+      ?kms_key_id ?tags ?tags_all ~default_space_settings
+      ~domain_settings ~retention_policy ~auth_mode ~domain_name
+      ~subnet_ids ~vpc_id ~default_user_settings __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

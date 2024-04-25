@@ -222,8 +222,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_spring_cloud_dev_tool_portal
     ?application_accelerator_enabled ?application_live_view_enabled
-    ?id ?public_network_access_enabled ?timeouts ~name
-    ~spring_cloud_service_id ~sso () :
+    ?id ?public_network_access_enabled ?(sso = []) ?timeouts ~name
+    ~spring_cloud_service_id () :
     azurerm_spring_cloud_dev_tool_portal =
   {
     application_accelerator_enabled;
@@ -247,7 +247,7 @@ type t = {
 
 let make ?application_accelerator_enabled
     ?application_live_view_enabled ?id ?public_network_access_enabled
-    ?timeouts ~name ~spring_cloud_service_id ~sso __id =
+    ?(sso = []) ?timeouts ~name ~spring_cloud_service_id __id =
   let __type = "azurerm_spring_cloud_dev_tool_portal" in
   let __attrs =
     ({
@@ -272,19 +272,19 @@ let make ?application_accelerator_enabled
         (azurerm_spring_cloud_dev_tool_portal
            ?application_accelerator_enabled
            ?application_live_view_enabled ?id
-           ?public_network_access_enabled ?timeouts ~name
-           ~spring_cloud_service_id ~sso ());
+           ?public_network_access_enabled ~sso ?timeouts ~name
+           ~spring_cloud_service_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?application_accelerator_enabled
     ?application_live_view_enabled ?id ?public_network_access_enabled
-    ?timeouts ~name ~spring_cloud_service_id ~sso __id =
+    ?(sso = []) ?timeouts ~name ~spring_cloud_service_id __id =
   let (r : _ Tf_core.resource) =
     make ?application_accelerator_enabled
       ?application_live_view_enabled ?id
-      ?public_network_access_enabled ?timeouts ~name
-      ~spring_cloud_service_id ~sso __id
+      ?public_network_access_enabled ~sso ?timeouts ~name
+      ~spring_cloud_service_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

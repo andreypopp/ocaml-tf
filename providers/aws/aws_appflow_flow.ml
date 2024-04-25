@@ -3259,7 +3259,7 @@ let destination_flow_config__destination_connector_properties__custom_connector_
 
 let destination_flow_config__destination_connector_properties__custom_connector
     ?custom_properties ?id_field_names ?write_operation_type
-    ~entity_name ~error_handling_config () :
+    ?(error_handling_config = []) ~entity_name () :
     destination_flow_config__destination_connector_properties__custom_connector
     =
   {
@@ -3283,7 +3283,7 @@ let destination_flow_config__destination_connector_properties__event_bridge__err
   { bucket_name; bucket_prefix; fail_on_first_destination_error }
 
 let destination_flow_config__destination_connector_properties__event_bridge
-    ~object_ ~error_handling_config () :
+    ?(error_handling_config = []) ~object_ () :
     destination_flow_config__destination_connector_properties__event_bridge
     =
   { object_; error_handling_config }
@@ -3295,7 +3295,7 @@ let destination_flow_config__destination_connector_properties__honeycode__error_
   { bucket_name; bucket_prefix; fail_on_first_destination_error }
 
 let destination_flow_config__destination_connector_properties__honeycode
-    ~object_ ~error_handling_config () :
+    ?(error_handling_config = []) ~object_ () :
     destination_flow_config__destination_connector_properties__honeycode
     =
   { object_; error_handling_config }
@@ -3311,7 +3311,7 @@ let destination_flow_config__destination_connector_properties__marketo__error_ha
   { bucket_name; bucket_prefix; fail_on_first_destination_error }
 
 let destination_flow_config__destination_connector_properties__marketo
-    ~object_ ~error_handling_config () :
+    ?(error_handling_config = []) ~object_ () :
     destination_flow_config__destination_connector_properties__marketo
     =
   { object_; error_handling_config }
@@ -3323,8 +3323,8 @@ let destination_flow_config__destination_connector_properties__redshift__error_h
   { bucket_name; bucket_prefix; fail_on_first_destination_error }
 
 let destination_flow_config__destination_connector_properties__redshift
-    ?bucket_prefix ~intermediate_bucket_name ~object_
-    ~error_handling_config () :
+    ?bucket_prefix ?(error_handling_config = [])
+    ~intermediate_bucket_name ~object_ () :
     destination_flow_config__destination_connector_properties__redshift
     =
   {
@@ -3347,8 +3347,8 @@ let destination_flow_config__destination_connector_properties__s3__s3_output_for
   { prefix_format; prefix_type }
 
 let destination_flow_config__destination_connector_properties__s3__s3_output_format_config
-    ?file_type ?preserve_source_data_typing ~aggregation_config
-    ~prefix_config () :
+    ?file_type ?preserve_source_data_typing
+    ?(aggregation_config = []) ?(prefix_config = []) () :
     destination_flow_config__destination_connector_properties__s3__s3_output_format_config
     =
   {
@@ -3359,7 +3359,7 @@ let destination_flow_config__destination_connector_properties__s3__s3_output_for
   }
 
 let destination_flow_config__destination_connector_properties__s3
-    ?bucket_prefix ~bucket_name ~s3_output_format_config () :
+    ?bucket_prefix ?(s3_output_format_config = []) ~bucket_name () :
     destination_flow_config__destination_connector_properties__s3 =
   { bucket_name; bucket_prefix; s3_output_format_config }
 
@@ -3370,8 +3370,8 @@ let destination_flow_config__destination_connector_properties__salesforce__error
   { bucket_name; bucket_prefix; fail_on_first_destination_error }
 
 let destination_flow_config__destination_connector_properties__salesforce
-    ?id_field_names ?write_operation_type ~object_
-    ~error_handling_config () :
+    ?id_field_names ?write_operation_type
+    ?(error_handling_config = []) ~object_ () :
     destination_flow_config__destination_connector_properties__salesforce
     =
   {
@@ -3394,8 +3394,9 @@ let destination_flow_config__destination_connector_properties__sapo_data__succes
   { bucket_name; bucket_prefix }
 
 let destination_flow_config__destination_connector_properties__sapo_data
-    ?id_field_names ?write_operation_type ~object_path
-    ~error_handling_config ~success_response_handling_config () :
+    ?id_field_names ?write_operation_type
+    ?(error_handling_config = [])
+    ?(success_response_handling_config = []) ~object_path () :
     destination_flow_config__destination_connector_properties__sapo_data
     =
   {
@@ -3413,8 +3414,8 @@ let destination_flow_config__destination_connector_properties__snowflake__error_
   { bucket_name; bucket_prefix; fail_on_first_destination_error }
 
 let destination_flow_config__destination_connector_properties__snowflake
-    ?bucket_prefix ~intermediate_bucket_name ~object_
-    ~error_handling_config () :
+    ?bucket_prefix ?(error_handling_config = [])
+    ~intermediate_bucket_name ~object_ () :
     destination_flow_config__destination_connector_properties__snowflake
     =
   {
@@ -3437,7 +3438,7 @@ let destination_flow_config__destination_connector_properties__upsolver__s3_outp
   { prefix_format; prefix_type }
 
 let destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config
-    ?file_type ~aggregation_config ~prefix_config () :
+    ?file_type ?(aggregation_config = []) ~prefix_config () :
     destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config
     =
   { file_type; aggregation_config; prefix_config }
@@ -3455,8 +3456,8 @@ let destination_flow_config__destination_connector_properties__zendesk__error_ha
   { bucket_name; bucket_prefix; fail_on_first_destination_error }
 
 let destination_flow_config__destination_connector_properties__zendesk
-    ?id_field_names ?write_operation_type ~object_
-    ~error_handling_config () :
+    ?id_field_names ?write_operation_type
+    ?(error_handling_config = []) ~object_ () :
     destination_flow_config__destination_connector_properties__zendesk
     =
   {
@@ -3467,9 +3468,11 @@ let destination_flow_config__destination_connector_properties__zendesk
   }
 
 let destination_flow_config__destination_connector_properties
-    ~custom_connector ~customer_profiles ~event_bridge ~honeycode
-    ~lookout_metrics ~marketo ~redshift ~s3 ~salesforce ~sapo_data
-    ~snowflake ~upsolver ~zendesk () :
+    ?(custom_connector = []) ?(customer_profiles = [])
+    ?(event_bridge = []) ?(honeycode = []) ?(lookout_metrics = [])
+    ?(marketo = []) ?(redshift = []) ?(s3 = []) ?(salesforce = [])
+    ?(sapo_data = []) ?(snowflake = []) ?(upsolver = [])
+    ?(zendesk = []) () :
     destination_flow_config__destination_connector_properties =
   {
     custom_connector;
@@ -3543,8 +3546,8 @@ let source_flow_config__source_connector_properties__s3__s3_input_format_config
     =
   { s3_input_file_type }
 
-let source_flow_config__source_connector_properties__s3 ~bucket_name
-    ~bucket_prefix ~s3_input_format_config () :
+let source_flow_config__source_connector_properties__s3
+    ?(s3_input_format_config = []) ~bucket_name ~bucket_prefix () :
     source_flow_config__source_connector_properties__s3 =
   { bucket_name; bucket_prefix; s3_input_format_config }
 
@@ -3593,10 +3596,12 @@ let source_flow_config__source_connector_properties__zendesk ~object_
     () : source_flow_config__source_connector_properties__zendesk =
   { object_ }
 
-let source_flow_config__source_connector_properties ~amplitude
-    ~custom_connector ~datadog ~dynatrace ~google_analytics
-    ~infor_nexus ~marketo ~s3 ~salesforce ~sapo_data ~service_now
-    ~singular ~slack ~trendmicro ~veeva ~zendesk () :
+let source_flow_config__source_connector_properties ?(amplitude = [])
+    ?(custom_connector = []) ?(datadog = []) ?(dynatrace = [])
+    ?(google_analytics = []) ?(infor_nexus = []) ?(marketo = [])
+    ?(s3 = []) ?(salesforce = []) ?(sapo_data = [])
+    ?(service_now = []) ?(singular = []) ?(slack = [])
+    ?(trendmicro = []) ?(veeva = []) ?(zendesk = []) () :
     source_flow_config__source_connector_properties =
   {
     amplitude;
@@ -3618,7 +3623,7 @@ let source_flow_config__source_connector_properties ~amplitude
   }
 
 let source_flow_config ?api_version ?connector_profile_name
-    ~connector_type ~incremental_pull_config
+    ?(incremental_pull_config = []) ~connector_type
     ~source_connector_properties () : source_flow_config =
   {
     api_version;
@@ -3652,7 +3657,7 @@ let task__connector_operator ?amplitude ?custom_connector ?datadog
   }
 
 let task ?destination_field ?source_fields ?task_properties
-    ~task_type ~connector_operator () : task =
+    ?(connector_operator = []) ~task_type () : task =
   {
     destination_field;
     source_fields;
@@ -3675,11 +3680,11 @@ let trigger_config__trigger_properties__scheduled ?data_pull_mode
     timezone;
   }
 
-let trigger_config__trigger_properties ~scheduled () :
+let trigger_config__trigger_properties ?(scheduled = []) () :
     trigger_config__trigger_properties =
   { scheduled }
 
-let trigger_config ~trigger_type ~trigger_properties () :
+let trigger_config ?(trigger_properties = []) ~trigger_type () :
     trigger_config =
   { trigger_type; trigger_properties }
 

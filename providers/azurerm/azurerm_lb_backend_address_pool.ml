@@ -184,7 +184,7 @@ let tunnel_interface ~identifier ~port ~protocol ~type_ () :
   { identifier; port; protocol; type_ }
 
 let azurerm_lb_backend_address_pool ?id ?virtual_network_id ?timeouts
-    ~loadbalancer_id ~name ~tunnel_interface () :
+    ?(tunnel_interface = []) ~loadbalancer_id ~name () :
     azurerm_lb_backend_address_pool =
   {
     id;
@@ -206,8 +206,8 @@ type t = {
   virtual_network_id : string prop;
 }
 
-let make ?id ?virtual_network_id ?timeouts ~loadbalancer_id ~name
-    ~tunnel_interface __id =
+let make ?id ?virtual_network_id ?timeouts ?(tunnel_interface = [])
+    ~loadbalancer_id ~name __id =
   let __type = "azurerm_lb_backend_address_pool" in
   let __attrs =
     ({
@@ -232,15 +232,15 @@ let make ?id ?virtual_network_id ?timeouts ~loadbalancer_id ~name
     json =
       yojson_of_azurerm_lb_backend_address_pool
         (azurerm_lb_backend_address_pool ?id ?virtual_network_id
-           ?timeouts ~loadbalancer_id ~name ~tunnel_interface ());
+           ?timeouts ~tunnel_interface ~loadbalancer_id ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?virtual_network_id ?timeouts
-    ~loadbalancer_id ~name ~tunnel_interface __id =
+    ?(tunnel_interface = []) ~loadbalancer_id ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?virtual_network_id ?timeouts ~loadbalancer_id ~name
-      ~tunnel_interface __id
+    make ?id ?virtual_network_id ?timeouts ~tunnel_interface
+      ~loadbalancer_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

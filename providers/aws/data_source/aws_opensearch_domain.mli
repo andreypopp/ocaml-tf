@@ -129,8 +129,8 @@ type aws_opensearch_domain
 val aws_opensearch_domain :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?off_peak_window_options:off_peak_window_options list ->
   domain_name:string prop ->
-  off_peak_window_options:off_peak_window_options list ->
   unit ->
   aws_opensearch_domain
 
@@ -170,15 +170,15 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?off_peak_window_options:off_peak_window_options list ->
   domain_name:string prop ->
-  off_peak_window_options:off_peak_window_options list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?off_peak_window_options:off_peak_window_options list ->
   domain_name:string prop ->
-  off_peak_window_options:off_peak_window_options list ->
   string ->
   t Tf_core.resource

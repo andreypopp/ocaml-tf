@@ -18,9 +18,9 @@ type aws_vpc_peering_connection_options
 
 val aws_vpc_peering_connection_options :
   ?id:string prop ->
+  ?accepter:accepter list ->
+  ?requester:requester list ->
   vpc_peering_connection_id:string prop ->
-  accepter:accepter list ->
-  requester:requester list ->
   unit ->
   aws_vpc_peering_connection_options
 
@@ -37,16 +37,16 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?accepter:accepter list ->
+  ?requester:requester list ->
   vpc_peering_connection_id:string prop ->
-  accepter:accepter list ->
-  requester:requester list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?accepter:accepter list ->
+  ?requester:requester list ->
   vpc_peering_connection_id:string prop ->
-  accepter:accepter list ->
-  requester:requester list ->
   string ->
   t Tf_core.resource

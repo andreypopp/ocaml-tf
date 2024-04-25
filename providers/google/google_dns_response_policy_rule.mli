@@ -33,11 +33,11 @@ type google_dns_response_policy_rule
 val google_dns_response_policy_rule :
   ?id:string prop ->
   ?project:string prop ->
+  ?local_data:local_data list ->
   ?timeouts:timeouts ->
   dns_name:string prop ->
   response_policy:string prop ->
   rule_name:string prop ->
-  local_data:local_data list ->
   unit ->
   google_dns_response_policy_rule
 
@@ -58,21 +58,21 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
+  ?local_data:local_data list ->
   ?timeouts:timeouts ->
   dns_name:string prop ->
   response_policy:string prop ->
   rule_name:string prop ->
-  local_data:local_data list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?project:string prop ->
+  ?local_data:local_data list ->
   ?timeouts:timeouts ->
   dns_name:string prop ->
   response_policy:string prop ->
   rule_name:string prop ->
-  local_data:local_data list ->
   string ->
   t Tf_core.resource

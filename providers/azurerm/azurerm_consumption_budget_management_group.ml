@@ -495,12 +495,14 @@ let filter__not__dimension ?operator ~name ~values () :
 let filter__not__tag ?operator ~name ~values () : filter__not__tag =
   { name; operator; values }
 
-let filter__not ~dimension ~tag () : filter__not = { dimension; tag }
+let filter__not ?(dimension = []) ?(tag = []) () : filter__not =
+  { dimension; tag }
 
 let filter__tag ?operator ~name ~values () : filter__tag =
   { name; operator; values }
 
-let filter ~dimension ~not ~tag () : filter = { dimension; not; tag }
+let filter ?(not = []) ~dimension ~tag () : filter =
+  { dimension; not; tag }
 
 let notification ?enabled ?threshold_type ~contact_emails ~operator
     ~threshold () : notification =
@@ -513,7 +515,7 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_consumption_budget_management_group ?etag ?id ?time_grain
-    ?timeouts ~amount ~management_group_id ~name ~filter
+    ?(filter = []) ?timeouts ~amount ~management_group_id ~name
     ~notification ~time_period () :
     azurerm_consumption_budget_management_group =
   {
@@ -538,8 +540,8 @@ type t = {
   time_grain : string prop;
 }
 
-let make ?etag ?id ?time_grain ?timeouts ~amount ~management_group_id
-    ~name ~filter ~notification ~time_period __id =
+let make ?etag ?id ?time_grain ?(filter = []) ?timeouts ~amount
+    ~management_group_id ~name ~notification ~time_period __id =
   let __type = "azurerm_consumption_budget_management_group" in
   let __attrs =
     ({
@@ -559,17 +561,17 @@ let make ?etag ?id ?time_grain ?timeouts ~amount ~management_group_id
     json =
       yojson_of_azurerm_consumption_budget_management_group
         (azurerm_consumption_budget_management_group ?etag ?id
-           ?time_grain ?timeouts ~amount ~management_group_id ~name
-           ~filter ~notification ~time_period ());
+           ?time_grain ~filter ?timeouts ~amount ~management_group_id
+           ~name ~notification ~time_period ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?etag ?id ?time_grain ?timeouts ~amount
-    ~management_group_id ~name ~filter ~notification ~time_period
-    __id =
+let register ?tf_module ?etag ?id ?time_grain ?(filter = [])
+    ?timeouts ~amount ~management_group_id ~name ~notification
+    ~time_period __id =
   let (r : _ Tf_core.resource) =
-    make ?etag ?id ?time_grain ?timeouts ~amount ~management_group_id
-      ~name ~filter ~notification ~time_period __id
+    make ?etag ?id ?time_grain ~filter ?timeouts ~amount
+      ~management_group_id ~name ~notification ~time_period __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

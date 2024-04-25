@@ -973,7 +973,7 @@ let bgp_settings__peering_addresses ?apipa_addresses
     ?ip_configuration_name () : bgp_settings__peering_addresses =
   { apipa_addresses; ip_configuration_name }
 
-let bgp_settings ?asn ?peer_weight ~peering_addresses () :
+let bgp_settings ?asn ?peer_weight ?(peering_addresses = []) () :
     bgp_settings =
   { asn; peer_weight; peering_addresses }
 
@@ -1036,9 +1036,9 @@ let vpn_client_configuration__virtual_network_gateway_client_connection
 
 let vpn_client_configuration ?aad_audience ?aad_issuer ?aad_tenant
     ?radius_server_address ?radius_server_secret ?vpn_auth_types
-    ?vpn_client_protocols ~address_space ~ipsec_policy ~radius_server
-    ~revoked_certificate ~root_certificate
-    ~virtual_network_gateway_client_connection () :
+    ?vpn_client_protocols ?(ipsec_policy = []) ?(radius_server = [])
+    ?(virtual_network_gateway_client_connection = []) ~address_space
+    ~revoked_certificate ~root_certificate () :
     vpn_client_configuration =
   {
     aad_audience;
@@ -1062,10 +1062,10 @@ let azurerm_virtual_network_gateway ?active_active
     ?edge_zone ?enable_bgp ?generation ?id
     ?ip_sec_replay_protection_enabled ?private_ip_address_enabled
     ?remote_vnet_traffic_enabled ?tags ?virtual_wan_traffic_enabled
-    ?vpn_type ?timeouts ~location ~name ~resource_group_name ~sku
-    ~type_ ~bgp_settings ~custom_route ~ip_configuration
-    ~policy_group ~vpn_client_configuration () :
-    azurerm_virtual_network_gateway =
+    ?vpn_type ?(bgp_settings = []) ?(custom_route = [])
+    ?(policy_group = []) ?timeouts ?(vpn_client_configuration = [])
+    ~location ~name ~resource_group_name ~sku ~type_
+    ~ip_configuration () : azurerm_virtual_network_gateway =
   {
     active_active;
     bgp_route_translation_for_nat_enabled;
@@ -1121,9 +1121,10 @@ let make ?active_active ?bgp_route_translation_for_nat_enabled
     ?edge_zone ?enable_bgp ?generation ?id
     ?ip_sec_replay_protection_enabled ?private_ip_address_enabled
     ?remote_vnet_traffic_enabled ?tags ?virtual_wan_traffic_enabled
-    ?vpn_type ?timeouts ~location ~name ~resource_group_name ~sku
-    ~type_ ~bgp_settings ~custom_route ~ip_configuration
-    ~policy_group ~vpn_client_configuration __id =
+    ?vpn_type ?(bgp_settings = []) ?(custom_route = [])
+    ?(policy_group = []) ?timeouts ?(vpn_client_configuration = [])
+    ~location ~name ~resource_group_name ~sku ~type_
+    ~ip_configuration __id =
   let __type = "azurerm_virtual_network_gateway" in
   let __attrs =
     ({
@@ -1169,10 +1170,10 @@ let make ?active_active ?bgp_route_translation_for_nat_enabled
            ?edge_zone ?enable_bgp ?generation ?id
            ?ip_sec_replay_protection_enabled
            ?private_ip_address_enabled ?remote_vnet_traffic_enabled
-           ?tags ?virtual_wan_traffic_enabled ?vpn_type ?timeouts
-           ~location ~name ~resource_group_name ~sku ~type_
-           ~bgp_settings ~custom_route ~ip_configuration
-           ~policy_group ~vpn_client_configuration ());
+           ?tags ?virtual_wan_traffic_enabled ?vpn_type ~bgp_settings
+           ~custom_route ~policy_group ?timeouts
+           ~vpn_client_configuration ~location ~name
+           ~resource_group_name ~sku ~type_ ~ip_configuration ());
     attrs = __attrs;
   }
 
@@ -1182,18 +1183,19 @@ let register ?tf_module ?active_active
     ?edge_zone ?enable_bgp ?generation ?id
     ?ip_sec_replay_protection_enabled ?private_ip_address_enabled
     ?remote_vnet_traffic_enabled ?tags ?virtual_wan_traffic_enabled
-    ?vpn_type ?timeouts ~location ~name ~resource_group_name ~sku
-    ~type_ ~bgp_settings ~custom_route ~ip_configuration
-    ~policy_group ~vpn_client_configuration __id =
+    ?vpn_type ?(bgp_settings = []) ?(custom_route = [])
+    ?(policy_group = []) ?timeouts ?(vpn_client_configuration = [])
+    ~location ~name ~resource_group_name ~sku ~type_
+    ~ip_configuration __id =
   let (r : _ Tf_core.resource) =
     make ?active_active ?bgp_route_translation_for_nat_enabled
       ?default_local_network_gateway_id ?dns_forwarding_enabled
       ?edge_zone ?enable_bgp ?generation ?id
       ?ip_sec_replay_protection_enabled ?private_ip_address_enabled
       ?remote_vnet_traffic_enabled ?tags ?virtual_wan_traffic_enabled
-      ?vpn_type ?timeouts ~location ~name ~resource_group_name ~sku
-      ~type_ ~bgp_settings ~custom_route ~ip_configuration
-      ~policy_group ~vpn_client_configuration __id
+      ?vpn_type ~bgp_settings ~custom_route ~policy_group ?timeouts
+      ~vpn_client_configuration ~location ~name ~resource_group_name
+      ~sku ~type_ ~ip_configuration __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

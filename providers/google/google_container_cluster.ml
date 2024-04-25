@@ -5999,11 +5999,14 @@ let addons_config__network_policy_config ~disabled () :
     addons_config__network_policy_config =
   { disabled }
 
-let addons_config ~cloudrun_config ~config_connector_config
-    ~dns_cache_config ~gce_persistent_disk_csi_driver_config
-    ~gcp_filestore_csi_driver_config ~gcs_fuse_csi_driver_config
-    ~gke_backup_agent_config ~horizontal_pod_autoscaling
-    ~http_load_balancing ~network_policy_config () : addons_config =
+let addons_config ?(cloudrun_config = [])
+    ?(config_connector_config = []) ?(dns_cache_config = [])
+    ?(gce_persistent_disk_csi_driver_config = [])
+    ?(gcp_filestore_csi_driver_config = [])
+    ?(gcs_fuse_csi_driver_config = [])
+    ?(gke_backup_agent_config = [])
+    ?(horizontal_pod_autoscaling = []) ?(http_load_balancing = [])
+    ?(network_policy_config = []) () : addons_config =
   {
     cloudrun_config;
     config_connector_config;
@@ -6043,21 +6046,23 @@ let cluster_autoscaling__auto_provisioning_defaults__upgrade_settings__blue_gree
   { batch_node_count; batch_percentage; batch_soak_duration }
 
 let cluster_autoscaling__auto_provisioning_defaults__upgrade_settings__blue_green_settings
-    ?node_pool_soak_duration ~standard_rollout_policy () :
+    ?node_pool_soak_duration ?(standard_rollout_policy = []) () :
     cluster_autoscaling__auto_provisioning_defaults__upgrade_settings__blue_green_settings
     =
   { node_pool_soak_duration; standard_rollout_policy }
 
 let cluster_autoscaling__auto_provisioning_defaults__upgrade_settings
-    ?max_surge ?max_unavailable ?strategy ~blue_green_settings () :
+    ?max_surge ?max_unavailable ?strategy ?(blue_green_settings = [])
+    () :
     cluster_autoscaling__auto_provisioning_defaults__upgrade_settings
     =
   { max_surge; max_unavailable; strategy; blue_green_settings }
 
 let cluster_autoscaling__auto_provisioning_defaults
     ?boot_disk_kms_key ?disk_size ?disk_type ?image_type
-    ?min_cpu_platform ?oauth_scopes ?service_account ~management
-    ~shielded_instance_config ~upgrade_settings () :
+    ?min_cpu_platform ?oauth_scopes ?service_account
+    ?(management = []) ?(shielded_instance_config = [])
+    ?(upgrade_settings = []) () :
     cluster_autoscaling__auto_provisioning_defaults =
   {
     boot_disk_kms_key;
@@ -6077,7 +6082,7 @@ let cluster_autoscaling__resource_limits ?maximum ?minimum
   { maximum; minimum; resource_type }
 
 let cluster_autoscaling ?autoscaling_profile ?enabled
-    ~auto_provisioning_defaults ~resource_limits () :
+    ?(auto_provisioning_defaults = []) ?(resource_limits = []) () :
     cluster_autoscaling =
   {
     autoscaling_profile;
@@ -6122,8 +6127,8 @@ let ip_allocation_policy__pod_cidr_overprovision_config ~disabled ()
 let ip_allocation_policy ?cluster_ipv4_cidr_block
     ?cluster_secondary_range_name ?services_ipv4_cidr_block
     ?services_secondary_range_name ?stack_type
-    ~additional_pod_ranges_config ~pod_cidr_overprovision_config () :
-    ip_allocation_policy =
+    ?(additional_pod_ranges_config = [])
+    ?(pod_cidr_overprovision_config = []) () : ip_allocation_policy =
   {
     cluster_ipv4_cidr_block;
     cluster_secondary_range_name;
@@ -6146,18 +6151,18 @@ let maintenance_policy__maintenance_exclusion__exclusion_options
     maintenance_policy__maintenance_exclusion__exclusion_options =
   { scope }
 
-let maintenance_policy__maintenance_exclusion ~end_time
-    ~exclusion_name ~start_time ~exclusion_options () :
-    maintenance_policy__maintenance_exclusion =
+let maintenance_policy__maintenance_exclusion
+    ?(exclusion_options = []) ~end_time ~exclusion_name ~start_time
+    () : maintenance_policy__maintenance_exclusion =
   { end_time; exclusion_name; start_time; exclusion_options }
 
 let maintenance_policy__recurring_window ~end_time ~recurrence
     ~start_time () : maintenance_policy__recurring_window =
   { end_time; recurrence; start_time }
 
-let maintenance_policy ~daily_maintenance_window
-    ~maintenance_exclusion ~recurring_window () : maintenance_policy
-    =
+let maintenance_policy ?(daily_maintenance_window = [])
+    ?(recurring_window = []) ~maintenance_exclusion () :
+    maintenance_policy =
   {
     daily_maintenance_window;
     maintenance_exclusion;
@@ -6193,8 +6198,8 @@ let monitoring_config__managed_prometheus ~enabled () :
   { enabled }
 
 let monitoring_config ?enable_components
-    ~advanced_datapath_observability_config ~managed_prometheus () :
-    monitoring_config =
+    ?(advanced_datapath_observability_config = [])
+    ?(managed_prometheus = []) () : monitoring_config =
   {
     enable_components;
     advanced_datapath_observability_config;
@@ -6276,13 +6281,14 @@ let node_config ?boot_disk_kms_key ?disk_size_gb ?disk_type
     ?labels ?local_ssd_count ?logging_variant ?machine_type ?metadata
     ?min_cpu_platform ?node_group ?oauth_scopes ?preemptible
     ?resource_labels ?resource_manager_tags ?service_account ?spot
-    ?tags ~advanced_machine_features ~confidential_nodes
-    ~ephemeral_storage_local_ssd_config ~fast_socket ~gcfs_config
-    ~gvnic ~host_maintenance_policy ~kubelet_config
-    ~linux_node_config ~local_nvme_ssd_block_config
-    ~reservation_affinity ~shielded_instance_config
-    ~sole_tenant_config ~taint ~workload_metadata_config () :
-    node_config =
+    ?tags ?(advanced_machine_features = [])
+    ?(confidential_nodes = [])
+    ?(ephemeral_storage_local_ssd_config = []) ?(fast_socket = [])
+    ?(gcfs_config = []) ?(gvnic = []) ?(host_maintenance_policy = [])
+    ?(kubelet_config = []) ?(linux_node_config = [])
+    ?(local_nvme_ssd_block_config = []) ?(reservation_affinity = [])
+    ?(shielded_instance_config = []) ?(sole_tenant_config = [])
+    ?(taint = []) ?(workload_metadata_config = []) () : node_config =
   {
     boot_disk_kms_key;
     disk_size_gb;
@@ -6347,8 +6353,10 @@ let node_pool__network_config__pod_cidr_overprovision_config
   { disabled }
 
 let node_pool__network_config ?create_pod_range ?enable_private_nodes
-    ?pod_ipv4_cidr_block ?pod_range ~network_performance_config
-    ~pod_cidr_overprovision_config () : node_pool__network_config =
+    ?pod_ipv4_cidr_block ?pod_range
+    ?(network_performance_config = [])
+    ?(pod_cidr_overprovision_config = []) () :
+    node_pool__network_config =
   {
     create_pod_range;
     enable_private_nodes;
@@ -6441,12 +6449,13 @@ let node_pool__node_config ?boot_disk_kms_key ?disk_size_gb
     ?machine_type ?metadata ?min_cpu_platform ?node_group
     ?oauth_scopes ?preemptible ?resource_labels
     ?resource_manager_tags ?service_account ?spot ?tags
-    ~advanced_machine_features ~confidential_nodes
-    ~ephemeral_storage_local_ssd_config ~fast_socket ~gcfs_config
-    ~gvnic ~host_maintenance_policy ~kubelet_config
-    ~linux_node_config ~local_nvme_ssd_block_config
-    ~reservation_affinity ~shielded_instance_config
-    ~sole_tenant_config ~taint ~workload_metadata_config () :
+    ?(advanced_machine_features = []) ?(confidential_nodes = [])
+    ?(ephemeral_storage_local_ssd_config = []) ?(fast_socket = [])
+    ?(gcfs_config = []) ?(gvnic = []) ?(host_maintenance_policy = [])
+    ?(kubelet_config = []) ?(linux_node_config = [])
+    ?(local_nvme_ssd_block_config = []) ?(reservation_affinity = [])
+    ?(shielded_instance_config = []) ?(sole_tenant_config = [])
+    ?(taint = []) ?(workload_metadata_config = []) () :
     node_pool__node_config =
   {
     boot_disk_kms_key;
@@ -6502,13 +6511,14 @@ let node_pool__upgrade_settings__blue_green_settings
   { node_pool_soak_duration; standard_rollout_policy }
 
 let node_pool__upgrade_settings ?max_surge ?max_unavailable ?strategy
-    ~blue_green_settings () : node_pool__upgrade_settings =
+    ?(blue_green_settings = []) () : node_pool__upgrade_settings =
   { max_surge; max_unavailable; strategy; blue_green_settings }
 
 let node_pool ?initial_node_count ?max_pods_per_node ?name
-    ?name_prefix ?node_count ?node_locations ?version ~autoscaling
-    ~management ~network_config ~node_config ~placement_policy
-    ~upgrade_settings () : node_pool =
+    ?name_prefix ?node_count ?node_locations ?version
+    ?(autoscaling = []) ?(management = []) ?(network_config = [])
+    ?(node_config = []) ?(placement_policy = [])
+    ?(upgrade_settings = []) () : node_pool =
   {
     initial_node_count;
     max_pods_per_node;
@@ -6529,22 +6539,23 @@ let node_pool_auto_config__network_tags ?tags () :
     node_pool_auto_config__network_tags =
   { tags }
 
-let node_pool_auto_config ~network_tags () : node_pool_auto_config =
+let node_pool_auto_config ?(network_tags = []) () :
+    node_pool_auto_config =
   { network_tags }
 
 let node_pool_defaults__node_config_defaults ?logging_variant () :
     node_pool_defaults__node_config_defaults =
   { logging_variant }
 
-let node_pool_defaults ~node_config_defaults () : node_pool_defaults
-    =
+let node_pool_defaults ?(node_config_defaults = []) () :
+    node_pool_defaults =
   { node_config_defaults }
 
 let notification_config__pubsub__filter ~event_type () :
     notification_config__pubsub__filter =
   { event_type }
 
-let notification_config__pubsub ?topic ~enabled ~filter () :
+let notification_config__pubsub ?topic ?(filter = []) ~enabled () :
     notification_config__pubsub =
   { enabled; topic; filter }
 
@@ -6556,8 +6567,8 @@ let private_cluster_config__master_global_access_config ~enabled () :
 
 let private_cluster_config ?enable_private_endpoint
     ?enable_private_nodes ?master_ipv4_cidr_block
-    ?private_endpoint_subnetwork ~master_global_access_config () :
-    private_cluster_config =
+    ?private_endpoint_subnetwork ?(master_global_access_config = [])
+    () : private_cluster_config =
   {
     enable_private_endpoint;
     enable_private_nodes;
@@ -6608,20 +6619,25 @@ let google_container_cluster ?allow_net_admin ?cluster_ipv4_cidr
     ?location ?logging_service ?min_master_version
     ?monitoring_service ?network ?networking_mode ?node_locations
     ?node_version ?private_ipv6_google_access ?project
-    ?remove_default_node_pool ?resource_labels ?subnetwork ?timeouts
-    ~name ~addons_config ~authenticator_groups_config
-    ~binary_authorization ~cluster_autoscaling ~confidential_nodes
-    ~cost_management_config ~database_encryption ~default_snat_status
-    ~dns_config ~enable_k8s_beta_apis ~fleet ~gateway_api_config
-    ~identity_service_config ~ip_allocation_policy ~logging_config
-    ~maintenance_policy ~master_auth
-    ~master_authorized_networks_config ~mesh_certificates
-    ~monitoring_config ~network_policy ~node_config ~node_pool
-    ~node_pool_auto_config ~node_pool_defaults ~notification_config
-    ~private_cluster_config ~release_channel
-    ~resource_usage_export_config ~security_posture_config
-    ~service_external_ips_config ~vertical_pod_autoscaling
-    ~workload_identity_config () : google_container_cluster =
+    ?remove_default_node_pool ?resource_labels ?subnetwork
+    ?(addons_config = []) ?(authenticator_groups_config = [])
+    ?(binary_authorization = []) ?(cluster_autoscaling = [])
+    ?(confidential_nodes = []) ?(cost_management_config = [])
+    ?(database_encryption = []) ?(default_snat_status = [])
+    ?(dns_config = []) ?(enable_k8s_beta_apis = []) ?(fleet = [])
+    ?(gateway_api_config = []) ?(identity_service_config = [])
+    ?(ip_allocation_policy = []) ?(logging_config = [])
+    ?(maintenance_policy = []) ?(master_auth = [])
+    ?(master_authorized_networks_config = [])
+    ?(mesh_certificates = []) ?(monitoring_config = [])
+    ?(network_policy = []) ?(node_config = []) ?(node_pool = [])
+    ?(node_pool_auto_config = []) ?(node_pool_defaults = [])
+    ?(notification_config = []) ?(private_cluster_config = [])
+    ?(release_channel = []) ?(resource_usage_export_config = [])
+    ?(security_posture_config = [])
+    ?(service_external_ips_config = []) ?timeouts
+    ?(vertical_pod_autoscaling = []) ?(workload_identity_config = [])
+    ~name () : google_container_cluster =
   {
     allow_net_admin;
     cluster_ipv4_cidr;
@@ -6736,19 +6752,24 @@ let make ?allow_net_admin ?cluster_ipv4_cidr ?datapath_provider
     ?min_master_version ?monitoring_service ?network ?networking_mode
     ?node_locations ?node_version ?private_ipv6_google_access
     ?project ?remove_default_node_pool ?resource_labels ?subnetwork
-    ?timeouts ~name ~addons_config ~authenticator_groups_config
-    ~binary_authorization ~cluster_autoscaling ~confidential_nodes
-    ~cost_management_config ~database_encryption ~default_snat_status
-    ~dns_config ~enable_k8s_beta_apis ~fleet ~gateway_api_config
-    ~identity_service_config ~ip_allocation_policy ~logging_config
-    ~maintenance_policy ~master_auth
-    ~master_authorized_networks_config ~mesh_certificates
-    ~monitoring_config ~network_policy ~node_config ~node_pool
-    ~node_pool_auto_config ~node_pool_defaults ~notification_config
-    ~private_cluster_config ~release_channel
-    ~resource_usage_export_config ~security_posture_config
-    ~service_external_ips_config ~vertical_pod_autoscaling
-    ~workload_identity_config __id =
+    ?(addons_config = []) ?(authenticator_groups_config = [])
+    ?(binary_authorization = []) ?(cluster_autoscaling = [])
+    ?(confidential_nodes = []) ?(cost_management_config = [])
+    ?(database_encryption = []) ?(default_snat_status = [])
+    ?(dns_config = []) ?(enable_k8s_beta_apis = []) ?(fleet = [])
+    ?(gateway_api_config = []) ?(identity_service_config = [])
+    ?(ip_allocation_policy = []) ?(logging_config = [])
+    ?(maintenance_policy = []) ?(master_auth = [])
+    ?(master_authorized_networks_config = [])
+    ?(mesh_certificates = []) ?(monitoring_config = [])
+    ?(network_policy = []) ?(node_config = []) ?(node_pool = [])
+    ?(node_pool_auto_config = []) ?(node_pool_defaults = [])
+    ?(notification_config = []) ?(private_cluster_config = [])
+    ?(release_channel = []) ?(resource_usage_export_config = [])
+    ?(security_posture_config = [])
+    ?(service_external_ips_config = []) ?timeouts
+    ?(vertical_pod_autoscaling = []) ?(workload_identity_config = [])
+    ~name __id =
   let __type = "google_container_cluster" in
   let __attrs =
     ({
@@ -6824,21 +6845,21 @@ let make ?allow_net_admin ?cluster_ipv4_cidr ?datapath_provider
            ?monitoring_service ?network ?networking_mode
            ?node_locations ?node_version ?private_ipv6_google_access
            ?project ?remove_default_node_pool ?resource_labels
-           ?subnetwork ?timeouts ~name ~addons_config
-           ~authenticator_groups_config ~binary_authorization
-           ~cluster_autoscaling ~confidential_nodes
-           ~cost_management_config ~database_encryption
-           ~default_snat_status ~dns_config ~enable_k8s_beta_apis
-           ~fleet ~gateway_api_config ~identity_service_config
-           ~ip_allocation_policy ~logging_config ~maintenance_policy
-           ~master_auth ~master_authorized_networks_config
-           ~mesh_certificates ~monitoring_config ~network_policy
-           ~node_config ~node_pool ~node_pool_auto_config
-           ~node_pool_defaults ~notification_config
-           ~private_cluster_config ~release_channel
-           ~resource_usage_export_config ~security_posture_config
-           ~service_external_ips_config ~vertical_pod_autoscaling
-           ~workload_identity_config ());
+           ?subnetwork ~addons_config ~authenticator_groups_config
+           ~binary_authorization ~cluster_autoscaling
+           ~confidential_nodes ~cost_management_config
+           ~database_encryption ~default_snat_status ~dns_config
+           ~enable_k8s_beta_apis ~fleet ~gateway_api_config
+           ~identity_service_config ~ip_allocation_policy
+           ~logging_config ~maintenance_policy ~master_auth
+           ~master_authorized_networks_config ~mesh_certificates
+           ~monitoring_config ~network_policy ~node_config ~node_pool
+           ~node_pool_auto_config ~node_pool_defaults
+           ~notification_config ~private_cluster_config
+           ~release_channel ~resource_usage_export_config
+           ~security_posture_config ~service_external_ips_config
+           ?timeouts ~vertical_pod_autoscaling
+           ~workload_identity_config ~name ());
     attrs = __attrs;
   }
 
@@ -6851,20 +6872,25 @@ let register ?tf_module ?allow_net_admin ?cluster_ipv4_cidr
     ?location ?logging_service ?min_master_version
     ?monitoring_service ?network ?networking_mode ?node_locations
     ?node_version ?private_ipv6_google_access ?project
-    ?remove_default_node_pool ?resource_labels ?subnetwork ?timeouts
-    ~name ~addons_config ~authenticator_groups_config
-    ~binary_authorization ~cluster_autoscaling ~confidential_nodes
-    ~cost_management_config ~database_encryption ~default_snat_status
-    ~dns_config ~enable_k8s_beta_apis ~fleet ~gateway_api_config
-    ~identity_service_config ~ip_allocation_policy ~logging_config
-    ~maintenance_policy ~master_auth
-    ~master_authorized_networks_config ~mesh_certificates
-    ~monitoring_config ~network_policy ~node_config ~node_pool
-    ~node_pool_auto_config ~node_pool_defaults ~notification_config
-    ~private_cluster_config ~release_channel
-    ~resource_usage_export_config ~security_posture_config
-    ~service_external_ips_config ~vertical_pod_autoscaling
-    ~workload_identity_config __id =
+    ?remove_default_node_pool ?resource_labels ?subnetwork
+    ?(addons_config = []) ?(authenticator_groups_config = [])
+    ?(binary_authorization = []) ?(cluster_autoscaling = [])
+    ?(confidential_nodes = []) ?(cost_management_config = [])
+    ?(database_encryption = []) ?(default_snat_status = [])
+    ?(dns_config = []) ?(enable_k8s_beta_apis = []) ?(fleet = [])
+    ?(gateway_api_config = []) ?(identity_service_config = [])
+    ?(ip_allocation_policy = []) ?(logging_config = [])
+    ?(maintenance_policy = []) ?(master_auth = [])
+    ?(master_authorized_networks_config = [])
+    ?(mesh_certificates = []) ?(monitoring_config = [])
+    ?(network_policy = []) ?(node_config = []) ?(node_pool = [])
+    ?(node_pool_auto_config = []) ?(node_pool_defaults = [])
+    ?(notification_config = []) ?(private_cluster_config = [])
+    ?(release_channel = []) ?(resource_usage_export_config = [])
+    ?(security_posture_config = [])
+    ?(service_external_ips_config = []) ?timeouts
+    ?(vertical_pod_autoscaling = []) ?(workload_identity_config = [])
+    ~name __id =
   let (r : _ Tf_core.resource) =
     make ?allow_net_admin ?cluster_ipv4_cidr ?datapath_provider
       ?default_max_pods_per_node ?deletion_protection ?description
@@ -6875,7 +6901,7 @@ let register ?tf_module ?allow_net_admin ?cluster_ipv4_cidr
       ?min_master_version ?monitoring_service ?network
       ?networking_mode ?node_locations ?node_version
       ?private_ipv6_google_access ?project ?remove_default_node_pool
-      ?resource_labels ?subnetwork ?timeouts ~name ~addons_config
+      ?resource_labels ?subnetwork ~addons_config
       ~authenticator_groups_config ~binary_authorization
       ~cluster_autoscaling ~confidential_nodes
       ~cost_management_config ~database_encryption
@@ -6888,8 +6914,8 @@ let register ?tf_module ?allow_net_admin ?cluster_ipv4_cidr
       ~node_pool_defaults ~notification_config
       ~private_cluster_config ~release_channel
       ~resource_usage_export_config ~security_posture_config
-      ~service_external_ips_config ~vertical_pod_autoscaling
-      ~workload_identity_config __id
+      ~service_external_ips_config ?timeouts
+      ~vertical_pod_autoscaling ~workload_identity_config ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -407,9 +407,9 @@ let restrictions__server_key_restrictions ~allowed_ips () :
     restrictions__server_key_restrictions =
   { allowed_ips }
 
-let restrictions ~android_key_restrictions ~api_targets
-    ~browser_key_restrictions ~ios_key_restrictions
-    ~server_key_restrictions () : restrictions =
+let restrictions ?(android_key_restrictions = []) ?(api_targets = [])
+    ?(browser_key_restrictions = []) ?(ios_key_restrictions = [])
+    ?(server_key_restrictions = []) () : restrictions =
   {
     android_key_restrictions;
     api_targets;
@@ -421,8 +421,8 @@ let restrictions ~android_key_restrictions ~api_targets
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_apikeys_key ?display_name ?id ?project ?timeouts ~name
-    ~restrictions () : google_apikeys_key =
+let google_apikeys_key ?display_name ?id ?project
+    ?(restrictions = []) ?timeouts ~name () : google_apikeys_key =
   { display_name; id; name; project; restrictions; timeouts }
 
 type t = {
@@ -434,8 +434,8 @@ type t = {
   uid : string prop;
 }
 
-let make ?display_name ?id ?project ?timeouts ~name ~restrictions
-    __id =
+let make ?display_name ?id ?project ?(restrictions = []) ?timeouts
+    ~name __id =
   let __type = "google_apikeys_key" in
   let __attrs =
     ({
@@ -453,15 +453,15 @@ let make ?display_name ?id ?project ?timeouts ~name ~restrictions
     type_ = __type;
     json =
       yojson_of_google_apikeys_key
-        (google_apikeys_key ?display_name ?id ?project ?timeouts
-           ~name ~restrictions ());
+        (google_apikeys_key ?display_name ?id ?project ~restrictions
+           ?timeouts ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?display_name ?id ?project ?timeouts ~name
-    ~restrictions __id =
+let register ?tf_module ?display_name ?id ?project
+    ?(restrictions = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?display_name ?id ?project ?timeouts ~name ~restrictions
+    make ?display_name ?id ?project ~restrictions ?timeouts ~name
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

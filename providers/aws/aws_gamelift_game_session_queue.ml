@@ -177,8 +177,8 @@ let player_latency_policy ?policy_duration_seconds
 
 let aws_gamelift_game_session_queue ?custom_event_data ?destinations
     ?id ?notification_target ?tags ?tags_all ?timeout_in_seconds
-    ~name ~player_latency_policy () : aws_gamelift_game_session_queue
-    =
+    ?(player_latency_policy = []) ~name () :
+    aws_gamelift_game_session_queue =
   {
     custom_event_data;
     destinations;
@@ -204,8 +204,8 @@ type t = {
 }
 
 let make ?custom_event_data ?destinations ?id ?notification_target
-    ?tags ?tags_all ?timeout_in_seconds ~name ~player_latency_policy
-    __id =
+    ?tags ?tags_all ?timeout_in_seconds ?(player_latency_policy = [])
+    ~name __id =
   let __type = "aws_gamelift_game_session_queue" in
   let __attrs =
     ({
@@ -231,17 +231,17 @@ let make ?custom_event_data ?destinations ?id ?notification_target
       yojson_of_aws_gamelift_game_session_queue
         (aws_gamelift_game_session_queue ?custom_event_data
            ?destinations ?id ?notification_target ?tags ?tags_all
-           ?timeout_in_seconds ~name ~player_latency_policy ());
+           ?timeout_in_seconds ~player_latency_policy ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?custom_event_data ?destinations ?id
-    ?notification_target ?tags ?tags_all ?timeout_in_seconds ~name
-    ~player_latency_policy __id =
+    ?notification_target ?tags ?tags_all ?timeout_in_seconds
+    ?(player_latency_policy = []) ~name __id =
   let (r : _ Tf_core.resource) =
     make ?custom_event_data ?destinations ?id ?notification_target
-      ?tags ?tags_all ?timeout_in_seconds ~name
-      ~player_latency_policy __id
+      ?tags ?tags_all ?timeout_in_seconds ~player_latency_policy
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

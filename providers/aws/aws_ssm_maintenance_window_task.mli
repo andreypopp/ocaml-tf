@@ -71,10 +71,10 @@ val task_invocation_parameters__run_command_parameters :
   ?output_s3_key_prefix:string prop ->
   ?service_role_arn:string prop ->
   ?timeout_seconds:float prop ->
-  cloudwatch_config:
+  ?cloudwatch_config:
     task_invocation_parameters__run_command_parameters__cloudwatch_config
     list ->
-  notification_config:
+  ?notification_config:
     task_invocation_parameters__run_command_parameters__notification_config
     list ->
   parameter:
@@ -94,13 +94,13 @@ val task_invocation_parameters__step_functions_parameters :
 type task_invocation_parameters
 
 val task_invocation_parameters :
-  automation_parameters:
+  ?automation_parameters:
     task_invocation_parameters__automation_parameters list ->
-  lambda_parameters:
+  ?lambda_parameters:
     task_invocation_parameters__lambda_parameters list ->
-  run_command_parameters:
+  ?run_command_parameters:
     task_invocation_parameters__run_command_parameters list ->
-  step_functions_parameters:
+  ?step_functions_parameters:
     task_invocation_parameters__step_functions_parameters list ->
   unit ->
   task_invocation_parameters
@@ -116,11 +116,11 @@ val aws_ssm_maintenance_window_task :
   ?name:string prop ->
   ?priority:float prop ->
   ?service_role_arn:string prop ->
+  ?targets:targets list ->
+  ?task_invocation_parameters:task_invocation_parameters list ->
   task_arn:string prop ->
   task_type:string prop ->
   window_id:string prop ->
-  targets:targets list ->
-  task_invocation_parameters:task_invocation_parameters list ->
   unit ->
   aws_ssm_maintenance_window_task
 
@@ -155,11 +155,11 @@ val register :
   ?name:string prop ->
   ?priority:float prop ->
   ?service_role_arn:string prop ->
+  ?targets:targets list ->
+  ?task_invocation_parameters:task_invocation_parameters list ->
   task_arn:string prop ->
   task_type:string prop ->
   window_id:string prop ->
-  targets:targets list ->
-  task_invocation_parameters:task_invocation_parameters list ->
   string ->
   t
 
@@ -172,10 +172,10 @@ val make :
   ?name:string prop ->
   ?priority:float prop ->
   ?service_role_arn:string prop ->
+  ?targets:targets list ->
+  ?task_invocation_parameters:task_invocation_parameters list ->
   task_arn:string prop ->
   task_type:string prop ->
   window_id:string prop ->
-  targets:targets list ->
-  task_invocation_parameters:task_invocation_parameters list ->
   string ->
   t Tf_core.resource

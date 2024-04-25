@@ -32,8 +32,8 @@ type traffic_routing_config
 
 val traffic_routing_config :
   ?type_:string prop ->
-  time_based_canary:traffic_routing_config__time_based_canary list ->
-  time_based_linear:traffic_routing_config__time_based_linear list ->
+  ?time_based_canary:traffic_routing_config__time_based_canary list ->
+  ?time_based_linear:traffic_routing_config__time_based_linear list ->
   unit ->
   traffic_routing_config
 
@@ -42,9 +42,9 @@ type aws_codedeploy_deployment_config
 val aws_codedeploy_deployment_config :
   ?compute_platform:string prop ->
   ?id:string prop ->
+  ?minimum_healthy_hosts:minimum_healthy_hosts list ->
+  ?traffic_routing_config:traffic_routing_config list ->
   deployment_config_name:string prop ->
-  minimum_healthy_hosts:minimum_healthy_hosts list ->
-  traffic_routing_config:traffic_routing_config list ->
   unit ->
   aws_codedeploy_deployment_config
 
@@ -65,17 +65,17 @@ val register :
   ?tf_module:tf_module ->
   ?compute_platform:string prop ->
   ?id:string prop ->
+  ?minimum_healthy_hosts:minimum_healthy_hosts list ->
+  ?traffic_routing_config:traffic_routing_config list ->
   deployment_config_name:string prop ->
-  minimum_healthy_hosts:minimum_healthy_hosts list ->
-  traffic_routing_config:traffic_routing_config list ->
   string ->
   t
 
 val make :
   ?compute_platform:string prop ->
   ?id:string prop ->
+  ?minimum_healthy_hosts:minimum_healthy_hosts list ->
+  ?traffic_routing_config:traffic_routing_config list ->
   deployment_config_name:string prop ->
-  minimum_healthy_hosts:minimum_healthy_hosts list ->
-  traffic_routing_config:traffic_routing_config list ->
   string ->
   t Tf_core.resource

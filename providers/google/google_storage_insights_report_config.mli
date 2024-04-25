@@ -58,11 +58,11 @@ val object_metadata_report_options__storage_filters :
 type object_metadata_report_options
 
 val object_metadata_report_options :
+  ?storage_filters:
+    object_metadata_report_options__storage_filters list ->
   metadata_fields:string prop list ->
   storage_destination_options:
     object_metadata_report_options__storage_destination_options list ->
-  storage_filters:
-    object_metadata_report_options__storage_filters list ->
   unit ->
   object_metadata_report_options
 
@@ -81,11 +81,11 @@ val google_storage_insights_report_config :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?frequency_options:frequency_options list ->
+  ?object_metadata_report_options:object_metadata_report_options list ->
   ?timeouts:timeouts ->
   location:string prop ->
   csv_options:csv_options list ->
-  frequency_options:frequency_options list ->
-  object_metadata_report_options:object_metadata_report_options list ->
   unit ->
   google_storage_insights_report_config
 
@@ -107,11 +107,11 @@ val register :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?frequency_options:frequency_options list ->
+  ?object_metadata_report_options:object_metadata_report_options list ->
   ?timeouts:timeouts ->
   location:string prop ->
   csv_options:csv_options list ->
-  frequency_options:frequency_options list ->
-  object_metadata_report_options:object_metadata_report_options list ->
   string ->
   t
 
@@ -119,10 +119,10 @@ val make :
   ?display_name:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?frequency_options:frequency_options list ->
+  ?object_metadata_report_options:object_metadata_report_options list ->
   ?timeouts:timeouts ->
   location:string prop ->
   csv_options:csv_options list ->
-  frequency_options:frequency_options list ->
-  object_metadata_report_options:object_metadata_report_options list ->
   string ->
   t Tf_core.resource

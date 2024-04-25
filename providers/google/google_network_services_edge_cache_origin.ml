@@ -507,16 +507,17 @@ let origin_override_action__header_action__request_headers_to_add
     origin_override_action__header_action__request_headers_to_add =
   { header_name; header_value; replace }
 
-let origin_override_action__header_action ~request_headers_to_add ()
-    : origin_override_action__header_action =
+let origin_override_action__header_action
+    ?(request_headers_to_add = []) () :
+    origin_override_action__header_action =
   { request_headers_to_add }
 
 let origin_override_action__url_rewrite ?host_rewrite () :
     origin_override_action__url_rewrite =
   { host_rewrite }
 
-let origin_override_action ~header_action ~url_rewrite () :
-    origin_override_action =
+let origin_override_action ?(header_action = []) ?(url_rewrite = [])
+    () : origin_override_action =
   { header_action; url_rewrite }
 
 let origin_redirect ?redirect_conditions () : origin_redirect =
@@ -536,9 +537,10 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_network_services_edge_cache_origin ?description
     ?failover_origin ?id ?labels ?max_attempts ?port ?project
-    ?protocol ?retry_conditions ?timeouts ~name ~origin_address
-    ~aws_v4_authentication ~origin_override_action ~origin_redirect
-    ~timeout () : google_network_services_edge_cache_origin =
+    ?protocol ?retry_conditions ?(aws_v4_authentication = [])
+    ?(origin_override_action = []) ?(origin_redirect = [])
+    ?(timeout = []) ?timeouts ~name ~origin_address () :
+    google_network_services_edge_cache_origin =
   {
     description;
     failover_origin;
@@ -575,9 +577,10 @@ type t = {
 }
 
 let make ?description ?failover_origin ?id ?labels ?max_attempts
-    ?port ?project ?protocol ?retry_conditions ?timeouts ~name
-    ~origin_address ~aws_v4_authentication ~origin_override_action
-    ~origin_redirect ~timeout __id =
+    ?port ?project ?protocol ?retry_conditions
+    ?(aws_v4_authentication = []) ?(origin_override_action = [])
+    ?(origin_redirect = []) ?(timeout = []) ?timeouts ~name
+    ~origin_address __id =
   let __type = "google_network_services_edge_cache_origin" in
   let __attrs =
     ({
@@ -607,21 +610,22 @@ let make ?description ?failover_origin ?id ?labels ?max_attempts
       yojson_of_google_network_services_edge_cache_origin
         (google_network_services_edge_cache_origin ?description
            ?failover_origin ?id ?labels ?max_attempts ?port ?project
-           ?protocol ?retry_conditions ?timeouts ~name
-           ~origin_address ~aws_v4_authentication
-           ~origin_override_action ~origin_redirect ~timeout ());
+           ?protocol ?retry_conditions ~aws_v4_authentication
+           ~origin_override_action ~origin_redirect ~timeout
+           ?timeouts ~name ~origin_address ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?failover_origin ?id ?labels
     ?max_attempts ?port ?project ?protocol ?retry_conditions
-    ?timeouts ~name ~origin_address ~aws_v4_authentication
-    ~origin_override_action ~origin_redirect ~timeout __id =
+    ?(aws_v4_authentication = []) ?(origin_override_action = [])
+    ?(origin_redirect = []) ?(timeout = []) ?timeouts ~name
+    ~origin_address __id =
   let (r : _ Tf_core.resource) =
     make ?description ?failover_origin ?id ?labels ?max_attempts
-      ?port ?project ?protocol ?retry_conditions ?timeouts ~name
-      ~origin_address ~aws_v4_authentication ~origin_override_action
-      ~origin_redirect ~timeout __id
+      ?port ?project ?protocol ?retry_conditions
+      ~aws_v4_authentication ~origin_override_action ~origin_redirect
+      ~timeout ?timeouts ~name ~origin_address __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -101,8 +101,8 @@ val fulfillment_activity__code_hook :
 type fulfillment_activity
 
 val fulfillment_activity :
+  ?code_hook:fulfillment_activity__code_hook list ->
   type_:string prop ->
-  code_hook:fulfillment_activity__code_hook list ->
   unit ->
   fulfillment_activity
 
@@ -149,10 +149,10 @@ val slot :
   ?response_card:string prop ->
   ?sample_utterances:string prop list ->
   ?slot_type_version:string prop ->
+  ?value_elicitation_prompt:slot__value_elicitation_prompt list ->
   name:string prop ->
   slot_constraint:string prop ->
   slot_type:string prop ->
-  value_elicitation_prompt:slot__value_elicitation_prompt list ->
   unit ->
   slot
 
@@ -173,14 +173,14 @@ val aws_lex_intent :
   ?id:string prop ->
   ?parent_intent_signature:string prop ->
   ?sample_utterances:string prop list ->
+  ?conclusion_statement:conclusion_statement list ->
+  ?confirmation_prompt:confirmation_prompt list ->
+  ?dialog_code_hook:dialog_code_hook list ->
+  ?follow_up_prompt:follow_up_prompt list ->
+  ?rejection_statement:rejection_statement list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  conclusion_statement:conclusion_statement list ->
-  confirmation_prompt:confirmation_prompt list ->
-  dialog_code_hook:dialog_code_hook list ->
-  follow_up_prompt:follow_up_prompt list ->
   fulfillment_activity:fulfillment_activity list ->
-  rejection_statement:rejection_statement list ->
   slot:slot list ->
   unit ->
   aws_lex_intent
@@ -210,14 +210,14 @@ val register :
   ?id:string prop ->
   ?parent_intent_signature:string prop ->
   ?sample_utterances:string prop list ->
+  ?conclusion_statement:conclusion_statement list ->
+  ?confirmation_prompt:confirmation_prompt list ->
+  ?dialog_code_hook:dialog_code_hook list ->
+  ?follow_up_prompt:follow_up_prompt list ->
+  ?rejection_statement:rejection_statement list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  conclusion_statement:conclusion_statement list ->
-  confirmation_prompt:confirmation_prompt list ->
-  dialog_code_hook:dialog_code_hook list ->
-  follow_up_prompt:follow_up_prompt list ->
   fulfillment_activity:fulfillment_activity list ->
-  rejection_statement:rejection_statement list ->
   slot:slot list ->
   string ->
   t
@@ -228,14 +228,14 @@ val make :
   ?id:string prop ->
   ?parent_intent_signature:string prop ->
   ?sample_utterances:string prop list ->
+  ?conclusion_statement:conclusion_statement list ->
+  ?confirmation_prompt:confirmation_prompt list ->
+  ?dialog_code_hook:dialog_code_hook list ->
+  ?follow_up_prompt:follow_up_prompt list ->
+  ?rejection_statement:rejection_statement list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  conclusion_statement:conclusion_statement list ->
-  confirmation_prompt:confirmation_prompt list ->
-  dialog_code_hook:dialog_code_hook list ->
-  follow_up_prompt:follow_up_prompt list ->
   fulfillment_activity:fulfillment_activity list ->
-  rejection_statement:rejection_statement list ->
   slot:slot list ->
   string ->
   t Tf_core.resource

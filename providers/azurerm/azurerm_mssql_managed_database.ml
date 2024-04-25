@@ -266,8 +266,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_mssql_managed_database ?id ?short_term_retention_days
-    ?timeouts ~managed_instance_id ~name ~long_term_retention_policy
-    ~point_in_time_restore () : azurerm_mssql_managed_database =
+    ?(long_term_retention_policy = []) ?(point_in_time_restore = [])
+    ?timeouts ~managed_instance_id ~name () :
+    azurerm_mssql_managed_database =
   {
     id;
     managed_instance_id;
@@ -285,9 +286,9 @@ type t = {
   short_term_retention_days : float prop;
 }
 
-let make ?id ?short_term_retention_days ?timeouts
-    ~managed_instance_id ~name ~long_term_retention_policy
-    ~point_in_time_restore __id =
+let make ?id ?short_term_retention_days
+    ?(long_term_retention_policy = []) ?(point_in_time_restore = [])
+    ?timeouts ~managed_instance_id ~name __id =
   let __type = "azurerm_mssql_managed_database" in
   let __attrs =
     ({
@@ -306,19 +307,19 @@ let make ?id ?short_term_retention_days ?timeouts
     json =
       yojson_of_azurerm_mssql_managed_database
         (azurerm_mssql_managed_database ?id
-           ?short_term_retention_days ?timeouts ~managed_instance_id
-           ~name ~long_term_retention_policy ~point_in_time_restore
-           ());
+           ?short_term_retention_days ~long_term_retention_policy
+           ~point_in_time_restore ?timeouts ~managed_instance_id
+           ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?short_term_retention_days ?timeouts
-    ~managed_instance_id ~name ~long_term_retention_policy
-    ~point_in_time_restore __id =
+let register ?tf_module ?id ?short_term_retention_days
+    ?(long_term_retention_policy = []) ?(point_in_time_restore = [])
+    ?timeouts ~managed_instance_id ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?short_term_retention_days ?timeouts
-      ~managed_instance_id ~name ~long_term_retention_policy
-      ~point_in_time_restore __id
+    make ?id ?short_term_retention_days ~long_term_retention_policy
+      ~point_in_time_restore ?timeouts ~managed_instance_id ~name
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

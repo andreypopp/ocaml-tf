@@ -208,7 +208,7 @@ let credentials__credential_pair ~password ~username () =
     username;
   } : credentials__credential_pair);;
 
-let credentials ?copy_source_arn ~credential_pair () =
+let credentials ?copy_source_arn ?(credential_pair=[]) () =
   ({
     copy_source_arn;
     credential_pair;
@@ -346,7 +346,7 @@ let parameters__twitter ~max_rows ~query () =
     query;
   } : parameters__twitter);;
 
-let parameters ~amazon_elasticsearch ~athena ~aurora ~aurora_postgresql ~aws_iot_analytics ~jira ~maria_db ~mysql ~oracle ~postgresql ~presto ~rds ~redshift ~s3 ~service_now ~snowflake ~spark ~sql_server ~teradata ~twitter () =
+let parameters ?(amazon_elasticsearch=[]) ?(athena=[]) ?(aurora=[]) ?(aurora_postgresql=[]) ?(aws_iot_analytics=[]) ?(jira=[]) ?(maria_db=[]) ?(mysql=[]) ?(oracle=[]) ?(postgresql=[]) ?(presto=[]) ?(rds=[]) ?(redshift=[]) ?(s3=[]) ?(service_now=[]) ?(snowflake=[]) ?(spark=[]) ?(sql_server=[]) ?(teradata=[]) ?(twitter=[]) () =
   ({
     amazon_elasticsearch;
     athena;
@@ -386,7 +386,7 @@ let vpc_connection_properties ~vpc_connection_arn () =
     vpc_connection_arn;
   } : vpc_connection_properties);;
 
-let aws_quicksight_data_source ?aws_account_id ?id ?tags ?tags_all ~data_source_id ~name ~type_ ~credentials ~parameters ~permission ~ssl_properties ~vpc_connection_properties () =
+let aws_quicksight_data_source ?aws_account_id ?id ?tags ?tags_all ?(credentials=[]) ?(ssl_properties=[]) ?(vpc_connection_properties=[]) ~data_source_id ~name ~type_ ~parameters ~permission () =
   ({
     aws_account_id;
     data_source_id;
@@ -413,7 +413,7 @@ type t = {
   type_: string prop;
 }
 
-let make ?aws_account_id ?id ?tags ?tags_all ~data_source_id ~name ~type_ ~credentials ~parameters ~permission ~ssl_properties ~vpc_connection_properties __id =
+let make ?aws_account_id ?id ?tags ?tags_all ?(credentials=[]) ?(ssl_properties=[]) ?(vpc_connection_properties=[]) ~data_source_id ~name ~type_ ~parameters ~permission __id =
   let __type = "aws_quicksight_data_source" in
   let __attrs = ({
     arn = Prop.computed __type __id "arn";
@@ -428,12 +428,12 @@ let make ?aws_account_id ?id ?tags ?tags_all ~data_source_id ~name ~type_ ~crede
   {Tf_core.
     id=__id;
     type_=__type;
-    json=yojson_of_aws_quicksight_data_source (aws_quicksight_data_source ?aws_account_id ?id ?tags ?tags_all ~data_source_id ~name ~type_ ~credentials ~parameters ~permission ~ssl_properties ~vpc_connection_properties ());
+    json=yojson_of_aws_quicksight_data_source (aws_quicksight_data_source ?aws_account_id ?id ?tags ?tags_all ~credentials ~ssl_properties ~vpc_connection_properties ~data_source_id ~name ~type_ ~parameters ~permission ());
     attrs=__attrs;
   };;
 
-let register ?tf_module ?aws_account_id ?id ?tags ?tags_all ~data_source_id ~name ~type_ ~credentials ~parameters ~permission ~ssl_properties ~vpc_connection_properties __id =
-  let (r : _ Tf_core.resource) = make ?aws_account_id ?id ?tags ?tags_all ~data_source_id ~name ~type_ ~credentials ~parameters ~permission ~ssl_properties ~vpc_connection_properties __id in
+let register ?tf_module ?aws_account_id ?id ?tags ?tags_all ?(credentials=[]) ?(ssl_properties=[]) ?(vpc_connection_properties=[]) ~data_source_id ~name ~type_ ~parameters ~permission __id =
+  let (r : _ Tf_core.resource) = make ?aws_account_id ?id ?tags ?tags_all ~credentials ~ssl_properties ~vpc_connection_properties ~data_source_id ~name ~type_ ~parameters ~permission __id in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs;;
 

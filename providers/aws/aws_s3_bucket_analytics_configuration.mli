@@ -50,10 +50,10 @@ type aws_s3_bucket_analytics_configuration
 
 val aws_s3_bucket_analytics_configuration :
   ?id:string prop ->
+  ?filter:filter list ->
+  ?storage_class_analysis:storage_class_analysis list ->
   bucket:string prop ->
   name:string prop ->
-  filter:filter list ->
-  storage_class_analysis:storage_class_analysis list ->
   unit ->
   aws_s3_bucket_analytics_configuration
 
@@ -71,18 +71,18 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?filter:filter list ->
+  ?storage_class_analysis:storage_class_analysis list ->
   bucket:string prop ->
   name:string prop ->
-  filter:filter list ->
-  storage_class_analysis:storage_class_analysis list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?filter:filter list ->
+  ?storage_class_analysis:storage_class_analysis list ->
   bucket:string prop ->
   name:string prop ->
-  filter:filter list ->
-  storage_class_analysis:storage_class_analysis list ->
   string ->
   t Tf_core.resource

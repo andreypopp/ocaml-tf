@@ -244,9 +244,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_beyondcorp_app_connection ?connectors ?display_name ?id
-    ?labels ?project ?region ?type_ ?timeouts ~name
-    ~application_endpoint ~gateway () :
-    google_beyondcorp_app_connection =
+    ?labels ?project ?region ?type_ ?(gateway = []) ?timeouts ~name
+    ~application_endpoint () : google_beyondcorp_app_connection =
   {
     connectors;
     display_name;
@@ -275,7 +274,8 @@ type t = {
 }
 
 let make ?connectors ?display_name ?id ?labels ?project ?region
-    ?type_ ?timeouts ~name ~application_endpoint ~gateway __id =
+    ?type_ ?(gateway = []) ?timeouts ~name ~application_endpoint __id
+    =
   let __type = "google_beyondcorp_app_connection" in
   let __attrs =
     ({
@@ -300,17 +300,17 @@ let make ?connectors ?display_name ?id ?labels ?project ?region
     json =
       yojson_of_google_beyondcorp_app_connection
         (google_beyondcorp_app_connection ?connectors ?display_name
-           ?id ?labels ?project ?region ?type_ ?timeouts ~name
-           ~application_endpoint ~gateway ());
+           ?id ?labels ?project ?region ?type_ ~gateway ?timeouts
+           ~name ~application_endpoint ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?connectors ?display_name ?id ?labels
-    ?project ?region ?type_ ?timeouts ~name ~application_endpoint
-    ~gateway __id =
+    ?project ?region ?type_ ?(gateway = []) ?timeouts ~name
+    ~application_endpoint __id =
   let (r : _ Tf_core.resource) =
     make ?connectors ?display_name ?id ?labels ?project ?region
-      ?type_ ?timeouts ~name ~application_endpoint ~gateway __id
+      ?type_ ~gateway ?timeouts ~name ~application_endpoint __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

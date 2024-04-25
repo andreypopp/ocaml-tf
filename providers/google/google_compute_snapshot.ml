@@ -286,9 +286,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_compute_snapshot ?chain_name ?description ?id ?labels
-    ?project ?storage_locations ?zone ?timeouts ~name ~source_disk
-    ~snapshot_encryption_key ~source_disk_encryption_key () :
-    google_compute_snapshot =
+    ?project ?storage_locations ?zone ?(snapshot_encryption_key = [])
+    ?(source_disk_encryption_key = []) ?timeouts ~name ~source_disk
+    () : google_compute_snapshot =
   {
     chain_name;
     description;
@@ -326,8 +326,9 @@ type t = {
 }
 
 let make ?chain_name ?description ?id ?labels ?project
-    ?storage_locations ?zone ?timeouts ~name ~source_disk
-    ~snapshot_encryption_key ~source_disk_encryption_key __id =
+    ?storage_locations ?zone ?(snapshot_encryption_key = [])
+    ?(source_disk_encryption_key = []) ?timeouts ~name ~source_disk
+    __id =
   let __type = "google_compute_snapshot" in
   let __attrs =
     ({
@@ -363,19 +364,20 @@ let make ?chain_name ?description ?id ?labels ?project
     json =
       yojson_of_google_compute_snapshot
         (google_compute_snapshot ?chain_name ?description ?id ?labels
-           ?project ?storage_locations ?zone ?timeouts ~name
-           ~source_disk ~snapshot_encryption_key
-           ~source_disk_encryption_key ());
+           ?project ?storage_locations ?zone ~snapshot_encryption_key
+           ~source_disk_encryption_key ?timeouts ~name ~source_disk
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?chain_name ?description ?id ?labels ?project
-    ?storage_locations ?zone ?timeouts ~name ~source_disk
-    ~snapshot_encryption_key ~source_disk_encryption_key __id =
+    ?storage_locations ?zone ?(snapshot_encryption_key = [])
+    ?(source_disk_encryption_key = []) ?timeouts ~name ~source_disk
+    __id =
   let (r : _ Tf_core.resource) =
     make ?chain_name ?description ?id ?labels ?project
-      ?storage_locations ?zone ?timeouts ~name ~source_disk
-      ~snapshot_encryption_key ~source_disk_encryption_key __id
+      ?storage_locations ?zone ~snapshot_encryption_key
+      ~source_disk_encryption_key ?timeouts ~name ~source_disk __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

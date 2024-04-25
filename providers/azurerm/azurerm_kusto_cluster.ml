@@ -490,9 +490,9 @@ let azurerm_kusto_cluster ?allowed_fqdns ?allowed_ip_ranges
     ?outbound_network_access_restricted ?public_ip_type
     ?public_network_access_enabled ?purge_enabled
     ?streaming_ingestion_enabled ?tags ?trusted_external_tenants
-    ?zones ?timeouts ~location ~name ~resource_group_name ~identity
-    ~optimized_auto_scale ~sku ~virtual_network_configuration () :
-    azurerm_kusto_cluster =
+    ?zones ?(identity = []) ?(optimized_auto_scale = []) ?timeouts
+    ?(virtual_network_configuration = []) ~location ~name
+    ~resource_group_name ~sku () : azurerm_kusto_cluster =
   {
     allowed_fqdns;
     allowed_ip_ranges;
@@ -549,8 +549,9 @@ let make ?allowed_fqdns ?allowed_ip_ranges ?auto_stop_enabled
     ?language_extensions ?outbound_network_access_restricted
     ?public_ip_type ?public_network_access_enabled ?purge_enabled
     ?streaming_ingestion_enabled ?tags ?trusted_external_tenants
-    ?zones ?timeouts ~location ~name ~resource_group_name ~identity
-    ~optimized_auto_scale ~sku ~virtual_network_configuration __id =
+    ?zones ?(identity = []) ?(optimized_auto_scale = []) ?timeouts
+    ?(virtual_network_configuration = []) ~location ~name
+    ~resource_group_name ~sku __id =
   let __type = "azurerm_kusto_cluster" in
   let __attrs =
     ({
@@ -601,9 +602,10 @@ let make ?allowed_fqdns ?allowed_ip_ranges ?auto_stop_enabled
            ?language_extensions ?outbound_network_access_restricted
            ?public_ip_type ?public_network_access_enabled
            ?purge_enabled ?streaming_ingestion_enabled ?tags
-           ?trusted_external_tenants ?zones ?timeouts ~location ~name
-           ~resource_group_name ~identity ~optimized_auto_scale ~sku
-           ~virtual_network_configuration ());
+           ?trusted_external_tenants ?zones ~identity
+           ~optimized_auto_scale ?timeouts
+           ~virtual_network_configuration ~location ~name
+           ~resource_group_name ~sku ());
     attrs = __attrs;
   }
 
@@ -613,16 +615,18 @@ let register ?tf_module ?allowed_fqdns ?allowed_ip_ranges
     ?outbound_network_access_restricted ?public_ip_type
     ?public_network_access_enabled ?purge_enabled
     ?streaming_ingestion_enabled ?tags ?trusted_external_tenants
-    ?zones ?timeouts ~location ~name ~resource_group_name ~identity
-    ~optimized_auto_scale ~sku ~virtual_network_configuration __id =
+    ?zones ?(identity = []) ?(optimized_auto_scale = []) ?timeouts
+    ?(virtual_network_configuration = []) ~location ~name
+    ~resource_group_name ~sku __id =
   let (r : _ Tf_core.resource) =
     make ?allowed_fqdns ?allowed_ip_ranges ?auto_stop_enabled
       ?disk_encryption_enabled ?double_encryption_enabled ?engine ?id
       ?language_extensions ?outbound_network_access_restricted
       ?public_ip_type ?public_network_access_enabled ?purge_enabled
       ?streaming_ingestion_enabled ?tags ?trusted_external_tenants
-      ?zones ?timeouts ~location ~name ~resource_group_name ~identity
-      ~optimized_auto_scale ~sku ~virtual_network_configuration __id
+      ?zones ~identity ~optimized_auto_scale ?timeouts
+      ~virtual_network_configuration ~location ~name
+      ~resource_group_name ~sku __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

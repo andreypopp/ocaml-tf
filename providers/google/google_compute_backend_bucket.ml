@@ -424,8 +424,9 @@ let cdn_policy__negative_caching_policy ?code ?ttl () :
 
 let cdn_policy ?cache_mode ?client_ttl ?default_ttl ?max_ttl
     ?negative_caching ?request_coalescing ?serve_while_stale
-    ?signed_url_cache_max_age_sec ~bypass_cache_on_request_headers
-    ~cache_key_policy ~negative_caching_policy () : cdn_policy =
+    ?signed_url_cache_max_age_sec
+    ?(bypass_cache_on_request_headers = []) ?(cache_key_policy = [])
+    ?(negative_caching_policy = []) () : cdn_policy =
   {
     cache_mode;
     client_ttl;
@@ -445,8 +446,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_compute_backend_bucket ?compression_mode
     ?custom_response_headers ?description ?edge_security_policy
-    ?enable_cdn ?id ?project ?timeouts ~bucket_name ~name ~cdn_policy
-    () : google_compute_backend_bucket =
+    ?enable_cdn ?id ?project ?(cdn_policy = []) ?timeouts
+    ~bucket_name ~name () : google_compute_backend_bucket =
   {
     bucket_name;
     compression_mode;
@@ -476,8 +477,8 @@ type t = {
 }
 
 let make ?compression_mode ?custom_response_headers ?description
-    ?edge_security_policy ?enable_cdn ?id ?project ?timeouts
-    ~bucket_name ~name ~cdn_policy __id =
+    ?edge_security_policy ?enable_cdn ?id ?project ?(cdn_policy = [])
+    ?timeouts ~bucket_name ~name __id =
   let __type = "google_compute_backend_bucket" in
   let __attrs =
     ({
@@ -506,18 +507,18 @@ let make ?compression_mode ?custom_response_headers ?description
       yojson_of_google_compute_backend_bucket
         (google_compute_backend_bucket ?compression_mode
            ?custom_response_headers ?description
-           ?edge_security_policy ?enable_cdn ?id ?project ?timeouts
-           ~bucket_name ~name ~cdn_policy ());
+           ?edge_security_policy ?enable_cdn ?id ?project ~cdn_policy
+           ?timeouts ~bucket_name ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?compression_mode ?custom_response_headers
     ?description ?edge_security_policy ?enable_cdn ?id ?project
-    ?timeouts ~bucket_name ~name ~cdn_policy __id =
+    ?(cdn_policy = []) ?timeouts ~bucket_name ~name __id =
   let (r : _ Tf_core.resource) =
     make ?compression_mode ?custom_response_headers ?description
-      ?edge_security_policy ?enable_cdn ?id ?project ?timeouts
-      ~bucket_name ~name ~cdn_policy __id
+      ?edge_security_policy ?enable_cdn ?id ?project ~cdn_policy
+      ?timeouts ~bucket_name ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

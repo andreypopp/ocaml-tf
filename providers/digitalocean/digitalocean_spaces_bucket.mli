@@ -54,10 +54,10 @@ val digitalocean_spaces_bucket :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?region:string prop ->
+  ?cors_rule:cors_rule list ->
+  ?lifecycle_rule:lifecycle_rule list ->
+  ?versioning:versioning list ->
   name:string prop ->
-  cors_rule:cors_rule list ->
-  lifecycle_rule:lifecycle_rule list ->
-  versioning:versioning list ->
   unit ->
   digitalocean_spaces_bucket
 
@@ -83,10 +83,10 @@ val register :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?region:string prop ->
+  ?cors_rule:cors_rule list ->
+  ?lifecycle_rule:lifecycle_rule list ->
+  ?versioning:versioning list ->
   name:string prop ->
-  cors_rule:cors_rule list ->
-  lifecycle_rule:lifecycle_rule list ->
-  versioning:versioning list ->
   string ->
   t
 
@@ -95,9 +95,9 @@ val make :
   ?force_destroy:bool prop ->
   ?id:string prop ->
   ?region:string prop ->
+  ?cors_rule:cors_rule list ->
+  ?lifecycle_rule:lifecycle_rule list ->
+  ?versioning:versioning list ->
   name:string prop ->
-  cors_rule:cors_rule list ->
-  lifecycle_rule:lifecycle_rule list ->
-  versioning:versioning list ->
   string ->
   t Tf_core.resource

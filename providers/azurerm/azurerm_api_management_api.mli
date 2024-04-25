@@ -24,9 +24,9 @@ val import__wsdl_selector :
 type import
 
 val import :
+  ?wsdl_selector:import__wsdl_selector list ->
   content_format:string prop ->
   content_value:string prop ->
-  wsdl_selector:import__wsdl_selector list ->
   unit ->
   import
 
@@ -87,18 +87,18 @@ val azurerm_api_management_api :
   ?version:string prop ->
   ?version_description:string prop ->
   ?version_set_id:string prop ->
+  ?contact:contact list ->
+  ?import:import list ->
+  ?license:license list ->
+  ?oauth2_authorization:oauth2_authorization list ->
+  ?openid_authentication:openid_authentication list ->
+  ?subscription_key_parameter_names:
+    subscription_key_parameter_names list ->
   ?timeouts:timeouts ->
   api_management_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   revision:string prop ->
-  contact:contact list ->
-  import:import list ->
-  license:license list ->
-  oauth2_authorization:oauth2_authorization list ->
-  openid_authentication:openid_authentication list ->
-  subscription_key_parameter_names:
-    subscription_key_parameter_names list ->
   unit ->
   azurerm_api_management_api
 
@@ -148,18 +148,18 @@ val register :
   ?version:string prop ->
   ?version_description:string prop ->
   ?version_set_id:string prop ->
+  ?contact:contact list ->
+  ?import:import list ->
+  ?license:license list ->
+  ?oauth2_authorization:oauth2_authorization list ->
+  ?openid_authentication:openid_authentication list ->
+  ?subscription_key_parameter_names:
+    subscription_key_parameter_names list ->
   ?timeouts:timeouts ->
   api_management_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   revision:string prop ->
-  contact:contact list ->
-  import:import list ->
-  license:license list ->
-  oauth2_authorization:oauth2_authorization list ->
-  openid_authentication:openid_authentication list ->
-  subscription_key_parameter_names:
-    subscription_key_parameter_names list ->
   string ->
   t
 
@@ -179,17 +179,17 @@ val make :
   ?version:string prop ->
   ?version_description:string prop ->
   ?version_set_id:string prop ->
+  ?contact:contact list ->
+  ?import:import list ->
+  ?license:license list ->
+  ?oauth2_authorization:oauth2_authorization list ->
+  ?openid_authentication:openid_authentication list ->
+  ?subscription_key_parameter_names:
+    subscription_key_parameter_names list ->
   ?timeouts:timeouts ->
   api_management_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   revision:string prop ->
-  contact:contact list ->
-  import:import list ->
-  license:license list ->
-  oauth2_authorization:oauth2_authorization list ->
-  openid_authentication:openid_authentication list ->
-  subscription_key_parameter_names:
-    subscription_key_parameter_names list ->
   string ->
   t Tf_core.resource

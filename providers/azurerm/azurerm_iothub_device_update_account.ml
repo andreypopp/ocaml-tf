@@ -206,8 +206,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_iothub_device_update_account ?id
-    ?public_network_access_enabled ?sku ?tags ?timeouts ~location
-    ~name ~resource_group_name ~identity () :
+    ?public_network_access_enabled ?sku ?tags ?(identity = [])
+    ?timeouts ~location ~name ~resource_group_name () :
     azurerm_iothub_device_update_account =
   {
     id;
@@ -232,8 +232,9 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?id ?public_network_access_enabled ?sku ?tags ?timeouts
-    ~location ~name ~resource_group_name ~identity __id =
+let make ?id ?public_network_access_enabled ?sku ?tags
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    __id =
   let __type = "azurerm_iothub_device_update_account" in
   let __attrs =
     ({
@@ -256,16 +257,17 @@ let make ?id ?public_network_access_enabled ?sku ?tags ?timeouts
     json =
       yojson_of_azurerm_iothub_device_update_account
         (azurerm_iothub_device_update_account ?id
-           ?public_network_access_enabled ?sku ?tags ?timeouts
-           ~location ~name ~resource_group_name ~identity ());
+           ?public_network_access_enabled ?sku ?tags ~identity
+           ?timeouts ~location ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?public_network_access_enabled ?sku ?tags
-    ?timeouts ~location ~name ~resource_group_name ~identity __id =
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?public_network_access_enabled ?sku ?tags ?timeouts
-      ~location ~name ~resource_group_name ~identity __id
+    make ?id ?public_network_access_enabled ?sku ?tags ~identity
+      ?timeouts ~location ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

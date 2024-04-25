@@ -53,15 +53,15 @@ val google_bigquery_analytics_hub_listing :
   ?primary_contact:string prop ->
   ?project:string prop ->
   ?request_access:string prop ->
+  ?data_provider:data_provider list ->
+  ?publisher:publisher list ->
+  ?restricted_export_config:restricted_export_config list ->
   ?timeouts:timeouts ->
   data_exchange_id:string prop ->
   display_name:string prop ->
   listing_id:string prop ->
   location:string prop ->
   bigquery_dataset:bigquery_dataset list ->
-  data_provider:data_provider list ->
-  publisher:publisher list ->
-  restricted_export_config:restricted_export_config list ->
   unit ->
   google_bigquery_analytics_hub_listing
 
@@ -96,15 +96,15 @@ val register :
   ?primary_contact:string prop ->
   ?project:string prop ->
   ?request_access:string prop ->
+  ?data_provider:data_provider list ->
+  ?publisher:publisher list ->
+  ?restricted_export_config:restricted_export_config list ->
   ?timeouts:timeouts ->
   data_exchange_id:string prop ->
   display_name:string prop ->
   listing_id:string prop ->
   location:string prop ->
   bigquery_dataset:bigquery_dataset list ->
-  data_provider:data_provider list ->
-  publisher:publisher list ->
-  restricted_export_config:restricted_export_config list ->
   string ->
   t
 
@@ -117,14 +117,14 @@ val make :
   ?primary_contact:string prop ->
   ?project:string prop ->
   ?request_access:string prop ->
+  ?data_provider:data_provider list ->
+  ?publisher:publisher list ->
+  ?restricted_export_config:restricted_export_config list ->
   ?timeouts:timeouts ->
   data_exchange_id:string prop ->
   display_name:string prop ->
   listing_id:string prop ->
   location:string prop ->
   bigquery_dataset:bigquery_dataset list ->
-  data_provider:data_provider list ->
-  publisher:publisher list ->
-  restricted_export_config:restricted_export_config list ->
   string ->
   t Tf_core.resource

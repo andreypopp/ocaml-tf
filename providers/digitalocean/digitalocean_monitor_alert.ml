@@ -164,7 +164,7 @@ let _ = yojson_of_digitalocean_monitor_alert
 [@@@deriving.end]
 
 let alerts__slack ~channel ~url () : alerts__slack = { channel; url }
-let alerts ?email ~slack () : alerts = { email; slack }
+let alerts ?email ?(slack = []) () : alerts = { email; slack }
 
 let digitalocean_monitor_alert ?enabled ?entities ?id ?tags ~compare
     ~description ~type_ ~value ~window ~alerts () :

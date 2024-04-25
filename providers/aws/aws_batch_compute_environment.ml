@@ -512,8 +512,9 @@ let compute_resources__launch_template ?launch_template_id
 let compute_resources ?allocation_strategy ?bid_percentage
     ?desired_vcpus ?ec2_key_pair ?image_id ?instance_role
     ?instance_type ?min_vcpus ?placement_group ?security_group_ids
-    ?spot_iam_fleet_role ?tags ~max_vcpus ~subnets ~type_
-    ~ec2_configuration ~launch_template () : compute_resources =
+    ?spot_iam_fleet_role ?tags ?(ec2_configuration = [])
+    ?(launch_template = []) ~max_vcpus ~subnets ~type_ () :
+    compute_resources =
   {
     allocation_strategy;
     bid_percentage;
@@ -544,8 +545,8 @@ let update_policy ~job_execution_timeout_minutes
 
 let aws_batch_compute_environment ?compute_environment_name
     ?compute_environment_name_prefix ?id ?service_role ?state ?tags
-    ?tags_all ~type_ ~compute_resources ~eks_configuration
-    ~update_policy () : aws_batch_compute_environment =
+    ?tags_all ?(compute_resources = []) ?(eks_configuration = [])
+    ?(update_policy = []) ~type_ () : aws_batch_compute_environment =
   {
     compute_environment_name;
     compute_environment_name_prefix;
@@ -576,8 +577,9 @@ type t = {
 }
 
 let make ?compute_environment_name ?compute_environment_name_prefix
-    ?id ?service_role ?state ?tags ?tags_all ~type_
-    ~compute_resources ~eks_configuration ~update_policy __id =
+    ?id ?service_role ?state ?tags ?tags_all
+    ?(compute_resources = []) ?(eks_configuration = [])
+    ?(update_policy = []) ~type_ __id =
   let __type = "aws_batch_compute_environment" in
   let __attrs =
     ({
@@ -605,19 +607,19 @@ let make ?compute_environment_name ?compute_environment_name_prefix
       yojson_of_aws_batch_compute_environment
         (aws_batch_compute_environment ?compute_environment_name
            ?compute_environment_name_prefix ?id ?service_role ?state
-           ?tags ?tags_all ~type_ ~compute_resources
-           ~eks_configuration ~update_policy ());
+           ?tags ?tags_all ~compute_resources ~eks_configuration
+           ~update_policy ~type_ ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?compute_environment_name
     ?compute_environment_name_prefix ?id ?service_role ?state ?tags
-    ?tags_all ~type_ ~compute_resources ~eks_configuration
-    ~update_policy __id =
+    ?tags_all ?(compute_resources = []) ?(eks_configuration = [])
+    ?(update_policy = []) ~type_ __id =
   let (r : _ Tf_core.resource) =
     make ?compute_environment_name ?compute_environment_name_prefix
-      ?id ?service_role ?state ?tags ?tags_all ~type_
-      ~compute_resources ~eks_configuration ~update_policy __id
+      ?id ?service_role ?state ?tags ?tags_all ~compute_resources
+      ~eks_configuration ~update_policy ~type_ __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

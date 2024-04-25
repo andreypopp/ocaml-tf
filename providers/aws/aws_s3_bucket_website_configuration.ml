@@ -336,13 +336,13 @@ let routing_rule__redirect ?host_name ?http_redirect_code ?protocol
     replace_key_with;
   }
 
-let routing_rule ~condition ~redirect () : routing_rule =
+let routing_rule ?(condition = []) ~redirect () : routing_rule =
   { condition; redirect }
 
 let aws_s3_bucket_website_configuration ?expected_bucket_owner ?id
-    ?routing_rules ~bucket ~error_document ~index_document
-    ~redirect_all_requests_to ~routing_rule () :
-    aws_s3_bucket_website_configuration =
+    ?routing_rules ?(error_document = []) ?(index_document = [])
+    ?(redirect_all_requests_to = []) ?(routing_rule = []) ~bucket ()
+    : aws_s3_bucket_website_configuration =
   {
     bucket;
     expected_bucket_owner;
@@ -363,9 +363,10 @@ type t = {
   website_endpoint : string prop;
 }
 
-let make ?expected_bucket_owner ?id ?routing_rules ~bucket
-    ~error_document ~index_document ~redirect_all_requests_to
-    ~routing_rule __id =
+let make ?expected_bucket_owner ?id ?routing_rules
+    ?(error_document = []) ?(index_document = [])
+    ?(redirect_all_requests_to = []) ?(routing_rule = []) ~bucket
+    __id =
   let __type = "aws_s3_bucket_website_configuration" in
   let __attrs =
     ({
@@ -386,18 +387,19 @@ let make ?expected_bucket_owner ?id ?routing_rules ~bucket
     json =
       yojson_of_aws_s3_bucket_website_configuration
         (aws_s3_bucket_website_configuration ?expected_bucket_owner
-           ?id ?routing_rules ~bucket ~error_document ~index_document
-           ~redirect_all_requests_to ~routing_rule ());
+           ?id ?routing_rules ~error_document ~index_document
+           ~redirect_all_requests_to ~routing_rule ~bucket ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?expected_bucket_owner ?id ?routing_rules
-    ~bucket ~error_document ~index_document ~redirect_all_requests_to
-    ~routing_rule __id =
+    ?(error_document = []) ?(index_document = [])
+    ?(redirect_all_requests_to = []) ?(routing_rule = []) ~bucket
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?expected_bucket_owner ?id ?routing_rules ~bucket
-      ~error_document ~index_document ~redirect_all_requests_to
-      ~routing_rule __id
+    make ?expected_bucket_owner ?id ?routing_rules ~error_document
+      ~index_document ~redirect_all_requests_to ~routing_rule ~bucket
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -498,8 +498,8 @@ let timeouts ?create () : timeouts = { create }
 
 let digitalocean_kubernetes_cluster ?auto_upgrade
     ?destroy_all_associated_resources ?ha ?id ?registry_integration
-    ?surge_upgrade ?tags ?vpc_uuid ?timeouts ~name ~region ~version
-    ~maintenance_policy ~node_pool () :
+    ?surge_upgrade ?tags ?vpc_uuid ?(maintenance_policy = [])
+    ?timeouts ~name ~region ~version ~node_pool () :
     digitalocean_kubernetes_cluster =
   {
     auto_upgrade;
@@ -542,8 +542,9 @@ type t = {
 }
 
 let make ?auto_upgrade ?destroy_all_associated_resources ?ha ?id
-    ?registry_integration ?surge_upgrade ?tags ?vpc_uuid ?timeouts
-    ~name ~region ~version ~maintenance_policy ~node_pool __id =
+    ?registry_integration ?surge_upgrade ?tags ?vpc_uuid
+    ?(maintenance_policy = []) ?timeouts ~name ~region ~version
+    ~node_pool __id =
   let __type = "digitalocean_kubernetes_cluster" in
   let __attrs =
     ({
@@ -580,19 +581,20 @@ let make ?auto_upgrade ?destroy_all_associated_resources ?ha ?id
         (digitalocean_kubernetes_cluster ?auto_upgrade
            ?destroy_all_associated_resources ?ha ?id
            ?registry_integration ?surge_upgrade ?tags ?vpc_uuid
-           ?timeouts ~name ~region ~version ~maintenance_policy
+           ~maintenance_policy ?timeouts ~name ~region ~version
            ~node_pool ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_upgrade
     ?destroy_all_associated_resources ?ha ?id ?registry_integration
-    ?surge_upgrade ?tags ?vpc_uuid ?timeouts ~name ~region ~version
-    ~maintenance_policy ~node_pool __id =
+    ?surge_upgrade ?tags ?vpc_uuid ?(maintenance_policy = [])
+    ?timeouts ~name ~region ~version ~node_pool __id =
   let (r : _ Tf_core.resource) =
     make ?auto_upgrade ?destroy_all_associated_resources ?ha ?id
-      ?registry_integration ?surge_upgrade ?tags ?vpc_uuid ?timeouts
-      ~name ~region ~version ~maintenance_policy ~node_pool __id
+      ?registry_integration ?surge_upgrade ?tags ?vpc_uuid
+      ~maintenance_policy ?timeouts ~name ~region ~version ~node_pool
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -126,8 +126,8 @@ let _ = yojson_of_aws_glacier_vault
 let notification ~events ~sns_topic () : notification =
   { events; sns_topic }
 
-let aws_glacier_vault ?access_policy ?id ?tags ?tags_all ~name
-    ~notification () : aws_glacier_vault =
+let aws_glacier_vault ?access_policy ?id ?tags ?tags_all
+    ?(notification = []) ~name () : aws_glacier_vault =
   { access_policy; id; name; tags; tags_all; notification }
 
 type t = {
@@ -140,8 +140,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?access_policy ?id ?tags ?tags_all ~name ~notification __id
-    =
+let make ?access_policy ?id ?tags ?tags_all ?(notification = [])
+    ~name __id =
   let __type = "aws_glacier_vault" in
   let __attrs =
     ({
@@ -160,15 +160,15 @@ let make ?access_policy ?id ?tags ?tags_all ~name ~notification __id
     type_ = __type;
     json =
       yojson_of_aws_glacier_vault
-        (aws_glacier_vault ?access_policy ?id ?tags ?tags_all ~name
-           ~notification ());
+        (aws_glacier_vault ?access_policy ?id ?tags ?tags_all
+           ~notification ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?access_policy ?id ?tags ?tags_all ~name
-    ~notification __id =
+let register ?tf_module ?access_policy ?id ?tags ?tags_all
+    ?(notification = []) ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?access_policy ?id ?tags ?tags_all ~name ~notification __id
+    make ?access_policy ?id ?tags ?tags_all ~notification ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

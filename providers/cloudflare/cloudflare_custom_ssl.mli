@@ -29,9 +29,9 @@ type cloudflare_custom_ssl
 
 val cloudflare_custom_ssl :
   ?id:string prop ->
+  ?custom_ssl_options:custom_ssl_options list ->
+  ?custom_ssl_priority:custom_ssl_priority list ->
   zone_id:string prop ->
-  custom_ssl_options:custom_ssl_options list ->
-  custom_ssl_priority:custom_ssl_priority list ->
   unit ->
   cloudflare_custom_ssl
 
@@ -55,16 +55,16 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?custom_ssl_options:custom_ssl_options list ->
+  ?custom_ssl_priority:custom_ssl_priority list ->
   zone_id:string prop ->
-  custom_ssl_options:custom_ssl_options list ->
-  custom_ssl_priority:custom_ssl_priority list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?custom_ssl_options:custom_ssl_options list ->
+  ?custom_ssl_priority:custom_ssl_priority list ->
   zone_id:string prop ->
-  custom_ssl_options:custom_ssl_options list ->
-  custom_ssl_priority:custom_ssl_priority list ->
   string ->
   t Tf_core.resource

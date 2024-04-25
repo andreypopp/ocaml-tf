@@ -135,10 +135,10 @@ val mount__nfs_mount :
 type mount
 
 val mount :
-  azure_blob_file_system:mount__azure_blob_file_system list ->
-  azure_file_share:mount__azure_file_share list ->
-  cifs_mount:mount__cifs_mount list ->
-  nfs_mount:mount__nfs_mount list ->
+  ?azure_blob_file_system:mount__azure_blob_file_system list ->
+  ?azure_file_share:mount__azure_file_share list ->
+  ?cifs_mount:mount__cifs_mount list ->
+  ?nfs_mount:mount__nfs_mount list ->
   unit ->
   mount
 
@@ -155,13 +155,13 @@ val network_configuration__endpoint_configuration__network_security_group_rules 
 type network_configuration__endpoint_configuration
 
 val network_configuration__endpoint_configuration :
+  ?network_security_group_rules:
+    network_configuration__endpoint_configuration__network_security_group_rules
+    list ->
   backend_port:float prop ->
   frontend_port_range:string prop ->
   name:string prop ->
   protocol:string prop ->
-  network_security_group_rules:
-    network_configuration__endpoint_configuration__network_security_group_rules
-    list ->
   unit ->
   network_configuration__endpoint_configuration
 
@@ -173,7 +173,7 @@ val network_configuration :
   ?public_address_provisioning_type:string prop ->
   ?public_ips:string prop list ->
   ?subnet_id:string prop ->
-  endpoint_configuration:
+  ?endpoint_configuration:
     network_configuration__endpoint_configuration list ->
   unit ->
   network_configuration
@@ -197,8 +197,8 @@ type start_task__container
 val start_task__container :
   ?run_options:string prop ->
   ?working_directory:string prop ->
+  ?registry:start_task__container__registry list ->
   image_name:string prop ->
-  registry:start_task__container__registry list ->
   unit ->
   start_task__container
 
@@ -227,7 +227,7 @@ type start_task__user_identity
 
 val start_task__user_identity :
   ?user_name:string prop ->
-  auto_user:start_task__user_identity__auto_user list ->
+  ?auto_user:start_task__user_identity__auto_user list ->
   unit ->
   start_task__user_identity
 
@@ -237,9 +237,9 @@ val start_task :
   ?common_environment_properties:(string * string prop) list ->
   ?task_retry_maximum:float prop ->
   ?wait_for_success:bool prop ->
+  ?container:start_task__container list ->
+  ?resource_file:start_task__resource_file list ->
   command_line:string prop ->
-  container:start_task__container list ->
-  resource_file:start_task__resource_file list ->
   user_identity:start_task__user_identity list ->
   unit ->
   start_task
@@ -289,13 +289,13 @@ val user_accounts__windows_user_configuration :
 type user_accounts
 
 val user_accounts :
+  ?linux_user_configuration:
+    user_accounts__linux_user_configuration list ->
+  ?windows_user_configuration:
+    user_accounts__windows_user_configuration list ->
   elevation_level:string prop ->
   name:string prop ->
   password:string prop ->
-  linux_user_configuration:
-    user_accounts__linux_user_configuration list ->
-  windows_user_configuration:
-    user_accounts__windows_user_configuration list ->
   unit ->
   user_accounts
 
@@ -315,28 +315,28 @@ val azurerm_batch_pool :
   ?os_disk_placement:string prop ->
   ?stop_pending_resize_operation:bool prop ->
   ?target_node_communication_mode:string prop ->
+  ?auto_scale:auto_scale list ->
+  ?certificate:certificate list ->
+  ?container_configuration:container_configuration list ->
+  ?data_disks:data_disks list ->
+  ?disk_encryption:disk_encryption list ->
+  ?extensions:extensions list ->
+  ?fixed_scale:fixed_scale list ->
+  ?identity:identity list ->
+  ?mount:mount list ->
+  ?network_configuration:network_configuration list ->
+  ?node_placement:node_placement list ->
+  ?start_task:start_task list ->
+  ?task_scheduling_policy:task_scheduling_policy list ->
   ?timeouts:timeouts ->
+  ?user_accounts:user_accounts list ->
+  ?windows:windows list ->
   account_name:string prop ->
   name:string prop ->
   node_agent_sku_id:string prop ->
   resource_group_name:string prop ->
   vm_size:string prop ->
-  auto_scale:auto_scale list ->
-  certificate:certificate list ->
-  container_configuration:container_configuration list ->
-  data_disks:data_disks list ->
-  disk_encryption:disk_encryption list ->
-  extensions:extensions list ->
-  fixed_scale:fixed_scale list ->
-  identity:identity list ->
-  mount:mount list ->
-  network_configuration:network_configuration list ->
-  node_placement:node_placement list ->
-  start_task:start_task list ->
   storage_image_reference:storage_image_reference list ->
-  task_scheduling_policy:task_scheduling_policy list ->
-  user_accounts:user_accounts list ->
-  windows:windows list ->
   unit ->
   azurerm_batch_pool
 
@@ -372,28 +372,28 @@ val register :
   ?os_disk_placement:string prop ->
   ?stop_pending_resize_operation:bool prop ->
   ?target_node_communication_mode:string prop ->
+  ?auto_scale:auto_scale list ->
+  ?certificate:certificate list ->
+  ?container_configuration:container_configuration list ->
+  ?data_disks:data_disks list ->
+  ?disk_encryption:disk_encryption list ->
+  ?extensions:extensions list ->
+  ?fixed_scale:fixed_scale list ->
+  ?identity:identity list ->
+  ?mount:mount list ->
+  ?network_configuration:network_configuration list ->
+  ?node_placement:node_placement list ->
+  ?start_task:start_task list ->
+  ?task_scheduling_policy:task_scheduling_policy list ->
   ?timeouts:timeouts ->
+  ?user_accounts:user_accounts list ->
+  ?windows:windows list ->
   account_name:string prop ->
   name:string prop ->
   node_agent_sku_id:string prop ->
   resource_group_name:string prop ->
   vm_size:string prop ->
-  auto_scale:auto_scale list ->
-  certificate:certificate list ->
-  container_configuration:container_configuration list ->
-  data_disks:data_disks list ->
-  disk_encryption:disk_encryption list ->
-  extensions:extensions list ->
-  fixed_scale:fixed_scale list ->
-  identity:identity list ->
-  mount:mount list ->
-  network_configuration:network_configuration list ->
-  node_placement:node_placement list ->
-  start_task:start_task list ->
   storage_image_reference:storage_image_reference list ->
-  task_scheduling_policy:task_scheduling_policy list ->
-  user_accounts:user_accounts list ->
-  windows:windows list ->
   string ->
   t
 
@@ -407,27 +407,27 @@ val make :
   ?os_disk_placement:string prop ->
   ?stop_pending_resize_operation:bool prop ->
   ?target_node_communication_mode:string prop ->
+  ?auto_scale:auto_scale list ->
+  ?certificate:certificate list ->
+  ?container_configuration:container_configuration list ->
+  ?data_disks:data_disks list ->
+  ?disk_encryption:disk_encryption list ->
+  ?extensions:extensions list ->
+  ?fixed_scale:fixed_scale list ->
+  ?identity:identity list ->
+  ?mount:mount list ->
+  ?network_configuration:network_configuration list ->
+  ?node_placement:node_placement list ->
+  ?start_task:start_task list ->
+  ?task_scheduling_policy:task_scheduling_policy list ->
   ?timeouts:timeouts ->
+  ?user_accounts:user_accounts list ->
+  ?windows:windows list ->
   account_name:string prop ->
   name:string prop ->
   node_agent_sku_id:string prop ->
   resource_group_name:string prop ->
   vm_size:string prop ->
-  auto_scale:auto_scale list ->
-  certificate:certificate list ->
-  container_configuration:container_configuration list ->
-  data_disks:data_disks list ->
-  disk_encryption:disk_encryption list ->
-  extensions:extensions list ->
-  fixed_scale:fixed_scale list ->
-  identity:identity list ->
-  mount:mount list ->
-  network_configuration:network_configuration list ->
-  node_placement:node_placement list ->
-  start_task:start_task list ->
   storage_image_reference:storage_image_reference list ->
-  task_scheduling_policy:task_scheduling_policy list ->
-  user_accounts:user_accounts list ->
-  windows:windows list ->
   string ->
   t Tf_core.resource

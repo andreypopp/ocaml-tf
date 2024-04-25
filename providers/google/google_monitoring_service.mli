@@ -32,9 +32,9 @@ val google_monitoring_service :
   ?id:string prop ->
   ?project:string prop ->
   ?user_labels:(string * string prop) list ->
+  ?basic_service:basic_service list ->
   ?timeouts:timeouts ->
   service_id:string prop ->
-  basic_service:basic_service list ->
   unit ->
   google_monitoring_service
 
@@ -59,9 +59,9 @@ val register :
   ?id:string prop ->
   ?project:string prop ->
   ?user_labels:(string * string prop) list ->
+  ?basic_service:basic_service list ->
   ?timeouts:timeouts ->
   service_id:string prop ->
-  basic_service:basic_service list ->
   string ->
   t
 
@@ -70,8 +70,8 @@ val make :
   ?id:string prop ->
   ?project:string prop ->
   ?user_labels:(string * string prop) list ->
+  ?basic_service:basic_service list ->
   ?timeouts:timeouts ->
   service_id:string prop ->
-  basic_service:basic_service list ->
   string ->
   t Tf_core.resource

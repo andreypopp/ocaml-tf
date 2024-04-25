@@ -249,9 +249,9 @@ let attributes ?flow_logs_enabled ?flow_logs_s3_bucket
 let timeouts ?create ?update () : timeouts = { create; update }
 
 let aws_globalaccelerator_custom_routing_accelerator ?enabled ?id
-    ?ip_address_type ?ip_addresses ?tags ?tags_all ?timeouts ~name
-    ~attributes () : aws_globalaccelerator_custom_routing_accelerator
-    =
+    ?ip_address_type ?ip_addresses ?tags ?tags_all ?(attributes = [])
+    ?timeouts ~name () :
+    aws_globalaccelerator_custom_routing_accelerator =
   {
     enabled;
     id;
@@ -278,7 +278,7 @@ type t = {
 }
 
 let make ?enabled ?id ?ip_address_type ?ip_addresses ?tags ?tags_all
-    ?timeouts ~name ~attributes __id =
+    ?(attributes = []) ?timeouts ~name __id =
   let __type = "aws_globalaccelerator_custom_routing_accelerator" in
   let __attrs =
     ({
@@ -302,15 +302,15 @@ let make ?enabled ?id ?ip_address_type ?ip_addresses ?tags ?tags_all
       yojson_of_aws_globalaccelerator_custom_routing_accelerator
         (aws_globalaccelerator_custom_routing_accelerator ?enabled
            ?id ?ip_address_type ?ip_addresses ?tags ?tags_all
-           ?timeouts ~name ~attributes ());
+           ~attributes ?timeouts ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?enabled ?id ?ip_address_type ?ip_addresses
-    ?tags ?tags_all ?timeouts ~name ~attributes __id =
+    ?tags ?tags_all ?(attributes = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
     make ?enabled ?id ?ip_address_type ?ip_addresses ?tags ?tags_all
-      ?timeouts ~name ~attributes __id
+      ~attributes ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

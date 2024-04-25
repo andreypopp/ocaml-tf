@@ -21,10 +21,10 @@ val inspect_config__custom_info_types__dictionary__word_list :
 type inspect_config__custom_info_types__dictionary
 
 val inspect_config__custom_info_types__dictionary :
-  cloud_storage_path:
+  ?cloud_storage_path:
     inspect_config__custom_info_types__dictionary__cloud_storage_path
     list ->
-  word_list:
+  ?word_list:
     inspect_config__custom_info_types__dictionary__word_list list ->
   unit ->
   inspect_config__custom_info_types__dictionary
@@ -40,10 +40,10 @@ type inspect_config__custom_info_types__info_type
 
 val inspect_config__custom_info_types__info_type :
   ?version:string prop ->
-  name:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     inspect_config__custom_info_types__info_type__sensitivity_score
     list ->
+  name:string prop ->
   unit ->
   inspect_config__custom_info_types__info_type
 
@@ -79,14 +79,14 @@ type inspect_config__custom_info_types
 val inspect_config__custom_info_types :
   ?exclusion_type:string prop ->
   ?likelihood:string prop ->
-  dictionary:inspect_config__custom_info_types__dictionary list ->
-  info_type:inspect_config__custom_info_types__info_type list ->
-  regex:inspect_config__custom_info_types__regex list ->
-  sensitivity_score:
+  ?dictionary:inspect_config__custom_info_types__dictionary list ->
+  ?regex:inspect_config__custom_info_types__regex list ->
+  ?sensitivity_score:
     inspect_config__custom_info_types__sensitivity_score list ->
-  stored_type:inspect_config__custom_info_types__stored_type list ->
-  surrogate_type:
+  ?stored_type:inspect_config__custom_info_types__stored_type list ->
+  ?surrogate_type:
     inspect_config__custom_info_types__surrogate_type list ->
+  info_type:inspect_config__custom_info_types__info_type list ->
   unit ->
   inspect_config__custom_info_types
 
@@ -101,9 +101,9 @@ type inspect_config__info_types
 
 val inspect_config__info_types :
   ?version:string prop ->
-  name:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     inspect_config__info_types__sensitivity_score list ->
+  name:string prop ->
   unit ->
   inspect_config__info_types
 
@@ -118,10 +118,10 @@ type inspect_config__limits__max_findings_per_info_type__info_type
 
 val inspect_config__limits__max_findings_per_info_type__info_type :
   ?version:string prop ->
-  name:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     inspect_config__limits__max_findings_per_info_type__info_type__sensitivity_score
     list ->
+  name:string prop ->
   unit ->
   inspect_config__limits__max_findings_per_info_type__info_type
 
@@ -138,10 +138,10 @@ val inspect_config__limits__max_findings_per_info_type :
 type inspect_config__limits
 
 val inspect_config__limits :
+  ?max_findings_per_info_type:
+    inspect_config__limits__max_findings_per_info_type list ->
   max_findings_per_item:float prop ->
   max_findings_per_request:float prop ->
-  max_findings_per_info_type:
-    inspect_config__limits__max_findings_per_info_type list ->
   unit ->
   inspect_config__limits
 
@@ -156,9 +156,9 @@ type inspect_config__rule_set__info_types
 
 val inspect_config__rule_set__info_types :
   ?version:string prop ->
-  name:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     inspect_config__rule_set__info_types__sensitivity_score list ->
+  name:string prop ->
   unit ->
   inspect_config__rule_set__info_types
 
@@ -179,10 +179,10 @@ val inspect_config__rule_set__rules__exclusion_rule__dictionary__word_list :
 type inspect_config__rule_set__rules__exclusion_rule__dictionary
 
 val inspect_config__rule_set__rules__exclusion_rule__dictionary :
-  cloud_storage_path:
+  ?cloud_storage_path:
     inspect_config__rule_set__rules__exclusion_rule__dictionary__cloud_storage_path
     list ->
-  word_list:
+  ?word_list:
     inspect_config__rule_set__rules__exclusion_rule__dictionary__word_list
     list ->
   unit ->
@@ -227,10 +227,10 @@ type inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_t
 
 val inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types :
   ?version:string prop ->
-  name:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types__sensitivity_score
     list ->
+  name:string prop ->
   unit ->
   inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types
 
@@ -254,16 +254,16 @@ val inspect_config__rule_set__rules__exclusion_rule__regex :
 type inspect_config__rule_set__rules__exclusion_rule
 
 val inspect_config__rule_set__rules__exclusion_rule :
-  matching_type:string prop ->
-  dictionary:
+  ?dictionary:
     inspect_config__rule_set__rules__exclusion_rule__dictionary list ->
-  exclude_by_hotword:
+  ?exclude_by_hotword:
     inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword
     list ->
-  exclude_info_types:
+  ?exclude_info_types:
     inspect_config__rule_set__rules__exclusion_rule__exclude_info_types
     list ->
-  regex:inspect_config__rule_set__rules__exclusion_rule__regex list ->
+  ?regex:inspect_config__rule_set__rules__exclusion_rule__regex list ->
+  matching_type:string prop ->
   unit ->
   inspect_config__rule_set__rules__exclusion_rule
 
@@ -307,8 +307,9 @@ val inspect_config__rule_set__rules__hotword_rule :
 type inspect_config__rule_set__rules
 
 val inspect_config__rule_set__rules :
-  exclusion_rule:inspect_config__rule_set__rules__exclusion_rule list ->
-  hotword_rule:inspect_config__rule_set__rules__hotword_rule list ->
+  ?exclusion_rule:
+    inspect_config__rule_set__rules__exclusion_rule list ->
+  ?hotword_rule:inspect_config__rule_set__rules__hotword_rule list ->
   unit ->
   inspect_config__rule_set__rules
 
@@ -327,10 +328,10 @@ val inspect_config :
   ?exclude_info_types:bool prop ->
   ?include_quote:bool prop ->
   ?min_likelihood:string prop ->
-  custom_info_types:inspect_config__custom_info_types list ->
-  info_types:inspect_config__info_types list ->
-  limits:inspect_config__limits list ->
-  rule_set:inspect_config__rule_set list ->
+  ?custom_info_types:inspect_config__custom_info_types list ->
+  ?info_types:inspect_config__info_types list ->
+  ?limits:inspect_config__limits list ->
+  ?rule_set:inspect_config__rule_set list ->
   unit ->
   inspect_config
 
@@ -350,9 +351,9 @@ val google_data_loss_prevention_inspect_template :
   ?display_name:string prop ->
   ?id:string prop ->
   ?template_id:string prop ->
+  ?inspect_config:inspect_config list ->
   ?timeouts:timeouts ->
   parent:string prop ->
-  inspect_config:inspect_config list ->
   unit ->
   google_data_loss_prevention_inspect_template
 
@@ -376,9 +377,9 @@ val register :
   ?display_name:string prop ->
   ?id:string prop ->
   ?template_id:string prop ->
+  ?inspect_config:inspect_config list ->
   ?timeouts:timeouts ->
   parent:string prop ->
-  inspect_config:inspect_config list ->
   string ->
   t
 
@@ -387,8 +388,8 @@ val make :
   ?display_name:string prop ->
   ?id:string prop ->
   ?template_id:string prop ->
+  ?inspect_config:inspect_config list ->
   ?timeouts:timeouts ->
   parent:string prop ->
-  inspect_config:inspect_config list ->
   string ->
   t Tf_core.resource

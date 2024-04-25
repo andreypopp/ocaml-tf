@@ -1620,8 +1620,8 @@ let spec__http2_route__action__rewrite__prefix ?default_prefix ?value
     () : spec__http2_route__action__rewrite__prefix =
   { default_prefix; value }
 
-let spec__http2_route__action__rewrite ~hostname ~path ~prefix () :
-    spec__http2_route__action__rewrite =
+let spec__http2_route__action__rewrite ?(hostname = []) ?(path = [])
+    ?(prefix = []) () : spec__http2_route__action__rewrite =
   { hostname; path; prefix }
 
 let spec__http2_route__action__target__virtual_service
@@ -1633,7 +1633,7 @@ let spec__http2_route__action__target ?port ~virtual_service () :
     spec__http2_route__action__target =
   { port; virtual_service }
 
-let spec__http2_route__action ~rewrite ~target () :
+let spec__http2_route__action ?(rewrite = []) ~target () :
     spec__http2_route__action =
   { rewrite; target }
 
@@ -1642,11 +1642,12 @@ let spec__http2_route__match__header__match__range ~end_ ~start () :
   { end_; start }
 
 let spec__http2_route__match__header__match ?exact ?prefix ?regex
-    ?suffix ~range () : spec__http2_route__match__header__match =
+    ?suffix ?(range = []) () :
+    spec__http2_route__match__header__match =
   { exact; prefix; regex; suffix; range }
 
-let spec__http2_route__match__header ?invert ~name ~match_ () :
-    spec__http2_route__match__header =
+let spec__http2_route__match__header ?invert ?(match_ = []) ~name ()
+    : spec__http2_route__match__header =
   { invert; name; match_ }
 
 let spec__http2_route__match__hostname ?exact ?suffix () :
@@ -1661,12 +1662,13 @@ let spec__http2_route__match__query_parameter__match ?exact () :
     spec__http2_route__match__query_parameter__match =
   { exact }
 
-let spec__http2_route__match__query_parameter ~name ~match_ () :
-    spec__http2_route__match__query_parameter =
+let spec__http2_route__match__query_parameter ?(match_ = []) ~name ()
+    : spec__http2_route__match__query_parameter =
   { name; match_ }
 
-let spec__http2_route__match ?port ?prefix ~header ~hostname ~path
-    ~query_parameter () : spec__http2_route__match =
+let spec__http2_route__match ?port ?prefix ?(hostname = [])
+    ?(path = []) ~header ~query_parameter () :
+    spec__http2_route__match =
   { port; prefix; header; hostname; path; query_parameter }
 
 let spec__http2_route ~action ~match_ () : spec__http2_route =
@@ -1685,8 +1687,8 @@ let spec__http_route__action__rewrite__prefix ?default_prefix ?value
     () : spec__http_route__action__rewrite__prefix =
   { default_prefix; value }
 
-let spec__http_route__action__rewrite ~hostname ~path ~prefix () :
-    spec__http_route__action__rewrite =
+let spec__http_route__action__rewrite ?(hostname = []) ?(path = [])
+    ?(prefix = []) () : spec__http_route__action__rewrite =
   { hostname; path; prefix }
 
 let spec__http_route__action__target__virtual_service
@@ -1698,7 +1700,7 @@ let spec__http_route__action__target ?port ~virtual_service () :
     spec__http_route__action__target =
   { port; virtual_service }
 
-let spec__http_route__action ~rewrite ~target () :
+let spec__http_route__action ?(rewrite = []) ~target () :
     spec__http_route__action =
   { rewrite; target }
 
@@ -1707,10 +1709,11 @@ let spec__http_route__match__header__match__range ~end_ ~start () :
   { end_; start }
 
 let spec__http_route__match__header__match ?exact ?prefix ?regex
-    ?suffix ~range () : spec__http_route__match__header__match =
+    ?suffix ?(range = []) () : spec__http_route__match__header__match
+    =
   { exact; prefix; regex; suffix; range }
 
-let spec__http_route__match__header ?invert ~name ~match_ () :
+let spec__http_route__match__header ?invert ?(match_ = []) ~name () :
     spec__http_route__match__header =
   { invert; name; match_ }
 
@@ -1726,18 +1729,20 @@ let spec__http_route__match__query_parameter__match ?exact () :
     spec__http_route__match__query_parameter__match =
   { exact }
 
-let spec__http_route__match__query_parameter ~name ~match_ () :
-    spec__http_route__match__query_parameter =
+let spec__http_route__match__query_parameter ?(match_ = []) ~name ()
+    : spec__http_route__match__query_parameter =
   { name; match_ }
 
-let spec__http_route__match ?port ?prefix ~header ~hostname ~path
-    ~query_parameter () : spec__http_route__match =
+let spec__http_route__match ?port ?prefix ?(hostname = [])
+    ?(path = []) ~header ~query_parameter () :
+    spec__http_route__match =
   { port; prefix; header; hostname; path; query_parameter }
 
 let spec__http_route ~action ~match_ () : spec__http_route =
   { action; match_ }
 
-let spec ?priority ~grpc_route ~http2_route ~http_route () : spec =
+let spec ?priority ?(grpc_route = []) ?(http2_route = [])
+    ?(http_route = []) () : spec =
   { priority; grpc_route; http2_route; http_route }
 
 let aws_appmesh_gateway_route ?id ?mesh_owner ?tags ?tags_all

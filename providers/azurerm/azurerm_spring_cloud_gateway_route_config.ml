@@ -339,8 +339,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_spring_cloud_gateway_route_config ?filters ?id
     ?predicates ?protocol ?spring_cloud_app_id
-    ?sso_validation_enabled ?timeouts ~name ~spring_cloud_gateway_id
-    ~open_api ~route () : azurerm_spring_cloud_gateway_route_config =
+    ?sso_validation_enabled ?(open_api = []) ?timeouts ~name
+    ~spring_cloud_gateway_id ~route () :
+    azurerm_spring_cloud_gateway_route_config =
   {
     filters;
     id;
@@ -367,8 +368,8 @@ type t = {
 }
 
 let make ?filters ?id ?predicates ?protocol ?spring_cloud_app_id
-    ?sso_validation_enabled ?timeouts ~name ~spring_cloud_gateway_id
-    ~open_api ~route __id =
+    ?sso_validation_enabled ?(open_api = []) ?timeouts ~name
+    ~spring_cloud_gateway_id ~route __id =
   let __type = "azurerm_spring_cloud_gateway_route_config" in
   let __attrs =
     ({
@@ -393,18 +394,18 @@ let make ?filters ?id ?predicates ?protocol ?spring_cloud_app_id
       yojson_of_azurerm_spring_cloud_gateway_route_config
         (azurerm_spring_cloud_gateway_route_config ?filters ?id
            ?predicates ?protocol ?spring_cloud_app_id
-           ?sso_validation_enabled ?timeouts ~name
-           ~spring_cloud_gateway_id ~open_api ~route ());
+           ?sso_validation_enabled ~open_api ?timeouts ~name
+           ~spring_cloud_gateway_id ~route ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?filters ?id ?predicates ?protocol
-    ?spring_cloud_app_id ?sso_validation_enabled ?timeouts ~name
-    ~spring_cloud_gateway_id ~open_api ~route __id =
+    ?spring_cloud_app_id ?sso_validation_enabled ?(open_api = [])
+    ?timeouts ~name ~spring_cloud_gateway_id ~route __id =
   let (r : _ Tf_core.resource) =
     make ?filters ?id ?predicates ?protocol ?spring_cloud_app_id
-      ?sso_validation_enabled ?timeouts ~name
-      ~spring_cloud_gateway_id ~open_api ~route __id
+      ?sso_validation_enabled ~open_api ?timeouts ~name
+      ~spring_cloud_gateway_id ~route __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -25,12 +25,12 @@ val azurerm_stack_hci_cluster :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tenant_id:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   client_id:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   unit ->
   azurerm_stack_hci_cluster
 
@@ -59,12 +59,12 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tenant_id:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   client_id:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   string ->
   t
 
@@ -73,11 +73,11 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tenant_id:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   client_id:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

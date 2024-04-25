@@ -16,10 +16,10 @@ type aws_lambda_alias
 val aws_lambda_alias :
   ?description:string prop ->
   ?id:string prop ->
+  ?routing_config:routing_config list ->
   function_name:string prop ->
   function_version:string prop ->
   name:string prop ->
-  routing_config:routing_config list ->
   unit ->
   aws_lambda_alias
 
@@ -41,19 +41,19 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
+  ?routing_config:routing_config list ->
   function_name:string prop ->
   function_version:string prop ->
   name:string prop ->
-  routing_config:routing_config list ->
   string ->
   t
 
 val make :
   ?description:string prop ->
   ?id:string prop ->
+  ?routing_config:routing_config list ->
   function_name:string prop ->
   function_version:string prop ->
   name:string prop ->
-  routing_config:routing_config list ->
   string ->
   t Tf_core.resource

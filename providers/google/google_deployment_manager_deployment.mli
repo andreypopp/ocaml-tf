@@ -23,8 +23,8 @@ val target__imports :
 type target
 
 val target :
+  ?imports:target__imports list ->
   config:target__config list ->
-  imports:target__imports list ->
   unit ->
   target
 

@@ -20,9 +20,9 @@ type aws_sesv2_account_vdm_attributes
 
 val aws_sesv2_account_vdm_attributes :
   ?id:string prop ->
+  ?dashboard_attributes:dashboard_attributes list ->
+  ?guardian_attributes:guardian_attributes list ->
   vdm_enabled:string prop ->
-  dashboard_attributes:dashboard_attributes list ->
-  guardian_attributes:guardian_attributes list ->
   unit ->
   aws_sesv2_account_vdm_attributes
 
@@ -36,16 +36,16 @@ type t = private { id : string prop; vdm_enabled : string prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?dashboard_attributes:dashboard_attributes list ->
+  ?guardian_attributes:guardian_attributes list ->
   vdm_enabled:string prop ->
-  dashboard_attributes:dashboard_attributes list ->
-  guardian_attributes:guardian_attributes list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?dashboard_attributes:dashboard_attributes list ->
+  ?guardian_attributes:guardian_attributes list ->
   vdm_enabled:string prop ->
-  dashboard_attributes:dashboard_attributes list ->
-  guardian_attributes:guardian_attributes list ->
   string ->
   t Tf_core.resource

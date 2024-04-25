@@ -360,8 +360,8 @@ let scaling_parameters ?desired_instance_type
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let aws_cloudsearch_domain ?id ?multi_az ?timeouts ~name
-    ~endpoint_options ~index_field ~scaling_parameters () :
+let aws_cloudsearch_domain ?id ?multi_az ?(endpoint_options = [])
+    ?(scaling_parameters = []) ?timeouts ~name ~index_field () :
     aws_cloudsearch_domain =
   {
     id;
@@ -383,8 +383,8 @@ type t = {
   search_service_endpoint : string prop;
 }
 
-let make ?id ?multi_az ?timeouts ~name ~endpoint_options ~index_field
-    ~scaling_parameters __id =
+let make ?id ?multi_az ?(endpoint_options = [])
+    ?(scaling_parameters = []) ?timeouts ~name ~index_field __id =
   let __type = "aws_cloudsearch_domain" in
   let __attrs =
     ({
@@ -405,16 +405,16 @@ let make ?id ?multi_az ?timeouts ~name ~endpoint_options ~index_field
     type_ = __type;
     json =
       yojson_of_aws_cloudsearch_domain
-        (aws_cloudsearch_domain ?id ?multi_az ?timeouts ~name
-           ~endpoint_options ~index_field ~scaling_parameters ());
+        (aws_cloudsearch_domain ?id ?multi_az ~endpoint_options
+           ~scaling_parameters ?timeouts ~name ~index_field ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?multi_az ?timeouts ~name
-    ~endpoint_options ~index_field ~scaling_parameters __id =
+let register ?tf_module ?id ?multi_az ?(endpoint_options = [])
+    ?(scaling_parameters = []) ?timeouts ~name ~index_field __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?multi_az ?timeouts ~name ~endpoint_options ~index_field
-      ~scaling_parameters __id
+    make ?id ?multi_az ~endpoint_options ~scaling_parameters
+      ?timeouts ~name ~index_field __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

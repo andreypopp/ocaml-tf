@@ -30,12 +30,12 @@ val azurerm_lab_service_schedule :
   ?id:string prop ->
   ?notes:string prop ->
   ?start_time:string prop ->
+  ?recurrence:recurrence list ->
   ?timeouts:timeouts ->
   lab_id:string prop ->
   name:string prop ->
   stop_time:string prop ->
   time_zone:string prop ->
-  recurrence:recurrence list ->
   unit ->
   azurerm_lab_service_schedule
 
@@ -59,12 +59,12 @@ val register :
   ?id:string prop ->
   ?notes:string prop ->
   ?start_time:string prop ->
+  ?recurrence:recurrence list ->
   ?timeouts:timeouts ->
   lab_id:string prop ->
   name:string prop ->
   stop_time:string prop ->
   time_zone:string prop ->
-  recurrence:recurrence list ->
   string ->
   t
 
@@ -72,11 +72,11 @@ val make :
   ?id:string prop ->
   ?notes:string prop ->
   ?start_time:string prop ->
+  ?recurrence:recurrence list ->
   ?timeouts:timeouts ->
   lab_id:string prop ->
   name:string prop ->
   stop_time:string prop ->
   time_zone:string prop ->
-  recurrence:recurrence list ->
   string ->
   t Tf_core.resource

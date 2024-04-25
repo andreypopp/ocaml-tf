@@ -52,6 +52,9 @@ type azurerm_managed_lustre_file_system
 val azurerm_managed_lustre_file_system :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?encryption_key:encryption_key list ->
+  ?hsm_setting:hsm_setting list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -60,9 +63,6 @@ val azurerm_managed_lustre_file_system :
   storage_capacity_in_tb:float prop ->
   subnet_id:string prop ->
   zones:string prop list ->
-  encryption_key:encryption_key list ->
-  hsm_setting:hsm_setting list ->
-  identity:identity list ->
   maintenance_window:maintenance_window list ->
   unit ->
   azurerm_managed_lustre_file_system
@@ -89,6 +89,9 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?encryption_key:encryption_key list ->
+  ?hsm_setting:hsm_setting list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -97,9 +100,6 @@ val register :
   storage_capacity_in_tb:float prop ->
   subnet_id:string prop ->
   zones:string prop list ->
-  encryption_key:encryption_key list ->
-  hsm_setting:hsm_setting list ->
-  identity:identity list ->
   maintenance_window:maintenance_window list ->
   string ->
   t
@@ -107,6 +107,9 @@ val register :
 val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?encryption_key:encryption_key list ->
+  ?hsm_setting:hsm_setting list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -115,9 +118,6 @@ val make :
   storage_capacity_in_tb:float prop ->
   subnet_id:string prop ->
   zones:string prop list ->
-  encryption_key:encryption_key list ->
-  hsm_setting:hsm_setting list ->
-  identity:identity list ->
   maintenance_window:maintenance_window list ->
   string ->
   t Tf_core.resource

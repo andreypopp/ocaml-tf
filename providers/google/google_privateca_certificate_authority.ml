@@ -1290,7 +1290,7 @@ let config__subject_config__subject_alt_name ?dns_names
     config__subject_config__subject_alt_name =
   { dns_names; email_addresses; ip_addresses; uris }
 
-let config__subject_config ~subject ~subject_alt_name () :
+let config__subject_config ?(subject_alt_name = []) ~subject () :
     config__subject_config =
   { subject; subject_alt_name }
 
@@ -1348,9 +1348,9 @@ let config__x509_config__key_usage__unknown_extended_key_usages
     config__x509_config__key_usage__unknown_extended_key_usages =
   { object_id_path }
 
-let config__x509_config__key_usage ~base_key_usage
-    ~extended_key_usage ~unknown_extended_key_usages () :
-    config__x509_config__key_usage =
+let config__x509_config__key_usage
+    ?(unknown_extended_key_usages = []) ~base_key_usage
+    ~extended_key_usage () : config__x509_config__key_usage =
   { base_key_usage; extended_key_usage; unknown_extended_key_usages }
 
 let config__x509_config__name_constraints ?excluded_dns_names
@@ -1374,8 +1374,9 @@ let config__x509_config__policy_ids ~object_id_path () :
     config__x509_config__policy_ids =
   { object_id_path }
 
-let config__x509_config ?aia_ocsp_servers ~additional_extensions
-    ~ca_options ~key_usage ~name_constraints ~policy_ids () :
+let config__x509_config ?aia_ocsp_servers
+    ?(additional_extensions = []) ?(name_constraints = [])
+    ?(policy_ids = []) ~ca_options ~key_usage () :
     config__x509_config =
   {
     aia_ocsp_servers;
@@ -1396,8 +1397,8 @@ let subordinate_config__pem_issuer_chain ?pem_certificates () :
     subordinate_config__pem_issuer_chain =
   { pem_certificates }
 
-let subordinate_config ?certificate_authority ~pem_issuer_chain () :
-    subordinate_config =
+let subordinate_config ?certificate_authority
+    ?(pem_issuer_chain = []) () : subordinate_config =
   { certificate_authority; pem_issuer_chain }
 
 let timeouts ?create ?delete ?update () : timeouts =
@@ -1406,9 +1407,10 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_privateca_certificate_authority ?deletion_protection
     ?desired_state ?gcs_bucket ?id
     ?ignore_active_certificates_on_deletion ?labels ?lifetime
-    ?pem_ca_certificate ?project ?skip_grace_period ?type_ ?timeouts
-    ~certificate_authority_id ~location ~pool ~config ~key_spec
-    ~subordinate_config () : google_privateca_certificate_authority =
+    ?pem_ca_certificate ?project ?skip_grace_period ?type_
+    ?(subordinate_config = []) ?timeouts ~certificate_authority_id
+    ~location ~pool ~config ~key_spec () :
+    google_privateca_certificate_authority =
   {
     certificate_authority_id;
     deletion_protection;
@@ -1457,9 +1459,9 @@ type t = {
 
 let make ?deletion_protection ?desired_state ?gcs_bucket ?id
     ?ignore_active_certificates_on_deletion ?labels ?lifetime
-    ?pem_ca_certificate ?project ?skip_grace_period ?type_ ?timeouts
-    ~certificate_authority_id ~location ~pool ~config ~key_spec
-    ~subordinate_config __id =
+    ?pem_ca_certificate ?project ?skip_grace_period ?type_
+    ?(subordinate_config = []) ?timeouts ~certificate_authority_id
+    ~location ~pool ~config ~key_spec __id =
   let __type = "google_privateca_certificate_authority" in
   let __attrs =
     ({
@@ -1506,22 +1508,22 @@ let make ?deletion_protection ?desired_state ?gcs_bucket ?id
            ?desired_state ?gcs_bucket ?id
            ?ignore_active_certificates_on_deletion ?labels ?lifetime
            ?pem_ca_certificate ?project ?skip_grace_period ?type_
-           ?timeouts ~certificate_authority_id ~location ~pool
-           ~config ~key_spec ~subordinate_config ());
+           ~subordinate_config ?timeouts ~certificate_authority_id
+           ~location ~pool ~config ~key_spec ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?deletion_protection ?desired_state
     ?gcs_bucket ?id ?ignore_active_certificates_on_deletion ?labels
     ?lifetime ?pem_ca_certificate ?project ?skip_grace_period ?type_
-    ?timeouts ~certificate_authority_id ~location ~pool ~config
-    ~key_spec ~subordinate_config __id =
+    ?(subordinate_config = []) ?timeouts ~certificate_authority_id
+    ~location ~pool ~config ~key_spec __id =
   let (r : _ Tf_core.resource) =
     make ?deletion_protection ?desired_state ?gcs_bucket ?id
       ?ignore_active_certificates_on_deletion ?labels ?lifetime
       ?pem_ca_certificate ?project ?skip_grace_period ?type_
-      ?timeouts ~certificate_authority_id ~location ~pool ~config
-      ~key_spec ~subordinate_config __id
+      ~subordinate_config ?timeouts ~certificate_authority_id
+      ~location ~pool ~config ~key_spec __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

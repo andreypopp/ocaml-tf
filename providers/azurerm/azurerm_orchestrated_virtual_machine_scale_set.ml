@@ -1960,9 +1960,9 @@ let extension__protected_settings_from_key_vault ~secret_url
 let extension ?auto_upgrade_minor_version_enabled
     ?extensions_to_provision_after_vm_creation
     ?failure_suppression_enabled ?force_extension_execution_on_change
-    ?protected_settings ?settings ~name ~publisher ~type_
-    ~type_handler_version ~protected_settings_from_key_vault () :
-    extension =
+    ?protected_settings ?settings
+    ?(protected_settings_from_key_vault = []) ~name ~publisher ~type_
+    ~type_handler_version () : extension =
   {
     auto_upgrade_minor_version_enabled;
     extensions_to_provision_after_vm_creation;
@@ -1987,7 +1987,7 @@ let network_interface__ip_configuration__public_ip_address__ip_tag
 
 let network_interface__ip_configuration__public_ip_address
     ?domain_name_label ?idle_timeout_in_minutes ?public_ip_prefix_id
-    ?sku_name ?version ~name ~ip_tag () :
+    ?sku_name ?version ?(ip_tag = []) ~name () :
     network_interface__ip_configuration__public_ip_address =
   {
     domain_name_label;
@@ -2003,7 +2003,7 @@ let network_interface__ip_configuration
     ?application_gateway_backend_address_pool_ids
     ?application_security_group_ids
     ?load_balancer_backend_address_pool_ids ?primary ?subnet_id
-    ?version ~name ~public_ip_address () :
+    ?version ?(public_ip_address = []) ~name () :
     network_interface__ip_configuration =
   {
     application_gateway_backend_address_pool_ids;
@@ -2034,8 +2034,8 @@ let os_disk__diff_disk_settings ?placement ~option_ () :
   { option_; placement }
 
 let os_disk ?disk_encryption_set_id ?disk_size_gb
-    ?write_accelerator_enabled ~caching ~storage_account_type
-    ~diff_disk_settings () : os_disk =
+    ?write_accelerator_enabled ?(diff_disk_settings = []) ~caching
+    ~storage_account_type () : os_disk =
   {
     caching;
     disk_encryption_set_id;
@@ -2060,7 +2060,7 @@ let os_profile__linux_configuration__secret ~key_vault_id
 let os_profile__linux_configuration ?admin_password
     ?computer_name_prefix ?disable_password_authentication
     ?patch_assessment_mode ?patch_mode ?provision_vm_agent
-    ~admin_username ~admin_ssh_key ~secret () :
+    ?(secret = []) ~admin_username ~admin_ssh_key () :
     os_profile__linux_configuration =
   {
     admin_password;
@@ -2096,8 +2096,9 @@ let os_profile__windows_configuration__winrm_listener
 let os_profile__windows_configuration ?computer_name_prefix
     ?enable_automatic_updates ?hotpatching_enabled
     ?patch_assessment_mode ?patch_mode ?provision_vm_agent ?timezone
-    ~admin_password ~admin_username ~additional_unattend_content
-    ~secret ~winrm_listener () : os_profile__windows_configuration =
+    ?(additional_unattend_content = []) ?(secret = [])
+    ~admin_password ~admin_username ~winrm_listener () :
+    os_profile__windows_configuration =
   {
     admin_password;
     admin_username;
@@ -2113,8 +2114,8 @@ let os_profile__windows_configuration ?computer_name_prefix
     winrm_listener;
   }
 
-let os_profile ?custom_data ~linux_configuration
-    ~windows_configuration () : os_profile =
+let os_profile ?custom_data ?(linux_configuration = [])
+    ?(windows_configuration = []) () : os_profile =
   { custom_data; linux_configuration; windows_configuration }
 
 let plan ~name ~product ~publisher () : plan =
@@ -2141,12 +2142,13 @@ let azurerm_orchestrated_virtual_machine_scale_set
     ?extensions_time_budget ?id ?instances ?license_type
     ?max_bid_price ?priority ?proximity_placement_group_id
     ?single_placement_group ?sku_name ?source_image_id ?tags
-    ?user_data_base64 ?zone_balance ?zones ?timeouts ~location ~name
-    ~platform_fault_domain_count ~resource_group_name
-    ~additional_capabilities ~automatic_instance_repair
-    ~boot_diagnostics ~data_disk ~extension ~identity
-    ~network_interface ~os_disk ~os_profile ~plan ~priority_mix
-    ~source_image_reference ~termination_notification () :
+    ?user_data_base64 ?zone_balance ?zones
+    ?(additional_capabilities = []) ?(automatic_instance_repair = [])
+    ?(boot_diagnostics = []) ?(data_disk = []) ?(identity = [])
+    ?(network_interface = []) ?(os_disk = []) ?(os_profile = [])
+    ?(plan = []) ?(priority_mix = []) ?(source_image_reference = [])
+    ?(termination_notification = []) ?timeouts ~location ~name
+    ~platform_fault_domain_count ~resource_group_name ~extension () :
     azurerm_orchestrated_virtual_machine_scale_set =
   {
     capacity_reservation_group_id;
@@ -2218,12 +2220,14 @@ let make ?capacity_reservation_group_id ?encryption_at_host_enabled
     ?extensions_time_budget ?id ?instances ?license_type
     ?max_bid_price ?priority ?proximity_placement_group_id
     ?single_placement_group ?sku_name ?source_image_id ?tags
-    ?user_data_base64 ?zone_balance ?zones ?timeouts ~location ~name
-    ~platform_fault_domain_count ~resource_group_name
-    ~additional_capabilities ~automatic_instance_repair
-    ~boot_diagnostics ~data_disk ~extension ~identity
-    ~network_interface ~os_disk ~os_profile ~plan ~priority_mix
-    ~source_image_reference ~termination_notification __id =
+    ?user_data_base64 ?zone_balance ?zones
+    ?(additional_capabilities = []) ?(automatic_instance_repair = [])
+    ?(boot_diagnostics = []) ?(data_disk = []) ?(identity = [])
+    ?(network_interface = []) ?(os_disk = []) ?(os_profile = [])
+    ?(plan = []) ?(priority_mix = []) ?(source_image_reference = [])
+    ?(termination_notification = []) ?timeouts ~location ~name
+    ~platform_fault_domain_count ~resource_group_name ~extension __id
+    =
   let __type = "azurerm_orchestrated_virtual_machine_scale_set" in
   let __attrs =
     ({
@@ -2273,13 +2277,13 @@ let make ?capacity_reservation_group_id ?encryption_at_host_enabled
            ?extensions_time_budget ?id ?instances ?license_type
            ?max_bid_price ?priority ?proximity_placement_group_id
            ?single_placement_group ?sku_name ?source_image_id ?tags
-           ?user_data_base64 ?zone_balance ?zones ?timeouts ~location
-           ~name ~platform_fault_domain_count ~resource_group_name
+           ?user_data_base64 ?zone_balance ?zones
            ~additional_capabilities ~automatic_instance_repair
-           ~boot_diagnostics ~data_disk ~extension ~identity
-           ~network_interface ~os_disk ~os_profile ~plan
-           ~priority_mix ~source_image_reference
-           ~termination_notification ());
+           ~boot_diagnostics ~data_disk ~identity ~network_interface
+           ~os_disk ~os_profile ~plan ~priority_mix
+           ~source_image_reference ~termination_notification
+           ?timeouts ~location ~name ~platform_fault_domain_count
+           ~resource_group_name ~extension ());
     attrs = __attrs;
   }
 
@@ -2289,24 +2293,25 @@ let register ?tf_module ?capacity_reservation_group_id
     ?instances ?license_type ?max_bid_price ?priority
     ?proximity_placement_group_id ?single_placement_group ?sku_name
     ?source_image_id ?tags ?user_data_base64 ?zone_balance ?zones
-    ?timeouts ~location ~name ~platform_fault_domain_count
-    ~resource_group_name ~additional_capabilities
-    ~automatic_instance_repair ~boot_diagnostics ~data_disk
-    ~extension ~identity ~network_interface ~os_disk ~os_profile
-    ~plan ~priority_mix ~source_image_reference
-    ~termination_notification __id =
+    ?(additional_capabilities = []) ?(automatic_instance_repair = [])
+    ?(boot_diagnostics = []) ?(data_disk = []) ?(identity = [])
+    ?(network_interface = []) ?(os_disk = []) ?(os_profile = [])
+    ?(plan = []) ?(priority_mix = []) ?(source_image_reference = [])
+    ?(termination_notification = []) ?timeouts ~location ~name
+    ~platform_fault_domain_count ~resource_group_name ~extension __id
+    =
   let (r : _ Tf_core.resource) =
     make ?capacity_reservation_group_id ?encryption_at_host_enabled
       ?eviction_policy ?extension_operations_enabled
       ?extensions_time_budget ?id ?instances ?license_type
       ?max_bid_price ?priority ?proximity_placement_group_id
       ?single_placement_group ?sku_name ?source_image_id ?tags
-      ?user_data_base64 ?zone_balance ?zones ?timeouts ~location
-      ~name ~platform_fault_domain_count ~resource_group_name
-      ~additional_capabilities ~automatic_instance_repair
-      ~boot_diagnostics ~data_disk ~extension ~identity
-      ~network_interface ~os_disk ~os_profile ~plan ~priority_mix
-      ~source_image_reference ~termination_notification __id
+      ?user_data_base64 ?zone_balance ?zones ~additional_capabilities
+      ~automatic_instance_repair ~boot_diagnostics ~data_disk
+      ~identity ~network_interface ~os_disk ~os_profile ~plan
+      ~priority_mix ~source_image_reference ~termination_notification
+      ?timeouts ~location ~name ~platform_fault_domain_count
+      ~resource_group_name ~extension __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

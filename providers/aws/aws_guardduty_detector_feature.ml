@@ -93,8 +93,9 @@ let additional_configuration ~name ~status () :
     additional_configuration =
   { name; status }
 
-let aws_guardduty_detector_feature ?id ~detector_id ~name ~status
-    ~additional_configuration () : aws_guardduty_detector_feature =
+let aws_guardduty_detector_feature ?id
+    ?(additional_configuration = []) ~detector_id ~name ~status () :
+    aws_guardduty_detector_feature =
   { detector_id; id; name; status; additional_configuration }
 
 type t = {
@@ -104,8 +105,8 @@ type t = {
   status : string prop;
 }
 
-let make ?id ~detector_id ~name ~status ~additional_configuration
-    __id =
+let make ?id ?(additional_configuration = []) ~detector_id ~name
+    ~status __id =
   let __type = "aws_guardduty_detector_feature" in
   let __attrs =
     ({
@@ -121,15 +122,15 @@ let make ?id ~detector_id ~name ~status ~additional_configuration
     type_ = __type;
     json =
       yojson_of_aws_guardduty_detector_feature
-        (aws_guardduty_detector_feature ?id ~detector_id ~name
-           ~status ~additional_configuration ());
+        (aws_guardduty_detector_feature ?id ~additional_configuration
+           ~detector_id ~name ~status ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~detector_id ~name ~status
-    ~additional_configuration __id =
+let register ?tf_module ?id ?(additional_configuration = [])
+    ~detector_id ~name ~status __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~detector_id ~name ~status ~additional_configuration
+    make ?id ~additional_configuration ~detector_id ~name ~status
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

@@ -24,10 +24,10 @@ val google_dialogflow_entity_type :
   ?enable_fuzzy_extraction:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?entities:entities list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   kind:string prop ->
-  entities:entities list ->
   unit ->
   google_dialogflow_entity_type
 
@@ -50,10 +50,10 @@ val register :
   ?enable_fuzzy_extraction:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?entities:entities list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   kind:string prop ->
-  entities:entities list ->
   string ->
   t
 
@@ -61,9 +61,9 @@ val make :
   ?enable_fuzzy_extraction:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?entities:entities list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   kind:string prop ->
-  entities:entities list ->
   string ->
   t Tf_core.resource

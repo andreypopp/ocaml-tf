@@ -352,7 +352,7 @@ let image_scanning_configuration__ecr_configuration ?container_tags
   { container_tags; repository_name }
 
 let image_scanning_configuration ?image_scanning_enabled
-    ~ecr_configuration () : image_scanning_configuration =
+    ?(ecr_configuration = []) () : image_scanning_configuration =
   { image_scanning_enabled; ecr_configuration }
 
 let image_tests_configuration ?image_tests_enabled ?timeout_minutes
@@ -370,9 +370,10 @@ let schedule ?pipeline_execution_start_condition ?timezone
 let aws_imagebuilder_image_pipeline ?container_recipe_arn
     ?description ?distribution_configuration_arn
     ?enhanced_image_metadata_enabled ?id ?image_recipe_arn ?status
-    ?tags ?tags_all ~infrastructure_configuration_arn ~name
-    ~image_scanning_configuration ~image_tests_configuration
-    ~schedule () : aws_imagebuilder_image_pipeline =
+    ?tags ?tags_all ?(image_scanning_configuration = [])
+    ?(image_tests_configuration = []) ?(schedule = [])
+    ~infrastructure_configuration_arn ~name () :
+    aws_imagebuilder_image_pipeline =
   {
     container_recipe_arn;
     description;
@@ -413,9 +414,9 @@ type t = {
 let make ?container_recipe_arn ?description
     ?distribution_configuration_arn ?enhanced_image_metadata_enabled
     ?id ?image_recipe_arn ?status ?tags ?tags_all
-    ~infrastructure_configuration_arn ~name
-    ~image_scanning_configuration ~image_tests_configuration
-    ~schedule __id =
+    ?(image_scanning_configuration = [])
+    ?(image_tests_configuration = []) ?(schedule = [])
+    ~infrastructure_configuration_arn ~name __id =
   let __type = "aws_imagebuilder_image_pipeline" in
   let __attrs =
     ({
@@ -452,25 +453,25 @@ let make ?container_recipe_arn ?description
         (aws_imagebuilder_image_pipeline ?container_recipe_arn
            ?description ?distribution_configuration_arn
            ?enhanced_image_metadata_enabled ?id ?image_recipe_arn
-           ?status ?tags ?tags_all ~infrastructure_configuration_arn
-           ~name ~image_scanning_configuration
-           ~image_tests_configuration ~schedule ());
+           ?status ?tags ?tags_all ~image_scanning_configuration
+           ~image_tests_configuration ~schedule
+           ~infrastructure_configuration_arn ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?container_recipe_arn ?description
     ?distribution_configuration_arn ?enhanced_image_metadata_enabled
     ?id ?image_recipe_arn ?status ?tags ?tags_all
-    ~infrastructure_configuration_arn ~name
-    ~image_scanning_configuration ~image_tests_configuration
-    ~schedule __id =
+    ?(image_scanning_configuration = [])
+    ?(image_tests_configuration = []) ?(schedule = [])
+    ~infrastructure_configuration_arn ~name __id =
   let (r : _ Tf_core.resource) =
     make ?container_recipe_arn ?description
       ?distribution_configuration_arn
       ?enhanced_image_metadata_enabled ?id ?image_recipe_arn ?status
-      ?tags ?tags_all ~infrastructure_configuration_arn ~name
-      ~image_scanning_configuration ~image_tests_configuration
-      ~schedule __id
+      ?tags ?tags_all ~image_scanning_configuration
+      ~image_tests_configuration ~schedule
+      ~infrastructure_configuration_arn ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

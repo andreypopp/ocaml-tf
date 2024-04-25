@@ -16,8 +16,8 @@ val request :
   ?follow_redirects_enabled:bool prop ->
   ?http_verb:string prop ->
   ?parse_dependent_requests_enabled:bool prop ->
+  ?header:request__header list ->
   url:string prop ->
-  header:request__header list ->
   unit ->
   request
 
@@ -46,7 +46,7 @@ val validation_rules :
   ?expected_status_code:float prop ->
   ?ssl_cert_remaining_lifetime:float prop ->
   ?ssl_check_enabled:bool prop ->
-  content:validation_rules__content list ->
+  ?content:validation_rules__content list ->
   unit ->
   validation_rules
 
@@ -61,13 +61,13 @@ val azurerm_application_insights_standard_web_test :
   ?tags:(string * string prop) list ->
   ?timeout:float prop ->
   ?timeouts:timeouts ->
+  ?validation_rules:validation_rules list ->
   application_insights_id:string prop ->
   geo_locations:string prop list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   request:request list ->
-  validation_rules:validation_rules list ->
   unit ->
   azurerm_application_insights_standard_web_test
 
@@ -102,13 +102,13 @@ val register :
   ?tags:(string * string prop) list ->
   ?timeout:float prop ->
   ?timeouts:timeouts ->
+  ?validation_rules:validation_rules list ->
   application_insights_id:string prop ->
   geo_locations:string prop list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   request:request list ->
-  validation_rules:validation_rules list ->
   string ->
   t
 
@@ -121,12 +121,12 @@ val make :
   ?tags:(string * string prop) list ->
   ?timeout:float prop ->
   ?timeouts:timeouts ->
+  ?validation_rules:validation_rules list ->
   application_insights_id:string prop ->
   geo_locations:string prop list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   request:request list ->
-  validation_rules:validation_rules list ->
   string ->
   t Tf_core.resource

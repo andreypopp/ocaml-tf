@@ -42,11 +42,11 @@ val google_dialogflow_cx_security_settings :
   ?redaction_strategy:string prop ->
   ?retention_strategy:string prop ->
   ?retention_window_days:float prop ->
+  ?audio_export_settings:audio_export_settings list ->
+  ?insights_export_settings:insights_export_settings list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   location:string prop ->
-  audio_export_settings:audio_export_settings list ->
-  insights_export_settings:insights_export_settings list ->
   unit ->
   google_dialogflow_cx_security_settings
 
@@ -81,11 +81,11 @@ val register :
   ?redaction_strategy:string prop ->
   ?retention_strategy:string prop ->
   ?retention_window_days:float prop ->
+  ?audio_export_settings:audio_export_settings list ->
+  ?insights_export_settings:insights_export_settings list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   location:string prop ->
-  audio_export_settings:audio_export_settings list ->
-  insights_export_settings:insights_export_settings list ->
   string ->
   t
 
@@ -99,10 +99,10 @@ val make :
   ?redaction_strategy:string prop ->
   ?retention_strategy:string prop ->
   ?retention_window_days:float prop ->
+  ?audio_export_settings:audio_export_settings list ->
+  ?insights_export_settings:insights_export_settings list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
   location:string prop ->
-  audio_export_settings:audio_export_settings list ->
-  insights_export_settings:insights_export_settings list ->
   string ->
   t Tf_core.resource

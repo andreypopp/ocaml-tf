@@ -46,6 +46,7 @@ val google_discovery_engine_chat_engine :
   ?id:string prop ->
   ?industry_vertical:string prop ->
   ?project:string prop ->
+  ?common_config:common_config list ->
   ?timeouts:timeouts ->
   collection_id:string prop ->
   data_store_ids:string prop list ->
@@ -53,7 +54,6 @@ val google_discovery_engine_chat_engine :
   engine_id:string prop ->
   location:string prop ->
   chat_engine_config:chat_engine_config list ->
-  common_config:common_config list ->
   unit ->
   google_discovery_engine_chat_engine
 
@@ -82,6 +82,7 @@ val register :
   ?id:string prop ->
   ?industry_vertical:string prop ->
   ?project:string prop ->
+  ?common_config:common_config list ->
   ?timeouts:timeouts ->
   collection_id:string prop ->
   data_store_ids:string prop list ->
@@ -89,7 +90,6 @@ val register :
   engine_id:string prop ->
   location:string prop ->
   chat_engine_config:chat_engine_config list ->
-  common_config:common_config list ->
   string ->
   t
 
@@ -97,6 +97,7 @@ val make :
   ?id:string prop ->
   ?industry_vertical:string prop ->
   ?project:string prop ->
+  ?common_config:common_config list ->
   ?timeouts:timeouts ->
   collection_id:string prop ->
   data_store_ids:string prop list ->
@@ -104,6 +105,5 @@ val make :
   engine_id:string prop ->
   location:string prop ->
   chat_engine_config:chat_engine_config list ->
-  common_config:common_config list ->
   string ->
   t Tf_core.resource

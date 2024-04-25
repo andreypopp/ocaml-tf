@@ -16,7 +16,7 @@ type notifications
 
 val notifications :
   ?email:string prop list ->
-  slack:notifications__slack list ->
+  ?slack:notifications__slack list ->
   unit ->
   notifications
 

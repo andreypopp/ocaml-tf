@@ -16,7 +16,7 @@ type rule
 
 val rule :
   ?bucket_key_enabled:bool prop ->
-  apply_server_side_encryption_by_default:
+  ?apply_server_side_encryption_by_default:
     rule__apply_server_side_encryption_by_default list ->
   unit ->
   rule

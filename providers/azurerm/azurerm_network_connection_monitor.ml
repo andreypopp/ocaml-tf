@@ -755,7 +755,7 @@ let endpoint__filter ?type_ ~item () : endpoint__filter =
 
 let endpoint ?address ?coverage_level ?excluded_ip_addresses
     ?included_ip_addresses ?target_resource_id ?target_resource_type
-    ~name ~filter () : endpoint =
+    ?(filter = []) ~name () : endpoint =
   {
     address;
     coverage_level;
@@ -798,9 +798,10 @@ let test_configuration__tcp_configuration ?destination_port_behavior
   { destination_port_behavior; port; trace_route_enabled }
 
 let test_configuration ?preferred_ip_version
-    ?test_frequency_in_seconds ~name ~protocol ~http_configuration
-    ~icmp_configuration ~success_threshold ~tcp_configuration () :
-    test_configuration =
+    ?test_frequency_in_seconds ?(http_configuration = [])
+    ?(icmp_configuration = []) ?(success_threshold = [])
+    ?(tcp_configuration = []) ~name ~protocol () : test_configuration
+    =
   {
     name;
     preferred_ip_version;

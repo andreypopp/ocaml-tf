@@ -449,16 +449,16 @@ let preserved_state__external_ip__ip_address ?address () :
     preserved_state__external_ip__ip_address =
   { address }
 
-let preserved_state__external_ip ?auto_delete ~interface_name
-    ~ip_address () : preserved_state__external_ip =
+let preserved_state__external_ip ?auto_delete ?(ip_address = [])
+    ~interface_name () : preserved_state__external_ip =
   { auto_delete; interface_name; ip_address }
 
 let preserved_state__internal_ip__ip_address ?address () :
     preserved_state__internal_ip__ip_address =
   { address }
 
-let preserved_state__internal_ip ?auto_delete ~interface_name
-    ~ip_address () : preserved_state__internal_ip =
+let preserved_state__internal_ip ?auto_delete ?(ip_address = [])
+    ~interface_name () : preserved_state__internal_ip =
   { auto_delete; interface_name; ip_address }
 
 let preserved_state ?metadata ~disk ~external_ip ~internal_ip () :
@@ -471,8 +471,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_compute_per_instance_config ?id ?minimal_action
     ?most_disruptive_allowed_action ?project
     ?remove_instance_on_destroy ?remove_instance_state_on_destroy
-    ?zone ?timeouts ~instance_group_manager ~name ~preserved_state ()
-    : google_compute_per_instance_config =
+    ?zone ?(preserved_state = []) ?timeouts ~instance_group_manager
+    ~name () : google_compute_per_instance_config =
   {
     id;
     instance_group_manager;
@@ -501,8 +501,8 @@ type t = {
 
 let make ?id ?minimal_action ?most_disruptive_allowed_action ?project
     ?remove_instance_on_destroy ?remove_instance_state_on_destroy
-    ?zone ?timeouts ~instance_group_manager ~name ~preserved_state
-    __id =
+    ?zone ?(preserved_state = []) ?timeouts ~instance_group_manager
+    ~name __id =
   let __type = "google_compute_per_instance_config" in
   let __attrs =
     ({
@@ -530,20 +530,20 @@ let make ?id ?minimal_action ?most_disruptive_allowed_action ?project
         (google_compute_per_instance_config ?id ?minimal_action
            ?most_disruptive_allowed_action ?project
            ?remove_instance_on_destroy
-           ?remove_instance_state_on_destroy ?zone ?timeouts
-           ~instance_group_manager ~name ~preserved_state ());
+           ?remove_instance_state_on_destroy ?zone ~preserved_state
+           ?timeouts ~instance_group_manager ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?minimal_action
     ?most_disruptive_allowed_action ?project
     ?remove_instance_on_destroy ?remove_instance_state_on_destroy
-    ?zone ?timeouts ~instance_group_manager ~name ~preserved_state
-    __id =
+    ?zone ?(preserved_state = []) ?timeouts ~instance_group_manager
+    ~name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?minimal_action ?most_disruptive_allowed_action ?project
       ?remove_instance_on_destroy ?remove_instance_state_on_destroy
-      ?zone ?timeouts ~instance_group_manager ~name ~preserved_state
+      ?zone ~preserved_state ?timeouts ~instance_group_manager ~name
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

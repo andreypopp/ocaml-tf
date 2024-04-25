@@ -508,8 +508,9 @@ let aws_amplify_app ?access_token ?auto_branch_creation_patterns
     ?enable_auto_branch_creation ?enable_basic_auth
     ?enable_branch_auto_build ?enable_branch_auto_deletion
     ?environment_variables ?iam_service_role_arn ?id ?oauth_token
-    ?platform ?repository ?tags ?tags_all ~name
-    ~auto_branch_creation_config ~custom_rule () : aws_amplify_app =
+    ?platform ?repository ?tags ?tags_all
+    ?(auto_branch_creation_config = []) ?(custom_rule = []) ~name ()
+    : aws_amplify_app =
   {
     access_token;
     auto_branch_creation_patterns;
@@ -564,8 +565,9 @@ let make ?access_token ?auto_branch_creation_patterns
     ?enable_auto_branch_creation ?enable_basic_auth
     ?enable_branch_auto_build ?enable_branch_auto_deletion
     ?environment_variables ?iam_service_role_arn ?id ?oauth_token
-    ?platform ?repository ?tags ?tags_all ~name
-    ~auto_branch_creation_config ~custom_rule __id =
+    ?platform ?repository ?tags ?tags_all
+    ?(auto_branch_creation_config = []) ?(custom_rule = []) ~name
+    __id =
   let __type = "aws_amplify_app" in
   let __attrs =
     ({
@@ -614,8 +616,8 @@ let make ?access_token ?auto_branch_creation_patterns
            ?enable_basic_auth ?enable_branch_auto_build
            ?enable_branch_auto_deletion ?environment_variables
            ?iam_service_role_arn ?id ?oauth_token ?platform
-           ?repository ?tags ?tags_all ~name
-           ~auto_branch_creation_config ~custom_rule ());
+           ?repository ?tags ?tags_all ~auto_branch_creation_config
+           ~custom_rule ~name ());
     attrs = __attrs;
   }
 
@@ -624,16 +626,17 @@ let register ?tf_module ?access_token ?auto_branch_creation_patterns
     ?enable_auto_branch_creation ?enable_basic_auth
     ?enable_branch_auto_build ?enable_branch_auto_deletion
     ?environment_variables ?iam_service_role_arn ?id ?oauth_token
-    ?platform ?repository ?tags ?tags_all ~name
-    ~auto_branch_creation_config ~custom_rule __id =
+    ?platform ?repository ?tags ?tags_all
+    ?(auto_branch_creation_config = []) ?(custom_rule = []) ~name
+    __id =
   let (r : _ Tf_core.resource) =
     make ?access_token ?auto_branch_creation_patterns
       ?basic_auth_credentials ?build_spec ?custom_headers
       ?description ?enable_auto_branch_creation ?enable_basic_auth
       ?enable_branch_auto_build ?enable_branch_auto_deletion
       ?environment_variables ?iam_service_role_arn ?id ?oauth_token
-      ?platform ?repository ?tags ?tags_all ~name
-      ~auto_branch_creation_config ~custom_rule __id
+      ?platform ?repository ?tags ?tags_all
+      ~auto_branch_creation_config ~custom_rule ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

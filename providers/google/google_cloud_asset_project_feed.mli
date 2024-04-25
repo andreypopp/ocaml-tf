@@ -44,9 +44,9 @@ val google_cloud_asset_project_feed :
   ?content_type:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   ?timeouts:timeouts ->
   feed_id:string prop ->
-  condition:condition list ->
   feed_output_config:feed_output_config list ->
   unit ->
   google_cloud_asset_project_feed
@@ -75,9 +75,9 @@ val register :
   ?content_type:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   ?timeouts:timeouts ->
   feed_id:string prop ->
-  condition:condition list ->
   feed_output_config:feed_output_config list ->
   string ->
   t
@@ -89,9 +89,9 @@ val make :
   ?content_type:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   ?timeouts:timeouts ->
   feed_id:string prop ->
-  condition:condition list ->
   feed_output_config:feed_output_config list ->
   string ->
   t Tf_core.resource

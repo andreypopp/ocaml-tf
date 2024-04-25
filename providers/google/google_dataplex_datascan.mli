@@ -38,7 +38,7 @@ val data_profile_spec__post_scan_actions__bigquery_export :
 type data_profile_spec__post_scan_actions
 
 val data_profile_spec__post_scan_actions :
-  bigquery_export:
+  ?bigquery_export:
     data_profile_spec__post_scan_actions__bigquery_export list ->
   unit ->
   data_profile_spec__post_scan_actions
@@ -48,9 +48,9 @@ type data_profile_spec
 val data_profile_spec :
   ?row_filter:string prop ->
   ?sampling_percent:float prop ->
-  exclude_fields:data_profile_spec__exclude_fields list ->
-  include_fields:data_profile_spec__include_fields list ->
-  post_scan_actions:data_profile_spec__post_scan_actions list ->
+  ?exclude_fields:data_profile_spec__exclude_fields list ->
+  ?include_fields:data_profile_spec__include_fields list ->
+  ?post_scan_actions:data_profile_spec__post_scan_actions list ->
   unit ->
   data_profile_spec
 
@@ -64,7 +64,7 @@ val data_quality_spec__post_scan_actions__bigquery_export :
 type data_quality_spec__post_scan_actions
 
 val data_quality_spec__post_scan_actions :
-  bigquery_export:
+  ?bigquery_export:
     data_quality_spec__post_scan_actions__bigquery_export list ->
   unit ->
   data_quality_spec__post_scan_actions
@@ -136,20 +136,20 @@ val data_quality_spec__rules :
   ?ignore_null:bool prop ->
   ?name:string prop ->
   ?threshold:float prop ->
-  dimension:string prop ->
-  non_null_expectation:
+  ?non_null_expectation:
     data_quality_spec__rules__non_null_expectation list ->
-  range_expectation:data_quality_spec__rules__range_expectation list ->
-  regex_expectation:data_quality_spec__rules__regex_expectation list ->
-  row_condition_expectation:
+  ?range_expectation:data_quality_spec__rules__range_expectation list ->
+  ?regex_expectation:data_quality_spec__rules__regex_expectation list ->
+  ?row_condition_expectation:
     data_quality_spec__rules__row_condition_expectation list ->
-  set_expectation:data_quality_spec__rules__set_expectation list ->
-  statistic_range_expectation:
+  ?set_expectation:data_quality_spec__rules__set_expectation list ->
+  ?statistic_range_expectation:
     data_quality_spec__rules__statistic_range_expectation list ->
-  table_condition_expectation:
+  ?table_condition_expectation:
     data_quality_spec__rules__table_condition_expectation list ->
-  uniqueness_expectation:
+  ?uniqueness_expectation:
     data_quality_spec__rules__uniqueness_expectation list ->
+  dimension:string prop ->
   unit ->
   data_quality_spec__rules
 
@@ -158,8 +158,8 @@ type data_quality_spec
 val data_quality_spec :
   ?row_filter:string prop ->
   ?sampling_percent:float prop ->
-  post_scan_actions:data_quality_spec__post_scan_actions list ->
-  rules:data_quality_spec__rules list ->
+  ?post_scan_actions:data_quality_spec__post_scan_actions list ->
+  ?rules:data_quality_spec__rules list ->
   unit ->
   data_quality_spec
 
@@ -176,8 +176,8 @@ val execution_spec__trigger__schedule :
 type execution_spec__trigger
 
 val execution_spec__trigger :
-  on_demand:execution_spec__trigger__on_demand list ->
-  schedule:execution_spec__trigger__schedule list ->
+  ?on_demand:execution_spec__trigger__on_demand list ->
+  ?schedule:execution_spec__trigger__schedule list ->
   unit ->
   execution_spec__trigger
 
@@ -206,12 +206,12 @@ val google_dataplex_datascan :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?data_profile_spec:data_profile_spec list ->
+  ?data_quality_spec:data_quality_spec list ->
   ?timeouts:timeouts ->
   data_scan_id:string prop ->
   location:string prop ->
   data:data list ->
-  data_profile_spec:data_profile_spec list ->
-  data_quality_spec:data_quality_spec list ->
   execution_spec:execution_spec list ->
   unit ->
   google_dataplex_datascan
@@ -247,12 +247,12 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?data_profile_spec:data_profile_spec list ->
+  ?data_quality_spec:data_quality_spec list ->
   ?timeouts:timeouts ->
   data_scan_id:string prop ->
   location:string prop ->
   data:data list ->
-  data_profile_spec:data_profile_spec list ->
-  data_quality_spec:data_quality_spec list ->
   execution_spec:execution_spec list ->
   string ->
   t
@@ -263,12 +263,12 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?data_profile_spec:data_profile_spec list ->
+  ?data_quality_spec:data_quality_spec list ->
   ?timeouts:timeouts ->
   data_scan_id:string prop ->
   location:string prop ->
   data:data list ->
-  data_profile_spec:data_profile_spec list ->
-  data_quality_spec:data_quality_spec list ->
   execution_spec:execution_spec list ->
   string ->
   t Tf_core.resource

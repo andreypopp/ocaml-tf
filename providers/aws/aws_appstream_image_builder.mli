@@ -41,11 +41,11 @@ val aws_appstream_image_builder :
   ?image_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?domain_join_info:domain_join_info list ->
+  ?vpc_config:vpc_config list ->
   instance_type:string prop ->
   name:string prop ->
   access_endpoint:access_endpoint list ->
-  domain_join_info:domain_join_info list ->
-  vpc_config:vpc_config list ->
   unit ->
   aws_appstream_image_builder
 
@@ -84,11 +84,11 @@ val register :
   ?image_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?domain_join_info:domain_join_info list ->
+  ?vpc_config:vpc_config list ->
   instance_type:string prop ->
   name:string prop ->
   access_endpoint:access_endpoint list ->
-  domain_join_info:domain_join_info list ->
-  vpc_config:vpc_config list ->
   string ->
   t
 
@@ -103,10 +103,10 @@ val make :
   ?image_name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?domain_join_info:domain_join_info list ->
+  ?vpc_config:vpc_config list ->
   instance_type:string prop ->
   name:string prop ->
   access_endpoint:access_endpoint list ->
-  domain_join_info:domain_join_info list ->
-  vpc_config:vpc_config list ->
   string ->
   t Tf_core.resource

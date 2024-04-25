@@ -298,8 +298,8 @@ let aws_apigatewayv2_integration ?connection_id ?connection_type
     ?integration_method ?integration_subtype ?integration_uri
     ?passthrough_behavior ?payload_format_version ?request_parameters
     ?request_templates ?template_selection_expression
-    ?timeout_milliseconds ~api_id ~integration_type
-    ~response_parameters ~tls_config () :
+    ?timeout_milliseconds ?(tls_config = []) ~api_id
+    ~integration_type ~response_parameters () :
     aws_apigatewayv2_integration =
   {
     api_id;
@@ -348,8 +348,9 @@ let make ?connection_id ?connection_type ?content_handling_strategy
     ?credentials_arn ?description ?id ?integration_method
     ?integration_subtype ?integration_uri ?passthrough_behavior
     ?payload_format_version ?request_parameters ?request_templates
-    ?template_selection_expression ?timeout_milliseconds ~api_id
-    ~integration_type ~response_parameters ~tls_config __id =
+    ?template_selection_expression ?timeout_milliseconds
+    ?(tls_config = []) ~api_id ~integration_type ~response_parameters
+    __id =
   let __type = "aws_apigatewayv2_integration" in
   let __attrs =
     ({
@@ -397,8 +398,8 @@ let make ?connection_id ?connection_type ?content_handling_strategy
            ?integration_uri ?passthrough_behavior
            ?payload_format_version ?request_parameters
            ?request_templates ?template_selection_expression
-           ?timeout_milliseconds ~api_id ~integration_type
-           ~response_parameters ~tls_config ());
+           ?timeout_milliseconds ~tls_config ~api_id
+           ~integration_type ~response_parameters ());
     attrs = __attrs;
   }
 
@@ -407,15 +408,15 @@ let register ?tf_module ?connection_id ?connection_type
     ?integration_method ?integration_subtype ?integration_uri
     ?passthrough_behavior ?payload_format_version ?request_parameters
     ?request_templates ?template_selection_expression
-    ?timeout_milliseconds ~api_id ~integration_type
-    ~response_parameters ~tls_config __id =
+    ?timeout_milliseconds ?(tls_config = []) ~api_id
+    ~integration_type ~response_parameters __id =
   let (r : _ Tf_core.resource) =
     make ?connection_id ?connection_type ?content_handling_strategy
       ?credentials_arn ?description ?id ?integration_method
       ?integration_subtype ?integration_uri ?passthrough_behavior
       ?payload_format_version ?request_parameters ?request_templates
-      ?template_selection_expression ?timeout_milliseconds ~api_id
-      ~integration_type ~response_parameters ~tls_config __id
+      ?template_selection_expression ?timeout_milliseconds
+      ~tls_config ~api_id ~integration_type ~response_parameters __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

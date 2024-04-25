@@ -19,7 +19,7 @@ type assessment
 val assessment :
   ?enabled:bool prop ->
   ?run_immediately:bool prop ->
-  schedule:assessment__schedule list ->
+  ?schedule:assessment__schedule list ->
   unit ->
   assessment
 
@@ -40,10 +40,10 @@ val auto_backup :
   ?encryption_enabled:bool prop ->
   ?encryption_password:string prop ->
   ?system_databases_backup_enabled:bool prop ->
+  ?manual_schedule:auto_backup__manual_schedule list ->
   retention_period_in_days:float prop ->
   storage_account_access_key:string prop ->
   storage_blob_endpoint:string prop ->
-  manual_schedule:auto_backup__manual_schedule list ->
   unit ->
   auto_backup
 
@@ -112,11 +112,11 @@ type storage_configuration
 
 val storage_configuration :
   ?system_db_on_data_disk_enabled:bool prop ->
+  ?data_settings:storage_configuration__data_settings list ->
+  ?log_settings:storage_configuration__log_settings list ->
+  ?temp_db_settings:storage_configuration__temp_db_settings list ->
   disk_type:string prop ->
   storage_workload_type:string prop ->
-  data_settings:storage_configuration__data_settings list ->
-  log_settings:storage_configuration__log_settings list ->
-  temp_db_settings:storage_configuration__temp_db_settings list ->
   unit ->
   storage_configuration
 
@@ -151,15 +151,15 @@ val azurerm_mssql_virtual_machine :
   ?sql_license_type:string prop ->
   ?sql_virtual_machine_group_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?assessment:assessment list ->
+  ?auto_backup:auto_backup list ->
+  ?auto_patching:auto_patching list ->
+  ?key_vault_credential:key_vault_credential list ->
+  ?sql_instance:sql_instance list ->
+  ?storage_configuration:storage_configuration list ->
   ?timeouts:timeouts ->
+  ?wsfc_domain_credential:wsfc_domain_credential list ->
   virtual_machine_id:string prop ->
-  assessment:assessment list ->
-  auto_backup:auto_backup list ->
-  auto_patching:auto_patching list ->
-  key_vault_credential:key_vault_credential list ->
-  sql_instance:sql_instance list ->
-  storage_configuration:storage_configuration list ->
-  wsfc_domain_credential:wsfc_domain_credential list ->
   unit ->
   azurerm_mssql_virtual_machine
 
@@ -192,15 +192,15 @@ val register :
   ?sql_license_type:string prop ->
   ?sql_virtual_machine_group_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?assessment:assessment list ->
+  ?auto_backup:auto_backup list ->
+  ?auto_patching:auto_patching list ->
+  ?key_vault_credential:key_vault_credential list ->
+  ?sql_instance:sql_instance list ->
+  ?storage_configuration:storage_configuration list ->
   ?timeouts:timeouts ->
+  ?wsfc_domain_credential:wsfc_domain_credential list ->
   virtual_machine_id:string prop ->
-  assessment:assessment list ->
-  auto_backup:auto_backup list ->
-  auto_patching:auto_patching list ->
-  key_vault_credential:key_vault_credential list ->
-  sql_instance:sql_instance list ->
-  storage_configuration:storage_configuration list ->
-  wsfc_domain_credential:wsfc_domain_credential list ->
   string ->
   t
 
@@ -214,14 +214,14 @@ val make :
   ?sql_license_type:string prop ->
   ?sql_virtual_machine_group_id:string prop ->
   ?tags:(string * string prop) list ->
+  ?assessment:assessment list ->
+  ?auto_backup:auto_backup list ->
+  ?auto_patching:auto_patching list ->
+  ?key_vault_credential:key_vault_credential list ->
+  ?sql_instance:sql_instance list ->
+  ?storage_configuration:storage_configuration list ->
   ?timeouts:timeouts ->
+  ?wsfc_domain_credential:wsfc_domain_credential list ->
   virtual_machine_id:string prop ->
-  assessment:assessment list ->
-  auto_backup:auto_backup list ->
-  auto_patching:auto_patching list ->
-  key_vault_credential:key_vault_credential list ->
-  sql_instance:sql_instance list ->
-  storage_configuration:storage_configuration list ->
-  wsfc_domain_credential:wsfc_domain_credential list ->
   string ->
   t Tf_core.resource

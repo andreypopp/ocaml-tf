@@ -305,9 +305,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_discovery_engine_chat_engine ?id ?industry_vertical
-    ?project ?timeouts ~collection_id ~data_store_ids ~display_name
-    ~engine_id ~location ~chat_engine_config ~common_config () :
-    google_discovery_engine_chat_engine =
+    ?project ?(common_config = []) ?timeouts ~collection_id
+    ~data_store_ids ~display_name ~engine_id ~location
+    ~chat_engine_config () : google_discovery_engine_chat_engine =
   {
     collection_id;
     data_store_ids;
@@ -337,9 +337,9 @@ type t = {
   update_time : string prop;
 }
 
-let make ?id ?industry_vertical ?project ?timeouts ~collection_id
-    ~data_store_ids ~display_name ~engine_id ~location
-    ~chat_engine_config ~common_config __id =
+let make ?id ?industry_vertical ?project ?(common_config = [])
+    ?timeouts ~collection_id ~data_store_ids ~display_name ~engine_id
+    ~location ~chat_engine_config __id =
   let __type = "google_discovery_engine_chat_engine" in
   let __attrs =
     ({
@@ -366,19 +366,19 @@ let make ?id ?industry_vertical ?project ?timeouts ~collection_id
     json =
       yojson_of_google_discovery_engine_chat_engine
         (google_discovery_engine_chat_engine ?id ?industry_vertical
-           ?project ?timeouts ~collection_id ~data_store_ids
-           ~display_name ~engine_id ~location ~chat_engine_config
-           ~common_config ());
+           ?project ~common_config ?timeouts ~collection_id
+           ~data_store_ids ~display_name ~engine_id ~location
+           ~chat_engine_config ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?industry_vertical ?project ?timeouts
-    ~collection_id ~data_store_ids ~display_name ~engine_id ~location
-    ~chat_engine_config ~common_config __id =
+let register ?tf_module ?id ?industry_vertical ?project
+    ?(common_config = []) ?timeouts ~collection_id ~data_store_ids
+    ~display_name ~engine_id ~location ~chat_engine_config __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?industry_vertical ?project ?timeouts ~collection_id
-      ~data_store_ids ~display_name ~engine_id ~location
-      ~chat_engine_config ~common_config __id
+    make ?id ?industry_vertical ?project ~common_config ?timeouts
+      ~collection_id ~data_store_ids ~display_name ~engine_id
+      ~location ~chat_engine_config __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

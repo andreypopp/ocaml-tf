@@ -22,7 +22,7 @@ val managed_cluster_update__upgrade :
 type managed_cluster_update
 
 val managed_cluster_update :
-  node_image_selection:
+  ?node_image_selection:
     managed_cluster_update__node_image_selection list ->
   upgrade:managed_cluster_update__upgrade list ->
   unit ->
@@ -56,11 +56,11 @@ type azurerm_kubernetes_fleet_update_run
 val azurerm_kubernetes_fleet_update_run :
   ?fleet_update_strategy_id:string prop ->
   ?id:string prop ->
+  ?stage:stage list ->
   ?timeouts:timeouts ->
   kubernetes_fleet_manager_id:string prop ->
   name:string prop ->
   managed_cluster_update:managed_cluster_update list ->
-  stage:stage list ->
   unit ->
   azurerm_kubernetes_fleet_update_run
 
@@ -80,21 +80,21 @@ val register :
   ?tf_module:tf_module ->
   ?fleet_update_strategy_id:string prop ->
   ?id:string prop ->
+  ?stage:stage list ->
   ?timeouts:timeouts ->
   kubernetes_fleet_manager_id:string prop ->
   name:string prop ->
   managed_cluster_update:managed_cluster_update list ->
-  stage:stage list ->
   string ->
   t
 
 val make :
   ?fleet_update_strategy_id:string prop ->
   ?id:string prop ->
+  ?stage:stage list ->
   ?timeouts:timeouts ->
   kubernetes_fleet_manager_id:string prop ->
   name:string prop ->
   managed_cluster_update:managed_cluster_update list ->
-  stage:stage list ->
   string ->
   t Tf_core.resource

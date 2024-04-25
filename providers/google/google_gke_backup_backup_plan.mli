@@ -40,9 +40,9 @@ val backup_config :
   ?all_namespaces:bool prop ->
   ?include_secrets:bool prop ->
   ?include_volume_data:bool prop ->
-  encryption_key:backup_config__encryption_key list ->
-  selected_applications:backup_config__selected_applications list ->
-  selected_namespaces:backup_config__selected_namespaces list ->
+  ?encryption_key:backup_config__encryption_key list ->
+  ?selected_applications:backup_config__selected_applications list ->
+  ?selected_namespaces:backup_config__selected_namespaces list ->
   unit ->
   backup_config
 
@@ -80,13 +80,13 @@ val google_gke_backup_backup_plan :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?backup_config:backup_config list ->
+  ?backup_schedule:backup_schedule list ->
+  ?retention_policy:retention_policy list ->
   ?timeouts:timeouts ->
   cluster:string prop ->
   location:string prop ->
   name:string prop ->
-  backup_config:backup_config list ->
-  backup_schedule:backup_schedule list ->
-  retention_policy:retention_policy list ->
   unit ->
   google_gke_backup_backup_plan
 
@@ -120,13 +120,13 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?backup_config:backup_config list ->
+  ?backup_schedule:backup_schedule list ->
+  ?retention_policy:retention_policy list ->
   ?timeouts:timeouts ->
   cluster:string prop ->
   location:string prop ->
   name:string prop ->
-  backup_config:backup_config list ->
-  backup_schedule:backup_schedule list ->
-  retention_policy:retention_policy list ->
   string ->
   t
 
@@ -136,12 +136,12 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?backup_config:backup_config list ->
+  ?backup_schedule:backup_schedule list ->
+  ?retention_policy:retention_policy list ->
   ?timeouts:timeouts ->
   cluster:string prop ->
   location:string prop ->
   name:string prop ->
-  backup_config:backup_config list ->
-  backup_schedule:backup_schedule list ->
-  retention_policy:retention_policy list ->
   string ->
   t Tf_core.resource

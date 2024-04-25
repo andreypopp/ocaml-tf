@@ -308,9 +308,9 @@ let retention_period ~retention_period_unit ~retention_period_value
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let aws_rbin_rule ?description ?tags ?tags_all ?timeouts
-    ~resource_type ~lock_configuration ~resource_tags
-    ~retention_period () : aws_rbin_rule =
+let aws_rbin_rule ?description ?tags ?tags_all
+    ?(lock_configuration = []) ?timeouts ~resource_type
+    ~resource_tags ~retention_period () : aws_rbin_rule =
   {
     description;
     resource_type;
@@ -334,8 +334,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?description ?tags ?tags_all ?timeouts ~resource_type
-    ~lock_configuration ~resource_tags ~retention_period __id =
+let make ?description ?tags ?tags_all ?(lock_configuration = [])
+    ?timeouts ~resource_type ~resource_tags ~retention_period __id =
   let __type = "aws_rbin_rule" in
   let __attrs =
     ({
@@ -356,18 +356,18 @@ let make ?description ?tags ?tags_all ?timeouts ~resource_type
     type_ = __type;
     json =
       yojson_of_aws_rbin_rule
-        (aws_rbin_rule ?description ?tags ?tags_all ?timeouts
-           ~resource_type ~lock_configuration ~resource_tags
-           ~retention_period ());
+        (aws_rbin_rule ?description ?tags ?tags_all
+           ~lock_configuration ?timeouts ~resource_type
+           ~resource_tags ~retention_period ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?tags ?tags_all ?timeouts
-    ~resource_type ~lock_configuration ~resource_tags
-    ~retention_period __id =
+let register ?tf_module ?description ?tags ?tags_all
+    ?(lock_configuration = []) ?timeouts ~resource_type
+    ~resource_tags ~retention_period __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?tags ?tags_all ?timeouts ~resource_type
-      ~lock_configuration ~resource_tags ~retention_period __id
+    make ?description ?tags ?tags_all ~lock_configuration ?timeouts
+      ~resource_type ~resource_tags ~retention_period __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

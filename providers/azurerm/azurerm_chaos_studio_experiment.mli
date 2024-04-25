@@ -58,11 +58,11 @@ type azurerm_chaos_studio_experiment
 
 val azurerm_chaos_studio_experiment :
   ?id:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   selectors:selectors list ->
   steps:steps list ->
   unit ->
@@ -83,11 +83,11 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   selectors:selectors list ->
   steps:steps list ->
   string ->
@@ -95,11 +95,11 @@ val register :
 
 val make :
   ?id:string prop ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   selectors:selectors list ->
   steps:steps list ->
   string ->

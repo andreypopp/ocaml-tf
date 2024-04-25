@@ -22,8 +22,8 @@ type entry
 val entry :
   ?enabled:bool prop ->
   ?id:string prop ->
+  ?pattern:entry__pattern list ->
   name:string prop ->
-  pattern:entry__pattern list ->
   unit ->
   entry
 

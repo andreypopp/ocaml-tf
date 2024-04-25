@@ -49,11 +49,11 @@ val azurerm_storage_account_local_user :
   ?id:string prop ->
   ?ssh_key_enabled:bool prop ->
   ?ssh_password_enabled:bool prop ->
+  ?permission_scope:permission_scope list ->
+  ?ssh_authorized_key:ssh_authorized_key list ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_account_id:string prop ->
-  permission_scope:permission_scope list ->
-  ssh_authorized_key:ssh_authorized_key list ->
   unit ->
   azurerm_storage_account_local_user
 
@@ -79,11 +79,11 @@ val register :
   ?id:string prop ->
   ?ssh_key_enabled:bool prop ->
   ?ssh_password_enabled:bool prop ->
+  ?permission_scope:permission_scope list ->
+  ?ssh_authorized_key:ssh_authorized_key list ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_account_id:string prop ->
-  permission_scope:permission_scope list ->
-  ssh_authorized_key:ssh_authorized_key list ->
   string ->
   t
 
@@ -92,10 +92,10 @@ val make :
   ?id:string prop ->
   ?ssh_key_enabled:bool prop ->
   ?ssh_password_enabled:bool prop ->
+  ?permission_scope:permission_scope list ->
+  ?ssh_authorized_key:ssh_authorized_key list ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_account_id:string prop ->
-  permission_scope:permission_scope list ->
-  ssh_authorized_key:ssh_authorized_key list ->
   string ->
   t Tf_core.resource

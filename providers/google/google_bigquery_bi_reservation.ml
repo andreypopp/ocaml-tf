@@ -177,8 +177,9 @@ let preferred_tables ?dataset_id ?project_id ?table_id () :
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_bigquery_bi_reservation ?id ?project ?size ?timeouts
-    ~location ~preferred_tables () : google_bigquery_bi_reservation =
+let google_bigquery_bi_reservation ?id ?project ?size
+    ?(preferred_tables = []) ?timeouts ~location () :
+    google_bigquery_bi_reservation =
   { id; location; project; size; preferred_tables; timeouts }
 
 type t = {
@@ -190,8 +191,8 @@ type t = {
   update_time : string prop;
 }
 
-let make ?id ?project ?size ?timeouts ~location ~preferred_tables
-    __id =
+let make ?id ?project ?size ?(preferred_tables = []) ?timeouts
+    ~location __id =
   let __type = "google_bigquery_bi_reservation" in
   let __attrs =
     ({
@@ -209,15 +210,15 @@ let make ?id ?project ?size ?timeouts ~location ~preferred_tables
     type_ = __type;
     json =
       yojson_of_google_bigquery_bi_reservation
-        (google_bigquery_bi_reservation ?id ?project ?size ?timeouts
-           ~location ~preferred_tables ());
+        (google_bigquery_bi_reservation ?id ?project ?size
+           ~preferred_tables ?timeouts ~location ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ?size ?timeouts ~location
-    ~preferred_tables __id =
+let register ?tf_module ?id ?project ?size ?(preferred_tables = [])
+    ?timeouts ~location __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ?size ?timeouts ~location ~preferred_tables
+    make ?id ?project ?size ~preferred_tables ?timeouts ~location
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

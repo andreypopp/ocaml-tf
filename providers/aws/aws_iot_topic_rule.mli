@@ -58,8 +58,8 @@ val dynamodbv2__put_item :
 type dynamodbv2
 
 val dynamodbv2 :
+  ?put_item:dynamodbv2__put_item list ->
   role_arn:string prop ->
-  put_item:dynamodbv2__put_item list ->
   unit ->
   dynamodbv2
 
@@ -130,8 +130,8 @@ val error_action__dynamodbv2__put_item :
 type error_action__dynamodbv2
 
 val error_action__dynamodbv2 :
+  ?put_item:error_action__dynamodbv2__put_item list ->
   role_arn:string prop ->
-  put_item:error_action__dynamodbv2__put_item list ->
   unit ->
   error_action__dynamodbv2
 
@@ -168,8 +168,8 @@ type error_action__http
 
 val error_action__http :
   ?confirmation_url:string prop ->
+  ?http_header:error_action__http__http_header list ->
   url:string prop ->
-  http_header:error_action__http__http_header list ->
   unit ->
   error_action__http
 
@@ -205,10 +205,10 @@ type error_action__kafka
 val error_action__kafka :
   ?key:string prop ->
   ?partition:string prop ->
+  ?header:error_action__kafka__header list ->
   client_properties:(string * string prop) list ->
   destination_arn:string prop ->
   topic:string prop ->
-  header:error_action__kafka__header list ->
   unit ->
   error_action__kafka
 
@@ -291,36 +291,36 @@ val error_action__timestream__timestamp :
 type error_action__timestream
 
 val error_action__timestream :
+  ?timestamp:error_action__timestream__timestamp list ->
   database_name:string prop ->
   role_arn:string prop ->
   table_name:string prop ->
   dimension:error_action__timestream__dimension list ->
-  timestamp:error_action__timestream__timestamp list ->
   unit ->
   error_action__timestream
 
 type error_action
 
 val error_action :
-  cloudwatch_alarm:error_action__cloudwatch_alarm list ->
-  cloudwatch_logs:error_action__cloudwatch_logs list ->
-  cloudwatch_metric:error_action__cloudwatch_metric list ->
-  dynamodb:error_action__dynamodb list ->
-  dynamodbv2:error_action__dynamodbv2 list ->
-  elasticsearch:error_action__elasticsearch list ->
-  firehose:error_action__firehose list ->
-  http:error_action__http list ->
-  iot_analytics:error_action__iot_analytics list ->
-  iot_events:error_action__iot_events list ->
-  kafka:error_action__kafka list ->
-  kinesis:error_action__kinesis list ->
-  lambda:error_action__lambda list ->
-  republish:error_action__republish list ->
-  s3:error_action__s3 list ->
-  sns:error_action__sns list ->
-  sqs:error_action__sqs list ->
-  step_functions:error_action__step_functions list ->
-  timestream:error_action__timestream list ->
+  ?cloudwatch_alarm:error_action__cloudwatch_alarm list ->
+  ?cloudwatch_logs:error_action__cloudwatch_logs list ->
+  ?cloudwatch_metric:error_action__cloudwatch_metric list ->
+  ?dynamodb:error_action__dynamodb list ->
+  ?dynamodbv2:error_action__dynamodbv2 list ->
+  ?elasticsearch:error_action__elasticsearch list ->
+  ?firehose:error_action__firehose list ->
+  ?http:error_action__http list ->
+  ?iot_analytics:error_action__iot_analytics list ->
+  ?iot_events:error_action__iot_events list ->
+  ?kafka:error_action__kafka list ->
+  ?kinesis:error_action__kinesis list ->
+  ?lambda:error_action__lambda list ->
+  ?republish:error_action__republish list ->
+  ?s3:error_action__s3 list ->
+  ?sns:error_action__sns list ->
+  ?sqs:error_action__sqs list ->
+  ?step_functions:error_action__step_functions list ->
+  ?timestream:error_action__timestream list ->
   unit ->
   error_action
 
@@ -343,8 +343,8 @@ type http
 
 val http :
   ?confirmation_url:string prop ->
+  ?http_header:http__http_header list ->
   url:string prop ->
-  http_header:http__http_header list ->
   unit ->
   http
 
@@ -377,10 +377,10 @@ type kafka
 val kafka :
   ?key:string prop ->
   ?partition:string prop ->
+  ?header:kafka__header list ->
   client_properties:(string * string prop) list ->
   destination_arn:string prop ->
   topic:string prop ->
-  header:kafka__header list ->
   unit ->
   kafka
 
@@ -462,11 +462,11 @@ val timestream__timestamp :
 type timestream
 
 val timestream :
+  ?timestamp:timestream__timestamp list ->
   database_name:string prop ->
   role_arn:string prop ->
   table_name:string prop ->
   dimension:timestream__dimension list ->
-  timestamp:timestream__timestamp list ->
   unit ->
   timestream
 
@@ -477,6 +477,7 @@ val aws_iot_topic_rule :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?error_action:error_action list ->
   enabled:bool prop ->
   name:string prop ->
   sql:string prop ->
@@ -487,7 +488,6 @@ val aws_iot_topic_rule :
   dynamodb:dynamodb list ->
   dynamodbv2:dynamodbv2 list ->
   elasticsearch:elasticsearch list ->
-  error_action:error_action list ->
   firehose:firehose list ->
   http:http list ->
   iot_analytics:iot_analytics list ->
@@ -526,6 +526,7 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?error_action:error_action list ->
   enabled:bool prop ->
   name:string prop ->
   sql:string prop ->
@@ -536,7 +537,6 @@ val register :
   dynamodb:dynamodb list ->
   dynamodbv2:dynamodbv2 list ->
   elasticsearch:elasticsearch list ->
-  error_action:error_action list ->
   firehose:firehose list ->
   http:http list ->
   iot_analytics:iot_analytics list ->
@@ -558,6 +558,7 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?error_action:error_action list ->
   enabled:bool prop ->
   name:string prop ->
   sql:string prop ->
@@ -568,7 +569,6 @@ val make :
   dynamodb:dynamodb list ->
   dynamodbv2:dynamodbv2 list ->
   elasticsearch:elasticsearch list ->
-  error_action:error_action list ->
   firehose:firehose list ->
   http:http list ->
   iot_analytics:iot_analytics list ->

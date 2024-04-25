@@ -24,8 +24,8 @@ val rule__copy_action__lifecycle :
 type rule__copy_action
 
 val rule__copy_action :
+  ?lifecycle:rule__copy_action__lifecycle list ->
   destination_vault_arn:string prop ->
-  lifecycle:rule__copy_action__lifecycle list ->
   unit ->
   rule__copy_action
 
@@ -46,10 +46,10 @@ val rule :
   ?recovery_point_tags:(string * string prop) list ->
   ?schedule:string prop ->
   ?start_window:float prop ->
+  ?lifecycle:rule__lifecycle list ->
   rule_name:string prop ->
   target_vault_name:string prop ->
   copy_action:rule__copy_action list ->
-  lifecycle:rule__lifecycle list ->
   unit ->
   rule
 

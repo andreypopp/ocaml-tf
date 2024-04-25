@@ -655,7 +655,7 @@ let distribution__ami_distribution_configuration__launch_permission
 
 let distribution__ami_distribution_configuration ?ami_tags
     ?description ?kms_key_id ?name ?target_account_ids
-    ~launch_permission () :
+    ?(launch_permission = []) () :
     distribution__ami_distribution_configuration =
   {
     ami_tags;
@@ -693,8 +693,9 @@ let distribution__fast_launch_configuration__snapshot_configuration
   { target_resource_count }
 
 let distribution__fast_launch_configuration ?max_parallel_launches
-    ~account_id ~enabled ~launch_template ~snapshot_configuration ()
-    : distribution__fast_launch_configuration =
+    ?(launch_template = []) ?(snapshot_configuration = [])
+    ~account_id ~enabled () : distribution__fast_launch_configuration
+    =
   {
     account_id;
     enabled;
@@ -708,10 +709,11 @@ let distribution__launch_template_configuration ?account_id ?default
     distribution__launch_template_configuration =
   { account_id; default; launch_template_id }
 
-let distribution ?license_configuration_arns ~region
-    ~ami_distribution_configuration
-    ~container_distribution_configuration ~fast_launch_configuration
-    ~launch_template_configuration () : distribution =
+let distribution ?license_configuration_arns
+    ?(ami_distribution_configuration = [])
+    ?(container_distribution_configuration = []) ~region
+    ~fast_launch_configuration ~launch_template_configuration () :
+    distribution =
   {
     license_configuration_arns;
     region;

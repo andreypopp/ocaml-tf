@@ -26,10 +26,10 @@ type azurerm_container_registry_token_password
 
 val azurerm_container_registry_token_password :
   ?id:string prop ->
+  ?password2:password2 list ->
   ?timeouts:timeouts ->
   container_registry_token_id:string prop ->
   password1:password1 list ->
-  password2:password2 list ->
   unit ->
   azurerm_container_registry_token_password
 
@@ -46,18 +46,18 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?password2:password2 list ->
   ?timeouts:timeouts ->
   container_registry_token_id:string prop ->
   password1:password1 list ->
-  password2:password2 list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?password2:password2 list ->
   ?timeouts:timeouts ->
   container_registry_token_id:string prop ->
   password1:password1 list ->
-  password2:password2 list ->
   string ->
   t Tf_core.resource

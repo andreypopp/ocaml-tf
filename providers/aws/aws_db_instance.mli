@@ -118,11 +118,11 @@ val aws_db_instance :
   ?timezone:string prop ->
   ?username:string prop ->
   ?vpc_security_group_ids:string prop list ->
+  ?blue_green_update:blue_green_update list ->
+  ?restore_to_point_in_time:restore_to_point_in_time list ->
+  ?s3_import:s3_import list ->
   ?timeouts:timeouts ->
   instance_class:string prop ->
-  blue_green_update:blue_green_update list ->
-  restore_to_point_in_time:restore_to_point_in_time list ->
-  s3_import:s3_import list ->
   unit ->
   aws_db_instance
 
@@ -273,11 +273,11 @@ val register :
   ?timezone:string prop ->
   ?username:string prop ->
   ?vpc_security_group_ids:string prop list ->
+  ?blue_green_update:blue_green_update list ->
+  ?restore_to_point_in_time:restore_to_point_in_time list ->
+  ?s3_import:s3_import list ->
   ?timeouts:timeouts ->
   instance_class:string prop ->
-  blue_green_update:blue_green_update list ->
-  restore_to_point_in_time:restore_to_point_in_time list ->
-  s3_import:s3_import list ->
   string ->
   t
 
@@ -345,10 +345,10 @@ val make :
   ?timezone:string prop ->
   ?username:string prop ->
   ?vpc_security_group_ids:string prop list ->
+  ?blue_green_update:blue_green_update list ->
+  ?restore_to_point_in_time:restore_to_point_in_time list ->
+  ?s3_import:s3_import list ->
   ?timeouts:timeouts ->
   instance_class:string prop ->
-  blue_green_update:blue_green_update list ->
-  restore_to_point_in_time:restore_to_point_in_time list ->
-  s3_import:s3_import list ->
   string ->
   t Tf_core.resource

@@ -386,8 +386,8 @@ let network_address_port_translation ?icmp_pinhole_timeout_in_seconds
     ?pinhole_maximum_number ?tcp_pinhole_timeout_in_seconds
     ?tcp_port_reuse_minimum_hold_time_in_seconds
     ?udp_pinhole_timeout_in_seconds
-    ?udp_port_reuse_minimum_hold_time_in_seconds ~port_range () :
-    network_address_port_translation =
+    ?udp_port_reuse_minimum_hold_time_in_seconds ?(port_range = [])
+    () : network_address_port_translation =
   {
     icmp_pinhole_timeout_in_seconds;
     pinhole_maximum_number;
@@ -405,10 +405,10 @@ let azurerm_mobile_network_attached_data_network ?id ?tags
     ?user_equipment_address_pool_prefixes
     ?user_equipment_static_address_pool_prefixes
     ?user_plane_access_ipv4_address ?user_plane_access_ipv4_gateway
-    ?user_plane_access_ipv4_subnet ?user_plane_access_name ?timeouts
-    ~dns_addresses ~location ~mobile_network_data_network_name
-    ~mobile_network_packet_core_data_plane_id
-    ~network_address_port_translation () :
+    ?user_plane_access_ipv4_subnet ?user_plane_access_name
+    ?(network_address_port_translation = []) ?timeouts ~dns_addresses
+    ~location ~mobile_network_data_network_name
+    ~mobile_network_packet_core_data_plane_id () :
     azurerm_mobile_network_attached_data_network =
   {
     dns_addresses;
@@ -445,10 +445,10 @@ type t = {
 let make ?id ?tags ?user_equipment_address_pool_prefixes
     ?user_equipment_static_address_pool_prefixes
     ?user_plane_access_ipv4_address ?user_plane_access_ipv4_gateway
-    ?user_plane_access_ipv4_subnet ?user_plane_access_name ?timeouts
-    ~dns_addresses ~location ~mobile_network_data_network_name
-    ~mobile_network_packet_core_data_plane_id
-    ~network_address_port_translation __id =
+    ?user_plane_access_ipv4_subnet ?user_plane_access_name
+    ?(network_address_port_translation = []) ?timeouts ~dns_addresses
+    ~location ~mobile_network_data_network_name
+    ~mobile_network_packet_core_data_plane_id __id =
   let __type = "azurerm_mobile_network_attached_data_network" in
   let __attrs =
     ({
@@ -489,10 +489,9 @@ let make ?id ?tags ?user_equipment_address_pool_prefixes
            ?user_plane_access_ipv4_address
            ?user_plane_access_ipv4_gateway
            ?user_plane_access_ipv4_subnet ?user_plane_access_name
-           ?timeouts ~dns_addresses ~location
-           ~mobile_network_data_network_name
-           ~mobile_network_packet_core_data_plane_id
-           ~network_address_port_translation ());
+           ~network_address_port_translation ?timeouts ~dns_addresses
+           ~location ~mobile_network_data_network_name
+           ~mobile_network_packet_core_data_plane_id ());
     attrs = __attrs;
   }
 
@@ -500,19 +499,18 @@ let register ?tf_module ?id ?tags
     ?user_equipment_address_pool_prefixes
     ?user_equipment_static_address_pool_prefixes
     ?user_plane_access_ipv4_address ?user_plane_access_ipv4_gateway
-    ?user_plane_access_ipv4_subnet ?user_plane_access_name ?timeouts
-    ~dns_addresses ~location ~mobile_network_data_network_name
-    ~mobile_network_packet_core_data_plane_id
-    ~network_address_port_translation __id =
+    ?user_plane_access_ipv4_subnet ?user_plane_access_name
+    ?(network_address_port_translation = []) ?timeouts ~dns_addresses
+    ~location ~mobile_network_data_network_name
+    ~mobile_network_packet_core_data_plane_id __id =
   let (r : _ Tf_core.resource) =
     make ?id ?tags ?user_equipment_address_pool_prefixes
       ?user_equipment_static_address_pool_prefixes
       ?user_plane_access_ipv4_address ?user_plane_access_ipv4_gateway
       ?user_plane_access_ipv4_subnet ?user_plane_access_name
-      ?timeouts ~dns_addresses ~location
-      ~mobile_network_data_network_name
-      ~mobile_network_packet_core_data_plane_id
-      ~network_address_port_translation __id
+      ~network_address_port_translation ?timeouts ~dns_addresses
+      ~location ~mobile_network_data_network_name
+      ~mobile_network_packet_core_data_plane_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -27,6 +27,7 @@ type azurerm_healthcare_medtech_service
 val azurerm_healthcare_medtech_service :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   device_mapping_json:string prop ->
   eventhub_consumer_group_name:string prop ->
@@ -35,7 +36,6 @@ val azurerm_healthcare_medtech_service :
   location:string prop ->
   name:string prop ->
   workspace_id:string prop ->
-  identity:identity list ->
   unit ->
   azurerm_healthcare_medtech_service
 
@@ -60,6 +60,7 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   device_mapping_json:string prop ->
   eventhub_consumer_group_name:string prop ->
@@ -68,13 +69,13 @@ val register :
   location:string prop ->
   name:string prop ->
   workspace_id:string prop ->
-  identity:identity list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   device_mapping_json:string prop ->
   eventhub_consumer_group_name:string prop ->
@@ -83,6 +84,5 @@ val make :
   location:string prop ->
   name:string prop ->
   workspace_id:string prop ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

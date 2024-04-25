@@ -35,7 +35,7 @@ type elasticsearch_configuration__processing_configuration
 
 val elasticsearch_configuration__processing_configuration :
   ?enabled:bool prop ->
-  processors:
+  ?processors:
     elasticsearch_configuration__processing_configuration__processors
     list ->
   unit ->
@@ -59,11 +59,11 @@ val elasticsearch_configuration__s3_configuration :
   ?error_output_prefix:string prop ->
   ?kms_key_arn:string prop ->
   ?prefix:string prop ->
-  bucket_arn:string prop ->
-  role_arn:string prop ->
-  cloudwatch_logging_options:
+  ?cloudwatch_logging_options:
     elasticsearch_configuration__s3_configuration__cloudwatch_logging_options
     list ->
+  bucket_arn:string prop ->
+  role_arn:string prop ->
   unit ->
   elasticsearch_configuration__s3_configuration
 
@@ -87,14 +87,14 @@ val elasticsearch_configuration :
   ?retry_duration:float prop ->
   ?s3_backup_mode:string prop ->
   ?type_name:string prop ->
+  ?cloudwatch_logging_options:
+    elasticsearch_configuration__cloudwatch_logging_options list ->
+  ?processing_configuration:
+    elasticsearch_configuration__processing_configuration list ->
+  ?vpc_config:elasticsearch_configuration__vpc_config list ->
   index_name:string prop ->
   role_arn:string prop ->
-  cloudwatch_logging_options:
-    elasticsearch_configuration__cloudwatch_logging_options list ->
-  processing_configuration:
-    elasticsearch_configuration__processing_configuration list ->
   s3_configuration:elasticsearch_configuration__s3_configuration list ->
-  vpc_config:elasticsearch_configuration__vpc_config list ->
   unit ->
   elasticsearch_configuration
 
@@ -126,10 +126,10 @@ val extended_s3_configuration__data_format_conversion_configuration__input_forma
 type extended_s3_configuration__data_format_conversion_configuration__input_format_configuration__deserializer
 
 val extended_s3_configuration__data_format_conversion_configuration__input_format_configuration__deserializer :
-  hive_json_ser_de:
+  ?hive_json_ser_de:
     extended_s3_configuration__data_format_conversion_configuration__input_format_configuration__deserializer__hive_json_ser_de
     list ->
-  open_x_json_ser_de:
+  ?open_x_json_ser_de:
     extended_s3_configuration__data_format_conversion_configuration__input_format_configuration__deserializer__open_x_json_ser_de
     list ->
   unit ->
@@ -175,10 +175,10 @@ val extended_s3_configuration__data_format_conversion_configuration__output_form
 type extended_s3_configuration__data_format_conversion_configuration__output_format_configuration__serializer
 
 val extended_s3_configuration__data_format_conversion_configuration__output_format_configuration__serializer :
-  orc_ser_de:
+  ?orc_ser_de:
     extended_s3_configuration__data_format_conversion_configuration__output_format_configuration__serializer__orc_ser_de
     list ->
-  parquet_ser_de:
+  ?parquet_ser_de:
     extended_s3_configuration__data_format_conversion_configuration__output_format_configuration__serializer__parquet_ser_de
     list ->
   unit ->
@@ -251,7 +251,7 @@ type extended_s3_configuration__processing_configuration
 
 val extended_s3_configuration__processing_configuration :
   ?enabled:bool prop ->
-  processors:
+  ?processors:
     extended_s3_configuration__processing_configuration__processors
     list ->
   unit ->
@@ -275,11 +275,11 @@ val extended_s3_configuration__s3_backup_configuration :
   ?error_output_prefix:string prop ->
   ?kms_key_arn:string prop ->
   ?prefix:string prop ->
-  bucket_arn:string prop ->
-  role_arn:string prop ->
-  cloudwatch_logging_options:
+  ?cloudwatch_logging_options:
     extended_s3_configuration__s3_backup_configuration__cloudwatch_logging_options
     list ->
+  bucket_arn:string prop ->
+  role_arn:string prop ->
   unit ->
   extended_s3_configuration__s3_backup_configuration
 
@@ -295,20 +295,20 @@ val extended_s3_configuration :
   ?kms_key_arn:string prop ->
   ?prefix:string prop ->
   ?s3_backup_mode:string prop ->
-  bucket_arn:string prop ->
-  role_arn:string prop ->
-  cloudwatch_logging_options:
+  ?cloudwatch_logging_options:
     extended_s3_configuration__cloudwatch_logging_options list ->
-  data_format_conversion_configuration:
+  ?data_format_conversion_configuration:
     extended_s3_configuration__data_format_conversion_configuration
     list ->
-  dynamic_partitioning_configuration:
+  ?dynamic_partitioning_configuration:
     extended_s3_configuration__dynamic_partitioning_configuration
     list ->
-  processing_configuration:
+  ?processing_configuration:
     extended_s3_configuration__processing_configuration list ->
-  s3_backup_configuration:
+  ?s3_backup_configuration:
     extended_s3_configuration__s3_backup_configuration list ->
+  bucket_arn:string prop ->
+  role_arn:string prop ->
   unit ->
   extended_s3_configuration
 
@@ -343,7 +343,7 @@ type http_endpoint_configuration__processing_configuration
 
 val http_endpoint_configuration__processing_configuration :
   ?enabled:bool prop ->
-  processors:
+  ?processors:
     http_endpoint_configuration__processing_configuration__processors
     list ->
   unit ->
@@ -361,7 +361,7 @@ type http_endpoint_configuration__request_configuration
 
 val http_endpoint_configuration__request_configuration :
   ?content_encoding:string prop ->
-  common_attributes:
+  ?common_attributes:
     http_endpoint_configuration__request_configuration__common_attributes
     list ->
   unit ->
@@ -385,11 +385,11 @@ val http_endpoint_configuration__s3_configuration :
   ?error_output_prefix:string prop ->
   ?kms_key_arn:string prop ->
   ?prefix:string prop ->
-  bucket_arn:string prop ->
-  role_arn:string prop ->
-  cloudwatch_logging_options:
+  ?cloudwatch_logging_options:
     http_endpoint_configuration__s3_configuration__cloudwatch_logging_options
     list ->
+  bucket_arn:string prop ->
+  role_arn:string prop ->
   unit ->
   http_endpoint_configuration__s3_configuration
 
@@ -403,13 +403,13 @@ val http_endpoint_configuration :
   ?retry_duration:float prop ->
   ?role_arn:string prop ->
   ?s3_backup_mode:string prop ->
-  url:string prop ->
-  cloudwatch_logging_options:
+  ?cloudwatch_logging_options:
     http_endpoint_configuration__cloudwatch_logging_options list ->
-  processing_configuration:
+  ?processing_configuration:
     http_endpoint_configuration__processing_configuration list ->
-  request_configuration:
+  ?request_configuration:
     http_endpoint_configuration__request_configuration list ->
+  url:string prop ->
   s3_configuration:http_endpoint_configuration__s3_configuration list ->
   unit ->
   http_endpoint_configuration
@@ -478,7 +478,7 @@ type opensearch_configuration__processing_configuration
 
 val opensearch_configuration__processing_configuration :
   ?enabled:bool prop ->
-  processors:
+  ?processors:
     opensearch_configuration__processing_configuration__processors
     list ->
   unit ->
@@ -502,11 +502,11 @@ val opensearch_configuration__s3_configuration :
   ?error_output_prefix:string prop ->
   ?kms_key_arn:string prop ->
   ?prefix:string prop ->
-  bucket_arn:string prop ->
-  role_arn:string prop ->
-  cloudwatch_logging_options:
+  ?cloudwatch_logging_options:
     opensearch_configuration__s3_configuration__cloudwatch_logging_options
     list ->
+  bucket_arn:string prop ->
+  role_arn:string prop ->
   unit ->
   opensearch_configuration__s3_configuration
 
@@ -530,16 +530,16 @@ val opensearch_configuration :
   ?retry_duration:float prop ->
   ?s3_backup_mode:string prop ->
   ?type_name:string prop ->
+  ?cloudwatch_logging_options:
+    opensearch_configuration__cloudwatch_logging_options list ->
+  ?document_id_options:
+    opensearch_configuration__document_id_options list ->
+  ?processing_configuration:
+    opensearch_configuration__processing_configuration list ->
+  ?vpc_config:opensearch_configuration__vpc_config list ->
   index_name:string prop ->
   role_arn:string prop ->
-  cloudwatch_logging_options:
-    opensearch_configuration__cloudwatch_logging_options list ->
-  document_id_options:
-    opensearch_configuration__document_id_options list ->
-  processing_configuration:
-    opensearch_configuration__processing_configuration list ->
   s3_configuration:opensearch_configuration__s3_configuration list ->
-  vpc_config:opensearch_configuration__vpc_config list ->
   unit ->
   opensearch_configuration
 
@@ -574,7 +574,7 @@ type opensearchserverless_configuration__processing_configuration
 
 val opensearchserverless_configuration__processing_configuration :
   ?enabled:bool prop ->
-  processors:
+  ?processors:
     opensearchserverless_configuration__processing_configuration__processors
     list ->
   unit ->
@@ -598,11 +598,11 @@ val opensearchserverless_configuration__s3_configuration :
   ?error_output_prefix:string prop ->
   ?kms_key_arn:string prop ->
   ?prefix:string prop ->
-  bucket_arn:string prop ->
-  role_arn:string prop ->
-  cloudwatch_logging_options:
+  ?cloudwatch_logging_options:
     opensearchserverless_configuration__s3_configuration__cloudwatch_logging_options
     list ->
+  bucket_arn:string prop ->
+  role_arn:string prop ->
   unit ->
   opensearchserverless_configuration__s3_configuration
 
@@ -622,17 +622,17 @@ val opensearchserverless_configuration :
   ?buffering_size:float prop ->
   ?retry_duration:float prop ->
   ?s3_backup_mode:string prop ->
+  ?cloudwatch_logging_options:
+    opensearchserverless_configuration__cloudwatch_logging_options
+    list ->
+  ?processing_configuration:
+    opensearchserverless_configuration__processing_configuration list ->
+  ?vpc_config:opensearchserverless_configuration__vpc_config list ->
   collection_endpoint:string prop ->
   index_name:string prop ->
   role_arn:string prop ->
-  cloudwatch_logging_options:
-    opensearchserverless_configuration__cloudwatch_logging_options
-    list ->
-  processing_configuration:
-    opensearchserverless_configuration__processing_configuration list ->
   s3_configuration:
     opensearchserverless_configuration__s3_configuration list ->
-  vpc_config:opensearchserverless_configuration__vpc_config list ->
   unit ->
   opensearchserverless_configuration
 
@@ -667,7 +667,7 @@ type redshift_configuration__processing_configuration
 
 val redshift_configuration__processing_configuration :
   ?enabled:bool prop ->
-  processors:
+  ?processors:
     redshift_configuration__processing_configuration__processors list ->
   unit ->
   redshift_configuration__processing_configuration
@@ -690,11 +690,11 @@ val redshift_configuration__s3_backup_configuration :
   ?error_output_prefix:string prop ->
   ?kms_key_arn:string prop ->
   ?prefix:string prop ->
-  bucket_arn:string prop ->
-  role_arn:string prop ->
-  cloudwatch_logging_options:
+  ?cloudwatch_logging_options:
     redshift_configuration__s3_backup_configuration__cloudwatch_logging_options
     list ->
+  bucket_arn:string prop ->
+  role_arn:string prop ->
   unit ->
   redshift_configuration__s3_backup_configuration
 
@@ -716,11 +716,11 @@ val redshift_configuration__s3_configuration :
   ?error_output_prefix:string prop ->
   ?kms_key_arn:string prop ->
   ?prefix:string prop ->
-  bucket_arn:string prop ->
-  role_arn:string prop ->
-  cloudwatch_logging_options:
+  ?cloudwatch_logging_options:
     redshift_configuration__s3_configuration__cloudwatch_logging_options
     list ->
+  bucket_arn:string prop ->
+  role_arn:string prop ->
   unit ->
   redshift_configuration__s3_configuration
 
@@ -731,17 +731,17 @@ val redshift_configuration :
   ?data_table_columns:string prop ->
   ?retry_duration:float prop ->
   ?s3_backup_mode:string prop ->
+  ?cloudwatch_logging_options:
+    redshift_configuration__cloudwatch_logging_options list ->
+  ?processing_configuration:
+    redshift_configuration__processing_configuration list ->
+  ?s3_backup_configuration:
+    redshift_configuration__s3_backup_configuration list ->
   cluster_jdbcurl:string prop ->
   data_table_name:string prop ->
   password:string prop ->
   role_arn:string prop ->
   username:string prop ->
-  cloudwatch_logging_options:
-    redshift_configuration__cloudwatch_logging_options list ->
-  processing_configuration:
-    redshift_configuration__processing_configuration list ->
-  s3_backup_configuration:
-    redshift_configuration__s3_backup_configuration list ->
   s3_configuration:redshift_configuration__s3_configuration list ->
   unit ->
   redshift_configuration
@@ -786,7 +786,7 @@ type splunk_configuration__processing_configuration
 
 val splunk_configuration__processing_configuration :
   ?enabled:bool prop ->
-  processors:
+  ?processors:
     splunk_configuration__processing_configuration__processors list ->
   unit ->
   splunk_configuration__processing_configuration
@@ -809,11 +809,11 @@ val splunk_configuration__s3_configuration :
   ?error_output_prefix:string prop ->
   ?kms_key_arn:string prop ->
   ?prefix:string prop ->
-  bucket_arn:string prop ->
-  role_arn:string prop ->
-  cloudwatch_logging_options:
+  ?cloudwatch_logging_options:
     splunk_configuration__s3_configuration__cloudwatch_logging_options
     list ->
+  bucket_arn:string prop ->
+  role_arn:string prop ->
   unit ->
   splunk_configuration__s3_configuration
 
@@ -826,12 +826,12 @@ val splunk_configuration :
   ?hec_endpoint_type:string prop ->
   ?retry_duration:float prop ->
   ?s3_backup_mode:string prop ->
+  ?cloudwatch_logging_options:
+    splunk_configuration__cloudwatch_logging_options list ->
+  ?processing_configuration:
+    splunk_configuration__processing_configuration list ->
   hec_endpoint:string prop ->
   hec_token:string prop ->
-  cloudwatch_logging_options:
-    splunk_configuration__cloudwatch_logging_options list ->
-  processing_configuration:
-    splunk_configuration__processing_configuration list ->
   s3_configuration:splunk_configuration__s3_configuration list ->
   unit ->
   splunk_configuration
@@ -854,20 +854,20 @@ val aws_kinesis_firehose_delivery_stream :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?version_id:string prop ->
+  ?elasticsearch_configuration:elasticsearch_configuration list ->
+  ?extended_s3_configuration:extended_s3_configuration list ->
+  ?http_endpoint_configuration:http_endpoint_configuration list ->
+  ?kinesis_source_configuration:kinesis_source_configuration list ->
+  ?msk_source_configuration:msk_source_configuration list ->
+  ?opensearch_configuration:opensearch_configuration list ->
+  ?opensearchserverless_configuration:
+    opensearchserverless_configuration list ->
+  ?redshift_configuration:redshift_configuration list ->
+  ?server_side_encryption:server_side_encryption list ->
+  ?splunk_configuration:splunk_configuration list ->
   ?timeouts:timeouts ->
   destination:string prop ->
   name:string prop ->
-  elasticsearch_configuration:elasticsearch_configuration list ->
-  extended_s3_configuration:extended_s3_configuration list ->
-  http_endpoint_configuration:http_endpoint_configuration list ->
-  kinesis_source_configuration:kinesis_source_configuration list ->
-  msk_source_configuration:msk_source_configuration list ->
-  opensearch_configuration:opensearch_configuration list ->
-  opensearchserverless_configuration:
-    opensearchserverless_configuration list ->
-  redshift_configuration:redshift_configuration list ->
-  server_side_encryption:server_side_encryption list ->
-  splunk_configuration:splunk_configuration list ->
   unit ->
   aws_kinesis_firehose_delivery_stream
 
@@ -895,20 +895,20 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?version_id:string prop ->
+  ?elasticsearch_configuration:elasticsearch_configuration list ->
+  ?extended_s3_configuration:extended_s3_configuration list ->
+  ?http_endpoint_configuration:http_endpoint_configuration list ->
+  ?kinesis_source_configuration:kinesis_source_configuration list ->
+  ?msk_source_configuration:msk_source_configuration list ->
+  ?opensearch_configuration:opensearch_configuration list ->
+  ?opensearchserverless_configuration:
+    opensearchserverless_configuration list ->
+  ?redshift_configuration:redshift_configuration list ->
+  ?server_side_encryption:server_side_encryption list ->
+  ?splunk_configuration:splunk_configuration list ->
   ?timeouts:timeouts ->
   destination:string prop ->
   name:string prop ->
-  elasticsearch_configuration:elasticsearch_configuration list ->
-  extended_s3_configuration:extended_s3_configuration list ->
-  http_endpoint_configuration:http_endpoint_configuration list ->
-  kinesis_source_configuration:kinesis_source_configuration list ->
-  msk_source_configuration:msk_source_configuration list ->
-  opensearch_configuration:opensearch_configuration list ->
-  opensearchserverless_configuration:
-    opensearchserverless_configuration list ->
-  redshift_configuration:redshift_configuration list ->
-  server_side_encryption:server_side_encryption list ->
-  splunk_configuration:splunk_configuration list ->
   string ->
   t
 
@@ -919,19 +919,19 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?version_id:string prop ->
+  ?elasticsearch_configuration:elasticsearch_configuration list ->
+  ?extended_s3_configuration:extended_s3_configuration list ->
+  ?http_endpoint_configuration:http_endpoint_configuration list ->
+  ?kinesis_source_configuration:kinesis_source_configuration list ->
+  ?msk_source_configuration:msk_source_configuration list ->
+  ?opensearch_configuration:opensearch_configuration list ->
+  ?opensearchserverless_configuration:
+    opensearchserverless_configuration list ->
+  ?redshift_configuration:redshift_configuration list ->
+  ?server_side_encryption:server_side_encryption list ->
+  ?splunk_configuration:splunk_configuration list ->
   ?timeouts:timeouts ->
   destination:string prop ->
   name:string prop ->
-  elasticsearch_configuration:elasticsearch_configuration list ->
-  extended_s3_configuration:extended_s3_configuration list ->
-  http_endpoint_configuration:http_endpoint_configuration list ->
-  kinesis_source_configuration:kinesis_source_configuration list ->
-  msk_source_configuration:msk_source_configuration list ->
-  opensearch_configuration:opensearch_configuration list ->
-  opensearchserverless_configuration:
-    opensearchserverless_configuration list ->
-  redshift_configuration:redshift_configuration list ->
-  server_side_encryption:server_side_encryption list ->
-  splunk_configuration:splunk_configuration list ->
   string ->
   t Tf_core.resource

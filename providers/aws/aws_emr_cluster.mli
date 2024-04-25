@@ -89,10 +89,10 @@ val core_instance_fleet__launch_specifications__spot_specification :
 type core_instance_fleet__launch_specifications
 
 val core_instance_fleet__launch_specifications :
-  on_demand_specification:
+  ?on_demand_specification:
     core_instance_fleet__launch_specifications__on_demand_specification
     list ->
-  spot_specification:
+  ?spot_specification:
     core_instance_fleet__launch_specifications__spot_specification
     list ->
   unit ->
@@ -104,10 +104,10 @@ val core_instance_fleet :
   ?name:string prop ->
   ?target_on_demand_capacity:float prop ->
   ?target_spot_capacity:float prop ->
+  ?launch_specifications:
+    core_instance_fleet__launch_specifications list ->
   instance_type_configs:
     core_instance_fleet__instance_type_configs list ->
-  launch_specifications:
-    core_instance_fleet__launch_specifications list ->
   unit ->
   core_instance_fleet
 
@@ -212,10 +212,10 @@ val master_instance_fleet__launch_specifications__spot_specification :
 type master_instance_fleet__launch_specifications
 
 val master_instance_fleet__launch_specifications :
-  on_demand_specification:
+  ?on_demand_specification:
     master_instance_fleet__launch_specifications__on_demand_specification
     list ->
-  spot_specification:
+  ?spot_specification:
     master_instance_fleet__launch_specifications__spot_specification
     list ->
   unit ->
@@ -227,10 +227,10 @@ val master_instance_fleet :
   ?name:string prop ->
   ?target_on_demand_capacity:float prop ->
   ?target_spot_capacity:float prop ->
+  ?launch_specifications:
+    master_instance_fleet__launch_specifications list ->
   instance_type_configs:
     master_instance_fleet__instance_type_configs list ->
-  launch_specifications:
-    master_instance_fleet__launch_specifications list ->
   unit ->
   master_instance_fleet
 
@@ -280,17 +280,17 @@ val aws_emr_cluster :
   ?tags_all:(string * string prop) list ->
   ?termination_protection:bool prop ->
   ?visible_to_all_users:bool prop ->
+  ?auto_termination_policy:auto_termination_policy list ->
+  ?bootstrap_action:bootstrap_action list ->
+  ?core_instance_fleet:core_instance_fleet list ->
+  ?core_instance_group:core_instance_group list ->
+  ?ec2_attributes:ec2_attributes list ->
+  ?kerberos_attributes:kerberos_attributes list ->
+  ?master_instance_fleet:master_instance_fleet list ->
+  ?master_instance_group:master_instance_group list ->
   name:string prop ->
   release_label:string prop ->
   service_role:string prop ->
-  auto_termination_policy:auto_termination_policy list ->
-  bootstrap_action:bootstrap_action list ->
-  core_instance_fleet:core_instance_fleet list ->
-  core_instance_group:core_instance_group list ->
-  ec2_attributes:ec2_attributes list ->
-  kerberos_attributes:kerberos_attributes list ->
-  master_instance_fleet:master_instance_fleet list ->
-  master_instance_group:master_instance_group list ->
   unit ->
   aws_emr_cluster
 
@@ -351,17 +351,17 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?termination_protection:bool prop ->
   ?visible_to_all_users:bool prop ->
+  ?auto_termination_policy:auto_termination_policy list ->
+  ?bootstrap_action:bootstrap_action list ->
+  ?core_instance_fleet:core_instance_fleet list ->
+  ?core_instance_group:core_instance_group list ->
+  ?ec2_attributes:ec2_attributes list ->
+  ?kerberos_attributes:kerberos_attributes list ->
+  ?master_instance_fleet:master_instance_fleet list ->
+  ?master_instance_group:master_instance_group list ->
   name:string prop ->
   release_label:string prop ->
   service_role:string prop ->
-  auto_termination_policy:auto_termination_policy list ->
-  bootstrap_action:bootstrap_action list ->
-  core_instance_fleet:core_instance_fleet list ->
-  core_instance_group:core_instance_group list ->
-  ec2_attributes:ec2_attributes list ->
-  kerberos_attributes:kerberos_attributes list ->
-  master_instance_fleet:master_instance_fleet list ->
-  master_instance_group:master_instance_group list ->
   string ->
   t
 
@@ -387,16 +387,16 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?termination_protection:bool prop ->
   ?visible_to_all_users:bool prop ->
+  ?auto_termination_policy:auto_termination_policy list ->
+  ?bootstrap_action:bootstrap_action list ->
+  ?core_instance_fleet:core_instance_fleet list ->
+  ?core_instance_group:core_instance_group list ->
+  ?ec2_attributes:ec2_attributes list ->
+  ?kerberos_attributes:kerberos_attributes list ->
+  ?master_instance_fleet:master_instance_fleet list ->
+  ?master_instance_group:master_instance_group list ->
   name:string prop ->
   release_label:string prop ->
   service_role:string prop ->
-  auto_termination_policy:auto_termination_policy list ->
-  bootstrap_action:bootstrap_action list ->
-  core_instance_fleet:core_instance_fleet list ->
-  core_instance_group:core_instance_group list ->
-  ec2_attributes:ec2_attributes list ->
-  kerberos_attributes:kerberos_attributes list ->
-  master_instance_fleet:master_instance_fleet list ->
-  master_instance_group:master_instance_group list ->
   string ->
   t Tf_core.resource

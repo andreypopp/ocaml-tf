@@ -796,8 +796,9 @@ let aws_customerprofiles_profile ?account_number
     ?business_email_address ?business_name ?business_phone_number
     ?email_address ?first_name ?gender_string ?home_phone_number ?id
     ?last_name ?middle_name ?mobile_phone_number ?party_type_string
-    ?personal_email_address ?phone_number ~domain_name ~address
-    ~billing_address ~mailing_address ~shipping_address () :
+    ?personal_email_address ?phone_number ?(address = [])
+    ?(billing_address = []) ?(mailing_address = [])
+    ?(shipping_address = []) ~domain_name () :
     aws_customerprofiles_profile =
   {
     account_number;
@@ -852,8 +853,9 @@ let make ?account_number ?additional_information ?attributes
     ?business_phone_number ?email_address ?first_name ?gender_string
     ?home_phone_number ?id ?last_name ?middle_name
     ?mobile_phone_number ?party_type_string ?personal_email_address
-    ?phone_number ~domain_name ~address ~billing_address
-    ~mailing_address ~shipping_address __id =
+    ?phone_number ?(address = []) ?(billing_address = [])
+    ?(mailing_address = []) ?(shipping_address = []) ~domain_name
+    __id =
   let __type = "aws_customerprofiles_profile" in
   let __attrs =
     ({
@@ -897,9 +899,9 @@ let make ?account_number ?additional_information ?attributes
            ?business_phone_number ?email_address ?first_name
            ?gender_string ?home_phone_number ?id ?last_name
            ?middle_name ?mobile_phone_number ?party_type_string
-           ?personal_email_address ?phone_number ~domain_name
-           ~address ~billing_address ~mailing_address
-           ~shipping_address ());
+           ?personal_email_address ?phone_number ~address
+           ~billing_address ~mailing_address ~shipping_address
+           ~domain_name ());
     attrs = __attrs;
   }
 
@@ -908,16 +910,17 @@ let register ?tf_module ?account_number ?additional_information
     ?business_phone_number ?email_address ?first_name ?gender_string
     ?home_phone_number ?id ?last_name ?middle_name
     ?mobile_phone_number ?party_type_string ?personal_email_address
-    ?phone_number ~domain_name ~address ~billing_address
-    ~mailing_address ~shipping_address __id =
+    ?phone_number ?(address = []) ?(billing_address = [])
+    ?(mailing_address = []) ?(shipping_address = []) ~domain_name
+    __id =
   let (r : _ Tf_core.resource) =
     make ?account_number ?additional_information ?attributes
       ?birth_date ?business_email_address ?business_name
       ?business_phone_number ?email_address ?first_name
       ?gender_string ?home_phone_number ?id ?last_name ?middle_name
       ?mobile_phone_number ?party_type_string ?personal_email_address
-      ?phone_number ~domain_name ~address ~billing_address
-      ~mailing_address ~shipping_address __id
+      ?phone_number ~address ~billing_address ~mailing_address
+      ~shipping_address ~domain_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -85,15 +85,15 @@ val google_notebooks_instance :
   ?subnet:string prop ->
   ?tags:string prop list ->
   ?update_time:string prop ->
+  ?accelerator_config:accelerator_config list ->
+  ?container_image:container_image list ->
+  ?reservation_affinity:reservation_affinity list ->
+  ?shielded_instance_config:shielded_instance_config list ->
   ?timeouts:timeouts ->
+  ?vm_image:vm_image list ->
   location:string prop ->
   machine_type:string prop ->
   name:string prop ->
-  accelerator_config:accelerator_config list ->
-  container_image:container_image list ->
-  reservation_affinity:reservation_affinity list ->
-  shielded_instance_config:shielded_instance_config list ->
-  vm_image:vm_image list ->
   unit ->
   google_notebooks_instance
 
@@ -166,15 +166,15 @@ val register :
   ?subnet:string prop ->
   ?tags:string prop list ->
   ?update_time:string prop ->
+  ?accelerator_config:accelerator_config list ->
+  ?container_image:container_image list ->
+  ?reservation_affinity:reservation_affinity list ->
+  ?shielded_instance_config:shielded_instance_config list ->
   ?timeouts:timeouts ->
+  ?vm_image:vm_image list ->
   location:string prop ->
   machine_type:string prop ->
   name:string prop ->
-  accelerator_config:accelerator_config list ->
-  container_image:container_image list ->
-  reservation_affinity:reservation_affinity list ->
-  shielded_instance_config:shielded_instance_config list ->
-  vm_image:vm_image list ->
   string ->
   t
 
@@ -205,14 +205,14 @@ val make :
   ?subnet:string prop ->
   ?tags:string prop list ->
   ?update_time:string prop ->
+  ?accelerator_config:accelerator_config list ->
+  ?container_image:container_image list ->
+  ?reservation_affinity:reservation_affinity list ->
+  ?shielded_instance_config:shielded_instance_config list ->
   ?timeouts:timeouts ->
+  ?vm_image:vm_image list ->
   location:string prop ->
   machine_type:string prop ->
   name:string prop ->
-  accelerator_config:accelerator_config list ->
-  container_image:container_image list ->
-  reservation_affinity:reservation_affinity list ->
-  shielded_instance_config:shielded_instance_config list ->
-  vm_image:vm_image list ->
   string ->
   t Tf_core.resource

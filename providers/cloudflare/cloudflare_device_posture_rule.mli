@@ -56,10 +56,10 @@ val cloudflare_device_posture_rule :
   ?id:string prop ->
   ?name:string prop ->
   ?schedule:string prop ->
+  ?input:input list ->
+  ?match_:match_ list ->
   account_id:string prop ->
   type_:string prop ->
-  input:input list ->
-  match_:match_ list ->
   unit ->
   cloudflare_device_posture_rule
 
@@ -85,10 +85,10 @@ val register :
   ?id:string prop ->
   ?name:string prop ->
   ?schedule:string prop ->
+  ?input:input list ->
+  ?match_:match_ list ->
   account_id:string prop ->
   type_:string prop ->
-  input:input list ->
-  match_:match_ list ->
   string ->
   t
 
@@ -98,9 +98,9 @@ val make :
   ?id:string prop ->
   ?name:string prop ->
   ?schedule:string prop ->
+  ?input:input list ->
+  ?match_:match_ list ->
   account_id:string prop ->
   type_:string prop ->
-  input:input list ->
-  match_:match_ list ->
   string ->
   t Tf_core.resource

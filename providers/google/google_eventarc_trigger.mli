@@ -40,10 +40,10 @@ type destination
 
 val destination :
   ?workflow:string prop ->
-  cloud_run_service:destination__cloud_run_service list ->
-  gke:destination__gke list ->
-  http_endpoint:destination__http_endpoint list ->
-  network_config:destination__network_config list ->
+  ?cloud_run_service:destination__cloud_run_service list ->
+  ?gke:destination__gke list ->
+  ?http_endpoint:destination__http_endpoint list ->
+  ?network_config:destination__network_config list ->
   unit ->
   destination
 
@@ -72,7 +72,7 @@ val transport__pubsub :
 
 type transport
 
-val transport : pubsub:transport__pubsub list -> unit -> transport
+val transport : ?pubsub:transport__pubsub list -> unit -> transport
 
 type google_eventarc_trigger
 
@@ -84,11 +84,11 @@ val google_eventarc_trigger :
   ?project:string prop ->
   ?service_account:string prop ->
   ?timeouts:timeouts ->
+  ?transport:transport list ->
   location:string prop ->
   name:string prop ->
   destination:destination list ->
   matching_criteria:matching_criteria list ->
-  transport:transport list ->
   unit ->
   google_eventarc_trigger
 
@@ -124,11 +124,11 @@ val register :
   ?project:string prop ->
   ?service_account:string prop ->
   ?timeouts:timeouts ->
+  ?transport:transport list ->
   location:string prop ->
   name:string prop ->
   destination:destination list ->
   matching_criteria:matching_criteria list ->
-  transport:transport list ->
   string ->
   t
 
@@ -140,10 +140,10 @@ val make :
   ?project:string prop ->
   ?service_account:string prop ->
   ?timeouts:timeouts ->
+  ?transport:transport list ->
   location:string prop ->
   name:string prop ->
   destination:destination list ->
   matching_criteria:matching_criteria list ->
-  transport:transport list ->
   string ->
   t Tf_core.resource

@@ -24,7 +24,7 @@ val block_device_mappings :
   ?device_name:string prop ->
   ?no_device:string prop ->
   ?virtual_name:string prop ->
-  ebs:block_device_mappings__ebs list ->
+  ?ebs:block_device_mappings__ebs list ->
   unit ->
   block_device_mappings
 
@@ -40,7 +40,7 @@ type capacity_reservation_specification
 
 val capacity_reservation_specification :
   ?capacity_reservation_preference:string prop ->
-  capacity_reservation_target:
+  ?capacity_reservation_target:
     capacity_reservation_specification__capacity_reservation_target
     list ->
   unit ->
@@ -102,7 +102,7 @@ type instance_market_options
 
 val instance_market_options :
   ?market_type:string prop ->
-  spot_options:instance_market_options__spot_options list ->
+  ?spot_options:instance_market_options__spot_options list ->
   unit ->
   instance_market_options
 
@@ -195,19 +195,20 @@ val instance_requirements :
   ?on_demand_max_price_percentage_over_lowest_price:float prop ->
   ?require_hibernate_support:bool prop ->
   ?spot_max_price_percentage_over_lowest_price:float prop ->
-  accelerator_count:instance_requirements__accelerator_count list ->
-  accelerator_total_memory_mib:
+  ?accelerator_count:instance_requirements__accelerator_count list ->
+  ?accelerator_total_memory_mib:
     instance_requirements__accelerator_total_memory_mib list ->
-  baseline_ebs_bandwidth_mbps:
+  ?baseline_ebs_bandwidth_mbps:
     instance_requirements__baseline_ebs_bandwidth_mbps list ->
-  memory_gib_per_vcpu:instance_requirements__memory_gib_per_vcpu list ->
-  memory_mib:instance_requirements__memory_mib list ->
-  network_bandwidth_gbps:
+  ?memory_gib_per_vcpu:
+    instance_requirements__memory_gib_per_vcpu list ->
+  ?network_bandwidth_gbps:
     instance_requirements__network_bandwidth_gbps list ->
-  network_interface_count:
+  ?network_interface_count:
     instance_requirements__network_interface_count list ->
-  total_local_storage_gb:
+  ?total_local_storage_gb:
     instance_requirements__total_local_storage_gb list ->
+  memory_mib:instance_requirements__memory_mib list ->
   vcpu_count:instance_requirements__vcpu_count list ->
   unit ->
   instance_requirements
@@ -318,26 +319,26 @@ val aws_launch_template :
   ?update_default_version:bool prop ->
   ?user_data:string prop ->
   ?vpc_security_group_ids:string prop list ->
-  block_device_mappings:block_device_mappings list ->
-  capacity_reservation_specification:
+  ?block_device_mappings:block_device_mappings list ->
+  ?capacity_reservation_specification:
     capacity_reservation_specification list ->
-  cpu_options:cpu_options list ->
-  credit_specification:credit_specification list ->
-  elastic_gpu_specifications:elastic_gpu_specifications list ->
-  elastic_inference_accelerator:elastic_inference_accelerator list ->
-  enclave_options:enclave_options list ->
-  hibernation_options:hibernation_options list ->
-  iam_instance_profile:iam_instance_profile list ->
-  instance_market_options:instance_market_options list ->
-  instance_requirements:instance_requirements list ->
+  ?cpu_options:cpu_options list ->
+  ?credit_specification:credit_specification list ->
+  ?elastic_gpu_specifications:elastic_gpu_specifications list ->
+  ?elastic_inference_accelerator:elastic_inference_accelerator list ->
+  ?enclave_options:enclave_options list ->
+  ?hibernation_options:hibernation_options list ->
+  ?iam_instance_profile:iam_instance_profile list ->
+  ?instance_market_options:instance_market_options list ->
+  ?instance_requirements:instance_requirements list ->
+  ?maintenance_options:maintenance_options list ->
+  ?metadata_options:metadata_options list ->
+  ?monitoring:monitoring list ->
+  ?network_interfaces:network_interfaces list ->
+  ?placement:placement list ->
+  ?private_dns_name_options:private_dns_name_options list ->
+  ?tag_specifications:tag_specifications list ->
   license_specification:license_specification list ->
-  maintenance_options:maintenance_options list ->
-  metadata_options:metadata_options list ->
-  monitoring:monitoring list ->
-  network_interfaces:network_interfaces list ->
-  placement:placement list ->
-  private_dns_name_options:private_dns_name_options list ->
-  tag_specifications:tag_specifications list ->
   unit ->
   aws_launch_template
 
@@ -392,26 +393,26 @@ val register :
   ?update_default_version:bool prop ->
   ?user_data:string prop ->
   ?vpc_security_group_ids:string prop list ->
-  block_device_mappings:block_device_mappings list ->
-  capacity_reservation_specification:
+  ?block_device_mappings:block_device_mappings list ->
+  ?capacity_reservation_specification:
     capacity_reservation_specification list ->
-  cpu_options:cpu_options list ->
-  credit_specification:credit_specification list ->
-  elastic_gpu_specifications:elastic_gpu_specifications list ->
-  elastic_inference_accelerator:elastic_inference_accelerator list ->
-  enclave_options:enclave_options list ->
-  hibernation_options:hibernation_options list ->
-  iam_instance_profile:iam_instance_profile list ->
-  instance_market_options:instance_market_options list ->
-  instance_requirements:instance_requirements list ->
+  ?cpu_options:cpu_options list ->
+  ?credit_specification:credit_specification list ->
+  ?elastic_gpu_specifications:elastic_gpu_specifications list ->
+  ?elastic_inference_accelerator:elastic_inference_accelerator list ->
+  ?enclave_options:enclave_options list ->
+  ?hibernation_options:hibernation_options list ->
+  ?iam_instance_profile:iam_instance_profile list ->
+  ?instance_market_options:instance_market_options list ->
+  ?instance_requirements:instance_requirements list ->
+  ?maintenance_options:maintenance_options list ->
+  ?metadata_options:metadata_options list ->
+  ?monitoring:monitoring list ->
+  ?network_interfaces:network_interfaces list ->
+  ?placement:placement list ->
+  ?private_dns_name_options:private_dns_name_options list ->
+  ?tag_specifications:tag_specifications list ->
   license_specification:license_specification list ->
-  maintenance_options:maintenance_options list ->
-  metadata_options:metadata_options list ->
-  monitoring:monitoring list ->
-  network_interfaces:network_interfaces list ->
-  placement:placement list ->
-  private_dns_name_options:private_dns_name_options list ->
-  tag_specifications:tag_specifications list ->
   string ->
   t
 
@@ -436,25 +437,25 @@ val make :
   ?update_default_version:bool prop ->
   ?user_data:string prop ->
   ?vpc_security_group_ids:string prop list ->
-  block_device_mappings:block_device_mappings list ->
-  capacity_reservation_specification:
+  ?block_device_mappings:block_device_mappings list ->
+  ?capacity_reservation_specification:
     capacity_reservation_specification list ->
-  cpu_options:cpu_options list ->
-  credit_specification:credit_specification list ->
-  elastic_gpu_specifications:elastic_gpu_specifications list ->
-  elastic_inference_accelerator:elastic_inference_accelerator list ->
-  enclave_options:enclave_options list ->
-  hibernation_options:hibernation_options list ->
-  iam_instance_profile:iam_instance_profile list ->
-  instance_market_options:instance_market_options list ->
-  instance_requirements:instance_requirements list ->
+  ?cpu_options:cpu_options list ->
+  ?credit_specification:credit_specification list ->
+  ?elastic_gpu_specifications:elastic_gpu_specifications list ->
+  ?elastic_inference_accelerator:elastic_inference_accelerator list ->
+  ?enclave_options:enclave_options list ->
+  ?hibernation_options:hibernation_options list ->
+  ?iam_instance_profile:iam_instance_profile list ->
+  ?instance_market_options:instance_market_options list ->
+  ?instance_requirements:instance_requirements list ->
+  ?maintenance_options:maintenance_options list ->
+  ?metadata_options:metadata_options list ->
+  ?monitoring:monitoring list ->
+  ?network_interfaces:network_interfaces list ->
+  ?placement:placement list ->
+  ?private_dns_name_options:private_dns_name_options list ->
+  ?tag_specifications:tag_specifications list ->
   license_specification:license_specification list ->
-  maintenance_options:maintenance_options list ->
-  metadata_options:metadata_options list ->
-  monitoring:monitoring list ->
-  network_interfaces:network_interfaces list ->
-  placement:placement list ->
-  private_dns_name_options:private_dns_name_options list ->
-  tag_specifications:tag_specifications list ->
   string ->
   t Tf_core.resource

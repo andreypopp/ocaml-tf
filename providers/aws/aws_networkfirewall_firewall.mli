@@ -54,11 +54,11 @@ val aws_networkfirewall_firewall :
   ?subnet_change_protection:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?encryption_configuration:encryption_configuration list ->
   ?timeouts:timeouts ->
   firewall_policy_arn:string prop ->
   name:string prop ->
   vpc_id:string prop ->
-  encryption_configuration:encryption_configuration list ->
   subnet_mapping:subnet_mapping list ->
   unit ->
   aws_networkfirewall_firewall
@@ -93,11 +93,11 @@ val register :
   ?subnet_change_protection:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?encryption_configuration:encryption_configuration list ->
   ?timeouts:timeouts ->
   firewall_policy_arn:string prop ->
   name:string prop ->
   vpc_id:string prop ->
-  encryption_configuration:encryption_configuration list ->
   subnet_mapping:subnet_mapping list ->
   string ->
   t
@@ -110,11 +110,11 @@ val make :
   ?subnet_change_protection:bool prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?encryption_configuration:encryption_configuration list ->
   ?timeouts:timeouts ->
   firewall_policy_arn:string prop ->
   name:string prop ->
   vpc_id:string prop ->
-  encryption_configuration:encryption_configuration list ->
   subnet_mapping:subnet_mapping list ->
   string ->
   t Tf_core.resource

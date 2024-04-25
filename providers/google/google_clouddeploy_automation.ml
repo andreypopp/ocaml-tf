@@ -409,7 +409,8 @@ let rules__promote_release_rule ?destination_phase
     =
   { destination_phase; destination_target_id; id; wait }
 
-let rules ~advance_rollout_rule ~promote_release_rule () : rules =
+let rules ?(advance_rollout_rule = []) ?(promote_release_rule = [])
+    () : rules =
   { advance_rollout_rule; promote_release_rule }
 
 let selector__targets ?id ?labels () : selector__targets =

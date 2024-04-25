@@ -517,9 +517,10 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_assured_workloads_workload ?billing_account
     ?enable_sovereign_controls ?id ?labels ?partner
     ?provisioned_resources_parent ?violation_notifications_enabled
-    ?timeouts ~compliance_regime ~display_name ~location
-    ~organization ~kms_settings ~partner_permissions
-    ~resource_settings () : google_assured_workloads_workload =
+    ?(kms_settings = []) ?(partner_permissions = [])
+    ?(resource_settings = []) ?timeouts ~compliance_regime
+    ~display_name ~location ~organization () :
+    google_assured_workloads_workload =
   {
     billing_account;
     compliance_regime;
@@ -564,9 +565,9 @@ type t = {
 
 let make ?billing_account ?enable_sovereign_controls ?id ?labels
     ?partner ?provisioned_resources_parent
-    ?violation_notifications_enabled ?timeouts ~compliance_regime
-    ~display_name ~location ~organization ~kms_settings
-    ~partner_permissions ~resource_settings __id =
+    ?violation_notifications_enabled ?(kms_settings = [])
+    ?(partner_permissions = []) ?(resource_settings = []) ?timeouts
+    ~compliance_regime ~display_name ~location ~organization __id =
   let __type = "google_assured_workloads_workload" in
   let __attrs =
     ({
@@ -614,23 +615,24 @@ let make ?billing_account ?enable_sovereign_controls ?id ?labels
         (google_assured_workloads_workload ?billing_account
            ?enable_sovereign_controls ?id ?labels ?partner
            ?provisioned_resources_parent
-           ?violation_notifications_enabled ?timeouts
+           ?violation_notifications_enabled ~kms_settings
+           ~partner_permissions ~resource_settings ?timeouts
            ~compliance_regime ~display_name ~location ~organization
-           ~kms_settings ~partner_permissions ~resource_settings ());
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?billing_account ?enable_sovereign_controls
     ?id ?labels ?partner ?provisioned_resources_parent
-    ?violation_notifications_enabled ?timeouts ~compliance_regime
-    ~display_name ~location ~organization ~kms_settings
-    ~partner_permissions ~resource_settings __id =
+    ?violation_notifications_enabled ?(kms_settings = [])
+    ?(partner_permissions = []) ?(resource_settings = []) ?timeouts
+    ~compliance_regime ~display_name ~location ~organization __id =
   let (r : _ Tf_core.resource) =
     make ?billing_account ?enable_sovereign_controls ?id ?labels
       ?partner ?provisioned_resources_parent
-      ?violation_notifications_enabled ?timeouts ~compliance_regime
-      ~display_name ~location ~organization ~kms_settings
-      ~partner_permissions ~resource_settings __id
+      ?violation_notifications_enabled ~kms_settings
+      ~partner_permissions ~resource_settings ?timeouts
+      ~compliance_regime ~display_name ~location ~organization __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

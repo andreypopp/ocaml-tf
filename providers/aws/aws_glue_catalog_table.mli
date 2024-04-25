@@ -59,8 +59,8 @@ type storage_descriptor__schema_reference
 
 val storage_descriptor__schema_reference :
   ?schema_version_id:string prop ->
+  ?schema_id:storage_descriptor__schema_reference__schema_id list ->
   schema_version_number:float prop ->
-  schema_id:storage_descriptor__schema_reference__schema_id list ->
   unit ->
   storage_descriptor__schema_reference
 
@@ -101,11 +101,11 @@ val storage_descriptor :
   ?output_format:string prop ->
   ?parameters:(string * string prop) list ->
   ?stored_as_sub_directories:bool prop ->
-  columns:storage_descriptor__columns list ->
-  schema_reference:storage_descriptor__schema_reference list ->
-  ser_de_info:storage_descriptor__ser_de_info list ->
-  skewed_info:storage_descriptor__skewed_info list ->
-  sort_columns:storage_descriptor__sort_columns list ->
+  ?columns:storage_descriptor__columns list ->
+  ?schema_reference:storage_descriptor__schema_reference list ->
+  ?ser_de_info:storage_descriptor__ser_de_info list ->
+  ?skewed_info:storage_descriptor__skewed_info list ->
+  ?sort_columns:storage_descriptor__sort_columns list ->
   unit ->
   storage_descriptor
 
@@ -131,13 +131,13 @@ val aws_glue_catalog_table :
   ?table_type:string prop ->
   ?view_expanded_text:string prop ->
   ?view_original_text:string prop ->
+  ?open_table_format_input:open_table_format_input list ->
+  ?partition_index:partition_index list ->
+  ?partition_keys:partition_keys list ->
+  ?storage_descriptor:storage_descriptor list ->
+  ?target_table:target_table list ->
   database_name:string prop ->
   name:string prop ->
-  open_table_format_input:open_table_format_input list ->
-  partition_index:partition_index list ->
-  partition_keys:partition_keys list ->
-  storage_descriptor:storage_descriptor list ->
-  target_table:target_table list ->
   unit ->
   aws_glue_catalog_table
 
@@ -171,13 +171,13 @@ val register :
   ?table_type:string prop ->
   ?view_expanded_text:string prop ->
   ?view_original_text:string prop ->
+  ?open_table_format_input:open_table_format_input list ->
+  ?partition_index:partition_index list ->
+  ?partition_keys:partition_keys list ->
+  ?storage_descriptor:storage_descriptor list ->
+  ?target_table:target_table list ->
   database_name:string prop ->
   name:string prop ->
-  open_table_format_input:open_table_format_input list ->
-  partition_index:partition_index list ->
-  partition_keys:partition_keys list ->
-  storage_descriptor:storage_descriptor list ->
-  target_table:target_table list ->
   string ->
   t
 
@@ -191,12 +191,12 @@ val make :
   ?table_type:string prop ->
   ?view_expanded_text:string prop ->
   ?view_original_text:string prop ->
+  ?open_table_format_input:open_table_format_input list ->
+  ?partition_index:partition_index list ->
+  ?partition_keys:partition_keys list ->
+  ?storage_descriptor:storage_descriptor list ->
+  ?target_table:target_table list ->
   database_name:string prop ->
   name:string prop ->
-  open_table_format_input:open_table_format_input list ->
-  partition_index:partition_index list ->
-  partition_keys:partition_keys list ->
-  storage_descriptor:storage_descriptor list ->
-  target_table:target_table list ->
   string ->
   t Tf_core.resource

@@ -35,7 +35,7 @@ val software_config :
   ?notebook_upgrade_schedule:string prop ->
   ?post_startup_script:string prop ->
   ?post_startup_script_behavior:string prop ->
-  kernels:software_config__kernels list ->
+  ?kernels:software_config__kernels list ->
   unit ->
   software_config
 
@@ -82,7 +82,7 @@ val virtual_machine__virtual_machine_config__data_disk :
   ?mode:string prop ->
   ?source:string prop ->
   ?type_:string prop ->
-  initialize_params:
+  ?initialize_params:
     virtual_machine__virtual_machine_config__data_disk__initialize_params
     list ->
   unit ->
@@ -115,24 +115,25 @@ val virtual_machine__virtual_machine_config :
   ?reserved_ip_range:string prop ->
   ?subnet:string prop ->
   ?tags:string prop list ->
-  machine_type:string prop ->
-  accelerator_config:
+  ?accelerator_config:
     virtual_machine__virtual_machine_config__accelerator_config list ->
-  container_images:
+  ?container_images:
     virtual_machine__virtual_machine_config__container_images list ->
-  data_disk:virtual_machine__virtual_machine_config__data_disk list ->
-  encryption_config:
+  ?encryption_config:
     virtual_machine__virtual_machine_config__encryption_config list ->
-  shielded_instance_config:
+  ?shielded_instance_config:
     virtual_machine__virtual_machine_config__shielded_instance_config
     list ->
+  machine_type:string prop ->
+  data_disk:virtual_machine__virtual_machine_config__data_disk list ->
   unit ->
   virtual_machine__virtual_machine_config
 
 type virtual_machine
 
 val virtual_machine :
-  virtual_machine_config:virtual_machine__virtual_machine_config list ->
+  ?virtual_machine_config:
+    virtual_machine__virtual_machine_config list ->
   unit ->
   virtual_machine
 
@@ -142,12 +143,12 @@ val google_notebooks_runtime :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?access_config:access_config list ->
+  ?software_config:software_config list ->
   ?timeouts:timeouts ->
+  ?virtual_machine:virtual_machine list ->
   location:string prop ->
   name:string prop ->
-  access_config:access_config list ->
-  software_config:software_config list ->
-  virtual_machine:virtual_machine list ->
   unit ->
   google_notebooks_runtime
 
@@ -174,12 +175,12 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?access_config:access_config list ->
+  ?software_config:software_config list ->
   ?timeouts:timeouts ->
+  ?virtual_machine:virtual_machine list ->
   location:string prop ->
   name:string prop ->
-  access_config:access_config list ->
-  software_config:software_config list ->
-  virtual_machine:virtual_machine list ->
   string ->
   t
 
@@ -187,11 +188,11 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?access_config:access_config list ->
+  ?software_config:software_config list ->
   ?timeouts:timeouts ->
+  ?virtual_machine:virtual_machine list ->
   location:string prop ->
   name:string prop ->
-  access_config:access_config list ->
-  software_config:software_config list ->
-  virtual_machine:virtual_machine list ->
   string ->
   t Tf_core.resource

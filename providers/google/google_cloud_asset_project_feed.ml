@@ -282,8 +282,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_cloud_asset_project_feed ?asset_names ?asset_types
-    ?billing_project ?content_type ?id ?project ?timeouts ~feed_id
-    ~condition ~feed_output_config () :
+    ?billing_project ?content_type ?id ?project ?(condition = [])
+    ?timeouts ~feed_id ~feed_output_config () :
     google_cloud_asset_project_feed =
   {
     asset_names;
@@ -310,7 +310,8 @@ type t = {
 }
 
 let make ?asset_names ?asset_types ?billing_project ?content_type ?id
-    ?project ?timeouts ~feed_id ~condition ~feed_output_config __id =
+    ?project ?(condition = []) ?timeouts ~feed_id ~feed_output_config
+    __id =
   let __type = "google_cloud_asset_project_feed" in
   let __attrs =
     ({
@@ -331,17 +332,17 @@ let make ?asset_names ?asset_types ?billing_project ?content_type ?id
     json =
       yojson_of_google_cloud_asset_project_feed
         (google_cloud_asset_project_feed ?asset_names ?asset_types
-           ?billing_project ?content_type ?id ?project ?timeouts
-           ~feed_id ~condition ~feed_output_config ());
+           ?billing_project ?content_type ?id ?project ~condition
+           ?timeouts ~feed_id ~feed_output_config ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?asset_names ?asset_types ?billing_project
-    ?content_type ?id ?project ?timeouts ~feed_id ~condition
+    ?content_type ?id ?project ?(condition = []) ?timeouts ~feed_id
     ~feed_output_config __id =
   let (r : _ Tf_core.resource) =
     make ?asset_names ?asset_types ?billing_project ?content_type ?id
-      ?project ?timeouts ~feed_id ~condition ~feed_output_config __id
+      ?project ~condition ?timeouts ~feed_id ~feed_output_config __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

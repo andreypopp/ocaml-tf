@@ -34,13 +34,13 @@ val azurerm_media_streaming_locator :
   ?id:string prop ->
   ?start_time:string prop ->
   ?streaming_locator_id:string prop ->
+  ?content_key:content_key list ->
   ?timeouts:timeouts ->
   asset_name:string prop ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   streaming_policy_name:string prop ->
-  content_key:content_key list ->
   unit ->
   azurerm_media_streaming_locator
 
@@ -73,13 +73,13 @@ val register :
   ?id:string prop ->
   ?start_time:string prop ->
   ?streaming_locator_id:string prop ->
+  ?content_key:content_key list ->
   ?timeouts:timeouts ->
   asset_name:string prop ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   streaming_policy_name:string prop ->
-  content_key:content_key list ->
   string ->
   t
 
@@ -91,12 +91,12 @@ val make :
   ?id:string prop ->
   ?start_time:string prop ->
   ?streaming_locator_id:string prop ->
+  ?content_key:content_key list ->
   ?timeouts:timeouts ->
   asset_name:string prop ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   streaming_policy_name:string prop ->
-  content_key:content_key list ->
   string ->
   t Tf_core.resource

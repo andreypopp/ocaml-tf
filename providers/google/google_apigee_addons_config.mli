@@ -36,12 +36,13 @@ val addons_config__monetization_config :
 type addons_config
 
 val addons_config :
-  advanced_api_ops_config:addons_config__advanced_api_ops_config list ->
-  api_security_config:addons_config__api_security_config list ->
-  connectors_platform_config:
+  ?advanced_api_ops_config:
+    addons_config__advanced_api_ops_config list ->
+  ?api_security_config:addons_config__api_security_config list ->
+  ?connectors_platform_config:
     addons_config__connectors_platform_config list ->
-  integration_config:addons_config__integration_config list ->
-  monetization_config:addons_config__monetization_config list ->
+  ?integration_config:addons_config__integration_config list ->
+  ?monetization_config:addons_config__monetization_config list ->
   unit ->
   addons_config
 
@@ -58,9 +59,9 @@ type google_apigee_addons_config
 
 val google_apigee_addons_config :
   ?id:string prop ->
+  ?addons_config:addons_config list ->
   ?timeouts:timeouts ->
   org:string prop ->
-  addons_config:addons_config list ->
   unit ->
   google_apigee_addons_config
 
@@ -74,16 +75,16 @@ type t = private { id : string prop; org : string prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?addons_config:addons_config list ->
   ?timeouts:timeouts ->
   org:string prop ->
-  addons_config:addons_config list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?addons_config:addons_config list ->
   ?timeouts:timeouts ->
   org:string prop ->
-  addons_config:addons_config list ->
   string ->
   t Tf_core.resource

@@ -23,12 +23,12 @@ type google_bigquery_datapolicy_data_policy
 val google_bigquery_datapolicy_data_policy :
   ?id:string prop ->
   ?project:string prop ->
+  ?data_masking_policy:data_masking_policy list ->
   ?timeouts:timeouts ->
   data_policy_id:string prop ->
   data_policy_type:string prop ->
   location:string prop ->
   policy_tag:string prop ->
-  data_masking_policy:data_masking_policy list ->
   unit ->
   google_bigquery_datapolicy_data_policy
 
@@ -51,23 +51,23 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
+  ?data_masking_policy:data_masking_policy list ->
   ?timeouts:timeouts ->
   data_policy_id:string prop ->
   data_policy_type:string prop ->
   location:string prop ->
   policy_tag:string prop ->
-  data_masking_policy:data_masking_policy list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?project:string prop ->
+  ?data_masking_policy:data_masking_policy list ->
   ?timeouts:timeouts ->
   data_policy_id:string prop ->
   data_policy_type:string prop ->
   location:string prop ->
   policy_tag:string prop ->
-  data_masking_policy:data_masking_policy list ->
   string ->
   t Tf_core.resource

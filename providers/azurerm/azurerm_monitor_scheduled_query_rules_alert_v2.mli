@@ -34,12 +34,12 @@ type criteria
 val criteria :
   ?metric_measure_column:string prop ->
   ?resource_id_column:string prop ->
+  ?dimension:criteria__dimension list ->
+  ?failing_periods:criteria__failing_periods list ->
   operator:string prop ->
   query:string prop ->
   threshold:float prop ->
   time_aggregation_method:string prop ->
-  dimension:criteria__dimension list ->
-  failing_periods:criteria__failing_periods list ->
   unit ->
   criteria
 
@@ -68,6 +68,7 @@ val azurerm_monitor_scheduled_query_rules_alert_v2 :
   ?tags:(string * string prop) list ->
   ?target_resource_types:string prop list ->
   ?workspace_alerts_storage_enabled:bool prop ->
+  ?action:action list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -75,7 +76,6 @@ val azurerm_monitor_scheduled_query_rules_alert_v2 :
   scopes:string prop list ->
   severity:float prop ->
   window_duration:string prop ->
-  action:action list ->
   criteria:criteria list ->
   unit ->
   azurerm_monitor_scheduled_query_rules_alert_v2
@@ -123,6 +123,7 @@ val register :
   ?tags:(string * string prop) list ->
   ?target_resource_types:string prop list ->
   ?workspace_alerts_storage_enabled:bool prop ->
+  ?action:action list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -130,7 +131,6 @@ val register :
   scopes:string prop list ->
   severity:float prop ->
   window_duration:string prop ->
-  action:action list ->
   criteria:criteria list ->
   string ->
   t
@@ -148,6 +148,7 @@ val make :
   ?tags:(string * string prop) list ->
   ?target_resource_types:string prop list ->
   ?workspace_alerts_storage_enabled:bool prop ->
+  ?action:action list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -155,7 +156,6 @@ val make :
   scopes:string prop list ->
   severity:float prop ->
   window_duration:string prop ->
-  action:action list ->
   criteria:criteria list ->
   string ->
   t Tf_core.resource

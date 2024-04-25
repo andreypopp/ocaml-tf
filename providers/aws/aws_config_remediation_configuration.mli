@@ -15,7 +15,7 @@ val execution_controls__ssm_controls :
 type execution_controls
 
 val execution_controls :
-  ssm_controls:execution_controls__ssm_controls list ->
+  ?ssm_controls:execution_controls__ssm_controls list ->
   unit ->
   execution_controls
 
@@ -38,11 +38,11 @@ val aws_config_remediation_configuration :
   ?resource_type:string prop ->
   ?retry_attempt_seconds:float prop ->
   ?target_version:string prop ->
+  ?execution_controls:execution_controls list ->
+  ?parameter:parameter list ->
   config_rule_name:string prop ->
   target_id:string prop ->
   target_type:string prop ->
-  execution_controls:execution_controls list ->
-  parameter:parameter list ->
   unit ->
   aws_config_remediation_configuration
 
@@ -72,11 +72,11 @@ val register :
   ?resource_type:string prop ->
   ?retry_attempt_seconds:float prop ->
   ?target_version:string prop ->
+  ?execution_controls:execution_controls list ->
+  ?parameter:parameter list ->
   config_rule_name:string prop ->
   target_id:string prop ->
   target_type:string prop ->
-  execution_controls:execution_controls list ->
-  parameter:parameter list ->
   string ->
   t
 
@@ -87,10 +87,10 @@ val make :
   ?resource_type:string prop ->
   ?retry_attempt_seconds:float prop ->
   ?target_version:string prop ->
+  ?execution_controls:execution_controls list ->
+  ?parameter:parameter list ->
   config_rule_name:string prop ->
   target_id:string prop ->
   target_type:string prop ->
-  execution_controls:execution_controls list ->
-  parameter:parameter list ->
   string ->
   t Tf_core.resource

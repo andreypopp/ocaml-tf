@@ -42,7 +42,7 @@ val routing_rule__redirect :
 type routing_rule
 
 val routing_rule :
-  condition:routing_rule__condition list ->
+  ?condition:routing_rule__condition list ->
   redirect:routing_rule__redirect list ->
   unit ->
   routing_rule
@@ -53,11 +53,11 @@ val aws_s3_bucket_website_configuration :
   ?expected_bucket_owner:string prop ->
   ?id:string prop ->
   ?routing_rules:string prop ->
+  ?error_document:error_document list ->
+  ?index_document:index_document list ->
+  ?redirect_all_requests_to:redirect_all_requests_to list ->
+  ?routing_rule:routing_rule list ->
   bucket:string prop ->
-  error_document:error_document list ->
-  index_document:index_document list ->
-  redirect_all_requests_to:redirect_all_requests_to list ->
-  routing_rule:routing_rule list ->
   unit ->
   aws_s3_bucket_website_configuration
 
@@ -80,11 +80,11 @@ val register :
   ?expected_bucket_owner:string prop ->
   ?id:string prop ->
   ?routing_rules:string prop ->
+  ?error_document:error_document list ->
+  ?index_document:index_document list ->
+  ?redirect_all_requests_to:redirect_all_requests_to list ->
+  ?routing_rule:routing_rule list ->
   bucket:string prop ->
-  error_document:error_document list ->
-  index_document:index_document list ->
-  redirect_all_requests_to:redirect_all_requests_to list ->
-  routing_rule:routing_rule list ->
   string ->
   t
 
@@ -92,10 +92,10 @@ val make :
   ?expected_bucket_owner:string prop ->
   ?id:string prop ->
   ?routing_rules:string prop ->
+  ?error_document:error_document list ->
+  ?index_document:index_document list ->
+  ?redirect_all_requests_to:redirect_all_requests_to list ->
+  ?routing_rule:routing_rule list ->
   bucket:string prop ->
-  error_document:error_document list ->
-  index_document:index_document list ->
-  redirect_all_requests_to:redirect_all_requests_to list ->
-  routing_rule:routing_rule list ->
   string ->
   t Tf_core.resource

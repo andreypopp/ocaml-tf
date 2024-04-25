@@ -1096,8 +1096,8 @@ let basic_sli__availability ?enabled () : basic_sli__availability =
 let basic_sli__latency ~threshold () : basic_sli__latency =
   { threshold }
 
-let basic_sli ?location ?method_ ?version ~availability ~latency () :
-    basic_sli =
+let basic_sli ?location ?method_ ?version ?(availability = [])
+    ?(latency = []) () : basic_sli =
   { location; method_; version; availability; latency }
 
 let request_based_sli__distribution_cut__range ?max ?min () :
@@ -1113,8 +1113,8 @@ let request_based_sli__good_total_ratio ?bad_service_filter
     request_based_sli__good_total_ratio =
   { bad_service_filter; good_service_filter; total_service_filter }
 
-let request_based_sli ~distribution_cut ~good_total_ratio () :
-    request_based_sli =
+let request_based_sli ?(distribution_cut = [])
+    ?(good_total_ratio = []) () : request_based_sli =
   { distribution_cut; good_total_ratio }
 
 let timeouts ?create ?delete ?update () : timeouts =
@@ -1133,7 +1133,8 @@ let windows_based_sli__good_total_ratio_threshold__basic_sli_performance__latenc
   { threshold }
 
 let windows_based_sli__good_total_ratio_threshold__basic_sli_performance
-    ?location ?method_ ?version ~availability ~latency () :
+    ?location ?method_ ?version ?(availability = []) ?(latency = [])
+    () :
     windows_based_sli__good_total_ratio_threshold__basic_sli_performance
     =
   { location; method_; version; availability; latency }
@@ -1158,12 +1159,12 @@ let windows_based_sli__good_total_ratio_threshold__performance__good_total_ratio
   { bad_service_filter; good_service_filter; total_service_filter }
 
 let windows_based_sli__good_total_ratio_threshold__performance
-    ~distribution_cut ~good_total_ratio () :
+    ?(distribution_cut = []) ?(good_total_ratio = []) () :
     windows_based_sli__good_total_ratio_threshold__performance =
   { distribution_cut; good_total_ratio }
 
 let windows_based_sli__good_total_ratio_threshold ?threshold
-    ~basic_sli_performance ~performance () :
+    ?(basic_sli_performance = []) ?(performance = []) () :
     windows_based_sli__good_total_ratio_threshold =
   { threshold; basic_sli_performance; performance }
 
@@ -1184,8 +1185,8 @@ let windows_based_sli__metric_sum_in_range ~time_series ~range () :
   { time_series; range }
 
 let windows_based_sli ?good_bad_metric_filter ?window_period
-    ~good_total_ratio_threshold ~metric_mean_in_range
-    ~metric_sum_in_range () : windows_based_sli =
+    ?(good_total_ratio_threshold = []) ?(metric_mean_in_range = [])
+    ?(metric_sum_in_range = []) () : windows_based_sli =
   {
     good_bad_metric_filter;
     window_period;
@@ -1195,9 +1196,9 @@ let windows_based_sli ?good_bad_metric_filter ?window_period
   }
 
 let google_monitoring_slo ?calendar_period ?display_name ?id ?project
-    ?rolling_period_days ?slo_id ?user_labels ?timeouts ~goal
-    ~service ~basic_sli ~request_based_sli ~windows_based_sli () :
-    google_monitoring_slo =
+    ?rolling_period_days ?slo_id ?user_labels ?(basic_sli = [])
+    ?(request_based_sli = []) ?timeouts ?(windows_based_sli = [])
+    ~goal ~service () : google_monitoring_slo =
   {
     calendar_period;
     display_name;
@@ -1228,8 +1229,9 @@ type t = {
 }
 
 let make ?calendar_period ?display_name ?id ?project
-    ?rolling_period_days ?slo_id ?user_labels ?timeouts ~goal
-    ~service ~basic_sli ~request_based_sli ~windows_based_sli __id =
+    ?rolling_period_days ?slo_id ?user_labels ?(basic_sli = [])
+    ?(request_based_sli = []) ?timeouts ?(windows_based_sli = [])
+    ~goal ~service __id =
   let __type = "google_monitoring_slo" in
   let __attrs =
     ({
@@ -1254,18 +1256,20 @@ let make ?calendar_period ?display_name ?id ?project
       yojson_of_google_monitoring_slo
         (google_monitoring_slo ?calendar_period ?display_name ?id
            ?project ?rolling_period_days ?slo_id ?user_labels
-           ?timeouts ~goal ~service ~basic_sli ~request_based_sli
-           ~windows_based_sli ());
+           ~basic_sli ~request_based_sli ?timeouts ~windows_based_sli
+           ~goal ~service ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?calendar_period ?display_name ?id ?project
-    ?rolling_period_days ?slo_id ?user_labels ?timeouts ~goal
-    ~service ~basic_sli ~request_based_sli ~windows_based_sli __id =
+    ?rolling_period_days ?slo_id ?user_labels ?(basic_sli = [])
+    ?(request_based_sli = []) ?timeouts ?(windows_based_sli = [])
+    ~goal ~service __id =
   let (r : _ Tf_core.resource) =
     make ?calendar_period ?display_name ?id ?project
-      ?rolling_period_days ?slo_id ?user_labels ?timeouts ~goal
-      ~service ~basic_sli ~request_based_sli ~windows_based_sli __id
+      ?rolling_period_days ?slo_id ?user_labels ~basic_sli
+      ~request_based_sli ?timeouts ~windows_based_sli ~goal ~service
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

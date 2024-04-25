@@ -217,7 +217,7 @@ let saml_options__idp ~entity_id ~metadata_content () :
   { entity_id; metadata_content }
 
 let saml_options ?enabled ?master_backend_role ?master_user_name
-    ?roles_key ?session_timeout_minutes ?subject_key ~idp () :
+    ?roles_key ?session_timeout_minutes ?subject_key ?(idp = []) () :
     saml_options =
   {
     enabled;
@@ -231,13 +231,13 @@ let saml_options ?enabled ?master_backend_role ?master_user_name
 
 let timeouts ?delete ?update () : timeouts = { delete; update }
 
-let aws_opensearch_domain_saml_options ?id ?timeouts ~domain_name
-    ~saml_options () : aws_opensearch_domain_saml_options =
+let aws_opensearch_domain_saml_options ?id ?(saml_options = [])
+    ?timeouts ~domain_name () : aws_opensearch_domain_saml_options =
   { domain_name; id; saml_options; timeouts }
 
 type t = { domain_name : string prop; id : string prop }
 
-let make ?id ?timeouts ~domain_name ~saml_options __id =
+let make ?id ?(saml_options = []) ?timeouts ~domain_name __id =
   let __type = "aws_opensearch_domain_saml_options" in
   let __attrs =
     ({
@@ -251,15 +251,15 @@ let make ?id ?timeouts ~domain_name ~saml_options __id =
     type_ = __type;
     json =
       yojson_of_aws_opensearch_domain_saml_options
-        (aws_opensearch_domain_saml_options ?id ?timeouts
-           ~domain_name ~saml_options ());
+        (aws_opensearch_domain_saml_options ?id ~saml_options
+           ?timeouts ~domain_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~domain_name ~saml_options __id
-    =
+let register ?tf_module ?id ?(saml_options = []) ?timeouts
+    ~domain_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~domain_name ~saml_options __id
+    make ?id ~saml_options ?timeouts ~domain_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

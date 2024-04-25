@@ -2216,11 +2216,12 @@ let spec__grpc_route__match__metadata__match__range ~end_ ~start () :
   { end_; start }
 
 let spec__grpc_route__match__metadata__match ?exact ?prefix ?regex
-    ?suffix ~range () : spec__grpc_route__match__metadata__match =
+    ?suffix ?(range = []) () :
+    spec__grpc_route__match__metadata__match =
   { exact; prefix; regex; suffix; range }
 
-let spec__grpc_route__match__metadata ?invert ~name ~match_ () :
-    spec__grpc_route__match__metadata =
+let spec__grpc_route__match__metadata ?invert ?(match_ = []) ~name ()
+    : spec__grpc_route__match__metadata =
   { invert; name; match_ }
 
 let spec__grpc_route__match ?method_name ?port ?prefix ?service_name
@@ -2250,12 +2251,12 @@ let spec__grpc_route__timeout__per_request ~unit ~value () :
     spec__grpc_route__timeout__per_request =
   { unit; value }
 
-let spec__grpc_route__timeout ~idle ~per_request () :
+let spec__grpc_route__timeout ?(idle = []) ?(per_request = []) () :
     spec__grpc_route__timeout =
   { idle; per_request }
 
-let spec__grpc_route ~action ~match_ ~retry_policy ~timeout () :
-    spec__grpc_route =
+let spec__grpc_route ?(match_ = []) ?(retry_policy = [])
+    ?(timeout = []) ~action () : spec__grpc_route =
   { action; match_; retry_policy; timeout }
 
 let spec__http2_route__action__weighted_target ?port ~virtual_node
@@ -2271,11 +2272,12 @@ let spec__http2_route__match__header__match__range ~end_ ~start () :
   { end_; start }
 
 let spec__http2_route__match__header__match ?exact ?prefix ?regex
-    ?suffix ~range () : spec__http2_route__match__header__match =
+    ?suffix ?(range = []) () :
+    spec__http2_route__match__header__match =
   { exact; prefix; regex; suffix; range }
 
-let spec__http2_route__match__header ?invert ~name ~match_ () :
-    spec__http2_route__match__header =
+let spec__http2_route__match__header ?invert ?(match_ = []) ~name ()
+    : spec__http2_route__match__header =
   { invert; name; match_ }
 
 let spec__http2_route__match__path ?exact ?regex () :
@@ -2286,12 +2288,13 @@ let spec__http2_route__match__query_parameter__match ?exact () :
     spec__http2_route__match__query_parameter__match =
   { exact }
 
-let spec__http2_route__match__query_parameter ~name ~match_ () :
-    spec__http2_route__match__query_parameter =
+let spec__http2_route__match__query_parameter ?(match_ = []) ~name ()
+    : spec__http2_route__match__query_parameter =
   { name; match_ }
 
-let spec__http2_route__match ?method_ ?port ?prefix ?scheme ~header
-    ~path ~query_parameter () : spec__http2_route__match =
+let spec__http2_route__match ?method_ ?port ?prefix ?scheme
+    ?(path = []) ~header ~query_parameter () :
+    spec__http2_route__match =
   { method_; port; prefix; scheme; header; path; query_parameter }
 
 let spec__http2_route__retry_policy__per_retry_timeout ~unit ~value
@@ -2316,12 +2319,12 @@ let spec__http2_route__timeout__per_request ~unit ~value () :
     spec__http2_route__timeout__per_request =
   { unit; value }
 
-let spec__http2_route__timeout ~idle ~per_request () :
+let spec__http2_route__timeout ?(idle = []) ?(per_request = []) () :
     spec__http2_route__timeout =
   { idle; per_request }
 
-let spec__http2_route ~action ~match_ ~retry_policy ~timeout () :
-    spec__http2_route =
+let spec__http2_route ?(retry_policy = []) ?(timeout = []) ~action
+    ~match_ () : spec__http2_route =
   { action; match_; retry_policy; timeout }
 
 let spec__http_route__action__weighted_target ?port ~virtual_node
@@ -2337,10 +2340,11 @@ let spec__http_route__match__header__match__range ~end_ ~start () :
   { end_; start }
 
 let spec__http_route__match__header__match ?exact ?prefix ?regex
-    ?suffix ~range () : spec__http_route__match__header__match =
+    ?suffix ?(range = []) () : spec__http_route__match__header__match
+    =
   { exact; prefix; regex; suffix; range }
 
-let spec__http_route__match__header ?invert ~name ~match_ () :
+let spec__http_route__match__header ?invert ?(match_ = []) ~name () :
     spec__http_route__match__header =
   { invert; name; match_ }
 
@@ -2352,12 +2356,13 @@ let spec__http_route__match__query_parameter__match ?exact () :
     spec__http_route__match__query_parameter__match =
   { exact }
 
-let spec__http_route__match__query_parameter ~name ~match_ () :
-    spec__http_route__match__query_parameter =
+let spec__http_route__match__query_parameter ?(match_ = []) ~name ()
+    : spec__http_route__match__query_parameter =
   { name; match_ }
 
-let spec__http_route__match ?method_ ?port ?prefix ?scheme ~header
-    ~path ~query_parameter () : spec__http_route__match =
+let spec__http_route__match ?method_ ?port ?prefix ?scheme
+    ?(path = []) ~header ~query_parameter () :
+    spec__http_route__match =
   { method_; port; prefix; scheme; header; path; query_parameter }
 
 let spec__http_route__retry_policy__per_retry_timeout ~unit ~value ()
@@ -2382,12 +2387,12 @@ let spec__http_route__timeout__per_request ~unit ~value () :
     spec__http_route__timeout__per_request =
   { unit; value }
 
-let spec__http_route__timeout ~idle ~per_request () :
+let spec__http_route__timeout ?(idle = []) ?(per_request = []) () :
     spec__http_route__timeout =
   { idle; per_request }
 
-let spec__http_route ~action ~match_ ~retry_policy ~timeout () :
-    spec__http_route =
+let spec__http_route ?(retry_policy = []) ?(timeout = []) ~action
+    ~match_ () : spec__http_route =
   { action; match_; retry_policy; timeout }
 
 let spec__tcp_route__action__weighted_target ?port ~virtual_node
@@ -2405,14 +2410,16 @@ let spec__tcp_route__timeout__idle ~unit ~value () :
     spec__tcp_route__timeout__idle =
   { unit; value }
 
-let spec__tcp_route__timeout ~idle () : spec__tcp_route__timeout =
+let spec__tcp_route__timeout ?(idle = []) () :
+    spec__tcp_route__timeout =
   { idle }
 
-let spec__tcp_route ~action ~match_ ~timeout () : spec__tcp_route =
+let spec__tcp_route ?(match_ = []) ?(timeout = []) ~action () :
+    spec__tcp_route =
   { action; match_; timeout }
 
-let spec ?priority ~grpc_route ~http2_route ~http_route ~tcp_route ()
-    : spec =
+let spec ?priority ?(grpc_route = []) ?(http2_route = [])
+    ?(http_route = []) ?(tcp_route = []) () : spec =
   { priority; grpc_route; http2_route; http_route; tcp_route }
 
 let aws_appmesh_route ?id ?mesh_owner ?tags ?tags_all ~mesh_name

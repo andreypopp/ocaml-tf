@@ -29,9 +29,9 @@ val aws_worklink_fleet :
   ?display_name:string prop ->
   ?id:string prop ->
   ?optimize_for_end_user_location:bool prop ->
+  ?identity_provider:identity_provider list ->
+  ?network:network list ->
   name:string prop ->
-  identity_provider:identity_provider list ->
-  network:network list ->
   unit ->
   aws_worklink_fleet
 
@@ -59,9 +59,9 @@ val register :
   ?display_name:string prop ->
   ?id:string prop ->
   ?optimize_for_end_user_location:bool prop ->
+  ?identity_provider:identity_provider list ->
+  ?network:network list ->
   name:string prop ->
-  identity_provider:identity_provider list ->
-  network:network list ->
   string ->
   t
 
@@ -71,8 +71,8 @@ val make :
   ?display_name:string prop ->
   ?id:string prop ->
   ?optimize_for_end_user_location:bool prop ->
+  ?identity_provider:identity_provider list ->
+  ?network:network list ->
   name:string prop ->
-  identity_provider:identity_provider list ->
-  network:network list ->
   string ->
   t Tf_core.resource

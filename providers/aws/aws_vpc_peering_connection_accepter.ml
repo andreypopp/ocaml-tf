@@ -214,8 +214,9 @@ let requester ?allow_remote_vpc_dns_resolution () : requester =
 let timeouts ?create ?update () : timeouts = { create; update }
 
 let aws_vpc_peering_connection_accepter ?auto_accept ?id ?tags
-    ?tags_all ?timeouts ~vpc_peering_connection_id ~accepter
-    ~requester () : aws_vpc_peering_connection_accepter =
+    ?tags_all ?(accepter = []) ?(requester = []) ?timeouts
+    ~vpc_peering_connection_id () :
+    aws_vpc_peering_connection_accepter =
   {
     auto_accept;
     id;
@@ -240,8 +241,8 @@ type t = {
   vpc_peering_connection_id : string prop;
 }
 
-let make ?auto_accept ?id ?tags ?tags_all ?timeouts
-    ~vpc_peering_connection_id ~accepter ~requester __id =
+let make ?auto_accept ?id ?tags ?tags_all ?(accepter = [])
+    ?(requester = []) ?timeouts ~vpc_peering_connection_id __id =
   let __type = "aws_vpc_peering_connection_accepter" in
   let __attrs =
     ({
@@ -265,16 +266,17 @@ let make ?auto_accept ?id ?tags ?tags_all ?timeouts
     json =
       yojson_of_aws_vpc_peering_connection_accepter
         (aws_vpc_peering_connection_accepter ?auto_accept ?id ?tags
-           ?tags_all ?timeouts ~vpc_peering_connection_id ~accepter
-           ~requester ());
+           ?tags_all ~accepter ~requester ?timeouts
+           ~vpc_peering_connection_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?auto_accept ?id ?tags ?tags_all ?timeouts
-    ~vpc_peering_connection_id ~accepter ~requester __id =
+let register ?tf_module ?auto_accept ?id ?tags ?tags_all
+    ?(accepter = []) ?(requester = []) ?timeouts
+    ~vpc_peering_connection_id __id =
   let (r : _ Tf_core.resource) =
-    make ?auto_accept ?id ?tags ?tags_all ?timeouts
-      ~vpc_peering_connection_id ~accepter ~requester __id
+    make ?auto_accept ?id ?tags ?tags_all ~accepter ~requester
+      ?timeouts ~vpc_peering_connection_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

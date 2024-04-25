@@ -350,7 +350,7 @@ let disk_container__user_bucket ~s3_bucket ~s3_key () :
     disk_container__user_bucket =
   { s3_bucket; s3_key }
 
-let disk_container ?description ?url ~format ~user_bucket () :
+let disk_container ?description ?url ?(user_bucket = []) ~format () :
     disk_container =
   { description; format; url; user_bucket }
 
@@ -358,8 +358,8 @@ let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let aws_ebs_snapshot_import ?description ?encrypted ?id ?kms_key_id
     ?permanent_restore ?role_name ?storage_tier ?tags ?tags_all
-    ?temporary_restore_days ?timeouts ~client_data ~disk_container ()
-    : aws_ebs_snapshot_import =
+    ?temporary_restore_days ?(client_data = []) ?timeouts
+    ~disk_container () : aws_ebs_snapshot_import =
   {
     description;
     encrypted;
@@ -398,7 +398,7 @@ type t = {
 
 let make ?description ?encrypted ?id ?kms_key_id ?permanent_restore
     ?role_name ?storage_tier ?tags ?tags_all ?temporary_restore_days
-    ?timeouts ~client_data ~disk_container __id =
+    ?(client_data = []) ?timeouts ~disk_container __id =
   let __type = "aws_ebs_snapshot_import" in
   let __attrs =
     ({
@@ -432,19 +432,19 @@ let make ?description ?encrypted ?id ?kms_key_id ?permanent_restore
       yojson_of_aws_ebs_snapshot_import
         (aws_ebs_snapshot_import ?description ?encrypted ?id
            ?kms_key_id ?permanent_restore ?role_name ?storage_tier
-           ?tags ?tags_all ?temporary_restore_days ?timeouts
-           ~client_data ~disk_container ());
+           ?tags ?tags_all ?temporary_restore_days ~client_data
+           ?timeouts ~disk_container ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?encrypted ?id ?kms_key_id
     ?permanent_restore ?role_name ?storage_tier ?tags ?tags_all
-    ?temporary_restore_days ?timeouts ~client_data ~disk_container
-    __id =
+    ?temporary_restore_days ?(client_data = []) ?timeouts
+    ~disk_container __id =
   let (r : _ Tf_core.resource) =
     make ?description ?encrypted ?id ?kms_key_id ?permanent_restore
       ?role_name ?storage_tier ?tags ?tags_all
-      ?temporary_restore_days ?timeouts ~client_data ~disk_container
+      ?temporary_restore_days ~client_data ?timeouts ~disk_container
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

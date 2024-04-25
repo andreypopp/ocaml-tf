@@ -206,8 +206,8 @@ let physical_connection_requirements ?availability_zone
 
 let aws_glue_connection ?catalog_id ?connection_properties
     ?connection_type ?description ?id ?match_criteria ?tags ?tags_all
-    ~name ~physical_connection_requirements () : aws_glue_connection
-    =
+    ?(physical_connection_requirements = []) ~name () :
+    aws_glue_connection =
   {
     catalog_id;
     connection_properties;
@@ -235,8 +235,8 @@ type t = {
 }
 
 let make ?catalog_id ?connection_properties ?connection_type
-    ?description ?id ?match_criteria ?tags ?tags_all ~name
-    ~physical_connection_requirements __id =
+    ?description ?id ?match_criteria ?tags ?tags_all
+    ?(physical_connection_requirements = []) ~name __id =
   let __type = "aws_glue_connection" in
   let __attrs =
     ({
@@ -261,17 +261,17 @@ let make ?catalog_id ?connection_properties ?connection_type
       yojson_of_aws_glue_connection
         (aws_glue_connection ?catalog_id ?connection_properties
            ?connection_type ?description ?id ?match_criteria ?tags
-           ?tags_all ~name ~physical_connection_requirements ());
+           ?tags_all ~physical_connection_requirements ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?catalog_id ?connection_properties
     ?connection_type ?description ?id ?match_criteria ?tags ?tags_all
-    ~name ~physical_connection_requirements __id =
+    ?(physical_connection_requirements = []) ~name __id =
   let (r : _ Tf_core.resource) =
     make ?catalog_id ?connection_properties ?connection_type
-      ?description ?id ?match_criteria ?tags ?tags_all ~name
-      ~physical_connection_requirements __id
+      ?description ?id ?match_criteria ?tags ?tags_all
+      ~physical_connection_requirements ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

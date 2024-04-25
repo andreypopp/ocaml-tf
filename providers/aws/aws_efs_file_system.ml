@@ -289,7 +289,8 @@ let protection ?replication_overwrite () : protection =
 let aws_efs_file_system ?availability_zone_name ?creation_token
     ?encrypted ?id ?kms_key_id ?performance_mode
     ?provisioned_throughput_in_mibps ?tags ?tags_all ?throughput_mode
-    ~lifecycle_policy ~protection () : aws_efs_file_system =
+    ?(lifecycle_policy = []) ?(protection = []) () :
+    aws_efs_file_system =
   {
     availability_zone_name;
     creation_token;
@@ -327,8 +328,8 @@ type t = {
 
 let make ?availability_zone_name ?creation_token ?encrypted ?id
     ?kms_key_id ?performance_mode ?provisioned_throughput_in_mibps
-    ?tags ?tags_all ?throughput_mode ~lifecycle_policy ~protection
-    __id =
+    ?tags ?tags_all ?throughput_mode ?(lifecycle_policy = [])
+    ?(protection = []) __id =
   let __type = "aws_efs_file_system" in
   let __attrs =
     ({
@@ -372,7 +373,7 @@ let make ?availability_zone_name ?creation_token ?encrypted ?id
 let register ?tf_module ?availability_zone_name ?creation_token
     ?encrypted ?id ?kms_key_id ?performance_mode
     ?provisioned_throughput_in_mibps ?tags ?tags_all ?throughput_mode
-    ~lifecycle_policy ~protection __id =
+    ?(lifecycle_policy = []) ?(protection = []) __id =
   let (r : _ Tf_core.resource) =
     make ?availability_zone_name ?creation_token ?encrypted ?id
       ?kms_key_id ?performance_mode ?provisioned_throughput_in_mibps

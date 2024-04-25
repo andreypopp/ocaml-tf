@@ -42,12 +42,12 @@ val cloudflare_spectrum_application :
   ?proxy_protocol:string prop ->
   ?tls:string prop ->
   ?traffic_type:string prop ->
+  ?edge_ips:edge_ips list ->
+  ?origin_dns:origin_dns list ->
+  ?origin_port_range:origin_port_range list ->
   protocol:string prop ->
   zone_id:string prop ->
   dns:dns list ->
-  edge_ips:edge_ips list ->
-  origin_dns:origin_dns list ->
-  origin_port_range:origin_port_range list ->
   unit ->
   cloudflare_spectrum_application
 
@@ -79,12 +79,12 @@ val register :
   ?proxy_protocol:string prop ->
   ?tls:string prop ->
   ?traffic_type:string prop ->
+  ?edge_ips:edge_ips list ->
+  ?origin_dns:origin_dns list ->
+  ?origin_port_range:origin_port_range list ->
   protocol:string prop ->
   zone_id:string prop ->
   dns:dns list ->
-  edge_ips:edge_ips list ->
-  origin_dns:origin_dns list ->
-  origin_port_range:origin_port_range list ->
   string ->
   t
 
@@ -97,11 +97,11 @@ val make :
   ?proxy_protocol:string prop ->
   ?tls:string prop ->
   ?traffic_type:string prop ->
+  ?edge_ips:edge_ips list ->
+  ?origin_dns:origin_dns list ->
+  ?origin_port_range:origin_port_range list ->
   protocol:string prop ->
   zone_id:string prop ->
   dns:dns list ->
-  edge_ips:edge_ips list ->
-  origin_dns:origin_dns list ->
-  origin_port_range:origin_port_range list ->
   string ->
   t Tf_core.resource

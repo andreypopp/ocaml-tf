@@ -950,8 +950,9 @@ let eks_properties__pod_properties__containers__volume_mounts
   { mount_path; name; read_only }
 
 let eks_properties__pod_properties__containers ?args ?command
-    ?image_pull_policy ?name ~image ~env ~resources ~security_context
-    ~volume_mounts () : eks_properties__pod_properties__containers =
+    ?image_pull_policy ?name ?(resources = [])
+    ?(security_context = []) ?(volume_mounts = []) ~image ~env () :
+    eks_properties__pod_properties__containers =
   {
     args;
     command;
@@ -982,13 +983,14 @@ let eks_properties__pod_properties__volumes__secret ?optional
     =
   { optional; secret_name }
 
-let eks_properties__pod_properties__volumes ?name ~empty_dir
-    ~host_path ~secret () : eks_properties__pod_properties__volumes =
+let eks_properties__pod_properties__volumes ?name ?(empty_dir = [])
+    ?(host_path = []) ?(secret = []) () :
+    eks_properties__pod_properties__volumes =
   { name; empty_dir; host_path; secret }
 
 let eks_properties__pod_properties ?dns_policy ?host_network
-    ?service_account_name ~containers ~metadata ~volumes () :
-    eks_properties__pod_properties =
+    ?service_account_name ?(metadata = []) ?(volumes = [])
+    ~containers () : eks_properties__pod_properties =
   {
     dns_policy;
     host_network;
@@ -1005,7 +1007,8 @@ let retry_strategy__evaluate_on_exit ?on_exit_code ?on_reason
     ?on_status_reason ~action () : retry_strategy__evaluate_on_exit =
   { action; on_exit_code; on_reason; on_status_reason }
 
-let retry_strategy ?attempts ~evaluate_on_exit () : retry_strategy =
+let retry_strategy ?attempts ?(evaluate_on_exit = []) () :
+    retry_strategy =
   { attempts; evaluate_on_exit }
 
 let timeout ?attempt_duration_seconds () : timeout =
@@ -1013,9 +1016,9 @@ let timeout ?attempt_duration_seconds () : timeout =
 
 let aws_batch_job_definition ?container_properties ?id
     ?node_properties ?parameters ?platform_capabilities
-    ?propagate_tags ?scheduling_priority ?tags ?tags_all ~name ~type_
-    ~eks_properties ~retry_strategy ~timeout () :
-    aws_batch_job_definition =
+    ?propagate_tags ?scheduling_priority ?tags ?tags_all
+    ?(eks_properties = []) ?(retry_strategy = []) ?(timeout = [])
+    ~name ~type_ () : aws_batch_job_definition =
   {
     container_properties;
     id;
@@ -1052,8 +1055,8 @@ type t = {
 
 let make ?container_properties ?id ?node_properties ?parameters
     ?platform_capabilities ?propagate_tags ?scheduling_priority ?tags
-    ?tags_all ~name ~type_ ~eks_properties ~retry_strategy ~timeout
-    __id =
+    ?tags_all ?(eks_properties = []) ?(retry_strategy = [])
+    ?(timeout = []) ~name ~type_ __id =
   let __type = "aws_batch_job_definition" in
   let __attrs =
     ({
@@ -1084,20 +1087,20 @@ let make ?container_properties ?id ?node_properties ?parameters
       yojson_of_aws_batch_job_definition
         (aws_batch_job_definition ?container_properties ?id
            ?node_properties ?parameters ?platform_capabilities
-           ?propagate_tags ?scheduling_priority ?tags ?tags_all ~name
-           ~type_ ~eks_properties ~retry_strategy ~timeout ());
+           ?propagate_tags ?scheduling_priority ?tags ?tags_all
+           ~eks_properties ~retry_strategy ~timeout ~name ~type_ ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?container_properties ?id ?node_properties
     ?parameters ?platform_capabilities ?propagate_tags
-    ?scheduling_priority ?tags ?tags_all ~name ~type_ ~eks_properties
-    ~retry_strategy ~timeout __id =
+    ?scheduling_priority ?tags ?tags_all ?(eks_properties = [])
+    ?(retry_strategy = []) ?(timeout = []) ~name ~type_ __id =
   let (r : _ Tf_core.resource) =
     make ?container_properties ?id ?node_properties ?parameters
       ?platform_capabilities ?propagate_tags ?scheduling_priority
-      ?tags ?tags_all ~name ~type_ ~eks_properties ~retry_strategy
-      ~timeout __id
+      ?tags ?tags_all ~eks_properties ~retry_strategy ~timeout ~name
+      ~type_ __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

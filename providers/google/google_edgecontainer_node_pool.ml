@@ -243,9 +243,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_edgecontainer_node_pool ?id ?labels ?machine_filter
-    ?project ?timeouts ~cluster ~location ~name ~node_count
-    ~node_location ~local_disk_encryption ~node_config () :
-    google_edgecontainer_node_pool =
+    ?project ?(local_disk_encryption = []) ?(node_config = [])
+    ?timeouts ~cluster ~location ~name ~node_count ~node_location ()
+    : google_edgecontainer_node_pool =
   {
     cluster;
     id;
@@ -278,9 +278,9 @@ type t = {
   update_time : string prop;
 }
 
-let make ?id ?labels ?machine_filter ?project ?timeouts ~cluster
-    ~location ~name ~node_count ~node_location ~local_disk_encryption
-    ~node_config __id =
+let make ?id ?labels ?machine_filter ?project
+    ?(local_disk_encryption = []) ?(node_config = []) ?timeouts
+    ~cluster ~location ~name ~node_count ~node_location __id =
   let __type = "google_edgecontainer_node_pool" in
   let __attrs =
     ({
@@ -309,18 +309,18 @@ let make ?id ?labels ?machine_filter ?project ?timeouts ~cluster
     json =
       yojson_of_google_edgecontainer_node_pool
         (google_edgecontainer_node_pool ?id ?labels ?machine_filter
-           ?project ?timeouts ~cluster ~location ~name ~node_count
-           ~node_location ~local_disk_encryption ~node_config ());
+           ?project ~local_disk_encryption ~node_config ?timeouts
+           ~cluster ~location ~name ~node_count ~node_location ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?labels ?machine_filter ?project
-    ?timeouts ~cluster ~location ~name ~node_count ~node_location
-    ~local_disk_encryption ~node_config __id =
+    ?(local_disk_encryption = []) ?(node_config = []) ?timeouts
+    ~cluster ~location ~name ~node_count ~node_location __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?labels ?machine_filter ?project ?timeouts ~cluster
-      ~location ~name ~node_count ~node_location
-      ~local_disk_encryption ~node_config __id
+    make ?id ?labels ?machine_filter ?project ~local_disk_encryption
+      ~node_config ?timeouts ~cluster ~location ~name ~node_count
+      ~node_location __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

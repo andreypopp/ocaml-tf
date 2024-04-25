@@ -141,8 +141,8 @@ let authentication_mode ?password_count ?type_ () :
   { password_count; type_ }
 
 let aws_elasticache_user ?access_string ?engine ?id
-    ?no_password_required ?passwords ?user_name ~user_id
-    ~authentication_mode () : aws_elasticache_user =
+    ?no_password_required ?passwords ?user_name
+    ?(authentication_mode = []) ~user_id () : aws_elasticache_user =
   {
     access_string;
     engine;
@@ -165,7 +165,7 @@ type t = {
 }
 
 let make ?access_string ?engine ?id ?no_password_required ?passwords
-    ?user_name ~user_id ~authentication_mode __id =
+    ?user_name ?(authentication_mode = []) ~user_id __id =
   let __type = "aws_elasticache_user" in
   let __attrs =
     ({
@@ -186,17 +186,17 @@ let make ?access_string ?engine ?id ?no_password_required ?passwords
     json =
       yojson_of_aws_elasticache_user
         (aws_elasticache_user ?access_string ?engine ?id
-           ?no_password_required ?passwords ?user_name ~user_id
-           ~authentication_mode ());
+           ?no_password_required ?passwords ?user_name
+           ~authentication_mode ~user_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?access_string ?engine ?id
-    ?no_password_required ?passwords ?user_name ~user_id
-    ~authentication_mode __id =
+    ?no_password_required ?passwords ?user_name
+    ?(authentication_mode = []) ~user_id __id =
   let (r : _ Tf_core.resource) =
     make ?access_string ?engine ?id ?no_password_required ?passwords
-      ?user_name ~user_id ~authentication_mode __id
+      ?user_name ~authentication_mode ~user_id __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -1311,7 +1311,7 @@ let serial_pipeline__stages__strategy__canary__canary_deployment__predeploy
   { actions }
 
 let serial_pipeline__stages__strategy__canary__canary_deployment
-    ?verify ~percentages ~postdeploy ~predeploy () :
+    ?verify ?(postdeploy = []) ?(predeploy = []) ~percentages () :
     serial_pipeline__stages__strategy__canary__canary_deployment =
   { percentages; verify; postdeploy; predeploy }
 
@@ -1328,8 +1328,8 @@ let serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_c
   { actions }
 
 let serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs
-    ?profiles ?verify ~percentage ~phase_id ~postdeploy ~predeploy ()
-    :
+    ?profiles ?verify ?(postdeploy = []) ?(predeploy = [])
+    ~percentage ~phase_id () :
     serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs
     =
   { percentage; phase_id; profiles; verify; postdeploy; predeploy }
@@ -1372,18 +1372,19 @@ let serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__servi
   { deployment; disable_pod_overprovisioning; service }
 
 let serial_pipeline__stages__strategy__canary__runtime_config__kubernetes
-    ~gateway_service_mesh ~service_networking () :
+    ?(gateway_service_mesh = []) ?(service_networking = []) () :
     serial_pipeline__stages__strategy__canary__runtime_config__kubernetes
     =
   { gateway_service_mesh; service_networking }
 
 let serial_pipeline__stages__strategy__canary__runtime_config
-    ~cloud_run ~kubernetes () :
+    ?(cloud_run = []) ?(kubernetes = []) () :
     serial_pipeline__stages__strategy__canary__runtime_config =
   { cloud_run; kubernetes }
 
-let serial_pipeline__stages__strategy__canary ~canary_deployment
-    ~custom_canary_deployment ~runtime_config () :
+let serial_pipeline__stages__strategy__canary
+    ?(canary_deployment = []) ?(custom_canary_deployment = [])
+    ?(runtime_config = []) () :
     serial_pipeline__stages__strategy__canary =
   { canary_deployment; custom_canary_deployment; runtime_config }
 
@@ -1395,26 +1396,28 @@ let serial_pipeline__stages__strategy__standard__predeploy ?actions
     () : serial_pipeline__stages__strategy__standard__predeploy =
   { actions }
 
-let serial_pipeline__stages__strategy__standard ?verify ~postdeploy
-    ~predeploy () : serial_pipeline__stages__strategy__standard =
+let serial_pipeline__stages__strategy__standard ?verify
+    ?(postdeploy = []) ?(predeploy = []) () :
+    serial_pipeline__stages__strategy__standard =
   { verify; postdeploy; predeploy }
 
-let serial_pipeline__stages__strategy ~canary ~standard () :
-    serial_pipeline__stages__strategy =
+let serial_pipeline__stages__strategy ?(canary = []) ?(standard = [])
+    () : serial_pipeline__stages__strategy =
   { canary; standard }
 
-let serial_pipeline__stages ?profiles ?target_id ~deploy_parameters
-    ~strategy () : serial_pipeline__stages =
+let serial_pipeline__stages ?profiles ?target_id
+    ?(deploy_parameters = []) ?(strategy = []) () :
+    serial_pipeline__stages =
   { profiles; target_id; deploy_parameters; strategy }
 
-let serial_pipeline ~stages () : serial_pipeline = { stages }
+let serial_pipeline ?(stages = []) () : serial_pipeline = { stages }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_clouddeploy_delivery_pipeline ?annotations ?description
-    ?id ?labels ?project ?suspended ?timeouts ~location ~name
-    ~serial_pipeline () : google_clouddeploy_delivery_pipeline =
+    ?id ?labels ?project ?suspended ?(serial_pipeline = []) ?timeouts
+    ~location ~name () : google_clouddeploy_delivery_pipeline =
   {
     annotations;
     description;
@@ -1448,7 +1451,7 @@ type t = {
 }
 
 let make ?annotations ?description ?id ?labels ?project ?suspended
-    ?timeouts ~location ~name ~serial_pipeline __id =
+    ?(serial_pipeline = []) ?timeouts ~location ~name __id =
   let __type = "google_clouddeploy_delivery_pipeline" in
   let __attrs =
     ({
@@ -1480,17 +1483,17 @@ let make ?annotations ?description ?id ?labels ?project ?suspended
     json =
       yojson_of_google_clouddeploy_delivery_pipeline
         (google_clouddeploy_delivery_pipeline ?annotations
-           ?description ?id ?labels ?project ?suspended ?timeouts
-           ~location ~name ~serial_pipeline ());
+           ?description ?id ?labels ?project ?suspended
+           ~serial_pipeline ?timeouts ~location ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?description ?id ?labels
-    ?project ?suspended ?timeouts ~location ~name ~serial_pipeline
-    __id =
+    ?project ?suspended ?(serial_pipeline = []) ?timeouts ~location
+    ~name __id =
   let (r : _ Tf_core.resource) =
     make ?annotations ?description ?id ?labels ?project ?suspended
-      ?timeouts ~location ~name ~serial_pipeline __id
+      ~serial_pipeline ?timeouts ~location ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

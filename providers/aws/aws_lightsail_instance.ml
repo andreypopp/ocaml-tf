@@ -172,8 +172,8 @@ let add_on ~snapshot_time ~status ~type_ () : add_on =
   { snapshot_time; status; type_ }
 
 let aws_lightsail_instance ?id ?ip_address_type ?key_pair_name ?tags
-    ?tags_all ?user_data ~availability_zone ~blueprint_id ~bundle_id
-    ~name ~add_on () : aws_lightsail_instance =
+    ?tags_all ?user_data ?(add_on = []) ~availability_zone
+    ~blueprint_id ~bundle_id ~name () : aws_lightsail_instance =
   {
     availability_zone;
     blueprint_id;
@@ -211,8 +211,8 @@ type t = {
 }
 
 let make ?id ?ip_address_type ?key_pair_name ?tags ?tags_all
-    ?user_data ~availability_zone ~blueprint_id ~bundle_id ~name
-    ~add_on __id =
+    ?user_data ?(add_on = []) ~availability_zone ~blueprint_id
+    ~bundle_id ~name __id =
   let __type = "aws_lightsail_instance" in
   let __attrs =
     ({
@@ -247,18 +247,18 @@ let make ?id ?ip_address_type ?key_pair_name ?tags ?tags_all
     json =
       yojson_of_aws_lightsail_instance
         (aws_lightsail_instance ?id ?ip_address_type ?key_pair_name
-           ?tags ?tags_all ?user_data ~availability_zone
-           ~blueprint_id ~bundle_id ~name ~add_on ());
+           ?tags ?tags_all ?user_data ~add_on ~availability_zone
+           ~blueprint_id ~bundle_id ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?ip_address_type ?key_pair_name ?tags
-    ?tags_all ?user_data ~availability_zone ~blueprint_id ~bundle_id
-    ~name ~add_on __id =
+    ?tags_all ?user_data ?(add_on = []) ~availability_zone
+    ~blueprint_id ~bundle_id ~name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?ip_address_type ?key_pair_name ?tags ?tags_all
-      ?user_data ~availability_zone ~blueprint_id ~bundle_id ~name
-      ~add_on __id
+      ?user_data ~add_on ~availability_zone ~blueprint_id ~bundle_id
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

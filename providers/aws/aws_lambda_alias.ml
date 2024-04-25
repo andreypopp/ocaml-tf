@@ -110,8 +110,8 @@ let _ = yojson_of_aws_lambda_alias
 let routing_config ?additional_version_weights () : routing_config =
   { additional_version_weights }
 
-let aws_lambda_alias ?description ?id ~function_name
-    ~function_version ~name ~routing_config () : aws_lambda_alias =
+let aws_lambda_alias ?description ?id ?(routing_config = [])
+    ~function_name ~function_version ~name () : aws_lambda_alias =
   {
     description;
     function_name;
@@ -131,8 +131,8 @@ type t = {
   name : string prop;
 }
 
-let make ?description ?id ~function_name ~function_version ~name
-    ~routing_config __id =
+let make ?description ?id ?(routing_config = []) ~function_name
+    ~function_version ~name __id =
   let __type = "aws_lambda_alias" in
   let __attrs =
     ({
@@ -152,16 +152,16 @@ let make ?description ?id ~function_name ~function_version ~name
     type_ = __type;
     json =
       yojson_of_aws_lambda_alias
-        (aws_lambda_alias ?description ?id ~function_name
-           ~function_version ~name ~routing_config ());
+        (aws_lambda_alias ?description ?id ~routing_config
+           ~function_name ~function_version ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ~function_name
-    ~function_version ~name ~routing_config __id =
+let register ?tf_module ?description ?id ?(routing_config = [])
+    ~function_name ~function_version ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ~function_name ~function_version ~name
-      ~routing_config __id
+    make ?description ?id ~routing_config ~function_name
+      ~function_version ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

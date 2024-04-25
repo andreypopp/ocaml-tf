@@ -87,17 +87,17 @@ val azurerm_spring_cloud_gateway :
   ?instance_count:float prop ->
   ?public_network_access_enabled:bool prop ->
   ?sensitive_environment_variables:(string * string prop) list ->
+  ?api_metadata:api_metadata list ->
+  ?client_authorization:client_authorization list ->
+  ?cors:cors list ->
+  ?local_response_cache_per_instance:
+    local_response_cache_per_instance list ->
+  ?local_response_cache_per_route:local_response_cache_per_route list ->
+  ?quota:quota list ->
+  ?sso:sso list ->
   ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_service_id:string prop ->
-  api_metadata:api_metadata list ->
-  client_authorization:client_authorization list ->
-  cors:cors list ->
-  local_response_cache_per_instance:
-    local_response_cache_per_instance list ->
-  local_response_cache_per_route:local_response_cache_per_route list ->
-  quota:quota list ->
-  sso:sso list ->
   unit ->
   azurerm_spring_cloud_gateway
 
@@ -130,17 +130,17 @@ val register :
   ?instance_count:float prop ->
   ?public_network_access_enabled:bool prop ->
   ?sensitive_environment_variables:(string * string prop) list ->
+  ?api_metadata:api_metadata list ->
+  ?client_authorization:client_authorization list ->
+  ?cors:cors list ->
+  ?local_response_cache_per_instance:
+    local_response_cache_per_instance list ->
+  ?local_response_cache_per_route:local_response_cache_per_route list ->
+  ?quota:quota list ->
+  ?sso:sso list ->
   ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_service_id:string prop ->
-  api_metadata:api_metadata list ->
-  client_authorization:client_authorization list ->
-  cors:cors list ->
-  local_response_cache_per_instance:
-    local_response_cache_per_instance list ->
-  local_response_cache_per_route:local_response_cache_per_route list ->
-  quota:quota list ->
-  sso:sso list ->
   string ->
   t
 
@@ -153,16 +153,16 @@ val make :
   ?instance_count:float prop ->
   ?public_network_access_enabled:bool prop ->
   ?sensitive_environment_variables:(string * string prop) list ->
+  ?api_metadata:api_metadata list ->
+  ?client_authorization:client_authorization list ->
+  ?cors:cors list ->
+  ?local_response_cache_per_instance:
+    local_response_cache_per_instance list ->
+  ?local_response_cache_per_route:local_response_cache_per_route list ->
+  ?quota:quota list ->
+  ?sso:sso list ->
   ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_service_id:string prop ->
-  api_metadata:api_metadata list ->
-  client_authorization:client_authorization list ->
-  cors:cors list ->
-  local_response_cache_per_instance:
-    local_response_cache_per_instance list ->
-  local_response_cache_per_route:local_response_cache_per_route list ->
-  quota:quota list ->
-  sso:sso list ->
   string ->
   t Tf_core.resource

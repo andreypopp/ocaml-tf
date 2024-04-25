@@ -100,7 +100,7 @@ let _ = yojson_of_aws_s3_directory_bucket
 let location ?type_ ~name () : location = { name; type_ }
 
 let aws_s3_directory_bucket ?data_redundancy ?force_destroy ?type_
-    ~bucket ~location () : aws_s3_directory_bucket =
+    ?(location = []) ~bucket () : aws_s3_directory_bucket =
   { bucket; data_redundancy; force_destroy; type_; location }
 
 type t = {
@@ -112,8 +112,8 @@ type t = {
   type_ : string prop;
 }
 
-let make ?data_redundancy ?force_destroy ?type_ ~bucket ~location
-    __id =
+let make ?data_redundancy ?force_destroy ?type_ ?(location = [])
+    ~bucket __id =
   let __type = "aws_s3_directory_bucket" in
   let __attrs =
     ({
@@ -132,14 +132,14 @@ let make ?data_redundancy ?force_destroy ?type_ ~bucket ~location
     json =
       yojson_of_aws_s3_directory_bucket
         (aws_s3_directory_bucket ?data_redundancy ?force_destroy
-           ?type_ ~bucket ~location ());
+           ?type_ ~location ~bucket ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?data_redundancy ?force_destroy ?type_
-    ~bucket ~location __id =
+    ?(location = []) ~bucket __id =
   let (r : _ Tf_core.resource) =
-    make ?data_redundancy ?force_destroy ?type_ ~bucket ~location
+    make ?data_redundancy ?force_destroy ?type_ ~location ~bucket
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

@@ -338,9 +338,9 @@ let table_with_columns ?catalog_id ?column_names
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
-let aws_lakeformation_resource_lf_tags ?catalog_id ?id ?timeouts
-    ~database ~lf_tag ~table ~table_with_columns () :
-    aws_lakeformation_resource_lf_tags =
+let aws_lakeformation_resource_lf_tags ?catalog_id ?id
+    ?(database = []) ?(table = []) ?(table_with_columns = [])
+    ?timeouts ~lf_tag () : aws_lakeformation_resource_lf_tags =
   {
     catalog_id;
     id;
@@ -353,8 +353,8 @@ let aws_lakeformation_resource_lf_tags ?catalog_id ?id ?timeouts
 
 type t = { catalog_id : string prop; id : string prop }
 
-let make ?catalog_id ?id ?timeouts ~database ~lf_tag ~table
-    ~table_with_columns __id =
+let make ?catalog_id ?id ?(database = []) ?(table = [])
+    ?(table_with_columns = []) ?timeouts ~lf_tag __id =
   let __type = "aws_lakeformation_resource_lf_tags" in
   let __attrs =
     ({
@@ -368,16 +368,16 @@ let make ?catalog_id ?id ?timeouts ~database ~lf_tag ~table
     type_ = __type;
     json =
       yojson_of_aws_lakeformation_resource_lf_tags
-        (aws_lakeformation_resource_lf_tags ?catalog_id ?id ?timeouts
-           ~database ~lf_tag ~table ~table_with_columns ());
+        (aws_lakeformation_resource_lf_tags ?catalog_id ?id ~database
+           ~table ~table_with_columns ?timeouts ~lf_tag ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?catalog_id ?id ?timeouts ~database ~lf_tag
-    ~table ~table_with_columns __id =
+let register ?tf_module ?catalog_id ?id ?(database = [])
+    ?(table = []) ?(table_with_columns = []) ?timeouts ~lf_tag __id =
   let (r : _ Tf_core.resource) =
-    make ?catalog_id ?id ?timeouts ~database ~lf_tag ~table
-      ~table_with_columns __id
+    make ?catalog_id ?id ~database ~table ~table_with_columns
+      ?timeouts ~lf_tag __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

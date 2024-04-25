@@ -35,11 +35,11 @@ val azurerm_app_service_environment_v3 :
   ?remote_debugging_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundant:bool prop ->
+  ?cluster_setting:cluster_setting list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   subnet_id:string prop ->
-  cluster_setting:cluster_setting list ->
   unit ->
   azurerm_app_service_environment_v3
 
@@ -80,11 +80,11 @@ val register :
   ?remote_debugging_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundant:bool prop ->
+  ?cluster_setting:cluster_setting list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   subnet_id:string prop ->
-  cluster_setting:cluster_setting list ->
   string ->
   t
 
@@ -96,10 +96,10 @@ val make :
   ?remote_debugging_enabled:bool prop ->
   ?tags:(string * string prop) list ->
   ?zone_redundant:bool prop ->
+  ?cluster_setting:cluster_setting list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   subnet_id:string prop ->
-  cluster_setting:cluster_setting list ->
   string ->
   t Tf_core.resource

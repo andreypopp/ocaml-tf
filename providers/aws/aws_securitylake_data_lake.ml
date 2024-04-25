@@ -355,17 +355,17 @@ let configuration__lifecycle_configuration__transition ?days
     configuration__lifecycle_configuration__transition =
   { days; storage_class }
 
-let configuration__lifecycle_configuration ~expiration ~transition ()
-    : configuration__lifecycle_configuration =
+let configuration__lifecycle_configuration ?(expiration = [])
+    ~transition () : configuration__lifecycle_configuration =
   { expiration; transition }
 
 let configuration__replication_configuration ?regions ?role_arn () :
     configuration__replication_configuration =
   { regions; role_arn }
 
-let configuration ?encryption_configuration ~region
-    ~lifecycle_configuration ~replication_configuration () :
-    configuration =
+let configuration ?encryption_configuration
+    ?(lifecycle_configuration = []) ?(replication_configuration = [])
+    ~region () : configuration =
   {
     encryption_configuration;
     region;
@@ -376,9 +376,8 @@ let configuration ?encryption_configuration ~region
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let aws_securitylake_data_lake ?tags ?timeouts
-    ~meta_store_manager_role_arn ~configuration () :
-    aws_securitylake_data_lake =
+let aws_securitylake_data_lake ?tags ?(configuration = []) ?timeouts
+    ~meta_store_manager_role_arn () : aws_securitylake_data_lake =
   { meta_store_manager_role_arn; tags; configuration; timeouts }
 
 type t = {
@@ -390,8 +389,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?tags ?timeouts ~meta_store_manager_role_arn ~configuration
-    __id =
+let make ?tags ?(configuration = []) ?timeouts
+    ~meta_store_manager_role_arn __id =
   let __type = "aws_securitylake_data_lake" in
   let __attrs =
     ({
@@ -410,15 +409,15 @@ let make ?tags ?timeouts ~meta_store_manager_role_arn ~configuration
     type_ = __type;
     json =
       yojson_of_aws_securitylake_data_lake
-        (aws_securitylake_data_lake ?tags ?timeouts
-           ~meta_store_manager_role_arn ~configuration ());
+        (aws_securitylake_data_lake ?tags ~configuration ?timeouts
+           ~meta_store_manager_role_arn ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?tags ?timeouts ~meta_store_manager_role_arn
-    ~configuration __id =
+let register ?tf_module ?tags ?(configuration = []) ?timeouts
+    ~meta_store_manager_role_arn __id =
   let (r : _ Tf_core.resource) =
-    make ?tags ?timeouts ~meta_store_manager_role_arn ~configuration
+    make ?tags ~configuration ?timeouts ~meta_store_manager_role_arn
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

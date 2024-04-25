@@ -18,7 +18,7 @@ type credentials
 
 val credentials :
     ?copy_source_arn:string prop ->
-    credential_pair:credentials__credential_pair list ->
+    ?credential_pair:credentials__credential_pair list ->
     unit ->
     credentials
 
@@ -199,26 +199,26 @@ val parameters__twitter :
 type parameters
 
 val parameters :
-    amazon_elasticsearch:parameters__amazon_elasticsearch list ->
-    athena:parameters__athena list ->
-    aurora:parameters__aurora list ->
-    aurora_postgresql:parameters__aurora_postgresql list ->
-    aws_iot_analytics:parameters__aws_iot_analytics list ->
-    jira:parameters__jira list ->
-    maria_db:parameters__maria_db list ->
-    mysql:parameters__mysql list ->
-    oracle:parameters__oracle list ->
-    postgresql:parameters__postgresql list ->
-    presto:parameters__presto list ->
-    rds:parameters__rds list ->
-    redshift:parameters__redshift list ->
-    s3:parameters__s3 list ->
-    service_now:parameters__service_now list ->
-    snowflake:parameters__snowflake list ->
-    spark:parameters__spark list ->
-    sql_server:parameters__sql_server list ->
-    teradata:parameters__teradata list ->
-    twitter:parameters__twitter list ->
+    ?amazon_elasticsearch:parameters__amazon_elasticsearch list ->
+    ?athena:parameters__athena list ->
+    ?aurora:parameters__aurora list ->
+    ?aurora_postgresql:parameters__aurora_postgresql list ->
+    ?aws_iot_analytics:parameters__aws_iot_analytics list ->
+    ?jira:parameters__jira list ->
+    ?maria_db:parameters__maria_db list ->
+    ?mysql:parameters__mysql list ->
+    ?oracle:parameters__oracle list ->
+    ?postgresql:parameters__postgresql list ->
+    ?presto:parameters__presto list ->
+    ?rds:parameters__rds list ->
+    ?redshift:parameters__redshift list ->
+    ?s3:parameters__s3 list ->
+    ?service_now:parameters__service_now list ->
+    ?snowflake:parameters__snowflake list ->
+    ?spark:parameters__spark list ->
+    ?sql_server:parameters__sql_server list ->
+    ?teradata:parameters__teradata list ->
+    ?twitter:parameters__twitter list ->
     unit ->
     parameters
 
@@ -251,14 +251,14 @@ val aws_quicksight_data_source :
     ?id:string prop ->
     ?tags:(string * string  prop) list ->
     ?tags_all:(string * string  prop) list ->
+    ?credentials:credentials list ->
+    ?ssl_properties:ssl_properties list ->
+    ?vpc_connection_properties:vpc_connection_properties list ->
     data_source_id:string prop ->
     name:string prop ->
     type_:string prop ->
-    credentials:credentials list ->
     parameters:parameters list ->
     permission:permission list ->
-    ssl_properties:ssl_properties list ->
-    vpc_connection_properties:vpc_connection_properties list ->
     unit ->
     aws_quicksight_data_source
 
@@ -283,14 +283,14 @@ val register :
     ?id:string prop ->
     ?tags:(string * string  prop) list ->
     ?tags_all:(string * string  prop) list ->
+    ?credentials:credentials list ->
+    ?ssl_properties:ssl_properties list ->
+    ?vpc_connection_properties:vpc_connection_properties list ->
     data_source_id:string prop ->
     name:string prop ->
     type_:string prop ->
-    credentials:credentials list ->
     parameters:parameters list ->
     permission:permission list ->
-    ssl_properties:ssl_properties list ->
-    vpc_connection_properties:vpc_connection_properties list ->
     string ->
     t
 
@@ -299,14 +299,14 @@ val make :
     ?id:string prop ->
     ?tags:(string * string  prop) list ->
     ?tags_all:(string * string  prop) list ->
+    ?credentials:credentials list ->
+    ?ssl_properties:ssl_properties list ->
+    ?vpc_connection_properties:vpc_connection_properties list ->
     data_source_id:string prop ->
     name:string prop ->
     type_:string prop ->
-    credentials:credentials list ->
     parameters:parameters list ->
     permission:permission list ->
-    ssl_properties:ssl_properties list ->
-    vpc_connection_properties:vpc_connection_properties list ->
     string ->
     t Tf_core.resource
 

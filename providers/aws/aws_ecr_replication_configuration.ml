@@ -181,20 +181,21 @@ let replication_configuration__rule__repository_filter ~filter
     replication_configuration__rule__repository_filter =
   { filter; filter_type }
 
-let replication_configuration__rule ~destination ~repository_filter
-    () : replication_configuration__rule =
+let replication_configuration__rule ?(repository_filter = [])
+    ~destination () : replication_configuration__rule =
   { destination; repository_filter }
 
 let replication_configuration ~rule () : replication_configuration =
   { rule }
 
-let aws_ecr_replication_configuration ?id ~replication_configuration
-    () : aws_ecr_replication_configuration =
+let aws_ecr_replication_configuration ?id
+    ?(replication_configuration = []) () :
+    aws_ecr_replication_configuration =
   { id; replication_configuration }
 
 type t = { id : string prop; registry_id : string prop }
 
-let make ?id ~replication_configuration __id =
+let make ?id ?(replication_configuration = []) __id =
   let __type = "aws_ecr_replication_configuration" in
   let __attrs =
     ({
@@ -213,7 +214,7 @@ let make ?id ~replication_configuration __id =
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~replication_configuration __id =
+let register ?tf_module ?id ?(replication_configuration = []) __id =
   let (r : _ Tf_core.resource) =
     make ?id ~replication_configuration __id
   in

@@ -295,11 +295,12 @@ let timeouts ?create ?delete ?update () : timeouts =
 let wait__condition ?status ?type_ () : wait__condition =
   { status; type_ }
 
-let wait ?fields ?rollout ~condition () : wait =
+let wait ?fields ?rollout ?(condition = []) () : wait =
   { fields; rollout; condition }
 
-let kubernetes_manifest ?computed_fields ?object_ ?wait_for ~manifest
-    ~field_manager ~timeouts ~wait () : kubernetes_manifest =
+let kubernetes_manifest ?computed_fields ?object_ ?wait_for
+    ?(field_manager = []) ?(timeouts = []) ?(wait = []) ~manifest ()
+    : kubernetes_manifest =
   {
     computed_fields;
     manifest;
@@ -317,8 +318,8 @@ type t = {
   wait_for : wait_for prop;
 }
 
-let make ?computed_fields ?object_ ?wait_for ~manifest ~field_manager
-    ~timeouts ~wait __id =
+let make ?computed_fields ?object_ ?wait_for ?(field_manager = [])
+    ?(timeouts = []) ?(wait = []) ~manifest __id =
   let __type = "kubernetes_manifest" in
   let __attrs =
     ({
@@ -335,15 +336,16 @@ let make ?computed_fields ?object_ ?wait_for ~manifest ~field_manager
     json =
       yojson_of_kubernetes_manifest
         (kubernetes_manifest ?computed_fields ?object_ ?wait_for
-           ~manifest ~field_manager ~timeouts ~wait ());
+           ~field_manager ~timeouts ~wait ~manifest ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?computed_fields ?object_ ?wait_for ~manifest
-    ~field_manager ~timeouts ~wait __id =
+let register ?tf_module ?computed_fields ?object_ ?wait_for
+    ?(field_manager = []) ?(timeouts = []) ?(wait = []) ~manifest
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?computed_fields ?object_ ?wait_for ~manifest ~field_manager
-      ~timeouts ~wait __id
+    make ?computed_fields ?object_ ?wait_for ~field_manager ~timeouts
+      ~wait ~manifest __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

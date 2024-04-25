@@ -64,7 +64,7 @@ val schema_definition__static_column :
 type schema_definition
 
 val schema_definition :
-  clustering_key:schema_definition__clustering_key list ->
+  ?clustering_key:schema_definition__clustering_key list ->
   column:schema_definition__column list ->
   partition_key:schema_definition__partition_key list ->
   static_column:schema_definition__static_column list ->
@@ -91,16 +91,16 @@ val aws_keyspaces_table :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?capacity_specification:capacity_specification list ->
+  ?client_side_timestamps:client_side_timestamps list ->
+  ?comment:comment list ->
+  ?encryption_specification:encryption_specification list ->
+  ?point_in_time_recovery:point_in_time_recovery list ->
   ?timeouts:timeouts ->
+  ?ttl:ttl list ->
   keyspace_name:string prop ->
   table_name:string prop ->
-  capacity_specification:capacity_specification list ->
-  client_side_timestamps:client_side_timestamps list ->
-  comment:comment list ->
-  encryption_specification:encryption_specification list ->
-  point_in_time_recovery:point_in_time_recovery list ->
   schema_definition:schema_definition list ->
-  ttl:ttl list ->
   unit ->
   aws_keyspaces_table
 
@@ -124,16 +124,16 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?capacity_specification:capacity_specification list ->
+  ?client_side_timestamps:client_side_timestamps list ->
+  ?comment:comment list ->
+  ?encryption_specification:encryption_specification list ->
+  ?point_in_time_recovery:point_in_time_recovery list ->
   ?timeouts:timeouts ->
+  ?ttl:ttl list ->
   keyspace_name:string prop ->
   table_name:string prop ->
-  capacity_specification:capacity_specification list ->
-  client_side_timestamps:client_side_timestamps list ->
-  comment:comment list ->
-  encryption_specification:encryption_specification list ->
-  point_in_time_recovery:point_in_time_recovery list ->
   schema_definition:schema_definition list ->
-  ttl:ttl list ->
   string ->
   t
 
@@ -142,15 +142,15 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?capacity_specification:capacity_specification list ->
+  ?client_side_timestamps:client_side_timestamps list ->
+  ?comment:comment list ->
+  ?encryption_specification:encryption_specification list ->
+  ?point_in_time_recovery:point_in_time_recovery list ->
   ?timeouts:timeouts ->
+  ?ttl:ttl list ->
   keyspace_name:string prop ->
   table_name:string prop ->
-  capacity_specification:capacity_specification list ->
-  client_side_timestamps:client_side_timestamps list ->
-  comment:comment list ->
-  encryption_specification:encryption_specification list ->
-  point_in_time_recovery:point_in_time_recovery list ->
   schema_definition:schema_definition list ->
-  ttl:ttl list ->
   string ->
   t Tf_core.resource

@@ -29,8 +29,8 @@ type digitalocean_ssh_keys
 
 val digitalocean_ssh_keys :
   ?id:string prop ->
+  ?sort:sort list ->
   filter:filter list ->
-  sort:sort list ->
   unit ->
   digitalocean_ssh_keys
 
@@ -43,14 +43,14 @@ type t = private { id : string prop; ssh_keys : ssh_keys list prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?sort:sort list ->
   filter:filter list ->
-  sort:sort list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?sort:sort list ->
   filter:filter list ->
-  sort:sort list ->
   string ->
   t Tf_core.resource

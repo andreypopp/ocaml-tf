@@ -371,8 +371,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_data_catalog_entry ?description ?display_name ?id
     ?linked_resource ?schema ?type_ ?user_specified_system
-    ?user_specified_type ?timeouts ~entry_group ~entry_id
-    ~gcs_fileset_spec () : google_data_catalog_entry =
+    ?user_specified_type ?(gcs_fileset_spec = []) ?timeouts
+    ~entry_group ~entry_id () : google_data_catalog_entry =
   {
     description;
     display_name;
@@ -406,8 +406,8 @@ type t = {
 }
 
 let make ?description ?display_name ?id ?linked_resource ?schema
-    ?type_ ?user_specified_system ?user_specified_type ?timeouts
-    ~entry_group ~entry_id ~gcs_fileset_spec __id =
+    ?type_ ?user_specified_system ?user_specified_type
+    ?(gcs_fileset_spec = []) ?timeouts ~entry_group ~entry_id __id =
   let __type = "google_data_catalog_entry" in
   let __attrs =
     ({
@@ -440,19 +440,19 @@ let make ?description ?display_name ?id ?linked_resource ?schema
       yojson_of_google_data_catalog_entry
         (google_data_catalog_entry ?description ?display_name ?id
            ?linked_resource ?schema ?type_ ?user_specified_system
-           ?user_specified_type ?timeouts ~entry_group ~entry_id
-           ~gcs_fileset_spec ());
+           ?user_specified_type ~gcs_fileset_spec ?timeouts
+           ~entry_group ~entry_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?display_name ?id
     ?linked_resource ?schema ?type_ ?user_specified_system
-    ?user_specified_type ?timeouts ~entry_group ~entry_id
-    ~gcs_fileset_spec __id =
+    ?user_specified_type ?(gcs_fileset_spec = []) ?timeouts
+    ~entry_group ~entry_id __id =
   let (r : _ Tf_core.resource) =
     make ?description ?display_name ?id ?linked_resource ?schema
-      ?type_ ?user_specified_system ?user_specified_type ?timeouts
-      ~entry_group ~entry_id ~gcs_fileset_spec __id
+      ?type_ ?user_specified_system ?user_specified_type
+      ~gcs_fileset_spec ?timeouts ~entry_group ~entry_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

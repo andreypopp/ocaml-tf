@@ -639,7 +639,7 @@ let job_template_data__configuration_overrides__application_configuration__confi
   { classification; properties }
 
 let job_template_data__configuration_overrides__application_configuration
-    ?properties ~classification ~configurations () :
+    ?properties ?(configurations = []) ~classification () :
     job_template_data__configuration_overrides__application_configuration
     =
   { classification; properties; configurations }
@@ -657,8 +657,8 @@ let job_template_data__configuration_overrides__monitoring_configuration__s3_mon
   { log_uri }
 
 let job_template_data__configuration_overrides__monitoring_configuration
-    ?persistent_app_ui ~cloud_watch_monitoring_configuration
-    ~s3_monitoring_configuration () :
+    ?persistent_app_ui ?(cloud_watch_monitoring_configuration = [])
+    ?(s3_monitoring_configuration = []) () :
     job_template_data__configuration_overrides__monitoring_configuration
     =
   {
@@ -668,7 +668,8 @@ let job_template_data__configuration_overrides__monitoring_configuration
   }
 
 let job_template_data__configuration_overrides
-    ~application_configuration ~monitoring_configuration () :
+    ?(application_configuration = [])
+    ?(monitoring_configuration = []) () :
     job_template_data__configuration_overrides =
   { application_configuration; monitoring_configuration }
 
@@ -682,12 +683,14 @@ let job_template_data__job_driver__spark_submit_job_driver
     job_template_data__job_driver__spark_submit_job_driver =
   { entry_point; entry_point_arguments; spark_submit_parameters }
 
-let job_template_data__job_driver ~spark_sql_job_driver
-    ~spark_submit_job_driver () : job_template_data__job_driver =
+let job_template_data__job_driver ?(spark_sql_job_driver = [])
+    ?(spark_submit_job_driver = []) () :
+    job_template_data__job_driver =
   { spark_sql_job_driver; spark_submit_job_driver }
 
-let job_template_data ?job_tags ~execution_role_arn ~release_label
-    ~configuration_overrides ~job_driver () : job_template_data =
+let job_template_data ?job_tags ?(configuration_overrides = [])
+    ~execution_role_arn ~release_label ~job_driver () :
+    job_template_data =
   {
     execution_role_arn;
     job_tags;

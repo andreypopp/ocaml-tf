@@ -602,7 +602,7 @@ let webhook__client_config__service ?path ?port ~name ~namespace () :
     webhook__client_config__service =
   { name; namespace; path; port }
 
-let webhook__client_config ?ca_bundle ?url ~service () :
+let webhook__client_config ?ca_bundle ?url ?(service = []) () :
     webhook__client_config =
   { ca_bundle; url; service }
 
@@ -610,16 +610,16 @@ let webhook__namespace_selector__match_expressions ?key ?operator
     ?values () : webhook__namespace_selector__match_expressions =
   { key; operator; values }
 
-let webhook__namespace_selector ?match_labels ~match_expressions () :
-    webhook__namespace_selector =
+let webhook__namespace_selector ?match_labels
+    ?(match_expressions = []) () : webhook__namespace_selector =
   { match_labels; match_expressions }
 
 let webhook__object_selector__match_expressions ?key ?operator
     ?values () : webhook__object_selector__match_expressions =
   { key; operator; values }
 
-let webhook__object_selector ?match_labels ~match_expressions () :
-    webhook__object_selector =
+let webhook__object_selector ?match_labels ?(match_expressions = [])
+    () : webhook__object_selector =
   { match_labels; match_expressions }
 
 let webhook__rule ?scope ~api_groups ~api_versions ~operations
@@ -627,8 +627,9 @@ let webhook__rule ?scope ~api_groups ~api_versions ~operations
   { api_groups; api_versions; operations; resources; scope }
 
 let webhook ?admission_review_versions ?failure_policy ?match_policy
-    ?side_effects ?timeout_seconds ~name ~client_config
-    ~namespace_selector ~object_selector ~rule () : webhook =
+    ?side_effects ?timeout_seconds ?(namespace_selector = [])
+    ?(object_selector = []) ?(rule = []) ~name ~client_config () :
+    webhook =
   {
     admission_review_versions;
     failure_policy;

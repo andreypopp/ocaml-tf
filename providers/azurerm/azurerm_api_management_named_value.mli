@@ -30,11 +30,11 @@ val azurerm_api_management_named_value :
   ?tags:string prop list ->
   ?value:string prop ->
   ?timeouts:timeouts ->
+  ?value_from_key_vault:value_from_key_vault list ->
   api_management_name:string prop ->
   display_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  value_from_key_vault:value_from_key_vault list ->
   unit ->
   azurerm_api_management_named_value
 
@@ -61,11 +61,11 @@ val register :
   ?tags:string prop list ->
   ?value:string prop ->
   ?timeouts:timeouts ->
+  ?value_from_key_vault:value_from_key_vault list ->
   api_management_name:string prop ->
   display_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  value_from_key_vault:value_from_key_vault list ->
   string ->
   t
 
@@ -75,10 +75,10 @@ val make :
   ?tags:string prop list ->
   ?value:string prop ->
   ?timeouts:timeouts ->
+  ?value_from_key_vault:value_from_key_vault list ->
   api_management_name:string prop ->
   display_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  value_from_key_vault:value_from_key_vault list ->
   string ->
   t Tf_core.resource

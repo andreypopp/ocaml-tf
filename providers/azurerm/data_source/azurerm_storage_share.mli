@@ -23,10 +23,10 @@ type azurerm_storage_share
 val azurerm_storage_share :
   ?id:string prop ->
   ?metadata:(string * string prop) list ->
+  ?acl:acl list ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_account_name:string prop ->
-  acl:acl list ->
   unit ->
   azurerm_storage_share
 
@@ -47,19 +47,19 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?metadata:(string * string prop) list ->
+  ?acl:acl list ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_account_name:string prop ->
-  acl:acl list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?metadata:(string * string prop) list ->
+  ?acl:acl list ->
   ?timeouts:timeouts ->
   name:string prop ->
   storage_account_name:string prop ->
-  acl:acl list ->
   string ->
   t Tf_core.resource

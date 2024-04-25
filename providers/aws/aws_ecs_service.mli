@@ -82,10 +82,10 @@ type service_connect_configuration__log_configuration
 
 val service_connect_configuration__log_configuration :
   ?options:(string * string prop) list ->
-  log_driver:string prop ->
-  secret_option:
+  ?secret_option:
     service_connect_configuration__log_configuration__secret_option
     list ->
+  log_driver:string prop ->
   unit ->
   service_connect_configuration__log_configuration
 
@@ -128,11 +128,11 @@ type service_connect_configuration__service
 val service_connect_configuration__service :
   ?discovery_name:string prop ->
   ?ingress_port_override:float prop ->
-  port_name:string prop ->
-  client_alias:
+  ?client_alias:
     service_connect_configuration__service__client_alias list ->
-  timeout:service_connect_configuration__service__timeout list ->
-  tls:service_connect_configuration__service__tls list ->
+  ?timeout:service_connect_configuration__service__timeout list ->
+  ?tls:service_connect_configuration__service__tls list ->
+  port_name:string prop ->
   unit ->
   service_connect_configuration__service
 
@@ -140,10 +140,10 @@ type service_connect_configuration
 
 val service_connect_configuration :
   ?namespace:string prop ->
-  enabled:bool prop ->
-  log_configuration:
+  ?log_configuration:
     service_connect_configuration__log_configuration list ->
-  service:service_connect_configuration__service list ->
+  ?service:service_connect_configuration__service list ->
+  enabled:bool prop ->
   unit ->
   service_connect_configuration
 
@@ -188,18 +188,18 @@ val aws_ecs_service :
   ?task_definition:string prop ->
   ?triggers:(string * string prop) list ->
   ?wait_for_steady_state:bool prop ->
+  ?alarms:alarms list ->
+  ?deployment_circuit_breaker:deployment_circuit_breaker list ->
+  ?deployment_controller:deployment_controller list ->
+  ?network_configuration:network_configuration list ->
+  ?ordered_placement_strategy:ordered_placement_strategy list ->
+  ?service_connect_configuration:service_connect_configuration list ->
+  ?service_registries:service_registries list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  alarms:alarms list ->
   capacity_provider_strategy:capacity_provider_strategy list ->
-  deployment_circuit_breaker:deployment_circuit_breaker list ->
-  deployment_controller:deployment_controller list ->
   load_balancer:load_balancer list ->
-  network_configuration:network_configuration list ->
-  ordered_placement_strategy:ordered_placement_strategy list ->
   placement_constraints:placement_constraints list ->
-  service_connect_configuration:service_connect_configuration list ->
-  service_registries:service_registries list ->
   unit ->
   aws_ecs_service
 
@@ -251,18 +251,18 @@ val register :
   ?task_definition:string prop ->
   ?triggers:(string * string prop) list ->
   ?wait_for_steady_state:bool prop ->
+  ?alarms:alarms list ->
+  ?deployment_circuit_breaker:deployment_circuit_breaker list ->
+  ?deployment_controller:deployment_controller list ->
+  ?network_configuration:network_configuration list ->
+  ?ordered_placement_strategy:ordered_placement_strategy list ->
+  ?service_connect_configuration:service_connect_configuration list ->
+  ?service_registries:service_registries list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  alarms:alarms list ->
   capacity_provider_strategy:capacity_provider_strategy list ->
-  deployment_circuit_breaker:deployment_circuit_breaker list ->
-  deployment_controller:deployment_controller list ->
   load_balancer:load_balancer list ->
-  network_configuration:network_configuration list ->
-  ordered_placement_strategy:ordered_placement_strategy list ->
   placement_constraints:placement_constraints list ->
-  service_connect_configuration:service_connect_configuration list ->
-  service_registries:service_registries list ->
   string ->
   t
 
@@ -286,17 +286,17 @@ val make :
   ?task_definition:string prop ->
   ?triggers:(string * string prop) list ->
   ?wait_for_steady_state:bool prop ->
+  ?alarms:alarms list ->
+  ?deployment_circuit_breaker:deployment_circuit_breaker list ->
+  ?deployment_controller:deployment_controller list ->
+  ?network_configuration:network_configuration list ->
+  ?ordered_placement_strategy:ordered_placement_strategy list ->
+  ?service_connect_configuration:service_connect_configuration list ->
+  ?service_registries:service_registries list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  alarms:alarms list ->
   capacity_provider_strategy:capacity_provider_strategy list ->
-  deployment_circuit_breaker:deployment_circuit_breaker list ->
-  deployment_controller:deployment_controller list ->
   load_balancer:load_balancer list ->
-  network_configuration:network_configuration list ->
-  ordered_placement_strategy:ordered_placement_strategy list ->
   placement_constraints:placement_constraints list ->
-  service_connect_configuration:service_connect_configuration list ->
-  service_registries:service_registries list ->
   string ->
   t Tf_core.resource

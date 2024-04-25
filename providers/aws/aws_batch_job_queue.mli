@@ -27,11 +27,11 @@ val aws_batch_job_queue :
   ?compute_environments:string prop list ->
   ?scheduling_policy_arn:string prop ->
   ?tags:(string * string prop) list ->
+  ?compute_environment_order:compute_environment_order list ->
   ?timeouts:timeouts ->
   name:string prop ->
   priority:float prop ->
   state:string prop ->
-  compute_environment_order:compute_environment_order list ->
   unit ->
   aws_batch_job_queue
 
@@ -56,11 +56,11 @@ val register :
   ?compute_environments:string prop list ->
   ?scheduling_policy_arn:string prop ->
   ?tags:(string * string prop) list ->
+  ?compute_environment_order:compute_environment_order list ->
   ?timeouts:timeouts ->
   name:string prop ->
   priority:float prop ->
   state:string prop ->
-  compute_environment_order:compute_environment_order list ->
   string ->
   t
 
@@ -68,10 +68,10 @@ val make :
   ?compute_environments:string prop list ->
   ?scheduling_policy_arn:string prop ->
   ?tags:(string * string prop) list ->
+  ?compute_environment_order:compute_environment_order list ->
   ?timeouts:timeouts ->
   name:string prop ->
   priority:float prop ->
   state:string prop ->
-  compute_environment_order:compute_environment_order list ->
   string ->
   t Tf_core.resource

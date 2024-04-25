@@ -198,9 +198,10 @@ let identity ?identity_ids ~type_ () : identity =
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_eventgrid_system_topic ?id ?tags ?timeouts ~location
-    ~name ~resource_group_name ~source_arm_resource_id ~topic_type
-    ~identity () : azurerm_eventgrid_system_topic =
+let azurerm_eventgrid_system_topic ?id ?tags ?(identity = [])
+    ?timeouts ~location ~name ~resource_group_name
+    ~source_arm_resource_id ~topic_type () :
+    azurerm_eventgrid_system_topic =
   {
     id;
     location;
@@ -224,8 +225,8 @@ type t = {
   topic_type : string prop;
 }
 
-let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
-    ~source_arm_resource_id ~topic_type ~identity __id =
+let make ?id ?tags ?(identity = []) ?timeouts ~location ~name
+    ~resource_group_name ~source_arm_resource_id ~topic_type __id =
   let __type = "azurerm_eventgrid_system_topic" in
   let __attrs =
     ({
@@ -248,18 +249,18 @@ let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
     type_ = __type;
     json =
       yojson_of_azurerm_eventgrid_system_topic
-        (azurerm_eventgrid_system_topic ?id ?tags ?timeouts ~location
-           ~name ~resource_group_name ~source_arm_resource_id
-           ~topic_type ~identity ());
+        (azurerm_eventgrid_system_topic ?id ?tags ~identity ?timeouts
+           ~location ~name ~resource_group_name
+           ~source_arm_resource_id ~topic_type ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?timeouts ~location ~name
-    ~resource_group_name ~source_arm_resource_id ~topic_type
-    ~identity __id =
+let register ?tf_module ?id ?tags ?(identity = []) ?timeouts
+    ~location ~name ~resource_group_name ~source_arm_resource_id
+    ~topic_type __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?timeouts ~location ~name ~resource_group_name
-      ~source_arm_resource_id ~topic_type ~identity __id
+    make ?id ?tags ~identity ?timeouts ~location ~name
+      ~resource_group_name ~source_arm_resource_id ~topic_type __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

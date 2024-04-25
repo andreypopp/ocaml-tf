@@ -296,8 +296,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_alloydb_backup ?annotations ?description ?display_name ?id
-    ?labels ?project ?type_ ?timeouts ~backup_id ~cluster_name
-    ~location ~encryption_config () : google_alloydb_backup =
+    ?labels ?project ?type_ ?(encryption_config = []) ?timeouts
+    ~backup_id ~cluster_name ~location () : google_alloydb_backup =
   {
     annotations;
     backup_id;
@@ -343,8 +343,8 @@ type t = {
 }
 
 let make ?annotations ?description ?display_name ?id ?labels ?project
-    ?type_ ?timeouts ~backup_id ~cluster_name ~location
-    ~encryption_config __id =
+    ?type_ ?(encryption_config = []) ?timeouts ~backup_id
+    ~cluster_name ~location __id =
   let __type = "google_alloydb_backup" in
   let __attrs =
     ({
@@ -386,18 +386,19 @@ let make ?annotations ?description ?display_name ?id ?labels ?project
     json =
       yojson_of_google_alloydb_backup
         (google_alloydb_backup ?annotations ?description
-           ?display_name ?id ?labels ?project ?type_ ?timeouts
-           ~backup_id ~cluster_name ~location ~encryption_config ());
+           ?display_name ?id ?labels ?project ?type_
+           ~encryption_config ?timeouts ~backup_id ~cluster_name
+           ~location ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?description ?display_name ?id
-    ?labels ?project ?type_ ?timeouts ~backup_id ~cluster_name
-    ~location ~encryption_config __id =
+    ?labels ?project ?type_ ?(encryption_config = []) ?timeouts
+    ~backup_id ~cluster_name ~location __id =
   let (r : _ Tf_core.resource) =
     make ?annotations ?description ?display_name ?id ?labels ?project
-      ?type_ ?timeouts ~backup_id ~cluster_name ~location
-      ~encryption_config __id
+      ?type_ ~encryption_config ?timeouts ~backup_id ~cluster_name
+      ~location __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

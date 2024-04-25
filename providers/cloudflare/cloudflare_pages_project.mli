@@ -47,7 +47,7 @@ val deployment_configs__preview :
   ?r2_buckets:(string * string prop) list ->
   ?secrets:(string * string prop) list ->
   ?usage_model:string prop ->
-  placement:deployment_configs__preview__placement list ->
+  ?placement:deployment_configs__preview__placement list ->
   service_binding:deployment_configs__preview__service_binding list ->
   unit ->
   deployment_configs__preview
@@ -82,7 +82,7 @@ val deployment_configs__production :
   ?r2_buckets:(string * string prop) list ->
   ?secrets:(string * string prop) list ->
   ?usage_model:string prop ->
-  placement:deployment_configs__production__placement list ->
+  ?placement:deployment_configs__production__placement list ->
   service_binding:
     deployment_configs__production__service_binding list ->
   unit ->
@@ -91,8 +91,8 @@ val deployment_configs__production :
 type deployment_configs
 
 val deployment_configs :
-  preview:deployment_configs__preview list ->
-  production:deployment_configs__production list ->
+  ?preview:deployment_configs__preview list ->
+  ?production:deployment_configs__production list ->
   unit ->
   deployment_configs
 
@@ -114,18 +114,18 @@ val source__config :
 type source
 
 val source :
-  ?type_:string prop -> config:source__config list -> unit -> source
+  ?type_:string prop -> ?config:source__config list -> unit -> source
 
 type cloudflare_pages_project
 
 val cloudflare_pages_project :
   ?id:string prop ->
+  ?build_config:build_config list ->
+  ?deployment_configs:deployment_configs list ->
+  ?source:source list ->
   account_id:string prop ->
   name:string prop ->
   production_branch:string prop ->
-  build_config:build_config list ->
-  deployment_configs:deployment_configs list ->
-  source:source list ->
   unit ->
   cloudflare_pages_project
 
@@ -147,22 +147,22 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?build_config:build_config list ->
+  ?deployment_configs:deployment_configs list ->
+  ?source:source list ->
   account_id:string prop ->
   name:string prop ->
   production_branch:string prop ->
-  build_config:build_config list ->
-  deployment_configs:deployment_configs list ->
-  source:source list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?build_config:build_config list ->
+  ?deployment_configs:deployment_configs list ->
+  ?source:source list ->
   account_id:string prop ->
   name:string prop ->
   production_branch:string prop ->
-  build_config:build_config list ->
-  deployment_configs:deployment_configs list ->
-  source:source list ->
   string ->
   t Tf_core.resource

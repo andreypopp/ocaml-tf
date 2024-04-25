@@ -50,7 +50,7 @@ val spec__session_affinity_config__client_ip :
 type spec__session_affinity_config
 
 val spec__session_affinity_config :
-  client_ip:spec__session_affinity_config__client_ip list ->
+  ?client_ip:spec__session_affinity_config__client_ip list ->
   unit ->
   spec__session_affinity_config
 
@@ -74,8 +74,8 @@ val spec :
   ?selector:(string * string prop) list ->
   ?session_affinity:string prop ->
   ?type_:string prop ->
-  port:spec__port list ->
-  session_affinity_config:spec__session_affinity_config list ->
+  ?port:spec__port list ->
+  ?session_affinity_config:spec__session_affinity_config list ->
   unit ->
   spec
 

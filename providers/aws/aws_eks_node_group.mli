@@ -83,15 +83,15 @@ val aws_eks_node_group :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?version:string prop ->
+  ?launch_template:launch_template list ->
+  ?remote_access:remote_access list ->
   ?timeouts:timeouts ->
+  ?update_config:update_config list ->
   cluster_name:string prop ->
   node_role_arn:string prop ->
   subnet_ids:string prop list ->
-  launch_template:launch_template list ->
-  remote_access:remote_access list ->
   scaling_config:scaling_config list ->
   taint:taint list ->
-  update_config:update_config list ->
   unit ->
   aws_eks_node_group
 
@@ -136,15 +136,15 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?version:string prop ->
+  ?launch_template:launch_template list ->
+  ?remote_access:remote_access list ->
   ?timeouts:timeouts ->
+  ?update_config:update_config list ->
   cluster_name:string prop ->
   node_role_arn:string prop ->
   subnet_ids:string prop list ->
-  launch_template:launch_template list ->
-  remote_access:remote_access list ->
   scaling_config:scaling_config list ->
   taint:taint list ->
-  update_config:update_config list ->
   string ->
   t
 
@@ -162,14 +162,14 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?version:string prop ->
+  ?launch_template:launch_template list ->
+  ?remote_access:remote_access list ->
   ?timeouts:timeouts ->
+  ?update_config:update_config list ->
   cluster_name:string prop ->
   node_role_arn:string prop ->
   subnet_ids:string prop list ->
-  launch_template:launch_template list ->
-  remote_access:remote_access list ->
   scaling_config:scaling_config list ->
   taint:taint list ->
-  update_config:update_config list ->
   string ->
   t Tf_core.resource

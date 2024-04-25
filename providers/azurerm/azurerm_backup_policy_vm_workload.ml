@@ -576,9 +576,10 @@ let protection_policy__simple_retention ~count () :
     protection_policy__simple_retention =
   { count }
 
-let protection_policy ~policy_type ~backup ~retention_daily
-    ~retention_monthly ~retention_weekly ~retention_yearly
-    ~simple_retention () : protection_policy =
+let protection_policy ?(retention_daily = [])
+    ?(retention_monthly = []) ?(retention_weekly = [])
+    ?(retention_yearly = []) ?(simple_retention = []) ~policy_type
+    ~backup () : protection_policy =
   {
     policy_type;
     backup;

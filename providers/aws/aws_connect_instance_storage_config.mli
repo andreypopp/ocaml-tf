@@ -48,22 +48,23 @@ val storage_config__s3_config__encryption_config :
 type storage_config__s3_config
 
 val storage_config__s3_config :
+  ?encryption_config:
+    storage_config__s3_config__encryption_config list ->
   bucket_name:string prop ->
   bucket_prefix:string prop ->
-  encryption_config:storage_config__s3_config__encryption_config list ->
   unit ->
   storage_config__s3_config
 
 type storage_config
 
 val storage_config :
-  storage_type:string prop ->
-  kinesis_firehose_config:
+  ?kinesis_firehose_config:
     storage_config__kinesis_firehose_config list ->
-  kinesis_stream_config:storage_config__kinesis_stream_config list ->
-  kinesis_video_stream_config:
+  ?kinesis_stream_config:storage_config__kinesis_stream_config list ->
+  ?kinesis_video_stream_config:
     storage_config__kinesis_video_stream_config list ->
-  s3_config:storage_config__s3_config list ->
+  ?s3_config:storage_config__s3_config list ->
+  storage_type:string prop ->
   unit ->
   storage_config
 

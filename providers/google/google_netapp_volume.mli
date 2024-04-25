@@ -82,10 +82,10 @@ type snapshot_policy
 
 val snapshot_policy :
   ?enabled:bool prop ->
-  daily_schedule:snapshot_policy__daily_schedule list ->
-  hourly_schedule:snapshot_policy__hourly_schedule list ->
-  monthly_schedule:snapshot_policy__monthly_schedule list ->
-  weekly_schedule:snapshot_policy__weekly_schedule list ->
+  ?daily_schedule:snapshot_policy__daily_schedule list ->
+  ?hourly_schedule:snapshot_policy__hourly_schedule list ->
+  ?monthly_schedule:snapshot_policy__monthly_schedule list ->
+  ?weekly_schedule:snapshot_policy__weekly_schedule list ->
   unit ->
   snapshot_policy
 
@@ -112,6 +112,9 @@ val google_netapp_volume :
   ?smb_settings:string prop list ->
   ?snapshot_directory:bool prop ->
   ?unix_permissions:string prop ->
+  ?export_policy:export_policy list ->
+  ?restore_parameters:restore_parameters list ->
+  ?snapshot_policy:snapshot_policy list ->
   ?timeouts:timeouts ->
   capacity_gib:string prop ->
   location:string prop ->
@@ -119,9 +122,6 @@ val google_netapp_volume :
   protocols:string prop list ->
   share_name:string prop ->
   storage_pool:string prop ->
-  export_policy:export_policy list ->
-  restore_parameters:restore_parameters list ->
-  snapshot_policy:snapshot_policy list ->
   unit ->
   google_netapp_volume
 
@@ -177,6 +177,9 @@ val register :
   ?smb_settings:string prop list ->
   ?snapshot_directory:bool prop ->
   ?unix_permissions:string prop ->
+  ?export_policy:export_policy list ->
+  ?restore_parameters:restore_parameters list ->
+  ?snapshot_policy:snapshot_policy list ->
   ?timeouts:timeouts ->
   capacity_gib:string prop ->
   location:string prop ->
@@ -184,9 +187,6 @@ val register :
   protocols:string prop list ->
   share_name:string prop ->
   storage_pool:string prop ->
-  export_policy:export_policy list ->
-  restore_parameters:restore_parameters list ->
-  snapshot_policy:snapshot_policy list ->
   string ->
   t
 
@@ -202,6 +202,9 @@ val make :
   ?smb_settings:string prop list ->
   ?snapshot_directory:bool prop ->
   ?unix_permissions:string prop ->
+  ?export_policy:export_policy list ->
+  ?restore_parameters:restore_parameters list ->
+  ?snapshot_policy:snapshot_policy list ->
   ?timeouts:timeouts ->
   capacity_gib:string prop ->
   location:string prop ->
@@ -209,8 +212,5 @@ val make :
   protocols:string prop list ->
   share_name:string prop ->
   storage_pool:string prop ->
-  export_policy:export_policy list ->
-  restore_parameters:restore_parameters list ->
-  snapshot_policy:snapshot_policy list ->
   string ->
   t Tf_core.resource

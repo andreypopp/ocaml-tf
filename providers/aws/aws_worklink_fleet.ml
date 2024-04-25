@@ -176,8 +176,9 @@ let network ~security_group_ids ~subnet_ids ~vpc_id () : network =
   { security_group_ids; subnet_ids; vpc_id }
 
 let aws_worklink_fleet ?audit_stream_arn ?device_ca_certificate
-    ?display_name ?id ?optimize_for_end_user_location ~name
-    ~identity_provider ~network () : aws_worklink_fleet =
+    ?display_name ?id ?optimize_for_end_user_location
+    ?(identity_provider = []) ?(network = []) ~name () :
+    aws_worklink_fleet =
   {
     audit_stream_arn;
     device_ca_certificate;
@@ -203,8 +204,8 @@ type t = {
 }
 
 let make ?audit_stream_arn ?device_ca_certificate ?display_name ?id
-    ?optimize_for_end_user_location ~name ~identity_provider ~network
-    __id =
+    ?optimize_for_end_user_location ?(identity_provider = [])
+    ?(network = []) ~name __id =
   let __type = "aws_worklink_fleet" in
   let __attrs =
     ({
@@ -231,18 +232,18 @@ let make ?audit_stream_arn ?device_ca_certificate ?display_name ?id
     json =
       yojson_of_aws_worklink_fleet
         (aws_worklink_fleet ?audit_stream_arn ?device_ca_certificate
-           ?display_name ?id ?optimize_for_end_user_location ~name
-           ~identity_provider ~network ());
+           ?display_name ?id ?optimize_for_end_user_location
+           ~identity_provider ~network ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?audit_stream_arn ?device_ca_certificate
-    ?display_name ?id ?optimize_for_end_user_location ~name
-    ~identity_provider ~network __id =
+    ?display_name ?id ?optimize_for_end_user_location
+    ?(identity_provider = []) ?(network = []) ~name __id =
   let (r : _ Tf_core.resource) =
     make ?audit_stream_arn ?device_ca_certificate ?display_name ?id
-      ?optimize_for_end_user_location ~name ~identity_provider
-      ~network __id
+      ?optimize_for_end_user_location ~identity_provider ~network
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

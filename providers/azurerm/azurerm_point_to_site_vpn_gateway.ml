@@ -387,8 +387,8 @@ let connection_configuration__route__propagated_route_table ?labels
   { ids; labels }
 
 let connection_configuration__route ?inbound_route_map_id
-    ?outbound_route_map_id ~associated_route_table_id
-    ~propagated_route_table () : connection_configuration__route =
+    ?outbound_route_map_id ?(propagated_route_table = [])
+    ~associated_route_table_id () : connection_configuration__route =
   {
     associated_route_table_id;
     inbound_route_map_id;
@@ -401,8 +401,8 @@ let connection_configuration__vpn_client_address_pool
     connection_configuration__vpn_client_address_pool =
   { address_prefixes }
 
-let connection_configuration ?internet_security_enabled ~name ~route
-    ~vpn_client_address_pool () : connection_configuration =
+let connection_configuration ?internet_security_enabled ?(route = [])
+    ~name ~vpn_client_address_pool () : connection_configuration =
   { internet_security_enabled; name; route; vpn_client_address_pool }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =

@@ -605,8 +605,9 @@ let app_engine_http_target__app_engine_routing ?instance ?service
     ?version () : app_engine_http_target__app_engine_routing =
   { instance; service; version }
 
-let app_engine_http_target ?body ?headers ?http_method ~relative_uri
-    ~app_engine_routing () : app_engine_http_target =
+let app_engine_http_target ?body ?headers ?http_method
+    ?(app_engine_routing = []) ~relative_uri () :
+    app_engine_http_target =
   { body; headers; http_method; relative_uri; app_engine_routing }
 
 let http_target__oauth_token ?scope ~service_account_email () :
@@ -617,8 +618,8 @@ let http_target__oidc_token ?audience ~service_account_email () :
     http_target__oidc_token =
   { audience; service_account_email }
 
-let http_target ?body ?headers ?http_method ~uri ~oauth_token
-    ~oidc_token () : http_target =
+let http_target ?body ?headers ?http_method ?(oauth_token = [])
+    ?(oidc_token = []) ~uri () : http_target =
   { body; headers; http_method; uri; oauth_token; oidc_token }
 
 let pubsub_target ?attributes ?data ~topic_name () : pubsub_target =
@@ -639,9 +640,10 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_cloud_scheduler_job ?attempt_deadline ?description ?id
-    ?paused ?project ?region ?schedule ?time_zone ?timeouts ~name
-    ~app_engine_http_target ~http_target ~pubsub_target ~retry_config
-    () : google_cloud_scheduler_job =
+    ?paused ?project ?region ?schedule ?time_zone
+    ?(app_engine_http_target = []) ?(http_target = [])
+    ?(pubsub_target = []) ?(retry_config = []) ?timeouts ~name () :
+    google_cloud_scheduler_job =
   {
     attempt_deadline;
     description;
@@ -673,8 +675,9 @@ type t = {
 }
 
 let make ?attempt_deadline ?description ?id ?paused ?project ?region
-    ?schedule ?time_zone ?timeouts ~name ~app_engine_http_target
-    ~http_target ~pubsub_target ~retry_config __id =
+    ?schedule ?time_zone ?(app_engine_http_target = [])
+    ?(http_target = []) ?(pubsub_target = []) ?(retry_config = [])
+    ?timeouts ~name __id =
   let __type = "google_cloud_scheduler_job" in
   let __attrs =
     ({
@@ -699,19 +702,19 @@ let make ?attempt_deadline ?description ?id ?paused ?project ?region
       yojson_of_google_cloud_scheduler_job
         (google_cloud_scheduler_job ?attempt_deadline ?description
            ?id ?paused ?project ?region ?schedule ?time_zone
-           ?timeouts ~name ~app_engine_http_target ~http_target
-           ~pubsub_target ~retry_config ());
+           ~app_engine_http_target ~http_target ~pubsub_target
+           ~retry_config ?timeouts ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?attempt_deadline ?description ?id ?paused
-    ?project ?region ?schedule ?time_zone ?timeouts ~name
-    ~app_engine_http_target ~http_target ~pubsub_target ~retry_config
-    __id =
+    ?project ?region ?schedule ?time_zone
+    ?(app_engine_http_target = []) ?(http_target = [])
+    ?(pubsub_target = []) ?(retry_config = []) ?timeouts ~name __id =
   let (r : _ Tf_core.resource) =
     make ?attempt_deadline ?description ?id ?paused ?project ?region
-      ?schedule ?time_zone ?timeouts ~name ~app_engine_http_target
-      ~http_target ~pubsub_target ~retry_config __id
+      ?schedule ?time_zone ~app_engine_http_target ~http_target
+      ~pubsub_target ~retry_config ?timeouts ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -32,9 +32,9 @@ val binding__condition :
 type binding
 
 val binding :
+  ?condition:binding__condition list ->
   members:string prop list ->
   role:string prop ->
-  condition:binding__condition list ->
   unit ->
   binding
 

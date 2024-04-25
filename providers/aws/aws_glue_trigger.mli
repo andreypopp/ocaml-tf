@@ -19,7 +19,7 @@ val actions :
   ?job_name:string prop ->
   ?security_configuration:string prop ->
   ?timeout:float prop ->
-  notification_property:actions__notification_property list ->
+  ?notification_property:actions__notification_property list ->
   unit ->
   actions
 
@@ -70,12 +70,12 @@ val aws_glue_trigger :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?workflow_name:string prop ->
+  ?event_batching_condition:event_batching_condition list ->
+  ?predicate:predicate list ->
   ?timeouts:timeouts ->
   name:string prop ->
   type_:string prop ->
   actions:actions list ->
-  event_batching_condition:event_batching_condition list ->
-  predicate:predicate list ->
   unit ->
   aws_glue_trigger
 
@@ -108,12 +108,12 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?workflow_name:string prop ->
+  ?event_batching_condition:event_batching_condition list ->
+  ?predicate:predicate list ->
   ?timeouts:timeouts ->
   name:string prop ->
   type_:string prop ->
   actions:actions list ->
-  event_batching_condition:event_batching_condition list ->
-  predicate:predicate list ->
   string ->
   t
 
@@ -126,11 +126,11 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?workflow_name:string prop ->
+  ?event_batching_condition:event_batching_condition list ->
+  ?predicate:predicate list ->
   ?timeouts:timeouts ->
   name:string prop ->
   type_:string prop ->
   actions:actions list ->
-  event_batching_condition:event_batching_condition list ->
-  predicate:predicate list ->
   string ->
   t Tf_core.resource

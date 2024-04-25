@@ -54,7 +54,7 @@ val aws_iam_policy_document :
   ?source_json:string prop ->
   ?source_policy_documents:string prop list ->
   ?version:string prop ->
-  statement:statement list ->
+  ?statement:statement list ->
   unit ->
   aws_iam_policy_document
 
@@ -83,7 +83,7 @@ val register :
   ?source_json:string prop ->
   ?source_policy_documents:string prop list ->
   ?version:string prop ->
-  statement:statement list ->
+  ?statement:statement list ->
   string ->
   t
 
@@ -95,6 +95,6 @@ val make :
   ?source_json:string prop ->
   ?source_policy_documents:string prop list ->
   ?version:string prop ->
-  statement:statement list ->
+  ?statement:statement list ->
   string ->
   t Tf_core.resource

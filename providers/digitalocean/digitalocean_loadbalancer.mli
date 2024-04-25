@@ -65,11 +65,11 @@ val digitalocean_loadbalancer :
   ?size_unit:float prop ->
   ?type_:string prop ->
   ?vpc_uuid:string prop ->
+  ?healthcheck:healthcheck list ->
+  ?sticky_sessions:sticky_sessions list ->
   name:string prop ->
   firewall:firewall list ->
   forwarding_rule:forwarding_rule list ->
-  healthcheck:healthcheck list ->
-  sticky_sessions:sticky_sessions list ->
   unit ->
   digitalocean_loadbalancer
 
@@ -117,11 +117,11 @@ val register :
   ?size_unit:float prop ->
   ?type_:string prop ->
   ?vpc_uuid:string prop ->
+  ?healthcheck:healthcheck list ->
+  ?sticky_sessions:sticky_sessions list ->
   name:string prop ->
   firewall:firewall list ->
   forwarding_rule:forwarding_rule list ->
-  healthcheck:healthcheck list ->
-  sticky_sessions:sticky_sessions list ->
   string ->
   t
 
@@ -141,10 +141,10 @@ val make :
   ?size_unit:float prop ->
   ?type_:string prop ->
   ?vpc_uuid:string prop ->
+  ?healthcheck:healthcheck list ->
+  ?sticky_sessions:sticky_sessions list ->
   name:string prop ->
   firewall:firewall list ->
   forwarding_rule:forwarding_rule list ->
-  healthcheck:healthcheck list ->
-  sticky_sessions:sticky_sessions list ->
   string ->
   t Tf_core.resource

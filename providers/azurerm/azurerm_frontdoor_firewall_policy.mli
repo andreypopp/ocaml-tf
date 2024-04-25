@@ -23,10 +23,10 @@ val custom_rule :
   ?priority:float prop ->
   ?rate_limit_duration_in_minutes:float prop ->
   ?rate_limit_threshold:float prop ->
+  ?match_condition:custom_rule__match_condition list ->
   action:string prop ->
   name:string prop ->
   type_:string prop ->
-  match_condition:custom_rule__match_condition list ->
   unit ->
   custom_rule
 
@@ -61,28 +61,28 @@ type managed_rule__override__rule
 
 val managed_rule__override__rule :
   ?enabled:bool prop ->
+  ?exclusion:managed_rule__override__rule__exclusion list ->
   action:string prop ->
   rule_id:string prop ->
-  exclusion:managed_rule__override__rule__exclusion list ->
   unit ->
   managed_rule__override__rule
 
 type managed_rule__override
 
 val managed_rule__override :
+  ?exclusion:managed_rule__override__exclusion list ->
+  ?rule:managed_rule__override__rule list ->
   rule_group_name:string prop ->
-  exclusion:managed_rule__override__exclusion list ->
-  rule:managed_rule__override__rule list ->
   unit ->
   managed_rule__override
 
 type managed_rule
 
 val managed_rule :
+  ?exclusion:managed_rule__exclusion list ->
+  ?override:managed_rule__override list ->
   type_:string prop ->
   version:string prop ->
-  exclusion:managed_rule__exclusion list ->
-  override:managed_rule__override list ->
   unit ->
   managed_rule
 
@@ -106,11 +106,11 @@ val azurerm_frontdoor_firewall_policy :
   ?mode:string prop ->
   ?redirect_url:string prop ->
   ?tags:(string * string prop) list ->
+  ?custom_rule:custom_rule list ->
+  ?managed_rule:managed_rule list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
-  custom_rule:custom_rule list ->
-  managed_rule:managed_rule list ->
   unit ->
   azurerm_frontdoor_firewall_policy
 
@@ -142,11 +142,11 @@ val register :
   ?mode:string prop ->
   ?redirect_url:string prop ->
   ?tags:(string * string prop) list ->
+  ?custom_rule:custom_rule list ->
+  ?managed_rule:managed_rule list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
-  custom_rule:custom_rule list ->
-  managed_rule:managed_rule list ->
   string ->
   t
 
@@ -158,10 +158,10 @@ val make :
   ?mode:string prop ->
   ?redirect_url:string prop ->
   ?tags:(string * string prop) list ->
+  ?custom_rule:custom_rule list ->
+  ?managed_rule:managed_rule list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
-  custom_rule:custom_rule list ->
-  managed_rule:managed_rule list ->
   string ->
   t Tf_core.resource

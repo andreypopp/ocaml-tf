@@ -17,11 +17,11 @@ type google_endpoints_service_consumers_iam_member
 
 val google_endpoints_service_consumers_iam_member :
   ?id:string prop ->
+  ?condition:condition list ->
   consumer_project:string prop ->
   member:string prop ->
   role:string prop ->
   service_name:string prop ->
-  condition:condition list ->
   unit ->
   google_endpoints_service_consumers_iam_member
 
@@ -42,20 +42,20 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?condition:condition list ->
   consumer_project:string prop ->
   member:string prop ->
   role:string prop ->
   service_name:string prop ->
-  condition:condition list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?condition:condition list ->
   consumer_project:string prop ->
   member:string prop ->
   role:string prop ->
   service_name:string prop ->
-  condition:condition list ->
   string ->
   t Tf_core.resource

@@ -200,7 +200,7 @@ let export_config__s3_destination ?encryption_disabled ?packaging
     =
   { bucket; encryption_disabled; encryption_key; packaging; path }
 
-let export_config ~type_ ~s3_destination () : export_config =
+let export_config ?(s3_destination = []) ~type_ () : export_config =
   { type_; s3_destination }
 
 let aws_codebuild_report_group ?delete_reports ?id ?tags ?tags_all

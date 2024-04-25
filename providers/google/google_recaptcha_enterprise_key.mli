@@ -62,13 +62,13 @@ val google_recaptcha_enterprise_key :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?android_settings:android_settings list ->
+  ?ios_settings:ios_settings list ->
+  ?testing_options:testing_options list ->
   ?timeouts:timeouts ->
+  ?waf_settings:waf_settings list ->
+  ?web_settings:web_settings list ->
   display_name:string prop ->
-  android_settings:android_settings list ->
-  ios_settings:ios_settings list ->
-  testing_options:testing_options list ->
-  waf_settings:waf_settings list ->
-  web_settings:web_settings list ->
   unit ->
   google_recaptcha_enterprise_key
 
@@ -93,13 +93,13 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?android_settings:android_settings list ->
+  ?ios_settings:ios_settings list ->
+  ?testing_options:testing_options list ->
   ?timeouts:timeouts ->
+  ?waf_settings:waf_settings list ->
+  ?web_settings:web_settings list ->
   display_name:string prop ->
-  android_settings:android_settings list ->
-  ios_settings:ios_settings list ->
-  testing_options:testing_options list ->
-  waf_settings:waf_settings list ->
-  web_settings:web_settings list ->
   string ->
   t
 
@@ -107,12 +107,12 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?android_settings:android_settings list ->
+  ?ios_settings:ios_settings list ->
+  ?testing_options:testing_options list ->
   ?timeouts:timeouts ->
+  ?waf_settings:waf_settings list ->
+  ?web_settings:web_settings list ->
   display_name:string prop ->
-  android_settings:android_settings list ->
-  ios_settings:ios_settings list ->
-  testing_options:testing_options list ->
-  waf_settings:waf_settings list ->
-  web_settings:web_settings list ->
   string ->
   t Tf_core.resource

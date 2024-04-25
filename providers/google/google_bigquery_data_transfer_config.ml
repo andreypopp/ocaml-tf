@@ -334,9 +334,10 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_bigquery_data_transfer_config ?data_refresh_window_days
     ?destination_dataset_id ?disabled ?id ?location
     ?notification_pubsub_topic ?project ?schedule
-    ?service_account_name ?timeouts ~data_source_id ~display_name
-    ~params ~email_preferences ~schedule_options ~sensitive_params ()
-    : google_bigquery_data_transfer_config =
+    ?service_account_name ?(email_preferences = [])
+    ?(schedule_options = []) ?(sensitive_params = []) ?timeouts
+    ~data_source_id ~display_name ~params () :
+    google_bigquery_data_transfer_config =
   {
     data_refresh_window_days;
     data_source_id;
@@ -374,9 +375,9 @@ type t = {
 
 let make ?data_refresh_window_days ?destination_dataset_id ?disabled
     ?id ?location ?notification_pubsub_topic ?project ?schedule
-    ?service_account_name ?timeouts ~data_source_id ~display_name
-    ~params ~email_preferences ~schedule_options ~sensitive_params
-    __id =
+    ?service_account_name ?(email_preferences = [])
+    ?(schedule_options = []) ?(sensitive_params = []) ?timeouts
+    ~data_source_id ~display_name ~params __id =
   let __type = "google_bigquery_data_transfer_config" in
   let __attrs =
     ({
@@ -408,24 +409,24 @@ let make ?data_refresh_window_days ?destination_dataset_id ?disabled
         (google_bigquery_data_transfer_config
            ?data_refresh_window_days ?destination_dataset_id
            ?disabled ?id ?location ?notification_pubsub_topic
-           ?project ?schedule ?service_account_name ?timeouts
-           ~data_source_id ~display_name ~params ~email_preferences
-           ~schedule_options ~sensitive_params ());
+           ?project ?schedule ?service_account_name
+           ~email_preferences ~schedule_options ~sensitive_params
+           ?timeouts ~data_source_id ~display_name ~params ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?data_refresh_window_days
     ?destination_dataset_id ?disabled ?id ?location
     ?notification_pubsub_topic ?project ?schedule
-    ?service_account_name ?timeouts ~data_source_id ~display_name
-    ~params ~email_preferences ~schedule_options ~sensitive_params
-    __id =
+    ?service_account_name ?(email_preferences = [])
+    ?(schedule_options = []) ?(sensitive_params = []) ?timeouts
+    ~data_source_id ~display_name ~params __id =
   let (r : _ Tf_core.resource) =
     make ?data_refresh_window_days ?destination_dataset_id ?disabled
       ?id ?location ?notification_pubsub_topic ?project ?schedule
-      ?service_account_name ?timeouts ~data_source_id ~display_name
-      ~params ~email_preferences ~schedule_options ~sensitive_params
-      __id
+      ?service_account_name ~email_preferences ~schedule_options
+      ~sensitive_params ?timeouts ~data_source_id ~display_name
+      ~params __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

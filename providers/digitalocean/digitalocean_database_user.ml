@@ -114,10 +114,11 @@ let _ = yojson_of_digitalocean_database_user
 let settings__acl ~permission ~topic () : settings__acl =
   { permission; topic }
 
-let settings ~acl () : settings = { acl }
+let settings ?(acl = []) () : settings = { acl }
 
-let digitalocean_database_user ?id ?mysql_auth_plugin ~cluster_id
-    ~name ~settings () : digitalocean_database_user =
+let digitalocean_database_user ?id ?mysql_auth_plugin
+    ?(settings = []) ~cluster_id ~name () :
+    digitalocean_database_user =
   { cluster_id; id; mysql_auth_plugin; name; settings }
 
 type t = {
@@ -131,7 +132,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?mysql_auth_plugin ~cluster_id ~name ~settings __id =
+let make ?id ?mysql_auth_plugin ?(settings = []) ~cluster_id ~name
+    __id =
   let __type = "digitalocean_database_user" in
   let __attrs =
     ({
@@ -152,15 +154,15 @@ let make ?id ?mysql_auth_plugin ~cluster_id ~name ~settings __id =
     type_ = __type;
     json =
       yojson_of_digitalocean_database_user
-        (digitalocean_database_user ?id ?mysql_auth_plugin
-           ~cluster_id ~name ~settings ());
+        (digitalocean_database_user ?id ?mysql_auth_plugin ~settings
+           ~cluster_id ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?mysql_auth_plugin ~cluster_id ~name
-    ~settings __id =
+let register ?tf_module ?id ?mysql_auth_plugin ?(settings = [])
+    ~cluster_id ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?mysql_auth_plugin ~cluster_id ~name ~settings __id
+    make ?id ?mysql_auth_plugin ~settings ~cluster_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

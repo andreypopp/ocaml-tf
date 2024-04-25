@@ -23,7 +23,7 @@ type broker_node_group_info__connectivity_info__vpc_connectivity__client_authent
 
 val broker_node_group_info__connectivity_info__vpc_connectivity__client_authentication :
   ?tls:bool prop ->
-  sasl:
+  ?sasl:
     broker_node_group_info__connectivity_info__vpc_connectivity__client_authentication__sasl
     list ->
   unit ->
@@ -32,7 +32,7 @@ val broker_node_group_info__connectivity_info__vpc_connectivity__client_authenti
 type broker_node_group_info__connectivity_info__vpc_connectivity
 
 val broker_node_group_info__connectivity_info__vpc_connectivity :
-  client_authentication:
+  ?client_authentication:
     broker_node_group_info__connectivity_info__vpc_connectivity__client_authentication
     list ->
   unit ->
@@ -41,9 +41,9 @@ val broker_node_group_info__connectivity_info__vpc_connectivity :
 type broker_node_group_info__connectivity_info
 
 val broker_node_group_info__connectivity_info :
-  public_access:
+  ?public_access:
     broker_node_group_info__connectivity_info__public_access list ->
-  vpc_connectivity:
+  ?vpc_connectivity:
     broker_node_group_info__connectivity_info__vpc_connectivity list ->
   unit ->
   broker_node_group_info__connectivity_info
@@ -60,7 +60,7 @@ type broker_node_group_info__storage_info__ebs_storage_info
 
 val broker_node_group_info__storage_info__ebs_storage_info :
   ?volume_size:float prop ->
-  provisioned_throughput:
+  ?provisioned_throughput:
     broker_node_group_info__storage_info__ebs_storage_info__provisioned_throughput
     list ->
   unit ->
@@ -69,7 +69,7 @@ val broker_node_group_info__storage_info__ebs_storage_info :
 type broker_node_group_info__storage_info
 
 val broker_node_group_info__storage_info :
-  ebs_storage_info:
+  ?ebs_storage_info:
     broker_node_group_info__storage_info__ebs_storage_info list ->
   unit ->
   broker_node_group_info__storage_info
@@ -78,11 +78,11 @@ type broker_node_group_info
 
 val broker_node_group_info :
   ?az_distribution:string prop ->
+  ?connectivity_info:broker_node_group_info__connectivity_info list ->
+  ?storage_info:broker_node_group_info__storage_info list ->
   client_subnets:string prop list ->
   instance_type:string prop ->
   security_groups:string prop list ->
-  connectivity_info:broker_node_group_info__connectivity_info list ->
-  storage_info:broker_node_group_info__storage_info list ->
   unit ->
   broker_node_group_info
 
@@ -105,8 +105,8 @@ type client_authentication
 
 val client_authentication :
   ?unauthenticated:bool prop ->
-  sasl:client_authentication__sasl list ->
-  tls:client_authentication__tls list ->
+  ?sasl:client_authentication__sasl list ->
+  ?tls:client_authentication__tls list ->
   unit ->
   client_authentication
 
@@ -130,7 +130,7 @@ type encryption_info
 
 val encryption_info :
   ?encryption_at_rest_kms_key_arn:string prop ->
-  encryption_in_transit:encryption_info__encryption_in_transit list ->
+  ?encryption_in_transit:encryption_info__encryption_in_transit list ->
   unit ->
   encryption_info
 
@@ -162,9 +162,9 @@ val logging_info__broker_logs__s3 :
 type logging_info__broker_logs
 
 val logging_info__broker_logs :
-  cloudwatch_logs:logging_info__broker_logs__cloudwatch_logs list ->
-  firehose:logging_info__broker_logs__firehose list ->
-  s3:logging_info__broker_logs__s3 list ->
+  ?cloudwatch_logs:logging_info__broker_logs__cloudwatch_logs list ->
+  ?firehose:logging_info__broker_logs__firehose list ->
+  ?s3:logging_info__broker_logs__s3 list ->
   unit ->
   logging_info__broker_logs
 
@@ -190,8 +190,8 @@ val open_monitoring__prometheus__node_exporter :
 type open_monitoring__prometheus
 
 val open_monitoring__prometheus :
-  jmx_exporter:open_monitoring__prometheus__jmx_exporter list ->
-  node_exporter:open_monitoring__prometheus__node_exporter list ->
+  ?jmx_exporter:open_monitoring__prometheus__jmx_exporter list ->
+  ?node_exporter:open_monitoring__prometheus__node_exporter list ->
   unit ->
   open_monitoring__prometheus
 
@@ -219,16 +219,16 @@ val aws_msk_cluster :
   ?storage_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?client_authentication:client_authentication list ->
+  ?configuration_info:configuration_info list ->
+  ?encryption_info:encryption_info list ->
+  ?logging_info:logging_info list ->
+  ?open_monitoring:open_monitoring list ->
   ?timeouts:timeouts ->
   cluster_name:string prop ->
   kafka_version:string prop ->
   number_of_broker_nodes:float prop ->
   broker_node_group_info:broker_node_group_info list ->
-  client_authentication:client_authentication list ->
-  configuration_info:configuration_info list ->
-  encryption_info:encryption_info list ->
-  logging_info:logging_info list ->
-  open_monitoring:open_monitoring list ->
   unit ->
   aws_msk_cluster
 
@@ -269,16 +269,16 @@ val register :
   ?storage_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?client_authentication:client_authentication list ->
+  ?configuration_info:configuration_info list ->
+  ?encryption_info:encryption_info list ->
+  ?logging_info:logging_info list ->
+  ?open_monitoring:open_monitoring list ->
   ?timeouts:timeouts ->
   cluster_name:string prop ->
   kafka_version:string prop ->
   number_of_broker_nodes:float prop ->
   broker_node_group_info:broker_node_group_info list ->
-  client_authentication:client_authentication list ->
-  configuration_info:configuration_info list ->
-  encryption_info:encryption_info list ->
-  logging_info:logging_info list ->
-  open_monitoring:open_monitoring list ->
   string ->
   t
 
@@ -288,15 +288,15 @@ val make :
   ?storage_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?client_authentication:client_authentication list ->
+  ?configuration_info:configuration_info list ->
+  ?encryption_info:encryption_info list ->
+  ?logging_info:logging_info list ->
+  ?open_monitoring:open_monitoring list ->
   ?timeouts:timeouts ->
   cluster_name:string prop ->
   kafka_version:string prop ->
   number_of_broker_nodes:float prop ->
   broker_node_group_info:broker_node_group_info list ->
-  client_authentication:client_authentication list ->
-  configuration_info:configuration_info list ->
-  encryption_info:encryption_info list ->
-  logging_info:logging_info list ->
-  open_monitoring:open_monitoring list ->
   string ->
   t Tf_core.resource

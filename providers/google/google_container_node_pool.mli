@@ -44,9 +44,9 @@ val network_config :
   ?enable_private_nodes:bool prop ->
   ?pod_ipv4_cidr_block:string prop ->
   ?pod_range:string prop ->
-  network_performance_config:
+  ?network_performance_config:
     network_config__network_performance_config list ->
-  pod_cidr_overprovision_config:
+  ?pod_cidr_overprovision_config:
     network_config__pod_cidr_overprovision_config list ->
   unit ->
   network_config
@@ -216,24 +216,26 @@ val node_config :
   ?service_account:string prop ->
   ?spot:bool prop ->
   ?tags:string prop list ->
-  advanced_machine_features:
+  ?advanced_machine_features:
     node_config__advanced_machine_features list ->
-  confidential_nodes:node_config__confidential_nodes list ->
-  ephemeral_storage_local_ssd_config:
+  ?confidential_nodes:node_config__confidential_nodes list ->
+  ?ephemeral_storage_local_ssd_config:
     node_config__ephemeral_storage_local_ssd_config list ->
-  fast_socket:node_config__fast_socket list ->
-  gcfs_config:node_config__gcfs_config list ->
-  gvnic:node_config__gvnic list ->
-  host_maintenance_policy:node_config__host_maintenance_policy list ->
-  kubelet_config:node_config__kubelet_config list ->
-  linux_node_config:node_config__linux_node_config list ->
-  local_nvme_ssd_block_config:
+  ?fast_socket:node_config__fast_socket list ->
+  ?gcfs_config:node_config__gcfs_config list ->
+  ?gvnic:node_config__gvnic list ->
+  ?host_maintenance_policy:node_config__host_maintenance_policy list ->
+  ?kubelet_config:node_config__kubelet_config list ->
+  ?linux_node_config:node_config__linux_node_config list ->
+  ?local_nvme_ssd_block_config:
     node_config__local_nvme_ssd_block_config list ->
-  reservation_affinity:node_config__reservation_affinity list ->
-  shielded_instance_config:node_config__shielded_instance_config list ->
-  sole_tenant_config:node_config__sole_tenant_config list ->
-  taint:node_config__taint list ->
-  workload_metadata_config:node_config__workload_metadata_config list ->
+  ?reservation_affinity:node_config__reservation_affinity list ->
+  ?shielded_instance_config:
+    node_config__shielded_instance_config list ->
+  ?sole_tenant_config:node_config__sole_tenant_config list ->
+  ?taint:node_config__taint list ->
+  ?workload_metadata_config:
+    node_config__workload_metadata_config list ->
   unit ->
   node_config
 
@@ -280,7 +282,7 @@ val upgrade_settings :
   ?max_surge:float prop ->
   ?max_unavailable:float prop ->
   ?strategy:string prop ->
-  blue_green_settings:upgrade_settings__blue_green_settings list ->
+  ?blue_green_settings:upgrade_settings__blue_green_settings list ->
   unit ->
   upgrade_settings
 
@@ -297,14 +299,14 @@ val google_container_node_pool :
   ?node_locations:string prop list ->
   ?project:string prop ->
   ?version:string prop ->
+  ?autoscaling:autoscaling list ->
+  ?management:management list ->
+  ?network_config:network_config list ->
+  ?node_config:node_config list ->
+  ?placement_policy:placement_policy list ->
   ?timeouts:timeouts ->
+  ?upgrade_settings:upgrade_settings list ->
   cluster:string prop ->
-  autoscaling:autoscaling list ->
-  management:management list ->
-  network_config:network_config list ->
-  node_config:node_config list ->
-  placement_policy:placement_policy list ->
-  upgrade_settings:upgrade_settings list ->
   unit ->
   google_container_node_pool
 
@@ -342,14 +344,14 @@ val register :
   ?node_locations:string prop list ->
   ?project:string prop ->
   ?version:string prop ->
+  ?autoscaling:autoscaling list ->
+  ?management:management list ->
+  ?network_config:network_config list ->
+  ?node_config:node_config list ->
+  ?placement_policy:placement_policy list ->
   ?timeouts:timeouts ->
+  ?upgrade_settings:upgrade_settings list ->
   cluster:string prop ->
-  autoscaling:autoscaling list ->
-  management:management list ->
-  network_config:network_config list ->
-  node_config:node_config list ->
-  placement_policy:placement_policy list ->
-  upgrade_settings:upgrade_settings list ->
   string ->
   t
 
@@ -364,13 +366,13 @@ val make :
   ?node_locations:string prop list ->
   ?project:string prop ->
   ?version:string prop ->
+  ?autoscaling:autoscaling list ->
+  ?management:management list ->
+  ?network_config:network_config list ->
+  ?node_config:node_config list ->
+  ?placement_policy:placement_policy list ->
   ?timeouts:timeouts ->
+  ?upgrade_settings:upgrade_settings list ->
   cluster:string prop ->
-  autoscaling:autoscaling list ->
-  management:management list ->
-  network_config:network_config list ->
-  node_config:node_config list ->
-  placement_policy:placement_policy list ->
-  upgrade_settings:upgrade_settings list ->
   string ->
   t Tf_core.resource

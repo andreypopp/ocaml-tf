@@ -66,13 +66,13 @@ val azurerm_signalr_service :
   ?service_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?tls_client_cert_enabled:bool prop ->
+  ?cors:cors list ->
+  ?identity:identity list ->
+  ?live_trace:live_trace list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  cors:cors list ->
-  identity:identity list ->
-  live_trace:live_trace list ->
   sku:sku list ->
   upstream_endpoint:upstream_endpoint list ->
   unit ->
@@ -123,13 +123,13 @@ val register :
   ?service_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?tls_client_cert_enabled:bool prop ->
+  ?cors:cors list ->
+  ?identity:identity list ->
+  ?live_trace:live_trace list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  cors:cors list ->
-  identity:identity list ->
-  live_trace:live_trace list ->
   sku:sku list ->
   upstream_endpoint:upstream_endpoint list ->
   string ->
@@ -148,13 +148,13 @@ val make :
   ?service_mode:string prop ->
   ?tags:(string * string prop) list ->
   ?tls_client_cert_enabled:bool prop ->
+  ?cors:cors list ->
+  ?identity:identity list ->
+  ?live_trace:live_trace list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  cors:cors list ->
-  identity:identity list ->
-  live_trace:live_trace list ->
   sku:sku list ->
   upstream_endpoint:upstream_endpoint list ->
   string ->

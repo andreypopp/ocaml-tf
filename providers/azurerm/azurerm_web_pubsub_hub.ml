@@ -279,8 +279,8 @@ let event_handler__auth ~managed_identity_id () : event_handler__auth
     =
   { managed_identity_id }
 
-let event_handler ?system_events ?user_event_pattern ~url_template
-    ~auth () : event_handler =
+let event_handler ?system_events ?user_event_pattern ?(auth = [])
+    ~url_template () : event_handler =
   { system_events; url_template; user_event_pattern; auth }
 
 let event_listener ?system_event_name_filter ?user_event_name_filter
@@ -296,8 +296,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_web_pubsub_hub ?anonymous_connections_enabled ?id
-    ?timeouts ~name ~web_pubsub_id ~event_handler ~event_listener ()
-    : azurerm_web_pubsub_hub =
+    ?(event_handler = []) ?(event_listener = []) ?timeouts ~name
+    ~web_pubsub_id () : azurerm_web_pubsub_hub =
   {
     anonymous_connections_enabled;
     id;
@@ -315,8 +315,8 @@ type t = {
   web_pubsub_id : string prop;
 }
 
-let make ?anonymous_connections_enabled ?id ?timeouts ~name
-    ~web_pubsub_id ~event_handler ~event_listener __id =
+let make ?anonymous_connections_enabled ?id ?(event_handler = [])
+    ?(event_listener = []) ?timeouts ~name ~web_pubsub_id __id =
   let __type = "azurerm_web_pubsub_hub" in
   let __attrs =
     ({
@@ -334,16 +334,17 @@ let make ?anonymous_connections_enabled ?id ?timeouts ~name
     json =
       yojson_of_azurerm_web_pubsub_hub
         (azurerm_web_pubsub_hub ?anonymous_connections_enabled ?id
-           ?timeouts ~name ~web_pubsub_id ~event_handler
-           ~event_listener ());
+           ~event_handler ~event_listener ?timeouts ~name
+           ~web_pubsub_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?anonymous_connections_enabled ?id ?timeouts
-    ~name ~web_pubsub_id ~event_handler ~event_listener __id =
+let register ?tf_module ?anonymous_connections_enabled ?id
+    ?(event_handler = []) ?(event_listener = []) ?timeouts ~name
+    ~web_pubsub_id __id =
   let (r : _ Tf_core.resource) =
-    make ?anonymous_connections_enabled ?id ?timeouts ~name
-      ~web_pubsub_id ~event_handler ~event_listener __id
+    make ?anonymous_connections_enabled ?id ~event_handler
+      ~event_listener ?timeouts ~name ~web_pubsub_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

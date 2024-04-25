@@ -406,7 +406,7 @@ let specific_reservation__instance_properties__local_ssds ?interface
   { disk_size_gb; interface }
 
 let specific_reservation__instance_properties ?min_cpu_platform
-    ~machine_type ~guest_accelerators ~local_ssds () :
+    ?(guest_accelerators = []) ?(local_ssds = []) ~machine_type () :
     specific_reservation__instance_properties =
   { machine_type; min_cpu_platform; guest_accelerators; local_ssds }
 
@@ -418,9 +418,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_compute_reservation ?description ?id ?project
-    ?specific_reservation_required ?timeouts ~name ~zone
-    ~share_settings ~specific_reservation () :
-    google_compute_reservation =
+    ?specific_reservation_required ?(share_settings = []) ?timeouts
+    ~name ~zone ~specific_reservation () : google_compute_reservation
+    =
   {
     description;
     id;
@@ -447,8 +447,8 @@ type t = {
 }
 
 let make ?description ?id ?project ?specific_reservation_required
-    ?timeouts ~name ~zone ~share_settings ~specific_reservation __id
-    =
+    ?(share_settings = []) ?timeouts ~name ~zone
+    ~specific_reservation __id =
   let __type = "google_compute_reservation" in
   let __attrs =
     ({
@@ -473,17 +473,17 @@ let make ?description ?id ?project ?specific_reservation_required
     json =
       yojson_of_google_compute_reservation
         (google_compute_reservation ?description ?id ?project
-           ?specific_reservation_required ?timeouts ~name ~zone
-           ~share_settings ~specific_reservation ());
+           ?specific_reservation_required ~share_settings ?timeouts
+           ~name ~zone ~specific_reservation ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?project
-    ?specific_reservation_required ?timeouts ~name ~zone
-    ~share_settings ~specific_reservation __id =
+    ?specific_reservation_required ?(share_settings = []) ?timeouts
+    ~name ~zone ~specific_reservation __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?project ?specific_reservation_required
-      ?timeouts ~name ~zone ~share_settings ~specific_reservation
+      ~share_settings ?timeouts ~name ~zone ~specific_reservation
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

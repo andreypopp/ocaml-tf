@@ -33,7 +33,7 @@ type spec__selector
 
 val spec__selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:spec__selector__match_expressions list ->
+  ?match_expressions:spec__selector__match_expressions list ->
   unit ->
   spec__selector
 
@@ -43,7 +43,7 @@ val spec :
   ?storage_class_name:string prop ->
   ?volume_mode:string prop ->
   ?volume_name:string prop ->
-  selector:spec__selector list ->
+  ?selector:spec__selector list ->
   unit ->
   spec
 
@@ -51,8 +51,8 @@ type kubernetes_persistent_volume_claim
 
 val kubernetes_persistent_volume_claim :
   ?id:string prop ->
+  ?spec:spec list ->
   metadata:metadata list ->
-  spec:spec list ->
   unit ->
   kubernetes_persistent_volume_claim
 
@@ -66,14 +66,14 @@ type t = private { id : string prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?spec:spec list ->
   metadata:metadata list ->
-  spec:spec list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?spec:spec list ->
   metadata:metadata list ->
-  spec:spec list ->
   string ->
   t Tf_core.resource

@@ -49,12 +49,12 @@ type sink
 
 val sink :
   ?description:string prop ->
+  ?dataset:sink__dataset list ->
+  ?flowlet:sink__flowlet list ->
+  ?linked_service:sink__linked_service list ->
+  ?rejected_linked_service:sink__rejected_linked_service list ->
+  ?schema_linked_service:sink__schema_linked_service list ->
   name:string prop ->
-  dataset:sink__dataset list ->
-  flowlet:sink__flowlet list ->
-  linked_service:sink__linked_service list ->
-  rejected_linked_service:sink__rejected_linked_service list ->
-  schema_linked_service:sink__schema_linked_service list ->
   unit ->
   sink
 
@@ -103,12 +103,12 @@ type source
 
 val source :
   ?description:string prop ->
+  ?dataset:source__dataset list ->
+  ?flowlet:source__flowlet list ->
+  ?linked_service:source__linked_service list ->
+  ?rejected_linked_service:source__rejected_linked_service list ->
+  ?schema_linked_service:source__schema_linked_service list ->
   name:string prop ->
-  dataset:source__dataset list ->
-  flowlet:source__flowlet list ->
-  linked_service:source__linked_service list ->
-  rejected_linked_service:source__rejected_linked_service list ->
-  schema_linked_service:source__schema_linked_service list ->
   unit ->
   source
 
@@ -151,10 +151,10 @@ type transformation
 
 val transformation :
   ?description:string prop ->
+  ?dataset:transformation__dataset list ->
+  ?flowlet:transformation__flowlet list ->
+  ?linked_service:transformation__linked_service list ->
   name:string prop ->
-  dataset:transformation__dataset list ->
-  flowlet:transformation__flowlet list ->
-  linked_service:transformation__linked_service list ->
   unit ->
   transformation
 
@@ -168,11 +168,11 @@ val azurerm_data_factory_data_flow :
   ?script:string prop ->
   ?script_lines:string prop list ->
   ?timeouts:timeouts ->
+  ?transformation:transformation list ->
   data_factory_id:string prop ->
   name:string prop ->
   sink:sink list ->
   source:source list ->
-  transformation:transformation list ->
   unit ->
   azurerm_data_factory_data_flow
 
@@ -201,11 +201,11 @@ val register :
   ?script:string prop ->
   ?script_lines:string prop list ->
   ?timeouts:timeouts ->
+  ?transformation:transformation list ->
   data_factory_id:string prop ->
   name:string prop ->
   sink:sink list ->
   source:source list ->
-  transformation:transformation list ->
   string ->
   t
 
@@ -217,10 +217,10 @@ val make :
   ?script:string prop ->
   ?script_lines:string prop list ->
   ?timeouts:timeouts ->
+  ?transformation:transformation list ->
   data_factory_id:string prop ->
   name:string prop ->
   sink:sink list ->
   source:source list ->
-  transformation:transformation list ->
   string ->
   t Tf_core.resource

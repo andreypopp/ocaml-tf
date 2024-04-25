@@ -435,8 +435,8 @@ let match__src_secure_tags ~name () : match__src_secure_tags =
 let match_ ?dest_address_groups ?dest_fqdns ?dest_ip_ranges
     ?dest_region_codes ?dest_threat_intelligences ?src_address_groups
     ?src_fqdns ?src_ip_ranges ?src_region_codes
-    ?src_threat_intelligences ~layer4_configs ~src_secure_tags () :
-    match_ =
+    ?src_threat_intelligences ?(src_secure_tags = []) ~layer4_configs
+    () : match_ =
   {
     dest_address_groups;
     dest_fqdns;
@@ -459,8 +459,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_compute_network_firewall_policy_rule ?description
     ?disabled ?enable_logging ?id ?project ?rule_name
-    ?target_service_accounts ?timeouts ~action ~direction
-    ~firewall_policy ~priority ~match_ ~target_secure_tags () :
+    ?target_service_accounts ?(target_secure_tags = []) ?timeouts
+    ~action ~direction ~firewall_policy ~priority ~match_ () :
     google_compute_network_firewall_policy_rule =
   {
     action;
@@ -496,8 +496,9 @@ type t = {
 }
 
 let make ?description ?disabled ?enable_logging ?id ?project
-    ?rule_name ?target_service_accounts ?timeouts ~action ~direction
-    ~firewall_policy ~priority ~match_ ~target_secure_tags __id =
+    ?rule_name ?target_service_accounts ?(target_secure_tags = [])
+    ?timeouts ~action ~direction ~firewall_policy ~priority ~match_
+    __id =
   let __type = "google_compute_network_firewall_policy_rule" in
   let __attrs =
     ({
@@ -526,20 +527,20 @@ let make ?description ?disabled ?enable_logging ?id ?project
       yojson_of_google_compute_network_firewall_policy_rule
         (google_compute_network_firewall_policy_rule ?description
            ?disabled ?enable_logging ?id ?project ?rule_name
-           ?target_service_accounts ?timeouts ~action ~direction
-           ~firewall_policy ~priority ~match_ ~target_secure_tags ());
+           ?target_service_accounts ~target_secure_tags ?timeouts
+           ~action ~direction ~firewall_policy ~priority ~match_ ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?disabled ?enable_logging ?id
-    ?project ?rule_name ?target_service_accounts ?timeouts ~action
-    ~direction ~firewall_policy ~priority ~match_ ~target_secure_tags
-    __id =
+    ?project ?rule_name ?target_service_accounts
+    ?(target_secure_tags = []) ?timeouts ~action ~direction
+    ~firewall_policy ~priority ~match_ __id =
   let (r : _ Tf_core.resource) =
     make ?description ?disabled ?enable_logging ?id ?project
-      ?rule_name ?target_service_accounts ?timeouts ~action
-      ~direction ~firewall_policy ~priority ~match_
-      ~target_secure_tags __id
+      ?rule_name ?target_service_accounts ~target_secure_tags
+      ?timeouts ~action ~direction ~firewall_policy ~priority ~match_
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

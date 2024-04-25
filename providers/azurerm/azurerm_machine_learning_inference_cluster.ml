@@ -281,9 +281,9 @@ let timeouts ?create ?delete ?read () : timeouts =
   { create; delete; read }
 
 let azurerm_machine_learning_inference_cluster ?cluster_purpose
-    ?description ?id ?tags ?timeouts ~kubernetes_cluster_id ~location
-    ~machine_learning_workspace_id ~name ~identity ~ssl () :
-    azurerm_machine_learning_inference_cluster =
+    ?description ?id ?tags ?(identity = []) ?(ssl = []) ?timeouts
+    ~kubernetes_cluster_id ~location ~machine_learning_workspace_id
+    ~name () : azurerm_machine_learning_inference_cluster =
   {
     cluster_purpose;
     description;
@@ -309,9 +309,9 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?cluster_purpose ?description ?id ?tags ?timeouts
-    ~kubernetes_cluster_id ~location ~machine_learning_workspace_id
-    ~name ~identity ~ssl __id =
+let make ?cluster_purpose ?description ?id ?tags ?(identity = [])
+    ?(ssl = []) ?timeouts ~kubernetes_cluster_id ~location
+    ~machine_learning_workspace_id ~name __id =
   let __type = "azurerm_machine_learning_inference_cluster" in
   let __attrs =
     ({
@@ -334,19 +334,19 @@ let make ?cluster_purpose ?description ?id ?tags ?timeouts
     json =
       yojson_of_azurerm_machine_learning_inference_cluster
         (azurerm_machine_learning_inference_cluster ?cluster_purpose
-           ?description ?id ?tags ?timeouts ~kubernetes_cluster_id
-           ~location ~machine_learning_workspace_id ~name ~identity
-           ~ssl ());
+           ?description ?id ?tags ~identity ~ssl ?timeouts
+           ~kubernetes_cluster_id ~location
+           ~machine_learning_workspace_id ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?cluster_purpose ?description ?id ?tags
-    ?timeouts ~kubernetes_cluster_id ~location
-    ~machine_learning_workspace_id ~name ~identity ~ssl __id =
+    ?(identity = []) ?(ssl = []) ?timeouts ~kubernetes_cluster_id
+    ~location ~machine_learning_workspace_id ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?cluster_purpose ?description ?id ?tags ?timeouts
-      ~kubernetes_cluster_id ~location ~machine_learning_workspace_id
-      ~name ~identity ~ssl __id
+    make ?cluster_purpose ?description ?id ?tags ~identity ~ssl
+      ?timeouts ~kubernetes_cluster_id ~location
+      ~machine_learning_workspace_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

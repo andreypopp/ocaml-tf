@@ -21,10 +21,10 @@ val aws_iot_provisioning_template :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
+  ?pre_provisioning_hook:pre_provisioning_hook list ->
   name:string prop ->
   provisioning_role_arn:string prop ->
   template_body:string prop ->
-  pre_provisioning_hook:pre_provisioning_hook list ->
   unit ->
   aws_iot_provisioning_template
 
@@ -55,10 +55,10 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
+  ?pre_provisioning_hook:pre_provisioning_hook list ->
   name:string prop ->
   provisioning_role_arn:string prop ->
   template_body:string prop ->
-  pre_provisioning_hook:pre_provisioning_hook list ->
   string ->
   t
 
@@ -69,9 +69,9 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
+  ?pre_provisioning_hook:pre_provisioning_hook list ->
   name:string prop ->
   provisioning_role_arn:string prop ->
   template_body:string prop ->
-  pre_provisioning_hook:pre_provisioning_hook list ->
   string ->
   t Tf_core.resource

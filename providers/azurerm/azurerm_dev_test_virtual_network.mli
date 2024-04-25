@@ -28,11 +28,11 @@ val azurerm_dev_test_virtual_network :
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?subnet:subnet list ->
   ?timeouts:timeouts ->
   lab_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  subnet:subnet list ->
   unit ->
   azurerm_dev_test_virtual_network
 
@@ -56,11 +56,11 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?subnet:subnet list ->
   ?timeouts:timeouts ->
   lab_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  subnet:subnet list ->
   string ->
   t
 
@@ -68,10 +68,10 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?subnet:subnet list ->
   ?timeouts:timeouts ->
   lab_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  subnet:subnet list ->
   string ->
   t Tf_core.resource

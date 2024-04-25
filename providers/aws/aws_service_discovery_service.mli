@@ -45,10 +45,10 @@ val aws_service_discovery_service :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
+  ?dns_config:dns_config list ->
+  ?health_check_config:health_check_config list ->
+  ?health_check_custom_config:health_check_custom_config list ->
   name:string prop ->
-  dns_config:dns_config list ->
-  health_check_config:health_check_config list ->
-  health_check_custom_config:health_check_custom_config list ->
   unit ->
   aws_service_discovery_service
 
@@ -78,10 +78,10 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
+  ?dns_config:dns_config list ->
+  ?health_check_config:health_check_config list ->
+  ?health_check_custom_config:health_check_custom_config list ->
   name:string prop ->
-  dns_config:dns_config list ->
-  health_check_config:health_check_config list ->
-  health_check_custom_config:health_check_custom_config list ->
   string ->
   t
 
@@ -93,9 +93,9 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?type_:string prop ->
+  ?dns_config:dns_config list ->
+  ?health_check_config:health_check_config list ->
+  ?health_check_custom_config:health_check_custom_config list ->
   name:string prop ->
-  dns_config:dns_config list ->
-  health_check_config:health_check_config list ->
-  health_check_custom_config:health_check_custom_config list ->
   string ->
   t Tf_core.resource

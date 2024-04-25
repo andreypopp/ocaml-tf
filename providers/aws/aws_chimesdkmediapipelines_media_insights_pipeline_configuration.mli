@@ -28,10 +28,10 @@ val elements__amazon_transcribe_call_analytics_processor_configuration :
   ?vocabulary_filter_method:string prop ->
   ?vocabulary_filter_name:string prop ->
   ?vocabulary_name:string prop ->
-  language_code:string prop ->
-  post_call_analytics_settings:
+  ?post_call_analytics_settings:
     elements__amazon_transcribe_call_analytics_processor_configuration__post_call_analytics_settings
     list ->
+  language_code:string prop ->
   unit ->
   elements__amazon_transcribe_call_analytics_processor_configuration
 
@@ -99,24 +99,24 @@ val elements__voice_analytics_processor_configuration :
 type elements
 
 val elements :
-  type_:string prop ->
-  amazon_transcribe_call_analytics_processor_configuration:
+  ?amazon_transcribe_call_analytics_processor_configuration:
     elements__amazon_transcribe_call_analytics_processor_configuration
     list ->
-  amazon_transcribe_processor_configuration:
+  ?amazon_transcribe_processor_configuration:
     elements__amazon_transcribe_processor_configuration list ->
-  kinesis_data_stream_sink_configuration:
+  ?kinesis_data_stream_sink_configuration:
     elements__kinesis_data_stream_sink_configuration list ->
-  lambda_function_sink_configuration:
+  ?lambda_function_sink_configuration:
     elements__lambda_function_sink_configuration list ->
-  s3_recording_sink_configuration:
+  ?s3_recording_sink_configuration:
     elements__s3_recording_sink_configuration list ->
-  sns_topic_sink_configuration:
+  ?sns_topic_sink_configuration:
     elements__sns_topic_sink_configuration list ->
-  sqs_queue_sink_configuration:
+  ?sqs_queue_sink_configuration:
     elements__sqs_queue_sink_configuration list ->
-  voice_analytics_processor_configuration:
+  ?voice_analytics_processor_configuration:
     elements__voice_analytics_processor_configuration list ->
+  type_:string prop ->
   unit ->
   elements
 
@@ -148,16 +148,16 @@ val real_time_alert_configuration__rules__sentiment_configuration :
 type real_time_alert_configuration__rules
 
 val real_time_alert_configuration__rules :
-  type_:string prop ->
-  issue_detection_configuration:
+  ?issue_detection_configuration:
     real_time_alert_configuration__rules__issue_detection_configuration
     list ->
-  keyword_match_configuration:
+  ?keyword_match_configuration:
     real_time_alert_configuration__rules__keyword_match_configuration
     list ->
-  sentiment_configuration:
+  ?sentiment_configuration:
     real_time_alert_configuration__rules__sentiment_configuration
     list ->
+  type_:string prop ->
   unit ->
   real_time_alert_configuration__rules
 
@@ -183,11 +183,11 @@ type aws_chimesdkmediapipelines_media_insights_pipeline_configuration
 val aws_chimesdkmediapipelines_media_insights_pipeline_configuration :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?real_time_alert_configuration:real_time_alert_configuration list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_access_role_arn:string prop ->
   elements:elements list ->
-  real_time_alert_configuration:real_time_alert_configuration list ->
   unit ->
   aws_chimesdkmediapipelines_media_insights_pipeline_configuration
 
@@ -210,21 +210,21 @@ val register :
   ?tf_module:tf_module ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?real_time_alert_configuration:real_time_alert_configuration list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_access_role_arn:string prop ->
   elements:elements list ->
-  real_time_alert_configuration:real_time_alert_configuration list ->
   string ->
   t
 
 val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?real_time_alert_configuration:real_time_alert_configuration list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_access_role_arn:string prop ->
   elements:elements list ->
-  real_time_alert_configuration:real_time_alert_configuration list ->
   string ->
   t Tf_core.resource

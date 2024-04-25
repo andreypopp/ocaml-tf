@@ -180,9 +180,9 @@ let networks ~network_url () : networks = { network_url }
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_dns_response_policy ?description ?id ?project ?timeouts
-    ~response_policy_name ~gke_clusters ~networks () :
-    google_dns_response_policy =
+let google_dns_response_policy ?description ?id ?project
+    ?(gke_clusters = []) ?(networks = []) ?timeouts
+    ~response_policy_name () : google_dns_response_policy =
   {
     description;
     id;
@@ -200,8 +200,8 @@ type t = {
   response_policy_name : string prop;
 }
 
-let make ?description ?id ?project ?timeouts ~response_policy_name
-    ~gke_clusters ~networks __id =
+let make ?description ?id ?project ?(gke_clusters = [])
+    ?(networks = []) ?timeouts ~response_policy_name __id =
   let __type = "google_dns_response_policy" in
   let __attrs =
     ({
@@ -219,15 +219,16 @@ let make ?description ?id ?project ?timeouts ~response_policy_name
     json =
       yojson_of_google_dns_response_policy
         (google_dns_response_policy ?description ?id ?project
-           ?timeouts ~response_policy_name ~gke_clusters ~networks ());
+           ~gke_clusters ~networks ?timeouts ~response_policy_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?project ?timeouts
-    ~response_policy_name ~gke_clusters ~networks __id =
+let register ?tf_module ?description ?id ?project
+    ?(gke_clusters = []) ?(networks = []) ?timeouts
+    ~response_policy_name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?project ?timeouts ~response_policy_name
-      ~gke_clusters ~networks __id
+    make ?description ?id ?project ~gke_clusters ~networks ?timeouts
+      ~response_policy_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

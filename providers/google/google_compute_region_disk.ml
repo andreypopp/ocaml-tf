@@ -375,9 +375,11 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_compute_region_disk ?description ?id ?labels ?licenses
     ?physical_block_size_bytes ?project ?region ?size ?snapshot
-    ?source_disk ?type_ ?timeouts ~name ~replica_zones
-    ~async_primary_disk ~disk_encryption_key ~guest_os_features
-    ~source_snapshot_encryption_key () : google_compute_region_disk =
+    ?source_disk ?type_ ?(async_primary_disk = [])
+    ?(disk_encryption_key = [])
+    ?(source_snapshot_encryption_key = []) ?timeouts ~name
+    ~replica_zones ~guest_os_features () : google_compute_region_disk
+    =
   {
     description;
     id;
@@ -427,9 +429,10 @@ type t = {
 
 let make ?description ?id ?labels ?licenses
     ?physical_block_size_bytes ?project ?region ?size ?snapshot
-    ?source_disk ?type_ ?timeouts ~name ~replica_zones
-    ~async_primary_disk ~disk_encryption_key ~guest_os_features
-    ~source_snapshot_encryption_key __id =
+    ?source_disk ?type_ ?(async_primary_disk = [])
+    ?(disk_encryption_key = [])
+    ?(source_snapshot_encryption_key = []) ?timeouts ~name
+    ~replica_zones ~guest_os_features __id =
   let __type = "google_compute_region_disk" in
   let __attrs =
     ({
@@ -474,23 +477,24 @@ let make ?description ?id ?labels ?licenses
       yojson_of_google_compute_region_disk
         (google_compute_region_disk ?description ?id ?labels
            ?licenses ?physical_block_size_bytes ?project ?region
-           ?size ?snapshot ?source_disk ?type_ ?timeouts ~name
-           ~replica_zones ~async_primary_disk ~disk_encryption_key
-           ~guest_os_features ~source_snapshot_encryption_key ());
+           ?size ?snapshot ?source_disk ?type_ ~async_primary_disk
+           ~disk_encryption_key ~source_snapshot_encryption_key
+           ?timeouts ~name ~replica_zones ~guest_os_features ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?labels ?licenses
     ?physical_block_size_bytes ?project ?region ?size ?snapshot
-    ?source_disk ?type_ ?timeouts ~name ~replica_zones
-    ~async_primary_disk ~disk_encryption_key ~guest_os_features
-    ~source_snapshot_encryption_key __id =
+    ?source_disk ?type_ ?(async_primary_disk = [])
+    ?(disk_encryption_key = [])
+    ?(source_snapshot_encryption_key = []) ?timeouts ~name
+    ~replica_zones ~guest_os_features __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?labels ?licenses
       ?physical_block_size_bytes ?project ?region ?size ?snapshot
-      ?source_disk ?type_ ?timeouts ~name ~replica_zones
-      ~async_primary_disk ~disk_encryption_key ~guest_os_features
-      ~source_snapshot_encryption_key __id
+      ?source_disk ?type_ ~async_primary_disk ~disk_encryption_key
+      ~source_snapshot_encryption_key ?timeouts ~name ~replica_zones
+      ~guest_os_features __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

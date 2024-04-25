@@ -341,10 +341,11 @@ let settings ?entity_url_template ?execution_url_template
     third_party_configuration_url;
   }
 
-let aws_codepipeline_custom_action_type ?id ?tags ?tags_all ~category
-    ~provider_name ~version ~configuration_property
-    ~input_artifact_details ~output_artifact_details ~settings () :
-    aws_codepipeline_custom_action_type =
+let aws_codepipeline_custom_action_type ?id ?tags ?tags_all
+    ?(configuration_property = []) ?(settings = []) ~category
+    ~provider_name ~version ~input_artifact_details
+    ~output_artifact_details () : aws_codepipeline_custom_action_type
+    =
   {
     category;
     id;
@@ -369,9 +370,9 @@ type t = {
   version : string prop;
 }
 
-let make ?id ?tags ?tags_all ~category ~provider_name ~version
-    ~configuration_property ~input_artifact_details
-    ~output_artifact_details ~settings __id =
+let make ?id ?tags ?tags_all ?(configuration_property = [])
+    ?(settings = []) ~category ~provider_name ~version
+    ~input_artifact_details ~output_artifact_details __id =
   let __type = "aws_codepipeline_custom_action_type" in
   let __attrs =
     ({
@@ -392,19 +393,20 @@ let make ?id ?tags ?tags_all ~category ~provider_name ~version
     json =
       yojson_of_aws_codepipeline_custom_action_type
         (aws_codepipeline_custom_action_type ?id ?tags ?tags_all
-           ~category ~provider_name ~version ~configuration_property
-           ~input_artifact_details ~output_artifact_details ~settings
+           ~configuration_property ~settings ~category ~provider_name
+           ~version ~input_artifact_details ~output_artifact_details
            ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ~category ~provider_name
-    ~version ~configuration_property ~input_artifact_details
-    ~output_artifact_details ~settings __id =
+let register ?tf_module ?id ?tags ?tags_all
+    ?(configuration_property = []) ?(settings = []) ~category
+    ~provider_name ~version ~input_artifact_details
+    ~output_artifact_details __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~category ~provider_name ~version
-      ~configuration_property ~input_artifact_details
-      ~output_artifact_details ~settings __id
+    make ?id ?tags ?tags_all ~configuration_property ~settings
+      ~category ~provider_name ~version ~input_artifact_details
+      ~output_artifact_details __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

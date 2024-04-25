@@ -259,7 +259,7 @@ let online_serving_config__scaling ~max_node_count ~min_node_count ()
     : online_serving_config__scaling =
   { max_node_count; min_node_count }
 
-let online_serving_config ?fixed_node_count ~scaling () :
+let online_serving_config ?fixed_node_count ?(scaling = []) () :
     online_serving_config =
   { fixed_node_count; scaling }
 
@@ -267,8 +267,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_vertex_ai_featurestore ?force_destroy ?id ?labels ?name
-    ?project ?region ?timeouts ~encryption_spec
-    ~online_serving_config () : google_vertex_ai_featurestore =
+    ?project ?region ?(encryption_spec = [])
+    ?(online_serving_config = []) ?timeouts () :
+    google_vertex_ai_featurestore =
   {
     force_destroy;
     id;
@@ -295,8 +296,9 @@ type t = {
   update_time : string prop;
 }
 
-let make ?force_destroy ?id ?labels ?name ?project ?region ?timeouts
-    ~encryption_spec ~online_serving_config __id =
+let make ?force_destroy ?id ?labels ?name ?project ?region
+    ?(encryption_spec = []) ?(online_serving_config = []) ?timeouts
+    __id =
   let __type = "google_vertex_ai_featurestore" in
   let __attrs =
     ({
@@ -322,16 +324,17 @@ let make ?force_destroy ?id ?labels ?name ?project ?region ?timeouts
     json =
       yojson_of_google_vertex_ai_featurestore
         (google_vertex_ai_featurestore ?force_destroy ?id ?labels
-           ?name ?project ?region ?timeouts ~encryption_spec
-           ~online_serving_config ());
+           ?name ?project ?region ~encryption_spec
+           ~online_serving_config ?timeouts ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?force_destroy ?id ?labels ?name ?project
-    ?region ?timeouts ~encryption_spec ~online_serving_config __id =
+    ?region ?(encryption_spec = []) ?(online_serving_config = [])
+    ?timeouts __id =
   let (r : _ Tf_core.resource) =
-    make ?force_destroy ?id ?labels ?name ?project ?region ?timeouts
-      ~encryption_spec ~online_serving_config __id
+    make ?force_destroy ?id ?labels ?name ?project ?region
+      ~encryption_spec ~online_serving_config ?timeouts __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

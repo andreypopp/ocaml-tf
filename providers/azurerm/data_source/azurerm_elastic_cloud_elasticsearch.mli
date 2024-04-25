@@ -22,10 +22,10 @@ type azurerm_elastic_cloud_elasticsearch
 
 val azurerm_elastic_cloud_elasticsearch :
   ?id:string prop ->
+  ?logs:logs list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
-  logs:logs list ->
   unit ->
   azurerm_elastic_cloud_elasticsearch
 
@@ -54,18 +54,18 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?logs:logs list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
-  logs:logs list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?logs:logs list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
-  logs:logs list ->
   string ->
   t Tf_core.resource

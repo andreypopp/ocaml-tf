@@ -521,9 +521,10 @@ let azurerm_virtual_network_gateway_connection ?authorization_key
     ?express_route_gateway_bypass ?id ?ingress_nat_rule_ids
     ?local_azure_ip_address_enabled ?local_network_gateway_id
     ?peer_virtual_network_gateway_id ?routing_weight ?shared_key
-    ?tags ?use_policy_based_traffic_selectors ?timeouts ~location
-    ~name ~resource_group_name ~type_ ~virtual_network_gateway_id
-    ~custom_bgp_addresses ~ipsec_policy ~traffic_selector_policy () :
+    ?tags ?use_policy_based_traffic_selectors
+    ?(custom_bgp_addresses = []) ?(ipsec_policy = []) ?timeouts
+    ?(traffic_selector_policy = []) ~location ~name
+    ~resource_group_name ~type_ ~virtual_network_gateway_id () :
     azurerm_virtual_network_gateway_connection =
   {
     authorization_key;
@@ -585,10 +586,10 @@ let make ?authorization_key ?connection_mode ?connection_protocol
     ?ingress_nat_rule_ids ?local_azure_ip_address_enabled
     ?local_network_gateway_id ?peer_virtual_network_gateway_id
     ?routing_weight ?shared_key ?tags
-    ?use_policy_based_traffic_selectors ?timeouts ~location ~name
-    ~resource_group_name ~type_ ~virtual_network_gateway_id
-    ~custom_bgp_addresses ~ipsec_policy ~traffic_selector_policy __id
-    =
+    ?use_policy_based_traffic_selectors ?(custom_bgp_addresses = [])
+    ?(ipsec_policy = []) ?timeouts ?(traffic_selector_policy = [])
+    ~location ~name ~resource_group_name ~type_
+    ~virtual_network_gateway_id __id =
   let __type = "azurerm_virtual_network_gateway_connection" in
   let __attrs =
     ({
@@ -643,10 +644,10 @@ let make ?authorization_key ?connection_mode ?connection_protocol
            ?id ?ingress_nat_rule_ids ?local_azure_ip_address_enabled
            ?local_network_gateway_id ?peer_virtual_network_gateway_id
            ?routing_weight ?shared_key ?tags
-           ?use_policy_based_traffic_selectors ?timeouts ~location
+           ?use_policy_based_traffic_selectors ~custom_bgp_addresses
+           ~ipsec_policy ?timeouts ~traffic_selector_policy ~location
            ~name ~resource_group_name ~type_
-           ~virtual_network_gateway_id ~custom_bgp_addresses
-           ~ipsec_policy ~traffic_selector_policy ());
+           ~virtual_network_gateway_id ());
     attrs = __attrs;
   }
 
@@ -656,10 +657,10 @@ let register ?tf_module ?authorization_key ?connection_mode
     ?express_route_gateway_bypass ?id ?ingress_nat_rule_ids
     ?local_azure_ip_address_enabled ?local_network_gateway_id
     ?peer_virtual_network_gateway_id ?routing_weight ?shared_key
-    ?tags ?use_policy_based_traffic_selectors ?timeouts ~location
-    ~name ~resource_group_name ~type_ ~virtual_network_gateway_id
-    ~custom_bgp_addresses ~ipsec_policy ~traffic_selector_policy __id
-    =
+    ?tags ?use_policy_based_traffic_selectors
+    ?(custom_bgp_addresses = []) ?(ipsec_policy = []) ?timeouts
+    ?(traffic_selector_policy = []) ~location ~name
+    ~resource_group_name ~type_ ~virtual_network_gateway_id __id =
   let (r : _ Tf_core.resource) =
     make ?authorization_key ?connection_mode ?connection_protocol
       ?dpd_timeout_seconds ?egress_nat_rule_ids ?enable_bgp
@@ -667,9 +668,9 @@ let register ?tf_module ?authorization_key ?connection_mode
       ?ingress_nat_rule_ids ?local_azure_ip_address_enabled
       ?local_network_gateway_id ?peer_virtual_network_gateway_id
       ?routing_weight ?shared_key ?tags
-      ?use_policy_based_traffic_selectors ?timeouts ~location ~name
-      ~resource_group_name ~type_ ~virtual_network_gateway_id
-      ~custom_bgp_addresses ~ipsec_policy ~traffic_selector_policy
+      ?use_policy_based_traffic_selectors ~custom_bgp_addresses
+      ~ipsec_policy ?timeouts ~traffic_selector_policy ~location
+      ~name ~resource_group_name ~type_ ~virtual_network_gateway_id
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

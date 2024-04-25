@@ -172,13 +172,13 @@ let spec ?pod_info_on_mount ?volume_lifecycle_modes ~attach_required
     () : spec =
   { attach_required; pod_info_on_mount; volume_lifecycle_modes }
 
-let kubernetes_csi_driver_v1 ?id ~metadata ~spec () :
+let kubernetes_csi_driver_v1 ?id ?(spec = []) ~metadata () :
     kubernetes_csi_driver_v1 =
   { id; metadata; spec }
 
 type t = { id : string prop }
 
-let make ?id ~metadata ~spec __id =
+let make ?id ?(spec = []) ~metadata __id =
   let __type = "kubernetes_csi_driver_v1" in
   let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
   {
@@ -186,11 +186,11 @@ let make ?id ~metadata ~spec __id =
     type_ = __type;
     json =
       yojson_of_kubernetes_csi_driver_v1
-        (kubernetes_csi_driver_v1 ?id ~metadata ~spec ());
+        (kubernetes_csi_driver_v1 ?id ~spec ~metadata ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~metadata ~spec __id =
-  let (r : _ Tf_core.resource) = make ?id ~metadata ~spec __id in
+let register ?tf_module ?id ?(spec = []) ~metadata __id =
+  let (r : _ Tf_core.resource) = make ?id ~spec ~metadata __id in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

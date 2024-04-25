@@ -280,8 +280,9 @@ let origin_port_range ~end_ ~start () : origin_port_range =
 
 let cloudflare_spectrum_application ?argo_smart_routing ?id
     ?ip_firewall ?origin_direct ?origin_port ?proxy_protocol ?tls
-    ?traffic_type ~protocol ~zone_id ~dns ~edge_ips ~origin_dns
-    ~origin_port_range () : cloudflare_spectrum_application =
+    ?traffic_type ?(edge_ips = []) ?(origin_dns = [])
+    ?(origin_port_range = []) ~protocol ~zone_id ~dns () :
+    cloudflare_spectrum_application =
   {
     argo_smart_routing;
     id;
@@ -313,8 +314,9 @@ type t = {
 }
 
 let make ?argo_smart_routing ?id ?ip_firewall ?origin_direct
-    ?origin_port ?proxy_protocol ?tls ?traffic_type ~protocol
-    ~zone_id ~dns ~edge_ips ~origin_dns ~origin_port_range __id =
+    ?origin_port ?proxy_protocol ?tls ?traffic_type ?(edge_ips = [])
+    ?(origin_dns = []) ?(origin_port_range = []) ~protocol ~zone_id
+    ~dns __id =
   let __type = "cloudflare_spectrum_application" in
   let __attrs =
     ({
@@ -339,19 +341,19 @@ let make ?argo_smart_routing ?id ?ip_firewall ?origin_direct
       yojson_of_cloudflare_spectrum_application
         (cloudflare_spectrum_application ?argo_smart_routing ?id
            ?ip_firewall ?origin_direct ?origin_port ?proxy_protocol
-           ?tls ?traffic_type ~protocol ~zone_id ~dns ~edge_ips
-           ~origin_dns ~origin_port_range ());
+           ?tls ?traffic_type ~edge_ips ~origin_dns
+           ~origin_port_range ~protocol ~zone_id ~dns ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?argo_smart_routing ?id ?ip_firewall
     ?origin_direct ?origin_port ?proxy_protocol ?tls ?traffic_type
-    ~protocol ~zone_id ~dns ~edge_ips ~origin_dns ~origin_port_range
-    __id =
+    ?(edge_ips = []) ?(origin_dns = []) ?(origin_port_range = [])
+    ~protocol ~zone_id ~dns __id =
   let (r : _ Tf_core.resource) =
     make ?argo_smart_routing ?id ?ip_firewall ?origin_direct
-      ?origin_port ?proxy_protocol ?tls ?traffic_type ~protocol
-      ~zone_id ~dns ~edge_ips ~origin_dns ~origin_port_range __id
+      ?origin_port ?proxy_protocol ?tls ?traffic_type ~edge_ips
+      ~origin_dns ~origin_port_range ~protocol ~zone_id ~dns __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -125,21 +125,21 @@ val aws_glue_crawler :
   ?table_prefix:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?catalog_target:catalog_target list ->
+  ?delta_target:delta_target list ->
+  ?dynamodb_target:dynamodb_target list ->
+  ?hudi_target:hudi_target list ->
+  ?iceberg_target:iceberg_target list ->
+  ?jdbc_target:jdbc_target list ->
+  ?lake_formation_configuration:lake_formation_configuration list ->
+  ?lineage_configuration:lineage_configuration list ->
+  ?mongodb_target:mongodb_target list ->
+  ?recrawl_policy:recrawl_policy list ->
+  ?s3_target:s3_target list ->
+  ?schema_change_policy:schema_change_policy list ->
   database_name:string prop ->
   name:string prop ->
   role:string prop ->
-  catalog_target:catalog_target list ->
-  delta_target:delta_target list ->
-  dynamodb_target:dynamodb_target list ->
-  hudi_target:hudi_target list ->
-  iceberg_target:iceberg_target list ->
-  jdbc_target:jdbc_target list ->
-  lake_formation_configuration:lake_formation_configuration list ->
-  lineage_configuration:lineage_configuration list ->
-  mongodb_target:mongodb_target list ->
-  recrawl_policy:recrawl_policy list ->
-  s3_target:s3_target list ->
-  schema_change_policy:schema_change_policy list ->
   unit ->
   aws_glue_crawler
 
@@ -174,21 +174,21 @@ val register :
   ?table_prefix:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?catalog_target:catalog_target list ->
+  ?delta_target:delta_target list ->
+  ?dynamodb_target:dynamodb_target list ->
+  ?hudi_target:hudi_target list ->
+  ?iceberg_target:iceberg_target list ->
+  ?jdbc_target:jdbc_target list ->
+  ?lake_formation_configuration:lake_formation_configuration list ->
+  ?lineage_configuration:lineage_configuration list ->
+  ?mongodb_target:mongodb_target list ->
+  ?recrawl_policy:recrawl_policy list ->
+  ?s3_target:s3_target list ->
+  ?schema_change_policy:schema_change_policy list ->
   database_name:string prop ->
   name:string prop ->
   role:string prop ->
-  catalog_target:catalog_target list ->
-  delta_target:delta_target list ->
-  dynamodb_target:dynamodb_target list ->
-  hudi_target:hudi_target list ->
-  iceberg_target:iceberg_target list ->
-  jdbc_target:jdbc_target list ->
-  lake_formation_configuration:lake_formation_configuration list ->
-  lineage_configuration:lineage_configuration list ->
-  mongodb_target:mongodb_target list ->
-  recrawl_policy:recrawl_policy list ->
-  s3_target:s3_target list ->
-  schema_change_policy:schema_change_policy list ->
   string ->
   t
 
@@ -202,20 +202,20 @@ val make :
   ?table_prefix:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?catalog_target:catalog_target list ->
+  ?delta_target:delta_target list ->
+  ?dynamodb_target:dynamodb_target list ->
+  ?hudi_target:hudi_target list ->
+  ?iceberg_target:iceberg_target list ->
+  ?jdbc_target:jdbc_target list ->
+  ?lake_formation_configuration:lake_formation_configuration list ->
+  ?lineage_configuration:lineage_configuration list ->
+  ?mongodb_target:mongodb_target list ->
+  ?recrawl_policy:recrawl_policy list ->
+  ?s3_target:s3_target list ->
+  ?schema_change_policy:schema_change_policy list ->
   database_name:string prop ->
   name:string prop ->
   role:string prop ->
-  catalog_target:catalog_target list ->
-  delta_target:delta_target list ->
-  dynamodb_target:dynamodb_target list ->
-  hudi_target:hudi_target list ->
-  iceberg_target:iceberg_target list ->
-  jdbc_target:jdbc_target list ->
-  lake_formation_configuration:lake_formation_configuration list ->
-  lineage_configuration:lineage_configuration list ->
-  mongodb_target:mongodb_target list ->
-  recrawl_policy:recrawl_policy list ->
-  s3_target:s3_target list ->
-  schema_change_policy:schema_change_policy list ->
   string ->
   t Tf_core.resource

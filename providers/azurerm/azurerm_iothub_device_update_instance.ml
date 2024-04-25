@@ -195,8 +195,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_iothub_device_update_instance ?diagnostic_enabled ?id
-    ?tags ?timeouts ~device_update_account_id ~iothub_id ~name
-    ~diagnostic_storage_account () :
+    ?tags ?(diagnostic_storage_account = []) ?timeouts
+    ~device_update_account_id ~iothub_id ~name () :
     azurerm_iothub_device_update_instance =
   {
     device_update_account_id;
@@ -218,9 +218,9 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?diagnostic_enabled ?id ?tags ?timeouts
-    ~device_update_account_id ~iothub_id ~name
-    ~diagnostic_storage_account __id =
+let make ?diagnostic_enabled ?id ?tags
+    ?(diagnostic_storage_account = []) ?timeouts
+    ~device_update_account_id ~iothub_id ~name __id =
   let __type = "azurerm_iothub_device_update_instance" in
   let __attrs =
     ({
@@ -241,18 +241,17 @@ let make ?diagnostic_enabled ?id ?tags ?timeouts
     json =
       yojson_of_azurerm_iothub_device_update_instance
         (azurerm_iothub_device_update_instance ?diagnostic_enabled
-           ?id ?tags ?timeouts ~device_update_account_id ~iothub_id
-           ~name ~diagnostic_storage_account ());
+           ?id ?tags ~diagnostic_storage_account ?timeouts
+           ~device_update_account_id ~iothub_id ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?diagnostic_enabled ?id ?tags ?timeouts
-    ~device_update_account_id ~iothub_id ~name
-    ~diagnostic_storage_account __id =
+let register ?tf_module ?diagnostic_enabled ?id ?tags
+    ?(diagnostic_storage_account = []) ?timeouts
+    ~device_update_account_id ~iothub_id ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?diagnostic_enabled ?id ?tags ?timeouts
-      ~device_update_account_id ~iothub_id ~name
-      ~diagnostic_storage_account __id
+    make ?diagnostic_enabled ?id ?tags ~diagnostic_storage_account
+      ?timeouts ~device_update_account_id ~iothub_id ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

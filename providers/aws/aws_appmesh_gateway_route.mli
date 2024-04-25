@@ -68,9 +68,9 @@ val spec__http2_route__action__rewrite__prefix :
 type spec__http2_route__action__rewrite
 
 val spec__http2_route__action__rewrite :
-  hostname:spec__http2_route__action__rewrite__hostname list ->
-  path:spec__http2_route__action__rewrite__path list ->
-  prefix:spec__http2_route__action__rewrite__prefix list ->
+  ?hostname:spec__http2_route__action__rewrite__hostname list ->
+  ?path:spec__http2_route__action__rewrite__path list ->
+  ?prefix:spec__http2_route__action__rewrite__prefix list ->
   unit ->
   spec__http2_route__action__rewrite
 
@@ -93,7 +93,7 @@ val spec__http2_route__action__target :
 type spec__http2_route__action
 
 val spec__http2_route__action :
-  rewrite:spec__http2_route__action__rewrite list ->
+  ?rewrite:spec__http2_route__action__rewrite list ->
   target:spec__http2_route__action__target list ->
   unit ->
   spec__http2_route__action
@@ -113,7 +113,7 @@ val spec__http2_route__match__header__match :
   ?prefix:string prop ->
   ?regex:string prop ->
   ?suffix:string prop ->
-  range:spec__http2_route__match__header__match__range list ->
+  ?range:spec__http2_route__match__header__match__range list ->
   unit ->
   spec__http2_route__match__header__match
 
@@ -121,8 +121,8 @@ type spec__http2_route__match__header
 
 val spec__http2_route__match__header :
   ?invert:bool prop ->
+  ?match_:spec__http2_route__match__header__match list ->
   name:string prop ->
-  match_:spec__http2_route__match__header__match list ->
   unit ->
   spec__http2_route__match__header
 
@@ -152,8 +152,8 @@ val spec__http2_route__match__query_parameter__match :
 type spec__http2_route__match__query_parameter
 
 val spec__http2_route__match__query_parameter :
+  ?match_:spec__http2_route__match__query_parameter__match list ->
   name:string prop ->
-  match_:spec__http2_route__match__query_parameter__match list ->
   unit ->
   spec__http2_route__match__query_parameter
 
@@ -162,9 +162,9 @@ type spec__http2_route__match
 val spec__http2_route__match :
   ?port:float prop ->
   ?prefix:string prop ->
+  ?hostname:spec__http2_route__match__hostname list ->
+  ?path:spec__http2_route__match__path list ->
   header:spec__http2_route__match__header list ->
-  hostname:spec__http2_route__match__hostname list ->
-  path:spec__http2_route__match__path list ->
   query_parameter:spec__http2_route__match__query_parameter list ->
   unit ->
   spec__http2_route__match
@@ -202,9 +202,9 @@ val spec__http_route__action__rewrite__prefix :
 type spec__http_route__action__rewrite
 
 val spec__http_route__action__rewrite :
-  hostname:spec__http_route__action__rewrite__hostname list ->
-  path:spec__http_route__action__rewrite__path list ->
-  prefix:spec__http_route__action__rewrite__prefix list ->
+  ?hostname:spec__http_route__action__rewrite__hostname list ->
+  ?path:spec__http_route__action__rewrite__path list ->
+  ?prefix:spec__http_route__action__rewrite__prefix list ->
   unit ->
   spec__http_route__action__rewrite
 
@@ -227,7 +227,7 @@ val spec__http_route__action__target :
 type spec__http_route__action
 
 val spec__http_route__action :
-  rewrite:spec__http_route__action__rewrite list ->
+  ?rewrite:spec__http_route__action__rewrite list ->
   target:spec__http_route__action__target list ->
   unit ->
   spec__http_route__action
@@ -247,7 +247,7 @@ val spec__http_route__match__header__match :
   ?prefix:string prop ->
   ?regex:string prop ->
   ?suffix:string prop ->
-  range:spec__http_route__match__header__match__range list ->
+  ?range:spec__http_route__match__header__match__range list ->
   unit ->
   spec__http_route__match__header__match
 
@@ -255,8 +255,8 @@ type spec__http_route__match__header
 
 val spec__http_route__match__header :
   ?invert:bool prop ->
+  ?match_:spec__http_route__match__header__match list ->
   name:string prop ->
-  match_:spec__http_route__match__header__match list ->
   unit ->
   spec__http_route__match__header
 
@@ -286,8 +286,8 @@ val spec__http_route__match__query_parameter__match :
 type spec__http_route__match__query_parameter
 
 val spec__http_route__match__query_parameter :
+  ?match_:spec__http_route__match__query_parameter__match list ->
   name:string prop ->
-  match_:spec__http_route__match__query_parameter__match list ->
   unit ->
   spec__http_route__match__query_parameter
 
@@ -296,9 +296,9 @@ type spec__http_route__match
 val spec__http_route__match :
   ?port:float prop ->
   ?prefix:string prop ->
+  ?hostname:spec__http_route__match__hostname list ->
+  ?path:spec__http_route__match__path list ->
   header:spec__http_route__match__header list ->
-  hostname:spec__http_route__match__hostname list ->
-  path:spec__http_route__match__path list ->
   query_parameter:spec__http_route__match__query_parameter list ->
   unit ->
   spec__http_route__match
@@ -315,9 +315,9 @@ type spec
 
 val spec :
   ?priority:float prop ->
-  grpc_route:spec__grpc_route list ->
-  http2_route:spec__http2_route list ->
-  http_route:spec__http_route list ->
+  ?grpc_route:spec__grpc_route list ->
+  ?http2_route:spec__http2_route list ->
+  ?http_route:spec__http_route list ->
   unit ->
   spec
 

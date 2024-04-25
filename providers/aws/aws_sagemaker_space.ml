@@ -1077,7 +1077,8 @@ let space_settings__kernel_gateway_app_settings__default_resource_spec
   }
 
 let space_settings__kernel_gateway_app_settings
-    ?lifecycle_config_arns ~custom_image ~default_resource_spec () :
+    ?lifecycle_config_arns ?(custom_image = [])
+    ~default_resource_spec () :
     space_settings__kernel_gateway_app_settings =
   { lifecycle_config_arns; custom_image; default_resource_spec }
 
@@ -1090,10 +1091,11 @@ let space_settings__space_storage_settings ~ebs_storage_settings () :
     space_settings__space_storage_settings =
   { ebs_storage_settings }
 
-let space_settings ?app_type ~code_editor_app_settings
-    ~custom_file_system ~jupyter_lab_app_settings
-    ~jupyter_server_app_settings ~kernel_gateway_app_settings
-    ~space_storage_settings () : space_settings =
+let space_settings ?app_type ?(code_editor_app_settings = [])
+    ?(custom_file_system = []) ?(jupyter_lab_app_settings = [])
+    ?(jupyter_server_app_settings = [])
+    ?(kernel_gateway_app_settings = [])
+    ?(space_storage_settings = []) () : space_settings =
   {
     app_type;
     code_editor_app_settings;
@@ -1109,8 +1111,9 @@ let space_sharing_settings ~sharing_type () : space_sharing_settings
   { sharing_type }
 
 let aws_sagemaker_space ?id ?space_display_name ?tags ?tags_all
-    ~domain_id ~space_name ~ownership_settings ~space_settings
-    ~space_sharing_settings () : aws_sagemaker_space =
+    ?(ownership_settings = []) ?(space_settings = [])
+    ?(space_sharing_settings = []) ~domain_id ~space_name () :
+    aws_sagemaker_space =
   {
     domain_id;
     id;
@@ -1135,9 +1138,9 @@ type t = {
   url : string prop;
 }
 
-let make ?id ?space_display_name ?tags ?tags_all ~domain_id
-    ~space_name ~ownership_settings ~space_settings
-    ~space_sharing_settings __id =
+let make ?id ?space_display_name ?tags ?tags_all
+    ?(ownership_settings = []) ?(space_settings = [])
+    ?(space_sharing_settings = []) ~domain_id ~space_name __id =
   let __type = "aws_sagemaker_space" in
   let __attrs =
     ({
@@ -1161,18 +1164,18 @@ let make ?id ?space_display_name ?tags ?tags_all ~domain_id
     json =
       yojson_of_aws_sagemaker_space
         (aws_sagemaker_space ?id ?space_display_name ?tags ?tags_all
-           ~domain_id ~space_name ~ownership_settings ~space_settings
-           ~space_sharing_settings ());
+           ~ownership_settings ~space_settings
+           ~space_sharing_settings ~domain_id ~space_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?space_display_name ?tags ?tags_all
-    ~domain_id ~space_name ~ownership_settings ~space_settings
-    ~space_sharing_settings __id =
+    ?(ownership_settings = []) ?(space_settings = [])
+    ?(space_sharing_settings = []) ~domain_id ~space_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?space_display_name ?tags ?tags_all ~domain_id
-      ~space_name ~ownership_settings ~space_settings
-      ~space_sharing_settings __id
+    make ?id ?space_display_name ?tags ?tags_all ~ownership_settings
+      ~space_settings ~space_sharing_settings ~domain_id ~space_name
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

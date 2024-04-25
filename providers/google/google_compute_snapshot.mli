@@ -40,11 +40,11 @@ val google_compute_snapshot :
   ?project:string prop ->
   ?storage_locations:string prop list ->
   ?zone:string prop ->
+  ?snapshot_encryption_key:snapshot_encryption_key list ->
+  ?source_disk_encryption_key:source_disk_encryption_key list ->
   ?timeouts:timeouts ->
   name:string prop ->
   source_disk:string prop ->
-  snapshot_encryption_key:snapshot_encryption_key list ->
-  source_disk_encryption_key:source_disk_encryption_key list ->
   unit ->
   google_compute_snapshot
 
@@ -83,11 +83,11 @@ val register :
   ?project:string prop ->
   ?storage_locations:string prop list ->
   ?zone:string prop ->
+  ?snapshot_encryption_key:snapshot_encryption_key list ->
+  ?source_disk_encryption_key:source_disk_encryption_key list ->
   ?timeouts:timeouts ->
   name:string prop ->
   source_disk:string prop ->
-  snapshot_encryption_key:snapshot_encryption_key list ->
-  source_disk_encryption_key:source_disk_encryption_key list ->
   string ->
   t
 
@@ -99,10 +99,10 @@ val make :
   ?project:string prop ->
   ?storage_locations:string prop list ->
   ?zone:string prop ->
+  ?snapshot_encryption_key:snapshot_encryption_key list ->
+  ?source_disk_encryption_key:source_disk_encryption_key list ->
   ?timeouts:timeouts ->
   name:string prop ->
   source_disk:string prop ->
-  snapshot_encryption_key:snapshot_encryption_key list ->
-  source_disk_encryption_key:source_disk_encryption_key list ->
   string ->
   t Tf_core.resource

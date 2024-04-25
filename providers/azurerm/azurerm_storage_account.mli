@@ -19,8 +19,8 @@ val azure_files_authentication__active_directory :
 type azure_files_authentication
 
 val azure_files_authentication :
+  ?active_directory:azure_files_authentication__active_directory list ->
   directory_type:string prop ->
-  active_directory:azure_files_authentication__active_directory list ->
   unit ->
   azure_files_authentication
 
@@ -62,12 +62,12 @@ val blob_properties :
   ?default_service_version:string prop ->
   ?last_access_time_enabled:bool prop ->
   ?versioning_enabled:bool prop ->
-  container_delete_retention_policy:
+  ?container_delete_retention_policy:
     blob_properties__container_delete_retention_policy list ->
-  cors_rule:blob_properties__cors_rule list ->
-  delete_retention_policy:
+  ?cors_rule:blob_properties__cors_rule list ->
+  ?delete_retention_policy:
     blob_properties__delete_retention_policy list ->
-  restore_policy:blob_properties__restore_policy list ->
+  ?restore_policy:blob_properties__restore_policy list ->
   unit ->
   blob_properties
 
@@ -118,8 +118,8 @@ val network_rules :
   ?bypass:string prop list ->
   ?ip_rules:string prop list ->
   ?virtual_network_subnet_ids:string prop list ->
+  ?private_link_access:network_rules__private_link_access list ->
   default_action:string prop ->
-  private_link_access:network_rules__private_link_access list ->
   unit ->
   network_rules
 
@@ -168,10 +168,10 @@ val queue_properties__minute_metrics :
 type queue_properties
 
 val queue_properties :
-  cors_rule:queue_properties__cors_rule list ->
-  hour_metrics:queue_properties__hour_metrics list ->
-  logging:queue_properties__logging list ->
-  minute_metrics:queue_properties__minute_metrics list ->
+  ?cors_rule:queue_properties__cors_rule list ->
+  ?hour_metrics:queue_properties__hour_metrics list ->
+  ?logging:queue_properties__logging list ->
+  ?minute_metrics:queue_properties__minute_metrics list ->
   unit ->
   queue_properties
 
@@ -222,9 +222,9 @@ val share_properties__smb :
 type share_properties
 
 val share_properties :
-  cors_rule:share_properties__cors_rule list ->
-  retention_policy:share_properties__retention_policy list ->
-  smb:share_properties__smb list ->
+  ?cors_rule:share_properties__cors_rule list ->
+  ?retention_policy:share_properties__retention_policy list ->
+  ?smb:share_properties__smb list ->
   unit ->
   share_properties
 
@@ -270,24 +270,24 @@ val azurerm_storage_account :
   ?shared_access_key_enabled:bool prop ->
   ?table_encryption_key_type:string prop ->
   ?tags:(string * string prop) list ->
+  ?azure_files_authentication:azure_files_authentication list ->
+  ?blob_properties:blob_properties list ->
+  ?custom_domain:custom_domain list ->
+  ?customer_managed_key:customer_managed_key list ->
+  ?identity:identity list ->
+  ?immutability_policy:immutability_policy list ->
+  ?network_rules:network_rules list ->
+  ?queue_properties:queue_properties list ->
+  ?routing:routing list ->
+  ?sas_policy:sas_policy list ->
+  ?share_properties:share_properties list ->
+  ?static_website:static_website list ->
   ?timeouts:timeouts ->
   account_replication_type:string prop ->
   account_tier:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  azure_files_authentication:azure_files_authentication list ->
-  blob_properties:blob_properties list ->
-  custom_domain:custom_domain list ->
-  customer_managed_key:customer_managed_key list ->
-  identity:identity list ->
-  immutability_policy:immutability_policy list ->
-  network_rules:network_rules list ->
-  queue_properties:queue_properties list ->
-  routing:routing list ->
-  sas_policy:sas_policy list ->
-  share_properties:share_properties list ->
-  static_website:static_website list ->
   unit ->
   azurerm_storage_account
 
@@ -420,24 +420,24 @@ val register :
   ?shared_access_key_enabled:bool prop ->
   ?table_encryption_key_type:string prop ->
   ?tags:(string * string prop) list ->
+  ?azure_files_authentication:azure_files_authentication list ->
+  ?blob_properties:blob_properties list ->
+  ?custom_domain:custom_domain list ->
+  ?customer_managed_key:customer_managed_key list ->
+  ?identity:identity list ->
+  ?immutability_policy:immutability_policy list ->
+  ?network_rules:network_rules list ->
+  ?queue_properties:queue_properties list ->
+  ?routing:routing list ->
+  ?sas_policy:sas_policy list ->
+  ?share_properties:share_properties list ->
+  ?static_website:static_website list ->
   ?timeouts:timeouts ->
   account_replication_type:string prop ->
   account_tier:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  azure_files_authentication:azure_files_authentication list ->
-  blob_properties:blob_properties list ->
-  custom_domain:custom_domain list ->
-  customer_managed_key:customer_managed_key list ->
-  identity:identity list ->
-  immutability_policy:immutability_policy list ->
-  network_rules:network_rules list ->
-  queue_properties:queue_properties list ->
-  routing:routing list ->
-  sas_policy:sas_policy list ->
-  share_properties:share_properties list ->
-  static_website:static_website list ->
   string ->
   t
 
@@ -463,23 +463,23 @@ val make :
   ?shared_access_key_enabled:bool prop ->
   ?table_encryption_key_type:string prop ->
   ?tags:(string * string prop) list ->
+  ?azure_files_authentication:azure_files_authentication list ->
+  ?blob_properties:blob_properties list ->
+  ?custom_domain:custom_domain list ->
+  ?customer_managed_key:customer_managed_key list ->
+  ?identity:identity list ->
+  ?immutability_policy:immutability_policy list ->
+  ?network_rules:network_rules list ->
+  ?queue_properties:queue_properties list ->
+  ?routing:routing list ->
+  ?sas_policy:sas_policy list ->
+  ?share_properties:share_properties list ->
+  ?static_website:static_website list ->
   ?timeouts:timeouts ->
   account_replication_type:string prop ->
   account_tier:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  azure_files_authentication:azure_files_authentication list ->
-  blob_properties:blob_properties list ->
-  custom_domain:custom_domain list ->
-  customer_managed_key:customer_managed_key list ->
-  identity:identity list ->
-  immutability_policy:immutability_policy list ->
-  network_rules:network_rules list ->
-  queue_properties:queue_properties list ->
-  routing:routing list ->
-  sas_policy:sas_policy list ->
-  share_properties:share_properties list ->
-  static_website:static_website list ->
   string ->
   t Tf_core.resource

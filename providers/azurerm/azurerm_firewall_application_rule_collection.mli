@@ -17,8 +17,8 @@ val rule :
   ?source_addresses:string prop list ->
   ?source_ip_groups:string prop list ->
   ?target_fqdns:string prop list ->
+  ?protocol:rule__protocol list ->
   name:string prop ->
-  protocol:rule__protocol list ->
   unit ->
   rule
 

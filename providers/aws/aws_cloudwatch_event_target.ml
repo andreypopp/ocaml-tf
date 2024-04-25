@@ -992,9 +992,10 @@ let ecs_target__placement_constraint ?expression ~type_ () :
 
 let ecs_target ?enable_ecs_managed_tags ?enable_execute_command
     ?group ?launch_type ?platform_version ?propagate_tags ?tags
-    ?task_count ~task_definition_arn ~capacity_provider_strategy
-    ~network_configuration ~ordered_placement_strategy
-    ~placement_constraint () : ecs_target =
+    ?task_count ?(network_configuration = [])
+    ?(ordered_placement_strategy = []) ~task_definition_arn
+    ~capacity_provider_strategy ~placement_constraint () : ecs_target
+    =
   {
     enable_ecs_managed_tags;
     enable_execute_command;
@@ -1056,11 +1057,12 @@ let sqs_target ?message_group_id () : sqs_target =
   { message_group_id }
 
 let aws_cloudwatch_event_target ?event_bus_name ?id ?input
-    ?input_path ?role_arn ?target_id ~arn ~rule ~batch_target
-    ~dead_letter_config ~ecs_target ~http_target ~input_transformer
-    ~kinesis_target ~redshift_target ~retry_policy
-    ~run_command_targets ~sagemaker_pipeline_target ~sqs_target () :
-    aws_cloudwatch_event_target =
+    ?input_path ?role_arn ?target_id ?(batch_target = [])
+    ?(dead_letter_config = []) ?(ecs_target = []) ?(http_target = [])
+    ?(input_transformer = []) ?(kinesis_target = [])
+    ?(redshift_target = []) ?(retry_policy = [])
+    ?(run_command_targets = []) ?(sagemaker_pipeline_target = [])
+    ?(sqs_target = []) ~arn ~rule () : aws_cloudwatch_event_target =
   {
     arn;
     event_bus_name;
@@ -1095,10 +1097,12 @@ type t = {
 }
 
 let make ?event_bus_name ?id ?input ?input_path ?role_arn ?target_id
-    ~arn ~rule ~batch_target ~dead_letter_config ~ecs_target
-    ~http_target ~input_transformer ~kinesis_target ~redshift_target
-    ~retry_policy ~run_command_targets ~sagemaker_pipeline_target
-    ~sqs_target __id =
+    ?(batch_target = []) ?(dead_letter_config = [])
+    ?(ecs_target = []) ?(http_target = []) ?(input_transformer = [])
+    ?(kinesis_target = []) ?(redshift_target = [])
+    ?(retry_policy = []) ?(run_command_targets = [])
+    ?(sagemaker_pipeline_target = []) ?(sqs_target = []) ~arn ~rule
+    __id =
   let __type = "aws_cloudwatch_event_target" in
   let __attrs =
     ({
@@ -1119,25 +1123,27 @@ let make ?event_bus_name ?id ?input ?input_path ?role_arn ?target_id
     json =
       yojson_of_aws_cloudwatch_event_target
         (aws_cloudwatch_event_target ?event_bus_name ?id ?input
-           ?input_path ?role_arn ?target_id ~arn ~rule ~batch_target
+           ?input_path ?role_arn ?target_id ~batch_target
            ~dead_letter_config ~ecs_target ~http_target
            ~input_transformer ~kinesis_target ~redshift_target
            ~retry_policy ~run_command_targets
-           ~sagemaker_pipeline_target ~sqs_target ());
+           ~sagemaker_pipeline_target ~sqs_target ~arn ~rule ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?event_bus_name ?id ?input ?input_path
-    ?role_arn ?target_id ~arn ~rule ~batch_target ~dead_letter_config
-    ~ecs_target ~http_target ~input_transformer ~kinesis_target
-    ~redshift_target ~retry_policy ~run_command_targets
-    ~sagemaker_pipeline_target ~sqs_target __id =
+    ?role_arn ?target_id ?(batch_target = [])
+    ?(dead_letter_config = []) ?(ecs_target = []) ?(http_target = [])
+    ?(input_transformer = []) ?(kinesis_target = [])
+    ?(redshift_target = []) ?(retry_policy = [])
+    ?(run_command_targets = []) ?(sagemaker_pipeline_target = [])
+    ?(sqs_target = []) ~arn ~rule __id =
   let (r : _ Tf_core.resource) =
     make ?event_bus_name ?id ?input ?input_path ?role_arn ?target_id
-      ~arn ~rule ~batch_target ~dead_letter_config ~ecs_target
-      ~http_target ~input_transformer ~kinesis_target
-      ~redshift_target ~retry_policy ~run_command_targets
-      ~sagemaker_pipeline_target ~sqs_target __id
+      ~batch_target ~dead_letter_config ~ecs_target ~http_target
+      ~input_transformer ~kinesis_target ~redshift_target
+      ~retry_policy ~run_command_targets ~sagemaker_pipeline_target
+      ~sqs_target ~arn ~rule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

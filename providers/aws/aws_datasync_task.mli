@@ -64,7 +64,7 @@ val task_report_config :
   ?output_type:string prop ->
   ?report_level:string prop ->
   ?s3_object_versioning:string prop ->
-  report_overrides:task_report_config__report_overrides list ->
+  ?report_overrides:task_report_config__report_overrides list ->
   s3_destination:task_report_config__s3_destination list ->
   unit ->
   task_report_config
@@ -81,14 +81,14 @@ val aws_datasync_task :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?excludes:excludes list ->
+  ?includes:includes list ->
+  ?options:options list ->
+  ?schedule:schedule list ->
+  ?task_report_config:task_report_config list ->
   ?timeouts:timeouts ->
   destination_location_arn:string prop ->
   source_location_arn:string prop ->
-  excludes:excludes list ->
-  includes:includes list ->
-  options:options list ->
-  schedule:schedule list ->
-  task_report_config:task_report_config list ->
   unit ->
   aws_datasync_task
 
@@ -114,14 +114,14 @@ val register :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?excludes:excludes list ->
+  ?includes:includes list ->
+  ?options:options list ->
+  ?schedule:schedule list ->
+  ?task_report_config:task_report_config list ->
   ?timeouts:timeouts ->
   destination_location_arn:string prop ->
   source_location_arn:string prop ->
-  excludes:excludes list ->
-  includes:includes list ->
-  options:options list ->
-  schedule:schedule list ->
-  task_report_config:task_report_config list ->
   string ->
   t
 
@@ -131,13 +131,13 @@ val make :
   ?name:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?excludes:excludes list ->
+  ?includes:includes list ->
+  ?options:options list ->
+  ?schedule:schedule list ->
+  ?task_report_config:task_report_config list ->
   ?timeouts:timeouts ->
   destination_location_arn:string prop ->
   source_location_arn:string prop ->
-  excludes:excludes list ->
-  includes:includes list ->
-  options:options list ->
-  schedule:schedule list ->
-  task_report_config:task_report_config list ->
   string ->
   t Tf_core.resource

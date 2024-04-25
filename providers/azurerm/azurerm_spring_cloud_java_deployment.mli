@@ -26,10 +26,10 @@ val azurerm_spring_cloud_java_deployment :
   ?instance_count:float prop ->
   ?jvm_options:string prop ->
   ?runtime_version:string prop ->
+  ?quota:quota list ->
   ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_app_id:string prop ->
-  quota:quota list ->
   unit ->
   azurerm_spring_cloud_java_deployment
 
@@ -55,10 +55,10 @@ val register :
   ?instance_count:float prop ->
   ?jvm_options:string prop ->
   ?runtime_version:string prop ->
+  ?quota:quota list ->
   ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_app_id:string prop ->
-  quota:quota list ->
   string ->
   t
 
@@ -68,9 +68,9 @@ val make :
   ?instance_count:float prop ->
   ?jvm_options:string prop ->
   ?runtime_version:string prop ->
+  ?quota:quota list ->
   ?timeouts:timeouts ->
   name:string prop ->
   spring_cloud_app_id:string prop ->
-  quota:quota list ->
   string ->
   t Tf_core.resource

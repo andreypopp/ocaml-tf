@@ -265,9 +265,9 @@ let scope__aws_services ~service_name () : scope__aws_services =
 let scope ~aws_accounts ~aws_services () : scope =
   { aws_accounts; aws_services }
 
-let aws_auditmanager_assessment ?description ?tags ~framework_id
-    ~name ~roles ~assessment_reports_destination ~scope () :
-    aws_auditmanager_assessment =
+let aws_auditmanager_assessment ?description ?tags
+    ?(assessment_reports_destination = []) ?(scope = [])
+    ~framework_id ~name ~roles () : aws_auditmanager_assessment =
   {
     description;
     framework_id;
@@ -291,8 +291,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?description ?tags ~framework_id ~name ~roles
-    ~assessment_reports_destination ~scope __id =
+let make ?description ?tags ?(assessment_reports_destination = [])
+    ?(scope = []) ~framework_id ~name ~roles __id =
   let __type = "aws_auditmanager_assessment" in
   let __attrs =
     ({
@@ -314,16 +314,18 @@ let make ?description ?tags ~framework_id ~name ~roles
     type_ = __type;
     json =
       yojson_of_aws_auditmanager_assessment
-        (aws_auditmanager_assessment ?description ?tags ~framework_id
-           ~name ~roles ~assessment_reports_destination ~scope ());
+        (aws_auditmanager_assessment ?description ?tags
+           ~assessment_reports_destination ~scope ~framework_id ~name
+           ~roles ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?tags ~framework_id ~name ~roles
-    ~assessment_reports_destination ~scope __id =
+let register ?tf_module ?description ?tags
+    ?(assessment_reports_destination = []) ?(scope = [])
+    ~framework_id ~name ~roles __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?tags ~framework_id ~name ~roles
-      ~assessment_reports_destination ~scope __id
+    make ?description ?tags ~assessment_reports_destination ~scope
+      ~framework_id ~name ~roles __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -33,14 +33,14 @@ val azurerm_virtual_machine_scale_set_extension :
   ?protected_settings:string prop ->
   ?provision_after_extensions:string prop list ->
   ?settings:string prop ->
+  ?protected_settings_from_key_vault:
+    protected_settings_from_key_vault list ->
   ?timeouts:timeouts ->
   name:string prop ->
   publisher:string prop ->
   type_:string prop ->
   type_handler_version:string prop ->
   virtual_machine_scale_set_id:string prop ->
-  protected_settings_from_key_vault:
-    protected_settings_from_key_vault list ->
   unit ->
   azurerm_virtual_machine_scale_set_extension
 
@@ -75,14 +75,14 @@ val register :
   ?protected_settings:string prop ->
   ?provision_after_extensions:string prop list ->
   ?settings:string prop ->
+  ?protected_settings_from_key_vault:
+    protected_settings_from_key_vault list ->
   ?timeouts:timeouts ->
   name:string prop ->
   publisher:string prop ->
   type_:string prop ->
   type_handler_version:string prop ->
   virtual_machine_scale_set_id:string prop ->
-  protected_settings_from_key_vault:
-    protected_settings_from_key_vault list ->
   string ->
   t
 
@@ -95,13 +95,13 @@ val make :
   ?protected_settings:string prop ->
   ?provision_after_extensions:string prop list ->
   ?settings:string prop ->
+  ?protected_settings_from_key_vault:
+    protected_settings_from_key_vault list ->
   ?timeouts:timeouts ->
   name:string prop ->
   publisher:string prop ->
   type_:string prop ->
   type_handler_version:string prop ->
   virtual_machine_scale_set_id:string prop ->
-  protected_settings_from_key_vault:
-    protected_settings_from_key_vault list ->
   string ->
   t Tf_core.resource

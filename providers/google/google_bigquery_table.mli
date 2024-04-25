@@ -73,16 +73,16 @@ val external_data_configuration :
   ?reference_file_schema_uri:string prop ->
   ?schema:string prop ->
   ?source_format:string prop ->
+  ?avro_options:external_data_configuration__avro_options list ->
+  ?csv_options:external_data_configuration__csv_options list ->
+  ?google_sheets_options:
+    external_data_configuration__google_sheets_options list ->
+  ?hive_partitioning_options:
+    external_data_configuration__hive_partitioning_options list ->
+  ?json_options:external_data_configuration__json_options list ->
+  ?parquet_options:external_data_configuration__parquet_options list ->
   autodetect:bool prop ->
   source_uris:string prop list ->
-  avro_options:external_data_configuration__avro_options list ->
-  csv_options:external_data_configuration__csv_options list ->
-  google_sheets_options:
-    external_data_configuration__google_sheets_options list ->
-  hive_partitioning_options:
-    external_data_configuration__hive_partitioning_options list ->
-  json_options:external_data_configuration__json_options list ->
-  parquet_options:external_data_configuration__parquet_options list ->
   unit ->
   external_data_configuration
 
@@ -149,8 +149,8 @@ val table_constraints__primary_key :
 type table_constraints
 
 val table_constraints :
-  foreign_keys:table_constraints__foreign_keys list ->
-  primary_key:table_constraints__primary_key list ->
+  ?foreign_keys:table_constraints__foreign_keys list ->
+  ?primary_key:table_constraints__primary_key list ->
   unit ->
   table_constraints
 
@@ -193,16 +193,16 @@ val google_bigquery_table :
   ?project:string prop ->
   ?require_partition_filter:bool prop ->
   ?schema:string prop ->
+  ?encryption_configuration:encryption_configuration list ->
+  ?external_data_configuration:external_data_configuration list ->
+  ?materialized_view:materialized_view list ->
+  ?range_partitioning:range_partitioning list ->
+  ?table_constraints:table_constraints list ->
+  ?table_replication_info:table_replication_info list ->
+  ?time_partitioning:time_partitioning list ->
+  ?view:view list ->
   dataset_id:string prop ->
   table_id:string prop ->
-  encryption_configuration:encryption_configuration list ->
-  external_data_configuration:external_data_configuration list ->
-  materialized_view:materialized_view list ->
-  range_partitioning:range_partitioning list ->
-  table_constraints:table_constraints list ->
-  table_replication_info:table_replication_info list ->
-  time_partitioning:time_partitioning list ->
-  view:view list ->
   unit ->
   google_bigquery_table
 
@@ -250,16 +250,16 @@ val register :
   ?project:string prop ->
   ?require_partition_filter:bool prop ->
   ?schema:string prop ->
+  ?encryption_configuration:encryption_configuration list ->
+  ?external_data_configuration:external_data_configuration list ->
+  ?materialized_view:materialized_view list ->
+  ?range_partitioning:range_partitioning list ->
+  ?table_constraints:table_constraints list ->
+  ?table_replication_info:table_replication_info list ->
+  ?time_partitioning:time_partitioning list ->
+  ?view:view list ->
   dataset_id:string prop ->
   table_id:string prop ->
-  encryption_configuration:encryption_configuration list ->
-  external_data_configuration:external_data_configuration list ->
-  materialized_view:materialized_view list ->
-  range_partitioning:range_partitioning list ->
-  table_constraints:table_constraints list ->
-  table_replication_info:table_replication_info list ->
-  time_partitioning:time_partitioning list ->
-  view:view list ->
   string ->
   t
 
@@ -275,15 +275,15 @@ val make :
   ?project:string prop ->
   ?require_partition_filter:bool prop ->
   ?schema:string prop ->
+  ?encryption_configuration:encryption_configuration list ->
+  ?external_data_configuration:external_data_configuration list ->
+  ?materialized_view:materialized_view list ->
+  ?range_partitioning:range_partitioning list ->
+  ?table_constraints:table_constraints list ->
+  ?table_replication_info:table_replication_info list ->
+  ?time_partitioning:time_partitioning list ->
+  ?view:view list ->
   dataset_id:string prop ->
   table_id:string prop ->
-  encryption_configuration:encryption_configuration list ->
-  external_data_configuration:external_data_configuration list ->
-  materialized_view:materialized_view list ->
-  range_partitioning:range_partitioning list ->
-  table_constraints:table_constraints list ->
-  table_replication_info:table_replication_info list ->
-  time_partitioning:time_partitioning list ->
-  view:view list ->
   string ->
   t Tf_core.resource

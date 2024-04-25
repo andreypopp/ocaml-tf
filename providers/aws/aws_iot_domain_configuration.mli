@@ -27,9 +27,9 @@ val aws_iot_domain_configuration :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?validation_certificate_arn:string prop ->
+  ?authorizer_config:authorizer_config list ->
+  ?tls_config:tls_config list ->
   name:string prop ->
-  authorizer_config:authorizer_config list ->
-  tls_config:tls_config list ->
   unit ->
   aws_iot_domain_configuration
 
@@ -62,9 +62,9 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?validation_certificate_arn:string prop ->
+  ?authorizer_config:authorizer_config list ->
+  ?tls_config:tls_config list ->
   name:string prop ->
-  authorizer_config:authorizer_config list ->
-  tls_config:tls_config list ->
   string ->
   t
 
@@ -77,8 +77,8 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?validation_certificate_arn:string prop ->
+  ?authorizer_config:authorizer_config list ->
+  ?tls_config:tls_config list ->
   name:string prop ->
-  authorizer_config:authorizer_config list ->
-  tls_config:tls_config list ->
   string ->
   t Tf_core.resource

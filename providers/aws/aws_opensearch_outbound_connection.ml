@@ -269,7 +269,7 @@ let connection_properties__cross_cluster_search ?skip_unavailable ()
     : connection_properties__cross_cluster_search =
   { skip_unavailable }
 
-let connection_properties ~cross_cluster_search () :
+let connection_properties ?(cross_cluster_search = []) () :
     connection_properties =
   { cross_cluster_search }
 
@@ -284,9 +284,9 @@ let remote_domain_info ~domain_name ~owner_id ~region () :
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let aws_opensearch_outbound_connection ?accept_connection
-    ?connection_mode ?id ?timeouts ~connection_alias
-    ~connection_properties ~local_domain_info ~remote_domain_info ()
-    : aws_opensearch_outbound_connection =
+    ?connection_mode ?id ?(connection_properties = []) ?timeouts
+    ~connection_alias ~local_domain_info ~remote_domain_info () :
+    aws_opensearch_outbound_connection =
   {
     accept_connection;
     connection_alias;
@@ -306,9 +306,9 @@ type t = {
   id : string prop;
 }
 
-let make ?accept_connection ?connection_mode ?id ?timeouts
-    ~connection_alias ~connection_properties ~local_domain_info
-    ~remote_domain_info __id =
+let make ?accept_connection ?connection_mode ?id
+    ?(connection_properties = []) ?timeouts ~connection_alias
+    ~local_domain_info ~remote_domain_info __id =
   let __type = "aws_opensearch_outbound_connection" in
   let __attrs =
     ({
@@ -329,19 +329,19 @@ let make ?accept_connection ?connection_mode ?id ?timeouts
     json =
       yojson_of_aws_opensearch_outbound_connection
         (aws_opensearch_outbound_connection ?accept_connection
-           ?connection_mode ?id ?timeouts ~connection_alias
-           ~connection_properties ~local_domain_info
-           ~remote_domain_info ());
+           ?connection_mode ?id ~connection_properties ?timeouts
+           ~connection_alias ~local_domain_info ~remote_domain_info
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?accept_connection ?connection_mode ?id
-    ?timeouts ~connection_alias ~connection_properties
+    ?(connection_properties = []) ?timeouts ~connection_alias
     ~local_domain_info ~remote_domain_info __id =
   let (r : _ Tf_core.resource) =
-    make ?accept_connection ?connection_mode ?id ?timeouts
-      ~connection_alias ~connection_properties ~local_domain_info
-      ~remote_domain_info __id
+    make ?accept_connection ?connection_mode ?id
+      ~connection_properties ?timeouts ~connection_alias
+      ~local_domain_info ~remote_domain_info __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

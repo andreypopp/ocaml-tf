@@ -59,13 +59,13 @@ val google_data_fusion_instance :
   ?region:string prop ->
   ?version:string prop ->
   ?zone:string prop ->
+  ?accelerators:accelerators list ->
+  ?crypto_key_config:crypto_key_config list ->
+  ?event_publish_config:event_publish_config list ->
+  ?network_config:network_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   type_:string prop ->
-  accelerators:accelerators list ->
-  crypto_key_config:crypto_key_config list ->
-  event_publish_config:event_publish_config list ->
-  network_config:network_config list ->
   unit ->
   google_data_fusion_instance
 
@@ -120,13 +120,13 @@ val register :
   ?region:string prop ->
   ?version:string prop ->
   ?zone:string prop ->
+  ?accelerators:accelerators list ->
+  ?crypto_key_config:crypto_key_config list ->
+  ?event_publish_config:event_publish_config list ->
+  ?network_config:network_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   type_:string prop ->
-  accelerators:accelerators list ->
-  crypto_key_config:crypto_key_config list ->
-  event_publish_config:event_publish_config list ->
-  network_config:network_config list ->
   string ->
   t
 
@@ -145,12 +145,12 @@ val make :
   ?region:string prop ->
   ?version:string prop ->
   ?zone:string prop ->
+  ?accelerators:accelerators list ->
+  ?crypto_key_config:crypto_key_config list ->
+  ?event_publish_config:event_publish_config list ->
+  ?network_config:network_config list ->
   ?timeouts:timeouts ->
   name:string prop ->
   type_:string prop ->
-  accelerators:accelerators list ->
-  crypto_key_config:crypto_key_config list ->
-  event_publish_config:event_publish_config list ->
-  network_config:network_config list ->
   string ->
   t Tf_core.resource

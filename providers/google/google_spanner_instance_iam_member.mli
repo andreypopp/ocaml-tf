@@ -18,10 +18,10 @@ type google_spanner_instance_iam_member
 val google_spanner_instance_iam_member :
   ?id:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   instance:string prop ->
   member:string prop ->
   role:string prop ->
-  condition:condition list ->
   unit ->
   google_spanner_instance_iam_member
 
@@ -43,19 +43,19 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   instance:string prop ->
   member:string prop ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   instance:string prop ->
   member:string prop ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t Tf_core.resource

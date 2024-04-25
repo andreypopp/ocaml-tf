@@ -26,9 +26,9 @@ val google_compute_external_vpn_gateway :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?redundancy_type:string prop ->
+  ?interface:interface list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  interface:interface list ->
   unit ->
   google_compute_external_vpn_gateway
 
@@ -57,9 +57,9 @@ val register :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?redundancy_type:string prop ->
+  ?interface:interface list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  interface:interface list ->
   string ->
   t
 
@@ -69,8 +69,8 @@ val make :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?redundancy_type:string prop ->
+  ?interface:interface list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  interface:interface list ->
   string ->
   t Tf_core.resource

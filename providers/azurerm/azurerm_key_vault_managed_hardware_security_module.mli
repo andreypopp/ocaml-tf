@@ -32,6 +32,7 @@ val azurerm_key_vault_managed_hardware_security_module :
   ?security_domain_quorum:float prop ->
   ?soft_delete_retention_days:float prop ->
   ?tags:(string * string prop) list ->
+  ?network_acls:network_acls list ->
   ?timeouts:timeouts ->
   admin_object_ids:string prop list ->
   location:string prop ->
@@ -39,7 +40,6 @@ val azurerm_key_vault_managed_hardware_security_module :
   resource_group_name:string prop ->
   sku_name:string prop ->
   tenant_id:string prop ->
-  network_acls:network_acls list ->
   unit ->
   azurerm_key_vault_managed_hardware_security_module
 
@@ -75,6 +75,7 @@ val register :
   ?security_domain_quorum:float prop ->
   ?soft_delete_retention_days:float prop ->
   ?tags:(string * string prop) list ->
+  ?network_acls:network_acls list ->
   ?timeouts:timeouts ->
   admin_object_ids:string prop list ->
   location:string prop ->
@@ -82,7 +83,6 @@ val register :
   resource_group_name:string prop ->
   sku_name:string prop ->
   tenant_id:string prop ->
-  network_acls:network_acls list ->
   string ->
   t
 
@@ -94,6 +94,7 @@ val make :
   ?security_domain_quorum:float prop ->
   ?soft_delete_retention_days:float prop ->
   ?tags:(string * string prop) list ->
+  ?network_acls:network_acls list ->
   ?timeouts:timeouts ->
   admin_object_ids:string prop list ->
   location:string prop ->
@@ -101,6 +102,5 @@ val make :
   resource_group_name:string prop ->
   sku_name:string prop ->
   tenant_id:string prop ->
-  network_acls:network_acls list ->
   string ->
   t Tf_core.resource

@@ -28,8 +28,8 @@ val trust_stores__trust_anchors :
 type trust_stores
 
 val trust_stores :
-  intermediate_cas:trust_stores__intermediate_cas list ->
-  trust_anchors:trust_stores__trust_anchors list ->
+  ?intermediate_cas:trust_stores__intermediate_cas list ->
+  ?trust_anchors:trust_stores__trust_anchors list ->
   unit ->
   trust_stores
 
@@ -41,9 +41,9 @@ val google_certificate_manager_trust_config :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?timeouts:timeouts ->
+  ?trust_stores:trust_stores list ->
   location:string prop ->
   name:string prop ->
-  trust_stores:trust_stores list ->
   unit ->
   google_certificate_manager_trust_config
 
@@ -72,9 +72,9 @@ val register :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?timeouts:timeouts ->
+  ?trust_stores:trust_stores list ->
   location:string prop ->
   name:string prop ->
-  trust_stores:trust_stores list ->
   string ->
   t
 
@@ -84,8 +84,8 @@ val make :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?timeouts:timeouts ->
+  ?trust_stores:trust_stores list ->
   location:string prop ->
   name:string prop ->
-  trust_stores:trust_stores list ->
   string ->
   t Tf_core.resource

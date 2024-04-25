@@ -20,7 +20,7 @@ val access_levels__basic__conditions__device_policy :
   ?require_admin_approval:bool prop ->
   ?require_corp_owned:bool prop ->
   ?require_screen_lock:bool prop ->
-  os_constraints:
+  ?os_constraints:
     access_levels__basic__conditions__device_policy__os_constraints
     list ->
   unit ->
@@ -37,7 +37,7 @@ val access_levels__basic__conditions__vpc_network_sources__vpc_subnetwork :
 type access_levels__basic__conditions__vpc_network_sources
 
 val access_levels__basic__conditions__vpc_network_sources :
-  vpc_subnetwork:
+  ?vpc_subnetwork:
     access_levels__basic__conditions__vpc_network_sources__vpc_subnetwork
     list ->
   unit ->
@@ -51,8 +51,8 @@ val access_levels__basic__conditions :
   ?negate:bool prop ->
   ?regions:string prop list ->
   ?required_access_levels:string prop list ->
-  device_policy:access_levels__basic__conditions__device_policy list ->
-  vpc_network_sources:
+  ?device_policy:access_levels__basic__conditions__device_policy list ->
+  ?vpc_network_sources:
     access_levels__basic__conditions__vpc_network_sources list ->
   unit ->
   access_levels__basic__conditions
@@ -86,10 +86,10 @@ type access_levels
 
 val access_levels :
   ?description:string prop ->
+  ?basic:access_levels__basic list ->
+  ?custom:access_levels__custom list ->
   name:string prop ->
   title:string prop ->
-  basic:access_levels__basic list ->
-  custom:access_levels__custom list ->
   unit ->
   access_levels
 

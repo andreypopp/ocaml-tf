@@ -32,13 +32,13 @@ val google_discovery_engine_search_engine :
   ?id:string prop ->
   ?industry_vertical:string prop ->
   ?project:string prop ->
+  ?common_config:common_config list ->
   ?timeouts:timeouts ->
   collection_id:string prop ->
   data_store_ids:string prop list ->
   display_name:string prop ->
   engine_id:string prop ->
   location:string prop ->
-  common_config:common_config list ->
   search_engine_config:search_engine_config list ->
   unit ->
   google_discovery_engine_search_engine
@@ -67,13 +67,13 @@ val register :
   ?id:string prop ->
   ?industry_vertical:string prop ->
   ?project:string prop ->
+  ?common_config:common_config list ->
   ?timeouts:timeouts ->
   collection_id:string prop ->
   data_store_ids:string prop list ->
   display_name:string prop ->
   engine_id:string prop ->
   location:string prop ->
-  common_config:common_config list ->
   search_engine_config:search_engine_config list ->
   string ->
   t
@@ -82,13 +82,13 @@ val make :
   ?id:string prop ->
   ?industry_vertical:string prop ->
   ?project:string prop ->
+  ?common_config:common_config list ->
   ?timeouts:timeouts ->
   collection_id:string prop ->
   data_store_ids:string prop list ->
   display_name:string prop ->
   engine_id:string prop ->
   location:string prop ->
-  common_config:common_config list ->
   search_engine_config:search_engine_config list ->
   string ->
   t Tf_core.resource

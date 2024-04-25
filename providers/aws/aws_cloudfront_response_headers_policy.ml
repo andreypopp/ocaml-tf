@@ -794,10 +794,10 @@ let cors_config__access_control_expose_headers ?items () :
   { items }
 
 let cors_config ?access_control_max_age_sec
+    ?(access_control_expose_headers = [])
     ~access_control_allow_credentials ~origin_override
     ~access_control_allow_headers ~access_control_allow_methods
-    ~access_control_allow_origins ~access_control_expose_headers () :
-    cors_config =
+    ~access_control_allow_origins () : cors_config =
   {
     access_control_allow_credentials;
     access_control_max_age_sec;
@@ -855,10 +855,10 @@ let security_headers_config__xss_protection ?mode_block ?report_uri
     security_headers_config__xss_protection =
   { mode_block; override; protection; report_uri }
 
-let security_headers_config ~content_security_policy
-    ~content_type_options ~frame_options ~referrer_policy
-    ~strict_transport_security ~xss_protection () :
-    security_headers_config =
+let security_headers_config ?(content_security_policy = [])
+    ?(content_type_options = []) ?(frame_options = [])
+    ?(referrer_policy = []) ?(strict_transport_security = [])
+    ?(xss_protection = []) () : security_headers_config =
   {
     content_security_policy;
     content_type_options;
@@ -872,9 +872,10 @@ let server_timing_headers_config ~enabled ~sampling_rate () :
     server_timing_headers_config =
   { enabled; sampling_rate }
 
-let aws_cloudfront_response_headers_policy ?comment ?etag ?id ~name
-    ~cors_config ~custom_headers_config ~remove_headers_config
-    ~security_headers_config ~server_timing_headers_config () :
+let aws_cloudfront_response_headers_policy ?comment ?etag ?id
+    ?(cors_config = []) ?(custom_headers_config = [])
+    ?(remove_headers_config = []) ?(security_headers_config = [])
+    ?(server_timing_headers_config = []) ~name () :
     aws_cloudfront_response_headers_policy =
   {
     comment;
@@ -895,9 +896,10 @@ type t = {
   name : string prop;
 }
 
-let make ?comment ?etag ?id ~name ~cors_config ~custom_headers_config
-    ~remove_headers_config ~security_headers_config
-    ~server_timing_headers_config __id =
+let make ?comment ?etag ?id ?(cors_config = [])
+    ?(custom_headers_config = []) ?(remove_headers_config = [])
+    ?(security_headers_config = [])
+    ?(server_timing_headers_config = []) ~name __id =
   let __type = "aws_cloudfront_response_headers_policy" in
   let __attrs =
     ({
@@ -914,19 +916,20 @@ let make ?comment ?etag ?id ~name ~cors_config ~custom_headers_config
     json =
       yojson_of_aws_cloudfront_response_headers_policy
         (aws_cloudfront_response_headers_policy ?comment ?etag ?id
-           ~name ~cors_config ~custom_headers_config
-           ~remove_headers_config ~security_headers_config
-           ~server_timing_headers_config ());
+           ~cors_config ~custom_headers_config ~remove_headers_config
+           ~security_headers_config ~server_timing_headers_config
+           ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?comment ?etag ?id ~name ~cors_config
-    ~custom_headers_config ~remove_headers_config
-    ~security_headers_config ~server_timing_headers_config __id =
+let register ?tf_module ?comment ?etag ?id ?(cors_config = [])
+    ?(custom_headers_config = []) ?(remove_headers_config = [])
+    ?(security_headers_config = [])
+    ?(server_timing_headers_config = []) ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?comment ?etag ?id ~name ~cors_config ~custom_headers_config
+    make ?comment ?etag ?id ~cors_config ~custom_headers_config
       ~remove_headers_config ~security_headers_config
-      ~server_timing_headers_config __id
+      ~server_timing_headers_config ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

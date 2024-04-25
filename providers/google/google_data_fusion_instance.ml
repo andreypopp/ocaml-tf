@@ -408,9 +408,9 @@ let google_data_fusion_instance ?dataproc_service_account
     ?description ?display_name ?enable_rbac
     ?enable_stackdriver_logging ?enable_stackdriver_monitoring ?id
     ?labels ?options ?private_instance ?project ?region ?version
-    ?zone ?timeouts ~name ~type_ ~accelerators ~crypto_key_config
-    ~event_publish_config ~network_config () :
-    google_data_fusion_instance =
+    ?zone ?(accelerators = []) ?(crypto_key_config = [])
+    ?(event_publish_config = []) ?(network_config = []) ?timeouts
+    ~name ~type_ () : google_data_fusion_instance =
   {
     dataproc_service_account;
     description;
@@ -468,9 +468,10 @@ type t = {
 let make ?dataproc_service_account ?description ?display_name
     ?enable_rbac ?enable_stackdriver_logging
     ?enable_stackdriver_monitoring ?id ?labels ?options
-    ?private_instance ?project ?region ?version ?zone ?timeouts ~name
-    ~type_ ~accelerators ~crypto_key_config ~event_publish_config
-    ~network_config __id =
+    ?private_instance ?project ?region ?version ?zone
+    ?(accelerators = []) ?(crypto_key_config = [])
+    ?(event_publish_config = []) ?(network_config = []) ?timeouts
+    ~name ~type_ __id =
   let __type = "google_data_fusion_instance" in
   let __attrs =
     ({
@@ -522,25 +523,26 @@ let make ?dataproc_service_account ?description ?display_name
            ?description ?display_name ?enable_rbac
            ?enable_stackdriver_logging ?enable_stackdriver_monitoring
            ?id ?labels ?options ?private_instance ?project ?region
-           ?version ?zone ?timeouts ~name ~type_ ~accelerators
-           ~crypto_key_config ~event_publish_config ~network_config
-           ());
+           ?version ?zone ~accelerators ~crypto_key_config
+           ~event_publish_config ~network_config ?timeouts ~name
+           ~type_ ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?dataproc_service_account ?description
     ?display_name ?enable_rbac ?enable_stackdriver_logging
     ?enable_stackdriver_monitoring ?id ?labels ?options
-    ?private_instance ?project ?region ?version ?zone ?timeouts ~name
-    ~type_ ~accelerators ~crypto_key_config ~event_publish_config
-    ~network_config __id =
+    ?private_instance ?project ?region ?version ?zone
+    ?(accelerators = []) ?(crypto_key_config = [])
+    ?(event_publish_config = []) ?(network_config = []) ?timeouts
+    ~name ~type_ __id =
   let (r : _ Tf_core.resource) =
     make ?dataproc_service_account ?description ?display_name
       ?enable_rbac ?enable_stackdriver_logging
       ?enable_stackdriver_monitoring ?id ?labels ?options
-      ?private_instance ?project ?region ?version ?zone ?timeouts
-      ~name ~type_ ~accelerators ~crypto_key_config
-      ~event_publish_config ~network_config __id
+      ?private_instance ?project ?region ?version ?zone ~accelerators
+      ~crypto_key_config ~event_publish_config ~network_config
+      ?timeouts ~name ~type_ __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

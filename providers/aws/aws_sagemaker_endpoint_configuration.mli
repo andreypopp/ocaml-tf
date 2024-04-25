@@ -25,16 +25,16 @@ type async_inference_config__output_config
 val async_inference_config__output_config :
   ?kms_key_id:string prop ->
   ?s3_failure_path:string prop ->
-  s3_output_path:string prop ->
-  notification_config:
+  ?notification_config:
     async_inference_config__output_config__notification_config list ->
+  s3_output_path:string prop ->
   unit ->
   async_inference_config__output_config
 
 type async_inference_config
 
 val async_inference_config :
-  client_config:async_inference_config__client_config list ->
+  ?client_config:async_inference_config__client_config list ->
   output_config:async_inference_config__output_config list ->
   unit ->
   async_inference_config
@@ -59,10 +59,10 @@ type data_capture_config
 val data_capture_config :
   ?enable_capture:bool prop ->
   ?kms_key_id:string prop ->
+  ?capture_content_type_header:
+    data_capture_config__capture_content_type_header list ->
   destination_s3_uri:string prop ->
   initial_sampling_percentage:float prop ->
-  capture_content_type_header:
-    data_capture_config__capture_content_type_header list ->
   capture_options:data_capture_config__capture_options list ->
   unit ->
   data_capture_config
@@ -103,10 +103,10 @@ val production_variants :
   ?model_data_download_timeout_in_seconds:float prop ->
   ?variant_name:string prop ->
   ?volume_size_in_gb:float prop ->
+  ?core_dump_config:production_variants__core_dump_config list ->
+  ?routing_config:production_variants__routing_config list ->
+  ?serverless_config:production_variants__serverless_config list ->
   model_name:string prop ->
-  core_dump_config:production_variants__core_dump_config list ->
-  routing_config:production_variants__routing_config list ->
-  serverless_config:production_variants__serverless_config list ->
   unit ->
   production_variants
 
@@ -146,11 +146,11 @@ val shadow_production_variants :
   ?model_data_download_timeout_in_seconds:float prop ->
   ?variant_name:string prop ->
   ?volume_size_in_gb:float prop ->
-  model_name:string prop ->
-  core_dump_config:shadow_production_variants__core_dump_config list ->
-  routing_config:shadow_production_variants__routing_config list ->
-  serverless_config:
+  ?core_dump_config:shadow_production_variants__core_dump_config list ->
+  ?routing_config:shadow_production_variants__routing_config list ->
+  ?serverless_config:
     shadow_production_variants__serverless_config list ->
+  model_name:string prop ->
   unit ->
   shadow_production_variants
 
@@ -163,10 +163,10 @@ val aws_sagemaker_endpoint_configuration :
   ?name_prefix:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  async_inference_config:async_inference_config list ->
-  data_capture_config:data_capture_config list ->
+  ?async_inference_config:async_inference_config list ->
+  ?data_capture_config:data_capture_config list ->
+  ?shadow_production_variants:shadow_production_variants list ->
   production_variants:production_variants list ->
-  shadow_production_variants:shadow_production_variants list ->
   unit ->
   aws_sagemaker_endpoint_configuration
 
@@ -193,10 +193,10 @@ val register :
   ?name_prefix:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  async_inference_config:async_inference_config list ->
-  data_capture_config:data_capture_config list ->
+  ?async_inference_config:async_inference_config list ->
+  ?data_capture_config:data_capture_config list ->
+  ?shadow_production_variants:shadow_production_variants list ->
   production_variants:production_variants list ->
-  shadow_production_variants:shadow_production_variants list ->
   string ->
   t
 
@@ -207,9 +207,9 @@ val make :
   ?name_prefix:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
-  async_inference_config:async_inference_config list ->
-  data_capture_config:data_capture_config list ->
+  ?async_inference_config:async_inference_config list ->
+  ?data_capture_config:data_capture_config list ->
+  ?shadow_production_variants:shadow_production_variants list ->
   production_variants:production_variants list ->
-  shadow_production_variants:shadow_production_variants list ->
   string ->
   t Tf_core.resource

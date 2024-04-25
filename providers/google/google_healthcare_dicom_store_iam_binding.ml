@@ -106,8 +106,8 @@ let _ = yojson_of_google_healthcare_dicom_store_iam_binding
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_healthcare_dicom_store_iam_binding ?id ~dicom_store_id
-    ~members ~role ~condition () :
+let google_healthcare_dicom_store_iam_binding ?id ?(condition = [])
+    ~dicom_store_id ~members ~role () :
     google_healthcare_dicom_store_iam_binding =
   { dicom_store_id; id; members; role; condition }
 
@@ -119,7 +119,7 @@ type t = {
   role : string prop;
 }
 
-let make ?id ~dicom_store_id ~members ~role ~condition __id =
+let make ?id ?(condition = []) ~dicom_store_id ~members ~role __id =
   let __type = "google_healthcare_dicom_store_iam_binding" in
   let __attrs =
     ({
@@ -136,15 +136,15 @@ let make ?id ~dicom_store_id ~members ~role ~condition __id =
     type_ = __type;
     json =
       yojson_of_google_healthcare_dicom_store_iam_binding
-        (google_healthcare_dicom_store_iam_binding ?id
-           ~dicom_store_id ~members ~role ~condition ());
+        (google_healthcare_dicom_store_iam_binding ?id ~condition
+           ~dicom_store_id ~members ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~dicom_store_id ~members ~role ~condition
-    __id =
+let register ?tf_module ?id ?(condition = []) ~dicom_store_id
+    ~members ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~dicom_store_id ~members ~role ~condition __id
+    make ?id ~condition ~dicom_store_id ~members ~role __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

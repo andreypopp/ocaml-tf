@@ -557,12 +557,12 @@ let dry_run_spec__rules__values ?allowed_values ?denied_values () :
     dry_run_spec__rules__values =
   { allowed_values; denied_values }
 
-let dry_run_spec__rules ?allow_all ?deny_all ?enforce ~condition
-    ~values () : dry_run_spec__rules =
+let dry_run_spec__rules ?allow_all ?deny_all ?enforce
+    ?(condition = []) ?(values = []) () : dry_run_spec__rules =
   { allow_all; deny_all; enforce; condition; values }
 
-let dry_run_spec ?inherit_from_parent ?reset ~rules () : dry_run_spec
-    =
+let dry_run_spec ?inherit_from_parent ?reset ?(rules = []) () :
+    dry_run_spec =
   { inherit_from_parent; reset; rules }
 
 let spec__rules__condition ?description ?expression ?location ?title
@@ -573,18 +573,18 @@ let spec__rules__values ?allowed_values ?denied_values () :
     spec__rules__values =
   { allowed_values; denied_values }
 
-let spec__rules ?allow_all ?deny_all ?enforce ~condition ~values () :
-    spec__rules =
+let spec__rules ?allow_all ?deny_all ?enforce ?(condition = [])
+    ?(values = []) () : spec__rules =
   { allow_all; deny_all; enforce; condition; values }
 
-let spec ?inherit_from_parent ?reset ~rules () : spec =
+let spec ?inherit_from_parent ?reset ?(rules = []) () : spec =
   { inherit_from_parent; reset; rules }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_org_policy_policy ?id ?timeouts ~name ~parent
-    ~dry_run_spec ~spec () : google_org_policy_policy =
+let google_org_policy_policy ?id ?(dry_run_spec = []) ?(spec = [])
+    ?timeouts ~name ~parent () : google_org_policy_policy =
   { id; name; parent; dry_run_spec; spec; timeouts }
 
 type t = {
@@ -594,7 +594,8 @@ type t = {
   parent : string prop;
 }
 
-let make ?id ?timeouts ~name ~parent ~dry_run_spec ~spec __id =
+let make ?id ?(dry_run_spec = []) ?(spec = []) ?timeouts ~name
+    ~parent __id =
   let __type = "google_org_policy_policy" in
   let __attrs =
     ({
@@ -610,15 +611,15 @@ let make ?id ?timeouts ~name ~parent ~dry_run_spec ~spec __id =
     type_ = __type;
     json =
       yojson_of_google_org_policy_policy
-        (google_org_policy_policy ?id ?timeouts ~name ~parent
-           ~dry_run_spec ~spec ());
+        (google_org_policy_policy ?id ~dry_run_spec ~spec ?timeouts
+           ~name ~parent ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~name ~parent ~dry_run_spec
-    ~spec __id =
+let register ?tf_module ?id ?(dry_run_spec = []) ?(spec = [])
+    ?timeouts ~name ~parent __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~name ~parent ~dry_run_spec ~spec __id
+    make ?id ~dry_run_spec ~spec ?timeouts ~name ~parent __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

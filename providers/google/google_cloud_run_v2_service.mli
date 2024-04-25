@@ -53,7 +53,7 @@ val template__containers__env__value_source__secret_key_ref :
 type template__containers__env__value_source
 
 val template__containers__env__value_source :
-  secret_key_ref:
+  ?secret_key_ref:
     template__containers__env__value_source__secret_key_ref list ->
   unit ->
   template__containers__env__value_source
@@ -62,8 +62,8 @@ type template__containers__env
 
 val template__containers__env :
   ?value:string prop ->
+  ?value_source:template__containers__env__value_source list ->
   name:string prop ->
-  value_source:template__containers__env__value_source list ->
   unit ->
   template__containers__env
 
@@ -88,7 +88,7 @@ type template__containers__liveness_probe__http_get
 val template__containers__liveness_probe__http_get :
   ?path:string prop ->
   ?port:float prop ->
-  http_headers:
+  ?http_headers:
     template__containers__liveness_probe__http_get__http_headers list ->
   unit ->
   template__containers__liveness_probe__http_get
@@ -107,9 +107,9 @@ val template__containers__liveness_probe :
   ?initial_delay_seconds:float prop ->
   ?period_seconds:float prop ->
   ?timeout_seconds:float prop ->
-  grpc:template__containers__liveness_probe__grpc list ->
-  http_get:template__containers__liveness_probe__http_get list ->
-  tcp_socket:template__containers__liveness_probe__tcp_socket list ->
+  ?grpc:template__containers__liveness_probe__grpc list ->
+  ?http_get:template__containers__liveness_probe__http_get list ->
+  ?tcp_socket:template__containers__liveness_probe__tcp_socket list ->
   unit ->
   template__containers__liveness_probe
 
@@ -151,7 +151,7 @@ type template__containers__startup_probe__http_get
 val template__containers__startup_probe__http_get :
   ?path:string prop ->
   ?port:float prop ->
-  http_headers:
+  ?http_headers:
     template__containers__startup_probe__http_get__http_headers list ->
   unit ->
   template__containers__startup_probe__http_get
@@ -170,9 +170,9 @@ val template__containers__startup_probe :
   ?initial_delay_seconds:float prop ->
   ?period_seconds:float prop ->
   ?timeout_seconds:float prop ->
-  grpc:template__containers__startup_probe__grpc list ->
-  http_get:template__containers__startup_probe__http_get list ->
-  tcp_socket:template__containers__startup_probe__tcp_socket list ->
+  ?grpc:template__containers__startup_probe__grpc list ->
+  ?http_get:template__containers__startup_probe__http_get list ->
+  ?tcp_socket:template__containers__startup_probe__tcp_socket list ->
   unit ->
   template__containers__startup_probe
 
@@ -192,13 +192,13 @@ val template__containers :
   ?depends_on:string prop list ->
   ?name:string prop ->
   ?working_dir:string prop ->
+  ?env:template__containers__env list ->
+  ?liveness_probe:template__containers__liveness_probe list ->
+  ?ports:template__containers__ports list ->
+  ?resources:template__containers__resources list ->
+  ?startup_probe:template__containers__startup_probe list ->
+  ?volume_mounts:template__containers__volume_mounts list ->
   image:string prop ->
-  env:template__containers__env list ->
-  liveness_probe:template__containers__liveness_probe list ->
-  ports:template__containers__ports list ->
-  resources:template__containers__resources list ->
-  startup_probe:template__containers__startup_probe list ->
-  volume_mounts:template__containers__volume_mounts list ->
   unit ->
   template__containers
 
@@ -247,19 +247,19 @@ type template__volumes__secret
 
 val template__volumes__secret :
   ?default_mode:float prop ->
+  ?items:template__volumes__secret__items list ->
   secret:string prop ->
-  items:template__volumes__secret__items list ->
   unit ->
   template__volumes__secret
 
 type template__volumes
 
 val template__volumes :
+  ?cloud_sql_instance:template__volumes__cloud_sql_instance list ->
+  ?gcs:template__volumes__gcs list ->
+  ?nfs:template__volumes__nfs list ->
+  ?secret:template__volumes__secret list ->
   name:string prop ->
-  cloud_sql_instance:template__volumes__cloud_sql_instance list ->
-  gcs:template__volumes__gcs list ->
-  nfs:template__volumes__nfs list ->
-  secret:template__volumes__secret list ->
   unit ->
   template__volumes
 
@@ -277,7 +277,7 @@ type template__vpc_access
 val template__vpc_access :
   ?connector:string prop ->
   ?egress:string prop ->
-  network_interfaces:template__vpc_access__network_interfaces list ->
+  ?network_interfaces:template__vpc_access__network_interfaces list ->
   unit ->
   template__vpc_access
 
@@ -293,10 +293,10 @@ val template :
   ?service_account:string prop ->
   ?session_affinity:bool prop ->
   ?timeout:string prop ->
-  containers:template__containers list ->
-  scaling:template__scaling list ->
-  volumes:template__volumes list ->
-  vpc_access:template__vpc_access list ->
+  ?containers:template__containers list ->
+  ?scaling:template__scaling list ->
+  ?volumes:template__volumes list ->
+  ?vpc_access:template__vpc_access list ->
   unit ->
   template
 
@@ -332,12 +332,12 @@ val google_cloud_run_v2_service :
   ?labels:(string * string prop) list ->
   ?launch_stage:string prop ->
   ?project:string prop ->
+  ?binary_authorization:binary_authorization list ->
   ?timeouts:timeouts ->
+  ?traffic:traffic list ->
   location:string prop ->
   name:string prop ->
-  binary_authorization:binary_authorization list ->
   template:template list ->
-  traffic:traffic list ->
   unit ->
   google_cloud_run_v2_service
 
@@ -393,12 +393,12 @@ val register :
   ?labels:(string * string prop) list ->
   ?launch_stage:string prop ->
   ?project:string prop ->
+  ?binary_authorization:binary_authorization list ->
   ?timeouts:timeouts ->
+  ?traffic:traffic list ->
   location:string prop ->
   name:string prop ->
-  binary_authorization:binary_authorization list ->
   template:template list ->
-  traffic:traffic list ->
   string ->
   t
 
@@ -413,11 +413,11 @@ val make :
   ?labels:(string * string prop) list ->
   ?launch_stage:string prop ->
   ?project:string prop ->
+  ?binary_authorization:binary_authorization list ->
   ?timeouts:timeouts ->
+  ?traffic:traffic list ->
   location:string prop ->
   name:string prop ->
-  binary_authorization:binary_authorization list ->
   template:template list ->
-  traffic:traffic list ->
   string ->
   t Tf_core.resource

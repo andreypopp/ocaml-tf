@@ -3129,8 +3129,8 @@ let enrichment_parameters__http_parameters ?header_parameters
     query_string_parameters;
   }
 
-let enrichment_parameters ?input_template ~http_parameters () :
-    enrichment_parameters =
+let enrichment_parameters ?input_template ?(http_parameters = []) ()
+    : enrichment_parameters =
   { input_template; http_parameters }
 
 let source_parameters__activemq_broker_parameters__credentials
@@ -3158,7 +3158,7 @@ let source_parameters__dynamodb_stream_parameters ?batch_size
     ?maximum_batching_window_in_seconds
     ?maximum_record_age_in_seconds ?maximum_retry_attempts
     ?on_partial_batch_item_failure ?parallelization_factor
-    ~starting_position ~dead_letter_config () :
+    ?(dead_letter_config = []) ~starting_position () :
     source_parameters__dynamodb_stream_parameters =
   {
     batch_size;
@@ -3175,7 +3175,7 @@ let source_parameters__filter_criteria__filter ~pattern () :
     source_parameters__filter_criteria__filter =
   { pattern }
 
-let source_parameters__filter_criteria ~filter () :
+let source_parameters__filter_criteria ?(filter = []) () :
     source_parameters__filter_criteria =
   { filter }
 
@@ -3189,8 +3189,8 @@ let source_parameters__kinesis_stream_parameters ?batch_size
     ?maximum_batching_window_in_seconds
     ?maximum_record_age_in_seconds ?maximum_retry_attempts
     ?on_partial_batch_item_failure ?parallelization_factor
-    ?starting_position_timestamp ~starting_position
-    ~dead_letter_config () :
+    ?starting_position_timestamp ?(dead_letter_config = [])
+    ~starting_position () :
     source_parameters__kinesis_stream_parameters =
   {
     batch_size;
@@ -3212,7 +3212,7 @@ let source_parameters__managed_streaming_kafka_parameters__credentials
 
 let source_parameters__managed_streaming_kafka_parameters ?batch_size
     ?consumer_group_id ?maximum_batching_window_in_seconds
-    ?starting_position ~topic_name ~credentials () :
+    ?starting_position ?(credentials = []) ~topic_name () :
     source_parameters__managed_streaming_kafka_parameters =
   {
     batch_size;
@@ -3258,8 +3258,8 @@ let source_parameters__self_managed_kafka_parameters__vpc
 let source_parameters__self_managed_kafka_parameters
     ?additional_bootstrap_servers ?batch_size ?consumer_group_id
     ?maximum_batching_window_in_seconds ?server_root_ca_certificate
-    ?starting_position ~topic_name ~credentials ~vpc () :
-    source_parameters__self_managed_kafka_parameters =
+    ?starting_position ?(credentials = []) ?(vpc = []) ~topic_name ()
+    : source_parameters__self_managed_kafka_parameters =
   {
     additional_bootstrap_servers;
     batch_size;
@@ -3277,11 +3277,13 @@ let source_parameters__sqs_queue_parameters ?batch_size
     source_parameters__sqs_queue_parameters =
   { batch_size; maximum_batching_window_in_seconds }
 
-let source_parameters ~activemq_broker_parameters
-    ~dynamodb_stream_parameters ~filter_criteria
-    ~kinesis_stream_parameters ~managed_streaming_kafka_parameters
-    ~rabbitmq_broker_parameters ~self_managed_kafka_parameters
-    ~sqs_queue_parameters () : source_parameters =
+let source_parameters ?(activemq_broker_parameters = [])
+    ?(dynamodb_stream_parameters = []) ?(filter_criteria = [])
+    ?(kinesis_stream_parameters = [])
+    ?(managed_streaming_kafka_parameters = [])
+    ?(rabbitmq_broker_parameters = [])
+    ?(self_managed_kafka_parameters = [])
+    ?(sqs_queue_parameters = []) () : source_parameters =
   {
     activemq_broker_parameters;
     dynamodb_stream_parameters;
@@ -3310,7 +3312,8 @@ let target_parameters__batch_job_parameters__container_overrides__resource_requi
   { type_; value }
 
 let target_parameters__batch_job_parameters__container_overrides
-    ?command ?instance_type ~environment ~resource_requirement () :
+    ?command ?instance_type ?(environment = [])
+    ?(resource_requirement = []) () :
     target_parameters__batch_job_parameters__container_overrides =
   { command; instance_type; environment; resource_requirement }
 
@@ -3323,9 +3326,9 @@ let target_parameters__batch_job_parameters__retry_strategy ?attempts
   { attempts }
 
 let target_parameters__batch_job_parameters ?parameters
-    ~job_definition ~job_name ~array_properties ~container_overrides
-    ~depends_on ~retry_strategy () :
-    target_parameters__batch_job_parameters =
+    ?(array_properties = []) ?(container_overrides = [])
+    ?(depends_on = []) ?(retry_strategy = []) ~job_definition
+    ~job_name () : target_parameters__batch_job_parameters =
   {
     job_definition;
     job_name;
@@ -3353,7 +3356,7 @@ let target_parameters__ecs_task_parameters__network_configuration__aws_vpc_confi
   { assign_public_ip; security_groups; subnets }
 
 let target_parameters__ecs_task_parameters__network_configuration
-    ~aws_vpc_configuration () :
+    ?(aws_vpc_configuration = []) () :
     target_parameters__ecs_task_parameters__network_configuration =
   { aws_vpc_configuration }
 
@@ -3376,8 +3379,9 @@ let target_parameters__ecs_task_parameters__overrides__container_override__resou
   { type_; value }
 
 let target_parameters__ecs_task_parameters__overrides__container_override
-    ?command ?cpu ?memory ?memory_reservation ?name ~environment
-    ~environment_file ~resource_requirement () :
+    ?command ?cpu ?memory ?memory_reservation ?name
+    ?(environment = []) ?(environment_file = [])
+    ?(resource_requirement = []) () :
     target_parameters__ecs_task_parameters__overrides__container_override
     =
   {
@@ -3404,8 +3408,9 @@ let target_parameters__ecs_task_parameters__overrides__inference_accelerator_ove
   { device_name; device_type }
 
 let target_parameters__ecs_task_parameters__overrides ?cpu
-    ?execution_role_arn ?memory ?task_role_arn ~container_override
-    ~ephemeral_storage ~inference_accelerator_override () :
+    ?execution_role_arn ?memory ?task_role_arn
+    ?(container_override = []) ?(ephemeral_storage = [])
+    ?(inference_accelerator_override = []) () :
     target_parameters__ecs_task_parameters__overrides =
   {
     cpu;
@@ -3430,9 +3435,10 @@ let target_parameters__ecs_task_parameters__placement_strategy ?field
 let target_parameters__ecs_task_parameters ?enable_ecs_managed_tags
     ?enable_execute_command ?group ?launch_type ?platform_version
     ?propagate_tags ?reference_id ?tags ?task_count
-    ~task_definition_arn ~capacity_provider_strategy
-    ~network_configuration ~overrides ~placement_constraint
-    ~placement_strategy () : target_parameters__ecs_task_parameters =
+    ?(capacity_provider_strategy = []) ?(network_configuration = [])
+    ?(overrides = []) ?(placement_constraint = [])
+    ?(placement_strategy = []) ~task_definition_arn () :
+    target_parameters__ecs_task_parameters =
   {
     enable_ecs_managed_tags;
     enable_execute_command;
@@ -3492,7 +3498,7 @@ let target_parameters__sagemaker_pipeline_parameters__pipeline_parameter
   { name; value }
 
 let target_parameters__sagemaker_pipeline_parameters
-    ~pipeline_parameter () :
+    ?(pipeline_parameter = []) () :
     target_parameters__sagemaker_pipeline_parameters =
   { pipeline_parameter }
 
@@ -3505,13 +3511,16 @@ let target_parameters__step_function_state_machine_parameters
     target_parameters__step_function_state_machine_parameters =
   { invocation_type }
 
-let target_parameters ?input_template ~batch_job_parameters
-    ~cloudwatch_logs_parameters ~ecs_task_parameters
-    ~eventbridge_event_bus_parameters ~http_parameters
-    ~kinesis_stream_parameters ~lambda_function_parameters
-    ~redshift_data_parameters ~sagemaker_pipeline_parameters
-    ~sqs_queue_parameters ~step_function_state_machine_parameters ()
-    : target_parameters =
+let target_parameters ?input_template ?(batch_job_parameters = [])
+    ?(cloudwatch_logs_parameters = []) ?(ecs_task_parameters = [])
+    ?(eventbridge_event_bus_parameters = []) ?(http_parameters = [])
+    ?(kinesis_stream_parameters = [])
+    ?(lambda_function_parameters = [])
+    ?(redshift_data_parameters = [])
+    ?(sagemaker_pipeline_parameters = [])
+    ?(sqs_queue_parameters = [])
+    ?(step_function_state_machine_parameters = []) () :
+    target_parameters =
   {
     input_template;
     batch_job_parameters;
@@ -3531,9 +3540,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_pipes_pipe ?description ?desired_state ?enrichment ?id ?name
-    ?name_prefix ?tags ?tags_all ?timeouts ~role_arn ~source ~target
-    ~enrichment_parameters ~source_parameters ~target_parameters () :
-    aws_pipes_pipe =
+    ?name_prefix ?tags ?tags_all ?(enrichment_parameters = [])
+    ?(source_parameters = []) ?(target_parameters = []) ?timeouts
+    ~role_arn ~source ~target () : aws_pipes_pipe =
   {
     description;
     desired_state;
@@ -3568,9 +3577,9 @@ type t = {
 }
 
 let make ?description ?desired_state ?enrichment ?id ?name
-    ?name_prefix ?tags ?tags_all ?timeouts ~role_arn ~source ~target
-    ~enrichment_parameters ~source_parameters ~target_parameters __id
-    =
+    ?name_prefix ?tags ?tags_all ?(enrichment_parameters = [])
+    ?(source_parameters = []) ?(target_parameters = []) ?timeouts
+    ~role_arn ~source ~target __id =
   let __type = "aws_pipes_pipe" in
   let __attrs =
     ({
@@ -3595,21 +3604,21 @@ let make ?description ?desired_state ?enrichment ?id ?name
     json =
       yojson_of_aws_pipes_pipe
         (aws_pipes_pipe ?description ?desired_state ?enrichment ?id
-           ?name ?name_prefix ?tags ?tags_all ?timeouts ~role_arn
-           ~source ~target ~enrichment_parameters ~source_parameters
-           ~target_parameters ());
+           ?name ?name_prefix ?tags ?tags_all ~enrichment_parameters
+           ~source_parameters ~target_parameters ?timeouts ~role_arn
+           ~source ~target ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?desired_state ?enrichment ?id
-    ?name ?name_prefix ?tags ?tags_all ?timeouts ~role_arn ~source
-    ~target ~enrichment_parameters ~source_parameters
-    ~target_parameters __id =
+    ?name ?name_prefix ?tags ?tags_all ?(enrichment_parameters = [])
+    ?(source_parameters = []) ?(target_parameters = []) ?timeouts
+    ~role_arn ~source ~target __id =
   let (r : _ Tf_core.resource) =
     make ?description ?desired_state ?enrichment ?id ?name
-      ?name_prefix ?tags ?tags_all ?timeouts ~role_arn ~source
-      ~target ~enrichment_parameters ~source_parameters
-      ~target_parameters __id
+      ?name_prefix ?tags ?tags_all ~enrichment_parameters
+      ~source_parameters ~target_parameters ?timeouts ~role_arn
+      ~source ~target __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

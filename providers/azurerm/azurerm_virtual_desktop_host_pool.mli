@@ -18,7 +18,7 @@ val scheduled_agent_updates :
   ?enabled:bool prop ->
   ?timezone:string prop ->
   ?use_session_host_timezone:bool prop ->
-  schedule:scheduled_agent_updates__schedule list ->
+  ?schedule:scheduled_agent_updates__schedule list ->
   unit ->
   scheduled_agent_updates
 
@@ -46,13 +46,13 @@ val azurerm_virtual_desktop_host_pool :
   ?tags:(string * string prop) list ->
   ?validate_environment:bool prop ->
   ?vm_template:string prop ->
+  ?scheduled_agent_updates:scheduled_agent_updates list ->
   ?timeouts:timeouts ->
   load_balancer_type:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   type_:string prop ->
-  scheduled_agent_updates:scheduled_agent_updates list ->
   unit ->
   azurerm_virtual_desktop_host_pool
 
@@ -93,13 +93,13 @@ val register :
   ?tags:(string * string prop) list ->
   ?validate_environment:bool prop ->
   ?vm_template:string prop ->
+  ?scheduled_agent_updates:scheduled_agent_updates list ->
   ?timeouts:timeouts ->
   load_balancer_type:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   type_:string prop ->
-  scheduled_agent_updates:scheduled_agent_updates list ->
   string ->
   t
 
@@ -115,12 +115,12 @@ val make :
   ?tags:(string * string prop) list ->
   ?validate_environment:bool prop ->
   ?vm_template:string prop ->
+  ?scheduled_agent_updates:scheduled_agent_updates list ->
   ?timeouts:timeouts ->
   load_balancer_type:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   type_:string prop ->
-  scheduled_agent_updates:scheduled_agent_updates list ->
   string ->
   t Tf_core.resource

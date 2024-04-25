@@ -60,8 +60,8 @@ val alternate_identifier__unique_attribute :
 type alternate_identifier
 
 val alternate_identifier :
-  external_id:alternate_identifier__external_id list ->
-  unique_attribute:alternate_identifier__unique_attribute list ->
+  ?external_id:alternate_identifier__external_id list ->
+  ?unique_attribute:alternate_identifier__unique_attribute list ->
   unit ->
   alternate_identifier
 
@@ -78,9 +78,9 @@ type aws_identitystore_user
 val aws_identitystore_user :
   ?id:string prop ->
   ?user_id:string prop ->
+  ?alternate_identifier:alternate_identifier list ->
+  ?filter:filter list ->
   identity_store_id:string prop ->
-  alternate_identifier:alternate_identifier list ->
-  filter:filter list ->
   unit ->
   aws_identitystore_user
 
@@ -112,17 +112,17 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?user_id:string prop ->
+  ?alternate_identifier:alternate_identifier list ->
+  ?filter:filter list ->
   identity_store_id:string prop ->
-  alternate_identifier:alternate_identifier list ->
-  filter:filter list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?user_id:string prop ->
+  ?alternate_identifier:alternate_identifier list ->
+  ?filter:filter list ->
   identity_store_id:string prop ->
-  alternate_identifier:alternate_identifier list ->
-  filter:filter list ->
   string ->
   t Tf_core.resource

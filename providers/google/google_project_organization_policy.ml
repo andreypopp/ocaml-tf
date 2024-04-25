@@ -331,8 +331,8 @@ let list_policy__allow ?all ?values () : list_policy__allow =
 let list_policy__deny ?all ?values () : list_policy__deny =
   { all; values }
 
-let list_policy ?inherit_from_parent ?suggested_value ~allow ~deny ()
-    : list_policy =
+let list_policy ?inherit_from_parent ?suggested_value ?(allow = [])
+    ?(deny = []) () : list_policy =
   { inherit_from_parent; suggested_value; allow; deny }
 
 let restore_policy ~default () : restore_policy = { default }
@@ -340,9 +340,10 @@ let restore_policy ~default () : restore_policy = { default }
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let google_project_organization_policy ?id ?version ?timeouts
-    ~constraint_ ~project ~boolean_policy ~list_policy
-    ~restore_policy () : google_project_organization_policy =
+let google_project_organization_policy ?id ?version
+    ?(boolean_policy = []) ?(list_policy = []) ?(restore_policy = [])
+    ?timeouts ~constraint_ ~project () :
+    google_project_organization_policy =
   {
     constraint_;
     id;
@@ -363,8 +364,8 @@ type t = {
   version : float prop;
 }
 
-let make ?id ?version ?timeouts ~constraint_ ~project ~boolean_policy
-    ~list_policy ~restore_policy __id =
+let make ?id ?version ?(boolean_policy = []) ?(list_policy = [])
+    ?(restore_policy = []) ?timeouts ~constraint_ ~project __id =
   let __type = "google_project_organization_policy" in
   let __attrs =
     ({
@@ -382,17 +383,18 @@ let make ?id ?version ?timeouts ~constraint_ ~project ~boolean_policy
     type_ = __type;
     json =
       yojson_of_google_project_organization_policy
-        (google_project_organization_policy ?id ?version ?timeouts
-           ~constraint_ ~project ~boolean_policy ~list_policy
-           ~restore_policy ());
+        (google_project_organization_policy ?id ?version
+           ~boolean_policy ~list_policy ~restore_policy ?timeouts
+           ~constraint_ ~project ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?version ?timeouts ~constraint_ ~project
-    ~boolean_policy ~list_policy ~restore_policy __id =
+let register ?tf_module ?id ?version ?(boolean_policy = [])
+    ?(list_policy = []) ?(restore_policy = []) ?timeouts ~constraint_
+    ~project __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?version ?timeouts ~constraint_ ~project ~boolean_policy
-      ~list_policy ~restore_policy __id
+    make ?id ?version ~boolean_policy ~list_policy ~restore_policy
+      ?timeouts ~constraint_ ~project __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

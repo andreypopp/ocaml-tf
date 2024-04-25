@@ -46,11 +46,11 @@ val aws_storagegateway_smb_file_share :
   ?tags_all:(string * string prop) list ->
   ?valid_user_list:string prop list ->
   ?vpc_endpoint_dns_name:string prop ->
+  ?cache_attributes:cache_attributes list ->
   ?timeouts:timeouts ->
   gateway_arn:string prop ->
   location_arn:string prop ->
   role_arn:string prop ->
-  cache_attributes:cache_attributes list ->
   unit ->
   aws_storagegateway_smb_file_share
 
@@ -116,11 +116,11 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?valid_user_list:string prop list ->
   ?vpc_endpoint_dns_name:string prop ->
+  ?cache_attributes:cache_attributes list ->
   ?timeouts:timeouts ->
   gateway_arn:string prop ->
   location_arn:string prop ->
   role_arn:string prop ->
-  cache_attributes:cache_attributes list ->
   string ->
   t
 
@@ -148,10 +148,10 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?valid_user_list:string prop list ->
   ?vpc_endpoint_dns_name:string prop ->
+  ?cache_attributes:cache_attributes list ->
   ?timeouts:timeouts ->
   gateway_arn:string prop ->
   location_arn:string prop ->
   role_arn:string prop ->
-  cache_attributes:cache_attributes list ->
   string ->
   t Tf_core.resource

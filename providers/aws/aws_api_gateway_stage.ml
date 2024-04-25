@@ -281,9 +281,10 @@ let canary_settings ?percent_traffic ?stage_variable_overrides
 
 let aws_api_gateway_stage ?cache_cluster_enabled ?cache_cluster_size
     ?client_certificate_id ?description ?documentation_version ?id
-    ?tags ?tags_all ?variables ?xray_tracing_enabled ~deployment_id
-    ~rest_api_id ~stage_name ~access_log_settings ~canary_settings ()
-    : aws_api_gateway_stage =
+    ?tags ?tags_all ?variables ?xray_tracing_enabled
+    ?(access_log_settings = []) ?(canary_settings = [])
+    ~deployment_id ~rest_api_id ~stage_name () :
+    aws_api_gateway_stage =
   {
     cache_cluster_enabled;
     cache_cluster_size;
@@ -324,9 +325,9 @@ type t = {
 
 let make ?cache_cluster_enabled ?cache_cluster_size
     ?client_certificate_id ?description ?documentation_version ?id
-    ?tags ?tags_all ?variables ?xray_tracing_enabled ~deployment_id
-    ~rest_api_id ~stage_name ~access_log_settings ~canary_settings
-    __id =
+    ?tags ?tags_all ?variables ?xray_tracing_enabled
+    ?(access_log_settings = []) ?(canary_settings = [])
+    ~deployment_id ~rest_api_id ~stage_name __id =
   let __type = "aws_api_gateway_stage" in
   let __attrs =
     ({
@@ -363,22 +364,23 @@ let make ?cache_cluster_enabled ?cache_cluster_size
         (aws_api_gateway_stage ?cache_cluster_enabled
            ?cache_cluster_size ?client_certificate_id ?description
            ?documentation_version ?id ?tags ?tags_all ?variables
-           ?xray_tracing_enabled ~deployment_id ~rest_api_id
-           ~stage_name ~access_log_settings ~canary_settings ());
+           ?xray_tracing_enabled ~access_log_settings
+           ~canary_settings ~deployment_id ~rest_api_id ~stage_name
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?cache_cluster_enabled ?cache_cluster_size
     ?client_certificate_id ?description ?documentation_version ?id
-    ?tags ?tags_all ?variables ?xray_tracing_enabled ~deployment_id
-    ~rest_api_id ~stage_name ~access_log_settings ~canary_settings
-    __id =
+    ?tags ?tags_all ?variables ?xray_tracing_enabled
+    ?(access_log_settings = []) ?(canary_settings = [])
+    ~deployment_id ~rest_api_id ~stage_name __id =
   let (r : _ Tf_core.resource) =
     make ?cache_cluster_enabled ?cache_cluster_size
       ?client_certificate_id ?description ?documentation_version ?id
-      ?tags ?tags_all ?variables ?xray_tracing_enabled ~deployment_id
-      ~rest_api_id ~stage_name ~access_log_settings ~canary_settings
-      __id
+      ?tags ?tags_all ?variables ?xray_tracing_enabled
+      ~access_log_settings ~canary_settings ~deployment_id
+      ~rest_api_id ~stage_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

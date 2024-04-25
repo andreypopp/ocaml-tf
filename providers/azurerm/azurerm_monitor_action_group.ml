@@ -928,17 +928,18 @@ let webhook_receiver__aad_auth ?identifier_uri ?tenant_id ~object_id
     () : webhook_receiver__aad_auth =
   { identifier_uri; object_id; tenant_id }
 
-let webhook_receiver ?use_common_alert_schema ~name ~service_uri
-    ~aad_auth () : webhook_receiver =
+let webhook_receiver ?use_common_alert_schema ?(aad_auth = []) ~name
+    ~service_uri () : webhook_receiver =
   { name; service_uri; use_common_alert_schema; aad_auth }
 
 let azurerm_monitor_action_group ?enabled ?id ?location ?tags
-    ?timeouts ~name ~resource_group_name ~short_name
-    ~arm_role_receiver ~automation_runbook_receiver
-    ~azure_app_push_receiver ~azure_function_receiver ~email_receiver
-    ~event_hub_receiver ~itsm_receiver ~logic_app_receiver
-    ~sms_receiver ~voice_receiver ~webhook_receiver () :
-    azurerm_monitor_action_group =
+    ?(arm_role_receiver = []) ?(automation_runbook_receiver = [])
+    ?(azure_app_push_receiver = []) ?(azure_function_receiver = [])
+    ?(email_receiver = []) ?(event_hub_receiver = [])
+    ?(itsm_receiver = []) ?(logic_app_receiver = [])
+    ?(sms_receiver = []) ?timeouts ?(voice_receiver = [])
+    ?(webhook_receiver = []) ~name ~resource_group_name ~short_name
+    () : azurerm_monitor_action_group =
   {
     enabled;
     id;
@@ -971,12 +972,14 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?enabled ?id ?location ?tags ?timeouts ~name
-    ~resource_group_name ~short_name ~arm_role_receiver
-    ~automation_runbook_receiver ~azure_app_push_receiver
-    ~azure_function_receiver ~email_receiver ~event_hub_receiver
-    ~itsm_receiver ~logic_app_receiver ~sms_receiver ~voice_receiver
-    ~webhook_receiver __id =
+let make ?enabled ?id ?location ?tags ?(arm_role_receiver = [])
+    ?(automation_runbook_receiver = [])
+    ?(azure_app_push_receiver = []) ?(azure_function_receiver = [])
+    ?(email_receiver = []) ?(event_hub_receiver = [])
+    ?(itsm_receiver = []) ?(logic_app_receiver = [])
+    ?(sms_receiver = []) ?timeouts ?(voice_receiver = [])
+    ?(webhook_receiver = []) ~name ~resource_group_name ~short_name
+    __id =
   let __type = "azurerm_monitor_action_group" in
   let __attrs =
     ({
@@ -997,28 +1000,30 @@ let make ?enabled ?id ?location ?tags ?timeouts ~name
     json =
       yojson_of_azurerm_monitor_action_group
         (azurerm_monitor_action_group ?enabled ?id ?location ?tags
-           ?timeouts ~name ~resource_group_name ~short_name
            ~arm_role_receiver ~automation_runbook_receiver
            ~azure_app_push_receiver ~azure_function_receiver
            ~email_receiver ~event_hub_receiver ~itsm_receiver
-           ~logic_app_receiver ~sms_receiver ~voice_receiver
-           ~webhook_receiver ());
+           ~logic_app_receiver ~sms_receiver ?timeouts
+           ~voice_receiver ~webhook_receiver ~name
+           ~resource_group_name ~short_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?enabled ?id ?location ?tags ?timeouts ~name
-    ~resource_group_name ~short_name ~arm_role_receiver
-    ~automation_runbook_receiver ~azure_app_push_receiver
-    ~azure_function_receiver ~email_receiver ~event_hub_receiver
-    ~itsm_receiver ~logic_app_receiver ~sms_receiver ~voice_receiver
-    ~webhook_receiver __id =
+let register ?tf_module ?enabled ?id ?location ?tags
+    ?(arm_role_receiver = []) ?(automation_runbook_receiver = [])
+    ?(azure_app_push_receiver = []) ?(azure_function_receiver = [])
+    ?(email_receiver = []) ?(event_hub_receiver = [])
+    ?(itsm_receiver = []) ?(logic_app_receiver = [])
+    ?(sms_receiver = []) ?timeouts ?(voice_receiver = [])
+    ?(webhook_receiver = []) ~name ~resource_group_name ~short_name
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?enabled ?id ?location ?tags ?timeouts ~name
-      ~resource_group_name ~short_name ~arm_role_receiver
+    make ?enabled ?id ?location ?tags ~arm_role_receiver
       ~automation_runbook_receiver ~azure_app_push_receiver
       ~azure_function_receiver ~email_receiver ~event_hub_receiver
-      ~itsm_receiver ~logic_app_receiver ~sms_receiver
-      ~voice_receiver ~webhook_receiver __id
+      ~itsm_receiver ~logic_app_receiver ~sms_receiver ?timeouts
+      ~voice_receiver ~webhook_receiver ~name ~resource_group_name
+      ~short_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

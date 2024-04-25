@@ -196,7 +196,7 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_bigquery_reservation ?concurrency ?edition ?id
     ?ignore_idle_slots ?location ?multi_region_auxiliary ?project
-    ?timeouts ~name ~slot_capacity ~autoscale () :
+    ?(autoscale = []) ?timeouts ~name ~slot_capacity () :
     google_bigquery_reservation =
   {
     concurrency;
@@ -225,8 +225,8 @@ type t = {
 }
 
 let make ?concurrency ?edition ?id ?ignore_idle_slots ?location
-    ?multi_region_auxiliary ?project ?timeouts ~name ~slot_capacity
-    ~autoscale __id =
+    ?multi_region_auxiliary ?project ?(autoscale = []) ?timeouts
+    ~name ~slot_capacity __id =
   let __type = "google_bigquery_reservation" in
   let __attrs =
     ({
@@ -251,17 +251,17 @@ let make ?concurrency ?edition ?id ?ignore_idle_slots ?location
       yojson_of_google_bigquery_reservation
         (google_bigquery_reservation ?concurrency ?edition ?id
            ?ignore_idle_slots ?location ?multi_region_auxiliary
-           ?project ?timeouts ~name ~slot_capacity ~autoscale ());
+           ?project ~autoscale ?timeouts ~name ~slot_capacity ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?concurrency ?edition ?id ?ignore_idle_slots
-    ?location ?multi_region_auxiliary ?project ?timeouts ~name
-    ~slot_capacity ~autoscale __id =
+    ?location ?multi_region_auxiliary ?project ?(autoscale = [])
+    ?timeouts ~name ~slot_capacity __id =
   let (r : _ Tf_core.resource) =
     make ?concurrency ?edition ?id ?ignore_idle_slots ?location
-      ?multi_region_auxiliary ?project ?timeouts ~name ~slot_capacity
-      ~autoscale __id
+      ?multi_region_auxiliary ?project ~autoscale ?timeouts ~name
+      ~slot_capacity __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

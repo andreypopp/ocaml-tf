@@ -80,14 +80,14 @@ type single_server_configuration
 val single_server_configuration :
   ?database_type:string prop ->
   ?secondary_ip_enabled:bool prop ->
+  ?virtual_machine_resource_names:
+    single_server_configuration__virtual_machine_resource_names list ->
   app_resource_group_name:string prop ->
   subnet_id:string prop ->
   disk_volume_configuration:
     single_server_configuration__disk_volume_configuration list ->
   virtual_machine_configuration:
     single_server_configuration__virtual_machine_configuration list ->
-  virtual_machine_resource_names:
-    single_server_configuration__virtual_machine_resource_names list ->
   unit ->
   single_server_configuration
 
@@ -107,6 +107,7 @@ val azurerm_workloads_sap_single_node_virtual_instance :
   ?id:string prop ->
   ?managed_resource_group_name:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   app_location:string prop ->
   environment:string prop ->
@@ -115,7 +116,6 @@ val azurerm_workloads_sap_single_node_virtual_instance :
   resource_group_name:string prop ->
   sap_fqdn:string prop ->
   sap_product:string prop ->
-  identity:identity list ->
   single_server_configuration:single_server_configuration list ->
   unit ->
   azurerm_workloads_sap_single_node_virtual_instance
@@ -143,6 +143,7 @@ val register :
   ?id:string prop ->
   ?managed_resource_group_name:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   app_location:string prop ->
   environment:string prop ->
@@ -151,7 +152,6 @@ val register :
   resource_group_name:string prop ->
   sap_fqdn:string prop ->
   sap_product:string prop ->
-  identity:identity list ->
   single_server_configuration:single_server_configuration list ->
   string ->
   t
@@ -160,6 +160,7 @@ val make :
   ?id:string prop ->
   ?managed_resource_group_name:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   app_location:string prop ->
   environment:string prop ->
@@ -168,7 +169,6 @@ val make :
   resource_group_name:string prop ->
   sap_fqdn:string prop ->
   sap_product:string prop ->
-  identity:identity list ->
   single_server_configuration:single_server_configuration list ->
   string ->
   t Tf_core.resource

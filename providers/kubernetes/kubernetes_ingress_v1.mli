@@ -56,8 +56,8 @@ val spec__default_backend__service :
 type spec__default_backend
 
 val spec__default_backend :
-  resource:spec__default_backend__resource list ->
-  service:spec__default_backend__service list ->
+  ?resource:spec__default_backend__resource list ->
+  ?service:spec__default_backend__service list ->
   unit ->
   spec__default_backend
 
@@ -89,8 +89,8 @@ val spec__rule__http__path__backend__service :
 type spec__rule__http__path__backend
 
 val spec__rule__http__path__backend :
-  resource:spec__rule__http__path__backend__resource list ->
-  service:spec__rule__http__path__backend__service list ->
+  ?resource:spec__rule__http__path__backend__resource list ->
+  ?service:spec__rule__http__path__backend__service list ->
   unit ->
   spec__rule__http__path__backend
 
@@ -99,7 +99,7 @@ type spec__rule__http__path
 val spec__rule__http__path :
   ?path:string prop ->
   ?path_type:string prop ->
-  backend:spec__rule__http__path__backend list ->
+  ?backend:spec__rule__http__path__backend list ->
   unit ->
   spec__rule__http__path
 
@@ -112,7 +112,7 @@ type spec__rule
 
 val spec__rule :
   ?host:string prop ->
-  http:spec__rule__http list ->
+  ?http:spec__rule__http list ->
   unit ->
   spec__rule
 
@@ -128,9 +128,9 @@ type spec
 
 val spec :
   ?ingress_class_name:string prop ->
-  default_backend:spec__default_backend list ->
-  rule:spec__rule list ->
-  tls:spec__tls list ->
+  ?default_backend:spec__default_backend list ->
+  ?rule:spec__rule list ->
+  ?tls:spec__tls list ->
   unit ->
   spec
 

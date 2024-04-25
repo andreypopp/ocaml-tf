@@ -205,9 +205,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_data_protection_backup_vault ?id
-    ?retention_duration_in_days ?soft_delete ?tags ?timeouts
-    ~datastore_type ~location ~name ~redundancy ~resource_group_name
-    ~identity () : azurerm_data_protection_backup_vault =
+    ?retention_duration_in_days ?soft_delete ?tags ?(identity = [])
+    ?timeouts ~datastore_type ~location ~name ~redundancy
+    ~resource_group_name () : azurerm_data_protection_backup_vault =
   {
     datastore_type;
     id;
@@ -234,9 +234,9 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?id ?retention_duration_in_days ?soft_delete ?tags ?timeouts
-    ~datastore_type ~location ~name ~redundancy ~resource_group_name
-    ~identity __id =
+let make ?id ?retention_duration_in_days ?soft_delete ?tags
+    ?(identity = []) ?timeouts ~datastore_type ~location ~name
+    ~redundancy ~resource_group_name __id =
   let __type = "azurerm_data_protection_backup_vault" in
   let __attrs =
     ({
@@ -260,19 +260,19 @@ let make ?id ?retention_duration_in_days ?soft_delete ?tags ?timeouts
     json =
       yojson_of_azurerm_data_protection_backup_vault
         (azurerm_data_protection_backup_vault ?id
-           ?retention_duration_in_days ?soft_delete ?tags ?timeouts
-           ~datastore_type ~location ~name ~redundancy
-           ~resource_group_name ~identity ());
+           ?retention_duration_in_days ?soft_delete ?tags ~identity
+           ?timeouts ~datastore_type ~location ~name ~redundancy
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?retention_duration_in_days ?soft_delete
-    ?tags ?timeouts ~datastore_type ~location ~name ~redundancy
-    ~resource_group_name ~identity __id =
+    ?tags ?(identity = []) ?timeouts ~datastore_type ~location ~name
+    ~redundancy ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?retention_duration_in_days ?soft_delete ?tags ?timeouts
-      ~datastore_type ~location ~name ~redundancy
-      ~resource_group_name ~identity __id
+    make ?id ?retention_duration_in_days ?soft_delete ?tags ~identity
+      ?timeouts ~datastore_type ~location ~name ~redundancy
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

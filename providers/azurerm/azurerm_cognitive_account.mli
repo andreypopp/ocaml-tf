@@ -73,16 +73,16 @@ val azurerm_cognitive_account :
   ?public_network_access_enabled:bool prop ->
   ?qna_runtime_endpoint:string prop ->
   ?tags:(string * string prop) list ->
+  ?customer_managed_key:customer_managed_key list ->
+  ?identity:identity list ->
+  ?network_acls:network_acls list ->
+  ?storage:storage list ->
   ?timeouts:timeouts ->
   kind:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  customer_managed_key:customer_managed_key list ->
-  identity:identity list ->
-  network_acls:network_acls list ->
-  storage:storage list ->
   unit ->
   azurerm_cognitive_account
 
@@ -134,16 +134,16 @@ val register :
   ?public_network_access_enabled:bool prop ->
   ?qna_runtime_endpoint:string prop ->
   ?tags:(string * string prop) list ->
+  ?customer_managed_key:customer_managed_key list ->
+  ?identity:identity list ->
+  ?network_acls:network_acls list ->
+  ?storage:storage list ->
   ?timeouts:timeouts ->
   kind:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  customer_managed_key:customer_managed_key list ->
-  identity:identity list ->
-  network_acls:network_acls list ->
-  storage:storage list ->
   string ->
   t
 
@@ -163,15 +163,15 @@ val make :
   ?public_network_access_enabled:bool prop ->
   ?qna_runtime_endpoint:string prop ->
   ?tags:(string * string prop) list ->
+  ?customer_managed_key:customer_managed_key list ->
+  ?identity:identity list ->
+  ?network_acls:network_acls list ->
+  ?storage:storage list ->
   ?timeouts:timeouts ->
   kind:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  customer_managed_key:customer_managed_key list ->
-  identity:identity list ->
-  network_acls:network_acls list ->
-  storage:storage list ->
   string ->
   t Tf_core.resource

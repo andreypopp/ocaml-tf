@@ -200,36 +200,38 @@ val delivery_rule__url_rewrite_action :
 type delivery_rule
 
 val delivery_rule :
+  ?cache_expiration_action:
+    delivery_rule__cache_expiration_action list ->
+  ?cache_key_query_string_action:
+    delivery_rule__cache_key_query_string_action list ->
+  ?cookies_condition:delivery_rule__cookies_condition list ->
+  ?device_condition:delivery_rule__device_condition list ->
+  ?http_version_condition:delivery_rule__http_version_condition list ->
+  ?modify_request_header_action:
+    delivery_rule__modify_request_header_action list ->
+  ?modify_response_header_action:
+    delivery_rule__modify_response_header_action list ->
+  ?post_arg_condition:delivery_rule__post_arg_condition list ->
+  ?query_string_condition:delivery_rule__query_string_condition list ->
+  ?remote_address_condition:
+    delivery_rule__remote_address_condition list ->
+  ?request_body_condition:delivery_rule__request_body_condition list ->
+  ?request_header_condition:
+    delivery_rule__request_header_condition list ->
+  ?request_method_condition:
+    delivery_rule__request_method_condition list ->
+  ?request_scheme_condition:
+    delivery_rule__request_scheme_condition list ->
+  ?request_uri_condition:delivery_rule__request_uri_condition list ->
+  ?url_file_extension_condition:
+    delivery_rule__url_file_extension_condition list ->
+  ?url_file_name_condition:
+    delivery_rule__url_file_name_condition list ->
+  ?url_path_condition:delivery_rule__url_path_condition list ->
+  ?url_redirect_action:delivery_rule__url_redirect_action list ->
+  ?url_rewrite_action:delivery_rule__url_rewrite_action list ->
   name:string prop ->
   order:float prop ->
-  cache_expiration_action:delivery_rule__cache_expiration_action list ->
-  cache_key_query_string_action:
-    delivery_rule__cache_key_query_string_action list ->
-  cookies_condition:delivery_rule__cookies_condition list ->
-  device_condition:delivery_rule__device_condition list ->
-  http_version_condition:delivery_rule__http_version_condition list ->
-  modify_request_header_action:
-    delivery_rule__modify_request_header_action list ->
-  modify_response_header_action:
-    delivery_rule__modify_response_header_action list ->
-  post_arg_condition:delivery_rule__post_arg_condition list ->
-  query_string_condition:delivery_rule__query_string_condition list ->
-  remote_address_condition:
-    delivery_rule__remote_address_condition list ->
-  request_body_condition:delivery_rule__request_body_condition list ->
-  request_header_condition:
-    delivery_rule__request_header_condition list ->
-  request_method_condition:
-    delivery_rule__request_method_condition list ->
-  request_scheme_condition:
-    delivery_rule__request_scheme_condition list ->
-  request_uri_condition:delivery_rule__request_uri_condition list ->
-  url_file_extension_condition:
-    delivery_rule__url_file_extension_condition list ->
-  url_file_name_condition:delivery_rule__url_file_name_condition list ->
-  url_path_condition:delivery_rule__url_path_condition list ->
-  url_redirect_action:delivery_rule__url_redirect_action list ->
-  url_rewrite_action:delivery_rule__url_rewrite_action list ->
   unit ->
   delivery_rule
 
@@ -300,16 +302,16 @@ val global_delivery_rule__url_rewrite_action :
 type global_delivery_rule
 
 val global_delivery_rule :
-  cache_expiration_action:
+  ?cache_expiration_action:
     global_delivery_rule__cache_expiration_action list ->
-  cache_key_query_string_action:
+  ?cache_key_query_string_action:
     global_delivery_rule__cache_key_query_string_action list ->
-  modify_request_header_action:
+  ?modify_request_header_action:
     global_delivery_rule__modify_request_header_action list ->
-  modify_response_header_action:
+  ?modify_response_header_action:
     global_delivery_rule__modify_response_header_action list ->
-  url_redirect_action:global_delivery_rule__url_redirect_action list ->
-  url_rewrite_action:global_delivery_rule__url_rewrite_action list ->
+  ?url_redirect_action:global_delivery_rule__url_redirect_action list ->
+  ?url_rewrite_action:global_delivery_rule__url_rewrite_action list ->
   unit ->
   global_delivery_rule
 
@@ -347,14 +349,14 @@ val azurerm_cdn_endpoint :
   ?probe_path:string prop ->
   ?querystring_caching_behaviour:string prop ->
   ?tags:(string * string prop) list ->
+  ?delivery_rule:delivery_rule list ->
+  ?geo_filter:geo_filter list ->
+  ?global_delivery_rule:global_delivery_rule list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   profile_name:string prop ->
   resource_group_name:string prop ->
-  delivery_rule:delivery_rule list ->
-  geo_filter:geo_filter list ->
-  global_delivery_rule:global_delivery_rule list ->
   origin:origin list ->
   unit ->
   azurerm_cdn_endpoint
@@ -395,14 +397,14 @@ val register :
   ?probe_path:string prop ->
   ?querystring_caching_behaviour:string prop ->
   ?tags:(string * string prop) list ->
+  ?delivery_rule:delivery_rule list ->
+  ?geo_filter:geo_filter list ->
+  ?global_delivery_rule:global_delivery_rule list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   profile_name:string prop ->
   resource_group_name:string prop ->
-  delivery_rule:delivery_rule list ->
-  geo_filter:geo_filter list ->
-  global_delivery_rule:global_delivery_rule list ->
   origin:origin list ->
   string ->
   t
@@ -419,14 +421,14 @@ val make :
   ?probe_path:string prop ->
   ?querystring_caching_behaviour:string prop ->
   ?tags:(string * string prop) list ->
+  ?delivery_rule:delivery_rule list ->
+  ?geo_filter:geo_filter list ->
+  ?global_delivery_rule:global_delivery_rule list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   profile_name:string prop ->
   resource_group_name:string prop ->
-  delivery_rule:delivery_rule list ->
-  geo_filter:geo_filter list ->
-  global_delivery_rule:global_delivery_rule list ->
   origin:origin list ->
   string ->
   t Tf_core.resource

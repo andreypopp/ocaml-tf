@@ -37,12 +37,12 @@ val azurerm_search_service :
   ?replica_count:float prop ->
   ?semantic_search_sku:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  identity:identity list ->
   unit ->
   azurerm_search_service
 
@@ -84,12 +84,12 @@ val register :
   ?replica_count:float prop ->
   ?semantic_search_sku:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  identity:identity list ->
   string ->
   t
 
@@ -105,11 +105,11 @@ val make :
   ?replica_count:float prop ->
   ?semantic_search_sku:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

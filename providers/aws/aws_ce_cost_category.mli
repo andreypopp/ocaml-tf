@@ -42,9 +42,9 @@ val rule__rule__and__tags :
 type rule__rule__and
 
 val rule__rule__and :
-  cost_category:rule__rule__and__cost_category list ->
-  dimension:rule__rule__and__dimension list ->
-  tags:rule__rule__and__tags list ->
+  ?cost_category:rule__rule__and__cost_category list ->
+  ?dimension:rule__rule__and__dimension list ->
+  ?tags:rule__rule__and__tags list ->
   unit ->
   rule__rule__and
 
@@ -96,9 +96,9 @@ val rule__rule__not__tags :
 type rule__rule__not
 
 val rule__rule__not :
-  cost_category:rule__rule__not__cost_category list ->
-  dimension:rule__rule__not__dimension list ->
-  tags:rule__rule__not__tags list ->
+  ?cost_category:rule__rule__not__cost_category list ->
+  ?dimension:rule__rule__not__dimension list ->
+  ?tags:rule__rule__not__tags list ->
   unit ->
   rule__rule__not
 
@@ -132,9 +132,9 @@ val rule__rule__or__tags :
 type rule__rule__or
 
 val rule__rule__or :
-  cost_category:rule__rule__or__cost_category list ->
-  dimension:rule__rule__or__dimension list ->
-  tags:rule__rule__or__tags list ->
+  ?cost_category:rule__rule__or__cost_category list ->
+  ?dimension:rule__rule__or__dimension list ->
+  ?tags:rule__rule__or__tags list ->
   unit ->
   rule__rule__or
 
@@ -150,12 +150,12 @@ val rule__rule__tags :
 type rule__rule
 
 val rule__rule :
+  ?cost_category:rule__rule__cost_category list ->
+  ?dimension:rule__rule__dimension list ->
+  ?not:rule__rule__not list ->
+  ?tags:rule__rule__tags list ->
   and_:rule__rule__and list ->
-  cost_category:rule__rule__cost_category list ->
-  dimension:rule__rule__dimension list ->
-  not:rule__rule__not list ->
   or_:rule__rule__or list ->
-  tags:rule__rule__tags list ->
   unit ->
   rule__rule
 
@@ -164,8 +164,8 @@ type rule
 val rule :
   ?type_:string prop ->
   ?value:string prop ->
-  inherited_value:rule__inherited_value list ->
-  rule:rule__rule list ->
+  ?inherited_value:rule__inherited_value list ->
+  ?rule:rule__rule list ->
   unit ->
   rule
 

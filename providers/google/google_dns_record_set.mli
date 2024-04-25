@@ -30,9 +30,9 @@ type routing_policy__geo
 
 val routing_policy__geo :
   ?rrdatas:string prop list ->
-  location:string prop ->
-  health_checked_targets:
+  ?health_checked_targets:
     routing_policy__geo__health_checked_targets list ->
+  location:string prop ->
   unit ->
   routing_policy__geo
 
@@ -62,10 +62,10 @@ type routing_policy__primary_backup__backup_geo
 
 val routing_policy__primary_backup__backup_geo :
   ?rrdatas:string prop list ->
-  location:string prop ->
-  health_checked_targets:
+  ?health_checked_targets:
     routing_policy__primary_backup__backup_geo__health_checked_targets
     list ->
+  location:string prop ->
   unit ->
   routing_policy__primary_backup__backup_geo
 
@@ -127,9 +127,9 @@ type routing_policy__wrr
 
 val routing_policy__wrr :
   ?rrdatas:string prop list ->
-  weight:float prop ->
-  health_checked_targets:
+  ?health_checked_targets:
     routing_policy__wrr__health_checked_targets list ->
+  weight:float prop ->
   unit ->
   routing_policy__wrr
 
@@ -137,9 +137,9 @@ type routing_policy
 
 val routing_policy :
   ?enable_geo_fencing:bool prop ->
-  geo:routing_policy__geo list ->
-  primary_backup:routing_policy__primary_backup list ->
-  wrr:routing_policy__wrr list ->
+  ?geo:routing_policy__geo list ->
+  ?primary_backup:routing_policy__primary_backup list ->
+  ?wrr:routing_policy__wrr list ->
   unit ->
   routing_policy
 
@@ -150,10 +150,10 @@ val google_dns_record_set :
   ?project:string prop ->
   ?rrdatas:string prop list ->
   ?ttl:float prop ->
+  ?routing_policy:routing_policy list ->
   managed_zone:string prop ->
   name:string prop ->
   type_:string prop ->
-  routing_policy:routing_policy list ->
   unit ->
   google_dns_record_set
 
@@ -177,10 +177,10 @@ val register :
   ?project:string prop ->
   ?rrdatas:string prop list ->
   ?ttl:float prop ->
+  ?routing_policy:routing_policy list ->
   managed_zone:string prop ->
   name:string prop ->
   type_:string prop ->
-  routing_policy:routing_policy list ->
   string ->
   t
 
@@ -189,9 +189,9 @@ val make :
   ?project:string prop ->
   ?rrdatas:string prop list ->
   ?ttl:float prop ->
+  ?routing_policy:routing_policy list ->
   managed_zone:string prop ->
   name:string prop ->
   type_:string prop ->
-  routing_policy:routing_policy list ->
   string ->
   t Tf_core.resource

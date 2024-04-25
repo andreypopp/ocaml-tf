@@ -112,8 +112,8 @@ let _ = yojson_of_google_healthcare_consent_store_iam_binding
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_healthcare_consent_store_iam_binding ?id ~consent_store_id
-    ~dataset ~members ~role ~condition () :
+let google_healthcare_consent_store_iam_binding ?id ?(condition = [])
+    ~consent_store_id ~dataset ~members ~role () :
     google_healthcare_consent_store_iam_binding =
   { consent_store_id; dataset; id; members; role; condition }
 
@@ -126,8 +126,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ~consent_store_id ~dataset ~members ~role ~condition
-    __id =
+let make ?id ?(condition = []) ~consent_store_id ~dataset ~members
+    ~role __id =
   let __type = "google_healthcare_consent_store_iam_binding" in
   let __attrs =
     ({
@@ -146,15 +146,15 @@ let make ?id ~consent_store_id ~dataset ~members ~role ~condition
     type_ = __type;
     json =
       yojson_of_google_healthcare_consent_store_iam_binding
-        (google_healthcare_consent_store_iam_binding ?id
-           ~consent_store_id ~dataset ~members ~role ~condition ());
+        (google_healthcare_consent_store_iam_binding ?id ~condition
+           ~consent_store_id ~dataset ~members ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~consent_store_id ~dataset ~members ~role
-    ~condition __id =
+let register ?tf_module ?id ?(condition = []) ~consent_store_id
+    ~dataset ~members ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~consent_store_id ~dataset ~members ~role ~condition
+    make ?id ~condition ~consent_store_id ~dataset ~members ~role
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

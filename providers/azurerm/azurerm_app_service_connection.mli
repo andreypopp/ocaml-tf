@@ -37,12 +37,12 @@ val azurerm_app_service_connection :
   ?client_type:string prop ->
   ?id:string prop ->
   ?vnet_solution:string prop ->
+  ?secret_store:secret_store list ->
   ?timeouts:timeouts ->
   app_service_id:string prop ->
   name:string prop ->
   target_resource_id:string prop ->
   authentication:authentication list ->
-  secret_store:secret_store list ->
   unit ->
   azurerm_app_service_connection
 
@@ -65,12 +65,12 @@ val register :
   ?client_type:string prop ->
   ?id:string prop ->
   ?vnet_solution:string prop ->
+  ?secret_store:secret_store list ->
   ?timeouts:timeouts ->
   app_service_id:string prop ->
   name:string prop ->
   target_resource_id:string prop ->
   authentication:authentication list ->
-  secret_store:secret_store list ->
   string ->
   t
 
@@ -78,11 +78,11 @@ val make :
   ?client_type:string prop ->
   ?id:string prop ->
   ?vnet_solution:string prop ->
+  ?secret_store:secret_store list ->
   ?timeouts:timeouts ->
   app_service_id:string prop ->
   name:string prop ->
   target_resource_id:string prop ->
   authentication:authentication list ->
-  secret_store:secret_store list ->
   string ->
   t Tf_core.resource

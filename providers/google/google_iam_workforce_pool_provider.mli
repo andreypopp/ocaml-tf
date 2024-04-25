@@ -12,7 +12,7 @@ val oidc__client_secret__value :
 type oidc__client_secret
 
 val oidc__client_secret :
-  value:oidc__client_secret__value list ->
+  ?value:oidc__client_secret__value list ->
   unit ->
   oidc__client_secret
 
@@ -29,10 +29,10 @@ type oidc
 
 val oidc :
   ?jwks_json:string prop ->
+  ?client_secret:oidc__client_secret list ->
+  ?web_sso_config:oidc__web_sso_config list ->
   client_id:string prop ->
   issuer_uri:string prop ->
-  client_secret:oidc__client_secret list ->
-  web_sso_config:oidc__web_sso_config list ->
   unit ->
   oidc
 
@@ -58,12 +58,12 @@ val google_iam_workforce_pool_provider :
   ?disabled:bool prop ->
   ?display_name:string prop ->
   ?id:string prop ->
+  ?oidc:oidc list ->
+  ?saml:saml list ->
   ?timeouts:timeouts ->
   location:string prop ->
   provider_id:string prop ->
   workforce_pool_id:string prop ->
-  oidc:oidc list ->
-  saml:saml list ->
   unit ->
   google_iam_workforce_pool_provider
 
@@ -94,12 +94,12 @@ val register :
   ?disabled:bool prop ->
   ?display_name:string prop ->
   ?id:string prop ->
+  ?oidc:oidc list ->
+  ?saml:saml list ->
   ?timeouts:timeouts ->
   location:string prop ->
   provider_id:string prop ->
   workforce_pool_id:string prop ->
-  oidc:oidc list ->
-  saml:saml list ->
   string ->
   t
 
@@ -110,11 +110,11 @@ val make :
   ?disabled:bool prop ->
   ?display_name:string prop ->
   ?id:string prop ->
+  ?oidc:oidc list ->
+  ?saml:saml list ->
   ?timeouts:timeouts ->
   location:string prop ->
   provider_id:string prop ->
   workforce_pool_id:string prop ->
-  oidc:oidc list ->
-  saml:saml list ->
   string ->
   t Tf_core.resource

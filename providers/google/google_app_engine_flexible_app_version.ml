@@ -1660,8 +1660,9 @@ let automatic_scaling__request_utilization
 let automatic_scaling ?cool_down_period ?max_concurrent_requests
     ?max_idle_instances ?max_pending_latency ?max_total_instances
     ?min_idle_instances ?min_pending_latency ?min_total_instances
-    ~cpu_utilization ~disk_utilization ~network_utilization
-    ~request_utilization () : automatic_scaling =
+    ?(disk_utilization = []) ?(network_utilization = [])
+    ?(request_utilization = []) ~cpu_utilization () :
+    automatic_scaling =
   {
     cool_down_period;
     max_concurrent_requests;
@@ -1691,8 +1692,8 @@ let deployment__files ?sha1_sum ~name ~source_url () :
 let deployment__zip ?files_count ~source_url () : deployment__zip =
   { files_count; source_url }
 
-let deployment ~cloud_build_options ~container ~files ~zip () :
-    deployment =
+let deployment ?(cloud_build_options = []) ?(container = [])
+    ?(zip = []) ~files () : deployment =
   { cloud_build_options; container; files; zip }
 
 let endpoints_api_service ?config_id ?disable_trace_sampling
@@ -1718,7 +1719,8 @@ let handlers__static_files ?application_readable ?expiration
   }
 
 let handlers ?auth_fail_action ?login ?redirect_http_response_code
-    ?security_level ?url_regex ~script ~static_files () : handlers =
+    ?security_level ?url_regex ?(script = []) ?(static_files = []) ()
+    : handlers =
   {
     auth_fail_action;
     login;
@@ -1771,7 +1773,8 @@ let resources__volumes ~name ~size_gb ~volume_type () :
     resources__volumes =
   { name; size_gb; volume_type }
 
-let resources ?cpu ?disk_gb ?memory_gb ~volumes () : resources =
+let resources ?cpu ?disk_gb ?memory_gb ?(volumes = []) () : resources
+    =
   { cpu; disk_gb; memory_gb; volumes }
 
 let timeouts ?create ?delete ?update () : timeouts =
@@ -1784,11 +1787,12 @@ let google_app_engine_flexible_app_version ?beta_settings
     ?inbound_services ?instance_class ?nobuild_files_regex
     ?noop_on_destroy ?project ?runtime_api_version ?runtime_channel
     ?runtime_main_executable_path ?service_account ?serving_status
-    ?version_id ?timeouts ~runtime ~service ~api_config
-    ~automatic_scaling ~deployment ~endpoints_api_service ~entrypoint
-    ~handlers ~liveness_check ~manual_scaling ~network
-    ~readiness_check ~resources ~vpc_access_connector () :
-    google_app_engine_flexible_app_version =
+    ?version_id ?(api_config = []) ?(automatic_scaling = [])
+    ?(deployment = []) ?(endpoints_api_service = [])
+    ?(entrypoint = []) ?(handlers = []) ?(manual_scaling = [])
+    ?(network = []) ?(resources = []) ?timeouts
+    ?(vpc_access_connector = []) ~runtime ~service ~liveness_check
+    ~readiness_check () : google_app_engine_flexible_app_version =
   {
     beta_settings;
     default_expiration;
@@ -1850,10 +1854,12 @@ let make ?beta_settings ?default_expiration
     ?instance_class ?nobuild_files_regex ?noop_on_destroy ?project
     ?runtime_api_version ?runtime_channel
     ?runtime_main_executable_path ?service_account ?serving_status
-    ?version_id ?timeouts ~runtime ~service ~api_config
-    ~automatic_scaling ~deployment ~endpoints_api_service ~entrypoint
-    ~handlers ~liveness_check ~manual_scaling ~network
-    ~readiness_check ~resources ~vpc_access_connector __id =
+    ?version_id ?(api_config = []) ?(automatic_scaling = [])
+    ?(deployment = []) ?(endpoints_api_service = [])
+    ?(entrypoint = []) ?(handlers = []) ?(manual_scaling = [])
+    ?(network = []) ?(resources = []) ?timeouts
+    ?(vpc_access_connector = []) ~runtime ~service ~liveness_check
+    ~readiness_check __id =
   let __type = "google_app_engine_flexible_app_version" in
   let __attrs =
     ({
@@ -1896,11 +1902,11 @@ let make ?beta_settings ?default_expiration
            ?nobuild_files_regex ?noop_on_destroy ?project
            ?runtime_api_version ?runtime_channel
            ?runtime_main_executable_path ?service_account
-           ?serving_status ?version_id ?timeouts ~runtime ~service
-           ~api_config ~automatic_scaling ~deployment
-           ~endpoints_api_service ~entrypoint ~handlers
-           ~liveness_check ~manual_scaling ~network ~readiness_check
-           ~resources ~vpc_access_connector ());
+           ?serving_status ?version_id ~api_config ~automatic_scaling
+           ~deployment ~endpoints_api_service ~entrypoint ~handlers
+           ~manual_scaling ~network ~resources ?timeouts
+           ~vpc_access_connector ~runtime ~service ~liveness_check
+           ~readiness_check ());
     attrs = __attrs;
   }
 
@@ -1909,20 +1915,22 @@ let register ?tf_module ?beta_settings ?default_expiration
     ?instance_class ?nobuild_files_regex ?noop_on_destroy ?project
     ?runtime_api_version ?runtime_channel
     ?runtime_main_executable_path ?service_account ?serving_status
-    ?version_id ?timeouts ~runtime ~service ~api_config
-    ~automatic_scaling ~deployment ~endpoints_api_service ~entrypoint
-    ~handlers ~liveness_check ~manual_scaling ~network
-    ~readiness_check ~resources ~vpc_access_connector __id =
+    ?version_id ?(api_config = []) ?(automatic_scaling = [])
+    ?(deployment = []) ?(endpoints_api_service = [])
+    ?(entrypoint = []) ?(handlers = []) ?(manual_scaling = [])
+    ?(network = []) ?(resources = []) ?timeouts
+    ?(vpc_access_connector = []) ~runtime ~service ~liveness_check
+    ~readiness_check __id =
   let (r : _ Tf_core.resource) =
     make ?beta_settings ?default_expiration
       ?delete_service_on_destroy ?env_variables ?id ?inbound_services
       ?instance_class ?nobuild_files_regex ?noop_on_destroy ?project
       ?runtime_api_version ?runtime_channel
       ?runtime_main_executable_path ?service_account ?serving_status
-      ?version_id ?timeouts ~runtime ~service ~api_config
-      ~automatic_scaling ~deployment ~endpoints_api_service
-      ~entrypoint ~handlers ~liveness_check ~manual_scaling ~network
-      ~readiness_check ~resources ~vpc_access_connector __id
+      ?version_id ~api_config ~automatic_scaling ~deployment
+      ~endpoints_api_service ~entrypoint ~handlers ~manual_scaling
+      ~network ~resources ?timeouts ~vpc_access_connector ~runtime
+      ~service ~liveness_check ~readiness_check __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

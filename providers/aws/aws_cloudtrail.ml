@@ -484,8 +484,8 @@ let event_selector__data_resource ~type_ ~values () :
   { type_; values }
 
 let event_selector ?exclude_management_event_sources
-    ?include_management_events ?read_write_type ~data_resource () :
-    event_selector =
+    ?include_management_events ?read_write_type ?(data_resource = [])
+    () : event_selector =
   {
     exclude_management_event_sources;
     include_management_events;
@@ -500,9 +500,10 @@ let aws_cloudtrail ?cloud_watch_logs_group_arn
     ?cloud_watch_logs_role_arn ?enable_log_file_validation
     ?enable_logging ?id ?include_global_service_events
     ?is_multi_region_trail ?is_organization_trail ?kms_key_id
-    ?s3_key_prefix ?sns_topic_name ?tags ?tags_all ~name
-    ~s3_bucket_name ~advanced_event_selector ~event_selector
-    ~insight_selector () : aws_cloudtrail =
+    ?s3_key_prefix ?sns_topic_name ?tags ?tags_all
+    ?(advanced_event_selector = []) ?(event_selector = [])
+    ?(insight_selector = []) ~name ~s3_bucket_name () :
+    aws_cloudtrail =
   {
     cloud_watch_logs_group_arn;
     cloud_watch_logs_role_arn;
@@ -548,8 +549,9 @@ let make ?cloud_watch_logs_group_arn ?cloud_watch_logs_role_arn
     ?enable_log_file_validation ?enable_logging ?id
     ?include_global_service_events ?is_multi_region_trail
     ?is_organization_trail ?kms_key_id ?s3_key_prefix ?sns_topic_name
-    ?tags ?tags_all ~name ~s3_bucket_name ~advanced_event_selector
-    ~event_selector ~insight_selector __id =
+    ?tags ?tags_all ?(advanced_event_selector = [])
+    ?(event_selector = []) ?(insight_selector = []) ~name
+    ~s3_bucket_name __id =
   let __type = "aws_cloudtrail" in
   let __attrs =
     ({
@@ -588,9 +590,9 @@ let make ?cloud_watch_logs_group_arn ?cloud_watch_logs_role_arn
            ?cloud_watch_logs_role_arn ?enable_log_file_validation
            ?enable_logging ?id ?include_global_service_events
            ?is_multi_region_trail ?is_organization_trail ?kms_key_id
-           ?s3_key_prefix ?sns_topic_name ?tags ?tags_all ~name
-           ~s3_bucket_name ~advanced_event_selector ~event_selector
-           ~insight_selector ());
+           ?s3_key_prefix ?sns_topic_name ?tags ?tags_all
+           ~advanced_event_selector ~event_selector ~insight_selector
+           ~name ~s3_bucket_name ());
     attrs = __attrs;
   }
 
@@ -598,16 +600,16 @@ let register ?tf_module ?cloud_watch_logs_group_arn
     ?cloud_watch_logs_role_arn ?enable_log_file_validation
     ?enable_logging ?id ?include_global_service_events
     ?is_multi_region_trail ?is_organization_trail ?kms_key_id
-    ?s3_key_prefix ?sns_topic_name ?tags ?tags_all ~name
-    ~s3_bucket_name ~advanced_event_selector ~event_selector
-    ~insight_selector __id =
+    ?s3_key_prefix ?sns_topic_name ?tags ?tags_all
+    ?(advanced_event_selector = []) ?(event_selector = [])
+    ?(insight_selector = []) ~name ~s3_bucket_name __id =
   let (r : _ Tf_core.resource) =
     make ?cloud_watch_logs_group_arn ?cloud_watch_logs_role_arn
       ?enable_log_file_validation ?enable_logging ?id
       ?include_global_service_events ?is_multi_region_trail
       ?is_organization_trail ?kms_key_id ?s3_key_prefix
-      ?sns_topic_name ?tags ?tags_all ~name ~s3_bucket_name
-      ~advanced_event_selector ~event_selector ~insight_selector __id
+      ?sns_topic_name ?tags ?tags_all ~advanced_event_selector
+      ~event_selector ~insight_selector ~name ~s3_bucket_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -1313,9 +1313,9 @@ let auth_settings__twitter ~consumer_key ~consumer_secret () :
 let auth_settings ?additional_login_params
     ?allowed_external_redirect_urls ?default_provider ?issuer
     ?runtime_version ?token_refresh_extension_hours
-    ?token_store_enabled ?unauthenticated_client_action ~enabled
-    ~active_directory ~facebook ~google ~microsoft ~twitter () :
-    auth_settings =
+    ?token_store_enabled ?unauthenticated_client_action
+    ?(active_directory = []) ?(facebook = []) ?(google = [])
+    ?(microsoft = []) ?(twitter = []) ~enabled () : auth_settings =
   {
     additional_login_params;
     allowed_external_redirect_urls;
@@ -1349,7 +1349,7 @@ let site_config ?always_on ?app_scale_limit ?auto_swap_slot_name
     ?linux_fx_version ?min_tls_version ?pre_warmed_instance_count
     ?runtime_scale_monitoring_enabled ?scm_ip_restriction ?scm_type
     ?scm_use_main_ip_restriction ?use_32_bit_worker_process
-    ?vnet_route_all_enabled ?websockets_enabled ~cors () :
+    ?vnet_route_all_enabled ?websockets_enabled ?(cors = []) () :
     site_config =
   {
     always_on;
@@ -1380,10 +1380,11 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_function_app_slot ?app_settings ?daily_memory_time_quota
     ?enable_builtin_logging ?enabled ?https_only ?id ?os_type ?tags
-    ?version ?timeouts ~app_service_plan_id ~function_app_name
-    ~location ~name ~resource_group_name ~storage_account_access_key
-    ~storage_account_name ~auth_settings ~connection_string ~identity
-    ~site_config () : azurerm_function_app_slot =
+    ?version ?(auth_settings = []) ?(identity = [])
+    ?(site_config = []) ?timeouts ~app_service_plan_id
+    ~function_app_name ~location ~name ~resource_group_name
+    ~storage_account_access_key ~storage_account_name
+    ~connection_string () : azurerm_function_app_slot =
   {
     app_service_plan_id;
     app_settings;
@@ -1434,10 +1435,11 @@ type t = {
 
 let make ?app_settings ?daily_memory_time_quota
     ?enable_builtin_logging ?enabled ?https_only ?id ?os_type ?tags
-    ?version ?timeouts ~app_service_plan_id ~function_app_name
-    ~location ~name ~resource_group_name ~storage_account_access_key
-    ~storage_account_name ~auth_settings ~connection_string ~identity
-    ~site_config __id =
+    ?version ?(auth_settings = []) ?(identity = [])
+    ?(site_config = []) ?timeouts ~app_service_plan_id
+    ~function_app_name ~location ~name ~resource_group_name
+    ~storage_account_access_key ~storage_account_name
+    ~connection_string __id =
   let __type = "azurerm_function_app_slot" in
   let __attrs =
     ({
@@ -1482,27 +1484,28 @@ let make ?app_settings ?daily_memory_time_quota
       yojson_of_azurerm_function_app_slot
         (azurerm_function_app_slot ?app_settings
            ?daily_memory_time_quota ?enable_builtin_logging ?enabled
-           ?https_only ?id ?os_type ?tags ?version ?timeouts
-           ~app_service_plan_id ~function_app_name ~location ~name
-           ~resource_group_name ~storage_account_access_key
-           ~storage_account_name ~auth_settings ~connection_string
-           ~identity ~site_config ());
+           ?https_only ?id ?os_type ?tags ?version ~auth_settings
+           ~identity ~site_config ?timeouts ~app_service_plan_id
+           ~function_app_name ~location ~name ~resource_group_name
+           ~storage_account_access_key ~storage_account_name
+           ~connection_string ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?app_settings ?daily_memory_time_quota
     ?enable_builtin_logging ?enabled ?https_only ?id ?os_type ?tags
-    ?version ?timeouts ~app_service_plan_id ~function_app_name
-    ~location ~name ~resource_group_name ~storage_account_access_key
-    ~storage_account_name ~auth_settings ~connection_string ~identity
-    ~site_config __id =
+    ?version ?(auth_settings = []) ?(identity = [])
+    ?(site_config = []) ?timeouts ~app_service_plan_id
+    ~function_app_name ~location ~name ~resource_group_name
+    ~storage_account_access_key ~storage_account_name
+    ~connection_string __id =
   let (r : _ Tf_core.resource) =
     make ?app_settings ?daily_memory_time_quota
       ?enable_builtin_logging ?enabled ?https_only ?id ?os_type ?tags
-      ?version ?timeouts ~app_service_plan_id ~function_app_name
-      ~location ~name ~resource_group_name
-      ~storage_account_access_key ~storage_account_name
-      ~auth_settings ~connection_string ~identity ~site_config __id
+      ?version ~auth_settings ~identity ~site_config ?timeouts
+      ~app_service_plan_id ~function_app_name ~location ~name
+      ~resource_group_name ~storage_account_access_key
+      ~storage_account_name ~connection_string __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

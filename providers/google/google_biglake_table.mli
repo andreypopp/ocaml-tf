@@ -18,7 +18,7 @@ type hive_options
 val hive_options :
   ?parameters:(string * string prop) list ->
   ?table_type:string prop ->
-  storage_descriptor:hive_options__storage_descriptor list ->
+  ?storage_descriptor:hive_options__storage_descriptor list ->
   unit ->
   hive_options
 
@@ -37,9 +37,9 @@ val google_biglake_table :
   ?database:string prop ->
   ?id:string prop ->
   ?type_:string prop ->
+  ?hive_options:hive_options list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  hive_options:hive_options list ->
   unit ->
   google_biglake_table
 
@@ -64,9 +64,9 @@ val register :
   ?database:string prop ->
   ?id:string prop ->
   ?type_:string prop ->
+  ?hive_options:hive_options list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  hive_options:hive_options list ->
   string ->
   t
 
@@ -74,8 +74,8 @@ val make :
   ?database:string prop ->
   ?id:string prop ->
   ?type_:string prop ->
+  ?hive_options:hive_options list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  hive_options:hive_options list ->
   string ->
   t Tf_core.resource

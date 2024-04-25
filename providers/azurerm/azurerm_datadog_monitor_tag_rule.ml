@@ -281,7 +281,7 @@ let log__filter ~action ~name ~value () : log__filter =
   { action; name; value }
 
 let log ?aad_log_enabled ?resource_log_enabled
-    ?subscription_log_enabled ~filter () : log =
+    ?subscription_log_enabled ?(filter = []) () : log =
   {
     aad_log_enabled;
     resource_log_enabled;
@@ -292,13 +292,13 @@ let log ?aad_log_enabled ?resource_log_enabled
 let metric__filter ~action ~name ~value () : metric__filter =
   { action; name; value }
 
-let metric ~filter () : metric = { filter }
+let metric ?(filter = []) () : metric = { filter }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_datadog_monitor_tag_rule ?id ?name ?timeouts
-    ~datadog_monitor_id ~log ~metric () :
+let azurerm_datadog_monitor_tag_rule ?id ?name ?(log = [])
+    ?(metric = []) ?timeouts ~datadog_monitor_id () :
     azurerm_datadog_monitor_tag_rule =
   { datadog_monitor_id; id; name; log; metric; timeouts }
 
@@ -308,7 +308,8 @@ type t = {
   name : string prop;
 }
 
-let make ?id ?name ?timeouts ~datadog_monitor_id ~log ~metric __id =
+let make ?id ?name ?(log = []) ?(metric = []) ?timeouts
+    ~datadog_monitor_id __id =
   let __type = "azurerm_datadog_monitor_tag_rule" in
   let __attrs =
     ({
@@ -324,15 +325,15 @@ let make ?id ?name ?timeouts ~datadog_monitor_id ~log ~metric __id =
     type_ = __type;
     json =
       yojson_of_azurerm_datadog_monitor_tag_rule
-        (azurerm_datadog_monitor_tag_rule ?id ?name ?timeouts
-           ~datadog_monitor_id ~log ~metric ());
+        (azurerm_datadog_monitor_tag_rule ?id ?name ~log ~metric
+           ?timeouts ~datadog_monitor_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?name ?timeouts ~datadog_monitor_id ~log
-    ~metric __id =
+let register ?tf_module ?id ?name ?(log = []) ?(metric = [])
+    ?timeouts ~datadog_monitor_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?name ?timeouts ~datadog_monitor_id ~log ~metric __id
+    make ?id ?name ~log ~metric ?timeouts ~datadog_monitor_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

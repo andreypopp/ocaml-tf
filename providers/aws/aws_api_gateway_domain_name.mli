@@ -32,9 +32,9 @@ val aws_api_gateway_domain_name :
   ?security_policy:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?endpoint_configuration:endpoint_configuration list ->
+  ?mutual_tls_authentication:mutual_tls_authentication list ->
   domain_name:string prop ->
-  endpoint_configuration:endpoint_configuration list ->
-  mutual_tls_authentication:mutual_tls_authentication list ->
   unit ->
   aws_api_gateway_domain_name
 
@@ -79,9 +79,9 @@ val register :
   ?security_policy:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?endpoint_configuration:endpoint_configuration list ->
+  ?mutual_tls_authentication:mutual_tls_authentication list ->
   domain_name:string prop ->
-  endpoint_configuration:endpoint_configuration list ->
-  mutual_tls_authentication:mutual_tls_authentication list ->
   string ->
   t
 
@@ -98,8 +98,8 @@ val make :
   ?security_policy:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?endpoint_configuration:endpoint_configuration list ->
+  ?mutual_tls_authentication:mutual_tls_authentication list ->
   domain_name:string prop ->
-  endpoint_configuration:endpoint_configuration list ->
-  mutual_tls_authentication:mutual_tls_authentication list ->
   string ->
   t Tf_core.resource

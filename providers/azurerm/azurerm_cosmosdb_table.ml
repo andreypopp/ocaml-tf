@@ -171,8 +171,8 @@ let autoscale_settings ?max_throughput () : autoscale_settings =
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_cosmosdb_table ?id ?throughput ?timeouts ~account_name
-    ~name ~resource_group_name ~autoscale_settings () :
+let azurerm_cosmosdb_table ?id ?throughput ?(autoscale_settings = [])
+    ?timeouts ~account_name ~name ~resource_group_name () :
     azurerm_cosmosdb_table =
   {
     account_name;
@@ -192,8 +192,8 @@ type t = {
   throughput : float prop;
 }
 
-let make ?id ?throughput ?timeouts ~account_name ~name
-    ~resource_group_name ~autoscale_settings __id =
+let make ?id ?throughput ?(autoscale_settings = []) ?timeouts
+    ~account_name ~name ~resource_group_name __id =
   let __type = "azurerm_cosmosdb_table" in
   let __attrs =
     ({
@@ -211,17 +211,16 @@ let make ?id ?throughput ?timeouts ~account_name ~name
     type_ = __type;
     json =
       yojson_of_azurerm_cosmosdb_table
-        (azurerm_cosmosdb_table ?id ?throughput ?timeouts
-           ~account_name ~name ~resource_group_name
-           ~autoscale_settings ());
+        (azurerm_cosmosdb_table ?id ?throughput ~autoscale_settings
+           ?timeouts ~account_name ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?throughput ?timeouts ~account_name ~name
-    ~resource_group_name ~autoscale_settings __id =
+let register ?tf_module ?id ?throughput ?(autoscale_settings = [])
+    ?timeouts ~account_name ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?throughput ?timeouts ~account_name ~name
-      ~resource_group_name ~autoscale_settings __id
+    make ?id ?throughput ~autoscale_settings ?timeouts ~account_name
+      ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

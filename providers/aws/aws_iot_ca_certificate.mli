@@ -26,10 +26,10 @@ val aws_iot_ca_certificate :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?verification_certificate_pem:string prop ->
+  ?registration_config:registration_config list ->
   active:bool prop ->
   allow_auto_registration:bool prop ->
   ca_certificate_pem:string prop ->
-  registration_config:registration_config list ->
   unit ->
   aws_iot_ca_certificate
 
@@ -59,10 +59,10 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?verification_certificate_pem:string prop ->
+  ?registration_config:registration_config list ->
   active:bool prop ->
   allow_auto_registration:bool prop ->
   ca_certificate_pem:string prop ->
-  registration_config:registration_config list ->
   string ->
   t
 
@@ -72,9 +72,9 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?verification_certificate_pem:string prop ->
+  ?registration_config:registration_config list ->
   active:bool prop ->
   allow_auto_registration:bool prop ->
   ca_certificate_pem:string prop ->
-  registration_config:registration_config list ->
   string ->
   t Tf_core.resource

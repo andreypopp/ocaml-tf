@@ -1455,7 +1455,8 @@ let spec__behavior__scale_up ?select_policy
     spec__behavior__scale_up =
   { select_policy; stabilization_window_seconds; policy }
 
-let spec__behavior ~scale_down ~scale_up () : spec__behavior =
+let spec__behavior ?(scale_down = []) ?(scale_up = []) () :
+    spec__behavior =
   { scale_down; scale_up }
 
 let spec__metric__container_resource__target ?average_utilization
@@ -1463,8 +1464,8 @@ let spec__metric__container_resource__target ?average_utilization
     spec__metric__container_resource__target =
   { average_utilization; average_value; type_; value }
 
-let spec__metric__container_resource ~container ~name ~target () :
-    spec__metric__container_resource =
+let spec__metric__container_resource ?(target = []) ~container ~name
+    () : spec__metric__container_resource =
   { container; name; target }
 
 let spec__metric__external__metric__selector__match_expressions ?key
@@ -1473,11 +1474,11 @@ let spec__metric__external__metric__selector__match_expressions ?key
   { key; operator; values }
 
 let spec__metric__external__metric__selector ?match_labels
-    ~match_expressions () : spec__metric__external__metric__selector
-    =
+    ?(match_expressions = []) () :
+    spec__metric__external__metric__selector =
   { match_labels; match_expressions }
 
-let spec__metric__external__metric ~name ~selector () :
+let spec__metric__external__metric ?(selector = []) ~name () :
     spec__metric__external__metric =
   { name; selector }
 
@@ -1486,7 +1487,7 @@ let spec__metric__external__target ?average_utilization
     =
   { average_utilization; average_value; type_; value }
 
-let spec__metric__external ~metric ~target () :
+let spec__metric__external ?(target = []) ~metric () :
     spec__metric__external =
   { metric; target }
 
@@ -1500,10 +1501,11 @@ let spec__metric__object__metric__selector__match_expressions ?key
   { key; operator; values }
 
 let spec__metric__object__metric__selector ?match_labels
-    ~match_expressions () : spec__metric__object__metric__selector =
+    ?(match_expressions = []) () :
+    spec__metric__object__metric__selector =
   { match_labels; match_expressions }
 
-let spec__metric__object__metric ~name ~selector () :
+let spec__metric__object__metric ?(selector = []) ~name () :
     spec__metric__object__metric =
   { name; selector }
 
@@ -1511,8 +1513,8 @@ let spec__metric__object__target ?average_utilization ?average_value
     ?value ~type_ () : spec__metric__object__target =
   { average_utilization; average_value; type_; value }
 
-let spec__metric__object ~described_object ~metric ~target () :
-    spec__metric__object =
+let spec__metric__object ?(target = []) ~described_object ~metric ()
+    : spec__metric__object =
   { described_object; metric; target }
 
 let spec__metric__pods__metric__selector__match_expressions ?key
@@ -1521,10 +1523,11 @@ let spec__metric__pods__metric__selector__match_expressions ?key
   { key; operator; values }
 
 let spec__metric__pods__metric__selector ?match_labels
-    ~match_expressions () : spec__metric__pods__metric__selector =
+    ?(match_expressions = []) () :
+    spec__metric__pods__metric__selector =
   { match_labels; match_expressions }
 
-let spec__metric__pods__metric ~name ~selector () :
+let spec__metric__pods__metric ?(selector = []) ~name () :
     spec__metric__pods__metric =
   { name; selector }
 
@@ -1532,7 +1535,8 @@ let spec__metric__pods__target ?average_utilization ?average_value
     ?value ~type_ () : spec__metric__pods__target =
   { average_utilization; average_value; type_; value }
 
-let spec__metric__pods ~metric ~target () : spec__metric__pods =
+let spec__metric__pods ?(target = []) ~metric () : spec__metric__pods
+    =
   { metric; target }
 
 let spec__metric__resource__target ?average_utilization
@@ -1540,12 +1544,13 @@ let spec__metric__resource__target ?average_utilization
     =
   { average_utilization; average_value; type_; value }
 
-let spec__metric__resource ~name ~target () : spec__metric__resource
-    =
+let spec__metric__resource ?(target = []) ~name () :
+    spec__metric__resource =
   { name; target }
 
-let spec__metric ~type_ ~container_resource ~external_ ~object_ ~pods
-    ~resource () : spec__metric =
+let spec__metric ?(container_resource = []) ?(external_ = [])
+    ?(object_ = []) ?(pods = []) ?(resource = []) ~type_ () :
+    spec__metric =
   { type_; container_resource; external_; object_; pods; resource }
 
 let spec__scale_target_ref ?api_version ~kind ~name () :
@@ -1553,7 +1558,8 @@ let spec__scale_target_ref ?api_version ~kind ~name () :
   { api_version; kind; name }
 
 let spec ?min_replicas ?target_cpu_utilization_percentage
-    ~max_replicas ~behavior ~metric ~scale_target_ref () : spec =
+    ?(behavior = []) ?(metric = []) ~max_replicas ~scale_target_ref
+    () : spec =
   {
     max_replicas;
     min_replicas;

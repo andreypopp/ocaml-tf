@@ -391,10 +391,11 @@ let link2 ?admin_enabled ?macsec_cak_keyvault_secret_id
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_express_route_port ?billing_type ?id ?tags ?timeouts
+let azurerm_express_route_port ?billing_type ?id ?tags
+    ?(identity = []) ?(link1 = []) ?(link2 = []) ?timeouts
     ~bandwidth_in_gbps ~encapsulation ~location ~name
-    ~peering_location ~resource_group_name ~identity ~link1 ~link2 ()
-    : azurerm_express_route_port =
+    ~peering_location ~resource_group_name () :
+    azurerm_express_route_port =
   {
     bandwidth_in_gbps;
     billing_type;
@@ -426,9 +427,9 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?billing_type ?id ?tags ?timeouts ~bandwidth_in_gbps
-    ~encapsulation ~location ~name ~peering_location
-    ~resource_group_name ~identity ~link1 ~link2 __id =
+let make ?billing_type ?id ?tags ?(identity = []) ?(link1 = [])
+    ?(link2 = []) ?timeouts ~bandwidth_in_gbps ~encapsulation
+    ~location ~name ~peering_location ~resource_group_name __id =
   let __type = "azurerm_express_route_port" in
   let __attrs =
     ({
@@ -455,21 +456,20 @@ let make ?billing_type ?id ?tags ?timeouts ~bandwidth_in_gbps
     type_ = __type;
     json =
       yojson_of_azurerm_express_route_port
-        (azurerm_express_route_port ?billing_type ?id ?tags ?timeouts
-           ~bandwidth_in_gbps ~encapsulation ~location ~name
-           ~peering_location ~resource_group_name ~identity ~link1
-           ~link2 ());
+        (azurerm_express_route_port ?billing_type ?id ?tags ~identity
+           ~link1 ~link2 ?timeouts ~bandwidth_in_gbps ~encapsulation
+           ~location ~name ~peering_location ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?billing_type ?id ?tags ?timeouts
-    ~bandwidth_in_gbps ~encapsulation ~location ~name
-    ~peering_location ~resource_group_name ~identity ~link1 ~link2
-    __id =
+let register ?tf_module ?billing_type ?id ?tags ?(identity = [])
+    ?(link1 = []) ?(link2 = []) ?timeouts ~bandwidth_in_gbps
+    ~encapsulation ~location ~name ~peering_location
+    ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?billing_type ?id ?tags ?timeouts ~bandwidth_in_gbps
-      ~encapsulation ~location ~name ~peering_location
-      ~resource_group_name ~identity ~link1 ~link2 __id
+    make ?billing_type ?id ?tags ~identity ~link1 ~link2 ?timeouts
+      ~bandwidth_in_gbps ~encapsulation ~location ~name
+      ~peering_location ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

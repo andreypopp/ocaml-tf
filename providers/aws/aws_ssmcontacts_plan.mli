@@ -23,16 +23,16 @@ val stage__target__contact_target_info :
 type stage__target
 
 val stage__target :
-  channel_target_info:stage__target__channel_target_info list ->
-  contact_target_info:stage__target__contact_target_info list ->
+  ?channel_target_info:stage__target__channel_target_info list ->
+  ?contact_target_info:stage__target__contact_target_info list ->
   unit ->
   stage__target
 
 type stage
 
 val stage :
+  ?target:stage__target list ->
   duration_in_minutes:float prop ->
-  target:stage__target list ->
   unit ->
   stage
 

@@ -71,12 +71,12 @@ val extension :
   ?protected_settings:string prop ->
   ?provision_after_extensions:string prop list ->
   ?settings:string prop ->
+  ?protected_settings_from_key_vault:
+    extension__protected_settings_from_key_vault list ->
   name:string prop ->
   publisher:string prop ->
   type_:string prop ->
   type_handler_version:string prop ->
-  protected_settings_from_key_vault:
-    extension__protected_settings_from_key_vault list ->
   unit ->
   extension
 
@@ -123,10 +123,10 @@ val network_interface__ip_configuration__public_ip_address :
   ?idle_timeout_in_minutes:float prop ->
   ?public_ip_prefix_id:string prop ->
   ?version:string prop ->
-  name:string prop ->
-  ip_tag:
+  ?ip_tag:
     network_interface__ip_configuration__public_ip_address__ip_tag
     list ->
+  name:string prop ->
   unit ->
   network_interface__ip_configuration__public_ip_address
 
@@ -140,9 +140,9 @@ val network_interface__ip_configuration :
   ?primary:bool prop ->
   ?subnet_id:string prop ->
   ?version:string prop ->
-  name:string prop ->
-  public_ip_address:
+  ?public_ip_address:
     network_interface__ip_configuration__public_ip_address list ->
+  name:string prop ->
   unit ->
   network_interface__ip_configuration
 
@@ -175,9 +175,9 @@ val os_disk :
   ?secure_vm_disk_encryption_set_id:string prop ->
   ?security_encryption_type:string prop ->
   ?write_accelerator_enabled:bool prop ->
+  ?diff_disk_settings:os_disk__diff_disk_settings list ->
   caching:string prop ->
   storage_account_type:string prop ->
-  diff_disk_settings:os_disk__diff_disk_settings list ->
   unit ->
   os_disk
 
@@ -298,32 +298,32 @@ val azurerm_linux_virtual_machine_scale_set :
   ?vtpm_enabled:bool prop ->
   ?zone_balance:bool prop ->
   ?zones:string prop list ->
+  ?additional_capabilities:additional_capabilities list ->
+  ?automatic_instance_repair:automatic_instance_repair list ->
+  ?automatic_os_upgrade_policy:automatic_os_upgrade_policy list ->
+  ?boot_diagnostics:boot_diagnostics list ->
+  ?data_disk:data_disk list ->
+  ?gallery_application:gallery_application list ->
+  ?gallery_applications:gallery_applications list ->
+  ?identity:identity list ->
+  ?plan:plan list ->
+  ?rolling_upgrade_policy:rolling_upgrade_policy list ->
+  ?scale_in:scale_in list ->
+  ?secret:secret list ->
+  ?source_image_reference:source_image_reference list ->
+  ?spot_restore:spot_restore list ->
+  ?terminate_notification:terminate_notification list ->
+  ?termination_notification:termination_notification list ->
   ?timeouts:timeouts ->
   admin_username:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  additional_capabilities:additional_capabilities list ->
   admin_ssh_key:admin_ssh_key list ->
-  automatic_instance_repair:automatic_instance_repair list ->
-  automatic_os_upgrade_policy:automatic_os_upgrade_policy list ->
-  boot_diagnostics:boot_diagnostics list ->
-  data_disk:data_disk list ->
   extension:extension list ->
-  gallery_application:gallery_application list ->
-  gallery_applications:gallery_applications list ->
-  identity:identity list ->
   network_interface:network_interface list ->
   os_disk:os_disk list ->
-  plan:plan list ->
-  rolling_upgrade_policy:rolling_upgrade_policy list ->
-  scale_in:scale_in list ->
-  secret:secret list ->
-  source_image_reference:source_image_reference list ->
-  spot_restore:spot_restore list ->
-  terminate_notification:terminate_notification list ->
-  termination_notification:termination_notification list ->
   unit ->
   azurerm_linux_virtual_machine_scale_set
 
@@ -405,32 +405,32 @@ val register :
   ?vtpm_enabled:bool prop ->
   ?zone_balance:bool prop ->
   ?zones:string prop list ->
+  ?additional_capabilities:additional_capabilities list ->
+  ?automatic_instance_repair:automatic_instance_repair list ->
+  ?automatic_os_upgrade_policy:automatic_os_upgrade_policy list ->
+  ?boot_diagnostics:boot_diagnostics list ->
+  ?data_disk:data_disk list ->
+  ?gallery_application:gallery_application list ->
+  ?gallery_applications:gallery_applications list ->
+  ?identity:identity list ->
+  ?plan:plan list ->
+  ?rolling_upgrade_policy:rolling_upgrade_policy list ->
+  ?scale_in:scale_in list ->
+  ?secret:secret list ->
+  ?source_image_reference:source_image_reference list ->
+  ?spot_restore:spot_restore list ->
+  ?terminate_notification:terminate_notification list ->
+  ?termination_notification:termination_notification list ->
   ?timeouts:timeouts ->
   admin_username:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  additional_capabilities:additional_capabilities list ->
   admin_ssh_key:admin_ssh_key list ->
-  automatic_instance_repair:automatic_instance_repair list ->
-  automatic_os_upgrade_policy:automatic_os_upgrade_policy list ->
-  boot_diagnostics:boot_diagnostics list ->
-  data_disk:data_disk list ->
   extension:extension list ->
-  gallery_application:gallery_application list ->
-  gallery_applications:gallery_applications list ->
-  identity:identity list ->
   network_interface:network_interface list ->
   os_disk:os_disk list ->
-  plan:plan list ->
-  rolling_upgrade_policy:rolling_upgrade_policy list ->
-  scale_in:scale_in list ->
-  secret:secret list ->
-  source_image_reference:source_image_reference list ->
-  spot_restore:spot_restore list ->
-  terminate_notification:terminate_notification list ->
-  termination_notification:termination_notification list ->
   string ->
   t
 
@@ -466,31 +466,31 @@ val make :
   ?vtpm_enabled:bool prop ->
   ?zone_balance:bool prop ->
   ?zones:string prop list ->
+  ?additional_capabilities:additional_capabilities list ->
+  ?automatic_instance_repair:automatic_instance_repair list ->
+  ?automatic_os_upgrade_policy:automatic_os_upgrade_policy list ->
+  ?boot_diagnostics:boot_diagnostics list ->
+  ?data_disk:data_disk list ->
+  ?gallery_application:gallery_application list ->
+  ?gallery_applications:gallery_applications list ->
+  ?identity:identity list ->
+  ?plan:plan list ->
+  ?rolling_upgrade_policy:rolling_upgrade_policy list ->
+  ?scale_in:scale_in list ->
+  ?secret:secret list ->
+  ?source_image_reference:source_image_reference list ->
+  ?spot_restore:spot_restore list ->
+  ?terminate_notification:terminate_notification list ->
+  ?termination_notification:termination_notification list ->
   ?timeouts:timeouts ->
   admin_username:string prop ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku:string prop ->
-  additional_capabilities:additional_capabilities list ->
   admin_ssh_key:admin_ssh_key list ->
-  automatic_instance_repair:automatic_instance_repair list ->
-  automatic_os_upgrade_policy:automatic_os_upgrade_policy list ->
-  boot_diagnostics:boot_diagnostics list ->
-  data_disk:data_disk list ->
   extension:extension list ->
-  gallery_application:gallery_application list ->
-  gallery_applications:gallery_applications list ->
-  identity:identity list ->
   network_interface:network_interface list ->
   os_disk:os_disk list ->
-  plan:plan list ->
-  rolling_upgrade_policy:rolling_upgrade_policy list ->
-  scale_in:scale_in list ->
-  secret:secret list ->
-  source_image_reference:source_image_reference list ->
-  spot_restore:spot_restore list ->
-  terminate_notification:terminate_notification list ->
-  termination_notification:termination_notification list ->
   string ->
   t Tf_core.resource

@@ -190,8 +190,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_logz_sub_account_tag_rule ?id ?send_aad_logs
-    ?send_activity_logs ?send_subscription_logs ?timeouts
-    ~logz_sub_account_id ~tag_filter () :
+    ?send_activity_logs ?send_subscription_logs ?(tag_filter = [])
+    ?timeouts ~logz_sub_account_id () :
     azurerm_logz_sub_account_tag_rule =
   {
     id;
@@ -212,8 +212,8 @@ type t = {
 }
 
 let make ?id ?send_aad_logs ?send_activity_logs
-    ?send_subscription_logs ?timeouts ~logz_sub_account_id
-    ~tag_filter __id =
+    ?send_subscription_logs ?(tag_filter = []) ?timeouts
+    ~logz_sub_account_id __id =
   let __type = "azurerm_logz_sub_account_tag_rule" in
   let __attrs =
     ({
@@ -234,18 +234,18 @@ let make ?id ?send_aad_logs ?send_activity_logs
     json =
       yojson_of_azurerm_logz_sub_account_tag_rule
         (azurerm_logz_sub_account_tag_rule ?id ?send_aad_logs
-           ?send_activity_logs ?send_subscription_logs ?timeouts
-           ~logz_sub_account_id ~tag_filter ());
+           ?send_activity_logs ?send_subscription_logs ~tag_filter
+           ?timeouts ~logz_sub_account_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?send_aad_logs ?send_activity_logs
-    ?send_subscription_logs ?timeouts ~logz_sub_account_id
-    ~tag_filter __id =
+    ?send_subscription_logs ?(tag_filter = []) ?timeouts
+    ~logz_sub_account_id __id =
   let (r : _ Tf_core.resource) =
     make ?id ?send_aad_logs ?send_activity_logs
-      ?send_subscription_logs ?timeouts ~logz_sub_account_id
-      ~tag_filter __id
+      ?send_subscription_logs ~tag_filter ?timeouts
+      ~logz_sub_account_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

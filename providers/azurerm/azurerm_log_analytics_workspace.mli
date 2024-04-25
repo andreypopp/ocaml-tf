@@ -38,11 +38,11 @@ val azurerm_log_analytics_workspace :
   ?retention_in_days:float prop ->
   ?sku:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   unit ->
   azurerm_log_analytics_workspace
 
@@ -88,11 +88,11 @@ val register :
   ?retention_in_days:float prop ->
   ?sku:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   string ->
   t
 
@@ -110,10 +110,10 @@ val make :
   ?retention_in_days:float prop ->
   ?sku:string prop ->
   ?tags:(string * string prop) list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

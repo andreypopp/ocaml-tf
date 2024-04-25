@@ -409,10 +409,9 @@ let azurerm_synapse_spark_pool ?cache_size ?compute_isolation_enabled
     ?dynamic_executor_allocation_enabled ?id ?max_executors
     ?min_executors ?node_count ?session_level_packages_enabled
     ?spark_events_folder ?spark_log_folder ?spark_version ?tags
-    ?timeouts ~name ~node_size ~node_size_family
-    ~synapse_workspace_id ~auto_pause ~auto_scale
-    ~library_requirement ~spark_config () :
-    azurerm_synapse_spark_pool =
+    ?(auto_pause = []) ?(auto_scale = []) ?(library_requirement = [])
+    ?(spark_config = []) ?timeouts ~name ~node_size ~node_size_family
+    ~synapse_workspace_id () : azurerm_synapse_spark_pool =
   {
     cache_size;
     compute_isolation_enabled;
@@ -460,9 +459,9 @@ let make ?cache_size ?compute_isolation_enabled
     ?dynamic_executor_allocation_enabled ?id ?max_executors
     ?min_executors ?node_count ?session_level_packages_enabled
     ?spark_events_folder ?spark_log_folder ?spark_version ?tags
-    ?timeouts ~name ~node_size ~node_size_family
-    ~synapse_workspace_id ~auto_pause ~auto_scale
-    ~library_requirement ~spark_config __id =
+    ?(auto_pause = []) ?(auto_scale = []) ?(library_requirement = [])
+    ?(spark_config = []) ?timeouts ~name ~node_size ~node_size_family
+    ~synapse_workspace_id __id =
   let __type = "azurerm_synapse_spark_pool" in
   let __attrs =
     ({
@@ -503,9 +502,9 @@ let make ?cache_size ?compute_isolation_enabled
            ?dynamic_executor_allocation_enabled ?id ?max_executors
            ?min_executors ?node_count ?session_level_packages_enabled
            ?spark_events_folder ?spark_log_folder ?spark_version
-           ?tags ?timeouts ~name ~node_size ~node_size_family
-           ~synapse_workspace_id ~auto_pause ~auto_scale
-           ~library_requirement ~spark_config ());
+           ?tags ~auto_pause ~auto_scale ~library_requirement
+           ~spark_config ?timeouts ~name ~node_size ~node_size_family
+           ~synapse_workspace_id ());
     attrs = __attrs;
   }
 
@@ -513,17 +512,17 @@ let register ?tf_module ?cache_size ?compute_isolation_enabled
     ?dynamic_executor_allocation_enabled ?id ?max_executors
     ?min_executors ?node_count ?session_level_packages_enabled
     ?spark_events_folder ?spark_log_folder ?spark_version ?tags
-    ?timeouts ~name ~node_size ~node_size_family
-    ~synapse_workspace_id ~auto_pause ~auto_scale
-    ~library_requirement ~spark_config __id =
+    ?(auto_pause = []) ?(auto_scale = []) ?(library_requirement = [])
+    ?(spark_config = []) ?timeouts ~name ~node_size ~node_size_family
+    ~synapse_workspace_id __id =
   let (r : _ Tf_core.resource) =
     make ?cache_size ?compute_isolation_enabled
       ?dynamic_executor_allocation_enabled ?id ?max_executors
       ?min_executors ?node_count ?session_level_packages_enabled
       ?spark_events_folder ?spark_log_folder ?spark_version ?tags
+      ~auto_pause ~auto_scale ~library_requirement ~spark_config
       ?timeouts ~name ~node_size ~node_size_family
-      ~synapse_workspace_id ~auto_pause ~auto_scale
-      ~library_requirement ~spark_config __id
+      ~synapse_workspace_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

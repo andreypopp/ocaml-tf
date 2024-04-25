@@ -1533,7 +1533,8 @@ let lifecycle_rule__transition ?date ?days ~storage_class () :
   { date; days; storage_class }
 
 let lifecycle_rule ?abort_incomplete_multipart_upload_days ?id
-    ?prefix ?tags ~enabled ~expiration ~noncurrent_version_expiration
+    ?prefix ?tags ?(expiration = [])
+    ?(noncurrent_version_expiration = []) ~enabled
     ~noncurrent_version_transition ~transition () : lifecycle_rule =
   {
     abort_incomplete_multipart_upload_days;
@@ -1558,7 +1559,7 @@ let object_lock_configuration__rule ~default_retention () :
     object_lock_configuration__rule =
   { default_retention }
 
-let object_lock_configuration ?object_lock_enabled ~rule () :
+let object_lock_configuration ?object_lock_enabled ?(rule = []) () :
     object_lock_configuration =
   { object_lock_enabled; rule }
 
@@ -1579,8 +1580,9 @@ let replication_configuration__rules__destination__replication_time
   { minutes; status }
 
 let replication_configuration__rules__destination ?account_id
-    ?replica_kms_key_id ?storage_class ~bucket
-    ~access_control_translation ~metrics ~replication_time () :
+    ?replica_kms_key_id ?storage_class
+    ?(access_control_translation = []) ?(metrics = [])
+    ?(replication_time = []) ~bucket () :
     replication_configuration__rules__destination =
   {
     account_id;
@@ -1603,14 +1605,14 @@ let replication_configuration__rules__source_selection_criteria__sse_kms_encrypt
   { enabled }
 
 let replication_configuration__rules__source_selection_criteria
-    ~sse_kms_encrypted_objects () :
+    ?(sse_kms_encrypted_objects = []) () :
     replication_configuration__rules__source_selection_criteria =
   { sse_kms_encrypted_objects }
 
 let replication_configuration__rules
-    ?delete_marker_replication_status ?id ?prefix ?priority ~status
-    ~destination ~filter ~source_selection_criteria () :
-    replication_configuration__rules =
+    ?delete_marker_replication_status ?id ?prefix ?priority
+    ?(filter = []) ?(source_selection_criteria = []) ~status
+    ~destination () : replication_configuration__rules =
   {
     delete_marker_replication_status;
     id;
@@ -1658,10 +1660,11 @@ let website ?error_document ?index_document ?redirect_all_requests_to
 
 let aws_s3_bucket ?acceleration_status ?acl ?bucket ?bucket_prefix
     ?force_destroy ?id ?object_lock_enabled ?policy ?request_payer
-    ?tags ?tags_all ?timeouts ~cors_rule ~grant ~lifecycle_rule
-    ~logging ~object_lock_configuration ~replication_configuration
-    ~server_side_encryption_configuration ~versioning ~website () :
-    aws_s3_bucket =
+    ?tags ?tags_all ?(cors_rule = []) ?(lifecycle_rule = [])
+    ?(logging = []) ?(object_lock_configuration = [])
+    ?(replication_configuration = [])
+    ?(server_side_encryption_configuration = []) ?timeouts
+    ?(versioning = []) ?(website = []) ~grant () : aws_s3_bucket =
   {
     acceleration_status;
     acl;
@@ -1709,9 +1712,11 @@ type t = {
 
 let make ?acceleration_status ?acl ?bucket ?bucket_prefix
     ?force_destroy ?id ?object_lock_enabled ?policy ?request_payer
-    ?tags ?tags_all ?timeouts ~cors_rule ~grant ~lifecycle_rule
-    ~logging ~object_lock_configuration ~replication_configuration
-    ~server_side_encryption_configuration ~versioning ~website __id =
+    ?tags ?tags_all ?(cors_rule = []) ?(lifecycle_rule = [])
+    ?(logging = []) ?(object_lock_configuration = [])
+    ?(replication_configuration = [])
+    ?(server_side_encryption_configuration = []) ?timeouts
+    ?(versioning = []) ?(website = []) ~grant __id =
   let __type = "aws_s3_bucket" in
   let __attrs =
     ({
@@ -1748,26 +1753,29 @@ let make ?acceleration_status ?acl ?bucket ?bucket_prefix
       yojson_of_aws_s3_bucket
         (aws_s3_bucket ?acceleration_status ?acl ?bucket
            ?bucket_prefix ?force_destroy ?id ?object_lock_enabled
-           ?policy ?request_payer ?tags ?tags_all ?timeouts
-           ~cors_rule ~grant ~lifecycle_rule ~logging
-           ~object_lock_configuration ~replication_configuration
-           ~server_side_encryption_configuration ~versioning ~website
-           ());
+           ?policy ?request_payer ?tags ?tags_all ~cors_rule
+           ~lifecycle_rule ~logging ~object_lock_configuration
+           ~replication_configuration
+           ~server_side_encryption_configuration ?timeouts
+           ~versioning ~website ~grant ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?acceleration_status ?acl ?bucket
     ?bucket_prefix ?force_destroy ?id ?object_lock_enabled ?policy
-    ?request_payer ?tags ?tags_all ?timeouts ~cors_rule ~grant
-    ~lifecycle_rule ~logging ~object_lock_configuration
-    ~replication_configuration ~server_side_encryption_configuration
-    ~versioning ~website __id =
+    ?request_payer ?tags ?tags_all ?(cors_rule = [])
+    ?(lifecycle_rule = []) ?(logging = [])
+    ?(object_lock_configuration = [])
+    ?(replication_configuration = [])
+    ?(server_side_encryption_configuration = []) ?timeouts
+    ?(versioning = []) ?(website = []) ~grant __id =
   let (r : _ Tf_core.resource) =
     make ?acceleration_status ?acl ?bucket ?bucket_prefix
       ?force_destroy ?id ?object_lock_enabled ?policy ?request_payer
-      ?tags ?tags_all ?timeouts ~cors_rule ~grant ~lifecycle_rule
-      ~logging ~object_lock_configuration ~replication_configuration
-      ~server_side_encryption_configuration ~versioning ~website __id
+      ?tags ?tags_all ~cors_rule ~lifecycle_rule ~logging
+      ~object_lock_configuration ~replication_configuration
+      ~server_side_encryption_configuration ?timeouts ~versioning
+      ~website ~grant __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

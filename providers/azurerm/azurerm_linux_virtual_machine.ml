@@ -1132,8 +1132,8 @@ let os_disk__diff_disk_settings ?placement ~option_ () :
 
 let os_disk ?disk_encryption_set_id ?disk_size_gb ?name
     ?secure_vm_disk_encryption_set_id ?security_encryption_type
-    ?write_accelerator_enabled ~caching ~storage_account_type
-    ~diff_disk_settings () : os_disk =
+    ?write_accelerator_enabled ?(diff_disk_settings = []) ~caching
+    ~storage_account_type () : os_disk =
   {
     caching;
     disk_encryption_set_id;
@@ -1180,12 +1180,13 @@ let azurerm_linux_virtual_machine ?admin_password
     ?priority ?provision_vm_agent ?proximity_placement_group_id
     ?reboot_setting ?secure_boot_enabled ?source_image_id ?tags
     ?user_data ?virtual_machine_scale_set_id
-    ?vm_agent_platform_updates_enabled ?vtpm_enabled ?zone ?timeouts
-    ~admin_username ~location ~name ~network_interface_ids
-    ~resource_group_name ~size ~additional_capabilities
-    ~admin_ssh_key ~boot_diagnostics ~gallery_application ~identity
-    ~os_disk ~os_image_notification ~plan ~secret
-    ~source_image_reference ~termination_notification () :
+    ?vm_agent_platform_updates_enabled ?vtpm_enabled ?zone
+    ?(additional_capabilities = []) ?(boot_diagnostics = [])
+    ?(gallery_application = []) ?(identity = [])
+    ?(os_image_notification = []) ?(plan = []) ?(secret = [])
+    ?(source_image_reference = []) ?(termination_notification = [])
+    ?timeouts ~admin_username ~location ~name ~network_interface_ids
+    ~resource_group_name ~size ~admin_ssh_key ~os_disk () :
     azurerm_linux_virtual_machine =
   {
     admin_password;
@@ -1300,12 +1301,13 @@ let make ?admin_password ?allow_extension_operations
     ?priority ?provision_vm_agent ?proximity_placement_group_id
     ?reboot_setting ?secure_boot_enabled ?source_image_id ?tags
     ?user_data ?virtual_machine_scale_set_id
-    ?vm_agent_platform_updates_enabled ?vtpm_enabled ?zone ?timeouts
-    ~admin_username ~location ~name ~network_interface_ids
-    ~resource_group_name ~size ~additional_capabilities
-    ~admin_ssh_key ~boot_diagnostics ~gallery_application ~identity
-    ~os_disk ~os_image_notification ~plan ~secret
-    ~source_image_reference ~termination_notification __id =
+    ?vm_agent_platform_updates_enabled ?vtpm_enabled ?zone
+    ?(additional_capabilities = []) ?(boot_diagnostics = [])
+    ?(gallery_application = []) ?(identity = [])
+    ?(os_image_notification = []) ?(plan = []) ?(secret = [])
+    ?(source_image_reference = []) ?(termination_notification = [])
+    ?timeouts ~admin_username ~location ~name ~network_interface_ids
+    ~resource_group_name ~size ~admin_ssh_key ~os_disk __id =
   let __type = "azurerm_linux_virtual_machine" in
   let __attrs =
     ({
@@ -1401,12 +1403,12 @@ let make ?admin_password ?allow_extension_operations
            ?secure_boot_enabled ?source_image_id ?tags ?user_data
            ?virtual_machine_scale_set_id
            ?vm_agent_platform_updates_enabled ?vtpm_enabled ?zone
-           ?timeouts ~admin_username ~location ~name
-           ~network_interface_ids ~resource_group_name ~size
-           ~additional_capabilities ~admin_ssh_key ~boot_diagnostics
-           ~gallery_application ~identity ~os_disk
-           ~os_image_notification ~plan ~secret
-           ~source_image_reference ~termination_notification ());
+           ~additional_capabilities ~boot_diagnostics
+           ~gallery_application ~identity ~os_image_notification
+           ~plan ~secret ~source_image_reference
+           ~termination_notification ?timeouts ~admin_username
+           ~location ~name ~network_interface_ids
+           ~resource_group_name ~size ~admin_ssh_key ~os_disk ());
     attrs = __attrs;
   }
 
@@ -1422,12 +1424,13 @@ let register ?tf_module ?admin_password ?allow_extension_operations
     ?priority ?provision_vm_agent ?proximity_placement_group_id
     ?reboot_setting ?secure_boot_enabled ?source_image_id ?tags
     ?user_data ?virtual_machine_scale_set_id
-    ?vm_agent_platform_updates_enabled ?vtpm_enabled ?zone ?timeouts
-    ~admin_username ~location ~name ~network_interface_ids
-    ~resource_group_name ~size ~additional_capabilities
-    ~admin_ssh_key ~boot_diagnostics ~gallery_application ~identity
-    ~os_disk ~os_image_notification ~plan ~secret
-    ~source_image_reference ~termination_notification __id =
+    ?vm_agent_platform_updates_enabled ?vtpm_enabled ?zone
+    ?(additional_capabilities = []) ?(boot_diagnostics = [])
+    ?(gallery_application = []) ?(identity = [])
+    ?(os_image_notification = []) ?(plan = []) ?(secret = [])
+    ?(source_image_reference = []) ?(termination_notification = [])
+    ?timeouts ~admin_username ~location ~name ~network_interface_ids
+    ~resource_group_name ~size ~admin_ssh_key ~os_disk __id =
   let (r : _ Tf_core.resource) =
     make ?admin_password ?allow_extension_operations
       ?availability_set_id
@@ -1442,12 +1445,11 @@ let register ?tf_module ?admin_password ?allow_extension_operations
       ?reboot_setting ?secure_boot_enabled ?source_image_id ?tags
       ?user_data ?virtual_machine_scale_set_id
       ?vm_agent_platform_updates_enabled ?vtpm_enabled ?zone
-      ?timeouts ~admin_username ~location ~name
-      ~network_interface_ids ~resource_group_name ~size
-      ~additional_capabilities ~admin_ssh_key ~boot_diagnostics
-      ~gallery_application ~identity ~os_disk ~os_image_notification
-      ~plan ~secret ~source_image_reference ~termination_notification
-      __id
+      ~additional_capabilities ~boot_diagnostics ~gallery_application
+      ~identity ~os_image_notification ~plan ~secret
+      ~source_image_reference ~termination_notification ?timeouts
+      ~admin_username ~location ~name ~network_interface_ids
+      ~resource_group_name ~size ~admin_ssh_key ~os_disk __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

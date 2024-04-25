@@ -677,7 +677,7 @@ let overrides__inference_accelerator_overrides ?device_name
   { device_name; device_type }
 
 let overrides ?cpu ?execution_role_arn ?memory ?task_role_arn
-    ~container_overrides ~inference_accelerator_overrides () :
+    ?(container_overrides = []) ~inference_accelerator_overrides () :
     overrides =
   {
     cpu;
@@ -698,9 +698,9 @@ let placement_strategy ?field ~type_ () : placement_strategy =
 let aws_ecs_task_execution ?client_token ?desired_count
     ?enable_ecs_managed_tags ?enable_execute_command ?group ?id
     ?launch_type ?platform_version ?propagate_tags ?reference_id
-    ?started_by ?tags ~cluster ~task_definition
-    ~capacity_provider_strategy ~network_configuration ~overrides
-    ~placement_constraints ~placement_strategy () :
+    ?started_by ?tags ?(network_configuration = []) ?(overrides = [])
+    ?(placement_strategy = []) ~cluster ~task_definition
+    ~capacity_provider_strategy ~placement_constraints () :
     aws_ecs_task_execution =
   {
     client_token;
@@ -744,10 +744,10 @@ type t = {
 
 let make ?client_token ?desired_count ?enable_ecs_managed_tags
     ?enable_execute_command ?group ?id ?launch_type ?platform_version
-    ?propagate_tags ?reference_id ?started_by ?tags ~cluster
-    ~task_definition ~capacity_provider_strategy
-    ~network_configuration ~overrides ~placement_constraints
-    ~placement_strategy __id =
+    ?propagate_tags ?reference_id ?started_by ?tags
+    ?(network_configuration = []) ?(overrides = [])
+    ?(placement_strategy = []) ~cluster ~task_definition
+    ~capacity_provider_strategy ~placement_constraints __id =
   let __type = "aws_ecs_task_execution" in
   let __attrs =
     ({
@@ -780,25 +780,25 @@ let make ?client_token ?desired_count ?enable_ecs_managed_tags
         (aws_ecs_task_execution ?client_token ?desired_count
            ?enable_ecs_managed_tags ?enable_execute_command ?group
            ?id ?launch_type ?platform_version ?propagate_tags
-           ?reference_id ?started_by ?tags ~cluster ~task_definition
-           ~capacity_provider_strategy ~network_configuration
-           ~overrides ~placement_constraints ~placement_strategy ());
+           ?reference_id ?started_by ?tags ~network_configuration
+           ~overrides ~placement_strategy ~cluster ~task_definition
+           ~capacity_provider_strategy ~placement_constraints ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?client_token ?desired_count
     ?enable_ecs_managed_tags ?enable_execute_command ?group ?id
     ?launch_type ?platform_version ?propagate_tags ?reference_id
-    ?started_by ?tags ~cluster ~task_definition
-    ~capacity_provider_strategy ~network_configuration ~overrides
-    ~placement_constraints ~placement_strategy __id =
+    ?started_by ?tags ?(network_configuration = []) ?(overrides = [])
+    ?(placement_strategy = []) ~cluster ~task_definition
+    ~capacity_provider_strategy ~placement_constraints __id =
   let (r : _ Tf_core.resource) =
     make ?client_token ?desired_count ?enable_ecs_managed_tags
       ?enable_execute_command ?group ?id ?launch_type
       ?platform_version ?propagate_tags ?reference_id ?started_by
-      ?tags ~cluster ~task_definition ~capacity_provider_strategy
-      ~network_configuration ~overrides ~placement_constraints
-      ~placement_strategy __id
+      ?tags ~network_configuration ~overrides ~placement_strategy
+      ~cluster ~task_definition ~capacity_provider_strategy
+      ~placement_constraints __id
   in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

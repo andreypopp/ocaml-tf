@@ -3726,9 +3726,10 @@ let auth_settings__twitter ?consumer_secret
 let auth_settings ?additional_login_parameters
     ?allowed_external_redirect_urls ?default_provider ?issuer
     ?runtime_version ?token_refresh_extension_hours
-    ?token_store_enabled ?unauthenticated_client_action ~enabled
-    ~active_directory ~facebook ~github ~google ~microsoft ~twitter
-    () : auth_settings =
+    ?token_store_enabled ?unauthenticated_client_action
+    ?(active_directory = []) ?(facebook = []) ?(github = [])
+    ?(google = []) ?(microsoft = []) ?(twitter = []) ~enabled () :
+    auth_settings =
   {
     additional_login_parameters;
     allowed_external_redirect_urls;
@@ -3852,10 +3853,11 @@ let auth_settings_v2 ?auth_enabled ?config_file_path
     ?forward_proxy_custom_host_header_name
     ?forward_proxy_custom_scheme_header_name ?http_route_api_prefix
     ?require_authentication ?require_https ?runtime_version
-    ?unauthenticated_action ~active_directory_v2 ~apple_v2
-    ~azure_static_web_app_v2 ~custom_oidc_v2 ~facebook_v2 ~github_v2
-    ~google_v2 ~login ~microsoft_v2 ~twitter_v2 () : auth_settings_v2
-    =
+    ?unauthenticated_action ?(active_directory_v2 = [])
+    ?(apple_v2 = []) ?(azure_static_web_app_v2 = [])
+    ?(custom_oidc_v2 = []) ?(facebook_v2 = []) ?(github_v2 = [])
+    ?(google_v2 = []) ?(microsoft_v2 = []) ?(twitter_v2 = []) ~login
+    () : auth_settings_v2 =
   {
     auth_enabled;
     config_file_path;
@@ -3907,8 +3909,8 @@ let logs__application_logs__azure_blob_storage ~level
     logs__application_logs__azure_blob_storage =
   { level; retention_in_days; sas_url }
 
-let logs__application_logs ~file_system_level ~azure_blob_storage ()
-    : logs__application_logs =
+let logs__application_logs ?(azure_blob_storage = [])
+    ~file_system_level () : logs__application_logs =
   { file_system_level; azure_blob_storage }
 
 let logs__http_logs__azure_blob_storage ?retention_in_days ~sas_url
@@ -3919,12 +3921,12 @@ let logs__http_logs__file_system ~retention_in_days ~retention_in_mb
     () : logs__http_logs__file_system =
   { retention_in_days; retention_in_mb }
 
-let logs__http_logs ~azure_blob_storage ~file_system () :
-    logs__http_logs =
+let logs__http_logs ?(azure_blob_storage = []) ?(file_system = []) ()
+    : logs__http_logs =
   { azure_blob_storage; file_system }
 
 let logs ?detailed_error_messages ?failed_request_tracing
-    ~application_logs ~http_logs () : logs =
+    ?(application_logs = []) ?(http_logs = []) () : logs =
   {
     detailed_error_messages;
     failed_request_tracing;
@@ -3969,8 +3971,8 @@ let site_config__auto_heal_setting__action__custom_action ?parameters
   { executable; parameters }
 
 let site_config__auto_heal_setting__action
-    ?minimum_process_execution_time ~action_type ~custom_action () :
-    site_config__auto_heal_setting__action =
+    ?minimum_process_execution_time ?(custom_action = [])
+    ~action_type () : site_config__auto_heal_setting__action =
   { action_type; minimum_process_execution_time; custom_action }
 
 let site_config__auto_heal_setting__trigger__requests ~count
@@ -3997,7 +3999,7 @@ let site_config__auto_heal_setting__trigger__status_code ?path
   }
 
 let site_config__auto_heal_setting__trigger ?private_memory_kb
-    ~requests ~slow_request ~status_code () :
+    ?(requests = []) ?(slow_request = []) ?(status_code = []) () :
     site_config__auto_heal_setting__trigger =
   { private_memory_kb; requests; slow_request; status_code }
 
@@ -4058,9 +4060,9 @@ let site_config ?always_on ?api_definition_url ?api_management_api_id
     ?remote_debugging_version ?scm_ip_restriction_default_action
     ?scm_minimum_tls_version ?scm_use_main_ip_restriction
     ?use_32_bit_worker ?vnet_route_all_enabled ?websockets_enabled
-    ?worker_count ~application_stack ~auto_heal_setting ~cors
-    ~ip_restriction ~scm_ip_restriction ~virtual_application () :
-    site_config =
+    ?worker_count ?(application_stack = []) ?(auto_heal_setting = [])
+    ?(cors = []) ?(ip_restriction = []) ?(scm_ip_restriction = [])
+    ~virtual_application () : site_config =
   {
     always_on;
     api_definition_url;
@@ -4112,9 +4114,10 @@ let azurerm_windows_web_app_slot ?app_settings
     ?public_network_access_enabled ?service_plan_id ?tags
     ?virtual_network_subnet_id
     ?webdeploy_publish_basic_authentication_enabled ?zip_deploy_file
-    ?timeouts ~app_service_id ~name ~auth_settings ~auth_settings_v2
-    ~backup ~connection_string ~identity ~logs ~site_config
-    ~storage_account () : azurerm_windows_web_app_slot =
+    ?(auth_settings = []) ?(auth_settings_v2 = []) ?(backup = [])
+    ?(identity = []) ?(logs = []) ?timeouts ~app_service_id ~name
+    ~connection_string ~site_config ~storage_account () :
+    azurerm_windows_web_app_slot =
   {
     app_service_id;
     app_settings;
@@ -4182,9 +4185,9 @@ let make ?app_settings ?client_affinity_enabled
     ?key_vault_reference_identity_id ?public_network_access_enabled
     ?service_plan_id ?tags ?virtual_network_subnet_id
     ?webdeploy_publish_basic_authentication_enabled ?zip_deploy_file
-    ?timeouts ~app_service_id ~name ~auth_settings ~auth_settings_v2
-    ~backup ~connection_string ~identity ~logs ~site_config
-    ~storage_account __id =
+    ?(auth_settings = []) ?(auth_settings_v2 = []) ?(backup = [])
+    ?(identity = []) ?(logs = []) ?timeouts ~app_service_id ~name
+    ~connection_string ~site_config ~storage_account __id =
   let __type = "azurerm_windows_web_app_slot" in
   let __attrs =
     ({
@@ -4252,10 +4255,9 @@ let make ?app_settings ?client_affinity_enabled
            ?public_network_access_enabled ?service_plan_id ?tags
            ?virtual_network_subnet_id
            ?webdeploy_publish_basic_authentication_enabled
-           ?zip_deploy_file ?timeouts ~app_service_id ~name
-           ~auth_settings ~auth_settings_v2 ~backup
-           ~connection_string ~identity ~logs ~site_config
-           ~storage_account ());
+           ?zip_deploy_file ~auth_settings ~auth_settings_v2 ~backup
+           ~identity ~logs ?timeouts ~app_service_id ~name
+           ~connection_string ~site_config ~storage_account ());
     attrs = __attrs;
   }
 
@@ -4266,9 +4268,9 @@ let register ?tf_module ?app_settings ?client_affinity_enabled
     ?key_vault_reference_identity_id ?public_network_access_enabled
     ?service_plan_id ?tags ?virtual_network_subnet_id
     ?webdeploy_publish_basic_authentication_enabled ?zip_deploy_file
-    ?timeouts ~app_service_id ~name ~auth_settings ~auth_settings_v2
-    ~backup ~connection_string ~identity ~logs ~site_config
-    ~storage_account __id =
+    ?(auth_settings = []) ?(auth_settings_v2 = []) ?(backup = [])
+    ?(identity = []) ?(logs = []) ?timeouts ~app_service_id ~name
+    ~connection_string ~site_config ~storage_account __id =
   let (r : _ Tf_core.resource) =
     make ?app_settings ?client_affinity_enabled
       ?client_certificate_enabled ?client_certificate_exclusion_paths
@@ -4277,9 +4279,9 @@ let register ?tf_module ?app_settings ?client_affinity_enabled
       ?key_vault_reference_identity_id ?public_network_access_enabled
       ?service_plan_id ?tags ?virtual_network_subnet_id
       ?webdeploy_publish_basic_authentication_enabled
-      ?zip_deploy_file ?timeouts ~app_service_id ~name ~auth_settings
-      ~auth_settings_v2 ~backup ~connection_string ~identity ~logs
-      ~site_config ~storage_account __id
+      ?zip_deploy_file ~auth_settings ~auth_settings_v2 ~backup
+      ~identity ~logs ?timeouts ~app_service_id ~name
+      ~connection_string ~site_config ~storage_account __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

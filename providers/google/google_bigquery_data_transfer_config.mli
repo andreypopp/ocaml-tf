@@ -44,13 +44,13 @@ val google_bigquery_data_transfer_config :
   ?project:string prop ->
   ?schedule:string prop ->
   ?service_account_name:string prop ->
+  ?email_preferences:email_preferences list ->
+  ?schedule_options:schedule_options list ->
+  ?sensitive_params:sensitive_params list ->
   ?timeouts:timeouts ->
   data_source_id:string prop ->
   display_name:string prop ->
   params:(string * string prop) list ->
-  email_preferences:email_preferences list ->
-  schedule_options:schedule_options list ->
-  sensitive_params:sensitive_params list ->
   unit ->
   google_bigquery_data_transfer_config
 
@@ -86,13 +86,13 @@ val register :
   ?project:string prop ->
   ?schedule:string prop ->
   ?service_account_name:string prop ->
+  ?email_preferences:email_preferences list ->
+  ?schedule_options:schedule_options list ->
+  ?sensitive_params:sensitive_params list ->
   ?timeouts:timeouts ->
   data_source_id:string prop ->
   display_name:string prop ->
   params:(string * string prop) list ->
-  email_preferences:email_preferences list ->
-  schedule_options:schedule_options list ->
-  sensitive_params:sensitive_params list ->
   string ->
   t
 
@@ -106,12 +106,12 @@ val make :
   ?project:string prop ->
   ?schedule:string prop ->
   ?service_account_name:string prop ->
+  ?email_preferences:email_preferences list ->
+  ?schedule_options:schedule_options list ->
+  ?sensitive_params:sensitive_params list ->
   ?timeouts:timeouts ->
   data_source_id:string prop ->
   display_name:string prop ->
   params:(string * string prop) list ->
-  email_preferences:email_preferences list ->
-  schedule_options:schedule_options list ->
-  sensitive_params:sensitive_params list ->
   string ->
   t Tf_core.resource

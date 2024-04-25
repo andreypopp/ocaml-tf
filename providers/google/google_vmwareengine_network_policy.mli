@@ -27,13 +27,13 @@ val google_vmwareengine_network_policy :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?external_ip:external_ip list ->
+  ?internet_access:internet_access list ->
   ?timeouts:timeouts ->
   edge_services_cidr:string prop ->
   location:string prop ->
   name:string prop ->
   vmware_engine_network:string prop ->
-  external_ip:external_ip list ->
-  internet_access:internet_access list ->
   unit ->
   google_vmwareengine_network_policy
 
@@ -61,13 +61,13 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?external_ip:external_ip list ->
+  ?internet_access:internet_access list ->
   ?timeouts:timeouts ->
   edge_services_cidr:string prop ->
   location:string prop ->
   name:string prop ->
   vmware_engine_network:string prop ->
-  external_ip:external_ip list ->
-  internet_access:internet_access list ->
   string ->
   t
 
@@ -75,12 +75,12 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?external_ip:external_ip list ->
+  ?internet_access:internet_access list ->
   ?timeouts:timeouts ->
   edge_services_cidr:string prop ->
   location:string prop ->
   name:string prop ->
   vmware_engine_network:string prop ->
-  external_ip:external_ip list ->
-  internet_access:internet_access list ->
   string ->
   t Tf_core.resource

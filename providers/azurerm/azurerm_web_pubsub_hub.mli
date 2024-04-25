@@ -14,8 +14,8 @@ type event_handler
 val event_handler :
   ?system_events:string prop list ->
   ?user_event_pattern:string prop ->
+  ?auth:event_handler__auth list ->
   url_template:string prop ->
-  auth:event_handler__auth list ->
   unit ->
   event_handler
 
@@ -44,11 +44,11 @@ type azurerm_web_pubsub_hub
 val azurerm_web_pubsub_hub :
   ?anonymous_connections_enabled:bool prop ->
   ?id:string prop ->
+  ?event_handler:event_handler list ->
+  ?event_listener:event_listener list ->
   ?timeouts:timeouts ->
   name:string prop ->
   web_pubsub_id:string prop ->
-  event_handler:event_handler list ->
-  event_listener:event_listener list ->
   unit ->
   azurerm_web_pubsub_hub
 
@@ -67,21 +67,21 @@ val register :
   ?tf_module:tf_module ->
   ?anonymous_connections_enabled:bool prop ->
   ?id:string prop ->
+  ?event_handler:event_handler list ->
+  ?event_listener:event_listener list ->
   ?timeouts:timeouts ->
   name:string prop ->
   web_pubsub_id:string prop ->
-  event_handler:event_handler list ->
-  event_listener:event_listener list ->
   string ->
   t
 
 val make :
   ?anonymous_connections_enabled:bool prop ->
   ?id:string prop ->
+  ?event_handler:event_handler list ->
+  ?event_listener:event_listener list ->
   ?timeouts:timeouts ->
   name:string prop ->
   web_pubsub_id:string prop ->
-  event_handler:event_handler list ->
-  event_listener:event_listener list ->
   string ->
   t Tf_core.resource

@@ -23,8 +23,8 @@ val logging_filter__filter__condition__label_name_condition :
 type logging_filter__filter__condition
 
 val logging_filter__filter__condition :
-    action_condition:logging_filter__filter__condition__action_condition list ->
-    label_name_condition:logging_filter__filter__condition__label_name_condition list ->
+    ?action_condition:logging_filter__filter__condition__action_condition list ->
+    ?label_name_condition:logging_filter__filter__condition__label_name_condition list ->
     unit ->
     logging_filter__filter__condition
 
@@ -73,10 +73,10 @@ val redacted_fields__uri_path :
 type redacted_fields
 
 val redacted_fields :
-    method_:redacted_fields__method list ->
-    query_string:redacted_fields__query_string list ->
-    single_header:redacted_fields__single_header list ->
-    uri_path:redacted_fields__uri_path list ->
+    ?method_:redacted_fields__method list ->
+    ?query_string:redacted_fields__query_string list ->
+    ?single_header:redacted_fields__single_header list ->
+    ?uri_path:redacted_fields__uri_path list ->
     unit ->
     redacted_fields
 
@@ -84,10 +84,10 @@ type aws_wafv2_web_acl_logging_configuration
 
 val aws_wafv2_web_acl_logging_configuration :
     ?id:string prop ->
+    ?logging_filter:logging_filter list ->
+    ?redacted_fields:redacted_fields list ->
     log_destination_configs:string  prop list ->
     resource_arn:string prop ->
-    logging_filter:logging_filter list ->
-    redacted_fields:redacted_fields list ->
     unit ->
     aws_wafv2_web_acl_logging_configuration
 
@@ -104,19 +104,19 @@ type t = private {
 val register :
     ?tf_module:tf_module ->
     ?id:string prop ->
+    ?logging_filter:logging_filter list ->
+    ?redacted_fields:redacted_fields list ->
     log_destination_configs:string  prop list ->
     resource_arn:string prop ->
-    logging_filter:logging_filter list ->
-    redacted_fields:redacted_fields list ->
     string ->
     t
 
 val make :
     ?id:string prop ->
+    ?logging_filter:logging_filter list ->
+    ?redacted_fields:redacted_fields list ->
     log_destination_configs:string  prop list ->
     resource_arn:string prop ->
-    logging_filter:logging_filter list ->
-    redacted_fields:redacted_fields list ->
     string ->
     t Tf_core.resource
 

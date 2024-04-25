@@ -30,9 +30,9 @@ val bucket_options__linear_buckets :
 type bucket_options
 
 val bucket_options :
-  explicit_buckets:bucket_options__explicit_buckets list ->
-  exponential_buckets:bucket_options__exponential_buckets list ->
-  linear_buckets:bucket_options__linear_buckets list ->
+  ?explicit_buckets:bucket_options__explicit_buckets list ->
+  ?exponential_buckets:bucket_options__exponential_buckets list ->
+  ?linear_buckets:bucket_options__linear_buckets list ->
   unit ->
   bucket_options
 
@@ -75,11 +75,11 @@ val google_logging_metric :
   ?label_extractors:(string * string prop) list ->
   ?project:string prop ->
   ?value_extractor:string prop ->
+  ?bucket_options:bucket_options list ->
+  ?metric_descriptor:metric_descriptor list ->
   ?timeouts:timeouts ->
   filter:string prop ->
   name:string prop ->
-  bucket_options:bucket_options list ->
-  metric_descriptor:metric_descriptor list ->
   unit ->
   google_logging_metric
 
@@ -108,11 +108,11 @@ val register :
   ?label_extractors:(string * string prop) list ->
   ?project:string prop ->
   ?value_extractor:string prop ->
+  ?bucket_options:bucket_options list ->
+  ?metric_descriptor:metric_descriptor list ->
   ?timeouts:timeouts ->
   filter:string prop ->
   name:string prop ->
-  bucket_options:bucket_options list ->
-  metric_descriptor:metric_descriptor list ->
   string ->
   t
 
@@ -124,10 +124,10 @@ val make :
   ?label_extractors:(string * string prop) list ->
   ?project:string prop ->
   ?value_extractor:string prop ->
+  ?bucket_options:bucket_options list ->
+  ?metric_descriptor:metric_descriptor list ->
   ?timeouts:timeouts ->
   filter:string prop ->
   name:string prop ->
-  bucket_options:bucket_options list ->
-  metric_descriptor:metric_descriptor list ->
   string ->
   t Tf_core.resource

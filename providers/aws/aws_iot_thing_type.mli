@@ -19,8 +19,8 @@ val aws_iot_thing_type :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?properties:properties list ->
   name:string prop ->
-  properties:properties list ->
   unit ->
   aws_iot_thing_type
 
@@ -43,8 +43,8 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?properties:properties list ->
   name:string prop ->
-  properties:properties list ->
   string ->
   t
 
@@ -53,7 +53,7 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?properties:properties list ->
   name:string prop ->
-  properties:properties list ->
   string ->
   t Tf_core.resource

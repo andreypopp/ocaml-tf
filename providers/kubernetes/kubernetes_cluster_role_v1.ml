@@ -344,11 +344,12 @@ let aggregation_rule__cluster_role_selectors__match_expressions ?key
   { key; operator; values }
 
 let aggregation_rule__cluster_role_selectors ?match_labels
-    ~match_expressions () : aggregation_rule__cluster_role_selectors
-    =
+    ?(match_expressions = []) () :
+    aggregation_rule__cluster_role_selectors =
   { match_labels; match_expressions }
 
-let aggregation_rule ~cluster_role_selectors () : aggregation_rule =
+let aggregation_rule ?(cluster_role_selectors = []) () :
+    aggregation_rule =
   { cluster_role_selectors }
 
 let metadata ?annotations ?generate_name ?labels ?name () : metadata
@@ -359,13 +360,13 @@ let rule ?api_groups ?non_resource_urls ?resource_names ?resources
     ~verbs () : rule =
   { api_groups; non_resource_urls; resource_names; resources; verbs }
 
-let kubernetes_cluster_role_v1 ?id ~aggregation_rule ~metadata ~rule
-    () : kubernetes_cluster_role_v1 =
+let kubernetes_cluster_role_v1 ?id ?(aggregation_rule = [])
+    ?(rule = []) ~metadata () : kubernetes_cluster_role_v1 =
   { id; aggregation_rule; metadata; rule }
 
 type t = { id : string prop }
 
-let make ?id ~aggregation_rule ~metadata ~rule __id =
+let make ?id ?(aggregation_rule = []) ?(rule = []) ~metadata __id =
   let __type = "kubernetes_cluster_role_v1" in
   let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
   {
@@ -373,14 +374,15 @@ let make ?id ~aggregation_rule ~metadata ~rule __id =
     type_ = __type;
     json =
       yojson_of_kubernetes_cluster_role_v1
-        (kubernetes_cluster_role_v1 ?id ~aggregation_rule ~metadata
-           ~rule ());
+        (kubernetes_cluster_role_v1 ?id ~aggregation_rule ~rule
+           ~metadata ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~aggregation_rule ~metadata ~rule __id =
+let register ?tf_module ?id ?(aggregation_rule = []) ?(rule = [])
+    ~metadata __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~aggregation_rule ~metadata ~rule __id
+    make ?id ~aggregation_rule ~rule ~metadata __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

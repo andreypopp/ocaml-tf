@@ -16,10 +16,10 @@ type job_template_data__configuration_overrides__application_configuration
 
 val job_template_data__configuration_overrides__application_configuration :
   ?properties:(string * string prop) list ->
-  classification:string prop ->
-  configurations:
+  ?configurations:
     job_template_data__configuration_overrides__application_configuration__configurations
     list ->
+  classification:string prop ->
   unit ->
   job_template_data__configuration_overrides__application_configuration
 
@@ -42,10 +42,10 @@ type job_template_data__configuration_overrides__monitoring_configuration
 
 val job_template_data__configuration_overrides__monitoring_configuration :
   ?persistent_app_ui:string prop ->
-  cloud_watch_monitoring_configuration:
+  ?cloud_watch_monitoring_configuration:
     job_template_data__configuration_overrides__monitoring_configuration__cloud_watch_monitoring_configuration
     list ->
-  s3_monitoring_configuration:
+  ?s3_monitoring_configuration:
     job_template_data__configuration_overrides__monitoring_configuration__s3_monitoring_configuration
     list ->
   unit ->
@@ -54,10 +54,10 @@ val job_template_data__configuration_overrides__monitoring_configuration :
 type job_template_data__configuration_overrides
 
 val job_template_data__configuration_overrides :
-  application_configuration:
+  ?application_configuration:
     job_template_data__configuration_overrides__application_configuration
     list ->
-  monitoring_configuration:
+  ?monitoring_configuration:
     job_template_data__configuration_overrides__monitoring_configuration
     list ->
   unit ->
@@ -83,9 +83,9 @@ val job_template_data__job_driver__spark_submit_job_driver :
 type job_template_data__job_driver
 
 val job_template_data__job_driver :
-  spark_sql_job_driver:
+  ?spark_sql_job_driver:
     job_template_data__job_driver__spark_sql_job_driver list ->
-  spark_submit_job_driver:
+  ?spark_submit_job_driver:
     job_template_data__job_driver__spark_submit_job_driver list ->
   unit ->
   job_template_data__job_driver
@@ -94,10 +94,10 @@ type job_template_data
 
 val job_template_data :
   ?job_tags:(string * string prop) list ->
+  ?configuration_overrides:
+    job_template_data__configuration_overrides list ->
   execution_role_arn:string prop ->
   release_label:string prop ->
-  configuration_overrides:
-    job_template_data__configuration_overrides list ->
   job_driver:job_template_data__job_driver list ->
   unit ->
   job_template_data

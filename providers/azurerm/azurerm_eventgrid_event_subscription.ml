@@ -1583,13 +1583,16 @@ let advanced_filter__string_not_in ~key ~values () :
     advanced_filter__string_not_in =
   { key; values }
 
-let advanced_filter ~bool_equals ~is_not_null ~is_null_or_undefined
-    ~number_greater_than ~number_greater_than_or_equals ~number_in
-    ~number_in_range ~number_less_than ~number_less_than_or_equals
-    ~number_not_in ~number_not_in_range ~string_begins_with
-    ~string_contains ~string_ends_with ~string_in
-    ~string_not_begins_with ~string_not_contains
-    ~string_not_ends_with ~string_not_in () : advanced_filter =
+let advanced_filter ?(bool_equals = []) ?(is_not_null = [])
+    ?(is_null_or_undefined = []) ?(number_greater_than = [])
+    ?(number_greater_than_or_equals = []) ?(number_in = [])
+    ?(number_in_range = []) ?(number_less_than = [])
+    ?(number_less_than_or_equals = []) ?(number_not_in = [])
+    ?(number_not_in_range = []) ?(string_begins_with = [])
+    ?(string_contains = []) ?(string_ends_with = [])
+    ?(string_in = []) ?(string_not_begins_with = [])
+    ?(string_not_contains = []) ?(string_not_ends_with = [])
+    ?(string_not_in = []) () : advanced_filter =
   {
     bool_equals;
     is_not_null;
@@ -1673,10 +1676,12 @@ let azurerm_eventgrid_event_subscription
     ?eventhub_endpoint_id ?expiration_time_utc
     ?hybrid_connection_endpoint_id ?id ?included_event_types ?labels
     ?service_bus_queue_endpoint_id ?service_bus_topic_endpoint_id
-    ?timeouts ~name ~scope ~advanced_filter ~azure_function_endpoint
-    ~dead_letter_identity ~delivery_identity ~delivery_property
-    ~retry_policy ~storage_blob_dead_letter_destination
-    ~storage_queue_endpoint ~subject_filter ~webhook_endpoint () :
+    ?(advanced_filter = []) ?(azure_function_endpoint = [])
+    ?(dead_letter_identity = []) ?(delivery_identity = [])
+    ?(delivery_property = []) ?(retry_policy = [])
+    ?(storage_blob_dead_letter_destination = [])
+    ?(storage_queue_endpoint = []) ?(subject_filter = []) ?timeouts
+    ?(webhook_endpoint = []) ~name ~scope () :
     azurerm_eventgrid_event_subscription =
   {
     advanced_filtering_on_arrays_enabled;
@@ -1723,10 +1728,12 @@ let make ?advanced_filtering_on_arrays_enabled ?event_delivery_schema
     ?eventhub_endpoint_id ?expiration_time_utc
     ?hybrid_connection_endpoint_id ?id ?included_event_types ?labels
     ?service_bus_queue_endpoint_id ?service_bus_topic_endpoint_id
-    ?timeouts ~name ~scope ~advanced_filter ~azure_function_endpoint
-    ~dead_letter_identity ~delivery_identity ~delivery_property
-    ~retry_policy ~storage_blob_dead_letter_destination
-    ~storage_queue_endpoint ~subject_filter ~webhook_endpoint __id =
+    ?(advanced_filter = []) ?(azure_function_endpoint = [])
+    ?(dead_letter_identity = []) ?(delivery_identity = [])
+    ?(delivery_property = []) ?(retry_policy = [])
+    ?(storage_blob_dead_letter_destination = [])
+    ?(storage_queue_endpoint = []) ?(subject_filter = []) ?timeouts
+    ?(webhook_endpoint = []) ~name ~scope __id =
   let __type = "azurerm_eventgrid_event_subscription" in
   let __attrs =
     ({
@@ -1765,13 +1772,12 @@ let make ?advanced_filtering_on_arrays_enabled ?event_delivery_schema
            ?expiration_time_utc ?hybrid_connection_endpoint_id ?id
            ?included_event_types ?labels
            ?service_bus_queue_endpoint_id
-           ?service_bus_topic_endpoint_id ?timeouts ~name ~scope
-           ~advanced_filter ~azure_function_endpoint
-           ~dead_letter_identity ~delivery_identity
-           ~delivery_property ~retry_policy
+           ?service_bus_topic_endpoint_id ~advanced_filter
+           ~azure_function_endpoint ~dead_letter_identity
+           ~delivery_identity ~delivery_property ~retry_policy
            ~storage_blob_dead_letter_destination
-           ~storage_queue_endpoint ~subject_filter ~webhook_endpoint
-           ());
+           ~storage_queue_endpoint ~subject_filter ?timeouts
+           ~webhook_endpoint ~name ~scope ());
     attrs = __attrs;
   }
 
@@ -1779,20 +1785,22 @@ let register ?tf_module ?advanced_filtering_on_arrays_enabled
     ?event_delivery_schema ?eventhub_endpoint_id ?expiration_time_utc
     ?hybrid_connection_endpoint_id ?id ?included_event_types ?labels
     ?service_bus_queue_endpoint_id ?service_bus_topic_endpoint_id
-    ?timeouts ~name ~scope ~advanced_filter ~azure_function_endpoint
-    ~dead_letter_identity ~delivery_identity ~delivery_property
-    ~retry_policy ~storage_blob_dead_letter_destination
-    ~storage_queue_endpoint ~subject_filter ~webhook_endpoint __id =
+    ?(advanced_filter = []) ?(azure_function_endpoint = [])
+    ?(dead_letter_identity = []) ?(delivery_identity = [])
+    ?(delivery_property = []) ?(retry_policy = [])
+    ?(storage_blob_dead_letter_destination = [])
+    ?(storage_queue_endpoint = []) ?(subject_filter = []) ?timeouts
+    ?(webhook_endpoint = []) ~name ~scope __id =
   let (r : _ Tf_core.resource) =
     make ?advanced_filtering_on_arrays_enabled ?event_delivery_schema
       ?eventhub_endpoint_id ?expiration_time_utc
       ?hybrid_connection_endpoint_id ?id ?included_event_types
       ?labels ?service_bus_queue_endpoint_id
-      ?service_bus_topic_endpoint_id ?timeouts ~name ~scope
-      ~advanced_filter ~azure_function_endpoint ~dead_letter_identity
+      ?service_bus_topic_endpoint_id ~advanced_filter
+      ~azure_function_endpoint ~dead_letter_identity
       ~delivery_identity ~delivery_property ~retry_policy
       ~storage_blob_dead_letter_destination ~storage_queue_endpoint
-      ~subject_filter ~webhook_endpoint __id
+      ~subject_filter ?timeouts ~webhook_endpoint ~name ~scope __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

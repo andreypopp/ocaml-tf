@@ -245,11 +245,12 @@ let properties__attribute_payload ?attributes () :
     properties__attribute_payload =
   { attributes }
 
-let properties ?description ~attribute_payload () : properties =
+let properties ?description ?(attribute_payload = []) () : properties
+    =
   { description; attribute_payload }
 
-let aws_iot_thing_group ?id ?parent_group_name ?tags ?tags_all ~name
-    ~properties () : aws_iot_thing_group =
+let aws_iot_thing_group ?id ?parent_group_name ?tags ?tags_all
+    ?(properties = []) ~name () : aws_iot_thing_group =
   { id; name; parent_group_name; tags; tags_all; properties }
 
 type t = {
@@ -263,8 +264,8 @@ type t = {
   version : float prop;
 }
 
-let make ?id ?parent_group_name ?tags ?tags_all ~name ~properties
-    __id =
+let make ?id ?parent_group_name ?tags ?tags_all ?(properties = [])
+    ~name __id =
   let __type = "aws_iot_thing_group" in
   let __attrs =
     ({
@@ -286,14 +287,14 @@ let make ?id ?parent_group_name ?tags ?tags_all ~name ~properties
     json =
       yojson_of_aws_iot_thing_group
         (aws_iot_thing_group ?id ?parent_group_name ?tags ?tags_all
-           ~name ~properties ());
+           ~properties ~name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?parent_group_name ?tags ?tags_all ~name
-    ~properties __id =
+let register ?tf_module ?id ?parent_group_name ?tags ?tags_all
+    ?(properties = []) ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?parent_group_name ?tags ?tags_all ~name ~properties
+    make ?id ?parent_group_name ?tags ?tags_all ~properties ~name
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

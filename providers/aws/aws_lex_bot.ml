@@ -434,8 +434,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 let aws_lex_bot ?create_version ?description ?detect_sentiment
     ?enable_model_improvements ?id ?idle_session_ttl_in_seconds
     ?locale ?nlu_intent_confidence_threshold ?process_behavior
-    ?voice_id ?timeouts ~child_directed ~name ~abort_statement
-    ~clarification_prompt ~intent () : aws_lex_bot =
+    ?voice_id ?(clarification_prompt = []) ?timeouts ~child_directed
+    ~name ~abort_statement ~intent () : aws_lex_bot =
   {
     child_directed;
     create_version;
@@ -480,8 +480,8 @@ type t = {
 let make ?create_version ?description ?detect_sentiment
     ?enable_model_improvements ?id ?idle_session_ttl_in_seconds
     ?locale ?nlu_intent_confidence_threshold ?process_behavior
-    ?voice_id ?timeouts ~child_directed ~name ~abort_statement
-    ~clarification_prompt ~intent __id =
+    ?voice_id ?(clarification_prompt = []) ?timeouts ~child_directed
+    ~name ~abort_statement ~intent __id =
   let __type = "aws_lex_bot" in
   let __attrs =
     ({
@@ -522,8 +522,8 @@ let make ?create_version ?description ?detect_sentiment
            ?enable_model_improvements ?id
            ?idle_session_ttl_in_seconds ?locale
            ?nlu_intent_confidence_threshold ?process_behavior
-           ?voice_id ?timeouts ~child_directed ~name ~abort_statement
-           ~clarification_prompt ~intent ());
+           ?voice_id ~clarification_prompt ?timeouts ~child_directed
+           ~name ~abort_statement ~intent ());
     attrs = __attrs;
   }
 
@@ -531,14 +531,14 @@ let register ?tf_module ?create_version ?description
     ?detect_sentiment ?enable_model_improvements ?id
     ?idle_session_ttl_in_seconds ?locale
     ?nlu_intent_confidence_threshold ?process_behavior ?voice_id
-    ?timeouts ~child_directed ~name ~abort_statement
-    ~clarification_prompt ~intent __id =
+    ?(clarification_prompt = []) ?timeouts ~child_directed ~name
+    ~abort_statement ~intent __id =
   let (r : _ Tf_core.resource) =
     make ?create_version ?description ?detect_sentiment
       ?enable_model_improvements ?id ?idle_session_ttl_in_seconds
       ?locale ?nlu_intent_confidence_threshold ?process_behavior
-      ?voice_id ?timeouts ~child_directed ~name ~abort_statement
-      ~clarification_prompt ~intent __id
+      ?voice_id ~clarification_prompt ?timeouts ~child_directed ~name
+      ~abort_statement ~intent __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

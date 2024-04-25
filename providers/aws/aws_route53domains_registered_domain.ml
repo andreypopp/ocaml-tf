@@ -1016,9 +1016,10 @@ let timeouts ?create ?update () : timeouts = { create; update }
 
 let aws_route53domains_registered_domain ?admin_privacy ?auto_renew
     ?billing_privacy ?id ?registrant_privacy ?tags ?tags_all
-    ?tech_privacy ?transfer_lock ?timeouts ~domain_name
-    ~admin_contact ~billing_contact ~name_server ~registrant_contact
-    ~tech_contact () : aws_route53domains_registered_domain =
+    ?tech_privacy ?transfer_lock ?(admin_contact = [])
+    ?(billing_contact = []) ?(name_server = [])
+    ?(registrant_contact = []) ?(tech_contact = []) ?timeouts
+    ~domain_name () : aws_route53domains_registered_domain =
   {
     admin_privacy;
     auto_renew;
@@ -1063,8 +1064,9 @@ type t = {
 
 let make ?admin_privacy ?auto_renew ?billing_privacy ?id
     ?registrant_privacy ?tags ?tags_all ?tech_privacy ?transfer_lock
-    ?timeouts ~domain_name ~admin_contact ~billing_contact
-    ~name_server ~registrant_contact ~tech_contact __id =
+    ?(admin_contact = []) ?(billing_contact = []) ?(name_server = [])
+    ?(registrant_contact = []) ?(tech_contact = []) ?timeouts
+    ~domain_name __id =
   let __type = "aws_route53domains_registered_domain" in
   let __attrs =
     ({
@@ -1101,23 +1103,22 @@ let make ?admin_privacy ?auto_renew ?billing_privacy ?id
       yojson_of_aws_route53domains_registered_domain
         (aws_route53domains_registered_domain ?admin_privacy
            ?auto_renew ?billing_privacy ?id ?registrant_privacy ?tags
-           ?tags_all ?tech_privacy ?transfer_lock ?timeouts
-           ~domain_name ~admin_contact ~billing_contact ~name_server
-           ~registrant_contact ~tech_contact ());
+           ?tags_all ?tech_privacy ?transfer_lock ~admin_contact
+           ~billing_contact ~name_server ~registrant_contact
+           ~tech_contact ?timeouts ~domain_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?admin_privacy ?auto_renew ?billing_privacy
     ?id ?registrant_privacy ?tags ?tags_all ?tech_privacy
-    ?transfer_lock ?timeouts ~domain_name ~admin_contact
-    ~billing_contact ~name_server ~registrant_contact ~tech_contact
-    __id =
+    ?transfer_lock ?(admin_contact = []) ?(billing_contact = [])
+    ?(name_server = []) ?(registrant_contact = [])
+    ?(tech_contact = []) ?timeouts ~domain_name __id =
   let (r : _ Tf_core.resource) =
     make ?admin_privacy ?auto_renew ?billing_privacy ?id
       ?registrant_privacy ?tags ?tags_all ?tech_privacy
-      ?transfer_lock ?timeouts ~domain_name ~admin_contact
-      ~billing_contact ~name_server ~registrant_contact ~tech_contact
-      __id
+      ?transfer_lock ~admin_contact ~billing_contact ~name_server
+      ~registrant_contact ~tech_contact ?timeouts ~domain_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

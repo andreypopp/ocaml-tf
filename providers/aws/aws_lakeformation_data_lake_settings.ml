@@ -233,8 +233,8 @@ let aws_lakeformation_data_lake_settings ?admins
     ?allow_external_data_filtering ?authorized_session_tag_value_list
     ?catalog_id ?external_data_filtering_allow_list ?id
     ?read_only_admins ?trusted_resource_owners
-    ~create_database_default_permissions
-    ~create_table_default_permissions () :
+    ?(create_database_default_permissions = [])
+    ?(create_table_default_permissions = []) () :
     aws_lakeformation_data_lake_settings =
   {
     admins;
@@ -263,8 +263,9 @@ type t = {
 let make ?admins ?allow_external_data_filtering
     ?authorized_session_tag_value_list ?catalog_id
     ?external_data_filtering_allow_list ?id ?read_only_admins
-    ?trusted_resource_owners ~create_database_default_permissions
-    ~create_table_default_permissions __id =
+    ?trusted_resource_owners
+    ?(create_database_default_permissions = [])
+    ?(create_table_default_permissions = []) __id =
   let __type = "aws_lakeformation_data_lake_settings" in
   let __attrs =
     ({
@@ -304,8 +305,9 @@ let make ?admins ?allow_external_data_filtering
 let register ?tf_module ?admins ?allow_external_data_filtering
     ?authorized_session_tag_value_list ?catalog_id
     ?external_data_filtering_allow_list ?id ?read_only_admins
-    ?trusted_resource_owners ~create_database_default_permissions
-    ~create_table_default_permissions __id =
+    ?trusted_resource_owners
+    ?(create_database_default_permissions = [])
+    ?(create_table_default_permissions = []) __id =
   let (r : _ Tf_core.resource) =
     make ?admins ?allow_external_data_filtering
       ?authorized_session_tag_value_list ?catalog_id

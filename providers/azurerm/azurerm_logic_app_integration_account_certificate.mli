@@ -29,11 +29,11 @@ val azurerm_logic_app_integration_account_certificate :
   ?id:string prop ->
   ?metadata:string prop ->
   ?public_certificate:string prop ->
+  ?key_vault_key:key_vault_key list ->
   ?timeouts:timeouts ->
   integration_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  key_vault_key:key_vault_key list ->
   unit ->
   azurerm_logic_app_integration_account_certificate
 
@@ -56,11 +56,11 @@ val register :
   ?id:string prop ->
   ?metadata:string prop ->
   ?public_certificate:string prop ->
+  ?key_vault_key:key_vault_key list ->
   ?timeouts:timeouts ->
   integration_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  key_vault_key:key_vault_key list ->
   string ->
   t
 
@@ -68,10 +68,10 @@ val make :
   ?id:string prop ->
   ?metadata:string prop ->
   ?public_certificate:string prop ->
+  ?key_vault_key:key_vault_key list ->
   ?timeouts:timeouts ->
   integration_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  key_vault_key:key_vault_key list ->
   string ->
   t Tf_core.resource

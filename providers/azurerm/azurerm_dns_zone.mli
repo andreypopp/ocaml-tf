@@ -34,10 +34,10 @@ type azurerm_dns_zone
 val azurerm_dns_zone :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?soa_record:soa_record list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
-  soa_record:soa_record list ->
   unit ->
   azurerm_dns_zone
 
@@ -59,19 +59,19 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?soa_record:soa_record list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
-  soa_record:soa_record list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?soa_record:soa_record list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
-  soa_record:soa_record list ->
   string ->
   t Tf_core.resource

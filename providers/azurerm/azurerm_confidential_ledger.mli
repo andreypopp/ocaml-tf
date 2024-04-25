@@ -36,6 +36,8 @@ type azurerm_confidential_ledger
 val azurerm_confidential_ledger :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?certificate_based_security_principal:
+    certificate_based_security_principal list ->
   ?timeouts:timeouts ->
   ledger_type:string prop ->
   location:string prop ->
@@ -43,8 +45,6 @@ val azurerm_confidential_ledger :
   resource_group_name:string prop ->
   azuread_based_service_principal:
     azuread_based_service_principal list ->
-  certificate_based_security_principal:
-    certificate_based_security_principal list ->
   unit ->
   azurerm_confidential_ledger
 
@@ -68,6 +68,8 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?certificate_based_security_principal:
+    certificate_based_security_principal list ->
   ?timeouts:timeouts ->
   ledger_type:string prop ->
   location:string prop ->
@@ -75,14 +77,14 @@ val register :
   resource_group_name:string prop ->
   azuread_based_service_principal:
     azuread_based_service_principal list ->
-  certificate_based_security_principal:
-    certificate_based_security_principal list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?certificate_based_security_principal:
+    certificate_based_security_principal list ->
   ?timeouts:timeouts ->
   ledger_type:string prop ->
   location:string prop ->
@@ -90,7 +92,5 @@ val make :
   resource_group_name:string prop ->
   azuread_based_service_principal:
     azuread_based_service_principal list ->
-  certificate_based_security_principal:
-    certificate_based_security_principal list ->
   string ->
   t Tf_core.resource

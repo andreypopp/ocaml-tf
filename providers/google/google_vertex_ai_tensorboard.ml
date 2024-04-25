@@ -176,7 +176,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_vertex_ai_tensorboard ?description ?id ?labels ?project
-    ?region ?timeouts ~display_name ~encryption_spec () :
+    ?region ?(encryption_spec = []) ?timeouts ~display_name () :
     google_vertex_ai_tensorboard =
   {
     description;
@@ -205,8 +205,8 @@ type t = {
   update_time : string prop;
 }
 
-let make ?description ?id ?labels ?project ?region ?timeouts
-    ~display_name ~encryption_spec __id =
+let make ?description ?id ?labels ?project ?region
+    ?(encryption_spec = []) ?timeouts ~display_name __id =
   let __type = "google_vertex_ai_tensorboard" in
   let __attrs =
     ({
@@ -235,16 +235,16 @@ let make ?description ?id ?labels ?project ?region ?timeouts
     json =
       yojson_of_google_vertex_ai_tensorboard
         (google_vertex_ai_tensorboard ?description ?id ?labels
-           ?project ?region ?timeouts ~display_name ~encryption_spec
+           ?project ?region ~encryption_spec ?timeouts ~display_name
            ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?labels ?project ?region
-    ?timeouts ~display_name ~encryption_spec __id =
+    ?(encryption_spec = []) ?timeouts ~display_name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?labels ?project ?region ?timeouts
-      ~display_name ~encryption_spec __id
+    make ?description ?id ?labels ?project ?region ~encryption_spec
+      ?timeouts ~display_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

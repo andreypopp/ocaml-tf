@@ -549,8 +549,8 @@ let dnssec_config__default_key_specs ?algorithm ?key_length ?key_type
     ?kind () : dnssec_config__default_key_specs =
   { algorithm; key_length; key_type; kind }
 
-let dnssec_config ?kind ?non_existence ?state ~default_key_specs () :
-    dnssec_config =
+let dnssec_config ?kind ?non_existence ?state
+    ?(default_key_specs = []) () : dnssec_config =
   { kind; non_existence; state; default_key_specs }
 
 let forwarding_config__target_name_servers ?forwarding_path
@@ -575,7 +575,7 @@ let private_visibility_config__networks ~network_url () :
     private_visibility_config__networks =
   { network_url }
 
-let private_visibility_config ~gke_clusters ~networks () :
+let private_visibility_config ?(gke_clusters = []) ~networks () :
     private_visibility_config =
   { gke_clusters; networks }
 
@@ -583,10 +583,10 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_dns_managed_zone ?description ?force_destroy ?id ?labels
-    ?project ?visibility ?timeouts ~dns_name ~name
-    ~cloud_logging_config ~dnssec_config ~forwarding_config
-    ~peering_config ~private_visibility_config () :
-    google_dns_managed_zone =
+    ?project ?visibility ?(cloud_logging_config = [])
+    ?(dnssec_config = []) ?(forwarding_config = [])
+    ?(peering_config = []) ?(private_visibility_config = [])
+    ?timeouts ~dns_name ~name () : google_dns_managed_zone =
   {
     description;
     dns_name;
@@ -621,9 +621,10 @@ type t = {
 }
 
 let make ?description ?force_destroy ?id ?labels ?project ?visibility
-    ?timeouts ~dns_name ~name ~cloud_logging_config ~dnssec_config
-    ~forwarding_config ~peering_config ~private_visibility_config
-    __id =
+    ?(cloud_logging_config = []) ?(dnssec_config = [])
+    ?(forwarding_config = []) ?(peering_config = [])
+    ?(private_visibility_config = []) ?timeouts ~dns_name ~name __id
+    =
   let __type = "google_dns_managed_zone" in
   let __attrs =
     ({
@@ -651,21 +652,22 @@ let make ?description ?force_destroy ?id ?labels ?project ?visibility
     json =
       yojson_of_google_dns_managed_zone
         (google_dns_managed_zone ?description ?force_destroy ?id
-           ?labels ?project ?visibility ?timeouts ~dns_name ~name
-           ~cloud_logging_config ~dnssec_config ~forwarding_config
-           ~peering_config ~private_visibility_config ());
+           ?labels ?project ?visibility ~cloud_logging_config
+           ~dnssec_config ~forwarding_config ~peering_config
+           ~private_visibility_config ?timeouts ~dns_name ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?force_destroy ?id ?labels
-    ?project ?visibility ?timeouts ~dns_name ~name
-    ~cloud_logging_config ~dnssec_config ~forwarding_config
-    ~peering_config ~private_visibility_config __id =
+    ?project ?visibility ?(cloud_logging_config = [])
+    ?(dnssec_config = []) ?(forwarding_config = [])
+    ?(peering_config = []) ?(private_visibility_config = [])
+    ?timeouts ~dns_name ~name __id =
   let (r : _ Tf_core.resource) =
     make ?description ?force_destroy ?id ?labels ?project ?visibility
-      ?timeouts ~dns_name ~name ~cloud_logging_config ~dnssec_config
-      ~forwarding_config ~peering_config ~private_visibility_config
-      __id
+      ~cloud_logging_config ~dnssec_config ~forwarding_config
+      ~peering_config ~private_visibility_config ?timeouts ~dns_name
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

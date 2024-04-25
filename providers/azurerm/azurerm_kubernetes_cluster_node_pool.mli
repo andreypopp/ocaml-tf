@@ -61,7 +61,7 @@ val linux_os_config :
   ?swap_file_size_mb:float prop ->
   ?transparent_huge_page_defrag:string prop ->
   ?transparent_huge_page_enabled:string prop ->
-  sysctl_config:linux_os_config__sysctl_config list ->
+  ?sysctl_config:linux_os_config__sysctl_config list ->
   unit ->
   linux_os_config
 
@@ -79,7 +79,7 @@ type node_network_profile
 val node_network_profile :
   ?application_security_group_ids:string prop list ->
   ?node_public_ip_tags:(string * string prop) list ->
-  allowed_host_ports:node_network_profile__allowed_host_ports list ->
+  ?allowed_host_ports:node_network_profile__allowed_host_ports list ->
   unit ->
   node_network_profile
 
@@ -142,15 +142,15 @@ val azurerm_kubernetes_cluster_node_pool :
   ?vnet_subnet_id:string prop ->
   ?workload_runtime:string prop ->
   ?zones:string prop list ->
+  ?kubelet_config:kubelet_config list ->
+  ?linux_os_config:linux_os_config list ->
+  ?node_network_profile:node_network_profile list ->
   ?timeouts:timeouts ->
+  ?upgrade_settings:upgrade_settings list ->
+  ?windows_profile:windows_profile list ->
   kubernetes_cluster_id:string prop ->
   name:string prop ->
   vm_size:string prop ->
-  kubelet_config:kubelet_config list ->
-  linux_os_config:linux_os_config list ->
-  node_network_profile:node_network_profile list ->
-  upgrade_settings:upgrade_settings list ->
-  windows_profile:windows_profile list ->
   unit ->
   azurerm_kubernetes_cluster_node_pool
 
@@ -239,15 +239,15 @@ val register :
   ?vnet_subnet_id:string prop ->
   ?workload_runtime:string prop ->
   ?zones:string prop list ->
+  ?kubelet_config:kubelet_config list ->
+  ?linux_os_config:linux_os_config list ->
+  ?node_network_profile:node_network_profile list ->
   ?timeouts:timeouts ->
+  ?upgrade_settings:upgrade_settings list ->
+  ?windows_profile:windows_profile list ->
   kubernetes_cluster_id:string prop ->
   name:string prop ->
   vm_size:string prop ->
-  kubelet_config:kubelet_config list ->
-  linux_os_config:linux_os_config list ->
-  node_network_profile:node_network_profile list ->
-  upgrade_settings:upgrade_settings list ->
-  windows_profile:windows_profile list ->
   string ->
   t
 
@@ -288,14 +288,14 @@ val make :
   ?vnet_subnet_id:string prop ->
   ?workload_runtime:string prop ->
   ?zones:string prop list ->
+  ?kubelet_config:kubelet_config list ->
+  ?linux_os_config:linux_os_config list ->
+  ?node_network_profile:node_network_profile list ->
   ?timeouts:timeouts ->
+  ?upgrade_settings:upgrade_settings list ->
+  ?windows_profile:windows_profile list ->
   kubernetes_cluster_id:string prop ->
   name:string prop ->
   vm_size:string prop ->
-  kubelet_config:kubelet_config list ->
-  linux_os_config:linux_os_config list ->
-  node_network_profile:node_network_profile list ->
-  upgrade_settings:upgrade_settings list ->
-  windows_profile:windows_profile list ->
   string ->
   t Tf_core.resource

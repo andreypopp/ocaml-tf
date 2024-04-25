@@ -36,10 +36,10 @@ type deidentify_config__image_transformations__transforms__selected_info_types__
 
 val deidentify_config__image_transformations__transforms__selected_info_types__info_types :
   ?version:string prop ->
-  name:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     deidentify_config__image_transformations__transforms__selected_info_types__info_types__sensitivity_score
     list ->
+  name:string prop ->
   unit ->
   deidentify_config__image_transformations__transforms__selected_info_types__info_types
 
@@ -55,16 +55,16 @@ val deidentify_config__image_transformations__transforms__selected_info_types :
 type deidentify_config__image_transformations__transforms
 
 val deidentify_config__image_transformations__transforms :
-  all_info_types:
+  ?all_info_types:
     deidentify_config__image_transformations__transforms__all_info_types
     list ->
-  all_text:
+  ?all_text:
     deidentify_config__image_transformations__transforms__all_text
     list ->
-  redaction_color:
+  ?redaction_color:
     deidentify_config__image_transformations__transforms__redaction_color
     list ->
-  selected_info_types:
+  ?selected_info_types:
     deidentify_config__image_transformations__transforms__selected_info_types
     list ->
   unit ->
@@ -89,10 +89,10 @@ type deidentify_config__info_type_transformations__transformations__info_types
 
 val deidentify_config__info_type_transformations__transformations__info_types :
   ?version:string prop ->
-  name:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     deidentify_config__info_type_transformations__transformations__info_types__sensitivity_score
     list ->
+  name:string prop ->
   unit ->
   deidentify_config__info_type_transformations__transformations__info_types
 
@@ -123,10 +123,10 @@ val deidentify_config__info_type_transformations__transformations__primitive_tra
   ?integer_value:string prop ->
   ?string_value:string prop ->
   ?timestamp_value:string prop ->
-  date_value:
+  ?date_value:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
     list ->
-  time_value:
+  ?time_value:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
     list ->
   unit ->
@@ -159,10 +159,10 @@ val deidentify_config__info_type_transformations__transformations__primitive_tra
   ?integer_value:string prop ->
   ?string_value:string prop ->
   ?timestamp_value:string prop ->
-  date_value:
+  ?date_value:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
     list ->
-  time_value:
+  ?time_value:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
     list ->
   unit ->
@@ -195,10 +195,10 @@ val deidentify_config__info_type_transformations__transformations__primitive_tra
   ?integer_value:string prop ->
   ?string_value:string prop ->
   ?timestamp_value:string prop ->
-  date_value:
+  ?date_value:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
     list ->
-  time_value:
+  ?time_value:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
     list ->
   unit ->
@@ -207,10 +207,10 @@ val deidentify_config__info_type_transformations__transformations__primitive_tra
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
 
 val deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets :
-  max:
+  ?max:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
     list ->
-  min:
+  ?min:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
     list ->
   replacement_value:
@@ -222,7 +222,7 @@ val deidentify_config__info_type_transformations__transformations__primitive_tra
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config
 
 val deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config :
-  buckets:
+  ?buckets:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
     list ->
   unit ->
@@ -242,7 +242,7 @@ val deidentify_config__info_type_transformations__transformations__primitive_tra
   ?masking_character:string prop ->
   ?number_to_mask:float prop ->
   ?reverse_order:bool prop ->
-  characters_to_ignore:
+  ?characters_to_ignore:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
     list ->
   unit ->
@@ -280,13 +280,13 @@ val deidentify_config__info_type_transformations__transformations__primitive_tra
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
 
 val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key :
-  kms_wrapped:
+  ?kms_wrapped:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
     list ->
-  transient:
+  ?transient:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
     list ->
-  unwrapped:
+  ?unwrapped:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
     list ->
   unit ->
@@ -304,7 +304,7 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
 val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type :
   ?name:string prop ->
   ?version:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
     list ->
   unit ->
@@ -313,13 +313,13 @@ val deidentify_config__info_type_transformations__transformations__primitive_tra
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
 
 val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config :
-  context:
+  ?context:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
     list ->
-  crypto_key:
+  ?crypto_key:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
     list ->
-  surrogate_info_type:
+  ?surrogate_info_type:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
     list ->
   unit ->
@@ -350,13 +350,13 @@ val deidentify_config__info_type_transformations__transformations__primitive_tra
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
 
 val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key :
-  kms_wrapped:
+  ?kms_wrapped:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
     list ->
-  transient:
+  ?transient:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
     list ->
-  unwrapped:
+  ?unwrapped:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
     list ->
   unit ->
@@ -365,7 +365,7 @@ val deidentify_config__info_type_transformations__transformations__primitive_tra
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
 
 val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config :
-  crypto_key:
+  ?crypto_key:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
     list ->
   unit ->
@@ -403,13 +403,13 @@ val deidentify_config__info_type_transformations__transformations__primitive_tra
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
 
 val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key :
-  kms_wrapped:
+  ?kms_wrapped:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
     list ->
-  transient:
+  ?transient:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
     list ->
-  unwrapped:
+  ?unwrapped:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
     list ->
   unit ->
@@ -427,7 +427,7 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
 val deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type :
   ?name:string prop ->
   ?version:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
     list ->
   unit ->
@@ -439,13 +439,13 @@ val deidentify_config__info_type_transformations__transformations__primitive_tra
   ?common_alphabet:string prop ->
   ?custom_alphabet:string prop ->
   ?radix:float prop ->
-  context:
+  ?context:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
     list ->
-  crypto_key:
+  ?crypto_key:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
     list ->
-  surrogate_info_type:
+  ?surrogate_info_type:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
     list ->
   unit ->
@@ -483,13 +483,13 @@ val deidentify_config__info_type_transformations__transformations__primitive_tra
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
 
 val deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key :
-  kms_wrapped:
+  ?kms_wrapped:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
     list ->
-  transient:
+  ?transient:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
     list ->
-  unwrapped:
+  ?unwrapped:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
     list ->
   unit ->
@@ -498,14 +498,14 @@ val deidentify_config__info_type_transformations__transformations__primitive_tra
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config
 
 val deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config :
-  lower_bound_days:float prop ->
-  upper_bound_days:float prop ->
-  context:
+  ?context:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
     list ->
-  crypto_key:
+  ?crypto_key:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
     list ->
+  lower_bound_days:float prop ->
+  upper_bound_days:float prop ->
   unit ->
   deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config
 
@@ -572,10 +572,10 @@ val deidentify_config__info_type_transformations__transformations__primitive_tra
   ?integer_value:float prop ->
   ?string_value:string prop ->
   ?timestamp_value:string prop ->
-  date_value:
+  ?date_value:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
     list ->
-  time_value:
+  ?time_value:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
     list ->
   unit ->
@@ -617,37 +617,37 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
 
 val deidentify_config__info_type_transformations__transformations__primitive_transformation :
   ?replace_with_info_type_config:bool prop ->
-  bucketing_config:
+  ?bucketing_config:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config
     list ->
-  character_mask_config:
+  ?character_mask_config:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config
     list ->
-  crypto_deterministic_config:
+  ?crypto_deterministic_config:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
     list ->
-  crypto_hash_config:
+  ?crypto_hash_config:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
     list ->
-  crypto_replace_ffx_fpe_config:
+  ?crypto_replace_ffx_fpe_config:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
     list ->
-  date_shift_config:
+  ?date_shift_config:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config
     list ->
-  fixed_size_bucketing_config:
+  ?fixed_size_bucketing_config:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
     list ->
-  redact_config:
+  ?redact_config:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__redact_config
     list ->
-  replace_config:
+  ?replace_config:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config
     list ->
-  replace_dictionary_config:
+  ?replace_dictionary_config:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
     list ->
-  time_part_config:
+  ?time_part_config:
     deidentify_config__info_type_transformations__transformations__primitive_transformation__time_part_config
     list ->
   unit ->
@@ -656,7 +656,7 @@ val deidentify_config__info_type_transformations__transformations__primitive_tra
 type deidentify_config__info_type_transformations__transformations
 
 val deidentify_config__info_type_transformations__transformations :
-  info_types:
+  ?info_types:
     deidentify_config__info_type_transformations__transformations__info_types
     list ->
   primitive_transformation:
@@ -709,10 +709,10 @@ val deidentify_config__record_transformations__field_transformations__condition_
   ?integer_value:string prop ->
   ?string_value:string prop ->
   ?timestamp_value:string prop ->
-  date_value:
+  ?date_value:
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__date_value
     list ->
-  time_value:
+  ?time_value:
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__time_value
     list ->
   unit ->
@@ -721,12 +721,12 @@ val deidentify_config__record_transformations__field_transformations__condition_
 type deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions
 
 val deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions :
+  ?value:
+    deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value
+    list ->
   operator:string prop ->
   field:
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__field
-    list ->
-  value:
-    deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value
     list ->
   unit ->
   deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions
@@ -734,7 +734,7 @@ val deidentify_config__record_transformations__field_transformations__condition_
 type deidentify_config__record_transformations__field_transformations__condition__expressions__conditions
 
 val deidentify_config__record_transformations__field_transformations__condition__expressions__conditions :
-  conditions:
+  ?conditions:
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions
     list ->
   unit ->
@@ -744,7 +744,7 @@ type deidentify_config__record_transformations__field_transformations__condition
 
 val deidentify_config__record_transformations__field_transformations__condition__expressions :
   ?logical_operator:string prop ->
-  conditions:
+  ?conditions:
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions
     list ->
   unit ->
@@ -753,7 +753,7 @@ val deidentify_config__record_transformations__field_transformations__condition_
 type deidentify_config__record_transformations__field_transformations__condition
 
 val deidentify_config__record_transformations__field_transformations__condition :
-  expressions:
+  ?expressions:
     deidentify_config__record_transformations__field_transformations__condition__expressions
     list ->
   unit ->
@@ -777,10 +777,10 @@ type deidentify_config__record_transformations__field_transformations__info_type
 
 val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types :
   ?version:string prop ->
-  name:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types__sensitivity_score
     list ->
+  name:string prop ->
   unit ->
   deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types
 
@@ -811,10 +811,10 @@ val deidentify_config__record_transformations__field_transformations__info_type_
   ?integer_value:string prop ->
   ?string_value:string prop ->
   ?timestamp_value:string prop ->
-  date_value:
+  ?date_value:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
     list ->
-  time_value:
+  ?time_value:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
     list ->
   unit ->
@@ -847,10 +847,10 @@ val deidentify_config__record_transformations__field_transformations__info_type_
   ?integer_value:string prop ->
   ?string_value:string prop ->
   ?timestamp_value:string prop ->
-  date_value:
+  ?date_value:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
     list ->
-  time_value:
+  ?time_value:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
     list ->
   unit ->
@@ -883,10 +883,10 @@ val deidentify_config__record_transformations__field_transformations__info_type_
   ?integer_value:string prop ->
   ?string_value:string prop ->
   ?timestamp_value:string prop ->
-  date_value:
+  ?date_value:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
     list ->
-  time_value:
+  ?time_value:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
     list ->
   unit ->
@@ -895,10 +895,10 @@ val deidentify_config__record_transformations__field_transformations__info_type_
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
 
 val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets :
-  max:
+  ?max:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
     list ->
-  min:
+  ?min:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
     list ->
   replacement_value:
@@ -930,7 +930,7 @@ val deidentify_config__record_transformations__field_transformations__info_type_
   ?masking_character:string prop ->
   ?number_to_mask:float prop ->
   ?reverse_order:bool prop ->
-  characters_to_ignore:
+  ?characters_to_ignore:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
     list ->
   unit ->
@@ -968,13 +968,13 @@ val deidentify_config__record_transformations__field_transformations__info_type_
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
 
 val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key :
-  kms_wrapped:
+  ?kms_wrapped:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
     list ->
-  transient:
+  ?transient:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
     list ->
-  unwrapped:
+  ?unwrapped:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
     list ->
   unit ->
@@ -991,17 +991,17 @@ type deidentify_config__record_transformations__field_transformations__info_type
 
 val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type :
   ?version:string prop ->
-  name:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
     list ->
+  name:string prop ->
   unit ->
   deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
 
 val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config :
-  context:
+  ?context:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
     list ->
   crypto_key:
@@ -1038,13 +1038,13 @@ val deidentify_config__record_transformations__field_transformations__info_type_
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
 
 val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key :
-  kms_wrapped:
+  ?kms_wrapped:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
     list ->
-  transient:
+  ?transient:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
     list ->
-  unwrapped:
+  ?unwrapped:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
     list ->
   unit ->
@@ -1091,13 +1091,13 @@ val deidentify_config__record_transformations__field_transformations__info_type_
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
 
 val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key :
-  kms_wrapped:
+  ?kms_wrapped:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
     list ->
-  transient:
+  ?transient:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
     list ->
-  unwrapped:
+  ?unwrapped:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
     list ->
   unit ->
@@ -1114,10 +1114,10 @@ type deidentify_config__record_transformations__field_transformations__info_type
 
 val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type :
   ?version:string prop ->
-  name:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
     list ->
+  name:string prop ->
   unit ->
   deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
 
@@ -1127,14 +1127,14 @@ val deidentify_config__record_transformations__field_transformations__info_type_
   ?common_alphabet:string prop ->
   ?custom_alphabet:string prop ->
   ?radix:float prop ->
-  context:
+  ?context:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
+    list ->
+  ?surrogate_info_type:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
     list ->
   crypto_key:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
-    list ->
-  surrogate_info_type:
-    deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
     list ->
   unit ->
   deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
@@ -1171,13 +1171,13 @@ val deidentify_config__record_transformations__field_transformations__info_type_
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
 
 val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key :
-  kms_wrapped:
+  ?kms_wrapped:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
     list ->
-  transient:
+  ?transient:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
     list ->
-  unwrapped:
+  ?unwrapped:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
     list ->
   unit ->
@@ -1186,14 +1186,14 @@ val deidentify_config__record_transformations__field_transformations__info_type_
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config
 
 val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config :
-  lower_bound_days:float prop ->
-  upper_bound_days:float prop ->
-  context:
+  ?context:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
     list ->
-  crypto_key:
+  ?crypto_key:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
     list ->
+  lower_bound_days:float prop ->
+  upper_bound_days:float prop ->
   unit ->
   deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config
 
@@ -1260,10 +1260,10 @@ val deidentify_config__record_transformations__field_transformations__info_type_
   ?integer_value:string prop ->
   ?string_value:string prop ->
   ?timestamp_value:string prop ->
-  date_value:
+  ?date_value:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
     list ->
-  time_value:
+  ?time_value:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
     list ->
   unit ->
@@ -1310,40 +1310,40 @@ val deidentify_config__record_transformations__field_transformations__info_type_
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation
 
 val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation :
-  bucketing_config:
+  ?bucketing_config:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config
     list ->
-  character_mask_config:
+  ?character_mask_config:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config
     list ->
-  crypto_deterministic_config:
+  ?crypto_deterministic_config:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
     list ->
-  crypto_hash_config:
+  ?crypto_hash_config:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
     list ->
-  crypto_replace_ffx_fpe_config:
+  ?crypto_replace_ffx_fpe_config:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
     list ->
-  date_shift_config:
+  ?date_shift_config:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config
     list ->
-  fixed_size_bucketing_config:
+  ?fixed_size_bucketing_config:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
     list ->
-  redact_config:
+  ?redact_config:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__redact_config
     list ->
-  replace_config:
+  ?replace_config:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config
     list ->
-  replace_dictionary_config:
+  ?replace_dictionary_config:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
     list ->
-  replace_with_info_type_config:
+  ?replace_with_info_type_config:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_with_info_type_config
     list ->
-  time_part_config:
+  ?time_part_config:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__time_part_config
     list ->
   unit ->
@@ -1352,7 +1352,7 @@ val deidentify_config__record_transformations__field_transformations__info_type_
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations
 
 val deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations :
-  info_types:
+  ?info_types:
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types
     list ->
   primitive_transformation:
@@ -1398,10 +1398,10 @@ val deidentify_config__record_transformations__field_transformations__primitive_
   ?integer_value:string prop ->
   ?string_value:string prop ->
   ?timestamp_value:string prop ->
-  date_value:
+  ?date_value:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__date_value
     list ->
-  time_value:
+  ?time_value:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__time_value
     list ->
   unit ->
@@ -1435,10 +1435,10 @@ val deidentify_config__record_transformations__field_transformations__primitive_
   ?integer_value:string prop ->
   ?string_value:string prop ->
   ?timestamp_value:string prop ->
-  date_value:
+  ?date_value:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__date_value
     list ->
-  time_value:
+  ?time_value:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__time_value
     list ->
   unit ->
@@ -1472,10 +1472,10 @@ val deidentify_config__record_transformations__field_transformations__primitive_
   ?integer_value:string prop ->
   ?string_value:string prop ->
   ?timestamp_value:string prop ->
-  date_value:
+  ?date_value:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
     list ->
-  time_value:
+  ?time_value:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
     list ->
   unit ->
@@ -1484,10 +1484,10 @@ val deidentify_config__record_transformations__field_transformations__primitive_
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets
 
 val deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets :
-  max:
+  ?max:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max
     list ->
-  min:
+  ?min:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min
     list ->
   replacement_value:
@@ -1499,7 +1499,7 @@ val deidentify_config__record_transformations__field_transformations__primitive_
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config
 
 val deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config :
-  buckets:
+  ?buckets:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets
     list ->
   unit ->
@@ -1519,7 +1519,7 @@ val deidentify_config__record_transformations__field_transformations__primitive_
   ?masking_character:string prop ->
   ?number_to_mask:float prop ->
   ?reverse_order:bool prop ->
-  characters_to_ignore:
+  ?characters_to_ignore:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config__characters_to_ignore
     list ->
   unit ->
@@ -1557,13 +1557,13 @@ val deidentify_config__record_transformations__field_transformations__primitive_
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key
 
 val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key :
-  kms_wrapped:
+  ?kms_wrapped:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
     list ->
-  transient:
+  ?transient:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
     list ->
-  unwrapped:
+  ?unwrapped:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
     list ->
   unit ->
@@ -1581,7 +1581,7 @@ type deidentify_config__record_transformations__field_transformations__primitive
 val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type :
   ?name:string prop ->
   ?version:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
     list ->
   unit ->
@@ -1590,13 +1590,13 @@ val deidentify_config__record_transformations__field_transformations__primitive_
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config
 
 val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config :
-  context:
+  ?context:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__context
     list ->
-  crypto_key:
+  ?crypto_key:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key
     list ->
-  surrogate_info_type:
+  ?surrogate_info_type:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
     list ->
   unit ->
@@ -1627,13 +1627,13 @@ val deidentify_config__record_transformations__field_transformations__primitive_
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key
 
 val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key :
-  kms_wrapped:
+  ?kms_wrapped:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
     list ->
-  transient:
+  ?transient:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
     list ->
-  unwrapped:
+  ?unwrapped:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
     list ->
   unit ->
@@ -1642,7 +1642,7 @@ val deidentify_config__record_transformations__field_transformations__primitive_
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config
 
 val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config :
-  crypto_key:
+  ?crypto_key:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key
     list ->
   unit ->
@@ -1680,13 +1680,13 @@ val deidentify_config__record_transformations__field_transformations__primitive_
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
 
 val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key :
-  kms_wrapped:
+  ?kms_wrapped:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
     list ->
-  transient:
+  ?transient:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
     list ->
-  unwrapped:
+  ?unwrapped:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
     list ->
   unit ->
@@ -1704,7 +1704,7 @@ type deidentify_config__record_transformations__field_transformations__primitive
 val deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type :
   ?name:string prop ->
   ?version:string prop ->
-  sensitivity_score:
+  ?sensitivity_score:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
     list ->
   unit ->
@@ -1716,13 +1716,13 @@ val deidentify_config__record_transformations__field_transformations__primitive_
   ?common_alphabet:string prop ->
   ?custom_alphabet:string prop ->
   ?radix:float prop ->
-  context:
+  ?context:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
     list ->
-  crypto_key:
+  ?crypto_key:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
     list ->
-  surrogate_info_type:
+  ?surrogate_info_type:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
     list ->
   unit ->
@@ -1760,13 +1760,13 @@ val deidentify_config__record_transformations__field_transformations__primitive_
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key
 
 val deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key :
-  kms_wrapped:
+  ?kms_wrapped:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
     list ->
-  transient:
+  ?transient:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__transient
     list ->
-  unwrapped:
+  ?unwrapped:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
     list ->
   unit ->
@@ -1775,14 +1775,14 @@ val deidentify_config__record_transformations__field_transformations__primitive_
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config
 
 val deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config :
-  lower_bound_days:float prop ->
-  upper_bound_days:float prop ->
-  context:
+  ?context:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__context
     list ->
-  crypto_key:
+  ?crypto_key:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key
     list ->
+  lower_bound_days:float prop ->
+  upper_bound_days:float prop ->
   unit ->
   deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config
 
@@ -1814,10 +1814,10 @@ val deidentify_config__record_transformations__field_transformations__primitive_
   ?integer_value:string prop ->
   ?string_value:string prop ->
   ?timestamp_value:string prop ->
-  date_value:
+  ?date_value:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__date_value
     list ->
-  time_value:
+  ?time_value:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__time_value
     list ->
   unit ->
@@ -1851,10 +1851,10 @@ val deidentify_config__record_transformations__field_transformations__primitive_
   ?integer_value:string prop ->
   ?string_value:string prop ->
   ?timestamp_value:string prop ->
-  date_value:
+  ?date_value:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__date_value
     list ->
-  time_value:
+  ?time_value:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__time_value
     list ->
   unit ->
@@ -1907,10 +1907,10 @@ val deidentify_config__record_transformations__field_transformations__primitive_
   ?integer_value:string prop ->
   ?string_value:string prop ->
   ?timestamp_value:string prop ->
-  date_value:
+  ?date_value:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__date_value
     list ->
-  time_value:
+  ?time_value:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__time_value
     list ->
   unit ->
@@ -1935,7 +1935,7 @@ val deidentify_config__record_transformations__field_transformations__primitive_
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config
 
 val deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config :
-  word_list:
+  ?word_list:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config__word_list
     list ->
   unit ->
@@ -1951,37 +1951,37 @@ val deidentify_config__record_transformations__field_transformations__primitive_
 type deidentify_config__record_transformations__field_transformations__primitive_transformation
 
 val deidentify_config__record_transformations__field_transformations__primitive_transformation :
-  bucketing_config:
+  ?bucketing_config:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config
     list ->
-  character_mask_config:
+  ?character_mask_config:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config
     list ->
-  crypto_deterministic_config:
+  ?crypto_deterministic_config:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config
     list ->
-  crypto_hash_config:
+  ?crypto_hash_config:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config
     list ->
-  crypto_replace_ffx_fpe_config:
+  ?crypto_replace_ffx_fpe_config:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config
     list ->
-  date_shift_config:
+  ?date_shift_config:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config
     list ->
-  fixed_size_bucketing_config:
+  ?fixed_size_bucketing_config:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config
     list ->
-  redact_config:
+  ?redact_config:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__redact_config
     list ->
-  replace_config:
+  ?replace_config:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config
     list ->
-  replace_dictionary_config:
+  ?replace_dictionary_config:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config
     list ->
-  time_part_config:
+  ?time_part_config:
     deidentify_config__record_transformations__field_transformations__primitive_transformation__time_part_config
     list ->
   unit ->
@@ -1990,17 +1990,17 @@ val deidentify_config__record_transformations__field_transformations__primitive_
 type deidentify_config__record_transformations__field_transformations
 
 val deidentify_config__record_transformations__field_transformations :
-  condition:
+  ?condition:
     deidentify_config__record_transformations__field_transformations__condition
+    list ->
+  ?info_type_transformations:
+    deidentify_config__record_transformations__field_transformations__info_type_transformations
+    list ->
+  ?primitive_transformation:
+    deidentify_config__record_transformations__field_transformations__primitive_transformation
     list ->
   fields:
     deidentify_config__record_transformations__field_transformations__fields
-    list ->
-  info_type_transformations:
-    deidentify_config__record_transformations__field_transformations__info_type_transformations
-    list ->
-  primitive_transformation:
-    deidentify_config__record_transformations__field_transformations__primitive_transformation
     list ->
   unit ->
   deidentify_config__record_transformations__field_transformations
@@ -2040,10 +2040,10 @@ val deidentify_config__record_transformations__record_suppressions__condition__e
   ?integer_value:string prop ->
   ?string_value:string prop ->
   ?timestamp_value:string prop ->
-  date_value:
+  ?date_value:
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__date_value
     list ->
-  time_value:
+  ?time_value:
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__time_value
     list ->
   unit ->
@@ -2052,12 +2052,12 @@ val deidentify_config__record_transformations__record_suppressions__condition__e
 type deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions
 
 val deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions :
+  ?value:
+    deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value
+    list ->
   operator:string prop ->
   field:
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__field
-    list ->
-  value:
-    deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value
     list ->
   unit ->
   deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions
@@ -2065,7 +2065,7 @@ val deidentify_config__record_transformations__record_suppressions__condition__e
 type deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions
 
 val deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions :
-  conditions:
+  ?conditions:
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions
     list ->
   unit ->
@@ -2075,7 +2075,7 @@ type deidentify_config__record_transformations__record_suppressions__condition__
 
 val deidentify_config__record_transformations__record_suppressions__condition__expressions :
   ?logical_operator:string prop ->
-  conditions:
+  ?conditions:
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions
     list ->
   unit ->
@@ -2084,7 +2084,7 @@ val deidentify_config__record_transformations__record_suppressions__condition__e
 type deidentify_config__record_transformations__record_suppressions__condition
 
 val deidentify_config__record_transformations__record_suppressions__condition :
-  expressions:
+  ?expressions:
     deidentify_config__record_transformations__record_suppressions__condition__expressions
     list ->
   unit ->
@@ -2093,7 +2093,7 @@ val deidentify_config__record_transformations__record_suppressions__condition :
 type deidentify_config__record_transformations__record_suppressions
 
 val deidentify_config__record_transformations__record_suppressions :
-  condition:
+  ?condition:
     deidentify_config__record_transformations__record_suppressions__condition
     list ->
   unit ->
@@ -2102,10 +2102,10 @@ val deidentify_config__record_transformations__record_suppressions :
 type deidentify_config__record_transformations
 
 val deidentify_config__record_transformations :
-  field_transformations:
+  ?field_transformations:
     deidentify_config__record_transformations__field_transformations
     list ->
-  record_suppressions:
+  ?record_suppressions:
     deidentify_config__record_transformations__record_suppressions
     list ->
   unit ->
@@ -2114,10 +2114,11 @@ val deidentify_config__record_transformations :
 type deidentify_config
 
 val deidentify_config :
-  image_transformations:deidentify_config__image_transformations list ->
-  info_type_transformations:
+  ?image_transformations:
+    deidentify_config__image_transformations list ->
+  ?info_type_transformations:
     deidentify_config__info_type_transformations list ->
-  record_transformations:
+  ?record_transformations:
     deidentify_config__record_transformations list ->
   unit ->
   deidentify_config

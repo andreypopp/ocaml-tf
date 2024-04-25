@@ -522,10 +522,10 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_compute_disk ?description ?enable_confidential_compute ?id
     ?image ?labels ?licenses ?physical_block_size_bytes ?project
     ?provisioned_iops ?provisioned_throughput ?size ?snapshot
-    ?source_disk ?type_ ?zone ?timeouts ~name ~async_primary_disk
-    ~disk_encryption_key ~guest_os_features
-    ~source_image_encryption_key ~source_snapshot_encryption_key () :
-    google_compute_disk =
+    ?source_disk ?type_ ?zone ?(async_primary_disk = [])
+    ?(disk_encryption_key = []) ?(source_image_encryption_key = [])
+    ?(source_snapshot_encryption_key = []) ?timeouts ~name
+    ~guest_os_features () : google_compute_disk =
   {
     description;
     enable_confidential_compute;
@@ -585,9 +585,10 @@ type t = {
 let make ?description ?enable_confidential_compute ?id ?image ?labels
     ?licenses ?physical_block_size_bytes ?project ?provisioned_iops
     ?provisioned_throughput ?size ?snapshot ?source_disk ?type_ ?zone
-    ?timeouts ~name ~async_primary_disk ~disk_encryption_key
-    ~guest_os_features ~source_image_encryption_key
-    ~source_snapshot_encryption_key __id =
+    ?(async_primary_disk = []) ?(disk_encryption_key = [])
+    ?(source_image_encryption_key = [])
+    ?(source_snapshot_encryption_key = []) ?timeouts ~name
+    ~guest_os_features __id =
   let __type = "google_compute_disk" in
   let __attrs =
     ({
@@ -642,27 +643,27 @@ let make ?description ?enable_confidential_compute ?id ?image ?labels
            ?enable_confidential_compute ?id ?image ?labels ?licenses
            ?physical_block_size_bytes ?project ?provisioned_iops
            ?provisioned_throughput ?size ?snapshot ?source_disk
-           ?type_ ?zone ?timeouts ~name ~async_primary_disk
-           ~disk_encryption_key ~guest_os_features
+           ?type_ ?zone ~async_primary_disk ~disk_encryption_key
            ~source_image_encryption_key
-           ~source_snapshot_encryption_key ());
+           ~source_snapshot_encryption_key ?timeouts ~name
+           ~guest_os_features ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?enable_confidential_compute ?id
     ?image ?labels ?licenses ?physical_block_size_bytes ?project
     ?provisioned_iops ?provisioned_throughput ?size ?snapshot
-    ?source_disk ?type_ ?zone ?timeouts ~name ~async_primary_disk
-    ~disk_encryption_key ~guest_os_features
-    ~source_image_encryption_key ~source_snapshot_encryption_key __id
-    =
+    ?source_disk ?type_ ?zone ?(async_primary_disk = [])
+    ?(disk_encryption_key = []) ?(source_image_encryption_key = [])
+    ?(source_snapshot_encryption_key = []) ?timeouts ~name
+    ~guest_os_features __id =
   let (r : _ Tf_core.resource) =
     make ?description ?enable_confidential_compute ?id ?image ?labels
       ?licenses ?physical_block_size_bytes ?project ?provisioned_iops
       ?provisioned_throughput ?size ?snapshot ?source_disk ?type_
-      ?zone ?timeouts ~name ~async_primary_disk ~disk_encryption_key
-      ~guest_os_features ~source_image_encryption_key
-      ~source_snapshot_encryption_key __id
+      ?zone ~async_primary_disk ~disk_encryption_key
+      ~source_image_encryption_key ~source_snapshot_encryption_key
+      ?timeouts ~name ~guest_os_features __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

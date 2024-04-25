@@ -37,8 +37,8 @@ val config__subject_config__subject_alt_name :
 type config__subject_config
 
 val config__subject_config :
+  ?subject_alt_name:config__subject_config__subject_alt_name list ->
   subject:config__subject_config__subject list ->
-  subject_alt_name:config__subject_config__subject_alt_name list ->
   unit ->
   config__subject_config
 
@@ -106,11 +106,11 @@ val config__x509_config__key_usage__unknown_extended_key_usages :
 type config__x509_config__key_usage
 
 val config__x509_config__key_usage :
+  ?unknown_extended_key_usages:
+    config__x509_config__key_usage__unknown_extended_key_usages list ->
   base_key_usage:config__x509_config__key_usage__base_key_usage list ->
   extended_key_usage:
     config__x509_config__key_usage__extended_key_usage list ->
-  unknown_extended_key_usages:
-    config__x509_config__key_usage__unknown_extended_key_usages list ->
   unit ->
   config__x509_config__key_usage
 
@@ -140,12 +140,12 @@ type config__x509_config
 
 val config__x509_config :
   ?aia_ocsp_servers:string prop list ->
-  additional_extensions:
+  ?additional_extensions:
     config__x509_config__additional_extensions list ->
+  ?name_constraints:config__x509_config__name_constraints list ->
+  ?policy_ids:config__x509_config__policy_ids list ->
   ca_options:config__x509_config__ca_options list ->
   key_usage:config__x509_config__key_usage list ->
-  name_constraints:config__x509_config__name_constraints list ->
-  policy_ids:config__x509_config__policy_ids list ->
   unit ->
   config__x509_config
 
@@ -176,7 +176,7 @@ type subordinate_config
 
 val subordinate_config :
   ?certificate_authority:string prop ->
-  pem_issuer_chain:subordinate_config__pem_issuer_chain list ->
+  ?pem_issuer_chain:subordinate_config__pem_issuer_chain list ->
   unit ->
   subordinate_config
 
@@ -203,13 +203,13 @@ val google_privateca_certificate_authority :
   ?project:string prop ->
   ?skip_grace_period:bool prop ->
   ?type_:string prop ->
+  ?subordinate_config:subordinate_config list ->
   ?timeouts:timeouts ->
   certificate_authority_id:string prop ->
   location:string prop ->
   pool:string prop ->
   config:config list ->
   key_spec:key_spec list ->
-  subordinate_config:subordinate_config list ->
   unit ->
   google_privateca_certificate_authority
 
@@ -256,13 +256,13 @@ val register :
   ?project:string prop ->
   ?skip_grace_period:bool prop ->
   ?type_:string prop ->
+  ?subordinate_config:subordinate_config list ->
   ?timeouts:timeouts ->
   certificate_authority_id:string prop ->
   location:string prop ->
   pool:string prop ->
   config:config list ->
   key_spec:key_spec list ->
-  subordinate_config:subordinate_config list ->
   string ->
   t
 
@@ -278,12 +278,12 @@ val make :
   ?project:string prop ->
   ?skip_grace_period:bool prop ->
   ?type_:string prop ->
+  ?subordinate_config:subordinate_config list ->
   ?timeouts:timeouts ->
   certificate_authority_id:string prop ->
   location:string prop ->
   pool:string prop ->
   config:config list ->
   key_spec:key_spec list ->
-  subordinate_config:subordinate_config list ->
   string ->
   t Tf_core.resource

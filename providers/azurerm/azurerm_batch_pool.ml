@@ -2054,8 +2054,8 @@ let mount__nfs_mount ?mount_options ~relative_mount_path ~source () :
     mount__nfs_mount =
   { mount_options; relative_mount_path; source }
 
-let mount ~azure_blob_file_system ~azure_file_share ~cifs_mount
-    ~nfs_mount () : mount =
+let mount ?(azure_blob_file_system = []) ?(azure_file_share = [])
+    ?(cifs_mount = []) ?(nfs_mount = []) () : mount =
   { azure_blob_file_system; azure_file_share; cifs_mount; nfs_mount }
 
 let network_configuration__endpoint_configuration__network_security_group_rules
@@ -2064,9 +2064,9 @@ let network_configuration__endpoint_configuration__network_security_group_rules
     =
   { access; priority; source_address_prefix; source_port_ranges }
 
-let network_configuration__endpoint_configuration ~backend_port
-    ~frontend_port_range ~name ~protocol
-    ~network_security_group_rules () :
+let network_configuration__endpoint_configuration
+    ?(network_security_group_rules = []) ~backend_port
+    ~frontend_port_range ~name ~protocol () :
     network_configuration__endpoint_configuration =
   {
     backend_port;
@@ -2078,7 +2078,7 @@ let network_configuration__endpoint_configuration ~backend_port
 
 let network_configuration ?accelerated_networking_enabled
     ?dynamic_vnet_assignment_scope ?public_address_provisioning_type
-    ?public_ips ?subnet_id ~endpoint_configuration () :
+    ?public_ips ?subnet_id ?(endpoint_configuration = []) () :
     network_configuration =
   {
     accelerated_networking_enabled;
@@ -2096,8 +2096,8 @@ let start_task__container__registry ?password
     start_task__container__registry =
   { password; registry_server; user_assigned_identity_id; user_name }
 
-let start_task__container ?run_options ?working_directory ~image_name
-    ~registry () : start_task__container =
+let start_task__container ?run_options ?working_directory
+    ?(registry = []) ~image_name () : start_task__container =
   { image_name; run_options; working_directory; registry }
 
 let start_task__resource_file ?auto_storage_container_name
@@ -2118,13 +2118,13 @@ let start_task__user_identity__auto_user ?elevation_level ?scope () :
     start_task__user_identity__auto_user =
   { elevation_level; scope }
 
-let start_task__user_identity ?user_name ~auto_user () :
+let start_task__user_identity ?user_name ?(auto_user = []) () :
     start_task__user_identity =
   { user_name; auto_user }
 
 let start_task ?common_environment_properties ?task_retry_maximum
-    ?wait_for_success ~command_line ~container ~resource_file
-    ~user_identity () : start_task =
+    ?wait_for_success ?(container = []) ?(resource_file = [])
+    ~command_line ~user_identity () : start_task =
   {
     command_line;
     common_environment_properties;
@@ -2154,9 +2154,9 @@ let user_accounts__windows_user_configuration ~login_mode () :
     user_accounts__windows_user_configuration =
   { login_mode }
 
-let user_accounts ~elevation_level ~name ~password
-    ~linux_user_configuration ~windows_user_configuration () :
-    user_accounts =
+let user_accounts ?(linux_user_configuration = [])
+    ?(windows_user_configuration = []) ~elevation_level ~name
+    ~password () : user_accounts =
   {
     elevation_level;
     name;
@@ -2171,12 +2171,14 @@ let windows ?enable_automatic_updates () : windows =
 let azurerm_batch_pool ?display_name ?id ?inter_node_communication
     ?license_type ?max_tasks_per_node ?metadata ?os_disk_placement
     ?stop_pending_resize_operation ?target_node_communication_mode
-    ?timeouts ~account_name ~name ~node_agent_sku_id
-    ~resource_group_name ~vm_size ~auto_scale ~certificate
-    ~container_configuration ~data_disks ~disk_encryption ~extensions
-    ~fixed_scale ~identity ~mount ~network_configuration
-    ~node_placement ~start_task ~storage_image_reference
-    ~task_scheduling_policy ~user_accounts ~windows () :
+    ?(auto_scale = []) ?(certificate = [])
+    ?(container_configuration = []) ?(data_disks = [])
+    ?(disk_encryption = []) ?(extensions = []) ?(fixed_scale = [])
+    ?(identity = []) ?(mount = []) ?(network_configuration = [])
+    ?(node_placement = []) ?(start_task = [])
+    ?(task_scheduling_policy = []) ?timeouts ?(user_accounts = [])
+    ?(windows = []) ~account_name ~name ~node_agent_sku_id
+    ~resource_group_name ~vm_size ~storage_image_reference () :
     azurerm_batch_pool =
   {
     account_name;
@@ -2232,12 +2234,14 @@ type t = {
 let make ?display_name ?id ?inter_node_communication ?license_type
     ?max_tasks_per_node ?metadata ?os_disk_placement
     ?stop_pending_resize_operation ?target_node_communication_mode
-    ?timeouts ~account_name ~name ~node_agent_sku_id
-    ~resource_group_name ~vm_size ~auto_scale ~certificate
-    ~container_configuration ~data_disks ~disk_encryption ~extensions
-    ~fixed_scale ~identity ~mount ~network_configuration
-    ~node_placement ~start_task ~storage_image_reference
-    ~task_scheduling_policy ~user_accounts ~windows __id =
+    ?(auto_scale = []) ?(certificate = [])
+    ?(container_configuration = []) ?(data_disks = [])
+    ?(disk_encryption = []) ?(extensions = []) ?(fixed_scale = [])
+    ?(identity = []) ?(mount = []) ?(network_configuration = [])
+    ?(node_placement = []) ?(start_task = [])
+    ?(task_scheduling_policy = []) ?timeouts ?(user_accounts = [])
+    ?(windows = []) ~account_name ~name ~node_agent_sku_id
+    ~resource_group_name ~vm_size ~storage_image_reference __id =
   let __type = "azurerm_batch_pool" in
   let __attrs =
     ({
@@ -2274,36 +2278,37 @@ let make ?display_name ?id ?inter_node_communication ?license_type
            ?inter_node_communication ?license_type
            ?max_tasks_per_node ?metadata ?os_disk_placement
            ?stop_pending_resize_operation
-           ?target_node_communication_mode ?timeouts ~account_name
-           ~name ~node_agent_sku_id ~resource_group_name ~vm_size
-           ~auto_scale ~certificate ~container_configuration
-           ~data_disks ~disk_encryption ~extensions ~fixed_scale
-           ~identity ~mount ~network_configuration ~node_placement
-           ~start_task ~storage_image_reference
-           ~task_scheduling_policy ~user_accounts ~windows ());
+           ?target_node_communication_mode ~auto_scale ~certificate
+           ~container_configuration ~data_disks ~disk_encryption
+           ~extensions ~fixed_scale ~identity ~mount
+           ~network_configuration ~node_placement ~start_task
+           ~task_scheduling_policy ?timeouts ~user_accounts ~windows
+           ~account_name ~name ~node_agent_sku_id
+           ~resource_group_name ~vm_size ~storage_image_reference ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?display_name ?id ?inter_node_communication
     ?license_type ?max_tasks_per_node ?metadata ?os_disk_placement
     ?stop_pending_resize_operation ?target_node_communication_mode
-    ?timeouts ~account_name ~name ~node_agent_sku_id
-    ~resource_group_name ~vm_size ~auto_scale ~certificate
-    ~container_configuration ~data_disks ~disk_encryption ~extensions
-    ~fixed_scale ~identity ~mount ~network_configuration
-    ~node_placement ~start_task ~storage_image_reference
-    ~task_scheduling_policy ~user_accounts ~windows __id =
+    ?(auto_scale = []) ?(certificate = [])
+    ?(container_configuration = []) ?(data_disks = [])
+    ?(disk_encryption = []) ?(extensions = []) ?(fixed_scale = [])
+    ?(identity = []) ?(mount = []) ?(network_configuration = [])
+    ?(node_placement = []) ?(start_task = [])
+    ?(task_scheduling_policy = []) ?timeouts ?(user_accounts = [])
+    ?(windows = []) ~account_name ~name ~node_agent_sku_id
+    ~resource_group_name ~vm_size ~storage_image_reference __id =
   let (r : _ Tf_core.resource) =
     make ?display_name ?id ?inter_node_communication ?license_type
       ?max_tasks_per_node ?metadata ?os_disk_placement
       ?stop_pending_resize_operation ?target_node_communication_mode
-      ?timeouts ~account_name ~name ~node_agent_sku_id
-      ~resource_group_name ~vm_size ~auto_scale ~certificate
-      ~container_configuration ~data_disks ~disk_encryption
-      ~extensions ~fixed_scale ~identity ~mount
+      ~auto_scale ~certificate ~container_configuration ~data_disks
+      ~disk_encryption ~extensions ~fixed_scale ~identity ~mount
       ~network_configuration ~node_placement ~start_task
-      ~storage_image_reference ~task_scheduling_policy ~user_accounts
-      ~windows __id
+      ~task_scheduling_policy ?timeouts ~user_accounts ~windows
+      ~account_name ~name ~node_agent_sku_id ~resource_group_name
+      ~vm_size ~storage_image_reference __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

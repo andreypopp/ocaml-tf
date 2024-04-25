@@ -40,7 +40,7 @@ val instance_configuration__block_device_mapping :
   ?device_name:string prop ->
   ?no_device:bool prop ->
   ?virtual_name:string prop ->
-  ebs:instance_configuration__block_device_mapping__ebs list ->
+  ?ebs:instance_configuration__block_device_mapping__ebs list ->
   unit ->
   instance_configuration__block_device_mapping
 
@@ -73,12 +73,12 @@ val aws_imagebuilder_container_recipe :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?working_directory:string prop ->
+  ?instance_configuration:instance_configuration list ->
   container_type:string prop ->
   name:string prop ->
   parent_image:string prop ->
   version:string prop ->
   component:component list ->
-  instance_configuration:instance_configuration list ->
   target_repository:target_repository list ->
   unit ->
   aws_imagebuilder_container_recipe
@@ -120,12 +120,12 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?working_directory:string prop ->
+  ?instance_configuration:instance_configuration list ->
   container_type:string prop ->
   name:string prop ->
   parent_image:string prop ->
   version:string prop ->
   component:component list ->
-  instance_configuration:instance_configuration list ->
   target_repository:target_repository list ->
   string ->
   t
@@ -140,12 +140,12 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?working_directory:string prop ->
+  ?instance_configuration:instance_configuration list ->
   container_type:string prop ->
   name:string prop ->
   parent_image:string prop ->
   version:string prop ->
   component:component list ->
-  instance_configuration:instance_configuration list ->
   target_repository:target_repository list ->
   string ->
   t Tf_core.resource

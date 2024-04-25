@@ -213,10 +213,10 @@ let identity ?identity_ids ~type_ () : identity =
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_healthcare_medtech_service ?id ?tags ?timeouts
-    ~device_mapping_json ~eventhub_consumer_group_name ~eventhub_name
-    ~eventhub_namespace_name ~location ~name ~workspace_id ~identity
-    () : azurerm_healthcare_medtech_service =
+let azurerm_healthcare_medtech_service ?id ?tags ?(identity = [])
+    ?timeouts ~device_mapping_json ~eventhub_consumer_group_name
+    ~eventhub_name ~eventhub_namespace_name ~location ~name
+    ~workspace_id () : azurerm_healthcare_medtech_service =
   {
     device_mapping_json;
     eventhub_consumer_group_name;
@@ -243,10 +243,9 @@ type t = {
   workspace_id : string prop;
 }
 
-let make ?id ?tags ?timeouts ~device_mapping_json
+let make ?id ?tags ?(identity = []) ?timeouts ~device_mapping_json
     ~eventhub_consumer_group_name ~eventhub_name
-    ~eventhub_namespace_name ~location ~name ~workspace_id ~identity
-    __id =
+    ~eventhub_namespace_name ~location ~name ~workspace_id __id =
   let __type = "azurerm_healthcare_medtech_service" in
   let __attrs =
     ({
@@ -270,22 +269,20 @@ let make ?id ?tags ?timeouts ~device_mapping_json
     type_ = __type;
     json =
       yojson_of_azurerm_healthcare_medtech_service
-        (azurerm_healthcare_medtech_service ?id ?tags ?timeouts
-           ~device_mapping_json ~eventhub_consumer_group_name
-           ~eventhub_name ~eventhub_namespace_name ~location ~name
-           ~workspace_id ~identity ());
+        (azurerm_healthcare_medtech_service ?id ?tags ~identity
+           ?timeouts ~device_mapping_json
+           ~eventhub_consumer_group_name ~eventhub_name
+           ~eventhub_namespace_name ~location ~name ~workspace_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?timeouts ~device_mapping_json
-    ~eventhub_consumer_group_name ~eventhub_name
-    ~eventhub_namespace_name ~location ~name ~workspace_id ~identity
-    __id =
+let register ?tf_module ?id ?tags ?(identity = []) ?timeouts
+    ~device_mapping_json ~eventhub_consumer_group_name ~eventhub_name
+    ~eventhub_namespace_name ~location ~name ~workspace_id __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?timeouts ~device_mapping_json
+    make ?id ?tags ~identity ?timeouts ~device_mapping_json
       ~eventhub_consumer_group_name ~eventhub_name
-      ~eventhub_namespace_name ~location ~name ~workspace_id
-      ~identity __id
+      ~eventhub_namespace_name ~location ~name ~workspace_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

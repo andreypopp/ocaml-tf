@@ -201,7 +201,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_networkmanager_site ?description ?id ?tags ?tags_all
-    ?timeouts ~global_network_id ~location () :
+    ?(location = []) ?timeouts ~global_network_id () :
     aws_networkmanager_site =
   {
     description;
@@ -222,8 +222,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?description ?id ?tags ?tags_all ?timeouts
-    ~global_network_id ~location __id =
+let make ?description ?id ?tags ?tags_all ?(location = []) ?timeouts
+    ~global_network_id __id =
   let __type = "aws_networkmanager_site" in
   let __attrs =
     ({
@@ -243,15 +243,15 @@ let make ?description ?id ?tags ?tags_all ?timeouts
     json =
       yojson_of_aws_networkmanager_site
         (aws_networkmanager_site ?description ?id ?tags ?tags_all
-           ?timeouts ~global_network_id ~location ());
+           ~location ?timeouts ~global_network_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
-    ~global_network_id ~location __id =
+let register ?tf_module ?description ?id ?tags ?tags_all
+    ?(location = []) ?timeouts ~global_network_id __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?tags ?tags_all ?timeouts
-      ~global_network_id ~location __id
+    make ?description ?id ?tags ?tags_all ~location ?timeouts
+      ~global_network_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

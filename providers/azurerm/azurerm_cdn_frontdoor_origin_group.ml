@@ -279,8 +279,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_cdn_frontdoor_origin_group ?id
     ?restore_traffic_time_to_healed_or_new_endpoint_in_minutes
-    ?session_affinity_enabled ?timeouts ~cdn_frontdoor_profile_id
-    ~name ~health_probe ~load_balancing () :
+    ?session_affinity_enabled ?(health_probe = []) ?timeouts
+    ~cdn_frontdoor_profile_id ~name ~load_balancing () :
     azurerm_cdn_frontdoor_origin_group =
   {
     cdn_frontdoor_profile_id;
@@ -304,8 +304,8 @@ type t = {
 
 let make ?id
     ?restore_traffic_time_to_healed_or_new_endpoint_in_minutes
-    ?session_affinity_enabled ?timeouts ~cdn_frontdoor_profile_id
-    ~name ~health_probe ~load_balancing __id =
+    ?session_affinity_enabled ?(health_probe = []) ?timeouts
+    ~cdn_frontdoor_profile_id ~name ~load_balancing __id =
   let __type = "azurerm_cdn_frontdoor_origin_group" in
   let __attrs =
     ({
@@ -328,21 +328,20 @@ let make ?id
       yojson_of_azurerm_cdn_frontdoor_origin_group
         (azurerm_cdn_frontdoor_origin_group ?id
            ?restore_traffic_time_to_healed_or_new_endpoint_in_minutes
-           ?session_affinity_enabled ?timeouts
-           ~cdn_frontdoor_profile_id ~name ~health_probe
-           ~load_balancing ());
+           ?session_affinity_enabled ~health_probe ?timeouts
+           ~cdn_frontdoor_profile_id ~name ~load_balancing ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id
     ?restore_traffic_time_to_healed_or_new_endpoint_in_minutes
-    ?session_affinity_enabled ?timeouts ~cdn_frontdoor_profile_id
-    ~name ~health_probe ~load_balancing __id =
+    ?session_affinity_enabled ?(health_probe = []) ?timeouts
+    ~cdn_frontdoor_profile_id ~name ~load_balancing __id =
   let (r : _ Tf_core.resource) =
     make ?id
       ?restore_traffic_time_to_healed_or_new_endpoint_in_minutes
-      ?session_affinity_enabled ?timeouts ~cdn_frontdoor_profile_id
-      ~name ~health_probe ~load_balancing __id
+      ?session_affinity_enabled ~health_probe ?timeouts
+      ~cdn_frontdoor_profile_id ~name ~load_balancing __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

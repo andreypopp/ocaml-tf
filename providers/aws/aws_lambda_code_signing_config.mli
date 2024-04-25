@@ -21,8 +21,8 @@ type aws_lambda_code_signing_config
 val aws_lambda_code_signing_config :
   ?description:string prop ->
   ?id:string prop ->
+  ?policies:policies list ->
   allowed_publishers:allowed_publishers list ->
-  policies:policies list ->
   unit ->
   aws_lambda_code_signing_config
 
@@ -43,15 +43,15 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
+  ?policies:policies list ->
   allowed_publishers:allowed_publishers list ->
-  policies:policies list ->
   string ->
   t
 
 val make :
   ?description:string prop ->
   ?id:string prop ->
+  ?policies:policies list ->
   allowed_publishers:allowed_publishers list ->
-  policies:policies list ->
   string ->
   t Tf_core.resource

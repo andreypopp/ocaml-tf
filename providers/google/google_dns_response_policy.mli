@@ -28,10 +28,10 @@ val google_dns_response_policy :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?gke_clusters:gke_clusters list ->
+  ?networks:networks list ->
   ?timeouts:timeouts ->
   response_policy_name:string prop ->
-  gke_clusters:gke_clusters list ->
-  networks:networks list ->
   unit ->
   google_dns_response_policy
 
@@ -52,10 +52,10 @@ val register :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?gke_clusters:gke_clusters list ->
+  ?networks:networks list ->
   ?timeouts:timeouts ->
   response_policy_name:string prop ->
-  gke_clusters:gke_clusters list ->
-  networks:networks list ->
   string ->
   t
 
@@ -63,9 +63,9 @@ val make :
   ?description:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?gke_clusters:gke_clusters list ->
+  ?networks:networks list ->
   ?timeouts:timeouts ->
   response_policy_name:string prop ->
-  gke_clusters:gke_clusters list ->
-  networks:networks list ->
   string ->
   t Tf_core.resource

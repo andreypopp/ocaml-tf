@@ -62,14 +62,14 @@ val azurerm_kusto_cluster :
   ?tags:(string * string prop) list ->
   ?trusted_external_tenants:string prop list ->
   ?zones:string prop list ->
+  ?identity:identity list ->
+  ?optimized_auto_scale:optimized_auto_scale list ->
   ?timeouts:timeouts ->
+  ?virtual_network_configuration:virtual_network_configuration list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
-  optimized_auto_scale:optimized_auto_scale list ->
   sku:sku list ->
-  virtual_network_configuration:virtual_network_configuration list ->
   unit ->
   azurerm_kusto_cluster
 
@@ -119,14 +119,14 @@ val register :
   ?tags:(string * string prop) list ->
   ?trusted_external_tenants:string prop list ->
   ?zones:string prop list ->
+  ?identity:identity list ->
+  ?optimized_auto_scale:optimized_auto_scale list ->
   ?timeouts:timeouts ->
+  ?virtual_network_configuration:virtual_network_configuration list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
-  optimized_auto_scale:optimized_auto_scale list ->
   sku:sku list ->
-  virtual_network_configuration:virtual_network_configuration list ->
   string ->
   t
 
@@ -147,13 +147,13 @@ val make :
   ?tags:(string * string prop) list ->
   ?trusted_external_tenants:string prop list ->
   ?zones:string prop list ->
+  ?identity:identity list ->
+  ?optimized_auto_scale:optimized_auto_scale list ->
   ?timeouts:timeouts ->
+  ?virtual_network_configuration:virtual_network_configuration list ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  identity:identity list ->
-  optimized_auto_scale:optimized_auto_scale list ->
   sku:sku list ->
-  virtual_network_configuration:virtual_network_configuration list ->
   string ->
   t Tf_core.resource

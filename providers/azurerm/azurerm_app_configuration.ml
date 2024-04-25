@@ -481,9 +481,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_app_configuration ?id ?local_auth_enabled
     ?public_network_access ?purge_protection_enabled ?sku
-    ?soft_delete_retention_days ?tags ?timeouts ~location ~name
-    ~resource_group_name ~encryption ~identity ~replica () :
-    azurerm_app_configuration =
+    ?soft_delete_retention_days ?tags ?(encryption = [])
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    ~replica () : azurerm_app_configuration =
   {
     id;
     local_auth_enabled;
@@ -521,8 +521,8 @@ type t = {
 
 let make ?id ?local_auth_enabled ?public_network_access
     ?purge_protection_enabled ?sku ?soft_delete_retention_days ?tags
-    ?timeouts ~location ~name ~resource_group_name ~encryption
-    ~identity ~replica __id =
+    ?(encryption = []) ?(identity = []) ?timeouts ~location ~name
+    ~resource_group_name ~replica __id =
   let __type = "azurerm_app_configuration" in
   let __attrs =
     ({
@@ -560,21 +560,21 @@ let make ?id ?local_auth_enabled ?public_network_access
       yojson_of_azurerm_app_configuration
         (azurerm_app_configuration ?id ?local_auth_enabled
            ?public_network_access ?purge_protection_enabled ?sku
-           ?soft_delete_retention_days ?tags ?timeouts ~location
-           ~name ~resource_group_name ~encryption ~identity ~replica
-           ());
+           ?soft_delete_retention_days ?tags ~encryption ~identity
+           ?timeouts ~location ~name ~resource_group_name ~replica ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?local_auth_enabled
     ?public_network_access ?purge_protection_enabled ?sku
-    ?soft_delete_retention_days ?tags ?timeouts ~location ~name
-    ~resource_group_name ~encryption ~identity ~replica __id =
+    ?soft_delete_retention_days ?tags ?(encryption = [])
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    ~replica __id =
   let (r : _ Tf_core.resource) =
     make ?id ?local_auth_enabled ?public_network_access
       ?purge_protection_enabled ?sku ?soft_delete_retention_days
-      ?tags ?timeouts ~location ~name ~resource_group_name
-      ~encryption ~identity ~replica __id
+      ?tags ~encryption ~identity ?timeouts ~location ~name
+      ~resource_group_name ~replica __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

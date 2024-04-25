@@ -48,12 +48,12 @@ val google_netapp_volume_replication :
   ?project:string prop ->
   ?replication_enabled:bool prop ->
   ?wait_for_mirror:bool prop ->
+  ?destination_volume_parameters:destination_volume_parameters list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   replication_schedule:string prop ->
   volume_name:string prop ->
-  destination_volume_parameters:destination_volume_parameters list ->
   unit ->
   google_netapp_volume_replication
 
@@ -98,12 +98,12 @@ val register :
   ?project:string prop ->
   ?replication_enabled:bool prop ->
   ?wait_for_mirror:bool prop ->
+  ?destination_volume_parameters:destination_volume_parameters list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   replication_schedule:string prop ->
   volume_name:string prop ->
-  destination_volume_parameters:destination_volume_parameters list ->
   string ->
   t
 
@@ -116,11 +116,11 @@ val make :
   ?project:string prop ->
   ?replication_enabled:bool prop ->
   ?wait_for_mirror:bool prop ->
+  ?destination_volume_parameters:destination_volume_parameters list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   replication_schedule:string prop ->
   volume_name:string prop ->
-  destination_volume_parameters:destination_volume_parameters list ->
   string ->
   t Tf_core.resource

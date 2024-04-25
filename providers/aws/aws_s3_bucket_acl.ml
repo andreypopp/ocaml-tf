@@ -231,7 +231,7 @@ let access_control_policy__grant__grantee ?email_address ?id ?uri
     ~type_ () : access_control_policy__grant__grantee =
   { email_address; id; type_; uri }
 
-let access_control_policy__grant ~permission ~grantee () :
+let access_control_policy__grant ?(grantee = []) ~permission () :
     access_control_policy__grant =
   { permission; grantee }
 
@@ -242,8 +242,8 @@ let access_control_policy__owner ?display_name ~id () :
 let access_control_policy ~grant ~owner () : access_control_policy =
   { grant; owner }
 
-let aws_s3_bucket_acl ?acl ?expected_bucket_owner ?id ~bucket
-    ~access_control_policy () : aws_s3_bucket_acl =
+let aws_s3_bucket_acl ?acl ?expected_bucket_owner ?id
+    ?(access_control_policy = []) ~bucket () : aws_s3_bucket_acl =
   { acl; bucket; expected_bucket_owner; id; access_control_policy }
 
 type t = {
@@ -253,8 +253,8 @@ type t = {
   id : string prop;
 }
 
-let make ?acl ?expected_bucket_owner ?id ~bucket
-    ~access_control_policy __id =
+let make ?acl ?expected_bucket_owner ?id
+    ?(access_control_policy = []) ~bucket __id =
   let __type = "aws_s3_bucket_acl" in
   let __attrs =
     ({
@@ -271,16 +271,16 @@ let make ?acl ?expected_bucket_owner ?id ~bucket
     type_ = __type;
     json =
       yojson_of_aws_s3_bucket_acl
-        (aws_s3_bucket_acl ?acl ?expected_bucket_owner ?id ~bucket
-           ~access_control_policy ());
+        (aws_s3_bucket_acl ?acl ?expected_bucket_owner ?id
+           ~access_control_policy ~bucket ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?acl ?expected_bucket_owner ?id ~bucket
-    ~access_control_policy __id =
+let register ?tf_module ?acl ?expected_bucket_owner ?id
+    ?(access_control_policy = []) ~bucket __id =
   let (r : _ Tf_core.resource) =
-    make ?acl ?expected_bucket_owner ?id ~bucket
-      ~access_control_policy __id
+    make ?acl ?expected_bucket_owner ?id ~access_control_policy
+      ~bucket __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

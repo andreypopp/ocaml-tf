@@ -216,8 +216,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_key_vault_certificate_issuer ?account_id ?id ?org_id
-    ?password ?timeouts ~key_vault_id ~name ~provider_name ~admin ()
-    : azurerm_key_vault_certificate_issuer =
+    ?password ?(admin = []) ?timeouts ~key_vault_id ~name
+    ~provider_name () : azurerm_key_vault_certificate_issuer =
   {
     account_id;
     id;
@@ -240,8 +240,8 @@ type t = {
   provider_name : string prop;
 }
 
-let make ?account_id ?id ?org_id ?password ?timeouts ~key_vault_id
-    ~name ~provider_name ~admin __id =
+let make ?account_id ?id ?org_id ?password ?(admin = []) ?timeouts
+    ~key_vault_id ~name ~provider_name __id =
   let __type = "azurerm_key_vault_certificate_issuer" in
   let __attrs =
     ({
@@ -261,16 +261,16 @@ let make ?account_id ?id ?org_id ?password ?timeouts ~key_vault_id
     json =
       yojson_of_azurerm_key_vault_certificate_issuer
         (azurerm_key_vault_certificate_issuer ?account_id ?id ?org_id
-           ?password ?timeouts ~key_vault_id ~name ~provider_name
-           ~admin ());
+           ?password ~admin ?timeouts ~key_vault_id ~name
+           ~provider_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?account_id ?id ?org_id ?password ?timeouts
-    ~key_vault_id ~name ~provider_name ~admin __id =
+let register ?tf_module ?account_id ?id ?org_id ?password
+    ?(admin = []) ?timeouts ~key_vault_id ~name ~provider_name __id =
   let (r : _ Tf_core.resource) =
-    make ?account_id ?id ?org_id ?password ?timeouts ~key_vault_id
-      ~name ~provider_name ~admin __id
+    make ?account_id ?id ?org_id ?password ~admin ?timeouts
+      ~key_vault_id ~name ~provider_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

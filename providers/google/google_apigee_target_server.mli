@@ -22,8 +22,8 @@ val s_sl_info :
   ?key_store:string prop ->
   ?protocols:string prop list ->
   ?trust_store:string prop ->
+  ?common_name:s_sl_info__common_name list ->
   enabled:bool prop ->
-  common_name:s_sl_info__common_name list ->
   unit ->
   s_sl_info
 
@@ -43,12 +43,12 @@ val google_apigee_target_server :
   ?id:string prop ->
   ?is_enabled:bool prop ->
   ?protocol:string prop ->
+  ?s_sl_info:s_sl_info list ->
   ?timeouts:timeouts ->
   env_id:string prop ->
   host:string prop ->
   name:string prop ->
   port:float prop ->
-  s_sl_info:s_sl_info list ->
   unit ->
   google_apigee_target_server
 
@@ -74,12 +74,12 @@ val register :
   ?id:string prop ->
   ?is_enabled:bool prop ->
   ?protocol:string prop ->
+  ?s_sl_info:s_sl_info list ->
   ?timeouts:timeouts ->
   env_id:string prop ->
   host:string prop ->
   name:string prop ->
   port:float prop ->
-  s_sl_info:s_sl_info list ->
   string ->
   t
 
@@ -88,11 +88,11 @@ val make :
   ?id:string prop ->
   ?is_enabled:bool prop ->
   ?protocol:string prop ->
+  ?s_sl_info:s_sl_info list ->
   ?timeouts:timeouts ->
   env_id:string prop ->
   host:string prop ->
   name:string prop ->
   port:float prop ->
-  s_sl_info:s_sl_info list ->
   string ->
   t Tf_core.resource

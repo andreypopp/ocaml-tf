@@ -25,7 +25,7 @@ type cloudwatch_configuration
 
 val cloudwatch_configuration :
   ?enabled:bool prop ->
-  log_streams:cloudwatch_configuration__log_streams list ->
+  ?log_streams:cloudwatch_configuration__log_streams list ->
   unit ->
   cloudwatch_configuration
 
@@ -72,8 +72,8 @@ type load_based_auto_scaling
 
 val load_based_auto_scaling :
   ?enable:bool prop ->
-  downscaling:load_based_auto_scaling__downscaling list ->
-  upscaling:load_based_auto_scaling__upscaling list ->
+  ?downscaling:load_based_auto_scaling__downscaling list ->
+  ?upscaling:load_based_auto_scaling__upscaling list ->
   unit ->
   load_based_auto_scaling
 
@@ -106,11 +106,11 @@ val aws_opsworks_haproxy_layer :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?use_ebs_optimized_instances:bool prop ->
+  ?cloudwatch_configuration:cloudwatch_configuration list ->
+  ?load_based_auto_scaling:load_based_auto_scaling list ->
   stack_id:string prop ->
   stats_password:string prop ->
-  cloudwatch_configuration:cloudwatch_configuration list ->
   ebs_volume:ebs_volume list ->
-  load_based_auto_scaling:load_based_auto_scaling list ->
   unit ->
   aws_opsworks_haproxy_layer
 
@@ -179,11 +179,11 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?use_ebs_optimized_instances:bool prop ->
+  ?cloudwatch_configuration:cloudwatch_configuration list ->
+  ?load_based_auto_scaling:load_based_auto_scaling list ->
   stack_id:string prop ->
   stats_password:string prop ->
-  cloudwatch_configuration:cloudwatch_configuration list ->
   ebs_volume:ebs_volume list ->
-  load_based_auto_scaling:load_based_auto_scaling list ->
   string ->
   t
 
@@ -214,10 +214,10 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?use_ebs_optimized_instances:bool prop ->
+  ?cloudwatch_configuration:cloudwatch_configuration list ->
+  ?load_based_auto_scaling:load_based_auto_scaling list ->
   stack_id:string prop ->
   stats_password:string prop ->
-  cloudwatch_configuration:cloudwatch_configuration list ->
   ebs_volume:ebs_volume list ->
-  load_based_auto_scaling:load_based_auto_scaling list ->
   string ->
   t Tf_core.resource

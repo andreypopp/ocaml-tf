@@ -34,10 +34,10 @@ val destination_nat__frontend_config :
 type destination_nat
 
 val destination_nat :
+  ?backend_config:destination_nat__backend_config list ->
+  ?frontend_config:destination_nat__frontend_config list ->
   name:string prop ->
   protocol:string prop ->
-  backend_config:destination_nat__backend_config list ->
-  frontend_config:destination_nat__frontend_config list ->
   unit ->
   destination_nat
 
@@ -75,13 +75,13 @@ type azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama
 val azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?destination_nat:destination_nat list ->
+  ?dns_settings:dns_settings list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   panorama_base64_config:string prop ->
   resource_group_name:string prop ->
-  destination_nat:destination_nat list ->
-  dns_settings:dns_settings list ->
   network_profile:network_profile list ->
   unit ->
   azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama
@@ -106,13 +106,13 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?destination_nat:destination_nat list ->
+  ?dns_settings:dns_settings list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   panorama_base64_config:string prop ->
   resource_group_name:string prop ->
-  destination_nat:destination_nat list ->
-  dns_settings:dns_settings list ->
   network_profile:network_profile list ->
   string ->
   t
@@ -120,13 +120,13 @@ val register :
 val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?destination_nat:destination_nat list ->
+  ?dns_settings:dns_settings list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   panorama_base64_config:string prop ->
   resource_group_name:string prop ->
-  destination_nat:destination_nat list ->
-  dns_settings:dns_settings list ->
   network_profile:network_profile list ->
   string ->
   t Tf_core.resource

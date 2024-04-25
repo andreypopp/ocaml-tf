@@ -332,9 +332,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_storage_bucket_object ?cache_control ?content
     ?content_disposition ?content_encoding ?content_language
     ?content_type ?detect_md5hash ?event_based_hold ?id ?kms_key_name
-    ?metadata ?source ?storage_class ?temporary_hold ?timeouts
-    ~bucket ~name ~customer_encryption ~retention () :
-    google_storage_bucket_object =
+    ?metadata ?source ?storage_class ?temporary_hold
+    ?(customer_encryption = []) ?(retention = []) ?timeouts ~bucket
+    ~name () : google_storage_bucket_object =
   {
     bucket;
     cache_control;
@@ -384,8 +384,8 @@ type t = {
 let make ?cache_control ?content ?content_disposition
     ?content_encoding ?content_language ?content_type ?detect_md5hash
     ?event_based_hold ?id ?kms_key_name ?metadata ?source
-    ?storage_class ?temporary_hold ?timeouts ~bucket ~name
-    ~customer_encryption ~retention __id =
+    ?storage_class ?temporary_hold ?(customer_encryption = [])
+    ?(retention = []) ?timeouts ~bucket ~name __id =
   let __type = "google_storage_bucket_object" in
   let __attrs =
     ({
@@ -426,22 +426,22 @@ let make ?cache_control ?content ?content_disposition
            ?content_disposition ?content_encoding ?content_language
            ?content_type ?detect_md5hash ?event_based_hold ?id
            ?kms_key_name ?metadata ?source ?storage_class
-           ?temporary_hold ?timeouts ~bucket ~name
-           ~customer_encryption ~retention ());
+           ?temporary_hold ~customer_encryption ~retention ?timeouts
+           ~bucket ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?cache_control ?content ?content_disposition
     ?content_encoding ?content_language ?content_type ?detect_md5hash
     ?event_based_hold ?id ?kms_key_name ?metadata ?source
-    ?storage_class ?temporary_hold ?timeouts ~bucket ~name
-    ~customer_encryption ~retention __id =
+    ?storage_class ?temporary_hold ?(customer_encryption = [])
+    ?(retention = []) ?timeouts ~bucket ~name __id =
   let (r : _ Tf_core.resource) =
     make ?cache_control ?content ?content_disposition
       ?content_encoding ?content_language ?content_type
       ?detect_md5hash ?event_based_hold ?id ?kms_key_name ?metadata
-      ?source ?storage_class ?temporary_hold ?timeouts ~bucket ~name
-      ~customer_encryption ~retention __id
+      ?source ?storage_class ?temporary_hold ~customer_encryption
+      ~retention ?timeouts ~bucket ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

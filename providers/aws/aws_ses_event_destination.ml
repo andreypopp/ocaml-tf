@@ -193,10 +193,10 @@ let kinesis_destination ~role_arn ~stream_arn () :
 
 let sns_destination ~topic_arn () : sns_destination = { topic_arn }
 
-let aws_ses_event_destination ?enabled ?id ~configuration_set_name
-    ~matching_types ~name ~cloudwatch_destination
-    ~kinesis_destination ~sns_destination () :
-    aws_ses_event_destination =
+let aws_ses_event_destination ?enabled ?id
+    ?(kinesis_destination = []) ?(sns_destination = [])
+    ~configuration_set_name ~matching_types ~name
+    ~cloudwatch_destination () : aws_ses_event_destination =
   {
     configuration_set_name;
     enabled;
@@ -217,9 +217,9 @@ type t = {
   name : string prop;
 }
 
-let make ?enabled ?id ~configuration_set_name ~matching_types ~name
-    ~cloudwatch_destination ~kinesis_destination ~sns_destination
-    __id =
+let make ?enabled ?id ?(kinesis_destination = [])
+    ?(sns_destination = []) ~configuration_set_name ~matching_types
+    ~name ~cloudwatch_destination __id =
   let __type = "aws_ses_event_destination" in
   let __attrs =
     ({
@@ -238,20 +238,19 @@ let make ?enabled ?id ~configuration_set_name ~matching_types ~name
     type_ = __type;
     json =
       yojson_of_aws_ses_event_destination
-        (aws_ses_event_destination ?enabled ?id
-           ~configuration_set_name ~matching_types ~name
-           ~cloudwatch_destination ~kinesis_destination
-           ~sns_destination ());
+        (aws_ses_event_destination ?enabled ?id ~kinesis_destination
+           ~sns_destination ~configuration_set_name ~matching_types
+           ~name ~cloudwatch_destination ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?enabled ?id ~configuration_set_name
-    ~matching_types ~name ~cloudwatch_destination
-    ~kinesis_destination ~sns_destination __id =
+let register ?tf_module ?enabled ?id ?(kinesis_destination = [])
+    ?(sns_destination = []) ~configuration_set_name ~matching_types
+    ~name ~cloudwatch_destination __id =
   let (r : _ Tf_core.resource) =
-    make ?enabled ?id ~configuration_set_name ~matching_types ~name
-      ~cloudwatch_destination ~kinesis_destination ~sns_destination
-      __id
+    make ?enabled ?id ~kinesis_destination ~sns_destination
+      ~configuration_set_name ~matching_types ~name
+      ~cloudwatch_destination __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

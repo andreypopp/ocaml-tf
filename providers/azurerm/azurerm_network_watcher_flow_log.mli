@@ -38,6 +38,7 @@ val azurerm_network_watcher_flow_log :
   ?tags:(string * string prop) list ->
   ?version:float prop ->
   ?timeouts:timeouts ->
+  ?traffic_analytics:traffic_analytics list ->
   enabled:bool prop ->
   name:string prop ->
   network_security_group_id:string prop ->
@@ -45,7 +46,6 @@ val azurerm_network_watcher_flow_log :
   resource_group_name:string prop ->
   storage_account_id:string prop ->
   retention_policy:retention_policy list ->
-  traffic_analytics:traffic_analytics list ->
   unit ->
   azurerm_network_watcher_flow_log
 
@@ -74,6 +74,7 @@ val register :
   ?tags:(string * string prop) list ->
   ?version:float prop ->
   ?timeouts:timeouts ->
+  ?traffic_analytics:traffic_analytics list ->
   enabled:bool prop ->
   name:string prop ->
   network_security_group_id:string prop ->
@@ -81,7 +82,6 @@ val register :
   resource_group_name:string prop ->
   storage_account_id:string prop ->
   retention_policy:retention_policy list ->
-  traffic_analytics:traffic_analytics list ->
   string ->
   t
 
@@ -91,6 +91,7 @@ val make :
   ?tags:(string * string prop) list ->
   ?version:float prop ->
   ?timeouts:timeouts ->
+  ?traffic_analytics:traffic_analytics list ->
   enabled:bool prop ->
   name:string prop ->
   network_security_group_id:string prop ->
@@ -98,6 +99,5 @@ val make :
   resource_group_name:string prop ->
   storage_account_id:string prop ->
   retention_policy:retention_policy list ->
-  traffic_analytics:traffic_analytics list ->
   string ->
   t Tf_core.resource

@@ -59,9 +59,9 @@ val os_disk :
   ?secure_vm_disk_encryption_set_id:string prop ->
   ?security_encryption_type:string prop ->
   ?write_accelerator_enabled:bool prop ->
+  ?diff_disk_settings:os_disk__diff_disk_settings list ->
   caching:string prop ->
   storage_account_type:string prop ->
-  diff_disk_settings:os_disk__diff_disk_settings list ->
   unit ->
   os_disk
 
@@ -165,6 +165,16 @@ val azurerm_windows_virtual_machine :
   ?vm_agent_platform_updates_enabled:bool prop ->
   ?vtpm_enabled:bool prop ->
   ?zone:string prop ->
+  ?additional_capabilities:additional_capabilities list ->
+  ?additional_unattend_content:additional_unattend_content list ->
+  ?boot_diagnostics:boot_diagnostics list ->
+  ?gallery_application:gallery_application list ->
+  ?identity:identity list ->
+  ?os_image_notification:os_image_notification list ->
+  ?plan:plan list ->
+  ?secret:secret list ->
+  ?source_image_reference:source_image_reference list ->
+  ?termination_notification:termination_notification list ->
   ?timeouts:timeouts ->
   admin_password:string prop ->
   admin_username:string prop ->
@@ -173,17 +183,7 @@ val azurerm_windows_virtual_machine :
   network_interface_ids:string prop list ->
   resource_group_name:string prop ->
   size:string prop ->
-  additional_capabilities:additional_capabilities list ->
-  additional_unattend_content:additional_unattend_content list ->
-  boot_diagnostics:boot_diagnostics list ->
-  gallery_application:gallery_application list ->
-  identity:identity list ->
   os_disk:os_disk list ->
-  os_image_notification:os_image_notification list ->
-  plan:plan list ->
-  secret:secret list ->
-  source_image_reference:source_image_reference list ->
-  termination_notification:termination_notification list ->
   winrm_listener:winrm_listener list ->
   unit ->
   azurerm_windows_virtual_machine
@@ -278,6 +278,16 @@ val register :
   ?vm_agent_platform_updates_enabled:bool prop ->
   ?vtpm_enabled:bool prop ->
   ?zone:string prop ->
+  ?additional_capabilities:additional_capabilities list ->
+  ?additional_unattend_content:additional_unattend_content list ->
+  ?boot_diagnostics:boot_diagnostics list ->
+  ?gallery_application:gallery_application list ->
+  ?identity:identity list ->
+  ?os_image_notification:os_image_notification list ->
+  ?plan:plan list ->
+  ?secret:secret list ->
+  ?source_image_reference:source_image_reference list ->
+  ?termination_notification:termination_notification list ->
   ?timeouts:timeouts ->
   admin_password:string prop ->
   admin_username:string prop ->
@@ -286,17 +296,7 @@ val register :
   network_interface_ids:string prop list ->
   resource_group_name:string prop ->
   size:string prop ->
-  additional_capabilities:additional_capabilities list ->
-  additional_unattend_content:additional_unattend_content list ->
-  boot_diagnostics:boot_diagnostics list ->
-  gallery_application:gallery_application list ->
-  identity:identity list ->
   os_disk:os_disk list ->
-  os_image_notification:os_image_notification list ->
-  plan:plan list ->
-  secret:secret list ->
-  source_image_reference:source_image_reference list ->
-  termination_notification:termination_notification list ->
   winrm_listener:winrm_listener list ->
   string ->
   t
@@ -336,6 +336,16 @@ val make :
   ?vm_agent_platform_updates_enabled:bool prop ->
   ?vtpm_enabled:bool prop ->
   ?zone:string prop ->
+  ?additional_capabilities:additional_capabilities list ->
+  ?additional_unattend_content:additional_unattend_content list ->
+  ?boot_diagnostics:boot_diagnostics list ->
+  ?gallery_application:gallery_application list ->
+  ?identity:identity list ->
+  ?os_image_notification:os_image_notification list ->
+  ?plan:plan list ->
+  ?secret:secret list ->
+  ?source_image_reference:source_image_reference list ->
+  ?termination_notification:termination_notification list ->
   ?timeouts:timeouts ->
   admin_password:string prop ->
   admin_username:string prop ->
@@ -344,17 +354,7 @@ val make :
   network_interface_ids:string prop list ->
   resource_group_name:string prop ->
   size:string prop ->
-  additional_capabilities:additional_capabilities list ->
-  additional_unattend_content:additional_unattend_content list ->
-  boot_diagnostics:boot_diagnostics list ->
-  gallery_application:gallery_application list ->
-  identity:identity list ->
   os_disk:os_disk list ->
-  os_image_notification:os_image_notification list ->
-  plan:plan list ->
-  secret:secret list ->
-  source_image_reference:source_image_reference list ->
-  termination_notification:termination_notification list ->
   winrm_listener:winrm_listener list ->
   string ->
   t Tf_core.resource

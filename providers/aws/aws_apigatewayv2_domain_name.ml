@@ -246,9 +246,9 @@ let mutual_tls_authentication ?truststore_version ~truststore_uri ()
 
 let timeouts ?create ?update () : timeouts = { create; update }
 
-let aws_apigatewayv2_domain_name ?id ?tags ?tags_all ?timeouts
-    ~domain_name ~domain_name_configuration
-    ~mutual_tls_authentication () : aws_apigatewayv2_domain_name =
+let aws_apigatewayv2_domain_name ?id ?tags ?tags_all
+    ?(mutual_tls_authentication = []) ?timeouts ~domain_name
+    ~domain_name_configuration () : aws_apigatewayv2_domain_name =
   {
     domain_name;
     id;
@@ -268,8 +268,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?tags ?tags_all ?timeouts ~domain_name
-    ~domain_name_configuration ~mutual_tls_authentication __id =
+let make ?id ?tags ?tags_all ?(mutual_tls_authentication = [])
+    ?timeouts ~domain_name ~domain_name_configuration __id =
   let __type = "aws_apigatewayv2_domain_name" in
   let __attrs =
     ({
@@ -288,17 +288,18 @@ let make ?id ?tags ?tags_all ?timeouts ~domain_name
     type_ = __type;
     json =
       yojson_of_aws_apigatewayv2_domain_name
-        (aws_apigatewayv2_domain_name ?id ?tags ?tags_all ?timeouts
-           ~domain_name ~domain_name_configuration
-           ~mutual_tls_authentication ());
+        (aws_apigatewayv2_domain_name ?id ?tags ?tags_all
+           ~mutual_tls_authentication ?timeouts ~domain_name
+           ~domain_name_configuration ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ?timeouts ~domain_name
-    ~domain_name_configuration ~mutual_tls_authentication __id =
+let register ?tf_module ?id ?tags ?tags_all
+    ?(mutual_tls_authentication = []) ?timeouts ~domain_name
+    ~domain_name_configuration __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ?timeouts ~domain_name
-      ~domain_name_configuration ~mutual_tls_authentication __id
+    make ?id ?tags ?tags_all ~mutual_tls_authentication ?timeouts
+      ~domain_name ~domain_name_configuration __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -546,8 +546,9 @@ let input_data_config__entity_types ~type_ () :
     input_data_config__entity_types =
   { type_ }
 
-let input_data_config ?data_format ~annotations ~augmented_manifests
-    ~documents ~entity_list ~entity_types () : input_data_config =
+let input_data_config ?data_format ?(annotations = [])
+    ?(documents = []) ?(entity_list = []) ~augmented_manifests
+    ~entity_types () : input_data_config =
   {
     data_format;
     annotations;
@@ -565,9 +566,8 @@ let vpc_config ~security_group_ids ~subnets () : vpc_config =
 
 let aws_comprehend_entity_recognizer ?id ?model_kms_key_id ?tags
     ?tags_all ?version_name ?version_name_prefix ?volume_kms_key_id
-    ?timeouts ~data_access_role_arn ~language_code ~name
-    ~input_data_config ~vpc_config () :
-    aws_comprehend_entity_recognizer =
+    ?timeouts ?(vpc_config = []) ~data_access_role_arn ~language_code
+    ~name ~input_data_config () : aws_comprehend_entity_recognizer =
   {
     data_access_role_arn;
     id;
@@ -600,8 +600,8 @@ type t = {
 
 let make ?id ?model_kms_key_id ?tags ?tags_all ?version_name
     ?version_name_prefix ?volume_kms_key_id ?timeouts
-    ~data_access_role_arn ~language_code ~name ~input_data_config
-    ~vpc_config __id =
+    ?(vpc_config = []) ~data_access_role_arn ~language_code ~name
+    ~input_data_config __id =
   let __type = "aws_comprehend_entity_recognizer" in
   let __attrs =
     ({
@@ -630,20 +630,21 @@ let make ?id ?model_kms_key_id ?tags ?tags_all ?version_name
       yojson_of_aws_comprehend_entity_recognizer
         (aws_comprehend_entity_recognizer ?id ?model_kms_key_id ?tags
            ?tags_all ?version_name ?version_name_prefix
-           ?volume_kms_key_id ?timeouts ~data_access_role_arn
-           ~language_code ~name ~input_data_config ~vpc_config ());
+           ?volume_kms_key_id ?timeouts ~vpc_config
+           ~data_access_role_arn ~language_code ~name
+           ~input_data_config ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?model_kms_key_id ?tags ?tags_all
     ?version_name ?version_name_prefix ?volume_kms_key_id ?timeouts
-    ~data_access_role_arn ~language_code ~name ~input_data_config
-    ~vpc_config __id =
+    ?(vpc_config = []) ~data_access_role_arn ~language_code ~name
+    ~input_data_config __id =
   let (r : _ Tf_core.resource) =
     make ?id ?model_kms_key_id ?tags ?tags_all ?version_name
-      ?version_name_prefix ?volume_kms_key_id ?timeouts
+      ?version_name_prefix ?volume_kms_key_id ?timeouts ~vpc_config
       ~data_access_role_arn ~language_code ~name ~input_data_config
-      ~vpc_config __id
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

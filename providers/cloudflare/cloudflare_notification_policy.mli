@@ -69,12 +69,12 @@ type cloudflare_notification_policy
 val cloudflare_notification_policy :
   ?description:string prop ->
   ?id:string prop ->
+  ?filters:filters list ->
   account_id:string prop ->
   alert_type:string prop ->
   enabled:bool prop ->
   name:string prop ->
   email_integration:email_integration list ->
-  filters:filters list ->
   pagerduty_integration:pagerduty_integration list ->
   webhooks_integration:webhooks_integration list ->
   unit ->
@@ -100,12 +100,12 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
+  ?filters:filters list ->
   account_id:string prop ->
   alert_type:string prop ->
   enabled:bool prop ->
   name:string prop ->
   email_integration:email_integration list ->
-  filters:filters list ->
   pagerduty_integration:pagerduty_integration list ->
   webhooks_integration:webhooks_integration list ->
   string ->
@@ -114,12 +114,12 @@ val register :
 val make :
   ?description:string prop ->
   ?id:string prop ->
+  ?filters:filters list ->
   account_id:string prop ->
   alert_type:string prop ->
   enabled:bool prop ->
   name:string prop ->
   email_integration:email_integration list ->
-  filters:filters list ->
   pagerduty_integration:pagerduty_integration list ->
   webhooks_integration:webhooks_integration list ->
   string ->

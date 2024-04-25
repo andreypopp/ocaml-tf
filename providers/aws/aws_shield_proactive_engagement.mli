@@ -16,8 +16,8 @@ val emergency_contact :
 type aws_shield_proactive_engagement
 
 val aws_shield_proactive_engagement :
+  ?emergency_contact:emergency_contact list ->
   enabled:bool prop ->
-  emergency_contact:emergency_contact list ->
   unit ->
   aws_shield_proactive_engagement
 
@@ -30,13 +30,13 @@ type t = private { enabled : bool prop; id : string prop }
 
 val register :
   ?tf_module:tf_module ->
+  ?emergency_contact:emergency_contact list ->
   enabled:bool prop ->
-  emergency_contact:emergency_contact list ->
   string ->
   t
 
 val make :
+  ?emergency_contact:emergency_contact list ->
   enabled:bool prop ->
-  emergency_contact:emergency_contact list ->
   string ->
   t Tf_core.resource

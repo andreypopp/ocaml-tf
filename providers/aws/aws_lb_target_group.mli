@@ -67,10 +67,10 @@ val aws_lb_target_group :
   ?tags_all:(string * string prop) list ->
   ?target_type:string prop ->
   ?vpc_id:string prop ->
-  health_check:health_check list ->
-  stickiness:stickiness list ->
-  target_failover:target_failover list ->
-  target_health_state:target_health_state list ->
+  ?health_check:health_check list ->
+  ?stickiness:stickiness list ->
+  ?target_failover:target_failover list ->
+  ?target_health_state:target_health_state list ->
   unit ->
   aws_lb_target_group
 
@@ -126,10 +126,10 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?target_type:string prop ->
   ?vpc_id:string prop ->
-  health_check:health_check list ->
-  stickiness:stickiness list ->
-  target_failover:target_failover list ->
-  target_health_state:target_health_state list ->
+  ?health_check:health_check list ->
+  ?stickiness:stickiness list ->
+  ?target_failover:target_failover list ->
+  ?target_health_state:target_health_state list ->
   string ->
   t
 
@@ -154,9 +154,9 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?target_type:string prop ->
   ?vpc_id:string prop ->
-  health_check:health_check list ->
-  stickiness:stickiness list ->
-  target_failover:target_failover list ->
-  target_health_state:target_health_state list ->
+  ?health_check:health_check list ->
+  ?stickiness:stickiness list ->
+  ?target_failover:target_failover list ->
+  ?target_health_state:target_health_state list ->
   string ->
   t Tf_core.resource

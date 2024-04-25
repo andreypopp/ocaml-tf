@@ -2594,7 +2594,7 @@ let dynamodb ?hash_key_type ?operation ?payload_field
 let dynamodbv2__put_item ~table_name () : dynamodbv2__put_item =
   { table_name }
 
-let dynamodbv2 ~role_arn ~put_item () : dynamodbv2 =
+let dynamodbv2 ?(put_item = []) ~role_arn () : dynamodbv2 =
   { role_arn; put_item }
 
 let elasticsearch ~endpoint ~id ~index ~role_arn ~type_ () :
@@ -2642,7 +2642,7 @@ let error_action__dynamodbv2__put_item ~table_name () :
     error_action__dynamodbv2__put_item =
   { table_name }
 
-let error_action__dynamodbv2 ~role_arn ~put_item () :
+let error_action__dynamodbv2 ?(put_item = []) ~role_arn () :
     error_action__dynamodbv2 =
   { role_arn; put_item }
 
@@ -2658,8 +2658,8 @@ let error_action__http__http_header ~key ~value () :
     error_action__http__http_header =
   { key; value }
 
-let error_action__http ?confirmation_url ~url ~http_header () :
-    error_action__http =
+let error_action__http ?confirmation_url ?(http_header = []) ~url ()
+    : error_action__http =
   { confirmation_url; url; http_header }
 
 let error_action__iot_analytics ?batch_mode ~channel_name ~role_arn
@@ -2674,8 +2674,9 @@ let error_action__kafka__header ~key ~value () :
     error_action__kafka__header =
   { key; value }
 
-let error_action__kafka ?key ?partition ~client_properties
-    ~destination_arn ~topic ~header () : error_action__kafka =
+let error_action__kafka ?key ?partition ?(header = [])
+    ~client_properties ~destination_arn ~topic () :
+    error_action__kafka =
   {
     client_properties;
     destination_arn;
@@ -2720,15 +2721,17 @@ let error_action__timestream__timestamp ~unit ~value () :
     error_action__timestream__timestamp =
   { unit; value }
 
-let error_action__timestream ~database_name ~role_arn ~table_name
-    ~dimension ~timestamp () : error_action__timestream =
+let error_action__timestream ?(timestamp = []) ~database_name
+    ~role_arn ~table_name ~dimension () : error_action__timestream =
   { database_name; role_arn; table_name; dimension; timestamp }
 
-let error_action ~cloudwatch_alarm ~cloudwatch_logs
-    ~cloudwatch_metric ~dynamodb ~dynamodbv2 ~elasticsearch ~firehose
-    ~http ~iot_analytics ~iot_events ~kafka ~kinesis ~lambda
-    ~republish ~s3 ~sns ~sqs ~step_functions ~timestream () :
-    error_action =
+let error_action ?(cloudwatch_alarm = []) ?(cloudwatch_logs = [])
+    ?(cloudwatch_metric = []) ?(dynamodb = []) ?(dynamodbv2 = [])
+    ?(elasticsearch = []) ?(firehose = []) ?(http = [])
+    ?(iot_analytics = []) ?(iot_events = []) ?(kafka = [])
+    ?(kinesis = []) ?(lambda = []) ?(republish = []) ?(s3 = [])
+    ?(sns = []) ?(sqs = []) ?(step_functions = []) ?(timestream = [])
+    () : error_action =
   {
     cloudwatch_alarm;
     cloudwatch_logs;
@@ -2758,7 +2761,7 @@ let firehose ?batch_mode ?separator ~delivery_stream_name ~role_arn
 let http__http_header ~key ~value () : http__http_header =
   { key; value }
 
-let http ?confirmation_url ~url ~http_header () : http =
+let http ?confirmation_url ?(http_header = []) ~url () : http =
   { confirmation_url; url; http_header }
 
 let iot_analytics ?batch_mode ~channel_name ~role_arn () :
@@ -2771,8 +2774,8 @@ let iot_events ?batch_mode ?message_id ~input_name ~role_arn () :
 
 let kafka__header ~key ~value () : kafka__header = { key; value }
 
-let kafka ?key ?partition ~client_properties ~destination_arn ~topic
-    ~header () : kafka =
+let kafka ?key ?partition ?(header = []) ~client_properties
+    ~destination_arn ~topic () : kafka =
   {
     client_properties;
     destination_arn;
@@ -2809,16 +2812,16 @@ let timestream__dimension ~name ~value () : timestream__dimension =
 let timestream__timestamp ~unit ~value () : timestream__timestamp =
   { unit; value }
 
-let timestream ~database_name ~role_arn ~table_name ~dimension
-    ~timestamp () : timestream =
+let timestream ?(timestamp = []) ~database_name ~role_arn ~table_name
+    ~dimension () : timestream =
   { database_name; role_arn; table_name; dimension; timestamp }
 
-let aws_iot_topic_rule ?description ?id ?tags ?tags_all ~enabled
-    ~name ~sql ~sql_version ~cloudwatch_alarm ~cloudwatch_logs
-    ~cloudwatch_metric ~dynamodb ~dynamodbv2 ~elasticsearch
-    ~error_action ~firehose ~http ~iot_analytics ~iot_events ~kafka
-    ~kinesis ~lambda ~republish ~s3 ~sns ~sqs ~step_functions
-    ~timestream () : aws_iot_topic_rule =
+let aws_iot_topic_rule ?description ?id ?tags ?tags_all
+    ?(error_action = []) ~enabled ~name ~sql ~sql_version
+    ~cloudwatch_alarm ~cloudwatch_logs ~cloudwatch_metric ~dynamodb
+    ~dynamodbv2 ~elasticsearch ~firehose ~http ~iot_analytics
+    ~iot_events ~kafka ~kinesis ~lambda ~republish ~s3 ~sns ~sqs
+    ~step_functions ~timestream () : aws_iot_topic_rule =
   {
     description;
     enabled;
@@ -2862,10 +2865,10 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?description ?id ?tags ?tags_all ~enabled ~name ~sql
-    ~sql_version ~cloudwatch_alarm ~cloudwatch_logs
-    ~cloudwatch_metric ~dynamodb ~dynamodbv2 ~elasticsearch
-    ~error_action ~firehose ~http ~iot_analytics ~iot_events ~kafka
+let make ?description ?id ?tags ?tags_all ?(error_action = [])
+    ~enabled ~name ~sql ~sql_version ~cloudwatch_alarm
+    ~cloudwatch_logs ~cloudwatch_metric ~dynamodb ~dynamodbv2
+    ~elasticsearch ~firehose ~http ~iot_analytics ~iot_events ~kafka
     ~kinesis ~lambda ~republish ~s3 ~sns ~sqs ~step_functions
     ~timestream __id =
   let __type = "aws_iot_topic_rule" in
@@ -2888,28 +2891,28 @@ let make ?description ?id ?tags ?tags_all ~enabled ~name ~sql
     type_ = __type;
     json =
       yojson_of_aws_iot_topic_rule
-        (aws_iot_topic_rule ?description ?id ?tags ?tags_all ~enabled
-           ~name ~sql ~sql_version ~cloudwatch_alarm ~cloudwatch_logs
-           ~cloudwatch_metric ~dynamodb ~dynamodbv2 ~elasticsearch
-           ~error_action ~firehose ~http ~iot_analytics ~iot_events
-           ~kafka ~kinesis ~lambda ~republish ~s3 ~sns ~sqs
-           ~step_functions ~timestream ());
+        (aws_iot_topic_rule ?description ?id ?tags ?tags_all
+           ~error_action ~enabled ~name ~sql ~sql_version
+           ~cloudwatch_alarm ~cloudwatch_logs ~cloudwatch_metric
+           ~dynamodb ~dynamodbv2 ~elasticsearch ~firehose ~http
+           ~iot_analytics ~iot_events ~kafka ~kinesis ~lambda
+           ~republish ~s3 ~sns ~sqs ~step_functions ~timestream ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ~enabled
-    ~name ~sql ~sql_version ~cloudwatch_alarm ~cloudwatch_logs
-    ~cloudwatch_metric ~dynamodb ~dynamodbv2 ~elasticsearch
-    ~error_action ~firehose ~http ~iot_analytics ~iot_events ~kafka
-    ~kinesis ~lambda ~republish ~s3 ~sns ~sqs ~step_functions
-    ~timestream __id =
+let register ?tf_module ?description ?id ?tags ?tags_all
+    ?(error_action = []) ~enabled ~name ~sql ~sql_version
+    ~cloudwatch_alarm ~cloudwatch_logs ~cloudwatch_metric ~dynamodb
+    ~dynamodbv2 ~elasticsearch ~firehose ~http ~iot_analytics
+    ~iot_events ~kafka ~kinesis ~lambda ~republish ~s3 ~sns ~sqs
+    ~step_functions ~timestream __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?tags ?tags_all ~enabled ~name ~sql
-      ~sql_version ~cloudwatch_alarm ~cloudwatch_logs
+    make ?description ?id ?tags ?tags_all ~error_action ~enabled
+      ~name ~sql ~sql_version ~cloudwatch_alarm ~cloudwatch_logs
       ~cloudwatch_metric ~dynamodb ~dynamodbv2 ~elasticsearch
-      ~error_action ~firehose ~http ~iot_analytics ~iot_events ~kafka
-      ~kinesis ~lambda ~republish ~s3 ~sns ~sqs ~step_functions
-      ~timestream __id
+      ~firehose ~http ~iot_analytics ~iot_events ~kafka ~kinesis
+      ~lambda ~republish ~s3 ~sns ~sqs ~step_functions ~timestream
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

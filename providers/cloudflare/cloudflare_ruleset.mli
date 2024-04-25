@@ -79,13 +79,15 @@ val rules__action_parameters__cache_key__custom_key__user :
 type rules__action_parameters__cache_key__custom_key
 
 val rules__action_parameters__cache_key__custom_key :
-  cookie:rules__action_parameters__cache_key__custom_key__cookie list ->
-  header:rules__action_parameters__cache_key__custom_key__header list ->
-  host:rules__action_parameters__cache_key__custom_key__host list ->
-  query_string:
+  ?cookie:
+    rules__action_parameters__cache_key__custom_key__cookie list ->
+  ?header:
+    rules__action_parameters__cache_key__custom_key__header list ->
+  ?host:rules__action_parameters__cache_key__custom_key__host list ->
+  ?query_string:
     rules__action_parameters__cache_key__custom_key__query_string
     list ->
-  user:rules__action_parameters__cache_key__custom_key__user list ->
+  ?user:rules__action_parameters__cache_key__custom_key__user list ->
   unit ->
   rules__action_parameters__cache_key__custom_key
 
@@ -95,7 +97,7 @@ val rules__action_parameters__cache_key :
   ?cache_by_device_type:bool prop ->
   ?cache_deception_armor:bool prop ->
   ?ignore_query_strings_order:bool prop ->
-  custom_key:rules__action_parameters__cache_key__custom_key list ->
+  ?custom_key:rules__action_parameters__cache_key__custom_key list ->
   unit ->
   rules__action_parameters__cache_key
 
@@ -112,7 +114,7 @@ type rules__action_parameters__edge_ttl__status_code_ttl
 val rules__action_parameters__edge_ttl__status_code_ttl :
   ?status_code:float prop ->
   ?value:float prop ->
-  status_code_range:
+  ?status_code_range:
     rules__action_parameters__edge_ttl__status_code_ttl__status_code_range
     list ->
   unit ->
@@ -122,9 +124,9 @@ type rules__action_parameters__edge_ttl
 
 val rules__action_parameters__edge_ttl :
   ?default:float prop ->
-  mode:string prop ->
-  status_code_ttl:
+  ?status_code_ttl:
     rules__action_parameters__edge_ttl__status_code_ttl list ->
+  mode:string prop ->
   unit ->
   rules__action_parameters__edge_ttl
 
@@ -149,7 +151,7 @@ type rules__action_parameters__from_value
 val rules__action_parameters__from_value :
   ?preserve_query_string:bool prop ->
   ?status_code:float prop ->
-  target_url:rules__action_parameters__from_value__target_url list ->
+  ?target_url:rules__action_parameters__from_value__target_url list ->
   unit ->
   rules__action_parameters__from_value
 
@@ -204,8 +206,8 @@ val rules__action_parameters__overrides :
   ?action:string prop ->
   ?enabled:bool prop ->
   ?sensitivity_level:string prop ->
-  categories:rules__action_parameters__overrides__categories list ->
-  rules:rules__action_parameters__overrides__rules list ->
+  ?categories:rules__action_parameters__overrides__categories list ->
+  ?rules:rules__action_parameters__overrides__rules list ->
   unit ->
   rules__action_parameters__overrides
 
@@ -250,8 +252,8 @@ type rules__action_parameters__uri
 
 val rules__action_parameters__uri :
   ?origin:bool prop ->
-  path:rules__action_parameters__uri__path list ->
-  query:rules__action_parameters__uri__query list ->
+  ?path:rules__action_parameters__uri__path list ->
+  ?query:rules__action_parameters__uri__query list ->
   unit ->
   rules__action_parameters__uri
 
@@ -294,21 +296,21 @@ val rules__action_parameters :
   ?status_code:float prop ->
   ?sxg:bool prop ->
   ?version:string prop ->
-  algorithms:rules__action_parameters__algorithms list ->
-  autominify:rules__action_parameters__autominify list ->
-  browser_ttl:rules__action_parameters__browser_ttl list ->
-  cache_key:rules__action_parameters__cache_key list ->
-  edge_ttl:rules__action_parameters__edge_ttl list ->
-  from_list:rules__action_parameters__from_list list ->
-  from_value:rules__action_parameters__from_value list ->
-  headers:rules__action_parameters__headers list ->
-  matched_data:rules__action_parameters__matched_data list ->
-  origin:rules__action_parameters__origin list ->
-  overrides:rules__action_parameters__overrides list ->
-  response:rules__action_parameters__response list ->
-  serve_stale:rules__action_parameters__serve_stale list ->
-  sni:rules__action_parameters__sni list ->
-  uri:rules__action_parameters__uri list ->
+  ?algorithms:rules__action_parameters__algorithms list ->
+  ?autominify:rules__action_parameters__autominify list ->
+  ?browser_ttl:rules__action_parameters__browser_ttl list ->
+  ?cache_key:rules__action_parameters__cache_key list ->
+  ?edge_ttl:rules__action_parameters__edge_ttl list ->
+  ?from_list:rules__action_parameters__from_list list ->
+  ?from_value:rules__action_parameters__from_value list ->
+  ?headers:rules__action_parameters__headers list ->
+  ?matched_data:rules__action_parameters__matched_data list ->
+  ?origin:rules__action_parameters__origin list ->
+  ?overrides:rules__action_parameters__overrides list ->
+  ?response:rules__action_parameters__response list ->
+  ?serve_stale:rules__action_parameters__serve_stale list ->
+  ?sni:rules__action_parameters__sni list ->
+  ?uri:rules__action_parameters__uri list ->
   unit ->
   rules__action_parameters
 
@@ -345,11 +347,11 @@ val rules :
   ?description:string prop ->
   ?enabled:bool prop ->
   ?ref:string prop ->
+  ?action_parameters:rules__action_parameters list ->
+  ?exposed_credential_check:rules__exposed_credential_check list ->
+  ?logging:rules__logging list ->
+  ?ratelimit:rules__ratelimit list ->
   expression:string prop ->
-  action_parameters:rules__action_parameters list ->
-  exposed_credential_check:rules__exposed_credential_check list ->
-  logging:rules__logging list ->
-  ratelimit:rules__ratelimit list ->
   unit ->
   rules
 
@@ -359,10 +361,10 @@ val cloudflare_ruleset :
   ?account_id:string prop ->
   ?description:string prop ->
   ?zone_id:string prop ->
+  ?rules:rules list ->
   kind:string prop ->
   name:string prop ->
   phase:string prop ->
-  rules:rules list ->
   unit ->
   cloudflare_ruleset
 
@@ -385,10 +387,10 @@ val register :
   ?account_id:string prop ->
   ?description:string prop ->
   ?zone_id:string prop ->
+  ?rules:rules list ->
   kind:string prop ->
   name:string prop ->
   phase:string prop ->
-  rules:rules list ->
   string ->
   t
 
@@ -396,9 +398,9 @@ val make :
   ?account_id:string prop ->
   ?description:string prop ->
   ?zone_id:string prop ->
+  ?rules:rules list ->
   kind:string prop ->
   name:string prop ->
   phase:string prop ->
-  rules:rules list ->
   string ->
   t Tf_core.resource

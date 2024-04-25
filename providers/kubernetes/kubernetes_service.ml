@@ -622,7 +622,7 @@ let spec__session_affinity_config__client_ip ?timeout_seconds () :
     spec__session_affinity_config__client_ip =
   { timeout_seconds }
 
-let spec__session_affinity_config ~client_ip () :
+let spec__session_affinity_config ?(client_ip = []) () :
     spec__session_affinity_config =
   { client_ip }
 
@@ -631,8 +631,8 @@ let spec ?allocate_load_balancer_node_ports ?cluster_ip ?cluster_ips
     ?health_check_node_port ?internal_traffic_policy ?ip_families
     ?ip_family_policy ?load_balancer_class ?load_balancer_ip
     ?load_balancer_source_ranges ?publish_not_ready_addresses
-    ?selector ?session_affinity ?type_ ~port ~session_affinity_config
-    () : spec =
+    ?selector ?session_affinity ?type_ ?(port = [])
+    ?(session_affinity_config = []) () : spec =
   {
     allocate_load_balancer_node_ports;
     cluster_ip;

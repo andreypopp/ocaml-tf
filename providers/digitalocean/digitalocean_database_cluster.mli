@@ -32,14 +32,14 @@ val digitalocean_database_cluster :
   ?storage_size_mib:string prop ->
   ?tags:string prop list ->
   ?version:string prop ->
+  ?backup_restore:backup_restore list ->
+  ?maintenance_window:maintenance_window list ->
   ?timeouts:timeouts ->
   engine:string prop ->
   name:string prop ->
   node_count:float prop ->
   region:string prop ->
   size:string prop ->
-  backup_restore:backup_restore list ->
-  maintenance_window:maintenance_window list ->
   unit ->
   digitalocean_database_cluster
 
@@ -83,14 +83,14 @@ val register :
   ?storage_size_mib:string prop ->
   ?tags:string prop list ->
   ?version:string prop ->
+  ?backup_restore:backup_restore list ->
+  ?maintenance_window:maintenance_window list ->
   ?timeouts:timeouts ->
   engine:string prop ->
   name:string prop ->
   node_count:float prop ->
   region:string prop ->
   size:string prop ->
-  backup_restore:backup_restore list ->
-  maintenance_window:maintenance_window list ->
   string ->
   t
 
@@ -103,13 +103,13 @@ val make :
   ?storage_size_mib:string prop ->
   ?tags:string prop list ->
   ?version:string prop ->
+  ?backup_restore:backup_restore list ->
+  ?maintenance_window:maintenance_window list ->
   ?timeouts:timeouts ->
   engine:string prop ->
   name:string prop ->
   node_count:float prop ->
   region:string prop ->
   size:string prop ->
-  backup_restore:backup_restore list ->
-  maintenance_window:maintenance_window list ->
   string ->
   t Tf_core.resource

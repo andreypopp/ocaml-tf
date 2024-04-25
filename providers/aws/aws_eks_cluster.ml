@@ -576,8 +576,8 @@ let outpost_config__control_plane_placement ~group_name () :
     outpost_config__control_plane_placement =
   { group_name }
 
-let outpost_config ~control_plane_instance_type ~outpost_arns
-    ~control_plane_placement () : outpost_config =
+let outpost_config ?(control_plane_placement = [])
+    ~control_plane_instance_type ~outpost_arns () : outpost_config =
   {
     control_plane_instance_type;
     outpost_arns;
@@ -599,9 +599,9 @@ let vpc_config ?endpoint_private_access ?endpoint_public_access
   }
 
 let aws_eks_cluster ?enabled_cluster_log_types ?id ?tags ?tags_all
-    ?version ?timeouts ~name ~role_arn ~access_config
-    ~encryption_config ~kubernetes_network_config ~outpost_config
-    ~vpc_config () : aws_eks_cluster =
+    ?version ?(access_config = []) ?(encryption_config = [])
+    ?(kubernetes_network_config = []) ?(outpost_config = [])
+    ?timeouts ~name ~role_arn ~vpc_config () : aws_eks_cluster =
   {
     enabled_cluster_log_types;
     id;
@@ -637,8 +637,9 @@ type t = {
 }
 
 let make ?enabled_cluster_log_types ?id ?tags ?tags_all ?version
-    ?timeouts ~name ~role_arn ~access_config ~encryption_config
-    ~kubernetes_network_config ~outpost_config ~vpc_config __id =
+    ?(access_config = []) ?(encryption_config = [])
+    ?(kubernetes_network_config = []) ?(outpost_config = [])
+    ?timeouts ~name ~role_arn ~vpc_config __id =
   let __type = "aws_eks_cluster" in
   let __attrs =
     ({
@@ -669,20 +670,21 @@ let make ?enabled_cluster_log_types ?id ?tags ?tags_all ?version
     json =
       yojson_of_aws_eks_cluster
         (aws_eks_cluster ?enabled_cluster_log_types ?id ?tags
-           ?tags_all ?version ?timeouts ~name ~role_arn
-           ~access_config ~encryption_config
-           ~kubernetes_network_config ~outpost_config ~vpc_config ());
+           ?tags_all ?version ~access_config ~encryption_config
+           ~kubernetes_network_config ~outpost_config ?timeouts ~name
+           ~role_arn ~vpc_config ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?enabled_cluster_log_types ?id ?tags
-    ?tags_all ?version ?timeouts ~name ~role_arn ~access_config
-    ~encryption_config ~kubernetes_network_config ~outpost_config
-    ~vpc_config __id =
+    ?tags_all ?version ?(access_config = [])
+    ?(encryption_config = []) ?(kubernetes_network_config = [])
+    ?(outpost_config = []) ?timeouts ~name ~role_arn ~vpc_config __id
+    =
   let (r : _ Tf_core.resource) =
     make ?enabled_cluster_log_types ?id ?tags ?tags_all ?version
-      ?timeouts ~name ~role_arn ~access_config ~encryption_config
-      ~kubernetes_network_config ~outpost_config ~vpc_config __id
+      ~access_config ~encryption_config ~kubernetes_network_config
+      ~outpost_config ?timeouts ~name ~role_arn ~vpc_config __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

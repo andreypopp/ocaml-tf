@@ -34,12 +34,12 @@ val aws_transfer_user :
   ?policy:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?home_directory_mappings:home_directory_mappings list ->
+  ?posix_profile:posix_profile list ->
   ?timeouts:timeouts ->
   role:string prop ->
   server_id:string prop ->
   user_name:string prop ->
-  home_directory_mappings:home_directory_mappings list ->
-  posix_profile:posix_profile list ->
   unit ->
   aws_transfer_user
 
@@ -68,12 +68,12 @@ val register :
   ?policy:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?home_directory_mappings:home_directory_mappings list ->
+  ?posix_profile:posix_profile list ->
   ?timeouts:timeouts ->
   role:string prop ->
   server_id:string prop ->
   user_name:string prop ->
-  home_directory_mappings:home_directory_mappings list ->
-  posix_profile:posix_profile list ->
   string ->
   t
 
@@ -84,11 +84,11 @@ val make :
   ?policy:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?home_directory_mappings:home_directory_mappings list ->
+  ?posix_profile:posix_profile list ->
   ?timeouts:timeouts ->
   role:string prop ->
   server_id:string prop ->
   user_name:string prop ->
-  home_directory_mappings:home_directory_mappings list ->
-  posix_profile:posix_profile list ->
   string ->
   t Tf_core.resource

@@ -238,15 +238,15 @@ let sharing__community_gallery ~eula ~prefix ~publisher_email
     ~publisher_uri () : sharing__community_gallery =
   { eula; prefix; publisher_email; publisher_uri }
 
-let sharing ~permission ~community_gallery () : sharing =
+let sharing ?(community_gallery = []) ~permission () : sharing =
   { permission; community_gallery }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_shared_image_gallery ?description ?id ?tags ?timeouts
-    ~location ~name ~resource_group_name ~sharing () :
-    azurerm_shared_image_gallery =
+let azurerm_shared_image_gallery ?description ?id ?tags
+    ?(sharing = []) ?timeouts ~location ~name ~resource_group_name ()
+    : azurerm_shared_image_gallery =
   {
     description;
     id;
@@ -268,8 +268,8 @@ type t = {
   unique_name : string prop;
 }
 
-let make ?description ?id ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sharing __id =
+let make ?description ?id ?tags ?(sharing = []) ?timeouts ~location
+    ~name ~resource_group_name __id =
   let __type = "azurerm_shared_image_gallery" in
   let __attrs =
     ({
@@ -289,16 +289,16 @@ let make ?description ?id ?tags ?timeouts ~location ~name
     type_ = __type;
     json =
       yojson_of_azurerm_shared_image_gallery
-        (azurerm_shared_image_gallery ?description ?id ?tags
-           ?timeouts ~location ~name ~resource_group_name ~sharing ());
+        (azurerm_shared_image_gallery ?description ?id ?tags ~sharing
+           ?timeouts ~location ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?tags ?timeouts ~location
-    ~name ~resource_group_name ~sharing __id =
+let register ?tf_module ?description ?id ?tags ?(sharing = [])
+    ?timeouts ~location ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?tags ?timeouts ~location ~name
-      ~resource_group_name ~sharing __id
+    make ?description ?id ?tags ~sharing ?timeouts ~location ~name
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

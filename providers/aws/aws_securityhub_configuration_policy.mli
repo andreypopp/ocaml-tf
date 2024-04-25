@@ -63,32 +63,32 @@ val configuration_policy__security_controls_configuration__security_control_cust
 type configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter
 
 val configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter :
-  name:string prop ->
-  value_type:string prop ->
-  bool_:
+  ?bool_:
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__bool
     list ->
-  double:
+  ?double:
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__double
     list ->
-  enum:
+  ?enum:
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__enum
     list ->
-  enum_list:
+  ?enum_list:
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__enum_list
     list ->
-  int_:
+  ?int_:
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int
     list ->
-  int_list:
+  ?int_list:
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int_list
     list ->
-  string_:
+  ?string_:
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string
     list ->
-  string_list:
+  ?string_list:
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string_list
     list ->
+  name:string prop ->
+  value_type:string prop ->
   unit ->
   configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter
 
@@ -107,7 +107,7 @@ type configuration_policy__security_controls_configuration
 val configuration_policy__security_controls_configuration :
   ?disabled_control_identifiers:string prop list ->
   ?enabled_control_identifiers:string prop list ->
-  security_control_custom_parameter:
+  ?security_control_custom_parameter:
     configuration_policy__security_controls_configuration__security_control_custom_parameter
     list ->
   unit ->
@@ -116,10 +116,10 @@ val configuration_policy__security_controls_configuration :
 type configuration_policy
 
 val configuration_policy :
+  ?security_controls_configuration:
+    configuration_policy__security_controls_configuration list ->
   enabled_standard_arns:string prop list ->
   service_enabled:bool prop ->
-  security_controls_configuration:
-    configuration_policy__security_controls_configuration list ->
   unit ->
   configuration_policy
 

@@ -683,8 +683,8 @@ let antivirus__notification_settings ?enabled ?message ?support_url
     () : antivirus__notification_settings =
   { enabled; message; support_url }
 
-let antivirus ~enabled_download_phase ~enabled_upload_phase
-    ~fail_closed ~notification_settings () : antivirus =
+let antivirus ?(notification_settings = []) ~enabled_download_phase
+    ~enabled_upload_phase ~fail_closed () : antivirus =
   {
     enabled_download_phase;
     enabled_upload_phase;
@@ -740,10 +740,11 @@ let ssh_session_log ~public_key () : ssh_session_log = { public_key }
 let cloudflare_teams_account ?activity_log_enabled ?id
     ?non_identity_browser_isolation_enabled
     ?protocol_detection_enabled ?tls_decrypt_enabled
-    ?url_browser_isolation_enabled ~account_id ~antivirus ~block_page
-    ~body_scanning ~extended_email_matching ~fips ~logging
-    ~payload_log ~proxy ~ssh_session_log () :
-    cloudflare_teams_account =
+    ?url_browser_isolation_enabled ?(antivirus = [])
+    ?(block_page = []) ?(body_scanning = [])
+    ?(extended_email_matching = []) ?(fips = []) ?(logging = [])
+    ?(payload_log = []) ?(proxy = []) ?(ssh_session_log = [])
+    ~account_id () : cloudflare_teams_account =
   {
     account_id;
     activity_log_enabled;
@@ -776,9 +777,11 @@ type t = {
 let make ?activity_log_enabled ?id
     ?non_identity_browser_isolation_enabled
     ?protocol_detection_enabled ?tls_decrypt_enabled
-    ?url_browser_isolation_enabled ~account_id ~antivirus ~block_page
-    ~body_scanning ~extended_email_matching ~fips ~logging
-    ~payload_log ~proxy ~ssh_session_log __id =
+    ?url_browser_isolation_enabled ?(antivirus = [])
+    ?(block_page = []) ?(body_scanning = [])
+    ?(extended_email_matching = []) ?(fips = []) ?(logging = [])
+    ?(payload_log = []) ?(proxy = []) ?(ssh_session_log = [])
+    ~account_id __id =
   let __type = "cloudflare_teams_account" in
   let __attrs =
     ({
@@ -806,25 +809,27 @@ let make ?activity_log_enabled ?id
         (cloudflare_teams_account ?activity_log_enabled ?id
            ?non_identity_browser_isolation_enabled
            ?protocol_detection_enabled ?tls_decrypt_enabled
-           ?url_browser_isolation_enabled ~account_id ~antivirus
-           ~block_page ~body_scanning ~extended_email_matching ~fips
-           ~logging ~payload_log ~proxy ~ssh_session_log ());
+           ?url_browser_isolation_enabled ~antivirus ~block_page
+           ~body_scanning ~extended_email_matching ~fips ~logging
+           ~payload_log ~proxy ~ssh_session_log ~account_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?activity_log_enabled ?id
     ?non_identity_browser_isolation_enabled
     ?protocol_detection_enabled ?tls_decrypt_enabled
-    ?url_browser_isolation_enabled ~account_id ~antivirus ~block_page
-    ~body_scanning ~extended_email_matching ~fips ~logging
-    ~payload_log ~proxy ~ssh_session_log __id =
+    ?url_browser_isolation_enabled ?(antivirus = [])
+    ?(block_page = []) ?(body_scanning = [])
+    ?(extended_email_matching = []) ?(fips = []) ?(logging = [])
+    ?(payload_log = []) ?(proxy = []) ?(ssh_session_log = [])
+    ~account_id __id =
   let (r : _ Tf_core.resource) =
     make ?activity_log_enabled ?id
       ?non_identity_browser_isolation_enabled
       ?protocol_detection_enabled ?tls_decrypt_enabled
-      ?url_browser_isolation_enabled ~account_id ~antivirus
-      ~block_page ~body_scanning ~extended_email_matching ~fips
-      ~logging ~payload_log ~proxy ~ssh_session_log __id
+      ?url_browser_isolation_enabled ~antivirus ~block_page
+      ~body_scanning ~extended_email_matching ~fips ~logging
+      ~payload_log ~proxy ~ssh_session_log ~account_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

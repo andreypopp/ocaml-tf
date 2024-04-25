@@ -243,7 +243,7 @@ let sync_config__lambda_conflict_handler_config
   { lambda_conflict_handler_arn }
 
 let sync_config ?conflict_detection ?conflict_handler
-    ~lambda_conflict_handler_config () : sync_config =
+    ?(lambda_conflict_handler_config = []) () : sync_config =
   {
     conflict_detection;
     conflict_handler;
@@ -252,8 +252,8 @@ let sync_config ?conflict_detection ?conflict_handler
 
 let aws_appsync_function ?code ?description ?function_version ?id
     ?max_batch_size ?request_mapping_template
-    ?response_mapping_template ~api_id ~data_source ~name ~runtime
-    ~sync_config () : aws_appsync_function =
+    ?response_mapping_template ?(runtime = []) ?(sync_config = [])
+    ~api_id ~data_source ~name () : aws_appsync_function =
   {
     api_id;
     code;
@@ -285,8 +285,9 @@ type t = {
 }
 
 let make ?code ?description ?function_version ?id ?max_batch_size
-    ?request_mapping_template ?response_mapping_template ~api_id
-    ~data_source ~name ~runtime ~sync_config __id =
+    ?request_mapping_template ?response_mapping_template
+    ?(runtime = []) ?(sync_config = []) ~api_id ~data_source ~name
+    __id =
   let __type = "aws_appsync_function" in
   let __attrs =
     ({
@@ -315,19 +316,19 @@ let make ?code ?description ?function_version ?id ?max_batch_size
       yojson_of_aws_appsync_function
         (aws_appsync_function ?code ?description ?function_version
            ?id ?max_batch_size ?request_mapping_template
-           ?response_mapping_template ~api_id ~data_source ~name
-           ~runtime ~sync_config ());
+           ?response_mapping_template ~runtime ~sync_config ~api_id
+           ~data_source ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?code ?description ?function_version ?id
     ?max_batch_size ?request_mapping_template
-    ?response_mapping_template ~api_id ~data_source ~name ~runtime
-    ~sync_config __id =
+    ?response_mapping_template ?(runtime = []) ?(sync_config = [])
+    ~api_id ~data_source ~name __id =
   let (r : _ Tf_core.resource) =
     make ?code ?description ?function_version ?id ?max_batch_size
-      ?request_mapping_template ?response_mapping_template ~api_id
-      ~data_source ~name ~runtime ~sync_config __id
+      ?request_mapping_template ?response_mapping_template ~runtime
+      ~sync_config ~api_id ~data_source ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

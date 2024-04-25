@@ -21,7 +21,7 @@ type github_config
 
 val github_config :
   ?app_installation_id:float prop ->
-  authorizer_credential:github_config__authorizer_credential list ->
+  ?authorizer_credential:github_config__authorizer_credential list ->
   unit ->
   github_config
 
@@ -41,9 +41,9 @@ val github_enterprise_config :
   ?private_key_secret_version:string prop ->
   ?ssl_ca:string prop ->
   ?webhook_secret_secret_version:string prop ->
-  host_uri:string prop ->
-  service_directory_config:
+  ?service_directory_config:
     github_enterprise_config__service_directory_config list ->
+  host_uri:string prop ->
   unit ->
   github_enterprise_config
 
@@ -73,12 +73,12 @@ type gitlab_config
 val gitlab_config :
   ?host_uri:string prop ->
   ?ssl_ca:string prop ->
+  ?service_directory_config:
+    gitlab_config__service_directory_config list ->
   webhook_secret_secret_version:string prop ->
   authorizer_credential:gitlab_config__authorizer_credential list ->
   read_authorizer_credential:
     gitlab_config__read_authorizer_credential list ->
-  service_directory_config:
-    gitlab_config__service_directory_config list ->
   unit ->
   gitlab_config
 
@@ -98,12 +98,12 @@ val google_cloudbuildv2_connection :
   ?disabled:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?github_config:github_config list ->
+  ?github_enterprise_config:github_enterprise_config list ->
+  ?gitlab_config:gitlab_config list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  github_config:github_config list ->
-  github_enterprise_config:github_enterprise_config list ->
-  gitlab_config:gitlab_config list ->
   unit ->
   google_cloudbuildv2_connection
 
@@ -133,12 +133,12 @@ val register :
   ?disabled:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?github_config:github_config list ->
+  ?github_enterprise_config:github_enterprise_config list ->
+  ?gitlab_config:gitlab_config list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  github_config:github_config list ->
-  github_enterprise_config:github_enterprise_config list ->
-  gitlab_config:gitlab_config list ->
   string ->
   t
 
@@ -147,11 +147,11 @@ val make :
   ?disabled:bool prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?github_config:github_config list ->
+  ?github_enterprise_config:github_enterprise_config list ->
+  ?gitlab_config:gitlab_config list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  github_config:github_config list ->
-  github_enterprise_config:github_enterprise_config list ->
-  gitlab_config:gitlab_config list ->
   string ->
   t Tf_core.resource

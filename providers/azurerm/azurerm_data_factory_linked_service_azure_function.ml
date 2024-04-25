@@ -250,8 +250,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_data_factory_linked_service_azure_function
     ?additional_properties ?annotations ?description ?id
-    ?integration_runtime_name ?key ?parameters ?timeouts
-    ~data_factory_id ~name ~url ~key_vault_key () :
+    ?integration_runtime_name ?key ?parameters ?(key_vault_key = [])
+    ?timeouts ~data_factory_id ~name ~url () :
     azurerm_data_factory_linked_service_azure_function =
   {
     additional_properties;
@@ -282,8 +282,8 @@ type t = {
 }
 
 let make ?additional_properties ?annotations ?description ?id
-    ?integration_runtime_name ?key ?parameters ?timeouts
-    ~data_factory_id ~name ~url ~key_vault_key __id =
+    ?integration_runtime_name ?key ?parameters ?(key_vault_key = [])
+    ?timeouts ~data_factory_id ~name ~url __id =
   let __type =
     "azurerm_data_factory_linked_service_azure_function"
   in
@@ -311,18 +311,19 @@ let make ?additional_properties ?annotations ?description ?id
       yojson_of_azurerm_data_factory_linked_service_azure_function
         (azurerm_data_factory_linked_service_azure_function
            ?additional_properties ?annotations ?description ?id
-           ?integration_runtime_name ?key ?parameters ?timeouts
-           ~data_factory_id ~name ~url ~key_vault_key ());
+           ?integration_runtime_name ?key ?parameters ~key_vault_key
+           ?timeouts ~data_factory_id ~name ~url ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?additional_properties ?annotations
     ?description ?id ?integration_runtime_name ?key ?parameters
-    ?timeouts ~data_factory_id ~name ~url ~key_vault_key __id =
+    ?(key_vault_key = []) ?timeouts ~data_factory_id ~name ~url __id
+    =
   let (r : _ Tf_core.resource) =
     make ?additional_properties ?annotations ?description ?id
-      ?integration_runtime_name ?key ?parameters ?timeouts
-      ~data_factory_id ~name ~url ~key_vault_key __id
+      ?integration_runtime_name ?key ?parameters ~key_vault_key
+      ?timeouts ~data_factory_id ~name ~url __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

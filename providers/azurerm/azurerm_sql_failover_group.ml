@@ -271,10 +271,10 @@ let readonly_endpoint_failover_policy ~mode () :
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_sql_failover_group ?databases ?id ?tags ?timeouts ~name
+let azurerm_sql_failover_group ?databases ?id ?tags
+    ?(readonly_endpoint_failover_policy = []) ?timeouts ~name
     ~resource_group_name ~server_name ~partner_servers
-    ~read_write_endpoint_failover_policy
-    ~readonly_endpoint_failover_policy () :
+    ~read_write_endpoint_failover_policy () :
     azurerm_sql_failover_group =
   {
     databases;
@@ -300,10 +300,10 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?databases ?id ?tags ?timeouts ~name ~resource_group_name
-    ~server_name ~partner_servers
-    ~read_write_endpoint_failover_policy
-    ~readonly_endpoint_failover_policy __id =
+let make ?databases ?id ?tags
+    ?(readonly_endpoint_failover_policy = []) ?timeouts ~name
+    ~resource_group_name ~server_name ~partner_servers
+    ~read_write_endpoint_failover_policy __id =
   let __type = "azurerm_sql_failover_group" in
   let __attrs =
     ({
@@ -324,22 +324,21 @@ let make ?databases ?id ?tags ?timeouts ~name ~resource_group_name
     type_ = __type;
     json =
       yojson_of_azurerm_sql_failover_group
-        (azurerm_sql_failover_group ?databases ?id ?tags ?timeouts
-           ~name ~resource_group_name ~server_name ~partner_servers
-           ~read_write_endpoint_failover_policy
-           ~readonly_endpoint_failover_policy ());
+        (azurerm_sql_failover_group ?databases ?id ?tags
+           ~readonly_endpoint_failover_policy ?timeouts ~name
+           ~resource_group_name ~server_name ~partner_servers
+           ~read_write_endpoint_failover_policy ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?databases ?id ?tags ?timeouts ~name
+let register ?tf_module ?databases ?id ?tags
+    ?(readonly_endpoint_failover_policy = []) ?timeouts ~name
     ~resource_group_name ~server_name ~partner_servers
-    ~read_write_endpoint_failover_policy
-    ~readonly_endpoint_failover_policy __id =
+    ~read_write_endpoint_failover_policy __id =
   let (r : _ Tf_core.resource) =
-    make ?databases ?id ?tags ?timeouts ~name ~resource_group_name
-      ~server_name ~partner_servers
-      ~read_write_endpoint_failover_policy
-      ~readonly_endpoint_failover_policy __id
+    make ?databases ?id ?tags ~readonly_endpoint_failover_policy
+      ?timeouts ~name ~resource_group_name ~server_name
+      ~partner_servers ~read_write_endpoint_failover_policy __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

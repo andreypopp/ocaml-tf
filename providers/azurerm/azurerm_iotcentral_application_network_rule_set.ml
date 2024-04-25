@@ -167,8 +167,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_iotcentral_application_network_rule_set ?apply_to_device
-    ?default_action ?id ?timeouts ~iotcentral_application_id ~ip_rule
-    () : azurerm_iotcentral_application_network_rule_set =
+    ?default_action ?id ?(ip_rule = []) ?timeouts
+    ~iotcentral_application_id () :
+    azurerm_iotcentral_application_network_rule_set =
   {
     apply_to_device;
     default_action;
@@ -185,8 +186,8 @@ type t = {
   iotcentral_application_id : string prop;
 }
 
-let make ?apply_to_device ?default_action ?id ?timeouts
-    ~iotcentral_application_id ~ip_rule __id =
+let make ?apply_to_device ?default_action ?id ?(ip_rule = [])
+    ?timeouts ~iotcentral_application_id __id =
   let __type = "azurerm_iotcentral_application_network_rule_set" in
   let __attrs =
     ({
@@ -204,16 +205,16 @@ let make ?apply_to_device ?default_action ?id ?timeouts
     json =
       yojson_of_azurerm_iotcentral_application_network_rule_set
         (azurerm_iotcentral_application_network_rule_set
-           ?apply_to_device ?default_action ?id ?timeouts
-           ~iotcentral_application_id ~ip_rule ());
+           ?apply_to_device ?default_action ?id ~ip_rule ?timeouts
+           ~iotcentral_application_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?apply_to_device ?default_action ?id
-    ?timeouts ~iotcentral_application_id ~ip_rule __id =
+    ?(ip_rule = []) ?timeouts ~iotcentral_application_id __id =
   let (r : _ Tf_core.resource) =
-    make ?apply_to_device ?default_action ?id ?timeouts
-      ~iotcentral_application_id ~ip_rule __id
+    make ?apply_to_device ?default_action ?id ~ip_rule ?timeouts
+      ~iotcentral_application_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -22,8 +22,8 @@ type aws_autoscaling_traffic_source_attachment
 val aws_autoscaling_traffic_source_attachment :
   ?id:string prop ->
   ?timeouts:timeouts ->
+  ?traffic_source:traffic_source list ->
   autoscaling_group_name:string prop ->
-  traffic_source:traffic_source list ->
   unit ->
   aws_autoscaling_traffic_source_attachment
 
@@ -41,15 +41,15 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?timeouts:timeouts ->
+  ?traffic_source:traffic_source list ->
   autoscaling_group_name:string prop ->
-  traffic_source:traffic_source list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?timeouts:timeouts ->
+  ?traffic_source:traffic_source list ->
   autoscaling_group_name:string prop ->
-  traffic_source:traffic_source list ->
   string ->
   t Tf_core.resource

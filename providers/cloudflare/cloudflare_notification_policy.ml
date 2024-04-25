@@ -640,8 +640,8 @@ let pagerduty_integration ?name ~id () : pagerduty_integration =
 let webhooks_integration ?name ~id () : webhooks_integration =
   { id; name }
 
-let cloudflare_notification_policy ?description ?id ~account_id
-    ~alert_type ~enabled ~name ~email_integration ~filters
+let cloudflare_notification_policy ?description ?id ?(filters = [])
+    ~account_id ~alert_type ~enabled ~name ~email_integration
     ~pagerduty_integration ~webhooks_integration () :
     cloudflare_notification_policy =
   {
@@ -668,8 +668,8 @@ type t = {
   name : string prop;
 }
 
-let make ?description ?id ~account_id ~alert_type ~enabled ~name
-    ~email_integration ~filters ~pagerduty_integration
+let make ?description ?id ?(filters = []) ~account_id ~alert_type
+    ~enabled ~name ~email_integration ~pagerduty_integration
     ~webhooks_integration __id =
   let __type = "cloudflare_notification_policy" in
   let __attrs =
@@ -690,18 +690,18 @@ let make ?description ?id ~account_id ~alert_type ~enabled ~name
     type_ = __type;
     json =
       yojson_of_cloudflare_notification_policy
-        (cloudflare_notification_policy ?description ?id ~account_id
-           ~alert_type ~enabled ~name ~email_integration ~filters
+        (cloudflare_notification_policy ?description ?id ~filters
+           ~account_id ~alert_type ~enabled ~name ~email_integration
            ~pagerduty_integration ~webhooks_integration ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ~account_id ~alert_type
-    ~enabled ~name ~email_integration ~filters ~pagerduty_integration
-    ~webhooks_integration __id =
+let register ?tf_module ?description ?id ?(filters = []) ~account_id
+    ~alert_type ~enabled ~name ~email_integration
+    ~pagerduty_integration ~webhooks_integration __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ~account_id ~alert_type ~enabled ~name
-      ~email_integration ~filters ~pagerduty_integration
+    make ?description ?id ~filters ~account_id ~alert_type ~enabled
+      ~name ~email_integration ~pagerduty_integration
       ~webhooks_integration __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

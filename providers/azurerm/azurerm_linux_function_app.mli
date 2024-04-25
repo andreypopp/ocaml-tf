@@ -79,13 +79,13 @@ val auth_settings :
   ?token_refresh_extension_hours:float prop ->
   ?token_store_enabled:bool prop ->
   ?unauthenticated_client_action:string prop ->
+  ?active_directory:auth_settings__active_directory list ->
+  ?facebook:auth_settings__facebook list ->
+  ?github:auth_settings__github list ->
+  ?google:auth_settings__google list ->
+  ?microsoft:auth_settings__microsoft list ->
+  ?twitter:auth_settings__twitter list ->
   enabled:bool prop ->
-  active_directory:auth_settings__active_directory list ->
-  facebook:auth_settings__facebook list ->
-  github:auth_settings__github list ->
-  google:auth_settings__google list ->
-  microsoft:auth_settings__microsoft list ->
-  twitter:auth_settings__twitter list ->
   unit ->
   auth_settings
 
@@ -212,17 +212,17 @@ val auth_settings_v2 :
   ?require_https:bool prop ->
   ?runtime_version:string prop ->
   ?unauthenticated_action:string prop ->
-  active_directory_v2:auth_settings_v2__active_directory_v2 list ->
-  apple_v2:auth_settings_v2__apple_v2 list ->
-  azure_static_web_app_v2:
+  ?active_directory_v2:auth_settings_v2__active_directory_v2 list ->
+  ?apple_v2:auth_settings_v2__apple_v2 list ->
+  ?azure_static_web_app_v2:
     auth_settings_v2__azure_static_web_app_v2 list ->
-  custom_oidc_v2:auth_settings_v2__custom_oidc_v2 list ->
-  facebook_v2:auth_settings_v2__facebook_v2 list ->
-  github_v2:auth_settings_v2__github_v2 list ->
-  google_v2:auth_settings_v2__google_v2 list ->
+  ?custom_oidc_v2:auth_settings_v2__custom_oidc_v2 list ->
+  ?facebook_v2:auth_settings_v2__facebook_v2 list ->
+  ?github_v2:auth_settings_v2__github_v2 list ->
+  ?google_v2:auth_settings_v2__google_v2 list ->
+  ?microsoft_v2:auth_settings_v2__microsoft_v2 list ->
+  ?twitter_v2:auth_settings_v2__twitter_v2 list ->
   login:auth_settings_v2__login list ->
-  microsoft_v2:auth_settings_v2__microsoft_v2 list ->
-  twitter_v2:auth_settings_v2__twitter_v2 list ->
   unit ->
   auth_settings_v2
 
@@ -293,7 +293,7 @@ val site_config__application_stack :
   ?python_version:string prop ->
   ?use_custom_runtime:bool prop ->
   ?use_dotnet_isolated_runtime:bool prop ->
-  docker:site_config__application_stack__docker list ->
+  ?docker:site_config__application_stack__docker list ->
   unit ->
   site_config__application_stack
 
@@ -380,11 +380,11 @@ val site_config :
   ?vnet_route_all_enabled:bool prop ->
   ?websockets_enabled:bool prop ->
   ?worker_count:float prop ->
-  app_service_logs:site_config__app_service_logs list ->
-  application_stack:site_config__application_stack list ->
-  cors:site_config__cors list ->
-  ip_restriction:site_config__ip_restriction list ->
-  scm_ip_restriction:site_config__scm_ip_restriction list ->
+  ?app_service_logs:site_config__app_service_logs list ->
+  ?application_stack:site_config__application_stack list ->
+  ?cors:site_config__cors list ->
+  ?ip_restriction:site_config__ip_restriction list ->
+  ?scm_ip_restriction:site_config__scm_ip_restriction list ->
   unit ->
   site_config
 
@@ -443,18 +443,18 @@ val azurerm_linux_function_app :
   ?virtual_network_subnet_id:string prop ->
   ?webdeploy_publish_basic_authentication_enabled:bool prop ->
   ?zip_deploy_file:string prop ->
+  ?auth_settings:auth_settings list ->
+  ?auth_settings_v2:auth_settings_v2 list ->
+  ?backup:backup list ->
+  ?identity:identity list ->
+  ?sticky_settings:sticky_settings list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   service_plan_id:string prop ->
-  auth_settings:auth_settings list ->
-  auth_settings_v2:auth_settings_v2 list ->
-  backup:backup list ->
   connection_string:connection_string list ->
-  identity:identity list ->
   site_config:site_config list ->
-  sticky_settings:sticky_settings list ->
   storage_account:storage_account list ->
   unit ->
   azurerm_linux_function_app
@@ -526,18 +526,18 @@ val register :
   ?virtual_network_subnet_id:string prop ->
   ?webdeploy_publish_basic_authentication_enabled:bool prop ->
   ?zip_deploy_file:string prop ->
+  ?auth_settings:auth_settings list ->
+  ?auth_settings_v2:auth_settings_v2 list ->
+  ?backup:backup list ->
+  ?identity:identity list ->
+  ?sticky_settings:sticky_settings list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   service_plan_id:string prop ->
-  auth_settings:auth_settings list ->
-  auth_settings_v2:auth_settings_v2 list ->
-  backup:backup list ->
   connection_string:connection_string list ->
-  identity:identity list ->
   site_config:site_config list ->
-  sticky_settings:sticky_settings list ->
   storage_account:storage_account list ->
   string ->
   t
@@ -565,18 +565,18 @@ val make :
   ?virtual_network_subnet_id:string prop ->
   ?webdeploy_publish_basic_authentication_enabled:bool prop ->
   ?zip_deploy_file:string prop ->
+  ?auth_settings:auth_settings list ->
+  ?auth_settings_v2:auth_settings_v2 list ->
+  ?backup:backup list ->
+  ?identity:identity list ->
+  ?sticky_settings:sticky_settings list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   service_plan_id:string prop ->
-  auth_settings:auth_settings list ->
-  auth_settings_v2:auth_settings_v2 list ->
-  backup:backup list ->
   connection_string:connection_string list ->
-  identity:identity list ->
   site_config:site_config list ->
-  sticky_settings:sticky_settings list ->
   storage_account:storage_account list ->
   string ->
   t Tf_core.resource

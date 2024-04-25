@@ -372,8 +372,8 @@ let aws_glue_job ?connections ?default_arguments ?description
     ?execution_class ?glue_version ?id ?max_capacity ?max_retries
     ?non_overridable_arguments ?number_of_workers
     ?security_configuration ?tags ?tags_all ?timeout ?worker_type
-    ~name ~role_arn ~command ~execution_property
-    ~notification_property () : aws_glue_job =
+    ?(execution_property = []) ?(notification_property = []) ~name
+    ~role_arn ~command () : aws_glue_job =
   {
     connections;
     default_arguments;
@@ -422,8 +422,8 @@ let make ?connections ?default_arguments ?description
     ?execution_class ?glue_version ?id ?max_capacity ?max_retries
     ?non_overridable_arguments ?number_of_workers
     ?security_configuration ?tags ?tags_all ?timeout ?worker_type
-    ~name ~role_arn ~command ~execution_property
-    ~notification_property __id =
+    ?(execution_property = []) ?(notification_property = []) ~name
+    ~role_arn ~command __id =
   let __type = "aws_glue_job" in
   let __attrs =
     ({
@@ -461,8 +461,8 @@ let make ?connections ?default_arguments ?description
            ?execution_class ?glue_version ?id ?max_capacity
            ?max_retries ?non_overridable_arguments ?number_of_workers
            ?security_configuration ?tags ?tags_all ?timeout
-           ?worker_type ~name ~role_arn ~command ~execution_property
-           ~notification_property ());
+           ?worker_type ~execution_property ~notification_property
+           ~name ~role_arn ~command ());
     attrs = __attrs;
   }
 
@@ -470,15 +470,15 @@ let register ?tf_module ?connections ?default_arguments ?description
     ?execution_class ?glue_version ?id ?max_capacity ?max_retries
     ?non_overridable_arguments ?number_of_workers
     ?security_configuration ?tags ?tags_all ?timeout ?worker_type
-    ~name ~role_arn ~command ~execution_property
-    ~notification_property __id =
+    ?(execution_property = []) ?(notification_property = []) ~name
+    ~role_arn ~command __id =
   let (r : _ Tf_core.resource) =
     make ?connections ?default_arguments ?description
       ?execution_class ?glue_version ?id ?max_capacity ?max_retries
       ?non_overridable_arguments ?number_of_workers
       ?security_configuration ?tags ?tags_all ?timeout ?worker_type
-      ~name ~role_arn ~command ~execution_property
-      ~notification_property __id
+      ~execution_property ~notification_property ~name ~role_arn
+      ~command __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

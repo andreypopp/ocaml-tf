@@ -39,12 +39,12 @@ val azurerm_vpn_gateway_nat_rule :
   ?ip_configuration_id:string prop ->
   ?mode:string prop ->
   ?type_:string prop ->
+  ?external_mapping:external_mapping list ->
+  ?internal_mapping:internal_mapping list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   vpn_gateway_id:string prop ->
-  external_mapping:external_mapping list ->
-  internal_mapping:internal_mapping list ->
   unit ->
   azurerm_vpn_gateway_nat_rule
 
@@ -73,12 +73,12 @@ val register :
   ?ip_configuration_id:string prop ->
   ?mode:string prop ->
   ?type_:string prop ->
+  ?external_mapping:external_mapping list ->
+  ?internal_mapping:internal_mapping list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   vpn_gateway_id:string prop ->
-  external_mapping:external_mapping list ->
-  internal_mapping:internal_mapping list ->
   string ->
   t
 
@@ -89,11 +89,11 @@ val make :
   ?ip_configuration_id:string prop ->
   ?mode:string prop ->
   ?type_:string prop ->
+  ?external_mapping:external_mapping list ->
+  ?internal_mapping:internal_mapping list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   vpn_gateway_id:string prop ->
-  external_mapping:external_mapping list ->
-  internal_mapping:internal_mapping list ->
   string ->
   t Tf_core.resource

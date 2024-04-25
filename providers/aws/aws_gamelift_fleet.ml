@@ -471,8 +471,8 @@ let runtime_configuration__server_process ?parameters
   { concurrent_executions; launch_path; parameters }
 
 let runtime_configuration ?game_session_activation_timeout_seconds
-    ?max_concurrent_game_session_activations ~server_process () :
-    runtime_configuration =
+    ?max_concurrent_game_session_activations ?(server_process = [])
+    () : runtime_configuration =
   {
     game_session_activation_timeout_seconds;
     max_concurrent_game_session_activations;
@@ -484,9 +484,10 @@ let timeouts ?create ?delete () : timeouts = { create; delete }
 let aws_gamelift_fleet ?build_id ?description ?fleet_type ?id
     ?instance_role_arn ?metric_groups
     ?new_game_session_protection_policy ?script_id ?tags ?tags_all
-    ?timeouts ~ec2_instance_type ~name ~certificate_configuration
-    ~ec2_inbound_permission ~resource_creation_limit_policy
-    ~runtime_configuration () : aws_gamelift_fleet =
+    ?(certificate_configuration = [])
+    ?(resource_creation_limit_policy = [])
+    ?(runtime_configuration = []) ?timeouts ~ec2_instance_type ~name
+    ~ec2_inbound_permission () : aws_gamelift_fleet =
   {
     build_id;
     description;
@@ -529,9 +530,10 @@ type t = {
 
 let make ?build_id ?description ?fleet_type ?id ?instance_role_arn
     ?metric_groups ?new_game_session_protection_policy ?script_id
-    ?tags ?tags_all ?timeouts ~ec2_instance_type ~name
-    ~certificate_configuration ~ec2_inbound_permission
-    ~resource_creation_limit_policy ~runtime_configuration __id =
+    ?tags ?tags_all ?(certificate_configuration = [])
+    ?(resource_creation_limit_policy = [])
+    ?(runtime_configuration = []) ?timeouts ~ec2_instance_type ~name
+    ~ec2_inbound_permission __id =
   let __type = "aws_gamelift_fleet" in
   let __attrs =
     ({
@@ -568,24 +570,26 @@ let make ?build_id ?description ?fleet_type ?id ?instance_role_arn
         (aws_gamelift_fleet ?build_id ?description ?fleet_type ?id
            ?instance_role_arn ?metric_groups
            ?new_game_session_protection_policy ?script_id ?tags
-           ?tags_all ?timeouts ~ec2_instance_type ~name
-           ~certificate_configuration ~ec2_inbound_permission
-           ~resource_creation_limit_policy ~runtime_configuration ());
+           ?tags_all ~certificate_configuration
+           ~resource_creation_limit_policy ~runtime_configuration
+           ?timeouts ~ec2_instance_type ~name ~ec2_inbound_permission
+           ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?build_id ?description ?fleet_type ?id
     ?instance_role_arn ?metric_groups
     ?new_game_session_protection_policy ?script_id ?tags ?tags_all
-    ?timeouts ~ec2_instance_type ~name ~certificate_configuration
-    ~ec2_inbound_permission ~resource_creation_limit_policy
-    ~runtime_configuration __id =
+    ?(certificate_configuration = [])
+    ?(resource_creation_limit_policy = [])
+    ?(runtime_configuration = []) ?timeouts ~ec2_instance_type ~name
+    ~ec2_inbound_permission __id =
   let (r : _ Tf_core.resource) =
     make ?build_id ?description ?fleet_type ?id ?instance_role_arn
       ?metric_groups ?new_game_session_protection_policy ?script_id
-      ?tags ?tags_all ?timeouts ~ec2_instance_type ~name
-      ~certificate_configuration ~ec2_inbound_permission
-      ~resource_creation_limit_policy ~runtime_configuration __id
+      ?tags ?tags_all ~certificate_configuration
+      ~resource_creation_limit_policy ~runtime_configuration
+      ?timeouts ~ec2_instance_type ~name ~ec2_inbound_permission __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

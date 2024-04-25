@@ -333,18 +333,18 @@ let egress_from__sources ?access_level () : egress_from__sources =
   { access_level }
 
 let egress_from ?identities ?identity_type ?source_restriction
-    ~sources () : egress_from =
+    ?(sources = []) () : egress_from =
   { identities; identity_type; source_restriction; sources }
 
 let egress_to__operations__method_selectors ?method_ ?permission () :
     egress_to__operations__method_selectors =
   { method_; permission }
 
-let egress_to__operations ?service_name ~method_selectors () :
+let egress_to__operations ?service_name ?(method_selectors = []) () :
     egress_to__operations =
   { service_name; method_selectors }
 
-let egress_to ?external_resources ?resources ~operations () :
+let egress_to ?external_resources ?resources ?(operations = []) () :
     egress_to =
   { external_resources; resources; operations }
 
@@ -352,13 +352,14 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_access_context_manager_service_perimeter_egress_policy ?id
-    ?timeouts ~perimeter ~egress_from ~egress_to () :
+    ?(egress_from = []) ?(egress_to = []) ?timeouts ~perimeter () :
     google_access_context_manager_service_perimeter_egress_policy =
   { id; perimeter; egress_from; egress_to; timeouts }
 
 type t = { id : string prop; perimeter : string prop }
 
-let make ?id ?timeouts ~perimeter ~egress_from ~egress_to __id =
+let make ?id ?(egress_from = []) ?(egress_to = []) ?timeouts
+    ~perimeter __id =
   let __type =
     "google_access_context_manager_service_perimeter_egress_policy"
   in
@@ -375,14 +376,14 @@ let make ?id ?timeouts ~perimeter ~egress_from ~egress_to __id =
     json =
       yojson_of_google_access_context_manager_service_perimeter_egress_policy
         (google_access_context_manager_service_perimeter_egress_policy
-           ?id ?timeouts ~perimeter ~egress_from ~egress_to ());
+           ?id ~egress_from ~egress_to ?timeouts ~perimeter ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timeouts ~perimeter ~egress_from
-    ~egress_to __id =
+let register ?tf_module ?id ?(egress_from = []) ?(egress_to = [])
+    ?timeouts ~perimeter __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timeouts ~perimeter ~egress_from ~egress_to __id
+    make ?id ~egress_from ~egress_to ?timeouts ~perimeter __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

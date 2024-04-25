@@ -188,7 +188,7 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_spring_cloud_build_pack_binding ?binding_type ?id
-    ?timeouts ~name ~spring_cloud_builder_id ~launch () :
+    ?(launch = []) ?timeouts ~name ~spring_cloud_builder_id () :
     azurerm_spring_cloud_build_pack_binding =
   {
     binding_type;
@@ -206,8 +206,8 @@ type t = {
   spring_cloud_builder_id : string prop;
 }
 
-let make ?binding_type ?id ?timeouts ~name ~spring_cloud_builder_id
-    ~launch __id =
+let make ?binding_type ?id ?(launch = []) ?timeouts ~name
+    ~spring_cloud_builder_id __id =
   let __type = "azurerm_spring_cloud_build_pack_binding" in
   let __attrs =
     ({
@@ -225,15 +225,15 @@ let make ?binding_type ?id ?timeouts ~name ~spring_cloud_builder_id
     json =
       yojson_of_azurerm_spring_cloud_build_pack_binding
         (azurerm_spring_cloud_build_pack_binding ?binding_type ?id
-           ?timeouts ~name ~spring_cloud_builder_id ~launch ());
+           ~launch ?timeouts ~name ~spring_cloud_builder_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?binding_type ?id ?timeouts ~name
-    ~spring_cloud_builder_id ~launch __id =
+let register ?tf_module ?binding_type ?id ?(launch = []) ?timeouts
+    ~name ~spring_cloud_builder_id __id =
   let (r : _ Tf_core.resource) =
-    make ?binding_type ?id ?timeouts ~name ~spring_cloud_builder_id
-      ~launch __id
+    make ?binding_type ?id ~launch ?timeouts ~name
+      ~spring_cloud_builder_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

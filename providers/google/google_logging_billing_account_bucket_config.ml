@@ -146,8 +146,8 @@ let index_configs ~field_path ~type_ () : index_configs =
   { field_path; type_ }
 
 let google_logging_billing_account_bucket_config ?description ?id
-    ?retention_days ~billing_account ~bucket_id ~location
-    ~cmek_settings ~index_configs () :
+    ?retention_days ?(cmek_settings = []) ~billing_account ~bucket_id
+    ~location ~index_configs () :
     google_logging_billing_account_bucket_config =
   {
     billing_account;
@@ -171,8 +171,8 @@ type t = {
   retention_days : float prop;
 }
 
-let make ?description ?id ?retention_days ~billing_account ~bucket_id
-    ~location ~cmek_settings ~index_configs __id =
+let make ?description ?id ?retention_days ?(cmek_settings = [])
+    ~billing_account ~bucket_id ~location ~index_configs __id =
   let __type = "google_logging_billing_account_bucket_config" in
   let __attrs =
     ({
@@ -193,17 +193,17 @@ let make ?description ?id ?retention_days ~billing_account ~bucket_id
     json =
       yojson_of_google_logging_billing_account_bucket_config
         (google_logging_billing_account_bucket_config ?description
-           ?id ?retention_days ~billing_account ~bucket_id ~location
-           ~cmek_settings ~index_configs ());
+           ?id ?retention_days ~cmek_settings ~billing_account
+           ~bucket_id ~location ~index_configs ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?retention_days
-    ~billing_account ~bucket_id ~location ~cmek_settings
+    ?(cmek_settings = []) ~billing_account ~bucket_id ~location
     ~index_configs __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?retention_days ~billing_account ~bucket_id
-      ~location ~cmek_settings ~index_configs __id
+    make ?description ?id ?retention_days ~cmek_settings
+      ~billing_account ~bucket_id ~location ~index_configs __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

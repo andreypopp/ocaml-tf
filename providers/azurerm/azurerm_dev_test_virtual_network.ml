@@ -201,9 +201,9 @@ let subnet ?use_in_virtual_machine_creation ?use_public_ip_address ()
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_dev_test_virtual_network ?description ?id ?tags ?timeouts
-    ~lab_name ~name ~resource_group_name ~subnet () :
-    azurerm_dev_test_virtual_network =
+let azurerm_dev_test_virtual_network ?description ?id ?tags
+    ?(subnet = []) ?timeouts ~lab_name ~name ~resource_group_name ()
+    : azurerm_dev_test_virtual_network =
   {
     description;
     id;
@@ -225,8 +225,8 @@ type t = {
   unique_identifier : string prop;
 }
 
-let make ?description ?id ?tags ?timeouts ~lab_name ~name
-    ~resource_group_name ~subnet __id =
+let make ?description ?id ?tags ?(subnet = []) ?timeouts ~lab_name
+    ~name ~resource_group_name __id =
   let __type = "azurerm_dev_test_virtual_network" in
   let __attrs =
     ({
@@ -248,15 +248,15 @@ let make ?description ?id ?tags ?timeouts ~lab_name ~name
     json =
       yojson_of_azurerm_dev_test_virtual_network
         (azurerm_dev_test_virtual_network ?description ?id ?tags
-           ?timeouts ~lab_name ~name ~resource_group_name ~subnet ());
+           ~subnet ?timeouts ~lab_name ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?tags ?timeouts ~lab_name
-    ~name ~resource_group_name ~subnet __id =
+let register ?tf_module ?description ?id ?tags ?(subnet = [])
+    ?timeouts ~lab_name ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?tags ?timeouts ~lab_name ~name
-      ~resource_group_name ~subnet __id
+    make ?description ?id ?tags ~subnet ?timeouts ~lab_name ~name
+      ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

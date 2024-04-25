@@ -434,7 +434,8 @@ let install_patches__windows ?classifications_to_include
     kb_numbers_to_include;
   }
 
-let install_patches ?reboot ~linux ~windows () : install_patches =
+let install_patches ?reboot ?(linux = []) ?(windows = []) () :
+    install_patches =
   { reboot; linux; windows }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
@@ -451,8 +452,8 @@ let window ?duration ?expiration_date_time ?recur_every
   }
 
 let azurerm_maintenance_configuration ?id ?in_guest_user_patch_mode
-    ?properties ?tags ?visibility ?timeouts ~location ~name
-    ~resource_group_name ~scope ~install_patches ~window () :
+    ?properties ?tags ?visibility ?(install_patches = []) ?timeouts
+    ?(window = []) ~location ~name ~resource_group_name ~scope () :
     azurerm_maintenance_configuration =
   {
     id;
@@ -482,8 +483,8 @@ type t = {
 }
 
 let make ?id ?in_guest_user_patch_mode ?properties ?tags ?visibility
-    ?timeouts ~location ~name ~resource_group_name ~scope
-    ~install_patches ~window __id =
+    ?(install_patches = []) ?timeouts ?(window = []) ~location ~name
+    ~resource_group_name ~scope __id =
   let __type = "azurerm_maintenance_configuration" in
   let __attrs =
     ({
@@ -508,18 +509,18 @@ let make ?id ?in_guest_user_patch_mode ?properties ?tags ?visibility
       yojson_of_azurerm_maintenance_configuration
         (azurerm_maintenance_configuration ?id
            ?in_guest_user_patch_mode ?properties ?tags ?visibility
-           ?timeouts ~location ~name ~resource_group_name ~scope
-           ~install_patches ~window ());
+           ~install_patches ?timeouts ~window ~location ~name
+           ~resource_group_name ~scope ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?in_guest_user_patch_mode ?properties
-    ?tags ?visibility ?timeouts ~location ~name ~resource_group_name
-    ~scope ~install_patches ~window __id =
+    ?tags ?visibility ?(install_patches = []) ?timeouts
+    ?(window = []) ~location ~name ~resource_group_name ~scope __id =
   let (r : _ Tf_core.resource) =
     make ?id ?in_guest_user_patch_mode ?properties ?tags ?visibility
-      ?timeouts ~location ~name ~resource_group_name ~scope
-      ~install_patches ~window __id
+      ~install_patches ?timeouts ~window ~location ~name
+      ~resource_group_name ~scope __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

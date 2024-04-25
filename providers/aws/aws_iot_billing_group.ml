@@ -132,8 +132,8 @@ let _ = yojson_of_aws_iot_billing_group
 
 let properties ?description () : properties = { description }
 
-let aws_iot_billing_group ?id ?tags ?tags_all ~name ~properties () :
-    aws_iot_billing_group =
+let aws_iot_billing_group ?id ?tags ?tags_all ?(properties = [])
+    ~name () : aws_iot_billing_group =
   { id; name; tags; tags_all; properties }
 
 type t = {
@@ -146,7 +146,7 @@ type t = {
   version : float prop;
 }
 
-let make ?id ?tags ?tags_all ~name ~properties __id =
+let make ?id ?tags ?tags_all ?(properties = []) ~name __id =
   let __type = "aws_iot_billing_group" in
   let __attrs =
     ({
@@ -165,14 +165,15 @@ let make ?id ?tags ?tags_all ~name ~properties __id =
     type_ = __type;
     json =
       yojson_of_aws_iot_billing_group
-        (aws_iot_billing_group ?id ?tags ?tags_all ~name ~properties
+        (aws_iot_billing_group ?id ?tags ?tags_all ~properties ~name
            ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ~name ~properties __id =
+let register ?tf_module ?id ?tags ?tags_all ?(properties = []) ~name
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~name ~properties __id
+    make ?id ?tags ?tags_all ~properties ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

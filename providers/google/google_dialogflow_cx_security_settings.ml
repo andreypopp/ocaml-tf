@@ -302,8 +302,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_dialogflow_cx_security_settings ?deidentify_template ?id
     ?inspect_template ?project ?purge_data_types ?redaction_scope
     ?redaction_strategy ?retention_strategy ?retention_window_days
-    ?timeouts ~display_name ~location ~audio_export_settings
-    ~insights_export_settings () :
+    ?(audio_export_settings = []) ?(insights_export_settings = [])
+    ?timeouts ~display_name ~location () :
     google_dialogflow_cx_security_settings =
   {
     deidentify_template;
@@ -339,9 +339,9 @@ type t = {
 
 let make ?deidentify_template ?id ?inspect_template ?project
     ?purge_data_types ?redaction_scope ?redaction_strategy
-    ?retention_strategy ?retention_window_days ?timeouts
-    ~display_name ~location ~audio_export_settings
-    ~insights_export_settings __id =
+    ?retention_strategy ?retention_window_days
+    ?(audio_export_settings = []) ?(insights_export_settings = [])
+    ?timeouts ~display_name ~location __id =
   let __type = "google_dialogflow_cx_security_settings" in
   let __attrs =
     ({
@@ -374,22 +374,23 @@ let make ?deidentify_template ?id ?inspect_template ?project
         (google_dialogflow_cx_security_settings ?deidentify_template
            ?id ?inspect_template ?project ?purge_data_types
            ?redaction_scope ?redaction_strategy ?retention_strategy
-           ?retention_window_days ?timeouts ~display_name ~location
-           ~audio_export_settings ~insights_export_settings ());
+           ?retention_window_days ~audio_export_settings
+           ~insights_export_settings ?timeouts ~display_name
+           ~location ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?deidentify_template ?id ?inspect_template
     ?project ?purge_data_types ?redaction_scope ?redaction_strategy
-    ?retention_strategy ?retention_window_days ?timeouts
-    ~display_name ~location ~audio_export_settings
-    ~insights_export_settings __id =
+    ?retention_strategy ?retention_window_days
+    ?(audio_export_settings = []) ?(insights_export_settings = [])
+    ?timeouts ~display_name ~location __id =
   let (r : _ Tf_core.resource) =
     make ?deidentify_template ?id ?inspect_template ?project
       ?purge_data_types ?redaction_scope ?redaction_strategy
-      ?retention_strategy ?retention_window_days ?timeouts
-      ~display_name ~location ~audio_export_settings
-      ~insights_export_settings __id
+      ?retention_strategy ?retention_window_days
+      ~audio_export_settings ~insights_export_settings ?timeouts
+      ~display_name ~location __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

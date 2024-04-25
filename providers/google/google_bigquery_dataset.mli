@@ -47,9 +47,9 @@ val access :
   ?role:string prop ->
   ?special_group:string prop ->
   ?user_by_email:string prop ->
-  dataset:access__dataset list ->
-  routine:access__routine list ->
-  view:access__view list ->
+  ?dataset:access__dataset list ->
+  ?routine:access__routine list ->
+  ?view:access__view list ->
   unit ->
   access
 
@@ -85,11 +85,11 @@ val google_bigquery_dataset :
   ?max_time_travel_hours:string prop ->
   ?project:string prop ->
   ?storage_billing_model:string prop ->
+  ?default_encryption_configuration:
+    default_encryption_configuration list ->
   ?timeouts:timeouts ->
   dataset_id:string prop ->
   access:access list ->
-  default_encryption_configuration:
-    default_encryption_configuration list ->
   unit ->
   google_bigquery_dataset
 
@@ -136,11 +136,11 @@ val register :
   ?max_time_travel_hours:string prop ->
   ?project:string prop ->
   ?storage_billing_model:string prop ->
+  ?default_encryption_configuration:
+    default_encryption_configuration list ->
   ?timeouts:timeouts ->
   dataset_id:string prop ->
   access:access list ->
-  default_encryption_configuration:
-    default_encryption_configuration list ->
   string ->
   t
 
@@ -158,10 +158,10 @@ val make :
   ?max_time_travel_hours:string prop ->
   ?project:string prop ->
   ?storage_billing_model:string prop ->
+  ?default_encryption_configuration:
+    default_encryption_configuration list ->
   ?timeouts:timeouts ->
   dataset_id:string prop ->
   access:access list ->
-  default_encryption_configuration:
-    default_encryption_configuration list ->
   string ->
   t Tf_core.resource

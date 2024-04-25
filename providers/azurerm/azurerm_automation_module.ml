@@ -191,7 +191,7 @@ let _ = yojson_of_azurerm_automation_module
 let module_link__hash ~algorithm ~value () : module_link__hash =
   { algorithm; value }
 
-let module_link ~uri ~hash () : module_link = { uri; hash }
+let module_link ?(hash = []) ~uri () : module_link = { uri; hash }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }

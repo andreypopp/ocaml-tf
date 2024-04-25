@@ -36,11 +36,11 @@ type aws_lex_bot_alias
 val aws_lex_bot_alias :
   ?description:string prop ->
   ?id:string prop ->
+  ?conversation_logs:conversation_logs list ->
   ?timeouts:timeouts ->
   bot_name:string prop ->
   bot_version:string prop ->
   name:string prop ->
-  conversation_logs:conversation_logs list ->
   unit ->
   aws_lex_bot_alias
 
@@ -64,21 +64,21 @@ val register :
   ?tf_module:tf_module ->
   ?description:string prop ->
   ?id:string prop ->
+  ?conversation_logs:conversation_logs list ->
   ?timeouts:timeouts ->
   bot_name:string prop ->
   bot_version:string prop ->
   name:string prop ->
-  conversation_logs:conversation_logs list ->
   string ->
   t
 
 val make :
   ?description:string prop ->
   ?id:string prop ->
+  ?conversation_logs:conversation_logs list ->
   ?timeouts:timeouts ->
   bot_name:string prop ->
   bot_version:string prop ->
   name:string prop ->
-  conversation_logs:conversation_logs list ->
   string ->
   t Tf_core.resource

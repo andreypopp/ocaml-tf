@@ -374,8 +374,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_network_connectivity_service_connection_policy
-    ?description ?id ?labels ?project ?timeouts ~location ~name
-    ~network ~service_class ~psc_config () :
+    ?description ?id ?labels ?project ?(psc_config = []) ?timeouts
+    ~location ~name ~network ~service_class () :
     google_network_connectivity_service_connection_policy =
   {
     description;
@@ -408,8 +408,8 @@ type t = {
   update_time : string prop;
 }
 
-let make ?description ?id ?labels ?project ?timeouts ~location ~name
-    ~network ~service_class ~psc_config __id =
+let make ?description ?id ?labels ?project ?(psc_config = [])
+    ?timeouts ~location ~name ~network ~service_class __id =
   let __type =
     "google_network_connectivity_service_connection_policy"
   in
@@ -441,16 +441,17 @@ let make ?description ?id ?labels ?project ?timeouts ~location ~name
     json =
       yojson_of_google_network_connectivity_service_connection_policy
         (google_network_connectivity_service_connection_policy
-           ?description ?id ?labels ?project ?timeouts ~location
-           ~name ~network ~service_class ~psc_config ());
+           ?description ?id ?labels ?project ~psc_config ?timeouts
+           ~location ~name ~network ~service_class ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?labels ?project ?timeouts
-    ~location ~name ~network ~service_class ~psc_config __id =
+let register ?tf_module ?description ?id ?labels ?project
+    ?(psc_config = []) ?timeouts ~location ~name ~network
+    ~service_class __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?labels ?project ?timeouts ~location ~name
-      ~network ~service_class ~psc_config __id
+    make ?description ?id ?labels ?project ~psc_config ?timeouts
+      ~location ~name ~network ~service_class __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

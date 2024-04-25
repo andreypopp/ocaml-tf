@@ -165,31 +165,31 @@ val launch_template_config__overrides__instance_requirements :
   ?on_demand_max_price_percentage_over_lowest_price:float prop ->
   ?require_hibernate_support:bool prop ->
   ?spot_max_price_percentage_over_lowest_price:float prop ->
-  accelerator_count:
+  ?accelerator_count:
     launch_template_config__overrides__instance_requirements__accelerator_count
     list ->
-  accelerator_total_memory_mib:
+  ?accelerator_total_memory_mib:
     launch_template_config__overrides__instance_requirements__accelerator_total_memory_mib
     list ->
-  baseline_ebs_bandwidth_mbps:
+  ?baseline_ebs_bandwidth_mbps:
     launch_template_config__overrides__instance_requirements__baseline_ebs_bandwidth_mbps
     list ->
-  memory_gib_per_vcpu:
+  ?memory_gib_per_vcpu:
     launch_template_config__overrides__instance_requirements__memory_gib_per_vcpu
     list ->
-  memory_mib:
+  ?memory_mib:
     launch_template_config__overrides__instance_requirements__memory_mib
     list ->
-  network_bandwidth_gbps:
+  ?network_bandwidth_gbps:
     launch_template_config__overrides__instance_requirements__network_bandwidth_gbps
     list ->
-  network_interface_count:
+  ?network_interface_count:
     launch_template_config__overrides__instance_requirements__network_interface_count
     list ->
-  total_local_storage_gb:
+  ?total_local_storage_gb:
     launch_template_config__overrides__instance_requirements__total_local_storage_gb
     list ->
-  vcpu_count:
+  ?vcpu_count:
     launch_template_config__overrides__instance_requirements__vcpu_count
     list ->
   unit ->
@@ -204,7 +204,7 @@ val launch_template_config__overrides :
   ?spot_price:string prop ->
   ?subnet_id:string prop ->
   ?weighted_capacity:float prop ->
-  instance_requirements:
+  ?instance_requirements:
     launch_template_config__overrides__instance_requirements list ->
   unit ->
   launch_template_config__overrides
@@ -228,7 +228,7 @@ val spot_maintenance_strategies__capacity_rebalance :
 type spot_maintenance_strategies
 
 val spot_maintenance_strategies :
-  capacity_rebalance:
+  ?capacity_rebalance:
     spot_maintenance_strategies__capacity_rebalance list ->
   unit ->
   spot_maintenance_strategies
@@ -267,12 +267,12 @@ val aws_spot_fleet_request :
   ?valid_from:string prop ->
   ?valid_until:string prop ->
   ?wait_for_fulfillment:bool prop ->
+  ?spot_maintenance_strategies:spot_maintenance_strategies list ->
   ?timeouts:timeouts ->
   iam_fleet_role:string prop ->
   target_capacity:float prop ->
   launch_specification:launch_specification list ->
   launch_template_config:launch_template_config list ->
-  spot_maintenance_strategies:spot_maintenance_strategies list ->
   unit ->
   aws_spot_fleet_request
 
@@ -333,12 +333,12 @@ val register :
   ?valid_from:string prop ->
   ?valid_until:string prop ->
   ?wait_for_fulfillment:bool prop ->
+  ?spot_maintenance_strategies:spot_maintenance_strategies list ->
   ?timeouts:timeouts ->
   iam_fleet_role:string prop ->
   target_capacity:float prop ->
   launch_specification:launch_specification list ->
   launch_template_config:launch_template_config list ->
-  spot_maintenance_strategies:spot_maintenance_strategies list ->
   string ->
   t
 
@@ -365,11 +365,11 @@ val make :
   ?valid_from:string prop ->
   ?valid_until:string prop ->
   ?wait_for_fulfillment:bool prop ->
+  ?spot_maintenance_strategies:spot_maintenance_strategies list ->
   ?timeouts:timeouts ->
   iam_fleet_role:string prop ->
   target_capacity:float prop ->
   launch_specification:launch_specification list ->
   launch_template_config:launch_template_config list ->
-  spot_maintenance_strategies:spot_maintenance_strategies list ->
   string ->
   t Tf_core.resource

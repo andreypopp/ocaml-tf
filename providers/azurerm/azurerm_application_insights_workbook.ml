@@ -237,9 +237,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_application_insights_workbook ?category ?description ?id
-    ?source_id ?storage_container_id ?tags ?timeouts ~data_json
-    ~display_name ~location ~name ~resource_group_name ~identity () :
-    azurerm_application_insights_workbook =
+    ?source_id ?storage_container_id ?tags ?(identity = []) ?timeouts
+    ~data_json ~display_name ~location ~name ~resource_group_name ()
+    : azurerm_application_insights_workbook =
   {
     category;
     data_json;
@@ -271,8 +271,8 @@ type t = {
 }
 
 let make ?category ?description ?id ?source_id ?storage_container_id
-    ?tags ?timeouts ~data_json ~display_name ~location ~name
-    ~resource_group_name ~identity __id =
+    ?tags ?(identity = []) ?timeouts ~data_json ~display_name
+    ~location ~name ~resource_group_name __id =
   let __type = "azurerm_application_insights_workbook" in
   let __attrs =
     ({
@@ -298,19 +298,19 @@ let make ?category ?description ?id ?source_id ?storage_container_id
     json =
       yojson_of_azurerm_application_insights_workbook
         (azurerm_application_insights_workbook ?category ?description
-           ?id ?source_id ?storage_container_id ?tags ?timeouts
-           ~data_json ~display_name ~location ~name
-           ~resource_group_name ~identity ());
+           ?id ?source_id ?storage_container_id ?tags ~identity
+           ?timeouts ~data_json ~display_name ~location ~name
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?category ?description ?id ?source_id
-    ?storage_container_id ?tags ?timeouts ~data_json ~display_name
-    ~location ~name ~resource_group_name ~identity __id =
+    ?storage_container_id ?tags ?(identity = []) ?timeouts ~data_json
+    ~display_name ~location ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?category ?description ?id ?source_id ?storage_container_id
-      ?tags ?timeouts ~data_json ~display_name ~location ~name
-      ~resource_group_name ~identity __id
+      ?tags ~identity ?timeouts ~data_json ~display_name ~location
+      ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

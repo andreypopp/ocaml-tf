@@ -49,13 +49,13 @@ val aws_storagegateway_nfs_file_share :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_endpoint_dns_name:string prop ->
+  ?cache_attributes:cache_attributes list ->
+  ?nfs_file_share_defaults:nfs_file_share_defaults list ->
   ?timeouts:timeouts ->
   client_list:string prop list ->
   gateway_arn:string prop ->
   location_arn:string prop ->
   role_arn:string prop ->
-  cache_attributes:cache_attributes list ->
-  nfs_file_share_defaults:nfs_file_share_defaults list ->
   unit ->
   aws_storagegateway_nfs_file_share
 
@@ -108,13 +108,13 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_endpoint_dns_name:string prop ->
+  ?cache_attributes:cache_attributes list ->
+  ?nfs_file_share_defaults:nfs_file_share_defaults list ->
   ?timeouts:timeouts ->
   client_list:string prop list ->
   gateway_arn:string prop ->
   location_arn:string prop ->
   role_arn:string prop ->
-  cache_attributes:cache_attributes list ->
-  nfs_file_share_defaults:nfs_file_share_defaults list ->
   string ->
   t
 
@@ -135,12 +135,12 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_endpoint_dns_name:string prop ->
+  ?cache_attributes:cache_attributes list ->
+  ?nfs_file_share_defaults:nfs_file_share_defaults list ->
   ?timeouts:timeouts ->
   client_list:string prop list ->
   gateway_arn:string prop ->
   location_arn:string prop ->
   role_arn:string prop ->
-  cache_attributes:cache_attributes list ->
-  nfs_file_share_defaults:nfs_file_share_defaults list ->
   string ->
   t Tf_core.resource

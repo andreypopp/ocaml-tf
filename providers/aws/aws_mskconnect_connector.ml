@@ -828,8 +828,8 @@ let capacity__autoscaling__scale_out_policy
     capacity__autoscaling__scale_out_policy =
   { cpu_utilization_percentage }
 
-let capacity__autoscaling ?mcu_count ~max_worker_count
-    ~min_worker_count ~scale_in_policy ~scale_out_policy () :
+let capacity__autoscaling ?mcu_count ?(scale_in_policy = [])
+    ?(scale_out_policy = []) ~max_worker_count ~min_worker_count () :
     capacity__autoscaling =
   {
     max_worker_count;
@@ -843,7 +843,8 @@ let capacity__provisioned_capacity ?mcu_count ~worker_count () :
     capacity__provisioned_capacity =
   { mcu_count; worker_count }
 
-let capacity ~autoscaling ~provisioned_capacity () : capacity =
+let capacity ?(autoscaling = []) ?(provisioned_capacity = []) () :
+    capacity =
   { autoscaling; provisioned_capacity }
 
 let kafka_cluster__apache_kafka_cluster__vpc ~security_groups
@@ -878,8 +879,9 @@ let log_delivery__worker_log_delivery__s3 ?bucket ?prefix ~enabled ()
     : log_delivery__worker_log_delivery__s3 =
   { bucket; enabled; prefix }
 
-let log_delivery__worker_log_delivery ~cloudwatch_logs ~firehose ~s3
-    () : log_delivery__worker_log_delivery =
+let log_delivery__worker_log_delivery ?(cloudwatch_logs = [])
+    ?(firehose = []) ?(s3 = []) () :
+    log_delivery__worker_log_delivery =
   { cloudwatch_logs; firehose; s3 }
 
 let log_delivery ~worker_log_delivery () : log_delivery =
@@ -896,12 +898,12 @@ let timeouts ?create ?delete ?update () : timeouts =
 let worker_configuration ~arn ~revision () : worker_configuration =
   { arn; revision }
 
-let aws_mskconnect_connector ?description ?id ?timeouts
-    ~connector_configuration ~kafkaconnect_version ~name
-    ~service_execution_role_arn ~capacity ~kafka_cluster
-    ~kafka_cluster_client_authentication
-    ~kafka_cluster_encryption_in_transit ~log_delivery ~plugin
-    ~worker_configuration () : aws_mskconnect_connector =
+let aws_mskconnect_connector ?description ?id ?(log_delivery = [])
+    ?timeouts ?(worker_configuration = []) ~connector_configuration
+    ~kafkaconnect_version ~name ~service_execution_role_arn ~capacity
+    ~kafka_cluster ~kafka_cluster_client_authentication
+    ~kafka_cluster_encryption_in_transit ~plugin () :
+    aws_mskconnect_connector =
   {
     connector_configuration;
     description;
@@ -930,11 +932,11 @@ type t = {
   version : string prop;
 }
 
-let make ?description ?id ?timeouts ~connector_configuration
+let make ?description ?id ?(log_delivery = []) ?timeouts
+    ?(worker_configuration = []) ~connector_configuration
     ~kafkaconnect_version ~name ~service_execution_role_arn ~capacity
     ~kafka_cluster ~kafka_cluster_client_authentication
-    ~kafka_cluster_encryption_in_transit ~log_delivery ~plugin
-    ~worker_configuration __id =
+    ~kafka_cluster_encryption_in_transit ~plugin __id =
   let __type = "aws_mskconnect_connector" in
   let __attrs =
     ({
@@ -957,27 +959,26 @@ let make ?description ?id ?timeouts ~connector_configuration
     type_ = __type;
     json =
       yojson_of_aws_mskconnect_connector
-        (aws_mskconnect_connector ?description ?id ?timeouts
-           ~connector_configuration ~kafkaconnect_version ~name
-           ~service_execution_role_arn ~capacity ~kafka_cluster
+        (aws_mskconnect_connector ?description ?id ~log_delivery
+           ?timeouts ~worker_configuration ~connector_configuration
+           ~kafkaconnect_version ~name ~service_execution_role_arn
+           ~capacity ~kafka_cluster
            ~kafka_cluster_client_authentication
-           ~kafka_cluster_encryption_in_transit ~log_delivery ~plugin
-           ~worker_configuration ());
+           ~kafka_cluster_encryption_in_transit ~plugin ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?timeouts
-    ~connector_configuration ~kafkaconnect_version ~name
-    ~service_execution_role_arn ~capacity ~kafka_cluster
-    ~kafka_cluster_client_authentication
-    ~kafka_cluster_encryption_in_transit ~log_delivery ~plugin
-    ~worker_configuration __id =
+let register ?tf_module ?description ?id ?(log_delivery = [])
+    ?timeouts ?(worker_configuration = []) ~connector_configuration
+    ~kafkaconnect_version ~name ~service_execution_role_arn ~capacity
+    ~kafka_cluster ~kafka_cluster_client_authentication
+    ~kafka_cluster_encryption_in_transit ~plugin __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?timeouts ~connector_configuration
+    make ?description ?id ~log_delivery ?timeouts
+      ~worker_configuration ~connector_configuration
       ~kafkaconnect_version ~name ~service_execution_role_arn
       ~capacity ~kafka_cluster ~kafka_cluster_client_authentication
-      ~kafka_cluster_encryption_in_transit ~log_delivery ~plugin
-      ~worker_configuration __id
+      ~kafka_cluster_encryption_in_transit ~plugin __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

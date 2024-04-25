@@ -19,10 +19,10 @@ val google_dataproc_autoscaling_policy_iam_member :
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   member:string prop ->
   policy_id:string prop ->
   role:string prop ->
-  condition:condition list ->
   unit ->
   google_dataproc_autoscaling_policy_iam_member
 
@@ -46,10 +46,10 @@ val register :
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   member:string prop ->
   policy_id:string prop ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t
 
@@ -57,9 +57,9 @@ val make :
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   member:string prop ->
   policy_id:string prop ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t Tf_core.resource

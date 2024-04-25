@@ -26,7 +26,7 @@ type root_directory
 
 val root_directory :
   ?path:string prop ->
-  creation_info:root_directory__creation_info list ->
+  ?creation_info:root_directory__creation_info list ->
   unit ->
   root_directory
 
@@ -36,9 +36,9 @@ val aws_efs_access_point :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?posix_user:posix_user list ->
+  ?root_directory:root_directory list ->
   file_system_id:string prop ->
-  posix_user:posix_user list ->
-  root_directory:root_directory list ->
   unit ->
   aws_efs_access_point
 
@@ -61,9 +61,9 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?posix_user:posix_user list ->
+  ?root_directory:root_directory list ->
   file_system_id:string prop ->
-  posix_user:posix_user list ->
-  root_directory:root_directory list ->
   string ->
   t
 
@@ -71,8 +71,8 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?posix_user:posix_user list ->
+  ?root_directory:root_directory list ->
   file_system_id:string prop ->
-  posix_user:posix_user list ->
-  root_directory:root_directory list ->
   string ->
   t Tf_core.resource

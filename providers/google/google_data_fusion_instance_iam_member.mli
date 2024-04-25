@@ -19,10 +19,10 @@ val google_data_fusion_instance_iam_member :
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?condition:condition list ->
   member:string prop ->
   name:string prop ->
   role:string prop ->
-  condition:condition list ->
   unit ->
   google_data_fusion_instance_iam_member
 
@@ -46,10 +46,10 @@ val register :
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?condition:condition list ->
   member:string prop ->
   name:string prop ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t
 
@@ -57,9 +57,9 @@ val make :
   ?id:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?condition:condition list ->
   member:string prop ->
   name:string prop ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t Tf_core.resource

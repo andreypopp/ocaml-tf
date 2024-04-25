@@ -164,9 +164,9 @@ let index_configs ~field_path ~type_ () : index_configs =
   { field_path; type_ }
 
 let google_logging_project_bucket_config ?description
-    ?enable_analytics ?id ?locked ?retention_days ~bucket_id
-    ~location ~project ~cmek_settings ~index_configs () :
-    google_logging_project_bucket_config =
+    ?enable_analytics ?id ?locked ?retention_days
+    ?(cmek_settings = []) ~bucket_id ~location ~project
+    ~index_configs () : google_logging_project_bucket_config =
   {
     bucket_id;
     description;
@@ -194,8 +194,8 @@ type t = {
 }
 
 let make ?description ?enable_analytics ?id ?locked ?retention_days
-    ~bucket_id ~location ~project ~cmek_settings ~index_configs __id
-    =
+    ?(cmek_settings = []) ~bucket_id ~location ~project
+    ~index_configs __id =
   let __type = "google_logging_project_bucket_config" in
   let __attrs =
     ({
@@ -219,17 +219,18 @@ let make ?description ?enable_analytics ?id ?locked ?retention_days
     json =
       yojson_of_google_logging_project_bucket_config
         (google_logging_project_bucket_config ?description
-           ?enable_analytics ?id ?locked ?retention_days ~bucket_id
-           ~location ~project ~cmek_settings ~index_configs ());
+           ?enable_analytics ?id ?locked ?retention_days
+           ~cmek_settings ~bucket_id ~location ~project
+           ~index_configs ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?enable_analytics ?id ?locked
-    ?retention_days ~bucket_id ~location ~project ~cmek_settings
-    ~index_configs __id =
+    ?retention_days ?(cmek_settings = []) ~bucket_id ~location
+    ~project ~index_configs __id =
   let (r : _ Tf_core.resource) =
     make ?description ?enable_analytics ?id ?locked ?retention_days
-      ~bucket_id ~location ~project ~cmek_settings ~index_configs
+      ~cmek_settings ~bucket_id ~location ~project ~index_configs
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

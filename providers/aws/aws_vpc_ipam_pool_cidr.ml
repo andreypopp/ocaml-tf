@@ -153,8 +153,8 @@ let cidr_authorization_context ?message ?signature () :
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
-let aws_vpc_ipam_pool_cidr ?cidr ?id ?netmask_length ?timeouts
-    ~ipam_pool_id ~cidr_authorization_context () :
+let aws_vpc_ipam_pool_cidr ?cidr ?id ?netmask_length
+    ?(cidr_authorization_context = []) ?timeouts ~ipam_pool_id () :
     aws_vpc_ipam_pool_cidr =
   {
     cidr;
@@ -173,8 +173,8 @@ type t = {
   netmask_length : float prop;
 }
 
-let make ?cidr ?id ?netmask_length ?timeouts ~ipam_pool_id
-    ~cidr_authorization_context __id =
+let make ?cidr ?id ?netmask_length ?(cidr_authorization_context = [])
+    ?timeouts ~ipam_pool_id __id =
   let __type = "aws_vpc_ipam_pool_cidr" in
   let __attrs =
     ({
@@ -192,16 +192,16 @@ let make ?cidr ?id ?netmask_length ?timeouts ~ipam_pool_id
     type_ = __type;
     json =
       yojson_of_aws_vpc_ipam_pool_cidr
-        (aws_vpc_ipam_pool_cidr ?cidr ?id ?netmask_length ?timeouts
-           ~ipam_pool_id ~cidr_authorization_context ());
+        (aws_vpc_ipam_pool_cidr ?cidr ?id ?netmask_length
+           ~cidr_authorization_context ?timeouts ~ipam_pool_id ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?cidr ?id ?netmask_length ?timeouts
-    ~ipam_pool_id ~cidr_authorization_context __id =
+let register ?tf_module ?cidr ?id ?netmask_length
+    ?(cidr_authorization_context = []) ?timeouts ~ipam_pool_id __id =
   let (r : _ Tf_core.resource) =
-    make ?cidr ?id ?netmask_length ?timeouts ~ipam_pool_id
-      ~cidr_authorization_context __id
+    make ?cidr ?id ?netmask_length ~cidr_authorization_context
+      ?timeouts ~ipam_pool_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

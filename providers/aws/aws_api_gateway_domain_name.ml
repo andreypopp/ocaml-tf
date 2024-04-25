@@ -260,8 +260,8 @@ let aws_api_gateway_domain_name ?certificate_arn ?certificate_body
     ?certificate_chain ?certificate_name ?certificate_private_key ?id
     ?ownership_verification_certificate_arn ?regional_certificate_arn
     ?regional_certificate_name ?security_policy ?tags ?tags_all
-    ~domain_name ~endpoint_configuration ~mutual_tls_authentication
-    () : aws_api_gateway_domain_name =
+    ?(endpoint_configuration = []) ?(mutual_tls_authentication = [])
+    ~domain_name () : aws_api_gateway_domain_name =
   {
     certificate_arn;
     certificate_body;
@@ -306,8 +306,8 @@ let make ?certificate_arn ?certificate_body ?certificate_chain
     ?certificate_name ?certificate_private_key ?id
     ?ownership_verification_certificate_arn ?regional_certificate_arn
     ?regional_certificate_name ?security_policy ?tags ?tags_all
-    ~domain_name ~endpoint_configuration ~mutual_tls_authentication
-    __id =
+    ?(endpoint_configuration = []) ?(mutual_tls_authentication = [])
+    ~domain_name __id =
   let __type = "aws_api_gateway_domain_name" in
   let __attrs =
     ({
@@ -356,8 +356,8 @@ let make ?certificate_arn ?certificate_body ?certificate_chain
            ?certificate_private_key ?id
            ?ownership_verification_certificate_arn
            ?regional_certificate_arn ?regional_certificate_name
-           ?security_policy ?tags ?tags_all ~domain_name
-           ~endpoint_configuration ~mutual_tls_authentication ());
+           ?security_policy ?tags ?tags_all ~endpoint_configuration
+           ~mutual_tls_authentication ~domain_name ());
     attrs = __attrs;
   }
 
@@ -365,15 +365,15 @@ let register ?tf_module ?certificate_arn ?certificate_body
     ?certificate_chain ?certificate_name ?certificate_private_key ?id
     ?ownership_verification_certificate_arn ?regional_certificate_arn
     ?regional_certificate_name ?security_policy ?tags ?tags_all
-    ~domain_name ~endpoint_configuration ~mutual_tls_authentication
-    __id =
+    ?(endpoint_configuration = []) ?(mutual_tls_authentication = [])
+    ~domain_name __id =
   let (r : _ Tf_core.resource) =
     make ?certificate_arn ?certificate_body ?certificate_chain
       ?certificate_name ?certificate_private_key ?id
       ?ownership_verification_certificate_arn
       ?regional_certificate_arn ?regional_certificate_name
-      ?security_policy ?tags ?tags_all ~domain_name
-      ~endpoint_configuration ~mutual_tls_authentication __id
+      ?security_policy ?tags ?tags_all ~endpoint_configuration
+      ~mutual_tls_authentication ~domain_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

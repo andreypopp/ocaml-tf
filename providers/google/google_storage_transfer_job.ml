@@ -997,8 +997,8 @@ let schedule__start_time_of_day ~hours ~minutes ~nanos ~seconds () :
     schedule__start_time_of_day =
   { hours; minutes; nanos; seconds }
 
-let schedule ?repeat_interval ~schedule_end_date ~schedule_start_date
-    ~start_time_of_day () : schedule =
+let schedule ?repeat_interval ?(schedule_end_date = [])
+    ?(start_time_of_day = []) ~schedule_start_date () : schedule =
   {
     repeat_interval;
     schedule_end_date;
@@ -1011,8 +1011,9 @@ let transfer_spec__aws_s3_data_source__aws_access_key ~access_key_id
     transfer_spec__aws_s3_data_source__aws_access_key =
   { access_key_id; secret_access_key }
 
-let transfer_spec__aws_s3_data_source ?path ?role_arn ~bucket_name
-    ~aws_access_key () : transfer_spec__aws_s3_data_source =
+let transfer_spec__aws_s3_data_source ?path ?role_arn
+    ?(aws_access_key = []) ~bucket_name () :
+    transfer_spec__aws_s3_data_source =
   { bucket_name; path; role_arn; aws_access_key }
 
 let transfer_spec__azure_blob_storage_data_source__azure_credentials
@@ -1073,10 +1074,11 @@ let transfer_spec__transfer_options
   }
 
 let transfer_spec ?sink_agent_pool_name ?source_agent_pool_name
-    ~aws_s3_data_source ~azure_blob_storage_data_source
-    ~gcs_data_sink ~gcs_data_source ~http_data_source
-    ~object_conditions ~posix_data_sink ~posix_data_source
-    ~transfer_options () : transfer_spec =
+    ?(aws_s3_data_source = []) ?(azure_blob_storage_data_source = [])
+    ?(gcs_data_sink = []) ?(gcs_data_source = [])
+    ?(http_data_source = []) ?(object_conditions = [])
+    ?(posix_data_sink = []) ?(posix_data_source = [])
+    ?(transfer_options = []) () : transfer_spec =
   {
     sink_agent_pool_name;
     source_agent_pool_name;
@@ -1092,8 +1094,8 @@ let transfer_spec ?sink_agent_pool_name ?source_agent_pool_name
   }
 
 let google_storage_transfer_job ?id ?name ?project ?status
-    ~description ~event_stream ~notification_config ~schedule
-    ~transfer_spec () : google_storage_transfer_job =
+    ?(event_stream = []) ?(notification_config = []) ?(schedule = [])
+    ~description ~transfer_spec () : google_storage_transfer_job =
   {
     description;
     id;
@@ -1117,8 +1119,9 @@ type t = {
   status : string prop;
 }
 
-let make ?id ?name ?project ?status ~description ~event_stream
-    ~notification_config ~schedule ~transfer_spec __id =
+let make ?id ?name ?project ?status ?(event_stream = [])
+    ?(notification_config = []) ?(schedule = []) ~description
+    ~transfer_spec __id =
   let __type = "google_storage_transfer_job" in
   let __attrs =
     ({
@@ -1140,17 +1143,17 @@ let make ?id ?name ?project ?status ~description ~event_stream
     json =
       yojson_of_google_storage_transfer_job
         (google_storage_transfer_job ?id ?name ?project ?status
-           ~description ~event_stream ~notification_config ~schedule
+           ~event_stream ~notification_config ~schedule ~description
            ~transfer_spec ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?name ?project ?status ~description
-    ~event_stream ~notification_config ~schedule ~transfer_spec __id
-    =
+let register ?tf_module ?id ?name ?project ?status
+    ?(event_stream = []) ?(notification_config = []) ?(schedule = [])
+    ~description ~transfer_spec __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?name ?project ?status ~description ~event_stream
-      ~notification_config ~schedule ~transfer_spec __id
+    make ?id ?name ?project ?status ~event_stream
+      ~notification_config ~schedule ~description ~transfer_spec __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -235,8 +235,8 @@ let rule__expiration ?date ?days ?expired_object_delete_marker () :
 
 let rule__filter ?prefix ?tags () : rule__filter = { prefix; tags }
 
-let rule ?status ~id ~abort_incomplete_multipart_upload ~expiration
-    ~filter () : rule =
+let rule ?status ?(abort_incomplete_multipart_upload = [])
+    ?(expiration = []) ?(filter = []) ~id () : rule =
   {
     id;
     status;

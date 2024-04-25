@@ -834,12 +834,12 @@ let backend_request__data_masking__query_params ~mode ~value () :
     backend_request__data_masking__query_params =
   { mode; value }
 
-let backend_request__data_masking ~headers ~query_params () :
-    backend_request__data_masking =
+let backend_request__data_masking ?(headers = [])
+    ?(query_params = []) () : backend_request__data_masking =
   { headers; query_params }
 
-let backend_request ?body_bytes ?headers_to_log ~data_masking () :
-    backend_request =
+let backend_request ?body_bytes ?headers_to_log ?(data_masking = [])
+    () : backend_request =
   { body_bytes; headers_to_log; data_masking }
 
 let backend_response__data_masking__headers ~mode ~value () :
@@ -850,12 +850,12 @@ let backend_response__data_masking__query_params ~mode ~value () :
     backend_response__data_masking__query_params =
   { mode; value }
 
-let backend_response__data_masking ~headers ~query_params () :
-    backend_response__data_masking =
+let backend_response__data_masking ?(headers = [])
+    ?(query_params = []) () : backend_response__data_masking =
   { headers; query_params }
 
-let backend_response ?body_bytes ?headers_to_log ~data_masking () :
-    backend_response =
+let backend_response ?body_bytes ?headers_to_log ?(data_masking = [])
+    () : backend_response =
   { body_bytes; headers_to_log; data_masking }
 
 let frontend_request__data_masking__headers ~mode ~value () :
@@ -866,12 +866,12 @@ let frontend_request__data_masking__query_params ~mode ~value () :
     frontend_request__data_masking__query_params =
   { mode; value }
 
-let frontend_request__data_masking ~headers ~query_params () :
-    frontend_request__data_masking =
+let frontend_request__data_masking ?(headers = [])
+    ?(query_params = []) () : frontend_request__data_masking =
   { headers; query_params }
 
-let frontend_request ?body_bytes ?headers_to_log ~data_masking () :
-    frontend_request =
+let frontend_request ?body_bytes ?headers_to_log ?(data_masking = [])
+    () : frontend_request =
   { body_bytes; headers_to_log; data_masking }
 
 let frontend_response__data_masking__headers ~mode ~value () :
@@ -882,12 +882,12 @@ let frontend_response__data_masking__query_params ~mode ~value () :
     frontend_response__data_masking__query_params =
   { mode; value }
 
-let frontend_response__data_masking ~headers ~query_params () :
-    frontend_response__data_masking =
+let frontend_response__data_masking ?(headers = [])
+    ?(query_params = []) () : frontend_response__data_masking =
   { headers; query_params }
 
-let frontend_response ?body_bytes ?headers_to_log ~data_masking () :
-    frontend_response =
+let frontend_response ?body_bytes ?headers_to_log
+    ?(data_masking = []) () : frontend_response =
   { body_bytes; headers_to_log; data_masking }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
@@ -895,10 +895,11 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_api_management_api_diagnostic ?always_log_errors
     ?http_correlation_protocol ?id ?log_client_ip
-    ?operation_name_format ?sampling_percentage ?verbosity ?timeouts
+    ?operation_name_format ?sampling_percentage ?verbosity
+    ?(backend_request = []) ?(backend_response = [])
+    ?(frontend_request = []) ?(frontend_response = []) ?timeouts
     ~api_management_logger_id ~api_management_name ~api_name
-    ~identifier ~resource_group_name ~backend_request
-    ~backend_response ~frontend_request ~frontend_response () :
+    ~identifier ~resource_group_name () :
     azurerm_api_management_api_diagnostic =
   {
     always_log_errors;
@@ -937,10 +938,10 @@ type t = {
 
 let make ?always_log_errors ?http_correlation_protocol ?id
     ?log_client_ip ?operation_name_format ?sampling_percentage
-    ?verbosity ?timeouts ~api_management_logger_id
-    ~api_management_name ~api_name ~identifier ~resource_group_name
-    ~backend_request ~backend_response ~frontend_request
-    ~frontend_response __id =
+    ?verbosity ?(backend_request = []) ?(backend_response = [])
+    ?(frontend_request = []) ?(frontend_response = []) ?timeouts
+    ~api_management_logger_id ~api_management_name ~api_name
+    ~identifier ~resource_group_name __id =
   let __type = "azurerm_api_management_api_diagnostic" in
   let __attrs =
     ({
@@ -974,26 +975,26 @@ let make ?always_log_errors ?http_correlation_protocol ?id
         (azurerm_api_management_api_diagnostic ?always_log_errors
            ?http_correlation_protocol ?id ?log_client_ip
            ?operation_name_format ?sampling_percentage ?verbosity
-           ?timeouts ~api_management_logger_id ~api_management_name
-           ~api_name ~identifier ~resource_group_name
            ~backend_request ~backend_response ~frontend_request
-           ~frontend_response ());
+           ~frontend_response ?timeouts ~api_management_logger_id
+           ~api_management_name ~api_name ~identifier
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?always_log_errors ?http_correlation_protocol
     ?id ?log_client_ip ?operation_name_format ?sampling_percentage
-    ?verbosity ?timeouts ~api_management_logger_id
-    ~api_management_name ~api_name ~identifier ~resource_group_name
-    ~backend_request ~backend_response ~frontend_request
-    ~frontend_response __id =
+    ?verbosity ?(backend_request = []) ?(backend_response = [])
+    ?(frontend_request = []) ?(frontend_response = []) ?timeouts
+    ~api_management_logger_id ~api_management_name ~api_name
+    ~identifier ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
     make ?always_log_errors ?http_correlation_protocol ?id
       ?log_client_ip ?operation_name_format ?sampling_percentage
-      ?verbosity ?timeouts ~api_management_logger_id
+      ?verbosity ~backend_request ~backend_response ~frontend_request
+      ~frontend_response ?timeouts ~api_management_logger_id
       ~api_management_name ~api_name ~identifier ~resource_group_name
-      ~backend_request ~backend_response ~frontend_request
-      ~frontend_response __id
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

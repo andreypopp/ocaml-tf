@@ -235,8 +235,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_dialogflow_cx_entity_type ?auto_expansion_mode
     ?enable_fuzzy_extraction ?id ?language_code ?parent ?redact
-    ?timeouts ~display_name ~kind ~entities ~excluded_phrases () :
-    google_dialogflow_cx_entity_type =
+    ?(excluded_phrases = []) ?timeouts ~display_name ~kind ~entities
+    () : google_dialogflow_cx_entity_type =
   {
     auto_expansion_mode;
     display_name;
@@ -264,8 +264,8 @@ type t = {
 }
 
 let make ?auto_expansion_mode ?enable_fuzzy_extraction ?id
-    ?language_code ?parent ?redact ?timeouts ~display_name ~kind
-    ~entities ~excluded_phrases __id =
+    ?language_code ?parent ?redact ?(excluded_phrases = []) ?timeouts
+    ~display_name ~kind ~entities __id =
   let __type = "google_dialogflow_cx_entity_type" in
   let __attrs =
     ({
@@ -290,18 +290,18 @@ let make ?auto_expansion_mode ?enable_fuzzy_extraction ?id
       yojson_of_google_dialogflow_cx_entity_type
         (google_dialogflow_cx_entity_type ?auto_expansion_mode
            ?enable_fuzzy_extraction ?id ?language_code ?parent
-           ?redact ?timeouts ~display_name ~kind ~entities
-           ~excluded_phrases ());
+           ?redact ~excluded_phrases ?timeouts ~display_name ~kind
+           ~entities ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_expansion_mode ?enable_fuzzy_extraction
-    ?id ?language_code ?parent ?redact ?timeouts ~display_name ~kind
-    ~entities ~excluded_phrases __id =
+    ?id ?language_code ?parent ?redact ?(excluded_phrases = [])
+    ?timeouts ~display_name ~kind ~entities __id =
   let (r : _ Tf_core.resource) =
     make ?auto_expansion_mode ?enable_fuzzy_extraction ?id
-      ?language_code ?parent ?redact ?timeouts ~display_name ~kind
-      ~entities ~excluded_phrases __id
+      ?language_code ?parent ?redact ~excluded_phrases ?timeouts
+      ~display_name ~kind ~entities __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

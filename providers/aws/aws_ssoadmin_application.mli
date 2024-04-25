@@ -16,7 +16,7 @@ type portal_options
 
 val portal_options :
   ?visibility:string prop ->
-  sign_in_options:portal_options__sign_in_options list ->
+  ?sign_in_options:portal_options__sign_in_options list ->
   unit ->
   portal_options
 
@@ -27,10 +27,10 @@ val aws_ssoadmin_application :
   ?description:string prop ->
   ?status:string prop ->
   ?tags:(string * string prop) list ->
+  ?portal_options:portal_options list ->
   application_provider_arn:string prop ->
   instance_arn:string prop ->
   name:string prop ->
-  portal_options:portal_options list ->
   unit ->
   aws_ssoadmin_application
 
@@ -59,10 +59,10 @@ val register :
   ?description:string prop ->
   ?status:string prop ->
   ?tags:(string * string prop) list ->
+  ?portal_options:portal_options list ->
   application_provider_arn:string prop ->
   instance_arn:string prop ->
   name:string prop ->
-  portal_options:portal_options list ->
   string ->
   t
 
@@ -71,9 +71,9 @@ val make :
   ?description:string prop ->
   ?status:string prop ->
   ?tags:(string * string prop) list ->
+  ?portal_options:portal_options list ->
   application_provider_arn:string prop ->
   instance_arn:string prop ->
   name:string prop ->
-  portal_options:portal_options list ->
   string ->
   t Tf_core.resource

@@ -35,11 +35,11 @@ val azurerm_data_factory_linked_service_azure_file_storage :
   ?parameters:(string * string prop) list ->
   ?password:string prop ->
   ?user_id:string prop ->
+  ?key_vault_password:key_vault_password list ->
   ?timeouts:timeouts ->
   connection_string:string prop ->
   data_factory_id:string prop ->
   name:string prop ->
-  key_vault_password:key_vault_password list ->
   unit ->
   azurerm_data_factory_linked_service_azure_file_storage
 
@@ -76,11 +76,11 @@ val register :
   ?parameters:(string * string prop) list ->
   ?password:string prop ->
   ?user_id:string prop ->
+  ?key_vault_password:key_vault_password list ->
   ?timeouts:timeouts ->
   connection_string:string prop ->
   data_factory_id:string prop ->
   name:string prop ->
-  key_vault_password:key_vault_password list ->
   string ->
   t
 
@@ -95,10 +95,10 @@ val make :
   ?parameters:(string * string prop) list ->
   ?password:string prop ->
   ?user_id:string prop ->
+  ?key_vault_password:key_vault_password list ->
   ?timeouts:timeouts ->
   connection_string:string prop ->
   data_factory_id:string prop ->
   name:string prop ->
-  key_vault_password:key_vault_password list ->
   string ->
   t Tf_core.resource

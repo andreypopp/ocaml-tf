@@ -679,9 +679,9 @@ let single_server_configuration__virtual_machine_resource_names
   }
 
 let single_server_configuration ?database_type ?secondary_ip_enabled
-    ~app_resource_group_name ~subnet_id ~disk_volume_configuration
-    ~virtual_machine_configuration ~virtual_machine_resource_names ()
-    : single_server_configuration =
+    ?(virtual_machine_resource_names = []) ~app_resource_group_name
+    ~subnet_id ~disk_volume_configuration
+    ~virtual_machine_configuration () : single_server_configuration =
   {
     app_resource_group_name;
     database_type;
@@ -696,9 +696,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_workloads_sap_single_node_virtual_instance ?id
-    ?managed_resource_group_name ?tags ?timeouts ~app_location
-    ~environment ~location ~name ~resource_group_name ~sap_fqdn
-    ~sap_product ~identity ~single_server_configuration () :
+    ?managed_resource_group_name ?tags ?(identity = []) ?timeouts
+    ~app_location ~environment ~location ~name ~resource_group_name
+    ~sap_fqdn ~sap_product ~single_server_configuration () :
     azurerm_workloads_sap_single_node_virtual_instance =
   {
     app_location;
@@ -729,10 +729,10 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let make ?id ?managed_resource_group_name ?tags ?timeouts
-    ~app_location ~environment ~location ~name ~resource_group_name
-    ~sap_fqdn ~sap_product ~identity ~single_server_configuration
-    __id =
+let make ?id ?managed_resource_group_name ?tags ?(identity = [])
+    ?timeouts ~app_location ~environment ~location ~name
+    ~resource_group_name ~sap_fqdn ~sap_product
+    ~single_server_configuration __id =
   let __type =
     "azurerm_workloads_sap_single_node_virtual_instance"
   in
@@ -759,22 +759,21 @@ let make ?id ?managed_resource_group_name ?tags ?timeouts
     json =
       yojson_of_azurerm_workloads_sap_single_node_virtual_instance
         (azurerm_workloads_sap_single_node_virtual_instance ?id
-           ?managed_resource_group_name ?tags ?timeouts ~app_location
-           ~environment ~location ~name ~resource_group_name
-           ~sap_fqdn ~sap_product ~identity
+           ?managed_resource_group_name ?tags ~identity ?timeouts
+           ~app_location ~environment ~location ~name
+           ~resource_group_name ~sap_fqdn ~sap_product
            ~single_server_configuration ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?managed_resource_group_name ?tags
-    ?timeouts ~app_location ~environment ~location ~name
-    ~resource_group_name ~sap_fqdn ~sap_product ~identity
+    ?(identity = []) ?timeouts ~app_location ~environment ~location
+    ~name ~resource_group_name ~sap_fqdn ~sap_product
     ~single_server_configuration __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?managed_resource_group_name ?tags ?timeouts
+    make ?id ?managed_resource_group_name ?tags ~identity ?timeouts
       ~app_location ~environment ~location ~name ~resource_group_name
-      ~sap_fqdn ~sap_product ~identity ~single_server_configuration
-      __id
+      ~sap_fqdn ~sap_product ~single_server_configuration __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

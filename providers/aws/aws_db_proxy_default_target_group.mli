@@ -24,9 +24,9 @@ type aws_db_proxy_default_target_group
 
 val aws_db_proxy_default_target_group :
   ?id:string prop ->
+  ?connection_pool_config:connection_pool_config list ->
   ?timeouts:timeouts ->
   db_proxy_name:string prop ->
-  connection_pool_config:connection_pool_config list ->
   unit ->
   aws_db_proxy_default_target_group
 
@@ -45,16 +45,16 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?connection_pool_config:connection_pool_config list ->
   ?timeouts:timeouts ->
   db_proxy_name:string prop ->
-  connection_pool_config:connection_pool_config list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?connection_pool_config:connection_pool_config list ->
   ?timeouts:timeouts ->
   db_proxy_name:string prop ->
-  connection_pool_config:connection_pool_config list ->
   string ->
   t Tf_core.resource

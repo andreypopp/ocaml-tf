@@ -527,13 +527,13 @@ let config__vsphere_config__tags ?category ?tag () :
     config__vsphere_config__tags =
   { category; tag }
 
-let config__vsphere_config ?datastore ?host_groups ~tags () :
+let config__vsphere_config ?datastore ?host_groups ?(tags = []) () :
     config__vsphere_config =
   { datastore; host_groups; tags }
 
 let config ?boot_disk_size_gb ?cpus ?enable_load_balancer ?image
-    ?labels ?memory_mb ?replicas ~image_type ~taints ~vsphere_config
-    () : config =
+    ?labels ?memory_mb ?replicas ?(taints = [])
+    ?(vsphere_config = []) ~image_type () : config =
   {
     boot_disk_size_gb;
     cpus;
@@ -555,8 +555,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_gkeonprem_vmware_node_pool ?annotations ?display_name ?id
-    ?project ?timeouts ~location ~name ~vmware_cluster ~config
-    ~node_pool_autoscaling () : google_gkeonprem_vmware_node_pool =
+    ?project ?(node_pool_autoscaling = []) ?timeouts ~location ~name
+    ~vmware_cluster ~config () : google_gkeonprem_vmware_node_pool =
   {
     annotations;
     display_name;
@@ -590,8 +590,9 @@ type t = {
   vmware_cluster : string prop;
 }
 
-let make ?annotations ?display_name ?id ?project ?timeouts ~location
-    ~name ~vmware_cluster ~config ~node_pool_autoscaling __id =
+let make ?annotations ?display_name ?id ?project
+    ?(node_pool_autoscaling = []) ?timeouts ~location ~name
+    ~vmware_cluster ~config __id =
   let __type = "google_gkeonprem_vmware_node_pool" in
   let __attrs =
     ({
@@ -622,17 +623,18 @@ let make ?annotations ?display_name ?id ?project ?timeouts ~location
     json =
       yojson_of_google_gkeonprem_vmware_node_pool
         (google_gkeonprem_vmware_node_pool ?annotations ?display_name
-           ?id ?project ?timeouts ~location ~name ~vmware_cluster
-           ~config ~node_pool_autoscaling ());
+           ?id ?project ~node_pool_autoscaling ?timeouts ~location
+           ~name ~vmware_cluster ~config ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?display_name ?id ?project
-    ?timeouts ~location ~name ~vmware_cluster ~config
-    ~node_pool_autoscaling __id =
+    ?(node_pool_autoscaling = []) ?timeouts ~location ~name
+    ~vmware_cluster ~config __id =
   let (r : _ Tf_core.resource) =
-    make ?annotations ?display_name ?id ?project ?timeouts ~location
-      ~name ~vmware_cluster ~config ~node_pool_autoscaling __id
+    make ?annotations ?display_name ?id ?project
+      ~node_pool_autoscaling ?timeouts ~location ~name
+      ~vmware_cluster ~config __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

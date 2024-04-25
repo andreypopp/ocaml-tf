@@ -65,13 +65,13 @@ val scaling_instruction__target_tracking_configuration :
   ?estimated_instance_warmup:float prop ->
   ?scale_in_cooldown:float prop ->
   ?scale_out_cooldown:float prop ->
-  target_value:float prop ->
-  customized_scaling_metric_specification:
+  ?customized_scaling_metric_specification:
     scaling_instruction__target_tracking_configuration__customized_scaling_metric_specification
     list ->
-  predefined_scaling_metric_specification:
+  ?predefined_scaling_metric_specification:
     scaling_instruction__target_tracking_configuration__predefined_scaling_metric_specification
     list ->
+  target_value:float prop ->
   unit ->
   scaling_instruction__target_tracking_configuration
 
@@ -84,15 +84,15 @@ val scaling_instruction :
   ?predictive_scaling_mode:string prop ->
   ?scaling_policy_update_behavior:string prop ->
   ?scheduled_action_buffer_time:float prop ->
+  ?customized_load_metric_specification:
+    scaling_instruction__customized_load_metric_specification list ->
+  ?predefined_load_metric_specification:
+    scaling_instruction__predefined_load_metric_specification list ->
   max_capacity:float prop ->
   min_capacity:float prop ->
   resource_id:string prop ->
   scalable_dimension:string prop ->
   service_namespace:string prop ->
-  customized_load_metric_specification:
-    scaling_instruction__customized_load_metric_specification list ->
-  predefined_load_metric_specification:
-    scaling_instruction__predefined_load_metric_specification list ->
   target_tracking_configuration:
     scaling_instruction__target_tracking_configuration list ->
   unit ->

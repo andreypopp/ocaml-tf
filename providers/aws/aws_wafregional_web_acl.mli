@@ -27,8 +27,8 @@ val logging_configuration__redacted_fields :
 type logging_configuration
 
 val logging_configuration :
+  ?redacted_fields:logging_configuration__redacted_fields list ->
   log_destination:string prop ->
-  redacted_fields:logging_configuration__redacted_fields list ->
   unit ->
   logging_configuration
 
@@ -45,10 +45,10 @@ type rule
 
 val rule :
   ?type_:string prop ->
+  ?action:rule__action list ->
+  ?override_action:rule__override_action list ->
   priority:float prop ->
   rule_id:string prop ->
-  action:rule__action list ->
-  override_action:rule__override_action list ->
   unit ->
   rule
 
@@ -58,10 +58,10 @@ val aws_wafregional_web_acl :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?logging_configuration:logging_configuration list ->
   metric_name:string prop ->
   name:string prop ->
   default_action:default_action list ->
-  logging_configuration:logging_configuration list ->
   rule:rule list ->
   unit ->
   aws_wafregional_web_acl
@@ -85,10 +85,10 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?logging_configuration:logging_configuration list ->
   metric_name:string prop ->
   name:string prop ->
   default_action:default_action list ->
-  logging_configuration:logging_configuration list ->
   rule:rule list ->
   string ->
   t
@@ -97,10 +97,10 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?logging_configuration:logging_configuration list ->
   metric_name:string prop ->
   name:string prop ->
   default_action:default_action list ->
-  logging_configuration:logging_configuration list ->
   rule:rule list ->
   string ->
   t Tf_core.resource

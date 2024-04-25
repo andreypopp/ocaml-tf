@@ -38,9 +38,9 @@ type cloudflare_load_balancer_pools
 
 val cloudflare_load_balancer_pools :
   ?id:string prop ->
+  ?filter:filter list ->
+  ?pools:pools list ->
   account_id:string prop ->
-  filter:filter list ->
-  pools:pools list ->
   unit ->
   cloudflare_load_balancer_pools
 
@@ -54,16 +54,16 @@ type t = private { account_id : string prop; id : string prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?filter:filter list ->
+  ?pools:pools list ->
   account_id:string prop ->
-  filter:filter list ->
-  pools:pools list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?filter:filter list ->
+  ?pools:pools list ->
   account_id:string prop ->
-  filter:filter list ->
-  pools:pools list ->
   string ->
   t Tf_core.resource

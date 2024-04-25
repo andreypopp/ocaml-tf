@@ -48,12 +48,12 @@ val azurerm_data_factory_linked_service_azure_blob_storage :
   ?storage_kind:string prop ->
   ?tenant_id:string prop ->
   ?use_managed_identity:bool prop ->
+  ?key_vault_sas_token:key_vault_sas_token list ->
+  ?service_principal_linked_key_vault_key:
+    service_principal_linked_key_vault_key list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
-  key_vault_sas_token:key_vault_sas_token list ->
-  service_principal_linked_key_vault_key:
-    service_principal_linked_key_vault_key list ->
   unit ->
   azurerm_data_factory_linked_service_azure_blob_storage
 
@@ -99,12 +99,12 @@ val register :
   ?storage_kind:string prop ->
   ?tenant_id:string prop ->
   ?use_managed_identity:bool prop ->
+  ?key_vault_sas_token:key_vault_sas_token list ->
+  ?service_principal_linked_key_vault_key:
+    service_principal_linked_key_vault_key list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
-  key_vault_sas_token:key_vault_sas_token list ->
-  service_principal_linked_key_vault_key:
-    service_principal_linked_key_vault_key list ->
   string ->
   t
 
@@ -124,11 +124,11 @@ val make :
   ?storage_kind:string prop ->
   ?tenant_id:string prop ->
   ?use_managed_identity:bool prop ->
+  ?key_vault_sas_token:key_vault_sas_token list ->
+  ?service_principal_linked_key_vault_key:
+    service_principal_linked_key_vault_key list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   name:string prop ->
-  key_vault_sas_token:key_vault_sas_token list ->
-  service_principal_linked_key_vault_key:
-    service_principal_linked_key_vault_key list ->
   string ->
   t Tf_core.resource

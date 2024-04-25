@@ -488,10 +488,11 @@ let azurerm_machine_learning_workspace ?container_registry_id
     ?image_build_compute_name ?kind ?primary_user_assigned_identity
     ?public_access_behind_virtual_network_enabled
     ?public_network_access_enabled ?sku_name ?tags
-    ?v1_legacy_mode_enabled ?timeouts ~application_insights_id
+    ?v1_legacy_mode_enabled ?(encryption = []) ?(feature_store = [])
+    ?(managed_network = []) ?timeouts ~application_insights_id
     ~key_vault_id ~location ~name ~resource_group_name
-    ~storage_account_id ~encryption ~feature_store ~identity
-    ~managed_network () : azurerm_machine_learning_workspace =
+    ~storage_account_id ~identity () :
+    azurerm_machine_learning_workspace =
   {
     application_insights_id;
     container_registry_id;
@@ -548,10 +549,10 @@ let make ?container_registry_id ?description ?friendly_name
     ?primary_user_assigned_identity
     ?public_access_behind_virtual_network_enabled
     ?public_network_access_enabled ?sku_name ?tags
-    ?v1_legacy_mode_enabled ?timeouts ~application_insights_id
+    ?v1_legacy_mode_enabled ?(encryption = []) ?(feature_store = [])
+    ?(managed_network = []) ?timeouts ~application_insights_id
     ~key_vault_id ~location ~name ~resource_group_name
-    ~storage_account_id ~encryption ~feature_store ~identity
-    ~managed_network __id =
+    ~storage_account_id ~identity __id =
   let __type = "azurerm_machine_learning_workspace" in
   let __attrs =
     ({
@@ -601,10 +602,10 @@ let make ?container_registry_id ?description ?friendly_name
            ?primary_user_assigned_identity
            ?public_access_behind_virtual_network_enabled
            ?public_network_access_enabled ?sku_name ?tags
-           ?v1_legacy_mode_enabled ?timeouts ~application_insights_id
+           ?v1_legacy_mode_enabled ~encryption ~feature_store
+           ~managed_network ?timeouts ~application_insights_id
            ~key_vault_id ~location ~name ~resource_group_name
-           ~storage_account_id ~encryption ~feature_store ~identity
-           ~managed_network ());
+           ~storage_account_id ~identity ());
     attrs = __attrs;
   }
 
@@ -613,20 +614,20 @@ let register ?tf_module ?container_registry_id ?description
     ?image_build_compute_name ?kind ?primary_user_assigned_identity
     ?public_access_behind_virtual_network_enabled
     ?public_network_access_enabled ?sku_name ?tags
-    ?v1_legacy_mode_enabled ?timeouts ~application_insights_id
+    ?v1_legacy_mode_enabled ?(encryption = []) ?(feature_store = [])
+    ?(managed_network = []) ?timeouts ~application_insights_id
     ~key_vault_id ~location ~name ~resource_group_name
-    ~storage_account_id ~encryption ~feature_store ~identity
-    ~managed_network __id =
+    ~storage_account_id ~identity __id =
   let (r : _ Tf_core.resource) =
     make ?container_registry_id ?description ?friendly_name
       ?high_business_impact ?id ?image_build_compute_name ?kind
       ?primary_user_assigned_identity
       ?public_access_behind_virtual_network_enabled
       ?public_network_access_enabled ?sku_name ?tags
-      ?v1_legacy_mode_enabled ?timeouts ~application_insights_id
+      ?v1_legacy_mode_enabled ~encryption ~feature_store
+      ~managed_network ?timeouts ~application_insights_id
       ~key_vault_id ~location ~name ~resource_group_name
-      ~storage_account_id ~encryption ~feature_store ~identity
-      ~managed_network __id
+      ~storage_account_id ~identity __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

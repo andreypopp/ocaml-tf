@@ -19,12 +19,12 @@ val google_dataplex_asset_iam_member :
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   asset:string prop ->
   dataplex_zone:string prop ->
   lake:string prop ->
   member:string prop ->
   role:string prop ->
-  condition:condition list ->
   unit ->
   google_dataplex_asset_iam_member
 
@@ -50,12 +50,12 @@ val register :
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   asset:string prop ->
   dataplex_zone:string prop ->
   lake:string prop ->
   member:string prop ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t
 
@@ -63,11 +63,11 @@ val make :
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   asset:string prop ->
   dataplex_zone:string prop ->
   lake:string prop ->
   member:string prop ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t Tf_core.resource

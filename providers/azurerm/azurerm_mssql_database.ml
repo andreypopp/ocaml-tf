@@ -814,9 +814,11 @@ let azurerm_mssql_database ?auto_pause_delay_in_minutes ?collation
     ?transparent_data_encryption_enabled
     ?transparent_data_encryption_key_automatic_rotation_enabled
     ?transparent_data_encryption_key_vault_key_id ?zone_redundant
-    ?timeouts ~name ~server_id ~identity ~import
-    ~long_term_retention_policy ~short_term_retention_policy
-    ~threat_detection_policy () : azurerm_mssql_database =
+    ?(identity = []) ?(import = [])
+    ?(long_term_retention_policy = [])
+    ?(short_term_retention_policy = [])
+    ?(threat_detection_policy = []) ?timeouts ~name ~server_id () :
+    azurerm_mssql_database =
   {
     auto_pause_delay_in_minutes;
     collation;
@@ -901,9 +903,10 @@ let make ?auto_pause_delay_in_minutes ?collation ?create_mode
     ?transparent_data_encryption_enabled
     ?transparent_data_encryption_key_automatic_rotation_enabled
     ?transparent_data_encryption_key_vault_key_id ?zone_redundant
-    ?timeouts ~name ~server_id ~identity ~import
-    ~long_term_retention_policy ~short_term_retention_policy
-    ~threat_detection_policy __id =
+    ?(identity = []) ?(import = [])
+    ?(long_term_retention_policy = [])
+    ?(short_term_retention_policy = [])
+    ?(threat_detection_policy = []) ?timeouts ~name ~server_id __id =
   let __type = "azurerm_mssql_database" in
   let __attrs =
     ({
@@ -976,9 +979,9 @@ let make ?auto_pause_delay_in_minutes ?collation ?create_mode
            ?transparent_data_encryption_enabled
            ?transparent_data_encryption_key_automatic_rotation_enabled
            ?transparent_data_encryption_key_vault_key_id
-           ?zone_redundant ?timeouts ~name ~server_id ~identity
-           ~import ~long_term_retention_policy
-           ~short_term_retention_policy ~threat_detection_policy ());
+           ?zone_redundant ~identity ~import
+           ~long_term_retention_policy ~short_term_retention_policy
+           ~threat_detection_policy ?timeouts ~name ~server_id ());
     attrs = __attrs;
   }
 
@@ -994,9 +997,10 @@ let register ?tf_module ?auto_pause_delay_in_minutes ?collation
     ?transparent_data_encryption_enabled
     ?transparent_data_encryption_key_automatic_rotation_enabled
     ?transparent_data_encryption_key_vault_key_id ?zone_redundant
-    ?timeouts ~name ~server_id ~identity ~import
-    ~long_term_retention_policy ~short_term_retention_policy
-    ~threat_detection_policy __id =
+    ?(identity = []) ?(import = [])
+    ?(long_term_retention_policy = [])
+    ?(short_term_retention_policy = [])
+    ?(threat_detection_policy = []) ?timeouts ~name ~server_id __id =
   let (r : _ Tf_core.resource) =
     make ?auto_pause_delay_in_minutes ?collation ?create_mode
       ?creation_source_database_id ?elastic_pool_id ?enclave_type
@@ -1009,9 +1013,9 @@ let register ?tf_module ?auto_pause_delay_in_minutes ?collation
       ?transparent_data_encryption_enabled
       ?transparent_data_encryption_key_automatic_rotation_enabled
       ?transparent_data_encryption_key_vault_key_id ?zone_redundant
-      ?timeouts ~name ~server_id ~identity ~import
-      ~long_term_retention_policy ~short_term_retention_policy
-      ~threat_detection_policy __id
+      ~identity ~import ~long_term_retention_policy
+      ~short_term_retention_policy ~threat_detection_policy ?timeouts
+      ~name ~server_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

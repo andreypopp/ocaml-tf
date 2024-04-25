@@ -17,7 +17,7 @@ type rotation_policy
 val rotation_policy :
   ?expire_after:string prop ->
   ?notify_before_expiry:string prop ->
-  automatic:rotation_policy__automatic list ->
+  ?automatic:rotation_policy__automatic list ->
   unit ->
   rotation_policy
 
@@ -40,12 +40,12 @@ val azurerm_key_vault_key :
   ?key_size:float prop ->
   ?not_before_date:string prop ->
   ?tags:(string * string prop) list ->
+  ?rotation_policy:rotation_policy list ->
   ?timeouts:timeouts ->
   key_opts:string prop list ->
   key_type:string prop ->
   key_vault_id:string prop ->
   name:string prop ->
-  rotation_policy:rotation_policy list ->
   unit ->
   azurerm_key_vault_key
 
@@ -84,12 +84,12 @@ val register :
   ?key_size:float prop ->
   ?not_before_date:string prop ->
   ?tags:(string * string prop) list ->
+  ?rotation_policy:rotation_policy list ->
   ?timeouts:timeouts ->
   key_opts:string prop list ->
   key_type:string prop ->
   key_vault_id:string prop ->
   name:string prop ->
-  rotation_policy:rotation_policy list ->
   string ->
   t
 
@@ -100,11 +100,11 @@ val make :
   ?key_size:float prop ->
   ?not_before_date:string prop ->
   ?tags:(string * string prop) list ->
+  ?rotation_policy:rotation_policy list ->
   ?timeouts:timeouts ->
   key_opts:string prop list ->
   key_type:string prop ->
   key_vault_id:string prop ->
   name:string prop ->
-  rotation_policy:rotation_policy list ->
   string ->
   t Tf_core.resource

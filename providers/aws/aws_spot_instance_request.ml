@@ -1419,8 +1419,9 @@ let capacity_reservation_specification__capacity_reservation_target
   }
 
 let capacity_reservation_specification
-    ?capacity_reservation_preference ~capacity_reservation_target ()
-    : capacity_reservation_specification =
+    ?capacity_reservation_preference
+    ?(capacity_reservation_target = []) () :
+    capacity_reservation_specification =
   { capacity_reservation_preference; capacity_reservation_target }
 
 let cpu_options ?amd_sev_snp ?core_count ?threads_per_core () :
@@ -1520,11 +1521,13 @@ let aws_spot_instance_request ?ami ?associate_public_ip_address
     ?tags_all ?tenancy ?user_data ?user_data_base64
     ?user_data_replace_on_change ?valid_from ?valid_until
     ?volume_tags ?vpc_security_group_ids ?wait_for_fulfillment
-    ?timeouts ~capacity_reservation_specification ~cpu_options
-    ~credit_specification ~ebs_block_device ~enclave_options
-    ~ephemeral_block_device ~launch_template ~maintenance_options
-    ~metadata_options ~network_interface ~private_dns_name_options
-    ~root_block_device () : aws_spot_instance_request =
+    ?(capacity_reservation_specification = []) ?(cpu_options = [])
+    ?(credit_specification = []) ?(enclave_options = [])
+    ?(launch_template = []) ?(maintenance_options = [])
+    ?(metadata_options = []) ?(private_dns_name_options = [])
+    ?(root_block_device = []) ?timeouts ~ebs_block_device
+    ~ephemeral_block_device ~network_interface () :
+    aws_spot_instance_request =
   {
     ami;
     associate_public_ip_address;
@@ -1654,11 +1657,12 @@ let make ?ami ?associate_public_ip_address ?availability_zone
     ?tags_all ?tenancy ?user_data ?user_data_base64
     ?user_data_replace_on_change ?valid_from ?valid_until
     ?volume_tags ?vpc_security_group_ids ?wait_for_fulfillment
-    ?timeouts ~capacity_reservation_specification ~cpu_options
-    ~credit_specification ~ebs_block_device ~enclave_options
-    ~ephemeral_block_device ~launch_template ~maintenance_options
-    ~metadata_options ~network_interface ~private_dns_name_options
-    ~root_block_device __id =
+    ?(capacity_reservation_specification = []) ?(cpu_options = [])
+    ?(credit_specification = []) ?(enclave_options = [])
+    ?(launch_template = []) ?(maintenance_options = [])
+    ?(metadata_options = []) ?(private_dns_name_options = [])
+    ?(root_block_device = []) ?timeouts ~ebs_block_device
+    ~ephemeral_block_device ~network_interface __id =
   let __type = "aws_spot_instance_request" in
   let __attrs =
     ({
@@ -1762,12 +1766,13 @@ let make ?ami ?associate_public_ip_address ?availability_zone
            ?spot_price ?spot_type ?subnet_id ?tags ?tags_all ?tenancy
            ?user_data ?user_data_base64 ?user_data_replace_on_change
            ?valid_from ?valid_until ?volume_tags
-           ?vpc_security_group_ids ?wait_for_fulfillment ?timeouts
+           ?vpc_security_group_ids ?wait_for_fulfillment
            ~capacity_reservation_specification ~cpu_options
-           ~credit_specification ~ebs_block_device ~enclave_options
-           ~ephemeral_block_device ~launch_template
-           ~maintenance_options ~metadata_options ~network_interface
-           ~private_dns_name_options ~root_block_device ());
+           ~credit_specification ~enclave_options ~launch_template
+           ~maintenance_options ~metadata_options
+           ~private_dns_name_options ~root_block_device ?timeouts
+           ~ebs_block_device ~ephemeral_block_device
+           ~network_interface ());
     attrs = __attrs;
   }
 
@@ -1785,11 +1790,12 @@ let register ?tf_module ?ami ?associate_public_ip_address
     ?tags_all ?tenancy ?user_data ?user_data_base64
     ?user_data_replace_on_change ?valid_from ?valid_until
     ?volume_tags ?vpc_security_group_ids ?wait_for_fulfillment
-    ?timeouts ~capacity_reservation_specification ~cpu_options
-    ~credit_specification ~ebs_block_device ~enclave_options
-    ~ephemeral_block_device ~launch_template ~maintenance_options
-    ~metadata_options ~network_interface ~private_dns_name_options
-    ~root_block_device __id =
+    ?(capacity_reservation_specification = []) ?(cpu_options = [])
+    ?(credit_specification = []) ?(enclave_options = [])
+    ?(launch_template = []) ?(maintenance_options = [])
+    ?(metadata_options = []) ?(private_dns_name_options = [])
+    ?(root_block_device = []) ?timeouts ~ebs_block_device
+    ~ephemeral_block_device ~network_interface __id =
   let (r : _ Tf_core.resource) =
     make ?ami ?associate_public_ip_address ?availability_zone
       ?block_duration_minutes ?cpu_core_count ?cpu_threads_per_core
@@ -1805,11 +1811,12 @@ let register ?tf_module ?ami ?associate_public_ip_address
       ?tags_all ?tenancy ?user_data ?user_data_base64
       ?user_data_replace_on_change ?valid_from ?valid_until
       ?volume_tags ?vpc_security_group_ids ?wait_for_fulfillment
-      ?timeouts ~capacity_reservation_specification ~cpu_options
-      ~credit_specification ~ebs_block_device ~enclave_options
-      ~ephemeral_block_device ~launch_template ~maintenance_options
-      ~metadata_options ~network_interface ~private_dns_name_options
-      ~root_block_device __id
+      ~capacity_reservation_specification ~cpu_options
+      ~credit_specification ~enclave_options ~launch_template
+      ~maintenance_options ~metadata_options
+      ~private_dns_name_options ~root_block_device ?timeouts
+      ~ebs_block_device ~ephemeral_block_device ~network_interface
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

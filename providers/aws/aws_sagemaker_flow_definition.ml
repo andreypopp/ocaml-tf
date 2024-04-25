@@ -450,7 +450,7 @@ let human_loop_activation_config__human_loop_activation_conditions_config
   { human_loop_activation_conditions }
 
 let human_loop_activation_config
-    ~human_loop_activation_conditions_config () :
+    ?(human_loop_activation_conditions_config = []) () :
     human_loop_activation_config =
   { human_loop_activation_conditions_config }
 
@@ -459,14 +459,16 @@ let human_loop_config__public_workforce_task_price__amount_in_usd
     human_loop_config__public_workforce_task_price__amount_in_usd =
   { cents; dollars; tenth_fractions_of_a_cent }
 
-let human_loop_config__public_workforce_task_price ~amount_in_usd ()
-    : human_loop_config__public_workforce_task_price =
+let human_loop_config__public_workforce_task_price
+    ?(amount_in_usd = []) () :
+    human_loop_config__public_workforce_task_price =
   { amount_in_usd }
 
 let human_loop_config ?task_availability_lifetime_in_seconds
-    ?task_keywords ?task_time_limit_in_seconds ~human_task_ui_arn
-    ~task_count ~task_description ~task_title ~workteam_arn
-    ~public_workforce_task_price () : human_loop_config =
+    ?task_keywords ?task_time_limit_in_seconds
+    ?(public_workforce_task_price = []) ~human_task_ui_arn
+    ~task_count ~task_description ~task_title ~workteam_arn () :
+    human_loop_config =
   {
     human_task_ui_arn;
     task_availability_lifetime_in_seconds;
@@ -487,8 +489,9 @@ let output_config ?kms_key_id ~s3_output_path () : output_config =
   { kms_key_id; s3_output_path }
 
 let aws_sagemaker_flow_definition ?id ?tags ?tags_all
-    ~flow_definition_name ~role_arn ~human_loop_activation_config
-    ~human_loop_config ~human_loop_request_source ~output_config () :
+    ?(human_loop_activation_config = [])
+    ?(human_loop_request_source = []) ~flow_definition_name ~role_arn
+    ~human_loop_config ~output_config () :
     aws_sagemaker_flow_definition =
   {
     flow_definition_name;
@@ -511,9 +514,9 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?tags ?tags_all ~flow_definition_name ~role_arn
-    ~human_loop_activation_config ~human_loop_config
-    ~human_loop_request_source ~output_config __id =
+let make ?id ?tags ?tags_all ?(human_loop_activation_config = [])
+    ?(human_loop_request_source = []) ~flow_definition_name ~role_arn
+    ~human_loop_config ~output_config __id =
   let __type = "aws_sagemaker_flow_definition" in
   let __attrs =
     ({
@@ -533,19 +536,20 @@ let make ?id ?tags ?tags_all ~flow_definition_name ~role_arn
     json =
       yojson_of_aws_sagemaker_flow_definition
         (aws_sagemaker_flow_definition ?id ?tags ?tags_all
-           ~flow_definition_name ~role_arn
-           ~human_loop_activation_config ~human_loop_config
-           ~human_loop_request_source ~output_config ());
+           ~human_loop_activation_config ~human_loop_request_source
+           ~flow_definition_name ~role_arn ~human_loop_config
+           ~output_config ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?tags ?tags_all ~flow_definition_name
-    ~role_arn ~human_loop_activation_config ~human_loop_config
-    ~human_loop_request_source ~output_config __id =
+let register ?tf_module ?id ?tags ?tags_all
+    ?(human_loop_activation_config = [])
+    ?(human_loop_request_source = []) ~flow_definition_name ~role_arn
+    ~human_loop_config ~output_config __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?tags ?tags_all ~flow_definition_name ~role_arn
-      ~human_loop_activation_config ~human_loop_config
-      ~human_loop_request_source ~output_config __id
+    make ?id ?tags ?tags_all ~human_loop_activation_config
+      ~human_loop_request_source ~flow_definition_name ~role_arn
+      ~human_loop_config ~output_config __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

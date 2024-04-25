@@ -163,10 +163,10 @@ let data_masking_policy ~predefined_expression () :
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
-let google_bigquery_datapolicy_data_policy ?id ?project ?timeouts
-    ~data_policy_id ~data_policy_type ~location ~policy_tag
-    ~data_masking_policy () : google_bigquery_datapolicy_data_policy
-    =
+let google_bigquery_datapolicy_data_policy ?id ?project
+    ?(data_masking_policy = []) ?timeouts ~data_policy_id
+    ~data_policy_type ~location ~policy_tag () :
+    google_bigquery_datapolicy_data_policy =
   {
     data_policy_id;
     data_policy_type;
@@ -188,8 +188,8 @@ type t = {
   project : string prop;
 }
 
-let make ?id ?project ?timeouts ~data_policy_id ~data_policy_type
-    ~location ~policy_tag ~data_masking_policy __id =
+let make ?id ?project ?(data_masking_policy = []) ?timeouts
+    ~data_policy_id ~data_policy_type ~location ~policy_tag __id =
   let __type = "google_bigquery_datapolicy_data_policy" in
   let __attrs =
     ({
@@ -210,17 +210,17 @@ let make ?id ?project ?timeouts ~data_policy_id ~data_policy_type
     json =
       yojson_of_google_bigquery_datapolicy_data_policy
         (google_bigquery_datapolicy_data_policy ?id ?project
-           ?timeouts ~data_policy_id ~data_policy_type ~location
-           ~policy_tag ~data_masking_policy ());
+           ~data_masking_policy ?timeouts ~data_policy_id
+           ~data_policy_type ~location ~policy_tag ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ?timeouts ~data_policy_id
-    ~data_policy_type ~location ~policy_tag ~data_masking_policy __id
-    =
+let register ?tf_module ?id ?project ?(data_masking_policy = [])
+    ?timeouts ~data_policy_id ~data_policy_type ~location ~policy_tag
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ?timeouts ~data_policy_id ~data_policy_type
-      ~location ~policy_tag ~data_masking_policy __id
+    make ?id ?project ~data_masking_policy ?timeouts ~data_policy_id
+      ~data_policy_type ~location ~policy_tag __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

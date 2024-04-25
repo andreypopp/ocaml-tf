@@ -30,8 +30,8 @@ val cache_usage_limits__ecpu_per_second :
 type cache_usage_limits
 
 val cache_usage_limits :
-  data_storage:cache_usage_limits__data_storage list ->
-  ecpu_per_second:cache_usage_limits__ecpu_per_second list ->
+  ?data_storage:cache_usage_limits__data_storage list ->
+  ?ecpu_per_second:cache_usage_limits__ecpu_per_second list ->
   unit ->
   cache_usage_limits
 
@@ -57,10 +57,10 @@ val aws_elasticache_serverless_cache :
   ?subnet_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?user_group_id:string prop ->
+  ?cache_usage_limits:cache_usage_limits list ->
   ?timeouts:timeouts ->
   engine:string prop ->
   name:string prop ->
-  cache_usage_limits:cache_usage_limits list ->
   unit ->
   aws_elasticache_serverless_cache
 
@@ -104,10 +104,10 @@ val register :
   ?subnet_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?user_group_id:string prop ->
+  ?cache_usage_limits:cache_usage_limits list ->
   ?timeouts:timeouts ->
   engine:string prop ->
   name:string prop ->
-  cache_usage_limits:cache_usage_limits list ->
   string ->
   t
 
@@ -122,9 +122,9 @@ val make :
   ?subnet_ids:string prop list ->
   ?tags:(string * string prop) list ->
   ?user_group_id:string prop ->
+  ?cache_usage_limits:cache_usage_limits list ->
   ?timeouts:timeouts ->
   engine:string prop ->
   name:string prop ->
-  cache_usage_limits:cache_usage_limits list ->
   string ->
   t Tf_core.resource

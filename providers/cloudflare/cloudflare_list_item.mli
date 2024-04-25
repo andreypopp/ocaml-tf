@@ -31,10 +31,10 @@ val cloudflare_list_item :
   ?asn:float prop ->
   ?comment:string prop ->
   ?ip:string prop ->
+  ?hostname:hostname list ->
+  ?redirect:redirect list ->
   account_id:string prop ->
   list_id:string prop ->
-  hostname:hostname list ->
-  redirect:redirect list ->
   unit ->
   cloudflare_list_item
 
@@ -56,10 +56,10 @@ val register :
   ?asn:float prop ->
   ?comment:string prop ->
   ?ip:string prop ->
+  ?hostname:hostname list ->
+  ?redirect:redirect list ->
   account_id:string prop ->
   list_id:string prop ->
-  hostname:hostname list ->
-  redirect:redirect list ->
   string ->
   t
 
@@ -67,9 +67,9 @@ val make :
   ?asn:float prop ->
   ?comment:string prop ->
   ?ip:string prop ->
+  ?hostname:hostname list ->
+  ?redirect:redirect list ->
   account_id:string prop ->
   list_id:string prop ->
-  hostname:hostname list ->
-  redirect:redirect list ->
   string ->
   t Tf_core.resource

@@ -23,7 +23,7 @@ val column_groups__geo_spatial_column_group :
 type column_groups
 
 val column_groups :
-    geo_spatial_column_group:column_groups__geo_spatial_column_group list ->
+    ?geo_spatial_column_group:column_groups__geo_spatial_column_group list ->
     unit ->
     column_groups
 
@@ -110,7 +110,7 @@ type logical_table_map__data_transforms__tag_column_operation__tags
 
 val logical_table_map__data_transforms__tag_column_operation__tags :
     ?column_geographic_role:string prop ->
-    column_description:logical_table_map__data_transforms__tag_column_operation__tags__column_description list ->
+    ?column_description:logical_table_map__data_transforms__tag_column_operation__tags__column_description list ->
     unit ->
     logical_table_map__data_transforms__tag_column_operation__tags
 
@@ -133,13 +133,13 @@ val logical_table_map__data_transforms__untag_column_operation :
 type logical_table_map__data_transforms
 
 val logical_table_map__data_transforms :
-    cast_column_type_operation:logical_table_map__data_transforms__cast_column_type_operation list ->
-    create_columns_operation:logical_table_map__data_transforms__create_columns_operation list ->
-    filter_operation:logical_table_map__data_transforms__filter_operation list ->
-    project_operation:logical_table_map__data_transforms__project_operation list ->
-    rename_column_operation:logical_table_map__data_transforms__rename_column_operation list ->
-    tag_column_operation:logical_table_map__data_transforms__tag_column_operation list ->
-    untag_column_operation:logical_table_map__data_transforms__untag_column_operation list ->
+    ?cast_column_type_operation:logical_table_map__data_transforms__cast_column_type_operation list ->
+    ?create_columns_operation:logical_table_map__data_transforms__create_columns_operation list ->
+    ?filter_operation:logical_table_map__data_transforms__filter_operation list ->
+    ?project_operation:logical_table_map__data_transforms__project_operation list ->
+    ?rename_column_operation:logical_table_map__data_transforms__rename_column_operation list ->
+    ?tag_column_operation:logical_table_map__data_transforms__tag_column_operation list ->
+    ?untag_column_operation:logical_table_map__data_transforms__untag_column_operation list ->
     unit ->
     logical_table_map__data_transforms
 
@@ -160,12 +160,12 @@ val logical_table_map__source__join_instruction__right_join_key_properties :
 type logical_table_map__source__join_instruction
 
 val logical_table_map__source__join_instruction :
+    ?left_join_key_properties:logical_table_map__source__join_instruction__left_join_key_properties list ->
+    ?right_join_key_properties:logical_table_map__source__join_instruction__right_join_key_properties list ->
     left_operand:string prop ->
     on_clause:string prop ->
     right_operand:string prop ->
     type_:string prop ->
-    left_join_key_properties:logical_table_map__source__join_instruction__left_join_key_properties list ->
-    right_join_key_properties:logical_table_map__source__join_instruction__right_join_key_properties list ->
     unit ->
     logical_table_map__source__join_instruction
 
@@ -174,16 +174,16 @@ type logical_table_map__source
 val logical_table_map__source :
     ?data_set_arn:string prop ->
     ?physical_table_id:string prop ->
-    join_instruction:logical_table_map__source__join_instruction list ->
+    ?join_instruction:logical_table_map__source__join_instruction list ->
     unit ->
     logical_table_map__source
 
 type logical_table_map
 
 val logical_table_map :
+    ?data_transforms:logical_table_map__data_transforms list ->
     alias:string prop ->
     logical_table_map_id:string prop ->
-    data_transforms:logical_table_map__data_transforms list ->
     source:logical_table_map__source list ->
     unit ->
     logical_table_map
@@ -207,10 +207,10 @@ val physical_table_map__custom_sql__columns :
 type physical_table_map__custom_sql
 
 val physical_table_map__custom_sql :
+    ?columns:physical_table_map__custom_sql__columns list ->
     data_source_arn:string prop ->
     name:string prop ->
     sql_query:string prop ->
-    columns:physical_table_map__custom_sql__columns list ->
     unit ->
     physical_table_map__custom_sql
 
@@ -264,10 +264,10 @@ val physical_table_map__s3_source :
 type physical_table_map
 
 val physical_table_map :
+    ?custom_sql:physical_table_map__custom_sql list ->
+    ?relational_table:physical_table_map__relational_table list ->
+    ?s3_source:physical_table_map__s3_source list ->
     physical_table_map_id:string prop ->
-    custom_sql:physical_table_map__custom_sql list ->
-    relational_table:physical_table_map__relational_table list ->
-    s3_source:physical_table_map__s3_source list ->
     unit ->
     physical_table_map
 
@@ -337,19 +337,19 @@ val aws_quicksight_data_set :
     ?id:string prop ->
     ?tags:(string * string  prop) list ->
     ?tags_all:(string * string  prop) list ->
+    ?column_groups:column_groups list ->
+    ?column_level_permission_rules:column_level_permission_rules list ->
+    ?data_set_usage_configuration:data_set_usage_configuration list ->
+    ?refresh_properties:refresh_properties list ->
+    ?row_level_permission_data_set:row_level_permission_data_set list ->
+    ?row_level_permission_tag_configuration:row_level_permission_tag_configuration list ->
     data_set_id:string prop ->
     import_mode:string prop ->
     name:string prop ->
-    column_groups:column_groups list ->
-    column_level_permission_rules:column_level_permission_rules list ->
-    data_set_usage_configuration:data_set_usage_configuration list ->
     field_folders:field_folders list ->
     logical_table_map:logical_table_map list ->
     permissions:permissions list ->
     physical_table_map:physical_table_map list ->
-    refresh_properties:refresh_properties list ->
-    row_level_permission_data_set:row_level_permission_data_set list ->
-    row_level_permission_tag_configuration:row_level_permission_tag_configuration list ->
     unit ->
     aws_quicksight_data_set
 
@@ -375,19 +375,19 @@ val register :
     ?id:string prop ->
     ?tags:(string * string  prop) list ->
     ?tags_all:(string * string  prop) list ->
+    ?column_groups:column_groups list ->
+    ?column_level_permission_rules:column_level_permission_rules list ->
+    ?data_set_usage_configuration:data_set_usage_configuration list ->
+    ?refresh_properties:refresh_properties list ->
+    ?row_level_permission_data_set:row_level_permission_data_set list ->
+    ?row_level_permission_tag_configuration:row_level_permission_tag_configuration list ->
     data_set_id:string prop ->
     import_mode:string prop ->
     name:string prop ->
-    column_groups:column_groups list ->
-    column_level_permission_rules:column_level_permission_rules list ->
-    data_set_usage_configuration:data_set_usage_configuration list ->
     field_folders:field_folders list ->
     logical_table_map:logical_table_map list ->
     permissions:permissions list ->
     physical_table_map:physical_table_map list ->
-    refresh_properties:refresh_properties list ->
-    row_level_permission_data_set:row_level_permission_data_set list ->
-    row_level_permission_tag_configuration:row_level_permission_tag_configuration list ->
     string ->
     t
 
@@ -396,19 +396,19 @@ val make :
     ?id:string prop ->
     ?tags:(string * string  prop) list ->
     ?tags_all:(string * string  prop) list ->
+    ?column_groups:column_groups list ->
+    ?column_level_permission_rules:column_level_permission_rules list ->
+    ?data_set_usage_configuration:data_set_usage_configuration list ->
+    ?refresh_properties:refresh_properties list ->
+    ?row_level_permission_data_set:row_level_permission_data_set list ->
+    ?row_level_permission_tag_configuration:row_level_permission_tag_configuration list ->
     data_set_id:string prop ->
     import_mode:string prop ->
     name:string prop ->
-    column_groups:column_groups list ->
-    column_level_permission_rules:column_level_permission_rules list ->
-    data_set_usage_configuration:data_set_usage_configuration list ->
     field_folders:field_folders list ->
     logical_table_map:logical_table_map list ->
     permissions:permissions list ->
     physical_table_map:physical_table_map list ->
-    refresh_properties:refresh_properties list ->
-    row_level_permission_data_set:row_level_permission_data_set list ->
-    row_level_permission_tag_configuration:row_level_permission_tag_configuration list ->
     string ->
     t Tf_core.resource
 

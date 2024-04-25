@@ -29,9 +29,9 @@ val aws_networkmanager_site :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?location:location list ->
   ?timeouts:timeouts ->
   global_network_id:string prop ->
-  location:location list ->
   unit ->
   aws_networkmanager_site
 
@@ -55,9 +55,9 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?location:location list ->
   ?timeouts:timeouts ->
   global_network_id:string prop ->
-  location:location list ->
   string ->
   t
 
@@ -66,8 +66,8 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?location:location list ->
   ?timeouts:timeouts ->
   global_network_id:string prop ->
-  location:location list ->
   string ->
   t Tf_core.resource

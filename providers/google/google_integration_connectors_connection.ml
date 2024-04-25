@@ -2345,8 +2345,8 @@ let auth_config__additional_variable__secret_value ~secret_version ()
   { secret_version }
 
 let auth_config__additional_variable ?boolean_value ?integer_value
-    ?string_value ~key ~encryption_key_value ~secret_value () :
-    auth_config__additional_variable =
+    ?string_value ?(encryption_key_value = []) ?(secret_value = [])
+    ~key () : auth_config__additional_variable =
   {
     boolean_value;
     integer_value;
@@ -2361,7 +2361,7 @@ let auth_config__oauth2_auth_code_flow__client_secret ~secret_version
   { secret_version }
 
 let auth_config__oauth2_auth_code_flow ?auth_uri ?client_id
-    ?enable_pkce ?scopes ~client_secret () :
+    ?enable_pkce ?scopes ?(client_secret = []) () :
     auth_config__oauth2_auth_code_flow =
   { auth_uri; client_id; enable_pkce; scopes; client_secret }
 
@@ -2370,8 +2370,8 @@ let auth_config__oauth2_client_credentials__client_secret
     auth_config__oauth2_client_credentials__client_secret =
   { secret_version }
 
-let auth_config__oauth2_client_credentials ~client_id ~client_secret
-    () : auth_config__oauth2_client_credentials =
+let auth_config__oauth2_client_credentials ?(client_secret = [])
+    ~client_id () : auth_config__oauth2_client_credentials =
   { client_id; client_secret }
 
 let auth_config__oauth2_jwt_bearer__client_key ~secret_version () :
@@ -2382,8 +2382,8 @@ let auth_config__oauth2_jwt_bearer__jwt_claims ?audience ?issuer
     ?subject () : auth_config__oauth2_jwt_bearer__jwt_claims =
   { audience; issuer; subject }
 
-let auth_config__oauth2_jwt_bearer ~client_key ~jwt_claims () :
-    auth_config__oauth2_jwt_bearer =
+let auth_config__oauth2_jwt_bearer ?(client_key = [])
+    ?(jwt_claims = []) () : auth_config__oauth2_jwt_bearer =
   { client_key; jwt_claims }
 
 let auth_config__ssh_public_key__ssh_client_cert ~secret_version () :
@@ -2394,22 +2394,23 @@ let auth_config__ssh_public_key__ssh_client_cert_pass ~secret_version
     () : auth_config__ssh_public_key__ssh_client_cert_pass =
   { secret_version }
 
-let auth_config__ssh_public_key ?cert_type ~username ~ssh_client_cert
-    ~ssh_client_cert_pass () : auth_config__ssh_public_key =
+let auth_config__ssh_public_key ?cert_type ?(ssh_client_cert = [])
+    ?(ssh_client_cert_pass = []) ~username () :
+    auth_config__ssh_public_key =
   { cert_type; username; ssh_client_cert; ssh_client_cert_pass }
 
 let auth_config__user_password__password ~secret_version () :
     auth_config__user_password__password =
   { secret_version }
 
-let auth_config__user_password ~username ~password () :
+let auth_config__user_password ?(password = []) ~username () :
     auth_config__user_password =
   { username; password }
 
-let auth_config ?auth_key ~auth_type ~additional_variable
-    ~oauth2_auth_code_flow ~oauth2_client_credentials
-    ~oauth2_jwt_bearer ~ssh_public_key ~user_password () :
-    auth_config =
+let auth_config ?auth_key ?(additional_variable = [])
+    ?(oauth2_auth_code_flow = []) ?(oauth2_client_credentials = [])
+    ?(oauth2_jwt_bearer = []) ?(ssh_public_key = [])
+    ?(user_password = []) ~auth_type () : auth_config =
   {
     auth_key;
     auth_type;
@@ -2429,8 +2430,9 @@ let config_variable__secret_value ~secret_version () :
     config_variable__secret_value =
   { secret_version }
 
-let config_variable ?boolean_value ?integer_value ?string_value ~key
-    ~encryption_key_value ~secret_value () : config_variable =
+let config_variable ?boolean_value ?integer_value ?string_value
+    ?(encryption_key_value = []) ?(secret_value = []) ~key () :
+    config_variable =
   {
     boolean_value;
     integer_value;
@@ -2444,7 +2446,8 @@ let destination_config__destination ?host ?port ?service_attachment
     () : destination_config__destination =
   { host; port; service_attachment }
 
-let destination_config ~key ~destination () : destination_config =
+let destination_config ?(destination = []) ~key () :
+    destination_config =
   { key; destination }
 
 let eventing_config__additional_variable__encryption_key_value
@@ -2458,8 +2461,9 @@ let eventing_config__additional_variable__secret_value
   { secret_version }
 
 let eventing_config__additional_variable ?boolean_value
-    ?integer_value ?string_value ~key ~encryption_key_value
-    ~secret_value () : eventing_config__additional_variable =
+    ?integer_value ?string_value ?(encryption_key_value = [])
+    ?(secret_value = []) ~key () :
+    eventing_config__additional_variable =
   {
     boolean_value;
     integer_value;
@@ -2481,8 +2485,8 @@ let eventing_config__auth_config__additional_variable__secret_value
   { secret_version }
 
 let eventing_config__auth_config__additional_variable ?boolean_value
-    ?integer_value ?string_value ~key ~encryption_key_value
-    ~secret_value () :
+    ?integer_value ?string_value ?(encryption_key_value = [])
+    ?(secret_value = []) ~key () :
     eventing_config__auth_config__additional_variable =
   {
     boolean_value;
@@ -2498,12 +2502,13 @@ let eventing_config__auth_config__user_password__password
     eventing_config__auth_config__user_password__password =
   { secret_version }
 
-let eventing_config__auth_config__user_password ?username ~password
-    () : eventing_config__auth_config__user_password =
+let eventing_config__auth_config__user_password ?username
+    ?(password = []) () : eventing_config__auth_config__user_password
+    =
   { username; password }
 
-let eventing_config__auth_config ?auth_key ~auth_type
-    ~additional_variable ~user_password () :
+let eventing_config__auth_config ?auth_key
+    ?(additional_variable = []) ~auth_type ~user_password () :
     eventing_config__auth_config =
   { auth_key; auth_type; additional_variable; user_password }
 
@@ -2513,12 +2518,12 @@ let eventing_config__registration_destination_config__destination
   { host; port; service_attachment }
 
 let eventing_config__registration_destination_config ?key
-    ~destination () :
+    ?(destination = []) () :
     eventing_config__registration_destination_config =
   { key; destination }
 
-let eventing_config ?enrichment_enabled ~additional_variable
-    ~auth_config ~registration_destination_config () :
+let eventing_config ?enrichment_enabled ?(additional_variable = [])
+    ?(auth_config = []) ~registration_destination_config () :
     eventing_config =
   {
     enrichment_enabled;
@@ -2543,8 +2548,8 @@ let ssl_config__additional_variable__secret_value ~secret_version ()
   { secret_version }
 
 let ssl_config__additional_variable ?boolean_value ?integer_value
-    ?string_value ~key ~encryption_key_value ~secret_value () :
-    ssl_config__additional_variable =
+    ?string_value ?(encryption_key_value = []) ?(secret_value = [])
+    ~key () : ssl_config__additional_variable =
   {
     boolean_value;
     integer_value;
@@ -2571,9 +2576,9 @@ let ssl_config__private_server_certificate ~secret_version () :
   { secret_version }
 
 let ssl_config ?client_cert_type ?server_cert_type ?trust_model
-    ?use_ssl ~type_ ~additional_variable ~client_certificate
-    ~client_private_key ~client_private_key_pass
-    ~private_server_certificate () : ssl_config =
+    ?use_ssl ?(additional_variable = []) ?(client_certificate = [])
+    ?(client_private_key = []) ?(client_private_key_pass = [])
+    ?(private_server_certificate = []) ~type_ () : ssl_config =
   {
     client_cert_type;
     server_cert_type;
@@ -2592,10 +2597,11 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_integration_connectors_connection ?description
     ?eventing_enablement_type ?id ?labels ?project ?service_account
-    ?suspended ?timeouts ~connector_version ~location ~name
-    ~auth_config ~config_variable ~destination_config
-    ~eventing_config ~lock_config ~log_config ~node_config
-    ~ssl_config () : google_integration_connectors_connection =
+    ?suspended ?(auth_config = []) ?(config_variable = [])
+    ?(destination_config = []) ?(eventing_config = [])
+    ?(lock_config = []) ?(log_config = []) ?(node_config = [])
+    ?(ssl_config = []) ?timeouts ~connector_version ~location ~name
+    () : google_integration_connectors_connection =
   {
     connector_version;
     description;
@@ -2644,10 +2650,11 @@ type t = {
 }
 
 let make ?description ?eventing_enablement_type ?id ?labels ?project
-    ?service_account ?suspended ?timeouts ~connector_version
-    ~location ~name ~auth_config ~config_variable ~destination_config
-    ~eventing_config ~lock_config ~log_config ~node_config
-    ~ssl_config __id =
+    ?service_account ?suspended ?(auth_config = [])
+    ?(config_variable = []) ?(destination_config = [])
+    ?(eventing_config = []) ?(lock_config = []) ?(log_config = [])
+    ?(node_config = []) ?(ssl_config = []) ?timeouts
+    ~connector_version ~location ~name __id =
   let __type = "google_integration_connectors_connection" in
   let __attrs =
     ({
@@ -2692,24 +2699,25 @@ let make ?description ?eventing_enablement_type ?id ?labels ?project
       yojson_of_google_integration_connectors_connection
         (google_integration_connectors_connection ?description
            ?eventing_enablement_type ?id ?labels ?project
-           ?service_account ?suspended ?timeouts ~connector_version
-           ~location ~name ~auth_config ~config_variable
+           ?service_account ?suspended ~auth_config ~config_variable
            ~destination_config ~eventing_config ~lock_config
-           ~log_config ~node_config ~ssl_config ());
+           ~log_config ~node_config ~ssl_config ?timeouts
+           ~connector_version ~location ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?eventing_enablement_type ?id
-    ?labels ?project ?service_account ?suspended ?timeouts
-    ~connector_version ~location ~name ~auth_config ~config_variable
-    ~destination_config ~eventing_config ~lock_config ~log_config
-    ~node_config ~ssl_config __id =
+    ?labels ?project ?service_account ?suspended ?(auth_config = [])
+    ?(config_variable = []) ?(destination_config = [])
+    ?(eventing_config = []) ?(lock_config = []) ?(log_config = [])
+    ?(node_config = []) ?(ssl_config = []) ?timeouts
+    ~connector_version ~location ~name __id =
   let (r : _ Tf_core.resource) =
     make ?description ?eventing_enablement_type ?id ?labels ?project
-      ?service_account ?suspended ?timeouts ~connector_version
-      ~location ~name ~auth_config ~config_variable
+      ?service_account ?suspended ~auth_config ~config_variable
       ~destination_config ~eventing_config ~lock_config ~log_config
-      ~node_config ~ssl_config __id
+      ~node_config ~ssl_config ?timeouts ~connector_version ~location
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

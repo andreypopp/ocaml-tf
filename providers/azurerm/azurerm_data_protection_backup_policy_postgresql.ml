@@ -288,10 +288,10 @@ let timeouts ?create ?delete ?read () : timeouts =
   { create; delete; read }
 
 let azurerm_data_protection_backup_policy_postgresql ?id ?time_zone
-    ?timeouts ~backup_repeating_time_intervals
+    ?(retention_rule = []) ?timeouts ~backup_repeating_time_intervals
     ~default_retention_duration ~name ~resource_group_name
-    ~vault_name ~retention_rule () :
-    azurerm_data_protection_backup_policy_postgresql =
+    ~vault_name () : azurerm_data_protection_backup_policy_postgresql
+    =
   {
     backup_repeating_time_intervals;
     default_retention_duration;
@@ -314,9 +314,9 @@ type t = {
   vault_name : string prop;
 }
 
-let make ?id ?time_zone ?timeouts ~backup_repeating_time_intervals
-    ~default_retention_duration ~name ~resource_group_name
-    ~vault_name ~retention_rule __id =
+let make ?id ?time_zone ?(retention_rule = []) ?timeouts
+    ~backup_repeating_time_intervals ~default_retention_duration
+    ~name ~resource_group_name ~vault_name __id =
   let __type = "azurerm_data_protection_backup_policy_postgresql" in
   let __attrs =
     ({
@@ -339,19 +339,21 @@ let make ?id ?time_zone ?timeouts ~backup_repeating_time_intervals
     json =
       yojson_of_azurerm_data_protection_backup_policy_postgresql
         (azurerm_data_protection_backup_policy_postgresql ?id
-           ?time_zone ?timeouts ~backup_repeating_time_intervals
+           ?time_zone ~retention_rule ?timeouts
+           ~backup_repeating_time_intervals
            ~default_retention_duration ~name ~resource_group_name
-           ~vault_name ~retention_rule ());
+           ~vault_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?time_zone ?timeouts
-    ~backup_repeating_time_intervals ~default_retention_duration
-    ~name ~resource_group_name ~vault_name ~retention_rule __id =
+let register ?tf_module ?id ?time_zone ?(retention_rule = [])
+    ?timeouts ~backup_repeating_time_intervals
+    ~default_retention_duration ~name ~resource_group_name
+    ~vault_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?time_zone ?timeouts ~backup_repeating_time_intervals
-      ~default_retention_duration ~name ~resource_group_name
-      ~vault_name ~retention_rule __id
+    make ?id ?time_zone ~retention_rule ?timeouts
+      ~backup_repeating_time_intervals ~default_retention_duration
+      ~name ~resource_group_name ~vault_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

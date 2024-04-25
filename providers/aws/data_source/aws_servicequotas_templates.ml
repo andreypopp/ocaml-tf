@@ -45,13 +45,13 @@ let _ = yojson_of_aws_servicequotas_templates
 
 let templates () = ()
 
-let aws_servicequotas_templates ~region ~templates () :
+let aws_servicequotas_templates ?(templates = []) ~region () :
     aws_servicequotas_templates =
   { region; templates }
 
 type t = { id : string prop; region : string prop }
 
-let make ~region ~templates __id =
+let make ?(templates = []) ~region __id =
   let __type = "aws_servicequotas_templates" in
   let __attrs =
     ({
@@ -65,11 +65,11 @@ let make ~region ~templates __id =
     type_ = __type;
     json =
       yojson_of_aws_servicequotas_templates
-        (aws_servicequotas_templates ~region ~templates ());
+        (aws_servicequotas_templates ~templates ~region ());
     attrs = __attrs;
   }
 
-let register ?tf_module ~region ~templates __id =
-  let (r : _ Tf_core.resource) = make ~region ~templates __id in
+let register ?tf_module ?(templates = []) ~region __id =
+  let (r : _ Tf_core.resource) = make ~templates ~region __id in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

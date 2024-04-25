@@ -46,8 +46,8 @@ type boot_recovery_group
 
 val boot_recovery_group :
   ?replicated_protected_items:string prop list ->
-  post_action:boot_recovery_group__post_action list ->
-  pre_action:boot_recovery_group__pre_action list ->
+  ?post_action:boot_recovery_group__post_action list ->
+  ?pre_action:boot_recovery_group__pre_action list ->
   unit ->
   boot_recovery_group
 
@@ -82,8 +82,8 @@ val failover_recovery_group__pre_action :
 type failover_recovery_group
 
 val failover_recovery_group :
-  post_action:failover_recovery_group__post_action list ->
-  pre_action:failover_recovery_group__pre_action list ->
+  ?post_action:failover_recovery_group__post_action list ->
+  ?pre_action:failover_recovery_group__pre_action list ->
   unit ->
   failover_recovery_group
 
@@ -119,9 +119,9 @@ type recovery_group
 
 val recovery_group :
   ?replicated_protected_items:string prop list ->
+  ?post_action:recovery_group__post_action list ->
+  ?pre_action:recovery_group__pre_action list ->
   type_:string prop ->
-  post_action:recovery_group__post_action list ->
-  pre_action:recovery_group__pre_action list ->
   unit ->
   recovery_group
 
@@ -156,8 +156,8 @@ val shutdown_recovery_group__pre_action :
 type shutdown_recovery_group
 
 val shutdown_recovery_group :
-  post_action:shutdown_recovery_group__post_action list ->
-  pre_action:shutdown_recovery_group__pre_action list ->
+  ?post_action:shutdown_recovery_group__post_action list ->
+  ?pre_action:shutdown_recovery_group__pre_action list ->
   unit ->
   shutdown_recovery_group
 
@@ -175,16 +175,16 @@ type azurerm_site_recovery_replication_recovery_plan
 
 val azurerm_site_recovery_replication_recovery_plan :
   ?id:string prop ->
+  ?azure_to_azure_settings:azure_to_azure_settings list ->
+  ?boot_recovery_group:boot_recovery_group list ->
+  ?failover_recovery_group:failover_recovery_group list ->
+  ?shutdown_recovery_group:shutdown_recovery_group list ->
   ?timeouts:timeouts ->
   name:string prop ->
   recovery_vault_id:string prop ->
   source_recovery_fabric_id:string prop ->
   target_recovery_fabric_id:string prop ->
-  azure_to_azure_settings:azure_to_azure_settings list ->
-  boot_recovery_group:boot_recovery_group list ->
-  failover_recovery_group:failover_recovery_group list ->
   recovery_group:recovery_group list ->
-  shutdown_recovery_group:shutdown_recovery_group list ->
   unit ->
   azurerm_site_recovery_replication_recovery_plan
 
@@ -204,30 +204,30 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?azure_to_azure_settings:azure_to_azure_settings list ->
+  ?boot_recovery_group:boot_recovery_group list ->
+  ?failover_recovery_group:failover_recovery_group list ->
+  ?shutdown_recovery_group:shutdown_recovery_group list ->
   ?timeouts:timeouts ->
   name:string prop ->
   recovery_vault_id:string prop ->
   source_recovery_fabric_id:string prop ->
   target_recovery_fabric_id:string prop ->
-  azure_to_azure_settings:azure_to_azure_settings list ->
-  boot_recovery_group:boot_recovery_group list ->
-  failover_recovery_group:failover_recovery_group list ->
   recovery_group:recovery_group list ->
-  shutdown_recovery_group:shutdown_recovery_group list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?azure_to_azure_settings:azure_to_azure_settings list ->
+  ?boot_recovery_group:boot_recovery_group list ->
+  ?failover_recovery_group:failover_recovery_group list ->
+  ?shutdown_recovery_group:shutdown_recovery_group list ->
   ?timeouts:timeouts ->
   name:string prop ->
   recovery_vault_id:string prop ->
   source_recovery_fabric_id:string prop ->
   target_recovery_fabric_id:string prop ->
-  azure_to_azure_settings:azure_to_azure_settings list ->
-  boot_recovery_group:boot_recovery_group list ->
-  failover_recovery_group:failover_recovery_group list ->
   recovery_group:recovery_group list ->
-  shutdown_recovery_group:shutdown_recovery_group list ->
   string ->
   t Tf_core.resource

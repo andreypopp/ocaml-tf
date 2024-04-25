@@ -534,23 +534,23 @@ let draft__content_link__hash ~algorithm ~value () :
     draft__content_link__hash =
   { algorithm; value }
 
-let draft__content_link ?version ~uri ~hash () : draft__content_link
-    =
+let draft__content_link ?version ?(hash = []) ~uri () :
+    draft__content_link =
   { uri; version; hash }
 
 let draft__parameters ?default_value ?mandatory ?position ~key ~type_
     () : draft__parameters =
   { default_value; key; mandatory; position; type_ }
 
-let draft ?edit_mode_enabled ?output_types ~content_link ~parameters
-    () : draft =
+let draft ?edit_mode_enabled ?output_types ?(content_link = [])
+    ?(parameters = []) () : draft =
   { edit_mode_enabled; output_types; content_link; parameters }
 
 let publish_content_link__hash ~algorithm ~value () :
     publish_content_link__hash =
   { algorithm; value }
 
-let publish_content_link ?version ~uri ~hash () :
+let publish_content_link ?version ?(hash = []) ~uri () :
     publish_content_link =
   { uri; version; hash }
 
@@ -558,10 +558,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_automation_runbook ?content ?description ?id
-    ?job_schedule ?log_activity_trace_level ?tags ?timeouts
-    ~automation_account_name ~location ~log_progress ~log_verbose
-    ~name ~resource_group_name ~runbook_type ~draft
-    ~publish_content_link () : azurerm_automation_runbook =
+    ?job_schedule ?log_activity_trace_level ?tags ?(draft = [])
+    ?(publish_content_link = []) ?timeouts ~automation_account_name
+    ~location ~log_progress ~log_verbose ~name ~resource_group_name
+    ~runbook_type () : azurerm_automation_runbook =
   {
     automation_account_name;
     content;
@@ -598,10 +598,10 @@ type t = {
 }
 
 let make ?content ?description ?id ?job_schedule
-    ?log_activity_trace_level ?tags ?timeouts
-    ~automation_account_name ~location ~log_progress ~log_verbose
-    ~name ~resource_group_name ~runbook_type ~draft
-    ~publish_content_link __id =
+    ?log_activity_trace_level ?tags ?(draft = [])
+    ?(publish_content_link = []) ?timeouts ~automation_account_name
+    ~location ~log_progress ~log_verbose ~name ~resource_group_name
+    ~runbook_type __id =
   let __type = "azurerm_automation_runbook" in
   let __attrs =
     ({
@@ -630,24 +630,23 @@ let make ?content ?description ?id ?job_schedule
     json =
       yojson_of_azurerm_automation_runbook
         (azurerm_automation_runbook ?content ?description ?id
-           ?job_schedule ?log_activity_trace_level ?tags ?timeouts
-           ~automation_account_name ~location ~log_progress
-           ~log_verbose ~name ~resource_group_name ~runbook_type
-           ~draft ~publish_content_link ());
+           ?job_schedule ?log_activity_trace_level ?tags ~draft
+           ~publish_content_link ?timeouts ~automation_account_name
+           ~location ~log_progress ~log_verbose ~name
+           ~resource_group_name ~runbook_type ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?content ?description ?id ?job_schedule
-    ?log_activity_trace_level ?tags ?timeouts
-    ~automation_account_name ~location ~log_progress ~log_verbose
-    ~name ~resource_group_name ~runbook_type ~draft
-    ~publish_content_link __id =
+    ?log_activity_trace_level ?tags ?(draft = [])
+    ?(publish_content_link = []) ?timeouts ~automation_account_name
+    ~location ~log_progress ~log_verbose ~name ~resource_group_name
+    ~runbook_type __id =
   let (r : _ Tf_core.resource) =
     make ?content ?description ?id ?job_schedule
-      ?log_activity_trace_level ?tags ?timeouts
-      ~automation_account_name ~location ~log_progress ~log_verbose
-      ~name ~resource_group_name ~runbook_type ~draft
-      ~publish_content_link __id
+      ?log_activity_trace_level ?tags ~draft ~publish_content_link
+      ?timeouts ~automation_account_name ~location ~log_progress
+      ~log_verbose ~name ~resource_group_name ~runbook_type __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

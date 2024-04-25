@@ -14,10 +14,10 @@ val parameters_in_cache_key_and_forwarded_to_origin__cookies_config__cookies :
 type parameters_in_cache_key_and_forwarded_to_origin__cookies_config
 
 val parameters_in_cache_key_and_forwarded_to_origin__cookies_config :
-  cookie_behavior:string prop ->
-  cookies:
+  ?cookies:
     parameters_in_cache_key_and_forwarded_to_origin__cookies_config__cookies
     list ->
+  cookie_behavior:string prop ->
   unit ->
   parameters_in_cache_key_and_forwarded_to_origin__cookies_config
 
@@ -32,7 +32,7 @@ type parameters_in_cache_key_and_forwarded_to_origin__headers_config
 
 val parameters_in_cache_key_and_forwarded_to_origin__headers_config :
   ?header_behavior:string prop ->
-  headers:
+  ?headers:
     parameters_in_cache_key_and_forwarded_to_origin__headers_config__headers
     list ->
   unit ->
@@ -48,10 +48,10 @@ val parameters_in_cache_key_and_forwarded_to_origin__query_strings_config__query
 type parameters_in_cache_key_and_forwarded_to_origin__query_strings_config
 
 val parameters_in_cache_key_and_forwarded_to_origin__query_strings_config :
-  query_string_behavior:string prop ->
-  query_strings:
+  ?query_strings:
     parameters_in_cache_key_and_forwarded_to_origin__query_strings_config__query_strings
     list ->
+  query_string_behavior:string prop ->
   unit ->
   parameters_in_cache_key_and_forwarded_to_origin__query_strings_config
 

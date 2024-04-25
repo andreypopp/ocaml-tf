@@ -232,17 +232,17 @@ let _ = yojson_of_aws_prometheus_scraper
 let destination__amp ~workspace_arn () : destination__amp =
   { workspace_arn }
 
-let destination ~amp () : destination = { amp }
+let destination ?(amp = []) () : destination = { amp }
 
 let source__eks ?security_group_ids ~cluster_arn ~subnet_ids () :
     source__eks =
   { cluster_arn; security_group_ids; subnet_ids }
 
-let source ~eks () : source = { eks }
+let source ?(eks = []) () : source = { eks }
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
-let aws_prometheus_scraper ?alias ?tags ?timeouts
-    ~scrape_configuration ~destination ~source () :
+let aws_prometheus_scraper ?alias ?tags ?(destination = [])
+    ?(source = []) ?timeouts ~scrape_configuration () :
     aws_prometheus_scraper =
   {
     alias;
@@ -263,8 +263,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?alias ?tags ?timeouts ~scrape_configuration ~destination
-    ~source __id =
+let make ?alias ?tags ?(destination = []) ?(source = []) ?timeouts
+    ~scrape_configuration __id =
   let __type = "aws_prometheus_scraper" in
   let __attrs =
     ({
@@ -284,16 +284,16 @@ let make ?alias ?tags ?timeouts ~scrape_configuration ~destination
     type_ = __type;
     json =
       yojson_of_aws_prometheus_scraper
-        (aws_prometheus_scraper ?alias ?tags ?timeouts
-           ~scrape_configuration ~destination ~source ());
+        (aws_prometheus_scraper ?alias ?tags ~destination ~source
+           ?timeouts ~scrape_configuration ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?alias ?tags ?timeouts ~scrape_configuration
-    ~destination ~source __id =
+let register ?tf_module ?alias ?tags ?(destination = [])
+    ?(source = []) ?timeouts ~scrape_configuration __id =
   let (r : _ Tf_core.resource) =
-    make ?alias ?tags ?timeouts ~scrape_configuration ~destination
-      ~source __id
+    make ?alias ?tags ~destination ~source ?timeouts
+      ~scrape_configuration __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

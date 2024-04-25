@@ -179,8 +179,9 @@ let posix_profile ?secondary_gids ~gid ~uid () : posix_profile =
   { gid; secondary_gids; uid }
 
 let aws_transfer_access ?home_directory ?home_directory_type ?id
-    ?policy ?role ~external_id ~server_id ~home_directory_mappings
-    ~posix_profile () : aws_transfer_access =
+    ?policy ?role ?(home_directory_mappings = [])
+    ?(posix_profile = []) ~external_id ~server_id () :
+    aws_transfer_access =
   {
     external_id;
     home_directory;
@@ -204,8 +205,8 @@ type t = {
 }
 
 let make ?home_directory ?home_directory_type ?id ?policy ?role
-    ~external_id ~server_id ~home_directory_mappings ~posix_profile
-    __id =
+    ?(home_directory_mappings = []) ?(posix_profile = [])
+    ~external_id ~server_id __id =
   let __type = "aws_transfer_access" in
   let __attrs =
     ({
@@ -226,17 +227,17 @@ let make ?home_directory ?home_directory_type ?id ?policy ?role
     json =
       yojson_of_aws_transfer_access
         (aws_transfer_access ?home_directory ?home_directory_type ?id
-           ?policy ?role ~external_id ~server_id
-           ~home_directory_mappings ~posix_profile ());
+           ?policy ?role ~home_directory_mappings ~posix_profile
+           ~external_id ~server_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?home_directory ?home_directory_type ?id
-    ?policy ?role ~external_id ~server_id ~home_directory_mappings
-    ~posix_profile __id =
+    ?policy ?role ?(home_directory_mappings = [])
+    ?(posix_profile = []) ~external_id ~server_id __id =
   let (r : _ Tf_core.resource) =
     make ?home_directory ?home_directory_type ?id ?policy ?role
-      ~external_id ~server_id ~home_directory_mappings ~posix_profile
+      ~home_directory_mappings ~posix_profile ~external_id ~server_id
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

@@ -54,8 +54,8 @@ val spec__behavior__scale_up :
 type spec__behavior
 
 val spec__behavior :
-  scale_down:spec__behavior__scale_down list ->
-  scale_up:spec__behavior__scale_up list ->
+  ?scale_down:spec__behavior__scale_down list ->
+  ?scale_up:spec__behavior__scale_up list ->
   unit ->
   spec__behavior
 
@@ -72,9 +72,9 @@ val spec__metric__container_resource__target :
 type spec__metric__container_resource
 
 val spec__metric__container_resource :
+  ?target:spec__metric__container_resource__target list ->
   container:string prop ->
   name:string prop ->
-  target:spec__metric__container_resource__target list ->
   unit ->
   spec__metric__container_resource
 
@@ -91,7 +91,7 @@ type spec__metric__external__metric__selector
 
 val spec__metric__external__metric__selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:
+  ?match_expressions:
     spec__metric__external__metric__selector__match_expressions list ->
   unit ->
   spec__metric__external__metric__selector
@@ -99,8 +99,8 @@ val spec__metric__external__metric__selector :
 type spec__metric__external__metric
 
 val spec__metric__external__metric :
+  ?selector:spec__metric__external__metric__selector list ->
   name:string prop ->
-  selector:spec__metric__external__metric__selector list ->
   unit ->
   spec__metric__external__metric
 
@@ -117,8 +117,8 @@ val spec__metric__external__target :
 type spec__metric__external
 
 val spec__metric__external :
+  ?target:spec__metric__external__target list ->
   metric:spec__metric__external__metric list ->
-  target:spec__metric__external__target list ->
   unit ->
   spec__metric__external
 
@@ -144,7 +144,7 @@ type spec__metric__object__metric__selector
 
 val spec__metric__object__metric__selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:
+  ?match_expressions:
     spec__metric__object__metric__selector__match_expressions list ->
   unit ->
   spec__metric__object__metric__selector
@@ -152,8 +152,8 @@ val spec__metric__object__metric__selector :
 type spec__metric__object__metric
 
 val spec__metric__object__metric :
+  ?selector:spec__metric__object__metric__selector list ->
   name:string prop ->
-  selector:spec__metric__object__metric__selector list ->
   unit ->
   spec__metric__object__metric
 
@@ -170,9 +170,9 @@ val spec__metric__object__target :
 type spec__metric__object
 
 val spec__metric__object :
+  ?target:spec__metric__object__target list ->
   described_object:spec__metric__object__described_object list ->
   metric:spec__metric__object__metric list ->
-  target:spec__metric__object__target list ->
   unit ->
   spec__metric__object
 
@@ -189,7 +189,7 @@ type spec__metric__pods__metric__selector
 
 val spec__metric__pods__metric__selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:
+  ?match_expressions:
     spec__metric__pods__metric__selector__match_expressions list ->
   unit ->
   spec__metric__pods__metric__selector
@@ -197,8 +197,8 @@ val spec__metric__pods__metric__selector :
 type spec__metric__pods__metric
 
 val spec__metric__pods__metric :
+  ?selector:spec__metric__pods__metric__selector list ->
   name:string prop ->
-  selector:spec__metric__pods__metric__selector list ->
   unit ->
   spec__metric__pods__metric
 
@@ -215,8 +215,8 @@ val spec__metric__pods__target :
 type spec__metric__pods
 
 val spec__metric__pods :
+  ?target:spec__metric__pods__target list ->
   metric:spec__metric__pods__metric list ->
-  target:spec__metric__pods__target list ->
   unit ->
   spec__metric__pods
 
@@ -233,20 +233,20 @@ val spec__metric__resource__target :
 type spec__metric__resource
 
 val spec__metric__resource :
+  ?target:spec__metric__resource__target list ->
   name:string prop ->
-  target:spec__metric__resource__target list ->
   unit ->
   spec__metric__resource
 
 type spec__metric
 
 val spec__metric :
+  ?container_resource:spec__metric__container_resource list ->
+  ?external_:spec__metric__external list ->
+  ?object_:spec__metric__object list ->
+  ?pods:spec__metric__pods list ->
+  ?resource:spec__metric__resource list ->
   type_:string prop ->
-  container_resource:spec__metric__container_resource list ->
-  external_:spec__metric__external list ->
-  object_:spec__metric__object list ->
-  pods:spec__metric__pods list ->
-  resource:spec__metric__resource list ->
   unit ->
   spec__metric
 
@@ -264,9 +264,9 @@ type spec
 val spec :
   ?min_replicas:float prop ->
   ?target_cpu_utilization_percentage:float prop ->
+  ?behavior:spec__behavior list ->
+  ?metric:spec__metric list ->
   max_replicas:float prop ->
-  behavior:spec__behavior list ->
-  metric:spec__metric list ->
   scale_target_ref:spec__scale_target_ref list ->
   unit ->
   spec

@@ -415,9 +415,10 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_clouddeploy_target ?annotations ?deploy_parameters
-    ?description ?id ?labels ?project ?require_approval ?timeouts
-    ~location ~name ~anthos_cluster ~execution_configs ~gke
-    ~multi_target ~run () : google_clouddeploy_target =
+    ?description ?id ?labels ?project ?require_approval
+    ?(anthos_cluster = []) ?(execution_configs = []) ?(gke = [])
+    ?(multi_target = []) ?(run = []) ?timeouts ~location ~name () :
+    google_clouddeploy_target =
   {
     annotations;
     deploy_parameters;
@@ -457,8 +458,9 @@ type t = {
 }
 
 let make ?annotations ?deploy_parameters ?description ?id ?labels
-    ?project ?require_approval ?timeouts ~location ~name
-    ~anthos_cluster ~execution_configs ~gke ~multi_target ~run __id =
+    ?project ?require_approval ?(anthos_cluster = [])
+    ?(execution_configs = []) ?(gke = []) ?(multi_target = [])
+    ?(run = []) ?timeouts ~location ~name __id =
   let __type = "google_clouddeploy_target" in
   let __attrs =
     ({
@@ -494,18 +496,19 @@ let make ?annotations ?deploy_parameters ?description ?id ?labels
       yojson_of_google_clouddeploy_target
         (google_clouddeploy_target ?annotations ?deploy_parameters
            ?description ?id ?labels ?project ?require_approval
-           ?timeouts ~location ~name ~anthos_cluster
-           ~execution_configs ~gke ~multi_target ~run ());
+           ~anthos_cluster ~execution_configs ~gke ~multi_target ~run
+           ?timeouts ~location ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?deploy_parameters ?description
-    ?id ?labels ?project ?require_approval ?timeouts ~location ~name
-    ~anthos_cluster ~execution_configs ~gke ~multi_target ~run __id =
+    ?id ?labels ?project ?require_approval ?(anthos_cluster = [])
+    ?(execution_configs = []) ?(gke = []) ?(multi_target = [])
+    ?(run = []) ?timeouts ~location ~name __id =
   let (r : _ Tf_core.resource) =
     make ?annotations ?deploy_parameters ?description ?id ?labels
-      ?project ?require_approval ?timeouts ~location ~name
-      ~anthos_cluster ~execution_configs ~gke ~multi_target ~run __id
+      ?project ?require_approval ~anthos_cluster ~execution_configs
+      ~gke ~multi_target ~run ?timeouts ~location ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

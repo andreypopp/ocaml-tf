@@ -36,10 +36,10 @@ val google_bigtable_app_profile :
   ?multi_cluster_routing_cluster_ids:string prop list ->
   ?multi_cluster_routing_use_any:bool prop ->
   ?project:string prop ->
+  ?single_cluster_routing:single_cluster_routing list ->
+  ?standard_isolation:standard_isolation list ->
   ?timeouts:timeouts ->
   app_profile_id:string prop ->
-  single_cluster_routing:single_cluster_routing list ->
-  standard_isolation:standard_isolation list ->
   unit ->
   google_bigtable_app_profile
 
@@ -69,10 +69,10 @@ val register :
   ?multi_cluster_routing_cluster_ids:string prop list ->
   ?multi_cluster_routing_use_any:bool prop ->
   ?project:string prop ->
+  ?single_cluster_routing:single_cluster_routing list ->
+  ?standard_isolation:standard_isolation list ->
   ?timeouts:timeouts ->
   app_profile_id:string prop ->
-  single_cluster_routing:single_cluster_routing list ->
-  standard_isolation:standard_isolation list ->
   string ->
   t
 
@@ -84,9 +84,9 @@ val make :
   ?multi_cluster_routing_cluster_ids:string prop list ->
   ?multi_cluster_routing_use_any:bool prop ->
   ?project:string prop ->
+  ?single_cluster_routing:single_cluster_routing list ->
+  ?standard_isolation:standard_isolation list ->
   ?timeouts:timeouts ->
   app_profile_id:string prop ->
-  single_cluster_routing:single_cluster_routing list ->
-  standard_isolation:standard_isolation list ->
   string ->
   t Tf_core.resource

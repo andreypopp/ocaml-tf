@@ -26,12 +26,12 @@ val google_bigtable_gc_policy :
   ?id:string prop ->
   ?mode:string prop ->
   ?project:string prop ->
+  ?max_age:max_age list ->
+  ?max_version:max_version list ->
   ?timeouts:timeouts ->
   column_family:string prop ->
   instance_name:string prop ->
   table:string prop ->
-  max_age:max_age list ->
-  max_version:max_version list ->
   unit ->
   google_bigtable_gc_policy
 
@@ -58,12 +58,12 @@ val register :
   ?id:string prop ->
   ?mode:string prop ->
   ?project:string prop ->
+  ?max_age:max_age list ->
+  ?max_version:max_version list ->
   ?timeouts:timeouts ->
   column_family:string prop ->
   instance_name:string prop ->
   table:string prop ->
-  max_age:max_age list ->
-  max_version:max_version list ->
   string ->
   t
 
@@ -73,11 +73,11 @@ val make :
   ?id:string prop ->
   ?mode:string prop ->
   ?project:string prop ->
+  ?max_age:max_age list ->
+  ?max_version:max_version list ->
   ?timeouts:timeouts ->
   column_family:string prop ->
   instance_name:string prop ->
   table:string prop ->
-  max_age:max_age list ->
-  max_version:max_version list ->
   string ->
   t Tf_core.resource

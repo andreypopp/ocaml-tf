@@ -32,9 +32,9 @@ val aws_datasync_location_hdfs :
   ?subdirectory:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?qop_configuration:qop_configuration list ->
   agent_arns:string prop list ->
   name_node:name_node list ->
-  qop_configuration:qop_configuration list ->
   unit ->
   aws_datasync_location_hdfs
 
@@ -75,9 +75,9 @@ val register :
   ?subdirectory:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?qop_configuration:qop_configuration list ->
   agent_arns:string prop list ->
   name_node:name_node list ->
-  qop_configuration:qop_configuration list ->
   string ->
   t
 
@@ -94,8 +94,8 @@ val make :
   ?subdirectory:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?qop_configuration:qop_configuration list ->
   agent_arns:string prop list ->
   name_node:name_node list ->
-  qop_configuration:qop_configuration list ->
   string ->
   t Tf_core.resource

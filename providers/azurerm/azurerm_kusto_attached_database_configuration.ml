@@ -266,9 +266,9 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_kusto_attached_database_configuration
-    ?default_principal_modification_kind ?id ?timeouts ~cluster_name
-    ~cluster_resource_id ~database_name ~location ~name
-    ~resource_group_name ~sharing () :
+    ?default_principal_modification_kind ?id ?(sharing = [])
+    ?timeouts ~cluster_name ~cluster_resource_id ~database_name
+    ~location ~name ~resource_group_name () :
     azurerm_kusto_attached_database_configuration =
   {
     cluster_name;
@@ -295,9 +295,9 @@ type t = {
   resource_group_name : string prop;
 }
 
-let make ?default_principal_modification_kind ?id ?timeouts
-    ~cluster_name ~cluster_resource_id ~database_name ~location ~name
-    ~resource_group_name ~sharing __id =
+let make ?default_principal_modification_kind ?id ?(sharing = [])
+    ?timeouts ~cluster_name ~cluster_resource_id ~database_name
+    ~location ~name ~resource_group_name __id =
   let __type = "azurerm_kusto_attached_database_configuration" in
   let __attrs =
     ({
@@ -324,19 +324,19 @@ let make ?default_principal_modification_kind ?id ?timeouts
     json =
       yojson_of_azurerm_kusto_attached_database_configuration
         (azurerm_kusto_attached_database_configuration
-           ?default_principal_modification_kind ?id ?timeouts
-           ~cluster_name ~cluster_resource_id ~database_name
-           ~location ~name ~resource_group_name ~sharing ());
+           ?default_principal_modification_kind ?id ~sharing
+           ?timeouts ~cluster_name ~cluster_resource_id
+           ~database_name ~location ~name ~resource_group_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?default_principal_modification_kind ?id
-    ?timeouts ~cluster_name ~cluster_resource_id ~database_name
-    ~location ~name ~resource_group_name ~sharing __id =
+    ?(sharing = []) ?timeouts ~cluster_name ~cluster_resource_id
+    ~database_name ~location ~name ~resource_group_name __id =
   let (r : _ Tf_core.resource) =
-    make ?default_principal_modification_kind ?id ?timeouts
+    make ?default_principal_modification_kind ?id ~sharing ?timeouts
       ~cluster_name ~cluster_resource_id ~database_name ~location
-      ~name ~resource_group_name ~sharing __id
+      ~name ~resource_group_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

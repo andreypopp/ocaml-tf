@@ -454,13 +454,13 @@ let metadata__config__algorithm_config__tree_ah_config
     metadata__config__algorithm_config__tree_ah_config =
   { leaf_node_embedding_count; leaf_nodes_to_search_percent }
 
-let metadata__config__algorithm_config ~brute_force_config
-    ~tree_ah_config () : metadata__config__algorithm_config =
+let metadata__config__algorithm_config ?(brute_force_config = [])
+    ?(tree_ah_config = []) () : metadata__config__algorithm_config =
   { brute_force_config; tree_ah_config }
 
 let metadata__config ?approximate_neighbors_count
-    ?distance_measure_type ?feature_norm_type ?shard_size ~dimensions
-    ~algorithm_config () : metadata__config =
+    ?distance_measure_type ?feature_norm_type ?shard_size
+    ?(algorithm_config = []) ~dimensions () : metadata__config =
   {
     approximate_neighbors_count;
     dimensions;
@@ -470,16 +470,16 @@ let metadata__config ?approximate_neighbors_count
     algorithm_config;
   }
 
-let metadata ?is_complete_overwrite ~contents_delta_uri ~config () :
-    metadata =
+let metadata ?is_complete_overwrite ?(config = [])
+    ~contents_delta_uri () : metadata =
   { contents_delta_uri; is_complete_overwrite; config }
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_vertex_ai_index ?description ?id ?index_update_method
-    ?labels ?project ?region ?timeouts ~display_name ~metadata () :
-    google_vertex_ai_index =
+    ?labels ?project ?region ?(metadata = []) ?timeouts ~display_name
+    () : google_vertex_ai_index =
   {
     description;
     display_name;
@@ -512,7 +512,7 @@ type t = {
 }
 
 let make ?description ?id ?index_update_method ?labels ?project
-    ?region ?timeouts ~display_name ~metadata __id =
+    ?region ?(metadata = []) ?timeouts ~display_name __id =
   let __type = "google_vertex_ai_index" in
   let __attrs =
     ({
@@ -546,16 +546,16 @@ let make ?description ?id ?index_update_method ?labels ?project
     json =
       yojson_of_google_vertex_ai_index
         (google_vertex_ai_index ?description ?id ?index_update_method
-           ?labels ?project ?region ?timeouts ~display_name ~metadata
+           ?labels ?project ?region ~metadata ?timeouts ~display_name
            ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?index_update_method ?labels
-    ?project ?region ?timeouts ~display_name ~metadata __id =
+    ?project ?region ?(metadata = []) ?timeouts ~display_name __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?index_update_method ?labels ?project
-      ?region ?timeouts ~display_name ~metadata __id
+      ?region ~metadata ?timeouts ~display_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -21,10 +21,10 @@ type stream_configs__bigquery_destination__schema_config
 
 val stream_configs__bigquery_destination__schema_config :
   ?schema_type:string prop ->
-  recursive_structure_depth:float prop ->
-  last_updated_partition_config:
+  ?last_updated_partition_config:
     stream_configs__bigquery_destination__schema_config__last_updated_partition_config
     list ->
+  recursive_structure_depth:float prop ->
   unit ->
   stream_configs__bigquery_destination__schema_config
 
@@ -65,12 +65,12 @@ val google_healthcare_fhir_store :
   ?enable_update_create:bool prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
+  ?notification_config:notification_config list ->
+  ?stream_configs:stream_configs list ->
   ?timeouts:timeouts ->
   dataset:string prop ->
   name:string prop ->
   version:string prop ->
-  notification_config:notification_config list ->
-  stream_configs:stream_configs list ->
   unit ->
   google_healthcare_fhir_store
 
@@ -106,12 +106,12 @@ val register :
   ?enable_update_create:bool prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
+  ?notification_config:notification_config list ->
+  ?stream_configs:stream_configs list ->
   ?timeouts:timeouts ->
   dataset:string prop ->
   name:string prop ->
   version:string prop ->
-  notification_config:notification_config list ->
-  stream_configs:stream_configs list ->
   string ->
   t
 
@@ -124,11 +124,11 @@ val make :
   ?enable_update_create:bool prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
+  ?notification_config:notification_config list ->
+  ?stream_configs:stream_configs list ->
   ?timeouts:timeouts ->
   dataset:string prop ->
   name:string prop ->
   version:string prop ->
-  notification_config:notification_config list ->
-  stream_configs:stream_configs list ->
   string ->
   t Tf_core.resource

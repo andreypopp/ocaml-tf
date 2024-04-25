@@ -52,9 +52,9 @@ val criteria :
   ?statuses:string prop list ->
   ?sub_status:string prop ->
   ?sub_statuses:string prop list ->
+  ?resource_health:criteria__resource_health list ->
+  ?service_health:criteria__service_health list ->
   category:string prop ->
-  resource_health:criteria__resource_health list ->
-  service_health:criteria__service_health list ->
   unit ->
   criteria
 
@@ -75,11 +75,11 @@ val azurerm_monitor_activity_log_alert :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?action:action list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   scopes:string prop list ->
-  action:action list ->
   criteria:criteria list ->
   unit ->
   azurerm_monitor_activity_log_alert
@@ -105,11 +105,11 @@ val register :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?action:action list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   scopes:string prop list ->
-  action:action list ->
   criteria:criteria list ->
   string ->
   t
@@ -119,11 +119,11 @@ val make :
   ?enabled:bool prop ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?action:action list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   scopes:string prop list ->
-  action:action list ->
   criteria:criteria list ->
   string ->
   t Tf_core.resource

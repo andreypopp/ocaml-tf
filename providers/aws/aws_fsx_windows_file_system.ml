@@ -507,10 +507,10 @@ let aws_fsx_windows_file_system ?active_directory_id ?aliases
     ?daily_automatic_backup_start_time ?deployment_type ?id
     ?kms_key_id ?preferred_subnet_id ?security_group_ids
     ?skip_final_backup ?storage_capacity ?storage_type ?tags
-    ?tags_all ?weekly_maintenance_start_time ?timeouts ~subnet_ids
-    ~throughput_capacity ~audit_log_configuration
-    ~disk_iops_configuration ~self_managed_active_directory () :
-    aws_fsx_windows_file_system =
+    ?tags_all ?weekly_maintenance_start_time
+    ?(audit_log_configuration = []) ?(disk_iops_configuration = [])
+    ?(self_managed_active_directory = []) ?timeouts ~subnet_ids
+    ~throughput_capacity () : aws_fsx_windows_file_system =
   {
     active_directory_id;
     aliases;
@@ -571,9 +571,10 @@ let make ?active_directory_id ?aliases
     ?daily_automatic_backup_start_time ?deployment_type ?id
     ?kms_key_id ?preferred_subnet_id ?security_group_ids
     ?skip_final_backup ?storage_capacity ?storage_type ?tags
-    ?tags_all ?weekly_maintenance_start_time ?timeouts ~subnet_ids
-    ~throughput_capacity ~audit_log_configuration
-    ~disk_iops_configuration ~self_managed_active_directory __id =
+    ?tags_all ?weekly_maintenance_start_time
+    ?(audit_log_configuration = []) ?(disk_iops_configuration = [])
+    ?(self_managed_active_directory = []) ?timeouts ~subnet_ids
+    ~throughput_capacity __id =
   let __type = "aws_fsx_windows_file_system" in
   let __attrs =
     ({
@@ -631,9 +632,9 @@ let make ?active_directory_id ?aliases
            ?deployment_type ?id ?kms_key_id ?preferred_subnet_id
            ?security_group_ids ?skip_final_backup ?storage_capacity
            ?storage_type ?tags ?tags_all
-           ?weekly_maintenance_start_time ?timeouts ~subnet_ids
-           ~throughput_capacity ~audit_log_configuration
-           ~disk_iops_configuration ~self_managed_active_directory ());
+           ?weekly_maintenance_start_time ~audit_log_configuration
+           ~disk_iops_configuration ~self_managed_active_directory
+           ?timeouts ~subnet_ids ~throughput_capacity ());
     attrs = __attrs;
   }
 
@@ -642,9 +643,10 @@ let register ?tf_module ?active_directory_id ?aliases
     ?daily_automatic_backup_start_time ?deployment_type ?id
     ?kms_key_id ?preferred_subnet_id ?security_group_ids
     ?skip_final_backup ?storage_capacity ?storage_type ?tags
-    ?tags_all ?weekly_maintenance_start_time ?timeouts ~subnet_ids
-    ~throughput_capacity ~audit_log_configuration
-    ~disk_iops_configuration ~self_managed_active_directory __id =
+    ?tags_all ?weekly_maintenance_start_time
+    ?(audit_log_configuration = []) ?(disk_iops_configuration = [])
+    ?(self_managed_active_directory = []) ?timeouts ~subnet_ids
+    ~throughput_capacity __id =
   let (r : _ Tf_core.resource) =
     make ?active_directory_id ?aliases
       ?automatic_backup_retention_days ?backup_id
@@ -652,9 +654,9 @@ let register ?tf_module ?active_directory_id ?aliases
       ?deployment_type ?id ?kms_key_id ?preferred_subnet_id
       ?security_group_ids ?skip_final_backup ?storage_capacity
       ?storage_type ?tags ?tags_all ?weekly_maintenance_start_time
-      ?timeouts ~subnet_ids ~throughput_capacity
       ~audit_log_configuration ~disk_iops_configuration
-      ~self_managed_active_directory __id
+      ~self_managed_active_directory ?timeouts ~subnet_ids
+      ~throughput_capacity __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

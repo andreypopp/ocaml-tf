@@ -1262,7 +1262,7 @@ let linux_os_config__sysctl_config ?fs_aio_max_nr ?fs_file_max
   }
 
 let linux_os_config ?swap_file_size_mb ?transparent_huge_page_defrag
-    ?transparent_huge_page_enabled ~sysctl_config () :
+    ?transparent_huge_page_enabled ?(sysctl_config = []) () :
     linux_os_config =
   {
     swap_file_size_mb;
@@ -1276,7 +1276,7 @@ let node_network_profile__allowed_host_ports ?port_end ?port_start
   { port_end; port_start; protocol }
 
 let node_network_profile ?application_security_group_ids
-    ?node_public_ip_tags ~allowed_host_ports () :
+    ?node_public_ip_tags ?(allowed_host_ports = []) () :
     node_network_profile =
   {
     application_security_group_ids;
@@ -1303,9 +1303,10 @@ let azurerm_kubernetes_cluster_node_pool
     ?os_type ?pod_subnet_id ?priority ?proximity_placement_group_id
     ?scale_down_mode ?snapshot_id ?spot_max_price ?tags
     ?ultra_ssd_enabled ?vnet_subnet_id ?workload_runtime ?zones
-    ?timeouts ~kubernetes_cluster_id ~name ~vm_size ~kubelet_config
-    ~linux_os_config ~node_network_profile ~upgrade_settings
-    ~windows_profile () : azurerm_kubernetes_cluster_node_pool =
+    ?(kubelet_config = []) ?(linux_os_config = [])
+    ?(node_network_profile = []) ?timeouts ?(upgrade_settings = [])
+    ?(windows_profile = []) ~kubernetes_cluster_id ~name ~vm_size ()
+    : azurerm_kubernetes_cluster_node_pool =
   {
     capacity_reservation_group_id;
     custom_ca_trust_enabled;
@@ -1406,9 +1407,10 @@ let make ?capacity_reservation_group_id ?custom_ca_trust_enabled
     ?os_type ?pod_subnet_id ?priority ?proximity_placement_group_id
     ?scale_down_mode ?snapshot_id ?spot_max_price ?tags
     ?ultra_ssd_enabled ?vnet_subnet_id ?workload_runtime ?zones
-    ?timeouts ~kubernetes_cluster_id ~name ~vm_size ~kubelet_config
-    ~linux_os_config ~node_network_profile ~upgrade_settings
-    ~windows_profile __id =
+    ?(kubelet_config = []) ?(linux_os_config = [])
+    ?(node_network_profile = []) ?timeouts ?(upgrade_settings = [])
+    ?(windows_profile = []) ~kubernetes_cluster_id ~name ~vm_size
+    __id =
   let __type = "azurerm_kubernetes_cluster_node_pool" in
   let __attrs =
     ({
@@ -1483,10 +1485,10 @@ let make ?capacity_reservation_group_id ?custom_ca_trust_enabled
            ?os_disk_type ?os_sku ?os_type ?pod_subnet_id ?priority
            ?proximity_placement_group_id ?scale_down_mode
            ?snapshot_id ?spot_max_price ?tags ?ultra_ssd_enabled
-           ?vnet_subnet_id ?workload_runtime ?zones ?timeouts
-           ~kubernetes_cluster_id ~name ~vm_size ~kubelet_config
-           ~linux_os_config ~node_network_profile ~upgrade_settings
-           ~windows_profile ());
+           ?vnet_subnet_id ?workload_runtime ?zones ~kubelet_config
+           ~linux_os_config ~node_network_profile ?timeouts
+           ~upgrade_settings ~windows_profile ~kubernetes_cluster_id
+           ~name ~vm_size ());
     attrs = __attrs;
   }
 
@@ -1500,9 +1502,10 @@ let register ?tf_module ?capacity_reservation_group_id
     ?os_type ?pod_subnet_id ?priority ?proximity_placement_group_id
     ?scale_down_mode ?snapshot_id ?spot_max_price ?tags
     ?ultra_ssd_enabled ?vnet_subnet_id ?workload_runtime ?zones
-    ?timeouts ~kubernetes_cluster_id ~name ~vm_size ~kubelet_config
-    ~linux_os_config ~node_network_profile ~upgrade_settings
-    ~windows_profile __id =
+    ?(kubelet_config = []) ?(linux_os_config = [])
+    ?(node_network_profile = []) ?timeouts ?(upgrade_settings = [])
+    ?(windows_profile = []) ~kubernetes_cluster_id ~name ~vm_size
+    __id =
   let (r : _ Tf_core.resource) =
     make ?capacity_reservation_group_id ?custom_ca_trust_enabled
       ?enable_auto_scaling ?enable_host_encryption
@@ -1514,9 +1517,9 @@ let register ?tf_module ?capacity_reservation_group_id
       ?os_type ?pod_subnet_id ?priority ?proximity_placement_group_id
       ?scale_down_mode ?snapshot_id ?spot_max_price ?tags
       ?ultra_ssd_enabled ?vnet_subnet_id ?workload_runtime ?zones
-      ?timeouts ~kubernetes_cluster_id ~name ~vm_size ~kubelet_config
-      ~linux_os_config ~node_network_profile ~upgrade_settings
-      ~windows_profile __id
+      ~kubelet_config ~linux_os_config ~node_network_profile
+      ?timeouts ~upgrade_settings ~windows_profile
+      ~kubernetes_cluster_id ~name ~vm_size __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

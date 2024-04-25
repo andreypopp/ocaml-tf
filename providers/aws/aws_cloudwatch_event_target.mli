@@ -64,12 +64,12 @@ val ecs_target :
   ?propagate_tags:string prop ->
   ?tags:(string * string prop) list ->
   ?task_count:float prop ->
+  ?network_configuration:ecs_target__network_configuration list ->
+  ?ordered_placement_strategy:
+    ecs_target__ordered_placement_strategy list ->
   task_definition_arn:string prop ->
   capacity_provider_strategy:
     ecs_target__capacity_provider_strategy list ->
-  network_configuration:ecs_target__network_configuration list ->
-  ordered_placement_strategy:
-    ecs_target__ordered_placement_strategy list ->
   placement_constraint:ecs_target__placement_constraint list ->
   unit ->
   ecs_target
@@ -153,19 +153,19 @@ val aws_cloudwatch_event_target :
   ?input_path:string prop ->
   ?role_arn:string prop ->
   ?target_id:string prop ->
+  ?batch_target:batch_target list ->
+  ?dead_letter_config:dead_letter_config list ->
+  ?ecs_target:ecs_target list ->
+  ?http_target:http_target list ->
+  ?input_transformer:input_transformer list ->
+  ?kinesis_target:kinesis_target list ->
+  ?redshift_target:redshift_target list ->
+  ?retry_policy:retry_policy list ->
+  ?run_command_targets:run_command_targets list ->
+  ?sagemaker_pipeline_target:sagemaker_pipeline_target list ->
+  ?sqs_target:sqs_target list ->
   arn:string prop ->
   rule:string prop ->
-  batch_target:batch_target list ->
-  dead_letter_config:dead_letter_config list ->
-  ecs_target:ecs_target list ->
-  http_target:http_target list ->
-  input_transformer:input_transformer list ->
-  kinesis_target:kinesis_target list ->
-  redshift_target:redshift_target list ->
-  retry_policy:retry_policy list ->
-  run_command_targets:run_command_targets list ->
-  sagemaker_pipeline_target:sagemaker_pipeline_target list ->
-  sqs_target:sqs_target list ->
   unit ->
   aws_cloudwatch_event_target
 
@@ -193,19 +193,19 @@ val register :
   ?input_path:string prop ->
   ?role_arn:string prop ->
   ?target_id:string prop ->
+  ?batch_target:batch_target list ->
+  ?dead_letter_config:dead_letter_config list ->
+  ?ecs_target:ecs_target list ->
+  ?http_target:http_target list ->
+  ?input_transformer:input_transformer list ->
+  ?kinesis_target:kinesis_target list ->
+  ?redshift_target:redshift_target list ->
+  ?retry_policy:retry_policy list ->
+  ?run_command_targets:run_command_targets list ->
+  ?sagemaker_pipeline_target:sagemaker_pipeline_target list ->
+  ?sqs_target:sqs_target list ->
   arn:string prop ->
   rule:string prop ->
-  batch_target:batch_target list ->
-  dead_letter_config:dead_letter_config list ->
-  ecs_target:ecs_target list ->
-  http_target:http_target list ->
-  input_transformer:input_transformer list ->
-  kinesis_target:kinesis_target list ->
-  redshift_target:redshift_target list ->
-  retry_policy:retry_policy list ->
-  run_command_targets:run_command_targets list ->
-  sagemaker_pipeline_target:sagemaker_pipeline_target list ->
-  sqs_target:sqs_target list ->
   string ->
   t
 
@@ -216,18 +216,18 @@ val make :
   ?input_path:string prop ->
   ?role_arn:string prop ->
   ?target_id:string prop ->
+  ?batch_target:batch_target list ->
+  ?dead_letter_config:dead_letter_config list ->
+  ?ecs_target:ecs_target list ->
+  ?http_target:http_target list ->
+  ?input_transformer:input_transformer list ->
+  ?kinesis_target:kinesis_target list ->
+  ?redshift_target:redshift_target list ->
+  ?retry_policy:retry_policy list ->
+  ?run_command_targets:run_command_targets list ->
+  ?sagemaker_pipeline_target:sagemaker_pipeline_target list ->
+  ?sqs_target:sqs_target list ->
   arn:string prop ->
   rule:string prop ->
-  batch_target:batch_target list ->
-  dead_letter_config:dead_letter_config list ->
-  ecs_target:ecs_target list ->
-  http_target:http_target list ->
-  input_transformer:input_transformer list ->
-  kinesis_target:kinesis_target list ->
-  redshift_target:redshift_target list ->
-  retry_policy:retry_policy list ->
-  run_command_targets:run_command_targets list ->
-  sagemaker_pipeline_target:sagemaker_pipeline_target list ->
-  sqs_target:sqs_target list ->
   string ->
   t Tf_core.resource

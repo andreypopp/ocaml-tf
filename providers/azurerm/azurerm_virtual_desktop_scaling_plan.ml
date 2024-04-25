@@ -444,8 +444,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_virtual_desktop_scaling_plan ?description ?exclusion_tag
-    ?friendly_name ?id ?tags ?timeouts ~location ~name
-    ~resource_group_name ~time_zone ~host_pool ~schedule () :
+    ?friendly_name ?id ?tags ?(host_pool = []) ?timeouts ~location
+    ~name ~resource_group_name ~time_zone ~schedule () :
     azurerm_virtual_desktop_scaling_plan =
   {
     description;
@@ -475,8 +475,8 @@ type t = {
 }
 
 let make ?description ?exclusion_tag ?friendly_name ?id ?tags
-    ?timeouts ~location ~name ~resource_group_name ~time_zone
-    ~host_pool ~schedule __id =
+    ?(host_pool = []) ?timeouts ~location ~name ~resource_group_name
+    ~time_zone ~schedule __id =
   let __type = "azurerm_virtual_desktop_scaling_plan" in
   let __attrs =
     ({
@@ -499,19 +499,19 @@ let make ?description ?exclusion_tag ?friendly_name ?id ?tags
     json =
       yojson_of_azurerm_virtual_desktop_scaling_plan
         (azurerm_virtual_desktop_scaling_plan ?description
-           ?exclusion_tag ?friendly_name ?id ?tags ?timeouts
-           ~location ~name ~resource_group_name ~time_zone ~host_pool
+           ?exclusion_tag ?friendly_name ?id ?tags ~host_pool
+           ?timeouts ~location ~name ~resource_group_name ~time_zone
            ~schedule ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?exclusion_tag ?friendly_name
-    ?id ?tags ?timeouts ~location ~name ~resource_group_name
-    ~time_zone ~host_pool ~schedule __id =
+    ?id ?tags ?(host_pool = []) ?timeouts ~location ~name
+    ~resource_group_name ~time_zone ~schedule __id =
   let (r : _ Tf_core.resource) =
     make ?description ?exclusion_tag ?friendly_name ?id ?tags
-      ?timeouts ~location ~name ~resource_group_name ~time_zone
-      ~host_pool ~schedule __id
+      ~host_pool ?timeouts ~location ~name ~resource_group_name
+      ~time_zone ~schedule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

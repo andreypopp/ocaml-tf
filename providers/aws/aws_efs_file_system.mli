@@ -37,8 +37,8 @@ val aws_efs_file_system :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?throughput_mode:string prop ->
-  lifecycle_policy:lifecycle_policy list ->
-  protection:protection list ->
+  ?lifecycle_policy:lifecycle_policy list ->
+  ?protection:protection list ->
   unit ->
   aws_efs_file_system
 
@@ -78,8 +78,8 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?throughput_mode:string prop ->
-  lifecycle_policy:lifecycle_policy list ->
-  protection:protection list ->
+  ?lifecycle_policy:lifecycle_policy list ->
+  ?protection:protection list ->
   string ->
   t
 
@@ -94,7 +94,7 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?throughput_mode:string prop ->
-  lifecycle_policy:lifecycle_policy list ->
-  protection:protection list ->
+  ?lifecycle_policy:lifecycle_policy list ->
+  ?protection:protection list ->
   string ->
   t Tf_core.resource

@@ -674,7 +674,7 @@ let firewall_policy__stateful_rule_group_reference__override ?action
   { action }
 
 let firewall_policy__stateful_rule_group_reference ?priority
-    ~resource_arn ~override () :
+    ?(override = []) ~resource_arn () :
     firewall_policy__stateful_rule_group_reference =
   { priority; resource_arn; override }
 
@@ -706,11 +706,11 @@ let firewall_policy__stateless_rule_group_reference ~priority
   { priority; resource_arn }
 
 let firewall_policy ?stateful_default_actions
-    ?tls_inspection_configuration_arn ~stateless_default_actions
-    ~stateless_fragment_default_actions ~policy_variables
-    ~stateful_engine_options ~stateful_rule_group_reference
-    ~stateless_custom_action ~stateless_rule_group_reference () :
-    firewall_policy =
+    ?tls_inspection_configuration_arn ?(policy_variables = [])
+    ?(stateful_engine_options = []) ~stateless_default_actions
+    ~stateless_fragment_default_actions
+    ~stateful_rule_group_reference ~stateless_custom_action
+    ~stateless_rule_group_reference () : firewall_policy =
   {
     stateful_default_actions;
     stateless_default_actions;
@@ -724,8 +724,8 @@ let firewall_policy ?stateful_default_actions
   }
 
 let aws_networkfirewall_firewall_policy ?description ?id ?tags
-    ?tags_all ~name ~encryption_configuration ~firewall_policy () :
-    aws_networkfirewall_firewall_policy =
+    ?tags_all ?(encryption_configuration = []) ~name ~firewall_policy
+    () : aws_networkfirewall_firewall_policy =
   {
     description;
     id;
@@ -746,8 +746,8 @@ type t = {
   update_token : string prop;
 }
 
-let make ?description ?id ?tags ?tags_all ~name
-    ~encryption_configuration ~firewall_policy __id =
+let make ?description ?id ?tags ?tags_all
+    ?(encryption_configuration = []) ~name ~firewall_policy __id =
   let __type = "aws_networkfirewall_firewall_policy" in
   let __attrs =
     ({
@@ -767,16 +767,16 @@ let make ?description ?id ?tags ?tags_all ~name
     json =
       yojson_of_aws_networkfirewall_firewall_policy
         (aws_networkfirewall_firewall_policy ?description ?id ?tags
-           ?tags_all ~name ~encryption_configuration ~firewall_policy
+           ?tags_all ~encryption_configuration ~name ~firewall_policy
            ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ~name
-    ~encryption_configuration ~firewall_policy __id =
+let register ?tf_module ?description ?id ?tags ?tags_all
+    ?(encryption_configuration = []) ~name ~firewall_policy __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?tags ?tags_all ~name
-      ~encryption_configuration ~firewall_policy __id
+    make ?description ?id ?tags ?tags_all ~encryption_configuration
+      ~name ~firewall_policy __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

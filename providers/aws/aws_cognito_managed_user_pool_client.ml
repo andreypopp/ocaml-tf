@@ -403,8 +403,9 @@ let aws_cognito_managed_user_pool_client ?access_token_validity
     ?logout_urls ?name_pattern ?name_prefix
     ?prevent_user_existence_errors ?read_attributes
     ?refresh_token_validity ?supported_identity_providers
-    ?write_attributes ~user_pool_id ~analytics_configuration
-    ~token_validity_units () : aws_cognito_managed_user_pool_client =
+    ?write_attributes ?(analytics_configuration = [])
+    ?(token_validity_units = []) ~user_pool_id () :
+    aws_cognito_managed_user_pool_client =
   {
     access_token_validity;
     allowed_oauth_flows;
@@ -464,8 +465,8 @@ let make ?access_token_validity ?allowed_oauth_flows
     ?logout_urls ?name_pattern ?name_prefix
     ?prevent_user_existence_errors ?read_attributes
     ?refresh_token_validity ?supported_identity_providers
-    ?write_attributes ~user_pool_id ~analytics_configuration
-    ~token_validity_units __id =
+    ?write_attributes ?(analytics_configuration = [])
+    ?(token_validity_units = []) ~user_pool_id __id =
   let __type = "aws_cognito_managed_user_pool_client" in
   let __attrs =
     ({
@@ -525,8 +526,8 @@ let make ?access_token_validity ?allowed_oauth_flows
            ?id_token_validity ?logout_urls ?name_pattern ?name_prefix
            ?prevent_user_existence_errors ?read_attributes
            ?refresh_token_validity ?supported_identity_providers
-           ?write_attributes ~user_pool_id ~analytics_configuration
-           ~token_validity_units ());
+           ?write_attributes ~analytics_configuration
+           ~token_validity_units ~user_pool_id ());
     attrs = __attrs;
   }
 
@@ -538,8 +539,8 @@ let register ?tf_module ?access_token_validity ?allowed_oauth_flows
     ?logout_urls ?name_pattern ?name_prefix
     ?prevent_user_existence_errors ?read_attributes
     ?refresh_token_validity ?supported_identity_providers
-    ?write_attributes ~user_pool_id ~analytics_configuration
-    ~token_validity_units __id =
+    ?write_attributes ?(analytics_configuration = [])
+    ?(token_validity_units = []) ~user_pool_id __id =
   let (r : _ Tf_core.resource) =
     make ?access_token_validity ?allowed_oauth_flows
       ?allowed_oauth_flows_user_pool_client ?allowed_oauth_scopes
@@ -549,8 +550,8 @@ let register ?tf_module ?access_token_validity ?allowed_oauth_flows
       ?id_token_validity ?logout_urls ?name_pattern ?name_prefix
       ?prevent_user_existence_errors ?read_attributes
       ?refresh_token_validity ?supported_identity_providers
-      ?write_attributes ~user_pool_id ~analytics_configuration
-      ~token_validity_units __id
+      ?write_attributes ~analytics_configuration
+      ~token_validity_units ~user_pool_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

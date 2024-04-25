@@ -712,9 +712,9 @@ let config__taints ~effect ~key ~value () : config__taints =
   { effect; key; value }
 
 let config ?instance_type ?labels ?security_group_ids ?tags
-    ~iam_instance_profile ~autoscaling_metrics_collection
-    ~config_encryption ~proxy_config ~root_volume ~ssh_config ~taints
-    () : config =
+    ?(autoscaling_metrics_collection = []) ?(proxy_config = [])
+    ?(root_volume = []) ?(ssh_config = []) ?(taints = [])
+    ~iam_instance_profile ~config_encryption () : config =
   {
     iam_instance_profile;
     instance_type;
@@ -741,13 +741,13 @@ let update_settings__surge_settings ?max_surge ?max_unavailable () :
     update_settings__surge_settings =
   { max_surge; max_unavailable }
 
-let update_settings ~surge_settings () : update_settings =
+let update_settings ?(surge_settings = []) () : update_settings =
   { surge_settings }
 
 let google_container_aws_node_pool ?annotations ?id ?project
-    ?timeouts ~cluster ~location ~name ~subnet_id ~version
-    ~autoscaling ~config ~management ~max_pods_constraint
-    ~update_settings () : google_container_aws_node_pool =
+    ?(management = []) ?timeouts ?(update_settings = []) ~cluster
+    ~location ~name ~subnet_id ~version ~autoscaling ~config
+    ~max_pods_constraint () : google_container_aws_node_pool =
   {
     annotations;
     cluster;
@@ -783,9 +783,9 @@ type t = {
   version : string prop;
 }
 
-let make ?annotations ?id ?project ?timeouts ~cluster ~location ~name
-    ~subnet_id ~version ~autoscaling ~config ~management
-    ~max_pods_constraint ~update_settings __id =
+let make ?annotations ?id ?project ?(management = []) ?timeouts
+    ?(update_settings = []) ~cluster ~location ~name ~subnet_id
+    ~version ~autoscaling ~config ~max_pods_constraint __id =
   let __type = "google_container_aws_node_pool" in
   let __attrs =
     ({
@@ -814,19 +814,20 @@ let make ?annotations ?id ?project ?timeouts ~cluster ~location ~name
     json =
       yojson_of_google_container_aws_node_pool
         (google_container_aws_node_pool ?annotations ?id ?project
-           ?timeouts ~cluster ~location ~name ~subnet_id ~version
-           ~autoscaling ~config ~management ~max_pods_constraint
-           ~update_settings ());
+           ~management ?timeouts ~update_settings ~cluster ~location
+           ~name ~subnet_id ~version ~autoscaling ~config
+           ~max_pods_constraint ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?annotations ?id ?project ?timeouts ~cluster
-    ~location ~name ~subnet_id ~version ~autoscaling ~config
-    ~management ~max_pods_constraint ~update_settings __id =
+let register ?tf_module ?annotations ?id ?project ?(management = [])
+    ?timeouts ?(update_settings = []) ~cluster ~location ~name
+    ~subnet_id ~version ~autoscaling ~config ~max_pods_constraint
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?annotations ?id ?project ?timeouts ~cluster ~location ~name
-      ~subnet_id ~version ~autoscaling ~config ~management
-      ~max_pods_constraint ~update_settings __id
+    make ?annotations ?id ?project ~management ?timeouts
+      ~update_settings ~cluster ~location ~name ~subnet_id ~version
+      ~autoscaling ~config ~max_pods_constraint __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

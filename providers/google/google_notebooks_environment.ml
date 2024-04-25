@@ -240,8 +240,9 @@ let vm_image ?image_family ?image_name ~project () : vm_image =
   { image_family; image_name; project }
 
 let google_notebooks_environment ?description ?display_name ?id
-    ?post_startup_script ?project ?timeouts ~location ~name
-    ~container_image ~vm_image () : google_notebooks_environment =
+    ?post_startup_script ?project ?(container_image = []) ?timeouts
+    ?(vm_image = []) ~location ~name () :
+    google_notebooks_environment =
   {
     description;
     display_name;
@@ -267,7 +268,8 @@ type t = {
 }
 
 let make ?description ?display_name ?id ?post_startup_script ?project
-    ?timeouts ~location ~name ~container_image ~vm_image __id =
+    ?(container_image = []) ?timeouts ?(vm_image = []) ~location
+    ~name __id =
   let __type = "google_notebooks_environment" in
   let __attrs =
     ({
@@ -289,17 +291,17 @@ let make ?description ?display_name ?id ?post_startup_script ?project
     json =
       yojson_of_google_notebooks_environment
         (google_notebooks_environment ?description ?display_name ?id
-           ?post_startup_script ?project ?timeouts ~location ~name
-           ~container_image ~vm_image ());
+           ?post_startup_script ?project ~container_image ?timeouts
+           ~vm_image ~location ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?display_name ?id
-    ?post_startup_script ?project ?timeouts ~location ~name
-    ~container_image ~vm_image __id =
+    ?post_startup_script ?project ?(container_image = []) ?timeouts
+    ?(vm_image = []) ~location ~name __id =
   let (r : _ Tf_core.resource) =
     make ?description ?display_name ?id ?post_startup_script ?project
-      ?timeouts ~location ~name ~container_image ~vm_image __id
+      ~container_image ?timeouts ~vm_image ~location ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

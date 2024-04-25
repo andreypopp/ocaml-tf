@@ -42,10 +42,10 @@ val env__value_from__secret_key_ref :
 type env__value_from
 
 val env__value_from :
-  config_map_key_ref:env__value_from__config_map_key_ref list ->
-  field_ref:env__value_from__field_ref list ->
-  resource_field_ref:env__value_from__resource_field_ref list ->
-  secret_key_ref:env__value_from__secret_key_ref list ->
+  ?config_map_key_ref:env__value_from__config_map_key_ref list ->
+  ?field_ref:env__value_from__field_ref list ->
+  ?resource_field_ref:env__value_from__resource_field_ref list ->
+  ?secret_key_ref:env__value_from__secret_key_ref list ->
   unit ->
   env__value_from
 
@@ -53,8 +53,8 @@ type env
 
 val env :
   ?value:string prop ->
+  ?value_from:env__value_from list ->
   name:string prop ->
-  value_from:env__value_from list ->
   unit ->
   env
 

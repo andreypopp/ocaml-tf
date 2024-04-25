@@ -27,9 +27,9 @@ val google_vpc_access_connector :
   ?network:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?subnet:subnet list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  subnet:subnet list ->
   unit ->
   google_vpc_access_connector
 
@@ -67,9 +67,9 @@ val register :
   ?network:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?subnet:subnet list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  subnet:subnet list ->
   string ->
   t
 
@@ -84,8 +84,8 @@ val make :
   ?network:string prop ->
   ?project:string prop ->
   ?region:string prop ->
+  ?subnet:subnet list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  subnet:subnet list ->
   string ->
   t Tf_core.resource

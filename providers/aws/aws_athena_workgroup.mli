@@ -31,9 +31,9 @@ type configuration__result_configuration
 val configuration__result_configuration :
   ?expected_bucket_owner:string prop ->
   ?output_location:string prop ->
-  acl_configuration:
+  ?acl_configuration:
     configuration__result_configuration__acl_configuration list ->
-  encryption_configuration:
+  ?encryption_configuration:
     configuration__result_configuration__encryption_configuration
     list ->
   unit ->
@@ -47,8 +47,8 @@ val configuration :
   ?execution_role:string prop ->
   ?publish_cloudwatch_metrics_enabled:bool prop ->
   ?requester_pays_enabled:bool prop ->
-  engine_version:configuration__engine_version list ->
-  result_configuration:configuration__result_configuration list ->
+  ?engine_version:configuration__engine_version list ->
+  ?result_configuration:configuration__result_configuration list ->
   unit ->
   configuration
 
@@ -61,8 +61,8 @@ val aws_athena_workgroup :
   ?state:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?configuration:configuration list ->
   name:string prop ->
-  configuration:configuration list ->
   unit ->
   aws_athena_workgroup
 
@@ -89,8 +89,8 @@ val register :
   ?state:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?configuration:configuration list ->
   name:string prop ->
-  configuration:configuration list ->
   string ->
   t
 
@@ -101,7 +101,7 @@ val make :
   ?state:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?configuration:configuration list ->
   name:string prop ->
-  configuration:configuration list ->
   string ->
   t Tf_core.resource

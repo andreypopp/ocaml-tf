@@ -237,13 +237,13 @@ let table_data__column_wildcard ?excluded_column_names () :
 
 let table_data__row_filter__all_rows_wildcard () = ()
 
-let table_data__row_filter ?filter_expression ~all_rows_wildcard () :
-    table_data__row_filter =
+let table_data__row_filter ?filter_expression
+    ?(all_rows_wildcard = []) () : table_data__row_filter =
   { filter_expression; all_rows_wildcard }
 
-let table_data ?column_names ?version_id ~database_name ~name
-    ~table_catalog_id ~table_name ~column_wildcard ~row_filter () :
-    table_data =
+let table_data ?column_names ?version_id ?(column_wildcard = [])
+    ?(row_filter = []) ~database_name ~name ~table_catalog_id
+    ~table_name () : table_data =
   {
     column_names;
     database_name;
@@ -257,13 +257,13 @@ let table_data ?column_names ?version_id ~database_name ~name
 
 let timeouts ?create () : timeouts = { create }
 
-let aws_lakeformation_data_cells_filter ?timeouts ~table_data () :
-    aws_lakeformation_data_cells_filter =
+let aws_lakeformation_data_cells_filter ?(table_data = []) ?timeouts
+    () : aws_lakeformation_data_cells_filter =
   { table_data; timeouts }
 
 type t = { id : string prop }
 
-let make ?timeouts ~table_data __id =
+let make ?(table_data = []) ?timeouts __id =
   let __type = "aws_lakeformation_data_cells_filter" in
   let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
   {
@@ -271,11 +271,11 @@ let make ?timeouts ~table_data __id =
     type_ = __type;
     json =
       yojson_of_aws_lakeformation_data_cells_filter
-        (aws_lakeformation_data_cells_filter ?timeouts ~table_data ());
+        (aws_lakeformation_data_cells_filter ~table_data ?timeouts ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?timeouts ~table_data __id =
-  let (r : _ Tf_core.resource) = make ?timeouts ~table_data __id in
+let register ?tf_module ?(table_data = []) ?timeouts __id =
+  let (r : _ Tf_core.resource) = make ~table_data ?timeouts __id in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

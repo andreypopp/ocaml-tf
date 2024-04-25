@@ -2188,8 +2188,8 @@ let block_device_mappings__ebs ?delete_on_termination ?encrypted
     volume_type;
   }
 
-let block_device_mappings ?device_name ?no_device ?virtual_name ~ebs
-    () : block_device_mappings =
+let block_device_mappings ?device_name ?no_device ?virtual_name
+    ?(ebs = []) () : block_device_mappings =
   { device_name; no_device; virtual_name; ebs }
 
 let capacity_reservation_specification__capacity_reservation_target
@@ -2202,8 +2202,9 @@ let capacity_reservation_specification__capacity_reservation_target
   }
 
 let capacity_reservation_specification
-    ?capacity_reservation_preference ~capacity_reservation_target ()
-    : capacity_reservation_specification =
+    ?capacity_reservation_preference
+    ?(capacity_reservation_target = []) () :
+    capacity_reservation_specification =
   { capacity_reservation_preference; capacity_reservation_target }
 
 let cpu_options ?amd_sev_snp ?core_count ?threads_per_core () :
@@ -2240,7 +2241,7 @@ let instance_market_options__spot_options ?block_duration_minutes
     valid_until;
   }
 
-let instance_market_options ?market_type ~spot_options () :
+let instance_market_options ?market_type ?(spot_options = []) () :
     instance_market_options =
   { market_type; spot_options }
 
@@ -2287,10 +2288,11 @@ let instance_requirements ?accelerator_manufacturers
     ?local_storage_types
     ?on_demand_max_price_percentage_over_lowest_price
     ?require_hibernate_support
-    ?spot_max_price_percentage_over_lowest_price ~accelerator_count
-    ~accelerator_total_memory_mib ~baseline_ebs_bandwidth_mbps
-    ~memory_gib_per_vcpu ~memory_mib ~network_bandwidth_gbps
-    ~network_interface_count ~total_local_storage_gb ~vcpu_count () :
+    ?spot_max_price_percentage_over_lowest_price
+    ?(accelerator_count = []) ?(accelerator_total_memory_mib = [])
+    ?(baseline_ebs_bandwidth_mbps = []) ?(memory_gib_per_vcpu = [])
+    ?(network_bandwidth_gbps = []) ?(network_interface_count = [])
+    ?(total_local_storage_gb = []) ~memory_mib ~vcpu_count () :
     instance_requirements =
   {
     accelerator_manufacturers;
@@ -2398,16 +2400,16 @@ let aws_launch_template ?default_version ?description
     ?image_id ?instance_initiated_shutdown_behavior ?instance_type
     ?kernel_id ?key_name ?name ?name_prefix ?ram_disk_id
     ?security_group_names ?tags ?tags_all ?update_default_version
-    ?user_data ?vpc_security_group_ids ~block_device_mappings
-    ~capacity_reservation_specification ~cpu_options
-    ~credit_specification ~elastic_gpu_specifications
-    ~elastic_inference_accelerator ~enclave_options
-    ~hibernation_options ~iam_instance_profile
-    ~instance_market_options ~instance_requirements
-    ~license_specification ~maintenance_options ~metadata_options
-    ~monitoring ~network_interfaces ~placement
-    ~private_dns_name_options ~tag_specifications () :
-    aws_launch_template =
+    ?user_data ?vpc_security_group_ids ?(block_device_mappings = [])
+    ?(capacity_reservation_specification = []) ?(cpu_options = [])
+    ?(credit_specification = []) ?(elastic_gpu_specifications = [])
+    ?(elastic_inference_accelerator = []) ?(enclave_options = [])
+    ?(hibernation_options = []) ?(iam_instance_profile = [])
+    ?(instance_market_options = []) ?(instance_requirements = [])
+    ?(maintenance_options = []) ?(metadata_options = [])
+    ?(monitoring = []) ?(network_interfaces = []) ?(placement = [])
+    ?(private_dns_name_options = []) ?(tag_specifications = [])
+    ~license_specification () : aws_launch_template =
   {
     default_version;
     description;
@@ -2480,15 +2482,16 @@ let make ?default_version ?description ?disable_api_stop
     ?instance_initiated_shutdown_behavior ?instance_type ?kernel_id
     ?key_name ?name ?name_prefix ?ram_disk_id ?security_group_names
     ?tags ?tags_all ?update_default_version ?user_data
-    ?vpc_security_group_ids ~block_device_mappings
-    ~capacity_reservation_specification ~cpu_options
-    ~credit_specification ~elastic_gpu_specifications
-    ~elastic_inference_accelerator ~enclave_options
-    ~hibernation_options ~iam_instance_profile
-    ~instance_market_options ~instance_requirements
-    ~license_specification ~maintenance_options ~metadata_options
-    ~monitoring ~network_interfaces ~placement
-    ~private_dns_name_options ~tag_specifications __id =
+    ?vpc_security_group_ids ?(block_device_mappings = [])
+    ?(capacity_reservation_specification = []) ?(cpu_options = [])
+    ?(credit_specification = []) ?(elastic_gpu_specifications = [])
+    ?(elastic_inference_accelerator = []) ?(enclave_options = [])
+    ?(hibernation_options = []) ?(iam_instance_profile = [])
+    ?(instance_market_options = []) ?(instance_requirements = [])
+    ?(maintenance_options = []) ?(metadata_options = [])
+    ?(monitoring = []) ?(network_interfaces = []) ?(placement = [])
+    ?(private_dns_name_options = []) ?(tag_specifications = [])
+    ~license_specification __id =
   let __type = "aws_launch_template" in
   let __attrs =
     ({
@@ -2540,10 +2543,10 @@ let make ?default_version ?description ?disable_api_stop
            ~elastic_gpu_specifications ~elastic_inference_accelerator
            ~enclave_options ~hibernation_options
            ~iam_instance_profile ~instance_market_options
-           ~instance_requirements ~license_specification
-           ~maintenance_options ~metadata_options ~monitoring
-           ~network_interfaces ~placement ~private_dns_name_options
-           ~tag_specifications ());
+           ~instance_requirements ~maintenance_options
+           ~metadata_options ~monitoring ~network_interfaces
+           ~placement ~private_dns_name_options ~tag_specifications
+           ~license_specification ());
     attrs = __attrs;
   }
 
@@ -2552,15 +2555,16 @@ let register ?tf_module ?default_version ?description
     ?image_id ?instance_initiated_shutdown_behavior ?instance_type
     ?kernel_id ?key_name ?name ?name_prefix ?ram_disk_id
     ?security_group_names ?tags ?tags_all ?update_default_version
-    ?user_data ?vpc_security_group_ids ~block_device_mappings
-    ~capacity_reservation_specification ~cpu_options
-    ~credit_specification ~elastic_gpu_specifications
-    ~elastic_inference_accelerator ~enclave_options
-    ~hibernation_options ~iam_instance_profile
-    ~instance_market_options ~instance_requirements
-    ~license_specification ~maintenance_options ~metadata_options
-    ~monitoring ~network_interfaces ~placement
-    ~private_dns_name_options ~tag_specifications __id =
+    ?user_data ?vpc_security_group_ids ?(block_device_mappings = [])
+    ?(capacity_reservation_specification = []) ?(cpu_options = [])
+    ?(credit_specification = []) ?(elastic_gpu_specifications = [])
+    ?(elastic_inference_accelerator = []) ?(enclave_options = [])
+    ?(hibernation_options = []) ?(iam_instance_profile = [])
+    ?(instance_market_options = []) ?(instance_requirements = [])
+    ?(maintenance_options = []) ?(metadata_options = [])
+    ?(monitoring = []) ?(network_interfaces = []) ?(placement = [])
+    ?(private_dns_name_options = []) ?(tag_specifications = [])
+    ~license_specification __id =
   let (r : _ Tf_core.resource) =
     make ?default_version ?description ?disable_api_stop
       ?disable_api_termination ?ebs_optimized ?id ?image_id
@@ -2573,9 +2577,9 @@ let register ?tf_module ?default_version ?description
       ~elastic_inference_accelerator ~enclave_options
       ~hibernation_options ~iam_instance_profile
       ~instance_market_options ~instance_requirements
-      ~license_specification ~maintenance_options ~metadata_options
-      ~monitoring ~network_interfaces ~placement
-      ~private_dns_name_options ~tag_specifications __id
+      ~maintenance_options ~metadata_options ~monitoring
+      ~network_interfaces ~placement ~private_dns_name_options
+      ~tag_specifications ~license_specification __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

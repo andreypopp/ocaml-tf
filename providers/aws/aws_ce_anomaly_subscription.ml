@@ -1038,8 +1038,8 @@ let threshold_expression__and__tags ?key ?match_options ?values () :
     threshold_expression__and__tags =
   { key; match_options; values }
 
-let threshold_expression__and ~cost_category ~dimension ~tags () :
-    threshold_expression__and =
+let threshold_expression__and ?(cost_category = []) ?(dimension = [])
+    ?(tags = []) () : threshold_expression__and =
   { cost_category; dimension; tags }
 
 let threshold_expression__cost_category ?key ?match_options ?values
@@ -1062,8 +1062,8 @@ let threshold_expression__not__tags ?key ?match_options ?values () :
     threshold_expression__not__tags =
   { key; match_options; values }
 
-let threshold_expression__not ~cost_category ~dimension ~tags () :
-    threshold_expression__not =
+let threshold_expression__not ?(cost_category = []) ?(dimension = [])
+    ?(tags = []) () : threshold_expression__not =
   { cost_category; dimension; tags }
 
 let threshold_expression__or__cost_category ?key ?match_options
@@ -1078,21 +1078,21 @@ let threshold_expression__or__tags ?key ?match_options ?values () :
     threshold_expression__or__tags =
   { key; match_options; values }
 
-let threshold_expression__or ~cost_category ~dimension ~tags () :
-    threshold_expression__or =
+let threshold_expression__or ?(cost_category = []) ?(dimension = [])
+    ?(tags = []) () : threshold_expression__or =
   { cost_category; dimension; tags }
 
 let threshold_expression__tags ?key ?match_options ?values () :
     threshold_expression__tags =
   { key; match_options; values }
 
-let threshold_expression ~and_ ~cost_category ~dimension ~not ~or_
-    ~tags () : threshold_expression =
+let threshold_expression ?(cost_category = []) ?(dimension = [])
+    ?(not = []) ?(tags = []) ~and_ ~or_ () : threshold_expression =
   { and_; cost_category; dimension; not; or_; tags }
 
 let aws_ce_anomaly_subscription ?account_id ?id ?tags ?tags_all
-    ~frequency ~monitor_arn_list ~name ~subscriber
-    ~threshold_expression () : aws_ce_anomaly_subscription =
+    ?(threshold_expression = []) ~frequency ~monitor_arn_list ~name
+    ~subscriber () : aws_ce_anomaly_subscription =
   {
     account_id;
     frequency;
@@ -1116,8 +1116,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?account_id ?id ?tags ?tags_all ~frequency ~monitor_arn_list
-    ~name ~subscriber ~threshold_expression __id =
+let make ?account_id ?id ?tags ?tags_all ?(threshold_expression = [])
+    ~frequency ~monitor_arn_list ~name ~subscriber __id =
   let __type = "aws_ce_anomaly_subscription" in
   let __attrs =
     ({
@@ -1139,16 +1139,17 @@ let make ?account_id ?id ?tags ?tags_all ~frequency ~monitor_arn_list
     json =
       yojson_of_aws_ce_anomaly_subscription
         (aws_ce_anomaly_subscription ?account_id ?id ?tags ?tags_all
-           ~frequency ~monitor_arn_list ~name ~subscriber
-           ~threshold_expression ());
+           ~threshold_expression ~frequency ~monitor_arn_list ~name
+           ~subscriber ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?account_id ?id ?tags ?tags_all ~frequency
-    ~monitor_arn_list ~name ~subscriber ~threshold_expression __id =
+let register ?tf_module ?account_id ?id ?tags ?tags_all
+    ?(threshold_expression = []) ~frequency ~monitor_arn_list ~name
+    ~subscriber __id =
   let (r : _ Tf_core.resource) =
-    make ?account_id ?id ?tags ?tags_all ~frequency ~monitor_arn_list
-      ~name ~subscriber ~threshold_expression __id
+    make ?account_id ?id ?tags ?tags_all ~threshold_expression
+      ~frequency ~monitor_arn_list ~name ~subscriber __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

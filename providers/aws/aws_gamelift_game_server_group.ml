@@ -366,9 +366,9 @@ let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let aws_gamelift_game_server_group ?balancing_strategy
     ?game_server_protection_policy ?id ?tags ?tags_all ?vpc_subnets
-    ?timeouts ~game_server_group_name ~max_size ~min_size ~role_arn
-    ~auto_scaling_policy ~instance_definition ~launch_template () :
-    aws_gamelift_game_server_group =
+    ?(auto_scaling_policy = []) ?timeouts ~game_server_group_name
+    ~max_size ~min_size ~role_arn ~instance_definition
+    ~launch_template () : aws_gamelift_game_server_group =
   {
     balancing_strategy;
     game_server_group_name;
@@ -402,8 +402,8 @@ type t = {
 }
 
 let make ?balancing_strategy ?game_server_protection_policy ?id ?tags
-    ?tags_all ?vpc_subnets ?timeouts ~game_server_group_name
-    ~max_size ~min_size ~role_arn ~auto_scaling_policy
+    ?tags_all ?vpc_subnets ?(auto_scaling_policy = []) ?timeouts
+    ~game_server_group_name ~max_size ~min_size ~role_arn
     ~instance_definition ~launch_template __id =
   let __type = "aws_gamelift_game_server_group" in
   let __attrs =
@@ -434,20 +434,21 @@ let make ?balancing_strategy ?game_server_protection_policy ?id ?tags
       yojson_of_aws_gamelift_game_server_group
         (aws_gamelift_game_server_group ?balancing_strategy
            ?game_server_protection_policy ?id ?tags ?tags_all
-           ?vpc_subnets ?timeouts ~game_server_group_name ~max_size
-           ~min_size ~role_arn ~auto_scaling_policy
+           ?vpc_subnets ~auto_scaling_policy ?timeouts
+           ~game_server_group_name ~max_size ~min_size ~role_arn
            ~instance_definition ~launch_template ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?balancing_strategy
     ?game_server_protection_policy ?id ?tags ?tags_all ?vpc_subnets
-    ?timeouts ~game_server_group_name ~max_size ~min_size ~role_arn
-    ~auto_scaling_policy ~instance_definition ~launch_template __id =
+    ?(auto_scaling_policy = []) ?timeouts ~game_server_group_name
+    ~max_size ~min_size ~role_arn ~instance_definition
+    ~launch_template __id =
   let (r : _ Tf_core.resource) =
     make ?balancing_strategy ?game_server_protection_policy ?id ?tags
-      ?tags_all ?vpc_subnets ?timeouts ~game_server_group_name
-      ~max_size ~min_size ~role_arn ~auto_scaling_policy
+      ?tags_all ?vpc_subnets ~auto_scaling_policy ?timeouts
+      ~game_server_group_name ~max_size ~min_size ~role_arn
       ~instance_definition ~launch_template __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

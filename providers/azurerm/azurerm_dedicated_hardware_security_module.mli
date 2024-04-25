@@ -37,12 +37,12 @@ val azurerm_dedicated_hardware_security_module :
   ?stamp_id:string prop ->
   ?tags:(string * string prop) list ->
   ?zones:string prop list ->
+  ?management_network_profile:management_network_profile list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  management_network_profile:management_network_profile list ->
   network_profile:network_profile list ->
   unit ->
   azurerm_dedicated_hardware_security_module
@@ -69,12 +69,12 @@ val register :
   ?stamp_id:string prop ->
   ?tags:(string * string prop) list ->
   ?zones:string prop list ->
+  ?management_network_profile:management_network_profile list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  management_network_profile:management_network_profile list ->
   network_profile:network_profile list ->
   string ->
   t
@@ -84,12 +84,12 @@ val make :
   ?stamp_id:string prop ->
   ?tags:(string * string prop) list ->
   ?zones:string prop list ->
+  ?management_network_profile:management_network_profile list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   sku_name:string prop ->
-  management_network_profile:management_network_profile list ->
   network_profile:network_profile list ->
   string ->
   t Tf_core.resource

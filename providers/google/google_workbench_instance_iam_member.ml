@@ -27,7 +27,7 @@ let condition ?description ~expression ~title () =
     title;
   } : condition);;
 
-let google_workbench_instance_iam_member ?id ?location ?project ~member ~name ~role ~condition () =
+let google_workbench_instance_iam_member ?id ?location ?project ?(condition=[]) ~member ~name ~role () =
   ({
     id;
     location;
@@ -48,7 +48,7 @@ type t = {
   role: string prop;
 }
 
-let make ?id ?location ?project ~member ~name ~role ~condition __id =
+let make ?id ?location ?project ?(condition=[]) ~member ~name ~role __id =
   let __type = "google_workbench_instance_iam_member" in
   let __attrs = ({
     etag = Prop.computed __type __id "etag";
@@ -62,12 +62,12 @@ let make ?id ?location ?project ~member ~name ~role ~condition __id =
   {Tf_core.
     id=__id;
     type_=__type;
-    json=yojson_of_google_workbench_instance_iam_member (google_workbench_instance_iam_member ?id ?location ?project ~member ~name ~role ~condition ());
+    json=yojson_of_google_workbench_instance_iam_member (google_workbench_instance_iam_member ?id ?location ?project ~condition ~member ~name ~role ());
     attrs=__attrs;
   };;
 
-let register ?tf_module ?id ?location ?project ~member ~name ~role ~condition __id =
-  let (r : _ Tf_core.resource) = make ?id ?location ?project ~member ~name ~role ~condition __id in
+let register ?tf_module ?id ?location ?project ?(condition=[]) ~member ~name ~role __id =
+  let (r : _ Tf_core.resource) = make ?id ?location ?project ~condition ~member ~name ~role __id in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs;;
 

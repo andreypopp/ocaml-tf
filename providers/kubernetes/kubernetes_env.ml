@@ -421,8 +421,9 @@ let env__value_from__secret_key_ref ?key ?name ?optional () :
     env__value_from__secret_key_ref =
   { key; name; optional }
 
-let env__value_from ~config_map_key_ref ~field_ref
-    ~resource_field_ref ~secret_key_ref () : env__value_from =
+let env__value_from ?(config_map_key_ref = []) ?(field_ref = [])
+    ?(resource_field_ref = []) ?(secret_key_ref = []) () :
+    env__value_from =
   {
     config_map_key_ref;
     field_ref;
@@ -430,7 +431,7 @@ let env__value_from ~config_map_key_ref ~field_ref
     secret_key_ref;
   }
 
-let env ?value ~name ~value_from () : env =
+let env ?value ?(value_from = []) ~name () : env =
   { name; value; value_from }
 
 let metadata ?namespace ~name () : metadata = { name; namespace }

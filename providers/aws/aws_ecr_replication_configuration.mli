@@ -23,9 +23,9 @@ val replication_configuration__rule__repository_filter :
 type replication_configuration__rule
 
 val replication_configuration__rule :
-  destination:replication_configuration__rule__destination list ->
-  repository_filter:
+  ?repository_filter:
     replication_configuration__rule__repository_filter list ->
+  destination:replication_configuration__rule__destination list ->
   unit ->
   replication_configuration__rule
 
@@ -40,7 +40,7 @@ type aws_ecr_replication_configuration
 
 val aws_ecr_replication_configuration :
   ?id:string prop ->
-  replication_configuration:replication_configuration list ->
+  ?replication_configuration:replication_configuration list ->
   unit ->
   aws_ecr_replication_configuration
 
@@ -54,12 +54,12 @@ type t = private { id : string prop; registry_id : string prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
-  replication_configuration:replication_configuration list ->
+  ?replication_configuration:replication_configuration list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
-  replication_configuration:replication_configuration list ->
+  ?replication_configuration:replication_configuration list ->
   string ->
   t Tf_core.resource

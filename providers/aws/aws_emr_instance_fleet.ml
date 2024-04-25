@@ -425,13 +425,13 @@ let launch_specifications__spot_specification ?block_duration_minutes
     timeout_duration_minutes;
   }
 
-let launch_specifications ~on_demand_specification
-    ~spot_specification () : launch_specifications =
+let launch_specifications ?(on_demand_specification = [])
+    ?(spot_specification = []) () : launch_specifications =
   { on_demand_specification; spot_specification }
 
 let aws_emr_instance_fleet ?id ?name ?target_on_demand_capacity
-    ?target_spot_capacity ~cluster_id ~instance_type_configs
-    ~launch_specifications () : aws_emr_instance_fleet =
+    ?target_spot_capacity ?(launch_specifications = []) ~cluster_id
+    ~instance_type_configs () : aws_emr_instance_fleet =
   {
     cluster_id;
     id;
@@ -453,7 +453,8 @@ type t = {
 }
 
 let make ?id ?name ?target_on_demand_capacity ?target_spot_capacity
-    ~cluster_id ~instance_type_configs ~launch_specifications __id =
+    ?(launch_specifications = []) ~cluster_id ~instance_type_configs
+    __id =
   let __type = "aws_emr_instance_fleet" in
   let __attrs =
     ({
@@ -477,17 +478,17 @@ let make ?id ?name ?target_on_demand_capacity ?target_spot_capacity
     json =
       yojson_of_aws_emr_instance_fleet
         (aws_emr_instance_fleet ?id ?name ?target_on_demand_capacity
-           ?target_spot_capacity ~cluster_id ~instance_type_configs
-           ~launch_specifications ());
+           ?target_spot_capacity ~launch_specifications ~cluster_id
+           ~instance_type_configs ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?name ?target_on_demand_capacity
-    ?target_spot_capacity ~cluster_id ~instance_type_configs
-    ~launch_specifications __id =
+    ?target_spot_capacity ?(launch_specifications = []) ~cluster_id
+    ~instance_type_configs __id =
   let (r : _ Tf_core.resource) =
     make ?id ?name ?target_on_demand_capacity ?target_spot_capacity
-      ~cluster_id ~instance_type_configs ~launch_specifications __id
+      ~launch_specifications ~cluster_id ~instance_type_configs __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

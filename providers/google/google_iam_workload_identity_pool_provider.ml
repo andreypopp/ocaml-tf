@@ -295,9 +295,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_iam_workload_identity_pool_provider ?attribute_condition
     ?attribute_mapping ?description ?disabled ?display_name ?id
-    ?project ?timeouts ~workload_identity_pool_id
-    ~workload_identity_pool_provider_id ~aws ~oidc ~saml () :
-    google_iam_workload_identity_pool_provider =
+    ?project ?(aws = []) ?(oidc = []) ?(saml = []) ?timeouts
+    ~workload_identity_pool_id ~workload_identity_pool_provider_id ()
+    : google_iam_workload_identity_pool_provider =
   {
     attribute_condition;
     attribute_mapping;
@@ -329,9 +329,9 @@ type t = {
 }
 
 let make ?attribute_condition ?attribute_mapping ?description
-    ?disabled ?display_name ?id ?project ?timeouts
-    ~workload_identity_pool_id ~workload_identity_pool_provider_id
-    ~aws ~oidc ~saml __id =
+    ?disabled ?display_name ?id ?project ?(aws = []) ?(oidc = [])
+    ?(saml = []) ?timeouts ~workload_identity_pool_id
+    ~workload_identity_pool_provider_id __id =
   let __type = "google_iam_workload_identity_pool_provider" in
   let __attrs =
     ({
@@ -361,21 +361,21 @@ let make ?attribute_condition ?attribute_mapping ?description
       yojson_of_google_iam_workload_identity_pool_provider
         (google_iam_workload_identity_pool_provider
            ?attribute_condition ?attribute_mapping ?description
-           ?disabled ?display_name ?id ?project ?timeouts
-           ~workload_identity_pool_id
-           ~workload_identity_pool_provider_id ~aws ~oidc ~saml ());
+           ?disabled ?display_name ?id ?project ~aws ~oidc ~saml
+           ?timeouts ~workload_identity_pool_id
+           ~workload_identity_pool_provider_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?attribute_condition ?attribute_mapping
-    ?description ?disabled ?display_name ?id ?project ?timeouts
-    ~workload_identity_pool_id ~workload_identity_pool_provider_id
-    ~aws ~oidc ~saml __id =
+    ?description ?disabled ?display_name ?id ?project ?(aws = [])
+    ?(oidc = []) ?(saml = []) ?timeouts ~workload_identity_pool_id
+    ~workload_identity_pool_provider_id __id =
   let (r : _ Tf_core.resource) =
     make ?attribute_condition ?attribute_mapping ?description
-      ?disabled ?display_name ?id ?project ?timeouts
+      ?disabled ?display_name ?id ?project ~aws ~oidc ~saml ?timeouts
       ~workload_identity_pool_id ~workload_identity_pool_provider_id
-      ~aws ~oidc ~saml __id
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

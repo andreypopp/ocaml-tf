@@ -52,7 +52,7 @@ val boot_disk :
   ?kms_key_self_link:string prop ->
   ?mode:string prop ->
   ?source:string prop ->
-  initialize_params:boot_disk__initialize_params list ->
+  ?initialize_params:boot_disk__initialize_params list ->
   unit ->
   boot_disk
 
@@ -103,9 +103,9 @@ val network_interface :
   ?stack_type:string prop ->
   ?subnetwork:string prop ->
   ?subnetwork_project:string prop ->
-  access_config:network_interface__access_config list ->
-  alias_ip_range:network_interface__alias_ip_range list ->
-  ipv6_access_config:network_interface__ipv6_access_config list ->
+  ?access_config:network_interface__access_config list ->
+  ?alias_ip_range:network_interface__alias_ip_range list ->
+  ?ipv6_access_config:network_interface__ipv6_access_config list ->
   unit ->
   network_interface
 
@@ -134,9 +134,9 @@ val reservation_affinity__specific_reservation :
 type reservation_affinity
 
 val reservation_affinity :
-  type_:string prop ->
-  specific_reservation:
+  ?specific_reservation:
     reservation_affinity__specific_reservation list ->
+  type_:string prop ->
   unit ->
   reservation_affinity
 
@@ -166,7 +166,7 @@ val scheduling :
   ?on_host_maintenance:string prop ->
   ?preemptible:bool prop ->
   ?provisioning_model:string prop ->
-  local_ssd_recovery_timeout:
+  ?local_ssd_recovery_timeout:
     scheduling__local_ssd_recovery_timeout list ->
   node_affinities:scheduling__node_affinities list ->
   unit ->
@@ -227,21 +227,21 @@ val google_compute_instance :
   ?resource_policies:string prop list ->
   ?tags:string prop list ->
   ?zone:string prop ->
+  ?advanced_machine_features:advanced_machine_features list ->
+  ?attached_disk:attached_disk list ->
+  ?confidential_instance_config:confidential_instance_config list ->
+  ?network_performance_config:network_performance_config list ->
+  ?params:params list ->
+  ?reservation_affinity:reservation_affinity list ->
+  ?scheduling:scheduling list ->
+  ?scratch_disk:scratch_disk list ->
+  ?service_account:service_account list ->
+  ?shielded_instance_config:shielded_instance_config list ->
   ?timeouts:timeouts ->
   machine_type:string prop ->
   name:string prop ->
-  advanced_machine_features:advanced_machine_features list ->
-  attached_disk:attached_disk list ->
   boot_disk:boot_disk list ->
-  confidential_instance_config:confidential_instance_config list ->
   network_interface:network_interface list ->
-  network_performance_config:network_performance_config list ->
-  params:params list ->
-  reservation_affinity:reservation_affinity list ->
-  scheduling:scheduling list ->
-  scratch_disk:scratch_disk list ->
-  service_account:service_account list ->
-  shielded_instance_config:shielded_instance_config list ->
   unit ->
   google_compute_instance
 
@@ -300,21 +300,21 @@ val register :
   ?resource_policies:string prop list ->
   ?tags:string prop list ->
   ?zone:string prop ->
+  ?advanced_machine_features:advanced_machine_features list ->
+  ?attached_disk:attached_disk list ->
+  ?confidential_instance_config:confidential_instance_config list ->
+  ?network_performance_config:network_performance_config list ->
+  ?params:params list ->
+  ?reservation_affinity:reservation_affinity list ->
+  ?scheduling:scheduling list ->
+  ?scratch_disk:scratch_disk list ->
+  ?service_account:service_account list ->
+  ?shielded_instance_config:shielded_instance_config list ->
   ?timeouts:timeouts ->
   machine_type:string prop ->
   name:string prop ->
-  advanced_machine_features:advanced_machine_features list ->
-  attached_disk:attached_disk list ->
   boot_disk:boot_disk list ->
-  confidential_instance_config:confidential_instance_config list ->
   network_interface:network_interface list ->
-  network_performance_config:network_performance_config list ->
-  params:params list ->
-  reservation_affinity:reservation_affinity list ->
-  scheduling:scheduling list ->
-  scratch_disk:scratch_disk list ->
-  service_account:service_account list ->
-  shielded_instance_config:shielded_instance_config list ->
   string ->
   t
 
@@ -336,20 +336,20 @@ val make :
   ?resource_policies:string prop list ->
   ?tags:string prop list ->
   ?zone:string prop ->
+  ?advanced_machine_features:advanced_machine_features list ->
+  ?attached_disk:attached_disk list ->
+  ?confidential_instance_config:confidential_instance_config list ->
+  ?network_performance_config:network_performance_config list ->
+  ?params:params list ->
+  ?reservation_affinity:reservation_affinity list ->
+  ?scheduling:scheduling list ->
+  ?scratch_disk:scratch_disk list ->
+  ?service_account:service_account list ->
+  ?shielded_instance_config:shielded_instance_config list ->
   ?timeouts:timeouts ->
   machine_type:string prop ->
   name:string prop ->
-  advanced_machine_features:advanced_machine_features list ->
-  attached_disk:attached_disk list ->
   boot_disk:boot_disk list ->
-  confidential_instance_config:confidential_instance_config list ->
   network_interface:network_interface list ->
-  network_performance_config:network_performance_config list ->
-  params:params list ->
-  reservation_affinity:reservation_affinity list ->
-  scheduling:scheduling list ->
-  scratch_disk:scratch_disk list ->
-  service_account:service_account list ->
-  shielded_instance_config:shielded_instance_config list ->
   string ->
   t Tf_core.resource

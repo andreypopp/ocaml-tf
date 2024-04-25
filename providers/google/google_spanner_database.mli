@@ -28,10 +28,10 @@ val google_spanner_database :
   ?id:string prop ->
   ?project:string prop ->
   ?version_retention_period:string prop ->
+  ?encryption_config:encryption_config list ->
   ?timeouts:timeouts ->
   instance:string prop ->
   name:string prop ->
-  encryption_config:encryption_config list ->
   unit ->
   google_spanner_database
 
@@ -62,10 +62,10 @@ val register :
   ?id:string prop ->
   ?project:string prop ->
   ?version_retention_period:string prop ->
+  ?encryption_config:encryption_config list ->
   ?timeouts:timeouts ->
   instance:string prop ->
   name:string prop ->
-  encryption_config:encryption_config list ->
   string ->
   t
 
@@ -77,9 +77,9 @@ val make :
   ?id:string prop ->
   ?project:string prop ->
   ?version_retention_period:string prop ->
+  ?encryption_config:encryption_config list ->
   ?timeouts:timeouts ->
   instance:string prop ->
   name:string prop ->
-  encryption_config:encryption_config list ->
   string ->
   t Tf_core.resource

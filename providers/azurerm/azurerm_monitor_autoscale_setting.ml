@@ -765,7 +765,7 @@ let notification__webhook ?properties ~service_uri () :
     notification__webhook =
   { properties; service_uri }
 
-let notification ~email ~webhook () : notification =
+let notification ?(email = []) ?(webhook = []) () : notification =
   { email; webhook }
 
 let predictive ?look_ahead_time ~scale_mode () : predictive =
@@ -788,9 +788,10 @@ let profile__rule__metric_trigger__dimensions ~name ~operator ~values
   { name; operator; values }
 
 let profile__rule__metric_trigger ?divide_by_instance_count
-    ?metric_namespace ~metric_name ~metric_resource_id ~operator
-    ~statistic ~threshold ~time_aggregation ~time_grain ~time_window
-    ~dimensions () : profile__rule__metric_trigger =
+    ?metric_namespace ?(dimensions = []) ~metric_name
+    ~metric_resource_id ~operator ~statistic ~threshold
+    ~time_aggregation ~time_grain ~time_window () :
+    profile__rule__metric_trigger =
   {
     divide_by_instance_count;
     metric_name;
@@ -812,16 +813,16 @@ let profile__rule__scale_action ~cooldown ~direction ~type_ ~value ()
 let profile__rule ~metric_trigger ~scale_action () : profile__rule =
   { metric_trigger; scale_action }
 
-let profile ~name ~capacity ~fixed_date ~recurrence ~rule () :
-    profile =
+let profile ?(fixed_date = []) ?(recurrence = []) ?(rule = []) ~name
+    ~capacity () : profile =
   { name; capacity; fixed_date; recurrence; rule }
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_monitor_autoscale_setting ?enabled ?id ?tags ?timeouts
-    ~location ~name ~resource_group_name ~target_resource_id
-    ~notification ~predictive ~profile () :
+let azurerm_monitor_autoscale_setting ?enabled ?id ?tags
+    ?(notification = []) ?(predictive = []) ?timeouts ~location ~name
+    ~resource_group_name ~target_resource_id ~profile () :
     azurerm_monitor_autoscale_setting =
   {
     enabled;
@@ -847,9 +848,9 @@ type t = {
   target_resource_id : string prop;
 }
 
-let make ?enabled ?id ?tags ?timeouts ~location ~name
-    ~resource_group_name ~target_resource_id ~notification
-    ~predictive ~profile __id =
+let make ?enabled ?id ?tags ?(notification = []) ?(predictive = [])
+    ?timeouts ~location ~name ~resource_group_name
+    ~target_resource_id ~profile __id =
   let __type = "azurerm_monitor_autoscale_setting" in
   let __attrs =
     ({
@@ -871,18 +872,18 @@ let make ?enabled ?id ?tags ?timeouts ~location ~name
     json =
       yojson_of_azurerm_monitor_autoscale_setting
         (azurerm_monitor_autoscale_setting ?enabled ?id ?tags
-           ?timeouts ~location ~name ~resource_group_name
-           ~target_resource_id ~notification ~predictive ~profile ());
+           ~notification ~predictive ?timeouts ~location ~name
+           ~resource_group_name ~target_resource_id ~profile ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?enabled ?id ?tags ?timeouts ~location ~name
-    ~resource_group_name ~target_resource_id ~notification
-    ~predictive ~profile __id =
+let register ?tf_module ?enabled ?id ?tags ?(notification = [])
+    ?(predictive = []) ?timeouts ~location ~name ~resource_group_name
+    ~target_resource_id ~profile __id =
   let (r : _ Tf_core.resource) =
-    make ?enabled ?id ?tags ?timeouts ~location ~name
-      ~resource_group_name ~target_resource_id ~notification
-      ~predictive ~profile __id
+    make ?enabled ?id ?tags ~notification ~predictive ?timeouts
+      ~location ~name ~resource_group_name ~target_resource_id
+      ~profile __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

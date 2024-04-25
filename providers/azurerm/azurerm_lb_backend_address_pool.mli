@@ -30,9 +30,9 @@ val azurerm_lb_backend_address_pool :
   ?id:string prop ->
   ?virtual_network_id:string prop ->
   ?timeouts:timeouts ->
+  ?tunnel_interface:tunnel_interface list ->
   loadbalancer_id:string prop ->
   name:string prop ->
-  tunnel_interface:tunnel_interface list ->
   unit ->
   azurerm_lb_backend_address_pool
 
@@ -57,9 +57,9 @@ val register :
   ?id:string prop ->
   ?virtual_network_id:string prop ->
   ?timeouts:timeouts ->
+  ?tunnel_interface:tunnel_interface list ->
   loadbalancer_id:string prop ->
   name:string prop ->
-  tunnel_interface:tunnel_interface list ->
   string ->
   t
 
@@ -67,8 +67,8 @@ val make :
   ?id:string prop ->
   ?virtual_network_id:string prop ->
   ?timeouts:timeouts ->
+  ?tunnel_interface:tunnel_interface list ->
   loadbalancer_id:string prop ->
   name:string prop ->
-  tunnel_interface:tunnel_interface list ->
   string ->
   t Tf_core.resource

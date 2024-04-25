@@ -46,13 +46,13 @@ type event_destination
 
 val event_destination :
   ?enabled:bool prop ->
-  matching_event_types:string prop list ->
-  cloud_watch_destination:
+  ?cloud_watch_destination:
     event_destination__cloud_watch_destination list ->
-  kinesis_firehose_destination:
+  ?kinesis_firehose_destination:
     event_destination__kinesis_firehose_destination list ->
-  pinpoint_destination:event_destination__pinpoint_destination list ->
-  sns_destination:event_destination__sns_destination list ->
+  ?pinpoint_destination:event_destination__pinpoint_destination list ->
+  ?sns_destination:event_destination__sns_destination list ->
+  matching_event_types:string prop list ->
   unit ->
   event_destination
 

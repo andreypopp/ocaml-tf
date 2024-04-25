@@ -246,12 +246,13 @@ let filter ?all ?match_by ~key ~values () : filter =
 
 let sort ?direction ~key () : sort = { direction; key }
 
-let digitalocean_images ?id ~filter ~sort () : digitalocean_images =
+let digitalocean_images ?id ?(sort = []) ~filter () :
+    digitalocean_images =
   { id; filter; sort }
 
 type t = { id : string prop; images : images list prop }
 
-let make ?id ~filter ~sort __id =
+let make ?id ?(sort = []) ~filter __id =
   let __type = "digitalocean_images" in
   let __attrs =
     ({
@@ -265,11 +266,11 @@ let make ?id ~filter ~sort __id =
     type_ = __type;
     json =
       yojson_of_digitalocean_images
-        (digitalocean_images ?id ~filter ~sort ());
+        (digitalocean_images ?id ~sort ~filter ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~filter ~sort __id =
-  let (r : _ Tf_core.resource) = make ?id ~filter ~sort __id in
+let register ?tf_module ?id ?(sort = []) ~filter __id =
+  let (r : _ Tf_core.resource) = make ?id ~sort ~filter __id in
   Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

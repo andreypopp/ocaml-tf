@@ -15,7 +15,7 @@ type client_connection_config
 
 val client_connection_config :
   ?require_connectors:bool prop ->
-  ssl_config:client_connection_config__ssl_config list ->
+  ?ssl_config:client_connection_config__ssl_config list ->
   unit ->
   client_connection_config
 
@@ -57,14 +57,14 @@ val google_alloydb_instance :
   ?gce_zone:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
+  ?client_connection_config:client_connection_config list ->
+  ?machine_config:machine_config list ->
+  ?query_insights_config:query_insights_config list ->
+  ?read_pool_config:read_pool_config list ->
   ?timeouts:timeouts ->
   cluster:string prop ->
   instance_id:string prop ->
   instance_type:string prop ->
-  client_connection_config:client_connection_config list ->
-  machine_config:machine_config list ->
-  query_insights_config:query_insights_config list ->
-  read_pool_config:read_pool_config list ->
   unit ->
   google_alloydb_instance
 
@@ -105,14 +105,14 @@ val register :
   ?gce_zone:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
+  ?client_connection_config:client_connection_config list ->
+  ?machine_config:machine_config list ->
+  ?query_insights_config:query_insights_config list ->
+  ?read_pool_config:read_pool_config list ->
   ?timeouts:timeouts ->
   cluster:string prop ->
   instance_id:string prop ->
   instance_type:string prop ->
-  client_connection_config:client_connection_config list ->
-  machine_config:machine_config list ->
-  query_insights_config:query_insights_config list ->
-  read_pool_config:read_pool_config list ->
   string ->
   t
 
@@ -124,13 +124,13 @@ val make :
   ?gce_zone:string prop ->
   ?id:string prop ->
   ?labels:(string * string prop) list ->
+  ?client_connection_config:client_connection_config list ->
+  ?machine_config:machine_config list ->
+  ?query_insights_config:query_insights_config list ->
+  ?read_pool_config:read_pool_config list ->
   ?timeouts:timeouts ->
   cluster:string prop ->
   instance_id:string prop ->
   instance_type:string prop ->
-  client_connection_config:client_connection_config list ->
-  machine_config:machine_config list ->
-  query_insights_config:query_insights_config list ->
-  read_pool_config:read_pool_config list ->
   string ->
   t Tf_core.resource

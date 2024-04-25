@@ -806,7 +806,7 @@ let import_table__input_format_options__csv ?delimiter ?header_list
     () : import_table__input_format_options__csv =
   { delimiter; header_list }
 
-let import_table__input_format_options ~csv () :
+let import_table__input_format_options ?(csv = []) () :
     import_table__input_format_options =
   { csv }
 
@@ -814,8 +814,8 @@ let import_table__s3_bucket_source ?bucket_owner ?key_prefix ~bucket
     () : import_table__s3_bucket_source =
   { bucket; bucket_owner; key_prefix }
 
-let import_table ?input_compression_type ~input_format
-    ~input_format_options ~s3_bucket_source () : import_table =
+let import_table ?input_compression_type ?(input_format_options = [])
+    ~input_format ~s3_bucket_source () : import_table =
   {
     input_compression_type;
     input_format;
@@ -853,9 +853,10 @@ let aws_dynamodb_table ?billing_mode ?deletion_protection_enabled
     ?hash_key ?id ?range_key ?read_capacity ?restore_date_time
     ?restore_source_name ?restore_to_latest_time ?stream_enabled
     ?stream_view_type ?table_class ?tags ?tags_all ?write_capacity
-    ?timeouts ~name ~attribute ~global_secondary_index ~import_table
-    ~local_secondary_index ~point_in_time_recovery ~replica
-    ~server_side_encryption ~ttl () : aws_dynamodb_table =
+    ?(import_table = []) ?(point_in_time_recovery = [])
+    ?(server_side_encryption = []) ?timeouts ?(ttl = []) ~name
+    ~attribute ~global_secondary_index ~local_secondary_index
+    ~replica () : aws_dynamodb_table =
   {
     billing_mode;
     deletion_protection_enabled;
@@ -909,10 +910,10 @@ type t = {
 let make ?billing_mode ?deletion_protection_enabled ?hash_key ?id
     ?range_key ?read_capacity ?restore_date_time ?restore_source_name
     ?restore_to_latest_time ?stream_enabled ?stream_view_type
-    ?table_class ?tags ?tags_all ?write_capacity ?timeouts ~name
-    ~attribute ~global_secondary_index ~import_table
-    ~local_secondary_index ~point_in_time_recovery ~replica
-    ~server_side_encryption ~ttl __id =
+    ?table_class ?tags ?tags_all ?write_capacity ?(import_table = [])
+    ?(point_in_time_recovery = []) ?(server_side_encryption = [])
+    ?timeouts ?(ttl = []) ~name ~attribute ~global_secondary_index
+    ~local_secondary_index ~replica __id =
   let __type = "aws_dynamodb_table" in
   let __attrs =
     ({
@@ -952,10 +953,10 @@ let make ?billing_mode ?deletion_protection_enabled ?hash_key ?id
            ?deletion_protection_enabled ?hash_key ?id ?range_key
            ?read_capacity ?restore_date_time ?restore_source_name
            ?restore_to_latest_time ?stream_enabled ?stream_view_type
-           ?table_class ?tags ?tags_all ?write_capacity ?timeouts
-           ~name ~attribute ~global_secondary_index ~import_table
-           ~local_secondary_index ~point_in_time_recovery ~replica
-           ~server_side_encryption ~ttl ());
+           ?table_class ?tags ?tags_all ?write_capacity ~import_table
+           ~point_in_time_recovery ~server_side_encryption ?timeouts
+           ~ttl ~name ~attribute ~global_secondary_index
+           ~local_secondary_index ~replica ());
     attrs = __attrs;
   }
 
@@ -963,17 +964,18 @@ let register ?tf_module ?billing_mode ?deletion_protection_enabled
     ?hash_key ?id ?range_key ?read_capacity ?restore_date_time
     ?restore_source_name ?restore_to_latest_time ?stream_enabled
     ?stream_view_type ?table_class ?tags ?tags_all ?write_capacity
-    ?timeouts ~name ~attribute ~global_secondary_index ~import_table
-    ~local_secondary_index ~point_in_time_recovery ~replica
-    ~server_side_encryption ~ttl __id =
+    ?(import_table = []) ?(point_in_time_recovery = [])
+    ?(server_side_encryption = []) ?timeouts ?(ttl = []) ~name
+    ~attribute ~global_secondary_index ~local_secondary_index
+    ~replica __id =
   let (r : _ Tf_core.resource) =
     make ?billing_mode ?deletion_protection_enabled ?hash_key ?id
       ?range_key ?read_capacity ?restore_date_time
       ?restore_source_name ?restore_to_latest_time ?stream_enabled
       ?stream_view_type ?table_class ?tags ?tags_all ?write_capacity
-      ?timeouts ~name ~attribute ~global_secondary_index
-      ~import_table ~local_secondary_index ~point_in_time_recovery
-      ~replica ~server_side_encryption ~ttl __id
+      ~import_table ~point_in_time_recovery ~server_side_encryption
+      ?timeouts ~ttl ~name ~attribute ~global_secondary_index
+      ~local_secondary_index ~replica __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

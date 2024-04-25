@@ -555,7 +555,7 @@ let basic__conditions__device_policy__os_constraints ?minimum_version
 let basic__conditions__device_policy
     ?allowed_device_management_levels ?allowed_encryption_statuses
     ?require_admin_approval ?require_corp_owned ?require_screen_lock
-    ~os_constraints () : basic__conditions__device_policy =
+    ?(os_constraints = []) () : basic__conditions__device_policy =
   {
     allowed_device_management_levels;
     allowed_encryption_statuses;
@@ -570,13 +570,13 @@ let basic__conditions__vpc_network_sources__vpc_subnetwork
     basic__conditions__vpc_network_sources__vpc_subnetwork =
   { network; vpc_ip_subnetworks }
 
-let basic__conditions__vpc_network_sources ~vpc_subnetwork () :
-    basic__conditions__vpc_network_sources =
+let basic__conditions__vpc_network_sources ?(vpc_subnetwork = []) ()
+    : basic__conditions__vpc_network_sources =
   { vpc_subnetwork }
 
 let basic__conditions ?ip_subnetworks ?members ?negate ?regions
-    ?required_access_levels ~device_policy ~vpc_network_sources () :
-    basic__conditions =
+    ?required_access_levels ?(device_policy = [])
+    ?(vpc_network_sources = []) () : basic__conditions =
   {
     ip_subnetworks;
     members;
@@ -600,7 +600,7 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_access_context_manager_access_level ?description ?id
-    ?timeouts ~name ~parent ~title ~basic ~custom () :
+    ?(basic = []) ?(custom = []) ?timeouts ~name ~parent ~title () :
     google_access_context_manager_access_level =
   { description; id; name; parent; title; basic; custom; timeouts }
 
@@ -612,8 +612,8 @@ type t = {
   title : string prop;
 }
 
-let make ?description ?id ?timeouts ~name ~parent ~title ~basic
-    ~custom __id =
+let make ?description ?id ?(basic = []) ?(custom = []) ?timeouts
+    ~name ~parent ~title __id =
   let __type = "google_access_context_manager_access_level" in
   let __attrs =
     ({
@@ -631,15 +631,15 @@ let make ?description ?id ?timeouts ~name ~parent ~title ~basic
     json =
       yojson_of_google_access_context_manager_access_level
         (google_access_context_manager_access_level ?description ?id
-           ?timeouts ~name ~parent ~title ~basic ~custom ());
+           ~basic ~custom ?timeouts ~name ~parent ~title ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?timeouts ~name ~parent
-    ~title ~basic ~custom __id =
+let register ?tf_module ?description ?id ?(basic = []) ?(custom = [])
+    ?timeouts ~name ~parent ~title __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?timeouts ~name ~parent ~title ~basic
-      ~custom __id
+    make ?description ?id ~basic ~custom ?timeouts ~name ~parent
+      ~title __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

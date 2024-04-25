@@ -1149,19 +1149,19 @@ let broker_node_group_info__connectivity_info__vpc_connectivity__client_authenti
   { iam; scram }
 
 let broker_node_group_info__connectivity_info__vpc_connectivity__client_authentication
-    ?tls ~sasl () :
+    ?tls ?(sasl = []) () :
     broker_node_group_info__connectivity_info__vpc_connectivity__client_authentication
     =
   { tls; sasl }
 
 let broker_node_group_info__connectivity_info__vpc_connectivity
-    ~client_authentication () :
+    ?(client_authentication = []) () :
     broker_node_group_info__connectivity_info__vpc_connectivity =
   { client_authentication }
 
-let broker_node_group_info__connectivity_info ~public_access
-    ~vpc_connectivity () : broker_node_group_info__connectivity_info
-    =
+let broker_node_group_info__connectivity_info ?(public_access = [])
+    ?(vpc_connectivity = []) () :
+    broker_node_group_info__connectivity_info =
   { public_access; vpc_connectivity }
 
 let broker_node_group_info__storage_info__ebs_storage_info__provisioned_throughput
@@ -1171,17 +1171,17 @@ let broker_node_group_info__storage_info__ebs_storage_info__provisioned_throughp
   { enabled; volume_throughput }
 
 let broker_node_group_info__storage_info__ebs_storage_info
-    ?volume_size ~provisioned_throughput () :
+    ?volume_size ?(provisioned_throughput = []) () :
     broker_node_group_info__storage_info__ebs_storage_info =
   { volume_size; provisioned_throughput }
 
-let broker_node_group_info__storage_info ~ebs_storage_info () :
-    broker_node_group_info__storage_info =
+let broker_node_group_info__storage_info ?(ebs_storage_info = []) ()
+    : broker_node_group_info__storage_info =
   { ebs_storage_info }
 
-let broker_node_group_info ?az_distribution ~client_subnets
-    ~instance_type ~security_groups ~connectivity_info ~storage_info
-    () : broker_node_group_info =
+let broker_node_group_info ?az_distribution ?(connectivity_info = [])
+    ?(storage_info = []) ~client_subnets ~instance_type
+    ~security_groups () : broker_node_group_info =
   {
     az_distribution;
     client_subnets;
@@ -1199,8 +1199,8 @@ let client_authentication__tls ?certificate_authority_arns () :
     client_authentication__tls =
   { certificate_authority_arns }
 
-let client_authentication ?unauthenticated ~sasl ~tls () :
-    client_authentication =
+let client_authentication ?unauthenticated ?(sasl = []) ?(tls = [])
+    () : client_authentication =
   { unauthenticated; sasl; tls }
 
 let configuration_info ~arn ~revision () : configuration_info =
@@ -1211,7 +1211,7 @@ let encryption_info__encryption_in_transit ?client_broker ?in_cluster
   { client_broker; in_cluster }
 
 let encryption_info ?encryption_at_rest_kms_key_arn
-    ~encryption_in_transit () : encryption_info =
+    ?(encryption_in_transit = []) () : encryption_info =
   { encryption_at_rest_kms_key_arn; encryption_in_transit }
 
 let logging_info__broker_logs__cloudwatch_logs ?log_group ~enabled ()
@@ -1226,8 +1226,8 @@ let logging_info__broker_logs__s3 ?bucket ?prefix ~enabled () :
     logging_info__broker_logs__s3 =
   { bucket; enabled; prefix }
 
-let logging_info__broker_logs ~cloudwatch_logs ~firehose ~s3 () :
-    logging_info__broker_logs =
+let logging_info__broker_logs ?(cloudwatch_logs = [])
+    ?(firehose = []) ?(s3 = []) () : logging_info__broker_logs =
   { cloudwatch_logs; firehose; s3 }
 
 let logging_info ~broker_logs () : logging_info = { broker_logs }
@@ -1240,8 +1240,8 @@ let open_monitoring__prometheus__node_exporter ~enabled_in_broker ()
     : open_monitoring__prometheus__node_exporter =
   { enabled_in_broker }
 
-let open_monitoring__prometheus ~jmx_exporter ~node_exporter () :
-    open_monitoring__prometheus =
+let open_monitoring__prometheus ?(jmx_exporter = [])
+    ?(node_exporter = []) () : open_monitoring__prometheus =
   { jmx_exporter; node_exporter }
 
 let open_monitoring ~prometheus () : open_monitoring = { prometheus }
@@ -1250,10 +1250,11 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_msk_cluster ?enhanced_monitoring ?id ?storage_mode ?tags
-    ?tags_all ?timeouts ~cluster_name ~kafka_version
-    ~number_of_broker_nodes ~broker_node_group_info
-    ~client_authentication ~configuration_info ~encryption_info
-    ~logging_info ~open_monitoring () : aws_msk_cluster =
+    ?tags_all ?(client_authentication = [])
+    ?(configuration_info = []) ?(encryption_info = [])
+    ?(logging_info = []) ?(open_monitoring = []) ?timeouts
+    ~cluster_name ~kafka_version ~number_of_broker_nodes
+    ~broker_node_group_info () : aws_msk_cluster =
   {
     cluster_name;
     enhanced_monitoring;
@@ -1299,10 +1300,10 @@ type t = {
 }
 
 let make ?enhanced_monitoring ?id ?storage_mode ?tags ?tags_all
-    ?timeouts ~cluster_name ~kafka_version ~number_of_broker_nodes
-    ~broker_node_group_info ~client_authentication
-    ~configuration_info ~encryption_info ~logging_info
-    ~open_monitoring __id =
+    ?(client_authentication = []) ?(configuration_info = [])
+    ?(encryption_info = []) ?(logging_info = [])
+    ?(open_monitoring = []) ?timeouts ~cluster_name ~kafka_version
+    ~number_of_broker_nodes ~broker_node_group_info __id =
   let __type = "aws_msk_cluster" in
   let __attrs =
     ({
@@ -1357,24 +1358,25 @@ let make ?enhanced_monitoring ?id ?storage_mode ?tags ?tags_all
     json =
       yojson_of_aws_msk_cluster
         (aws_msk_cluster ?enhanced_monitoring ?id ?storage_mode ?tags
-           ?tags_all ?timeouts ~cluster_name ~kafka_version
-           ~number_of_broker_nodes ~broker_node_group_info
-           ~client_authentication ~configuration_info
-           ~encryption_info ~logging_info ~open_monitoring ());
+           ?tags_all ~client_authentication ~configuration_info
+           ~encryption_info ~logging_info ~open_monitoring ?timeouts
+           ~cluster_name ~kafka_version ~number_of_broker_nodes
+           ~broker_node_group_info ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?enhanced_monitoring ?id ?storage_mode ?tags
-    ?tags_all ?timeouts ~cluster_name ~kafka_version
-    ~number_of_broker_nodes ~broker_node_group_info
-    ~client_authentication ~configuration_info ~encryption_info
-    ~logging_info ~open_monitoring __id =
+    ?tags_all ?(client_authentication = [])
+    ?(configuration_info = []) ?(encryption_info = [])
+    ?(logging_info = []) ?(open_monitoring = []) ?timeouts
+    ~cluster_name ~kafka_version ~number_of_broker_nodes
+    ~broker_node_group_info __id =
   let (r : _ Tf_core.resource) =
     make ?enhanced_monitoring ?id ?storage_mode ?tags ?tags_all
-      ?timeouts ~cluster_name ~kafka_version ~number_of_broker_nodes
-      ~broker_node_group_info ~client_authentication
-      ~configuration_info ~encryption_info ~logging_info
-      ~open_monitoring __id
+      ~client_authentication ~configuration_info ~encryption_info
+      ~logging_info ~open_monitoring ?timeouts ~cluster_name
+      ~kafka_version ~number_of_broker_nodes ~broker_node_group_info
+      __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -44,7 +44,7 @@ type spec__egress__to__namespace_selector
 
 val spec__egress__to__namespace_selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:
+  ?match_expressions:
     spec__egress__to__namespace_selector__match_expressions list ->
   unit ->
   spec__egress__to__namespace_selector
@@ -62,7 +62,7 @@ type spec__egress__to__pod_selector
 
 val spec__egress__to__pod_selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:
+  ?match_expressions:
     spec__egress__to__pod_selector__match_expressions list ->
   unit ->
   spec__egress__to__pod_selector
@@ -70,17 +70,17 @@ val spec__egress__to__pod_selector :
 type spec__egress__to
 
 val spec__egress__to :
-  ip_block:spec__egress__to__ip_block list ->
-  namespace_selector:spec__egress__to__namespace_selector list ->
-  pod_selector:spec__egress__to__pod_selector list ->
+  ?ip_block:spec__egress__to__ip_block list ->
+  ?namespace_selector:spec__egress__to__namespace_selector list ->
+  ?pod_selector:spec__egress__to__pod_selector list ->
   unit ->
   spec__egress__to
 
 type spec__egress
 
 val spec__egress :
-  ports:spec__egress__ports list ->
-  to_:spec__egress__to list ->
+  ?ports:spec__egress__ports list ->
+  ?to_:spec__egress__to list ->
   unit ->
   spec__egress
 
@@ -105,7 +105,7 @@ type spec__ingress__from__namespace_selector
 
 val spec__ingress__from__namespace_selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:
+  ?match_expressions:
     spec__ingress__from__namespace_selector__match_expressions list ->
   unit ->
   spec__ingress__from__namespace_selector
@@ -123,7 +123,7 @@ type spec__ingress__from__pod_selector
 
 val spec__ingress__from__pod_selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:
+  ?match_expressions:
     spec__ingress__from__pod_selector__match_expressions list ->
   unit ->
   spec__ingress__from__pod_selector
@@ -131,9 +131,9 @@ val spec__ingress__from__pod_selector :
 type spec__ingress__from
 
 val spec__ingress__from :
-  ip_block:spec__ingress__from__ip_block list ->
-  namespace_selector:spec__ingress__from__namespace_selector list ->
-  pod_selector:spec__ingress__from__pod_selector list ->
+  ?ip_block:spec__ingress__from__ip_block list ->
+  ?namespace_selector:spec__ingress__from__namespace_selector list ->
+  ?pod_selector:spec__ingress__from__pod_selector list ->
   unit ->
   spec__ingress__from
 
@@ -148,8 +148,8 @@ val spec__ingress__ports :
 type spec__ingress
 
 val spec__ingress :
-  from:spec__ingress__from list ->
-  ports:spec__ingress__ports list ->
+  ?from:spec__ingress__from list ->
+  ?ports:spec__ingress__ports list ->
   unit ->
   spec__ingress
 
@@ -166,16 +166,16 @@ type spec__pod_selector
 
 val spec__pod_selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:spec__pod_selector__match_expressions list ->
+  ?match_expressions:spec__pod_selector__match_expressions list ->
   unit ->
   spec__pod_selector
 
 type spec
 
 val spec :
+  ?egress:spec__egress list ->
+  ?ingress:spec__ingress list ->
   policy_types:string prop list ->
-  egress:spec__egress list ->
-  ingress:spec__ingress list ->
   pod_selector:spec__pod_selector list ->
   unit ->
   spec

@@ -49,10 +49,10 @@ val google_dialogflow_cx_webhook :
   ?parent:string prop ->
   ?security_settings:string prop ->
   ?timeout:string prop ->
+  ?generic_web_service:generic_web_service list ->
+  ?service_directory:service_directory list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
-  generic_web_service:generic_web_service list ->
-  service_directory:service_directory list ->
   unit ->
   google_dialogflow_cx_webhook
 
@@ -83,10 +83,10 @@ val register :
   ?parent:string prop ->
   ?security_settings:string prop ->
   ?timeout:string prop ->
+  ?generic_web_service:generic_web_service list ->
+  ?service_directory:service_directory list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
-  generic_web_service:generic_web_service list ->
-  service_directory:service_directory list ->
   string ->
   t
 
@@ -98,9 +98,9 @@ val make :
   ?parent:string prop ->
   ?security_settings:string prop ->
   ?timeout:string prop ->
+  ?generic_web_service:generic_web_service list ->
+  ?service_directory:service_directory list ->
   ?timeouts:timeouts ->
   display_name:string prop ->
-  generic_web_service:generic_web_service list ->
-  service_directory:service_directory list ->
   string ->
   t Tf_core.resource

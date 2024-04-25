@@ -11,7 +11,7 @@ val destination__amp :
 
 type destination
 
-val destination : amp:destination__amp list -> unit -> destination
+val destination : ?amp:destination__amp list -> unit -> destination
 
 type source__eks
 
@@ -24,7 +24,7 @@ val source__eks :
 
 type source
 
-val source : eks:source__eks list -> unit -> source
+val source : ?eks:source__eks list -> unit -> source
 
 type timeouts
 
@@ -36,10 +36,10 @@ type aws_prometheus_scraper
 val aws_prometheus_scraper :
   ?alias:string prop ->
   ?tags:(string * string prop) list ->
+  ?destination:destination list ->
+  ?source:source list ->
   ?timeouts:timeouts ->
   scrape_configuration:string prop ->
-  destination:destination list ->
-  source:source list ->
   unit ->
   aws_prometheus_scraper
 
@@ -61,19 +61,19 @@ val register :
   ?tf_module:tf_module ->
   ?alias:string prop ->
   ?tags:(string * string prop) list ->
+  ?destination:destination list ->
+  ?source:source list ->
   ?timeouts:timeouts ->
   scrape_configuration:string prop ->
-  destination:destination list ->
-  source:source list ->
   string ->
   t
 
 val make :
   ?alias:string prop ->
   ?tags:(string * string prop) list ->
+  ?destination:destination list ->
+  ?source:source list ->
   ?timeouts:timeouts ->
   scrape_configuration:string prop ->
-  destination:destination list ->
-  source:source list ->
   string ->
   t Tf_core.resource

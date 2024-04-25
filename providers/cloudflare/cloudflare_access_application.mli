@@ -69,7 +69,7 @@ val saas_app :
   ?redirect_uris:string prop list ->
   ?scopes:string prop list ->
   ?sp_entity_id:string prop ->
-  custom_attribute:saas_app__custom_attribute list ->
+  ?custom_attribute:saas_app__custom_attribute list ->
   unit ->
   saas_app
 
@@ -102,10 +102,10 @@ val cloudflare_access_application :
   ?tags:string prop list ->
   ?type_:string prop ->
   ?zone_id:string prop ->
-  cors_headers:cors_headers list ->
+  ?cors_headers:cors_headers list ->
+  ?landing_page_design:landing_page_design list ->
+  ?saas_app:saas_app list ->
   footer_links:footer_links list ->
-  landing_page_design:landing_page_design list ->
-  saas_app:saas_app list ->
   unit ->
   cloudflare_access_application
 
@@ -172,10 +172,10 @@ val register :
   ?tags:string prop list ->
   ?type_:string prop ->
   ?zone_id:string prop ->
-  cors_headers:cors_headers list ->
+  ?cors_headers:cors_headers list ->
+  ?landing_page_design:landing_page_design list ->
+  ?saas_app:saas_app list ->
   footer_links:footer_links list ->
-  landing_page_design:landing_page_design list ->
-  saas_app:saas_app list ->
   string ->
   t
 
@@ -206,9 +206,9 @@ val make :
   ?tags:string prop list ->
   ?type_:string prop ->
   ?zone_id:string prop ->
-  cors_headers:cors_headers list ->
+  ?cors_headers:cors_headers list ->
+  ?landing_page_design:landing_page_design list ->
+  ?saas_app:saas_app list ->
   footer_links:footer_links list ->
-  landing_page_design:landing_page_design list ->
-  saas_app:saas_app list ->
   string ->
   t Tf_core.resource

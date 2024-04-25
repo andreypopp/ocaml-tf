@@ -19,13 +19,13 @@ val rules__filter :
 type rules
 
 val rules :
+  ?filter:rules__filter list ->
   format:string prop ->
   name:string prop ->
   schedule:string prop ->
   schema_fields:string prop list ->
   scope:string prop ->
   storage_container_name:string prop ->
-  filter:rules__filter list ->
   unit ->
   rules
 

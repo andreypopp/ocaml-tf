@@ -25,7 +25,7 @@ type log_publishing_options
 
 val log_publishing_options :
   ?is_logging_enabled:bool prop ->
-  cloudwatch_log_destination:
+  ?cloudwatch_log_destination:
     log_publishing_options__cloudwatch_log_destination list ->
   unit ->
   log_publishing_options
@@ -51,15 +51,15 @@ type aws_osis_pipeline
 
 val aws_osis_pipeline :
   ?tags:(string * string prop) list ->
+  ?buffer_options:buffer_options list ->
+  ?encryption_at_rest_options:encryption_at_rest_options list ->
+  ?log_publishing_options:log_publishing_options list ->
   ?timeouts:timeouts ->
+  ?vpc_options:vpc_options list ->
   max_units:float prop ->
   min_units:float prop ->
   pipeline_configuration_body:string prop ->
   pipeline_name:string prop ->
-  buffer_options:buffer_options list ->
-  encryption_at_rest_options:encryption_at_rest_options list ->
-  log_publishing_options:log_publishing_options list ->
-  vpc_options:vpc_options list ->
   unit ->
   aws_osis_pipeline
 
@@ -82,28 +82,28 @@ type t = private {
 val register :
   ?tf_module:tf_module ->
   ?tags:(string * string prop) list ->
+  ?buffer_options:buffer_options list ->
+  ?encryption_at_rest_options:encryption_at_rest_options list ->
+  ?log_publishing_options:log_publishing_options list ->
   ?timeouts:timeouts ->
+  ?vpc_options:vpc_options list ->
   max_units:float prop ->
   min_units:float prop ->
   pipeline_configuration_body:string prop ->
   pipeline_name:string prop ->
-  buffer_options:buffer_options list ->
-  encryption_at_rest_options:encryption_at_rest_options list ->
-  log_publishing_options:log_publishing_options list ->
-  vpc_options:vpc_options list ->
   string ->
   t
 
 val make :
   ?tags:(string * string prop) list ->
+  ?buffer_options:buffer_options list ->
+  ?encryption_at_rest_options:encryption_at_rest_options list ->
+  ?log_publishing_options:log_publishing_options list ->
   ?timeouts:timeouts ->
+  ?vpc_options:vpc_options list ->
   max_units:float prop ->
   min_units:float prop ->
   pipeline_configuration_body:string prop ->
   pipeline_name:string prop ->
-  buffer_options:buffer_options list ->
-  encryption_at_rest_options:encryption_at_rest_options list ->
-  log_publishing_options:log_publishing_options list ->
-  vpc_options:vpc_options list ->
   string ->
   t Tf_core.resource

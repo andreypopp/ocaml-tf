@@ -18,11 +18,11 @@ type google_bigquery_table_iam_member
 val google_bigquery_table_iam_member :
   ?id:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   dataset_id:string prop ->
   member:string prop ->
   role:string prop ->
   table_id:string prop ->
-  condition:condition list ->
   unit ->
   google_bigquery_table_iam_member
 
@@ -45,21 +45,21 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   dataset_id:string prop ->
   member:string prop ->
   role:string prop ->
   table_id:string prop ->
-  condition:condition list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   dataset_id:string prop ->
   member:string prop ->
   role:string prop ->
   table_id:string prop ->
-  condition:condition list ->
   string ->
   t Tf_core.resource

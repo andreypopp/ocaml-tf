@@ -19,8 +19,8 @@ type cloudflare_api_shield
 
 val cloudflare_api_shield :
   ?id:string prop ->
+  ?auth_id_characteristics:auth_id_characteristics list ->
   zone_id:string prop ->
-  auth_id_characteristics:auth_id_characteristics list ->
   unit ->
   cloudflare_api_shield
 
@@ -33,14 +33,14 @@ type t = private { id : string prop; zone_id : string prop }
 val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
+  ?auth_id_characteristics:auth_id_characteristics list ->
   zone_id:string prop ->
-  auth_id_characteristics:auth_id_characteristics list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
+  ?auth_id_characteristics:auth_id_characteristics list ->
   zone_id:string prop ->
-  auth_id_characteristics:auth_id_characteristics list ->
   string ->
   t Tf_core.resource

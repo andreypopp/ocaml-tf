@@ -20,9 +20,9 @@ val aws_ses_configuration_set :
   ?id:string prop ->
   ?reputation_metrics_enabled:bool prop ->
   ?sending_enabled:bool prop ->
+  ?delivery_options:delivery_options list ->
+  ?tracking_options:tracking_options list ->
   name:string prop ->
-  delivery_options:delivery_options list ->
-  tracking_options:tracking_options list ->
   unit ->
   aws_ses_configuration_set
 
@@ -45,9 +45,9 @@ val register :
   ?id:string prop ->
   ?reputation_metrics_enabled:bool prop ->
   ?sending_enabled:bool prop ->
+  ?delivery_options:delivery_options list ->
+  ?tracking_options:tracking_options list ->
   name:string prop ->
-  delivery_options:delivery_options list ->
-  tracking_options:tracking_options list ->
   string ->
   t
 
@@ -55,8 +55,8 @@ val make :
   ?id:string prop ->
   ?reputation_metrics_enabled:bool prop ->
   ?sending_enabled:bool prop ->
+  ?delivery_options:delivery_options list ->
+  ?tracking_options:tracking_options list ->
   name:string prop ->
-  delivery_options:delivery_options list ->
-  tracking_options:tracking_options list ->
   string ->
   t Tf_core.resource

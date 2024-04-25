@@ -16,7 +16,7 @@ type capacity_reservation_specification
 
 val capacity_reservation_specification :
   ?capacity_reservation_preference:string prop ->
-  capacity_reservation_target:
+  ?capacity_reservation_target:
     capacity_reservation_specification__capacity_reservation_target
     list ->
   unit ->
@@ -180,20 +180,20 @@ val aws_spot_instance_request :
   ?volume_tags:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
   ?wait_for_fulfillment:bool prop ->
-  ?timeouts:timeouts ->
-  capacity_reservation_specification:
+  ?capacity_reservation_specification:
     capacity_reservation_specification list ->
-  cpu_options:cpu_options list ->
-  credit_specification:credit_specification list ->
+  ?cpu_options:cpu_options list ->
+  ?credit_specification:credit_specification list ->
+  ?enclave_options:enclave_options list ->
+  ?launch_template:launch_template list ->
+  ?maintenance_options:maintenance_options list ->
+  ?metadata_options:metadata_options list ->
+  ?private_dns_name_options:private_dns_name_options list ->
+  ?root_block_device:root_block_device list ->
+  ?timeouts:timeouts ->
   ebs_block_device:ebs_block_device list ->
-  enclave_options:enclave_options list ->
   ephemeral_block_device:ephemeral_block_device list ->
-  launch_template:launch_template list ->
-  maintenance_options:maintenance_options list ->
-  metadata_options:metadata_options list ->
   network_interface:network_interface list ->
-  private_dns_name_options:private_dns_name_options list ->
-  root_block_device:root_block_device list ->
   unit ->
   aws_spot_instance_request
 
@@ -304,20 +304,20 @@ val register :
   ?volume_tags:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
   ?wait_for_fulfillment:bool prop ->
-  ?timeouts:timeouts ->
-  capacity_reservation_specification:
+  ?capacity_reservation_specification:
     capacity_reservation_specification list ->
-  cpu_options:cpu_options list ->
-  credit_specification:credit_specification list ->
+  ?cpu_options:cpu_options list ->
+  ?credit_specification:credit_specification list ->
+  ?enclave_options:enclave_options list ->
+  ?launch_template:launch_template list ->
+  ?maintenance_options:maintenance_options list ->
+  ?metadata_options:metadata_options list ->
+  ?private_dns_name_options:private_dns_name_options list ->
+  ?root_block_device:root_block_device list ->
+  ?timeouts:timeouts ->
   ebs_block_device:ebs_block_device list ->
-  enclave_options:enclave_options list ->
   ephemeral_block_device:ephemeral_block_device list ->
-  launch_template:launch_template list ->
-  maintenance_options:maintenance_options list ->
-  metadata_options:metadata_options list ->
   network_interface:network_interface list ->
-  private_dns_name_options:private_dns_name_options list ->
-  root_block_device:root_block_device list ->
   string ->
   t
 
@@ -365,19 +365,19 @@ val make :
   ?volume_tags:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
   ?wait_for_fulfillment:bool prop ->
-  ?timeouts:timeouts ->
-  capacity_reservation_specification:
+  ?capacity_reservation_specification:
     capacity_reservation_specification list ->
-  cpu_options:cpu_options list ->
-  credit_specification:credit_specification list ->
+  ?cpu_options:cpu_options list ->
+  ?credit_specification:credit_specification list ->
+  ?enclave_options:enclave_options list ->
+  ?launch_template:launch_template list ->
+  ?maintenance_options:maintenance_options list ->
+  ?metadata_options:metadata_options list ->
+  ?private_dns_name_options:private_dns_name_options list ->
+  ?root_block_device:root_block_device list ->
+  ?timeouts:timeouts ->
   ebs_block_device:ebs_block_device list ->
-  enclave_options:enclave_options list ->
   ephemeral_block_device:ephemeral_block_device list ->
-  launch_template:launch_template list ->
-  maintenance_options:maintenance_options list ->
-  metadata_options:metadata_options list ->
   network_interface:network_interface list ->
-  private_dns_name_options:private_dns_name_options list ->
-  root_block_device:root_block_device list ->
   string ->
   t Tf_core.resource

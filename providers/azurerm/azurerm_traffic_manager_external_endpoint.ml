@@ -269,8 +269,8 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 
 let azurerm_traffic_manager_external_endpoint ?always_serve_enabled
     ?enabled ?endpoint_location ?geo_mappings ?id ?priority ?weight
-    ?timeouts ~name ~profile_id ~target ~custom_header ~subnet () :
-    azurerm_traffic_manager_external_endpoint =
+    ?(custom_header = []) ?(subnet = []) ?timeouts ~name ~profile_id
+    ~target () : azurerm_traffic_manager_external_endpoint =
   {
     always_serve_enabled;
     enabled;
@@ -301,8 +301,8 @@ type t = {
 }
 
 let make ?always_serve_enabled ?enabled ?endpoint_location
-    ?geo_mappings ?id ?priority ?weight ?timeouts ~name ~profile_id
-    ~target ~custom_header ~subnet __id =
+    ?geo_mappings ?id ?priority ?weight ?(custom_header = [])
+    ?(subnet = []) ?timeouts ~name ~profile_id ~target __id =
   let __type = "azurerm_traffic_manager_external_endpoint" in
   let __attrs =
     ({
@@ -328,18 +328,19 @@ let make ?always_serve_enabled ?enabled ?endpoint_location
       yojson_of_azurerm_traffic_manager_external_endpoint
         (azurerm_traffic_manager_external_endpoint
            ?always_serve_enabled ?enabled ?endpoint_location
-           ?geo_mappings ?id ?priority ?weight ?timeouts ~name
-           ~profile_id ~target ~custom_header ~subnet ());
+           ?geo_mappings ?id ?priority ?weight ~custom_header ~subnet
+           ?timeouts ~name ~profile_id ~target ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?always_serve_enabled ?enabled
-    ?endpoint_location ?geo_mappings ?id ?priority ?weight ?timeouts
-    ~name ~profile_id ~target ~custom_header ~subnet __id =
+    ?endpoint_location ?geo_mappings ?id ?priority ?weight
+    ?(custom_header = []) ?(subnet = []) ?timeouts ~name ~profile_id
+    ~target __id =
   let (r : _ Tf_core.resource) =
     make ?always_serve_enabled ?enabled ?endpoint_location
-      ?geo_mappings ?id ?priority ?weight ?timeouts ~name ~profile_id
-      ~target ~custom_header ~subnet __id
+      ?geo_mappings ?id ?priority ?weight ~custom_header ~subnet
+      ?timeouts ~name ~profile_id ~target __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

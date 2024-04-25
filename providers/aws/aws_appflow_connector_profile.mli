@@ -51,7 +51,7 @@ val connector_profile_config__connector_profile_credentials__custom_connector__o
   ?client_id:string prop ->
   ?client_secret:string prop ->
   ?refresh_token:string prop ->
-  oauth_request:
+  ?oauth_request:
     connector_profile_config__connector_profile_credentials__custom_connector__oauth2__oauth_request
     list ->
   unit ->
@@ -60,19 +60,19 @@ val connector_profile_config__connector_profile_credentials__custom_connector__o
 type connector_profile_config__connector_profile_credentials__custom_connector
 
 val connector_profile_config__connector_profile_credentials__custom_connector :
-  authentication_type:string prop ->
-  api_key:
+  ?api_key:
     connector_profile_config__connector_profile_credentials__custom_connector__api_key
     list ->
-  basic:
+  ?basic:
     connector_profile_config__connector_profile_credentials__custom_connector__basic
     list ->
-  custom:
+  ?custom:
     connector_profile_config__connector_profile_credentials__custom_connector__custom
     list ->
-  oauth2:
+  ?oauth2:
     connector_profile_config__connector_profile_credentials__custom_connector__oauth2
     list ->
+  authentication_type:string prop ->
   unit ->
   connector_profile_config__connector_profile_credentials__custom_connector
 
@@ -104,11 +104,11 @@ type connector_profile_config__connector_profile_credentials__google_analytics
 val connector_profile_config__connector_profile_credentials__google_analytics :
   ?access_token:string prop ->
   ?refresh_token:string prop ->
-  client_id:string prop ->
-  client_secret:string prop ->
-  oauth_request:
+  ?oauth_request:
     connector_profile_config__connector_profile_credentials__google_analytics__oauth_request
     list ->
+  client_id:string prop ->
+  client_secret:string prop ->
   unit ->
   connector_profile_config__connector_profile_credentials__google_analytics
 
@@ -125,7 +125,7 @@ type connector_profile_config__connector_profile_credentials__honeycode
 val connector_profile_config__connector_profile_credentials__honeycode :
   ?access_token:string prop ->
   ?refresh_token:string prop ->
-  oauth_request:
+  ?oauth_request:
     connector_profile_config__connector_profile_credentials__honeycode__oauth_request
     list ->
   unit ->
@@ -153,11 +153,11 @@ type connector_profile_config__connector_profile_credentials__marketo
 
 val connector_profile_config__connector_profile_credentials__marketo :
   ?access_token:string prop ->
-  client_id:string prop ->
-  client_secret:string prop ->
-  oauth_request:
+  ?oauth_request:
     connector_profile_config__connector_profile_credentials__marketo__oauth_request
     list ->
+  client_id:string prop ->
+  client_secret:string prop ->
   unit ->
   connector_profile_config__connector_profile_credentials__marketo
 
@@ -185,7 +185,7 @@ val connector_profile_config__connector_profile_credentials__salesforce :
   ?jwt_token:string prop ->
   ?oauth2_grant_type:string prop ->
   ?refresh_token:string prop ->
-  oauth_request:
+  ?oauth_request:
     connector_profile_config__connector_profile_credentials__salesforce__oauth_request
     list ->
   unit ->
@@ -212,21 +212,21 @@ type connector_profile_config__connector_profile_credentials__sapo_data__oauth_c
 val connector_profile_config__connector_profile_credentials__sapo_data__oauth_credentials :
   ?access_token:string prop ->
   ?refresh_token:string prop ->
-  client_id:string prop ->
-  client_secret:string prop ->
-  oauth_request:
+  ?oauth_request:
     connector_profile_config__connector_profile_credentials__sapo_data__oauth_credentials__oauth_request
     list ->
+  client_id:string prop ->
+  client_secret:string prop ->
   unit ->
   connector_profile_config__connector_profile_credentials__sapo_data__oauth_credentials
 
 type connector_profile_config__connector_profile_credentials__sapo_data
 
 val connector_profile_config__connector_profile_credentials__sapo_data :
-  basic_auth_credentials:
+  ?basic_auth_credentials:
     connector_profile_config__connector_profile_credentials__sapo_data__basic_auth_credentials
     list ->
-  oauth_credentials:
+  ?oauth_credentials:
     connector_profile_config__connector_profile_credentials__sapo_data__oauth_credentials
     list ->
   unit ->
@@ -259,11 +259,11 @@ type connector_profile_config__connector_profile_credentials__slack
 
 val connector_profile_config__connector_profile_credentials__slack :
   ?access_token:string prop ->
-  client_id:string prop ->
-  client_secret:string prop ->
-  oauth_request:
+  ?oauth_request:
     connector_profile_config__connector_profile_credentials__slack__oauth_request
     list ->
+  client_id:string prop ->
+  client_secret:string prop ->
   unit ->
   connector_profile_config__connector_profile_credentials__slack
 
@@ -302,69 +302,69 @@ type connector_profile_config__connector_profile_credentials__zendesk
 
 val connector_profile_config__connector_profile_credentials__zendesk :
   ?access_token:string prop ->
-  client_id:string prop ->
-  client_secret:string prop ->
-  oauth_request:
+  ?oauth_request:
     connector_profile_config__connector_profile_credentials__zendesk__oauth_request
     list ->
+  client_id:string prop ->
+  client_secret:string prop ->
   unit ->
   connector_profile_config__connector_profile_credentials__zendesk
 
 type connector_profile_config__connector_profile_credentials
 
 val connector_profile_config__connector_profile_credentials :
-  amplitude:
+  ?amplitude:
     connector_profile_config__connector_profile_credentials__amplitude
     list ->
-  custom_connector:
+  ?custom_connector:
     connector_profile_config__connector_profile_credentials__custom_connector
     list ->
-  datadog:
+  ?datadog:
     connector_profile_config__connector_profile_credentials__datadog
     list ->
-  dynatrace:
+  ?dynatrace:
     connector_profile_config__connector_profile_credentials__dynatrace
     list ->
-  google_analytics:
+  ?google_analytics:
     connector_profile_config__connector_profile_credentials__google_analytics
     list ->
-  honeycode:
+  ?honeycode:
     connector_profile_config__connector_profile_credentials__honeycode
     list ->
-  infor_nexus:
+  ?infor_nexus:
     connector_profile_config__connector_profile_credentials__infor_nexus
     list ->
-  marketo:
+  ?marketo:
     connector_profile_config__connector_profile_credentials__marketo
     list ->
-  redshift:
+  ?redshift:
     connector_profile_config__connector_profile_credentials__redshift
     list ->
-  salesforce:
+  ?salesforce:
     connector_profile_config__connector_profile_credentials__salesforce
     list ->
-  sapo_data:
+  ?sapo_data:
     connector_profile_config__connector_profile_credentials__sapo_data
     list ->
-  service_now:
+  ?service_now:
     connector_profile_config__connector_profile_credentials__service_now
     list ->
-  singular:
+  ?singular:
     connector_profile_config__connector_profile_credentials__singular
     list ->
-  slack:
+  ?slack:
     connector_profile_config__connector_profile_credentials__slack
     list ->
-  snowflake:
+  ?snowflake:
     connector_profile_config__connector_profile_credentials__snowflake
     list ->
-  trendmicro:
+  ?trendmicro:
     connector_profile_config__connector_profile_credentials__trendmicro
     list ->
-  veeva:
+  ?veeva:
     connector_profile_config__connector_profile_credentials__veeva
     list ->
-  zendesk:
+  ?zendesk:
     connector_profile_config__connector_profile_credentials__zendesk
     list ->
   unit ->
@@ -389,7 +389,7 @@ type connector_profile_config__connector_profile_properties__custom_connector
 
 val connector_profile_config__connector_profile_properties__custom_connector :
   ?profile_properties:(string * string prop) list ->
-  oauth2_properties:
+  ?oauth2_properties:
     connector_profile_config__connector_profile_properties__custom_connector__oauth2_properties
     list ->
   unit ->
@@ -470,13 +470,13 @@ type connector_profile_config__connector_profile_properties__sapo_data
 val connector_profile_config__connector_profile_properties__sapo_data :
   ?logon_language:string prop ->
   ?private_link_service_name:string prop ->
+  ?oauth_properties:
+    connector_profile_config__connector_profile_properties__sapo_data__oauth_properties
+    list ->
   application_host_url:string prop ->
   application_service_path:string prop ->
   client_number:string prop ->
   port_number:float prop ->
-  oauth_properties:
-    connector_profile_config__connector_profile_properties__sapo_data__oauth_properties
-    list ->
   unit ->
   connector_profile_config__connector_profile_properties__sapo_data
 
@@ -536,58 +536,58 @@ val connector_profile_config__connector_profile_properties__zendesk :
 type connector_profile_config__connector_profile_properties
 
 val connector_profile_config__connector_profile_properties :
-  amplitude:
+  ?amplitude:
     connector_profile_config__connector_profile_properties__amplitude
     list ->
-  custom_connector:
+  ?custom_connector:
     connector_profile_config__connector_profile_properties__custom_connector
     list ->
-  datadog:
+  ?datadog:
     connector_profile_config__connector_profile_properties__datadog
     list ->
-  dynatrace:
+  ?dynatrace:
     connector_profile_config__connector_profile_properties__dynatrace
     list ->
-  google_analytics:
+  ?google_analytics:
     connector_profile_config__connector_profile_properties__google_analytics
     list ->
-  honeycode:
+  ?honeycode:
     connector_profile_config__connector_profile_properties__honeycode
     list ->
-  infor_nexus:
+  ?infor_nexus:
     connector_profile_config__connector_profile_properties__infor_nexus
     list ->
-  marketo:
+  ?marketo:
     connector_profile_config__connector_profile_properties__marketo
     list ->
-  redshift:
+  ?redshift:
     connector_profile_config__connector_profile_properties__redshift
     list ->
-  salesforce:
+  ?salesforce:
     connector_profile_config__connector_profile_properties__salesforce
     list ->
-  sapo_data:
+  ?sapo_data:
     connector_profile_config__connector_profile_properties__sapo_data
     list ->
-  service_now:
+  ?service_now:
     connector_profile_config__connector_profile_properties__service_now
     list ->
-  singular:
+  ?singular:
     connector_profile_config__connector_profile_properties__singular
     list ->
-  slack:
+  ?slack:
     connector_profile_config__connector_profile_properties__slack
     list ->
-  snowflake:
+  ?snowflake:
     connector_profile_config__connector_profile_properties__snowflake
     list ->
-  trendmicro:
+  ?trendmicro:
     connector_profile_config__connector_profile_properties__trendmicro
     list ->
-  veeva:
+  ?veeva:
     connector_profile_config__connector_profile_properties__veeva
     list ->
-  zendesk:
+  ?zendesk:
     connector_profile_config__connector_profile_properties__zendesk
     list ->
   unit ->

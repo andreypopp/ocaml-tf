@@ -268,8 +268,9 @@ let aws_ssm_association ?apply_only_at_cron_interval
     ?association_name ?automation_target_parameter_name
     ?compliance_severity ?document_version ?id ?instance_id
     ?max_concurrency ?max_errors ?parameters ?schedule_expression
-    ?sync_compliance ?wait_for_success_timeout_seconds ~name
-    ~output_location ~targets () : aws_ssm_association =
+    ?sync_compliance ?wait_for_success_timeout_seconds
+    ?(output_location = []) ?(targets = []) ~name () :
+    aws_ssm_association =
   {
     apply_only_at_cron_interval;
     association_name;
@@ -312,8 +313,8 @@ let make ?apply_only_at_cron_interval ?association_name
     ?automation_target_parameter_name ?compliance_severity
     ?document_version ?id ?instance_id ?max_concurrency ?max_errors
     ?parameters ?schedule_expression ?sync_compliance
-    ?wait_for_success_timeout_seconds ~name ~output_location ~targets
-    __id =
+    ?wait_for_success_timeout_seconds ?(output_location = [])
+    ?(targets = []) ~name __id =
   let __type = "aws_ssm_association" in
   let __attrs =
     ({
@@ -353,8 +354,8 @@ let make ?apply_only_at_cron_interval ?association_name
            ?compliance_severity ?document_version ?id ?instance_id
            ?max_concurrency ?max_errors ?parameters
            ?schedule_expression ?sync_compliance
-           ?wait_for_success_timeout_seconds ~name ~output_location
-           ~targets ());
+           ?wait_for_success_timeout_seconds ~output_location
+           ~targets ~name ());
     attrs = __attrs;
   }
 
@@ -362,15 +363,15 @@ let register ?tf_module ?apply_only_at_cron_interval
     ?association_name ?automation_target_parameter_name
     ?compliance_severity ?document_version ?id ?instance_id
     ?max_concurrency ?max_errors ?parameters ?schedule_expression
-    ?sync_compliance ?wait_for_success_timeout_seconds ~name
-    ~output_location ~targets __id =
+    ?sync_compliance ?wait_for_success_timeout_seconds
+    ?(output_location = []) ?(targets = []) ~name __id =
   let (r : _ Tf_core.resource) =
     make ?apply_only_at_cron_interval ?association_name
       ?automation_target_parameter_name ?compliance_severity
       ?document_version ?id ?instance_id ?max_concurrency ?max_errors
       ?parameters ?schedule_expression ?sync_compliance
-      ?wait_for_success_timeout_seconds ~name ~output_location
-      ~targets __id
+      ?wait_for_success_timeout_seconds ~output_location ~targets
+      ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -120,8 +120,8 @@ let _ = yojson_of_google_spanner_database_iam_binding
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_spanner_database_iam_binding ?id ?project ~database
-    ~instance ~members ~role ~condition () :
+let google_spanner_database_iam_binding ?id ?project
+    ?(condition = []) ~database ~instance ~members ~role () :
     google_spanner_database_iam_binding =
   { database; id; instance; members; project; role; condition }
 
@@ -135,8 +135,8 @@ type t = {
   role : string prop;
 }
 
-let make ?id ?project ~database ~instance ~members ~role ~condition
-    __id =
+let make ?id ?project ?(condition = []) ~database ~instance ~members
+    ~role __id =
   let __type = "google_spanner_database_iam_binding" in
   let __attrs =
     ({
@@ -155,15 +155,15 @@ let make ?id ?project ~database ~instance ~members ~role ~condition
     type_ = __type;
     json =
       yojson_of_google_spanner_database_iam_binding
-        (google_spanner_database_iam_binding ?id ?project ~database
-           ~instance ~members ~role ~condition ());
+        (google_spanner_database_iam_binding ?id ?project ~condition
+           ~database ~instance ~members ~role ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?project ~database ~instance ~members
-    ~role ~condition __id =
+let register ?tf_module ?id ?project ?(condition = []) ~database
+    ~instance ~members ~role __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?project ~database ~instance ~members ~role ~condition
+    make ?id ?project ~condition ~database ~instance ~members ~role
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

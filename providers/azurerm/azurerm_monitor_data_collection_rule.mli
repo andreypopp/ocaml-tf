@@ -69,11 +69,11 @@ val data_sources__log_file__settings :
 type data_sources__log_file
 
 val data_sources__log_file :
+  ?settings:data_sources__log_file__settings list ->
   file_patterns:string prop list ->
   format:string prop ->
   name:string prop ->
   streams:string prop list ->
-  settings:data_sources__log_file__settings list ->
   unit ->
   data_sources__log_file
 
@@ -143,16 +143,16 @@ val data_sources__windows_firewall_log :
 type data_sources
 
 val data_sources :
-  data_import:data_sources__data_import list ->
-  extension:data_sources__extension list ->
-  iis_log:data_sources__iis_log list ->
-  log_file:data_sources__log_file list ->
-  performance_counter:data_sources__performance_counter list ->
-  platform_telemetry:data_sources__platform_telemetry list ->
-  prometheus_forwarder:data_sources__prometheus_forwarder list ->
-  syslog:data_sources__syslog list ->
-  windows_event_log:data_sources__windows_event_log list ->
-  windows_firewall_log:data_sources__windows_firewall_log list ->
+  ?data_import:data_sources__data_import list ->
+  ?extension:data_sources__extension list ->
+  ?iis_log:data_sources__iis_log list ->
+  ?log_file:data_sources__log_file list ->
+  ?performance_counter:data_sources__performance_counter list ->
+  ?platform_telemetry:data_sources__platform_telemetry list ->
+  ?prometheus_forwarder:data_sources__prometheus_forwarder list ->
+  ?syslog:data_sources__syslog list ->
+  ?windows_event_log:data_sources__windows_event_log list ->
+  ?windows_firewall_log:data_sources__windows_firewall_log list ->
   unit ->
   data_sources
 
@@ -223,14 +223,14 @@ val destinations__storage_table_direct :
 type destinations
 
 val destinations :
-  azure_monitor_metrics:destinations__azure_monitor_metrics list ->
-  event_hub:destinations__event_hub list ->
-  event_hub_direct:destinations__event_hub_direct list ->
-  log_analytics:destinations__log_analytics list ->
-  monitor_account:destinations__monitor_account list ->
-  storage_blob:destinations__storage_blob list ->
-  storage_blob_direct:destinations__storage_blob_direct list ->
-  storage_table_direct:destinations__storage_table_direct list ->
+  ?azure_monitor_metrics:destinations__azure_monitor_metrics list ->
+  ?event_hub:destinations__event_hub list ->
+  ?event_hub_direct:destinations__event_hub_direct list ->
+  ?log_analytics:destinations__log_analytics list ->
+  ?monitor_account:destinations__monitor_account list ->
+  ?storage_blob:destinations__storage_blob list ->
+  ?storage_blob_direct:destinations__storage_blob_direct list ->
+  ?storage_table_direct:destinations__storage_table_direct list ->
   unit ->
   destinations
 
@@ -276,14 +276,14 @@ val azurerm_monitor_data_collection_rule :
   ?id:string prop ->
   ?kind:string prop ->
   ?tags:(string * string prop) list ->
+  ?data_sources:data_sources list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   data_flow:data_flow list ->
-  data_sources:data_sources list ->
   destinations:destinations list ->
-  identity:identity list ->
   stream_declaration:stream_declaration list ->
   unit ->
   azurerm_monitor_data_collection_rule
@@ -312,14 +312,14 @@ val register :
   ?id:string prop ->
   ?kind:string prop ->
   ?tags:(string * string prop) list ->
+  ?data_sources:data_sources list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   data_flow:data_flow list ->
-  data_sources:data_sources list ->
   destinations:destinations list ->
-  identity:identity list ->
   stream_declaration:stream_declaration list ->
   string ->
   t
@@ -330,14 +330,14 @@ val make :
   ?id:string prop ->
   ?kind:string prop ->
   ?tags:(string * string prop) list ->
+  ?data_sources:data_sources list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
   data_flow:data_flow list ->
-  data_sources:data_sources list ->
   destinations:destinations list ->
-  identity:identity list ->
   stream_declaration:stream_declaration list ->
   string ->
   t Tf_core.resource

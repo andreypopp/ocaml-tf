@@ -21,7 +21,7 @@ val jobs__hadoop_job :
   ?main_class:string prop ->
   ?main_jar_file_uri:string prop ->
   ?properties:(string * string prop) list ->
-  logging_config:jobs__hadoop_job__logging_config list ->
+  ?logging_config:jobs__hadoop_job__logging_config list ->
   unit ->
   jobs__hadoop_job
 
@@ -38,7 +38,7 @@ val jobs__hive_job :
   ?properties:(string * string prop) list ->
   ?query_file_uri:string prop ->
   ?script_variables:(string * string prop) list ->
-  query_list:jobs__hive_job__query_list list ->
+  ?query_list:jobs__hive_job__query_list list ->
   unit ->
   jobs__hive_job
 
@@ -62,8 +62,8 @@ val jobs__pig_job :
   ?properties:(string * string prop) list ->
   ?query_file_uri:string prop ->
   ?script_variables:(string * string prop) list ->
-  logging_config:jobs__pig_job__logging_config list ->
-  query_list:jobs__pig_job__query_list list ->
+  ?logging_config:jobs__pig_job__logging_config list ->
+  ?query_list:jobs__pig_job__query_list list ->
   unit ->
   jobs__pig_job
 
@@ -87,8 +87,8 @@ val jobs__presto_job :
   ?output_format:string prop ->
   ?properties:(string * string prop) list ->
   ?query_file_uri:string prop ->
-  logging_config:jobs__presto_job__logging_config list ->
-  query_list:jobs__presto_job__query_list list ->
+  ?logging_config:jobs__presto_job__logging_config list ->
+  ?query_list:jobs__presto_job__query_list list ->
   unit ->
   jobs__presto_job
 
@@ -108,8 +108,8 @@ val jobs__pyspark_job :
   ?jar_file_uris:string prop list ->
   ?properties:(string * string prop) list ->
   ?python_file_uris:string prop list ->
+  ?logging_config:jobs__pyspark_job__logging_config list ->
   main_python_file_uri:string prop ->
-  logging_config:jobs__pyspark_job__logging_config list ->
   unit ->
   jobs__pyspark_job
 
@@ -138,7 +138,7 @@ val jobs__spark_job :
   ?main_class:string prop ->
   ?main_jar_file_uri:string prop ->
   ?properties:(string * string prop) list ->
-  logging_config:jobs__spark_job__logging_config list ->
+  ?logging_config:jobs__spark_job__logging_config list ->
   unit ->
   jobs__spark_job
 
@@ -156,8 +156,8 @@ val jobs__spark_r_job :
   ?args:string prop list ->
   ?file_uris:string prop list ->
   ?properties:(string * string prop) list ->
+  ?logging_config:jobs__spark_r_job__logging_config list ->
   main_r_file_uri:string prop ->
-  logging_config:jobs__spark_r_job__logging_config list ->
   unit ->
   jobs__spark_r_job
 
@@ -180,8 +180,8 @@ val jobs__spark_sql_job :
   ?properties:(string * string prop) list ->
   ?query_file_uri:string prop ->
   ?script_variables:(string * string prop) list ->
-  logging_config:jobs__spark_sql_job__logging_config list ->
-  query_list:jobs__spark_sql_job__query_list list ->
+  ?logging_config:jobs__spark_sql_job__logging_config list ->
+  ?query_list:jobs__spark_sql_job__query_list list ->
   unit ->
   jobs__spark_sql_job
 
@@ -190,16 +190,16 @@ type jobs
 val jobs :
   ?labels:(string * string prop) list ->
   ?prerequisite_step_ids:string prop list ->
+  ?hadoop_job:jobs__hadoop_job list ->
+  ?hive_job:jobs__hive_job list ->
+  ?pig_job:jobs__pig_job list ->
+  ?presto_job:jobs__presto_job list ->
+  ?pyspark_job:jobs__pyspark_job list ->
+  ?scheduling:jobs__scheduling list ->
+  ?spark_job:jobs__spark_job list ->
+  ?spark_r_job:jobs__spark_r_job list ->
+  ?spark_sql_job:jobs__spark_sql_job list ->
   step_id:string prop ->
-  hadoop_job:jobs__hadoop_job list ->
-  hive_job:jobs__hive_job list ->
-  pig_job:jobs__pig_job list ->
-  presto_job:jobs__presto_job list ->
-  pyspark_job:jobs__pyspark_job list ->
-  scheduling:jobs__scheduling list ->
-  spark_job:jobs__spark_job list ->
-  spark_r_job:jobs__spark_r_job list ->
-  spark_sql_job:jobs__spark_sql_job list ->
   unit ->
   jobs
 
@@ -216,8 +216,8 @@ val parameters__validation__values :
 type parameters__validation
 
 val parameters__validation :
-  regex:parameters__validation__regex list ->
-  values:parameters__validation__values list ->
+  ?regex:parameters__validation__regex list ->
+  ?values:parameters__validation__values list ->
   unit ->
   parameters__validation
 
@@ -225,9 +225,9 @@ type parameters
 
 val parameters :
   ?description:string prop ->
+  ?validation:parameters__validation list ->
   fields:string prop list ->
   name:string prop ->
-  validation:parameters__validation list ->
   unit ->
   parameters
 
@@ -297,13 +297,13 @@ val placement__managed_cluster__config__gce_cluster_config :
   ?subnetwork:string prop ->
   ?tags:string prop list ->
   ?zone:string prop ->
-  node_group_affinity:
+  ?node_group_affinity:
     placement__managed_cluster__config__gce_cluster_config__node_group_affinity
     list ->
-  reservation_affinity:
+  ?reservation_affinity:
     placement__managed_cluster__config__gce_cluster_config__reservation_affinity
     list ->
-  shielded_instance_config:
+  ?shielded_instance_config:
     placement__managed_cluster__config__gce_cluster_config__shielded_instance_config
     list ->
   unit ->
@@ -357,10 +357,10 @@ val placement__managed_cluster__config__master_config :
   ?min_cpu_platform:string prop ->
   ?num_instances:float prop ->
   ?preemptibility:string prop ->
-  accelerators:
+  ?accelerators:
     placement__managed_cluster__config__master_config__accelerators
     list ->
-  disk_config:
+  ?disk_config:
     placement__managed_cluster__config__master_config__disk_config
     list ->
   unit ->
@@ -397,10 +397,10 @@ val placement__managed_cluster__config__secondary_worker_config :
   ?min_cpu_platform:string prop ->
   ?num_instances:float prop ->
   ?preemptibility:string prop ->
-  accelerators:
+  ?accelerators:
     placement__managed_cluster__config__secondary_worker_config__accelerators
     list ->
-  disk_config:
+  ?disk_config:
     placement__managed_cluster__config__secondary_worker_config__disk_config
     list ->
   unit ->
@@ -430,7 +430,7 @@ val placement__managed_cluster__config__security_config__kerberos_config :
 type placement__managed_cluster__config__security_config
 
 val placement__managed_cluster__config__security_config :
-  kerberos_config:
+  ?kerberos_config:
     placement__managed_cluster__config__security_config__kerberos_config
     list ->
   unit ->
@@ -476,10 +476,10 @@ val placement__managed_cluster__config__worker_config :
   ?min_cpu_platform:string prop ->
   ?num_instances:float prop ->
   ?preemptibility:string prop ->
-  accelerators:
+  ?accelerators:
     placement__managed_cluster__config__worker_config__accelerators
     list ->
-  disk_config:
+  ?disk_config:
     placement__managed_cluster__config__worker_config__disk_config
     list ->
   unit ->
@@ -490,27 +490,27 @@ type placement__managed_cluster__config
 val placement__managed_cluster__config :
   ?staging_bucket:string prop ->
   ?temp_bucket:string prop ->
-  autoscaling_config:
+  ?autoscaling_config:
     placement__managed_cluster__config__autoscaling_config list ->
-  encryption_config:
+  ?encryption_config:
     placement__managed_cluster__config__encryption_config list ->
-  endpoint_config:
+  ?endpoint_config:
     placement__managed_cluster__config__endpoint_config list ->
-  gce_cluster_config:
+  ?gce_cluster_config:
     placement__managed_cluster__config__gce_cluster_config list ->
-  initialization_actions:
+  ?initialization_actions:
     placement__managed_cluster__config__initialization_actions list ->
-  lifecycle_config:
+  ?lifecycle_config:
     placement__managed_cluster__config__lifecycle_config list ->
-  master_config:
+  ?master_config:
     placement__managed_cluster__config__master_config list ->
-  secondary_worker_config:
+  ?secondary_worker_config:
     placement__managed_cluster__config__secondary_worker_config list ->
-  security_config:
+  ?security_config:
     placement__managed_cluster__config__security_config list ->
-  software_config:
+  ?software_config:
     placement__managed_cluster__config__software_config list ->
-  worker_config:
+  ?worker_config:
     placement__managed_cluster__config__worker_config list ->
   unit ->
   placement__managed_cluster__config
@@ -527,8 +527,8 @@ val placement__managed_cluster :
 type placement
 
 val placement :
-  cluster_selector:placement__cluster_selector list ->
-  managed_cluster:placement__managed_cluster list ->
+  ?cluster_selector:placement__cluster_selector list ->
+  ?managed_cluster:placement__managed_cluster list ->
   unit ->
   placement
 
@@ -549,11 +549,11 @@ val google_dataproc_workflow_template :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?version:float prop ->
+  ?parameters:parameters list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   jobs:jobs list ->
-  parameters:parameters list ->
   placement:placement list ->
   unit ->
   google_dataproc_workflow_template
@@ -584,11 +584,11 @@ val register :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?version:float prop ->
+  ?parameters:parameters list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   jobs:jobs list ->
-  parameters:parameters list ->
   placement:placement list ->
   string ->
   t
@@ -599,11 +599,11 @@ val make :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?version:float prop ->
+  ?parameters:parameters list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   jobs:jobs list ->
-  parameters:parameters list ->
   placement:placement list ->
   string ->
   t Tf_core.resource

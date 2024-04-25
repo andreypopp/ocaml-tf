@@ -111,13 +111,13 @@ val aws_rds_cluster :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
+  ?restore_to_point_in_time:restore_to_point_in_time list ->
+  ?s3_import:s3_import list ->
+  ?scaling_configuration:scaling_configuration list ->
+  ?serverlessv2_scaling_configuration:
+    serverlessv2_scaling_configuration list ->
   ?timeouts:timeouts ->
   engine:string prop ->
-  restore_to_point_in_time:restore_to_point_in_time list ->
-  s3_import:s3_import list ->
-  scaling_configuration:scaling_configuration list ->
-  serverlessv2_scaling_configuration:
-    serverlessv2_scaling_configuration list ->
   unit ->
   aws_rds_cluster
 
@@ -236,13 +236,13 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
+  ?restore_to_point_in_time:restore_to_point_in_time list ->
+  ?s3_import:s3_import list ->
+  ?scaling_configuration:scaling_configuration list ->
+  ?serverlessv2_scaling_configuration:
+    serverlessv2_scaling_configuration list ->
   ?timeouts:timeouts ->
   engine:string prop ->
-  restore_to_point_in_time:restore_to_point_in_time list ->
-  s3_import:s3_import list ->
-  scaling_configuration:scaling_configuration list ->
-  serverlessv2_scaling_configuration:
-    serverlessv2_scaling_configuration list ->
   string ->
   t
 
@@ -296,12 +296,12 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?vpc_security_group_ids:string prop list ->
+  ?restore_to_point_in_time:restore_to_point_in_time list ->
+  ?s3_import:s3_import list ->
+  ?scaling_configuration:scaling_configuration list ->
+  ?serverlessv2_scaling_configuration:
+    serverlessv2_scaling_configuration list ->
   ?timeouts:timeouts ->
   engine:string prop ->
-  restore_to_point_in_time:restore_to_point_in_time list ->
-  s3_import:s3_import list ->
-  scaling_configuration:scaling_configuration list ->
-  serverlessv2_scaling_configuration:
-    serverlessv2_scaling_configuration list ->
   string ->
   t Tf_core.resource

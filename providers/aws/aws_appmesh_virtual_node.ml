@@ -2768,7 +2768,7 @@ let spec__backend__virtual_service__client_policy__tls__certificate__sds
   { secret_name }
 
 let spec__backend__virtual_service__client_policy__tls__certificate
-    ~file ~sds () :
+    ?(file = []) ?(sds = []) () :
     spec__backend__virtual_service__client_policy__tls__certificate =
   { file; sds }
 
@@ -2803,27 +2803,27 @@ let spec__backend__virtual_service__client_policy__tls__validation__trust__sds
   { secret_name }
 
 let spec__backend__virtual_service__client_policy__tls__validation__trust
-    ~acm ~file ~sds () :
+    ?(acm = []) ?(file = []) ?(sds = []) () :
     spec__backend__virtual_service__client_policy__tls__validation__trust
     =
   { acm; file; sds }
 
 let spec__backend__virtual_service__client_policy__tls__validation
-    ~subject_alternative_names ~trust () :
+    ?(subject_alternative_names = []) ~trust () :
     spec__backend__virtual_service__client_policy__tls__validation =
   { subject_alternative_names; trust }
 
 let spec__backend__virtual_service__client_policy__tls ?enforce
-    ?ports ~certificate ~validation () :
+    ?ports ?(certificate = []) ~validation () :
     spec__backend__virtual_service__client_policy__tls =
   { enforce; ports; certificate; validation }
 
-let spec__backend__virtual_service__client_policy ~tls () :
+let spec__backend__virtual_service__client_policy ?(tls = []) () :
     spec__backend__virtual_service__client_policy =
   { tls }
 
-let spec__backend__virtual_service ~virtual_service_name
-    ~client_policy () : spec__backend__virtual_service =
+let spec__backend__virtual_service ?(client_policy = [])
+    ~virtual_service_name () : spec__backend__virtual_service =
   { virtual_service_name; client_policy }
 
 let spec__backend ~virtual_service () : spec__backend =
@@ -2839,9 +2839,9 @@ let spec__backend_defaults__client_policy__tls__certificate__sds
     spec__backend_defaults__client_policy__tls__certificate__sds =
   { secret_name }
 
-let spec__backend_defaults__client_policy__tls__certificate ~file
-    ~sds () : spec__backend_defaults__client_policy__tls__certificate
-    =
+let spec__backend_defaults__client_policy__tls__certificate
+    ?(file = []) ?(sds = []) () :
+    spec__backend_defaults__client_policy__tls__certificate =
   { file; sds }
 
 let spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match
@@ -2875,26 +2875,26 @@ let spec__backend_defaults__client_policy__tls__validation__trust__sds
   { secret_name }
 
 let spec__backend_defaults__client_policy__tls__validation__trust
-    ~acm ~file ~sds () :
+    ?(acm = []) ?(file = []) ?(sds = []) () :
     spec__backend_defaults__client_policy__tls__validation__trust =
   { acm; file; sds }
 
 let spec__backend_defaults__client_policy__tls__validation
-    ~subject_alternative_names ~trust () :
+    ?(subject_alternative_names = []) ~trust () :
     spec__backend_defaults__client_policy__tls__validation =
   { subject_alternative_names; trust }
 
 let spec__backend_defaults__client_policy__tls ?enforce ?ports
-    ~certificate ~validation () :
+    ?(certificate = []) ~validation () :
     spec__backend_defaults__client_policy__tls =
   { enforce; ports; certificate; validation }
 
-let spec__backend_defaults__client_policy ~tls () :
+let spec__backend_defaults__client_policy ?(tls = []) () :
     spec__backend_defaults__client_policy =
   { tls }
 
-let spec__backend_defaults ~client_policy () : spec__backend_defaults
-    =
+let spec__backend_defaults ?(client_policy = []) () :
+    spec__backend_defaults =
   { client_policy }
 
 let spec__listener__connection_pool__grpc ~max_requests () :
@@ -2913,8 +2913,8 @@ let spec__listener__connection_pool__tcp ~max_connections () :
     spec__listener__connection_pool__tcp =
   { max_connections }
 
-let spec__listener__connection_pool ~grpc ~http ~http2 ~tcp () :
-    spec__listener__connection_pool =
+let spec__listener__connection_pool ?(grpc = []) ?(http = [])
+    ?(http2 = []) ?(tcp = []) () : spec__listener__connection_pool =
   { grpc; http; http2; tcp }
 
 let spec__listener__health_check ?path ?port ~healthy_threshold
@@ -2961,8 +2961,8 @@ let spec__listener__timeout__grpc__per_request ~unit ~value () :
     spec__listener__timeout__grpc__per_request =
   { unit; value }
 
-let spec__listener__timeout__grpc ~idle ~per_request () :
-    spec__listener__timeout__grpc =
+let spec__listener__timeout__grpc ?(idle = []) ?(per_request = []) ()
+    : spec__listener__timeout__grpc =
   { idle; per_request }
 
 let spec__listener__timeout__http__idle ~unit ~value () :
@@ -2973,8 +2973,8 @@ let spec__listener__timeout__http__per_request ~unit ~value () :
     spec__listener__timeout__http__per_request =
   { unit; value }
 
-let spec__listener__timeout__http ~idle ~per_request () :
-    spec__listener__timeout__http =
+let spec__listener__timeout__http ?(idle = []) ?(per_request = []) ()
+    : spec__listener__timeout__http =
   { idle; per_request }
 
 let spec__listener__timeout__http2__idle ~unit ~value () :
@@ -2985,20 +2985,20 @@ let spec__listener__timeout__http2__per_request ~unit ~value () :
     spec__listener__timeout__http2__per_request =
   { unit; value }
 
-let spec__listener__timeout__http2 ~idle ~per_request () :
-    spec__listener__timeout__http2 =
+let spec__listener__timeout__http2 ?(idle = []) ?(per_request = [])
+    () : spec__listener__timeout__http2 =
   { idle; per_request }
 
 let spec__listener__timeout__tcp__idle ~unit ~value () :
     spec__listener__timeout__tcp__idle =
   { unit; value }
 
-let spec__listener__timeout__tcp ~idle () :
+let spec__listener__timeout__tcp ?(idle = []) () :
     spec__listener__timeout__tcp =
   { idle }
 
-let spec__listener__timeout ~grpc ~http ~http2 ~tcp () :
-    spec__listener__timeout =
+let spec__listener__timeout ?(grpc = []) ?(http = []) ?(http2 = [])
+    ?(tcp = []) () : spec__listener__timeout =
   { grpc; http; http2; tcp }
 
 let spec__listener__tls__certificate__acm ~certificate_arn () :
@@ -3013,8 +3013,8 @@ let spec__listener__tls__certificate__sds ~secret_name () :
     spec__listener__tls__certificate__sds =
   { secret_name }
 
-let spec__listener__tls__certificate ~acm ~file ~sds () :
-    spec__listener__tls__certificate =
+let spec__listener__tls__certificate ?(acm = []) ?(file = [])
+    ?(sds = []) () : spec__listener__tls__certificate =
   { acm; file; sds }
 
 let spec__listener__tls__validation__subject_alternative_names__match
@@ -3036,20 +3036,21 @@ let spec__listener__tls__validation__trust__sds ~secret_name () :
     spec__listener__tls__validation__trust__sds =
   { secret_name }
 
-let spec__listener__tls__validation__trust ~file ~sds () :
-    spec__listener__tls__validation__trust =
+let spec__listener__tls__validation__trust ?(file = []) ?(sds = [])
+    () : spec__listener__tls__validation__trust =
   { file; sds }
 
-let spec__listener__tls__validation ~subject_alternative_names ~trust
-    () : spec__listener__tls__validation =
+let spec__listener__tls__validation ?(subject_alternative_names = [])
+    ~trust () : spec__listener__tls__validation =
   { subject_alternative_names; trust }
 
-let spec__listener__tls ~mode ~certificate ~validation () :
+let spec__listener__tls ?(validation = []) ~mode ~certificate () :
     spec__listener__tls =
   { mode; certificate; validation }
 
-let spec__listener ~connection_pool ~health_check ~outlier_detection
-    ~port_mapping ~timeout ~tls () : spec__listener =
+let spec__listener ?(connection_pool = []) ?(health_check = [])
+    ?(outlier_detection = []) ?(timeout = []) ?(tls = [])
+    ~port_mapping () : spec__listener =
   {
     connection_pool;
     health_check;
@@ -3063,18 +3064,20 @@ let spec__logging__access_log__file__format__json ~key ~value () :
     spec__logging__access_log__file__format__json =
   { key; value }
 
-let spec__logging__access_log__file__format ?text ~json () :
+let spec__logging__access_log__file__format ?text ?(json = []) () :
     spec__logging__access_log__file__format =
   { text; json }
 
-let spec__logging__access_log__file ~path ~format () :
+let spec__logging__access_log__file ?(format = []) ~path () :
     spec__logging__access_log__file =
   { path; format }
 
-let spec__logging__access_log ~file () : spec__logging__access_log =
+let spec__logging__access_log ?(file = []) () :
+    spec__logging__access_log =
   { file }
 
-let spec__logging ~access_log () : spec__logging = { access_log }
+let spec__logging ?(access_log = []) () : spec__logging =
+  { access_log }
 
 let spec__service_discovery__aws_cloud_map ?attributes
     ~namespace_name ~service_name () :
@@ -3085,12 +3088,12 @@ let spec__service_discovery__dns ?ip_preference ?response_type
     ~hostname () : spec__service_discovery__dns =
   { hostname; ip_preference; response_type }
 
-let spec__service_discovery ~aws_cloud_map ~dns () :
+let spec__service_discovery ?(aws_cloud_map = []) ?(dns = []) () :
     spec__service_discovery =
   { aws_cloud_map; dns }
 
-let spec ~backend ~backend_defaults ~listener ~logging
-    ~service_discovery () : spec =
+let spec ?(backend_defaults = []) ?(listener = []) ?(logging = [])
+    ?(service_discovery = []) ~backend () : spec =
   { backend; backend_defaults; listener; logging; service_discovery }
 
 let aws_appmesh_virtual_node ?id ?mesh_owner ?tags ?tags_all

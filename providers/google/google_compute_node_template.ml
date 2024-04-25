@@ -239,8 +239,8 @@ let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let google_compute_node_template ?cpu_overcommit_type ?description
     ?id ?name ?node_affinity_labels ?node_type ?project ?region
-    ?timeouts ~node_type_flexibility ~server_binding () :
-    google_compute_node_template =
+    ?(node_type_flexibility = []) ?(server_binding = []) ?timeouts ()
+    : google_compute_node_template =
   {
     cpu_overcommit_type;
     description;
@@ -269,8 +269,9 @@ type t = {
 }
 
 let make ?cpu_overcommit_type ?description ?id ?name
-    ?node_affinity_labels ?node_type ?project ?region ?timeouts
-    ~node_type_flexibility ~server_binding __id =
+    ?node_affinity_labels ?node_type ?project ?region
+    ?(node_type_flexibility = []) ?(server_binding = []) ?timeouts
+    __id =
   let __type = "google_compute_node_template" in
   let __attrs =
     ({
@@ -297,18 +298,19 @@ let make ?cpu_overcommit_type ?description ?id ?name
       yojson_of_google_compute_node_template
         (google_compute_node_template ?cpu_overcommit_type
            ?description ?id ?name ?node_affinity_labels ?node_type
-           ?project ?region ?timeouts ~node_type_flexibility
-           ~server_binding ());
+           ?project ?region ~node_type_flexibility ~server_binding
+           ?timeouts ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?cpu_overcommit_type ?description ?id ?name
-    ?node_affinity_labels ?node_type ?project ?region ?timeouts
-    ~node_type_flexibility ~server_binding __id =
+    ?node_affinity_labels ?node_type ?project ?region
+    ?(node_type_flexibility = []) ?(server_binding = []) ?timeouts
+    __id =
   let (r : _ Tf_core.resource) =
     make ?cpu_overcommit_type ?description ?id ?name
-      ?node_affinity_labels ?node_type ?project ?region ?timeouts
-      ~node_type_flexibility ~server_binding __id
+      ?node_affinity_labels ?node_type ?project ?region
+      ~node_type_flexibility ~server_binding ?timeouts __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

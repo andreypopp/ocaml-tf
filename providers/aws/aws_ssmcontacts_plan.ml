@@ -195,11 +195,11 @@ let stage__target__contact_target_info ?contact_id ~is_essential () :
     stage__target__contact_target_info =
   { contact_id; is_essential }
 
-let stage__target ~channel_target_info ~contact_target_info () :
-    stage__target =
+let stage__target ?(channel_target_info = [])
+    ?(contact_target_info = []) () : stage__target =
   { channel_target_info; contact_target_info }
 
-let stage ~duration_in_minutes ~target () : stage =
+let stage ?(target = []) ~duration_in_minutes () : stage =
   { duration_in_minutes; target }
 
 let aws_ssmcontacts_plan ?id ~contact_id ~stage () :

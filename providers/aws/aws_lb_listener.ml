@@ -828,7 +828,7 @@ let default_action__forward__target_group ?weight ~arn () :
     default_action__forward__target_group =
   { arn; weight }
 
-let default_action__forward ~stickiness ~target_group () :
+let default_action__forward ?(stickiness = []) ~target_group () :
     default_action__forward =
   { stickiness; target_group }
 
@@ -836,9 +836,10 @@ let default_action__redirect ?host ?path ?port ?protocol ?query
     ~status_code () : default_action__redirect =
   { host; path; port; protocol; query; status_code }
 
-let default_action ?order ?target_group_arn ~type_
-    ~authenticate_cognito ~authenticate_oidc ~fixed_response ~forward
-    ~redirect () : default_action =
+let default_action ?order ?target_group_arn
+    ?(authenticate_cognito = []) ?(authenticate_oidc = [])
+    ?(fixed_response = []) ?(forward = []) ?(redirect = []) ~type_ ()
+    : default_action =
   {
     order;
     target_group_arn;
@@ -857,8 +858,9 @@ let mutual_authentication ?ignore_client_certificate_expiry
 let timeouts ?create ?update () : timeouts = { create; update }
 
 let aws_lb_listener ?alpn_policy ?certificate_arn ?id ?port ?protocol
-    ?ssl_policy ?tags ?tags_all ?timeouts ~load_balancer_arn
-    ~default_action ~mutual_authentication () : aws_lb_listener =
+    ?ssl_policy ?tags ?tags_all ?(mutual_authentication = [])
+    ?timeouts ~load_balancer_arn ~default_action () : aws_lb_listener
+    =
   {
     alpn_policy;
     certificate_arn;
@@ -888,8 +890,8 @@ type t = {
 }
 
 let make ?alpn_policy ?certificate_arn ?id ?port ?protocol
-    ?ssl_policy ?tags ?tags_all ?timeouts ~load_balancer_arn
-    ~default_action ~mutual_authentication __id =
+    ?ssl_policy ?tags ?tags_all ?(mutual_authentication = [])
+    ?timeouts ~load_balancer_arn ~default_action __id =
   let __type = "aws_lb_listener" in
   let __attrs =
     ({
@@ -913,19 +915,20 @@ let make ?alpn_policy ?certificate_arn ?id ?port ?protocol
     json =
       yojson_of_aws_lb_listener
         (aws_lb_listener ?alpn_policy ?certificate_arn ?id ?port
-           ?protocol ?ssl_policy ?tags ?tags_all ?timeouts
-           ~load_balancer_arn ~default_action ~mutual_authentication
-           ());
+           ?protocol ?ssl_policy ?tags ?tags_all
+           ~mutual_authentication ?timeouts ~load_balancer_arn
+           ~default_action ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?alpn_policy ?certificate_arn ?id ?port
-    ?protocol ?ssl_policy ?tags ?tags_all ?timeouts
-    ~load_balancer_arn ~default_action ~mutual_authentication __id =
+    ?protocol ?ssl_policy ?tags ?tags_all
+    ?(mutual_authentication = []) ?timeouts ~load_balancer_arn
+    ~default_action __id =
   let (r : _ Tf_core.resource) =
     make ?alpn_policy ?certificate_arn ?id ?port ?protocol
-      ?ssl_policy ?tags ?tags_all ?timeouts ~load_balancer_arn
-      ~default_action ~mutual_authentication __id
+      ?ssl_policy ?tags ?tags_all ~mutual_authentication ?timeouts
+      ~load_balancer_arn ~default_action __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

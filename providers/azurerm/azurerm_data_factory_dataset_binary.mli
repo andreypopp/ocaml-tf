@@ -61,14 +61,14 @@ val azurerm_data_factory_dataset_binary :
   ?folder:string prop ->
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
+  ?azure_blob_storage_location:azure_blob_storage_location list ->
+  ?compression:compression list ->
+  ?http_server_location:http_server_location list ->
+  ?sftp_server_location:sftp_server_location list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_name:string prop ->
   name:string prop ->
-  azure_blob_storage_location:azure_blob_storage_location list ->
-  compression:compression list ->
-  http_server_location:http_server_location list ->
-  sftp_server_location:sftp_server_location list ->
   unit ->
   azurerm_data_factory_dataset_binary
 
@@ -97,14 +97,14 @@ val register :
   ?folder:string prop ->
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
+  ?azure_blob_storage_location:azure_blob_storage_location list ->
+  ?compression:compression list ->
+  ?http_server_location:http_server_location list ->
+  ?sftp_server_location:sftp_server_location list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_name:string prop ->
   name:string prop ->
-  azure_blob_storage_location:azure_blob_storage_location list ->
-  compression:compression list ->
-  http_server_location:http_server_location list ->
-  sftp_server_location:sftp_server_location list ->
   string ->
   t
 
@@ -115,13 +115,13 @@ val make :
   ?folder:string prop ->
   ?id:string prop ->
   ?parameters:(string * string prop) list ->
+  ?azure_blob_storage_location:azure_blob_storage_location list ->
+  ?compression:compression list ->
+  ?http_server_location:http_server_location list ->
+  ?sftp_server_location:sftp_server_location list ->
   ?timeouts:timeouts ->
   data_factory_id:string prop ->
   linked_service_name:string prop ->
   name:string prop ->
-  azure_blob_storage_location:azure_blob_storage_location list ->
-  compression:compression list ->
-  http_server_location:http_server_location list ->
-  sftp_server_location:sftp_server_location list ->
   string ->
   t Tf_core.resource

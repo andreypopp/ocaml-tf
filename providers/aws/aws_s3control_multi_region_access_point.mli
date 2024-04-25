@@ -25,8 +25,8 @@ val details__region :
 type details
 
 val details :
+  ?public_access_block:details__public_access_block list ->
   name:string prop ->
-  public_access_block:details__public_access_block list ->
   region:details__region list ->
   unit ->
   details

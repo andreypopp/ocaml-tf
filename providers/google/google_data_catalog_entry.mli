@@ -55,10 +55,10 @@ val google_data_catalog_entry :
   ?type_:string prop ->
   ?user_specified_system:string prop ->
   ?user_specified_type:string prop ->
+  ?gcs_fileset_spec:gcs_fileset_spec list ->
   ?timeouts:timeouts ->
   entry_group:string prop ->
   entry_id:string prop ->
-  gcs_fileset_spec:gcs_fileset_spec list ->
   unit ->
   google_data_catalog_entry
 
@@ -94,10 +94,10 @@ val register :
   ?type_:string prop ->
   ?user_specified_system:string prop ->
   ?user_specified_type:string prop ->
+  ?gcs_fileset_spec:gcs_fileset_spec list ->
   ?timeouts:timeouts ->
   entry_group:string prop ->
   entry_id:string prop ->
-  gcs_fileset_spec:gcs_fileset_spec list ->
   string ->
   t
 
@@ -110,9 +110,9 @@ val make :
   ?type_:string prop ->
   ?user_specified_system:string prop ->
   ?user_specified_type:string prop ->
+  ?gcs_fileset_spec:gcs_fileset_spec list ->
   ?timeouts:timeouts ->
   entry_group:string prop ->
   entry_id:string prop ->
-  gcs_fileset_spec:gcs_fileset_spec list ->
   string ->
   t Tf_core.resource

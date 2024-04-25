@@ -58,13 +58,13 @@ val azurerm_palo_alto_local_rulestack_rule :
   ?protocol:string prop ->
   ?protocol_ports:string prop list ->
   ?tags:(string * string prop) list ->
+  ?category:category list ->
   ?timeouts:timeouts ->
   action:string prop ->
   applications:string prop list ->
   name:string prop ->
   priority:float prop ->
   rulestack_id:string prop ->
-  category:category list ->
   destination:destination list ->
   source:source list ->
   unit ->
@@ -109,13 +109,13 @@ val register :
   ?protocol:string prop ->
   ?protocol_ports:string prop list ->
   ?tags:(string * string prop) list ->
+  ?category:category list ->
   ?timeouts:timeouts ->
   action:string prop ->
   applications:string prop list ->
   name:string prop ->
   priority:float prop ->
   rulestack_id:string prop ->
-  category:category list ->
   destination:destination list ->
   source:source list ->
   string ->
@@ -134,13 +134,13 @@ val make :
   ?protocol:string prop ->
   ?protocol_ports:string prop list ->
   ?tags:(string * string prop) list ->
+  ?category:category list ->
   ?timeouts:timeouts ->
   action:string prop ->
   applications:string prop list ->
   name:string prop ->
   priority:float prop ->
   rulestack_id:string prop ->
-  category:category list ->
   destination:destination list ->
   source:source list ->
   string ->

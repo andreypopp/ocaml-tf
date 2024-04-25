@@ -12240,7 +12240,7 @@ let spec__job_template__spec__pod_failure_policy__rule__on_pod_condition
   { status; type_ }
 
 let spec__job_template__spec__pod_failure_policy__rule ?action
-    ~on_exit_codes ~on_pod_condition () :
+    ?(on_exit_codes = []) ?(on_pod_condition = []) () :
     spec__job_template__spec__pod_failure_policy__rule =
   { action; on_exit_codes; on_pod_condition }
 
@@ -12254,7 +12254,8 @@ let spec__job_template__spec__selector__match_expressions ?key
   { key; operator; values }
 
 let spec__job_template__spec__selector ?match_labels
-    ~match_expressions () : spec__job_template__spec__selector =
+    ?(match_expressions = []) () : spec__job_template__spec__selector
+    =
   { match_labels; match_expressions }
 
 let spec__job_template__spec__template__metadata ?annotations
@@ -12275,7 +12276,7 @@ let spec__job_template__spec__template__spec__affinity__node_affinity__preferred
   { key; operator; values }
 
 let spec__job_template__spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference
-    ~match_expressions ~match_fields () :
+    ?(match_expressions = []) ?(match_fields = []) () :
     spec__job_template__spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference
     =
   { match_expressions; match_fields }
@@ -12299,20 +12300,20 @@ let spec__job_template__spec__template__spec__affinity__node_affinity__required_
   { key; operator; values }
 
 let spec__job_template__spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term
-    ~match_expressions ~match_fields () :
+    ?(match_expressions = []) ?(match_fields = []) () :
     spec__job_template__spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term
     =
   { match_expressions; match_fields }
 
 let spec__job_template__spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution
-    ~node_selector_term () :
+    ?(node_selector_term = []) () :
     spec__job_template__spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution
     =
   { node_selector_term }
 
 let spec__job_template__spec__template__spec__affinity__node_affinity
-    ~preferred_during_scheduling_ignored_during_execution
-    ~required_during_scheduling_ignored_during_execution () :
+    ?(preferred_during_scheduling_ignored_during_execution = [])
+    ?(required_during_scheduling_ignored_during_execution = []) () :
     spec__job_template__spec__template__spec__affinity__node_affinity
     =
   {
@@ -12327,13 +12328,13 @@ let spec__job_template__spec__template__spec__affinity__pod_affinity__preferred_
   { key; operator; values }
 
 let spec__job_template__spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
-    ?match_labels ~match_expressions () :
+    ?match_labels ?(match_expressions = []) () :
     spec__job_template__spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
     =
   { match_labels; match_expressions }
 
 let spec__job_template__spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
-    ?namespaces ~topology_key ~label_selector () :
+    ?namespaces ?(label_selector = []) ~topology_key () :
     spec__job_template__spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
     =
   { namespaces; topology_key; label_selector }
@@ -12351,20 +12352,20 @@ let spec__job_template__spec__template__spec__affinity__pod_affinity__required_d
   { key; operator; values }
 
 let spec__job_template__spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector
-    ?match_labels ~match_expressions () :
+    ?match_labels ?(match_expressions = []) () :
     spec__job_template__spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector
     =
   { match_labels; match_expressions }
 
 let spec__job_template__spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution
-    ?namespaces ~topology_key ~label_selector () :
+    ?namespaces ?(label_selector = []) ~topology_key () :
     spec__job_template__spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution
     =
   { namespaces; topology_key; label_selector }
 
 let spec__job_template__spec__template__spec__affinity__pod_affinity
-    ~preferred_during_scheduling_ignored_during_execution
-    ~required_during_scheduling_ignored_during_execution () :
+    ?(preferred_during_scheduling_ignored_during_execution = [])
+    ?(required_during_scheduling_ignored_during_execution = []) () :
     spec__job_template__spec__template__spec__affinity__pod_affinity
     =
   {
@@ -12379,13 +12380,13 @@ let spec__job_template__spec__template__spec__affinity__pod_anti_affinity__prefe
   { key; operator; values }
 
 let spec__job_template__spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
-    ?match_labels ~match_expressions () :
+    ?match_labels ?(match_expressions = []) () :
     spec__job_template__spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
     =
   { match_labels; match_expressions }
 
 let spec__job_template__spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
-    ?namespaces ~topology_key ~label_selector () :
+    ?namespaces ?(label_selector = []) ~topology_key () :
     spec__job_template__spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
     =
   { namespaces; topology_key; label_selector }
@@ -12403,20 +12404,20 @@ let spec__job_template__spec__template__spec__affinity__pod_anti_affinity__requi
   { key; operator; values }
 
 let spec__job_template__spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector
-    ?match_labels ~match_expressions () :
+    ?match_labels ?(match_expressions = []) () :
     spec__job_template__spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector
     =
   { match_labels; match_expressions }
 
 let spec__job_template__spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution
-    ?namespaces ~topology_key ~label_selector () :
+    ?namespaces ?(label_selector = []) ~topology_key () :
     spec__job_template__spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution
     =
   { namespaces; topology_key; label_selector }
 
 let spec__job_template__spec__template__spec__affinity__pod_anti_affinity
-    ~preferred_during_scheduling_ignored_during_execution
-    ~required_during_scheduling_ignored_during_execution () :
+    ?(preferred_during_scheduling_ignored_during_execution = [])
+    ?(required_during_scheduling_ignored_during_execution = []) () :
     spec__job_template__spec__template__spec__affinity__pod_anti_affinity
     =
   {
@@ -12424,8 +12425,9 @@ let spec__job_template__spec__template__spec__affinity__pod_anti_affinity
     required_during_scheduling_ignored_during_execution;
   }
 
-let spec__job_template__spec__template__spec__affinity ~node_affinity
-    ~pod_affinity ~pod_anti_affinity () :
+let spec__job_template__spec__template__spec__affinity
+    ?(node_affinity = []) ?(pod_affinity = [])
+    ?(pod_anti_affinity = []) () :
     spec__job_template__spec__template__spec__affinity =
   { node_affinity; pod_affinity; pod_anti_affinity }
 
@@ -12454,8 +12456,8 @@ let spec__job_template__spec__template__spec__container__env__value_from__secret
   { key; name; optional }
 
 let spec__job_template__spec__template__spec__container__env__value_from
-    ~config_map_key_ref ~field_ref ~resource_field_ref
-    ~secret_key_ref () :
+    ?(config_map_key_ref = []) ?(field_ref = [])
+    ?(resource_field_ref = []) ?(secret_key_ref = []) () :
     spec__job_template__spec__template__spec__container__env__value_from
     =
   {
@@ -12466,7 +12468,7 @@ let spec__job_template__spec__template__spec__container__env__value_from
   }
 
 let spec__job_template__spec__template__spec__container__env ?value
-    ~name ~value_from () :
+    ?(value_from = []) ~name () :
     spec__job_template__spec__template__spec__container__env =
   { name; value; value_from }
 
@@ -12483,7 +12485,7 @@ let spec__job_template__spec__template__spec__container__env_from__secret_ref
   { name; optional }
 
 let spec__job_template__spec__template__spec__container__env_from
-    ?prefix ~config_map_ref ~secret_ref () :
+    ?prefix ?(config_map_ref = []) ?(secret_ref = []) () :
     spec__job_template__spec__template__spec__container__env_from =
   { prefix; config_map_ref; secret_ref }
 
@@ -12500,7 +12502,7 @@ let spec__job_template__spec__template__spec__container__lifecycle__post_start__
   { name; value }
 
 let spec__job_template__spec__template__spec__container__lifecycle__post_start__http_get
-    ?host ?path ?port ?scheme ~http_header () :
+    ?host ?path ?port ?scheme ?(http_header = []) () :
     spec__job_template__spec__template__spec__container__lifecycle__post_start__http_get
     =
   { host; path; port; scheme; http_header }
@@ -12512,7 +12514,7 @@ let spec__job_template__spec__template__spec__container__lifecycle__post_start__
   { port }
 
 let spec__job_template__spec__template__spec__container__lifecycle__post_start
-    ~exec ~http_get ~tcp_socket () :
+    ?(exec = []) ?(http_get = []) ?(tcp_socket = []) () :
     spec__job_template__spec__template__spec__container__lifecycle__post_start
     =
   { exec; http_get; tcp_socket }
@@ -12530,7 +12532,7 @@ let spec__job_template__spec__template__spec__container__lifecycle__pre_stop__ht
   { name; value }
 
 let spec__job_template__spec__template__spec__container__lifecycle__pre_stop__http_get
-    ?host ?path ?port ?scheme ~http_header () :
+    ?host ?path ?port ?scheme ?(http_header = []) () :
     spec__job_template__spec__template__spec__container__lifecycle__pre_stop__http_get
     =
   { host; path; port; scheme; http_header }
@@ -12542,13 +12544,13 @@ let spec__job_template__spec__template__spec__container__lifecycle__pre_stop__tc
   { port }
 
 let spec__job_template__spec__template__spec__container__lifecycle__pre_stop
-    ~exec ~http_get ~tcp_socket () :
+    ?(exec = []) ?(http_get = []) ?(tcp_socket = []) () :
     spec__job_template__spec__template__spec__container__lifecycle__pre_stop
     =
   { exec; http_get; tcp_socket }
 
 let spec__job_template__spec__template__spec__container__lifecycle
-    ~post_start ~pre_stop () :
+    ?(post_start = []) ?(pre_stop = []) () :
     spec__job_template__spec__template__spec__container__lifecycle =
   { post_start; pre_stop }
 
@@ -12571,7 +12573,7 @@ let spec__job_template__spec__template__spec__container__liveness_probe__http_ge
   { name; value }
 
 let spec__job_template__spec__template__spec__container__liveness_probe__http_get
-    ?host ?path ?port ?scheme ~http_header () :
+    ?host ?path ?port ?scheme ?(http_header = []) () :
     spec__job_template__spec__template__spec__container__liveness_probe__http_get
     =
   { host; path; port; scheme; http_header }
@@ -12584,8 +12586,8 @@ let spec__job_template__spec__template__spec__container__liveness_probe__tcp_soc
 
 let spec__job_template__spec__template__spec__container__liveness_probe
     ?failure_threshold ?initial_delay_seconds ?period_seconds
-    ?success_threshold ?timeout_seconds ~exec ~grpc ~http_get
-    ~tcp_socket () :
+    ?success_threshold ?timeout_seconds ?(exec = []) ?(grpc = [])
+    ?(http_get = []) ?(tcp_socket = []) () :
     spec__job_template__spec__template__spec__container__liveness_probe
     =
   {
@@ -12624,7 +12626,7 @@ let spec__job_template__spec__template__spec__container__readiness_probe__http_g
   { name; value }
 
 let spec__job_template__spec__template__spec__container__readiness_probe__http_get
-    ?host ?path ?port ?scheme ~http_header () :
+    ?host ?path ?port ?scheme ?(http_header = []) () :
     spec__job_template__spec__template__spec__container__readiness_probe__http_get
     =
   { host; path; port; scheme; http_header }
@@ -12637,8 +12639,8 @@ let spec__job_template__spec__template__spec__container__readiness_probe__tcp_so
 
 let spec__job_template__spec__template__spec__container__readiness_probe
     ?failure_threshold ?initial_delay_seconds ?period_seconds
-    ?success_threshold ?timeout_seconds ~exec ~grpc ~http_get
-    ~tcp_socket () :
+    ?success_threshold ?timeout_seconds ?(exec = []) ?(grpc = [])
+    ?(http_get = []) ?(tcp_socket = []) () :
     spec__job_template__spec__template__spec__container__readiness_probe
     =
   {
@@ -12679,8 +12681,8 @@ let spec__job_template__spec__template__spec__container__security_context__secco
 let spec__job_template__spec__template__spec__container__security_context
     ?allow_privilege_escalation ?privileged
     ?read_only_root_filesystem ?run_as_group ?run_as_non_root
-    ?run_as_user ~capabilities ~se_linux_options ~seccomp_profile ()
-    :
+    ?run_as_user ?(capabilities = []) ?(se_linux_options = [])
+    ?(seccomp_profile = []) () :
     spec__job_template__spec__template__spec__container__security_context
     =
   {
@@ -12714,7 +12716,7 @@ let spec__job_template__spec__template__spec__container__startup_probe__http_get
   { name; value }
 
 let spec__job_template__spec__template__spec__container__startup_probe__http_get
-    ?host ?path ?port ?scheme ~http_header () :
+    ?host ?path ?port ?scheme ?(http_header = []) () :
     spec__job_template__spec__template__spec__container__startup_probe__http_get
     =
   { host; path; port; scheme; http_header }
@@ -12727,8 +12729,8 @@ let spec__job_template__spec__template__spec__container__startup_probe__tcp_sock
 
 let spec__job_template__spec__template__spec__container__startup_probe
     ?failure_threshold ?initial_delay_seconds ?period_seconds
-    ?success_threshold ?timeout_seconds ~exec ~grpc ~http_get
-    ~tcp_socket () :
+    ?success_threshold ?timeout_seconds ?(exec = []) ?(grpc = [])
+    ?(http_get = []) ?(tcp_socket = []) () :
     spec__job_template__spec__template__spec__container__startup_probe
     =
   {
@@ -12752,9 +12754,10 @@ let spec__job_template__spec__template__spec__container__volume_mount
 let spec__job_template__spec__template__spec__container ?args
     ?command ?image ?image_pull_policy ?stdin ?stdin_once
     ?termination_message_path ?termination_message_policy ?tty
-    ?working_dir ~name ~env ~env_from ~lifecycle ~liveness_probe
-    ~port ~readiness_probe ~resources ~security_context
-    ~startup_probe ~volume_mount () :
+    ?working_dir ?(env = []) ?(env_from = []) ?(lifecycle = [])
+    ?(liveness_probe = []) ?(port = []) ?(readiness_probe = [])
+    ?(resources = []) ?(security_context = []) ?(startup_probe = [])
+    ?(volume_mount = []) ~name () :
     spec__job_template__spec__template__spec__container =
   {
     args;
@@ -12786,7 +12789,7 @@ let spec__job_template__spec__template__spec__dns_config__option
   { name; value }
 
 let spec__job_template__spec__template__spec__dns_config ?nameservers
-    ?searches ~option_ () :
+    ?searches ?(option_ = []) () :
     spec__job_template__spec__template__spec__dns_config =
   { nameservers; searches; option_ }
 
@@ -12824,8 +12827,8 @@ let spec__job_template__spec__template__spec__init_container__env__value_from__s
   { key; name; optional }
 
 let spec__job_template__spec__template__spec__init_container__env__value_from
-    ~config_map_key_ref ~field_ref ~resource_field_ref
-    ~secret_key_ref () :
+    ?(config_map_key_ref = []) ?(field_ref = [])
+    ?(resource_field_ref = []) ?(secret_key_ref = []) () :
     spec__job_template__spec__template__spec__init_container__env__value_from
     =
   {
@@ -12836,7 +12839,7 @@ let spec__job_template__spec__template__spec__init_container__env__value_from
   }
 
 let spec__job_template__spec__template__spec__init_container__env
-    ?value ~name ~value_from () :
+    ?value ?(value_from = []) ~name () :
     spec__job_template__spec__template__spec__init_container__env =
   { name; value; value_from }
 
@@ -12853,7 +12856,7 @@ let spec__job_template__spec__template__spec__init_container__env_from__secret_r
   { name; optional }
 
 let spec__job_template__spec__template__spec__init_container__env_from
-    ?prefix ~config_map_ref ~secret_ref () :
+    ?prefix ?(config_map_ref = []) ?(secret_ref = []) () :
     spec__job_template__spec__template__spec__init_container__env_from
     =
   { prefix; config_map_ref; secret_ref }
@@ -12871,7 +12874,7 @@ let spec__job_template__spec__template__spec__init_container__lifecycle__post_st
   { name; value }
 
 let spec__job_template__spec__template__spec__init_container__lifecycle__post_start__http_get
-    ?host ?path ?port ?scheme ~http_header () :
+    ?host ?path ?port ?scheme ?(http_header = []) () :
     spec__job_template__spec__template__spec__init_container__lifecycle__post_start__http_get
     =
   { host; path; port; scheme; http_header }
@@ -12883,7 +12886,7 @@ let spec__job_template__spec__template__spec__init_container__lifecycle__post_st
   { port }
 
 let spec__job_template__spec__template__spec__init_container__lifecycle__post_start
-    ~exec ~http_get ~tcp_socket () :
+    ?(exec = []) ?(http_get = []) ?(tcp_socket = []) () :
     spec__job_template__spec__template__spec__init_container__lifecycle__post_start
     =
   { exec; http_get; tcp_socket }
@@ -12901,7 +12904,7 @@ let spec__job_template__spec__template__spec__init_container__lifecycle__pre_sto
   { name; value }
 
 let spec__job_template__spec__template__spec__init_container__lifecycle__pre_stop__http_get
-    ?host ?path ?port ?scheme ~http_header () :
+    ?host ?path ?port ?scheme ?(http_header = []) () :
     spec__job_template__spec__template__spec__init_container__lifecycle__pre_stop__http_get
     =
   { host; path; port; scheme; http_header }
@@ -12913,13 +12916,13 @@ let spec__job_template__spec__template__spec__init_container__lifecycle__pre_sto
   { port }
 
 let spec__job_template__spec__template__spec__init_container__lifecycle__pre_stop
-    ~exec ~http_get ~tcp_socket () :
+    ?(exec = []) ?(http_get = []) ?(tcp_socket = []) () :
     spec__job_template__spec__template__spec__init_container__lifecycle__pre_stop
     =
   { exec; http_get; tcp_socket }
 
 let spec__job_template__spec__template__spec__init_container__lifecycle
-    ~post_start ~pre_stop () :
+    ?(post_start = []) ?(pre_stop = []) () :
     spec__job_template__spec__template__spec__init_container__lifecycle
     =
   { post_start; pre_stop }
@@ -12943,7 +12946,7 @@ let spec__job_template__spec__template__spec__init_container__liveness_probe__ht
   { name; value }
 
 let spec__job_template__spec__template__spec__init_container__liveness_probe__http_get
-    ?host ?path ?port ?scheme ~http_header () :
+    ?host ?path ?port ?scheme ?(http_header = []) () :
     spec__job_template__spec__template__spec__init_container__liveness_probe__http_get
     =
   { host; path; port; scheme; http_header }
@@ -12956,8 +12959,8 @@ let spec__job_template__spec__template__spec__init_container__liveness_probe__tc
 
 let spec__job_template__spec__template__spec__init_container__liveness_probe
     ?failure_threshold ?initial_delay_seconds ?period_seconds
-    ?success_threshold ?timeout_seconds ~exec ~grpc ~http_get
-    ~tcp_socket () :
+    ?success_threshold ?timeout_seconds ?(exec = []) ?(grpc = [])
+    ?(http_get = []) ?(tcp_socket = []) () :
     spec__job_template__spec__template__spec__init_container__liveness_probe
     =
   {
@@ -12996,7 +12999,7 @@ let spec__job_template__spec__template__spec__init_container__readiness_probe__h
   { name; value }
 
 let spec__job_template__spec__template__spec__init_container__readiness_probe__http_get
-    ?host ?path ?port ?scheme ~http_header () :
+    ?host ?path ?port ?scheme ?(http_header = []) () :
     spec__job_template__spec__template__spec__init_container__readiness_probe__http_get
     =
   { host; path; port; scheme; http_header }
@@ -13009,8 +13012,8 @@ let spec__job_template__spec__template__spec__init_container__readiness_probe__t
 
 let spec__job_template__spec__template__spec__init_container__readiness_probe
     ?failure_threshold ?initial_delay_seconds ?period_seconds
-    ?success_threshold ?timeout_seconds ~exec ~grpc ~http_get
-    ~tcp_socket () :
+    ?success_threshold ?timeout_seconds ?(exec = []) ?(grpc = [])
+    ?(http_get = []) ?(tcp_socket = []) () :
     spec__job_template__spec__template__spec__init_container__readiness_probe
     =
   {
@@ -13052,8 +13055,8 @@ let spec__job_template__spec__template__spec__init_container__security_context__
 let spec__job_template__spec__template__spec__init_container__security_context
     ?allow_privilege_escalation ?privileged
     ?read_only_root_filesystem ?run_as_group ?run_as_non_root
-    ?run_as_user ~capabilities ~se_linux_options ~seccomp_profile ()
-    :
+    ?run_as_user ?(capabilities = []) ?(se_linux_options = [])
+    ?(seccomp_profile = []) () :
     spec__job_template__spec__template__spec__init_container__security_context
     =
   {
@@ -13087,7 +13090,7 @@ let spec__job_template__spec__template__spec__init_container__startup_probe__htt
   { name; value }
 
 let spec__job_template__spec__template__spec__init_container__startup_probe__http_get
-    ?host ?path ?port ?scheme ~http_header () :
+    ?host ?path ?port ?scheme ?(http_header = []) () :
     spec__job_template__spec__template__spec__init_container__startup_probe__http_get
     =
   { host; path; port; scheme; http_header }
@@ -13100,8 +13103,8 @@ let spec__job_template__spec__template__spec__init_container__startup_probe__tcp
 
 let spec__job_template__spec__template__spec__init_container__startup_probe
     ?failure_threshold ?initial_delay_seconds ?period_seconds
-    ?success_threshold ?timeout_seconds ~exec ~grpc ~http_get
-    ~tcp_socket () :
+    ?success_threshold ?timeout_seconds ?(exec = []) ?(grpc = [])
+    ?(http_get = []) ?(tcp_socket = []) () :
     spec__job_template__spec__template__spec__init_container__startup_probe
     =
   {
@@ -13125,9 +13128,10 @@ let spec__job_template__spec__template__spec__init_container__volume_mount
 let spec__job_template__spec__template__spec__init_container ?args
     ?command ?image ?image_pull_policy ?stdin ?stdin_once
     ?termination_message_path ?termination_message_policy ?tty
-    ?working_dir ~name ~env ~env_from ~lifecycle ~liveness_probe
-    ~port ~readiness_probe ~resources ~security_context
-    ~startup_probe ~volume_mount () :
+    ?working_dir ?(env = []) ?(env_from = []) ?(lifecycle = [])
+    ?(liveness_probe = []) ?(port = []) ?(readiness_probe = [])
+    ?(resources = []) ?(security_context = []) ?(startup_probe = [])
+    ?(volume_mount = []) ~name () :
     spec__job_template__spec__template__spec__init_container =
   {
     args;
@@ -13194,9 +13198,9 @@ let spec__job_template__spec__template__spec__security_context__windows_options
 
 let spec__job_template__spec__template__spec__security_context
     ?fs_group ?fs_group_change_policy ?run_as_group ?run_as_non_root
-    ?run_as_user ?supplemental_groups ~se_linux_options
-    ~seccomp_profile ~sysctl ~windows_options () :
-    spec__job_template__spec__template__spec__security_context =
+    ?run_as_user ?supplemental_groups ?(se_linux_options = [])
+    ?(seccomp_profile = []) ?(sysctl = []) ?(windows_options = []) ()
+    : spec__job_template__spec__template__spec__security_context =
   {
     fs_group;
     fs_group_change_policy;
@@ -13222,7 +13226,7 @@ let spec__job_template__spec__template__spec__topology_spread_constraint__label_
   { key; operator; values }
 
 let spec__job_template__spec__template__spec__topology_spread_constraint__label_selector
-    ?match_labels ~match_expressions () :
+    ?match_labels ?(match_expressions = []) () :
     spec__job_template__spec__template__spec__topology_spread_constraint__label_selector
     =
   { match_labels; match_expressions }
@@ -13230,7 +13234,7 @@ let spec__job_template__spec__template__spec__topology_spread_constraint__label_
 let spec__job_template__spec__template__spec__topology_spread_constraint
     ?match_label_keys ?max_skew ?min_domains ?node_affinity_policy
     ?node_taints_policy ?topology_key ?when_unsatisfiable
-    ~label_selector () :
+    ?(label_selector = []) () :
     spec__job_template__spec__template__spec__topology_spread_constraint
     =
   {
@@ -13275,7 +13279,7 @@ let spec__job_template__spec__template__spec__volume__ceph_fs__secret_ref
   { name; namespace }
 
 let spec__job_template__spec__template__spec__volume__ceph_fs ?path
-    ?read_only ?secret_file ?user ~monitors ~secret_ref () :
+    ?read_only ?secret_file ?user ?(secret_ref = []) ~monitors () :
     spec__job_template__spec__template__spec__volume__ceph_fs =
   { monitors; path; read_only; secret_file; user; secret_ref }
 
@@ -13291,7 +13295,7 @@ let spec__job_template__spec__template__spec__volume__config_map__items
   { key; mode; path }
 
 let spec__job_template__spec__template__spec__volume__config_map
-    ?default_mode ?name ?optional ~items () :
+    ?default_mode ?name ?optional ?(items = []) () :
     spec__job_template__spec__template__spec__volume__config_map =
   { default_mode; name; optional; items }
 
@@ -13302,8 +13306,9 @@ let spec__job_template__spec__template__spec__volume__csi__node_publish_secret_r
   { name }
 
 let spec__job_template__spec__template__spec__volume__csi ?fs_type
-    ?read_only ?volume_attributes ~driver ~node_publish_secret_ref ()
-    : spec__job_template__spec__template__spec__volume__csi =
+    ?read_only ?volume_attributes ?(node_publish_secret_ref = [])
+    ~driver () :
+    spec__job_template__spec__template__spec__volume__csi =
   {
     driver;
     fs_type;
@@ -13325,13 +13330,13 @@ let spec__job_template__spec__template__spec__volume__downward_api__items__resou
   { container_name; divisor; resource }
 
 let spec__job_template__spec__template__spec__volume__downward_api__items
-    ?mode ~path ~field_ref ~resource_field_ref () :
+    ?mode ?(resource_field_ref = []) ~path ~field_ref () :
     spec__job_template__spec__template__spec__volume__downward_api__items
     =
   { mode; path; field_ref; resource_field_ref }
 
 let spec__job_template__spec__template__spec__volume__downward_api
-    ?default_mode ~items () :
+    ?default_mode ?(items = []) () :
     spec__job_template__spec__template__spec__volume__downward_api =
   { default_mode; items }
 
@@ -13359,14 +13364,14 @@ let spec__job_template__spec__template__spec__volume__ephemeral__volume_claim_te
   { key; operator; values }
 
 let spec__job_template__spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector
-    ?match_labels ~match_expressions () :
+    ?match_labels ?(match_expressions = []) () :
     spec__job_template__spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector
     =
   { match_labels; match_expressions }
 
 let spec__job_template__spec__template__spec__volume__ephemeral__volume_claim_template__spec
-    ?storage_class_name ?volume_mode ?volume_name ~access_modes
-    ~resources ~selector () :
+    ?storage_class_name ?volume_mode ?volume_name ?(selector = [])
+    ~access_modes ~resources () :
     spec__job_template__spec__template__spec__volume__ephemeral__volume_claim_template__spec
     =
   {
@@ -13379,7 +13384,7 @@ let spec__job_template__spec__template__spec__volume__ephemeral__volume_claim_te
   }
 
 let spec__job_template__spec__template__spec__volume__ephemeral__volume_claim_template
-    ~metadata ~spec () :
+    ?(metadata = []) ~spec () :
     spec__job_template__spec__template__spec__volume__ephemeral__volume_claim_template
     =
   { metadata; spec }
@@ -13401,7 +13406,7 @@ let spec__job_template__spec__template__spec__volume__flex_volume__secret_ref
   { name; namespace }
 
 let spec__job_template__spec__template__spec__volume__flex_volume
-    ?fs_type ?options ?read_only ~driver ~secret_ref () :
+    ?fs_type ?options ?read_only ?(secret_ref = []) ~driver () :
     spec__job_template__spec__template__spec__volume__flex_volume =
   { driver; fs_type; options; read_only; secret_ref }
 
@@ -13464,7 +13469,7 @@ let spec__job_template__spec__template__spec__volume__projected__sources__config
   { key; mode; path }
 
 let spec__job_template__spec__template__spec__volume__projected__sources__config_map
-    ?name ?optional ~items () :
+    ?name ?optional ?(items = []) () :
     spec__job_template__spec__template__spec__volume__projected__sources__config_map
     =
   { name; optional; items }
@@ -13482,13 +13487,13 @@ let spec__job_template__spec__template__spec__volume__projected__sources__downwa
   { container_name; divisor; resource }
 
 let spec__job_template__spec__template__spec__volume__projected__sources__downward_api__items
-    ?mode ~path ~field_ref ~resource_field_ref () :
+    ?mode ?(field_ref = []) ?(resource_field_ref = []) ~path () :
     spec__job_template__spec__template__spec__volume__projected__sources__downward_api__items
     =
   { mode; path; field_ref; resource_field_ref }
 
 let spec__job_template__spec__template__spec__volume__projected__sources__downward_api
-    ~items () :
+    ?(items = []) () :
     spec__job_template__spec__template__spec__volume__projected__sources__downward_api
     =
   { items }
@@ -13500,7 +13505,7 @@ let spec__job_template__spec__template__spec__volume__projected__sources__secret
   { key; mode; path }
 
 let spec__job_template__spec__template__spec__volume__projected__sources__secret
-    ?name ?optional ~items () :
+    ?name ?optional ?(items = []) () :
     spec__job_template__spec__template__spec__volume__projected__sources__secret
     =
   { name; optional; items }
@@ -13512,7 +13517,8 @@ let spec__job_template__spec__template__spec__volume__projected__sources__servic
   { audience; expiration_seconds; path }
 
 let spec__job_template__spec__template__spec__volume__projected__sources
-    ~config_map ~downward_api ~secret ~service_account_token () :
+    ?(config_map = []) ?(downward_api = []) ?(secret = [])
+    ?(service_account_token = []) () :
     spec__job_template__spec__template__spec__volume__projected__sources
     =
   { config_map; downward_api; secret; service_account_token }
@@ -13534,8 +13540,8 @@ let spec__job_template__spec__template__spec__volume__rbd__secret_ref
   { name; namespace }
 
 let spec__job_template__spec__template__spec__volume__rbd ?fs_type
-    ?keyring ?rados_user ?rbd_pool ?read_only ~ceph_monitors
-    ~rbd_image ~secret_ref () :
+    ?keyring ?rados_user ?rbd_pool ?read_only ?(secret_ref = [])
+    ~ceph_monitors ~rbd_image () :
     spec__job_template__spec__template__spec__volume__rbd =
   {
     ceph_monitors;
@@ -13554,7 +13560,7 @@ let spec__job_template__spec__template__spec__volume__secret__items
   { key; mode; path }
 
 let spec__job_template__spec__template__spec__volume__secret
-    ?default_mode ?optional ?secret_name ~items () :
+    ?default_mode ?optional ?secret_name ?(items = []) () :
     spec__job_template__spec__template__spec__volume__secret =
   { default_mode; optional; secret_name; items }
 
@@ -13565,12 +13571,16 @@ let spec__job_template__spec__template__spec__volume__vsphere_volume
   { fs_type; volume_path }
 
 let spec__job_template__spec__template__spec__volume ?name
-    ~aws_elastic_block_store ~azure_disk ~azure_file ~ceph_fs ~cinder
-    ~config_map ~csi ~downward_api ~empty_dir ~ephemeral ~fc
-    ~flex_volume ~flocker ~gce_persistent_disk ~git_repo ~glusterfs
-    ~host_path ~iscsi ~local ~nfs ~persistent_volume_claim
-    ~photon_persistent_disk ~projected ~quobyte ~rbd ~secret
-    ~vsphere_volume () :
+    ?(aws_elastic_block_store = []) ?(azure_disk = [])
+    ?(azure_file = []) ?(ceph_fs = []) ?(cinder = [])
+    ?(config_map = []) ?(csi = []) ?(downward_api = [])
+    ?(empty_dir = []) ?(ephemeral = []) ?(fc = [])
+    ?(flex_volume = []) ?(flocker = []) ?(gce_persistent_disk = [])
+    ?(git_repo = []) ?(glusterfs = []) ?(host_path = [])
+    ?(iscsi = []) ?(local = []) ?(nfs = [])
+    ?(persistent_volume_claim = []) ?(photon_persistent_disk = [])
+    ?(projected = []) ?(quobyte = []) ?(rbd = []) ?(secret = [])
+    ?(vsphere_volume = []) () :
     spec__job_template__spec__template__spec__volume =
   {
     name;
@@ -13609,11 +13619,12 @@ let spec__job_template__spec__template__spec ?active_deadline_seconds
     ?node_name ?node_selector ?priority_class_name ?restart_policy
     ?runtime_class_name ?scheduler_name ?service_account_name
     ?share_process_namespace ?subdomain
-    ?termination_grace_period_seconds ~affinity ~container
-    ~dns_config ~host_aliases ~image_pull_secrets ~init_container ~os
-    ~readiness_gate ~security_context ~toleration
-    ~topology_spread_constraint ~volume () :
-    spec__job_template__spec__template__spec =
+    ?termination_grace_period_seconds ?(affinity = [])
+    ?(container = []) ?(dns_config = []) ?(host_aliases = [])
+    ?(image_pull_secrets = []) ?(init_container = []) ?(os = [])
+    ?(readiness_gate = []) ?(security_context = [])
+    ?(toleration = []) ?(topology_spread_constraint = [])
+    ?(volume = []) () : spec__job_template__spec__template__spec =
   {
     active_deadline_seconds;
     automount_service_account_token;
@@ -13647,14 +13658,14 @@ let spec__job_template__spec__template__spec ?active_deadline_seconds
     volume;
   }
 
-let spec__job_template__spec__template ~metadata ~spec () :
+let spec__job_template__spec__template ?(spec = []) ~metadata () :
     spec__job_template__spec__template =
   { metadata; spec }
 
 let spec__job_template__spec ?active_deadline_seconds ?backoff_limit
     ?completion_mode ?completions ?manual_selector ?parallelism
-    ?ttl_seconds_after_finished ~pod_failure_policy ~selector
-    ~template () : spec__job_template__spec =
+    ?ttl_seconds_after_finished ?(pod_failure_policy = [])
+    ?(selector = []) ~template () : spec__job_template__spec =
   {
     active_deadline_seconds;
     backoff_limit;

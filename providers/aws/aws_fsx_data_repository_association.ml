@@ -286,7 +286,8 @@ let s3__auto_export_policy ?events () : s3__auto_export_policy =
 let s3__auto_import_policy ?events () : s3__auto_import_policy =
   { events }
 
-let s3 ~auto_export_policy ~auto_import_policy () : s3 =
+let s3 ?(auto_export_policy = []) ?(auto_import_policy = []) () : s3
+    =
   { auto_export_policy; auto_import_policy }
 
 let timeouts ?create ?delete ?update () : timeouts =
@@ -294,8 +295,8 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let aws_fsx_data_repository_association
     ?batch_import_meta_data_on_create ?delete_data_in_filesystem ?id
-    ?imported_file_chunk_size ?tags ?tags_all ?timeouts
-    ~data_repository_path ~file_system_id ~file_system_path ~s3 () :
+    ?imported_file_chunk_size ?tags ?tags_all ?(s3 = []) ?timeouts
+    ~data_repository_path ~file_system_id ~file_system_path () :
     aws_fsx_data_repository_association =
   {
     batch_import_meta_data_on_create;
@@ -326,9 +327,9 @@ type t = {
 }
 
 let make ?batch_import_meta_data_on_create ?delete_data_in_filesystem
-    ?id ?imported_file_chunk_size ?tags ?tags_all ?timeouts
-    ~data_repository_path ~file_system_id ~file_system_path ~s3 __id
-    =
+    ?id ?imported_file_chunk_size ?tags ?tags_all ?(s3 = [])
+    ?timeouts ~data_repository_path ~file_system_id ~file_system_path
+    __id =
   let __type = "aws_fsx_data_repository_association" in
   let __attrs =
     ({
@@ -359,20 +360,19 @@ let make ?batch_import_meta_data_on_create ?delete_data_in_filesystem
         (aws_fsx_data_repository_association
            ?batch_import_meta_data_on_create
            ?delete_data_in_filesystem ?id ?imported_file_chunk_size
-           ?tags ?tags_all ?timeouts ~data_repository_path
-           ~file_system_id ~file_system_path ~s3 ());
+           ?tags ?tags_all ~s3 ?timeouts ~data_repository_path
+           ~file_system_id ~file_system_path ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?batch_import_meta_data_on_create
     ?delete_data_in_filesystem ?id ?imported_file_chunk_size ?tags
-    ?tags_all ?timeouts ~data_repository_path ~file_system_id
-    ~file_system_path ~s3 __id =
+    ?tags_all ?(s3 = []) ?timeouts ~data_repository_path
+    ~file_system_id ~file_system_path __id =
   let (r : _ Tf_core.resource) =
     make ?batch_import_meta_data_on_create ?delete_data_in_filesystem
-      ?id ?imported_file_chunk_size ?tags ?tags_all ?timeouts
-      ~data_repository_path ~file_system_id ~file_system_path ~s3
-      __id
+      ?id ?imported_file_chunk_size ?tags ?tags_all ~s3 ?timeouts
+      ~data_repository_path ~file_system_id ~file_system_path __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

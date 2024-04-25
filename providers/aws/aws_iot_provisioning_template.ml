@@ -169,8 +169,9 @@ let pre_provisioning_hook ?payload_version ~target_arn () :
   { payload_version; target_arn }
 
 let aws_iot_provisioning_template ?description ?enabled ?id ?tags
-    ?tags_all ?type_ ~name ~provisioning_role_arn ~template_body
-    ~pre_provisioning_hook () : aws_iot_provisioning_template =
+    ?tags_all ?type_ ?(pre_provisioning_hook = []) ~name
+    ~provisioning_role_arn ~template_body () :
+    aws_iot_provisioning_template =
   {
     description;
     enabled;
@@ -198,9 +199,9 @@ type t = {
   type_ : string prop;
 }
 
-let make ?description ?enabled ?id ?tags ?tags_all ?type_ ~name
-    ~provisioning_role_arn ~template_body ~pre_provisioning_hook __id
-    =
+let make ?description ?enabled ?id ?tags ?tags_all ?type_
+    ?(pre_provisioning_hook = []) ~name ~provisioning_role_arn
+    ~template_body __id =
   let __type = "aws_iot_provisioning_template" in
   let __attrs =
     ({
@@ -226,18 +227,18 @@ let make ?description ?enabled ?id ?tags ?tags_all ?type_ ~name
     json =
       yojson_of_aws_iot_provisioning_template
         (aws_iot_provisioning_template ?description ?enabled ?id
-           ?tags ?tags_all ?type_ ~name ~provisioning_role_arn
-           ~template_body ~pre_provisioning_hook ());
+           ?tags ?tags_all ?type_ ~pre_provisioning_hook ~name
+           ~provisioning_role_arn ~template_body ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?enabled ?id ?tags ?tags_all
-    ?type_ ~name ~provisioning_role_arn ~template_body
-    ~pre_provisioning_hook __id =
+    ?type_ ?(pre_provisioning_hook = []) ~name ~provisioning_role_arn
+    ~template_body __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?enabled ?id ?tags ?tags_all ?type_ ~name
-      ~provisioning_role_arn ~template_body ~pre_provisioning_hook
-      __id
+    make ?description ?enabled ?id ?tags ?tags_all ?type_
+      ~pre_provisioning_hook ~name ~provisioning_role_arn
+      ~template_body __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

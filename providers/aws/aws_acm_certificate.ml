@@ -346,8 +346,8 @@ let validation_option ~domain_name ~validation_domain () :
 let aws_acm_certificate ?certificate_authority_arn ?certificate_body
     ?certificate_chain ?domain_name ?early_renewal_duration ?id
     ?key_algorithm ?private_key ?subject_alternative_names ?tags
-    ?tags_all ?validation_method ~options ~validation_option () :
-    aws_acm_certificate =
+    ?tags_all ?validation_method ?(options = []) ~validation_option
+    () : aws_acm_certificate =
   {
     certificate_authority_arn;
     certificate_body;
@@ -393,7 +393,8 @@ type t = {
 let make ?certificate_authority_arn ?certificate_body
     ?certificate_chain ?domain_name ?early_renewal_duration ?id
     ?key_algorithm ?private_key ?subject_alternative_names ?tags
-    ?tags_all ?validation_method ~options ~validation_option __id =
+    ?tags_all ?validation_method ?(options = []) ~validation_option
+    __id =
   let __type = "aws_acm_certificate" in
   let __attrs =
     ({
@@ -447,7 +448,8 @@ let make ?certificate_authority_arn ?certificate_body
 let register ?tf_module ?certificate_authority_arn ?certificate_body
     ?certificate_chain ?domain_name ?early_renewal_duration ?id
     ?key_algorithm ?private_key ?subject_alternative_names ?tags
-    ?tags_all ?validation_method ~options ~validation_option __id =
+    ?tags_all ?validation_method ?(options = []) ~validation_option
+    __id =
   let (r : _ Tf_core.resource) =
     make ?certificate_authority_arn ?certificate_body
       ?certificate_chain ?domain_name ?early_renewal_duration ?id

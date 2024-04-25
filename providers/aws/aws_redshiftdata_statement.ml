@@ -174,8 +174,9 @@ let parameters ~name ~value () : parameters = { name; value }
 let timeouts ?create () : timeouts = { create }
 
 let aws_redshiftdata_statement ?cluster_identifier ?db_user ?id
-    ?secret_arn ?statement_name ?with_event ?workgroup_name ?timeouts
-    ~database ~sql ~parameters () : aws_redshiftdata_statement =
+    ?secret_arn ?statement_name ?with_event ?workgroup_name
+    ?(parameters = []) ?timeouts ~database ~sql () :
+    aws_redshiftdata_statement =
   {
     cluster_identifier;
     database;
@@ -203,8 +204,8 @@ type t = {
 }
 
 let make ?cluster_identifier ?db_user ?id ?secret_arn ?statement_name
-    ?with_event ?workgroup_name ?timeouts ~database ~sql ~parameters
-    __id =
+    ?with_event ?workgroup_name ?(parameters = []) ?timeouts
+    ~database ~sql __id =
   let __type = "aws_redshiftdata_statement" in
   let __attrs =
     ({
@@ -228,17 +229,17 @@ let make ?cluster_identifier ?db_user ?id ?secret_arn ?statement_name
       yojson_of_aws_redshiftdata_statement
         (aws_redshiftdata_statement ?cluster_identifier ?db_user ?id
            ?secret_arn ?statement_name ?with_event ?workgroup_name
-           ?timeouts ~database ~sql ~parameters ());
+           ~parameters ?timeouts ~database ~sql ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?cluster_identifier ?db_user ?id ?secret_arn
-    ?statement_name ?with_event ?workgroup_name ?timeouts ~database
-    ~sql ~parameters __id =
+    ?statement_name ?with_event ?workgroup_name ?(parameters = [])
+    ?timeouts ~database ~sql __id =
   let (r : _ Tf_core.resource) =
     make ?cluster_identifier ?db_user ?id ?secret_arn ?statement_name
-      ?with_event ?workgroup_name ?timeouts ~database ~sql
-      ~parameters __id
+      ?with_event ?workgroup_name ~parameters ?timeouts ~database
+      ~sql __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

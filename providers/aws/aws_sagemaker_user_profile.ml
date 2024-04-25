@@ -1920,10 +1920,12 @@ let user_settings__canvas_app_settings__workspace_settings
     user_settings__canvas_app_settings__workspace_settings =
   { s3_artifact_path; s3_kms_key_id }
 
-let user_settings__canvas_app_settings ~direct_deploy_settings
-    ~identity_provider_oauth_settings ~kendra_settings
-    ~model_register_settings ~time_series_forecasting_settings
-    ~workspace_settings () : user_settings__canvas_app_settings =
+let user_settings__canvas_app_settings ?(direct_deploy_settings = [])
+    ?(identity_provider_oauth_settings = []) ?(kendra_settings = [])
+    ?(model_register_settings = [])
+    ?(time_series_forecasting_settings = [])
+    ?(workspace_settings = []) () :
+    user_settings__canvas_app_settings =
   {
     direct_deploy_settings;
     identity_provider_oauth_settings;
@@ -1946,7 +1948,7 @@ let user_settings__code_editor_app_settings__default_resource_spec
   }
 
 let user_settings__code_editor_app_settings ?lifecycle_config_arns
-    ~default_resource_spec () :
+    ?(default_resource_spec = []) () :
     user_settings__code_editor_app_settings =
   { lifecycle_config_arns; default_resource_spec }
 
@@ -1956,8 +1958,9 @@ let user_settings__custom_file_system_config__efs_file_system_config
     =
   { file_system_id; file_system_path }
 
-let user_settings__custom_file_system_config ~efs_file_system_config
-    () : user_settings__custom_file_system_config =
+let user_settings__custom_file_system_config
+    ?(efs_file_system_config = []) () :
+    user_settings__custom_file_system_config =
   { efs_file_system_config }
 
 let user_settings__custom_posix_user_config ~gid ~uid () :
@@ -1987,8 +1990,8 @@ let user_settings__jupyter_lab_app_settings__default_resource_spec
   }
 
 let user_settings__jupyter_lab_app_settings ?lifecycle_config_arns
-    ~code_repository ~custom_image ~default_resource_spec () :
-    user_settings__jupyter_lab_app_settings =
+    ?(custom_image = []) ?(default_resource_spec = [])
+    ~code_repository () : user_settings__jupyter_lab_app_settings =
   {
     lifecycle_config_arns;
     code_repository;
@@ -2015,7 +2018,7 @@ let user_settings__jupyter_server_app_settings__default_resource_spec
   }
 
 let user_settings__jupyter_server_app_settings ?lifecycle_config_arns
-    ~code_repository ~default_resource_spec () :
+    ?(default_resource_spec = []) ~code_repository () :
     user_settings__jupyter_server_app_settings =
   { lifecycle_config_arns; code_repository; default_resource_spec }
 
@@ -2038,7 +2041,7 @@ let user_settings__kernel_gateway_app_settings__default_resource_spec
   }
 
 let user_settings__kernel_gateway_app_settings ?lifecycle_config_arns
-    ~custom_image ~default_resource_spec () :
+    ?(custom_image = []) ?(default_resource_spec = []) () :
     user_settings__kernel_gateway_app_settings =
   { lifecycle_config_arns; custom_image; default_resource_spec }
 
@@ -2059,9 +2062,9 @@ let user_settings__r_session_app_settings__default_resource_spec
     sagemaker_image_version_arn;
   }
 
-let user_settings__r_session_app_settings ~custom_image
-    ~default_resource_spec () : user_settings__r_session_app_settings
-    =
+let user_settings__r_session_app_settings ?(custom_image = [])
+    ?(default_resource_spec = []) () :
+    user_settings__r_session_app_settings =
   { custom_image; default_resource_spec }
 
 let user_settings__r_studio_server_pro_app_settings ?access_status
@@ -2082,7 +2085,7 @@ let user_settings__space_storage_settings__default_ebs_storage_settings
   { default_ebs_volume_size_in_gb; maximum_ebs_volume_size_in_gb }
 
 let user_settings__space_storage_settings
-    ~default_ebs_storage_settings () :
+    ?(default_ebs_storage_settings = []) () :
     user_settings__space_storage_settings =
   { default_ebs_storage_settings }
 
@@ -2098,18 +2101,22 @@ let user_settings__tensor_board_app_settings__default_resource_spec
     sagemaker_image_version_arn;
   }
 
-let user_settings__tensor_board_app_settings ~default_resource_spec
-    () : user_settings__tensor_board_app_settings =
+let user_settings__tensor_board_app_settings
+    ?(default_resource_spec = []) () :
+    user_settings__tensor_board_app_settings =
   { default_resource_spec }
 
 let user_settings ?default_landing_uri ?security_groups
-    ?studio_web_portal ~execution_role ~canvas_app_settings
-    ~code_editor_app_settings ~custom_file_system_config
-    ~custom_posix_user_config ~jupyter_lab_app_settings
-    ~jupyter_server_app_settings ~kernel_gateway_app_settings
-    ~r_session_app_settings ~r_studio_server_pro_app_settings
-    ~sharing_settings ~space_storage_settings
-    ~tensor_board_app_settings () : user_settings =
+    ?studio_web_portal ?(canvas_app_settings = [])
+    ?(code_editor_app_settings = [])
+    ?(custom_file_system_config = [])
+    ?(custom_posix_user_config = []) ?(jupyter_lab_app_settings = [])
+    ?(jupyter_server_app_settings = [])
+    ?(kernel_gateway_app_settings = [])
+    ?(r_session_app_settings = [])
+    ?(r_studio_server_pro_app_settings = []) ?(sharing_settings = [])
+    ?(space_storage_settings = []) ?(tensor_board_app_settings = [])
+    ~execution_role () : user_settings =
   {
     default_landing_uri;
     execution_role;
@@ -2130,9 +2137,8 @@ let user_settings ?default_landing_uri ?security_groups
   }
 
 let aws_sagemaker_user_profile ?id ?single_sign_on_user_identifier
-    ?single_sign_on_user_value ?tags ?tags_all ~domain_id
-    ~user_profile_name ~user_settings () : aws_sagemaker_user_profile
-    =
+    ?single_sign_on_user_value ?tags ?tags_all ?(user_settings = [])
+    ~domain_id ~user_profile_name () : aws_sagemaker_user_profile =
   {
     domain_id;
     id;
@@ -2157,8 +2163,8 @@ type t = {
 }
 
 let make ?id ?single_sign_on_user_identifier
-    ?single_sign_on_user_value ?tags ?tags_all ~domain_id
-    ~user_profile_name ~user_settings __id =
+    ?single_sign_on_user_value ?tags ?tags_all ?(user_settings = [])
+    ~domain_id ~user_profile_name __id =
   let __type = "aws_sagemaker_user_profile" in
   let __attrs =
     ({
@@ -2185,18 +2191,18 @@ let make ?id ?single_sign_on_user_identifier
       yojson_of_aws_sagemaker_user_profile
         (aws_sagemaker_user_profile ?id
            ?single_sign_on_user_identifier ?single_sign_on_user_value
-           ?tags ?tags_all ~domain_id ~user_profile_name
-           ~user_settings ());
+           ?tags ?tags_all ~user_settings ~domain_id
+           ~user_profile_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?single_sign_on_user_identifier
-    ?single_sign_on_user_value ?tags ?tags_all ~domain_id
-    ~user_profile_name ~user_settings __id =
+    ?single_sign_on_user_value ?tags ?tags_all ?(user_settings = [])
+    ~domain_id ~user_profile_name __id =
   let (r : _ Tf_core.resource) =
     make ?id ?single_sign_on_user_identifier
-      ?single_sign_on_user_value ?tags ?tags_all ~domain_id
-      ~user_profile_name ~user_settings __id
+      ?single_sign_on_user_value ?tags ?tags_all ~user_settings
+      ~domain_id ~user_profile_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

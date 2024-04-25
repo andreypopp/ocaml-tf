@@ -37,12 +37,12 @@ val azurerm_traffic_manager_azure_endpoint :
   ?id:string prop ->
   ?priority:float prop ->
   ?weight:float prop ->
+  ?custom_header:custom_header list ->
+  ?subnet:subnet list ->
   ?timeouts:timeouts ->
   name:string prop ->
   profile_id:string prop ->
   target_resource_id:string prop ->
-  custom_header:custom_header list ->
-  subnet:subnet list ->
   unit ->
   azurerm_traffic_manager_azure_endpoint
 
@@ -71,12 +71,12 @@ val register :
   ?id:string prop ->
   ?priority:float prop ->
   ?weight:float prop ->
+  ?custom_header:custom_header list ->
+  ?subnet:subnet list ->
   ?timeouts:timeouts ->
   name:string prop ->
   profile_id:string prop ->
   target_resource_id:string prop ->
-  custom_header:custom_header list ->
-  subnet:subnet list ->
   string ->
   t
 
@@ -87,11 +87,11 @@ val make :
   ?id:string prop ->
   ?priority:float prop ->
   ?weight:float prop ->
+  ?custom_header:custom_header list ->
+  ?subnet:subnet list ->
   ?timeouts:timeouts ->
   name:string prop ->
   profile_id:string prop ->
   target_resource_id:string prop ->
-  custom_header:custom_header list ->
-  subnet:subnet list ->
   string ->
   t Tf_core.resource

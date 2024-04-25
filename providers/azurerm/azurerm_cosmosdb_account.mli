@@ -85,10 +85,10 @@ type restore
 
 val restore :
   ?tables_to_restore:string prop list ->
+  ?gremlin_database:restore__gremlin_database list ->
   restore_timestamp_in_utc:string prop ->
   source_cosmosdb_account_id:string prop ->
   database:restore__database list ->
-  gremlin_database:restore__gremlin_database list ->
   unit ->
   restore
 
@@ -133,20 +133,20 @@ val azurerm_cosmosdb_account :
   ?partition_merge_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?analytical_storage:analytical_storage list ->
+  ?backup:backup list ->
+  ?capacity:capacity list ->
+  ?cors_rule:cors_rule list ->
+  ?identity:identity list ->
+  ?restore:restore list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   offer_type:string prop ->
   resource_group_name:string prop ->
-  analytical_storage:analytical_storage list ->
-  backup:backup list ->
   capabilities:capabilities list ->
-  capacity:capacity list ->
   consistency_policy:consistency_policy list ->
-  cors_rule:cors_rule list ->
   geo_location:geo_location list ->
-  identity:identity list ->
-  restore:restore list ->
   virtual_network_rule:virtual_network_rule list ->
   unit ->
   azurerm_cosmosdb_account
@@ -221,20 +221,20 @@ val register :
   ?partition_merge_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?analytical_storage:analytical_storage list ->
+  ?backup:backup list ->
+  ?capacity:capacity list ->
+  ?cors_rule:cors_rule list ->
+  ?identity:identity list ->
+  ?restore:restore list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   offer_type:string prop ->
   resource_group_name:string prop ->
-  analytical_storage:analytical_storage list ->
-  backup:backup list ->
   capabilities:capabilities list ->
-  capacity:capacity list ->
   consistency_policy:consistency_policy list ->
-  cors_rule:cors_rule list ->
   geo_location:geo_location list ->
-  identity:identity list ->
-  restore:restore list ->
   virtual_network_rule:virtual_network_rule list ->
   string ->
   t
@@ -260,20 +260,20 @@ val make :
   ?partition_merge_enabled:bool prop ->
   ?public_network_access_enabled:bool prop ->
   ?tags:(string * string prop) list ->
+  ?analytical_storage:analytical_storage list ->
+  ?backup:backup list ->
+  ?capacity:capacity list ->
+  ?cors_rule:cors_rule list ->
+  ?identity:identity list ->
+  ?restore:restore list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   offer_type:string prop ->
   resource_group_name:string prop ->
-  analytical_storage:analytical_storage list ->
-  backup:backup list ->
   capabilities:capabilities list ->
-  capacity:capacity list ->
   consistency_policy:consistency_policy list ->
-  cors_rule:cors_rule list ->
   geo_location:geo_location list ->
-  identity:identity list ->
-  restore:restore list ->
   virtual_network_rule:virtual_network_rule list ->
   string ->
   t Tf_core.resource

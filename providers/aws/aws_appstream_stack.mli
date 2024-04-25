@@ -55,11 +55,11 @@ val aws_appstream_stack :
   ?redirect_url:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?application_settings:application_settings list ->
+  ?streaming_experience_settings:streaming_experience_settings list ->
   name:string prop ->
   access_endpoints:access_endpoints list ->
-  application_settings:application_settings list ->
   storage_connectors:storage_connectors list ->
-  streaming_experience_settings:streaming_experience_settings list ->
   user_settings:user_settings list ->
   unit ->
   aws_appstream_stack
@@ -92,11 +92,11 @@ val register :
   ?redirect_url:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?application_settings:application_settings list ->
+  ?streaming_experience_settings:streaming_experience_settings list ->
   name:string prop ->
   access_endpoints:access_endpoints list ->
-  application_settings:application_settings list ->
   storage_connectors:storage_connectors list ->
-  streaming_experience_settings:streaming_experience_settings list ->
   user_settings:user_settings list ->
   string ->
   t
@@ -110,11 +110,11 @@ val make :
   ?redirect_url:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?application_settings:application_settings list ->
+  ?streaming_experience_settings:streaming_experience_settings list ->
   name:string prop ->
   access_endpoints:access_endpoints list ->
-  application_settings:application_settings list ->
   storage_connectors:storage_connectors list ->
-  streaming_experience_settings:streaming_experience_settings list ->
   user_settings:user_settings list ->
   string ->
   t Tf_core.resource

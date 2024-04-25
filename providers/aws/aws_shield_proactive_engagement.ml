@@ -86,13 +86,13 @@ let emergency_contact ?contact_notes ?phone_number ~email_address ()
     : emergency_contact =
   { contact_notes; email_address; phone_number }
 
-let aws_shield_proactive_engagement ~enabled ~emergency_contact () :
-    aws_shield_proactive_engagement =
+let aws_shield_proactive_engagement ?(emergency_contact = [])
+    ~enabled () : aws_shield_proactive_engagement =
   { enabled; emergency_contact }
 
 type t = { enabled : bool prop; id : string prop }
 
-let make ~enabled ~emergency_contact __id =
+let make ?(emergency_contact = []) ~enabled __id =
   let __type = "aws_shield_proactive_engagement" in
   let __attrs =
     ({
@@ -106,14 +106,14 @@ let make ~enabled ~emergency_contact __id =
     type_ = __type;
     json =
       yojson_of_aws_shield_proactive_engagement
-        (aws_shield_proactive_engagement ~enabled ~emergency_contact
+        (aws_shield_proactive_engagement ~emergency_contact ~enabled
            ());
     attrs = __attrs;
   }
 
-let register ?tf_module ~enabled ~emergency_contact __id =
+let register ?tf_module ?(emergency_contact = []) ~enabled __id =
   let (r : _ Tf_core.resource) =
-    make ~enabled ~emergency_contact __id
+    make ~emergency_contact ~enabled __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

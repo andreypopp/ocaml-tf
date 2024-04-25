@@ -80,12 +80,12 @@ val automated_backup_policy :
   ?enabled:bool prop ->
   ?labels:(string * string prop) list ->
   ?location:string prop ->
-  encryption_config:automated_backup_policy__encryption_config list ->
-  quantity_based_retention:
+  ?encryption_config:automated_backup_policy__encryption_config list ->
+  ?quantity_based_retention:
     automated_backup_policy__quantity_based_retention list ->
-  time_based_retention:
+  ?time_based_retention:
     automated_backup_policy__time_based_retention list ->
-  weekly_schedule:automated_backup_policy__weekly_schedule list ->
+  ?weekly_schedule:automated_backup_policy__weekly_schedule list ->
   unit ->
   automated_backup_policy
 
@@ -101,7 +101,7 @@ type continuous_backup_config
 val continuous_backup_config :
   ?enabled:bool prop ->
   ?recovery_window_days:float prop ->
-  encryption_config:continuous_backup_config__encryption_config list ->
+  ?encryption_config:continuous_backup_config__encryption_config list ->
   unit ->
   continuous_backup_config
 
@@ -163,18 +163,18 @@ val google_alloydb_cluster :
   ?labels:(string * string prop) list ->
   ?network:string prop ->
   ?project:string prop ->
+  ?automated_backup_policy:automated_backup_policy list ->
+  ?continuous_backup_config:continuous_backup_config list ->
+  ?encryption_config:encryption_config list ->
+  ?initial_user:initial_user list ->
+  ?network_config:network_config list ->
+  ?restore_backup_source:restore_backup_source list ->
+  ?restore_continuous_backup_source:
+    restore_continuous_backup_source list ->
+  ?secondary_config:secondary_config list ->
   ?timeouts:timeouts ->
   cluster_id:string prop ->
   location:string prop ->
-  automated_backup_policy:automated_backup_policy list ->
-  continuous_backup_config:continuous_backup_config list ->
-  encryption_config:encryption_config list ->
-  initial_user:initial_user list ->
-  network_config:network_config list ->
-  restore_backup_source:restore_backup_source list ->
-  restore_continuous_backup_source:
-    restore_continuous_backup_source list ->
-  secondary_config:secondary_config list ->
   unit ->
   google_alloydb_cluster
 
@@ -220,18 +220,18 @@ val register :
   ?labels:(string * string prop) list ->
   ?network:string prop ->
   ?project:string prop ->
+  ?automated_backup_policy:automated_backup_policy list ->
+  ?continuous_backup_config:continuous_backup_config list ->
+  ?encryption_config:encryption_config list ->
+  ?initial_user:initial_user list ->
+  ?network_config:network_config list ->
+  ?restore_backup_source:restore_backup_source list ->
+  ?restore_continuous_backup_source:
+    restore_continuous_backup_source list ->
+  ?secondary_config:secondary_config list ->
   ?timeouts:timeouts ->
   cluster_id:string prop ->
   location:string prop ->
-  automated_backup_policy:automated_backup_policy list ->
-  continuous_backup_config:continuous_backup_config list ->
-  encryption_config:encryption_config list ->
-  initial_user:initial_user list ->
-  network_config:network_config list ->
-  restore_backup_source:restore_backup_source list ->
-  restore_continuous_backup_source:
-    restore_continuous_backup_source list ->
-  secondary_config:secondary_config list ->
   string ->
   t
 
@@ -246,17 +246,17 @@ val make :
   ?labels:(string * string prop) list ->
   ?network:string prop ->
   ?project:string prop ->
+  ?automated_backup_policy:automated_backup_policy list ->
+  ?continuous_backup_config:continuous_backup_config list ->
+  ?encryption_config:encryption_config list ->
+  ?initial_user:initial_user list ->
+  ?network_config:network_config list ->
+  ?restore_backup_source:restore_backup_source list ->
+  ?restore_continuous_backup_source:
+    restore_continuous_backup_source list ->
+  ?secondary_config:secondary_config list ->
   ?timeouts:timeouts ->
   cluster_id:string prop ->
   location:string prop ->
-  automated_backup_policy:automated_backup_policy list ->
-  continuous_backup_config:continuous_backup_config list ->
-  encryption_config:encryption_config list ->
-  initial_user:initial_user list ->
-  network_config:network_config list ->
-  restore_backup_source:restore_backup_source list ->
-  restore_continuous_backup_source:
-    restore_continuous_backup_source list ->
-  secondary_config:secondary_config list ->
   string ->
   t Tf_core.resource

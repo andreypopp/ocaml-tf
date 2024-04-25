@@ -36,10 +36,10 @@ val google_pubsub_topic :
   ?labels:(string * string prop) list ->
   ?message_retention_duration:string prop ->
   ?project:string prop ->
+  ?message_storage_policy:message_storage_policy list ->
+  ?schema_settings:schema_settings list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  message_storage_policy:message_storage_policy list ->
-  schema_settings:schema_settings list ->
   unit ->
   google_pubsub_topic
 
@@ -65,10 +65,10 @@ val register :
   ?labels:(string * string prop) list ->
   ?message_retention_duration:string prop ->
   ?project:string prop ->
+  ?message_storage_policy:message_storage_policy list ->
+  ?schema_settings:schema_settings list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  message_storage_policy:message_storage_policy list ->
-  schema_settings:schema_settings list ->
   string ->
   t
 
@@ -78,9 +78,9 @@ val make :
   ?labels:(string * string prop) list ->
   ?message_retention_duration:string prop ->
   ?project:string prop ->
+  ?message_storage_policy:message_storage_policy list ->
+  ?schema_settings:schema_settings list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  message_storage_policy:message_storage_policy list ->
-  schema_settings:schema_settings list ->
   string ->
   t Tf_core.resource

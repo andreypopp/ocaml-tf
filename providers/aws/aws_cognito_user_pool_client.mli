@@ -45,10 +45,10 @@ val aws_cognito_user_pool_client :
   ?refresh_token_validity:float prop ->
   ?supported_identity_providers:string prop list ->
   ?write_attributes:string prop list ->
+  ?analytics_configuration:analytics_configuration list ->
+  ?token_validity_units:token_validity_units list ->
   name:string prop ->
   user_pool_id:string prop ->
-  analytics_configuration:analytics_configuration list ->
-  token_validity_units:token_validity_units list ->
   unit ->
   aws_cognito_user_pool_client
 
@@ -102,10 +102,10 @@ val register :
   ?refresh_token_validity:float prop ->
   ?supported_identity_providers:string prop list ->
   ?write_attributes:string prop list ->
+  ?analytics_configuration:analytics_configuration list ->
+  ?token_validity_units:token_validity_units list ->
   name:string prop ->
   user_pool_id:string prop ->
-  analytics_configuration:analytics_configuration list ->
-  token_validity_units:token_validity_units list ->
   string ->
   t
 
@@ -128,9 +128,9 @@ val make :
   ?refresh_token_validity:float prop ->
   ?supported_identity_providers:string prop list ->
   ?write_attributes:string prop list ->
+  ?analytics_configuration:analytics_configuration list ->
+  ?token_validity_units:token_validity_units list ->
   name:string prop ->
   user_pool_id:string prop ->
-  analytics_configuration:analytics_configuration list ->
-  token_validity_units:token_validity_units list ->
   string ->
   t Tf_core.resource

@@ -723,7 +723,8 @@ let authorization__admin_users ~username () :
     authorization__admin_users =
   { username }
 
-let authorization ~admin_groups ~admin_users () : authorization =
+let authorization ?(admin_groups = []) ~admin_users () :
+    authorization =
   { admin_groups; admin_users }
 
 let azure_services_authentication ~application_id ~tenant_id () :
@@ -754,9 +755,10 @@ let control_plane__ssh_config ~authorized_key () :
     control_plane__ssh_config =
   { authorized_key }
 
-let control_plane ?tags ?vm_size ~subnet_id ~version
-    ~database_encryption ~main_volume ~proxy_config
-    ~replica_placements ~root_volume ~ssh_config () : control_plane =
+let control_plane ?tags ?vm_size ?(database_encryption = [])
+    ?(main_volume = []) ?(proxy_config = [])
+    ?(replica_placements = []) ?(root_volume = []) ~subnet_id
+    ~version ~ssh_config () : control_plane =
   {
     subnet_id;
     tags;
@@ -784,8 +786,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_container_azure_cluster ?annotations ?client ?description
-    ?id ?project ?timeouts ~azure_region ~location ~name
-    ~resource_group_id ~authorization ~azure_services_authentication
+    ?id ?project ?(azure_services_authentication = []) ?timeouts
+    ~azure_region ~location ~name ~resource_group_id ~authorization
     ~control_plane ~fleet ~networking () :
     google_container_azure_cluster =
   {
@@ -827,10 +829,10 @@ type t = {
   workload_identity_config : workload_identity_config list prop;
 }
 
-let make ?annotations ?client ?description ?id ?project ?timeouts
-    ~azure_region ~location ~name ~resource_group_id ~authorization
-    ~azure_services_authentication ~control_plane ~fleet ~networking
-    __id =
+let make ?annotations ?client ?description ?id ?project
+    ?(azure_services_authentication = []) ?timeouts ~azure_region
+    ~location ~name ~resource_group_id ~authorization ~control_plane
+    ~fleet ~networking __id =
   let __type = "google_container_azure_cluster" in
   let __attrs =
     ({
@@ -864,22 +866,21 @@ let make ?annotations ?client ?description ?id ?project ?timeouts
     json =
       yojson_of_google_container_azure_cluster
         (google_container_azure_cluster ?annotations ?client
-           ?description ?id ?project ?timeouts ~azure_region
-           ~location ~name ~resource_group_id ~authorization
-           ~azure_services_authentication ~control_plane ~fleet
-           ~networking ());
+           ?description ?id ?project ~azure_services_authentication
+           ?timeouts ~azure_region ~location ~name ~resource_group_id
+           ~authorization ~control_plane ~fleet ~networking ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?annotations ?client ?description ?id
-    ?project ?timeouts ~azure_region ~location ~name
-    ~resource_group_id ~authorization ~azure_services_authentication
+    ?project ?(azure_services_authentication = []) ?timeouts
+    ~azure_region ~location ~name ~resource_group_id ~authorization
     ~control_plane ~fleet ~networking __id =
   let (r : _ Tf_core.resource) =
-    make ?annotations ?client ?description ?id ?project ?timeouts
-      ~azure_region ~location ~name ~resource_group_id ~authorization
-      ~azure_services_authentication ~control_plane ~fleet
-      ~networking __id
+    make ?annotations ?client ?description ?id ?project
+      ~azure_services_authentication ?timeouts ~azure_region
+      ~location ~name ~resource_group_id ~authorization
+      ~control_plane ~fleet ~networking __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

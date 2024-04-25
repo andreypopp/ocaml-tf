@@ -98,18 +98,18 @@ val aws_lambda_function :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?timeout:float prop ->
+  ?dead_letter_config:dead_letter_config list ->
+  ?environment:environment list ->
+  ?ephemeral_storage:ephemeral_storage list ->
+  ?file_system_config:file_system_config list ->
+  ?image_config:image_config list ->
+  ?logging_config:logging_config list ->
+  ?snap_start:snap_start list ->
   ?timeouts:timeouts ->
+  ?tracing_config:tracing_config list ->
+  ?vpc_config:vpc_config list ->
   function_name:string prop ->
   role:string prop ->
-  dead_letter_config:dead_letter_config list ->
-  environment:environment list ->
-  ephemeral_storage:ephemeral_storage list ->
-  file_system_config:file_system_config list ->
-  image_config:image_config list ->
-  logging_config:logging_config list ->
-  snap_start:snap_start list ->
-  tracing_config:tracing_config list ->
-  vpc_config:vpc_config list ->
   unit ->
   aws_lambda_function
 
@@ -181,18 +181,18 @@ val register :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?timeout:float prop ->
+  ?dead_letter_config:dead_letter_config list ->
+  ?environment:environment list ->
+  ?ephemeral_storage:ephemeral_storage list ->
+  ?file_system_config:file_system_config list ->
+  ?image_config:image_config list ->
+  ?logging_config:logging_config list ->
+  ?snap_start:snap_start list ->
   ?timeouts:timeouts ->
+  ?tracing_config:tracing_config list ->
+  ?vpc_config:vpc_config list ->
   function_name:string prop ->
   role:string prop ->
-  dead_letter_config:dead_letter_config list ->
-  environment:environment list ->
-  ephemeral_storage:ephemeral_storage list ->
-  file_system_config:file_system_config list ->
-  image_config:image_config list ->
-  logging_config:logging_config list ->
-  snap_start:snap_start list ->
-  tracing_config:tracing_config list ->
-  vpc_config:vpc_config list ->
   string ->
   t
 
@@ -221,17 +221,17 @@ val make :
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
   ?timeout:float prop ->
+  ?dead_letter_config:dead_letter_config list ->
+  ?environment:environment list ->
+  ?ephemeral_storage:ephemeral_storage list ->
+  ?file_system_config:file_system_config list ->
+  ?image_config:image_config list ->
+  ?logging_config:logging_config list ->
+  ?snap_start:snap_start list ->
   ?timeouts:timeouts ->
+  ?tracing_config:tracing_config list ->
+  ?vpc_config:vpc_config list ->
   function_name:string prop ->
   role:string prop ->
-  dead_letter_config:dead_letter_config list ->
-  environment:environment list ->
-  ephemeral_storage:ephemeral_storage list ->
-  file_system_config:file_system_config list ->
-  image_config:image_config list ->
-  logging_config:logging_config list ->
-  snap_start:snap_start list ->
-  tracing_config:tracing_config list ->
-  vpc_config:vpc_config list ->
   string ->
   t Tf_core.resource

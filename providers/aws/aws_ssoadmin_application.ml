@@ -175,12 +175,13 @@ let portal_options__sign_in_options ?application_url ~origin () :
     portal_options__sign_in_options =
   { application_url; origin }
 
-let portal_options ?visibility ~sign_in_options () : portal_options =
+let portal_options ?visibility ?(sign_in_options = []) () :
+    portal_options =
   { visibility; sign_in_options }
 
 let aws_ssoadmin_application ?client_token ?description ?status ?tags
-    ~application_provider_arn ~instance_arn ~name ~portal_options ()
-    : aws_ssoadmin_application =
+    ?(portal_options = []) ~application_provider_arn ~instance_arn
+    ~name () : aws_ssoadmin_application =
   {
     application_provider_arn;
     client_token;
@@ -207,8 +208,8 @@ type t = {
 }
 
 let make ?client_token ?description ?status ?tags
-    ~application_provider_arn ~instance_arn ~name ~portal_options
-    __id =
+    ?(portal_options = []) ~application_provider_arn ~instance_arn
+    ~name __id =
   let __type = "aws_ssoadmin_application" in
   let __attrs =
     ({
@@ -234,18 +235,17 @@ let make ?client_token ?description ?status ?tags
     json =
       yojson_of_aws_ssoadmin_application
         (aws_ssoadmin_application ?client_token ?description ?status
-           ?tags ~application_provider_arn ~instance_arn ~name
-           ~portal_options ());
+           ?tags ~portal_options ~application_provider_arn
+           ~instance_arn ~name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?client_token ?description ?status ?tags
-    ~application_provider_arn ~instance_arn ~name ~portal_options
-    __id =
+    ?(portal_options = []) ~application_provider_arn ~instance_arn
+    ~name __id =
   let (r : _ Tf_core.resource) =
-    make ?client_token ?description ?status ?tags
-      ~application_provider_arn ~instance_arn ~name ~portal_options
-      __id
+    make ?client_token ?description ?status ?tags ~portal_options
+      ~application_provider_arn ~instance_arn ~name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

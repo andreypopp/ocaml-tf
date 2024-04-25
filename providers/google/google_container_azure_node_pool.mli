@@ -36,8 +36,8 @@ val config :
   ?labels:(string * string prop) list ->
   ?tags:(string * string prop) list ->
   ?vm_size:string prop ->
-  proxy_config:config__proxy_config list ->
-  root_volume:config__root_volume list ->
+  ?proxy_config:config__proxy_config list ->
+  ?root_volume:config__root_volume list ->
   ssh_config:config__ssh_config list ->
   unit ->
   config
@@ -67,6 +67,7 @@ val google_container_azure_node_pool :
   ?azure_availability_zone:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?management:management list ->
   ?timeouts:timeouts ->
   cluster:string prop ->
   location:string prop ->
@@ -75,7 +76,6 @@ val google_container_azure_node_pool :
   version:string prop ->
   autoscaling:autoscaling list ->
   config:config list ->
-  management:management list ->
   max_pods_constraint:max_pods_constraint list ->
   unit ->
   google_container_azure_node_pool
@@ -110,6 +110,7 @@ val register :
   ?azure_availability_zone:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?management:management list ->
   ?timeouts:timeouts ->
   cluster:string prop ->
   location:string prop ->
@@ -118,7 +119,6 @@ val register :
   version:string prop ->
   autoscaling:autoscaling list ->
   config:config list ->
-  management:management list ->
   max_pods_constraint:max_pods_constraint list ->
   string ->
   t
@@ -128,6 +128,7 @@ val make :
   ?azure_availability_zone:string prop ->
   ?id:string prop ->
   ?project:string prop ->
+  ?management:management list ->
   ?timeouts:timeouts ->
   cluster:string prop ->
   location:string prop ->
@@ -136,7 +137,6 @@ val make :
   version:string prop ->
   autoscaling:autoscaling list ->
   config:config list ->
-  management:management list ->
   max_pods_constraint:max_pods_constraint list ->
   string ->
   t Tf_core.resource

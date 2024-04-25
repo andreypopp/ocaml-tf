@@ -342,10 +342,11 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let weekly_recurrence ?week_days ~time () : weekly_recurrence =
   { time; week_days }
 
-let azurerm_dev_test_schedule ?id ?status ?tags ?timeouts ~lab_name
-    ~location ~name ~resource_group_name ~task_type ~time_zone_id
-    ~daily_recurrence ~hourly_recurrence ~notification_settings
-    ~weekly_recurrence () : azurerm_dev_test_schedule =
+let azurerm_dev_test_schedule ?id ?status ?tags
+    ?(daily_recurrence = []) ?(hourly_recurrence = []) ?timeouts
+    ?(weekly_recurrence = []) ~lab_name ~location ~name
+    ~resource_group_name ~task_type ~time_zone_id
+    ~notification_settings () : azurerm_dev_test_schedule =
   {
     id;
     lab_name;
@@ -375,10 +376,10 @@ type t = {
   time_zone_id : string prop;
 }
 
-let make ?id ?status ?tags ?timeouts ~lab_name ~location ~name
-    ~resource_group_name ~task_type ~time_zone_id ~daily_recurrence
-    ~hourly_recurrence ~notification_settings ~weekly_recurrence __id
-    =
+let make ?id ?status ?tags ?(daily_recurrence = [])
+    ?(hourly_recurrence = []) ?timeouts ?(weekly_recurrence = [])
+    ~lab_name ~location ~name ~resource_group_name ~task_type
+    ~time_zone_id ~notification_settings __id =
   let __type = "azurerm_dev_test_schedule" in
   let __attrs =
     ({
@@ -400,22 +401,23 @@ let make ?id ?status ?tags ?timeouts ~lab_name ~location ~name
     type_ = __type;
     json =
       yojson_of_azurerm_dev_test_schedule
-        (azurerm_dev_test_schedule ?id ?status ?tags ?timeouts
-           ~lab_name ~location ~name ~resource_group_name ~task_type
-           ~time_zone_id ~daily_recurrence ~hourly_recurrence
-           ~notification_settings ~weekly_recurrence ());
+        (azurerm_dev_test_schedule ?id ?status ?tags
+           ~daily_recurrence ~hourly_recurrence ?timeouts
+           ~weekly_recurrence ~lab_name ~location ~name
+           ~resource_group_name ~task_type ~time_zone_id
+           ~notification_settings ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?status ?tags ?timeouts ~lab_name
-    ~location ~name ~resource_group_name ~task_type ~time_zone_id
-    ~daily_recurrence ~hourly_recurrence ~notification_settings
-    ~weekly_recurrence __id =
+let register ?tf_module ?id ?status ?tags ?(daily_recurrence = [])
+    ?(hourly_recurrence = []) ?timeouts ?(weekly_recurrence = [])
+    ~lab_name ~location ~name ~resource_group_name ~task_type
+    ~time_zone_id ~notification_settings __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?status ?tags ?timeouts ~lab_name ~location ~name
-      ~resource_group_name ~task_type ~time_zone_id ~daily_recurrence
-      ~hourly_recurrence ~notification_settings ~weekly_recurrence
-      __id
+    make ?id ?status ?tags ~daily_recurrence ~hourly_recurrence
+      ?timeouts ~weekly_recurrence ~lab_name ~location ~name
+      ~resource_group_name ~task_type ~time_zone_id
+      ~notification_settings __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

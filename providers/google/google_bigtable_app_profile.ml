@@ -246,9 +246,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 
 let google_bigtable_app_profile ?description ?id ?ignore_warnings
     ?instance ?multi_cluster_routing_cluster_ids
-    ?multi_cluster_routing_use_any ?project ?timeouts ~app_profile_id
-    ~single_cluster_routing ~standard_isolation () :
-    google_bigtable_app_profile =
+    ?multi_cluster_routing_use_any ?project
+    ?(single_cluster_routing = []) ?(standard_isolation = [])
+    ?timeouts ~app_profile_id () : google_bigtable_app_profile =
   {
     app_profile_id;
     description;
@@ -277,8 +277,8 @@ type t = {
 
 let make ?description ?id ?ignore_warnings ?instance
     ?multi_cluster_routing_cluster_ids ?multi_cluster_routing_use_any
-    ?project ?timeouts ~app_profile_id ~single_cluster_routing
-    ~standard_isolation __id =
+    ?project ?(single_cluster_routing = [])
+    ?(standard_isolation = []) ?timeouts ~app_profile_id __id =
   let __type = "google_bigtable_app_profile" in
   let __attrs =
     ({
@@ -305,22 +305,21 @@ let make ?description ?id ?ignore_warnings ?instance
         (google_bigtable_app_profile ?description ?id
            ?ignore_warnings ?instance
            ?multi_cluster_routing_cluster_ids
-           ?multi_cluster_routing_use_any ?project ?timeouts
-           ~app_profile_id ~single_cluster_routing
-           ~standard_isolation ());
+           ?multi_cluster_routing_use_any ?project
+           ~single_cluster_routing ~standard_isolation ?timeouts
+           ~app_profile_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?ignore_warnings ?instance
     ?multi_cluster_routing_cluster_ids ?multi_cluster_routing_use_any
-    ?project ?timeouts ~app_profile_id ~single_cluster_routing
-    ~standard_isolation __id =
+    ?project ?(single_cluster_routing = [])
+    ?(standard_isolation = []) ?timeouts ~app_profile_id __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?ignore_warnings ?instance
       ?multi_cluster_routing_cluster_ids
-      ?multi_cluster_routing_use_any ?project ?timeouts
-      ~app_profile_id ~single_cluster_routing ~standard_isolation
-      __id
+      ?multi_cluster_routing_use_any ?project ~single_cluster_routing
+      ~standard_isolation ?timeouts ~app_profile_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

@@ -30,10 +30,10 @@ val aws_ssm_document :
   ?tags_all:(string * string prop) list ->
   ?target_type:string prop ->
   ?version_name:string prop ->
+  ?attachments_source:attachments_source list ->
   content:string prop ->
   document_type:string prop ->
   name:string prop ->
-  attachments_source:attachments_source list ->
   unit ->
   aws_ssm_document
 
@@ -76,10 +76,10 @@ val register :
   ?tags_all:(string * string prop) list ->
   ?target_type:string prop ->
   ?version_name:string prop ->
+  ?attachments_source:attachments_source list ->
   content:string prop ->
   document_type:string prop ->
   name:string prop ->
-  attachments_source:attachments_source list ->
   string ->
   t
 
@@ -91,9 +91,9 @@ val make :
   ?tags_all:(string * string prop) list ->
   ?target_type:string prop ->
   ?version_name:string prop ->
+  ?attachments_source:attachments_source list ->
   content:string prop ->
   document_type:string prop ->
   name:string prop ->
-  attachments_source:attachments_source list ->
   string ->
   t Tf_core.resource

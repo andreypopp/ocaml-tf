@@ -463,7 +463,7 @@ let backup__hourly ~interval ~start_time ~window_duration () :
     backup__hourly =
   { interval; start_time; window_duration }
 
-let backup ?time ~frequency ~hourly () : backup =
+let backup ?time ?(hourly = []) ~frequency () : backup =
   { frequency; time; hourly }
 
 let retention_daily ~count () : retention_daily = { count }
@@ -482,10 +482,11 @@ let retention_yearly ?days ?include_last_days ?weekdays ?weeks ~count
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
-let azurerm_backup_policy_file_share ?id ?timezone ?timeouts ~name
-    ~recovery_vault_name ~resource_group_name ~backup
-    ~retention_daily ~retention_monthly ~retention_weekly
-    ~retention_yearly () : azurerm_backup_policy_file_share =
+let azurerm_backup_policy_file_share ?id ?timezone
+    ?(retention_monthly = []) ?(retention_weekly = [])
+    ?(retention_yearly = []) ?timeouts ~name ~recovery_vault_name
+    ~resource_group_name ~backup ~retention_daily () :
+    azurerm_backup_policy_file_share =
   {
     id;
     name;
@@ -508,9 +509,10 @@ type t = {
   timezone : string prop;
 }
 
-let make ?id ?timezone ?timeouts ~name ~recovery_vault_name
-    ~resource_group_name ~backup ~retention_daily ~retention_monthly
-    ~retention_weekly ~retention_yearly __id =
+let make ?id ?timezone ?(retention_monthly = [])
+    ?(retention_weekly = []) ?(retention_yearly = []) ?timeouts ~name
+    ~recovery_vault_name ~resource_group_name ~backup
+    ~retention_daily __id =
   let __type = "azurerm_backup_policy_file_share" in
   let __attrs =
     ({
@@ -529,21 +531,21 @@ let make ?id ?timezone ?timeouts ~name ~recovery_vault_name
     type_ = __type;
     json =
       yojson_of_azurerm_backup_policy_file_share
-        (azurerm_backup_policy_file_share ?id ?timezone ?timeouts
-           ~name ~recovery_vault_name ~resource_group_name ~backup
-           ~retention_daily ~retention_monthly ~retention_weekly
-           ~retention_yearly ());
+        (azurerm_backup_policy_file_share ?id ?timezone
+           ~retention_monthly ~retention_weekly ~retention_yearly
+           ?timeouts ~name ~recovery_vault_name ~resource_group_name
+           ~backup ~retention_daily ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?timezone ?timeouts ~name
+let register ?tf_module ?id ?timezone ?(retention_monthly = [])
+    ?(retention_weekly = []) ?(retention_yearly = []) ?timeouts ~name
     ~recovery_vault_name ~resource_group_name ~backup
-    ~retention_daily ~retention_monthly ~retention_weekly
-    ~retention_yearly __id =
+    ~retention_daily __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?timezone ?timeouts ~name ~recovery_vault_name
-      ~resource_group_name ~backup ~retention_daily
-      ~retention_monthly ~retention_weekly ~retention_yearly __id
+    make ?id ?timezone ~retention_monthly ~retention_weekly
+      ~retention_yearly ?timeouts ~name ~recovery_vault_name
+      ~resource_group_name ~backup ~retention_daily __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

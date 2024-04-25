@@ -40,12 +40,12 @@ val common_encryption_cbcs__enabled_protocols :
 type common_encryption_cbcs
 
 val common_encryption_cbcs :
-  clear_key_encryption:
+  ?clear_key_encryption:
     common_encryption_cbcs__clear_key_encryption list ->
-  default_content_key:
+  ?default_content_key:
     common_encryption_cbcs__default_content_key list ->
-  drm_fairplay:common_encryption_cbcs__drm_fairplay list ->
-  enabled_protocols:common_encryption_cbcs__enabled_protocols list ->
+  ?drm_fairplay:common_encryption_cbcs__drm_fairplay list ->
+  ?enabled_protocols:common_encryption_cbcs__enabled_protocols list ->
   unit ->
   common_encryption_cbcs
 
@@ -130,15 +130,15 @@ type common_encryption_cenc
 
 val common_encryption_cenc :
   ?drm_widevine_custom_license_acquisition_url_template:string prop ->
-  clear_key_encryption:
+  ?clear_key_encryption:
     common_encryption_cenc__clear_key_encryption list ->
+  ?default_content_key:
+    common_encryption_cenc__default_content_key list ->
+  ?drm_playready:common_encryption_cenc__drm_playready list ->
+  ?enabled_protocols:common_encryption_cenc__enabled_protocols list ->
   clear_track:common_encryption_cenc__clear_track list ->
   content_key_to_track_mapping:
     common_encryption_cenc__content_key_to_track_mapping list ->
-  default_content_key:
-    common_encryption_cenc__default_content_key list ->
-  drm_playready:common_encryption_cenc__drm_playready list ->
-  enabled_protocols:common_encryption_cenc__enabled_protocols list ->
   unit ->
   common_encryption_cenc
 
@@ -164,8 +164,8 @@ type envelope_encryption
 
 val envelope_encryption :
   ?custom_keys_acquisition_url_template:string prop ->
-  default_content_key:envelope_encryption__default_content_key list ->
-  enabled_protocols:envelope_encryption__enabled_protocols list ->
+  ?default_content_key:envelope_encryption__default_content_key list ->
+  ?enabled_protocols:envelope_encryption__enabled_protocols list ->
   unit ->
   envelope_encryption
 
@@ -193,15 +193,15 @@ type azurerm_media_streaming_policy
 val azurerm_media_streaming_policy :
   ?default_content_key_policy_name:string prop ->
   ?id:string prop ->
+  ?common_encryption_cbcs:common_encryption_cbcs list ->
+  ?common_encryption_cenc:common_encryption_cenc list ->
+  ?envelope_encryption:envelope_encryption list ->
+  ?no_encryption_enabled_protocols:
+    no_encryption_enabled_protocols list ->
   ?timeouts:timeouts ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  common_encryption_cbcs:common_encryption_cbcs list ->
-  common_encryption_cenc:common_encryption_cenc list ->
-  envelope_encryption:envelope_encryption list ->
-  no_encryption_enabled_protocols:
-    no_encryption_enabled_protocols list ->
   unit ->
   azurerm_media_streaming_policy
 
@@ -222,29 +222,29 @@ val register :
   ?tf_module:tf_module ->
   ?default_content_key_policy_name:string prop ->
   ?id:string prop ->
+  ?common_encryption_cbcs:common_encryption_cbcs list ->
+  ?common_encryption_cenc:common_encryption_cenc list ->
+  ?envelope_encryption:envelope_encryption list ->
+  ?no_encryption_enabled_protocols:
+    no_encryption_enabled_protocols list ->
   ?timeouts:timeouts ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  common_encryption_cbcs:common_encryption_cbcs list ->
-  common_encryption_cenc:common_encryption_cenc list ->
-  envelope_encryption:envelope_encryption list ->
-  no_encryption_enabled_protocols:
-    no_encryption_enabled_protocols list ->
   string ->
   t
 
 val make :
   ?default_content_key_policy_name:string prop ->
   ?id:string prop ->
+  ?common_encryption_cbcs:common_encryption_cbcs list ->
+  ?common_encryption_cenc:common_encryption_cenc list ->
+  ?envelope_encryption:envelope_encryption list ->
+  ?no_encryption_enabled_protocols:
+    no_encryption_enabled_protocols list ->
   ?timeouts:timeouts ->
   media_services_account_name:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  common_encryption_cbcs:common_encryption_cbcs list ->
-  common_encryption_cenc:common_encryption_cenc list ->
-  envelope_encryption:envelope_encryption list ->
-  no_encryption_enabled_protocols:
-    no_encryption_enabled_protocols list ->
   string ->
   t Tf_core.resource

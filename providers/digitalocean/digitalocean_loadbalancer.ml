@@ -499,8 +499,8 @@ let digitalocean_loadbalancer ?algorithm
     ?enable_backend_keepalive ?enable_proxy_protocol
     ?http_idle_timeout_seconds ?id ?project_id
     ?redirect_http_to_https ?region ?size ?size_unit ?type_ ?vpc_uuid
-    ~name ~firewall ~forwarding_rule ~healthcheck ~sticky_sessions ()
-    : digitalocean_loadbalancer =
+    ?(healthcheck = []) ?(sticky_sessions = []) ~name ~firewall
+    ~forwarding_rule () : digitalocean_loadbalancer =
   {
     algorithm;
     disable_lets_encrypt_dns_records;
@@ -550,8 +550,8 @@ let make ?algorithm ?disable_lets_encrypt_dns_records ?droplet_ids
     ?droplet_tag ?enable_backend_keepalive ?enable_proxy_protocol
     ?http_idle_timeout_seconds ?id ?project_id
     ?redirect_http_to_https ?region ?size ?size_unit ?type_ ?vpc_uuid
-    ~name ~firewall ~forwarding_rule ~healthcheck ~sticky_sessions
-    __id =
+    ?(healthcheck = []) ?(sticky_sessions = []) ~name ~firewall
+    ~forwarding_rule __id =
   let __type = "digitalocean_loadbalancer" in
   let __attrs =
     ({
@@ -592,8 +592,8 @@ let make ?algorithm ?disable_lets_encrypt_dns_records ?droplet_ids
            ?droplet_tag ?enable_backend_keepalive
            ?enable_proxy_protocol ?http_idle_timeout_seconds ?id
            ?project_id ?redirect_http_to_https ?region ?size
-           ?size_unit ?type_ ?vpc_uuid ~name ~firewall
-           ~forwarding_rule ~healthcheck ~sticky_sessions ());
+           ?size_unit ?type_ ?vpc_uuid ~healthcheck ~sticky_sessions
+           ~name ~firewall ~forwarding_rule ());
     attrs = __attrs;
   }
 
@@ -601,15 +601,15 @@ let register ?tf_module ?algorithm ?disable_lets_encrypt_dns_records
     ?droplet_ids ?droplet_tag ?enable_backend_keepalive
     ?enable_proxy_protocol ?http_idle_timeout_seconds ?id ?project_id
     ?redirect_http_to_https ?region ?size ?size_unit ?type_ ?vpc_uuid
-    ~name ~firewall ~forwarding_rule ~healthcheck ~sticky_sessions
-    __id =
+    ?(healthcheck = []) ?(sticky_sessions = []) ~name ~firewall
+    ~forwarding_rule __id =
   let (r : _ Tf_core.resource) =
     make ?algorithm ?disable_lets_encrypt_dns_records ?droplet_ids
       ?droplet_tag ?enable_backend_keepalive ?enable_proxy_protocol
       ?http_idle_timeout_seconds ?id ?project_id
       ?redirect_http_to_https ?region ?size ?size_unit ?type_
-      ?vpc_uuid ~name ~firewall ~forwarding_rule ~healthcheck
-      ~sticky_sessions __id
+      ?vpc_uuid ~healthcheck ~sticky_sessions ~name ~firewall
+      ~forwarding_rule __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

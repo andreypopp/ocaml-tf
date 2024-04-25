@@ -32,9 +32,9 @@ val aws_globalaccelerator_custom_routing_accelerator :
   ?ip_addresses:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?attributes:attributes list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  attributes:attributes list ->
   unit ->
   aws_globalaccelerator_custom_routing_accelerator
 
@@ -64,9 +64,9 @@ val register :
   ?ip_addresses:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?attributes:attributes list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  attributes:attributes list ->
   string ->
   t
 
@@ -77,8 +77,8 @@ val make :
   ?ip_addresses:string prop list ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?attributes:attributes list ->
   ?timeouts:timeouts ->
   name:string prop ->
-  attributes:attributes list ->
   string ->
   t Tf_core.resource

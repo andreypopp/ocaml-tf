@@ -403,9 +403,9 @@ let aws_storagegateway_nfs_file_share ?audit_destination_arn
     ?bucket_region ?default_storage_class ?file_share_name
     ?guess_mime_type_enabled ?id ?kms_encrypted ?kms_key_arn
     ?notification_policy ?object_acl ?read_only ?requester_pays
-    ?squash ?tags ?tags_all ?vpc_endpoint_dns_name ?timeouts
-    ~client_list ~gateway_arn ~location_arn ~role_arn
-    ~cache_attributes ~nfs_file_share_defaults () :
+    ?squash ?tags ?tags_all ?vpc_endpoint_dns_name
+    ?(cache_attributes = []) ?(nfs_file_share_defaults = [])
+    ?timeouts ~client_list ~gateway_arn ~location_arn ~role_arn () :
     aws_storagegateway_nfs_file_share =
   {
     audit_destination_arn;
@@ -463,8 +463,9 @@ let make ?audit_destination_arn ?bucket_region ?default_storage_class
     ?file_share_name ?guess_mime_type_enabled ?id ?kms_encrypted
     ?kms_key_arn ?notification_policy ?object_acl ?read_only
     ?requester_pays ?squash ?tags ?tags_all ?vpc_endpoint_dns_name
-    ?timeouts ~client_list ~gateway_arn ~location_arn ~role_arn
-    ~cache_attributes ~nfs_file_share_defaults __id =
+    ?(cache_attributes = []) ?(nfs_file_share_defaults = [])
+    ?timeouts ~client_list ~gateway_arn ~location_arn ~role_arn __id
+    =
   let __type = "aws_storagegateway_nfs_file_share" in
   let __attrs =
     ({
@@ -509,9 +510,9 @@ let make ?audit_destination_arn ?bucket_region ?default_storage_class
            ?guess_mime_type_enabled ?id ?kms_encrypted ?kms_key_arn
            ?notification_policy ?object_acl ?read_only
            ?requester_pays ?squash ?tags ?tags_all
-           ?vpc_endpoint_dns_name ?timeouts ~client_list ~gateway_arn
-           ~location_arn ~role_arn ~cache_attributes
-           ~nfs_file_share_defaults ());
+           ?vpc_endpoint_dns_name ~cache_attributes
+           ~nfs_file_share_defaults ?timeouts ~client_list
+           ~gateway_arn ~location_arn ~role_arn ());
     attrs = __attrs;
   }
 
@@ -519,16 +520,16 @@ let register ?tf_module ?audit_destination_arn ?bucket_region
     ?default_storage_class ?file_share_name ?guess_mime_type_enabled
     ?id ?kms_encrypted ?kms_key_arn ?notification_policy ?object_acl
     ?read_only ?requester_pays ?squash ?tags ?tags_all
-    ?vpc_endpoint_dns_name ?timeouts ~client_list ~gateway_arn
-    ~location_arn ~role_arn ~cache_attributes
-    ~nfs_file_share_defaults __id =
+    ?vpc_endpoint_dns_name ?(cache_attributes = [])
+    ?(nfs_file_share_defaults = []) ?timeouts ~client_list
+    ~gateway_arn ~location_arn ~role_arn __id =
   let (r : _ Tf_core.resource) =
     make ?audit_destination_arn ?bucket_region ?default_storage_class
       ?file_share_name ?guess_mime_type_enabled ?id ?kms_encrypted
       ?kms_key_arn ?notification_policy ?object_acl ?read_only
       ?requester_pays ?squash ?tags ?tags_all ?vpc_endpoint_dns_name
-      ?timeouts ~client_list ~gateway_arn ~location_arn ~role_arn
-      ~cache_attributes ~nfs_file_share_defaults __id
+      ~cache_attributes ~nfs_file_share_defaults ?timeouts
+      ~client_list ~gateway_arn ~location_arn ~role_arn __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

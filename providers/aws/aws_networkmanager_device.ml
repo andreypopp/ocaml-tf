@@ -299,8 +299,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let aws_networkmanager_device ?description ?id ?model ?serial_number
-    ?site_id ?tags ?tags_all ?type_ ?vendor ?timeouts
-    ~global_network_id ~aws_location ~location () :
+    ?site_id ?tags ?tags_all ?type_ ?vendor ?(aws_location = [])
+    ?(location = []) ?timeouts ~global_network_id () :
     aws_networkmanager_device =
   {
     description;
@@ -333,8 +333,8 @@ type t = {
 }
 
 let make ?description ?id ?model ?serial_number ?site_id ?tags
-    ?tags_all ?type_ ?vendor ?timeouts ~global_network_id
-    ~aws_location ~location __id =
+    ?tags_all ?type_ ?vendor ?(aws_location = []) ?(location = [])
+    ?timeouts ~global_network_id __id =
   let __type = "aws_networkmanager_device" in
   let __attrs =
     ({
@@ -360,17 +360,17 @@ let make ?description ?id ?model ?serial_number ?site_id ?tags
       yojson_of_aws_networkmanager_device
         (aws_networkmanager_device ?description ?id ?model
            ?serial_number ?site_id ?tags ?tags_all ?type_ ?vendor
-           ?timeouts ~global_network_id ~aws_location ~location ());
+           ~aws_location ~location ?timeouts ~global_network_id ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?id ?model ?serial_number
-    ?site_id ?tags ?tags_all ?type_ ?vendor ?timeouts
-    ~global_network_id ~aws_location ~location __id =
+    ?site_id ?tags ?tags_all ?type_ ?vendor ?(aws_location = [])
+    ?(location = []) ?timeouts ~global_network_id __id =
   let (r : _ Tf_core.resource) =
     make ?description ?id ?model ?serial_number ?site_id ?tags
-      ?tags_all ?type_ ?vendor ?timeouts ~global_network_id
-      ~aws_location ~location __id
+      ?tags_all ?type_ ?vendor ~aws_location ~location ?timeouts
+      ~global_network_id __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

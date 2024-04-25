@@ -260,13 +260,13 @@ let target_object_key_format__partitioned_prefix
 
 let target_object_key_format__simple_prefix () = ()
 
-let target_object_key_format ~partitioned_prefix ~simple_prefix () :
-    target_object_key_format =
+let target_object_key_format ?(partitioned_prefix = [])
+    ?(simple_prefix = []) () : target_object_key_format =
   { partitioned_prefix; simple_prefix }
 
-let aws_s3_bucket_logging ?expected_bucket_owner ?id ~bucket
-    ~target_bucket ~target_prefix ~target_grant
-    ~target_object_key_format () : aws_s3_bucket_logging =
+let aws_s3_bucket_logging ?expected_bucket_owner ?id
+    ?(target_object_key_format = []) ~bucket ~target_bucket
+    ~target_prefix ~target_grant () : aws_s3_bucket_logging =
   {
     bucket;
     expected_bucket_owner;
@@ -285,8 +285,8 @@ type t = {
   target_prefix : string prop;
 }
 
-let make ?expected_bucket_owner ?id ~bucket ~target_bucket
-    ~target_prefix ~target_grant ~target_object_key_format __id =
+let make ?expected_bucket_owner ?id ?(target_object_key_format = [])
+    ~bucket ~target_bucket ~target_prefix ~target_grant __id =
   let __type = "aws_s3_bucket_logging" in
   let __attrs =
     ({
@@ -304,18 +304,18 @@ let make ?expected_bucket_owner ?id ~bucket ~target_bucket
     type_ = __type;
     json =
       yojson_of_aws_s3_bucket_logging
-        (aws_s3_bucket_logging ?expected_bucket_owner ?id ~bucket
-           ~target_bucket ~target_prefix ~target_grant
-           ~target_object_key_format ());
+        (aws_s3_bucket_logging ?expected_bucket_owner ?id
+           ~target_object_key_format ~bucket ~target_bucket
+           ~target_prefix ~target_grant ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?expected_bucket_owner ?id ~bucket
-    ~target_bucket ~target_prefix ~target_grant
-    ~target_object_key_format __id =
+let register ?tf_module ?expected_bucket_owner ?id
+    ?(target_object_key_format = []) ~bucket ~target_bucket
+    ~target_prefix ~target_grant __id =
   let (r : _ Tf_core.resource) =
-    make ?expected_bucket_owner ?id ~bucket ~target_bucket
-      ~target_prefix ~target_grant ~target_object_key_format __id
+    make ?expected_bucket_owner ?id ~target_object_key_format ~bucket
+      ~target_bucket ~target_prefix ~target_grant __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

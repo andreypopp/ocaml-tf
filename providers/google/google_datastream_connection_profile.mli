@@ -37,10 +37,10 @@ type mysql_profile
 
 val mysql_profile :
   ?port:float prop ->
+  ?ssl_config:mysql_profile__ssl_config list ->
   hostname:string prop ->
   password:string prop ->
   username:string prop ->
-  ssl_config:mysql_profile__ssl_config list ->
   unit ->
   mysql_profile
 
@@ -87,17 +87,17 @@ val google_datastream_connection_profile :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?bigquery_profile:bigquery_profile list ->
+  ?forward_ssh_connectivity:forward_ssh_connectivity list ->
+  ?gcs_profile:gcs_profile list ->
+  ?mysql_profile:mysql_profile list ->
+  ?oracle_profile:oracle_profile list ->
+  ?postgresql_profile:postgresql_profile list ->
+  ?private_connectivity:private_connectivity list ->
   ?timeouts:timeouts ->
   connection_profile_id:string prop ->
   display_name:string prop ->
   location:string prop ->
-  bigquery_profile:bigquery_profile list ->
-  forward_ssh_connectivity:forward_ssh_connectivity list ->
-  gcs_profile:gcs_profile list ->
-  mysql_profile:mysql_profile list ->
-  oracle_profile:oracle_profile list ->
-  postgresql_profile:postgresql_profile list ->
-  private_connectivity:private_connectivity list ->
   unit ->
   google_datastream_connection_profile
 
@@ -123,17 +123,17 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?bigquery_profile:bigquery_profile list ->
+  ?forward_ssh_connectivity:forward_ssh_connectivity list ->
+  ?gcs_profile:gcs_profile list ->
+  ?mysql_profile:mysql_profile list ->
+  ?oracle_profile:oracle_profile list ->
+  ?postgresql_profile:postgresql_profile list ->
+  ?private_connectivity:private_connectivity list ->
   ?timeouts:timeouts ->
   connection_profile_id:string prop ->
   display_name:string prop ->
   location:string prop ->
-  bigquery_profile:bigquery_profile list ->
-  forward_ssh_connectivity:forward_ssh_connectivity list ->
-  gcs_profile:gcs_profile list ->
-  mysql_profile:mysql_profile list ->
-  oracle_profile:oracle_profile list ->
-  postgresql_profile:postgresql_profile list ->
-  private_connectivity:private_connectivity list ->
   string ->
   t
 
@@ -141,16 +141,16 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?bigquery_profile:bigquery_profile list ->
+  ?forward_ssh_connectivity:forward_ssh_connectivity list ->
+  ?gcs_profile:gcs_profile list ->
+  ?mysql_profile:mysql_profile list ->
+  ?oracle_profile:oracle_profile list ->
+  ?postgresql_profile:postgresql_profile list ->
+  ?private_connectivity:private_connectivity list ->
   ?timeouts:timeouts ->
   connection_profile_id:string prop ->
   display_name:string prop ->
   location:string prop ->
-  bigquery_profile:bigquery_profile list ->
-  forward_ssh_connectivity:forward_ssh_connectivity list ->
-  gcs_profile:gcs_profile list ->
-  mysql_profile:mysql_profile list ->
-  oracle_profile:oracle_profile list ->
-  postgresql_profile:postgresql_profile list ->
-  private_connectivity:private_connectivity list ->
   string ->
   t Tf_core.resource

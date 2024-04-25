@@ -223,8 +223,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_secure_source_manager_instance ?id ?kms_key ?labels
-    ?project ?timeouts ~instance_id ~location ~private_config () :
-    google_secure_source_manager_instance =
+    ?project ?(private_config = []) ?timeouts ~instance_id ~location
+    () : google_secure_source_manager_instance =
   {
     id;
     instance_id;
@@ -253,8 +253,8 @@ type t = {
   update_time : string prop;
 }
 
-let make ?id ?kms_key ?labels ?project ?timeouts ~instance_id
-    ~location ~private_config __id =
+let make ?id ?kms_key ?labels ?project ?(private_config = [])
+    ?timeouts ~instance_id ~location __id =
   let __type = "google_secure_source_manager_instance" in
   let __attrs =
     ({
@@ -283,16 +283,16 @@ let make ?id ?kms_key ?labels ?project ?timeouts ~instance_id
     json =
       yojson_of_google_secure_source_manager_instance
         (google_secure_source_manager_instance ?id ?kms_key ?labels
-           ?project ?timeouts ~instance_id ~location ~private_config
+           ?project ~private_config ?timeouts ~instance_id ~location
            ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?kms_key ?labels ?project ?timeouts
-    ~instance_id ~location ~private_config __id =
+let register ?tf_module ?id ?kms_key ?labels ?project
+    ?(private_config = []) ?timeouts ~instance_id ~location __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?kms_key ?labels ?project ?timeouts ~instance_id
-      ~location ~private_config __id
+    make ?id ?kms_key ?labels ?project ~private_config ?timeouts
+      ~instance_id ~location __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

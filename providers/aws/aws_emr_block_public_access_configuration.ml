@@ -90,8 +90,8 @@ let permitted_public_security_group_rule_range ~max_range ~min_range
   { max_range; min_range }
 
 let aws_emr_block_public_access_configuration ?id
-    ~block_public_security_group_rules
-    ~permitted_public_security_group_rule_range () :
+    ?(permitted_public_security_group_rule_range = [])
+    ~block_public_security_group_rules () :
     aws_emr_block_public_access_configuration =
   {
     block_public_security_group_rules;
@@ -104,8 +104,8 @@ type t = {
   id : string prop;
 }
 
-let make ?id ~block_public_security_group_rules
-    ~permitted_public_security_group_rule_range __id =
+let make ?id ?(permitted_public_security_group_rule_range = [])
+    ~block_public_security_group_rules __id =
   let __type = "aws_emr_block_public_access_configuration" in
   let __attrs =
     ({
@@ -122,16 +122,17 @@ let make ?id ~block_public_security_group_rules
     json =
       yojson_of_aws_emr_block_public_access_configuration
         (aws_emr_block_public_access_configuration ?id
-           ~block_public_security_group_rules
-           ~permitted_public_security_group_rule_range ());
+           ~permitted_public_security_group_rule_range
+           ~block_public_security_group_rules ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~block_public_security_group_rules
-    ~permitted_public_security_group_rule_range __id =
+let register ?tf_module ?id
+    ?(permitted_public_security_group_rule_range = [])
+    ~block_public_security_group_rules __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~block_public_security_group_rules
-      ~permitted_public_security_group_rule_range __id
+    make ?id ~permitted_public_security_group_rule_range
+      ~block_public_security_group_rules __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

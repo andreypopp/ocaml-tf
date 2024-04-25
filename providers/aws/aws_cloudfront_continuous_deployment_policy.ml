@@ -247,18 +247,18 @@ let traffic_config__single_weight_config__session_stickiness_config
     traffic_config__single_weight_config__session_stickiness_config =
   { idle_ttl; maximum_ttl }
 
-let traffic_config__single_weight_config ~weight
-    ~session_stickiness_config () :
+let traffic_config__single_weight_config
+    ?(session_stickiness_config = []) ~weight () :
     traffic_config__single_weight_config =
   { weight; session_stickiness_config }
 
-let traffic_config ~type_ ~single_header_config ~single_weight_config
-    () : traffic_config =
+let traffic_config ?(single_header_config = [])
+    ?(single_weight_config = []) ~type_ () : traffic_config =
   { type_; single_header_config; single_weight_config }
 
-let aws_cloudfront_continuous_deployment_policy ~enabled
-    ~staging_distribution_dns_names ~traffic_config () :
-    aws_cloudfront_continuous_deployment_policy =
+let aws_cloudfront_continuous_deployment_policy
+    ?(staging_distribution_dns_names = []) ?(traffic_config = [])
+    ~enabled () : aws_cloudfront_continuous_deployment_policy =
   { enabled; staging_distribution_dns_names; traffic_config }
 
 type t = {
@@ -268,8 +268,8 @@ type t = {
   last_modified_time : string prop;
 }
 
-let make ~enabled ~staging_distribution_dns_names ~traffic_config
-    __id =
+let make ?(staging_distribution_dns_names = [])
+    ?(traffic_config = []) ~enabled __id =
   let __type = "aws_cloudfront_continuous_deployment_policy" in
   let __attrs =
     ({
@@ -286,15 +286,16 @@ let make ~enabled ~staging_distribution_dns_names ~traffic_config
     type_ = __type;
     json =
       yojson_of_aws_cloudfront_continuous_deployment_policy
-        (aws_cloudfront_continuous_deployment_policy ~enabled
-           ~staging_distribution_dns_names ~traffic_config ());
+        (aws_cloudfront_continuous_deployment_policy
+           ~staging_distribution_dns_names ~traffic_config ~enabled
+           ());
     attrs = __attrs;
   }
 
-let register ?tf_module ~enabled ~staging_distribution_dns_names
-    ~traffic_config __id =
+let register ?tf_module ?(staging_distribution_dns_names = [])
+    ?(traffic_config = []) ~enabled __id =
   let (r : _ Tf_core.resource) =
-    make ~enabled ~staging_distribution_dns_names ~traffic_config
+    make ~staging_distribution_dns_names ~traffic_config ~enabled
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

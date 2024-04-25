@@ -2589,9 +2589,10 @@ let backend_http_settings__connection_draining ~drain_timeout_sec
 
 let backend_http_settings ?affinity_cookie_name ?host_name ?path
     ?pick_host_name_from_backend_address ?probe_name ?request_timeout
-    ?trusted_root_certificate_names ~cookie_based_affinity ~name
-    ~port ~protocol ~authentication_certificate ~connection_draining
-    () : backend_http_settings =
+    ?trusted_root_certificate_names
+    ?(authentication_certificate = []) ?(connection_draining = [])
+    ~cookie_based_affinity ~name ~port ~protocol () :
+    backend_http_settings =
   {
     affinity_cookie_name;
     cookie_based_affinity;
@@ -2641,8 +2642,9 @@ let http_listener__custom_error_configuration ~custom_error_page_url
 
 let http_listener ?firewall_policy_id ?host_name ?host_names
     ?require_sni ?ssl_certificate_name ?ssl_profile_name
+    ?(custom_error_configuration = [])
     ~frontend_ip_configuration_name ~frontend_port_name ~name
-    ~protocol ~custom_error_configuration () : http_listener =
+    ~protocol () : http_listener =
   {
     firewall_policy_id;
     frontend_ip_configuration_name;
@@ -2679,9 +2681,9 @@ let probe__match ?body ~status_code () : probe__match =
   { body; status_code }
 
 let probe ?host ?minimum_servers
-    ?pick_host_name_from_backend_http_settings ?port ~interval ~name
-    ~path ~protocol ~timeout ~unhealthy_threshold ~match_ () : probe
-    =
+    ?pick_host_name_from_backend_http_settings ?port ?(match_ = [])
+    ~interval ~name ~path ~protocol ~timeout ~unhealthy_threshold ()
+    : probe =
   {
     host;
     interval;
@@ -2744,9 +2746,10 @@ let rewrite_rule_set__rewrite_rule__url ?components ?path
     ?query_string ?reroute () : rewrite_rule_set__rewrite_rule__url =
   { components; path; query_string; reroute }
 
-let rewrite_rule_set__rewrite_rule ~name ~rule_sequence ~condition
-    ~request_header_configuration ~response_header_configuration ~url
-    () : rewrite_rule_set__rewrite_rule =
+let rewrite_rule_set__rewrite_rule ?(condition = [])
+    ?(request_header_configuration = [])
+    ?(response_header_configuration = []) ?(url = []) ~name
+    ~rule_sequence () : rewrite_rule_set__rewrite_rule =
   {
     name;
     rule_sequence;
@@ -2756,7 +2759,8 @@ let rewrite_rule_set__rewrite_rule ~name ~rule_sequence ~condition
     url;
   }
 
-let rewrite_rule_set ~name ~rewrite_rule () : rewrite_rule_set =
+let rewrite_rule_set ?(rewrite_rule = []) ~name () : rewrite_rule_set
+    =
   { name; rewrite_rule }
 
 let sku ?capacity ~name ~tier () : sku = { capacity; name; tier }
@@ -2788,8 +2792,8 @@ let ssl_profile__ssl_policy ?cipher_suites ?disabled_protocols
 
 let ssl_profile ?trusted_client_certificate_names
     ?verify_client_cert_issuer_dn
-    ?verify_client_certificate_revocation ~name ~ssl_policy () :
-    ssl_profile =
+    ?verify_client_certificate_revocation ?(ssl_policy = []) ~name ()
+    : ssl_profile =
   {
     name;
     trusted_client_certificate_names;
@@ -2846,8 +2850,8 @@ let waf_configuration__exclusion ?selector ?selector_match_operator
   { match_variable; selector; selector_match_operator }
 
 let waf_configuration ?file_upload_limit_mb ?max_request_body_size_kb
-    ?request_body_check ?rule_set_type ~enabled ~firewall_mode
-    ~rule_set_version ~disabled_rule_group ~exclusion () :
+    ?request_body_check ?rule_set_type ?(disabled_rule_group = [])
+    ?(exclusion = []) ~enabled ~firewall_mode ~rule_set_version () :
     waf_configuration =
   {
     enabled;
@@ -2863,17 +2867,19 @@ let waf_configuration ?file_upload_limit_mb ?max_request_body_size_kb
 
 let azurerm_application_gateway ?enable_http2 ?fips_enabled
     ?firewall_policy_id ?force_firewall_policy_association ?id ?tags
-    ?zones ?timeouts ~location ~name ~resource_group_name
-    ~authentication_certificate ~autoscale_configuration
+    ?zones ?(authentication_certificate = [])
+    ?(autoscale_configuration = [])
+    ?(custom_error_configuration = []) ?(global = [])
+    ?(identity = []) ?(rewrite_rule_set = []) ?(ssl_policy = [])
+    ?(ssl_profile = []) ?timeouts ?(trusted_client_certificate = [])
+    ?(trusted_root_certificate = []) ?(url_path_map = [])
+    ?(waf_configuration = []) ~location ~name ~resource_group_name
     ~backend_address_pool ~backend_http_settings
-    ~custom_error_configuration ~frontend_ip_configuration
-    ~frontend_port ~gateway_ip_configuration ~global ~http_listener
-    ~identity ~private_link_configuration ~probe
-    ~redirect_configuration ~request_routing_rule ~rewrite_rule_set
-    ~sku ~ssl_certificate ~ssl_policy ~ssl_profile
-    ~trusted_client_certificate ~trusted_root_certificate
-    ~url_path_map ~waf_configuration () : azurerm_application_gateway
-    =
+    ~frontend_ip_configuration ~frontend_port
+    ~gateway_ip_configuration ~http_listener
+    ~private_link_configuration ~probe ~redirect_configuration
+    ~request_routing_rule ~sku ~ssl_certificate () :
+    azurerm_application_gateway =
   {
     enable_http2;
     fips_enabled;
@@ -2928,16 +2934,19 @@ type t = {
 }
 
 let make ?enable_http2 ?fips_enabled ?firewall_policy_id
-    ?force_firewall_policy_association ?id ?tags ?zones ?timeouts
-    ~location ~name ~resource_group_name ~authentication_certificate
-    ~autoscale_configuration ~backend_address_pool
-    ~backend_http_settings ~custom_error_configuration
+    ?force_firewall_policy_association ?id ?tags ?zones
+    ?(authentication_certificate = [])
+    ?(autoscale_configuration = [])
+    ?(custom_error_configuration = []) ?(global = [])
+    ?(identity = []) ?(rewrite_rule_set = []) ?(ssl_policy = [])
+    ?(ssl_profile = []) ?timeouts ?(trusted_client_certificate = [])
+    ?(trusted_root_certificate = []) ?(url_path_map = [])
+    ?(waf_configuration = []) ~location ~name ~resource_group_name
+    ~backend_address_pool ~backend_http_settings
     ~frontend_ip_configuration ~frontend_port
-    ~gateway_ip_configuration ~global ~http_listener ~identity
+    ~gateway_ip_configuration ~http_listener
     ~private_link_configuration ~probe ~redirect_configuration
-    ~request_routing_rule ~rewrite_rule_set ~sku ~ssl_certificate
-    ~ssl_policy ~ssl_profile ~trusted_client_certificate
-    ~trusted_root_certificate ~url_path_map ~waf_configuration __id =
+    ~request_routing_rule ~sku ~ssl_certificate __id =
   let __type = "azurerm_application_gateway" in
   let __attrs =
     ({
@@ -2967,45 +2976,45 @@ let make ?enable_http2 ?fips_enabled ?firewall_policy_id
       yojson_of_azurerm_application_gateway
         (azurerm_application_gateway ?enable_http2 ?fips_enabled
            ?firewall_policy_id ?force_firewall_policy_association ?id
-           ?tags ?zones ?timeouts ~location ~name
-           ~resource_group_name ~authentication_certificate
-           ~autoscale_configuration ~backend_address_pool
-           ~backend_http_settings ~custom_error_configuration
-           ~frontend_ip_configuration ~frontend_port
-           ~gateway_ip_configuration ~global ~http_listener ~identity
+           ?tags ?zones ~authentication_certificate
+           ~autoscale_configuration ~custom_error_configuration
+           ~global ~identity ~rewrite_rule_set ~ssl_policy
+           ~ssl_profile ?timeouts ~trusted_client_certificate
+           ~trusted_root_certificate ~url_path_map ~waf_configuration
+           ~location ~name ~resource_group_name ~backend_address_pool
+           ~backend_http_settings ~frontend_ip_configuration
+           ~frontend_port ~gateway_ip_configuration ~http_listener
            ~private_link_configuration ~probe ~redirect_configuration
-           ~request_routing_rule ~rewrite_rule_set ~sku
-           ~ssl_certificate ~ssl_policy ~ssl_profile
-           ~trusted_client_certificate ~trusted_root_certificate
-           ~url_path_map ~waf_configuration ());
+           ~request_routing_rule ~sku ~ssl_certificate ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?enable_http2 ?fips_enabled
     ?firewall_policy_id ?force_firewall_policy_association ?id ?tags
-    ?zones ?timeouts ~location ~name ~resource_group_name
-    ~authentication_certificate ~autoscale_configuration
+    ?zones ?(authentication_certificate = [])
+    ?(autoscale_configuration = [])
+    ?(custom_error_configuration = []) ?(global = [])
+    ?(identity = []) ?(rewrite_rule_set = []) ?(ssl_policy = [])
+    ?(ssl_profile = []) ?timeouts ?(trusted_client_certificate = [])
+    ?(trusted_root_certificate = []) ?(url_path_map = [])
+    ?(waf_configuration = []) ~location ~name ~resource_group_name
     ~backend_address_pool ~backend_http_settings
-    ~custom_error_configuration ~frontend_ip_configuration
-    ~frontend_port ~gateway_ip_configuration ~global ~http_listener
-    ~identity ~private_link_configuration ~probe
-    ~redirect_configuration ~request_routing_rule ~rewrite_rule_set
-    ~sku ~ssl_certificate ~ssl_policy ~ssl_profile
-    ~trusted_client_certificate ~trusted_root_certificate
-    ~url_path_map ~waf_configuration __id =
+    ~frontend_ip_configuration ~frontend_port
+    ~gateway_ip_configuration ~http_listener
+    ~private_link_configuration ~probe ~redirect_configuration
+    ~request_routing_rule ~sku ~ssl_certificate __id =
   let (r : _ Tf_core.resource) =
     make ?enable_http2 ?fips_enabled ?firewall_policy_id
-      ?force_firewall_policy_association ?id ?tags ?zones ?timeouts
-      ~location ~name ~resource_group_name
+      ?force_firewall_policy_association ?id ?tags ?zones
       ~authentication_certificate ~autoscale_configuration
-      ~backend_address_pool ~backend_http_settings
-      ~custom_error_configuration ~frontend_ip_configuration
-      ~frontend_port ~gateway_ip_configuration ~global ~http_listener
-      ~identity ~private_link_configuration ~probe
-      ~redirect_configuration ~request_routing_rule ~rewrite_rule_set
-      ~sku ~ssl_certificate ~ssl_policy ~ssl_profile
-      ~trusted_client_certificate ~trusted_root_certificate
-      ~url_path_map ~waf_configuration __id
+      ~custom_error_configuration ~global ~identity ~rewrite_rule_set
+      ~ssl_policy ~ssl_profile ?timeouts ~trusted_client_certificate
+      ~trusted_root_certificate ~url_path_map ~waf_configuration
+      ~location ~name ~resource_group_name ~backend_address_pool
+      ~backend_http_settings ~frontend_ip_configuration
+      ~frontend_port ~gateway_ip_configuration ~http_listener
+      ~private_link_configuration ~probe ~redirect_configuration
+      ~request_routing_rule ~sku ~ssl_certificate __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

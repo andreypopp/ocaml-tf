@@ -47,10 +47,10 @@ val aws_api_gateway_usage_plan :
   ?product_code:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?quota_settings:quota_settings list ->
+  ?throttle_settings:throttle_settings list ->
   name:string prop ->
   api_stages:api_stages list ->
-  quota_settings:quota_settings list ->
-  throttle_settings:throttle_settings list ->
   unit ->
   aws_api_gateway_usage_plan
 
@@ -76,10 +76,10 @@ val register :
   ?product_code:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?quota_settings:quota_settings list ->
+  ?throttle_settings:throttle_settings list ->
   name:string prop ->
   api_stages:api_stages list ->
-  quota_settings:quota_settings list ->
-  throttle_settings:throttle_settings list ->
   string ->
   t
 
@@ -89,9 +89,9 @@ val make :
   ?product_code:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?quota_settings:quota_settings list ->
+  ?throttle_settings:throttle_settings list ->
   name:string prop ->
   api_stages:api_stages list ->
-  quota_settings:quota_settings list ->
-  throttle_settings:throttle_settings list ->
   string ->
   t Tf_core.resource

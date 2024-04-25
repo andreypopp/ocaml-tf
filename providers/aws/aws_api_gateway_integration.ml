@@ -238,8 +238,9 @@ let aws_api_gateway_integration ?cache_key_parameters
     ?cache_namespace ?connection_id ?connection_type
     ?content_handling ?credentials ?id ?integration_http_method
     ?passthrough_behavior ?request_parameters ?request_templates
-    ?timeout_milliseconds ?uri ~http_method ~resource_id ~rest_api_id
-    ~type_ ~tls_config () : aws_api_gateway_integration =
+    ?timeout_milliseconds ?uri ?(tls_config = []) ~http_method
+    ~resource_id ~rest_api_id ~type_ () : aws_api_gateway_integration
+    =
   {
     cache_key_parameters;
     cache_namespace;
@@ -285,7 +286,8 @@ let make ?cache_key_parameters ?cache_namespace ?connection_id
     ?connection_type ?content_handling ?credentials ?id
     ?integration_http_method ?passthrough_behavior
     ?request_parameters ?request_templates ?timeout_milliseconds ?uri
-    ~http_method ~resource_id ~rest_api_id ~type_ ~tls_config __id =
+    ?(tls_config = []) ~http_method ~resource_id ~rest_api_id ~type_
+    __id =
   let __type = "aws_api_gateway_integration" in
   let __attrs =
     ({
@@ -326,8 +328,8 @@ let make ?cache_key_parameters ?cache_namespace ?connection_id
            ?content_handling ?credentials ?id
            ?integration_http_method ?passthrough_behavior
            ?request_parameters ?request_templates
-           ?timeout_milliseconds ?uri ~http_method ~resource_id
-           ~rest_api_id ~type_ ~tls_config ());
+           ?timeout_milliseconds ?uri ~tls_config ~http_method
+           ~resource_id ~rest_api_id ~type_ ());
     attrs = __attrs;
   }
 
@@ -335,13 +337,14 @@ let register ?tf_module ?cache_key_parameters ?cache_namespace
     ?connection_id ?connection_type ?content_handling ?credentials
     ?id ?integration_http_method ?passthrough_behavior
     ?request_parameters ?request_templates ?timeout_milliseconds ?uri
-    ~http_method ~resource_id ~rest_api_id ~type_ ~tls_config __id =
+    ?(tls_config = []) ~http_method ~resource_id ~rest_api_id ~type_
+    __id =
   let (r : _ Tf_core.resource) =
     make ?cache_key_parameters ?cache_namespace ?connection_id
       ?connection_type ?content_handling ?credentials ?id
       ?integration_http_method ?passthrough_behavior
       ?request_parameters ?request_templates ?timeout_milliseconds
-      ?uri ~http_method ~resource_id ~rest_api_id ~type_ ~tls_config
+      ?uri ~tls_config ~http_method ~resource_id ~rest_api_id ~type_
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

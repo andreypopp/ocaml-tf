@@ -1436,7 +1436,7 @@ let build_batch_config__restrictions ?compute_types_allowed
   { compute_types_allowed; maximum_builds_allowed }
 
 let build_batch_config ?combine_artifacts ?timeout_in_mins
-    ~service_role ~restrictions () : build_batch_config =
+    ?(restrictions = []) ~service_role () : build_batch_config =
   { combine_artifacts; service_role; timeout_in_mins; restrictions }
 
 let cache ?location ?modes ?type_ () : cache =
@@ -1451,8 +1451,9 @@ let environment__registry_credential ~credential ~credential_provider
   { credential; credential_provider }
 
 let environment ?certificate ?image_pull_credentials_type
-    ?privileged_mode ~compute_type ~image ~type_
-    ~environment_variable ~registry_credential () : environment =
+    ?privileged_mode ?(environment_variable = [])
+    ?(registry_credential = []) ~compute_type ~image ~type_ () :
+    environment =
   {
     certificate;
     compute_type;
@@ -1476,7 +1477,8 @@ let logs_config__s3_logs ?bucket_owner_access ?encryption_disabled
     ?location ?status () : logs_config__s3_logs =
   { bucket_owner_access; encryption_disabled; location; status }
 
-let logs_config ~cloudwatch_logs ~s3_logs () : logs_config =
+let logs_config ?(cloudwatch_logs = []) ?(s3_logs = []) () :
+    logs_config =
   { cloudwatch_logs; s3_logs }
 
 let secondary_artifacts ?bucket_owner_access ?encryption_disabled
@@ -1509,8 +1511,8 @@ let secondary_sources__git_submodules_config ~fetch_submodules () :
   { fetch_submodules }
 
 let secondary_sources ?buildspec ?git_clone_depth ?insecure_ssl
-    ?location ?report_build_status ~source_identifier ~type_
-    ~build_status_config ~git_submodules_config () :
+    ?location ?report_build_status ?(build_status_config = [])
+    ?(git_submodules_config = []) ~source_identifier ~type_ () :
     secondary_sources =
   {
     buildspec;
@@ -1533,8 +1535,8 @@ let source__git_submodules_config ~fetch_submodules () :
   { fetch_submodules }
 
 let source ?buildspec ?git_clone_depth ?insecure_ssl ?location
-    ?report_build_status ~type_ ~build_status_config
-    ~git_submodules_config () : source =
+    ?report_build_status ?(build_status_config = [])
+    ?(git_submodules_config = []) ~type_ () : source =
   {
     buildspec;
     git_clone_depth;
@@ -1552,11 +1554,11 @@ let vpc_config ~security_group_ids ~subnets ~vpc_id () : vpc_config =
 let aws_codebuild_project ?badge_enabled ?build_timeout
     ?concurrent_build_limit ?description ?encryption_key ?id
     ?project_visibility ?queued_timeout ?resource_access_role
-    ?source_version ?tags ?tags_all ~name ~service_role ~artifacts
-    ~build_batch_config ~cache ~environment ~file_system_locations
-    ~logs_config ~secondary_artifacts ~secondary_source_version
-    ~secondary_sources ~source ~vpc_config () : aws_codebuild_project
-    =
+    ?source_version ?tags ?tags_all ?(build_batch_config = [])
+    ?(cache = []) ?(logs_config = []) ?(vpc_config = []) ~name
+    ~service_role ~artifacts ~environment ~file_system_locations
+    ~secondary_artifacts ~secondary_source_version ~secondary_sources
+    ~source () : aws_codebuild_project =
   {
     badge_enabled;
     build_timeout;
@@ -1608,10 +1610,11 @@ type t = {
 let make ?badge_enabled ?build_timeout ?concurrent_build_limit
     ?description ?encryption_key ?id ?project_visibility
     ?queued_timeout ?resource_access_role ?source_version ?tags
-    ?tags_all ~name ~service_role ~artifacts ~build_batch_config
-    ~cache ~environment ~file_system_locations ~logs_config
+    ?tags_all ?(build_batch_config = []) ?(cache = [])
+    ?(logs_config = []) ?(vpc_config = []) ~name ~service_role
+    ~artifacts ~environment ~file_system_locations
     ~secondary_artifacts ~secondary_source_version ~secondary_sources
-    ~source ~vpc_config __id =
+    ~source __id =
   let __type = "aws_codebuild_project" in
   let __attrs =
     ({
@@ -1647,29 +1650,29 @@ let make ?badge_enabled ?build_timeout ?concurrent_build_limit
         (aws_codebuild_project ?badge_enabled ?build_timeout
            ?concurrent_build_limit ?description ?encryption_key ?id
            ?project_visibility ?queued_timeout ?resource_access_role
-           ?source_version ?tags ?tags_all ~name ~service_role
-           ~artifacts ~build_batch_config ~cache ~environment
-           ~file_system_locations ~logs_config ~secondary_artifacts
-           ~secondary_source_version ~secondary_sources ~source
-           ~vpc_config ());
+           ?source_version ?tags ?tags_all ~build_batch_config ~cache
+           ~logs_config ~vpc_config ~name ~service_role ~artifacts
+           ~environment ~file_system_locations ~secondary_artifacts
+           ~secondary_source_version ~secondary_sources ~source ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?badge_enabled ?build_timeout
     ?concurrent_build_limit ?description ?encryption_key ?id
     ?project_visibility ?queued_timeout ?resource_access_role
-    ?source_version ?tags ?tags_all ~name ~service_role ~artifacts
-    ~build_batch_config ~cache ~environment ~file_system_locations
-    ~logs_config ~secondary_artifacts ~secondary_source_version
-    ~secondary_sources ~source ~vpc_config __id =
+    ?source_version ?tags ?tags_all ?(build_batch_config = [])
+    ?(cache = []) ?(logs_config = []) ?(vpc_config = []) ~name
+    ~service_role ~artifacts ~environment ~file_system_locations
+    ~secondary_artifacts ~secondary_source_version ~secondary_sources
+    ~source __id =
   let (r : _ Tf_core.resource) =
     make ?badge_enabled ?build_timeout ?concurrent_build_limit
       ?description ?encryption_key ?id ?project_visibility
       ?queued_timeout ?resource_access_role ?source_version ?tags
-      ?tags_all ~name ~service_role ~artifacts ~build_batch_config
-      ~cache ~environment ~file_system_locations ~logs_config
-      ~secondary_artifacts ~secondary_source_version
-      ~secondary_sources ~source ~vpc_config __id
+      ?tags_all ~build_batch_config ~cache ~logs_config ~vpc_config
+      ~name ~service_role ~artifacts ~environment
+      ~file_system_locations ~secondary_artifacts
+      ~secondary_source_version ~secondary_sources ~source __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

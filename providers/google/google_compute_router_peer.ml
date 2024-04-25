@@ -397,9 +397,10 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_compute_router_peer ?advertise_mode ?advertised_groups
     ?advertised_route_priority ?enable ?enable_ipv6 ?id ?ip_address
     ?ipv6_nexthop_address ?peer_ip_address ?peer_ipv6_nexthop_address
-    ?project ?region ?router_appliance_instance ?timeouts ~interface
-    ~name ~peer_asn ~router ~advertised_ip_ranges ~bfd
-    ~md5_authentication_key () : google_compute_router_peer =
+    ?project ?region ?router_appliance_instance
+    ?(advertised_ip_ranges = []) ?(bfd = [])
+    ?(md5_authentication_key = []) ?timeouts ~interface ~name
+    ~peer_asn ~router () : google_compute_router_peer =
   {
     advertise_mode;
     advertised_groups;
@@ -448,9 +449,10 @@ type t = {
 let make ?advertise_mode ?advertised_groups
     ?advertised_route_priority ?enable ?enable_ipv6 ?id ?ip_address
     ?ipv6_nexthop_address ?peer_ip_address ?peer_ipv6_nexthop_address
-    ?project ?region ?router_appliance_instance ?timeouts ~interface
-    ~name ~peer_asn ~router ~advertised_ip_ranges ~bfd
-    ~md5_authentication_key __id =
+    ?project ?region ?router_appliance_instance
+    ?(advertised_ip_ranges = []) ?(bfd = [])
+    ?(md5_authentication_key = []) ?timeouts ~interface ~name
+    ~peer_asn ~router __id =
   let __type = "google_compute_router_peer" in
   let __attrs =
     ({
@@ -489,25 +491,27 @@ let make ?advertise_mode ?advertised_groups
            ?advertised_groups ?advertised_route_priority ?enable
            ?enable_ipv6 ?id ?ip_address ?ipv6_nexthop_address
            ?peer_ip_address ?peer_ipv6_nexthop_address ?project
-           ?region ?router_appliance_instance ?timeouts ~interface
-           ~name ~peer_asn ~router ~advertised_ip_ranges ~bfd
-           ~md5_authentication_key ());
+           ?region ?router_appliance_instance ~advertised_ip_ranges
+           ~bfd ~md5_authentication_key ?timeouts ~interface ~name
+           ~peer_asn ~router ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?advertise_mode ?advertised_groups
     ?advertised_route_priority ?enable ?enable_ipv6 ?id ?ip_address
     ?ipv6_nexthop_address ?peer_ip_address ?peer_ipv6_nexthop_address
-    ?project ?region ?router_appliance_instance ?timeouts ~interface
-    ~name ~peer_asn ~router ~advertised_ip_ranges ~bfd
-    ~md5_authentication_key __id =
+    ?project ?region ?router_appliance_instance
+    ?(advertised_ip_ranges = []) ?(bfd = [])
+    ?(md5_authentication_key = []) ?timeouts ~interface ~name
+    ~peer_asn ~router __id =
   let (r : _ Tf_core.resource) =
     make ?advertise_mode ?advertised_groups
       ?advertised_route_priority ?enable ?enable_ipv6 ?id ?ip_address
       ?ipv6_nexthop_address ?peer_ip_address
       ?peer_ipv6_nexthop_address ?project ?region
-      ?router_appliance_instance ?timeouts ~interface ~name ~peer_asn
-      ~router ~advertised_ip_ranges ~bfd ~md5_authentication_key __id
+      ?router_appliance_instance ~advertised_ip_ranges ~bfd
+      ~md5_authentication_key ?timeouts ~interface ~name ~peer_asn
+      ~router __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

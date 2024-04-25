@@ -36,7 +36,7 @@ type spec__selector
 
 val spec__selector :
   ?match_labels:(string * string prop) list ->
-  match_expressions:spec__selector__match_expressions list ->
+  ?match_expressions:spec__selector__match_expressions list ->
   unit ->
   spec__selector
 
@@ -46,9 +46,9 @@ val spec :
   ?storage_class_name:string prop ->
   ?volume_mode:string prop ->
   ?volume_name:string prop ->
+  ?selector:spec__selector list ->
   access_modes:string prop list ->
   resources:spec__resources list ->
-  selector:spec__selector list ->
   unit ->
   spec
 

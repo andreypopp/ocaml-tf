@@ -28,11 +28,11 @@ val azurerm_app_service_environment :
   ?internal_load_balancing_mode:string prop ->
   ?pricing_tier:string prop ->
   ?tags:(string * string prop) list ->
+  ?cluster_setting:cluster_setting list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   subnet_id:string prop ->
-  cluster_setting:cluster_setting list ->
   unit ->
   azurerm_app_service_environment
 
@@ -65,11 +65,11 @@ val register :
   ?internal_load_balancing_mode:string prop ->
   ?pricing_tier:string prop ->
   ?tags:(string * string prop) list ->
+  ?cluster_setting:cluster_setting list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   subnet_id:string prop ->
-  cluster_setting:cluster_setting list ->
   string ->
   t
 
@@ -80,10 +80,10 @@ val make :
   ?internal_load_balancing_mode:string prop ->
   ?pricing_tier:string prop ->
   ?tags:(string * string prop) list ->
+  ?cluster_setting:cluster_setting list ->
   ?timeouts:timeouts ->
   name:string prop ->
   resource_group_name:string prop ->
   subnet_id:string prop ->
-  cluster_setting:cluster_setting list ->
   string ->
   t Tf_core.resource

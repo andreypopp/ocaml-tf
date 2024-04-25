@@ -53,14 +53,14 @@ val google_clouddeploy_target :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?require_approval:bool prop ->
+  ?anthos_cluster:anthos_cluster list ->
+  ?execution_configs:execution_configs list ->
+  ?gke:gke list ->
+  ?multi_target:multi_target list ->
+  ?run:run list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  anthos_cluster:anthos_cluster list ->
-  execution_configs:execution_configs list ->
-  gke:gke list ->
-  multi_target:multi_target list ->
-  run:run list ->
   unit ->
   google_clouddeploy_target
 
@@ -98,14 +98,14 @@ val register :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?require_approval:bool prop ->
+  ?anthos_cluster:anthos_cluster list ->
+  ?execution_configs:execution_configs list ->
+  ?gke:gke list ->
+  ?multi_target:multi_target list ->
+  ?run:run list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  anthos_cluster:anthos_cluster list ->
-  execution_configs:execution_configs list ->
-  gke:gke list ->
-  multi_target:multi_target list ->
-  run:run list ->
   string ->
   t
 
@@ -117,13 +117,13 @@ val make :
   ?labels:(string * string prop) list ->
   ?project:string prop ->
   ?require_approval:bool prop ->
+  ?anthos_cluster:anthos_cluster list ->
+  ?execution_configs:execution_configs list ->
+  ?gke:gke list ->
+  ?multi_target:multi_target list ->
+  ?run:run list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  anthos_cluster:anthos_cluster list ->
-  execution_configs:execution_configs list ->
-  gke:gke list ->
-  multi_target:multi_target list ->
-  run:run list ->
   string ->
   t Tf_core.resource

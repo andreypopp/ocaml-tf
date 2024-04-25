@@ -20,7 +20,7 @@ val device_policy :
   ?require_admin_approval:bool prop ->
   ?require_corp_owned:bool prop ->
   ?require_screen_lock:bool prop ->
-  os_constraints:device_policy__os_constraints list ->
+  ?os_constraints:device_policy__os_constraints list ->
   unit ->
   device_policy
 
@@ -40,7 +40,7 @@ val vpc_network_sources__vpc_subnetwork :
 type vpc_network_sources
 
 val vpc_network_sources :
-  vpc_subnetwork:vpc_network_sources__vpc_subnetwork list ->
+  ?vpc_subnetwork:vpc_network_sources__vpc_subnetwork list ->
   unit ->
   vpc_network_sources
 
@@ -53,10 +53,10 @@ val google_access_context_manager_access_level_condition :
   ?negate:bool prop ->
   ?regions:string prop list ->
   ?required_access_levels:string prop list ->
+  ?device_policy:device_policy list ->
   ?timeouts:timeouts ->
+  ?vpc_network_sources:vpc_network_sources list ->
   access_level:string prop ->
-  device_policy:device_policy list ->
-  vpc_network_sources:vpc_network_sources list ->
   unit ->
   google_access_context_manager_access_level_condition
 
@@ -83,10 +83,10 @@ val register :
   ?negate:bool prop ->
   ?regions:string prop list ->
   ?required_access_levels:string prop list ->
+  ?device_policy:device_policy list ->
   ?timeouts:timeouts ->
+  ?vpc_network_sources:vpc_network_sources list ->
   access_level:string prop ->
-  device_policy:device_policy list ->
-  vpc_network_sources:vpc_network_sources list ->
   string ->
   t
 
@@ -97,9 +97,9 @@ val make :
   ?negate:bool prop ->
   ?regions:string prop list ->
   ?required_access_levels:string prop list ->
+  ?device_policy:device_policy list ->
   ?timeouts:timeouts ->
+  ?vpc_network_sources:vpc_network_sources list ->
   access_level:string prop ->
-  device_policy:device_policy list ->
-  vpc_network_sources:vpc_network_sources list ->
   string ->
   t Tf_core.resource

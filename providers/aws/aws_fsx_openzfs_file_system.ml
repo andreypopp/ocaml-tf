@@ -560,8 +560,9 @@ let root_volume_configuration__user_and_group_quotas ~id
   { id; storage_capacity_quota_gib; type_ }
 
 let root_volume_configuration ?copy_tags_to_snapshots
-    ?data_compression_type ?read_only ?record_size_kib ~nfs_exports
-    ~user_and_group_quotas () : root_volume_configuration =
+    ?data_compression_type ?read_only ?record_size_kib
+    ?(nfs_exports = []) ~user_and_group_quotas () :
+    root_volume_configuration =
   {
     copy_tags_to_snapshots;
     data_compression_type;
@@ -580,8 +581,8 @@ let aws_fsx_openzfs_file_system ?automatic_backup_retention_days
     ?kms_key_id ?preferred_subnet_id ?route_table_ids
     ?security_group_ids ?skip_final_backup ?storage_capacity
     ?storage_type ?tags ?tags_all ?weekly_maintenance_start_time
-    ?timeouts ~deployment_type ~subnet_ids ~throughput_capacity
-    ~disk_iops_configuration ~root_volume_configuration () :
+    ?(disk_iops_configuration = []) ?(root_volume_configuration = [])
+    ?timeouts ~deployment_type ~subnet_ids ~throughput_capacity () :
     aws_fsx_openzfs_file_system =
   {
     automatic_backup_retention_days;
@@ -644,8 +645,9 @@ let make ?automatic_backup_retention_days ?backup_id
     ?kms_key_id ?preferred_subnet_id ?route_table_ids
     ?security_group_ids ?skip_final_backup ?storage_capacity
     ?storage_type ?tags ?tags_all ?weekly_maintenance_start_time
-    ?timeouts ~deployment_type ~subnet_ids ~throughput_capacity
-    ~disk_iops_configuration ~root_volume_configuration __id =
+    ?(disk_iops_configuration = []) ?(root_volume_configuration = [])
+    ?timeouts ~deployment_type ~subnet_ids ~throughput_capacity __id
+    =
   let __type = "aws_fsx_openzfs_file_system" in
   let __attrs =
     ({
@@ -702,9 +704,10 @@ let make ?automatic_backup_retention_days ?backup_id
            ?endpoint_ip_address_range ?id ?kms_key_id
            ?preferred_subnet_id ?route_table_ids ?security_group_ids
            ?skip_final_backup ?storage_capacity ?storage_type ?tags
-           ?tags_all ?weekly_maintenance_start_time ?timeouts
-           ~deployment_type ~subnet_ids ~throughput_capacity
-           ~disk_iops_configuration ~root_volume_configuration ());
+           ?tags_all ?weekly_maintenance_start_time
+           ~disk_iops_configuration ~root_volume_configuration
+           ?timeouts ~deployment_type ~subnet_ids
+           ~throughput_capacity ());
     attrs = __attrs;
   }
 
@@ -714,8 +717,9 @@ let register ?tf_module ?automatic_backup_retention_days ?backup_id
     ?kms_key_id ?preferred_subnet_id ?route_table_ids
     ?security_group_ids ?skip_final_backup ?storage_capacity
     ?storage_type ?tags ?tags_all ?weekly_maintenance_start_time
-    ?timeouts ~deployment_type ~subnet_ids ~throughput_capacity
-    ~disk_iops_configuration ~root_volume_configuration __id =
+    ?(disk_iops_configuration = []) ?(root_volume_configuration = [])
+    ?timeouts ~deployment_type ~subnet_ids ~throughput_capacity __id
+    =
   let (r : _ Tf_core.resource) =
     make ?automatic_backup_retention_days ?backup_id
       ?copy_tags_to_backups ?copy_tags_to_volumes
@@ -723,8 +727,8 @@ let register ?tf_module ?automatic_backup_retention_days ?backup_id
       ?id ?kms_key_id ?preferred_subnet_id ?route_table_ids
       ?security_group_ids ?skip_final_backup ?storage_capacity
       ?storage_type ?tags ?tags_all ?weekly_maintenance_start_time
-      ?timeouts ~deployment_type ~subnet_ids ~throughput_capacity
-      ~disk_iops_configuration ~root_volume_configuration __id
+      ~disk_iops_configuration ~root_volume_configuration ?timeouts
+      ~deployment_type ~subnet_ids ~throughput_capacity __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

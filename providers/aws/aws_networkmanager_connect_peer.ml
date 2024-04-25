@@ -304,9 +304,9 @@ let bgp_options ?peer_asn () : bgp_options = { peer_asn }
 let timeouts ?create ?delete () : timeouts = { create; delete }
 
 let aws_networkmanager_connect_peer ?core_network_address ?id
-    ?inside_cidr_blocks ?subnet_arn ?tags ?tags_all ?timeouts
-    ~connect_attachment_id ~peer_address ~bgp_options () :
-    aws_networkmanager_connect_peer =
+    ?inside_cidr_blocks ?subnet_arn ?tags ?tags_all
+    ?(bgp_options = []) ?timeouts ~connect_attachment_id
+    ~peer_address () : aws_networkmanager_connect_peer =
   {
     connect_attachment_id;
     core_network_address;
@@ -339,8 +339,8 @@ type t = {
 }
 
 let make ?core_network_address ?id ?inside_cidr_blocks ?subnet_arn
-    ?tags ?tags_all ?timeouts ~connect_attachment_id ~peer_address
-    ~bgp_options __id =
+    ?tags ?tags_all ?(bgp_options = []) ?timeouts
+    ~connect_attachment_id ~peer_address __id =
   let __type = "aws_networkmanager_connect_peer" in
   let __attrs =
     ({
@@ -371,18 +371,19 @@ let make ?core_network_address ?id ?inside_cidr_blocks ?subnet_arn
     json =
       yojson_of_aws_networkmanager_connect_peer
         (aws_networkmanager_connect_peer ?core_network_address ?id
-           ?inside_cidr_blocks ?subnet_arn ?tags ?tags_all ?timeouts
-           ~connect_attachment_id ~peer_address ~bgp_options ());
+           ?inside_cidr_blocks ?subnet_arn ?tags ?tags_all
+           ~bgp_options ?timeouts ~connect_attachment_id
+           ~peer_address ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?core_network_address ?id ?inside_cidr_blocks
-    ?subnet_arn ?tags ?tags_all ?timeouts ~connect_attachment_id
-    ~peer_address ~bgp_options __id =
+    ?subnet_arn ?tags ?tags_all ?(bgp_options = []) ?timeouts
+    ~connect_attachment_id ~peer_address __id =
   let (r : _ Tf_core.resource) =
     make ?core_network_address ?id ?inside_cidr_blocks ?subnet_arn
-      ?tags ?tags_all ?timeouts ~connect_attachment_id ~peer_address
-      ~bgp_options __id
+      ?tags ?tags_all ~bgp_options ?timeouts ~connect_attachment_id
+      ~peer_address __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

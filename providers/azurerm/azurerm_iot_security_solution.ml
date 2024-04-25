@@ -499,9 +499,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
 let azurerm_iot_security_solution ?disabled_data_sources ?enabled
     ?events_to_export ?id ?log_analytics_workspace_id
     ?log_unmasked_ips_enabled ?query_for_resources
-    ?query_subscription_ids ?tags ?timeouts ~display_name ~iothub_ids
-    ~location ~name ~resource_group_name ~additional_workspace
-    ~recommendations_enabled () : azurerm_iot_security_solution =
+    ?query_subscription_ids ?tags ?(recommendations_enabled = [])
+    ?timeouts ~display_name ~iothub_ids ~location ~name
+    ~resource_group_name ~additional_workspace () :
+    azurerm_iot_security_solution =
   {
     disabled_data_sources;
     display_name;
@@ -541,9 +542,10 @@ type t = {
 
 let make ?disabled_data_sources ?enabled ?events_to_export ?id
     ?log_analytics_workspace_id ?log_unmasked_ips_enabled
-    ?query_for_resources ?query_subscription_ids ?tags ?timeouts
-    ~display_name ~iothub_ids ~location ~name ~resource_group_name
-    ~additional_workspace ~recommendations_enabled __id =
+    ?query_for_resources ?query_subscription_ids ?tags
+    ?(recommendations_enabled = []) ?timeouts ~display_name
+    ~iothub_ids ~location ~name ~resource_group_name
+    ~additional_workspace __id =
   let __type = "azurerm_iot_security_solution" in
   let __attrs =
     ({
@@ -579,24 +581,24 @@ let make ?disabled_data_sources ?enabled ?events_to_export ?id
         (azurerm_iot_security_solution ?disabled_data_sources
            ?enabled ?events_to_export ?id ?log_analytics_workspace_id
            ?log_unmasked_ips_enabled ?query_for_resources
-           ?query_subscription_ids ?tags ?timeouts ~display_name
-           ~iothub_ids ~location ~name ~resource_group_name
-           ~additional_workspace ~recommendations_enabled ());
+           ?query_subscription_ids ?tags ~recommendations_enabled
+           ?timeouts ~display_name ~iothub_ids ~location ~name
+           ~resource_group_name ~additional_workspace ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?disabled_data_sources ?enabled
     ?events_to_export ?id ?log_analytics_workspace_id
     ?log_unmasked_ips_enabled ?query_for_resources
-    ?query_subscription_ids ?tags ?timeouts ~display_name ~iothub_ids
-    ~location ~name ~resource_group_name ~additional_workspace
-    ~recommendations_enabled __id =
+    ?query_subscription_ids ?tags ?(recommendations_enabled = [])
+    ?timeouts ~display_name ~iothub_ids ~location ~name
+    ~resource_group_name ~additional_workspace __id =
   let (r : _ Tf_core.resource) =
     make ?disabled_data_sources ?enabled ?events_to_export ?id
       ?log_analytics_workspace_id ?log_unmasked_ips_enabled
-      ?query_for_resources ?query_subscription_ids ?tags ?timeouts
-      ~display_name ~iothub_ids ~location ~name ~resource_group_name
-      ~additional_workspace ~recommendations_enabled __id
+      ?query_for_resources ?query_subscription_ids ?tags
+      ~recommendations_enabled ?timeouts ~display_name ~iothub_ids
+      ~location ~name ~resource_group_name ~additional_workspace __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

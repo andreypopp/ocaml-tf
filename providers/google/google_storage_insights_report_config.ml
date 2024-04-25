@@ -450,8 +450,8 @@ let object_metadata_report_options__storage_filters ?bucket () :
     object_metadata_report_options__storage_filters =
   { bucket }
 
-let object_metadata_report_options ~metadata_fields
-    ~storage_destination_options ~storage_filters () :
+let object_metadata_report_options ?(storage_filters = [])
+    ~metadata_fields ~storage_destination_options () :
     object_metadata_report_options =
   { metadata_fields; storage_destination_options; storage_filters }
 
@@ -459,8 +459,8 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_storage_insights_report_config ?display_name ?id ?project
-    ?timeouts ~location ~csv_options ~frequency_options
-    ~object_metadata_report_options () :
+    ?(frequency_options = []) ?(object_metadata_report_options = [])
+    ?timeouts ~location ~csv_options () :
     google_storage_insights_report_config =
   {
     display_name;
@@ -481,8 +481,9 @@ type t = {
   project : string prop;
 }
 
-let make ?display_name ?id ?project ?timeouts ~location ~csv_options
-    ~frequency_options ~object_metadata_report_options __id =
+let make ?display_name ?id ?project ?(frequency_options = [])
+    ?(object_metadata_report_options = []) ?timeouts ~location
+    ~csv_options __id =
   let __type = "google_storage_insights_report_config" in
   let __attrs =
     ({
@@ -500,17 +501,19 @@ let make ?display_name ?id ?project ?timeouts ~location ~csv_options
     json =
       yojson_of_google_storage_insights_report_config
         (google_storage_insights_report_config ?display_name ?id
-           ?project ?timeouts ~location ~csv_options
-           ~frequency_options ~object_metadata_report_options ());
+           ?project ~frequency_options
+           ~object_metadata_report_options ?timeouts ~location
+           ~csv_options ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?display_name ?id ?project ?timeouts
-    ~location ~csv_options ~frequency_options
-    ~object_metadata_report_options __id =
+let register ?tf_module ?display_name ?id ?project
+    ?(frequency_options = []) ?(object_metadata_report_options = [])
+    ?timeouts ~location ~csv_options __id =
   let (r : _ Tf_core.resource) =
-    make ?display_name ?id ?project ?timeouts ~location ~csv_options
-      ~frequency_options ~object_metadata_report_options __id
+    make ?display_name ?id ?project ~frequency_options
+      ~object_metadata_report_options ?timeouts ~location
+      ~csv_options __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

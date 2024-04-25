@@ -307,8 +307,8 @@ let azurerm_log_analytics_workspace ?allow_resource_only_permissions
     ?internet_ingestion_enabled ?internet_query_enabled
     ?local_authentication_disabled
     ?reservation_capacity_in_gb_per_day ?retention_in_days ?sku ?tags
-    ?timeouts ~location ~name ~resource_group_name ~identity () :
-    azurerm_log_analytics_workspace =
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    () : azurerm_log_analytics_workspace =
   {
     allow_resource_only_permissions;
     cmk_for_query_forced;
@@ -358,7 +358,8 @@ let make ?allow_resource_only_permissions ?cmk_for_query_forced
     ?internet_ingestion_enabled ?internet_query_enabled
     ?local_authentication_disabled
     ?reservation_capacity_in_gb_per_day ?retention_in_days ?sku ?tags
-    ?timeouts ~location ~name ~resource_group_name ~identity __id =
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    __id =
   let __type = "azurerm_log_analytics_workspace" in
   let __attrs =
     ({
@@ -410,8 +411,8 @@ let make ?allow_resource_only_permissions ?cmk_for_query_forced
            ?internet_ingestion_enabled ?internet_query_enabled
            ?local_authentication_disabled
            ?reservation_capacity_in_gb_per_day ?retention_in_days
-           ?sku ?tags ?timeouts ~location ~name ~resource_group_name
-           ~identity ());
+           ?sku ?tags ~identity ?timeouts ~location ~name
+           ~resource_group_name ());
     attrs = __attrs;
   }
 
@@ -421,7 +422,8 @@ let register ?tf_module ?allow_resource_only_permissions
     ?internet_ingestion_enabled ?internet_query_enabled
     ?local_authentication_disabled
     ?reservation_capacity_in_gb_per_day ?retention_in_days ?sku ?tags
-    ?timeouts ~location ~name ~resource_group_name ~identity __id =
+    ?(identity = []) ?timeouts ~location ~name ~resource_group_name
+    __id =
   let (r : _ Tf_core.resource) =
     make ?allow_resource_only_permissions ?cmk_for_query_forced
       ?daily_quota_gb ?data_collection_rule_id ?id
@@ -429,7 +431,7 @@ let register ?tf_module ?allow_resource_only_permissions
       ?internet_ingestion_enabled ?internet_query_enabled
       ?local_authentication_disabled
       ?reservation_capacity_in_gb_per_day ?retention_in_days ?sku
-      ?tags ?timeouts ~location ~name ~resource_group_name ~identity
+      ?tags ~identity ?timeouts ~location ~name ~resource_group_name
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

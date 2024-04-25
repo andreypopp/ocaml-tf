@@ -552,8 +552,8 @@ let deployment_config__blue_green_update_policy__traffic_routing_configuration__
   { type_; value }
 
 let deployment_config__blue_green_update_policy__traffic_routing_configuration
-    ~type_ ~wait_interval_in_seconds ~canary_size ~linear_step_size
-    () :
+    ?(canary_size = []) ?(linear_step_size = []) ~type_
+    ~wait_interval_in_seconds () :
     deployment_config__blue_green_update_policy__traffic_routing_configuration
     =
   { type_; wait_interval_in_seconds; canary_size; linear_step_size }
@@ -580,9 +580,10 @@ let deployment_config__rolling_update_policy__rollback_maximum_batch_size
   { type_; value }
 
 let deployment_config__rolling_update_policy
-    ?maximum_execution_timeout_in_seconds ~wait_interval_in_seconds
-    ~maximum_batch_size ~rollback_maximum_batch_size () :
-    deployment_config__rolling_update_policy =
+    ?maximum_execution_timeout_in_seconds
+    ?(rollback_maximum_batch_size = []) ~wait_interval_in_seconds
+    ~maximum_batch_size () : deployment_config__rolling_update_policy
+    =
   {
     maximum_execution_timeout_in_seconds;
     wait_interval_in_seconds;
@@ -590,9 +591,9 @@ let deployment_config__rolling_update_policy
     rollback_maximum_batch_size;
   }
 
-let deployment_config ~auto_rollback_configuration
-    ~blue_green_update_policy ~rolling_update_policy () :
-    deployment_config =
+let deployment_config ?(auto_rollback_configuration = [])
+    ?(blue_green_update_policy = []) ?(rolling_update_policy = []) ()
+    : deployment_config =
   {
     auto_rollback_configuration;
     blue_green_update_policy;
@@ -600,7 +601,7 @@ let deployment_config ~auto_rollback_configuration
   }
 
 let aws_sagemaker_endpoint ?id ?name ?tags ?tags_all
-    ~endpoint_config_name ~deployment_config () :
+    ?(deployment_config = []) ~endpoint_config_name () :
     aws_sagemaker_endpoint =
   {
     endpoint_config_name;
@@ -620,8 +621,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?id ?name ?tags ?tags_all ~endpoint_config_name
-    ~deployment_config __id =
+let make ?id ?name ?tags ?tags_all ?(deployment_config = [])
+    ~endpoint_config_name __id =
   let __type = "aws_sagemaker_endpoint" in
   let __attrs =
     ({
@@ -641,15 +642,15 @@ let make ?id ?name ?tags ?tags_all ~endpoint_config_name
     json =
       yojson_of_aws_sagemaker_endpoint
         (aws_sagemaker_endpoint ?id ?name ?tags ?tags_all
-           ~endpoint_config_name ~deployment_config ());
+           ~deployment_config ~endpoint_config_name ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?name ?tags ?tags_all
-    ~endpoint_config_name ~deployment_config __id =
+    ?(deployment_config = []) ~endpoint_config_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?name ?tags ?tags_all ~endpoint_config_name
-      ~deployment_config __id
+    make ?id ?name ?tags ?tags_all ~deployment_config
+      ~endpoint_config_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

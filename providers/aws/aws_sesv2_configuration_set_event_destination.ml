@@ -333,9 +333,10 @@ let event_destination__sns_destination ~topic_arn () :
     event_destination__sns_destination =
   { topic_arn }
 
-let event_destination ?enabled ~matching_event_types
-    ~cloud_watch_destination ~kinesis_firehose_destination
-    ~pinpoint_destination ~sns_destination () : event_destination =
+let event_destination ?enabled ?(cloud_watch_destination = [])
+    ?(kinesis_firehose_destination = []) ?(pinpoint_destination = [])
+    ?(sns_destination = []) ~matching_event_types () :
+    event_destination =
   {
     enabled;
     matching_event_types;

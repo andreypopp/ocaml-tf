@@ -123,7 +123,7 @@ let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
 let google_notebooks_runtime_iam_member ?id ?location ?project
-    ~member ~role ~runtime_name ~condition () :
+    ?(condition = []) ~member ~role ~runtime_name () :
     google_notebooks_runtime_iam_member =
   { id; location; member; project; role; runtime_name; condition }
 
@@ -137,8 +137,8 @@ type t = {
   runtime_name : string prop;
 }
 
-let make ?id ?location ?project ~member ~role ~runtime_name
-    ~condition __id =
+let make ?id ?location ?project ?(condition = []) ~member ~role
+    ~runtime_name __id =
   let __type = "google_notebooks_runtime_iam_member" in
   let __attrs =
     ({
@@ -158,15 +158,15 @@ let make ?id ?location ?project ~member ~role ~runtime_name
     json =
       yojson_of_google_notebooks_runtime_iam_member
         (google_notebooks_runtime_iam_member ?id ?location ?project
-           ~member ~role ~runtime_name ~condition ());
+           ~condition ~member ~role ~runtime_name ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ?location ?project ~member ~role
-    ~runtime_name ~condition __id =
+let register ?tf_module ?id ?location ?project ?(condition = [])
+    ~member ~role ~runtime_name __id =
   let (r : _ Tf_core.resource) =
-    make ?id ?location ?project ~member ~role ~runtime_name
-      ~condition __id
+    make ?id ?location ?project ~condition ~member ~role
+      ~runtime_name __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

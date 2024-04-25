@@ -46,11 +46,11 @@ val google_storage_bucket_object :
   ?source:string prop ->
   ?storage_class:string prop ->
   ?temporary_hold:bool prop ->
+  ?customer_encryption:customer_encryption list ->
+  ?retention:retention list ->
   ?timeouts:timeouts ->
   bucket:string prop ->
   name:string prop ->
-  customer_encryption:customer_encryption list ->
-  retention:retention list ->
   unit ->
   google_storage_bucket_object
 
@@ -99,11 +99,11 @@ val register :
   ?source:string prop ->
   ?storage_class:string prop ->
   ?temporary_hold:bool prop ->
+  ?customer_encryption:customer_encryption list ->
+  ?retention:retention list ->
   ?timeouts:timeouts ->
   bucket:string prop ->
   name:string prop ->
-  customer_encryption:customer_encryption list ->
-  retention:retention list ->
   string ->
   t
 
@@ -122,10 +122,10 @@ val make :
   ?source:string prop ->
   ?storage_class:string prop ->
   ?temporary_hold:bool prop ->
+  ?customer_encryption:customer_encryption list ->
+  ?retention:retention list ->
   ?timeouts:timeouts ->
   bucket:string prop ->
   name:string prop ->
-  customer_encryption:customer_encryption list ->
-  retention:retention list ->
   string ->
   t Tf_core.resource

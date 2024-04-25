@@ -17,7 +17,7 @@ val magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_c
 type magnetic_store_write_properties__magnetic_store_rejected_data_location
 
 val magnetic_store_write_properties__magnetic_store_rejected_data_location :
-  s3_configuration:
+  ?s3_configuration:
     magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_configuration
     list ->
   unit ->
@@ -27,7 +27,7 @@ type magnetic_store_write_properties
 
 val magnetic_store_write_properties :
   ?enable_magnetic_store_writes:bool prop ->
-  magnetic_store_rejected_data_location:
+  ?magnetic_store_rejected_data_location:
     magnetic_store_write_properties__magnetic_store_rejected_data_location
     list ->
   unit ->
@@ -53,7 +53,7 @@ val schema__composite_partition_key :
 type schema
 
 val schema :
-  composite_partition_key:schema__composite_partition_key list ->
+  ?composite_partition_key:schema__composite_partition_key list ->
   unit ->
   schema
 
@@ -63,12 +63,12 @@ val aws_timestreamwrite_table :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?magnetic_store_write_properties:
+    magnetic_store_write_properties list ->
+  ?retention_properties:retention_properties list ->
+  ?schema:schema list ->
   database_name:string prop ->
   table_name:string prop ->
-  magnetic_store_write_properties:
-    magnetic_store_write_properties list ->
-  retention_properties:retention_properties list ->
-  schema:schema list ->
   unit ->
   aws_timestreamwrite_table
 
@@ -91,12 +91,12 @@ val register :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?magnetic_store_write_properties:
+    magnetic_store_write_properties list ->
+  ?retention_properties:retention_properties list ->
+  ?schema:schema list ->
   database_name:string prop ->
   table_name:string prop ->
-  magnetic_store_write_properties:
-    magnetic_store_write_properties list ->
-  retention_properties:retention_properties list ->
-  schema:schema list ->
   string ->
   t
 
@@ -104,11 +104,11 @@ val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?magnetic_store_write_properties:
+    magnetic_store_write_properties list ->
+  ?retention_properties:retention_properties list ->
+  ?schema:schema list ->
   database_name:string prop ->
   table_name:string prop ->
-  magnetic_store_write_properties:
-    magnetic_store_write_properties list ->
-  retention_properties:retention_properties list ->
-  schema:schema list ->
   string ->
   t Tf_core.resource

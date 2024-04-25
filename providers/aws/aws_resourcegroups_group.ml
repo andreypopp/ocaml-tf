@@ -252,7 +252,7 @@ let resource_query ?type_ ~query () : resource_query =
 let timeouts ?create ?update () : timeouts = { create; update }
 
 let aws_resourcegroups_group ?description ?id ?tags ?tags_all
-    ?timeouts ~name ~configuration ~resource_query () :
+    ?(resource_query = []) ?timeouts ~name ~configuration () :
     aws_resourcegroups_group =
   {
     description;
@@ -274,8 +274,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?description ?id ?tags ?tags_all ?timeouts ~name
-    ~configuration ~resource_query __id =
+let make ?description ?id ?tags ?tags_all ?(resource_query = [])
+    ?timeouts ~name ~configuration __id =
   let __type = "aws_resourcegroups_group" in
   let __attrs =
     ({
@@ -294,15 +294,15 @@ let make ?description ?id ?tags ?tags_all ?timeouts ~name
     json =
       yojson_of_aws_resourcegroups_group
         (aws_resourcegroups_group ?description ?id ?tags ?tags_all
-           ?timeouts ~name ~configuration ~resource_query ());
+           ~resource_query ?timeouts ~name ~configuration ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
-    ~name ~configuration ~resource_query __id =
+let register ?tf_module ?description ?id ?tags ?tags_all
+    ?(resource_query = []) ?timeouts ~name ~configuration __id =
   let (r : _ Tf_core.resource) =
-    make ?description ?id ?tags ?tags_all ?timeouts ~name
-      ~configuration ~resource_query __id
+    make ?description ?id ?tags ?tags_all ~resource_query ?timeouts
+      ~name ~configuration __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

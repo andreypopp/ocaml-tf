@@ -19,10 +19,10 @@ val google_secure_source_manager_instance_iam_member :
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   instance_id:string prop ->
   member:string prop ->
   role:string prop ->
-  condition:condition list ->
   unit ->
   google_secure_source_manager_instance_iam_member
 
@@ -46,10 +46,10 @@ val register :
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   instance_id:string prop ->
   member:string prop ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t
 
@@ -57,9 +57,9 @@ val make :
   ?id:string prop ->
   ?location:string prop ->
   ?project:string prop ->
+  ?condition:condition list ->
   instance_id:string prop ->
   member:string prop ->
   role:string prop ->
-  condition:condition list ->
   string ->
   t Tf_core.resource

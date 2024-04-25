@@ -44,7 +44,7 @@ let timeouts ?create ?delete ?read ?update () =
     update;
   } : timeouts);;
 
-let aws_quicksight_folder ?aws_account_id ?folder_type ?id ?name ?parent_folder_arn ?tags ?tags_all ?timeouts ~folder_id ~permissions () =
+let aws_quicksight_folder ?aws_account_id ?folder_type ?id ?name ?parent_folder_arn ?tags ?tags_all ?(permissions=[]) ?timeouts ~folder_id () =
   ({
     aws_account_id;
     folder_id;
@@ -73,7 +73,7 @@ type t = {
   tags_all: (string * string) list prop;
 }
 
-let make ?aws_account_id ?folder_type ?id ?name ?parent_folder_arn ?tags ?tags_all ?timeouts ~folder_id ~permissions __id =
+let make ?aws_account_id ?folder_type ?id ?name ?parent_folder_arn ?tags ?tags_all ?(permissions=[]) ?timeouts ~folder_id __id =
   let __type = "aws_quicksight_folder" in
   let __attrs = ({
     arn = Prop.computed __type __id "arn";
@@ -92,12 +92,12 @@ let make ?aws_account_id ?folder_type ?id ?name ?parent_folder_arn ?tags ?tags_a
   {Tf_core.
     id=__id;
     type_=__type;
-    json=yojson_of_aws_quicksight_folder (aws_quicksight_folder ?aws_account_id ?folder_type ?id ?name ?parent_folder_arn ?tags ?tags_all ?timeouts ~folder_id ~permissions ());
+    json=yojson_of_aws_quicksight_folder (aws_quicksight_folder ?aws_account_id ?folder_type ?id ?name ?parent_folder_arn ?tags ?tags_all ~permissions ?timeouts ~folder_id ());
     attrs=__attrs;
   };;
 
-let register ?tf_module ?aws_account_id ?folder_type ?id ?name ?parent_folder_arn ?tags ?tags_all ?timeouts ~folder_id ~permissions __id =
-  let (r : _ Tf_core.resource) = make ?aws_account_id ?folder_type ?id ?name ?parent_folder_arn ?tags ?tags_all ?timeouts ~folder_id ~permissions __id in
+let register ?tf_module ?aws_account_id ?folder_type ?id ?name ?parent_folder_arn ?tags ?tags_all ?(permissions=[]) ?timeouts ~folder_id __id =
+  let (r : _ Tf_core.resource) = make ?aws_account_id ?folder_type ?id ?name ?parent_folder_arn ?tags ?tags_all ~permissions ?timeouts ~folder_id __id in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs;;
 

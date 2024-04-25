@@ -17,9 +17,9 @@ val identity_constraints__cel_expression :
 type identity_constraints
 
 val identity_constraints :
+  ?cel_expression:identity_constraints__cel_expression list ->
   allow_subject_alt_names_passthrough:bool prop ->
   allow_subject_passthrough:bool prop ->
-  cel_expression:identity_constraints__cel_expression list ->
   unit ->
   identity_constraints
 
@@ -34,7 +34,7 @@ type passthrough_extensions
 
 val passthrough_extensions :
   ?known_extensions:string prop list ->
-  additional_extensions:
+  ?additional_extensions:
     passthrough_extensions__additional_extensions list ->
   unit ->
   passthrough_extensions
@@ -100,10 +100,10 @@ val predefined_values__key_usage__unknown_extended_key_usages :
 type predefined_values__key_usage
 
 val predefined_values__key_usage :
-  base_key_usage:predefined_values__key_usage__base_key_usage list ->
-  extended_key_usage:
+  ?base_key_usage:predefined_values__key_usage__base_key_usage list ->
+  ?extended_key_usage:
     predefined_values__key_usage__extended_key_usage list ->
-  unknown_extended_key_usages:
+  ?unknown_extended_key_usages:
     predefined_values__key_usage__unknown_extended_key_usages list ->
   unit ->
   predefined_values__key_usage
@@ -119,10 +119,11 @@ type predefined_values
 
 val predefined_values :
   ?aia_ocsp_servers:string prop list ->
-  additional_extensions:predefined_values__additional_extensions list ->
-  ca_options:predefined_values__ca_options list ->
-  key_usage:predefined_values__key_usage list ->
-  policy_ids:predefined_values__policy_ids list ->
+  ?additional_extensions:
+    predefined_values__additional_extensions list ->
+  ?ca_options:predefined_values__ca_options list ->
+  ?key_usage:predefined_values__key_usage list ->
+  ?policy_ids:predefined_values__policy_ids list ->
   unit ->
   predefined_values
 
@@ -142,12 +143,12 @@ val google_privateca_certificate_template :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?identity_constraints:identity_constraints list ->
+  ?passthrough_extensions:passthrough_extensions list ->
+  ?predefined_values:predefined_values list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  identity_constraints:identity_constraints list ->
-  passthrough_extensions:passthrough_extensions list ->
-  predefined_values:predefined_values list ->
   unit ->
   google_privateca_certificate_template
 
@@ -175,12 +176,12 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?identity_constraints:identity_constraints list ->
+  ?passthrough_extensions:passthrough_extensions list ->
+  ?predefined_values:predefined_values list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  identity_constraints:identity_constraints list ->
-  passthrough_extensions:passthrough_extensions list ->
-  predefined_values:predefined_values list ->
   string ->
   t
 
@@ -189,11 +190,11 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?identity_constraints:identity_constraints list ->
+  ?passthrough_extensions:passthrough_extensions list ->
+  ?predefined_values:predefined_values list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  identity_constraints:identity_constraints list ->
-  passthrough_extensions:passthrough_extensions list ->
-  predefined_values:predefined_values list ->
   string ->
   t Tf_core.resource

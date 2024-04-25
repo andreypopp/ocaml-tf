@@ -17,8 +17,8 @@ val destination_config__on_success :
 type destination_config
 
 val destination_config :
-  on_failure:destination_config__on_failure list ->
-  on_success:destination_config__on_success list ->
+  ?on_failure:destination_config__on_failure list ->
+  ?on_success:destination_config__on_success list ->
   unit ->
   destination_config
 
@@ -29,8 +29,8 @@ val aws_lambda_function_event_invoke_config :
   ?maximum_event_age_in_seconds:float prop ->
   ?maximum_retry_attempts:float prop ->
   ?qualifier:string prop ->
+  ?destination_config:destination_config list ->
   function_name:string prop ->
-  destination_config:destination_config list ->
   unit ->
   aws_lambda_function_event_invoke_config
 
@@ -53,8 +53,8 @@ val register :
   ?maximum_event_age_in_seconds:float prop ->
   ?maximum_retry_attempts:float prop ->
   ?qualifier:string prop ->
+  ?destination_config:destination_config list ->
   function_name:string prop ->
-  destination_config:destination_config list ->
   string ->
   t
 
@@ -63,7 +63,7 @@ val make :
   ?maximum_event_age_in_seconds:float prop ->
   ?maximum_retry_attempts:float prop ->
   ?qualifier:string prop ->
+  ?destination_config:destination_config list ->
   function_name:string prop ->
-  destination_config:destination_config list ->
   string ->
   t Tf_core.resource

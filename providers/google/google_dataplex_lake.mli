@@ -39,10 +39,10 @@ val google_dataplex_lake :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?metastore:metastore list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  metastore:metastore list ->
   unit ->
   google_dataplex_lake
 
@@ -76,10 +76,10 @@ val register :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?metastore:metastore list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  metastore:metastore list ->
   string ->
   t
 
@@ -89,9 +89,9 @@ val make :
   ?id:string prop ->
   ?labels:(string * string prop) list ->
   ?project:string prop ->
+  ?metastore:metastore list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
-  metastore:metastore list ->
   string ->
   t Tf_core.resource

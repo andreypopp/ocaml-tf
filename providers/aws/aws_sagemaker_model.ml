@@ -695,8 +695,8 @@ let container__image_config__repository_auth_config
     container__image_config__repository_auth_config =
   { repository_credentials_provider_arn }
 
-let container__image_config ~repository_access_mode
-    ~repository_auth_config () : container__image_config =
+let container__image_config ?(repository_auth_config = [])
+    ~repository_access_mode () : container__image_config =
   { repository_access_mode; repository_auth_config }
 
 let container__model_data_source__s3_data_source ~compression_type
@@ -709,8 +709,8 @@ let container__model_data_source ~s3_data_source () :
   { s3_data_source }
 
 let container ?container_hostname ?environment ?image ?mode
-    ?model_data_url ?model_package_name ~image_config
-    ~model_data_source () : container =
+    ?model_data_url ?model_package_name ?(image_config = [])
+    ?(model_data_source = []) () : container =
   {
     container_hostname;
     environment;
@@ -731,8 +731,8 @@ let primary_container__image_config__repository_auth_config
     primary_container__image_config__repository_auth_config =
   { repository_credentials_provider_arn }
 
-let primary_container__image_config ~repository_access_mode
-    ~repository_auth_config () : primary_container__image_config =
+let primary_container__image_config ?(repository_auth_config = [])
+    ~repository_access_mode () : primary_container__image_config =
   { repository_access_mode; repository_auth_config }
 
 let primary_container__model_data_source__s3_data_source
@@ -745,8 +745,8 @@ let primary_container__model_data_source ~s3_data_source () :
   { s3_data_source }
 
 let primary_container ?container_hostname ?environment ?image ?mode
-    ?model_data_url ?model_package_name ~image_config
-    ~model_data_source () : primary_container =
+    ?model_data_url ?model_package_name ?(image_config = [])
+    ?(model_data_source = []) () : primary_container =
   {
     container_hostname;
     environment;
@@ -762,9 +762,9 @@ let vpc_config ~security_group_ids ~subnets () : vpc_config =
   { security_group_ids; subnets }
 
 let aws_sagemaker_model ?enable_network_isolation ?id ?name ?tags
-    ?tags_all ~execution_role_arn ~container
-    ~inference_execution_config ~primary_container ~vpc_config () :
-    aws_sagemaker_model =
+    ?tags_all ?(container = []) ?(inference_execution_config = [])
+    ?(primary_container = []) ?(vpc_config = []) ~execution_role_arn
+    () : aws_sagemaker_model =
   {
     enable_network_isolation;
     execution_role_arn;
@@ -789,8 +789,9 @@ type t = {
 }
 
 let make ?enable_network_isolation ?id ?name ?tags ?tags_all
-    ~execution_role_arn ~container ~inference_execution_config
-    ~primary_container ~vpc_config __id =
+    ?(container = []) ?(inference_execution_config = [])
+    ?(primary_container = []) ?(vpc_config = []) ~execution_role_arn
+    __id =
   let __type = "aws_sagemaker_model" in
   let __attrs =
     ({
@@ -812,19 +813,19 @@ let make ?enable_network_isolation ?id ?name ?tags ?tags_all
     json =
       yojson_of_aws_sagemaker_model
         (aws_sagemaker_model ?enable_network_isolation ?id ?name
-           ?tags ?tags_all ~execution_role_arn ~container
-           ~inference_execution_config ~primary_container ~vpc_config
-           ());
+           ?tags ?tags_all ~container ~inference_execution_config
+           ~primary_container ~vpc_config ~execution_role_arn ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?enable_network_isolation ?id ?name ?tags
-    ?tags_all ~execution_role_arn ~container
-    ~inference_execution_config ~primary_container ~vpc_config __id =
+    ?tags_all ?(container = []) ?(inference_execution_config = [])
+    ?(primary_container = []) ?(vpc_config = []) ~execution_role_arn
+    __id =
   let (r : _ Tf_core.resource) =
     make ?enable_network_isolation ?id ?name ?tags ?tags_all
-      ~execution_role_arn ~container ~inference_execution_config
-      ~primary_container ~vpc_config __id
+      ~container ~inference_execution_config ~primary_container
+      ~vpc_config ~execution_role_arn __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

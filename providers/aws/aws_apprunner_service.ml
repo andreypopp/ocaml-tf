@@ -959,8 +959,9 @@ let network_configuration__ingress_configuration
     network_configuration__ingress_configuration =
   { is_publicly_accessible }
 
-let network_configuration ?ip_address_type ~egress_configuration
-    ~ingress_configuration () : network_configuration =
+let network_configuration ?ip_address_type
+    ?(egress_configuration = []) ?(ingress_configuration = []) () :
+    network_configuration =
   { ip_address_type; egress_configuration; ingress_configuration }
 
 let observability_configuration ?observability_configuration_arn
@@ -987,7 +988,7 @@ let source_configuration__code_repository__code_configuration__code_configuratio
   }
 
 let source_configuration__code_repository__code_configuration
-    ~configuration_source ~code_configuration_values () :
+    ?(code_configuration_values = []) ~configuration_source () :
     source_configuration__code_repository__code_configuration =
   { configuration_source; code_configuration_values }
 
@@ -997,8 +998,8 @@ let source_configuration__code_repository__source_code_version ~type_
   { type_; value }
 
 let source_configuration__code_repository ?source_directory
-    ~repository_url ~code_configuration ~source_code_version () :
-    source_configuration__code_repository =
+    ?(code_configuration = []) ~repository_url ~source_code_version
+    () : source_configuration__code_repository =
   {
     repository_url;
     source_directory;
@@ -1017,14 +1018,15 @@ let source_configuration__image_repository__image_configuration ?port
     start_command;
   }
 
-let source_configuration__image_repository ~image_identifier
-    ~image_repository_type ~image_configuration () :
+let source_configuration__image_repository
+    ?(image_configuration = []) ~image_identifier
+    ~image_repository_type () :
     source_configuration__image_repository =
   { image_identifier; image_repository_type; image_configuration }
 
 let source_configuration ?auto_deployments_enabled
-    ~authentication_configuration ~code_repository ~image_repository
-    () : source_configuration =
+    ?(authentication_configuration = []) ?(code_repository = [])
+    ?(image_repository = []) () : source_configuration =
   {
     auto_deployments_enabled;
     authentication_configuration;
@@ -1033,10 +1035,10 @@ let source_configuration ?auto_deployments_enabled
   }
 
 let aws_apprunner_service ?auto_scaling_configuration_arn ?id ?tags
-    ?tags_all ~service_name ~encryption_configuration
-    ~health_check_configuration ~instance_configuration
-    ~network_configuration ~observability_configuration
-    ~source_configuration () : aws_apprunner_service =
+    ?tags_all ?(encryption_configuration = [])
+    ?(health_check_configuration = []) ?(instance_configuration = [])
+    ?(network_configuration = []) ?(observability_configuration = [])
+    ~service_name ~source_configuration () : aws_apprunner_service =
   {
     auto_scaling_configuration_arn;
     id;
@@ -1064,10 +1066,10 @@ type t = {
 }
 
 let make ?auto_scaling_configuration_arn ?id ?tags ?tags_all
-    ~service_name ~encryption_configuration
-    ~health_check_configuration ~instance_configuration
-    ~network_configuration ~observability_configuration
-    ~source_configuration __id =
+    ?(encryption_configuration = [])
+    ?(health_check_configuration = []) ?(instance_configuration = [])
+    ?(network_configuration = []) ?(observability_configuration = [])
+    ~service_name ~source_configuration __id =
   let __type = "aws_apprunner_service" in
   let __attrs =
     ({
@@ -1090,23 +1092,23 @@ let make ?auto_scaling_configuration_arn ?id ?tags ?tags_all
     json =
       yojson_of_aws_apprunner_service
         (aws_apprunner_service ?auto_scaling_configuration_arn ?id
-           ?tags ?tags_all ~service_name ~encryption_configuration
+           ?tags ?tags_all ~encryption_configuration
            ~health_check_configuration ~instance_configuration
            ~network_configuration ~observability_configuration
-           ~source_configuration ());
+           ~service_name ~source_configuration ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?auto_scaling_configuration_arn ?id ?tags
-    ?tags_all ~service_name ~encryption_configuration
-    ~health_check_configuration ~instance_configuration
-    ~network_configuration ~observability_configuration
-    ~source_configuration __id =
+    ?tags_all ?(encryption_configuration = [])
+    ?(health_check_configuration = []) ?(instance_configuration = [])
+    ?(network_configuration = []) ?(observability_configuration = [])
+    ~service_name ~source_configuration __id =
   let (r : _ Tf_core.resource) =
     make ?auto_scaling_configuration_arn ?id ?tags ?tags_all
-      ~service_name ~encryption_configuration
-      ~health_check_configuration ~instance_configuration
-      ~network_configuration ~observability_configuration
+      ~encryption_configuration ~health_check_configuration
+      ~instance_configuration ~network_configuration
+      ~observability_configuration ~service_name
       ~source_configuration __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;

@@ -2186,8 +2186,9 @@ let actions__finding_fields_update__workflow ?status () :
   { status }
 
 let actions__finding_fields_update ?confidence ?criticality ?types
-    ?user_defined_fields ?verification_state ~note ~related_findings
-    ~severity ~workflow () : actions__finding_fields_update =
+    ?user_defined_fields ?verification_state ?(note = [])
+    ?(severity = []) ?(workflow = []) ~related_findings () :
+    actions__finding_fields_update =
   {
     confidence;
     criticality;
@@ -2200,7 +2201,7 @@ let actions__finding_fields_update ?confidence ?criticality ?types
     workflow;
   }
 
-let actions ?type_ ~finding_fields_update () : actions =
+let actions ?type_ ?(finding_fields_update = []) () : actions =
   { type_; finding_fields_update }
 
 let criteria__aws_account_id ~comparison ~value () :
@@ -2235,7 +2236,7 @@ let criteria__created_at__date_range ~unit ~value () :
     criteria__created_at__date_range =
   { unit; value }
 
-let criteria__created_at ?end_ ?start ~date_range () :
+let criteria__created_at ?end_ ?start ?(date_range = []) () :
     criteria__created_at =
   { end_; start; date_range }
 
@@ -2251,7 +2252,7 @@ let criteria__first_observed_at__date_range ~unit ~value () :
     criteria__first_observed_at__date_range =
   { unit; value }
 
-let criteria__first_observed_at ?end_ ?start ~date_range () :
+let criteria__first_observed_at ?end_ ?start ?(date_range = []) () :
     criteria__first_observed_at =
   { end_; start; date_range }
 
@@ -2266,7 +2267,7 @@ let criteria__last_observed_at__date_range ~unit ~value () :
     criteria__last_observed_at__date_range =
   { unit; value }
 
-let criteria__last_observed_at ?end_ ?start ~date_range () :
+let criteria__last_observed_at ?end_ ?start ?(date_range = []) () :
     criteria__last_observed_at =
   { end_; start; date_range }
 
@@ -2277,7 +2278,7 @@ let criteria__note_updated_at__date_range ~unit ~value () :
     criteria__note_updated_at__date_range =
   { unit; value }
 
-let criteria__note_updated_at ?end_ ?start ~date_range () :
+let criteria__note_updated_at ?end_ ?start ?(date_range = []) () :
     criteria__note_updated_at =
   { end_; start; date_range }
 
@@ -2355,7 +2356,7 @@ let criteria__updated_at__date_range ~unit ~value () :
     criteria__updated_at__date_range =
   { unit; value }
 
-let criteria__updated_at ?end_ ?start ~date_range () :
+let criteria__updated_at ?end_ ?start ?(date_range = []) () :
     criteria__updated_at =
   { end_; start; date_range }
 
@@ -2425,8 +2426,8 @@ let criteria ~aws_account_id ~aws_account_name ~company_name
   }
 
 let aws_securityhub_automation_rule ?is_terminal ?rule_status ?tags
-    ~description ~rule_name ~rule_order ~actions ~criteria () :
-    aws_securityhub_automation_rule =
+    ?(criteria = []) ~description ~rule_name ~rule_order ~actions ()
+    : aws_securityhub_automation_rule =
   {
     description;
     is_terminal;
@@ -2450,8 +2451,8 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let make ?is_terminal ?rule_status ?tags ~description ~rule_name
-    ~rule_order ~actions ~criteria __id =
+let make ?is_terminal ?rule_status ?tags ?(criteria = [])
+    ~description ~rule_name ~rule_order ~actions __id =
   let __type = "aws_securityhub_automation_rule" in
   let __attrs =
     ({
@@ -2473,16 +2474,17 @@ let make ?is_terminal ?rule_status ?tags ~description ~rule_name
     json =
       yojson_of_aws_securityhub_automation_rule
         (aws_securityhub_automation_rule ?is_terminal ?rule_status
-           ?tags ~description ~rule_name ~rule_order ~actions
-           ~criteria ());
+           ?tags ~criteria ~description ~rule_name ~rule_order
+           ~actions ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?is_terminal ?rule_status ?tags ~description
-    ~rule_name ~rule_order ~actions ~criteria __id =
+let register ?tf_module ?is_terminal ?rule_status ?tags
+    ?(criteria = []) ~description ~rule_name ~rule_order ~actions
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?is_terminal ?rule_status ?tags ~description ~rule_name
-      ~rule_order ~actions ~criteria __id
+    make ?is_terminal ?rule_status ?tags ~criteria ~description
+      ~rule_name ~rule_order ~actions __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

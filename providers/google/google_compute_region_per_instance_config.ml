@@ -451,16 +451,16 @@ let preserved_state__external_ip__ip_address ?address () :
     preserved_state__external_ip__ip_address =
   { address }
 
-let preserved_state__external_ip ?auto_delete ~interface_name
-    ~ip_address () : preserved_state__external_ip =
+let preserved_state__external_ip ?auto_delete ?(ip_address = [])
+    ~interface_name () : preserved_state__external_ip =
   { auto_delete; interface_name; ip_address }
 
 let preserved_state__internal_ip__ip_address ?address () :
     preserved_state__internal_ip__ip_address =
   { address }
 
-let preserved_state__internal_ip ?auto_delete ~interface_name
-    ~ip_address () : preserved_state__internal_ip =
+let preserved_state__internal_ip ?auto_delete ?(ip_address = [])
+    ~interface_name () : preserved_state__internal_ip =
   { auto_delete; interface_name; ip_address }
 
 let preserved_state ?metadata ~disk ~external_ip ~internal_ip () :
@@ -473,8 +473,9 @@ let timeouts ?create ?delete ?update () : timeouts =
 let google_compute_region_per_instance_config ?id ?minimal_action
     ?most_disruptive_allowed_action ?project ?region
     ?remove_instance_on_destroy ?remove_instance_state_on_destroy
-    ?timeouts ~name ~region_instance_group_manager ~preserved_state
-    () : google_compute_region_per_instance_config =
+    ?(preserved_state = []) ?timeouts ~name
+    ~region_instance_group_manager () :
+    google_compute_region_per_instance_config =
   {
     id;
     minimal_action;
@@ -503,8 +504,8 @@ type t = {
 
 let make ?id ?minimal_action ?most_disruptive_allowed_action ?project
     ?region ?remove_instance_on_destroy
-    ?remove_instance_state_on_destroy ?timeouts ~name
-    ~region_instance_group_manager ~preserved_state __id =
+    ?remove_instance_state_on_destroy ?(preserved_state = [])
+    ?timeouts ~name ~region_instance_group_manager __id =
   let __type = "google_compute_region_per_instance_config" in
   let __attrs =
     ({
@@ -532,21 +533,21 @@ let make ?id ?minimal_action ?most_disruptive_allowed_action ?project
         (google_compute_region_per_instance_config ?id
            ?minimal_action ?most_disruptive_allowed_action ?project
            ?region ?remove_instance_on_destroy
-           ?remove_instance_state_on_destroy ?timeouts ~name
-           ~region_instance_group_manager ~preserved_state ());
+           ?remove_instance_state_on_destroy ~preserved_state
+           ?timeouts ~name ~region_instance_group_manager ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?id ?minimal_action
     ?most_disruptive_allowed_action ?project ?region
     ?remove_instance_on_destroy ?remove_instance_state_on_destroy
-    ?timeouts ~name ~region_instance_group_manager ~preserved_state
-    __id =
+    ?(preserved_state = []) ?timeouts ~name
+    ~region_instance_group_manager __id =
   let (r : _ Tf_core.resource) =
     make ?id ?minimal_action ?most_disruptive_allowed_action ?project
       ?region ?remove_instance_on_destroy
-      ?remove_instance_state_on_destroy ?timeouts ~name
-      ~region_instance_group_manager ~preserved_state __id
+      ?remove_instance_state_on_destroy ~preserved_state ?timeouts
+      ~name ~region_instance_group_manager __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

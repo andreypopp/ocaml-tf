@@ -57,6 +57,7 @@ val azurerm_key_vault :
   ?purge_protection_enabled:bool prop ->
   ?soft_delete_retention_days:float prop ->
   ?tags:(string * string prop) list ->
+  ?network_acls:network_acls list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -64,7 +65,6 @@ val azurerm_key_vault :
   sku_name:string prop ->
   tenant_id:string prop ->
   contact:contact list ->
-  network_acls:network_acls list ->
   unit ->
   azurerm_key_vault
 
@@ -103,6 +103,7 @@ val register :
   ?purge_protection_enabled:bool prop ->
   ?soft_delete_retention_days:float prop ->
   ?tags:(string * string prop) list ->
+  ?network_acls:network_acls list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -110,7 +111,6 @@ val register :
   sku_name:string prop ->
   tenant_id:string prop ->
   contact:contact list ->
-  network_acls:network_acls list ->
   string ->
   t
 
@@ -125,6 +125,7 @@ val make :
   ?purge_protection_enabled:bool prop ->
   ?soft_delete_retention_days:float prop ->
   ?tags:(string * string prop) list ->
+  ?network_acls:network_acls list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
@@ -132,6 +133,5 @@ val make :
   sku_name:string prop ->
   tenant_id:string prop ->
   contact:contact list ->
-  network_acls:network_acls list ->
   string ->
   t Tf_core.resource

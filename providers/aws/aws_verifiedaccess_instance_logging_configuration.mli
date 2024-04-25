@@ -35,9 +35,9 @@ type access_logs
 val access_logs :
   ?include_trust_context:bool prop ->
   ?log_version:string prop ->
-  cloudwatch_logs:access_logs__cloudwatch_logs list ->
-  kinesis_data_firehose:access_logs__kinesis_data_firehose list ->
-  s3:access_logs__s3 list ->
+  ?cloudwatch_logs:access_logs__cloudwatch_logs list ->
+  ?kinesis_data_firehose:access_logs__kinesis_data_firehose list ->
+  ?s3:access_logs__s3 list ->
   unit ->
   access_logs
 

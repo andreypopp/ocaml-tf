@@ -280,10 +280,10 @@ let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }
 
 let azurerm_cosmosdb_mongo_collection ?analytical_storage_ttl
-    ?default_ttl_seconds ?id ?shard_key ?throughput ?timeouts
-    ~account_name ~database_name ~name ~resource_group_name
-    ~autoscale_settings ~index () : azurerm_cosmosdb_mongo_collection
-    =
+    ?default_ttl_seconds ?id ?shard_key ?throughput
+    ?(autoscale_settings = []) ?timeouts ~account_name ~database_name
+    ~name ~resource_group_name ~index () :
+    azurerm_cosmosdb_mongo_collection =
   {
     account_name;
     analytical_storage_ttl;
@@ -313,8 +313,8 @@ type t = {
 }
 
 let make ?analytical_storage_ttl ?default_ttl_seconds ?id ?shard_key
-    ?throughput ?timeouts ~account_name ~database_name ~name
-    ~resource_group_name ~autoscale_settings ~index __id =
+    ?throughput ?(autoscale_settings = []) ?timeouts ~account_name
+    ~database_name ~name ~resource_group_name ~index __id =
   let __type = "azurerm_cosmosdb_mongo_collection" in
   let __attrs =
     ({
@@ -340,19 +340,20 @@ let make ?analytical_storage_ttl ?default_ttl_seconds ?id ?shard_key
     json =
       yojson_of_azurerm_cosmosdb_mongo_collection
         (azurerm_cosmosdb_mongo_collection ?analytical_storage_ttl
-           ?default_ttl_seconds ?id ?shard_key ?throughput ?timeouts
-           ~account_name ~database_name ~name ~resource_group_name
-           ~autoscale_settings ~index ());
+           ?default_ttl_seconds ?id ?shard_key ?throughput
+           ~autoscale_settings ?timeouts ~account_name ~database_name
+           ~name ~resource_group_name ~index ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?analytical_storage_ttl ?default_ttl_seconds
-    ?id ?shard_key ?throughput ?timeouts ~account_name ~database_name
-    ~name ~resource_group_name ~autoscale_settings ~index __id =
+    ?id ?shard_key ?throughput ?(autoscale_settings = []) ?timeouts
+    ~account_name ~database_name ~name ~resource_group_name ~index
+    __id =
   let (r : _ Tf_core.resource) =
     make ?analytical_storage_ttl ?default_ttl_seconds ?id ?shard_key
-      ?throughput ?timeouts ~account_name ~database_name ~name
-      ~resource_group_name ~autoscale_settings ~index __id
+      ?throughput ~autoscale_settings ?timeouts ~account_name
+      ~database_name ~name ~resource_group_name ~index __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

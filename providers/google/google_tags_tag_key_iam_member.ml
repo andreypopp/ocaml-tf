@@ -102,8 +102,8 @@ let _ = yojson_of_google_tags_tag_key_iam_member
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }
 
-let google_tags_tag_key_iam_member ?id ~member ~role ~tag_key
-    ~condition () : google_tags_tag_key_iam_member =
+let google_tags_tag_key_iam_member ?id ?(condition = []) ~member
+    ~role ~tag_key () : google_tags_tag_key_iam_member =
   { id; member; role; tag_key; condition }
 
 type t = {
@@ -114,7 +114,7 @@ type t = {
   tag_key : string prop;
 }
 
-let make ?id ~member ~role ~tag_key ~condition __id =
+let make ?id ?(condition = []) ~member ~role ~tag_key __id =
   let __type = "google_tags_tag_key_iam_member" in
   let __attrs =
     ({
@@ -131,14 +131,15 @@ let make ?id ~member ~role ~tag_key ~condition __id =
     type_ = __type;
     json =
       yojson_of_google_tags_tag_key_iam_member
-        (google_tags_tag_key_iam_member ?id ~member ~role ~tag_key
-           ~condition ());
+        (google_tags_tag_key_iam_member ?id ~condition ~member ~role
+           ~tag_key ());
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~member ~role ~tag_key ~condition __id =
+let register ?tf_module ?id ?(condition = []) ~member ~role ~tag_key
+    __id =
   let (r : _ Tf_core.resource) =
-    make ?id ~member ~role ~tag_key ~condition __id
+    make ?id ~condition ~member ~role ~tag_key __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

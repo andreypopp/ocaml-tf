@@ -86,13 +86,13 @@ let s3_destination ?key_prefix ~bucket_name ~kms_key_arn () :
   { bucket_name; key_prefix; kms_key_arn }
 
 let aws_macie2_classification_export_configuration ?id
-    ~s3_destination () :
+    ?(s3_destination = []) () :
     aws_macie2_classification_export_configuration =
   { id; s3_destination }
 
 type t = { id : string prop }
 
-let make ?id ~s3_destination __id =
+let make ?id ?(s3_destination = []) __id =
   let __type = "aws_macie2_classification_export_configuration" in
   let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
   {
@@ -105,7 +105,7 @@ let make ?id ~s3_destination __id =
     attrs = __attrs;
   }
 
-let register ?tf_module ?id ~s3_destination __id =
+let register ?tf_module ?id ?(s3_destination = []) __id =
   let (r : _ Tf_core.resource) = make ?id ~s3_destination __id in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
   r.attrs

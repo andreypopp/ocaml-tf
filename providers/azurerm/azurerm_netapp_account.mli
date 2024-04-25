@@ -39,12 +39,12 @@ type azurerm_netapp_account
 val azurerm_netapp_account :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?active_directory:active_directory list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  active_directory:active_directory list ->
-  identity:identity list ->
   unit ->
   azurerm_netapp_account
 
@@ -64,23 +64,23 @@ val register :
   ?tf_module:tf_module ->
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?active_directory:active_directory list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  active_directory:active_directory list ->
-  identity:identity list ->
   string ->
   t
 
 val make :
   ?id:string prop ->
   ?tags:(string * string prop) list ->
+  ?active_directory:active_directory list ->
+  ?identity:identity list ->
   ?timeouts:timeouts ->
   location:string prop ->
   name:string prop ->
   resource_group_name:string prop ->
-  active_directory:active_directory list ->
-  identity:identity list ->
   string ->
   t Tf_core.resource

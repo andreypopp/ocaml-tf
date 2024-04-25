@@ -50,9 +50,9 @@ val aws_rbin_rule :
   ?description:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?lock_configuration:lock_configuration list ->
   ?timeouts:timeouts ->
   resource_type:string prop ->
-  lock_configuration:lock_configuration list ->
   resource_tags:resource_tags list ->
   retention_period:retention_period list ->
   unit ->
@@ -79,9 +79,9 @@ val register :
   ?description:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?lock_configuration:lock_configuration list ->
   ?timeouts:timeouts ->
   resource_type:string prop ->
-  lock_configuration:lock_configuration list ->
   resource_tags:resource_tags list ->
   retention_period:retention_period list ->
   string ->
@@ -91,9 +91,9 @@ val make :
   ?description:string prop ->
   ?tags:(string * string prop) list ->
   ?tags_all:(string * string prop) list ->
+  ?lock_configuration:lock_configuration list ->
   ?timeouts:timeouts ->
   resource_type:string prop ->
-  lock_configuration:lock_configuration list ->
   resource_tags:resource_tags list ->
   retention_period:retention_period list ->
   string ->

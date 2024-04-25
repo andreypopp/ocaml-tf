@@ -474,7 +474,8 @@ let dictionary__cloud_storage_path ~path () :
 let dictionary__word_list ~words () : dictionary__word_list =
   { words }
 
-let dictionary ~cloud_storage_path ~word_list () : dictionary =
+let dictionary ?(cloud_storage_path = []) ?(word_list = []) () :
+    dictionary =
   { cloud_storage_path; word_list }
 
 let large_custom_dictionary__big_query_field__field ~name () :
@@ -498,8 +499,9 @@ let large_custom_dictionary__output_path ~path () :
     large_custom_dictionary__output_path =
   { path }
 
-let large_custom_dictionary ~big_query_field ~cloud_storage_file_set
-    ~output_path () : large_custom_dictionary =
+let large_custom_dictionary ?(big_query_field = [])
+    ?(cloud_storage_file_set = []) ~output_path () :
+    large_custom_dictionary =
   { big_query_field; cloud_storage_file_set; output_path }
 
 let regex ?group_indexes ~pattern () : regex =
@@ -509,9 +511,9 @@ let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }
 
 let google_data_loss_prevention_stored_info_type ?description
-    ?display_name ?id ?stored_info_type_id ?timeouts ~parent
-    ~dictionary ~large_custom_dictionary ~regex () :
-    google_data_loss_prevention_stored_info_type =
+    ?display_name ?id ?stored_info_type_id ?(dictionary = [])
+    ?(large_custom_dictionary = []) ?(regex = []) ?timeouts ~parent
+    () : google_data_loss_prevention_stored_info_type =
   {
     description;
     display_name;
@@ -534,8 +536,8 @@ type t = {
 }
 
 let make ?description ?display_name ?id ?stored_info_type_id
-    ?timeouts ~parent ~dictionary ~large_custom_dictionary ~regex
-    __id =
+    ?(dictionary = []) ?(large_custom_dictionary = []) ?(regex = [])
+    ?timeouts ~parent __id =
   let __type = "google_data_loss_prevention_stored_info_type" in
   let __attrs =
     ({
@@ -555,17 +557,18 @@ let make ?description ?display_name ?id ?stored_info_type_id
     json =
       yojson_of_google_data_loss_prevention_stored_info_type
         (google_data_loss_prevention_stored_info_type ?description
-           ?display_name ?id ?stored_info_type_id ?timeouts ~parent
-           ~dictionary ~large_custom_dictionary ~regex ());
+           ?display_name ?id ?stored_info_type_id ~dictionary
+           ~large_custom_dictionary ~regex ?timeouts ~parent ());
     attrs = __attrs;
   }
 
 let register ?tf_module ?description ?display_name ?id
-    ?stored_info_type_id ?timeouts ~parent ~dictionary
-    ~large_custom_dictionary ~regex __id =
+    ?stored_info_type_id ?(dictionary = [])
+    ?(large_custom_dictionary = []) ?(regex = []) ?timeouts ~parent
+    __id =
   let (r : _ Tf_core.resource) =
     make ?description ?display_name ?id ?stored_info_type_id
-      ?timeouts ~parent ~dictionary ~large_custom_dictionary ~regex
+      ~dictionary ~large_custom_dictionary ~regex ?timeouts ~parent
       __id
   in
   Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
