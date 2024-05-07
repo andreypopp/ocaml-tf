@@ -28,6 +28,7 @@ val yojson_of_aws_lambda_function_url :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authorization_type : string prop;
   cors : cors list prop;
   creation_time : string prop;

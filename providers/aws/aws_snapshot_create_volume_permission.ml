@@ -95,6 +95,7 @@ let aws_snapshot_create_volume_permission ?id ?timeouts ~account_id
   { account_id; id; snapshot_id; timeouts }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   snapshot_id : string prop;
@@ -104,6 +105,7 @@ let make ?id ?timeouts ~account_id ~snapshot_id __id =
   let __type = "aws_snapshot_create_volume_permission" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        snapshot_id = Prop.computed __type __id "snapshot_id";

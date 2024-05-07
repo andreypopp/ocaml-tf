@@ -44,6 +44,7 @@ let google_compute_networks ?id ?project () : google_compute_networks
   { id; project }
 
 type t = {
+  tf_name : string;
   id : string prop;
   networks : string list prop;
   project : string prop;
@@ -54,6 +55,7 @@ let make ?id ?project __id =
   let __type = "google_compute_networks" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        networks = Prop.computed __type __id "networks";
        project = Prop.computed __type __id "project";

@@ -54,6 +54,7 @@ let aws_inspector_assessment_target ?id ?resource_group_arn ~name ()
   { id; name; resource_group_arn }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;
@@ -64,6 +65,7 @@ let make ?id ?resource_group_arn ~name __id =
   let __type = "aws_inspector_assessment_target" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

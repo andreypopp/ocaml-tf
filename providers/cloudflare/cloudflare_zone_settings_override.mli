@@ -199,6 +199,7 @@ val yojson_of_cloudflare_zone_settings_override :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   initial_settings : initial_settings list prop;
   initial_settings_read_at : string prop;

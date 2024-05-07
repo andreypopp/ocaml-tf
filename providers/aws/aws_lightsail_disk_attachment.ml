@@ -56,6 +56,7 @@ let aws_lightsail_disk_attachment ?id ~disk_name ~disk_path
   { disk_name; disk_path; id; instance_name }
 
 type t = {
+  tf_name : string;
   disk_name : string prop;
   disk_path : string prop;
   id : string prop;
@@ -66,6 +67,7 @@ let make ?id ~disk_name ~disk_path ~instance_name __id =
   let __type = "aws_lightsail_disk_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        disk_name = Prop.computed __type __id "disk_name";
        disk_path = Prop.computed __type __id "disk_path";
        id = Prop.computed __type __id "id";

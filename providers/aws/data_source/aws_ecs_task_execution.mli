@@ -119,6 +119,7 @@ val yojson_of_aws_ecs_task_execution : aws_ecs_task_execution -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   client_token : string prop;
   cluster : string prop;
   desired_count : float prop;

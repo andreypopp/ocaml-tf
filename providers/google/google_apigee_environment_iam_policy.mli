@@ -20,6 +20,7 @@ val yojson_of_google_apigee_environment_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   env_id : string prop;
   etag : string prop;
   id : string prop;

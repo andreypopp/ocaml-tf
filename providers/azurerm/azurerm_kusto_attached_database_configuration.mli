@@ -48,6 +48,7 @@ val yojson_of_azurerm_kusto_attached_database_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   attached_database_names : string list prop;
   cluster_name : string prop;
   cluster_resource_id : string prop;

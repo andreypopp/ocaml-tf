@@ -223,6 +223,7 @@ let azurerm_subnet_service_endpoint_storage_policy ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -235,6 +236,7 @@ let make ?id ?tags ?(definition = []) ?timeouts ~location ~name
   let __type = "azurerm_subnet_service_endpoint_storage_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

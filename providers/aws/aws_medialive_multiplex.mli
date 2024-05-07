@@ -43,6 +43,7 @@ val yojson_of_aws_medialive_multiplex :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   availability_zones : string list prop;
   id : string prop;

@@ -28,6 +28,7 @@ val yojson_of_aws_appstream_directory_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created_time : string prop;
   directory_name : string prop;
   id : string prop;

@@ -34,6 +34,7 @@ val yojson_of_azurerm_sql_active_directory_administrator :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   azuread_authentication_only : bool prop;
   id : string prop;
   login : string prop;

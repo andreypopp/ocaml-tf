@@ -19,6 +19,7 @@ let _ = yojson_of_cloudflare_api_token_permission_groups
 let cloudflare_api_token_permission_groups () = ()
 
 type t = {
+  tf_name : string;
   account : (string * string) list prop;
   id : string prop;
   permissions : (string * string) list prop;
@@ -31,6 +32,7 @@ let make __id =
   let __type = "cloudflare_api_token_permission_groups" in
   let __attrs =
     ({
+       tf_name = __id;
        account = Prop.computed __type __id "account";
        id = Prop.computed __type __id "id";
        permissions = Prop.computed __type __id "permissions";

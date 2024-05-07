@@ -252,6 +252,7 @@ let google_dialogflow_cx_entity_type ?auto_expansion_mode
   }
 
 type t = {
+  tf_name : string;
   auto_expansion_mode : string prop;
   display_name : string prop;
   enable_fuzzy_extraction : bool prop;
@@ -269,6 +270,7 @@ let make ?auto_expansion_mode ?enable_fuzzy_extraction ?id
   let __type = "google_dialogflow_cx_entity_type" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_expansion_mode =
          Prop.computed __type __id "auto_expansion_mode";
        display_name = Prop.computed __type __id "display_name";

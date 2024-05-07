@@ -22,6 +22,7 @@ val yojson_of_aws_api_gateway_gateway_response :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   response_parameters : (string * string) list prop;
   response_templates : (string * string) list prop;

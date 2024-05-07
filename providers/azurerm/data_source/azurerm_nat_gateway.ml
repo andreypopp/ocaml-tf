@@ -117,6 +117,7 @@ let azurerm_nat_gateway ?id ?public_ip_address_ids
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   idle_timeout_in_minutes : float prop;
   location : string prop;
@@ -135,6 +136,7 @@ let make ?id ?public_ip_address_ids ?public_ip_prefix_ids ?timeouts
   let __type = "azurerm_nat_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        idle_timeout_in_minutes =
          Prop.computed __type __id "idle_timeout_in_minutes";

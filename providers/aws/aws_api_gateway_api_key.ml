@@ -128,6 +128,7 @@ let aws_api_gateway_api_key ?customer_id ?description ?enabled ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_date : string prop;
   customer_id : string prop;
@@ -146,6 +147,7 @@ let make ?customer_id ?description ?enabled ?id ?tags ?tags_all
   let __type = "aws_api_gateway_api_key" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_date = Prop.computed __type __id "created_date";
        customer_id = Prop.computed __type __id "customer_id";

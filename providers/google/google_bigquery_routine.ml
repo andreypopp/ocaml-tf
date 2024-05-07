@@ -520,6 +520,7 @@ let google_bigquery_routine ?description ?determinism_level ?id
   }
 
 type t = {
+  tf_name : string;
   creation_time : float prop;
   dataset_id : string prop;
   definition_body : string prop;
@@ -544,6 +545,7 @@ let make ?description ?determinism_level ?id ?imported_libraries
   let __type = "google_bigquery_routine" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_time = Prop.computed __type __id "creation_time";
        dataset_id = Prop.computed __type __id "dataset_id";
        definition_body = Prop.computed __type __id "definition_body";

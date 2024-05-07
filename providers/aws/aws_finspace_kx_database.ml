@@ -152,6 +152,7 @@ let aws_finspace_kx_database ?description ?id ?tags ?tags_all
   { description; environment_id; id; name; tags; tags_all; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_timestamp : string prop;
   description : string prop;
@@ -168,6 +169,7 @@ let make ?description ?id ?tags ?tags_all ?timeouts ~environment_id
   let __type = "aws_finspace_kx_database" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_timestamp =
          Prop.computed __type __id "created_timestamp";

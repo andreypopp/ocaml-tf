@@ -125,6 +125,7 @@ let aws_msk_vpc_connection ?id ?tags ?tags_all ~authentication
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   authentication : string prop;
   client_subnets : string list prop;
@@ -141,6 +142,7 @@ let make ?id ?tags ?tags_all ~authentication ~client_subnets
   let __type = "aws_msk_vpc_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        authentication = Prop.computed __type __id "authentication";
        client_subnets = Prop.computed __type __id "client_subnets";

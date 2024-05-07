@@ -45,6 +45,7 @@ val yojson_of_google_dialogflow_intent :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action : string prop;
   default_response_platforms : string list prop;
   display_name : string prop;

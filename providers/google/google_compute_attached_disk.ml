@@ -136,6 +136,7 @@ let google_compute_attached_disk ?device_name ?id ?mode ?project
   { device_name; disk; id; instance; mode; project; zone; timeouts }
 
 type t = {
+  tf_name : string;
   device_name : string prop;
   disk : string prop;
   id : string prop;
@@ -150,6 +151,7 @@ let make ?device_name ?id ?mode ?project ?zone ?timeouts ~disk
   let __type = "google_compute_attached_disk" in
   let __attrs =
     ({
+       tf_name = __id;
        device_name = Prop.computed __type __id "device_name";
        disk = Prop.computed __type __id "disk";
        id = Prop.computed __type __id "id";

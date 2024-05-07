@@ -19,6 +19,7 @@ val yojson_of_aws_network_acl_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   network_acl_id : string prop;
   subnet_id : string prop;

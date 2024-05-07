@@ -124,6 +124,7 @@ let kubernetes_labels ?field_manager ?force ?id ~api_version ~kind
   { api_version; field_manager; force; id; kind; labels; metadata }
 
 type t = {
+  tf_name : string;
   api_version : string prop;
   field_manager : string prop;
   force : bool prop;
@@ -137,6 +138,7 @@ let make ?field_manager ?force ?id ~api_version ~kind ~labels
   let __type = "kubernetes_labels" in
   let __attrs =
     ({
+       tf_name = __id;
        api_version = Prop.computed __type __id "api_version";
        field_manager = Prop.computed __type __id "field_manager";
        force = Prop.computed __type __id "force";

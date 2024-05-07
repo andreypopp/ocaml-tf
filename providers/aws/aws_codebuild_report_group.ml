@@ -208,6 +208,7 @@ let aws_codebuild_report_group ?delete_reports ?id ?tags ?tags_all
   { delete_reports; id; name; tags; tags_all; type_; export_config }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created : string prop;
   delete_reports : bool prop;
@@ -223,6 +224,7 @@ let make ?delete_reports ?id ?tags ?tags_all ~name ~type_
   let __type = "aws_codebuild_report_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created = Prop.computed __type __id "created";
        delete_reports = Prop.computed __type __id "delete_reports";

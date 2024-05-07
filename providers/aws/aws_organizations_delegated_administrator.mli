@@ -19,6 +19,7 @@ val yojson_of_aws_organizations_delegated_administrator :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   arn : string prop;
   delegation_enabled_date : string prop;

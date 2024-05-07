@@ -65,6 +65,7 @@ let google_container_attached_install_manifest ?id ~cluster_id
   { cluster_id; id; location; platform_version; project }
 
 type t = {
+  tf_name : string;
   cluster_id : string prop;
   id : string prop;
   location : string prop;
@@ -77,6 +78,7 @@ let make ?id ~cluster_id ~location ~platform_version ~project __id =
   let __type = "google_container_attached_install_manifest" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_id = Prop.computed __type __id "cluster_id";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

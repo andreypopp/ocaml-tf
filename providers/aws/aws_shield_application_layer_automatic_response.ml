@@ -97,6 +97,7 @@ let aws_shield_application_layer_automatic_response ?timeouts ~action
   { action; resource_arn; timeouts }
 
 type t = {
+  tf_name : string;
   action : string prop;
   id : string prop;
   resource_arn : string prop;
@@ -106,6 +107,7 @@ let make ?timeouts ~action ~resource_arn __id =
   let __type = "aws_shield_application_layer_automatic_response" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        id = Prop.computed __type __id "id";
        resource_arn = Prop.computed __type __id "resource_arn";

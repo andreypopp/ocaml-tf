@@ -46,6 +46,7 @@ let google_storage_bucket_iam_policy ?id ~bucket ~policy_data () :
   { bucket; id; policy_data }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   etag : string prop;
   id : string prop;
@@ -56,6 +57,7 @@ let make ?id ~bucket ~policy_data __id =
   let __type = "google_storage_bucket_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

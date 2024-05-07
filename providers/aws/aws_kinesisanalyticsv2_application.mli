@@ -465,6 +465,7 @@ val yojson_of_aws_kinesisanalyticsv2_application :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   create_timestamp : string prop;
   description : string prop;

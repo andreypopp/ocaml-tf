@@ -179,6 +179,7 @@ let aws_redshiftserverless_workgroup ?id ~workgroup_name () :
   { id; workgroup_name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   endpoint : endpoint list prop;
   enhanced_vpc_routing : bool prop;
@@ -195,6 +196,7 @@ let make ?id ~workgroup_name __id =
   let __type = "aws_redshiftserverless_workgroup" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        endpoint = Prop.computed __type __id "endpoint";
        enhanced_vpc_routing =

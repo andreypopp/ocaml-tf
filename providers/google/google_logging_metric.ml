@@ -492,6 +492,7 @@ let google_logging_metric ?bucket_name ?description ?disabled ?id
   }
 
 type t = {
+  tf_name : string;
   bucket_name : string prop;
   description : string prop;
   disabled : bool prop;
@@ -509,6 +510,7 @@ let make ?bucket_name ?description ?disabled ?id ?label_extractors
   let __type = "google_logging_metric" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket_name = Prop.computed __type __id "bucket_name";
        description = Prop.computed __type __id "description";
        disabled = Prop.computed __type __id "disabled";

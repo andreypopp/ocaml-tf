@@ -79,6 +79,7 @@ let aws_sfn_activity ?id ?tags ?tags_all ~name () : aws_sfn_activity
   { id; name; tags; tags_all }
 
 type t = {
+  tf_name : string;
   creation_date : string prop;
   id : string prop;
   name : string prop;
@@ -90,6 +91,7 @@ let make ?id ?tags ?tags_all ~name __id =
   let __type = "aws_sfn_activity" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_date = Prop.computed __type __id "creation_date";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

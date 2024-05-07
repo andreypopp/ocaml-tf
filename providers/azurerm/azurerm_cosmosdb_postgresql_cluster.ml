@@ -422,6 +422,7 @@ let azurerm_cosmosdb_postgresql_cluster ?administrator_login_password
   }
 
 type t = {
+  tf_name : string;
   administrator_login_password : string prop;
   citus_version : string prop;
   coordinator_public_ip_access_enabled : bool prop;
@@ -460,6 +461,7 @@ let make ?administrator_login_password ?citus_version
   let __type = "azurerm_cosmosdb_postgresql_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        administrator_login_password =
          Prop.computed __type __id "administrator_login_password";
        citus_version = Prop.computed __type __id "citus_version";

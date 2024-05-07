@@ -31,6 +31,7 @@ val yojson_of_azurerm_cognitive_account_customer_managed_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cognitive_account_id : string prop;
   id : string prop;
   identity_client_id : string prop;

@@ -1690,6 +1690,7 @@ let aws_s3_bucket ?acceleration_status ?acl ?bucket ?bucket_prefix
   }
 
 type t = {
+  tf_name : string;
   acceleration_status : string prop;
   acl : string prop;
   arn : string prop;
@@ -1720,6 +1721,7 @@ let make ?acceleration_status ?acl ?bucket ?bucket_prefix
   let __type = "aws_s3_bucket" in
   let __attrs =
     ({
+       tf_name = __id;
        acceleration_status =
          Prop.computed __type __id "acceleration_status";
        acl = Prop.computed __type __id "acl";

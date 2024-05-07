@@ -179,6 +179,7 @@ let aws_connect_hours_of_operation ?hours_of_operation_id ?id ?name
   { hours_of_operation_id; id; instance_id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   config : config list prop;
   description : string prop;
@@ -194,6 +195,7 @@ let make ?hours_of_operation_id ?id ?name ?tags ~instance_id __id =
   let __type = "aws_connect_hours_of_operation" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        config = Prop.computed __type __id "config";
        description = Prop.computed __type __id "description";

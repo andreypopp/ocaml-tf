@@ -31,6 +31,7 @@ val yojson_of_hcloud_location : hcloud_location -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   city : string prop;
   country : string prop;
   description : string prop;

@@ -139,6 +139,7 @@ let aws_appintegrations_event_integration ?description ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   eventbridge_bus : string prop;
@@ -153,6 +154,7 @@ let make ?description ?id ?tags ?tags_all ~eventbridge_bus ~name
   let __type = "aws_appintegrations_event_integration" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        eventbridge_bus = Prop.computed __type __id "eventbridge_bus";

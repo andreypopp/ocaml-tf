@@ -224,6 +224,7 @@ let aws_cloudfront_origin_request_policy ?id ?name () :
   { id; name }
 
 type t = {
+  tf_name : string;
   comment : string prop;
   cookies_config : cookies_config list prop;
   etag : string prop;
@@ -237,6 +238,7 @@ let make ?id ?name __id =
   let __type = "aws_cloudfront_origin_request_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        comment = Prop.computed __type __id "comment";
        cookies_config = Prop.computed __type __id "cookies_config";
        etag = Prop.computed __type __id "etag";

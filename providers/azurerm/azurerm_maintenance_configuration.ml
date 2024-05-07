@@ -471,6 +471,7 @@ let azurerm_maintenance_configuration ?id ?in_guest_user_patch_mode
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   in_guest_user_patch_mode : string prop;
   location : string prop;
@@ -488,6 +489,7 @@ let make ?id ?in_guest_user_patch_mode ?properties ?tags ?visibility
   let __type = "azurerm_maintenance_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        in_guest_user_patch_mode =
          Prop.computed __type __id "in_guest_user_patch_mode";

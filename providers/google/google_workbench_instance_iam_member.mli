@@ -33,6 +33,7 @@ val yojson_of_google_workbench_instance_iam_member : google_workbench_instance_i
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name: string;
   etag: string prop;
   id: string prop;
   location: string prop;

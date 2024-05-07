@@ -157,6 +157,7 @@ let kubernetes_annotations ?annotations ?field_manager ?force ?id
   }
 
 type t = {
+  tf_name : string;
   annotations : (string * string) list prop;
   api_version : string prop;
   field_manager : string prop;
@@ -171,6 +172,7 @@ let make ?annotations ?field_manager ?force ?id ?template_annotations
   let __type = "kubernetes_annotations" in
   let __attrs =
     ({
+       tf_name = __id;
        annotations = Prop.computed __type __id "annotations";
        api_version = Prop.computed __type __id "api_version";
        field_manager = Prop.computed __type __id "field_manager";

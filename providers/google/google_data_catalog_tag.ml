@@ -211,6 +211,7 @@ let google_data_catalog_tag ?column ?id ?parent ?timeouts ~template
   { column; id; parent; template; fields; timeouts }
 
 type t = {
+  tf_name : string;
   column : string prop;
   id : string prop;
   name : string prop;
@@ -223,6 +224,7 @@ let make ?column ?id ?parent ?timeouts ~template ~fields __id =
   let __type = "google_data_catalog_tag" in
   let __attrs =
     ({
+       tf_name = __id;
        column = Prop.computed __type __id "column";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

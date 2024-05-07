@@ -172,6 +172,7 @@ let digitalocean_database_redis_config ?acl_channels_default ?id
   }
 
 type t = {
+  tf_name : string;
   acl_channels_default : string prop;
   cluster_id : string prop;
   id : string prop;
@@ -195,6 +196,7 @@ let make ?acl_channels_default ?id ?io_threads ?lfu_decay_time
   let __type = "digitalocean_database_redis_config" in
   let __attrs =
     ({
+       tf_name = __id;
        acl_channels_default =
          Prop.computed __type __id "acl_channels_default";
        cluster_id = Prop.computed __type __id "cluster_id";

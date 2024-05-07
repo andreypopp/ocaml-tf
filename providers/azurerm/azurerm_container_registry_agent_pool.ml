@@ -196,6 +196,7 @@ let azurerm_container_registry_agent_pool ?id ?instance_count ?tags
   }
 
 type t = {
+  tf_name : string;
   container_registry_name : string prop;
   id : string prop;
   instance_count : float prop;
@@ -213,6 +214,7 @@ let make ?id ?instance_count ?tags ?tier ?virtual_network_subnet_id
   let __type = "azurerm_container_registry_agent_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        container_registry_name =
          Prop.computed __type __id "container_registry_name";
        id = Prop.computed __type __id "id";

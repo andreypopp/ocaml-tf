@@ -166,6 +166,7 @@ let aws_vpc_ipam_pool_cidr ?cidr ?id ?netmask_length
   }
 
 type t = {
+  tf_name : string;
   cidr : string prop;
   id : string prop;
   ipam_pool_cidr_id : string prop;
@@ -178,6 +179,7 @@ let make ?cidr ?id ?netmask_length ?(cidr_authorization_context = [])
   let __type = "aws_vpc_ipam_pool_cidr" in
   let __attrs =
     ({
+       tf_name = __id;
        cidr = Prop.computed __type __id "cidr";
        id = Prop.computed __type __id "id";
        ipam_pool_cidr_id =

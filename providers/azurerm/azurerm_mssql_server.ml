@@ -377,6 +377,7 @@ let azurerm_mssql_server ?administrator_login
   }
 
 type t = {
+  tf_name : string;
   administrator_login : string prop;
   administrator_login_password : string prop;
   connection_policy : string prop;
@@ -405,6 +406,7 @@ let make ?administrator_login ?administrator_login_password
   let __type = "azurerm_mssql_server" in
   let __attrs =
     ({
+       tf_name = __id;
        administrator_login =
          Prop.computed __type __id "administrator_login";
        administrator_login_password =

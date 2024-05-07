@@ -206,6 +206,7 @@ let azurerm_mssql_server_security_alert_policy ?disabled_alerts
   }
 
 type t = {
+  tf_name : string;
   disabled_alerts : string list prop;
   email_account_admins : bool prop;
   email_addresses : string list prop;
@@ -224,6 +225,7 @@ let make ?disabled_alerts ?email_account_admins ?email_addresses ?id
   let __type = "azurerm_mssql_server_security_alert_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        disabled_alerts = Prop.computed __type __id "disabled_alerts";
        email_account_admins =
          Prop.computed __type __id "email_account_admins";

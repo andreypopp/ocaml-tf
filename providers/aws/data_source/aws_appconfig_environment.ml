@@ -103,6 +103,7 @@ let aws_appconfig_environment ?id ?tags ~application_id
   { application_id; environment_id; id; tags }
 
 type t = {
+  tf_name : string;
   application_id : string prop;
   arn : string prop;
   description : string prop;
@@ -118,6 +119,7 @@ let make ?id ?tags ~application_id ~environment_id __id =
   let __type = "aws_appconfig_environment" in
   let __attrs =
     ({
+       tf_name = __id;
        application_id = Prop.computed __type __id "application_id";
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";

@@ -393,6 +393,7 @@ val yojson_of_azurerm_windows_function_app :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_settings : (string * string) list prop;
   auth_settings : auth_settings list prop;
   auth_settings_v2 : auth_settings_v2 list prop;

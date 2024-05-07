@@ -114,6 +114,7 @@ let google_access_context_manager_access_policy_iam_binding ?id
   { id; members; name; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   members : string list prop;
@@ -127,6 +128,7 @@ let make ?id ?(condition = []) ~members ~name ~role __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        members = Prop.computed __type __id "members";

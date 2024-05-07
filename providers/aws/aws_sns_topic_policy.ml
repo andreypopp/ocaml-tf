@@ -44,6 +44,7 @@ let aws_sns_topic_policy ?id ~arn ~policy () : aws_sns_topic_policy =
   { arn; id; policy }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   owner : string prop;
@@ -54,6 +55,7 @@ let make ?id ~arn ~policy __id =
   let __type = "aws_sns_topic_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        owner = Prop.computed __type __id "owner";

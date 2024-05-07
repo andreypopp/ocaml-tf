@@ -109,6 +109,7 @@ val yojson_of_azurerm_site_recovery_replicated_vm :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   managed_disk : managed_disk list prop;
   multi_vm_group_name : string prop;

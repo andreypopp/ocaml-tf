@@ -29,6 +29,7 @@ val yojson_of_google_scc_source : google_scc_source -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   id : string prop;

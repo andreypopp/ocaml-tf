@@ -35,6 +35,7 @@ val yojson_of_google_active_directory_domain_trust :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   domain : string prop;
   id : string prop;
   project : string prop;

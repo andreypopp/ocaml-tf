@@ -23,6 +23,7 @@ val yojson_of_aws_api_gateway_method_response :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   http_method : string prop;
   id : string prop;
   resource_id : string prop;

@@ -21,6 +21,7 @@ val yojson_of_google_sql_tiers : google_sql_tiers -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   project : string prop;
   tiers : tiers list prop;

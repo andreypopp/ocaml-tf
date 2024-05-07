@@ -34,6 +34,7 @@ val yojson_of_azurerm_digital_twins_endpoint_eventgrid :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dead_letter_storage_secret : string prop;
   digital_twins_id : string prop;
   eventgrid_topic_endpoint : string prop;

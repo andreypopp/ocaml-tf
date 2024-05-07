@@ -36,6 +36,7 @@ val yojson_of_aws_apigatewayv2_route : aws_apigatewayv2_route -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_id : string prop;
   api_key_required : bool prop;
   authorization_scopes : string list prop;

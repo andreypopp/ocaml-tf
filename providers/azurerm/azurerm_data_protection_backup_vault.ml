@@ -223,6 +223,7 @@ let azurerm_data_protection_backup_vault ?id
   }
 
 type t = {
+  tf_name : string;
   datastore_type : string prop;
   id : string prop;
   location : string prop;
@@ -240,6 +241,7 @@ let make ?id ?retention_duration_in_days ?soft_delete ?tags
   let __type = "azurerm_data_protection_backup_vault" in
   let __attrs =
     ({
+       tf_name = __id;
        datastore_type = Prop.computed __type __id "datastore_type";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

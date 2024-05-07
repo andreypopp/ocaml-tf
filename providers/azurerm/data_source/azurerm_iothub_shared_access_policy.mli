@@ -25,6 +25,7 @@ val yojson_of_azurerm_iothub_shared_access_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   iothub_name : string prop;
   name : string prop;

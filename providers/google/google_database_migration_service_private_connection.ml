@@ -236,6 +236,7 @@ let google_database_migration_service_private_connection
   }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   effective_labels : (string * string) list prop;
   error : error list prop;
@@ -256,6 +257,7 @@ let make ?display_name ?id ?labels ?project ?timeouts ~location
   in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        effective_labels =
          Prop.computed __type __id "effective_labels";

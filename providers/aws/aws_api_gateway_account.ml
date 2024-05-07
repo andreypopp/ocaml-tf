@@ -73,6 +73,7 @@ let aws_api_gateway_account ?cloudwatch_role_arn ?id () :
   { cloudwatch_role_arn; id }
 
 type t = {
+  tf_name : string;
   api_key_version : string prop;
   cloudwatch_role_arn : string prop;
   features : string list prop;
@@ -84,6 +85,7 @@ let make ?cloudwatch_role_arn ?id __id =
   let __type = "aws_api_gateway_account" in
   let __attrs =
     ({
+       tf_name = __id;
        api_key_version = Prop.computed __type __id "api_key_version";
        cloudwatch_role_arn =
          Prop.computed __type __id "cloudwatch_role_arn";

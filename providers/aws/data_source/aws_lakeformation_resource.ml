@@ -40,6 +40,7 @@ let aws_lakeformation_resource ?id ~arn () :
   { arn; id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   last_modified : string prop;
@@ -50,6 +51,7 @@ let make ?id ~arn __id =
   let __type = "aws_lakeformation_resource" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        last_modified = Prop.computed __type __id "last_modified";

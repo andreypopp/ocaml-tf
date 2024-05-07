@@ -281,6 +281,7 @@ let azurerm_api_management_logger ?buffered ?description ?id
   }
 
 type t = {
+  tf_name : string;
   api_management_name : string prop;
   buffered : bool prop;
   description : string prop;
@@ -296,6 +297,7 @@ let make ?buffered ?description ?id ?resource_id
   let __type = "azurerm_api_management_logger" in
   let __attrs =
     ({
+       tf_name = __id;
        api_management_name =
          Prop.computed __type __id "api_management_name";
        buffered = Prop.computed __type __id "buffered";

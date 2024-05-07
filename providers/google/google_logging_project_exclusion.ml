@@ -80,6 +80,7 @@ let google_logging_project_exclusion ?description ?disabled ?id
   { description; disabled; filter; id; name; project }
 
 type t = {
+  tf_name : string;
   description : string prop;
   disabled : bool prop;
   filter : string prop;
@@ -92,6 +93,7 @@ let make ?description ?disabled ?id ?project ~filter ~name __id =
   let __type = "google_logging_project_exclusion" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        disabled = Prop.computed __type __id "disabled";
        filter = Prop.computed __type __id "filter";

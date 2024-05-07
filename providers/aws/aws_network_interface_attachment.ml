@@ -58,6 +58,7 @@ let aws_network_interface_attachment ?id ~device_index ~instance_id
   { device_index; id; instance_id; network_interface_id }
 
 type t = {
+  tf_name : string;
   attachment_id : string prop;
   device_index : float prop;
   id : string prop;
@@ -70,6 +71,7 @@ let make ?id ~device_index ~instance_id ~network_interface_id __id =
   let __type = "aws_network_interface_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        attachment_id = Prop.computed __type __id "attachment_id";
        device_index = Prop.computed __type __id "device_index";
        id = Prop.computed __type __id "id";

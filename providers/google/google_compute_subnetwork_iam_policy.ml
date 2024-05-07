@@ -71,6 +71,7 @@ let google_compute_subnetwork_iam_policy ?id ?project ?region
   { id; policy_data; project; region; subnetwork }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   policy_data : string prop;
@@ -83,6 +84,7 @@ let make ?id ?project ?region ~policy_data ~subnetwork __id =
   let __type = "google_compute_subnetwork_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        policy_data = Prop.computed __type __id "policy_data";

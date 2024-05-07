@@ -34,6 +34,7 @@ val yojson_of_aws_codebuild_webhook : aws_codebuild_webhook -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   branch_filter : string prop;
   build_type : string prop;
   id : string prop;

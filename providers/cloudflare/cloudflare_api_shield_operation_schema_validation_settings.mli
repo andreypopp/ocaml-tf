@@ -23,6 +23,7 @@ val yojson_of_cloudflare_api_shield_operation_schema_validation_settings :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   mitigation_action : string prop;
   operation_id : string prop;

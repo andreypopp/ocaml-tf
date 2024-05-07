@@ -2951,6 +2951,7 @@ let azurerm_media_transform ?description ?id ?(output = []) ?timeouts
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   media_services_account_name : string prop;
@@ -2963,6 +2964,7 @@ let make ?description ?id ?(output = []) ?timeouts
   let __type = "azurerm_media_transform" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        media_services_account_name =

@@ -178,6 +178,7 @@ let aws_s3control_access_grant ?account_id ?s3_prefix_type ?tags
   }
 
 type t = {
+  tf_name : string;
   access_grant_arn : string prop;
   access_grant_id : string prop;
   access_grants_location_id : string prop;
@@ -196,6 +197,7 @@ let make ?account_id ?s3_prefix_type ?tags
   let __type = "aws_s3control_access_grant" in
   let __attrs =
     ({
+       tf_name = __id;
        access_grant_arn =
          Prop.computed __type __id "access_grant_arn";
        access_grant_id = Prop.computed __type __id "access_grant_id";

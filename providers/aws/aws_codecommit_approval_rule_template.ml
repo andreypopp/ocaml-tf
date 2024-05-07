@@ -60,6 +60,7 @@ let aws_codecommit_approval_rule_template ?description ?id ~content
   { content; description; id; name }
 
 type t = {
+  tf_name : string;
   approval_rule_template_id : string prop;
   content : string prop;
   creation_date : string prop;
@@ -75,6 +76,7 @@ let make ?description ?id ~content ~name __id =
   let __type = "aws_codecommit_approval_rule_template" in
   let __attrs =
     ({
+       tf_name = __id;
        approval_rule_template_id =
          Prop.computed __type __id "approval_rule_template_id";
        content = Prop.computed __type __id "content";

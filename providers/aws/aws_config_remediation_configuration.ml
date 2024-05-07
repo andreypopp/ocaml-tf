@@ -277,6 +277,7 @@ let aws_config_remediation_configuration ?automatic ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   automatic : bool prop;
   config_rule_name : string prop;
@@ -296,6 +297,7 @@ let make ?automatic ?id ?maximum_automatic_attempts ?resource_type
   let __type = "aws_config_remediation_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        automatic = Prop.computed __type __id "automatic";
        config_rule_name =

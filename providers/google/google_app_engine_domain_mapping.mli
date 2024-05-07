@@ -45,6 +45,7 @@ val yojson_of_google_app_engine_domain_mapping :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   domain_name : string prop;
   id : string prop;
   name : string prop;

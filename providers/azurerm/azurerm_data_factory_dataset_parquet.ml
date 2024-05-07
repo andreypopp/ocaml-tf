@@ -575,6 +575,7 @@ let azurerm_data_factory_dataset_parquet ?additional_properties
   }
 
 type t = {
+  tf_name : string;
   additional_properties : (string * string) list prop;
   annotations : string list prop;
   compression_codec : string prop;
@@ -597,6 +598,7 @@ let make ?additional_properties ?annotations ?compression_codec
   let __type = "azurerm_data_factory_dataset_parquet" in
   let __attrs =
     ({
+       tf_name = __id;
        additional_properties =
          Prop.computed __type __id "additional_properties";
        annotations = Prop.computed __type __id "annotations";

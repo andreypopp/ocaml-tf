@@ -459,6 +459,7 @@ let aws_ec2_client_vpn_endpoint ?description ?dns_servers ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   client_cidr_block : string prop;
   description : string prop;
@@ -488,6 +489,7 @@ let make ?description ?dns_servers ?id ?security_group_ids
   let __type = "aws_ec2_client_vpn_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        client_cidr_block =
          Prop.computed __type __id "client_cidr_block";

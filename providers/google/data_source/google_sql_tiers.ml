@@ -89,6 +89,7 @@ let google_sql_tiers ?id ?project () : google_sql_tiers =
   { id; project }
 
 type t = {
+  tf_name : string;
   id : string prop;
   project : string prop;
   tiers : tiers list prop;
@@ -98,6 +99,7 @@ let make ?id ?project __id =
   let __type = "google_sql_tiers" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        project = Prop.computed __type __id "project";
        tiers = Prop.computed __type __id "tiers";

@@ -54,6 +54,7 @@ let google_dns_managed_zone_iam_policy ?id ?project ~managed_zone ()
   { id; managed_zone; project }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   managed_zone : string prop;
@@ -65,6 +66,7 @@ let make ?id ?project ~managed_zone __id =
   let __type = "google_dns_managed_zone_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        managed_zone = Prop.computed __type __id "managed_zone";

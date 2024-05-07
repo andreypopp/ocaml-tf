@@ -636,6 +636,7 @@ let google_migration_center_preference_set ?description ?display_name
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   display_name : string prop;
@@ -653,6 +654,7 @@ let make ?description ?display_name ?id ?project ?timeouts
   let __type = "google_migration_center_preference_set" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";

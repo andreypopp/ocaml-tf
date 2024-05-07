@@ -140,6 +140,7 @@ let aws_cur_report_definition ?additional_artifacts ?id
   }
 
 type t = {
+  tf_name : string;
   additional_artifacts : string list prop;
   additional_schema_elements : string list prop;
   arn : string prop;
@@ -162,6 +163,7 @@ let make ?additional_artifacts ?id ?refresh_closed_reports
   let __type = "aws_cur_report_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        additional_artifacts =
          Prop.computed __type __id "additional_artifacts";
        additional_schema_elements =

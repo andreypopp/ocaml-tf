@@ -73,6 +73,7 @@ let aws_iot_certificate ?ca_pem ?certificate_pem ?csr ?id ~active ()
   { active; ca_pem; certificate_pem; csr; id }
 
 type t = {
+  tf_name : string;
   active : bool prop;
   arn : string prop;
   ca_certificate_id : string prop;
@@ -88,6 +89,7 @@ let make ?ca_pem ?certificate_pem ?csr ?id ~active __id =
   let __type = "aws_iot_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        active = Prop.computed __type __id "active";
        arn = Prop.computed __type __id "arn";
        ca_certificate_id =

@@ -49,6 +49,7 @@ val yojson_of_azurerm_virtual_hub_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   internet_security_enabled : bool prop;
   name : string prop;

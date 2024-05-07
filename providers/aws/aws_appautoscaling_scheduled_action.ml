@@ -166,6 +166,7 @@ let aws_appautoscaling_scheduled_action ?end_time ?id ?start_time
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   end_time : string prop;
   id : string prop;
@@ -184,6 +185,7 @@ let make ?end_time ?id ?start_time ?timezone ~name ~resource_id
   let __type = "aws_appautoscaling_scheduled_action" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        end_time = Prop.computed __type __id "end_time";
        id = Prop.computed __type __id "id";

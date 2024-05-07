@@ -247,6 +247,7 @@ let azurerm_data_factory_linked_service_cosmosdb ?account_endpoint
   }
 
 type t = {
+  tf_name : string;
   account_endpoint : string prop;
   account_key : string prop;
   additional_properties : (string * string) list prop;
@@ -268,6 +269,7 @@ let make ?account_endpoint ?account_key ?additional_properties
   let __type = "azurerm_data_factory_linked_service_cosmosdb" in
   let __attrs =
     ({
+       tf_name = __id;
        account_endpoint =
          Prop.computed __type __id "account_endpoint";
        account_key = Prop.computed __type __id "account_key";

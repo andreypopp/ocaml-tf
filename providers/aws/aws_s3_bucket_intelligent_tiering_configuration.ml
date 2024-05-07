@@ -148,6 +148,7 @@ let aws_s3_bucket_intelligent_tiering_configuration ?id ?status
   { bucket; id; name; status; filter; tiering }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   id : string prop;
   name : string prop;
@@ -158,6 +159,7 @@ let make ?id ?status ?(filter = []) ~bucket ~name ~tiering __id =
   let __type = "aws_s3_bucket_intelligent_tiering_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

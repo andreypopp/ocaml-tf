@@ -32,6 +32,7 @@ val yojson_of_aws_datasync_location_nfs :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   server_hostname : string prop;

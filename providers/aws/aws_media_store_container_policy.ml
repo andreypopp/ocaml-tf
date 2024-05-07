@@ -52,6 +52,7 @@ let aws_media_store_container_policy ?id ~container_name ~policy () :
   { container_name; id; policy }
 
 type t = {
+  tf_name : string;
   container_name : string prop;
   id : string prop;
   policy : string prop;
@@ -61,6 +62,7 @@ let make ?id ~container_name ~policy __id =
   let __type = "aws_media_store_container_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        container_name = Prop.computed __type __id "container_name";
        id = Prop.computed __type __id "id";
        policy = Prop.computed __type __id "policy";

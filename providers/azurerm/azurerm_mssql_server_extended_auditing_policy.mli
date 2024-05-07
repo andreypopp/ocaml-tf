@@ -36,6 +36,7 @@ val yojson_of_azurerm_mssql_server_extended_auditing_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   log_monitoring_enabled : bool prop;

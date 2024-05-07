@@ -79,6 +79,7 @@ val yojson_of_aws_identitystore_user : aws_identitystore_user -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   external_ids : external_ids list prop;
   id : string prop;

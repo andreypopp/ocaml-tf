@@ -278,6 +278,7 @@ let azurerm_data_protection_backup_instance_kubernetes_cluster ?id
   }
 
 type t = {
+  tf_name : string;
   backup_policy_id : string prop;
   id : string prop;
   kubernetes_cluster_id : string prop;
@@ -295,6 +296,7 @@ let make ?id ?(backup_datasource_parameters = []) ?timeouts
   in
   let __attrs =
     ({
+       tf_name = __id;
        backup_policy_id =
          Prop.computed __type __id "backup_policy_id";
        id = Prop.computed __type __id "id";

@@ -21,6 +21,7 @@ val yojson_of_aws_api_gateway_request_validator :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   rest_api_id : string prop;

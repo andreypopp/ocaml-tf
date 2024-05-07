@@ -27,6 +27,7 @@ val yojson_of_aws_ec2_instance_types : aws_ec2_instance_types -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   instance_types : string list prop;
 }

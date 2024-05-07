@@ -208,6 +208,7 @@ let google_certificate_manager_dns_authorization ?description ?id
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   dns_resource_record : dns_resource_record list prop;
   domain : string prop;
@@ -226,6 +227,7 @@ let make ?description ?id ?labels ?location ?project ?type_ ?timeouts
   let __type = "google_certificate_manager_dns_authorization" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        dns_resource_record =
          Prop.computed __type __id "dns_resource_record";

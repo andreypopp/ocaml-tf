@@ -18,6 +18,7 @@ val yojson_of_aws_ssm_patch_group : aws_ssm_patch_group -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   baseline_id : string prop;
   id : string prop;
   patch_group : string prop;

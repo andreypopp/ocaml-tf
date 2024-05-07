@@ -133,6 +133,7 @@ let google_service_networking_connection ?deletion_policy ?id
   }
 
 type t = {
+  tf_name : string;
   deletion_policy : string prop;
   id : string prop;
   network : string prop;
@@ -146,6 +147,7 @@ let make ?deletion_policy ?id ?timeouts ~network
   let __type = "google_service_networking_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        deletion_policy = Prop.computed __type __id "deletion_policy";
        id = Prop.computed __type __id "id";
        network = Prop.computed __type __id "network";

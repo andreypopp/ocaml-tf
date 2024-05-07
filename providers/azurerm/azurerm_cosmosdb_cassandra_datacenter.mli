@@ -40,6 +40,7 @@ val yojson_of_azurerm_cosmosdb_cassandra_datacenter :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   availability_zones_enabled : bool prop;
   backup_storage_customer_key_uri : string prop;
   base64_encoded_yaml_fragment : string prop;

@@ -23,6 +23,7 @@ val yojson_of_cloudflare_access_application :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   aud : string prop;
   domain : string prop;

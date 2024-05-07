@@ -158,6 +158,7 @@ let google_healthcare_dicom_store ?id ?labels
   { dataset; id; labels; name; notification_config; timeouts }
 
 type t = {
+  tf_name : string;
   dataset : string prop;
   effective_labels : (string * string) list prop;
   id : string prop;
@@ -172,6 +173,7 @@ let make ?id ?labels ?(notification_config = []) ?timeouts ~dataset
   let __type = "google_healthcare_dicom_store" in
   let __attrs =
     ({
+       tf_name = __id;
        dataset = Prop.computed __type __id "dataset";
        effective_labels =
          Prop.computed __type __id "effective_labels";

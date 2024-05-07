@@ -251,6 +251,7 @@ let cloudflare_certificate_pack ?cloudflare_branding ?id
   }
 
 type t = {
+  tf_name : string;
   certificate_authority : string prop;
   cloudflare_branding : bool prop;
   hosts : string list prop;
@@ -269,6 +270,7 @@ let make ?cloudflare_branding ?id ?wait_for_active_status
   let __type = "cloudflare_certificate_pack" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_authority =
          Prop.computed __type __id "certificate_authority";
        cloudflare_branding =

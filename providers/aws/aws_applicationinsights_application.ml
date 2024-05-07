@@ -155,6 +155,7 @@ let aws_applicationinsights_application ?auto_config_enabled
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   auto_config_enabled : bool prop;
   auto_create : bool prop;
@@ -174,6 +175,7 @@ let make ?auto_config_enabled ?auto_create ?cwe_monitor_enabled
   let __type = "aws_applicationinsights_application" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        auto_config_enabled =
          Prop.computed __type __id "auto_config_enabled";

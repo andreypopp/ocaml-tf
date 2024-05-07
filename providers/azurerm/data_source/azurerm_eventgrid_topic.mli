@@ -24,6 +24,7 @@ val yojson_of_azurerm_eventgrid_topic :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   endpoint : string prop;
   id : string prop;
   location : string prop;

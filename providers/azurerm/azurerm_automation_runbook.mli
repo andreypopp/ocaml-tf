@@ -104,6 +104,7 @@ val yojson_of_azurerm_automation_runbook :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automation_account_name : string prop;
   content : string prop;
   description : string prop;

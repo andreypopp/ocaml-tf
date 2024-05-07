@@ -87,6 +87,7 @@ let aws_codeartifact_repository_permissions_policy ?domain_owner ?id
   }
 
 type t = {
+  tf_name : string;
   domain : string prop;
   domain_owner : string prop;
   id : string prop;
@@ -101,6 +102,7 @@ let make ?domain_owner ?id ?policy_revision ~domain ~policy_document
   let __type = "aws_codeartifact_repository_permissions_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        domain = Prop.computed __type __id "domain";
        domain_owner = Prop.computed __type __id "domain_owner";
        id = Prop.computed __type __id "id";

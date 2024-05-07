@@ -119,6 +119,7 @@ let aws_ec2_transit_gateway_route_table_associations ?id ?timeouts
   { id; transit_gateway_route_table_id; filter; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   ids : string list prop;
   transit_gateway_route_table_id : string prop;
@@ -128,6 +129,7 @@ let make ?id ?timeouts ~transit_gateway_route_table_id ~filter __id =
   let __type = "aws_ec2_transit_gateway_route_table_associations" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ids = Prop.computed __type __id "ids";
        transit_gateway_route_table_id =

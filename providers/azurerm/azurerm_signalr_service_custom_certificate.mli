@@ -30,6 +30,7 @@ val yojson_of_azurerm_signalr_service_custom_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_version : string prop;
   custom_certificate_id : string prop;
   id : string prop;

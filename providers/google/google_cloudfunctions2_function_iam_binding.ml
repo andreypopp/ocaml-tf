@@ -132,6 +132,7 @@ let google_cloudfunctions2_function_iam_binding ?id ?location
   { cloud_function; id; location; members; project; role; condition }
 
 type t = {
+  tf_name : string;
   cloud_function : string prop;
   etag : string prop;
   id : string prop;
@@ -146,6 +147,7 @@ let make ?id ?location ?project ?(condition = []) ~cloud_function
   let __type = "google_cloudfunctions2_function_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        cloud_function = Prop.computed __type __id "cloud_function";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

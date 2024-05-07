@@ -1031,6 +1031,7 @@ let azurerm_cosmosdb_account ?access_key_metadata_writes_enabled
   }
 
 type t = {
+  tf_name : string;
   access_key_metadata_writes_enabled : bool prop;
   analytical_storage_enabled : bool prop;
   connection_strings : string list prop;
@@ -1089,6 +1090,7 @@ let make ?access_key_metadata_writes_enabled
   let __type = "azurerm_cosmosdb_account" in
   let __attrs =
     ({
+       tf_name = __id;
        access_key_metadata_writes_enabled =
          Prop.computed __type __id
            "access_key_metadata_writes_enabled";

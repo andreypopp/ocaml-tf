@@ -25,6 +25,7 @@ val yojson_of_aws_sfn_alias : aws_sfn_alias -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   creation_date : string prop;
   description : string prop;

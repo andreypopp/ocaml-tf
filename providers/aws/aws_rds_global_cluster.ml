@@ -216,6 +216,7 @@ let aws_rds_global_cluster ?database_name ?deletion_protection
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   database_name : string prop;
   deletion_protection : bool prop;
@@ -237,6 +238,7 @@ let make ?database_name ?deletion_protection ?engine ?engine_version
   let __type = "aws_rds_global_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        database_name = Prop.computed __type __id "database_name";
        deletion_protection =

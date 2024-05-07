@@ -162,6 +162,7 @@ let aws_location_route_calculator ?description ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   calculator_arn : string prop;
   calculator_name : string prop;
   create_time : string prop;
@@ -178,6 +179,7 @@ let make ?description ?id ?tags ?tags_all ?timeouts ~calculator_name
   let __type = "aws_location_route_calculator" in
   let __attrs =
     ({
+       tf_name = __id;
        calculator_arn = Prop.computed __type __id "calculator_arn";
        calculator_name = Prop.computed __type __id "calculator_name";
        create_time = Prop.computed __type __id "create_time";

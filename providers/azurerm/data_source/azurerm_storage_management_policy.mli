@@ -116,6 +116,7 @@ val yojson_of_azurerm_storage_management_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   rule : rule list prop;
   storage_account_id : string prop;

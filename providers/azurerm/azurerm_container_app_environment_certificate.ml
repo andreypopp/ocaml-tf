@@ -166,6 +166,7 @@ let azurerm_container_app_environment_certificate ?id ?tags ?timeouts
   }
 
 type t = {
+  tf_name : string;
   certificate_blob_base64 : string prop;
   certificate_password : string prop;
   container_app_environment_id : string prop;
@@ -184,6 +185,7 @@ let make ?id ?tags ?timeouts ~certificate_blob_base64
   let __type = "azurerm_container_app_environment_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_blob_base64 =
          Prop.computed __type __id "certificate_blob_base64";
        certificate_password =

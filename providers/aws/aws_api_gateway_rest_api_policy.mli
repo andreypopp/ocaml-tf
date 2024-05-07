@@ -19,6 +19,7 @@ val yojson_of_aws_api_gateway_rest_api_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   policy : string prop;
   rest_api_id : string prop;

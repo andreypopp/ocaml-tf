@@ -33,6 +33,7 @@ val yojson_of_azurerm_virtual_hub_bgp_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   peer_asn : float prop;

@@ -43,6 +43,7 @@ let aws_sesv2_email_identity_mail_from_attributes ?id ~email_identity
   { email_identity; id }
 
 type t = {
+  tf_name : string;
   behavior_on_mx_failure : string prop;
   email_identity : string prop;
   id : string prop;
@@ -53,6 +54,7 @@ let make ?id ~email_identity __id =
   let __type = "aws_sesv2_email_identity_mail_from_attributes" in
   let __attrs =
     ({
+       tf_name = __id;
        behavior_on_mx_failure =
          Prop.computed __type __id "behavior_on_mx_failure";
        email_identity = Prop.computed __type __id "email_identity";

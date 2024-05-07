@@ -32,6 +32,7 @@ val yojson_of_azurerm_container_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   fqdn : string prop;
   id : string prop;
   identity : identity list prop;

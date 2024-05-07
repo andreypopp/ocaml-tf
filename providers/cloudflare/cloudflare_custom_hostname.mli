@@ -66,6 +66,7 @@ val yojson_of_cloudflare_custom_hostname :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   custom_metadata : (string * string) list prop;
   custom_origin_server : string prop;
   custom_origin_sni : string prop;

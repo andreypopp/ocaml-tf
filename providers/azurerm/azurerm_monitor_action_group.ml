@@ -963,6 +963,7 @@ let azurerm_monitor_action_group ?enabled ?id ?location ?tags
   }
 
 type t = {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   location : string prop;
@@ -983,6 +984,7 @@ let make ?enabled ?id ?location ?tags ?(arm_role_receiver = [])
   let __type = "azurerm_monitor_action_group" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

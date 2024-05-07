@@ -27,6 +27,7 @@ val yojson_of_hcloud_networks : hcloud_networks -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   networks : networks list prop;
   with_selector : string prop;

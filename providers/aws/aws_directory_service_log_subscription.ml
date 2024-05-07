@@ -52,6 +52,7 @@ let aws_directory_service_log_subscription ?id ~directory_id
   { directory_id; id; log_group_name }
 
 type t = {
+  tf_name : string;
   directory_id : string prop;
   id : string prop;
   log_group_name : string prop;
@@ -61,6 +62,7 @@ let make ?id ~directory_id ~log_group_name __id =
   let __type = "aws_directory_service_log_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        directory_id = Prop.computed __type __id "directory_id";
        id = Prop.computed __type __id "id";
        log_group_name = Prop.computed __type __id "log_group_name";

@@ -422,6 +422,7 @@ let hcloud_server ?allow_deprecated_images ?backups ?datacenter
   }
 
 type t = {
+  tf_name : string;
   allow_deprecated_images : bool prop;
   backup_window : string prop;
   backups : bool prop;
@@ -459,6 +460,7 @@ let make ?allow_deprecated_images ?backups ?datacenter
   let __type = "hcloud_server" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_deprecated_images =
          Prop.computed __type __id "allow_deprecated_images";
        backup_window = Prop.computed __type __id "backup_window";

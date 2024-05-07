@@ -250,6 +250,7 @@ let azurerm_signalr_service_network_acl ?id ?timeouts ~default_action
   }
 
 type t = {
+  tf_name : string;
   default_action : string prop;
   id : string prop;
   signalr_service_id : string prop;
@@ -260,6 +261,7 @@ let make ?id ?timeouts ~default_action ~signalr_service_id
   let __type = "azurerm_signalr_service_network_acl" in
   let __attrs =
     ({
+       tf_name = __id;
        default_action = Prop.computed __type __id "default_action";
        id = Prop.computed __type __id "id";
        signalr_service_id =

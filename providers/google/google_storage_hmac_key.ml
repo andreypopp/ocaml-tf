@@ -120,6 +120,7 @@ let google_storage_hmac_key ?id ?project ?state ?timeouts
   { id; project; service_account_email; state; timeouts }
 
 type t = {
+  tf_name : string;
   access_id : string prop;
   id : string prop;
   project : string prop;
@@ -134,6 +135,7 @@ let make ?id ?project ?state ?timeouts ~service_account_email __id =
   let __type = "google_storage_hmac_key" in
   let __attrs =
     ({
+       tf_name = __id;
        access_id = Prop.computed __type __id "access_id";
        id = Prop.computed __type __id "id";
        project = Prop.computed __type __id "project";

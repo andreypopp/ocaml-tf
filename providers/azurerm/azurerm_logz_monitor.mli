@@ -56,6 +56,7 @@ val yojson_of_azurerm_logz_monitor : azurerm_logz_monitor -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   company_name : string prop;
   enabled : bool prop;
   enterprise_app_id : string prop;

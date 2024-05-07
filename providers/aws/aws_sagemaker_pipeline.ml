@@ -231,6 +231,7 @@ let aws_sagemaker_pipeline ?id ?pipeline_definition
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   pipeline_definition : string prop;
@@ -249,6 +250,7 @@ let make ?id ?pipeline_definition ?pipeline_description ?role_arn
   let __type = "aws_sagemaker_pipeline" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        pipeline_definition =

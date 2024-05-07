@@ -78,6 +78,7 @@ let aws_kinesis_stream ?id ?tags ~name () : aws_kinesis_stream =
   { id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   closed_shards : string list prop;
   creation_timestamp : float prop;
@@ -95,6 +96,7 @@ let make ?id ?tags ~name __id =
   let __type = "aws_kinesis_stream" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        closed_shards = Prop.computed __type __id "closed_shards";
        creation_timestamp =

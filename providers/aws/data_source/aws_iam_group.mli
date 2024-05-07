@@ -21,6 +21,7 @@ val yojson_of_aws_iam_group : aws_iam_group -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   group_id : string prop;
   group_name : string prop;

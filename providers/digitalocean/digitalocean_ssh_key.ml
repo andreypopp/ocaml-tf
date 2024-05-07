@@ -45,6 +45,7 @@ let digitalocean_ssh_key ?id ~name ~public_key () :
   { id; name; public_key }
 
 type t = {
+  tf_name : string;
   fingerprint : string prop;
   id : string prop;
   name : string prop;
@@ -55,6 +56,7 @@ let make ?id ~name ~public_key __id =
   let __type = "digitalocean_ssh_key" in
   let __attrs =
     ({
+       tf_name = __id;
        fingerprint = Prop.computed __type __id "fingerprint";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

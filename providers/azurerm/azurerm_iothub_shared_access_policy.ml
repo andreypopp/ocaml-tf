@@ -179,6 +179,7 @@ let azurerm_iothub_shared_access_policy ?device_connect ?id
   }
 
 type t = {
+  tf_name : string;
   device_connect : bool prop;
   id : string prop;
   iothub_name : string prop;
@@ -199,6 +200,7 @@ let make ?device_connect ?id ?registry_read ?registry_write
   let __type = "azurerm_iothub_shared_access_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        device_connect = Prop.computed __type __id "device_connect";
        id = Prop.computed __type __id "id";
        iothub_name = Prop.computed __type __id "iothub_name";

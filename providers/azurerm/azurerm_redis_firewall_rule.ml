@@ -150,6 +150,7 @@ let azurerm_redis_firewall_rule ?id ?timeouts ~end_ip ~name
   }
 
 type t = {
+  tf_name : string;
   end_ip : string prop;
   id : string prop;
   name : string prop;
@@ -163,6 +164,7 @@ let make ?id ?timeouts ~end_ip ~name ~redis_cache_name
   let __type = "azurerm_redis_firewall_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        end_ip = Prop.computed __type __id "end_ip";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

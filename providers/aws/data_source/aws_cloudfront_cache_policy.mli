@@ -73,6 +73,7 @@ val yojson_of_aws_cloudfront_cache_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   comment : string prop;
   default_ttl : float prop;
   etag : string prop;

@@ -215,6 +215,7 @@ let azurerm_eventgrid_system_topic ?id ?tags ?(identity = [])
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   metric_arm_resource_id : string prop;
@@ -230,6 +231,7 @@ let make ?id ?tags ?(identity = []) ?timeouts ~location ~name
   let __type = "azurerm_eventgrid_system_topic" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        metric_arm_resource_id =

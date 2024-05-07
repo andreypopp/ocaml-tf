@@ -207,6 +207,7 @@ val yojson_of_aws_ce_cost_category : aws_ce_cost_category -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   default_value : string prop;
   effective_end : string prop;

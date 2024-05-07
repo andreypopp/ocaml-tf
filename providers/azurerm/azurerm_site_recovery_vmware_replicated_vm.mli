@@ -71,6 +71,7 @@ val yojson_of_azurerm_site_recovery_vmware_replicated_vm :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   appliance_name : string prop;
   default_log_storage_account_id : string prop;
   default_recovery_disk_type : string prop;

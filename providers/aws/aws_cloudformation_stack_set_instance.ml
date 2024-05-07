@@ -360,6 +360,7 @@ let aws_cloudformation_stack_set_instance ?account_id ?call_as ?id
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   call_as : string prop;
   id : string prop;
@@ -378,6 +379,7 @@ let make ?account_id ?call_as ?id ?parameter_overrides ?region
   let __type = "aws_cloudformation_stack_set_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        call_as = Prop.computed __type __id "call_as";
        id = Prop.computed __type __id "id";

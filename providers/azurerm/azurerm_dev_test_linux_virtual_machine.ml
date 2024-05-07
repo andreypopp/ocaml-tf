@@ -357,6 +357,7 @@ let azurerm_dev_test_linux_virtual_machine ?allow_claim
   }
 
 type t = {
+  tf_name : string;
   allow_claim : bool prop;
   disallow_public_ip_address : bool prop;
   fqdn : string prop;
@@ -385,6 +386,7 @@ let make ?allow_claim ?disallow_public_ip_address ?id ?notes
   let __type = "azurerm_dev_test_linux_virtual_machine" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_claim = Prop.computed __type __id "allow_claim";
        disallow_public_ip_address =
          Prop.computed __type __id "disallow_public_ip_address";

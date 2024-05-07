@@ -207,6 +207,7 @@ let _ = yojson_of_aws_elb
 let aws_elb ?id ?tags ~name () : aws_elb = { id; name; tags }
 
 type t = {
+  tf_name : string;
   access_logs : access_logs list prop;
   arn : string prop;
   availability_zones : string list prop;
@@ -234,6 +235,7 @@ let make ?id ?tags ~name __id =
   let __type = "aws_elb" in
   let __attrs =
     ({
+       tf_name = __id;
        access_logs = Prop.computed __type __id "access_logs";
        arn = Prop.computed __type __id "arn";
        availability_zones =

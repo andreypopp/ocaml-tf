@@ -39,6 +39,7 @@ val yojson_of_azurerm_route_filter : azurerm_route_filter -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

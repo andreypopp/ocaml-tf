@@ -46,6 +46,7 @@ let cloudflare_custom_hostname_fallback_origin ?id ~origin ~zone_id
   { id; origin; zone_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   origin : string prop;
   status : string prop;
@@ -56,6 +57,7 @@ let make ?id ~origin ~zone_id __id =
   let __type = "cloudflare_custom_hostname_fallback_origin" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        origin = Prop.computed __type __id "origin";
        status = Prop.computed __type __id "status";

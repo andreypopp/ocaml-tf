@@ -56,6 +56,7 @@ let aws_api_gateway_usage_plan_key ?id ~key_id ~key_type
   { id; key_id; key_type; usage_plan_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   key_id : string prop;
   key_type : string prop;
@@ -68,6 +69,7 @@ let make ?id ~key_id ~key_type ~usage_plan_id __id =
   let __type = "aws_api_gateway_usage_plan_key" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        key_id = Prop.computed __type __id "key_id";
        key_type = Prop.computed __type __id "key_type";

@@ -215,6 +215,7 @@ val yojson_of_azurerm_service_fabric_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   add_on_features : string list prop;
   cluster_code_version : string prop;
   cluster_endpoint : string prop;

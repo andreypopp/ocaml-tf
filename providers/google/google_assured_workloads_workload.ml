@@ -540,6 +540,7 @@ let google_assured_workloads_workload ?billing_account
   }
 
 type t = {
+  tf_name : string;
   billing_account : string prop;
   compliance_regime : string prop;
   compliance_status : compliance_status list prop;
@@ -571,6 +572,7 @@ let make ?billing_account ?enable_sovereign_controls ?id ?labels
   let __type = "google_assured_workloads_workload" in
   let __attrs =
     ({
+       tf_name = __id;
        billing_account = Prop.computed __type __id "billing_account";
        compliance_regime =
          Prop.computed __type __id "compliance_regime";

@@ -38,6 +38,7 @@ val yojson_of_azurerm_spring_cloud_app_cosmosdb_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_type : string prop;
   cosmosdb_access_key : string prop;
   cosmosdb_account_id : string prop;

@@ -247,6 +247,7 @@ let aws_s3_bucket_acl ?acl ?expected_bucket_owner ?id
   { acl; bucket; expected_bucket_owner; id; access_control_policy }
 
 type t = {
+  tf_name : string;
   acl : string prop;
   bucket : string prop;
   expected_bucket_owner : string prop;
@@ -258,6 +259,7 @@ let make ?acl ?expected_bucket_owner ?id
   let __type = "aws_s3_bucket_acl" in
   let __attrs =
     ({
+       tf_name = __id;
        acl = Prop.computed __type __id "acl";
        bucket = Prop.computed __type __id "bucket";
        expected_bucket_owner =

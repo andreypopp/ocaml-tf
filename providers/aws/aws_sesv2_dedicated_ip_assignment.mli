@@ -25,6 +25,7 @@ val yojson_of_aws_sesv2_dedicated_ip_assignment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   destination_pool_name : string prop;
   id : string prop;
   ip : string prop;

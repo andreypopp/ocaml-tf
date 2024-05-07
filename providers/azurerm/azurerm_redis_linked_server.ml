@@ -141,6 +141,7 @@ let azurerm_redis_linked_server ?id ?timeouts ~linked_redis_cache_id
   }
 
 type t = {
+  tf_name : string;
   geo_replicated_primary_host_name : string prop;
   id : string prop;
   linked_redis_cache_id : string prop;
@@ -157,6 +158,7 @@ let make ?id ?timeouts ~linked_redis_cache_id
   let __type = "azurerm_redis_linked_server" in
   let __attrs =
     ({
+       tf_name = __id;
        geo_replicated_primary_host_name =
          Prop.computed __type __id "geo_replicated_primary_host_name";
        id = Prop.computed __type __id "id";

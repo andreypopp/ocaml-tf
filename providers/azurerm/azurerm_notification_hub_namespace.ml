@@ -180,6 +180,7 @@ let azurerm_notification_hub_namespace ?enabled ?id ?tags ?timeouts
   }
 
 type t = {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   location : string prop;
@@ -196,6 +197,7 @@ let make ?enabled ?id ?tags ?timeouts ~location ~name ~namespace_type
   let __type = "azurerm_notification_hub_namespace" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

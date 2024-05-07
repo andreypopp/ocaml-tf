@@ -86,6 +86,7 @@ let azurerm_cdn_frontdoor_firewall_policy ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   enabled : bool prop;
   frontend_endpoint_ids : string list prop;
   id : string prop;
@@ -100,6 +101,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_cdn_frontdoor_firewall_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        frontend_endpoint_ids =
          Prop.computed __type __id "frontend_endpoint_ids";

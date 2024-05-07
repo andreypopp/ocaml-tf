@@ -184,6 +184,7 @@ let google_monitoring_custom_service ?display_name ?id ?project
   }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   name : string prop;
@@ -197,6 +198,7 @@ let make ?display_name ?id ?project ?service_id ?user_labels
   let __type = "google_monitoring_custom_service" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

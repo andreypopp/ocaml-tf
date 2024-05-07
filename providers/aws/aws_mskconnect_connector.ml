@@ -922,6 +922,7 @@ let aws_mskconnect_connector ?description ?id ?(log_delivery = [])
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   connector_configuration : (string * string) list prop;
   description : string prop;
@@ -940,6 +941,7 @@ let make ?description ?id ?(log_delivery = []) ?timeouts
   let __type = "aws_mskconnect_connector" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        connector_configuration =
          Prop.computed __type __id "connector_configuration";

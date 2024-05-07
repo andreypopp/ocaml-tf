@@ -83,6 +83,7 @@ val yojson_of_azurerm_media_streaming_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_start_enabled : bool prop;
   cdn_enabled : bool prop;
   cdn_profile : string prop;

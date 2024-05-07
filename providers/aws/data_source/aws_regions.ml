@@ -78,6 +78,7 @@ let aws_regions ?all_regions ?id ~filter () : aws_regions =
   { all_regions; id; filter }
 
 type t = {
+  tf_name : string;
   all_regions : bool prop;
   id : string prop;
   names : string list prop;
@@ -87,6 +88,7 @@ let make ?all_regions ?id ~filter __id =
   let __type = "aws_regions" in
   let __attrs =
     ({
+       tf_name = __id;
        all_regions = Prop.computed __type __id "all_regions";
        id = Prop.computed __type __id "id";
        names = Prop.computed __type __id "names";

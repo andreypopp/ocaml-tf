@@ -118,6 +118,7 @@ let azurerm_lighthouse_assignment ?id ?name ?timeouts
   { id; lighthouse_definition_id; name; scope; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   lighthouse_definition_id : string prop;
   name : string prop;
@@ -128,6 +129,7 @@ let make ?id ?name ?timeouts ~lighthouse_definition_id ~scope __id =
   let __type = "azurerm_lighthouse_assignment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        lighthouse_definition_id =
          Prop.computed __type __id "lighthouse_definition_id";

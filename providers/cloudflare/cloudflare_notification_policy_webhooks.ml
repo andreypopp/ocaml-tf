@@ -70,6 +70,7 @@ let cloudflare_notification_policy_webhooks ?id ?secret ?url
   { account_id; id; name; secret; url }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   created_at : string prop;
   id : string prop;
@@ -85,6 +86,7 @@ let make ?id ?secret ?url ~account_id ~name __id =
   let __type = "cloudflare_notification_policy_webhooks" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        created_at = Prop.computed __type __id "created_at";
        id = Prop.computed __type __id "id";

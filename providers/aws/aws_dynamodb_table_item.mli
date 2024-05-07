@@ -21,6 +21,7 @@ val yojson_of_aws_dynamodb_table_item :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   hash_key : string prop;
   id : string prop;
   item : string prop;

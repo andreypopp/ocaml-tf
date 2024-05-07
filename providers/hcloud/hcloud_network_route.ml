@@ -55,6 +55,7 @@ let hcloud_network_route ?id ~destination ~gateway ~network_id () :
   { destination; gateway; id; network_id }
 
 type t = {
+  tf_name : string;
   destination : string prop;
   gateway : string prop;
   id : string prop;
@@ -65,6 +66,7 @@ let make ?id ~destination ~gateway ~network_id __id =
   let __type = "hcloud_network_route" in
   let __attrs =
     ({
+       tf_name = __id;
        destination = Prop.computed __type __id "destination";
        gateway = Prop.computed __type __id "gateway";
        id = Prop.computed __type __id "id";

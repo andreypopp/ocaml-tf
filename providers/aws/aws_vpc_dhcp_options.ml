@@ -139,6 +139,7 @@ let aws_vpc_dhcp_options ?domain_name ?domain_name_servers ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   domain_name : string prop;
   domain_name_servers : string list prop;
@@ -156,6 +157,7 @@ let make ?domain_name ?domain_name_servers ?id ?netbios_name_servers
   let __type = "aws_vpc_dhcp_options" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        domain_name = Prop.computed __type __id "domain_name";
        domain_name_servers =

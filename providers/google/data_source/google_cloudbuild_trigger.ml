@@ -1642,6 +1642,7 @@ let google_cloudbuild_trigger ?id ?project ~location ~trigger_id () :
   { id; location; project; trigger_id }
 
 type t = {
+  tf_name : string;
   approval_config : approval_config list prop;
   bitbucket_server_trigger_config :
     bitbucket_server_trigger_config list prop;
@@ -1675,6 +1676,7 @@ let make ?id ?project ~location ~trigger_id __id =
   let __type = "google_cloudbuild_trigger" in
   let __attrs =
     ({
+       tf_name = __id;
        approval_config = Prop.computed __type __id "approval_config";
        bitbucket_server_trigger_config =
          Prop.computed __type __id "bitbucket_server_trigger_config";

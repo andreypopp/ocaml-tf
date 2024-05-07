@@ -129,6 +129,7 @@ let azurerm_network_interface_backend_address_pool_association ?id
   }
 
 type t = {
+  tf_name : string;
   backend_address_pool_id : string prop;
   id : string prop;
   ip_configuration_name : string prop;
@@ -142,6 +143,7 @@ let make ?id ?timeouts ~backend_address_pool_id
   in
   let __attrs =
     ({
+       tf_name = __id;
        backend_address_pool_id =
          Prop.computed __type __id "backend_address_pool_id";
        id = Prop.computed __type __id "id";

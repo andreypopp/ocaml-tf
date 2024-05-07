@@ -18,6 +18,7 @@ val yojson_of_aws_s3_bucket_policy : aws_s3_bucket_policy -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket : string prop;
   id : string prop;
   policy : string prop;

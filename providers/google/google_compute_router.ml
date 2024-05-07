@@ -276,6 +276,7 @@ let google_compute_router ?description ?encrypted_interconnect_router
   }
 
 type t = {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   encrypted_interconnect_router : bool prop;
@@ -292,6 +293,7 @@ let make ?description ?encrypted_interconnect_router ?id ?project
   let __type = "google_compute_router" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";
        description = Prop.computed __type __id "description";

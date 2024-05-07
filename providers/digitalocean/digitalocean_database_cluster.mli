@@ -49,6 +49,7 @@ val yojson_of_digitalocean_database_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   database : string prop;
   engine : string prop;
   eviction_policy : string prop;

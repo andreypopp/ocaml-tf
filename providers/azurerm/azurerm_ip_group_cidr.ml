@@ -104,6 +104,7 @@ let azurerm_ip_group_cidr ?id ?timeouts ~cidr ~ip_group_id () :
   { cidr; id; ip_group_id; timeouts }
 
 type t = {
+  tf_name : string;
   cidr : string prop;
   id : string prop;
   ip_group_id : string prop;
@@ -113,6 +114,7 @@ let make ?id ?timeouts ~cidr ~ip_group_id __id =
   let __type = "azurerm_ip_group_cidr" in
   let __attrs =
     ({
+       tf_name = __id;
        cidr = Prop.computed __type __id "cidr";
        id = Prop.computed __type __id "id";
        ip_group_id = Prop.computed __type __id "ip_group_id";

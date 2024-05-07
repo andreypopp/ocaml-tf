@@ -18,6 +18,7 @@ val yojson_of_aws_region : aws_region -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   endpoint : string prop;
   id : string prop;

@@ -31,6 +31,7 @@ val yojson_of_google_alloydb_user : google_alloydb_user -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster : string prop;
   database_roles : string list prop;
   id : string prop;

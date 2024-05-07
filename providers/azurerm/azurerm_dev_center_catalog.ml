@@ -251,6 +251,7 @@ let azurerm_dev_center_catalog ?id ?(catalog_adogit = [])
   }
 
 type t = {
+  tf_name : string;
   dev_center_id : string prop;
   id : string prop;
   name : string prop;
@@ -262,6 +263,7 @@ let make ?id ?(catalog_adogit = []) ?(catalog_github = []) ?timeouts
   let __type = "azurerm_dev_center_catalog" in
   let __attrs =
     ({
+       tf_name = __id;
        dev_center_id = Prop.computed __type __id "dev_center_id";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

@@ -26,6 +26,7 @@ val yojson_of_aws_iot_policy : aws_iot_policy -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   default_version_id : string prop;
   id : string prop;

@@ -91,6 +91,7 @@ val yojson_of_aws_networkfirewall_firewall_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   firewall_policy : firewall_policy list prop;

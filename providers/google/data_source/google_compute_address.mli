@@ -19,6 +19,7 @@ val yojson_of_google_compute_address : google_compute_address -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address : string prop;
   address_type : string prop;
   id : string prop;

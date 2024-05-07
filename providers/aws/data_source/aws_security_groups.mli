@@ -28,6 +28,7 @@ val yojson_of_aws_security_groups : aws_security_groups -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arns : string list prop;
   id : string prop;
   ids : string list prop;

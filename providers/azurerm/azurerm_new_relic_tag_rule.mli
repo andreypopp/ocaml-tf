@@ -53,6 +53,7 @@ val yojson_of_azurerm_new_relic_tag_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   activity_log_enabled : bool prop;
   azure_active_directory_log_enabled : bool prop;
   id : string prop;

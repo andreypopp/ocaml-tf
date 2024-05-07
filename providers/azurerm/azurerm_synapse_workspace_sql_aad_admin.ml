@@ -134,6 +134,7 @@ let azurerm_synapse_workspace_sql_aad_admin ?id ?timeouts ~login
   { id; login; object_id; synapse_workspace_id; tenant_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   login : string prop;
   object_id : string prop;
@@ -146,6 +147,7 @@ let make ?id ?timeouts ~login ~object_id ~synapse_workspace_id
   let __type = "azurerm_synapse_workspace_sql_aad_admin" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        login = Prop.computed __type __id "login";
        object_id = Prop.computed __type __id "object_id";

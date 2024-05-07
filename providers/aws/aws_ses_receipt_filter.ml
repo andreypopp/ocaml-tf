@@ -51,6 +51,7 @@ let aws_ses_receipt_filter ?id ~cidr ~name ~policy () :
   { cidr; id; name; policy }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cidr : string prop;
   id : string prop;
@@ -62,6 +63,7 @@ let make ?id ~cidr ~name ~policy __id =
   let __type = "aws_ses_receipt_filter" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cidr = Prop.computed __type __id "cidr";
        id = Prop.computed __type __id "id";

@@ -290,6 +290,7 @@ let kubernetes_storage_class_v1 ?allow_volume_expansion ?id
   }
 
 type t = {
+  tf_name : string;
   allow_volume_expansion : bool prop;
   id : string prop;
   mount_options : string list prop;
@@ -305,6 +306,7 @@ let make ?allow_volume_expansion ?id ?mount_options ?parameters
   let __type = "kubernetes_storage_class_v1" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_volume_expansion =
          Prop.computed __type __id "allow_volume_expansion";
        id = Prop.computed __type __id "id";

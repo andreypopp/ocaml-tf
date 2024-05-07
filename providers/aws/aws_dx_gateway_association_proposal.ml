@@ -81,6 +81,7 @@ let aws_dx_gateway_association_proposal ?allowed_prefixes ?id
   }
 
 type t = {
+  tf_name : string;
   allowed_prefixes : string list prop;
   associated_gateway_id : string prop;
   associated_gateway_owner_account_id : string prop;
@@ -95,6 +96,7 @@ let make ?allowed_prefixes ?id ~associated_gateway_id ~dx_gateway_id
   let __type = "aws_dx_gateway_association_proposal" in
   let __attrs =
     ({
+       tf_name = __id;
        allowed_prefixes =
          Prop.computed __type __id "allowed_prefixes";
        associated_gateway_id =

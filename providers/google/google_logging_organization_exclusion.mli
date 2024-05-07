@@ -22,6 +22,7 @@ val yojson_of_google_logging_organization_exclusion :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   disabled : bool prop;
   filter : string prop;

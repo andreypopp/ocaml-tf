@@ -859,6 +859,7 @@ let azurerm_mssql_database ?auto_pause_delay_in_minutes ?collation
   }
 
 type t = {
+  tf_name : string;
   auto_pause_delay_in_minutes : float prop;
   collation : string prop;
   create_mode : string prop;
@@ -910,6 +911,7 @@ let make ?auto_pause_delay_in_minutes ?collation ?create_mode
   let __type = "azurerm_mssql_database" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_pause_delay_in_minutes =
          Prop.computed __type __id "auto_pause_delay_in_minutes";
        collation = Prop.computed __type __id "collation";

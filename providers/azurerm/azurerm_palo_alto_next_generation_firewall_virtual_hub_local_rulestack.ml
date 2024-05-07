@@ -439,6 +439,7 @@ let azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rulestack
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   resource_group_name : string prop;
@@ -454,6 +455,7 @@ let make ?id ?tags ?(destination_nat = []) ?(dns_settings = [])
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        resource_group_name =

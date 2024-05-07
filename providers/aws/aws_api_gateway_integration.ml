@@ -263,6 +263,7 @@ let aws_api_gateway_integration ?cache_key_parameters
   }
 
 type t = {
+  tf_name : string;
   cache_key_parameters : string list prop;
   cache_namespace : string prop;
   connection_id : string prop;
@@ -291,6 +292,7 @@ let make ?cache_key_parameters ?cache_namespace ?connection_id
   let __type = "aws_api_gateway_integration" in
   let __attrs =
     ({
+       tf_name = __id;
        cache_key_parameters =
          Prop.computed __type __id "cache_key_parameters";
        cache_namespace = Prop.computed __type __id "cache_namespace";

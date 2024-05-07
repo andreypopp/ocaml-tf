@@ -194,6 +194,7 @@ let aws_neptune_global_cluster ?deletion_protection ?engine
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   deletion_protection : bool prop;
   engine : string prop;
@@ -213,6 +214,7 @@ let make ?deletion_protection ?engine ?engine_version ?id
   let __type = "aws_neptune_global_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        deletion_protection =
          Prop.computed __type __id "deletion_protection";

@@ -56,6 +56,7 @@ let aws_iam_saml_provider ?id ?tags ~arn () : aws_iam_saml_provider =
   { arn; id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   create_date : string prop;
   id : string prop;
@@ -69,6 +70,7 @@ let make ?id ?tags ~arn __id =
   let __type = "aws_iam_saml_provider" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        create_date = Prop.computed __type __id "create_date";
        id = Prop.computed __type __id "id";

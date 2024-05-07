@@ -42,6 +42,7 @@ val yojson_of_aws_kinesis_stream : aws_kinesis_stream -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   encryption_type : string prop;
   enforce_consumer_deletion : bool prop;

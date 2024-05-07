@@ -77,6 +77,7 @@ val yojson_of_azurerm_active_directory_domain_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   deployment_id : string prop;
   domain_configuration_type : string prop;
   domain_name : string prop;

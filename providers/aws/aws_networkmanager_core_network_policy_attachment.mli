@@ -24,6 +24,7 @@ val yojson_of_aws_networkmanager_core_network_policy_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   core_network_id : string prop;
   id : string prop;
   policy_document : string prop;

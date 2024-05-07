@@ -38,6 +38,7 @@ val yojson_of_google_network_security_gateway_security_policy_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_matcher : string prop;
   basic_profile : string prop;
   create_time : string prop;

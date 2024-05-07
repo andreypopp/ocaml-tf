@@ -19,6 +19,7 @@ val yojson_of_aws_appsync_domain_name_api_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_id : string prop;
   domain_name : string prop;
   id : string prop;

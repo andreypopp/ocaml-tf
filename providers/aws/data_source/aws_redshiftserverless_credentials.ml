@@ -66,6 +66,7 @@ let aws_redshiftserverless_credentials ?db_name ?duration_seconds ?id
   { db_name; duration_seconds; id; workgroup_name }
 
 type t = {
+  tf_name : string;
   db_name : string prop;
   db_password : string prop;
   db_user : string prop;
@@ -79,6 +80,7 @@ let make ?db_name ?duration_seconds ?id ~workgroup_name __id =
   let __type = "aws_redshiftserverless_credentials" in
   let __attrs =
     ({
+       tf_name = __id;
        db_name = Prop.computed __type __id "db_name";
        db_password = Prop.computed __type __id "db_password";
        db_user = Prop.computed __type __id "db_user";

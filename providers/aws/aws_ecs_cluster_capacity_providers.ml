@@ -127,6 +127,7 @@ let aws_ecs_cluster_capacity_providers ?capacity_providers ?id
   }
 
 type t = {
+  tf_name : string;
   capacity_providers : string list prop;
   cluster_name : string prop;
   id : string prop;
@@ -137,6 +138,7 @@ let make ?capacity_providers ?id ~cluster_name
   let __type = "aws_ecs_cluster_capacity_providers" in
   let __attrs =
     ({
+       tf_name = __id;
        capacity_providers =
          Prop.computed __type __id "capacity_providers";
        cluster_name = Prop.computed __type __id "cluster_name";

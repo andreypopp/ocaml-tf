@@ -220,6 +220,7 @@ let azurerm_nginx_configuration ?id ?package_data ?timeouts
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   nginx_deployment_id : string prop;
   package_data : string prop;
@@ -231,6 +232,7 @@ let make ?id ?package_data ?timeouts ~nginx_deployment_id ~root_file
   let __type = "azurerm_nginx_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        nginx_deployment_id =
          Prop.computed __type __id "nginx_deployment_id";

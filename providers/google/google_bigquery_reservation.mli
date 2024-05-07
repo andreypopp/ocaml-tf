@@ -40,6 +40,7 @@ val yojson_of_google_bigquery_reservation :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   concurrency : float prop;
   edition : string prop;
   id : string prop;

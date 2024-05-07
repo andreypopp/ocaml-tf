@@ -86,6 +86,7 @@ let azurerm_spatial_anchors_account ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   account_domain : string prop;
   account_id : string prop;
   id : string prop;
@@ -99,6 +100,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_spatial_anchors_account" in
   let __attrs =
     ({
+       tf_name = __id;
        account_domain = Prop.computed __type __id "account_domain";
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";

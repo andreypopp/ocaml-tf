@@ -96,6 +96,7 @@ val yojson_of_aws_wafv2_web_acl_logging_configuration : aws_wafv2_web_acl_loggin
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name: string;
   id: string prop;
   log_destination_configs: string list prop;
   resource_arn: string prop;

@@ -153,6 +153,7 @@ val yojson_of_azurerm_monitor_autoscale_setting :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   location : string prop;

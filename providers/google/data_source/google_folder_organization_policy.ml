@@ -204,6 +204,7 @@ let google_folder_organization_policy ?id ~constraint_ ~folder () :
   { constraint_; folder; id }
 
 type t = {
+  tf_name : string;
   boolean_policy : boolean_policy list prop;
   constraint_ : string prop;
   etag : string prop;
@@ -219,6 +220,7 @@ let make ?id ~constraint_ ~folder __id =
   let __type = "google_folder_organization_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        boolean_policy = Prop.computed __type __id "boolean_policy";
        constraint_ = Prop.computed __type __id "constraint";
        etag = Prop.computed __type __id "etag";

@@ -57,6 +57,7 @@ let aws_codecommit_approval_rule_template_association ?id
   { approval_rule_template_name; id; repository_name }
 
 type t = {
+  tf_name : string;
   approval_rule_template_name : string prop;
   id : string prop;
   repository_name : string prop;
@@ -66,6 +67,7 @@ let make ?id ~approval_rule_template_name ~repository_name __id =
   let __type = "aws_codecommit_approval_rule_template_association" in
   let __attrs =
     ({
+       tf_name = __id;
        approval_rule_template_name =
          Prop.computed __type __id "approval_rule_template_name";
        id = Prop.computed __type __id "id";

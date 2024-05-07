@@ -32,6 +32,7 @@ val yojson_of_google_privateca_certificate_template_iam_member :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_template : string prop;
   etag : string prop;
   id : string prop;

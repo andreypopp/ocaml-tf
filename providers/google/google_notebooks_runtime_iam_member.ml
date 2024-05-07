@@ -128,6 +128,7 @@ let google_notebooks_runtime_iam_member ?id ?location ?project
   { id; location; member; project; role; runtime_name; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   location : string prop;
@@ -142,6 +143,7 @@ let make ?id ?location ?project ?(condition = []) ~member ~role
   let __type = "google_notebooks_runtime_iam_member" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

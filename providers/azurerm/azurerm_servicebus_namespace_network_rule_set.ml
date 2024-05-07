@@ -216,6 +216,7 @@ let azurerm_servicebus_namespace_network_rule_set ?default_action ?id
   }
 
 type t = {
+  tf_name : string;
   default_action : string prop;
   id : string prop;
   ip_rules : string list prop;
@@ -230,6 +231,7 @@ let make ?default_action ?id ?ip_rules ?public_network_access_enabled
   let __type = "azurerm_servicebus_namespace_network_rule_set" in
   let __attrs =
     ({
+       tf_name = __id;
        default_action = Prop.computed __type __id "default_action";
        id = Prop.computed __type __id "id";
        ip_rules = Prop.computed __type __id "ip_rules";

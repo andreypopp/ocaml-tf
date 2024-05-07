@@ -32,6 +32,7 @@ val yojson_of_google_network_security_address_group_iam_member :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   location : string prop;

@@ -40,6 +40,7 @@ val yojson_of_aws_glue_data_catalog_encryption_settings :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   catalog_id : string prop;
   data_catalog_encryption_settings :
     data_catalog_encryption_settings list prop;

@@ -164,6 +164,7 @@ let aws_codestarnotifications_notification_rule ?id ?status ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   detail_type : string prop;
   event_type_ids : string list prop;
@@ -180,6 +181,7 @@ let make ?id ?status ?tags ?tags_all ~detail_type ~event_type_ids
   let __type = "aws_codestarnotifications_notification_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        detail_type = Prop.computed __type __id "detail_type";
        event_type_ids = Prop.computed __type __id "event_type_ids";

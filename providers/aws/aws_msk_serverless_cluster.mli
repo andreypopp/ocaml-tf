@@ -55,6 +55,7 @@ val yojson_of_aws_msk_serverless_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cluster_name : string prop;
   cluster_uuid : string prop;

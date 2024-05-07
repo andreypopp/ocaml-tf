@@ -88,6 +88,7 @@ val yojson_of_aws_sagemaker_feature_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   event_time_feature_name : string prop;

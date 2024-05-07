@@ -772,6 +772,7 @@ let aws_appautoscaling_policy ?id ?policy_type
   }
 
 type t = {
+  tf_name : string;
   alarm_arns : string list prop;
   arn : string prop;
   id : string prop;
@@ -788,6 +789,7 @@ let make ?id ?policy_type ?(step_scaling_policy_configuration = [])
   let __type = "aws_appautoscaling_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        alarm_arns = Prop.computed __type __id "alarm_arns";
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";

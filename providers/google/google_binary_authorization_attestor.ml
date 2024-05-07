@@ -296,6 +296,7 @@ let google_binary_authorization_attestor ?description ?id ?project
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   name : string prop;
@@ -307,6 +308,7 @@ let make ?description ?id ?project ?timeouts ~name
   let __type = "google_binary_authorization_attestor" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

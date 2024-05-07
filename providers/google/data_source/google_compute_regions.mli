@@ -18,6 +18,7 @@ val yojson_of_google_compute_regions : google_compute_regions -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   names : string list prop;
   project : string prop;

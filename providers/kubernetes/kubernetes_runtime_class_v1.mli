@@ -28,7 +28,11 @@ val yojson_of_kubernetes_runtime_class_v1 :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { handler : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  handler : string prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

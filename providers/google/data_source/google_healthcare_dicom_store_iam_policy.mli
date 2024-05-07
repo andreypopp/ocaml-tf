@@ -18,6 +18,7 @@ val yojson_of_google_healthcare_dicom_store_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dicom_store_id : string prop;
   etag : string prop;
   id : string prop;

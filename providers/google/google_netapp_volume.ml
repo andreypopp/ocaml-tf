@@ -856,6 +856,7 @@ let google_netapp_volume ?deletion_policy ?description ?id
   }
 
 type t = {
+  tf_name : string;
   active_directory : string prop;
   capacity_gib : string prop;
   create_time : string prop;
@@ -899,6 +900,7 @@ let make ?deletion_policy ?description ?id ?kerberos_enabled ?labels
   let __type = "google_netapp_volume" in
   let __attrs =
     ({
+       tf_name = __id;
        active_directory =
          Prop.computed __type __id "active_directory";
        capacity_gib = Prop.computed __type __id "capacity_gib";

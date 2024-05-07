@@ -61,6 +61,7 @@ let aws_lakeformation_lf_tag ?catalog_id ?id ~key ~values () :
   { catalog_id; id; key; values }
 
 type t = {
+  tf_name : string;
   catalog_id : string prop;
   id : string prop;
   key : string prop;
@@ -71,6 +72,7 @@ let make ?catalog_id ?id ~key ~values __id =
   let __type = "aws_lakeformation_lf_tag" in
   let __attrs =
     ({
+       tf_name = __id;
        catalog_id = Prop.computed __type __id "catalog_id";
        id = Prop.computed __type __id "id";
        key = Prop.computed __type __id "key";

@@ -49,6 +49,7 @@ val yojson_of_azurerm_vpn_gateway : azurerm_vpn_gateway -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bgp_settings : bgp_settings list prop;
   id : string prop;
   location : string prop;

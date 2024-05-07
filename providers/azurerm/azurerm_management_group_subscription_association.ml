@@ -111,6 +111,7 @@ let azurerm_management_group_subscription_association ?id ?timeouts
   { id; management_group_id; subscription_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   management_group_id : string prop;
   subscription_id : string prop;
@@ -120,6 +121,7 @@ let make ?id ?timeouts ~management_group_id ~subscription_id __id =
   let __type = "azurerm_management_group_subscription_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        management_group_id =
          Prop.computed __type __id "management_group_id";

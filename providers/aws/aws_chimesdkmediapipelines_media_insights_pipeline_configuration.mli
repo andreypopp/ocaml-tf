@@ -198,6 +198,7 @@ val yojson_of_aws_chimesdkmediapipelines_media_insights_pipeline_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;

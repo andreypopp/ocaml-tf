@@ -128,6 +128,7 @@ let aws_glue_user_defined_function ?catalog_id ?id ~class_name
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   catalog_id : string prop;
   class_name : string prop;
@@ -144,6 +145,7 @@ let make ?catalog_id ?id ~class_name ~database_name ~name ~owner_name
   let __type = "aws_glue_user_defined_function" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        catalog_id = Prop.computed __type __id "catalog_id";
        class_name = Prop.computed __type __id "class_name";

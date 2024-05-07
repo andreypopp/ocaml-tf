@@ -25,6 +25,7 @@ val yojson_of_aws_account_region : aws_account_region -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   enabled : bool prop;
   id : string prop;

@@ -29,6 +29,7 @@ val yojson_of_cloudflare_access_mutual_tls_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   associated_hostnames : string list prop;
   certificate : string prop;

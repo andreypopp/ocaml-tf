@@ -21,6 +21,7 @@ val yojson_of_google_service_account_jwt :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   delegates : string list prop;
   expires_in : float prop;
   id : string prop;

@@ -146,6 +146,7 @@ let azurerm_email_communication_service ?id ?tags ?timeouts
   { data_location; id; name; resource_group_name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   data_location : string prop;
   id : string prop;
   name : string prop;
@@ -158,6 +159,7 @@ let make ?id ?tags ?timeouts ~data_location ~name
   let __type = "azurerm_email_communication_service" in
   let __attrs =
     ({
+       tf_name = __id;
        data_location = Prop.computed __type __id "data_location";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

@@ -183,6 +183,7 @@ let google_bigquery_bi_reservation ?id ?project ?size
   { id; location; project; size; preferred_tables; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -196,6 +197,7 @@ let make ?id ?project ?size ?(preferred_tables = []) ?timeouts
   let __type = "google_bigquery_bi_reservation" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

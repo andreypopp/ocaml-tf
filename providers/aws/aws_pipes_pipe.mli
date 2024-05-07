@@ -567,6 +567,7 @@ val yojson_of_aws_pipes_pipe : aws_pipes_pipe -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   desired_state : string prop;

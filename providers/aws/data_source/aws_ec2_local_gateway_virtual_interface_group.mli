@@ -30,6 +30,7 @@ val yojson_of_aws_ec2_local_gateway_virtual_interface_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   local_gateway_id : string prop;
   local_gateway_virtual_interface_ids : string list prop;

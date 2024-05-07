@@ -175,6 +175,7 @@ let azurerm_healthcare_workspace ?id ?tags ?timeouts ~location ~name
   { id; location; name; resource_group_name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -189,6 +190,7 @@ let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
   let __type = "azurerm_healthcare_workspace" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

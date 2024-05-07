@@ -86,6 +86,7 @@ let aws_ec2_transit_gateway_peering_attachment_accepter ?id ?tags
   { id; tags; tags_all; transit_gateway_attachment_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   peer_account_id : string prop;
   peer_region : string prop;
@@ -102,6 +103,7 @@ let make ?id ?tags ?tags_all ~transit_gateway_attachment_id __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        peer_account_id = Prop.computed __type __id "peer_account_id";
        peer_region = Prop.computed __type __id "peer_region";

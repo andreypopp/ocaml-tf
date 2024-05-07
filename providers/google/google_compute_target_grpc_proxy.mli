@@ -32,6 +32,7 @@ val yojson_of_google_compute_target_grpc_proxy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   fingerprint : string prop;

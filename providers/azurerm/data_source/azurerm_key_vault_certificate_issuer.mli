@@ -31,6 +31,7 @@ val yojson_of_azurerm_key_vault_certificate_issuer :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   admin : admin list prop;
   id : string prop;

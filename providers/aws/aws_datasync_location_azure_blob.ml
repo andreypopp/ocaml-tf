@@ -174,6 +174,7 @@ let aws_datasync_location_azure_blob ?access_tier ?blob_type ?id
   }
 
 type t = {
+  tf_name : string;
   access_tier : string prop;
   agent_arns : string list prop;
   arn : string prop;
@@ -193,6 +194,7 @@ let make ?access_tier ?blob_type ?id ?subdirectory ?tags ?tags_all
   let __type = "aws_datasync_location_azure_blob" in
   let __attrs =
     ({
+       tf_name = __id;
        access_tier = Prop.computed __type __id "access_tier";
        agent_arns = Prop.computed __type __id "agent_arns";
        arn = Prop.computed __type __id "arn";

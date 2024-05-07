@@ -134,6 +134,7 @@ let aws_ivs_playback_key_pair ?id ?name ?tags ?tags_all ?timeouts
   { id; name; public_key; tags; tags_all; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   fingerprint : string prop;
   id : string prop;
@@ -147,6 +148,7 @@ let make ?id ?name ?tags ?tags_all ?timeouts ~public_key __id =
   let __type = "aws_ivs_playback_key_pair" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        fingerprint = Prop.computed __type __id "fingerprint";
        id = Prop.computed __type __id "id";

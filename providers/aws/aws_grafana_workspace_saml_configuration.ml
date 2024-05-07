@@ -233,6 +233,7 @@ let aws_grafana_workspace_saml_configuration ?admin_role_values
   }
 
 type t = {
+  tf_name : string;
   admin_role_values : string list prop;
   allowed_organizations : string list prop;
   editor_role_values : string list prop;
@@ -258,6 +259,7 @@ let make ?admin_role_values ?allowed_organizations ?email_assertion
   let __type = "aws_grafana_workspace_saml_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        admin_role_values =
          Prop.computed __type __id "admin_role_values";
        allowed_organizations =

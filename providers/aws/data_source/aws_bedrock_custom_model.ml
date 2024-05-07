@@ -169,6 +169,7 @@ let aws_bedrock_custom_model ~model_id () : aws_bedrock_custom_model
   { model_id }
 
 type t = {
+  tf_name : string;
   base_model_arn : string prop;
   creation_time : string prop;
   hyperparameters : (string * string) list prop;
@@ -192,6 +193,7 @@ let make ~model_id __id =
   let __type = "aws_bedrock_custom_model" in
   let __attrs =
     ({
+       tf_name = __id;
        base_model_arn = Prop.computed __type __id "base_model_arn";
        creation_time = Prop.computed __type __id "creation_time";
        hyperparameters = Prop.computed __type __id "hyperparameters";

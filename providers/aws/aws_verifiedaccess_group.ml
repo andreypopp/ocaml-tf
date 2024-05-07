@@ -164,6 +164,7 @@ let aws_verifiedaccess_group ?description ?id ?policy_document ?tags
   }
 
 type t = {
+  tf_name : string;
   creation_time : string prop;
   deletion_time : string prop;
   description : string prop;
@@ -183,6 +184,7 @@ let make ?description ?id ?policy_document ?tags ?tags_all
   let __type = "aws_verifiedaccess_group" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_time = Prop.computed __type __id "creation_time";
        deletion_time = Prop.computed __type __id "deletion_time";
        description = Prop.computed __type __id "description";

@@ -44,6 +44,7 @@ let aws_lambda_alias ?id ~function_name ~name () : aws_lambda_alias =
   { function_name; id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   function_name : string prop;
@@ -57,6 +58,7 @@ let make ?id ~function_name ~name __id =
   let __type = "aws_lambda_alias" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        function_name = Prop.computed __type __id "function_name";

@@ -84,6 +84,7 @@ val yojson_of_aws_ssmincidents_response_plan :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   chat_channel : string list prop;
   display_name : string prop;

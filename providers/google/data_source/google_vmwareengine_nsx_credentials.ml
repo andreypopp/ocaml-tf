@@ -41,6 +41,7 @@ let google_vmwareengine_nsx_credentials ?id ~parent () :
   { id; parent }
 
 type t = {
+  tf_name : string;
   id : string prop;
   parent : string prop;
   password : string prop;
@@ -51,6 +52,7 @@ let make ?id ~parent __id =
   let __type = "google_vmwareengine_nsx_credentials" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        parent = Prop.computed __type __id "parent";
        password = Prop.computed __type __id "password";

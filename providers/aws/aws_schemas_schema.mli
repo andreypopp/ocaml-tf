@@ -23,6 +23,7 @@ val yojson_of_aws_schemas_schema : aws_schemas_schema -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   content : string prop;
   description : string prop;

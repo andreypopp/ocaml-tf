@@ -52,6 +52,7 @@ let aws_alb_listener_certificate ?id ~certificate_arn ~listener_arn
   { certificate_arn; id; listener_arn }
 
 type t = {
+  tf_name : string;
   certificate_arn : string prop;
   id : string prop;
   listener_arn : string prop;
@@ -61,6 +62,7 @@ let make ?id ~certificate_arn ~listener_arn __id =
   let __type = "aws_alb_listener_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_arn = Prop.computed __type __id "certificate_arn";
        id = Prop.computed __type __id "id";
        listener_arn = Prop.computed __type __id "listener_arn";

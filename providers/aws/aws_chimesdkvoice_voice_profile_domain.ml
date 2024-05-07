@@ -184,6 +184,7 @@ let aws_chimesdkvoice_voice_profile_domain ?description ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -197,6 +198,7 @@ let make ?description ?tags ?tags_all ?timeouts ~name
   let __type = "aws_chimesdkvoice_voice_profile_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

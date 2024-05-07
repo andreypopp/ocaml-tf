@@ -44,6 +44,7 @@ val yojson_of_aws_guardduty_filter : aws_guardduty_filter -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action : string prop;
   arn : string prop;
   description : string prop;

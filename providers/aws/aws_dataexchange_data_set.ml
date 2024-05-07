@@ -91,6 +91,7 @@ let aws_dataexchange_data_set ?id ?tags ?tags_all ~asset_type
   { asset_type; description; id; name; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   asset_type : string prop;
   description : string prop;
@@ -104,6 +105,7 @@ let make ?id ?tags ?tags_all ~asset_type ~description ~name __id =
   let __type = "aws_dataexchange_data_set" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        asset_type = Prop.computed __type __id "asset_type";
        description = Prop.computed __type __id "description";

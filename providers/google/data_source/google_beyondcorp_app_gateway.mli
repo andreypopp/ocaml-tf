@@ -25,6 +25,7 @@ val yojson_of_google_beyondcorp_app_gateway :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allocated_connections : allocated_connections list prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;

@@ -28,6 +28,7 @@ val yojson_of_google_compute_global_network_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   fqdn : string prop;
   global_network_endpoint_group : string prop;
   id : string prop;

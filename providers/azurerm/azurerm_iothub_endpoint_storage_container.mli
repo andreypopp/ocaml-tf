@@ -40,6 +40,7 @@ val yojson_of_azurerm_iothub_endpoint_storage_container :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authentication_type : string prop;
   batch_frequency_in_seconds : float prop;
   connection_string : string prop;

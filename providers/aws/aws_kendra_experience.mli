@@ -62,6 +62,7 @@ val yojson_of_aws_kendra_experience : aws_kendra_experience -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   endpoints : endpoints list prop;

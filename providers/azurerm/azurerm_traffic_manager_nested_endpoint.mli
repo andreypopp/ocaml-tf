@@ -55,6 +55,7 @@ val yojson_of_azurerm_traffic_manager_nested_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enabled : bool prop;
   endpoint_location : string prop;
   geo_mappings : string list prop;

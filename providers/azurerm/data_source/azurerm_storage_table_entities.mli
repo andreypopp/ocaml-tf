@@ -32,6 +32,7 @@ val yojson_of_azurerm_storage_table_entities :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   filter : string prop;
   id : string prop;
   items : items list prop;

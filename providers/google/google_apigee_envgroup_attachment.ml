@@ -95,6 +95,7 @@ let google_apigee_envgroup_attachment ?id ?timeouts ~envgroup_id
   { envgroup_id; environment; id; timeouts }
 
 type t = {
+  tf_name : string;
   envgroup_id : string prop;
   environment : string prop;
   id : string prop;
@@ -105,6 +106,7 @@ let make ?id ?timeouts ~envgroup_id ~environment __id =
   let __type = "google_apigee_envgroup_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        envgroup_id = Prop.computed __type __id "envgroup_id";
        environment = Prop.computed __type __id "environment";
        id = Prop.computed __type __id "id";

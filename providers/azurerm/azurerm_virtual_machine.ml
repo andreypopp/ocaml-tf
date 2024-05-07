@@ -1206,6 +1206,7 @@ let azurerm_virtual_machine ?availability_set_id
   }
 
 type t = {
+  tf_name : string;
   availability_set_id : string prop;
   delete_data_disks_on_termination : bool prop;
   delete_os_disk_on_termination : bool prop;
@@ -1234,6 +1235,7 @@ let make ?availability_set_id ?delete_data_disks_on_termination
   let __type = "azurerm_virtual_machine" in
   let __attrs =
     ({
+       tf_name = __id;
        availability_set_id =
          Prop.computed __type __id "availability_set_id";
        delete_data_disks_on_termination =

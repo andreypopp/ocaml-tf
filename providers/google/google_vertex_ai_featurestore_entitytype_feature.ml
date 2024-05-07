@@ -145,6 +145,7 @@ let google_vertex_ai_featurestore_entitytype_feature ?description ?id
   { description; entitytype; id; labels; name; value_type; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   effective_labels : (string * string) list prop;
@@ -164,6 +165,7 @@ let make ?description ?id ?labels ?name ?timeouts ~entitytype
   let __type = "google_vertex_ai_featurestore_entitytype_feature" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        effective_labels =

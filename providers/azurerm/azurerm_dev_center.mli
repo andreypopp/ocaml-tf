@@ -40,6 +40,7 @@ val yojson_of_azurerm_dev_center : azurerm_dev_center -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dev_center_uri : string prop;
   id : string prop;
   location : string prop;

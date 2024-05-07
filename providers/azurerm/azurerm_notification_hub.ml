@@ -259,6 +259,7 @@ let azurerm_notification_hub ?id ?tags ?(apns_credential = [])
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -273,6 +274,7 @@ let make ?id ?tags ?(apns_credential = []) ?(gcm_credential = [])
   let __type = "azurerm_notification_hub" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

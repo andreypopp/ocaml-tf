@@ -118,6 +118,7 @@ let aws_opensearchserverless_vpc_endpoint ?security_group_ids
   { name; security_group_ids; subnet_ids; vpc_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   security_group_ids : string list prop;
@@ -130,6 +131,7 @@ let make ?security_group_ids ?timeouts ~name ~subnet_ids ~vpc_id __id
   let __type = "aws_opensearchserverless_vpc_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        security_group_ids =

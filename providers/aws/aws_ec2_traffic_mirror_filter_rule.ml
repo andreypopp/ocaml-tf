@@ -216,6 +216,7 @@ let aws_ec2_traffic_mirror_filter_rule ?description ?id ?protocol
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   destination_cidr_block : string prop;
@@ -235,6 +236,7 @@ let make ?description ?id ?protocol ?(destination_port_range = [])
   let __type = "aws_ec2_traffic_mirror_filter_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        destination_cidr_block =

@@ -52,6 +52,7 @@ let aws_route53_resolver_config ?id ~autodefined_reverse_flag
   { autodefined_reverse_flag; id; resource_id }
 
 type t = {
+  tf_name : string;
   autodefined_reverse_flag : string prop;
   id : string prop;
   owner_id : string prop;
@@ -62,6 +63,7 @@ let make ?id ~autodefined_reverse_flag ~resource_id __id =
   let __type = "aws_route53_resolver_config" in
   let __attrs =
     ({
+       tf_name = __id;
        autodefined_reverse_flag =
          Prop.computed __type __id "autodefined_reverse_flag";
        id = Prop.computed __type __id "id";

@@ -554,6 +554,7 @@ let aws_budgets_budget ?account_id ?id ?limit_amount ?limit_unit
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   arn : string prop;
   budget_type : string prop;
@@ -574,6 +575,7 @@ let make ?account_id ?id ?limit_amount ?limit_unit ?name ?name_prefix
   let __type = "aws_budgets_budget" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        arn = Prop.computed __type __id "arn";
        budget_type = Prop.computed __type __id "budget_type";

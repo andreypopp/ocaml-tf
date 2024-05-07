@@ -163,6 +163,7 @@ let azurerm_automation_account ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   endpoint : string prop;
   hybrid_service_url : string prop;
   id : string prop;
@@ -179,6 +180,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_automation_account" in
   let __attrs =
     ({
+       tf_name = __id;
        endpoint = Prop.computed __type __id "endpoint";
        hybrid_service_url =
          Prop.computed __type __id "hybrid_service_url";

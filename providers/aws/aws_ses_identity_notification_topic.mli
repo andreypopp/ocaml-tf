@@ -21,6 +21,7 @@ val yojson_of_aws_ses_identity_notification_topic :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   identity : string prop;
   include_original_headers : bool prop;

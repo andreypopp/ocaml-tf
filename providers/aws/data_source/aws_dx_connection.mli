@@ -18,6 +18,7 @@ val yojson_of_aws_dx_connection : aws_dx_connection -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   aws_device : string prop;
   bandwidth : string prop;

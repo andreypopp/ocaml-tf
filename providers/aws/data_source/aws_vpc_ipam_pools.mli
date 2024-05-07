@@ -44,6 +44,7 @@ val yojson_of_aws_vpc_ipam_pools : aws_vpc_ipam_pools -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   ipam_pools : ipam_pools list prop;
 }

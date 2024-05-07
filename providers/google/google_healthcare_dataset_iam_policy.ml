@@ -50,6 +50,7 @@ let google_healthcare_dataset_iam_policy ?id ~dataset_id ~policy_data
   { dataset_id; id; policy_data }
 
 type t = {
+  tf_name : string;
   dataset_id : string prop;
   etag : string prop;
   id : string prop;
@@ -60,6 +61,7 @@ let make ?id ~dataset_id ~policy_data __id =
   let __type = "google_healthcare_dataset_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        dataset_id = Prop.computed __type __id "dataset_id";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

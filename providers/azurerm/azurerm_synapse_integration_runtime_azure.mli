@@ -35,6 +35,7 @@ val yojson_of_azurerm_synapse_integration_runtime_azure :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   compute_type : string prop;
   core_count : float prop;
   description : string prop;

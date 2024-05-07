@@ -1143,6 +1143,7 @@ let azurerm_container_registry_task ?agent_pool_name ?enabled ?id
   }
 
 type t = {
+  tf_name : string;
   agent_pool_name : string prop;
   container_registry_id : string prop;
   enabled : bool prop;
@@ -1164,6 +1165,7 @@ let make ?agent_pool_name ?enabled ?id ?is_system_task ?log_template
   let __type = "azurerm_container_registry_task" in
   let __attrs =
     ({
+       tf_name = __id;
        agent_pool_name = Prop.computed __type __id "agent_pool_name";
        container_registry_id =
          Prop.computed __type __id "container_registry_id";

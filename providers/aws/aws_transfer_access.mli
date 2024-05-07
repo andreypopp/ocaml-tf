@@ -41,6 +41,7 @@ val yojson_of_aws_transfer_access : aws_transfer_access -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   external_id : string prop;
   home_directory : string prop;
   home_directory_type : string prop;

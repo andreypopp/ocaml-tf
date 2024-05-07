@@ -18,6 +18,7 @@ val yojson_of_aws_db_event_categories :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   event_categories : string list prop;
   id : string prop;
   source_type : string prop;

@@ -51,6 +51,7 @@ let aws_servicequotas_template ~quota_code ~region ~service_code
   { quota_code; region; service_code; value }
 
 type t = {
+  tf_name : string;
   global_quota : bool prop;
   id : string prop;
   quota_code : string prop;
@@ -66,6 +67,7 @@ let make ~quota_code ~region ~service_code ~value __id =
   let __type = "aws_servicequotas_template" in
   let __attrs =
     ({
+       tf_name = __id;
        global_quota = Prop.computed __type __id "global_quota";
        id = Prop.computed __type __id "id";
        quota_code = Prop.computed __type __id "quota_code";

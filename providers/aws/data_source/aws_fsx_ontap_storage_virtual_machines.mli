@@ -22,7 +22,11 @@ val yojson_of_aws_fsx_ontap_storage_virtual_machines :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; ids : string list prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  ids : string list prop;
+}
 
 val register :
   ?tf_module:tf_module ->

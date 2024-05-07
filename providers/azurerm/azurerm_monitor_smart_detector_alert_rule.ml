@@ -274,6 +274,7 @@ let azurerm_monitor_smart_detector_alert_rule ?description ?enabled
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   detector_type : string prop;
   enabled : bool prop;
@@ -293,6 +294,7 @@ let make ?description ?enabled ?id ?tags ?throttling_duration
   let __type = "azurerm_monitor_smart_detector_alert_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        detector_type = Prop.computed __type __id "detector_type";
        enabled = Prop.computed __type __id "enabled";

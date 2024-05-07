@@ -50,6 +50,7 @@ val yojson_of_azurerm_media_streaming_locator :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alternative_media_id : string prop;
   asset_name : string prop;
   default_content_key_policy_name : string prop;

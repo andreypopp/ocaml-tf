@@ -143,6 +143,7 @@ let azurerm_cosmosdb_postgresql_firewall_rule ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   cluster_id : string prop;
   end_ip_address : string prop;
   id : string prop;
@@ -155,6 +156,7 @@ let make ?id ?timeouts ~cluster_id ~end_ip_address ~name
   let __type = "azurerm_cosmosdb_postgresql_firewall_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_id = Prop.computed __type __id "cluster_id";
        end_ip_address = Prop.computed __type __id "end_ip_address";
        id = Prop.computed __type __id "id";

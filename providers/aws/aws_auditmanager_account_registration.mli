@@ -19,6 +19,7 @@ val yojson_of_aws_auditmanager_account_registration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   delegated_admin_account : string prop;
   deregister_on_destroy : bool prop;
   id : string prop;

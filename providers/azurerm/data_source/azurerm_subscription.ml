@@ -81,6 +81,7 @@ let azurerm_subscription ?id ?subscription_id ?timeouts () :
   { id; subscription_id; timeouts }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   location_placement_id : string prop;
@@ -96,6 +97,7 @@ let make ?id ?subscription_id ?timeouts __id =
   let __type = "azurerm_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";
        location_placement_id =

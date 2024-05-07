@@ -35,6 +35,7 @@ let cloudflare_tunnel ~account_id ~name () : cloudflare_tunnel =
   { account_id; name }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   name : string prop;
@@ -47,6 +48,7 @@ let make ~account_id ~name __id =
   let __type = "cloudflare_tunnel" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

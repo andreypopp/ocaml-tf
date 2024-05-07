@@ -166,6 +166,7 @@ val yojson_of_google_compute_backend_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   affinity_cookie_ttl_sec : float prop;
   backend : backend list prop;
   cdn_policy : cdn_policy list prop;

@@ -149,6 +149,7 @@ let azurerm_search_service ?id ?timeouts ~name ~resource_group_name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   identity : identity list prop;
   name : string prop;
@@ -165,6 +166,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_search_service" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        identity = Prop.computed __type __id "identity";
        name = Prop.computed __type __id "name";

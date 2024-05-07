@@ -50,6 +50,7 @@ let aws_lightsail_lb_attachment ?id ~instance_name ~lb_name () :
   { id; instance_name; lb_name }
 
 type t = {
+  tf_name : string;
   id : string prop;
   instance_name : string prop;
   lb_name : string prop;
@@ -59,6 +60,7 @@ let make ?id ~instance_name ~lb_name __id =
   let __type = "aws_lightsail_lb_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        instance_name = Prop.computed __type __id "instance_name";
        lb_name = Prop.computed __type __id "lb_name";

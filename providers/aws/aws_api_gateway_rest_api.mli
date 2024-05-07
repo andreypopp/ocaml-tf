@@ -39,6 +39,7 @@ val yojson_of_aws_api_gateway_rest_api :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_key_source : string prop;
   arn : string prop;
   binary_media_types : string list prop;

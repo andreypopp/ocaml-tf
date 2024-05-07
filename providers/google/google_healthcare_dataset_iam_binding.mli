@@ -30,6 +30,7 @@ val yojson_of_google_healthcare_dataset_iam_binding :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dataset_id : string prop;
   etag : string prop;
   id : string prop;

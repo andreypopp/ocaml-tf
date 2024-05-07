@@ -237,6 +237,7 @@ let azurerm_key_vault_managed_hardware_security_module_role_definition
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   name : string prop;
@@ -253,6 +254,7 @@ let make ?description ?id ?role_name ?(permission = []) ?timeouts
   in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

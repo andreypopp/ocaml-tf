@@ -24,6 +24,7 @@ val yojson_of_azurerm_management_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   all_management_group_ids : string list prop;
   all_subscription_ids : string list prop;
   display_name : string prop;

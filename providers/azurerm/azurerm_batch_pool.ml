@@ -2215,6 +2215,7 @@ let azurerm_batch_pool ?display_name ?id ?inter_node_communication
   }
 
 type t = {
+  tf_name : string;
   account_name : string prop;
   display_name : string prop;
   id : string prop;
@@ -2245,6 +2246,7 @@ let make ?display_name ?id ?inter_node_communication ?license_type
   let __type = "azurerm_batch_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        account_name = Prop.computed __type __id "account_name";
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";

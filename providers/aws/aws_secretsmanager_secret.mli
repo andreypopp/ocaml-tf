@@ -32,6 +32,7 @@ val yojson_of_aws_secretsmanager_secret :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   force_overwrite_replica_secret : bool prop;

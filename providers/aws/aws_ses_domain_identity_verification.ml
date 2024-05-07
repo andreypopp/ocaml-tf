@@ -74,6 +74,7 @@ let aws_ses_domain_identity_verification ?id ?timeouts ~domain () :
   { domain; id; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   domain : string prop;
   id : string prop;
@@ -83,6 +84,7 @@ let make ?id ?timeouts ~domain __id =
   let __type = "aws_ses_domain_identity_verification" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        domain = Prop.computed __type __id "domain";
        id = Prop.computed __type __id "id";

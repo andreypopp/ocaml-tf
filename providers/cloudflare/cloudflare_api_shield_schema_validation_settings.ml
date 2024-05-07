@@ -76,6 +76,7 @@ let cloudflare_api_shield_schema_validation_settings ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   validation_default_mitigation_action : string prop;
   validation_override_mitigation_action : string prop;
@@ -87,6 +88,7 @@ let make ?id ?validation_override_mitigation_action
   let __type = "cloudflare_api_shield_schema_validation_settings" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        validation_default_mitigation_action =
          Prop.computed __type __id

@@ -19,6 +19,7 @@ val yojson_of_aws_route53_cidr_location :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cidr_blocks : string list prop;
   cidr_collection_id : string prop;
   id : string prop;

@@ -32,6 +32,7 @@ val yojson_of_azurerm_stream_analytics_managed_private_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   resource_group_name : string prop;

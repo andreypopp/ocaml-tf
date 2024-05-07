@@ -20,6 +20,7 @@ val yojson_of_google_container_engine_versions :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   default_cluster_version : string prop;
   id : string prop;
   latest_master_version : string prop;

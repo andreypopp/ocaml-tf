@@ -50,6 +50,7 @@ let aws_schemas_registry_policy ?id ~policy ~registry_name () :
   { id; policy; registry_name }
 
 type t = {
+  tf_name : string;
   id : string prop;
   policy : string prop;
   registry_name : string prop;
@@ -59,6 +60,7 @@ let make ?id ~policy ~registry_name __id =
   let __type = "aws_schemas_registry_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        policy = Prop.computed __type __id "policy";
        registry_name = Prop.computed __type __id "registry_name";

@@ -1151,6 +1151,7 @@ let aws_codedeploy_deployment_group ?autoscaling_groups
   }
 
 type t = {
+  tf_name : string;
   app_name : string prop;
   arn : string prop;
   autoscaling_groups : string list prop;
@@ -1176,6 +1177,7 @@ let make ?autoscaling_groups ?deployment_config_name ?id
   let __type = "aws_codedeploy_deployment_group" in
   let __attrs =
     ({
+       tf_name = __id;
        app_name = Prop.computed __type __id "app_name";
        arn = Prop.computed __type __id "arn";
        autoscaling_groups =

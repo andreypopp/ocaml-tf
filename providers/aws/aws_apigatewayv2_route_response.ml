@@ -94,6 +94,7 @@ let aws_apigatewayv2_route_response ?id ?model_selection_expression
   }
 
 type t = {
+  tf_name : string;
   api_id : string prop;
   id : string prop;
   model_selection_expression : string prop;
@@ -107,6 +108,7 @@ let make ?id ?model_selection_expression ?response_models ~api_id
   let __type = "aws_apigatewayv2_route_response" in
   let __attrs =
     ({
+       tf_name = __id;
        api_id = Prop.computed __type __id "api_id";
        id = Prop.computed __type __id "id";
        model_selection_expression =

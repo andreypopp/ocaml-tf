@@ -438,6 +438,7 @@ let google_clouddeploy_target ?annotations ?deploy_parameters
   }
 
 type t = {
+  tf_name : string;
   annotations : (string * string) list prop;
   create_time : string prop;
   deploy_parameters : (string * string) list prop;
@@ -464,6 +465,7 @@ let make ?annotations ?deploy_parameters ?description ?id ?labels
   let __type = "google_clouddeploy_target" in
   let __attrs =
     ({
+       tf_name = __id;
        annotations = Prop.computed __type __id "annotations";
        create_time = Prop.computed __type __id "create_time";
        deploy_parameters =

@@ -383,6 +383,7 @@ let azurerm_sentinel_alert_rule_anomaly_built_in ?display_name ?id
   }
 
 type t = {
+  tf_name : string;
   anomaly_settings_version : float prop;
   anomaly_version : string prop;
   description : string prop;
@@ -409,6 +410,7 @@ let make ?display_name ?id ?name ?timeouts ~enabled
   let __type = "azurerm_sentinel_alert_rule_anomaly_built_in" in
   let __attrs =
     ({
+       tf_name = __id;
        anomaly_settings_version =
          Prop.computed __type __id "anomaly_settings_version";
        anomaly_version = Prop.computed __type __id "anomaly_version";

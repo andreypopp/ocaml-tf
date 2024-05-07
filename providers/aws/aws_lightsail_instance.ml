@@ -189,6 +189,7 @@ let aws_lightsail_instance ?id ?ip_address_type ?key_pair_name ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zone : string prop;
   blueprint_id : string prop;
@@ -216,6 +217,7 @@ let make ?id ?ip_address_type ?key_pair_name ?tags ?tags_all
   let __type = "aws_lightsail_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zone =
          Prop.computed __type __id "availability_zone";

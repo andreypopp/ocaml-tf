@@ -159,6 +159,7 @@ let google_compute_router ?id ?project ?region ~name ~network () :
   { id; name; network; project; region }
 
 type t = {
+  tf_name : string;
   bgp : bgp list prop;
   creation_timestamp : string prop;
   description : string prop;
@@ -175,6 +176,7 @@ let make ?id ?project ?region ~name ~network __id =
   let __type = "google_compute_router" in
   let __attrs =
     ({
+       tf_name = __id;
        bgp = Prop.computed __type __id "bgp";
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";

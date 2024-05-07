@@ -171,6 +171,7 @@ let azurerm_automation_job_schedule ?id ?job_schedule_id ?parameters
   }
 
 type t = {
+  tf_name : string;
   automation_account_name : string prop;
   id : string prop;
   job_schedule_id : string prop;
@@ -187,6 +188,7 @@ let make ?id ?job_schedule_id ?parameters ?run_on ?timeouts
   let __type = "azurerm_automation_job_schedule" in
   let __attrs =
     ({
+       tf_name = __id;
        automation_account_name =
          Prop.computed __type __id "automation_account_name";
        id = Prop.computed __type __id "id";

@@ -32,6 +32,7 @@ val yojson_of_aws_media_package_channel :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   channel_id : string prop;
   description : string prop;

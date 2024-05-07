@@ -195,6 +195,7 @@ let aws_transfer_access ?home_directory ?home_directory_type ?id
   }
 
 type t = {
+  tf_name : string;
   external_id : string prop;
   home_directory : string prop;
   home_directory_type : string prop;
@@ -210,6 +211,7 @@ let make ?home_directory ?home_directory_type ?id ?policy ?role
   let __type = "aws_transfer_access" in
   let __attrs =
     ({
+       tf_name = __id;
        external_id = Prop.computed __type __id "external_id";
        home_directory = Prop.computed __type __id "home_directory";
        home_directory_type =

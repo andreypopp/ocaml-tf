@@ -870,6 +870,7 @@ let aws_ecs_task_definition ?cpu ?execution_role_arn ?id ?ipc_mode
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   arn_without_revision : string prop;
   container_definitions : string prop;
@@ -899,6 +900,7 @@ let make ?cpu ?execution_role_arn ?id ?ipc_mode ?memory ?network_mode
   let __type = "aws_ecs_task_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        arn_without_revision =
          Prop.computed __type __id "arn_without_revision";

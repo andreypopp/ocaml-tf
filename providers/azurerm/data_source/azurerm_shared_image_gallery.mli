@@ -24,6 +24,7 @@ val yojson_of_azurerm_shared_image_gallery :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   image_names : string list prop;

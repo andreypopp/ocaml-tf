@@ -318,6 +318,7 @@ let azurerm_eventhub ?id ?status ?(capture_description = [])
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   message_retention : float prop;
   name : string prop;
@@ -334,6 +335,7 @@ let make ?id ?status ?(capture_description = []) ?timeouts
   let __type = "azurerm_eventhub" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        message_retention =
          Prop.computed __type __id "message_retention";

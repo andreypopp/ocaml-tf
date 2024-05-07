@@ -24,6 +24,7 @@ val yojson_of_azurerm_function_app_host_keys :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   blobs_extension_key : string prop;
   default_function_key : string prop;
   durabletask_extension_key : string prop;

@@ -55,6 +55,7 @@ let aws_redshift_snapshot_schedule_association ?id
   { cluster_identifier; id; schedule_identifier }
 
 type t = {
+  tf_name : string;
   cluster_identifier : string prop;
   id : string prop;
   schedule_identifier : string prop;
@@ -64,6 +65,7 @@ let make ?id ~cluster_identifier ~schedule_identifier __id =
   let __type = "aws_redshift_snapshot_schedule_association" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_identifier =
          Prop.computed __type __id "cluster_identifier";
        id = Prop.computed __type __id "id";

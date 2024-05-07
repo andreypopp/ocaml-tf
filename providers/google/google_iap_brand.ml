@@ -106,6 +106,7 @@ let google_iap_brand ?id ?project ?timeouts ~application_title
   { application_title; id; project; support_email; timeouts }
 
 type t = {
+  tf_name : string;
   application_title : string prop;
   id : string prop;
   name : string prop;
@@ -119,6 +120,7 @@ let make ?id ?project ?timeouts ~application_title ~support_email
   let __type = "google_iap_brand" in
   let __attrs =
     ({
+       tf_name = __id;
        application_title =
          Prop.computed __type __id "application_title";
        id = Prop.computed __type __id "id";

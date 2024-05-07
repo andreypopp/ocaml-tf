@@ -387,6 +387,7 @@ let aws_ssm_patch_baseline ?approved_patches
   }
 
 type t = {
+  tf_name : string;
   approved_patches : string list prop;
   approved_patches_compliance_level : string prop;
   approved_patches_enable_non_security : bool prop;
@@ -410,6 +411,7 @@ let make ?approved_patches ?approved_patches_compliance_level
   let __type = "aws_ssm_patch_baseline" in
   let __attrs =
     ({
+       tf_name = __id;
        approved_patches =
          Prop.computed __type __id "approved_patches";
        approved_patches_compliance_level =

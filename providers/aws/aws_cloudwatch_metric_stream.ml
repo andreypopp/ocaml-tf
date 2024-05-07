@@ -373,6 +373,7 @@ let aws_cloudwatch_metric_stream ?id ?include_linked_accounts_metrics
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   creation_date : string prop;
   firehose_arn : string prop;
@@ -394,6 +395,7 @@ let make ?id ?include_linked_accounts_metrics ?name ?name_prefix
   let __type = "aws_cloudwatch_metric_stream" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        creation_date = Prop.computed __type __id "creation_date";
        firehose_arn = Prop.computed __type __id "firehose_arn";

@@ -605,6 +605,7 @@ let google_dns_managed_zone ?description ?force_destroy ?id ?labels
   }
 
 type t = {
+  tf_name : string;
   creation_time : string prop;
   description : string prop;
   dns_name : string prop;
@@ -628,6 +629,7 @@ let make ?description ?force_destroy ?id ?labels ?project ?visibility
   let __type = "google_dns_managed_zone" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_time = Prop.computed __type __id "creation_time";
        description = Prop.computed __type __id "description";
        dns_name = Prop.computed __type __id "dns_name";

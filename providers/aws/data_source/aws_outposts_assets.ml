@@ -67,6 +67,7 @@ let aws_outposts_assets ?host_id_filter ?id ?status_id_filter ~arn ()
   { arn; host_id_filter; id; status_id_filter }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   asset_ids : string list prop;
   host_id_filter : string list prop;
@@ -78,6 +79,7 @@ let make ?host_id_filter ?id ?status_id_filter ~arn __id =
   let __type = "aws_outposts_assets" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        asset_ids = Prop.computed __type __id "asset_ids";
        host_id_filter = Prop.computed __type __id "host_id_filter";

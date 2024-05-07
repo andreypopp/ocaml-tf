@@ -35,6 +35,7 @@ val yojson_of_aws_efs_replication_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   creation_time : string prop;
   id : string prop;
   original_source_file_system_arn : string prop;

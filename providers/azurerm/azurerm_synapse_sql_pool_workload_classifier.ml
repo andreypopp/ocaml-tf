@@ -190,6 +190,7 @@ let azurerm_synapse_sql_pool_workload_classifier ?context ?end_time
   }
 
 type t = {
+  tf_name : string;
   context : string prop;
   end_time : string prop;
   id : string prop;
@@ -206,6 +207,7 @@ let make ?context ?end_time ?id ?importance ?label ?start_time
   let __type = "azurerm_synapse_sql_pool_workload_classifier" in
   let __attrs =
     ({
+       tf_name = __id;
        context = Prop.computed __type __id "context";
        end_time = Prop.computed __type __id "end_time";
        id = Prop.computed __type __id "id";

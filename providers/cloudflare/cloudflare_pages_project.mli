@@ -135,6 +135,7 @@ val yojson_of_cloudflare_pages_project :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   created_on : string prop;
   domains : string list prop;

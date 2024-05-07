@@ -210,6 +210,7 @@ let azurerm_iothub_device_update_instance ?diagnostic_enabled ?id
   }
 
 type t = {
+  tf_name : string;
   device_update_account_id : string prop;
   diagnostic_enabled : bool prop;
   id : string prop;
@@ -224,6 +225,7 @@ let make ?diagnostic_enabled ?id ?tags
   let __type = "azurerm_iothub_device_update_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        device_update_account_id =
          Prop.computed __type __id "device_update_account_id";
        diagnostic_enabled =

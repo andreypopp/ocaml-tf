@@ -119,6 +119,7 @@ val yojson_of_aws_opsworks_java_app_layer :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_server : string prop;
   app_server_version : string prop;
   arn : string prop;

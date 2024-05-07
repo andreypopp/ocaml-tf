@@ -125,6 +125,7 @@ let aws_apprunner_auto_scaling_configuration_version ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   auto_scaling_configuration_name : string prop;
   auto_scaling_configuration_revision : float prop;
@@ -145,6 +146,7 @@ let make ?id ?max_concurrency ?max_size ?min_size ?tags ?tags_all
   let __type = "aws_apprunner_auto_scaling_configuration_version" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        auto_scaling_configuration_name =
          Prop.computed __type __id "auto_scaling_configuration_name";

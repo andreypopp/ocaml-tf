@@ -191,6 +191,7 @@ let azurerm_healthcare_dicom_service ?id ?timeouts ~name
   { id; name; workspace_id; timeouts }
 
 type t = {
+  tf_name : string;
   authentication : authentication list prop;
   id : string prop;
   identity : identity list prop;
@@ -206,6 +207,7 @@ let make ?id ?timeouts ~name ~workspace_id __id =
   let __type = "azurerm_healthcare_dicom_service" in
   let __attrs =
     ({
+       tf_name = __id;
        authentication = Prop.computed __type __id "authentication";
        id = Prop.computed __type __id "id";
        identity = Prop.computed __type __id "identity";

@@ -29,6 +29,7 @@ val yojson_of_cloudflare_teams_location :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   anonymized_logs_enabled : bool prop;
   client_default : bool prop;

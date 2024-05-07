@@ -425,6 +425,7 @@ let google_vmwareengine_private_cloud ?description ?id ?project
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   hcx : hcx list prop;
   id : string prop;
@@ -443,6 +444,7 @@ let make ?description ?id ?project ?type_ ?timeouts ~location ~name
   let __type = "google_vmwareengine_private_cloud" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        hcx = Prop.computed __type __id "hcx";
        id = Prop.computed __type __id "id";

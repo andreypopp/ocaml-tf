@@ -212,6 +212,7 @@ let aws_sagemaker_app ?id ?space_name ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   app_name : string prop;
   app_type : string prop;
   arn : string prop;
@@ -228,6 +229,7 @@ let make ?id ?space_name ?tags ?tags_all ?user_profile_name
   let __type = "aws_sagemaker_app" in
   let __attrs =
     ({
+       tf_name = __id;
        app_name = Prop.computed __type __id "app_name";
        app_type = Prop.computed __type __id "app_type";
        arn = Prop.computed __type __id "arn";

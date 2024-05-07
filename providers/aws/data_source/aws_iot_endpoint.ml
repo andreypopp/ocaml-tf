@@ -43,6 +43,7 @@ let aws_iot_endpoint ?endpoint_type ?id () : aws_iot_endpoint =
   { endpoint_type; id }
 
 type t = {
+  tf_name : string;
   endpoint_address : string prop;
   endpoint_type : string prop;
   id : string prop;
@@ -52,6 +53,7 @@ let make ?endpoint_type ?id __id =
   let __type = "aws_iot_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        endpoint_address =
          Prop.computed __type __id "endpoint_address";
        endpoint_type = Prop.computed __type __id "endpoint_type";

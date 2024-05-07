@@ -32,6 +32,7 @@ val yojson_of_aws_ami_ids : aws_ami_ids -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   executable_users : string list prop;
   id : string prop;
   ids : string list prop;

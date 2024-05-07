@@ -160,6 +160,7 @@ let azurerm_shared_image ?id ?timeouts ~gallery_name ~name
   { gallery_name; id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   architecture : string prop;
   description : string prop;
   eula : string prop;
@@ -183,6 +184,7 @@ let make ?id ?timeouts ~gallery_name ~name ~resource_group_name __id
   let __type = "azurerm_shared_image" in
   let __attrs =
     ({
+       tf_name = __id;
        architecture = Prop.computed __type __id "architecture";
        description = Prop.computed __type __id "description";
        eula = Prop.computed __type __id "eula";

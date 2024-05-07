@@ -320,6 +320,7 @@ let aws_lightsail_container_service_deployment_version ?id
   { id; service_name; container; public_endpoint; timeouts }
 
 type t = {
+  tf_name : string;
   created_at : string prop;
   id : string prop;
   service_name : string prop;
@@ -334,6 +335,7 @@ let make ?id ?(public_endpoint = []) ?timeouts ~service_name
   in
   let __attrs =
     ({
+       tf_name = __id;
        created_at = Prop.computed __type __id "created_at";
        id = Prop.computed __type __id "id";
        service_name = Prop.computed __type __id "service_name";

@@ -156,6 +156,7 @@ let azurerm_web_pubsub_shared_private_link_resource ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   request_message : string prop;
@@ -170,6 +171,7 @@ let make ?id ?request_message ?timeouts ~name ~subresource_name
   let __type = "azurerm_web_pubsub_shared_private_link_resource" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        request_message = Prop.computed __type __id "request_message";

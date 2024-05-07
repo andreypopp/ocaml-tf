@@ -44,6 +44,7 @@ let google_iap_client ?id ~brand ~client_id () : google_iap_client =
   { brand; client_id; id }
 
 type t = {
+  tf_name : string;
   brand : string prop;
   client_id : string prop;
   display_name : string prop;
@@ -55,6 +56,7 @@ let make ?id ~brand ~client_id __id =
   let __type = "google_iap_client" in
   let __attrs =
     ({
+       tf_name = __id;
        brand = Prop.computed __type __id "brand";
        client_id = Prop.computed __type __id "client_id";
        display_name = Prop.computed __type __id "display_name";

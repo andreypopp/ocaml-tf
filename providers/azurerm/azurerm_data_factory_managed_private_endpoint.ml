@@ -147,6 +147,7 @@ let azurerm_data_factory_managed_private_endpoint ?fqdns ?id
   }
 
 type t = {
+  tf_name : string;
   data_factory_id : string prop;
   fqdns : string list prop;
   id : string prop;
@@ -160,6 +161,7 @@ let make ?fqdns ?id ?subresource_name ?timeouts ~data_factory_id
   let __type = "azurerm_data_factory_managed_private_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        data_factory_id = Prop.computed __type __id "data_factory_id";
        fqdns = Prop.computed __type __id "fqdns";
        id = Prop.computed __type __id "id";

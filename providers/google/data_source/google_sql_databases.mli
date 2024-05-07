@@ -28,6 +28,7 @@ val yojson_of_google_sql_databases : google_sql_databases -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   databases : databases list prop;
   id : string prop;
   instance : string prop;

@@ -24,6 +24,7 @@ val yojson_of_azurerm_palo_alto_local_rulestack :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   anti_spyware_profile : string prop;
   anti_virus_profile : string prop;
   description : string prop;

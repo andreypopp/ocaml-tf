@@ -184,6 +184,7 @@ let azurerm_storage_account_customer_managed_key
   }
 
 type t = {
+  tf_name : string;
   federated_identity_client_id : string prop;
   id : string prop;
   key_name : string prop;
@@ -200,6 +201,7 @@ let make ?federated_identity_client_id ?id ?key_vault_id
   let __type = "azurerm_storage_account_customer_managed_key" in
   let __attrs =
     ({
+       tf_name = __id;
        federated_identity_client_id =
          Prop.computed __type __id "federated_identity_client_id";
        id = Prop.computed __type __id "id";

@@ -42,6 +42,7 @@ val yojson_of_azurerm_storage_account_network_rules :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bypass : string list prop;
   default_action : string prop;
   id : string prop;

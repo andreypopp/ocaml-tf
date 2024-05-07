@@ -18,6 +18,7 @@ val yojson_of_aws_cognito_user_pool_clients :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   client_ids : string list prop;
   client_names : string list prop;
   id : string prop;

@@ -41,6 +41,7 @@ val yojson_of_aws_elb : aws_elb -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_logs : access_logs list prop;
   arn : string prop;
   availability_zones : string list prop;

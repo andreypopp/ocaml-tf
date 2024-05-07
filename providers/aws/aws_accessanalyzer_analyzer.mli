@@ -36,6 +36,7 @@ val yojson_of_aws_accessanalyzer_analyzer :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   analyzer_name : string prop;
   arn : string prop;
   id : string prop;

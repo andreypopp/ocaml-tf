@@ -55,6 +55,7 @@ let aws_appsync_type ?id ~api_id ~definition ~format () :
   { api_id; definition; format; id }
 
 type t = {
+  tf_name : string;
   api_id : string prop;
   arn : string prop;
   definition : string prop;
@@ -68,6 +69,7 @@ let make ?id ~api_id ~definition ~format __id =
   let __type = "aws_appsync_type" in
   let __attrs =
     ({
+       tf_name = __id;
        api_id = Prop.computed __type __id "api_id";
        arn = Prop.computed __type __id "arn";
        definition = Prop.computed __type __id "definition";

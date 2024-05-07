@@ -35,6 +35,7 @@ val yojson_of_google_bigquery_analytics_hub_data_exchange :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   data_exchange_id : string prop;
   description : string prop;
   display_name : string prop;

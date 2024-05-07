@@ -119,12 +119,17 @@ let google_compute_disk_async_replication ?id ?timeouts ~primary_disk
     ~secondary_disk () : google_compute_disk_async_replication =
   { id; primary_disk; secondary_disk; timeouts }
 
-type t = { id : string prop; primary_disk : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  primary_disk : string prop;
+}
 
 let make ?id ?timeouts ~primary_disk ~secondary_disk __id =
   let __type = "google_compute_disk_async_replication" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        primary_disk = Prop.computed __type __id "primary_disk";
      }

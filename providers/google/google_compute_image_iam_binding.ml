@@ -119,6 +119,7 @@ let google_compute_image_iam_binding ?id ?project ?(condition = [])
   { id; image; members; project; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   image : string prop;
@@ -131,6 +132,7 @@ let make ?id ?project ?(condition = []) ~image ~members ~role __id =
   let __type = "google_compute_image_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        image = Prop.computed __type __id "image";

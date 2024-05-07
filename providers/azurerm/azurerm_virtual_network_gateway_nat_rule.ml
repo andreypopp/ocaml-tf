@@ -267,6 +267,7 @@ let azurerm_virtual_network_gateway_nat_rule ?id ?ip_configuration_id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   ip_configuration_id : string prop;
   mode : string prop;
@@ -282,6 +283,7 @@ let make ?id ?ip_configuration_id ?mode ?type_ ?timeouts ~name
   let __type = "azurerm_virtual_network_gateway_nat_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ip_configuration_id =
          Prop.computed __type __id "ip_configuration_id";

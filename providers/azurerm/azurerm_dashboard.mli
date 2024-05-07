@@ -32,6 +32,7 @@ val yojson_of_azurerm_dashboard : azurerm_dashboard -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dashboard_properties : string prop;
   id : string prop;
   location : string prop;

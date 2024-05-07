@@ -1316,6 +1316,7 @@ let azurerm_windows_virtual_machine ?allow_extension_operations
   }
 
 type t = {
+  tf_name : string;
   admin_password : string prop;
   admin_username : string prop;
   allow_extension_operations : bool prop;
@@ -1386,6 +1387,7 @@ let make ?allow_extension_operations ?availability_set_id
   let __type = "azurerm_windows_virtual_machine" in
   let __attrs =
     ({
+       tf_name = __id;
        admin_password = Prop.computed __type __id "admin_password";
        admin_username = Prop.computed __type __id "admin_username";
        allow_extension_operations =

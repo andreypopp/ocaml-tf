@@ -41,6 +41,7 @@ let google_kms_crypto_key_iam_policy ?id ~crypto_key_id () :
   { crypto_key_id; id }
 
 type t = {
+  tf_name : string;
   crypto_key_id : string prop;
   etag : string prop;
   id : string prop;
@@ -51,6 +52,7 @@ let make ?id ~crypto_key_id __id =
   let __type = "google_kms_crypto_key_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        crypto_key_id = Prop.computed __type __id "crypto_key_id";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

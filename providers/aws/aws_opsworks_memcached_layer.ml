@@ -890,6 +890,7 @@ let aws_opsworks_memcached_layer ?allocated_memory
   }
 
 type t = {
+  tf_name : string;
   allocated_memory : float prop;
   arn : string prop;
   auto_assign_elastic_ips : bool prop;
@@ -929,6 +930,7 @@ let make ?allocated_memory ?auto_assign_elastic_ips
   let __type = "aws_opsworks_memcached_layer" in
   let __attrs =
     ({
+       tf_name = __id;
        allocated_memory =
          Prop.computed __type __id "allocated_memory";
        arn = Prop.computed __type __id "arn";

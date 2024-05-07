@@ -518,6 +518,7 @@ let azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -535,6 +536,7 @@ let make ?id ?tags ?(destination_nat = []) ?(dns_settings = [])
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

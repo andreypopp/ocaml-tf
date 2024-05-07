@@ -282,6 +282,7 @@ let digitalocean_kubernetes_node_pool ?auto_scale ?id ?labels
   }
 
 type t = {
+  tf_name : string;
   actual_node_count : float prop;
   auto_scale : bool prop;
   cluster_id : string prop;
@@ -301,6 +302,7 @@ let make ?auto_scale ?id ?labels ?max_nodes ?min_nodes ?node_count
   let __type = "digitalocean_kubernetes_node_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        actual_node_count =
          Prop.computed __type __id "actual_node_count";
        auto_scale = Prop.computed __type __id "auto_scale";

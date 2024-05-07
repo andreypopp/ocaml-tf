@@ -53,7 +53,11 @@ val yojson_of_aws_glue_security_configuration :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; name : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  name : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

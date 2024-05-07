@@ -98,6 +98,7 @@ let aws_sesv2_dedicated_ip_assignment ?id ?timeouts
   { destination_pool_name; id; ip; timeouts }
 
 type t = {
+  tf_name : string;
   destination_pool_name : string prop;
   id : string prop;
   ip : string prop;
@@ -107,6 +108,7 @@ let make ?id ?timeouts ~destination_pool_name ~ip __id =
   let __type = "aws_sesv2_dedicated_ip_assignment" in
   let __attrs =
     ({
+       tf_name = __id;
        destination_pool_name =
          Prop.computed __type __id "destination_pool_name";
        id = Prop.computed __type __id "id";

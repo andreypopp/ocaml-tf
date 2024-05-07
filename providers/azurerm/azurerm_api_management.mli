@@ -235,6 +235,7 @@ val yojson_of_azurerm_api_management : azurerm_api_management -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   client_certificate_enabled : bool prop;
   developer_portal_url : string prop;
   gateway_disabled : bool prop;

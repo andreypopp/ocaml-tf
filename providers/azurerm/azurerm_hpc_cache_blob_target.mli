@@ -34,6 +34,7 @@ val yojson_of_azurerm_hpc_cache_blob_target :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_policy_name : string prop;
   cache_name : string prop;
   id : string prop;

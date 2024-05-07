@@ -183,6 +183,7 @@ let azurerm_key_vault_secret ?content_type ?expiration_date ?id
   }
 
 type t = {
+  tf_name : string;
   content_type : string prop;
   expiration_date : string prop;
   id : string prop;
@@ -202,6 +203,7 @@ let make ?content_type ?expiration_date ?id ?not_before_date ?tags
   let __type = "azurerm_key_vault_secret" in
   let __attrs =
     ({
+       tf_name = __id;
        content_type = Prop.computed __type __id "content_type";
        expiration_date = Prop.computed __type __id "expiration_date";
        id = Prop.computed __type __id "id";

@@ -527,6 +527,7 @@ let azurerm_cosmosdb_gremlin_graph ?analytical_storage_ttl
   }
 
 type t = {
+  tf_name : string;
   account_name : string prop;
   analytical_storage_ttl : float prop;
   database_name : string prop;
@@ -547,6 +548,7 @@ let make ?analytical_storage_ttl ?default_ttl ?id
   let __type = "azurerm_cosmosdb_gremlin_graph" in
   let __attrs =
     ({
+       tf_name = __id;
        account_name = Prop.computed __type __id "account_name";
        analytical_storage_ttl =
          Prop.computed __type __id "analytical_storage_ttl";

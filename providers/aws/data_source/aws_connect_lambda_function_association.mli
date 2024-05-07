@@ -19,6 +19,7 @@ val yojson_of_aws_connect_lambda_function_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   function_arn : string prop;
   id : string prop;
   instance_id : string prop;

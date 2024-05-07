@@ -181,6 +181,7 @@ let cloudflare_custom_ssl ?id ?(custom_ssl_options = [])
   { id; zone_id; custom_ssl_options; custom_ssl_priority }
 
 type t = {
+  tf_name : string;
   expires_on : string prop;
   hosts : string list prop;
   id : string prop;
@@ -198,6 +199,7 @@ let make ?id ?(custom_ssl_options = []) ?(custom_ssl_priority = [])
   let __type = "cloudflare_custom_ssl" in
   let __attrs =
     ({
+       tf_name = __id;
        expires_on = Prop.computed __type __id "expires_on";
        hosts = Prop.computed __type __id "hosts";
        id = Prop.computed __type __id "id";

@@ -189,6 +189,7 @@ let aws_ivs_channel ?authorized ?id ?latency_mode ?name
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   authorized : bool prop;
   id : string prop;
@@ -208,6 +209,7 @@ let make ?authorized ?id ?latency_mode ?name
   let __type = "aws_ivs_channel" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        authorized = Prop.computed __type __id "authorized";
        id = Prop.computed __type __id "id";

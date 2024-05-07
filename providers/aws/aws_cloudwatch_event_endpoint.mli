@@ -61,6 +61,7 @@ val yojson_of_aws_cloudwatch_event_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   endpoint_url : string prop;

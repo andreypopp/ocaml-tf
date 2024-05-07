@@ -119,6 +119,7 @@ let aws_ecr_registry_scanning_configuration ?id ~scan_type ~rule () :
   { id; scan_type; rule }
 
 type t = {
+  tf_name : string;
   id : string prop;
   registry_id : string prop;
   scan_type : string prop;
@@ -128,6 +129,7 @@ let make ?id ~scan_type ~rule __id =
   let __type = "aws_ecr_registry_scanning_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        registry_id = Prop.computed __type __id "registry_id";
        scan_type = Prop.computed __type __id "scan_type";

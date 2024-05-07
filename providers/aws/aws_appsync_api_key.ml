@@ -63,6 +63,7 @@ let aws_appsync_api_key ?description ?expires ?id ~api_id () :
   { api_id; description; expires; id }
 
 type t = {
+  tf_name : string;
   api_id : string prop;
   description : string prop;
   expires : string prop;
@@ -74,6 +75,7 @@ let make ?description ?expires ?id ~api_id __id =
   let __type = "aws_appsync_api_key" in
   let __attrs =
     ({
+       tf_name = __id;
        api_id = Prop.computed __type __id "api_id";
        description = Prop.computed __type __id "description";
        expires = Prop.computed __type __id "expires";

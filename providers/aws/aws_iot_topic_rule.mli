@@ -509,6 +509,7 @@ val yojson_of_aws_iot_topic_rule : aws_iot_topic_rule -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   enabled : bool prop;

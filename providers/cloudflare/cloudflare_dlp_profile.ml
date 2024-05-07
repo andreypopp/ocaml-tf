@@ -181,6 +181,7 @@ let cloudflare_dlp_profile ?description ?id ~account_id
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   allowed_match_count : float prop;
   description : string prop;
@@ -194,6 +195,7 @@ let make ?description ?id ~account_id ~allowed_match_count ~name
   let __type = "cloudflare_dlp_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        allowed_match_count =
          Prop.computed __type __id "allowed_match_count";

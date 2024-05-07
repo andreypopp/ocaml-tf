@@ -18,6 +18,7 @@ val yojson_of_aws_organizations_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   aws_managed : bool prop;
   content : string prop;

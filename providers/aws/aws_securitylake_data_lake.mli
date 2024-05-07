@@ -77,6 +77,7 @@ val yojson_of_aws_securitylake_data_lake :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   meta_store_manager_role_arn : string prop;

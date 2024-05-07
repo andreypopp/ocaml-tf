@@ -428,6 +428,7 @@ let google_compute_health_check ?id ?project ~name () :
   { id; name; project }
 
 type t = {
+  tf_name : string;
   check_interval_sec : float prop;
   creation_timestamp : string prop;
   description : string prop;
@@ -452,6 +453,7 @@ let make ?id ?project ~name __id =
   let __type = "google_compute_health_check" in
   let __attrs =
     ({
+       tf_name = __id;
        check_interval_sec =
          Prop.computed __type __id "check_interval_sec";
        creation_timestamp =

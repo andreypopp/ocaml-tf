@@ -131,6 +131,7 @@ val yojson_of_aws_db_instance : aws_db_instance -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address : string prop;
   allocated_storage : float prop;
   allow_major_version_upgrade : bool prop;

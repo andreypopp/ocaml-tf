@@ -54,6 +54,7 @@ val yojson_of_aws_cleanrooms_collaboration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   create_time : string prop;
   creator_display_name : string prop;

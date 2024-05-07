@@ -133,6 +133,7 @@ let azurerm_synapse_integration_runtime_self_hosted ?description ?id
   { description; id; name; synapse_workspace_id; timeouts }
 
 type t = {
+  tf_name : string;
   authorization_key_primary : string prop;
   authorization_key_secondary : string prop;
   description : string prop;
@@ -146,6 +147,7 @@ let make ?description ?id ?timeouts ~name ~synapse_workspace_id __id
   let __type = "azurerm_synapse_integration_runtime_self_hosted" in
   let __attrs =
     ({
+       tf_name = __id;
        authorization_key_primary =
          Prop.computed __type __id "authorization_key_primary";
        authorization_key_secondary =

@@ -99,6 +99,7 @@ let aws_lambda_code_signing_config ?id ~arn () :
   { arn; id }
 
 type t = {
+  tf_name : string;
   allowed_publishers : allowed_publishers list prop;
   arn : string prop;
   config_id : string prop;
@@ -112,6 +113,7 @@ let make ?id ~arn __id =
   let __type = "aws_lambda_code_signing_config" in
   let __attrs =
     ({
+       tf_name = __id;
        allowed_publishers =
          Prop.computed __type __id "allowed_publishers";
        arn = Prop.computed __type __id "arn";

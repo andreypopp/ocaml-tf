@@ -207,6 +207,7 @@ let google_beyondcorp_app_gateway ?display_name ?host_type ?id
   }
 
 type t = {
+  tf_name : string;
   allocated_connections : allocated_connections list prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;
@@ -227,6 +228,7 @@ let make ?display_name ?host_type ?id ?labels ?project ?region ?type_
   let __type = "google_beyondcorp_app_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        allocated_connections =
          Prop.computed __type __id "allocated_connections";
        display_name = Prop.computed __type __id "display_name";

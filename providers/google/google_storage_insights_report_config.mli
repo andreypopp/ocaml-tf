@@ -95,6 +95,7 @@ val yojson_of_google_storage_insights_report_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   location : string prop;

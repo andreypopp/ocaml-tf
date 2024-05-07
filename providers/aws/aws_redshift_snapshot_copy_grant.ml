@@ -92,6 +92,7 @@ let aws_redshift_snapshot_copy_grant ?id ?kms_key_id ?tags ?tags_all
   { id; kms_key_id; snapshot_copy_grant_name; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   kms_key_id : string prop;
@@ -105,6 +106,7 @@ let make ?id ?kms_key_id ?tags ?tags_all ~snapshot_copy_grant_name
   let __type = "aws_redshift_snapshot_copy_grant" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        kms_key_id = Prop.computed __type __id "kms_key_id";

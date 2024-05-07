@@ -562,6 +562,7 @@ let google_dialogflow_cx_agent ?avatar_uri ?description
   }
 
 type t = {
+  tf_name : string;
   avatar_uri : string prop;
   default_language_code : string prop;
   description : string prop;
@@ -587,6 +588,7 @@ let make ?avatar_uri ?description ?enable_spell_correction
   let __type = "google_dialogflow_cx_agent" in
   let __attrs =
     ({
+       tf_name = __id;
        avatar_uri = Prop.computed __type __id "avatar_uri";
        default_language_code =
          Prop.computed __type __id "default_language_code";

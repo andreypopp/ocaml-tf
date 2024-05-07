@@ -472,6 +472,7 @@ let azurerm_lighthouse_definition ?description ?id
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   lighthouse_definition_id : string prop;
@@ -486,6 +487,7 @@ let make ?description ?id ?lighthouse_definition_id ?(plan = [])
   let __type = "azurerm_lighthouse_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        lighthouse_definition_id =

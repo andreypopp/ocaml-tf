@@ -39,6 +39,7 @@ let aws_dx_location ?id ~location_code () : aws_dx_location =
   { id; location_code }
 
 type t = {
+  tf_name : string;
   available_macsec_port_speeds : string list prop;
   available_port_speeds : string list prop;
   available_providers : string list prop;
@@ -51,6 +52,7 @@ let make ?id ~location_code __id =
   let __type = "aws_dx_location" in
   let __attrs =
     ({
+       tf_name = __id;
        available_macsec_port_speeds =
          Prop.computed __type __id "available_macsec_port_speeds";
        available_port_speeds =

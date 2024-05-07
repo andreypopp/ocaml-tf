@@ -30,12 +30,17 @@ let _ = yojson_of_aws_iam_account_alias
 
 let aws_iam_account_alias ?id () : aws_iam_account_alias = { id }
 
-type t = { account_alias : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  account_alias : string prop;
+  id : string prop;
+}
 
 let make ?id __id =
   let __type = "aws_iam_account_alias" in
   let __attrs =
     ({
+       tf_name = __id;
        account_alias = Prop.computed __type __id "account_alias";
        id = Prop.computed __type __id "id";
      }

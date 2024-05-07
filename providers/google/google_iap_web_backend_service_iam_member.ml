@@ -120,6 +120,7 @@ let google_iap_web_backend_service_iam_member ?id ?project
   { id; member; project; role; web_backend_service; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   member : string prop;
@@ -133,6 +134,7 @@ let make ?id ?project ?(condition = []) ~member ~role
   let __type = "google_iap_web_backend_service_iam_member" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        member = Prop.computed __type __id "member";

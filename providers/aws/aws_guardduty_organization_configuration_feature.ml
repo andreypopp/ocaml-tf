@@ -100,6 +100,7 @@ let aws_guardduty_organization_configuration_feature ?id
   { auto_enable; detector_id; id; name; additional_configuration }
 
 type t = {
+  tf_name : string;
   auto_enable : string prop;
   detector_id : string prop;
   id : string prop;
@@ -111,6 +112,7 @@ let make ?id ?(additional_configuration = []) ~auto_enable
   let __type = "aws_guardduty_organization_configuration_feature" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_enable = Prop.computed __type __id "auto_enable";
        detector_id = Prop.computed __type __id "detector_id";
        id = Prop.computed __type __id "id";

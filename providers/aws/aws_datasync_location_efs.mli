@@ -33,6 +33,7 @@ val yojson_of_aws_datasync_location_efs :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_point_arn : string prop;
   arn : string prop;
   efs_file_system_arn : string prop;

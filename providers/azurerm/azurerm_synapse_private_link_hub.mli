@@ -32,6 +32,7 @@ val yojson_of_azurerm_synapse_private_link_hub :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

@@ -145,6 +145,7 @@ let google_compute_target_instance ?description ?id ?nat_policy
   }
 
 type t = {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   id : string prop;
@@ -161,6 +162,7 @@ let make ?description ?id ?nat_policy ?project ?zone ?timeouts
   let __type = "google_compute_target_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";
        description = Prop.computed __type __id "description";

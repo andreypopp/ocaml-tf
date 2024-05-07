@@ -208,6 +208,7 @@ let azurerm_load_test ?description ?id ?tags ?(identity = [])
   }
 
 type t = {
+  tf_name : string;
   data_plane_uri : string prop;
   description : string prop;
   id : string prop;
@@ -222,6 +223,7 @@ let make ?description ?id ?tags ?(identity = []) ?timeouts ~location
   let __type = "azurerm_load_test" in
   let __attrs =
     ({
+       tf_name = __id;
        data_plane_uri = Prop.computed __type __id "data_plane_uri";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

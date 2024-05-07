@@ -55,6 +55,7 @@ val yojson_of_aws_appstream_image_builder :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   appstream_agent_version : string prop;
   arn : string prop;
   created_time : string prop;

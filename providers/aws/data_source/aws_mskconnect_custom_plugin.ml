@@ -41,6 +41,7 @@ let aws_mskconnect_custom_plugin ?id ~name () :
   { id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -53,6 +54,7 @@ let make ?id ~name __id =
   let __type = "aws_mskconnect_custom_plugin" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

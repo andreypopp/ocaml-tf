@@ -20,6 +20,7 @@ val yojson_of_digitalocean_container_registry_docker_credentials :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   credential_expiration_time : string prop;
   docker_credentials : string prop;
   expiry_seconds : float prop;

@@ -215,6 +215,7 @@ let aws_qldb_stream ?exclusive_end_time ?id ?tags ?tags_all ?timeouts
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   exclusive_end_time : string prop;
   id : string prop;
@@ -232,6 +233,7 @@ let make ?exclusive_end_time ?id ?tags ?tags_all ?timeouts
   let __type = "aws_qldb_stream" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        exclusive_end_time =
          Prop.computed __type __id "exclusive_end_time";

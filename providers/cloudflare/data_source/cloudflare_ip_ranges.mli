@@ -16,6 +16,7 @@ val yojson_of_cloudflare_ip_ranges : cloudflare_ip_ranges -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   china_ipv4_cidr_blocks : string list prop;
   china_ipv6_cidr_blocks : string list prop;
   cidr_blocks : string list prop;

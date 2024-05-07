@@ -29,6 +29,7 @@ val yojson_of_aws_ssoadmin_instance_access_control_attributes :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   instance_arn : string prop;
   status : string prop;

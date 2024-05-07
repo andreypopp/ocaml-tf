@@ -1351,6 +1351,7 @@ let google_privateca_ca_pool ?id ?labels ?project
   }
 
 type t = {
+  tf_name : string;
   effective_labels : (string * string) list prop;
   id : string prop;
   labels : (string * string) list prop;
@@ -1366,6 +1367,7 @@ let make ?id ?labels ?project ?(issuance_policy = [])
   let __type = "google_privateca_ca_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        effective_labels =
          Prop.computed __type __id "effective_labels";
        id = Prop.computed __type __id "id";

@@ -20,6 +20,7 @@ val yojson_of_aws_worklink_website_certificate_authority_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate : string prop;
   display_name : string prop;
   fleet_arn : string prop;

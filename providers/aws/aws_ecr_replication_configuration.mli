@@ -49,7 +49,11 @@ val yojson_of_aws_ecr_replication_configuration :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; registry_id : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  registry_id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

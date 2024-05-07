@@ -48,6 +48,7 @@ val yojson_of_cloudflare_waiting_room :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cookie_suffix : string prop;
   custom_page_html : string prop;
   default_template_language : string prop;

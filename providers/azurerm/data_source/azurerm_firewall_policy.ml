@@ -163,6 +163,7 @@ let azurerm_firewall_policy ?id ?timeouts ~name ~resource_group_name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   base_policy_id : string prop;
   child_policies : string list prop;
   dns : dns list prop;
@@ -182,6 +183,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_firewall_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        base_policy_id = Prop.computed __type __id "base_policy_id";
        child_policies = Prop.computed __type __id "child_policies";
        dns = Prop.computed __type __id "dns";

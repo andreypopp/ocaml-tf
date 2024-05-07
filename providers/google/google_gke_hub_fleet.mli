@@ -66,6 +66,7 @@ val yojson_of_google_gke_hub_fleet : google_gke_hub_fleet -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   delete_time : string prop;
   display_name : string prop;

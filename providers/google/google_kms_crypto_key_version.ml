@@ -250,6 +250,7 @@ let google_kms_crypto_key_version ?id ?state ?timeouts ~crypto_key ()
   { crypto_key; id; state; timeouts }
 
 type t = {
+  tf_name : string;
   algorithm : string prop;
   attestation : attestation list prop;
   crypto_key : string prop;
@@ -264,6 +265,7 @@ let make ?id ?state ?timeouts ~crypto_key __id =
   let __type = "google_kms_crypto_key_version" in
   let __attrs =
     ({
+       tf_name = __id;
        algorithm = Prop.computed __type __id "algorithm";
        attestation = Prop.computed __type __id "attestation";
        crypto_key = Prop.computed __type __id "crypto_key";

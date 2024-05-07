@@ -19,6 +19,7 @@ val yojson_of_aws_sagemaker_image_version :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   base_image : string prop;
   container_image : string prop;

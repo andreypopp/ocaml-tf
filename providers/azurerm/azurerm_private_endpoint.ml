@@ -553,6 +553,7 @@ let azurerm_private_endpoint ?custom_network_interface_name ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   custom_dns_configs : custom_dns_configs list prop;
   custom_network_interface_name : string prop;
   id : string prop;
@@ -572,6 +573,7 @@ let make ?custom_network_interface_name ?id ?tags
   let __type = "azurerm_private_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        custom_dns_configs =
          Prop.computed __type __id "custom_dns_configs";
        custom_network_interface_name =

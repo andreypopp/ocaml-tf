@@ -18,6 +18,7 @@ val yojson_of_aws_ivs_stream_key : aws_ivs_stream_key -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   channel_arn : string prop;
   id : string prop;

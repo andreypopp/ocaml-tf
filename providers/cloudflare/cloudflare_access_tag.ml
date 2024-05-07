@@ -73,6 +73,7 @@ let cloudflare_access_tag ?account_id ?app_count ?id ?zone_id ~name
   { account_id; app_count; id; name; zone_id }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   app_count : float prop;
   id : string prop;
@@ -84,6 +85,7 @@ let make ?account_id ?app_count ?id ?zone_id ~name __id =
   let __type = "cloudflare_access_tag" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        app_count = Prop.computed __type __id "app_count";
        id = Prop.computed __type __id "id";

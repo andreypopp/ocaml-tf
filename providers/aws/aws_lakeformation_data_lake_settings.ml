@@ -250,6 +250,7 @@ let aws_lakeformation_data_lake_settings ?admins
   }
 
 type t = {
+  tf_name : string;
   admins : string list prop;
   allow_external_data_filtering : bool prop;
   authorized_session_tag_value_list : string list prop;
@@ -269,6 +270,7 @@ let make ?admins ?allow_external_data_filtering
   let __type = "aws_lakeformation_data_lake_settings" in
   let __attrs =
     ({
+       tf_name = __id;
        admins = Prop.computed __type __id "admins";
        allow_external_data_filtering =
          Prop.computed __type __id "allow_external_data_filtering";

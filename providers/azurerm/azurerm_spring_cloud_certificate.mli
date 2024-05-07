@@ -33,6 +33,7 @@ val yojson_of_azurerm_spring_cloud_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_content : string prop;
   exclude_private_key : bool prop;
   id : string prop;

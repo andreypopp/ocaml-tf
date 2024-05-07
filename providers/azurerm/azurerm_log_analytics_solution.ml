@@ -224,6 +224,7 @@ let azurerm_log_analytics_solution ?id ?tags ?timeouts ~location
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   resource_group_name : string prop;
@@ -239,6 +240,7 @@ let make ?id ?tags ?timeouts ~location ~resource_group_name
   let __type = "azurerm_log_analytics_solution" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        resource_group_name =

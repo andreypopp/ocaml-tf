@@ -39,6 +39,7 @@ val yojson_of_azurerm_function_app_function :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   config_json : string prop;
   config_url : string prop;
   enabled : bool prop;

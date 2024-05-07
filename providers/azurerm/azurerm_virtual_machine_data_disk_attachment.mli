@@ -34,6 +34,7 @@ val yojson_of_azurerm_virtual_machine_data_disk_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   caching : string prop;
   create_option : string prop;
   id : string prop;

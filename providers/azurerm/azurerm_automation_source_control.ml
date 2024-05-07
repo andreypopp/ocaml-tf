@@ -250,6 +250,7 @@ let azurerm_automation_source_control ?automatic_sync ?branch
   }
 
 type t = {
+  tf_name : string;
   automatic_sync : bool prop;
   automation_account_id : string prop;
   branch : string prop;
@@ -269,6 +270,7 @@ let make ?automatic_sync ?branch ?description ?id
   let __type = "azurerm_automation_source_control" in
   let __attrs =
     ({
+       tf_name = __id;
        automatic_sync = Prop.computed __type __id "automatic_sync";
        automation_account_id =
          Prop.computed __type __id "automation_account_id";

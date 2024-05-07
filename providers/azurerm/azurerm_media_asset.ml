@@ -180,6 +180,7 @@ let azurerm_media_asset ?alternate_id ?container ?description ?id
   }
 
 type t = {
+  tf_name : string;
   alternate_id : string prop;
   container : string prop;
   description : string prop;
@@ -196,6 +197,7 @@ let make ?alternate_id ?container ?description ?id
   let __type = "azurerm_media_asset" in
   let __attrs =
     ({
+       tf_name = __id;
        alternate_id = Prop.computed __type __id "alternate_id";
        container = Prop.computed __type __id "container";
        description = Prop.computed __type __id "description";

@@ -937,6 +937,7 @@ let cloudflare_page_rule ?id ?priority ?status ~target ~zone_id
   { id; priority; status; target; zone_id; actions }
 
 type t = {
+  tf_name : string;
   id : string prop;
   priority : float prop;
   status : string prop;
@@ -948,6 +949,7 @@ let make ?id ?priority ?status ~target ~zone_id ~actions __id =
   let __type = "cloudflare_page_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        priority = Prop.computed __type __id "priority";
        status = Prop.computed __type __id "status";

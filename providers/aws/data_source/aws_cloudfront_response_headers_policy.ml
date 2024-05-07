@@ -688,6 +688,7 @@ let aws_cloudfront_response_headers_policy ?id ?name () :
   { id; name }
 
 type t = {
+  tf_name : string;
   comment : string prop;
   cors_config : cors_config list prop;
   custom_headers_config : custom_headers_config list prop;
@@ -704,6 +705,7 @@ let make ?id ?name __id =
   let __type = "aws_cloudfront_response_headers_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        comment = Prop.computed __type __id "comment";
        cors_config = Prop.computed __type __id "cors_config";
        custom_headers_config =

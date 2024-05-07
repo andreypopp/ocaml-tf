@@ -18,6 +18,7 @@ val yojson_of_aws_lex_intent : aws_lex_intent -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   checksum : string prop;
   created_date : string prop;

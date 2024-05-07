@@ -100,6 +100,7 @@ let aws_emr_block_public_access_configuration ?id
   }
 
 type t = {
+  tf_name : string;
   block_public_security_group_rules : bool prop;
   id : string prop;
 }
@@ -109,6 +110,7 @@ let make ?id ?(permitted_public_security_group_rule_range = [])
   let __type = "aws_emr_block_public_access_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        block_public_security_group_rules =
          Prop.computed __type __id
            "block_public_security_group_rules";

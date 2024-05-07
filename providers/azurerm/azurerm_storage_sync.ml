@@ -162,6 +162,7 @@ let azurerm_storage_sync ?id ?incoming_traffic_policy ?tags ?timeouts
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   incoming_traffic_policy : string prop;
   location : string prop;
@@ -175,6 +176,7 @@ let make ?id ?incoming_traffic_policy ?tags ?timeouts ~location ~name
   let __type = "azurerm_storage_sync" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        incoming_traffic_policy =
          Prop.computed __type __id "incoming_traffic_policy";

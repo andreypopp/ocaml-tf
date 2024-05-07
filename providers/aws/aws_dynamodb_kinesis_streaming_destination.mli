@@ -19,6 +19,7 @@ val yojson_of_aws_dynamodb_kinesis_streaming_destination :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   stream_arn : string prop;
   table_name : string prop;

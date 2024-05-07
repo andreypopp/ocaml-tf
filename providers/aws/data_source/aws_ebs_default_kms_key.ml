@@ -67,12 +67,17 @@ let aws_ebs_default_kms_key ?id ?timeouts () :
     aws_ebs_default_kms_key =
   { id; timeouts }
 
-type t = { id : string prop; key_arn : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  key_arn : string prop;
+}
 
 let make ?id ?timeouts __id =
   let __type = "aws_ebs_default_kms_key" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        key_arn = Prop.computed __type __id "key_arn";
      }

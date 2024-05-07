@@ -143,6 +143,7 @@ let google_identity_platform_default_supported_idp_config ?enabled
   }
 
 type t = {
+  tf_name : string;
   client_id : string prop;
   client_secret : string prop;
   enabled : bool prop;
@@ -159,6 +160,7 @@ let make ?enabled ?id ?project ?timeouts ~client_id ~client_secret
   in
   let __attrs =
     ({
+       tf_name = __id;
        client_id = Prop.computed __type __id "client_id";
        client_secret = Prop.computed __type __id "client_secret";
        enabled = Prop.computed __type __id "enabled";

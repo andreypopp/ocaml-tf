@@ -80,6 +80,7 @@ let aws_macie2_invitation_accepter ?id ?timeouts
   { administrator_account_id; id; timeouts }
 
 type t = {
+  tf_name : string;
   administrator_account_id : string prop;
   id : string prop;
   invitation_id : string prop;
@@ -89,6 +90,7 @@ let make ?id ?timeouts ~administrator_account_id __id =
   let __type = "aws_macie2_invitation_accepter" in
   let __attrs =
     ({
+       tf_name = __id;
        administrator_account_id =
          Prop.computed __type __id "administrator_account_id";
        id = Prop.computed __type __id "id";

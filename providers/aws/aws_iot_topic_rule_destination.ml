@@ -169,12 +169,18 @@ let aws_iot_topic_rule_destination ?enabled ?id ?timeouts
     ~vpc_configuration () : aws_iot_topic_rule_destination =
   { enabled; id; timeouts; vpc_configuration }
 
-type t = { arn : string prop; enabled : bool prop; id : string prop }
+type t = {
+  tf_name : string;
+  arn : string prop;
+  enabled : bool prop;
+  id : string prop;
+}
 
 let make ?enabled ?id ?timeouts ~vpc_configuration __id =
   let __type = "aws_iot_topic_rule_destination" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";

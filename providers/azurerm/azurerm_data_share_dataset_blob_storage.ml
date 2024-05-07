@@ -197,6 +197,7 @@ let azurerm_data_share_dataset_blob_storage ?file_path ?folder_path
   }
 
 type t = {
+  tf_name : string;
   container_name : string prop;
   data_share_id : string prop;
   display_name : string prop;
@@ -211,6 +212,7 @@ let make ?file_path ?folder_path ?id ?timeouts ~container_name
   let __type = "azurerm_data_share_dataset_blob_storage" in
   let __attrs =
     ({
+       tf_name = __id;
        container_name = Prop.computed __type __id "container_name";
        data_share_id = Prop.computed __type __id "data_share_id";
        display_name = Prop.computed __type __id "display_name";

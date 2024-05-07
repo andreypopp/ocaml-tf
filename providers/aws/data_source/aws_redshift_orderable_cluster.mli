@@ -21,6 +21,7 @@ val yojson_of_aws_redshift_orderable_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   availability_zones : string list prop;
   cluster_type : string prop;
   cluster_version : string prop;

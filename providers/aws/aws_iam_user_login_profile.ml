@@ -74,6 +74,7 @@ let aws_iam_user_login_profile ?id ?password_length
   { id; password_length; password_reset_required; pgp_key; user }
 
 type t = {
+  tf_name : string;
   encrypted_password : string prop;
   id : string prop;
   key_fingerprint : string prop;
@@ -89,6 +90,7 @@ let make ?id ?password_length ?password_reset_required ?pgp_key ~user
   let __type = "aws_iam_user_login_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        encrypted_password =
          Prop.computed __type __id "encrypted_password";
        id = Prop.computed __type __id "id";

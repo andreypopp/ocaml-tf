@@ -19,6 +19,7 @@ val yojson_of_aws_kinesis_stream_consumer :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   creation_timestamp : string prop;
   id : string prop;

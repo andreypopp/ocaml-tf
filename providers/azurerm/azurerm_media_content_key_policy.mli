@@ -153,6 +153,7 @@ val yojson_of_azurerm_media_content_key_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   media_services_account_name : string prop;

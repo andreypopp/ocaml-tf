@@ -27,6 +27,7 @@ val yojson_of_aws_amplify_domain_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_id : string prop;
   arn : string prop;
   certificate_verification_dns_record : string prop;

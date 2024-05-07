@@ -22,6 +22,7 @@ val yojson_of_aws_lambda_invocation : aws_lambda_invocation -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   function_name : string prop;
   id : string prop;
   input : string prop;

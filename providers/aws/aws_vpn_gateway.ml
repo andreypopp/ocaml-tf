@@ -103,6 +103,7 @@ let aws_vpn_gateway ?amazon_side_asn ?availability_zone ?id ?tags
   { amazon_side_asn; availability_zone; id; tags; tags_all; vpc_id }
 
 type t = {
+  tf_name : string;
   amazon_side_asn : string prop;
   arn : string prop;
   availability_zone : string prop;
@@ -117,6 +118,7 @@ let make ?amazon_side_asn ?availability_zone ?id ?tags ?tags_all
   let __type = "aws_vpn_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        amazon_side_asn = Prop.computed __type __id "amazon_side_asn";
        arn = Prop.computed __type __id "arn";
        availability_zone =

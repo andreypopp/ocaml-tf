@@ -2555,6 +2555,7 @@ let google_gkeonprem_bare_metal_cluster ?annotations ?description ?id
   }
 
 type t = {
+  tf_name : string;
   admin_cluster_membership : string prop;
   annotations : (string * string) list prop;
   bare_metal_version : string prop;
@@ -2588,6 +2589,7 @@ let make ?annotations ?description ?id ?project
   let __type = "google_gkeonprem_bare_metal_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        admin_cluster_membership =
          Prop.computed __type __id "admin_cluster_membership";
        annotations = Prop.computed __type __id "annotations";

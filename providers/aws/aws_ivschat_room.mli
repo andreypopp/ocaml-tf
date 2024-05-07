@@ -41,6 +41,7 @@ val yojson_of_aws_ivschat_room : aws_ivschat_room -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   logging_configuration_identifiers : string list prop;

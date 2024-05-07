@@ -22,6 +22,7 @@ val yojson_of_aws_iam_service_linked_role :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   aws_service_name : string prop;
   create_date : string prop;

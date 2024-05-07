@@ -527,6 +527,7 @@ let google_eventarc_trigger ?channel ?event_data_content_type ?id
   }
 
 type t = {
+  tf_name : string;
   channel : string prop;
   conditions : (string * string) list prop;
   create_time : string prop;
@@ -550,6 +551,7 @@ let make ?channel ?event_data_content_type ?id ?labels ?project
   let __type = "google_eventarc_trigger" in
   let __attrs =
     ({
+       tf_name = __id;
        channel = Prop.computed __type __id "channel";
        conditions = Prop.computed __type __id "conditions";
        create_time = Prop.computed __type __id "create_time";

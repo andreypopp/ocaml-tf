@@ -26,6 +26,7 @@ val yojson_of_aws_backup_vault : aws_backup_vault -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   force_destroy : bool prop;
   id : string prop;

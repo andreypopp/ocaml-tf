@@ -59,6 +59,7 @@ let hcloud_volume_attachment ?automount ?id ~server_id ~volume_id ()
   { automount; id; server_id; volume_id }
 
 type t = {
+  tf_name : string;
   automount : bool prop;
   id : string prop;
   server_id : float prop;
@@ -69,6 +70,7 @@ let make ?automount ?id ~server_id ~volume_id __id =
   let __type = "hcloud_volume_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        automount = Prop.computed __type __id "automount";
        id = Prop.computed __type __id "id";
        server_id = Prop.computed __type __id "server_id";

@@ -79,6 +79,7 @@ let aws_location_place_index ?id ?tags ~index_name () :
   { id; index_name; tags }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   data_source : string prop;
   data_source_configuration : data_source_configuration list prop;
@@ -94,6 +95,7 @@ let make ?id ?tags ~index_name __id =
   let __type = "aws_location_place_index" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        data_source = Prop.computed __type __id "data_source";
        data_source_configuration =

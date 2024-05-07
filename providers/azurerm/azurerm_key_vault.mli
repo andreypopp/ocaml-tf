@@ -73,6 +73,7 @@ val yojson_of_azurerm_key_vault : azurerm_key_vault -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_policy : access_policy list prop;
   enable_rbac_authorization : bool prop;
   enabled_for_deployment : bool prop;

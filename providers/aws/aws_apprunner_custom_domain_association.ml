@@ -106,6 +106,7 @@ let aws_apprunner_custom_domain_association ?enable_www_subdomain ?id
   { domain_name; enable_www_subdomain; id; service_arn }
 
 type t = {
+  tf_name : string;
   certificate_validation_records :
     certificate_validation_records list prop;
   dns_target : string prop;
@@ -120,6 +121,7 @@ let make ?enable_www_subdomain ?id ~domain_name ~service_arn __id =
   let __type = "aws_apprunner_custom_domain_association" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_validation_records =
          Prop.computed __type __id "certificate_validation_records";
        dns_target = Prop.computed __type __id "dns_target";

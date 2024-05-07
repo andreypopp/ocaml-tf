@@ -152,6 +152,7 @@ let azurerm_postgresql_flexible_server_active_directory_administrator
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   object_id : string prop;
   principal_name : string prop;
@@ -168,6 +169,7 @@ let make ?id ?timeouts ~object_id ~principal_name ~principal_type
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        object_id = Prop.computed __type __id "object_id";
        principal_name = Prop.computed __type __id "principal_name";

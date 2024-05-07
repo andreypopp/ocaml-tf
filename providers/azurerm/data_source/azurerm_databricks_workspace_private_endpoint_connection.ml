@@ -147,6 +147,7 @@ let azurerm_databricks_workspace_private_endpoint_connection ?id
   { id; private_endpoint_id; workspace_id; timeouts }
 
 type t = {
+  tf_name : string;
   connections : connections list prop;
   id : string prop;
   private_endpoint_id : string prop;
@@ -159,6 +160,7 @@ let make ?id ?timeouts ~private_endpoint_id ~workspace_id __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        connections = Prop.computed __type __id "connections";
        id = Prop.computed __type __id "id";
        private_endpoint_id =

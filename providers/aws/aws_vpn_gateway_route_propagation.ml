@@ -99,6 +99,7 @@ let aws_vpn_gateway_route_propagation ?id ?timeouts ~route_table_id
   { id; route_table_id; vpn_gateway_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   route_table_id : string prop;
   vpn_gateway_id : string prop;
@@ -108,6 +109,7 @@ let make ?id ?timeouts ~route_table_id ~vpn_gateway_id __id =
   let __type = "aws_vpn_gateway_route_propagation" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        route_table_id = Prop.computed __type __id "route_table_id";
        vpn_gateway_id = Prop.computed __type __id "vpn_gateway_id";

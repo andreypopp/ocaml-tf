@@ -39,6 +39,7 @@ let cloudflare_zone_dnssec ?id ~zone_id () : cloudflare_zone_dnssec =
   { id; zone_id }
 
 type t = {
+  tf_name : string;
   algorithm : string prop;
   digest : string prop;
   digest_algorithm : string prop;
@@ -57,6 +58,7 @@ let make ?id ~zone_id __id =
   let __type = "cloudflare_zone_dnssec" in
   let __attrs =
     ({
+       tf_name = __id;
        algorithm = Prop.computed __type __id "algorithm";
        digest = Prop.computed __type __id "digest";
        digest_algorithm =

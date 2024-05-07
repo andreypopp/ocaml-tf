@@ -144,6 +144,7 @@ let google_secret_manager_secret_version ?deletion_policy ?enabled
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   deletion_policy : string prop;
   destroy_time : string prop;
@@ -161,6 +162,7 @@ let make ?deletion_policy ?enabled ?id ?is_secret_data_base64
   let __type = "google_secret_manager_secret_version" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        deletion_policy = Prop.computed __type __id "deletion_policy";
        destroy_time = Prop.computed __type __id "destroy_time";

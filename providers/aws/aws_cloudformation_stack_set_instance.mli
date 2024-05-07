@@ -61,6 +61,7 @@ val yojson_of_aws_cloudformation_stack_set_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   call_as : string prop;
   id : string prop;

@@ -32,6 +32,7 @@ val yojson_of_google_healthcare_consent_store :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dataset : string prop;
   default_consent_ttl : string prop;
   effective_labels : (string * string) list prop;

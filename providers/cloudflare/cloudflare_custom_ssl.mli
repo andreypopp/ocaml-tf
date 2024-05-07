@@ -40,6 +40,7 @@ val yojson_of_cloudflare_custom_ssl : cloudflare_custom_ssl -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   expires_on : string prop;
   hosts : string list prop;
   id : string prop;

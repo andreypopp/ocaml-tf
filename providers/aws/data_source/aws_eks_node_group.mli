@@ -54,6 +54,7 @@ val yojson_of_aws_eks_node_group : aws_eks_node_group -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   ami_type : string prop;
   arn : string prop;
   capacity_type : string prop;

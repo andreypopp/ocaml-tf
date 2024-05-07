@@ -24,6 +24,7 @@ val yojson_of_aws_kms_replica_key : aws_kms_replica_key -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   bypass_policy_lockout_safety_check : bool prop;
   deletion_window_in_days : float prop;

@@ -32,6 +32,7 @@ val yojson_of_aws_gamelift_script : aws_gamelift_script -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;

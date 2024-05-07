@@ -331,6 +331,7 @@ let azurerm_log_analytics_workspace ?allow_resource_only_permissions
   }
 
 type t = {
+  tf_name : string;
   allow_resource_only_permissions : bool prop;
   cmk_for_query_forced : bool prop;
   daily_quota_gb : float prop;
@@ -363,6 +364,7 @@ let make ?allow_resource_only_permissions ?cmk_for_query_forced
   let __type = "azurerm_log_analytics_workspace" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_resource_only_permissions =
          Prop.computed __type __id "allow_resource_only_permissions";
        cmk_for_query_forced =

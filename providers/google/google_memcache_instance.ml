@@ -565,6 +565,7 @@ let google_memcache_instance ?authorized_network ?display_name ?id
   }
 
 type t = {
+  tf_name : string;
   authorized_network : string prop;
   create_time : string prop;
   discovery_endpoint : string prop;
@@ -592,6 +593,7 @@ let make ?authorized_network ?display_name ?id ?labels
   let __type = "google_memcache_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        authorized_network =
          Prop.computed __type __id "authorized_network";
        create_time = Prop.computed __type __id "create_time";

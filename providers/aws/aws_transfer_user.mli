@@ -48,6 +48,7 @@ val yojson_of_aws_transfer_user : aws_transfer_user -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   home_directory : string prop;
   home_directory_type : string prop;

@@ -294,6 +294,7 @@ val yojson_of_azurerm_monitor_data_collection_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   data_collection_endpoint_id : string prop;
   description : string prop;
   id : string prop;

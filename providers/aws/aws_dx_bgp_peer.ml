@@ -144,6 +144,7 @@ let aws_dx_bgp_peer ?amazon_address ?bgp_auth_key ?customer_address
   }
 
 type t = {
+  tf_name : string;
   address_family : string prop;
   amazon_address : string prop;
   aws_device : string prop;
@@ -161,6 +162,7 @@ let make ?amazon_address ?bgp_auth_key ?customer_address ?id
   let __type = "aws_dx_bgp_peer" in
   let __attrs =
     ({
+       tf_name = __id;
        address_family = Prop.computed __type __id "address_family";
        amazon_address = Prop.computed __type __id "amazon_address";
        aws_device = Prop.computed __type __id "aws_device";

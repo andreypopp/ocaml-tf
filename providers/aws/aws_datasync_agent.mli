@@ -30,6 +30,7 @@ val yojson_of_aws_datasync_agent : aws_datasync_agent -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   activation_key : string prop;
   arn : string prop;
   id : string prop;

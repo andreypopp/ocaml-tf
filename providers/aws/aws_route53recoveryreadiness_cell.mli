@@ -26,6 +26,7 @@ val yojson_of_aws_route53recoveryreadiness_cell :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cell_name : string prop;
   cells : string list prop;

@@ -17,7 +17,11 @@ val yojson_of_aws_ec2_serial_console_access :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { enabled : bool prop; id : string prop }
+type t = private {
+  tf_name : string;
+  enabled : bool prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

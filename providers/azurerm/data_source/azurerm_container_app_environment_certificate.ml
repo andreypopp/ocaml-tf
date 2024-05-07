@@ -88,6 +88,7 @@ let azurerm_container_app_environment_certificate ?id ?timeouts
   { container_app_environment_id; id; name; timeouts }
 
 type t = {
+  tf_name : string;
   container_app_environment_id : string prop;
   expiration_date : string prop;
   id : string prop;
@@ -103,6 +104,7 @@ let make ?id ?timeouts ~container_app_environment_id ~name __id =
   let __type = "azurerm_container_app_environment_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        container_app_environment_id =
          Prop.computed __type __id "container_app_environment_id";
        expiration_date = Prop.computed __type __id "expiration_date";

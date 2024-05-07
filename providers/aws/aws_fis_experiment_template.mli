@@ -116,6 +116,7 @@ val yojson_of_aws_fis_experiment_template :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   role_arn : string prop;

@@ -33,6 +33,7 @@ val yojson_of_azurerm_iothub_enrichment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   endpoint_names : string list prop;
   id : string prop;
   iothub_name : string prop;

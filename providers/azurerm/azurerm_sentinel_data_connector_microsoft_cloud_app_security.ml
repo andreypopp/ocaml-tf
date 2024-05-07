@@ -167,6 +167,7 @@ let azurerm_sentinel_data_connector_microsoft_cloud_app_security
   }
 
 type t = {
+  tf_name : string;
   alerts_enabled : bool prop;
   discovery_logs_enabled : bool prop;
   id : string prop;
@@ -182,6 +183,7 @@ let make ?alerts_enabled ?discovery_logs_enabled ?id ?tenant_id
   in
   let __attrs =
     ({
+       tf_name = __id;
        alerts_enabled = Prop.computed __type __id "alerts_enabled";
        discovery_logs_enabled =
          Prop.computed __type __id "discovery_logs_enabled";

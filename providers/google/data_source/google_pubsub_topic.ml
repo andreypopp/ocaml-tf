@@ -106,6 +106,7 @@ let google_pubsub_topic ?id ?project ~name () : google_pubsub_topic =
   { id; name; project }
 
 type t = {
+  tf_name : string;
   effective_labels : (string * string) list prop;
   id : string prop;
   kms_key_name : string prop;
@@ -122,6 +123,7 @@ let make ?id ?project ~name __id =
   let __type = "google_pubsub_topic" in
   let __attrs =
     ({
+       tf_name = __id;
        effective_labels =
          Prop.computed __type __id "effective_labels";
        id = Prop.computed __type __id "id";

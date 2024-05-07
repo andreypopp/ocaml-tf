@@ -675,6 +675,7 @@ let google_redis_instance ?alternative_location_id ?auth_enabled
   }
 
 type t = {
+  tf_name : string;
   alternative_location_id : string prop;
   auth_enabled : bool prop;
   auth_string : string prop;
@@ -721,6 +722,7 @@ let make ?alternative_location_id ?auth_enabled ?authorized_network
   let __type = "google_redis_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        alternative_location_id =
          Prop.computed __type __id "alternative_location_id";
        auth_enabled = Prop.computed __type __id "auth_enabled";

@@ -24,6 +24,7 @@ val yojson_of_google_kms_crypto_key_version :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   algorithm : string prop;
   crypto_key : string prop;
   id : string prop;

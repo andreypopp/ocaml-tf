@@ -68,6 +68,7 @@ let google_privateca_certificate_template_iam_policy ?id ?location
   { certificate_template; id; location; project }
 
 type t = {
+  tf_name : string;
   certificate_template : string prop;
   etag : string prop;
   id : string prop;
@@ -80,6 +81,7 @@ let make ?id ?location ?project ~certificate_template __id =
   let __type = "google_privateca_certificate_template_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_template =
          Prop.computed __type __id "certificate_template";
        etag = Prop.computed __type __id "etag";

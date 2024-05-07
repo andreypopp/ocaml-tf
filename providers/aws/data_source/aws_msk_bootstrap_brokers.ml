@@ -40,6 +40,7 @@ let aws_msk_bootstrap_brokers ?id ~cluster_arn () :
   { cluster_arn; id }
 
 type t = {
+  tf_name : string;
   bootstrap_brokers : string prop;
   bootstrap_brokers_public_sasl_iam : string prop;
   bootstrap_brokers_public_sasl_scram : string prop;
@@ -58,6 +59,7 @@ let make ?id ~cluster_arn __id =
   let __type = "aws_msk_bootstrap_brokers" in
   let __attrs =
     ({
+       tf_name = __id;
        bootstrap_brokers =
          Prop.computed __type __id "bootstrap_brokers";
        bootstrap_brokers_public_sasl_iam =

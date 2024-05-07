@@ -57,6 +57,7 @@ let aws_location_tracker ?id ?tags ~tracker_name () :
   { id; tags; tracker_name }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   id : string prop;
@@ -72,6 +73,7 @@ let make ?id ?tags ~tracker_name __id =
   let __type = "aws_location_tracker" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

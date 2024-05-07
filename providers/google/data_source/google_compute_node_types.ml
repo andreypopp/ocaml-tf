@@ -53,6 +53,7 @@ let google_compute_node_types ?id ?project ?zone () :
   { id; project; zone }
 
 type t = {
+  tf_name : string;
   id : string prop;
   names : string list prop;
   project : string prop;
@@ -63,6 +64,7 @@ let make ?id ?project ?zone __id =
   let __type = "google_compute_node_types" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        names = Prop.computed __type __id "names";
        project = Prop.computed __type __id "project";

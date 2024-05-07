@@ -3539,6 +3539,7 @@ let azurerm_linux_function_app ?app_settings ?builtin_logging_enabled
   }
 
 type t = {
+  tf_name : string;
   app_settings : (string * string) list prop;
   builtin_logging_enabled : bool prop;
   client_certificate_enabled : bool prop;
@@ -3594,6 +3595,7 @@ let make ?app_settings ?builtin_logging_enabled
   let __type = "azurerm_linux_function_app" in
   let __attrs =
     ({
+       tf_name = __id;
        app_settings = Prop.computed __type __id "app_settings";
        builtin_logging_enabled =
          Prop.computed __type __id "builtin_logging_enabled";

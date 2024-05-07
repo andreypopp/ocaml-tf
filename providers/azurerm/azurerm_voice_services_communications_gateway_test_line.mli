@@ -34,6 +34,7 @@ val yojson_of_azurerm_voice_services_communications_gateway_test_line :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

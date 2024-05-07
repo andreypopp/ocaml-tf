@@ -49,6 +49,7 @@ val yojson_of_azurerm_data_factory_linked_service_azure_file_storage :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   additional_properties : (string * string) list prop;
   annotations : string list prop;
   connection_string : string prop;

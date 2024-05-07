@@ -31,6 +31,7 @@ val yojson_of_azurerm_cosmosdb_sql_dedicated_gateway :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cosmosdb_account_id : string prop;
   id : string prop;
   instance_count : float prop;

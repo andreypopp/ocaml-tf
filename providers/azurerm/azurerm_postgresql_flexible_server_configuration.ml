@@ -127,6 +127,7 @@ let azurerm_postgresql_flexible_server_configuration ?id ?timeouts
   { id; name; server_id; value; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   server_id : string prop;
@@ -137,6 +138,7 @@ let make ?id ?timeouts ~name ~server_id ~value __id =
   let __type = "azurerm_postgresql_flexible_server_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        server_id = Prop.computed __type __id "server_id";

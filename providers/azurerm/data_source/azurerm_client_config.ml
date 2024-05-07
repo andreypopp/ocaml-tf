@@ -67,6 +67,7 @@ let azurerm_client_config ?id ?timeouts () : azurerm_client_config =
   { id; timeouts }
 
 type t = {
+  tf_name : string;
   client_id : string prop;
   id : string prop;
   object_id : string prop;
@@ -78,6 +79,7 @@ let make ?id ?timeouts __id =
   let __type = "azurerm_client_config" in
   let __attrs =
     ({
+       tf_name = __id;
        client_id = Prop.computed __type __id "client_id";
        id = Prop.computed __type __id "id";
        object_id = Prop.computed __type __id "object_id";

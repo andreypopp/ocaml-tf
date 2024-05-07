@@ -143,6 +143,7 @@ let google_document_ai_warehouse_location
   }
 
 type t = {
+  tf_name : string;
   access_control_mode : string prop;
   database_type : string prop;
   document_creator_default_role : string prop;
@@ -158,6 +159,7 @@ let make ?document_creator_default_role ?id ?kms_key ?timeouts
   let __type = "google_document_ai_warehouse_location" in
   let __attrs =
     ({
+       tf_name = __id;
        access_control_mode =
          Prop.computed __type __id "access_control_mode";
        database_type = Prop.computed __type __id "database_type";

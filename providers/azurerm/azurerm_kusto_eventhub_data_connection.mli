@@ -42,6 +42,7 @@ val yojson_of_azurerm_kusto_eventhub_data_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_name : string prop;
   compression : string prop;
   consumer_group : string prop;

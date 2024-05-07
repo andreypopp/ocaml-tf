@@ -12667,6 +12667,7 @@ let aws_medialive_channel ?id ?log_level ?role_arn ?start_channel
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   channel_class : string prop;
   channel_id : string prop;
@@ -12686,6 +12687,7 @@ let make ?id ?log_level ?role_arn ?start_channel ?tags ?tags_all
   let __type = "aws_medialive_channel" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        channel_class = Prop.computed __type __id "channel_class";
        channel_id = Prop.computed __type __id "channel_id";

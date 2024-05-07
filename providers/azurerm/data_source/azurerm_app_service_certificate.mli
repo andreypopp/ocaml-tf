@@ -25,6 +25,7 @@ val yojson_of_azurerm_app_service_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   expiration_date : string prop;
   friendly_name : string prop;
   host_names : string list prop;

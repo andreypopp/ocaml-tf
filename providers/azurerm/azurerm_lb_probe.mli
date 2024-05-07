@@ -35,6 +35,7 @@ val yojson_of_azurerm_lb_probe : azurerm_lb_probe -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   interval_in_seconds : float prop;
   load_balancer_rules : string list prop;

@@ -145,6 +145,7 @@ let aws_sesv2_dedicated_ip_pool ?id ?scaling_mode ?tags ?tags_all
   { id; pool_name; scaling_mode; tags; tags_all; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   pool_name : string prop;
@@ -158,6 +159,7 @@ let make ?id ?scaling_mode ?tags ?tags_all ?timeouts ~pool_name __id
   let __type = "aws_sesv2_dedicated_ip_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        pool_name = Prop.computed __type __id "pool_name";

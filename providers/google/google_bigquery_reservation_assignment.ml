@@ -130,6 +130,7 @@ let google_bigquery_reservation_assignment ?id ?location ?project
   }
 
 type t = {
+  tf_name : string;
   assignee : string prop;
   id : string prop;
   job_type : string prop;
@@ -145,6 +146,7 @@ let make ?id ?location ?project ?timeouts ~assignee ~job_type
   let __type = "google_bigquery_reservation_assignment" in
   let __attrs =
     ({
+       tf_name = __id;
        assignee = Prop.computed __type __id "assignee";
        id = Prop.computed __type __id "id";
        job_type = Prop.computed __type __id "job_type";

@@ -206,6 +206,7 @@ val yojson_of_azurerm_kubernetes_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   aci_connector_linux : aci_connector_linux list prop;
   agent_pool_profile : agent_pool_profile list prop;
   api_server_authorized_ip_ranges : string list prop;

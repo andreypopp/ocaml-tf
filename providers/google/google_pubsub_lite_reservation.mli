@@ -31,6 +31,7 @@ val yojson_of_google_pubsub_lite_reservation :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   project : string prop;

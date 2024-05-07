@@ -152,6 +152,7 @@ let google_dataplex_asset_iam_binding ?id ?location ?project
   }
 
 type t = {
+  tf_name : string;
   asset : string prop;
   dataplex_zone : string prop;
   etag : string prop;
@@ -168,6 +169,7 @@ let make ?id ?location ?project ?(condition = []) ~asset
   let __type = "google_dataplex_asset_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        asset = Prop.computed __type __id "asset";
        dataplex_zone = Prop.computed __type __id "dataplex_zone";
        etag = Prop.computed __type __id "etag";

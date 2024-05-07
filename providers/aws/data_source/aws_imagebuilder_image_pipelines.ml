@@ -71,6 +71,7 @@ let aws_imagebuilder_image_pipelines ?id ~filter () :
   { id; filter }
 
 type t = {
+  tf_name : string;
   arns : string list prop;
   id : string prop;
   names : string list prop;
@@ -80,6 +81,7 @@ let make ?id ~filter __id =
   let __type = "aws_imagebuilder_image_pipelines" in
   let __attrs =
     ({
+       tf_name = __id;
        arns = Prop.computed __type __id "arns";
        id = Prop.computed __type __id "id";
        names = Prop.computed __type __id "names";

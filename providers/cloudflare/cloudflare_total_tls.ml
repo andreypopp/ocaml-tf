@@ -59,6 +59,7 @@ let cloudflare_total_tls ?certificate_authority ?id ~enabled ~zone_id
   { certificate_authority; enabled; id; zone_id }
 
 type t = {
+  tf_name : string;
   certificate_authority : string prop;
   enabled : bool prop;
   id : string prop;
@@ -69,6 +70,7 @@ let make ?certificate_authority ?id ~enabled ~zone_id __id =
   let __type = "cloudflare_total_tls" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_authority =
          Prop.computed __type __id "certificate_authority";
        enabled = Prop.computed __type __id "enabled";

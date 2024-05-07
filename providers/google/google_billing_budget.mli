@@ -108,6 +108,7 @@ val yojson_of_google_billing_budget : google_billing_budget -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   billing_account : string prop;
   display_name : string prop;
   id : string prop;

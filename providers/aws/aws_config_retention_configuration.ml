@@ -34,6 +34,7 @@ let aws_config_retention_configuration ~retention_period_in_days () :
   { retention_period_in_days }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   retention_period_in_days : float prop;
@@ -43,6 +44,7 @@ let make ~retention_period_in_days __id =
   let __type = "aws_config_retention_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        retention_period_in_days =

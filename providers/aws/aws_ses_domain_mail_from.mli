@@ -20,6 +20,7 @@ val yojson_of_aws_ses_domain_mail_from :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   behavior_on_mx_failure : string prop;
   domain : string prop;
   id : string prop;

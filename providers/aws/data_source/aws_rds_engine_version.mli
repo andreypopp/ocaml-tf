@@ -33,6 +33,7 @@ val yojson_of_aws_rds_engine_version : aws_rds_engine_version -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   default_character_set : string prop;
   default_only : bool prop;
   engine : string prop;

@@ -86,6 +86,7 @@ let aws_config_aggregate_authorization ?id ?tags ?tags_all
   { account_id; id; region; tags; tags_all }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   arn : string prop;
   id : string prop;
@@ -98,6 +99,7 @@ let make ?id ?tags ?tags_all ~account_id ~region __id =
   let __type = "aws_config_aggregate_authorization" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";

@@ -36,6 +36,7 @@ val yojson_of_aws_redshiftdata_statement :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_identifier : string prop;
   database : string prop;
   db_user : string prop;

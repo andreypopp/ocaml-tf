@@ -41,6 +41,7 @@ val yojson_of_aws_directory_service_region :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   desired_number_of_domain_controllers : float prop;
   directory_id : string prop;
   id : string prop;

@@ -102,6 +102,7 @@ let aws_batch_compute_environment ?id ?tags ~compute_environment_name
   { compute_environment_name; id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   compute_environment_name : string prop;
   ecs_cluster_arn : string prop;
@@ -119,6 +120,7 @@ let make ?id ?tags ~compute_environment_name __id =
   let __type = "aws_batch_compute_environment" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        compute_environment_name =
          Prop.computed __type __id "compute_environment_name";

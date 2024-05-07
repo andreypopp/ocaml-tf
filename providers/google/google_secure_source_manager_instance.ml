@@ -237,6 +237,7 @@ let google_secure_source_manager_instance ?id ?kms_key ?labels
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   effective_labels : (string * string) list prop;
   host_config : host_config list prop;
@@ -258,6 +259,7 @@ let make ?id ?kms_key ?labels ?project ?(private_config = [])
   let __type = "google_secure_source_manager_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        effective_labels =
          Prop.computed __type __id "effective_labels";

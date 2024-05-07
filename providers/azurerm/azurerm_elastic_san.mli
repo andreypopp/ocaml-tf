@@ -39,6 +39,7 @@ val yojson_of_azurerm_elastic_san : azurerm_elastic_san -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   base_size_in_tib : float prop;
   extended_size_in_tib : float prop;
   id : string prop;

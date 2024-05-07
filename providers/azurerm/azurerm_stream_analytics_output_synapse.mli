@@ -36,6 +36,7 @@ val yojson_of_azurerm_stream_analytics_output_synapse :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   database : string prop;
   id : string prop;
   name : string prop;

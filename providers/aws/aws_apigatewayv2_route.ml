@@ -214,6 +214,7 @@ let aws_apigatewayv2_route ?api_key_required ?authorization_scopes
   }
 
 type t = {
+  tf_name : string;
   api_id : string prop;
   api_key_required : bool prop;
   authorization_scopes : string list prop;
@@ -235,6 +236,7 @@ let make ?api_key_required ?authorization_scopes ?authorization_type
   let __type = "aws_apigatewayv2_route" in
   let __attrs =
     ({
+       tf_name = __id;
        api_id = Prop.computed __type __id "api_id";
        api_key_required =
          Prop.computed __type __id "api_key_required";

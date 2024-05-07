@@ -898,6 +898,7 @@ let aws_codepipeline ?execution_mode ?id ?pipeline_type ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   execution_mode : string prop;
   id : string prop;
@@ -914,6 +915,7 @@ let make ?execution_mode ?id ?pipeline_type ?tags ?tags_all
   let __type = "aws_codepipeline" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        execution_mode = Prop.computed __type __id "execution_mode";
        id = Prop.computed __type __id "id";

@@ -153,6 +153,7 @@ let aws_inspector_assessment_template ?id ?tags ?tags_all ~duration
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   duration : float prop;
   id : string prop;
@@ -168,6 +169,7 @@ let make ?id ?tags ?tags_all ~duration ~name ~rules_package_arns
   let __type = "aws_inspector_assessment_template" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        duration = Prop.computed __type __id "duration";
        id = Prop.computed __type __id "id";

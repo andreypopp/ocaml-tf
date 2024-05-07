@@ -20,6 +20,7 @@ val yojson_of_aws_acmpca_certificate_authority_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate : string prop;
   certificate_authority_arn : string prop;
   certificate_chain : string prop;

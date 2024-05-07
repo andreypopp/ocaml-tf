@@ -50,6 +50,7 @@ val yojson_of_azurerm_notification_hub :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

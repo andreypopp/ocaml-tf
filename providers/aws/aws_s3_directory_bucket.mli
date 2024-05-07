@@ -26,6 +26,7 @@ val yojson_of_aws_s3_directory_bucket :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   bucket : string prop;
   data_redundancy : string prop;

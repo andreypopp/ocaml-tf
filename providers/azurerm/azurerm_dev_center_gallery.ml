@@ -112,6 +112,7 @@ let azurerm_dev_center_gallery ?id ?timeouts ~dev_center_id ~name
   { dev_center_id; id; name; shared_gallery_id; timeouts }
 
 type t = {
+  tf_name : string;
   dev_center_id : string prop;
   id : string prop;
   name : string prop;
@@ -122,6 +123,7 @@ let make ?id ?timeouts ~dev_center_id ~name ~shared_gallery_id __id =
   let __type = "azurerm_dev_center_gallery" in
   let __attrs =
     ({
+       tf_name = __id;
        dev_center_id = Prop.computed __type __id "dev_center_id";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

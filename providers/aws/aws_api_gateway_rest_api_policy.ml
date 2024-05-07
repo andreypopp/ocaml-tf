@@ -46,6 +46,7 @@ let aws_api_gateway_rest_api_policy ?id ~policy ~rest_api_id () :
   { id; policy; rest_api_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   policy : string prop;
   rest_api_id : string prop;
@@ -55,6 +56,7 @@ let make ?id ~policy ~rest_api_id __id =
   let __type = "aws_api_gateway_rest_api_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        policy = Prop.computed __type __id "policy";
        rest_api_id = Prop.computed __type __id "rest_api_id";

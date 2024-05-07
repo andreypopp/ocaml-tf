@@ -21,6 +21,7 @@ val yojson_of_google_data_fusion_instance_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   name : string prop;

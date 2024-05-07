@@ -14,6 +14,7 @@ val yojson_of_digitalocean_tag : digitalocean_tag -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   databases_count : float prop;
   droplets_count : float prop;
   id : string prop;

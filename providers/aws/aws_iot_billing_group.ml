@@ -137,6 +137,7 @@ let aws_iot_billing_group ?id ?tags ?tags_all ?(properties = [])
   { id; name; tags; tags_all; properties }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   metadata : metadata list prop;
@@ -150,6 +151,7 @@ let make ?id ?tags ?tags_all ?(properties = []) ~name __id =
   let __type = "aws_iot_billing_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        metadata = Prop.computed __type __id "metadata";

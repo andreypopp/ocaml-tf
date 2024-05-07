@@ -18,6 +18,7 @@ val yojson_of_aws_location_tracker_associations :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   consumer_arns : string list prop;
   id : string prop;
   tracker_name : string prop;

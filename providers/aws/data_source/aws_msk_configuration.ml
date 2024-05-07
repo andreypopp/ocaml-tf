@@ -39,6 +39,7 @@ let aws_msk_configuration ?id ~name () : aws_msk_configuration =
   { id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -52,6 +53,7 @@ let make ?id ~name __id =
   let __type = "aws_msk_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

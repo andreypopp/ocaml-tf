@@ -295,6 +295,7 @@ let azurerm_virtual_machine_packet_capture ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   maximum_bytes_per_packet : float prop;
   maximum_bytes_per_session : float prop;
@@ -311,6 +312,7 @@ let make ?id ?maximum_bytes_per_packet ?maximum_bytes_per_session
   let __type = "azurerm_virtual_machine_packet_capture" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        maximum_bytes_per_packet =
          Prop.computed __type __id "maximum_bytes_per_packet";

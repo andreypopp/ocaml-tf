@@ -341,6 +341,7 @@ let aws_glue_catalog_database ?catalog_id ?description ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   catalog_id : string prop;
   description : string prop;
@@ -358,6 +359,7 @@ let make ?catalog_id ?description ?id ?location_uri ?parameters ?tags
   let __type = "aws_glue_catalog_database" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        catalog_id = Prop.computed __type __id "catalog_id";
        description = Prop.computed __type __id "description";

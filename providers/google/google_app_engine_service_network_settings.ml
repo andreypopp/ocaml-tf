@@ -150,6 +150,7 @@ let google_app_engine_service_network_settings ?id ?project ?timeouts
   { id; project; service; network_settings; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   project : string prop;
   service : string prop;
@@ -159,6 +160,7 @@ let make ?id ?project ?timeouts ~service ~network_settings __id =
   let __type = "google_app_engine_service_network_settings" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        project = Prop.computed __type __id "project";
        service = Prop.computed __type __id "service";

@@ -117,6 +117,7 @@ let google_spanner_instance_iam_member ?id ?project ?(condition = [])
   { id; instance; member; project; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   instance : string prop;
@@ -130,6 +131,7 @@ let make ?id ?project ?(condition = []) ~instance ~member ~role __id
   let __type = "google_spanner_instance_iam_member" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        instance = Prop.computed __type __id "instance";

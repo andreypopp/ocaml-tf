@@ -32,6 +32,7 @@ val yojson_of_cloudflare_waiting_room_rules :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   waiting_room_id : string prop;
   zone_id : string prop;

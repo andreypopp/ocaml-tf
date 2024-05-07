@@ -87,6 +87,7 @@ let aws_redshift_orderable_cluster ?cluster_type ?cluster_version ?id
   }
 
 type t = {
+  tf_name : string;
   availability_zones : string list prop;
   cluster_type : string prop;
   cluster_version : string prop;
@@ -100,6 +101,7 @@ let make ?cluster_type ?cluster_version ?id ?node_type
   let __type = "aws_redshift_orderable_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        availability_zones =
          Prop.computed __type __id "availability_zones";
        cluster_type = Prop.computed __type __id "cluster_type";

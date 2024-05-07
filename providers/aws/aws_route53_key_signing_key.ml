@@ -72,6 +72,7 @@ let aws_route53_key_signing_key ?id ?status ~hosted_zone_id
   { hosted_zone_id; id; key_management_service_arn; name; status }
 
 type t = {
+  tf_name : string;
   digest_algorithm_mnemonic : string prop;
   digest_algorithm_type : float prop;
   digest_value : string prop;
@@ -94,6 +95,7 @@ let make ?id ?status ~hosted_zone_id ~key_management_service_arn
   let __type = "aws_route53_key_signing_key" in
   let __attrs =
     ({
+       tf_name = __id;
        digest_algorithm_mnemonic =
          Prop.computed __type __id "digest_algorithm_mnemonic";
        digest_algorithm_type =

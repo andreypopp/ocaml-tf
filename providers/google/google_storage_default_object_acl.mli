@@ -19,6 +19,7 @@ val yojson_of_google_storage_default_object_acl :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket : string prop;
   id : string prop;
   role_entity : string list prop;

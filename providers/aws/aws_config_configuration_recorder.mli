@@ -65,6 +65,7 @@ val yojson_of_aws_config_configuration_recorder :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   role_arn : string prop;

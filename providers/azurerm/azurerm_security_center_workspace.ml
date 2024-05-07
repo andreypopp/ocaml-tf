@@ -119,6 +119,7 @@ let azurerm_security_center_workspace ?id ?timeouts ~scope
   { id; scope; workspace_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   scope : string prop;
   workspace_id : string prop;
@@ -128,6 +129,7 @@ let make ?id ?timeouts ~scope ~workspace_id __id =
   let __type = "azurerm_security_center_workspace" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        scope = Prop.computed __type __id "scope";
        workspace_id = Prop.computed __type __id "workspace_id";

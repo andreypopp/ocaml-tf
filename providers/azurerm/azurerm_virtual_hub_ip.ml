@@ -165,6 +165,7 @@ let azurerm_virtual_hub_ip ?id ?private_ip_address
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   private_ip_address : string prop;
@@ -180,6 +181,7 @@ let make ?id ?private_ip_address ?private_ip_allocation_method
   let __type = "azurerm_virtual_hub_ip" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        private_ip_address =

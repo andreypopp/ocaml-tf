@@ -1632,6 +1632,7 @@ let azurerm_monitor_data_collection_rule ?data_collection_endpoint_id
   }
 
 type t = {
+  tf_name : string;
   data_collection_endpoint_id : string prop;
   description : string prop;
   id : string prop;
@@ -1650,6 +1651,7 @@ let make ?data_collection_endpoint_id ?description ?id ?kind ?tags
   let __type = "azurerm_monitor_data_collection_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        data_collection_endpoint_id =
          Prop.computed __type __id "data_collection_endpoint_id";
        description = Prop.computed __type __id "description";

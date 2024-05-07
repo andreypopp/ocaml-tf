@@ -32,6 +32,7 @@ val yojson_of_aws_connect_instance : aws_connect_instance -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   auto_resolve_best_voices_enabled : bool prop;
   contact_flow_logs_enabled : bool prop;

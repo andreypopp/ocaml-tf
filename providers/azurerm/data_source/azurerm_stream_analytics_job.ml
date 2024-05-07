@@ -134,6 +134,7 @@ let azurerm_stream_analytics_job ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   compatibility_level : string prop;
   data_locale : string prop;
   events_late_arrival_max_delay_in_seconds : float prop;
@@ -158,6 +159,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_stream_analytics_job" in
   let __attrs =
     ({
+       tf_name = __id;
        compatibility_level =
          Prop.computed __type __id "compatibility_level";
        data_locale = Prop.computed __type __id "data_locale";

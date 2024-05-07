@@ -41,6 +41,7 @@ val yojson_of_azurerm_route_table : azurerm_route_table -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   disable_bgp_route_propagation : bool prop;
   id : string prop;
   location : string prop;

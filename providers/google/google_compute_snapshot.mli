@@ -54,6 +54,7 @@ val yojson_of_google_compute_snapshot :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   chain_name : string prop;
   creation_timestamp : string prop;
   description : string prop;

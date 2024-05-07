@@ -146,6 +146,7 @@ let azurerm_automation_dsc_nodeconfiguration ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   automation_account_name : string prop;
   configuration_name : string prop;
   content_embedded : string prop;
@@ -159,6 +160,7 @@ let make ?id ?timeouts ~automation_account_name ~content_embedded
   let __type = "azurerm_automation_dsc_nodeconfiguration" in
   let __attrs =
     ({
+       tf_name = __id;
        automation_account_name =
          Prop.computed __type __id "automation_account_name";
        configuration_name =

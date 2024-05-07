@@ -67,6 +67,7 @@ let aws_kms_ciphertext ?context ?id ~key_id ~plaintext () :
   { context; id; key_id; plaintext }
 
 type t = {
+  tf_name : string;
   ciphertext_blob : string prop;
   context : (string * string) list prop;
   id : string prop;
@@ -78,6 +79,7 @@ let make ?context ?id ~key_id ~plaintext __id =
   let __type = "aws_kms_ciphertext" in
   let __attrs =
     ({
+       tf_name = __id;
        ciphertext_blob = Prop.computed __type __id "ciphertext_blob";
        context = Prop.computed __type __id "context";
        id = Prop.computed __type __id "id";

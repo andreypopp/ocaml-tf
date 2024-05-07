@@ -348,6 +348,7 @@ let aws_dax_cluster ?availability_zones
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zones : string list prop;
   cluster_address : string prop;
@@ -378,6 +379,7 @@ let make ?availability_zones ?cluster_endpoint_encryption_type
   let __type = "aws_dax_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zones =
          Prop.computed __type __id "availability_zones";

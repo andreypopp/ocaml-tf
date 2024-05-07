@@ -29,6 +29,7 @@ val yojson_of_aws_ec2_instance_state : aws_ec2_instance_state -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   force : bool prop;
   id : string prop;
   instance_id : string prop;

@@ -63,6 +63,7 @@ let digitalocean_image ?id ?name ?slug ?source () :
   { id; name; slug; source }
 
 type t = {
+  tf_name : string;
   created : string prop;
   description : string prop;
   distribution : string prop;
@@ -85,6 +86,7 @@ let make ?id ?name ?slug ?source __id =
   let __type = "digitalocean_image" in
   let __attrs =
     ({
+       tf_name = __id;
        created = Prop.computed __type __id "created";
        description = Prop.computed __type __id "description";
        distribution = Prop.computed __type __id "distribution";

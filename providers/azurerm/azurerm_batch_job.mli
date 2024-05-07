@@ -33,6 +33,7 @@ val yojson_of_azurerm_batch_job : azurerm_batch_job -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   batch_pool_id : string prop;
   common_environment_properties : (string * string) list prop;
   display_name : string prop;

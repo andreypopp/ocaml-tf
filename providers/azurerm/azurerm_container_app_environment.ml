@@ -289,6 +289,7 @@ let azurerm_container_app_environment
   }
 
 type t = {
+  tf_name : string;
   dapr_application_insights_connection_string : string prop;
   default_domain : string prop;
   docker_bridge_cidr : string prop;
@@ -315,6 +316,7 @@ let make ?dapr_application_insights_connection_string ?id
   let __type = "azurerm_container_app_environment" in
   let __attrs =
     ({
+       tf_name = __id;
        dapr_application_insights_connection_string =
          Prop.computed __type __id
            "dapr_application_insights_connection_string";

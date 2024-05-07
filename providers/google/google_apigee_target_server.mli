@@ -58,6 +58,7 @@ val yojson_of_google_apigee_target_server :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   env_id : string prop;
   host : string prop;

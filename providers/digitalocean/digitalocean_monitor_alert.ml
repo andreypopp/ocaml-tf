@@ -183,6 +183,7 @@ let digitalocean_monitor_alert ?enabled ?entities ?id ?tags ~compare
   }
 
 type t = {
+  tf_name : string;
   compare : string prop;
   description : string prop;
   enabled : bool prop;
@@ -200,6 +201,7 @@ let make ?enabled ?entities ?id ?tags ~compare ~description ~type_
   let __type = "digitalocean_monitor_alert" in
   let __attrs =
     ({
+       tf_name = __id;
        compare = Prop.computed __type __id "compare";
        description = Prop.computed __type __id "description";
        enabled = Prop.computed __type __id "enabled";

@@ -64,6 +64,7 @@ let aws_storagegateway_upload_buffer ?disk_id ?disk_path ?id
   { disk_id; disk_path; gateway_arn; id }
 
 type t = {
+  tf_name : string;
   disk_id : string prop;
   disk_path : string prop;
   gateway_arn : string prop;
@@ -74,6 +75,7 @@ let make ?disk_id ?disk_path ?id ~gateway_arn __id =
   let __type = "aws_storagegateway_upload_buffer" in
   let __attrs =
     ({
+       tf_name = __id;
        disk_id = Prop.computed __type __id "disk_id";
        disk_path = Prop.computed __type __id "disk_path";
        gateway_arn = Prop.computed __type __id "gateway_arn";

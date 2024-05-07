@@ -47,6 +47,7 @@ val yojson_of_azurerm_data_factory : azurerm_data_factory -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   github_configuration : github_configuration list prop;
   id : string prop;
   identity : identity list prop;

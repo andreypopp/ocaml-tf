@@ -694,6 +694,7 @@ let aws_autoscalingplans_scaling_plan ?id ~name ~application_source
   { id; name; application_source; scaling_instruction }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   scaling_plan_version : float prop;
@@ -703,6 +704,7 @@ let make ?id ~name ~application_source ~scaling_instruction __id =
   let __type = "aws_autoscalingplans_scaling_plan" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        scaling_plan_version =

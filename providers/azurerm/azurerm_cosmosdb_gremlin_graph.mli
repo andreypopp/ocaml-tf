@@ -91,6 +91,7 @@ val yojson_of_azurerm_cosmosdb_gremlin_graph :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_name : string prop;
   analytical_storage_ttl : float prop;
   database_name : string prop;

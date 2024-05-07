@@ -301,6 +301,7 @@ let aws_lambda_function ?id ?qualifier ?tags ~function_name () :
   { function_name; id; qualifier; tags }
 
 type t = {
+  tf_name : string;
   architectures : string list prop;
   arn : string prop;
   code_signing_config_arn : string prop;
@@ -340,6 +341,7 @@ let make ?id ?qualifier ?tags ~function_name __id =
   let __type = "aws_lambda_function" in
   let __attrs =
     ({
+       tf_name = __id;
        architectures = Prop.computed __type __id "architectures";
        arn = Prop.computed __type __id "arn";
        code_signing_config_arn =

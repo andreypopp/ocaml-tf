@@ -279,6 +279,7 @@ let aws_datasync_location_hdfs ?authentication_type ?block_size ?id
   }
 
 type t = {
+  tf_name : string;
   agent_arns : string list prop;
   arn : string prop;
   authentication_type : string prop;
@@ -303,6 +304,7 @@ let make ?authentication_type ?block_size ?id ?kerberos_keytab
   let __type = "aws_datasync_location_hdfs" in
   let __attrs =
     ({
+       tf_name = __id;
        agent_arns = Prop.computed __type __id "agent_arns";
        arn = Prop.computed __type __id "arn";
        authentication_type =

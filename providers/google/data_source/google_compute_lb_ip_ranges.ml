@@ -36,6 +36,7 @@ let google_compute_lb_ip_ranges ?id () : google_compute_lb_ip_ranges
   { id }
 
 type t = {
+  tf_name : string;
   http_ssl_tcp_internal : string list prop;
   id : string prop;
   network : string list prop;
@@ -45,6 +46,7 @@ let make ?id __id =
   let __type = "google_compute_lb_ip_ranges" in
   let __attrs =
     ({
+       tf_name = __id;
        http_ssl_tcp_internal =
          Prop.computed __type __id "http_ssl_tcp_internal";
        id = Prop.computed __type __id "id";

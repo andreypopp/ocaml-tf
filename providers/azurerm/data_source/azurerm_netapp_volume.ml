@@ -168,6 +168,7 @@ let azurerm_netapp_volume ?id ?security_style ?timeouts ~account_name
   }
 
 type t = {
+  tf_name : string;
   account_name : string prop;
   data_protection_replication :
     data_protection_replication list prop;
@@ -196,6 +197,7 @@ let make ?id ?security_style ?timeouts ~account_name ~name ~pool_name
   let __type = "azurerm_netapp_volume" in
   let __attrs =
     ({
+       tf_name = __id;
        account_name = Prop.computed __type __id "account_name";
        data_protection_replication =
          Prop.computed __type __id "data_protection_replication";

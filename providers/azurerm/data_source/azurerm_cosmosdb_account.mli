@@ -40,6 +40,7 @@ val yojson_of_azurerm_cosmosdb_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   capabilities : capabilities list prop;
   connection_strings : string list prop;
   consistency_policy : consistency_policy list prop;

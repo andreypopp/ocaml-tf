@@ -34,6 +34,7 @@ val yojson_of_azurerm_virtual_hub_security_partner_provider :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

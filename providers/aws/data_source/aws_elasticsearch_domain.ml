@@ -641,6 +641,7 @@ let aws_elasticsearch_domain ?id ?tags ~domain_name () :
   { domain_name; id; tags }
 
 type t = {
+  tf_name : string;
   access_policies : string prop;
   advanced_options : (string * string) list prop;
   advanced_security_options : advanced_security_options list prop;
@@ -670,6 +671,7 @@ let make ?id ?tags ~domain_name __id =
   let __type = "aws_elasticsearch_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        access_policies = Prop.computed __type __id "access_policies";
        advanced_options =
          Prop.computed __type __id "advanced_options";

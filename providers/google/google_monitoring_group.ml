@@ -142,6 +142,7 @@ let google_monitoring_group ?id ?is_cluster ?parent_name ?project
   }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   filter : string prop;
   id : string prop;
@@ -156,6 +157,7 @@ let make ?id ?is_cluster ?parent_name ?project ?timeouts
   let __type = "google_monitoring_group" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        filter = Prop.computed __type __id "filter";
        id = Prop.computed __type __id "id";

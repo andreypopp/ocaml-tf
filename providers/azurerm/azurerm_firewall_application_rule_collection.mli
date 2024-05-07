@@ -52,6 +52,7 @@ val yojson_of_azurerm_firewall_application_rule_collection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action : string prop;
   azure_firewall_name : string prop;
   id : string prop;

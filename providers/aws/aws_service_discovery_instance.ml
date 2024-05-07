@@ -64,6 +64,7 @@ let aws_service_discovery_instance ?id ~attributes ~instance_id
   { attributes; id; instance_id; service_id }
 
 type t = {
+  tf_name : string;
   attributes : (string * string) list prop;
   id : string prop;
   instance_id : string prop;
@@ -74,6 +75,7 @@ let make ?id ~attributes ~instance_id ~service_id __id =
   let __type = "aws_service_discovery_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        attributes = Prop.computed __type __id "attributes";
        id = Prop.computed __type __id "id";
        instance_id = Prop.computed __type __id "instance_id";

@@ -293,6 +293,7 @@ let azurerm_stream_analytics_output_servicebus_queue
   }
 
 type t = {
+  tf_name : string;
   authentication_mode : string prop;
   id : string prop;
   name : string prop;
@@ -314,6 +315,7 @@ let make ?authentication_mode ?id ?property_columns
   let __type = "azurerm_stream_analytics_output_servicebus_queue" in
   let __attrs =
     ({
+       tf_name = __id;
        authentication_mode =
          Prop.computed __type __id "authentication_mode";
        id = Prop.computed __type __id "id";

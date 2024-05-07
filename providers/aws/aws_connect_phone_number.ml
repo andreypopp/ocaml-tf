@@ -203,6 +203,7 @@ let aws_connect_phone_number ?description ?id ?prefix ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   country_code : string prop;
   description : string prop;
@@ -221,6 +222,7 @@ let make ?description ?id ?prefix ?tags ?tags_all ?timeouts
   let __type = "aws_connect_phone_number" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        country_code = Prop.computed __type __id "country_code";
        description = Prop.computed __type __id "description";

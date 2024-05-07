@@ -165,6 +165,7 @@ val yojson_of_aws_batch_job_definition :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   arn_prefix : string prop;
   container_properties : string prop;

@@ -50,6 +50,7 @@ let aws_wafregional_web_acl_association ?id ~resource_arn ~web_acl_id
   { id; resource_arn; web_acl_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   resource_arn : string prop;
   web_acl_id : string prop;
@@ -59,6 +60,7 @@ let make ?id ~resource_arn ~web_acl_id __id =
   let __type = "aws_wafregional_web_acl_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        resource_arn = Prop.computed __type __id "resource_arn";
        web_acl_id = Prop.computed __type __id "web_acl_id";

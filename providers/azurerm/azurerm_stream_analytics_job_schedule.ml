@@ -132,6 +132,7 @@ let azurerm_stream_analytics_job_schedule ?id ?start_time ?timeouts
   { id; start_mode; start_time; stream_analytics_job_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   last_output_time : string prop;
   start_mode : string prop;
@@ -144,6 +145,7 @@ let make ?id ?start_time ?timeouts ~start_mode
   let __type = "azurerm_stream_analytics_job_schedule" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        last_output_time =
          Prop.computed __type __id "last_output_time";

@@ -491,6 +491,7 @@ let azurerm_media_services_account ?id ?public_network_access_enabled
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -507,6 +508,7 @@ let make ?id ?public_network_access_enabled
   let __type = "azurerm_media_services_account" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

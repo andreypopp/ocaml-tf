@@ -1037,6 +1037,7 @@ let google_document_ai_warehouse_document_schema ?document_is_folder
   }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   document_is_folder : bool prop;
   id : string prop;
@@ -1050,6 +1051,7 @@ let make ?document_is_folder ?id ?timeouts ~display_name ~location
   let __type = "google_document_ai_warehouse_document_schema" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        document_is_folder =
          Prop.computed __type __id "document_is_folder";

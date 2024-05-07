@@ -211,6 +211,7 @@ let azurerm_virtual_network_peering ?allow_forwarded_traffic
   }
 
 type t = {
+  tf_name : string;
   allow_forwarded_traffic : bool prop;
   allow_gateway_transit : bool prop;
   allow_virtual_network_access : bool prop;
@@ -230,6 +231,7 @@ let make ?allow_forwarded_traffic ?allow_gateway_transit
   let __type = "azurerm_virtual_network_peering" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_forwarded_traffic =
          Prop.computed __type __id "allow_forwarded_traffic";
        allow_gateway_transit =

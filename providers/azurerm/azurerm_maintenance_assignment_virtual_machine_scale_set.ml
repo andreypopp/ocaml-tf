@@ -129,6 +129,7 @@ let azurerm_maintenance_assignment_virtual_machine_scale_set ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   maintenance_configuration_id : string prop;
@@ -142,6 +143,7 @@ let make ?id ?timeouts ~location ~maintenance_configuration_id
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        maintenance_configuration_id =

@@ -375,6 +375,7 @@ let azurerm_image ?hyper_v_generation ?id ?source_virtual_machine_id
   }
 
 type t = {
+  tf_name : string;
   hyper_v_generation : string prop;
   id : string prop;
   location : string prop;
@@ -391,6 +392,7 @@ let make ?hyper_v_generation ?id ?source_virtual_machine_id ?tags
   let __type = "azurerm_image" in
   let __attrs =
     ({
+       tf_name = __id;
        hyper_v_generation =
          Prop.computed __type __id "hyper_v_generation";
        id = Prop.computed __type __id "id";

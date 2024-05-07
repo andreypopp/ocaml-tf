@@ -58,6 +58,7 @@ val yojson_of_aws_evidently_feature : aws_evidently_feature -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   created_time : string prop;
   default_variation : string prop;

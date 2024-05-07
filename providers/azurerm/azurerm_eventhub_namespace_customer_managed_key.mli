@@ -32,6 +32,7 @@ val yojson_of_azurerm_eventhub_namespace_customer_managed_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   eventhub_namespace_id : string prop;
   id : string prop;
   infrastructure_encryption_enabled : bool prop;

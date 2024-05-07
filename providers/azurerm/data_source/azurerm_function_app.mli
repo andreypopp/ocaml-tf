@@ -125,6 +125,7 @@ val yojson_of_azurerm_function_app : azurerm_function_app -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_service_plan_id : string prop;
   app_settings : (string * string) list prop;
   client_cert_mode : string prop;

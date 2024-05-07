@@ -37,6 +37,7 @@ val yojson_of_azurerm_data_factory_integration_runtime_self_hosted :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   data_factory_id : string prop;
   description : string prop;
   id : string prop;

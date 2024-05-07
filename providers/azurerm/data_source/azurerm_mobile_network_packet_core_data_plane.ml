@@ -89,6 +89,7 @@ let azurerm_mobile_network_packet_core_data_plane ?id ?timeouts
   { id; mobile_network_packet_core_control_plane_id; name; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   mobile_network_packet_core_control_plane_id : string prop;
@@ -105,6 +106,7 @@ let make ?id ?timeouts ~mobile_network_packet_core_control_plane_id
   let __type = "azurerm_mobile_network_packet_core_data_plane" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        mobile_network_packet_core_control_plane_id =

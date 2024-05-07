@@ -3386,6 +3386,7 @@ let aws_appflow_connector_profile ?connector_label ?id ?kms_arn
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   connection_mode : string prop;
   connector_label : string prop;
@@ -3401,6 +3402,7 @@ let make ?connector_label ?id ?kms_arn ~connection_mode
   let __type = "aws_appflow_connector_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        connection_mode = Prop.computed __type __id "connection_mode";
        connector_label = Prop.computed __type __id "connector_label";

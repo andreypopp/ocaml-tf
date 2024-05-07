@@ -144,6 +144,7 @@ let aws_cloudwatch_log_group ?id ?kms_key_id ?log_group_class ?name
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   kms_key_id : string prop;
@@ -161,6 +162,7 @@ let make ?id ?kms_key_id ?log_group_class ?name ?name_prefix
   let __type = "aws_cloudwatch_log_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        kms_key_id = Prop.computed __type __id "kms_key_id";

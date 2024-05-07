@@ -226,6 +226,7 @@ let google_compute_machine_types ?filter ?id ?project ?zone () :
   { filter; id; project; zone }
 
 type t = {
+  tf_name : string;
   filter : string prop;
   id : string prop;
   machine_types : machine_types list prop;
@@ -237,6 +238,7 @@ let make ?filter ?id ?project ?zone __id =
   let __type = "google_compute_machine_types" in
   let __attrs =
     ({
+       tf_name = __id;
        filter = Prop.computed __type __id "filter";
        id = Prop.computed __type __id "id";
        machine_types = Prop.computed __type __id "machine_types";

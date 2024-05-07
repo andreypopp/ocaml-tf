@@ -150,6 +150,7 @@ let aws_lambda_permission ?event_source_token ?function_url_auth_type
   }
 
 type t = {
+  tf_name : string;
   action : string prop;
   event_source_token : string prop;
   function_name : string prop;
@@ -171,6 +172,7 @@ let make ?event_source_token ?function_url_auth_type ?id
   let __type = "aws_lambda_permission" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        event_source_token =
          Prop.computed __type __id "event_source_token";

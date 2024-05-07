@@ -128,6 +128,7 @@ let aws_s3control_multi_region_access_point_policy ?account_id ?id
   { account_id; id; details; timeouts }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   established : string prop;
   id : string prop;
@@ -138,6 +139,7 @@ let make ?account_id ?id ?timeouts ~details __id =
   let __type = "aws_s3control_multi_region_access_point_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        established = Prop.computed __type __id "established";
        id = Prop.computed __type __id "id";

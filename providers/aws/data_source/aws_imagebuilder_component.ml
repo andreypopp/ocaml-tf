@@ -57,6 +57,7 @@ let aws_imagebuilder_component ?id ?tags ~arn () :
   { arn; id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   change_description : string prop;
   data : string prop;
@@ -78,6 +79,7 @@ let make ?id ?tags ~arn __id =
   let __type = "aws_imagebuilder_component" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        change_description =
          Prop.computed __type __id "change_description";

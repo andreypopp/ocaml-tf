@@ -196,6 +196,7 @@ val yojson_of_azurerm_virtual_machine :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   availability_set_id : string prop;
   delete_data_disks_on_termination : bool prop;
   delete_os_disk_on_termination : bool prop;

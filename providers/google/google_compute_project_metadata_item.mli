@@ -30,6 +30,7 @@ val yojson_of_google_compute_project_metadata_item :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   key : string prop;
   project : string prop;

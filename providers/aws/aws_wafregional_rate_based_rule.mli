@@ -33,6 +33,7 @@ val yojson_of_aws_wafregional_rate_based_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   metric_name : string prop;

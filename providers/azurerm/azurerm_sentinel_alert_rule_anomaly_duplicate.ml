@@ -381,6 +381,7 @@ let azurerm_sentinel_alert_rule_anomaly_duplicate ?id
   }
 
 type t = {
+  tf_name : string;
   anomaly_settings_version : float prop;
   anomaly_version : string prop;
   built_in_rule_id : string prop;
@@ -407,6 +408,7 @@ let make ?id ?(multi_select_observation = [])
   let __type = "azurerm_sentinel_alert_rule_anomaly_duplicate" in
   let __attrs =
     ({
+       tf_name = __id;
        anomaly_settings_version =
          Prop.computed __type __id "anomaly_settings_version";
        anomaly_version = Prop.computed __type __id "anomaly_version";

@@ -217,6 +217,7 @@ val yojson_of_google_cloud_run_v2_job :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   annotations : (string * string) list prop;
   client : string prop;
   client_version : string prop;

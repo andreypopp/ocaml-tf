@@ -21,6 +21,7 @@ val yojson_of_digitalocean_droplet_snapshot :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created_at : string prop;
   droplet_id : string prop;
   id : string prop;

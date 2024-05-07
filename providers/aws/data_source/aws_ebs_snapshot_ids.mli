@@ -29,6 +29,7 @@ val yojson_of_aws_ebs_snapshot_ids : aws_ebs_snapshot_ids -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   ids : string list prop;
   owners : string list prop;

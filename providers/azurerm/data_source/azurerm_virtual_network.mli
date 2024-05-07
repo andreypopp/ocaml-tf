@@ -24,6 +24,7 @@ val yojson_of_azurerm_virtual_network :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address_space : string list prop;
   dns_servers : string list prop;
   guid : string prop;

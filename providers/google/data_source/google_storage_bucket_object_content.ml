@@ -127,6 +127,7 @@ let google_storage_bucket_object_content ?content ?id ~bucket ~name
   { bucket; content; id; name }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   cache_control : string prop;
   content : string prop;
@@ -156,6 +157,7 @@ let make ?content ?id ~bucket ~name __id =
   let __type = "google_storage_bucket_object_content" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        cache_control = Prop.computed __type __id "cache_control";
        content = Prop.computed __type __id "content";

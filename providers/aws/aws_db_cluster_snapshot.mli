@@ -26,6 +26,7 @@ val yojson_of_aws_db_cluster_snapshot :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allocated_storage : float prop;
   availability_zones : string list prop;
   db_cluster_identifier : string prop;

@@ -224,6 +224,7 @@ let azurerm_log_analytics_query_pack_query ?additional_settings_json
   }
 
 type t = {
+  tf_name : string;
   additional_settings_json : string prop;
   body : string prop;
   categories : string list prop;
@@ -243,6 +244,7 @@ let make ?additional_settings_json ?categories ?description ?id ?name
   let __type = "azurerm_log_analytics_query_pack_query" in
   let __attrs =
     ({
+       tf_name = __id;
        additional_settings_json =
          Prop.computed __type __id "additional_settings_json";
        body = Prop.computed __type __id "body";

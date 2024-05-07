@@ -95,6 +95,7 @@ let aws_iot_role_alias ?credential_duration ?id ?tags ?tags_all
   { alias; credential_duration; id; role_arn; tags; tags_all }
 
 type t = {
+  tf_name : string;
   alias : string prop;
   arn : string prop;
   credential_duration : float prop;
@@ -109,6 +110,7 @@ let make ?credential_duration ?id ?tags ?tags_all ~alias ~role_arn
   let __type = "aws_iot_role_alias" in
   let __attrs =
     ({
+       tf_name = __id;
        alias = Prop.computed __type __id "alias";
        arn = Prop.computed __type __id "arn";
        credential_duration =

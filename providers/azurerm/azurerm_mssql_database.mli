@@ -115,6 +115,7 @@ val yojson_of_azurerm_mssql_database : azurerm_mssql_database -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_pause_delay_in_minutes : float prop;
   collation : string prop;
   create_mode : string prop;

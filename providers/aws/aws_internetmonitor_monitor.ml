@@ -287,6 +287,7 @@ let aws_internetmonitor_monitor ?id ?max_city_networks_to_monitor
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   max_city_networks_to_monitor : float prop;
@@ -305,6 +306,7 @@ let make ?id ?max_city_networks_to_monitor ?resources ?status ?tags
   let __type = "aws_internetmonitor_monitor" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        max_city_networks_to_monitor =

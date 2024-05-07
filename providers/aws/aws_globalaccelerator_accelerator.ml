@@ -263,6 +263,7 @@ let aws_globalaccelerator_accelerator ?enabled ?id ?ip_address_type
   }
 
 type t = {
+  tf_name : string;
   dns_name : string prop;
   dual_stack_dns_name : string prop;
   enabled : bool prop;
@@ -281,6 +282,7 @@ let make ?enabled ?id ?ip_address_type ?ip_addresses ?tags ?tags_all
   let __type = "aws_globalaccelerator_accelerator" in
   let __attrs =
     ({
+       tf_name = __id;
        dns_name = Prop.computed __type __id "dns_name";
        dual_stack_dns_name =
          Prop.computed __type __id "dual_stack_dns_name";

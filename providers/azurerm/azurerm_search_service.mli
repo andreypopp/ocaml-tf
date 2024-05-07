@@ -51,6 +51,7 @@ val yojson_of_azurerm_search_service : azurerm_search_service -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allowed_ips : string list prop;
   authentication_failure_mode : string prop;
   customer_managed_key_enforcement_enabled : bool prop;

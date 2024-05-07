@@ -57,6 +57,7 @@ val yojson_of_azurerm_web_pubsub_hub : azurerm_web_pubsub_hub -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   anonymous_connections_enabled : bool prop;
   id : string prop;
   name : string prop;

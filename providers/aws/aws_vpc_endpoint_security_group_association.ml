@@ -70,6 +70,7 @@ let aws_vpc_endpoint_security_group_association ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   replace_default_association : bool prop;
   security_group_id : string prop;
@@ -81,6 +82,7 @@ let make ?id ?replace_default_association ~security_group_id
   let __type = "aws_vpc_endpoint_security_group_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        replace_default_association =
          Prop.computed __type __id "replace_default_association";

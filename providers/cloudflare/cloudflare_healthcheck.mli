@@ -50,6 +50,7 @@ val yojson_of_cloudflare_healthcheck : cloudflare_healthcheck -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address : string prop;
   allow_insecure : bool prop;
   check_regions : string list prop;

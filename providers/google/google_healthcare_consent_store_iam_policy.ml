@@ -59,6 +59,7 @@ let google_healthcare_consent_store_iam_policy ?id ~consent_store_id
   { consent_store_id; dataset; id; policy_data }
 
 type t = {
+  tf_name : string;
   consent_store_id : string prop;
   dataset : string prop;
   etag : string prop;
@@ -70,6 +71,7 @@ let make ?id ~consent_store_id ~dataset ~policy_data __id =
   let __type = "google_healthcare_consent_store_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        consent_store_id =
          Prop.computed __type __id "consent_store_id";
        dataset = Prop.computed __type __id "dataset";

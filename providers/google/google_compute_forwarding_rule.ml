@@ -428,6 +428,7 @@ let google_compute_forwarding_rule ?all_ports ?allow_global_access
   }
 
 type t = {
+  tf_name : string;
   all_ports : bool prop;
   allow_global_access : bool prop;
   allow_psc_global_access : bool prop;
@@ -475,6 +476,7 @@ let make ?all_ports ?allow_global_access ?allow_psc_global_access
   let __type = "google_compute_forwarding_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        all_ports = Prop.computed __type __id "all_ports";
        allow_global_access =
          Prop.computed __type __id "allow_global_access";

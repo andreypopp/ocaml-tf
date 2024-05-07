@@ -19,6 +19,7 @@ val yojson_of_aws_route53_hosted_zone_dnssec :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   hosted_zone_id : string prop;
   id : string prop;
   signing_status : string prop;

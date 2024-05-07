@@ -20,6 +20,7 @@ val yojson_of_aws_emr_security_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   configuration : string prop;
   creation_date : string prop;
   id : string prop;

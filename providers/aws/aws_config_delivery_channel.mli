@@ -30,6 +30,7 @@ val yojson_of_aws_config_delivery_channel :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   s3_bucket_name : string prop;

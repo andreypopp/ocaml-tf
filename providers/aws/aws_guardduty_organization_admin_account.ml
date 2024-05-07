@@ -42,12 +42,17 @@ let aws_guardduty_organization_admin_account ?id ~admin_account_id ()
     : aws_guardduty_organization_admin_account =
   { admin_account_id; id }
 
-type t = { admin_account_id : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  admin_account_id : string prop;
+  id : string prop;
+}
 
 let make ?id ~admin_account_id __id =
   let __type = "aws_guardduty_organization_admin_account" in
   let __attrs =
     ({
+       tf_name = __id;
        admin_account_id =
          Prop.computed __type __id "admin_account_id";
        id = Prop.computed __type __id "id";

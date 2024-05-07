@@ -52,6 +52,7 @@ let aws_cloudwatch_log_resource_policy ?id ~policy_document
   { id; policy_document; policy_name }
 
 type t = {
+  tf_name : string;
   id : string prop;
   policy_document : string prop;
   policy_name : string prop;
@@ -61,6 +62,7 @@ let make ?id ~policy_document ~policy_name __id =
   let __type = "aws_cloudwatch_log_resource_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        policy_document = Prop.computed __type __id "policy_document";
        policy_name = Prop.computed __type __id "policy_name";

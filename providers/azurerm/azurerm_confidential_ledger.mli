@@ -54,6 +54,7 @@ val yojson_of_azurerm_confidential_ledger :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   identity_service_endpoint : string prop;
   ledger_endpoint : string prop;

@@ -75,6 +75,7 @@ let aws_cloudfront_function ?comment ?id ?publish ~code ~name
   { code; comment; id; name; publish; runtime }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   code : string prop;
   comment : string prop;
@@ -91,6 +92,7 @@ let make ?comment ?id ?publish ~code ~name ~runtime __id =
   let __type = "aws_cloudfront_function" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        code = Prop.computed __type __id "code";
        comment = Prop.computed __type __id "comment";

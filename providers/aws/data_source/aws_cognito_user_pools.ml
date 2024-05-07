@@ -39,6 +39,7 @@ let aws_cognito_user_pools ?id ~name () : aws_cognito_user_pools =
   { id; name }
 
 type t = {
+  tf_name : string;
   arns : string list prop;
   id : string prop;
   ids : string list prop;
@@ -49,6 +50,7 @@ let make ?id ~name __id =
   let __type = "aws_cognito_user_pools" in
   let __attrs =
     ({
+       tf_name = __id;
        arns = Prop.computed __type __id "arns";
        id = Prop.computed __type __id "id";
        ids = Prop.computed __type __id "ids";

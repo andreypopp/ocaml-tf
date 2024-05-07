@@ -228,6 +228,7 @@ let azurerm_logic_app_trigger_recurrence ?id ?start_time ?time_zone
   }
 
 type t = {
+  tf_name : string;
   frequency : string prop;
   id : string prop;
   interval : float prop;
@@ -242,6 +243,7 @@ let make ?id ?start_time ?time_zone ?(schedule = []) ?timeouts
   let __type = "azurerm_logic_app_trigger_recurrence" in
   let __attrs =
     ({
+       tf_name = __id;
        frequency = Prop.computed __type __id "frequency";
        id = Prop.computed __type __id "id";
        interval = Prop.computed __type __id "interval";

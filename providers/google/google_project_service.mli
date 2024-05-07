@@ -31,6 +31,7 @@ val yojson_of_google_project_service : google_project_service -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   disable_dependent_services : bool prop;
   disable_on_destroy : bool prop;
   id : string prop;

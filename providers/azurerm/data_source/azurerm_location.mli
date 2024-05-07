@@ -27,6 +27,7 @@ val yojson_of_azurerm_location : azurerm_location -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   location : string prop;

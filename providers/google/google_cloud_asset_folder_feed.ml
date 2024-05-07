@@ -293,6 +293,7 @@ let google_cloud_asset_folder_feed ?asset_names ?asset_types
   }
 
 type t = {
+  tf_name : string;
   asset_names : string list prop;
   asset_types : string list prop;
   billing_project : string prop;
@@ -310,6 +311,7 @@ let make ?asset_names ?asset_types ?content_type ?id
   let __type = "google_cloud_asset_folder_feed" in
   let __attrs =
     ({
+       tf_name = __id;
        asset_names = Prop.computed __type __id "asset_names";
        asset_types = Prop.computed __type __id "asset_types";
        billing_project = Prop.computed __type __id "billing_project";

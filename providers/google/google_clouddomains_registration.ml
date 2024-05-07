@@ -1044,6 +1044,7 @@ let google_clouddomains_registration ?contact_notices ?domain_notices
   }
 
 type t = {
+  tf_name : string;
   contact_notices : string list prop;
   create_time : string prop;
   domain_name : string prop;
@@ -1068,6 +1069,7 @@ let make ?contact_notices ?domain_notices ?id ?labels ?project
   let __type = "google_clouddomains_registration" in
   let __attrs =
     ({
+       tf_name = __id;
        contact_notices = Prop.computed __type __id "contact_notices";
        create_time = Prop.computed __type __id "create_time";
        domain_name = Prop.computed __type __id "domain_name";

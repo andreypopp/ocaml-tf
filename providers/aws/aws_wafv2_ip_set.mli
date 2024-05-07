@@ -25,6 +25,7 @@ val yojson_of_aws_wafv2_ip_set : aws_wafv2_ip_set -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name: string;
   addresses: string list prop;
   arn: string prop;
   description: string prop;

@@ -70,6 +70,7 @@ let aws_cloudcontrolapi_resource ?id ?role_arn ?type_version_id
   { id; identifier; role_arn; type_name; type_version_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   identifier : string prop;
   properties : string prop;
@@ -82,6 +83,7 @@ let make ?id ?role_arn ?type_version_id ~identifier ~type_name __id =
   let __type = "aws_cloudcontrolapi_resource" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        identifier = Prop.computed __type __id "identifier";
        properties = Prop.computed __type __id "properties";

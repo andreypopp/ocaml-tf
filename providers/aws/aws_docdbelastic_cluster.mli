@@ -37,6 +37,7 @@ val yojson_of_aws_docdbelastic_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   admin_user_name : string prop;
   admin_user_password : string prop;
   arn : string prop;

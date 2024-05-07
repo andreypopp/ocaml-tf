@@ -286,6 +286,7 @@ let azurerm_network_manager_connectivity_configuration
   }
 
 type t = {
+  tf_name : string;
   connectivity_topology : string prop;
   delete_existing_peering_enabled : bool prop;
   description : string prop;
@@ -304,6 +305,7 @@ let make ?delete_existing_peering_enabled ?description
   in
   let __attrs =
     ({
+       tf_name = __id;
        connectivity_topology =
          Prop.computed __type __id "connectivity_topology";
        delete_existing_peering_enabled =

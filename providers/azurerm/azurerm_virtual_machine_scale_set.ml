@@ -1674,6 +1674,7 @@ let azurerm_virtual_machine_scale_set ?automatic_os_upgrade
   }
 
 type t = {
+  tf_name : string;
   automatic_os_upgrade : bool prop;
   eviction_policy : string prop;
   health_probe_id : string prop;
@@ -1704,6 +1705,7 @@ let make ?automatic_os_upgrade ?eviction_policy ?health_probe_id ?id
   let __type = "azurerm_virtual_machine_scale_set" in
   let __attrs =
     ({
+       tf_name = __id;
        automatic_os_upgrade =
          Prop.computed __type __id "automatic_os_upgrade";
        eviction_policy = Prop.computed __type __id "eviction_policy";

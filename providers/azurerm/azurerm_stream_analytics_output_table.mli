@@ -38,6 +38,7 @@ val yojson_of_azurerm_stream_analytics_output_table :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   batch_size : float prop;
   columns_to_remove : string list prop;
   id : string prop;

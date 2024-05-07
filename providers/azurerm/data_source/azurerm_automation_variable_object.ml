@@ -101,6 +101,7 @@ let azurerm_automation_variable_object ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   automation_account_name : string prop;
   description : string prop;
   encrypted : bool prop;
@@ -115,6 +116,7 @@ let make ?id ?timeouts ~automation_account_name ~name
   let __type = "azurerm_automation_variable_object" in
   let __attrs =
     ({
+       tf_name = __id;
        automation_account_name =
          Prop.computed __type __id "automation_account_name";
        description = Prop.computed __type __id "description";

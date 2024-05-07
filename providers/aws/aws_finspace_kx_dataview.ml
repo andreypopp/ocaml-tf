@@ -252,6 +252,7 @@ let aws_finspace_kx_dataview ?availability_zone_id ?changeset_id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   auto_update : bool prop;
   availability_zone_id : string prop;
@@ -275,6 +276,7 @@ let make ?availability_zone_id ?changeset_id ?description ?id ?tags
   let __type = "aws_finspace_kx_dataview" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        auto_update = Prop.computed __type __id "auto_update";
        availability_zone_id =

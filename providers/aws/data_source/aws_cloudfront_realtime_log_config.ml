@@ -106,6 +106,7 @@ let aws_cloudfront_realtime_log_config ?id ~name () :
   { id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   endpoint : endpoint list prop;
   fields : string list prop;
@@ -118,6 +119,7 @@ let make ?id ~name __id =
   let __type = "aws_cloudfront_realtime_log_config" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        endpoint = Prop.computed __type __id "endpoint";
        fields = Prop.computed __type __id "fields";

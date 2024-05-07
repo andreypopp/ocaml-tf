@@ -94,6 +94,7 @@ let aws_docdb_cluster_snapshot ?id ?timeouts ~db_cluster_identifier
   }
 
 type t = {
+  tf_name : string;
   availability_zones : string list prop;
   db_cluster_identifier : string prop;
   db_cluster_snapshot_arn : string prop;
@@ -115,6 +116,7 @@ let make ?id ?timeouts ~db_cluster_identifier
   let __type = "aws_docdb_cluster_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        availability_zones =
          Prop.computed __type __id "availability_zones";
        db_cluster_identifier =

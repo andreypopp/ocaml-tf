@@ -274,6 +274,7 @@ let aws_vpc_peering_connection ?cidr_block ?id ?owner_id
   }
 
 type t = {
+  tf_name : string;
   accepter : (string * bool) list prop;
   cidr_block : string prop;
   cidr_block_set : cidr_block_set list prop;
@@ -297,6 +298,7 @@ let make ?cidr_block ?id ?owner_id ?peer_cidr_block ?peer_owner_id
   let __type = "aws_vpc_peering_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        accepter = Prop.computed __type __id "accepter";
        cidr_block = Prop.computed __type __id "cidr_block";
        cidr_block_set = Prop.computed __type __id "cidr_block_set";

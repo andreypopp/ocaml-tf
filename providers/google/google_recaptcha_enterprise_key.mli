@@ -78,6 +78,7 @@ val yojson_of_google_recaptcha_enterprise_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;

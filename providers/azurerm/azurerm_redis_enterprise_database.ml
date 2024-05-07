@@ -253,6 +253,7 @@ let azurerm_redis_enterprise_database ?client_protocol
   }
 
 type t = {
+  tf_name : string;
   client_protocol : string prop;
   cluster_id : string prop;
   clustering_policy : string prop;
@@ -273,6 +274,7 @@ let make ?client_protocol ?clustering_policy ?eviction_policy ?id
   let __type = "azurerm_redis_enterprise_database" in
   let __attrs =
     ({
+       tf_name = __id;
        client_protocol = Prop.computed __type __id "client_protocol";
        cluster_id = Prop.computed __type __id "cluster_id";
        clustering_policy =

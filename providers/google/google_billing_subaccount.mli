@@ -20,6 +20,7 @@ val yojson_of_google_billing_subaccount :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   billing_account_id : string prop;
   deletion_policy : string prop;
   display_name : string prop;

@@ -1119,6 +1119,7 @@ let azurerm_mssql_virtual_machine ?id ?r_services_enabled
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   r_services_enabled : bool prop;
   sql_connectivity_port : float prop;
@@ -1142,6 +1143,7 @@ let make ?id ?r_services_enabled ?sql_connectivity_port
   let __type = "azurerm_mssql_virtual_machine" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        r_services_enabled =
          Prop.computed __type __id "r_services_enabled";

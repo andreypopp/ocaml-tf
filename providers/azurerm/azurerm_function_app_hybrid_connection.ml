@@ -152,6 +152,7 @@ let azurerm_function_app_hybrid_connection ?id ?send_key_name
   }
 
 type t = {
+  tf_name : string;
   function_app_id : string prop;
   hostname : string prop;
   id : string prop;
@@ -170,6 +171,7 @@ let make ?id ?send_key_name ?timeouts ~function_app_id ~hostname
   let __type = "azurerm_function_app_hybrid_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        function_app_id = Prop.computed __type __id "function_app_id";
        hostname = Prop.computed __type __id "hostname";
        id = Prop.computed __type __id "id";

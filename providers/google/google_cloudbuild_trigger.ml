@@ -2444,6 +2444,7 @@ let google_cloudbuild_trigger ?description ?disabled ?filename
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   disabled : bool prop;
@@ -2472,6 +2473,7 @@ let make ?description ?disabled ?filename ?filter ?id ?ignored_files
   let __type = "google_cloudbuild_trigger" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        disabled = Prop.computed __type __id "disabled";

@@ -142,6 +142,7 @@ let aws_dx_hosted_transit_virtual_interface_accepter ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   dx_gateway_id : string prop;
   id : string prop;
@@ -155,6 +156,7 @@ let make ?id ?tags ?tags_all ?timeouts ~dx_gateway_id
   let __type = "aws_dx_hosted_transit_virtual_interface_accepter" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        dx_gateway_id = Prop.computed __type __id "dx_gateway_id";
        id = Prop.computed __type __id "id";

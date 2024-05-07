@@ -17,7 +17,11 @@ val yojson_of_aws_securityhub_standards_subscription :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; standards_arn : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  standards_arn : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

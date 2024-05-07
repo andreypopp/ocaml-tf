@@ -83,6 +83,7 @@ let aws_backup_vault_lock_configuration ?changeable_for_days ?id
   }
 
 type t = {
+  tf_name : string;
   backup_vault_arn : string prop;
   backup_vault_name : string prop;
   changeable_for_days : float prop;
@@ -96,6 +97,7 @@ let make ?changeable_for_days ?id ?max_retention_days
   let __type = "aws_backup_vault_lock_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        backup_vault_arn =
          Prop.computed __type __id "backup_vault_arn";
        backup_vault_name =

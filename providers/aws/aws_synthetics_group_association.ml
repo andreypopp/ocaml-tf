@@ -50,6 +50,7 @@ let aws_synthetics_group_association ?id ~canary_arn ~group_name () :
   { canary_arn; group_name; id }
 
 type t = {
+  tf_name : string;
   canary_arn : string prop;
   group_arn : string prop;
   group_id : string prop;
@@ -61,6 +62,7 @@ let make ?id ~canary_arn ~group_name __id =
   let __type = "aws_synthetics_group_association" in
   let __attrs =
     ({
+       tf_name = __id;
        canary_arn = Prop.computed __type __id "canary_arn";
        group_arn = Prop.computed __type __id "group_arn";
        group_id = Prop.computed __type __id "group_id";

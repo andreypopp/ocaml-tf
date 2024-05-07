@@ -33,6 +33,7 @@ val yojson_of_azurerm_relay_hybrid_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   relay_namespace_name : string prop;

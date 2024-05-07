@@ -433,6 +433,7 @@ let azurerm_resource_deployment_script_azure_power_shell
   }
 
 type t = {
+  tf_name : string;
   cleanup_preference : string prop;
   command_line : string prop;
   force_update_tag : string prop;
@@ -461,6 +462,7 @@ let make ?cleanup_preference ?command_line ?force_update_tag ?id
   in
   let __attrs =
     ({
+       tf_name = __id;
        cleanup_preference =
          Prop.computed __type __id "cleanup_preference";
        command_line = Prop.computed __type __id "command_line";

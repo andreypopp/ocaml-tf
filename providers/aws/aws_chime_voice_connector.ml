@@ -97,6 +97,7 @@ let aws_chime_voice_connector ?aws_region ?id ?tags ?tags_all ~name
   { aws_region; id; name; require_encryption; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   aws_region : string prop;
   id : string prop;
@@ -112,6 +113,7 @@ let make ?aws_region ?id ?tags ?tags_all ~name ~require_encryption
   let __type = "aws_chime_voice_connector" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        aws_region = Prop.computed __type __id "aws_region";
        id = Prop.computed __type __id "id";

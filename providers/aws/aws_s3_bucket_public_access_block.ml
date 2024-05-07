@@ -93,6 +93,7 @@ let aws_s3_bucket_public_access_block ?block_public_acls
   }
 
 type t = {
+  tf_name : string;
   block_public_acls : bool prop;
   block_public_policy : bool prop;
   bucket : string prop;
@@ -106,6 +107,7 @@ let make ?block_public_acls ?block_public_policy ?id
   let __type = "aws_s3_bucket_public_access_block" in
   let __attrs =
     ({
+       tf_name = __id;
        block_public_acls =
          Prop.computed __type __id "block_public_acls";
        block_public_policy =

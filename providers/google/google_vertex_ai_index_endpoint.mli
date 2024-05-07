@@ -43,6 +43,7 @@ val yojson_of_google_vertex_ai_index_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   display_name : string prop;

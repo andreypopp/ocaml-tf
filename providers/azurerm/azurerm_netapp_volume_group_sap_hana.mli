@@ -89,6 +89,7 @@ val yojson_of_azurerm_netapp_volume_group_sap_hana :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_name : string prop;
   application_identifier : string prop;
   group_description : string prop;

@@ -176,6 +176,7 @@ let google_bigquery_analytics_hub_data_exchange ?description
   }
 
 type t = {
+  tf_name : string;
   data_exchange_id : string prop;
   description : string prop;
   display_name : string prop;
@@ -195,6 +196,7 @@ let make ?description ?documentation ?icon ?id ?primary_contact
   let __type = "google_bigquery_analytics_hub_data_exchange" in
   let __attrs =
     ({
+       tf_name = __id;
        data_exchange_id =
          Prop.computed __type __id "data_exchange_id";
        description = Prop.computed __type __id "description";

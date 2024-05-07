@@ -37,6 +37,7 @@ val yojson_of_azurerm_advisor_recommendations :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   filter_by_category : string list prop;
   filter_by_resource_groups : string list prop;
   id : string prop;

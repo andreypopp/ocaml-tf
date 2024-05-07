@@ -37,6 +37,7 @@ val yojson_of_aws_transcribe_language_model :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   base_model_name : string prop;
   id : string prop;

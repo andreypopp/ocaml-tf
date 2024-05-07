@@ -72,6 +72,7 @@ val yojson_of_azurerm_mobile_network_packet_core_control_plane :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   control_plane_access_ipv4_address : string prop;
   control_plane_access_ipv4_gateway : string prop;
   control_plane_access_ipv4_subnet : string prop;

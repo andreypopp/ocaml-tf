@@ -120,6 +120,7 @@ let aws_iot_authorizer ?enable_caching_for_http ?id ?signing_disabled
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   authorizer_function_arn : string prop;
   enable_caching_for_http : bool prop;
@@ -137,6 +138,7 @@ let make ?enable_caching_for_http ?id ?signing_disabled ?status
   let __type = "aws_iot_authorizer" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        authorizer_function_arn =
          Prop.computed __type __id "authorizer_function_arn";

@@ -74,6 +74,7 @@ val yojson_of_aws_ecs_task_set : aws_ecs_task_set -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cluster : string prop;
   external_id : string prop;

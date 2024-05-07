@@ -76,12 +76,17 @@ let aws_efs_backup_policy ?id ~file_system_id ~backup_policy () :
     aws_efs_backup_policy =
   { file_system_id; id; backup_policy }
 
-type t = { file_system_id : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  file_system_id : string prop;
+  id : string prop;
+}
 
 let make ?id ~file_system_id ~backup_policy __id =
   let __type = "aws_efs_backup_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        file_system_id = Prop.computed __type __id "file_system_id";
        id = Prop.computed __type __id "id";
      }

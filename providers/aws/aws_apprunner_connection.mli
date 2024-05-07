@@ -21,6 +21,7 @@ val yojson_of_aws_apprunner_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   connection_name : string prop;
   id : string prop;

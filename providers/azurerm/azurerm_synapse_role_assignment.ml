@@ -144,6 +144,7 @@ let azurerm_synapse_role_assignment ?id ?principal_type
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   principal_id : string prop;
   principal_type : string prop;
@@ -157,6 +158,7 @@ let make ?id ?principal_type ?synapse_spark_pool_id
   let __type = "azurerm_synapse_role_assignment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        principal_id = Prop.computed __type __id "principal_id";
        principal_type = Prop.computed __type __id "principal_type";

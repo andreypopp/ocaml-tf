@@ -264,6 +264,7 @@ let google_bigtable_app_profile ?description ?id ?ignore_warnings
   }
 
 type t = {
+  tf_name : string;
   app_profile_id : string prop;
   description : string prop;
   id : string prop;
@@ -282,6 +283,7 @@ let make ?description ?id ?ignore_warnings ?instance
   let __type = "google_bigtable_app_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        app_profile_id = Prop.computed __type __id "app_profile_id";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

@@ -24,6 +24,7 @@ val yojson_of_cloudflare_zone_hold : cloudflare_zone_hold -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   hold : bool prop;
   hold_after : string prop;
   id : string prop;

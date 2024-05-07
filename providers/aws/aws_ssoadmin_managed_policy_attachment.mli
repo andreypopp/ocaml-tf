@@ -26,6 +26,7 @@ val yojson_of_aws_ssoadmin_managed_policy_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   instance_arn : string prop;
   managed_policy_arn : string prop;

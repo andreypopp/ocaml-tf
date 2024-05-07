@@ -168,6 +168,7 @@ let azurerm_sql_managed_instance_active_directory_administrator
   }
 
 type t = {
+  tf_name : string;
   azuread_authentication_only : bool prop;
   id : string prop;
   login : string prop;
@@ -185,6 +186,7 @@ let make ?azuread_authentication_only ?id ?timeouts ~login
   in
   let __attrs =
     ({
+       tf_name = __id;
        azuread_authentication_only =
          Prop.computed __type __id "azuread_authentication_only";
        id = Prop.computed __type __id "id";

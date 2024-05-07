@@ -130,6 +130,7 @@ let aws_waf_rule ?id ?tags ?tags_all ~metric_name ~name ~predicates
   { id; metric_name; name; tags; tags_all; predicates }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   metric_name : string prop;
@@ -142,6 +143,7 @@ let make ?id ?tags ?tags_all ~metric_name ~name ~predicates __id =
   let __type = "aws_waf_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        metric_name = Prop.computed __type __id "metric_name";

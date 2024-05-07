@@ -39,6 +39,7 @@ let digitalocean_region ?id ~slug () : digitalocean_region =
   { id; slug }
 
 type t = {
+  tf_name : string;
   available : bool prop;
   features : string list prop;
   id : string prop;
@@ -51,6 +52,7 @@ let make ?id ~slug __id =
   let __type = "digitalocean_region" in
   let __attrs =
     ({
+       tf_name = __id;
        available = Prop.computed __type __id "available";
        features = Prop.computed __type __id "features";
        id = Prop.computed __type __id "id";

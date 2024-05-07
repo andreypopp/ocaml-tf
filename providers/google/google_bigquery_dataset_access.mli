@@ -68,6 +68,7 @@ val yojson_of_google_bigquery_dataset_access :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_updated_member : bool prop;
   dataset_id : string prop;
   domain : string prop;

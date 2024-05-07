@@ -799,6 +799,7 @@ let google_monitoring_uptime_check_config ?checker_type ?id ?period
   }
 
 type t = {
+  tf_name : string;
   checker_type : string prop;
   display_name : string prop;
   id : string prop;
@@ -819,6 +820,7 @@ let make ?checker_type ?id ?period ?project ?selected_regions
   let __type = "google_monitoring_uptime_check_config" in
   let __attrs =
     ({
+       tf_name = __id;
        checker_type = Prop.computed __type __id "checker_type";
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";

@@ -19,6 +19,7 @@ val yojson_of_aws_synthetics_group : aws_synthetics_group -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   group_id : string prop;
   id : string prop;

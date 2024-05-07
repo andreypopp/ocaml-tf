@@ -22,6 +22,7 @@ val yojson_of_aws_placement_group : aws_placement_group -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;

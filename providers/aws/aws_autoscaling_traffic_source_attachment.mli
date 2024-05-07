@@ -33,6 +33,7 @@ val yojson_of_aws_autoscaling_traffic_source_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   autoscaling_group_name : string prop;
   id : string prop;
 }

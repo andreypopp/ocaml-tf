@@ -94,6 +94,7 @@ val yojson_of_azurerm_backup_policy_vm :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   instant_restore_retention_days : float prop;
   name : string prop;

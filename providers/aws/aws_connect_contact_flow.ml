@@ -147,6 +147,7 @@ let aws_connect_contact_flow ?content ?content_hash ?description
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   contact_flow_id : string prop;
   content : string prop;
@@ -166,6 +167,7 @@ let make ?content ?content_hash ?description ?filename ?id ?tags
   let __type = "aws_connect_contact_flow" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        contact_flow_id = Prop.computed __type __id "contact_flow_id";
        content = Prop.computed __type __id "content";

@@ -52,6 +52,7 @@ let aws_region ?endpoint ?id ?name () : aws_region =
   { endpoint; id; name }
 
 type t = {
+  tf_name : string;
   description : string prop;
   endpoint : string prop;
   id : string prop;
@@ -62,6 +63,7 @@ let make ?endpoint ?id ?name __id =
   let __type = "aws_region" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        endpoint = Prop.computed __type __id "endpoint";
        id = Prop.computed __type __id "id";

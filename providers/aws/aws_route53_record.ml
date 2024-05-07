@@ -509,6 +509,7 @@ let aws_route53_record ?allow_overwrite ?health_check_id ?id
   }
 
 type t = {
+  tf_name : string;
   allow_overwrite : bool prop;
   fqdn : string prop;
   health_check_id : string prop;
@@ -533,6 +534,7 @@ let make ?allow_overwrite ?health_check_id ?id
   let __type = "aws_route53_record" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_overwrite = Prop.computed __type __id "allow_overwrite";
        fqdn = Prop.computed __type __id "fqdn";
        health_check_id = Prop.computed __type __id "health_check_id";

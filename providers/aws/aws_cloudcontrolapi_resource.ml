@@ -144,6 +144,7 @@ let aws_cloudcontrolapi_resource ?id ?role_arn ?schema
   }
 
 type t = {
+  tf_name : string;
   desired_state : string prop;
   id : string prop;
   properties : string prop;
@@ -158,6 +159,7 @@ let make ?id ?role_arn ?schema ?type_version_id ?timeouts
   let __type = "aws_cloudcontrolapi_resource" in
   let __attrs =
     ({
+       tf_name = __id;
        desired_state = Prop.computed __type __id "desired_state";
        id = Prop.computed __type __id "id";
        properties = Prop.computed __type __id "properties";

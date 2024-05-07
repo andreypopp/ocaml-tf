@@ -79,6 +79,7 @@ let google_logging_billing_account_exclusion ?description ?disabled
   { billing_account; description; disabled; filter; id; name }
 
 type t = {
+  tf_name : string;
   billing_account : string prop;
   description : string prop;
   disabled : bool prop;
@@ -92,6 +93,7 @@ let make ?description ?disabled ?id ~billing_account ~filter ~name
   let __type = "google_logging_billing_account_exclusion" in
   let __attrs =
     ({
+       tf_name = __id;
        billing_account = Prop.computed __type __id "billing_account";
        description = Prop.computed __type __id "description";
        disabled = Prop.computed __type __id "disabled";

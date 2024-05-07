@@ -26,6 +26,7 @@ val yojson_of_aws_appconfig_deployment_strategy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   deployment_duration_in_minutes : float prop;
   description : string prop;

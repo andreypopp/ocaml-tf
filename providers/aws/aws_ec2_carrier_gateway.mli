@@ -20,6 +20,7 @@ val yojson_of_aws_ec2_carrier_gateway :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   owner_id : string prop;

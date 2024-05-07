@@ -217,6 +217,7 @@ let azurerm_mobile_network_packet_core_control_plane ?id ?timeouts
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   control_plane_access_ipv4_address : string prop;
   control_plane_access_ipv4_gateway : string prop;
   control_plane_access_ipv4_subnet : string prop;
@@ -241,6 +242,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_mobile_network_packet_core_control_plane" in
   let __attrs =
     ({
+       tf_name = __id;
        control_plane_access_ipv4_address =
          Prop.computed __type __id
            "control_plane_access_ipv4_address";

@@ -610,6 +610,7 @@ let aws_glue_catalog_table ?catalog_id ?id ?query_as_of_time
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   catalog_id : string prop;
   database_name : string prop;
@@ -635,6 +636,7 @@ let make ?catalog_id ?id ?query_as_of_time ?transaction_id
   let __type = "aws_glue_catalog_table" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        catalog_id = Prop.computed __type __id "catalog_id";
        database_name = Prop.computed __type __id "database_name";

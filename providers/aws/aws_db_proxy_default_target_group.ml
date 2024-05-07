@@ -182,6 +182,7 @@ let aws_db_proxy_default_target_group ?id
   { db_proxy_name; id; connection_pool_config; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   db_proxy_name : string prop;
   id : string prop;
@@ -193,6 +194,7 @@ let make ?id ?(connection_pool_config = []) ?timeouts ~db_proxy_name
   let __type = "aws_db_proxy_default_target_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        db_proxy_name = Prop.computed __type __id "db_proxy_name";
        id = Prop.computed __type __id "id";

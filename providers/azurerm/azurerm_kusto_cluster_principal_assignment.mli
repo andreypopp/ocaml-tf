@@ -34,6 +34,7 @@ val yojson_of_azurerm_kusto_cluster_principal_assignment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_name : string prop;
   id : string prop;
   name : string prop;

@@ -19,6 +19,7 @@ val yojson_of_google_sql_database_instance_latest_recovery_time :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   instance : string prop;
   latest_recovery_time : string prop;

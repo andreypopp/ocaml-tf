@@ -159,6 +159,7 @@ let google_edgenetwork_network ?description ?id ?labels ?mtu ?project
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   id : string prop;
@@ -177,6 +178,7 @@ let make ?description ?id ?labels ?mtu ?project ?timeouts ~location
   let __type = "google_edgenetwork_network" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

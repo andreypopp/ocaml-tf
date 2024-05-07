@@ -18,6 +18,7 @@ val yojson_of_aws_lightsail_bucket_access_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_key_id : string prop;
   bucket_name : string prop;
   created_at : string prop;

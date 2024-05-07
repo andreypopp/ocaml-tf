@@ -173,6 +173,7 @@ let aws_eks_access_entry ?id ?kubernetes_groups ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   access_entry_arn : string prop;
   cluster_name : string prop;
   created_at : string prop;
@@ -191,6 +192,7 @@ let make ?id ?kubernetes_groups ?tags ?tags_all ?type_ ?user_name
   let __type = "aws_eks_access_entry" in
   let __attrs =
     ({
+       tf_name = __id;
        access_entry_arn =
          Prop.computed __type __id "access_entry_arn";
        cluster_name = Prop.computed __type __id "cluster_name";

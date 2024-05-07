@@ -60,6 +60,7 @@ val yojson_of_kubernetes_manifest : kubernetes_manifest -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   computed_fields : string list prop;
   manifest : json prop;
   object_ : json prop;

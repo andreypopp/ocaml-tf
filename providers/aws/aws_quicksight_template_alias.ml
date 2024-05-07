@@ -19,6 +19,7 @@ let aws_quicksight_template_alias ?aws_account_id ~alias_name ~template_id ~temp
   } : aws_quicksight_template_alias);;
 
 type t = {
+  tf_name: string;
   alias_name: string prop;
   arn: string prop;
   aws_account_id: string prop;
@@ -30,6 +31,7 @@ type t = {
 let make ?aws_account_id ~alias_name ~template_id ~template_version_number __id =
   let __type = "aws_quicksight_template_alias" in
   let __attrs = ({
+    tf_name = __id;
     alias_name = Prop.computed __type __id "alias_name";
     arn = Prop.computed __type __id "arn";
     aws_account_id = Prop.computed __type __id "aws_account_id";

@@ -165,6 +165,7 @@ let aws_s3_bucket_object_lock_configuration ?expected_bucket_owner
   }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   expected_bucket_owner : string prop;
   id : string prop;
@@ -177,6 +178,7 @@ let make ?expected_bucket_owner ?id ?object_lock_enabled ?token
   let __type = "aws_s3_bucket_object_lock_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        expected_bucket_owner =
          Prop.computed __type __id "expected_bucket_owner";

@@ -543,6 +543,7 @@ let aws_msk_replicator ?description ?id ?tags ?tags_all ?timeouts
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   current_version : string prop;
   description : string prop;
@@ -559,6 +560,7 @@ let make ?description ?id ?tags ?tags_all ?timeouts ~replicator_name
   let __type = "aws_msk_replicator" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        current_version = Prop.computed __type __id "current_version";
        description = Prop.computed __type __id "description";

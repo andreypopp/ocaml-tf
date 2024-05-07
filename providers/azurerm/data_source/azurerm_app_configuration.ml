@@ -373,6 +373,7 @@ let azurerm_app_configuration ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   encryption : encryption list prop;
   endpoint : string prop;
   id : string prop;
@@ -398,6 +399,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_app_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        encryption = Prop.computed __type __id "encryption";
        endpoint = Prop.computed __type __id "endpoint";
        id = Prop.computed __type __id "id";

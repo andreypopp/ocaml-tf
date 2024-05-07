@@ -73,6 +73,7 @@ let hcloud_certificate ?id ?labels ~certificate ~name ~private_key ()
   { certificate; id; labels; name; private_key }
 
 type t = {
+  tf_name : string;
   certificate : string prop;
   created : string prop;
   domain_names : string list prop;
@@ -90,6 +91,7 @@ let make ?id ?labels ~certificate ~name ~private_key __id =
   let __type = "hcloud_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate = Prop.computed __type __id "certificate";
        created = Prop.computed __type __id "created";
        domain_names = Prop.computed __type __id "domain_names";

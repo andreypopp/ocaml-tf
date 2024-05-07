@@ -62,6 +62,7 @@ val yojson_of_google_vertex_ai_feature_online_store_featureview :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   effective_labels : (string * string) list prop;
   feature_online_store : string prop;

@@ -87,6 +87,7 @@ let aws_ebs_fast_snapshot_restore ?timeouts ~availability_zone
   { availability_zone; snapshot_id; timeouts }
 
 type t = {
+  tf_name : string;
   availability_zone : string prop;
   id : string prop;
   snapshot_id : string prop;
@@ -97,6 +98,7 @@ let make ?timeouts ~availability_zone ~snapshot_id __id =
   let __type = "aws_ebs_fast_snapshot_restore" in
   let __attrs =
     ({
+       tf_name = __id;
        availability_zone =
          Prop.computed __type __id "availability_zone";
        id = Prop.computed __type __id "id";

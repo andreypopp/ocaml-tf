@@ -21,6 +21,7 @@ val yojson_of_cloudflare_email_routing_address :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   created : string prop;
   email : string prop;

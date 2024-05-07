@@ -64,6 +64,7 @@ let aws_networkmanager_global_network ?id ?tags ~global_network_id ()
   { global_network_id; id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   global_network_id : string prop;
@@ -75,6 +76,7 @@ let make ?id ?tags ~global_network_id __id =
   let __type = "aws_networkmanager_global_network" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        global_network_id =

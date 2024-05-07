@@ -156,6 +156,7 @@ let azurerm_eventhub_namespace_customer_managed_key ?id
   }
 
 type t = {
+  tf_name : string;
   eventhub_namespace_id : string prop;
   id : string prop;
   infrastructure_encryption_enabled : bool prop;
@@ -169,6 +170,7 @@ let make ?id ?infrastructure_encryption_enabled
   let __type = "azurerm_eventhub_namespace_customer_managed_key" in
   let __attrs =
     ({
+       tf_name = __id;
        eventhub_namespace_id =
          Prop.computed __type __id "eventhub_namespace_id";
        id = Prop.computed __type __id "id";

@@ -133,6 +133,7 @@ let azurerm_spring_cloud_api_portal_custom_domain ?id ?thumbprint
   { id; name; spring_cloud_api_portal_id; thumbprint; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   spring_cloud_api_portal_id : string prop;
@@ -144,6 +145,7 @@ let make ?id ?thumbprint ?timeouts ~name ~spring_cloud_api_portal_id
   let __type = "azurerm_spring_cloud_api_portal_custom_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        spring_cloud_api_portal_id =

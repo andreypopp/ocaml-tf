@@ -169,6 +169,7 @@ let azurerm_public_ips ?allocation_type ?attachment_status ?id
   }
 
 type t = {
+  tf_name : string;
   allocation_type : string prop;
   attachment_status : string prop;
   id : string prop;
@@ -182,6 +183,7 @@ let make ?allocation_type ?attachment_status ?id ?name_prefix
   let __type = "azurerm_public_ips" in
   let __attrs =
     ({
+       tf_name = __id;
        allocation_type = Prop.computed __type __id "allocation_type";
        attachment_status =
          Prop.computed __type __id "attachment_status";

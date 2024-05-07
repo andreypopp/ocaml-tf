@@ -364,6 +364,7 @@ let aws_dms_replication_config ?id ?replication_settings
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   replication_config_identifier : string prop;
@@ -387,6 +388,7 @@ let make ?id ?replication_settings ?resource_identifier
   let __type = "aws_dms_replication_config" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        replication_config_identifier =

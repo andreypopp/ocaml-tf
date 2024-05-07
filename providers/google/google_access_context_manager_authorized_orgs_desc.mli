@@ -33,6 +33,7 @@ val yojson_of_google_access_context_manager_authorized_orgs_desc :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   asset_type : string prop;
   authorization_direction : string prop;
   authorization_type : string prop;

@@ -37,6 +37,7 @@ let aws_kinesis_resource_policy ~policy ~resource_arn () :
   { policy; resource_arn }
 
 type t = {
+  tf_name : string;
   id : string prop;
   policy : string prop;
   resource_arn : string prop;
@@ -46,6 +47,7 @@ let make ~policy ~resource_arn __id =
   let __type = "aws_kinesis_resource_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        policy = Prop.computed __type __id "policy";
        resource_arn = Prop.computed __type __id "resource_arn";

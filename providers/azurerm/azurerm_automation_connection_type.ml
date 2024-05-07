@@ -195,6 +195,7 @@ let azurerm_automation_connection_type ?id ?is_global ?timeouts
   }
 
 type t = {
+  tf_name : string;
   automation_account_name : string prop;
   id : string prop;
   is_global : bool prop;
@@ -207,6 +208,7 @@ let make ?id ?is_global ?timeouts ~automation_account_name ~name
   let __type = "azurerm_automation_connection_type" in
   let __attrs =
     ({
+       tf_name = __id;
        automation_account_name =
          Prop.computed __type __id "automation_account_name";
        id = Prop.computed __type __id "id";

@@ -25,6 +25,7 @@ val yojson_of_google_access_context_manager_service_perimeter_resource :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   perimeter_name : string prop;
   resource : string prop;

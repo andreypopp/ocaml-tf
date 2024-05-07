@@ -20,6 +20,7 @@ val yojson_of_aws_db_instance_role_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   db_instance_identifier : string prop;
   feature_name : string prop;
   id : string prop;

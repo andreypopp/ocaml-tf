@@ -35,6 +35,7 @@ val yojson_of_azurerm_kusto_cluster_managed_private_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_name : string prop;
   group_id : string prop;
   id : string prop;

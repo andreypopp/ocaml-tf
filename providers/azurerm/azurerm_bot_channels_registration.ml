@@ -301,6 +301,7 @@ let azurerm_bot_channels_registration ?cmk_key_vault_url ?description
   }
 
 type t = {
+  tf_name : string;
   cmk_key_vault_url : string prop;
   description : string prop;
   developer_app_insights_api_key : string prop;
@@ -331,6 +332,7 @@ let make ?cmk_key_vault_url ?description
   let __type = "azurerm_bot_channels_registration" in
   let __attrs =
     ({
+       tf_name = __id;
        cmk_key_vault_url =
          Prop.computed __type __id "cmk_key_vault_url";
        description = Prop.computed __type __id "description";

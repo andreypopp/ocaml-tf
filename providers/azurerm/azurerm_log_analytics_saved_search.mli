@@ -35,6 +35,7 @@ val yojson_of_azurerm_log_analytics_saved_search :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   category : string prop;
   display_name : string prop;
   function_alias : string prop;

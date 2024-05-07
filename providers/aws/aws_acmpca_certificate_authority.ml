@@ -586,6 +586,7 @@ let aws_acmpca_certificate_authority ?enabled ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   certificate : string prop;
   certificate_chain : string prop;
@@ -610,6 +611,7 @@ let make ?enabled ?id ?key_storage_security_standard
   let __type = "aws_acmpca_certificate_authority" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        certificate = Prop.computed __type __id "certificate";
        certificate_chain =

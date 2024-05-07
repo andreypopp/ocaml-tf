@@ -159,6 +159,7 @@ let aws_route53_zone ?comment ?delegation_set_id ?force_destroy ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   comment : string prop;
   delegation_set_id : string prop;
@@ -177,6 +178,7 @@ let make ?comment ?delegation_set_id ?force_destroy ?id ?tags
   let __type = "aws_route53_zone" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        comment = Prop.computed __type __id "comment";
        delegation_set_id =

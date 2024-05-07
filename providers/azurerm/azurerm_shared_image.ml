@@ -475,6 +475,7 @@ let azurerm_shared_image ?accelerated_network_support_enabled
   }
 
 type t = {
+  tf_name : string;
   accelerated_network_support_enabled : bool prop;
   architecture : string prop;
   confidential_vm_enabled : bool prop;
@@ -515,6 +516,7 @@ let make ?accelerated_network_support_enabled ?architecture
   let __type = "azurerm_shared_image" in
   let __attrs =
     ({
+       tf_name = __id;
        accelerated_network_support_enabled =
          Prop.computed __type __id
            "accelerated_network_support_enabled";

@@ -19,6 +19,7 @@ val yojson_of_aws_ec2_availability_zone_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   group_name : string prop;
   id : string prop;
   opt_in_status : string prop;

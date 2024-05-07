@@ -169,6 +169,7 @@ let azurerm_healthcare_medtech_service_fhir_destination ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   destination_fhir_mapping_json : string prop;
   destination_fhir_service_id : string prop;
   destination_identity_resolution_type : string prop;
@@ -187,6 +188,7 @@ let make ?id ?timeouts ~destination_fhir_mapping_json
   in
   let __attrs =
     ({
+       tf_name = __id;
        destination_fhir_mapping_json =
          Prop.computed __type __id "destination_fhir_mapping_json";
        destination_fhir_service_id =

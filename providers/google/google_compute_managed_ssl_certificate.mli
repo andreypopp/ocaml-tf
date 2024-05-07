@@ -33,6 +33,7 @@ val yojson_of_google_compute_managed_ssl_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_id : float prop;
   creation_timestamp : string prop;
   description : string prop;

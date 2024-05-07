@@ -40,6 +40,7 @@ let aws_ses_receipt_rule_set ?id ~rule_set_name () :
   { id; rule_set_name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   rule_set_name : string prop;
@@ -49,6 +50,7 @@ let make ?id ~rule_set_name __id =
   let __type = "aws_ses_receipt_rule_set" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        rule_set_name = Prop.computed __type __id "rule_set_name";

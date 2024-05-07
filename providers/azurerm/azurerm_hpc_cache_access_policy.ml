@@ -233,6 +233,7 @@ let azurerm_hpc_cache_access_policy ?id ?timeouts ~hpc_cache_id ~name
   { hpc_cache_id; id; name; access_rule; timeouts }
 
 type t = {
+  tf_name : string;
   hpc_cache_id : string prop;
   id : string prop;
   name : string prop;
@@ -242,6 +243,7 @@ let make ?id ?timeouts ~hpc_cache_id ~name ~access_rule __id =
   let __type = "azurerm_hpc_cache_access_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        hpc_cache_id = Prop.computed __type __id "hpc_cache_id";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

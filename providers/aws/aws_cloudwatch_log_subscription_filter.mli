@@ -23,6 +23,7 @@ val yojson_of_aws_cloudwatch_log_subscription_filter :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   destination_arn : string prop;
   distribution : string prop;
   filter_pattern : string prop;

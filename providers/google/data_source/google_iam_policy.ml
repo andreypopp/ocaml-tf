@@ -215,12 +215,17 @@ let google_iam_policy ?id ~audit_config ~binding () :
     google_iam_policy =
   { id; audit_config; binding }
 
-type t = { id : string prop; policy_data : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  policy_data : string prop;
+}
 
 let make ?id ~audit_config ~binding __id =
   let __type = "google_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        policy_data = Prop.computed __type __id "policy_data";
      }

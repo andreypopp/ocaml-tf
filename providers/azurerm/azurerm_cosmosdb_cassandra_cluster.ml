@@ -295,6 +295,7 @@ let azurerm_cosmosdb_cassandra_cluster ?authentication_method
   }
 
 type t = {
+  tf_name : string;
   authentication_method : string prop;
   client_certificate_pems : string list prop;
   default_admin_password : string prop;
@@ -320,6 +321,7 @@ let make ?authentication_method ?client_certificate_pems
   let __type = "azurerm_cosmosdb_cassandra_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        authentication_method =
          Prop.computed __type __id "authentication_method";
        client_certificate_pems =

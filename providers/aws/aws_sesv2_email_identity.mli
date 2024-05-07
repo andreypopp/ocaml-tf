@@ -31,6 +31,7 @@ val yojson_of_aws_sesv2_email_identity :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   configuration_set_name : string prop;
   email_identity : string prop;

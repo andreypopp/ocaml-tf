@@ -98,6 +98,7 @@ let kubernetes_resources ?field_selector ?label_selector ?limit
   }
 
 type t = {
+  tf_name : string;
   api_version : string prop;
   field_selector : string prop;
   kind : string prop;
@@ -112,6 +113,7 @@ let make ?field_selector ?label_selector ?limit ?namespace ?objects
   let __type = "kubernetes_resources" in
   let __attrs =
     ({
+       tf_name = __id;
        api_version = Prop.computed __type __id "api_version";
        field_selector = Prop.computed __type __id "field_selector";
        kind = Prop.computed __type __id "kind";

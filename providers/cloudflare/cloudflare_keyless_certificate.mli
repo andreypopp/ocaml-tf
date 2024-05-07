@@ -27,6 +27,7 @@ val yojson_of_cloudflare_keyless_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bundle_method : string prop;
   certificate : string prop;
   enabled : bool prop;

@@ -264,6 +264,7 @@ let azurerm_iot_security_device_group ?id ?(allow_rule = [])
   { id; iothub_id; name; allow_rule; range_rule; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   iothub_id : string prop;
   name : string prop;
@@ -274,6 +275,7 @@ let make ?id ?(allow_rule = []) ?timeouts ~iothub_id ~name
   let __type = "azurerm_iot_security_device_group" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        iothub_id = Prop.computed __type __id "iothub_id";
        name = Prop.computed __type __id "name";

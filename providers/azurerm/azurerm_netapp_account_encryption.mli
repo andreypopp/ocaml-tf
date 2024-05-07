@@ -32,6 +32,7 @@ val yojson_of_azurerm_netapp_account_encryption :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   encryption_key : string prop;
   id : string prop;
   netapp_account_id : string prop;

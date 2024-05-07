@@ -230,6 +230,7 @@ let cloudflare_device_settings_policy ?allow_mode_switch
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   allow_mode_switch : bool prop;
   allow_updates : bool prop;
@@ -259,6 +260,7 @@ let make ?allow_mode_switch ?allow_updates ?allowed_to_leave
   let __type = "cloudflare_device_settings_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        allow_mode_switch =
          Prop.computed __type __id "allow_mode_switch";

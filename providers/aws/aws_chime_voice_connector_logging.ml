@@ -72,6 +72,7 @@ let aws_chime_voice_connector_logging ?enable_media_metric_logs
   }
 
 type t = {
+  tf_name : string;
   enable_media_metric_logs : bool prop;
   enable_sip_logs : bool prop;
   id : string prop;
@@ -83,6 +84,7 @@ let make ?enable_media_metric_logs ?enable_sip_logs ?id
   let __type = "aws_chime_voice_connector_logging" in
   let __attrs =
     ({
+       tf_name = __id;
        enable_media_metric_logs =
          Prop.computed __type __id "enable_media_metric_logs";
        enable_sip_logs = Prop.computed __type __id "enable_sip_logs";

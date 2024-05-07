@@ -34,6 +34,7 @@ val yojson_of_aws_servicecatalog_provisioning_artifacts :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   accept_language : string prop;
   id : string prop;
   product_id : string prop;

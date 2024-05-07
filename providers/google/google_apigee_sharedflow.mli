@@ -37,6 +37,7 @@ val yojson_of_google_apigee_sharedflow :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   config_bundle : string prop;
   detect_md5hash : string prop;
   id : string prop;

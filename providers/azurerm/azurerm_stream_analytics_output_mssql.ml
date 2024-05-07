@@ -215,6 +215,7 @@ let azurerm_stream_analytics_output_mssql ?authentication_mode ?id
   }
 
 type t = {
+  tf_name : string;
   authentication_mode : string prop;
   database : string prop;
   id : string prop;
@@ -235,6 +236,7 @@ let make ?authentication_mode ?id ?max_batch_count ?max_writer_count
   let __type = "azurerm_stream_analytics_output_mssql" in
   let __attrs =
     ({
+       tf_name = __id;
        authentication_mode =
          Prop.computed __type __id "authentication_mode";
        database = Prop.computed __type __id "database";

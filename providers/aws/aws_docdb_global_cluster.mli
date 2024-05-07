@@ -39,6 +39,7 @@ val yojson_of_aws_docdb_global_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   database_name : string prop;
   deletion_protection : bool prop;

@@ -313,6 +313,7 @@ let aws_fsx_data_repository_association
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   association_id : string prop;
   batch_import_meta_data_on_create : bool prop;
@@ -333,6 +334,7 @@ let make ?batch_import_meta_data_on_create ?delete_data_in_filesystem
   let __type = "aws_fsx_data_repository_association" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        association_id = Prop.computed __type __id "association_id";
        batch_import_meta_data_on_create =

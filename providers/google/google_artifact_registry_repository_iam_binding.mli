@@ -32,6 +32,7 @@ val yojson_of_google_artifact_registry_repository_iam_binding :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   location : string prop;

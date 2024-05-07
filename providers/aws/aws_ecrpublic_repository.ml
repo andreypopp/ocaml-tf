@@ -238,6 +238,7 @@ let aws_ecrpublic_repository ?force_destroy ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   force_destroy : bool prop;
   id : string prop;
@@ -253,6 +254,7 @@ let make ?force_destroy ?id ?tags ?tags_all ?(catalog_data = [])
   let __type = "aws_ecrpublic_repository" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        force_destroy = Prop.computed __type __id "force_destroy";
        id = Prop.computed __type __id "id";

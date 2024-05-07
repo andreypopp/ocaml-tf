@@ -104,6 +104,7 @@ let azurerm_container_registry_task_schedule_run_now ?id ?timeouts
   { container_registry_task_id; id; timeouts }
 
 type t = {
+  tf_name : string;
   container_registry_task_id : string prop;
   id : string prop;
 }
@@ -112,6 +113,7 @@ let make ?id ?timeouts ~container_registry_task_id __id =
   let __type = "azurerm_container_registry_task_schedule_run_now" in
   let __attrs =
     ({
+       tf_name = __id;
        container_registry_task_id =
          Prop.computed __type __id "container_registry_task_id";
        id = Prop.computed __type __id "id";

@@ -40,6 +40,7 @@ val yojson_of_google_project_access_approval_settings :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   active_key_version : string prop;
   ancestor_has_active_key_version : bool prop;
   enrolled_ancestor : bool prop;

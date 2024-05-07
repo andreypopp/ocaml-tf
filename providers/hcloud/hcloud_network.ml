@@ -94,6 +94,7 @@ let hcloud_network ?delete_protection ?expose_routes_to_vswitch ?id
   }
 
 type t = {
+  tf_name : string;
   delete_protection : bool prop;
   expose_routes_to_vswitch : bool prop;
   id : string prop;
@@ -107,6 +108,7 @@ let make ?delete_protection ?expose_routes_to_vswitch ?id ?labels
   let __type = "hcloud_network" in
   let __attrs =
     ({
+       tf_name = __id;
        delete_protection =
          Prop.computed __type __id "delete_protection";
        expose_routes_to_vswitch =

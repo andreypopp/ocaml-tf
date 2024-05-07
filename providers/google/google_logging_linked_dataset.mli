@@ -33,6 +33,7 @@ val yojson_of_google_logging_linked_dataset :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket : string prop;
   create_time : string prop;
   description : string prop;

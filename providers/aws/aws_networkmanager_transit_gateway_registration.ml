@@ -101,6 +101,7 @@ let aws_networkmanager_transit_gateway_registration ?id ?timeouts
   { global_network_id; id; transit_gateway_arn; timeouts }
 
 type t = {
+  tf_name : string;
   global_network_id : string prop;
   id : string prop;
   transit_gateway_arn : string prop;
@@ -110,6 +111,7 @@ let make ?id ?timeouts ~global_network_id ~transit_gateway_arn __id =
   let __type = "aws_networkmanager_transit_gateway_registration" in
   let __attrs =
     ({
+       tf_name = __id;
        global_network_id =
          Prop.computed __type __id "global_network_id";
        id = Prop.computed __type __id "id";

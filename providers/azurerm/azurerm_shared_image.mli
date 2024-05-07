@@ -71,6 +71,7 @@ val yojson_of_azurerm_shared_image : azurerm_shared_image -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   accelerated_network_support_enabled : bool prop;
   architecture : string prop;
   confidential_vm_enabled : bool prop;

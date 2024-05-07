@@ -26,6 +26,7 @@ val yojson_of_azurerm_portal_dashboard :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dashboard_properties : string prop;
   display_name : string prop;
   id : string prop;

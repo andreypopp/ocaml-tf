@@ -100,6 +100,7 @@ let azurerm_dedicated_host ?id ?timeouts ~dedicated_host_group_name
   }
 
 type t = {
+  tf_name : string;
   dedicated_host_group_name : string prop;
   id : string prop;
   location : string prop;
@@ -113,6 +114,7 @@ let make ?id ?timeouts ~dedicated_host_group_name ~name
   let __type = "azurerm_dedicated_host" in
   let __attrs =
     ({
+       tf_name = __id;
        dedicated_host_group_name =
          Prop.computed __type __id "dedicated_host_group_name";
        id = Prop.computed __type __id "id";

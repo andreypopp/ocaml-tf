@@ -24,6 +24,7 @@ val yojson_of_azurerm_dns_soa_record : azurerm_dns_soa_record -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   email : string prop;
   expire_time : float prop;
   fqdn : string prop;

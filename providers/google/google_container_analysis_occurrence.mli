@@ -48,6 +48,7 @@ val yojson_of_google_container_analysis_occurrence :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   id : string prop;
   kind : string prop;

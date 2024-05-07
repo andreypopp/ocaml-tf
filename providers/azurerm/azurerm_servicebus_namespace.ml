@@ -474,6 +474,7 @@ let azurerm_servicebus_namespace ?capacity ?id ?local_auth_enabled
   }
 
 type t = {
+  tf_name : string;
   capacity : float prop;
   default_primary_connection_string : string prop;
   default_primary_key : string prop;
@@ -501,6 +502,7 @@ let make ?capacity ?id ?local_auth_enabled ?minimum_tls_version
   let __type = "azurerm_servicebus_namespace" in
   let __attrs =
     ({
+       tf_name = __id;
        capacity = Prop.computed __type __id "capacity";
        default_primary_connection_string =
          Prop.computed __type __id

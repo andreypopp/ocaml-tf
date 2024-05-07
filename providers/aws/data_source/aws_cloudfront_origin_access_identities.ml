@@ -47,6 +47,7 @@ let aws_cloudfront_origin_access_identities ?comments ?id () :
   { comments; id }
 
 type t = {
+  tf_name : string;
   comments : string list prop;
   iam_arns : string list prop;
   id : string prop;
@@ -58,6 +59,7 @@ let make ?comments ?id __id =
   let __type = "aws_cloudfront_origin_access_identities" in
   let __attrs =
     ({
+       tf_name = __id;
        comments = Prop.computed __type __id "comments";
        iam_arns = Prop.computed __type __id "iam_arns";
        id = Prop.computed __type __id "id";

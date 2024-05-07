@@ -281,6 +281,7 @@ val yojson_of_azurerm_hdinsight_kafka_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_version : string prop;
   encryption_in_transit_enabled : bool prop;
   https_endpoint : string prop;

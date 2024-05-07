@@ -137,6 +137,7 @@ let google_logging_folder_settings ?disable_default_sink ?id
   }
 
 type t = {
+  tf_name : string;
   disable_default_sink : bool prop;
   folder : string prop;
   id : string prop;
@@ -152,6 +153,7 @@ let make ?disable_default_sink ?id ?kms_key_name ?storage_location
   let __type = "google_logging_folder_settings" in
   let __attrs =
     ({
+       tf_name = __id;
        disable_default_sink =
          Prop.computed __type __id "disable_default_sink";
        folder = Prop.computed __type __id "folder";

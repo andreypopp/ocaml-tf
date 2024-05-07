@@ -21,6 +21,7 @@ val yojson_of_aws_api_gateway_export : aws_api_gateway_export -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   accepts : string prop;
   body : string prop;
   content_disposition : string prop;

@@ -305,6 +305,7 @@ let google_compute_service_attachment ?consumer_reject_lists
   }
 
 type t = {
+  tf_name : string;
   connected_endpoints : connected_endpoints list prop;
   connection_preference : string prop;
   consumer_reject_lists : string list prop;
@@ -329,6 +330,7 @@ let make ?consumer_reject_lists ?description ?domain_names ?id
   let __type = "google_compute_service_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        connected_endpoints =
          Prop.computed __type __id "connected_endpoints";
        connection_preference =

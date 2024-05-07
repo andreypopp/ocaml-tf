@@ -72,6 +72,7 @@ let aws_ec2_transit_gateway_multicast_group_member ?id
   }
 
 type t = {
+  tf_name : string;
   group_ip_address : string prop;
   id : string prop;
   network_interface_id : string prop;
@@ -83,6 +84,7 @@ let make ?id ~group_ip_address ~network_interface_id
   let __type = "aws_ec2_transit_gateway_multicast_group_member" in
   let __attrs =
     ({
+       tf_name = __id;
        group_ip_address =
          Prop.computed __type __id "group_ip_address";
        id = Prop.computed __type __id "id";

@@ -26,6 +26,7 @@ val yojson_of_aws_msk_broker_nodes : aws_msk_broker_nodes -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_arn : string prop;
   id : string prop;
   node_info_list : node_info_list list prop;

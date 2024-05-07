@@ -103,6 +103,7 @@ val yojson_of_google_dataplex_asset : google_dataplex_asset -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   dataplex_zone : string prop;
   description : string prop;

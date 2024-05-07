@@ -43,6 +43,7 @@ let digitalocean_project ?id ?name () : digitalocean_project =
   { id; name }
 
 type t = {
+  tf_name : string;
   created_at : string prop;
   description : string prop;
   environment : string prop;
@@ -60,6 +61,7 @@ let make ?id ?name __id =
   let __type = "digitalocean_project" in
   let __attrs =
     ({
+       tf_name = __id;
        created_at = Prop.computed __type __id "created_at";
        description = Prop.computed __type __id "description";
        environment = Prop.computed __type __id "environment";

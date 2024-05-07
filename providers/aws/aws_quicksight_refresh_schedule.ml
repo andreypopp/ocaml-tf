@@ -61,6 +61,7 @@ let aws_quicksight_refresh_schedule ?aws_account_id ?(schedule=[]) ~data_set_id 
   } : aws_quicksight_refresh_schedule);;
 
 type t = {
+  tf_name: string;
   arn: string prop;
   aws_account_id: string prop;
   data_set_id: string prop;
@@ -71,6 +72,7 @@ type t = {
 let make ?aws_account_id ?(schedule=[]) ~data_set_id ~schedule_id __id =
   let __type = "aws_quicksight_refresh_schedule" in
   let __attrs = ({
+    tf_name = __id;
     arn = Prop.computed __type __id "arn";
     aws_account_id = Prop.computed __type __id "aws_account_id";
     data_set_id = Prop.computed __type __id "data_set_id";

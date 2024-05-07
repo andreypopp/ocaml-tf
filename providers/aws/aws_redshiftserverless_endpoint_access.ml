@@ -186,6 +186,7 @@ let aws_redshiftserverless_endpoint_access ?id ?owner_account
   }
 
 type t = {
+  tf_name : string;
   address : string prop;
   arn : string prop;
   endpoint_name : string prop;
@@ -203,6 +204,7 @@ let make ?id ?owner_account ?vpc_security_group_ids ~endpoint_name
   let __type = "aws_redshiftserverless_endpoint_access" in
   let __attrs =
     ({
+       tf_name = __id;
        address = Prop.computed __type __id "address";
        arn = Prop.computed __type __id "arn";
        endpoint_name = Prop.computed __type __id "endpoint_name";

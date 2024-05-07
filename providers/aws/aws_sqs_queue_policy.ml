@@ -45,6 +45,7 @@ let aws_sqs_queue_policy ?id ~policy ~queue_url () :
   { id; policy; queue_url }
 
 type t = {
+  tf_name : string;
   id : string prop;
   policy : string prop;
   queue_url : string prop;
@@ -54,6 +55,7 @@ let make ?id ~policy ~queue_url __id =
   let __type = "aws_sqs_queue_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        policy = Prop.computed __type __id "policy";
        queue_url = Prop.computed __type __id "queue_url";

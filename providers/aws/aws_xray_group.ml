@@ -145,6 +145,7 @@ let aws_xray_group ?id ?tags ?tags_all ?(insights_configuration = [])
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   filter_expression : string prop;
   group_name : string prop;
@@ -158,6 +159,7 @@ let make ?id ?tags ?tags_all ?(insights_configuration = [])
   let __type = "aws_xray_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        filter_expression =
          Prop.computed __type __id "filter_expression";

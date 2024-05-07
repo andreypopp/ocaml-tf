@@ -261,6 +261,7 @@ let azurerm_storage_blob ?access_tier ?cache_control ?content_md5
   }
 
 type t = {
+  tf_name : string;
   access_tier : string prop;
   cache_control : string prop;
   content_md5 : string prop;
@@ -286,6 +287,7 @@ let make ?access_tier ?cache_control ?content_md5 ?content_type ?id
   let __type = "azurerm_storage_blob" in
   let __attrs =
     ({
+       tf_name = __id;
        access_tier = Prop.computed __type __id "access_tier";
        cache_control = Prop.computed __type __id "cache_control";
        content_md5 = Prop.computed __type __id "content_md5";

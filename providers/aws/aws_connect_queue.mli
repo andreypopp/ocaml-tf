@@ -35,6 +35,7 @@ val yojson_of_aws_connect_queue : aws_connect_queue -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   hours_of_operation_id : string prop;

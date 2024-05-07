@@ -71,6 +71,7 @@ let aws_s3control_access_grants_location ?account_id ?tags
   { account_id; iam_role_arn; location_scope; tags }
 
 type t = {
+  tf_name : string;
   access_grants_location_arn : string prop;
   access_grants_location_id : string prop;
   account_id : string prop;
@@ -85,6 +86,7 @@ let make ?account_id ?tags ~iam_role_arn ~location_scope __id =
   let __type = "aws_s3control_access_grants_location" in
   let __attrs =
     ({
+       tf_name = __id;
        access_grants_location_arn =
          Prop.computed __type __id "access_grants_location_arn";
        access_grants_location_id =

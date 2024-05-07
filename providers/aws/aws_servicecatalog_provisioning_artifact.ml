@@ -218,6 +218,7 @@ let aws_servicecatalog_provisioning_artifact ?accept_language ?active
   }
 
 type t = {
+  tf_name : string;
   accept_language : string prop;
   active : bool prop;
   created_time : string prop;
@@ -240,6 +241,7 @@ let make ?accept_language ?active ?description
   let __type = "aws_servicecatalog_provisioning_artifact" in
   let __attrs =
     ({
+       tf_name = __id;
        accept_language = Prop.computed __type __id "accept_language";
        active = Prop.computed __type __id "active";
        created_time = Prop.computed __type __id "created_time";

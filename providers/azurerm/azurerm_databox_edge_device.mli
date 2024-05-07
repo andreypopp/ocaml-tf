@@ -48,6 +48,7 @@ val yojson_of_azurerm_databox_edge_device :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   device_properties : device_properties list prop;
   id : string prop;
   location : string prop;

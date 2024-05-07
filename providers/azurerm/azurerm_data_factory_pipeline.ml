@@ -235,6 +235,7 @@ let azurerm_data_factory_pipeline ?activities_json ?annotations
   }
 
 type t = {
+  tf_name : string;
   activities_json : string prop;
   annotations : string list prop;
   concurrency : float prop;
@@ -254,6 +255,7 @@ let make ?activities_json ?annotations ?concurrency ?description
   let __type = "azurerm_data_factory_pipeline" in
   let __attrs =
     ({
+       tf_name = __id;
        activities_json = Prop.computed __type __id "activities_json";
        annotations = Prop.computed __type __id "annotations";
        concurrency = Prop.computed __type __id "concurrency";

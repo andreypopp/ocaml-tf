@@ -134,6 +134,7 @@ let azurerm_postgresql_database ?id ?timeouts ~charset ~collation
   }
 
 type t = {
+  tf_name : string;
   charset : string prop;
   collation : string prop;
   id : string prop;
@@ -147,6 +148,7 @@ let make ?id ?timeouts ~charset ~collation ~name ~resource_group_name
   let __type = "azurerm_postgresql_database" in
   let __attrs =
     ({
+       tf_name = __id;
        charset = Prop.computed __type __id "charset";
        collation = Prop.computed __type __id "collation";
        id = Prop.computed __type __id "id";

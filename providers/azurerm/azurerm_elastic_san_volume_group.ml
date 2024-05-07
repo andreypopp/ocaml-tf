@@ -291,6 +291,7 @@ let azurerm_elastic_san_volume_group ?encryption_type ?id
   }
 
 type t = {
+  tf_name : string;
   elastic_san_id : string prop;
   encryption_type : string prop;
   id : string prop;
@@ -304,6 +305,7 @@ let make ?encryption_type ?id ?protocol_type ?(encryption = [])
   let __type = "azurerm_elastic_san_volume_group" in
   let __attrs =
     ({
+       tf_name = __id;
        elastic_san_id = Prop.computed __type __id "elastic_san_id";
        encryption_type = Prop.computed __type __id "encryption_type";
        id = Prop.computed __type __id "id";

@@ -33,6 +33,7 @@ val yojson_of_azurerm_iot_time_series_insights_access_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   name : string prop;

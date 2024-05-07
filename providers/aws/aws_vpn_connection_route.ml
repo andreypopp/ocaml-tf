@@ -53,6 +53,7 @@ let aws_vpn_connection_route ?id ~destination_cidr_block
   { destination_cidr_block; id; vpn_connection_id }
 
 type t = {
+  tf_name : string;
   destination_cidr_block : string prop;
   id : string prop;
   vpn_connection_id : string prop;
@@ -62,6 +63,7 @@ let make ?id ~destination_cidr_block ~vpn_connection_id __id =
   let __type = "aws_vpn_connection_route" in
   let __attrs =
     ({
+       tf_name = __id;
        destination_cidr_block =
          Prop.computed __type __id "destination_cidr_block";
        id = Prop.computed __type __id "id";

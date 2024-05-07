@@ -332,6 +332,7 @@ let azurerm_machine_learning_compute_instance ?authorization_type
   }
 
 type t = {
+  tf_name : string;
   authorization_type : string prop;
   description : string prop;
   id : string prop;
@@ -353,6 +354,7 @@ let make ?authorization_type ?description ?id ?local_auth_enabled
   let __type = "azurerm_machine_learning_compute_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        authorization_type =
          Prop.computed __type __id "authorization_type";
        description = Prop.computed __type __id "description";

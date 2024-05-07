@@ -114,6 +114,7 @@ let aws_route53_zone ?id ?name ?private_zone
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   caller_reference : string prop;
   comment : string prop;
@@ -135,6 +136,7 @@ let make ?id ?name ?private_zone ?resource_record_set_count ?tags
   let __type = "aws_route53_zone" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        caller_reference =
          Prop.computed __type __id "caller_reference";

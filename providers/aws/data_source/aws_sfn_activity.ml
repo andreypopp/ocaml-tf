@@ -52,6 +52,7 @@ let aws_sfn_activity ?arn ?id ?name () : aws_sfn_activity =
   { arn; id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   creation_date : string prop;
   id : string prop;
@@ -62,6 +63,7 @@ let make ?arn ?id ?name __id =
   let __type = "aws_sfn_activity" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        creation_date = Prop.computed __type __id "creation_date";
        id = Prop.computed __type __id "id";

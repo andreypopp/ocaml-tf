@@ -147,6 +147,7 @@ let azurerm_orbital_contact ?id ?timeouts ~contact_profile_id
   }
 
 type t = {
+  tf_name : string;
   contact_profile_id : string prop;
   ground_station_name : string prop;
   id : string prop;
@@ -162,6 +163,7 @@ let make ?id ?timeouts ~contact_profile_id ~ground_station_name ~name
   let __type = "azurerm_orbital_contact" in
   let __attrs =
     ({
+       tf_name = __id;
        contact_profile_id =
          Prop.computed __type __id "contact_profile_id";
        ground_station_name =

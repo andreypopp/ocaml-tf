@@ -88,6 +88,7 @@ val yojson_of_google_compute_region_per_instance_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   minimal_action : string prop;
   most_disruptive_allowed_action : string prop;

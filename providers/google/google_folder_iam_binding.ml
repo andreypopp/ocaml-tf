@@ -108,6 +108,7 @@ let google_folder_iam_binding ?id ?(condition = []) ~folder ~members
   { folder; id; members; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   folder : string prop;
   id : string prop;
@@ -119,6 +120,7 @@ let make ?id ?(condition = []) ~folder ~members ~role __id =
   let __type = "google_folder_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        folder = Prop.computed __type __id "folder";
        id = Prop.computed __type __id "id";

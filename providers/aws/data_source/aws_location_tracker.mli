@@ -18,6 +18,7 @@ val yojson_of_aws_location_tracker : aws_location_tracker -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   id : string prop;

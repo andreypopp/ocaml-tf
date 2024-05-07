@@ -125,6 +125,7 @@ let aws_organizations_organizational_unit ?id ?tags ?tags_all ~name
   { id; name; parent_id; tags; tags_all }
 
 type t = {
+  tf_name : string;
   accounts : accounts list prop;
   arn : string prop;
   id : string prop;
@@ -138,6 +139,7 @@ let make ?id ?tags ?tags_all ~name ~parent_id __id =
   let __type = "aws_organizations_organizational_unit" in
   let __attrs =
     ({
+       tf_name = __id;
        accounts = Prop.computed __type __id "accounts";
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";

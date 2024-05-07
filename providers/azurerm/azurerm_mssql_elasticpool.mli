@@ -59,6 +59,7 @@ val yojson_of_azurerm_mssql_elasticpool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enclave_type : string prop;
   id : string prop;
   license_type : string prop;

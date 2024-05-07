@@ -69,6 +69,7 @@ let aws_ec2_subnet_cidr_reservation ?description ?id ~cidr_block
   { cidr_block; description; id; reservation_type; subnet_id }
 
 type t = {
+  tf_name : string;
   cidr_block : string prop;
   description : string prop;
   id : string prop;
@@ -82,6 +83,7 @@ let make ?description ?id ~cidr_block ~reservation_type ~subnet_id
   let __type = "aws_ec2_subnet_cidr_reservation" in
   let __attrs =
     ({
+       tf_name = __id;
        cidr_block = Prop.computed __type __id "cidr_block";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

@@ -20,6 +20,7 @@ val yojson_of_aws_iam_role_policy : aws_iam_role_policy -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   name_prefix : string prop;

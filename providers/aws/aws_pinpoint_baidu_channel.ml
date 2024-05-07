@@ -67,6 +67,7 @@ let aws_pinpoint_baidu_channel ?enabled ?id ~api_key ~application_id
   { api_key; application_id; enabled; id; secret_key }
 
 type t = {
+  tf_name : string;
   api_key : string prop;
   application_id : string prop;
   enabled : bool prop;
@@ -78,6 +79,7 @@ let make ?enabled ?id ~api_key ~application_id ~secret_key __id =
   let __type = "aws_pinpoint_baidu_channel" in
   let __attrs =
     ({
+       tf_name = __id;
        api_key = Prop.computed __type __id "api_key";
        application_id = Prop.computed __type __id "application_id";
        enabled = Prop.computed __type __id "enabled";

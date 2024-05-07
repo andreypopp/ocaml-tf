@@ -25,6 +25,7 @@ val yojson_of_google_apigee_nat_address :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   instance_id : string prop;
   ip_address : string prop;

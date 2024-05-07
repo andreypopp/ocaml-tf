@@ -23,6 +23,7 @@ val yojson_of_azurerm_key_vault_access_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_permissions : string list prop;
   id : string prop;
   key_permissions : string list prop;

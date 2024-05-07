@@ -22,6 +22,7 @@ val yojson_of_aws_appstream_user : aws_appstream_user -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   authentication_type : string prop;
   created_time : string prop;

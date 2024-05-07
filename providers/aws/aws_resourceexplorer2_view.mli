@@ -29,6 +29,7 @@ val yojson_of_aws_resourceexplorer2_view :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   default_view : bool prop;
   id : string prop;

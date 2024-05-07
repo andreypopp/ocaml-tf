@@ -27,6 +27,7 @@ val yojson_of_aws_networkmanager_customer_gateway_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   customer_gateway_arn : string prop;
   device_id : string prop;
   global_network_id : string prop;

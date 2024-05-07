@@ -128,6 +128,7 @@ let aws_iam_policy ?description ?id ?name ?name_prefix ?path ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -145,6 +146,7 @@ let make ?description ?id ?name ?name_prefix ?path ?tags ?tags_all
   let __type = "aws_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

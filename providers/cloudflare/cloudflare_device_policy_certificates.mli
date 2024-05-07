@@ -24,6 +24,7 @@ val yojson_of_cloudflare_device_policy_certificates :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   zone_id : string prop;

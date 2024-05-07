@@ -157,6 +157,7 @@ let azurerm_app_service_environment_v3 ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   allow_new_private_endpoint_connections : bool prop;
   cluster_setting : cluster_setting list prop;
   dedicated_host_count : float prop;
@@ -184,6 +185,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_app_service_environment_v3" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_new_private_endpoint_connections =
          Prop.computed __type __id
            "allow_new_private_endpoint_connections";

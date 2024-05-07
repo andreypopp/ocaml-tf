@@ -42,6 +42,7 @@ val yojson_of_aws_service_discovery_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   dns_config : dns_config list prop;

@@ -45,6 +45,7 @@ let aws_opensearchserverless_collection ?id ?name () :
   { id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   collection_endpoint : string prop;
   created_date : string prop;
@@ -63,6 +64,7 @@ let make ?id ?name __id =
   let __type = "aws_opensearchserverless_collection" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        collection_endpoint =
          Prop.computed __type __id "collection_endpoint";

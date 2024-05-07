@@ -216,6 +216,7 @@ let aws_iot_ca_certificate ?certificate_mode ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   active : bool prop;
   allow_auto_registration : bool prop;
   arn : string prop;
@@ -236,6 +237,7 @@ let make ?certificate_mode ?id ?tags ?tags_all
   let __type = "aws_iot_ca_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        active = Prop.computed __type __id "active";
        allow_auto_registration =
          Prop.computed __type __id "allow_auto_registration";

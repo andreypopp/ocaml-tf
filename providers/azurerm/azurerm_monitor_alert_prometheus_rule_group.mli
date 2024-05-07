@@ -70,6 +70,7 @@ val yojson_of_azurerm_monitor_alert_prometheus_rule_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_name : string prop;
   description : string prop;
   id : string prop;

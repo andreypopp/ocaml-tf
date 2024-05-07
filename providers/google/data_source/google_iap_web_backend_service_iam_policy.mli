@@ -19,6 +19,7 @@ val yojson_of_google_iap_web_backend_service_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   policy_data : string prop;

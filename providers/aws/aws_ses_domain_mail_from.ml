@@ -61,6 +61,7 @@ let aws_ses_domain_mail_from ?behavior_on_mx_failure ?id ~domain
   { behavior_on_mx_failure; domain; id; mail_from_domain }
 
 type t = {
+  tf_name : string;
   behavior_on_mx_failure : string prop;
   domain : string prop;
   id : string prop;
@@ -71,6 +72,7 @@ let make ?behavior_on_mx_failure ?id ~domain ~mail_from_domain __id =
   let __type = "aws_ses_domain_mail_from" in
   let __attrs =
     ({
+       tf_name = __id;
        behavior_on_mx_failure =
          Prop.computed __type __id "behavior_on_mx_failure";
        domain = Prop.computed __type __id "domain";

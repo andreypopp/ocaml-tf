@@ -197,6 +197,7 @@ let azurerm_availability_set ?id ?managed
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   managed : bool prop;
@@ -214,6 +215,7 @@ let make ?id ?managed ?platform_fault_domain_count
   let __type = "azurerm_availability_set" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        managed = Prop.computed __type __id "managed";

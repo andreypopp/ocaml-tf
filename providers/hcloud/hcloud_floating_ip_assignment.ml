@@ -50,6 +50,7 @@ let hcloud_floating_ip_assignment ?id ~floating_ip_id ~server_id () :
   { floating_ip_id; id; server_id }
 
 type t = {
+  tf_name : string;
   floating_ip_id : float prop;
   id : string prop;
   server_id : float prop;
@@ -59,6 +60,7 @@ let make ?id ~floating_ip_id ~server_id __id =
   let __type = "hcloud_floating_ip_assignment" in
   let __attrs =
     ({
+       tf_name = __id;
        floating_ip_id = Prop.computed __type __id "floating_ip_id";
        id = Prop.computed __type __id "id";
        server_id = Prop.computed __type __id "server_id";

@@ -82,6 +82,7 @@ val yojson_of_azurerm_netapp_volume : azurerm_netapp_volume -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_name : string prop;
   azure_vmware_data_store_enabled : bool prop;
   create_from_snapshot_resource_id : string prop;

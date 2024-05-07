@@ -258,6 +258,7 @@ let azurerm_spring_cloud_api_portal ?api_try_out_enabled ?gateway_ids
   }
 
 type t = {
+  tf_name : string;
   api_try_out_enabled : bool prop;
   gateway_ids : string list prop;
   https_only_enabled : bool prop;
@@ -275,6 +276,7 @@ let make ?api_try_out_enabled ?gateway_ids ?https_only_enabled ?id
   let __type = "azurerm_spring_cloud_api_portal" in
   let __attrs =
     ({
+       tf_name = __id;
        api_try_out_enabled =
          Prop.computed __type __id "api_try_out_enabled";
        gateway_ids = Prop.computed __type __id "gateway_ids";

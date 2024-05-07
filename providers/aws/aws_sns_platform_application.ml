@@ -183,6 +183,7 @@ let aws_sns_platform_application ?apple_platform_bundle_id
   }
 
 type t = {
+  tf_name : string;
   apple_platform_bundle_id : string prop;
   apple_platform_team_id : string prop;
   arn : string prop;
@@ -211,6 +212,7 @@ let make ?apple_platform_bundle_id ?apple_platform_team_id
   let __type = "aws_sns_platform_application" in
   let __attrs =
     ({
+       tf_name = __id;
        apple_platform_bundle_id =
          Prop.computed __type __id "apple_platform_bundle_id";
        apple_platform_team_id =

@@ -19,6 +19,7 @@ val yojson_of_aws_cloudwatch_dashboard :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dashboard_arn : string prop;
   dashboard_body : string prop;
   dashboard_name : string prop;

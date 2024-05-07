@@ -118,6 +118,7 @@ let aws_bedrock_provisioned_model_throughput ?commitment_duration
   }
 
 type t = {
+  tf_name : string;
   commitment_duration : string prop;
   id : string prop;
   model_arn : string prop;
@@ -133,6 +134,7 @@ let make ?commitment_duration ?tags ?timeouts ~model_arn ~model_units
   let __type = "aws_bedrock_provisioned_model_throughput" in
   let __attrs =
     ({
+       tf_name = __id;
        commitment_duration =
          Prop.computed __type __id "commitment_duration";
        id = Prop.computed __type __id "id";

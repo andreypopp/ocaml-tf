@@ -18,6 +18,7 @@ val yojson_of_aws_lb_hosted_zone_id : aws_lb_hosted_zone_id -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   load_balancer_type : string prop;
   region : string prop;

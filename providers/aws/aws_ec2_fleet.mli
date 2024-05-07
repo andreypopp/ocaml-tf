@@ -253,6 +253,7 @@ val yojson_of_aws_ec2_fleet : aws_ec2_fleet -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   context : string prop;
   excess_capacity_termination_policy : string prop;

@@ -33,6 +33,7 @@ val yojson_of_azurerm_batch_account : azurerm_batch_account -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_endpoint : string prop;
   encryption : encryption list prop;
   id : string prop;

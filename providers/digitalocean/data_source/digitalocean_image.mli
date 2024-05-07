@@ -19,6 +19,7 @@ val yojson_of_digitalocean_image : digitalocean_image -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created : string prop;
   description : string prop;
   distribution : string prop;

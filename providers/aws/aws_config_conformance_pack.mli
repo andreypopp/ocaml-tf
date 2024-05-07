@@ -31,6 +31,7 @@ val yojson_of_aws_config_conformance_pack :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   delivery_s3_bucket : string prop;
   delivery_s3_key_prefix : string prop;

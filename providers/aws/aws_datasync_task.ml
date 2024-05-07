@@ -696,6 +696,7 @@ let aws_datasync_task ?cloudwatch_log_group_arn ?id ?name ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cloudwatch_log_group_arn : string prop;
   destination_location_arn : string prop;
@@ -713,6 +714,7 @@ let make ?cloudwatch_log_group_arn ?id ?name ?tags ?tags_all
   let __type = "aws_datasync_task" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cloudwatch_log_group_arn =
          Prop.computed __type __id "cloudwatch_log_group_arn";

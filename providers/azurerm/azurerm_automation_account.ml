@@ -319,6 +319,7 @@ let azurerm_automation_account ?id ?local_authentication_enabled
   }
 
 type t = {
+  tf_name : string;
   dsc_primary_access_key : string prop;
   dsc_secondary_access_key : string prop;
   dsc_server_endpoint : string prop;
@@ -342,6 +343,7 @@ let make ?id ?local_authentication_enabled
   let __type = "azurerm_automation_account" in
   let __attrs =
     ({
+       tf_name = __id;
        dsc_primary_access_key =
          Prop.computed __type __id "dsc_primary_access_key";
        dsc_secondary_access_key =

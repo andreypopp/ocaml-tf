@@ -14,6 +14,7 @@ val yojson_of_aws_eks_cluster_auth : aws_eks_cluster_auth -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   token : string prop;

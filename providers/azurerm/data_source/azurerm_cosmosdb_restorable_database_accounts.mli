@@ -41,6 +41,7 @@ val yojson_of_azurerm_cosmosdb_restorable_database_accounts :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   accounts : accounts list prop;
   id : string prop;
   location : string prop;

@@ -9375,6 +9375,7 @@ val yojson_of_aws_lexv2models_intent : aws_lexv2models_intent -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bot_id : string prop;
   bot_version : string prop;
   creation_date_time : string prop;

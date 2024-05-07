@@ -34,6 +34,7 @@ val yojson_of_azurerm_disk_pool : azurerm_disk_pool -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

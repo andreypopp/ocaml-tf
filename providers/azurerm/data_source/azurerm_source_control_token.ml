@@ -74,6 +74,7 @@ let azurerm_source_control_token ?id ?timeouts ~type_ () :
   { id; type_; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   token : string prop;
   token_secret : string prop;
@@ -84,6 +85,7 @@ let make ?id ?timeouts ~type_ __id =
   let __type = "azurerm_source_control_token" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        token = Prop.computed __type __id "token";
        token_secret = Prop.computed __type __id "token_secret";

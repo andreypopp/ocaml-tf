@@ -151,6 +151,7 @@ let aws_media_package_channel ?description ?id ?tags ?tags_all
   { channel_id; description; id; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   channel_id : string prop;
   description : string prop;
@@ -164,6 +165,7 @@ let make ?description ?id ?tags ?tags_all ~channel_id __id =
   let __type = "aws_media_package_channel" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        channel_id = Prop.computed __type __id "channel_id";
        description = Prop.computed __type __id "description";

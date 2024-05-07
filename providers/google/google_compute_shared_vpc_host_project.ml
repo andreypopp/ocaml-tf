@@ -84,12 +84,17 @@ let google_compute_shared_vpc_host_project ?id ?timeouts ~project ()
     : google_compute_shared_vpc_host_project =
   { id; project; timeouts }
 
-type t = { id : string prop; project : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  project : string prop;
+}
 
 let make ?id ?timeouts ~project __id =
   let __type = "google_compute_shared_vpc_host_project" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        project = Prop.computed __type __id "project";
      }

@@ -192,12 +192,17 @@ let digitalocean_regions ?id ?(sort = []) ~filter () :
     digitalocean_regions =
   { id; filter; sort }
 
-type t = { id : string prop; regions : regions list prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  regions : regions list prop;
+}
 
 let make ?id ?(sort = []) ~filter __id =
   let __type = "digitalocean_regions" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        regions = Prop.computed __type __id "regions";
      }

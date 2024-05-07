@@ -33,6 +33,7 @@ val yojson_of_azurerm_shared_image_version :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   exclude_from_latest : bool prop;
   gallery_name : string prop;
   id : string prop;

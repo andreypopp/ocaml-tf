@@ -32,6 +32,7 @@ val yojson_of_azurerm_bot_channel_alexa :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bot_name : string prop;
   id : string prop;
   location : string prop;

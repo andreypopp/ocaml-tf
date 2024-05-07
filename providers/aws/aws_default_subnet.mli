@@ -36,6 +36,7 @@ val yojson_of_aws_default_subnet : aws_default_subnet -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   assign_ipv6_address_on_creation : bool prop;
   availability_zone : string prop;

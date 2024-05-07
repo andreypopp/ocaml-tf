@@ -411,6 +411,7 @@ let azurerm_netapp_volume_group_sap_hana ?id ?timeouts ~account_name
   { account_name; id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   account_name : string prop;
   application_identifier : string prop;
   group_description : string prop;
@@ -426,6 +427,7 @@ let make ?id ?timeouts ~account_name ~name ~resource_group_name __id
   let __type = "azurerm_netapp_volume_group_sap_hana" in
   let __attrs =
     ({
+       tf_name = __id;
        account_name = Prop.computed __type __id "account_name";
        application_identifier =
          Prop.computed __type __id "application_identifier";

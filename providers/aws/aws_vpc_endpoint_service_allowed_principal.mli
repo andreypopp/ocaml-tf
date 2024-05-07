@@ -19,6 +19,7 @@ val yojson_of_aws_vpc_endpoint_service_allowed_principal :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   principal_arn : string prop;
   vpc_endpoint_service_id : string prop;

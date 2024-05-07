@@ -66,6 +66,7 @@ let google_bigtable_table_iam_policy ?id ?project ~instance
   { id; instance; policy_data; project; table }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   instance : string prop;
@@ -78,6 +79,7 @@ let make ?id ?project ~instance ~policy_data ~table __id =
   let __type = "google_bigtable_table_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        instance = Prop.computed __type __id "instance";

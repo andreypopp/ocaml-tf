@@ -262,6 +262,7 @@ val yojson_of_aws_macie2_classification_job :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created_at : string prop;
   custom_data_identifier_ids : string list prop;
   description : string prop;

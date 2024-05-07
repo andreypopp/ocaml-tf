@@ -37,6 +37,7 @@ val yojson_of_azurerm_virtual_network_peering :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_forwarded_traffic : bool prop;
   allow_gateway_transit : bool prop;
   allow_virtual_network_access : bool prop;

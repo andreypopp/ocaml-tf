@@ -139,6 +139,7 @@ let azurerm_application_insights_api_key ?id ?read_permissions
   }
 
 type t = {
+  tf_name : string;
   api_key : string prop;
   application_insights_id : string prop;
   id : string prop;
@@ -152,6 +153,7 @@ let make ?id ?read_permissions ?write_permissions ?timeouts
   let __type = "azurerm_application_insights_api_key" in
   let __attrs =
     ({
+       tf_name = __id;
        api_key = Prop.computed __type __id "api_key";
        application_insights_id =
          Prop.computed __type __id "application_insights_id";

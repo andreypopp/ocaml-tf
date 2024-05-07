@@ -85,6 +85,7 @@ let hcloud_server_network ?alias_ips ?id ?ip ?network_id ?subnet_id
   { alias_ips; id; ip; network_id; server_id; subnet_id }
 
 type t = {
+  tf_name : string;
   alias_ips : string list prop;
   id : string prop;
   ip : string prop;
@@ -98,6 +99,7 @@ let make ?alias_ips ?id ?ip ?network_id ?subnet_id ~server_id __id =
   let __type = "hcloud_server_network" in
   let __attrs =
     ({
+       tf_name = __id;
        alias_ips = Prop.computed __type __id "alias_ips";
        id = Prop.computed __type __id "id";
        ip = Prop.computed __type __id "ip";

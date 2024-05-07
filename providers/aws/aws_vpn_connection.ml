@@ -1034,6 +1034,7 @@ let aws_vpn_connection ?enable_acceleration ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   core_network_arn : string prop;
   core_network_attachment_arn : string prop;
@@ -1142,6 +1143,7 @@ let make ?enable_acceleration ?id ?local_ipv4_network_cidr
   let __type = "aws_vpn_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        core_network_arn =
          Prop.computed __type __id "core_network_arn";

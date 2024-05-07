@@ -382,6 +382,7 @@ let aws_opsworks_application ?auto_bundle_on_deploy
   }
 
 type t = {
+  tf_name : string;
   auto_bundle_on_deploy : string prop;
   aws_flow_ruby_settings : string prop;
   data_source_arn : string prop;
@@ -407,6 +408,7 @@ let make ?auto_bundle_on_deploy ?aws_flow_ruby_settings
   let __type = "aws_opsworks_application" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_bundle_on_deploy =
          Prop.computed __type __id "auto_bundle_on_deploy";
        aws_flow_ruby_settings =

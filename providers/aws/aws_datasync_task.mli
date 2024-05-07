@@ -97,6 +97,7 @@ val yojson_of_aws_datasync_task : aws_datasync_task -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cloudwatch_log_group_arn : string prop;
   destination_location_arn : string prop;

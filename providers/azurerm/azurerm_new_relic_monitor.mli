@@ -58,6 +58,7 @@ val yojson_of_azurerm_new_relic_monitor :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_creation_source : string prop;
   account_id : string prop;
   id : string prop;

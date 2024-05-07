@@ -71,12 +71,13 @@ let aws_s3_bucket_ownership_controls ?id ~bucket ~rule () :
     aws_s3_bucket_ownership_controls =
   { bucket; id; rule }
 
-type t = { bucket : string prop; id : string prop }
+type t = { tf_name : string; bucket : string prop; id : string prop }
 
 let make ?id ~bucket ~rule __id =
   let __type = "aws_s3_bucket_ownership_controls" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        id = Prop.computed __type __id "id";
      }

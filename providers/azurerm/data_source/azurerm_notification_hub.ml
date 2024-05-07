@@ -167,6 +167,7 @@ let azurerm_notification_hub ?id ?timeouts ~name ~namespace_name
   { id; name; namespace_name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   apns_credential : apns_credential list prop;
   gcm_credential : gcm_credential list prop;
   id : string prop;
@@ -182,6 +183,7 @@ let make ?id ?timeouts ~name ~namespace_name ~resource_group_name
   let __type = "azurerm_notification_hub" in
   let __attrs =
     ({
+       tf_name = __id;
        apns_credential = Prop.computed __type __id "apns_credential";
        gcm_credential = Prop.computed __type __id "gcm_credential";
        id = Prop.computed __type __id "id";

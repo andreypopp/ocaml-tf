@@ -201,6 +201,7 @@ let aws_ec2_capacity_reservation ?ebs_optimized ?end_date
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zone : string prop;
   ebs_optimized : bool prop;
@@ -227,6 +228,7 @@ let make ?ebs_optimized ?end_date ?end_date_type ?ephemeral_storage
   let __type = "aws_ec2_capacity_reservation" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zone =
          Prop.computed __type __id "availability_zone";

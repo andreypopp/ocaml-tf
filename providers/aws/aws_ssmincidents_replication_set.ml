@@ -170,6 +170,7 @@ let aws_ssmincidents_replication_set ?id ?tags ?tags_all ?timeouts
   { id; tags; tags_all; region; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_by : string prop;
   deletion_protected : bool prop;
@@ -184,6 +185,7 @@ let make ?id ?tags ?tags_all ?timeouts ~region __id =
   let __type = "aws_ssmincidents_replication_set" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_by = Prop.computed __type __id "created_by";
        deletion_protected =

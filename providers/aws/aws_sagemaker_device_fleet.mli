@@ -32,6 +32,7 @@ val yojson_of_aws_sagemaker_device_fleet :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   device_fleet_name : string prop;

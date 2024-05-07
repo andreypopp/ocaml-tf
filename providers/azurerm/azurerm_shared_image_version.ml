@@ -346,6 +346,7 @@ let azurerm_shared_image_version ?blob_uri
   }
 
 type t = {
+  tf_name : string;
   blob_uri : string prop;
   deletion_of_replicated_locations_enabled : bool prop;
   end_of_life_date : string prop;
@@ -371,6 +372,7 @@ let make ?blob_uri ?deletion_of_replicated_locations_enabled
   let __type = "azurerm_shared_image_version" in
   let __attrs =
     ({
+       tf_name = __id;
        blob_uri = Prop.computed __type __id "blob_uri";
        deletion_of_replicated_locations_enabled =
          Prop.computed __type __id

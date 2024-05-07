@@ -75,6 +75,7 @@ let aws_cognito_user_pool_ui_customization ?client_id ?css ?id
   { client_id; css; id; image_file; user_pool_id }
 
 type t = {
+  tf_name : string;
   client_id : string prop;
   creation_date : string prop;
   css : string prop;
@@ -90,6 +91,7 @@ let make ?client_id ?css ?id ?image_file ~user_pool_id __id =
   let __type = "aws_cognito_user_pool_ui_customization" in
   let __attrs =
     ({
+       tf_name = __id;
        client_id = Prop.computed __type __id "client_id";
        creation_date = Prop.computed __type __id "creation_date";
        css = Prop.computed __type __id "css";

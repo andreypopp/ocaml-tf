@@ -77,6 +77,7 @@ let aws_secretsmanager_secret_version ?id ?secret_binary
   { id; secret_binary; secret_id; secret_string; version_stages }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   secret_binary : string prop;
@@ -91,6 +92,7 @@ let make ?id ?secret_binary ?secret_string ?version_stages ~secret_id
   let __type = "aws_secretsmanager_secret_version" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        secret_binary = Prop.computed __type __id "secret_binary";

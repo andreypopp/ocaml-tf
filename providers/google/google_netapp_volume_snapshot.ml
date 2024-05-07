@@ -159,6 +159,7 @@ let google_netapp_volume_snapshot ?description ?id ?labels ?project
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   effective_labels : (string * string) list prop;
   id : string prop;
@@ -176,6 +177,7 @@ let make ?description ?id ?labels ?project ?timeouts ~location ~name
   let __type = "google_netapp_volume_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        effective_labels =
          Prop.computed __type __id "effective_labels";

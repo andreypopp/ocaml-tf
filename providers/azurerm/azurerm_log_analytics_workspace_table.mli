@@ -33,6 +33,7 @@ val yojson_of_azurerm_log_analytics_workspace_table :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   plan : string prop;

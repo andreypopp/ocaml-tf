@@ -32,6 +32,7 @@ val yojson_of_google_bigquery_datapolicy_data_policy_iam_binding :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   data_policy_id : string prop;
   etag : string prop;
   id : string prop;

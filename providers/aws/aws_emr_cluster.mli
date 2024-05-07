@@ -299,6 +299,7 @@ val yojson_of_aws_emr_cluster : aws_emr_cluster -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   additional_info : string prop;
   applications : string list prop;
   arn : string prop;

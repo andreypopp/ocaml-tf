@@ -308,6 +308,7 @@ val yojson_of_azurerm_cdn_frontdoor_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   behavior_on_match : string prop;
   cdn_frontdoor_rule_set_id : string prop;
   cdn_frontdoor_rule_set_name : string prop;

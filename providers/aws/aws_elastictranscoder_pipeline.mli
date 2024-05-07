@@ -71,6 +71,7 @@ val yojson_of_aws_elastictranscoder_pipeline :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   aws_kms_key_arn : string prop;
   id : string prop;

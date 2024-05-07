@@ -21,6 +21,7 @@ val yojson_of_aws_vpclattice_service_network :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   auth_type : string prop;
   id : string prop;

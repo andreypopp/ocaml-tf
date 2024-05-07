@@ -99,6 +99,7 @@ let google_organization_iam_audit_config ?id ~org_id ~service
   { id; org_id; service; audit_log_config }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   org_id : string prop;
@@ -109,6 +110,7 @@ let make ?id ~org_id ~service ~audit_log_config __id =
   let __type = "google_organization_iam_audit_config" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        org_id = Prop.computed __type __id "org_id";

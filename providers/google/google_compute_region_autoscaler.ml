@@ -572,6 +572,7 @@ let google_compute_region_autoscaler ?description ?id ?project
   }
 
 type t = {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   id : string prop;
@@ -587,6 +588,7 @@ let make ?description ?id ?project ?region ?timeouts ~name ~target
   let __type = "google_compute_region_autoscaler" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";
        description = Prop.computed __type __id "description";

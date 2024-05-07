@@ -246,6 +246,7 @@ let azurerm_firewall ?dns_proxy_enabled ?id ?timeouts ~name
   { dns_proxy_enabled; id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   dns_proxy_enabled : bool prop;
   dns_servers : string list prop;
   firewall_policy_id : string prop;
@@ -269,6 +270,7 @@ let make ?dns_proxy_enabled ?id ?timeouts ~name ~resource_group_name
   let __type = "azurerm_firewall" in
   let __attrs =
     ({
+       tf_name = __id;
        dns_proxy_enabled =
          Prop.computed __type __id "dns_proxy_enabled";
        dns_servers = Prop.computed __type __id "dns_servers";

@@ -63,6 +63,7 @@ let aws_ssm_document ?document_format ?document_version ?id ~name ()
   { document_format; document_version; id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   content : string prop;
   document_format : string prop;
@@ -76,6 +77,7 @@ let make ?document_format ?document_version ?id ~name __id =
   let __type = "aws_ssm_document" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        content = Prop.computed __type __id "content";
        document_format = Prop.computed __type __id "document_format";

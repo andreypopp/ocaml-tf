@@ -47,6 +47,7 @@ val yojson_of_azurerm_synapse_sql_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   collation : string prop;
   create_mode : string prop;
   data_encrypted : bool prop;

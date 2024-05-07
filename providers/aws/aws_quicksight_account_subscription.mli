@@ -43,6 +43,7 @@ val yojson_of_aws_quicksight_account_subscription : aws_quicksight_account_subsc
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name: string;
   account_name: string prop;
   account_subscription_status: string prop;
   active_directory_name: string prop;

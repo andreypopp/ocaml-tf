@@ -175,6 +175,7 @@ let azurerm_disk_pool ?id ?tags ?timeouts ~location ~name
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -190,6 +191,7 @@ let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
   let __type = "azurerm_disk_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

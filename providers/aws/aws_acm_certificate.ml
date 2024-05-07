@@ -366,6 +366,7 @@ let aws_acm_certificate ?certificate_authority_arn ?certificate_body
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   certificate_authority_arn : string prop;
   certificate_body : string prop;
@@ -398,6 +399,7 @@ let make ?certificate_authority_arn ?certificate_body
   let __type = "aws_acm_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        certificate_authority_arn =
          Prop.computed __type __id "certificate_authority_arn";

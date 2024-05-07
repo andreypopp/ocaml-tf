@@ -215,6 +215,7 @@ let digitalocean_spaces_bucket_object ?acl ?cache_control ?content
   }
 
 type t = {
+  tf_name : string;
   acl : string prop;
   bucket : string prop;
   cache_control : string prop;
@@ -242,6 +243,7 @@ let make ?acl ?cache_control ?content ?content_base64
   let __type = "digitalocean_spaces_bucket_object" in
   let __attrs =
     ({
+       tf_name = __id;
        acl = Prop.computed __type __id "acl";
        bucket = Prop.computed __type __id "bucket";
        cache_control = Prop.computed __type __id "cache_control";

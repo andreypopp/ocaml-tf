@@ -73,6 +73,7 @@ let aws_msk_configuration ?description ?id ?kafka_versions ~name
   { description; id; kafka_versions; name; server_properties }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -87,6 +88,7 @@ let make ?description ?id ?kafka_versions ~name ~server_properties
   let __type = "aws_msk_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

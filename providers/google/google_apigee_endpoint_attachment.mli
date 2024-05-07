@@ -27,6 +27,7 @@ val yojson_of_google_apigee_endpoint_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   connection_state : string prop;
   endpoint_attachment_id : string prop;
   host : string prop;

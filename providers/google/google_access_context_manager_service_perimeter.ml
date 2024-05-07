@@ -1610,6 +1610,7 @@ let google_access_context_manager_service_perimeter ?description ?id
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   id : string prop;
@@ -1626,6 +1627,7 @@ let make ?description ?id ?perimeter_type ?use_explicit_dry_run_spec
   let __type = "google_access_context_manager_service_perimeter" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

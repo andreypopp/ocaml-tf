@@ -54,6 +54,7 @@ let aws_cloudwatch_event_bus_policy ?event_bus_name ?id ~policy () :
   { event_bus_name; id; policy }
 
 type t = {
+  tf_name : string;
   event_bus_name : string prop;
   id : string prop;
   policy : string prop;
@@ -63,6 +64,7 @@ let make ?event_bus_name ?id ~policy __id =
   let __type = "aws_cloudwatch_event_bus_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        event_bus_name = Prop.computed __type __id "event_bus_name";
        id = Prop.computed __type __id "id";
        policy = Prop.computed __type __id "policy";

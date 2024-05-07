@@ -97,6 +97,7 @@ let aws_transfer_profile ?certificate_ids ?id ?tags ?tags_all ~as2_id
   { as2_id; certificate_ids; id; profile_type; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   as2_id : string prop;
   certificate_ids : string list prop;
@@ -112,6 +113,7 @@ let make ?certificate_ids ?id ?tags ?tags_all ~as2_id ~profile_type
   let __type = "aws_transfer_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        as2_id = Prop.computed __type __id "as2_id";
        certificate_ids = Prop.computed __type __id "certificate_ids";

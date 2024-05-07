@@ -32,6 +32,7 @@ val yojson_of_aws_finspace_kx_database :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   created_timestamp : string prop;
   description : string prop;

@@ -125,6 +125,7 @@ let aws_customer_gateway ?certificate_arn ?device_name ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   bgp_asn : string prop;
   certificate_arn : string prop;
@@ -141,6 +142,7 @@ let make ?certificate_arn ?device_name ?id ?ip_address ?tags
   let __type = "aws_customer_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        bgp_asn = Prop.computed __type __id "bgp_asn";
        certificate_arn = Prop.computed __type __id "certificate_arn";

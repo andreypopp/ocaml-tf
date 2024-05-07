@@ -39,6 +39,7 @@ val yojson_of_aws_rds_global_cluster : aws_rds_global_cluster -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   database_name : string prop;
   deletion_protection : bool prop;

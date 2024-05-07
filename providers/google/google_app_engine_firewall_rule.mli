@@ -32,6 +32,7 @@ val yojson_of_google_app_engine_firewall_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action : string prop;
   description : string prop;
   id : string prop;

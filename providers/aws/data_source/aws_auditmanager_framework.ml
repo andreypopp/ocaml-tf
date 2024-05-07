@@ -88,6 +88,7 @@ let aws_auditmanager_framework ~framework_type ~name ~control_sets ()
   { framework_type; name; control_sets }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   compliance_type : string prop;
   description : string prop;
@@ -101,6 +102,7 @@ let make ~framework_type ~name ~control_sets __id =
   let __type = "aws_auditmanager_framework" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        compliance_type = Prop.computed __type __id "compliance_type";
        description = Prop.computed __type __id "description";

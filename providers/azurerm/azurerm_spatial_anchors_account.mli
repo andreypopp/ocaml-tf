@@ -32,6 +32,7 @@ val yojson_of_azurerm_spatial_anchors_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_domain : string prop;
   account_id : string prop;
   id : string prop;

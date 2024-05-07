@@ -130,6 +130,7 @@ val yojson_of_azurerm_key_vault_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_attribute : certificate_attribute list prop;
   certificate_data : string prop;
   certificate_data_base64 : string prop;

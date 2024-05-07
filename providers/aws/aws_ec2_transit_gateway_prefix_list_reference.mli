@@ -21,6 +21,7 @@ val yojson_of_aws_ec2_transit_gateway_prefix_list_reference :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   blackhole : bool prop;
   id : string prop;
   prefix_list_id : string prop;

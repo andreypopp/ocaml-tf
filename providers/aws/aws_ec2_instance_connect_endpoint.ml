@@ -126,6 +126,7 @@ let aws_ec2_instance_connect_endpoint ?preserve_client_ip
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zone : string prop;
   dns_name : string prop;
@@ -146,6 +147,7 @@ let make ?preserve_client_ip ?security_group_ids ?tags ?timeouts
   let __type = "aws_ec2_instance_connect_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zone =
          Prop.computed __type __id "availability_zone";

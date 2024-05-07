@@ -19,6 +19,7 @@ val yojson_of_google_access_context_manager_access_policy_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   name : string prop;

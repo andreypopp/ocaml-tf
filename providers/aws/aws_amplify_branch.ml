@@ -260,6 +260,7 @@ let aws_amplify_branch ?backend_environment_arn
   }
 
 type t = {
+  tf_name : string;
   app_id : string prop;
   arn : string prop;
   associated_resources : string list prop;
@@ -295,6 +296,7 @@ let make ?backend_environment_arn ?basic_auth_credentials
   let __type = "aws_amplify_branch" in
   let __attrs =
     ({
+       tf_name = __id;
        app_id = Prop.computed __type __id "app_id";
        arn = Prop.computed __type __id "arn";
        associated_resources =

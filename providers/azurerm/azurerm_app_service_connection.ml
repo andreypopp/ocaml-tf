@@ -299,6 +299,7 @@ let azurerm_app_service_connection ?client_type ?id ?vnet_solution
   }
 
 type t = {
+  tf_name : string;
   app_service_id : string prop;
   client_type : string prop;
   id : string prop;
@@ -313,6 +314,7 @@ let make ?client_type ?id ?vnet_solution ?(secret_store = [])
   let __type = "azurerm_app_service_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        app_service_id = Prop.computed __type __id "app_service_id";
        client_type = Prop.computed __type __id "client_type";
        id = Prop.computed __type __id "id";

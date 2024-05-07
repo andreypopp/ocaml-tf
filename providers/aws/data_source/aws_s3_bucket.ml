@@ -38,6 +38,7 @@ let _ = yojson_of_aws_s3_bucket
 let aws_s3_bucket ?id ~bucket () : aws_s3_bucket = { bucket; id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   bucket : string prop;
   bucket_domain_name : string prop;
@@ -53,6 +54,7 @@ let make ?id ~bucket __id =
   let __type = "aws_s3_bucket" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        bucket = Prop.computed __type __id "bucket";
        bucket_domain_name =

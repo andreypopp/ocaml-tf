@@ -69,6 +69,7 @@ val yojson_of_azurerm_data_factory_trigger_schedule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   activated : bool prop;
   annotations : string list prop;
   data_factory_id : string prop;

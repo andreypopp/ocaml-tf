@@ -30,6 +30,7 @@ val yojson_of_aws_globalaccelerator_accelerator :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   attributes : attributes list prop;
   dns_name : string prop;

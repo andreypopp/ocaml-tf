@@ -188,6 +188,7 @@ let google_firestore_backup_schedule ?database ?id ?project
   }
 
 type t = {
+  tf_name : string;
   database : string prop;
   id : string prop;
   name : string prop;
@@ -200,6 +201,7 @@ let make ?database ?id ?project ?(daily_recurrence = []) ?timeouts
   let __type = "google_firestore_backup_schedule" in
   let __attrs =
     ({
+       tf_name = __id;
        database = Prop.computed __type __id "database";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

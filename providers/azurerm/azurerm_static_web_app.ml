@@ -304,6 +304,7 @@ let azurerm_static_web_app ?app_settings
   }
 
 type t = {
+  tf_name : string;
   api_key : string prop;
   app_settings : (string * string) list prop;
   configuration_file_changes_enabled : bool prop;
@@ -325,6 +326,7 @@ let make ?app_settings ?configuration_file_changes_enabled ?id
   let __type = "azurerm_static_web_app" in
   let __attrs =
     ({
+       tf_name = __id;
        api_key = Prop.computed __type __id "api_key";
        app_settings = Prop.computed __type __id "app_settings";
        configuration_file_changes_enabled =

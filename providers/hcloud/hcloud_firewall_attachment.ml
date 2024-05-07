@@ -67,6 +67,7 @@ let hcloud_firewall_attachment ?id ?label_selectors ?server_ids
   { firewall_id; id; label_selectors; server_ids }
 
 type t = {
+  tf_name : string;
   firewall_id : float prop;
   id : string prop;
   label_selectors : string list prop;
@@ -77,6 +78,7 @@ let make ?id ?label_selectors ?server_ids ~firewall_id __id =
   let __type = "hcloud_firewall_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        firewall_id = Prop.computed __type __id "firewall_id";
        id = Prop.computed __type __id "id";
        label_selectors = Prop.computed __type __id "label_selectors";

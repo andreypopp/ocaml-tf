@@ -198,6 +198,7 @@ val yojson_of_google_identity_platform_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authorized_domains : string list prop;
   autodelete_anonymous_users : bool prop;
   id : string prop;

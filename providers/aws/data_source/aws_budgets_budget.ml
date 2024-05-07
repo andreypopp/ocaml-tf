@@ -457,6 +457,7 @@ let aws_budgets_budget ?account_id ?id ?name_prefix ~name () :
   { account_id; id; name; name_prefix }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   arn : string prop;
   auto_adjust_data : auto_adjust_data list prop;
@@ -480,6 +481,7 @@ let make ?account_id ?id ?name_prefix ~name __id =
   let __type = "aws_budgets_budget" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        arn = Prop.computed __type __id "arn";
        auto_adjust_data =

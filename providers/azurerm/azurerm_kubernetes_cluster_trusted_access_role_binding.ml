@@ -149,6 +149,7 @@ let azurerm_kubernetes_cluster_trusted_access_role_binding ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   kubernetes_cluster_id : string prop;
   name : string prop;
@@ -163,6 +164,7 @@ let make ?id ?timeouts ~kubernetes_cluster_id ~name ~roles
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        kubernetes_cluster_id =
          Prop.computed __type __id "kubernetes_cluster_id";

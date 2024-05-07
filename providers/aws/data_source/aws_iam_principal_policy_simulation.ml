@@ -296,6 +296,7 @@ let aws_iam_principal_policy_simulation ?additional_policies_json
   }
 
 type t = {
+  tf_name : string;
   action_names : string list prop;
   additional_policies_json : string list prop;
   all_allowed : bool prop;
@@ -318,6 +319,7 @@ let make ?additional_policies_json ?caller_arn
   let __type = "aws_iam_principal_policy_simulation" in
   let __attrs =
     ({
+       tf_name = __id;
        action_names = Prop.computed __type __id "action_names";
        additional_policies_json =
          Prop.computed __type __id "additional_policies_json";

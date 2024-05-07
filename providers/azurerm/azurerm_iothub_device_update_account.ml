@@ -222,6 +222,7 @@ let azurerm_iothub_device_update_account ?id
   }
 
 type t = {
+  tf_name : string;
   host_name : string prop;
   id : string prop;
   location : string prop;
@@ -238,6 +239,7 @@ let make ?id ?public_network_access_enabled ?sku ?tags
   let __type = "azurerm_iothub_device_update_account" in
   let __attrs =
     ({
+       tf_name = __id;
        host_name = Prop.computed __type __id "host_name";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

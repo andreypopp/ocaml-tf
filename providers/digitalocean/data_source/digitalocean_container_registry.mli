@@ -18,6 +18,7 @@ val yojson_of_digitalocean_container_registry :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created_at : string prop;
   endpoint : string prop;
   id : string prop;

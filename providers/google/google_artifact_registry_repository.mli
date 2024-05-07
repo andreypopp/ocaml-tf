@@ -193,6 +193,7 @@ val yojson_of_google_artifact_registry_repository :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cleanup_policy_dry_run : bool prop;
   create_time : string prop;
   description : string prop;

@@ -360,6 +360,7 @@ let aws_codepipeline_custom_action_type ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   category : string prop;
   id : string prop;
@@ -376,6 +377,7 @@ let make ?id ?tags ?tags_all ?(configuration_property = [])
   let __type = "aws_codepipeline_custom_action_type" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        category = Prop.computed __type __id "category";
        id = Prop.computed __type __id "id";

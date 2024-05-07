@@ -20,6 +20,7 @@ val yojson_of_aws_service_discovery_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   attributes : (string * string) list prop;
   id : string prop;
   instance_id : string prop;

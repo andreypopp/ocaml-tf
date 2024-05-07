@@ -93,6 +93,7 @@ let aws_kendra_thesaurus ?id ?tags ~index_id ~thesaurus_id () :
   { id; index_id; tags; thesaurus_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_at : string prop;
   description : string prop;
@@ -115,6 +116,7 @@ let make ?id ?tags ~index_id ~thesaurus_id __id =
   let __type = "aws_kendra_thesaurus" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_at = Prop.computed __type __id "created_at";
        description = Prop.computed __type __id "description";

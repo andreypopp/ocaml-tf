@@ -3705,6 +3705,7 @@ let aws_appflow_flow ?description ?id ?kms_arn ?tags ?tags_all ~name
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   flow_status : string prop;
@@ -3721,6 +3722,7 @@ let make ?description ?id ?kms_arn ?tags ?tags_all ~name
   let __type = "aws_appflow_flow" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        flow_status = Prop.computed __type __id "flow_status";

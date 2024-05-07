@@ -35,6 +35,7 @@ val yojson_of_azurerm_system_center_virtual_machine_manager_availability_set :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   custom_location_id : string prop;
   id : string prop;
   location : string prop;

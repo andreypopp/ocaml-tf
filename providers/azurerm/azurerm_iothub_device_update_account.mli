@@ -43,6 +43,7 @@ val yojson_of_azurerm_iothub_device_update_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   host_name : string prop;
   id : string prop;
   location : string prop;

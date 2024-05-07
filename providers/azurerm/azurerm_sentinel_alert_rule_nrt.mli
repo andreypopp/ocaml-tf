@@ -113,6 +113,7 @@ val yojson_of_azurerm_sentinel_alert_rule_nrt :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alert_rule_template_guid : string prop;
   alert_rule_template_version : string prop;
   custom_details : (string * string) list prop;

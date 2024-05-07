@@ -114,6 +114,7 @@ let google_tags_tag_value ?description ?id ?timeouts ~parent
   { description; id; parent; short_name; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   id : string prop;
@@ -128,6 +129,7 @@ let make ?description ?id ?timeouts ~parent ~short_name __id =
   let __type = "google_tags_tag_value" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

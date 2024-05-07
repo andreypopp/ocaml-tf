@@ -182,6 +182,7 @@ let azurerm_subscription ?alias ?billing_scope_id ?id
   }
 
 type t = {
+  tf_name : string;
   alias : string prop;
   billing_scope_id : string prop;
   id : string prop;
@@ -197,6 +198,7 @@ let make ?alias ?billing_scope_id ?id ?subscription_id ?tags
   let __type = "azurerm_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        alias = Prop.computed __type __id "alias";
        billing_scope_id =
          Prop.computed __type __id "billing_scope_id";

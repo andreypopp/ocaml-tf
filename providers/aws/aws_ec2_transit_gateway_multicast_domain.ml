@@ -170,6 +170,7 @@ let aws_ec2_transit_gateway_multicast_domain
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   auto_accept_shared_associations : string prop;
   id : string prop;
@@ -187,6 +188,7 @@ let make ?auto_accept_shared_associations ?id ?igmpv2_support
   let __type = "aws_ec2_transit_gateway_multicast_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        auto_accept_shared_associations =
          Prop.computed __type __id "auto_accept_shared_associations";

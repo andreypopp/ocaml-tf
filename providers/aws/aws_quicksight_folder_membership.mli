@@ -21,6 +21,7 @@ val yojson_of_aws_quicksight_folder_membership : aws_quicksight_folder_membershi
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name: string;
   aws_account_id: string prop;
   folder_id: string prop;
   id: string prop;

@@ -123,6 +123,7 @@ let azurerm_kubernetes_cluster_node_pool ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   enable_auto_scaling : bool prop;
   enable_node_public_ip : bool prop;
   eviction_policy : string prop;
@@ -157,6 +158,7 @@ let make ?id ?timeouts ~kubernetes_cluster_name ~name
   let __type = "azurerm_kubernetes_cluster_node_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        enable_auto_scaling =
          Prop.computed __type __id "enable_auto_scaling";
        enable_node_public_ip =

@@ -70,6 +70,7 @@ let cloudflare_hostname_tls_setting_ciphers ?id ?ports ~hostname
   { hostname; id; ports; value; zone_id }
 
 type t = {
+  tf_name : string;
   created_at : string prop;
   hostname : string prop;
   id : string prop;
@@ -83,6 +84,7 @@ let make ?id ?ports ~hostname ~value ~zone_id __id =
   let __type = "cloudflare_hostname_tls_setting_ciphers" in
   let __attrs =
     ({
+       tf_name = __id;
        created_at = Prop.computed __type __id "created_at";
        hostname = Prop.computed __type __id "hostname";
        id = Prop.computed __type __id "id";

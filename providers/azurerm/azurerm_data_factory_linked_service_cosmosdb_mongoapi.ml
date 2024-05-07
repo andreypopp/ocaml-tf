@@ -240,6 +240,7 @@ let azurerm_data_factory_linked_service_cosmosdb_mongoapi
   }
 
 type t = {
+  tf_name : string;
   additional_properties : (string * string) list prop;
   annotations : string list prop;
   connection_string : string prop;
@@ -262,6 +263,7 @@ let make ?additional_properties ?annotations ?connection_string
   in
   let __attrs =
     ({
+       tf_name = __id;
        additional_properties =
          Prop.computed __type __id "additional_properties";
        annotations = Prop.computed __type __id "annotations";

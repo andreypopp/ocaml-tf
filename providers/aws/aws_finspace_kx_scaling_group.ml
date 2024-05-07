@@ -167,6 +167,7 @@ let aws_finspace_kx_scaling_group ?id ?tags ?tags_all ?timeouts
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zone_id : string prop;
   clusters : string list prop;
@@ -187,6 +188,7 @@ let make ?id ?tags ?tags_all ?timeouts ~availability_zone_id
   let __type = "aws_finspace_kx_scaling_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zone_id =
          Prop.computed __type __id "availability_zone_id";

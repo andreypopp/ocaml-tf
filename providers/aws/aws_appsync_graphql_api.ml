@@ -706,6 +706,7 @@ let aws_appsync_graphql_api ?id ?introspection_config
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   authentication_type : string prop;
   id : string prop;
@@ -730,6 +731,7 @@ let make ?id ?introspection_config ?query_depth_limit
   let __type = "aws_appsync_graphql_api" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        authentication_type =
          Prop.computed __type __id "authentication_type";

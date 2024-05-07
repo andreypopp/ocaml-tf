@@ -808,6 +808,7 @@ let azurerm_service_fabric_managed_cluster ?backup_service_enabled
   }
 
 type t = {
+  tf_name : string;
   backup_service_enabled : bool prop;
   client_connection_port : float prop;
   dns_name : string prop;
@@ -833,6 +834,7 @@ let make ?backup_service_enabled ?dns_name ?dns_service_enabled ?id
   let __type = "azurerm_service_fabric_managed_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        backup_service_enabled =
          Prop.computed __type __id "backup_service_enabled";
        client_connection_port =

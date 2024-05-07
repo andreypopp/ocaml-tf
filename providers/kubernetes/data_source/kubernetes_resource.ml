@@ -90,6 +90,7 @@ let kubernetes_resource ?object_ ~api_version ~kind ~metadata () :
   { api_version; kind; object_; metadata }
 
 type t = {
+  tf_name : string;
   api_version : string prop;
   kind : string prop;
   object_ : json prop;
@@ -99,6 +100,7 @@ let make ?object_ ~api_version ~kind ~metadata __id =
   let __type = "kubernetes_resource" in
   let __attrs =
     ({
+       tf_name = __id;
        api_version = Prop.computed __type __id "api_version";
        kind = Prop.computed __type __id "kind";
        object_ = Prop.computed __type __id "object";

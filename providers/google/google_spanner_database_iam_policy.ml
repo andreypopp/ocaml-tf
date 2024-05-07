@@ -66,6 +66,7 @@ let google_spanner_database_iam_policy ?id ?project ~database
   { database; id; instance; policy_data; project }
 
 type t = {
+  tf_name : string;
   database : string prop;
   etag : string prop;
   id : string prop;
@@ -78,6 +79,7 @@ let make ?id ?project ~database ~instance ~policy_data __id =
   let __type = "google_spanner_database_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        database = Prop.computed __type __id "database";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

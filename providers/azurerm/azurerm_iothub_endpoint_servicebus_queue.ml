@@ -190,6 +190,7 @@ let azurerm_iothub_endpoint_servicebus_queue ?authentication_type
   }
 
 type t = {
+  tf_name : string;
   authentication_type : string prop;
   connection_string : string prop;
   endpoint_uri : string prop;
@@ -207,6 +208,7 @@ let make ?authentication_type ?connection_string ?endpoint_uri
   let __type = "azurerm_iothub_endpoint_servicebus_queue" in
   let __attrs =
     ({
+       tf_name = __id;
        authentication_type =
          Prop.computed __type __id "authentication_type";
        connection_string =

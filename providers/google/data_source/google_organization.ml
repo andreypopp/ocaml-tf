@@ -54,6 +54,7 @@ let google_organization ?domain ?id ?organization () :
   { domain; id; organization }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   directory_customer_id : string prop;
   domain : string prop;
@@ -68,6 +69,7 @@ let make ?domain ?id ?organization __id =
   let __type = "google_organization" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        directory_customer_id =
          Prop.computed __type __id "directory_customer_id";

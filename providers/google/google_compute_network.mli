@@ -36,6 +36,7 @@ val yojson_of_google_compute_network : google_compute_network -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_create_subnetworks : bool prop;
   delete_default_routes_on_create : bool prop;
   description : string prop;

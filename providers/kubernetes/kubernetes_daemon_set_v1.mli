@@ -2077,7 +2077,11 @@ val yojson_of_kubernetes_daemon_set_v1 :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; wait_for_rollout : bool prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  wait_for_rollout : bool prop;
+}
 
 val register :
   ?tf_module:tf_module ->

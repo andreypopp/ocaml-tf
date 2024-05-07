@@ -21,6 +21,7 @@ val yojson_of_aws_guardduty_publishing_destination :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   destination_arn : string prop;
   destination_type : string prop;
   detector_id : string prop;

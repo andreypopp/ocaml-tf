@@ -31,6 +31,7 @@ let _ = yojson_of_digitalocean_account
 let digitalocean_account ?id () : digitalocean_account = { id }
 
 type t = {
+  tf_name : string;
   droplet_limit : float prop;
   email : string prop;
   email_verified : bool prop;
@@ -45,6 +46,7 @@ let make ?id __id =
   let __type = "digitalocean_account" in
   let __attrs =
     ({
+       tf_name = __id;
        droplet_limit = Prop.computed __type __id "droplet_limit";
        email = Prop.computed __type __id "email";
        email_verified = Prop.computed __type __id "email_verified";

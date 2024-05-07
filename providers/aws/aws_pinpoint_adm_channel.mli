@@ -21,6 +21,7 @@ val yojson_of_aws_pinpoint_adm_channel :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_id : string prop;
   client_id : string prop;
   client_secret : string prop;

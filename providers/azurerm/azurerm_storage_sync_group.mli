@@ -29,6 +29,7 @@ val yojson_of_azurerm_storage_sync_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   storage_sync_id : string prop;

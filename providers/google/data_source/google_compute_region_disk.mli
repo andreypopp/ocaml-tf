@@ -37,6 +37,7 @@ val yojson_of_google_compute_region_disk :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   async_primary_disk : async_primary_disk list prop;
   creation_timestamp : string prop;
   description : string prop;

@@ -52,6 +52,7 @@ let aws_vpc_dhcp_options_association ?id ~dhcp_options_id ~vpc_id ()
   { dhcp_options_id; id; vpc_id }
 
 type t = {
+  tf_name : string;
   dhcp_options_id : string prop;
   id : string prop;
   vpc_id : string prop;
@@ -61,6 +62,7 @@ let make ?id ~dhcp_options_id ~vpc_id __id =
   let __type = "aws_vpc_dhcp_options_association" in
   let __attrs =
     ({
+       tf_name = __id;
        dhcp_options_id = Prop.computed __type __id "dhcp_options_id";
        id = Prop.computed __type __id "id";
        vpc_id = Prop.computed __type __id "vpc_id";

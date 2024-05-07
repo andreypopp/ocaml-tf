@@ -149,6 +149,7 @@ let google_compute_public_delegated_prefix ?description ?id
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   ip_cidr_range : string prop;
@@ -165,6 +166,7 @@ let make ?description ?id ?is_live_migration ?project ?timeouts
   let __type = "google_compute_public_delegated_prefix" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        ip_cidr_range = Prop.computed __type __id "ip_cidr_range";

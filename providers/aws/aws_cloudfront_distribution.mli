@@ -301,6 +301,7 @@ val yojson_of_aws_cloudfront_distribution :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   aliases : string list prop;
   arn : string prop;
   caller_reference : string prop;

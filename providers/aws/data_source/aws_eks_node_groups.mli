@@ -17,6 +17,7 @@ val yojson_of_aws_eks_node_groups : aws_eks_node_groups -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_name : string prop;
   id : string prop;
   names : string list prop;

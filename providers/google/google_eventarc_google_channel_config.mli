@@ -31,6 +31,7 @@ val yojson_of_google_eventarc_google_channel_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   crypto_key_name : string prop;
   id : string prop;
   location : string prop;

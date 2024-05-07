@@ -113,6 +113,7 @@ let cloudflare_waiting_room_rules ?id ?(rules = []) ~waiting_room_id
   { id; waiting_room_id; zone_id; rules }
 
 type t = {
+  tf_name : string;
   id : string prop;
   waiting_room_id : string prop;
   zone_id : string prop;
@@ -122,6 +123,7 @@ let make ?id ?(rules = []) ~waiting_room_id ~zone_id __id =
   let __type = "cloudflare_waiting_room_rules" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        waiting_room_id = Prop.computed __type __id "waiting_room_id";
        zone_id = Prop.computed __type __id "zone_id";

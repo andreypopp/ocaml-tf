@@ -27,6 +27,7 @@ val yojson_of_aws_acmpca_certificate : aws_acmpca_certificate -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_passthrough : string prop;
   arn : string prop;
   certificate : string prop;

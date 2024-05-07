@@ -120,6 +120,7 @@ let aws_chime_voice_connector_origination ?disabled ?id
   { disabled; id; voice_connector_id; route }
 
 type t = {
+  tf_name : string;
   disabled : bool prop;
   id : string prop;
   voice_connector_id : string prop;
@@ -129,6 +130,7 @@ let make ?disabled ?id ~voice_connector_id ~route __id =
   let __type = "aws_chime_voice_connector_origination" in
   let __attrs =
     ({
+       tf_name = __id;
        disabled = Prop.computed __type __id "disabled";
        id = Prop.computed __type __id "id";
        voice_connector_id =

@@ -232,6 +232,7 @@ let aws_appmesh_virtual_service ?id ?mesh_owner ?tags ?tags_all
   { id; mesh_name; mesh_owner; name; tags; tags_all; spec }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_date : string prop;
   id : string prop;
@@ -249,6 +250,7 @@ let make ?id ?mesh_owner ?tags ?tags_all ~mesh_name ~name ~spec __id
   let __type = "aws_appmesh_virtual_service" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_date = Prop.computed __type __id "created_date";
        id = Prop.computed __type __id "id";

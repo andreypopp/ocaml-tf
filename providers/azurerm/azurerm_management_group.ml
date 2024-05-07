@@ -156,6 +156,7 @@ let azurerm_management_group ?display_name ?id ?name
   }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   name : string prop;
@@ -168,6 +169,7 @@ let make ?display_name ?id ?name ?parent_management_group_id
   let __type = "azurerm_management_group" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

@@ -195,6 +195,7 @@ let azurerm_automation_powershell72_module ?id ?timeouts
   { automation_account_id; id; name; module_link; timeouts }
 
 type t = {
+  tf_name : string;
   automation_account_id : string prop;
   id : string prop;
   name : string prop;
@@ -205,6 +206,7 @@ let make ?id ?timeouts ~automation_account_id ~name ~module_link __id
   let __type = "azurerm_automation_powershell72_module" in
   let __attrs =
     ({
+       tf_name = __id;
        automation_account_id =
          Prop.computed __type __id "automation_account_id";
        id = Prop.computed __type __id "id";

@@ -71,6 +71,7 @@ let google_bigquery_connection_iam_policy ?id ?location ?project
   { connection_id; id; location; policy_data; project }
 
 type t = {
+  tf_name : string;
   connection_id : string prop;
   etag : string prop;
   id : string prop;
@@ -83,6 +84,7 @@ let make ?id ?location ?project ~connection_id ~policy_data __id =
   let __type = "google_bigquery_connection_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        connection_id = Prop.computed __type __id "connection_id";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

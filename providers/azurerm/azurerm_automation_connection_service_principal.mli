@@ -36,6 +36,7 @@ val yojson_of_azurerm_automation_connection_service_principal :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_id : string prop;
   automation_account_name : string prop;
   certificate_thumbprint : string prop;

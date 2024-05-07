@@ -177,6 +177,7 @@ val yojson_of_aws_ce_anomaly_subscription :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   arn : string prop;
   frequency : string prop;

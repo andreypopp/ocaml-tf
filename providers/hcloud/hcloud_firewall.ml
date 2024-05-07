@@ -200,6 +200,7 @@ let hcloud_firewall ?id ?labels ~name ~apply_to ~rule () :
   { id; labels; name; apply_to; rule }
 
 type t = {
+  tf_name : string;
   id : string prop;
   labels : (string * string) list prop;
   name : string prop;
@@ -209,6 +210,7 @@ let make ?id ?labels ~name ~apply_to ~rule __id =
   let __type = "hcloud_firewall" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        labels = Prop.computed __type __id "labels";
        name = Prop.computed __type __id "name";

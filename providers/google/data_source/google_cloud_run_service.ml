@@ -1618,6 +1618,7 @@ let google_cloud_run_service ?id ?project ~location ~name () :
   { id; location; name; project }
 
 type t = {
+  tf_name : string;
   autogenerate_revision_name : bool prop;
   id : string prop;
   location : string prop;
@@ -1633,6 +1634,7 @@ let make ?id ?project ~location ~name __id =
   let __type = "google_cloud_run_service" in
   let __attrs =
     ({
+       tf_name = __id;
        autogenerate_revision_name =
          Prop.computed __type __id "autogenerate_revision_name";
        id = Prop.computed __type __id "id";

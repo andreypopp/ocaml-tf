@@ -29,6 +29,7 @@ val yojson_of_digitalocean_database_redis_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   acl_channels_default : string prop;
   cluster_id : string prop;
   id : string prop;

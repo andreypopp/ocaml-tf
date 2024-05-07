@@ -109,6 +109,7 @@ let google_apigee_sync_authorization ?id ?timeouts ~identities ~name
   { id; identities; name; timeouts }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   identities : string list prop;
@@ -119,6 +120,7 @@ let make ?id ?timeouts ~identities ~name __id =
   let __type = "google_apigee_sync_authorization" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        identities = Prop.computed __type __id "identities";

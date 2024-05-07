@@ -81,6 +81,7 @@ val yojson_of_azurerm_palo_alto_next_generation_firewall_virtual_hub_local_rules
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   resource_group_name : string prop;

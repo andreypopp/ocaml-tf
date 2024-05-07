@@ -42,6 +42,7 @@ val yojson_of_google_certificate_manager_certificate_map :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   effective_labels : (string * string) list prop;

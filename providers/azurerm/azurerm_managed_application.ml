@@ -277,6 +277,7 @@ let azurerm_managed_application ?application_definition_id ?id
   }
 
 type t = {
+  tf_name : string;
   application_definition_id : string prop;
   id : string prop;
   kind : string prop;
@@ -296,6 +297,7 @@ let make ?application_definition_id ?id ?parameter_values ?parameters
   let __type = "azurerm_managed_application" in
   let __attrs =
     ({
+       tf_name = __id;
        application_definition_id =
          Prop.computed __type __id "application_definition_id";
        id = Prop.computed __type __id "id";

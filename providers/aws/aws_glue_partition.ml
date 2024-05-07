@@ -490,6 +490,7 @@ let aws_glue_partition ?catalog_id ?id ?parameters
   }
 
 type t = {
+  tf_name : string;
   catalog_id : string prop;
   creation_time : string prop;
   database_name : string prop;
@@ -506,6 +507,7 @@ let make ?catalog_id ?id ?parameters ?(storage_descriptor = [])
   let __type = "aws_glue_partition" in
   let __attrs =
     ({
+       tf_name = __id;
        catalog_id = Prop.computed __type __id "catalog_id";
        creation_time = Prop.computed __type __id "creation_time";
        database_name = Prop.computed __type __id "database_name";

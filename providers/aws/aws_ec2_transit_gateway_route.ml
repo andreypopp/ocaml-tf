@@ -85,6 +85,7 @@ let aws_ec2_transit_gateway_route ?blackhole ?id
   }
 
 type t = {
+  tf_name : string;
   blackhole : bool prop;
   destination_cidr_block : string prop;
   id : string prop;
@@ -97,6 +98,7 @@ let make ?blackhole ?id ?transit_gateway_attachment_id
   let __type = "aws_ec2_transit_gateway_route" in
   let __attrs =
     ({
+       tf_name = __id;
        blackhole = Prop.computed __type __id "blackhole";
        destination_cidr_block =
          Prop.computed __type __id "destination_cidr_block";

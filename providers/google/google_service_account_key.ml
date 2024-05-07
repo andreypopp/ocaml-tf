@@ -112,6 +112,7 @@ let google_service_account_key ?id ?keepers ?key_algorithm
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   keepers : (string * string) list prop;
   key_algorithm : string prop;
@@ -131,6 +132,7 @@ let make ?id ?keepers ?key_algorithm ?private_key_type
   let __type = "google_service_account_key" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        keepers = Prop.computed __type __id "keepers";
        key_algorithm = Prop.computed __type __id "key_algorithm";

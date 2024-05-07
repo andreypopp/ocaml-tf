@@ -400,6 +400,7 @@ let aws_bedrock_custom_model ?custom_model_kms_key_id
   }
 
 type t = {
+  tf_name : string;
   base_model_identifier : string prop;
   custom_model_arn : string prop;
   custom_model_kms_key_id : string prop;
@@ -425,6 +426,7 @@ let make ?custom_model_kms_key_id ?customization_type ?tags
   let __type = "aws_bedrock_custom_model" in
   let __attrs =
     ({
+       tf_name = __id;
        base_model_identifier =
          Prop.computed __type __id "base_model_identifier";
        custom_model_arn =

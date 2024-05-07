@@ -40,6 +40,7 @@ val yojson_of_azurerm_mysql_server : azurerm_mysql_server -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   administrator_login : string prop;
   auto_grow_enabled : bool prop;
   backup_retention_days : float prop;

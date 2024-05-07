@@ -20,6 +20,7 @@ val yojson_of_google_compute_image_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   image : string prop;

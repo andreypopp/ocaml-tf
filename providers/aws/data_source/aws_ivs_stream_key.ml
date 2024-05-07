@@ -57,6 +57,7 @@ let aws_ivs_stream_key ?id ?tags ~channel_arn () : aws_ivs_stream_key
   { channel_arn; id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   channel_arn : string prop;
   id : string prop;
@@ -68,6 +69,7 @@ let make ?id ?tags ~channel_arn __id =
   let __type = "aws_ivs_stream_key" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        channel_arn = Prop.computed __type __id "channel_arn";
        id = Prop.computed __type __id "id";

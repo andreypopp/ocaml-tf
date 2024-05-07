@@ -362,6 +362,7 @@ let aws_appsync_resolver ?code ?data_source ?id ?kind ?max_batch_size
   }
 
 type t = {
+  tf_name : string;
   api_id : string prop;
   arn : string prop;
   code : string prop;
@@ -382,6 +383,7 @@ let make ?code ?data_source ?id ?kind ?max_batch_size
   let __type = "aws_appsync_resolver" in
   let __attrs =
     ({
+       tf_name = __id;
        api_id = Prop.computed __type __id "api_id";
        arn = Prop.computed __type __id "arn";
        code = Prop.computed __type __id "code";

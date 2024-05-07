@@ -285,6 +285,7 @@ let azurerm_spring_cloud_container_deployment ?addon_json
   }
 
 type t = {
+  tf_name : string;
   addon_json : string prop;
   application_performance_monitoring_ids : string list prop;
   arguments : string list prop;
@@ -306,6 +307,7 @@ let make ?addon_json ?application_performance_monitoring_ids
   let __type = "azurerm_spring_cloud_container_deployment" in
   let __attrs =
     ({
+       tf_name = __id;
        addon_json = Prop.computed __type __id "addon_json";
        application_performance_monitoring_ids =
          Prop.computed __type __id

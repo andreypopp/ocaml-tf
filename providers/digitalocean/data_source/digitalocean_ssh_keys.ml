@@ -180,12 +180,17 @@ let digitalocean_ssh_keys ?id ?(sort = []) ~filter () :
     digitalocean_ssh_keys =
   { id; filter; sort }
 
-type t = { id : string prop; ssh_keys : ssh_keys list prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  ssh_keys : ssh_keys list prop;
+}
 
 let make ?id ?(sort = []) ~filter __id =
   let __type = "digitalocean_ssh_keys" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ssh_keys = Prop.computed __type __id "ssh_keys";
      }

@@ -93,6 +93,7 @@ let azurerm_subnet ?id ?timeouts ~name ~resource_group_name
   { id; name; resource_group_name; virtual_network_name; timeouts }
 
 type t = {
+  tf_name : string;
   address_prefix : string prop;
   address_prefixes : string list prop;
   enforce_private_link_endpoint_network_policies : bool prop;
@@ -113,6 +114,7 @@ let make ?id ?timeouts ~name ~resource_group_name
   let __type = "azurerm_subnet" in
   let __attrs =
     ({
+       tf_name = __id;
        address_prefix = Prop.computed __type __id "address_prefix";
        address_prefixes =
          Prop.computed __type __id "address_prefixes";

@@ -74,6 +74,7 @@ let aws_cloudfront_key_value_store ?comment ?timeouts ~name () :
   { comment; name; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   comment : string prop;
   etag : string prop;
@@ -86,6 +87,7 @@ let make ?comment ?timeouts ~name __id =
   let __type = "aws_cloudfront_key_value_store" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        comment = Prop.computed __type __id "comment";
        etag = Prop.computed __type __id "etag";

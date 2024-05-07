@@ -26,6 +26,7 @@ val yojson_of_aws_s3outposts_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_type : string prop;
   arn : string prop;
   cidr_block : string prop;

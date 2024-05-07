@@ -46,6 +46,7 @@ val yojson_of_aws_macie2_findings_filter :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action : string prop;
   arn : string prop;
   description : string prop;

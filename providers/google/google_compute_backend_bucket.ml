@@ -463,6 +463,7 @@ let google_compute_backend_bucket ?compression_mode
   }
 
 type t = {
+  tf_name : string;
   bucket_name : string prop;
   compression_mode : string prop;
   creation_timestamp : string prop;
@@ -482,6 +483,7 @@ let make ?compression_mode ?custom_response_headers ?description
   let __type = "google_compute_backend_bucket" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket_name = Prop.computed __type __id "bucket_name";
        compression_mode =
          Prop.computed __type __id "compression_mode";

@@ -521,6 +521,7 @@ let azurerm_machine_learning_workspace ?container_registry_id
   }
 
 type t = {
+  tf_name : string;
   application_insights_id : string prop;
   container_registry_id : string prop;
   description : string prop;
@@ -556,6 +557,7 @@ let make ?container_registry_id ?description ?friendly_name
   let __type = "azurerm_machine_learning_workspace" in
   let __attrs =
     ({
+       tf_name = __id;
        application_insights_id =
          Prop.computed __type __id "application_insights_id";
        container_registry_id =

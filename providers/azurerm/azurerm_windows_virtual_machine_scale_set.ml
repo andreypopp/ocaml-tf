@@ -2339,6 +2339,7 @@ let azurerm_windows_virtual_machine_scale_set
   }
 
 type t = {
+  tf_name : string;
   admin_password : string prop;
   admin_username : string prop;
   capacity_reservation_group_id : string prop;
@@ -2405,6 +2406,7 @@ let make ?capacity_reservation_group_id ?computer_name_prefix
   let __type = "azurerm_windows_virtual_machine_scale_set" in
   let __attrs =
     ({
+       tf_name = __id;
        admin_password = Prop.computed __type __id "admin_password";
        admin_username = Prop.computed __type __id "admin_username";
        capacity_reservation_group_id =

@@ -140,12 +140,17 @@ let aws_networkfirewall_logging_configuration ?id ~firewall_arn
     aws_networkfirewall_logging_configuration =
   { firewall_arn; id; logging_configuration }
 
-type t = { firewall_arn : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  firewall_arn : string prop;
+  id : string prop;
+}
 
 let make ?id ~firewall_arn ~logging_configuration __id =
   let __type = "aws_networkfirewall_logging_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        firewall_arn = Prop.computed __type __id "firewall_arn";
        id = Prop.computed __type __id "id";
      }

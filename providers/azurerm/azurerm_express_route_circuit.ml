@@ -267,6 +267,7 @@ let azurerm_express_route_circuit ?allow_classic_operations
   }
 
 type t = {
+  tf_name : string;
   allow_classic_operations : bool prop;
   authorization_key : string prop;
   bandwidth_in_gbps : float prop;
@@ -290,6 +291,7 @@ let make ?allow_classic_operations ?authorization_key
   let __type = "azurerm_express_route_circuit" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_classic_operations =
          Prop.computed __type __id "allow_classic_operations";
        authorization_key =

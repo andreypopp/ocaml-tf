@@ -420,6 +420,7 @@ let aws_redshiftserverless_workgroup ?base_capacity
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   base_capacity : float prop;
   endpoint : endpoint list prop;
@@ -444,6 +445,7 @@ let make ?base_capacity ?enhanced_vpc_routing ?id ?max_capacity ?port
   let __type = "aws_redshiftserverless_workgroup" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        base_capacity = Prop.computed __type __id "base_capacity";
        endpoint = Prop.computed __type __id "endpoint";

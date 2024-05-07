@@ -159,6 +159,7 @@ let azurerm_netapp_volume_quota_rule ?id ?quota_target ?timeouts
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -173,6 +174,7 @@ let make ?id ?quota_target ?timeouts ~location ~name
   let __type = "azurerm_netapp_volume_quota_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

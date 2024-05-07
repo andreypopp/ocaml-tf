@@ -19,6 +19,7 @@ val yojson_of_cloudflare_api_token_permission_groups :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account : (string * string) list prop;
   id : string prop;
   permissions : (string * string) list prop;

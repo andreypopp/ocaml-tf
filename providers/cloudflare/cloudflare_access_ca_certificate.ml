@@ -66,6 +66,7 @@ let cloudflare_access_ca_certificate ?account_id ?id ?zone_id
   { account_id; application_id; id; zone_id }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   application_id : string prop;
   aud : string prop;
@@ -78,6 +79,7 @@ let make ?account_id ?id ?zone_id ~application_id __id =
   let __type = "cloudflare_access_ca_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        application_id = Prop.computed __type __id "application_id";
        aud = Prop.computed __type __id "aud";

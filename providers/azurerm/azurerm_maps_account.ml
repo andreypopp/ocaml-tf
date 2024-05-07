@@ -163,6 +163,7 @@ let azurerm_maps_account ?id ?local_authentication_enabled ?tags
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   local_authentication_enabled : bool prop;
   name : string prop;
@@ -179,6 +180,7 @@ let make ?id ?local_authentication_enabled ?tags ?timeouts ~name
   let __type = "azurerm_maps_account" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        local_authentication_enabled =
          Prop.computed __type __id "local_authentication_enabled";

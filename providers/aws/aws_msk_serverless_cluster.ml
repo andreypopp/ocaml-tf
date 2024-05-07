@@ -282,6 +282,7 @@ let aws_msk_serverless_cluster ?id ?tags ?tags_all ?timeouts
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cluster_name : string prop;
   cluster_uuid : string prop;
@@ -295,6 +296,7 @@ let make ?id ?tags ?tags_all ?timeouts ~cluster_name
   let __type = "aws_msk_serverless_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cluster_name = Prop.computed __type __id "cluster_name";
        cluster_uuid = Prop.computed __type __id "cluster_uuid";

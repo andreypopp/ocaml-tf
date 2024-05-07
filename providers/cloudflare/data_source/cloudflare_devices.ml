@@ -189,6 +189,7 @@ let cloudflare_devices ?id ~account_id () : cloudflare_devices =
   { account_id; id }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   devices : devices list prop;
   id : string prop;
@@ -198,6 +199,7 @@ let make ?id ~account_id __id =
   let __type = "cloudflare_devices" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        devices = Prop.computed __type __id "devices";
        id = Prop.computed __type __id "id";

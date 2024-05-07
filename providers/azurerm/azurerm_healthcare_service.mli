@@ -59,6 +59,7 @@ val yojson_of_azurerm_healthcare_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_policy_object_ids : string list prop;
   cosmosdb_key_vault_key_versionless_id : string prop;
   cosmosdb_throughput : float prop;

@@ -1996,6 +1996,7 @@ let cloudflare_access_policy ?account_id ?approval_required ?id
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   application_id : string prop;
   approval_required : bool prop;
@@ -2018,6 +2019,7 @@ let make ?account_id ?approval_required ?id ?isolation_required
   let __type = "cloudflare_access_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        application_id = Prop.computed __type __id "application_id";
        approval_required =

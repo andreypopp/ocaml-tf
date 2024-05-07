@@ -21,6 +21,7 @@ val yojson_of_google_spanner_database_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   database : string prop;
   etag : string prop;
   id : string prop;

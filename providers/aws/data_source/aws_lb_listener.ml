@@ -638,6 +638,7 @@ let aws_lb_listener ?arn ?id ?load_balancer_arn ?port ?tags ?timeouts
   { arn; id; load_balancer_arn; port; tags; timeouts }
 
 type t = {
+  tf_name : string;
   alpn_policy : string prop;
   arn : string prop;
   certificate_arn : string prop;
@@ -655,6 +656,7 @@ let make ?arn ?id ?load_balancer_arn ?port ?tags ?timeouts __id =
   let __type = "aws_lb_listener" in
   let __attrs =
     ({
+       tf_name = __id;
        alpn_policy = Prop.computed __type __id "alpn_policy";
        arn = Prop.computed __type __id "arn";
        certificate_arn = Prop.computed __type __id "certificate_arn";

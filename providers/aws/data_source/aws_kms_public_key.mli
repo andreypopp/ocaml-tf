@@ -18,6 +18,7 @@ val yojson_of_aws_kms_public_key : aws_kms_public_key -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   customer_master_key_spec : string prop;
   encryption_algorithms : string list prop;

@@ -30,6 +30,7 @@ val yojson_of_azurerm_app_service_certificate_binding :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_service_name : string prop;
   certificate_id : string prop;
   hostname : string prop;

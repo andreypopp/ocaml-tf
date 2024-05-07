@@ -318,6 +318,7 @@ let aws_connect_user_hierarchy_group ?hierarchy_group_id ?id ?name
   { hierarchy_group_id; id; instance_id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   hierarchy_group_id : string prop;
   hierarchy_path : hierarchy_path list prop;
@@ -332,6 +333,7 @@ let make ?hierarchy_group_id ?id ?name ?tags ~instance_id __id =
   let __type = "aws_connect_user_hierarchy_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        hierarchy_group_id =
          Prop.computed __type __id "hierarchy_group_id";

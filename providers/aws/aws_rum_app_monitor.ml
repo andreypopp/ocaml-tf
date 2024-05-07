@@ -284,6 +284,7 @@ let aws_rum_app_monitor ?cw_log_enabled ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   app_monitor_id : string prop;
   arn : string prop;
   cw_log_enabled : bool prop;
@@ -301,6 +302,7 @@ let make ?cw_log_enabled ?id ?tags ?tags_all
   let __type = "aws_rum_app_monitor" in
   let __attrs =
     ({
+       tf_name = __id;
        app_monitor_id = Prop.computed __type __id "app_monitor_id";
        arn = Prop.computed __type __id "arn";
        cw_log_enabled = Prop.computed __type __id "cw_log_enabled";

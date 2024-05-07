@@ -173,6 +173,7 @@ let aws_efs_access_point ?id ?tags ~access_point_id () :
   { access_point_id; id; tags }
 
 type t = {
+  tf_name : string;
   access_point_id : string prop;
   arn : string prop;
   file_system_arn : string prop;
@@ -188,6 +189,7 @@ let make ?id ?tags ~access_point_id __id =
   let __type = "aws_efs_access_point" in
   let __attrs =
     ({
+       tf_name = __id;
        access_point_id = Prop.computed __type __id "access_point_id";
        arn = Prop.computed __type __id "arn";
        file_system_arn = Prop.computed __type __id "file_system_arn";

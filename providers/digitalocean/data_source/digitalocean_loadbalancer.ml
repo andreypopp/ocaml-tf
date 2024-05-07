@@ -263,6 +263,7 @@ let digitalocean_loadbalancer ?id ?name ?type_ () :
   { id; name; type_ }
 
 type t = {
+  tf_name : string;
   algorithm : string prop;
   disable_lets_encrypt_dns_records : bool prop;
   droplet_ids : float list prop;
@@ -292,6 +293,7 @@ let make ?id ?name ?type_ __id =
   let __type = "digitalocean_loadbalancer" in
   let __attrs =
     ({
+       tf_name = __id;
        algorithm = Prop.computed __type __id "algorithm";
        disable_lets_encrypt_dns_records =
          Prop.computed __type __id "disable_lets_encrypt_dns_records";

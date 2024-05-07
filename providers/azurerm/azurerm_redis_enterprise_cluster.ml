@@ -184,6 +184,7 @@ let azurerm_redis_enterprise_cluster ?id ?minimum_tls_version ?tags
   }
 
 type t = {
+  tf_name : string;
   hostname : string prop;
   id : string prop;
   location : string prop;
@@ -200,6 +201,7 @@ let make ?id ?minimum_tls_version ?tags ?zones ?timeouts ~location
   let __type = "azurerm_redis_enterprise_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        hostname = Prop.computed __type __id "hostname";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

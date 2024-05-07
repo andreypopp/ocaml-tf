@@ -36,6 +36,7 @@ val yojson_of_azurerm_log_analytics_datasource_windows_performance_counter :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   counter_name : string prop;
   id : string prop;
   instance_name : string prop;

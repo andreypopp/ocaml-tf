@@ -142,6 +142,7 @@ val yojson_of_cloudflare_teams_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   activity_log_enabled : bool prop;
   id : string prop;

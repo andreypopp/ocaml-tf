@@ -176,6 +176,7 @@ let google_compute_network_peering ?export_custom_routes
   }
 
 type t = {
+  tf_name : string;
   export_custom_routes : bool prop;
   export_subnet_routes_with_public_ip : bool prop;
   id : string prop;
@@ -195,6 +196,7 @@ let make ?export_custom_routes ?export_subnet_routes_with_public_ip
   let __type = "google_compute_network_peering" in
   let __attrs =
     ({
+       tf_name = __id;
        export_custom_routes =
          Prop.computed __type __id "export_custom_routes";
        export_subnet_routes_with_public_ip =

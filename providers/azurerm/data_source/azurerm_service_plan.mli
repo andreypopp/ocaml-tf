@@ -23,6 +23,7 @@ val yojson_of_azurerm_service_plan : azurerm_service_plan -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_service_environment_id : string prop;
   id : string prop;
   kind : string prop;

@@ -50,6 +50,7 @@ let google_compute_ssl_certificate ?id ?project ~name () :
   { id; name; project }
 
 type t = {
+  tf_name : string;
   certificate : string prop;
   certificate_id : float prop;
   creation_timestamp : string prop;
@@ -67,6 +68,7 @@ let make ?id ?project ~name __id =
   let __type = "google_compute_ssl_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate = Prop.computed __type __id "certificate";
        certificate_id = Prop.computed __type __id "certificate_id";
        creation_timestamp =

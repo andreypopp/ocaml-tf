@@ -90,6 +90,7 @@ let aws_cloudwatch_event_archive ?description ?event_pattern ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   event_pattern : string prop;
@@ -104,6 +105,7 @@ let make ?description ?event_pattern ?id ?retention_days
   let __type = "aws_cloudwatch_event_archive" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        event_pattern = Prop.computed __type __id "event_pattern";

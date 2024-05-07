@@ -161,6 +161,7 @@ let azurerm_bot_channel_sms ?id ?timeouts ~bot_name ~location
   }
 
 type t = {
+  tf_name : string;
   bot_name : string prop;
   id : string prop;
   location : string prop;
@@ -176,6 +177,7 @@ let make ?id ?timeouts ~bot_name ~location ~phone_number
   let __type = "azurerm_bot_channel_sms" in
   let __attrs =
     ({
+       tf_name = __id;
        bot_name = Prop.computed __type __id "bot_name";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

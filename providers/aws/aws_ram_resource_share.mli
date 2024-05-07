@@ -27,6 +27,7 @@ val yojson_of_aws_ram_resource_share : aws_ram_resource_share -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_external_principals : bool prop;
   arn : string prop;
   id : string prop;

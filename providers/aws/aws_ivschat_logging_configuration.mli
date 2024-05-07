@@ -59,6 +59,7 @@ val yojson_of_aws_ivschat_logging_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;

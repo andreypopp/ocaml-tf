@@ -19,6 +19,7 @@ val yojson_of_aws_spot_datafeed_subscription :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket : string prop;
   id : string prop;
   prefix : string prop;

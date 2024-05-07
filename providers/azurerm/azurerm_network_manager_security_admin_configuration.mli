@@ -32,6 +32,7 @@ val yojson_of_azurerm_network_manager_security_admin_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   apply_on_network_intent_policy_based_services : string list prop;
   description : string prop;
   id : string prop;

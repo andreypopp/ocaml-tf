@@ -99,6 +99,7 @@ let aws_cognito_resource_server ?id ~identifier ~name ~user_pool_id
   { id; identifier; name; user_pool_id; scope }
 
 type t = {
+  tf_name : string;
   id : string prop;
   identifier : string prop;
   name : string prop;
@@ -110,6 +111,7 @@ let make ?id ~identifier ~name ~user_pool_id ~scope __id =
   let __type = "aws_cognito_resource_server" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        identifier = Prop.computed __type __id "identifier";
        name = Prop.computed __type __id "name";

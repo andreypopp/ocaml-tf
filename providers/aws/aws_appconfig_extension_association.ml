@@ -69,6 +69,7 @@ let aws_appconfig_extension_association ?id ?parameters
   { extension_arn; id; parameters; resource_arn }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   extension_arn : string prop;
   extension_version : float prop;
@@ -81,6 +82,7 @@ let make ?id ?parameters ~extension_arn ~resource_arn __id =
   let __type = "aws_appconfig_extension_association" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        extension_arn = Prop.computed __type __id "extension_arn";
        extension_version =

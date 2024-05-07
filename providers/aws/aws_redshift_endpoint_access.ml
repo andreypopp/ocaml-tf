@@ -184,6 +184,7 @@ let aws_redshift_endpoint_access ?id ?resource_owner
   }
 
 type t = {
+  tf_name : string;
   address : string prop;
   cluster_identifier : string prop;
   endpoint_name : string prop;
@@ -200,6 +201,7 @@ let make ?id ?resource_owner ?vpc_security_group_ids
   let __type = "aws_redshift_endpoint_access" in
   let __attrs =
     ({
+       tf_name = __id;
        address = Prop.computed __type __id "address";
        cluster_identifier =
          Prop.computed __type __id "cluster_identifier";

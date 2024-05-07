@@ -168,6 +168,7 @@ let kubernetes_priority_class_v1 ?description ?global_default ?id
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   global_default : bool prop;
   id : string prop;
@@ -180,6 +181,7 @@ let make ?description ?global_default ?id ?preemption_policy ~value
   let __type = "kubernetes_priority_class_v1" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        global_default = Prop.computed __type __id "global_default";
        id = Prop.computed __type __id "id";

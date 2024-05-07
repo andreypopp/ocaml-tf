@@ -148,6 +148,7 @@ val yojson_of_aws_glue_crawler : aws_glue_crawler -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   classifiers : string list prop;
   configuration : string prop;

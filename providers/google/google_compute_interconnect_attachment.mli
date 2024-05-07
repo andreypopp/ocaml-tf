@@ -47,6 +47,7 @@ val yojson_of_google_compute_interconnect_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   admin_enabled : bool prop;
   bandwidth : string prop;
   candidate_subnets : string list prop;

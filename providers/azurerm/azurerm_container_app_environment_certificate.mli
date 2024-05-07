@@ -33,6 +33,7 @@ val yojson_of_azurerm_container_app_environment_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_blob_base64 : string prop;
   certificate_password : string prop;
   container_app_environment_id : string prop;

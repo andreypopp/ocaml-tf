@@ -77,6 +77,7 @@ let hcloud_primary_ip ?assignee_id ?id ?ip_address ?name
   { assignee_id; id; ip_address; name; with_selector }
 
 type t = {
+  tf_name : string;
   assignee_id : float prop;
   assignee_type : string prop;
   auto_delete : bool prop;
@@ -95,6 +96,7 @@ let make ?assignee_id ?id ?ip_address ?name ?with_selector __id =
   let __type = "hcloud_primary_ip" in
   let __attrs =
     ({
+       tf_name = __id;
        assignee_id = Prop.computed __type __id "assignee_id";
        assignee_type = Prop.computed __type __id "assignee_type";
        auto_delete = Prop.computed __type __id "auto_delete";

@@ -124,6 +124,7 @@ let google_healthcare_dataset ?id ?project ?time_zone ?timeouts
   { id; location; name; project; time_zone; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -136,6 +137,7 @@ let make ?id ?project ?time_zone ?timeouts ~location ~name __id =
   let __type = "google_healthcare_dataset" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

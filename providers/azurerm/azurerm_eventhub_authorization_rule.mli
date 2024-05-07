@@ -35,6 +35,7 @@ val yojson_of_azurerm_eventhub_authorization_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   eventhub_name : string prop;
   id : string prop;
   listen : bool prop;

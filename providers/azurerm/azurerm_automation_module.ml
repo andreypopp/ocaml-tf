@@ -209,6 +209,7 @@ let azurerm_automation_module ?id ?timeouts ~automation_account_name
   }
 
 type t = {
+  tf_name : string;
   automation_account_name : string prop;
   id : string prop;
   name : string prop;
@@ -220,6 +221,7 @@ let make ?id ?timeouts ~automation_account_name ~name
   let __type = "azurerm_automation_module" in
   let __attrs =
     ({
+       tf_name = __id;
        automation_account_name =
          Prop.computed __type __id "automation_account_name";
        id = Prop.computed __type __id "id";

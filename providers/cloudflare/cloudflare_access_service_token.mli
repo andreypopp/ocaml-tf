@@ -26,6 +26,7 @@ val yojson_of_cloudflare_access_service_token :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   client_id : string prop;
   client_secret : string prop;

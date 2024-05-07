@@ -392,6 +392,7 @@ let aws_mq_broker ?broker_id ?broker_name ?id ?tags () :
   { broker_id; broker_name; id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   authentication_strategy : string prop;
   auto_minor_version_upgrade : bool prop;
@@ -421,6 +422,7 @@ let make ?broker_id ?broker_name ?id ?tags __id =
   let __type = "aws_mq_broker" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        authentication_strategy =
          Prop.computed __type __id "authentication_strategy";

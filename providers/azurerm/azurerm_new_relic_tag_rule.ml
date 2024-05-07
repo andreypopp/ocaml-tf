@@ -257,6 +257,7 @@ let azurerm_new_relic_tag_rule ?activity_log_enabled
   }
 
 type t = {
+  tf_name : string;
   activity_log_enabled : bool prop;
   azure_active_directory_log_enabled : bool prop;
   id : string prop;
@@ -272,6 +273,7 @@ let make ?activity_log_enabled ?azure_active_directory_log_enabled
   let __type = "azurerm_new_relic_tag_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        activity_log_enabled =
          Prop.computed __type __id "activity_log_enabled";
        azure_active_directory_log_enabled =

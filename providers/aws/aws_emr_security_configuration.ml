@@ -64,6 +64,7 @@ let aws_emr_security_configuration ?id ?name ?name_prefix
   { configuration; id; name; name_prefix }
 
 type t = {
+  tf_name : string;
   configuration : string prop;
   creation_date : string prop;
   id : string prop;
@@ -75,6 +76,7 @@ let make ?id ?name ?name_prefix ~configuration __id =
   let __type = "aws_emr_security_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        configuration = Prop.computed __type __id "configuration";
        creation_date = Prop.computed __type __id "creation_date";
        id = Prop.computed __type __id "id";

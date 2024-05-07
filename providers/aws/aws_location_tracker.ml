@@ -118,6 +118,7 @@ let aws_location_tracker ?description ?id ?kms_key_id
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   id : string prop;
@@ -135,6 +136,7 @@ let make ?description ?id ?kms_key_id ?position_filtering ?tags
   let __type = "aws_location_tracker" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

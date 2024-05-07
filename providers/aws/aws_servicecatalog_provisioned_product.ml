@@ -477,6 +477,7 @@ let aws_servicecatalog_provisioned_product ?accept_language ?id
   }
 
 type t = {
+  tf_name : string;
   accept_language : string prop;
   arn : string prop;
   cloudwatch_dashboard_names : string list prop;
@@ -513,6 +514,7 @@ let make ?accept_language ?id ?ignore_errors ?notification_arns
   let __type = "aws_servicecatalog_provisioned_product" in
   let __attrs =
     ({
+       tf_name = __id;
        accept_language = Prop.computed __type __id "accept_language";
        arn = Prop.computed __type __id "arn";
        cloudwatch_dashboard_names =

@@ -69,6 +69,7 @@ let cloudflare_byo_ip_prefix ?advertisement ?description ?id
   { account_id; advertisement; description; id; prefix_id }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   advertisement : string prop;
   description : string prop;
@@ -81,6 +82,7 @@ let make ?advertisement ?description ?id ~account_id ~prefix_id __id
   let __type = "cloudflare_byo_ip_prefix" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        advertisement = Prop.computed __type __id "advertisement";
        description = Prop.computed __type __id "description";

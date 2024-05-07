@@ -29,6 +29,7 @@ val yojson_of_azurerm_cosmosdb_sql_database :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_name : string prop;
   autoscale_settings : autoscale_settings list prop;
   id : string prop;

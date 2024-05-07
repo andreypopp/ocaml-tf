@@ -82,6 +82,7 @@ let aws_ssoadmin_permission_set ?arn ?id ?name ?tags ~instance_arn ()
   { arn; id; instance_arn; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_date : string prop;
   description : string prop;
@@ -97,6 +98,7 @@ let make ?arn ?id ?name ?tags ~instance_arn __id =
   let __type = "aws_ssoadmin_permission_set" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_date = Prop.computed __type __id "created_date";
        description = Prop.computed __type __id "description";

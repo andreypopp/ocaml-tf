@@ -45,6 +45,7 @@ let digitalocean_kubernetes_versions ?id ?version_prefix () :
   { id; version_prefix }
 
 type t = {
+  tf_name : string;
   id : string prop;
   latest_version : string prop;
   valid_versions : string list prop;
@@ -55,6 +56,7 @@ let make ?id ?version_prefix __id =
   let __type = "digitalocean_kubernetes_versions" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        latest_version = Prop.computed __type __id "latest_version";
        valid_versions = Prop.computed __type __id "valid_versions";

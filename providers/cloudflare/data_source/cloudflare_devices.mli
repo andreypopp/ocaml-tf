@@ -43,6 +43,7 @@ val yojson_of_cloudflare_devices : cloudflare_devices -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   devices : devices list prop;
   id : string prop;

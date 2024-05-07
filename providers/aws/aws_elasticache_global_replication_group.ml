@@ -223,6 +223,7 @@ let aws_elasticache_global_replication_group
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   at_rest_encryption_enabled : bool prop;
   auth_token_enabled : bool prop;
@@ -251,6 +252,7 @@ let make ?automatic_failover_enabled ?cache_node_type ?engine_version
   let __type = "aws_elasticache_global_replication_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        at_rest_encryption_enabled =
          Prop.computed __type __id "at_rest_encryption_enabled";

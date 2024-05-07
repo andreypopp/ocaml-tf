@@ -37,6 +37,7 @@ val yojson_of_azurerm_cosmosdb_table : azurerm_cosmosdb_table -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_name : string prop;
   id : string prop;
   name : string prop;

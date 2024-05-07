@@ -155,6 +155,7 @@ let aws_elasticache_user ?access_string ?engine ?id
   }
 
 type t = {
+  tf_name : string;
   access_string : string prop;
   engine : string prop;
   id : string prop;
@@ -169,6 +170,7 @@ let make ?access_string ?engine ?id ?no_password_required ?passwords
   let __type = "aws_elasticache_user" in
   let __attrs =
     ({
+       tf_name = __id;
        access_string = Prop.computed __type __id "access_string";
        engine = Prop.computed __type __id "engine";
        id = Prop.computed __type __id "id";

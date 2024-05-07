@@ -49,6 +49,7 @@ let google_compute_ssl_policy ?id ?project ~name () :
   { id; name; project }
 
 type t = {
+  tf_name : string;
   creation_timestamp : string prop;
   custom_features : string list prop;
   description : string prop;
@@ -66,6 +67,7 @@ let make ?id ?project ~name __id =
   let __type = "google_compute_ssl_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";
        custom_features = Prop.computed __type __id "custom_features";

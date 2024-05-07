@@ -110,6 +110,7 @@ let google_alloydb_locations ?id ?project () :
   { id; project }
 
 type t = {
+  tf_name : string;
   id : string prop;
   locations : locations list prop;
   project : string prop;
@@ -119,6 +120,7 @@ let make ?id ?project __id =
   let __type = "google_alloydb_locations" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        locations = Prop.computed __type __id "locations";
        project = Prop.computed __type __id "project";

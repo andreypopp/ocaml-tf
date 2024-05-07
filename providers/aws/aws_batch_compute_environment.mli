@@ -83,6 +83,7 @@ val yojson_of_aws_batch_compute_environment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   compute_environment_name : string prop;
   compute_environment_name_prefix : string prop;

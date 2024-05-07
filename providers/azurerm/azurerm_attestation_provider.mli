@@ -46,6 +46,7 @@ val yojson_of_azurerm_attestation_provider :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   attestation_uri : string prop;
   id : string prop;
   location : string prop;

@@ -54,6 +54,7 @@ val yojson_of_azurerm_monitor_scheduled_query_rules_log :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authorized_resource_ids : string list prop;
   data_source_id : string prop;
   description : string prop;

@@ -20,6 +20,7 @@ val yojson_of_aws_pinpoint_gcm_channel :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_key : string prop;
   application_id : string prop;
   enabled : bool prop;

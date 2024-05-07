@@ -218,6 +218,7 @@ let azurerm_subscription_policy_remediation ?failure_percentage ?id
   }
 
 type t = {
+  tf_name : string;
   failure_percentage : float prop;
   id : string prop;
   location_filters : string list prop;
@@ -239,6 +240,7 @@ let make ?failure_percentage ?id ?location_filters
   let __type = "azurerm_subscription_policy_remediation" in
   let __attrs =
     ({
+       tf_name = __id;
        failure_percentage =
          Prop.computed __type __id "failure_percentage";
        id = Prop.computed __type __id "id";

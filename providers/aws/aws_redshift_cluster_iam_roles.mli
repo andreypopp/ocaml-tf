@@ -30,6 +30,7 @@ val yojson_of_aws_redshift_cluster_iam_roles :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_identifier : string prop;
   default_iam_role_arn : string prop;
   iam_role_arns : string list prop;

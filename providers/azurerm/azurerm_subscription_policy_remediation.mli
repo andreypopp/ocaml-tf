@@ -38,6 +38,7 @@ val yojson_of_azurerm_subscription_policy_remediation :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   failure_percentage : float prop;
   id : string prop;
   location_filters : string list prop;

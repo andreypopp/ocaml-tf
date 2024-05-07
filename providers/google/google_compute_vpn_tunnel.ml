@@ -291,6 +291,7 @@ let google_compute_vpn_tunnel ?description ?id ?ike_version ?labels
   }
 
 type t = {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   detailed_status : string prop;
@@ -328,6 +329,7 @@ let make ?description ?id ?ike_version ?labels
   let __type = "google_compute_vpn_tunnel" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";
        description = Prop.computed __type __id "description";

@@ -60,6 +60,7 @@ val yojson_of_aws_glue_catalog_database :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   catalog_id : string prop;
   description : string prop;

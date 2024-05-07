@@ -106,6 +106,7 @@ let aws_chime_voice_connector_termination ?cps_limit
   }
 
 type t = {
+  tf_name : string;
   calling_regions : string list prop;
   cidr_allow_list : string list prop;
   cps_limit : float prop;
@@ -120,6 +121,7 @@ let make ?cps_limit ?default_phone_number ?disabled ?id
   let __type = "aws_chime_voice_connector_termination" in
   let __attrs =
     ({
+       tf_name = __id;
        calling_regions = Prop.computed __type __id "calling_regions";
        cidr_allow_list = Prop.computed __type __id "cidr_allow_list";
        cps_limit = Prop.computed __type __id "cps_limit";

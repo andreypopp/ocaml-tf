@@ -22,6 +22,7 @@ val yojson_of_aws_dms_replication_subnet_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   replication_subnet_group_arn : string prop;
   replication_subnet_group_description : string prop;

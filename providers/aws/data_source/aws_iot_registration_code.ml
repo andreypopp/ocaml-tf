@@ -33,12 +33,17 @@ let _ = yojson_of_aws_iot_registration_code
 let aws_iot_registration_code ?id () : aws_iot_registration_code =
   { id }
 
-type t = { id : string prop; registration_code : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  registration_code : string prop;
+}
 
 let make ?id __id =
   let __type = "aws_iot_registration_code" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        registration_code =
          Prop.computed __type __id "registration_code";

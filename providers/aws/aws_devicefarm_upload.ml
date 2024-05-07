@@ -65,6 +65,7 @@ let aws_devicefarm_upload ?content_type ?id ~name ~project_arn ~type_
   { content_type; id; name; project_arn; type_ }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   category : string prop;
   content_type : string prop;
@@ -80,6 +81,7 @@ let make ?content_type ?id ~name ~project_arn ~type_ __id =
   let __type = "aws_devicefarm_upload" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        category = Prop.computed __type __id "category";
        content_type = Prop.computed __type __id "content_type";

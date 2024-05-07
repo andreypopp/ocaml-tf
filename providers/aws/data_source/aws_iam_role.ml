@@ -87,6 +87,7 @@ let aws_iam_role ?id ?tags ~name () : aws_iam_role =
   { id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   assume_role_policy : string prop;
   create_date : string prop;
@@ -105,6 +106,7 @@ let make ?id ?tags ~name __id =
   let __type = "aws_iam_role" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        assume_role_policy =
          Prop.computed __type __id "assume_role_policy";

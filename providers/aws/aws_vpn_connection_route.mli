@@ -19,6 +19,7 @@ val yojson_of_aws_vpn_connection_route :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   destination_cidr_block : string prop;
   id : string prop;
   vpn_connection_id : string prop;

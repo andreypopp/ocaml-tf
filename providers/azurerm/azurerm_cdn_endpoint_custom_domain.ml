@@ -256,6 +256,7 @@ let azurerm_cdn_endpoint_custom_domain ?id ?(cdn_managed_https = [])
   }
 
 type t = {
+  tf_name : string;
   cdn_endpoint_id : string prop;
   host_name : string prop;
   id : string prop;
@@ -268,6 +269,7 @@ let make ?id ?(cdn_managed_https = []) ?timeouts
   let __type = "azurerm_cdn_endpoint_custom_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        cdn_endpoint_id = Prop.computed __type __id "cdn_endpoint_id";
        host_name = Prop.computed __type __id "host_name";
        id = Prop.computed __type __id "id";

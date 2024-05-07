@@ -306,6 +306,7 @@ let aws_api_gateway_usage_plan ?description ?id ?product_code ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -321,6 +322,7 @@ let make ?description ?id ?product_code ?tags ?tags_all
   let __type = "aws_api_gateway_usage_plan" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

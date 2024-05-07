@@ -483,6 +483,7 @@ let aws_fms_policy ?delete_all_policy_resources
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   delete_all_policy_resources : bool prop;
   delete_unused_fm_managed_resources : bool prop;
@@ -508,6 +509,7 @@ let make ?delete_all_policy_resources
   let __type = "aws_fms_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        delete_all_policy_resources =
          Prop.computed __type __id "delete_all_policy_resources";

@@ -21,6 +21,7 @@ val yojson_of_digitalocean_cdn : digitalocean_cdn -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_id : string prop;
   certificate_name : string prop;
   created_at : string prop;

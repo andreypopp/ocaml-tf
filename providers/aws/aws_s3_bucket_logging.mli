@@ -61,6 +61,7 @@ val yojson_of_aws_s3_bucket_logging : aws_s3_bucket_logging -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket : string prop;
   expected_bucket_owner : string prop;
   id : string prop;

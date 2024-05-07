@@ -39,6 +39,7 @@ val yojson_of_aws_api_gateway_integration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cache_key_parameters : string list prop;
   cache_namespace : string prop;
   connection_id : string prop;

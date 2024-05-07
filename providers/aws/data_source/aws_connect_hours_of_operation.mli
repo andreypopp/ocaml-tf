@@ -37,6 +37,7 @@ val yojson_of_aws_connect_hours_of_operation :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   config : config list prop;
   description : string prop;

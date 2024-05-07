@@ -77,6 +77,7 @@ let hcloud_ssh_key ?fingerprint ?id ?name ?selector ?with_selector ()
   { fingerprint; id; name; selector; with_selector }
 
 type t = {
+  tf_name : string;
   fingerprint : string prop;
   id : float prop;
   labels : (string * string) list prop;
@@ -90,6 +91,7 @@ let make ?fingerprint ?id ?name ?selector ?with_selector __id =
   let __type = "hcloud_ssh_key" in
   let __attrs =
     ({
+       tf_name = __id;
        fingerprint = Prop.computed __type __id "fingerprint";
        id = Prop.computed __type __id "id";
        labels = Prop.computed __type __id "labels";

@@ -145,6 +145,7 @@ let aws_account_alternate_contact ?account_id ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   alternate_contact_type : string prop;
   email_address : string prop;
@@ -159,6 +160,7 @@ let make ?account_id ?id ?timeouts ~alternate_contact_type
   let __type = "aws_account_alternate_contact" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        alternate_contact_type =
          Prop.computed __type __id "alternate_contact_type";

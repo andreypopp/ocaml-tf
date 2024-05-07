@@ -265,6 +265,7 @@ let aws_globalaccelerator_custom_routing_accelerator ?enabled ?id
   }
 
 type t = {
+  tf_name : string;
   dns_name : string prop;
   enabled : bool prop;
   hosted_zone_id : string prop;
@@ -282,6 +283,7 @@ let make ?enabled ?id ?ip_address_type ?ip_addresses ?tags ?tags_all
   let __type = "aws_globalaccelerator_custom_routing_accelerator" in
   let __attrs =
     ({
+       tf_name = __id;
        dns_name = Prop.computed __type __id "dns_name";
        enabled = Prop.computed __type __id "enabled";
        hosted_zone_id = Prop.computed __type __id "hosted_zone_id";

@@ -84,6 +84,7 @@ val yojson_of_aws_connect_instance_storage_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   association_id : string prop;
   id : string prop;
   instance_id : string prop;

@@ -31,6 +31,7 @@ let _ = yojson_of_aws_lambda_functions
 let aws_lambda_functions ?id () : aws_lambda_functions = { id }
 
 type t = {
+  tf_name : string;
   function_arns : string list prop;
   function_names : string list prop;
   id : string prop;
@@ -40,6 +41,7 @@ let make ?id __id =
   let __type = "aws_lambda_functions" in
   let __attrs =
     ({
+       tf_name = __id;
        function_arns = Prop.computed __type __id "function_arns";
        function_names = Prop.computed __type __id "function_names";
        id = Prop.computed __type __id "id";

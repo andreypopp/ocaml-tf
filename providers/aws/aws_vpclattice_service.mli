@@ -37,6 +37,7 @@ val yojson_of_aws_vpclattice_service : aws_vpclattice_service -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   auth_type : string prop;
   certificate_arn : string prop;

@@ -367,6 +367,7 @@ let google_netapp_volume_replication ?delete_destination_volume
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   delete_destination_volume : bool prop;
   description : string prop;
@@ -399,6 +400,7 @@ let make ?delete_destination_volume ?description ?force_stopping ?id
   let __type = "google_netapp_volume_replication" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        delete_destination_volume =
          Prop.computed __type __id "delete_destination_volume";

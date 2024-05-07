@@ -187,6 +187,7 @@ val yojson_of_azurerm_monitor_alert_processing_rule_action_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   add_action_group_ids : string list prop;
   description : string prop;
   enabled : bool prop;

@@ -70,6 +70,7 @@ val yojson_of_azurerm_orbital_contact_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_tracking : string prop;
   event_hub_uri : string prop;
   id : string prop;

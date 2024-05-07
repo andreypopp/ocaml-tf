@@ -31,6 +31,7 @@ val yojson_of_azurerm_resource_management_private_link_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   management_group_id : string prop;
   name : string prop;

@@ -30,6 +30,7 @@ val yojson_of_kubernetes_service_account_v1 :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automount_service_account_token : bool prop;
   default_secret_name : string prop;
   id : string prop;

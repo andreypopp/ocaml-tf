@@ -358,6 +358,7 @@ let aws_guardduty_detector ?enable ?finding_publishing_frequency ?id
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   arn : string prop;
   enable : bool prop;
@@ -372,6 +373,7 @@ let make ?enable ?finding_publishing_frequency ?id ?tags ?tags_all
   let __type = "aws_guardduty_detector" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        arn = Prop.computed __type __id "arn";
        enable = Prop.computed __type __id "enable";

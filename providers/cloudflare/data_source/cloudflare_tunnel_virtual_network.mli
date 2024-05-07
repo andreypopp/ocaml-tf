@@ -21,6 +21,7 @@ val yojson_of_cloudflare_tunnel_virtual_network :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   comment : string prop;
   id : string prop;

@@ -120,6 +120,7 @@ let hcloud_floating_ip ?delete_protection ?description ?home_location
   }
 
 type t = {
+  tf_name : string;
   delete_protection : bool prop;
   description : string prop;
   home_location : string prop;
@@ -137,6 +138,7 @@ let make ?delete_protection ?description ?home_location ?id ?labels
   let __type = "hcloud_floating_ip" in
   let __attrs =
     ({
+       tf_name = __id;
        delete_protection =
          Prop.computed __type __id "delete_protection";
        description = Prop.computed __type __id "description";

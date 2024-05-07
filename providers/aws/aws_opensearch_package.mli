@@ -28,6 +28,7 @@ val yojson_of_aws_opensearch_package : aws_opensearch_package -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   available_package_version : string prop;
   id : string prop;
   package_description : string prop;

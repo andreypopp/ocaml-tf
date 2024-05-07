@@ -111,6 +111,7 @@ let azurerm_cosmosdb_postgresql_role ?id ?timeouts ~cluster_id ~name
   { cluster_id; id; name; password; timeouts }
 
 type t = {
+  tf_name : string;
   cluster_id : string prop;
   id : string prop;
   name : string prop;
@@ -121,6 +122,7 @@ let make ?id ?timeouts ~cluster_id ~name ~password __id =
   let __type = "azurerm_cosmosdb_postgresql_role" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_id = Prop.computed __type __id "cluster_id";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

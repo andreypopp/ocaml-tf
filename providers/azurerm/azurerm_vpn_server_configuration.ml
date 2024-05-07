@@ -586,6 +586,7 @@ let azurerm_vpn_server_configuration ?id ?tags ?vpn_protocols
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -603,6 +604,7 @@ let make ?id ?tags ?vpn_protocols
   let __type = "azurerm_vpn_server_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

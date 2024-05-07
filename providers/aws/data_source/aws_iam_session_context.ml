@@ -39,6 +39,7 @@ let aws_iam_session_context ?id ~arn () : aws_iam_session_context =
   { arn; id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   issuer_arn : string prop;
@@ -51,6 +52,7 @@ let make ?id ~arn __id =
   let __type = "aws_iam_session_context" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        issuer_arn = Prop.computed __type __id "issuer_arn";

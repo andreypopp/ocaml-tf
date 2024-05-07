@@ -60,6 +60,7 @@ val yojson_of_azurerm_cosmosdb_postgresql_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   administrator_login_password : string prop;
   citus_version : string prop;
   coordinator_public_ip_access_enabled : bool prop;

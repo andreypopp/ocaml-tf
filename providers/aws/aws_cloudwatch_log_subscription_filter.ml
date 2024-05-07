@@ -97,6 +97,7 @@ let aws_cloudwatch_log_subscription_filter ?distribution ?id
   }
 
 type t = {
+  tf_name : string;
   destination_arn : string prop;
   distribution : string prop;
   filter_pattern : string prop;
@@ -111,6 +112,7 @@ let make ?distribution ?id ?role_arn ~destination_arn ~filter_pattern
   let __type = "aws_cloudwatch_log_subscription_filter" in
   let __attrs =
     ({
+       tf_name = __id;
        destination_arn = Prop.computed __type __id "destination_arn";
        distribution = Prop.computed __type __id "distribution";
        filter_pattern = Prop.computed __type __id "filter_pattern";

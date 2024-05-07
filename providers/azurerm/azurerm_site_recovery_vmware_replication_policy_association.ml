@@ -119,6 +119,7 @@ let azurerm_site_recovery_vmware_replication_policy_association ?id
   { id; name; policy_id; recovery_vault_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   policy_id : string prop;
@@ -131,6 +132,7 @@ let make ?id ?timeouts ~name ~policy_id ~recovery_vault_id __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        policy_id = Prop.computed __type __id "policy_id";

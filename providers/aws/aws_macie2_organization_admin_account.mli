@@ -17,7 +17,11 @@ val yojson_of_aws_macie2_organization_admin_account :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { admin_account_id : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  admin_account_id : string prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

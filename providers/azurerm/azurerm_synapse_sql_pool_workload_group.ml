@@ -193,6 +193,7 @@ let azurerm_synapse_sql_pool_workload_group ?id ?importance
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   importance : string prop;
   max_resource_percent : float prop;
@@ -212,6 +213,7 @@ let make ?id ?importance ?max_resource_percent_per_request
   let __type = "azurerm_synapse_sql_pool_workload_group" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        importance = Prop.computed __type __id "importance";
        max_resource_percent =

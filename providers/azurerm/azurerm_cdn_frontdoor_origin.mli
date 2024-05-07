@@ -50,6 +50,7 @@ val yojson_of_azurerm_cdn_frontdoor_origin :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cdn_frontdoor_origin_group_id : string prop;
   certificate_name_check_enabled : bool prop;
   enabled : bool prop;

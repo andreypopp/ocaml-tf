@@ -20,6 +20,7 @@ val yojson_of_aws_db_proxy_target : aws_db_proxy_target -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   db_cluster_identifier : string prop;
   db_instance_identifier : string prop;
   db_proxy_name : string prop;

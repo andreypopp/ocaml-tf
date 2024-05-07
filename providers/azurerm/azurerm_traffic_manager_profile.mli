@@ -64,6 +64,7 @@ val yojson_of_azurerm_traffic_manager_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   fqdn : string prop;
   id : string prop;
   max_return : float prop;

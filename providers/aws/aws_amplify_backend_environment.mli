@@ -21,6 +21,7 @@ val yojson_of_aws_amplify_backend_environment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_id : string prop;
   arn : string prop;
   deployment_artifacts : string prop;

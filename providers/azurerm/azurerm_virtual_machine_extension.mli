@@ -50,6 +50,7 @@ val yojson_of_azurerm_virtual_machine_extension :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_upgrade_minor_version : bool prop;
   automatic_upgrade_enabled : bool prop;
   failure_suppression_enabled : bool prop;

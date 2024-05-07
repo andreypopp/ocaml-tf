@@ -60,6 +60,7 @@ let aws_secretsmanager_secret_policy ?block_public_policy ?id ~policy
   { block_public_policy; id; policy; secret_arn }
 
 type t = {
+  tf_name : string;
   block_public_policy : bool prop;
   id : string prop;
   policy : string prop;
@@ -70,6 +71,7 @@ let make ?block_public_policy ?id ~policy ~secret_arn __id =
   let __type = "aws_secretsmanager_secret_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        block_public_policy =
          Prop.computed __type __id "block_public_policy";
        id = Prop.computed __type __id "id";

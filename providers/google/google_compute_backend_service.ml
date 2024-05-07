@@ -1532,6 +1532,7 @@ let google_compute_backend_service ?affinity_cookie_ttl_sec
   }
 
 type t = {
+  tf_name : string;
   affinity_cookie_ttl_sec : float prop;
   compression_mode : string prop;
   connection_draining_timeout_sec : float prop;
@@ -1570,6 +1571,7 @@ let make ?affinity_cookie_ttl_sec ?compression_mode
   let __type = "google_compute_backend_service" in
   let __attrs =
     ({
+       tf_name = __id;
        affinity_cookie_ttl_sec =
          Prop.computed __type __id "affinity_cookie_ttl_sec";
        compression_mode =

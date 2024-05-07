@@ -29,6 +29,7 @@ val yojson_of_aws_ssm_parameter : aws_ssm_parameter -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allowed_pattern : string prop;
   arn : string prop;
   data_type : string prop;

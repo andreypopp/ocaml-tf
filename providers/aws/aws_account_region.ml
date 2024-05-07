@@ -104,6 +104,7 @@ let aws_account_region ?account_id ?id ?timeouts ~enabled
   { account_id; enabled; id; region_name; timeouts }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   enabled : bool prop;
   id : string prop;
@@ -115,6 +116,7 @@ let make ?account_id ?id ?timeouts ~enabled ~region_name __id =
   let __type = "aws_account_region" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";

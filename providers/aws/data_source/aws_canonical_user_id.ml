@@ -30,12 +30,17 @@ let _ = yojson_of_aws_canonical_user_id
 
 let aws_canonical_user_id ?id () : aws_canonical_user_id = { id }
 
-type t = { display_name : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  display_name : string prop;
+  id : string prop;
+}
 
 let make ?id __id =
   let __type = "aws_canonical_user_id" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";
      }

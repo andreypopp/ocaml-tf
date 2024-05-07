@@ -34,6 +34,7 @@ val yojson_of_aws_amplify_branch : aws_amplify_branch -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_id : string prop;
   arn : string prop;
   associated_resources : string list prop;

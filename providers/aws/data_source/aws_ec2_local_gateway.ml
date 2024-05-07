@@ -134,6 +134,7 @@ let aws_ec2_local_gateway ?id ?state ?tags ?timeouts ~filter () :
   { id; state; tags; filter; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   outpost_arn : string prop;
   owner_id : string prop;
@@ -145,6 +146,7 @@ let make ?id ?state ?tags ?timeouts ~filter __id =
   let __type = "aws_ec2_local_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        outpost_arn = Prop.computed __type __id "outpost_arn";
        owner_id = Prop.computed __type __id "owner_id";

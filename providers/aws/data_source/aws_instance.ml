@@ -574,6 +574,7 @@ let aws_instance ?get_password_data ?get_user_data ?id ?instance_id
   }
 
 type t = {
+  tf_name : string;
   ami : string prop;
   arn : string prop;
   associate_public_ip_address : bool prop;
@@ -627,6 +628,7 @@ let make ?get_password_data ?get_user_data ?id ?instance_id
   let __type = "aws_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        ami = Prop.computed __type __id "ami";
        arn = Prop.computed __type __id "arn";
        associate_public_ip_address =

@@ -40,6 +40,7 @@ val yojson_of_aws_batch_job_queue : aws_batch_job_queue -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   compute_environments : string list prop;
   id : string prop;

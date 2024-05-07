@@ -197,6 +197,7 @@ let azurerm_system_center_virtual_machine_manager_server ?id ?port
   }
 
 type t = {
+  tf_name : string;
   custom_location_id : string prop;
   fqdn : string prop;
   id : string prop;
@@ -216,6 +217,7 @@ let make ?id ?port ?tags ?timeouts ~custom_location_id ~fqdn
   in
   let __attrs =
     ({
+       tf_name = __id;
        custom_location_id =
          Prop.computed __type __id "custom_location_id";
        fqdn = Prop.computed __type __id "fqdn";

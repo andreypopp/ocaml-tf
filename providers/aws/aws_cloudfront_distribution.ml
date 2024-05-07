@@ -1988,6 +1988,7 @@ let aws_cloudfront_distribution ?aliases ?comment
   }
 
 type t = {
+  tf_name : string;
   aliases : string list prop;
   arn : string prop;
   caller_reference : string prop;
@@ -2025,6 +2026,7 @@ let make ?aliases ?comment ?continuous_deployment_policy_id
   let __type = "aws_cloudfront_distribution" in
   let __attrs =
     ({
+       tf_name = __id;
        aliases = Prop.computed __type __id "aliases";
        arn = Prop.computed __type __id "arn";
        caller_reference =

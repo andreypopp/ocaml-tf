@@ -26,6 +26,7 @@ val yojson_of_aws_applicationinsights_application :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   auto_config_enabled : bool prop;
   auto_create : bool prop;

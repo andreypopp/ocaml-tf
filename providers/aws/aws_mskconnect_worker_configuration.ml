@@ -63,6 +63,7 @@ let aws_mskconnect_worker_configuration ?description ?id ~name
   { description; id; name; properties_file_content }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -75,6 +76,7 @@ let make ?description ?id ~name ~properties_file_content __id =
   let __type = "aws_mskconnect_worker_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

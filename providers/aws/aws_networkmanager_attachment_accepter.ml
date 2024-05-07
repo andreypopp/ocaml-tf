@@ -87,6 +87,7 @@ let aws_networkmanager_attachment_accepter ?id ?timeouts
   { attachment_id; attachment_type; id; timeouts }
 
 type t = {
+  tf_name : string;
   attachment_id : string prop;
   attachment_policy_rule_number : float prop;
   attachment_type : string prop;
@@ -104,6 +105,7 @@ let make ?id ?timeouts ~attachment_id ~attachment_type __id =
   let __type = "aws_networkmanager_attachment_accepter" in
   let __attrs =
     ({
+       tf_name = __id;
        attachment_id = Prop.computed __type __id "attachment_id";
        attachment_policy_rule_number =
          Prop.computed __type __id "attachment_policy_rule_number";

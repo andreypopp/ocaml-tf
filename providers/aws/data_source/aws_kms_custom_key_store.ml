@@ -57,6 +57,7 @@ let aws_kms_custom_key_store ?custom_key_store_id
   { custom_key_store_id; custom_key_store_name; id }
 
 type t = {
+  tf_name : string;
   cloud_hsm_cluster_id : string prop;
   connection_state : string prop;
   creation_date : string prop;
@@ -70,6 +71,7 @@ let make ?custom_key_store_id ?custom_key_store_name ?id __id =
   let __type = "aws_kms_custom_key_store" in
   let __attrs =
     ({
+       tf_name = __id;
        cloud_hsm_cluster_id =
          Prop.computed __type __id "cloud_hsm_cluster_id";
        connection_state =

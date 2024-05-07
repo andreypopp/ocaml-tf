@@ -119,6 +119,7 @@ let azurerm_storage_blob ?id ?metadata ?timeouts ~name
   }
 
 type t = {
+  tf_name : string;
   access_tier : string prop;
   content_md5 : string prop;
   content_type : string prop;
@@ -136,6 +137,7 @@ let make ?id ?metadata ?timeouts ~name ~storage_account_name
   let __type = "azurerm_storage_blob" in
   let __attrs =
     ({
+       tf_name = __id;
        access_tier = Prop.computed __type __id "access_tier";
        content_md5 = Prop.computed __type __id "content_md5";
        content_type = Prop.computed __type __id "content_type";

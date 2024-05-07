@@ -22,6 +22,7 @@ val yojson_of_aws_ce_anomaly_monitor : aws_ce_anomaly_monitor -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   monitor_dimension : string prop;

@@ -35,6 +35,7 @@ val yojson_of_google_discovery_engine_data_store :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   content_config : string prop;
   create_advanced_site_search : bool prop;
   create_time : string prop;

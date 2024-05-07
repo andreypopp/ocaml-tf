@@ -109,6 +109,7 @@ let aws_lb_ssl_negotiation_policy ?id ?triggers ~lb_port
   { id; lb_port; load_balancer; name; triggers; attribute }
 
 type t = {
+  tf_name : string;
   id : string prop;
   lb_port : float prop;
   load_balancer : string prop;
@@ -121,6 +122,7 @@ let make ?id ?triggers ~lb_port ~load_balancer ~name ~attribute __id
   let __type = "aws_lb_ssl_negotiation_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        lb_port = Prop.computed __type __id "lb_port";
        load_balancer = Prop.computed __type __id "load_balancer";

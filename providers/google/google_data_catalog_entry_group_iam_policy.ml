@@ -71,6 +71,7 @@ let google_data_catalog_entry_group_iam_policy ?id ?project ?region
   { entry_group; id; policy_data; project; region }
 
 type t = {
+  tf_name : string;
   entry_group : string prop;
   etag : string prop;
   id : string prop;
@@ -83,6 +84,7 @@ let make ?id ?project ?region ~entry_group ~policy_data __id =
   let __type = "google_data_catalog_entry_group_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        entry_group = Prop.computed __type __id "entry_group";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

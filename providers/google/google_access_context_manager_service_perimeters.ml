@@ -1777,12 +1777,13 @@ let google_access_context_manager_service_perimeters ?id
     google_access_context_manager_service_perimeters =
   { id; parent; service_perimeters; timeouts }
 
-type t = { id : string prop; parent : string prop }
+type t = { tf_name : string; id : string prop; parent : string prop }
 
 let make ?id ?(service_perimeters = []) ?timeouts ~parent __id =
   let __type = "google_access_context_manager_service_perimeters" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        parent = Prop.computed __type __id "parent";
      }

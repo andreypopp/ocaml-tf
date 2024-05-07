@@ -136,6 +136,7 @@ let aws_instances ?id ?instance_state_names ?instance_tags ?timeouts
   { id; instance_state_names; instance_tags; filter; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   ids : string list prop;
   instance_state_names : string list prop;
@@ -150,6 +151,7 @@ let make ?id ?instance_state_names ?instance_tags ?timeouts ~filter
   let __type = "aws_instances" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ids = Prop.computed __type __id "ids";
        instance_state_names =

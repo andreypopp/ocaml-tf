@@ -33,6 +33,7 @@ val yojson_of_google_kms_key_ring_import_job :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   attestation : attestation list prop;
   expire_time : string prop;
   id : string prop;

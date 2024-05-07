@@ -295,6 +295,7 @@ let google_bigquery_dataset ?id ?project ~dataset_id () :
   { dataset_id; id; project }
 
 type t = {
+  tf_name : string;
   access : access list prop;
   creation_time : float prop;
   dataset_id : string prop;
@@ -324,6 +325,7 @@ let make ?id ?project ~dataset_id __id =
   let __type = "google_bigquery_dataset" in
   let __attrs =
     ({
+       tf_name = __id;
        access = Prop.computed __type __id "access";
        creation_time = Prop.computed __type __id "creation_time";
        dataset_id = Prop.computed __type __id "dataset_id";

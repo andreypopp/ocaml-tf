@@ -69,6 +69,7 @@ let cloudflare_account_member ?id ?status ~account_id ~email_address
   { account_id; email_address; id; role_ids; status }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   email_address : string prop;
   id : string prop;
@@ -80,6 +81,7 @@ let make ?id ?status ~account_id ~email_address ~role_ids __id =
   let __type = "cloudflare_account_member" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        email_address = Prop.computed __type __id "email_address";
        id = Prop.computed __type __id "id";

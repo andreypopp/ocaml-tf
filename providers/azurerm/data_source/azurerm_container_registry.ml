@@ -85,6 +85,7 @@ let azurerm_container_registry ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   admin_enabled : bool prop;
   admin_password : string prop;
   admin_username : string prop;
@@ -102,6 +103,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_container_registry" in
   let __attrs =
     ({
+       tf_name = __id;
        admin_enabled = Prop.computed __type __id "admin_enabled";
        admin_password = Prop.computed __type __id "admin_password";
        admin_username = Prop.computed __type __id "admin_username";

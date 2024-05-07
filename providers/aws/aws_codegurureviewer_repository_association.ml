@@ -474,6 +474,7 @@ let aws_codegurureviewer_repository_association ?id ?tags ?tags_all
   { id; tags; tags_all; kms_key_details; repository; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   association_id : string prop;
   connection_arn : string prop;
@@ -493,6 +494,7 @@ let make ?id ?tags ?tags_all ?(kms_key_details = []) ?timeouts
   let __type = "aws_codegurureviewer_repository_association" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        association_id = Prop.computed __type __id "association_id";
        connection_arn = Prop.computed __type __id "connection_arn";

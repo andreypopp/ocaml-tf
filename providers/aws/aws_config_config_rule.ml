@@ -401,6 +401,7 @@ let aws_config_config_rule ?description ?id ?input_parameters
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -418,6 +419,7 @@ let make ?description ?id ?input_parameters
   let __type = "aws_config_config_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

@@ -139,6 +139,7 @@ val yojson_of_google_monitoring_uptime_check_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   checker_type : string prop;
   display_name : string prop;
   id : string prop;

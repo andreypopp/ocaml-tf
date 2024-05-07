@@ -159,6 +159,7 @@ let google_cloud_ids_endpoint ?description ?id ?project
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   endpoint_forwarding_rule : string prop;
@@ -178,6 +179,7 @@ let make ?description ?id ?project ?threat_exceptions ?timeouts
   let __type = "google_cloud_ids_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        endpoint_forwarding_rule =

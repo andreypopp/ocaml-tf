@@ -68,6 +68,7 @@ let aws_ip_ranges ?id ?regions ?url ~services () : aws_ip_ranges =
   { id; regions; services; url }
 
 type t = {
+  tf_name : string;
   cidr_blocks : string list prop;
   create_date : string prop;
   id : string prop;
@@ -82,6 +83,7 @@ let make ?id ?regions ?url ~services __id =
   let __type = "aws_ip_ranges" in
   let __attrs =
     ({
+       tf_name = __id;
        cidr_blocks = Prop.computed __type __id "cidr_blocks";
        create_date = Prop.computed __type __id "create_date";
        id = Prop.computed __type __id "id";

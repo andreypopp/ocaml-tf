@@ -202,6 +202,7 @@ let azurerm_spring_cloud_dynatrace_application_performance_monitoring
   }
 
 type t = {
+  tf_name : string;
   api_token : string prop;
   api_url : string prop;
   connection_point : string prop;
@@ -222,6 +223,7 @@ let make ?api_token ?api_url ?environment_id ?globally_enabled ?id
   in
   let __attrs =
     ({
+       tf_name = __id;
        api_token = Prop.computed __type __id "api_token";
        api_url = Prop.computed __type __id "api_url";
        connection_point =

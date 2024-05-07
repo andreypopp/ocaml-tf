@@ -1243,6 +1243,7 @@ let google_dataplex_datascan ?description ?display_name ?id ?labels
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   data_scan_id : string prop;
   description : string prop;
@@ -1267,6 +1268,7 @@ let make ?description ?display_name ?id ?labels ?project
   let __type = "google_dataplex_datascan" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        data_scan_id = Prop.computed __type __id "data_scan_id";
        description = Prop.computed __type __id "description";

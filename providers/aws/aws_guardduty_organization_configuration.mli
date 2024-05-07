@@ -72,6 +72,7 @@ val yojson_of_aws_guardduty_organization_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_enable : bool prop;
   auto_enable_organization_members : string prop;
   detector_id : string prop;

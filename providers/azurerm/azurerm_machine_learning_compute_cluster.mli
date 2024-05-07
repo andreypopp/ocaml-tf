@@ -67,6 +67,7 @@ val yojson_of_azurerm_machine_learning_compute_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   local_auth_enabled : bool prop;

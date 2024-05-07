@@ -73,6 +73,7 @@ let aws_securityhub_account ?auto_enable_controls
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   auto_enable_controls : bool prop;
   control_finding_generator : string prop;
@@ -85,6 +86,7 @@ let make ?auto_enable_controls ?control_finding_generator
   let __type = "aws_securityhub_account" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        auto_enable_controls =
          Prop.computed __type __id "auto_enable_controls";

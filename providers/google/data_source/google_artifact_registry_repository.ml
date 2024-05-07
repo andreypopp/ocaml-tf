@@ -766,6 +766,7 @@ let google_artifact_registry_repository ?id ?project ~location
   { id; location; project; repository_id }
 
 type t = {
+  tf_name : string;
   cleanup_policies : cleanup_policies list prop;
   cleanup_policy_dry_run : bool prop;
   create_time : string prop;
@@ -792,6 +793,7 @@ let make ?id ?project ~location ~repository_id __id =
   let __type = "google_artifact_registry_repository" in
   let __attrs =
     ({
+       tf_name = __id;
        cleanup_policies =
          Prop.computed __type __id "cleanup_policies";
        cleanup_policy_dry_run =

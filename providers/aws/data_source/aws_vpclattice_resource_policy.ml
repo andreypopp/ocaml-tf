@@ -41,6 +41,7 @@ let aws_vpclattice_resource_policy ?id ~resource_arn () :
   { id; resource_arn }
 
 type t = {
+  tf_name : string;
   id : string prop;
   policy : string prop;
   resource_arn : string prop;
@@ -50,6 +51,7 @@ let make ?id ~resource_arn __id =
   let __type = "aws_vpclattice_resource_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        policy = Prop.computed __type __id "policy";
        resource_arn = Prop.computed __type __id "resource_arn";

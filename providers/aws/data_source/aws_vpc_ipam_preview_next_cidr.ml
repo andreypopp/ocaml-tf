@@ -101,6 +101,7 @@ let aws_vpc_ipam_preview_next_cidr ?disallowed_cidrs ?id
   { disallowed_cidrs; id; ipam_pool_id; netmask_length; timeouts }
 
 type t = {
+  tf_name : string;
   cidr : string prop;
   disallowed_cidrs : string list prop;
   id : string prop;
@@ -113,6 +114,7 @@ let make ?disallowed_cidrs ?id ?netmask_length ?timeouts
   let __type = "aws_vpc_ipam_preview_next_cidr" in
   let __attrs =
     ({
+       tf_name = __id;
        cidr = Prop.computed __type __id "cidr";
        disallowed_cidrs =
          Prop.computed __type __id "disallowed_cidrs";

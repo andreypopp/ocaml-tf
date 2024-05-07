@@ -75,6 +75,7 @@ let aws_apigatewayv2_apis ?id ?name ?protocol_type ?tags () :
   { id; name; protocol_type; tags }
 
 type t = {
+  tf_name : string;
   id : string prop;
   ids : string list prop;
   name : string prop;
@@ -86,6 +87,7 @@ let make ?id ?name ?protocol_type ?tags __id =
   let __type = "aws_apigatewayv2_apis" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ids = Prop.computed __type __id "ids";
        name = Prop.computed __type __id "name";

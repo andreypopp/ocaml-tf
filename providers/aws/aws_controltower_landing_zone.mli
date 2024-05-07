@@ -32,6 +32,7 @@ val yojson_of_aws_controltower_landing_zone :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   drift_status : drift_status list prop;
   id : string prop;

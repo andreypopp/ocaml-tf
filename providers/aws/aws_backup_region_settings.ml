@@ -79,6 +79,7 @@ let aws_backup_region_settings ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   resource_type_management_preference : (string * bool) list prop;
   resource_type_opt_in_preference : (string * bool) list prop;
@@ -89,6 +90,7 @@ let make ?id ?resource_type_management_preference
   let __type = "aws_backup_region_settings" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        resource_type_management_preference =
          Prop.computed __type __id

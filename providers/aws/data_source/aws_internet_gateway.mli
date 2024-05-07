@@ -34,6 +34,7 @@ val yojson_of_aws_internet_gateway : aws_internet_gateway -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   attachments : attachments list prop;
   id : string prop;

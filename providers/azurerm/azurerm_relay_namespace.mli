@@ -33,6 +33,7 @@ val yojson_of_azurerm_relay_namespace :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   metric_id : string prop;

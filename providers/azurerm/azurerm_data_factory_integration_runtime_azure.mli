@@ -37,6 +37,7 @@ val yojson_of_azurerm_data_factory_integration_runtime_azure :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cleanup_enabled : bool prop;
   compute_type : string prop;
   core_count : float prop;

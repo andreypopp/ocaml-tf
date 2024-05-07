@@ -107,6 +107,7 @@ let google_compute_project_metadata ?id ?project ?timeouts ~metadata
   { id; metadata; project; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   metadata : (string * string) list prop;
   project : string prop;
@@ -116,6 +117,7 @@ let make ?id ?project ?timeouts ~metadata __id =
   let __type = "google_compute_project_metadata" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        metadata = Prop.computed __type __id "metadata";
        project = Prop.computed __type __id "project";

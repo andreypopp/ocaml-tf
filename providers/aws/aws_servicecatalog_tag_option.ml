@@ -129,6 +129,7 @@ let aws_servicecatalog_tag_option ?active ?id ?timeouts ~key ~value
   { active; id; key; value; timeouts }
 
 type t = {
+  tf_name : string;
   active : bool prop;
   id : string prop;
   key : string prop;
@@ -140,6 +141,7 @@ let make ?active ?id ?timeouts ~key ~value __id =
   let __type = "aws_servicecatalog_tag_option" in
   let __attrs =
     ({
+       tf_name = __id;
        active = Prop.computed __type __id "active";
        id = Prop.computed __type __id "id";
        key = Prop.computed __type __id "key";

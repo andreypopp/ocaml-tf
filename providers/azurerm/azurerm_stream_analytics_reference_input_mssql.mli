@@ -40,6 +40,7 @@ val yojson_of_azurerm_stream_analytics_reference_input_mssql :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   database : string prop;
   delta_snapshot_query : string prop;
   full_snapshot_query : string prop;

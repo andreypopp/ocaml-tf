@@ -54,6 +54,7 @@ val yojson_of_azurerm_network_interface :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   applied_dns_servers : string list prop;
   auxiliary_mode : string prop;
   auxiliary_sku : string prop;

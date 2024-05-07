@@ -125,6 +125,7 @@ let aws_ec2_traffic_mirror_target ?description
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   gateway_load_balancer_endpoint_id : string prop;
@@ -142,6 +143,7 @@ let make ?description ?gateway_load_balancer_endpoint_id ?id
   let __type = "aws_ec2_traffic_mirror_target" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        gateway_load_balancer_endpoint_id =

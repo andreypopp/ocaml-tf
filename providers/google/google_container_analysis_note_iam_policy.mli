@@ -20,6 +20,7 @@ val yojson_of_google_container_analysis_note_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   note : string prop;

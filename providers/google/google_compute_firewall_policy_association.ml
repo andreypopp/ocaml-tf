@@ -106,6 +106,7 @@ let google_compute_firewall_policy_association ?id ?timeouts
   { attachment_target; firewall_policy; id; name; timeouts }
 
 type t = {
+  tf_name : string;
   attachment_target : string prop;
   firewall_policy : string prop;
   id : string prop;
@@ -118,6 +119,7 @@ let make ?id ?timeouts ~attachment_target ~firewall_policy ~name __id
   let __type = "google_compute_firewall_policy_association" in
   let __attrs =
     ({
+       tf_name = __id;
        attachment_target =
          Prop.computed __type __id "attachment_target";
        firewall_policy = Prop.computed __type __id "firewall_policy";

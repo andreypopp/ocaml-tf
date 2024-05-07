@@ -200,6 +200,7 @@ let aws_rds_reserved_instance ?id ?instance_count ?reservation_id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   currency_code : string prop;
   db_instance_class : string prop;
@@ -226,6 +227,7 @@ let make ?id ?instance_count ?reservation_id ?tags ?tags_all
   let __type = "aws_rds_reserved_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        currency_code = Prop.computed __type __id "currency_code";
        db_instance_class =

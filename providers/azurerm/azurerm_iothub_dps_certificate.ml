@@ -154,6 +154,7 @@ let azurerm_iothub_dps_certificate ?id ?is_verified ?timeouts
   }
 
 type t = {
+  tf_name : string;
   certificate_content : string prop;
   id : string prop;
   iot_dps_name : string prop;
@@ -167,6 +168,7 @@ let make ?id ?is_verified ?timeouts ~certificate_content
   let __type = "azurerm_iothub_dps_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_content =
          Prop.computed __type __id "certificate_content";
        id = Prop.computed __type __id "id";

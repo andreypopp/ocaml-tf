@@ -365,6 +365,7 @@ let azurerm_dev_test_schedule ?id ?status ?tags
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   lab_name : string prop;
   location : string prop;
@@ -383,6 +384,7 @@ let make ?id ?status ?tags ?(daily_recurrence = [])
   let __type = "azurerm_dev_test_schedule" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        lab_name = Prop.computed __type __id "lab_name";
        location = Prop.computed __type __id "location";

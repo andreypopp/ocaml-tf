@@ -57,6 +57,7 @@ let aws_grafana_workspace ?id ?tags ~workspace_id () :
   { id; tags; workspace_id }
 
 type t = {
+  tf_name : string;
   account_access_type : string prop;
   arn : string prop;
   authentication_providers : string list prop;
@@ -84,6 +85,7 @@ let make ?id ?tags ~workspace_id __id =
   let __type = "aws_grafana_workspace" in
   let __attrs =
     ({
+       tf_name = __id;
        account_access_type =
          Prop.computed __type __id "account_access_type";
        arn = Prop.computed __type __id "arn";

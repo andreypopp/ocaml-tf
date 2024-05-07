@@ -34,6 +34,7 @@ val yojson_of_azurerm_batch_application :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_name : string prop;
   allow_updates : bool prop;
   default_version : string prop;

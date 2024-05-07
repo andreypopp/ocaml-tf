@@ -166,6 +166,7 @@ let azurerm_api_management_api_operation_policy ?id ?xml_content
   }
 
 type t = {
+  tf_name : string;
   api_management_name : string prop;
   api_name : string prop;
   id : string prop;
@@ -180,6 +181,7 @@ let make ?id ?xml_content ?xml_link ?timeouts ~api_management_name
   let __type = "azurerm_api_management_api_operation_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        api_management_name =
          Prop.computed __type __id "api_management_name";
        api_name = Prop.computed __type __id "api_name";

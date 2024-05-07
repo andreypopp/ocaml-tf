@@ -85,6 +85,7 @@ let azurerm_web_pubsub ?id ?timeouts ~name ~resource_group_name () :
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   aad_auth_enabled : bool prop;
   capacity : float prop;
   external_ip : string prop;
@@ -111,6 +112,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_web_pubsub" in
   let __attrs =
     ({
+       tf_name = __id;
        aad_auth_enabled =
          Prop.computed __type __id "aad_auth_enabled";
        capacity = Prop.computed __type __id "capacity";

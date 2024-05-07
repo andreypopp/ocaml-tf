@@ -148,6 +148,7 @@ let google_compute_region_instance_group ?id ?name ?project ?region
   { id; name; project; region; self_link }
 
 type t = {
+  tf_name : string;
   id : string prop;
   instances : instances list prop;
   name : string prop;
@@ -161,6 +162,7 @@ let make ?id ?name ?project ?region ?self_link __id =
   let __type = "google_compute_region_instance_group" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        instances = Prop.computed __type __id "instances";
        name = Prop.computed __type __id "name";

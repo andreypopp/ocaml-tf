@@ -118,6 +118,7 @@ val yojson_of_aws_appsync_datasource : aws_appsync_datasource -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_id : string prop;
   arn : string prop;
   description : string prop;

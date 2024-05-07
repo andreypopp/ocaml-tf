@@ -38,6 +38,7 @@ val yojson_of_azurerm_spring_cloud_dynatrace_application_performance_monitoring 
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_token : string prop;
   api_url : string prop;
   connection_point : string prop;

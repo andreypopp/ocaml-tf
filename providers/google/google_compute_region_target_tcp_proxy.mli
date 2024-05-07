@@ -30,6 +30,7 @@ val yojson_of_google_compute_region_target_tcp_proxy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backend_service : string prop;
   creation_timestamp : string prop;
   description : string prop;

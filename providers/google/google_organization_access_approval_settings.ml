@@ -181,6 +181,7 @@ let google_organization_access_approval_settings ?active_key_version
   }
 
 type t = {
+  tf_name : string;
   active_key_version : string prop;
   ancestor_has_active_key_version : bool prop;
   enrolled_ancestor : bool prop;
@@ -196,6 +197,7 @@ let make ?active_key_version ?id ?notification_emails ?timeouts
   let __type = "google_organization_access_approval_settings" in
   let __attrs =
     ({
+       tf_name = __id;
        active_key_version =
          Prop.computed __type __id "active_key_version";
        ancestor_has_active_key_version =

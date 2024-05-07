@@ -22,7 +22,11 @@ val yojson_of_aws_licensemanager_received_licenses :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { arns : string list prop; id : string prop }
+type t = private {
+  tf_name : string;
+  arns : string list prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

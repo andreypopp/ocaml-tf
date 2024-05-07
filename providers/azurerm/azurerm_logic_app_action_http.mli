@@ -44,6 +44,7 @@ val yojson_of_azurerm_logic_app_action_http :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   body : string prop;
   headers : (string * string) list prop;
   id : string prop;

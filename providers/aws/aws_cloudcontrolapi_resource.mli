@@ -32,6 +32,7 @@ val yojson_of_aws_cloudcontrolapi_resource :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   desired_state : string prop;
   id : string prop;
   properties : string prop;

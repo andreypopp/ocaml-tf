@@ -26,6 +26,7 @@ val yojson_of_kubernetes_config_map_v1_data :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   data : (string * string) list prop;
   field_manager : string prop;
   force : bool prop;

@@ -48,6 +48,7 @@ val yojson_of_cloudflare_certificate_pack :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_authority : string prop;
   cloudflare_branding : bool prop;
   hosts : string list prop;

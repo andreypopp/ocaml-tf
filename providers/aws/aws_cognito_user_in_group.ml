@@ -55,6 +55,7 @@ let aws_cognito_user_in_group ?id ~group_name ~user_pool_id ~username
   { group_name; id; user_pool_id; username }
 
 type t = {
+  tf_name : string;
   group_name : string prop;
   id : string prop;
   user_pool_id : string prop;
@@ -65,6 +66,7 @@ let make ?id ~group_name ~user_pool_id ~username __id =
   let __type = "aws_cognito_user_in_group" in
   let __attrs =
     ({
+       tf_name = __id;
        group_name = Prop.computed __type __id "group_name";
        id = Prop.computed __type __id "id";
        user_pool_id = Prop.computed __type __id "user_pool_id";

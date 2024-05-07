@@ -38,6 +38,7 @@ val yojson_of_azurerm_arc_kubernetes_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   agent_public_key_certificate : string prop;
   agent_version : string prop;
   distribution : string prop;

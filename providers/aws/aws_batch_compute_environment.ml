@@ -562,6 +562,7 @@ let aws_batch_compute_environment ?compute_environment_name
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   compute_environment_name : string prop;
   compute_environment_name_prefix : string prop;
@@ -583,6 +584,7 @@ let make ?compute_environment_name ?compute_environment_name_prefix
   let __type = "aws_batch_compute_environment" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        compute_environment_name =
          Prop.computed __type __id "compute_environment_name";

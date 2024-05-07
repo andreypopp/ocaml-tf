@@ -103,6 +103,7 @@ let google_public_ca_external_account_key ?id ?location ?project
   { id; location; project; timeouts }
 
 type t = {
+  tf_name : string;
   b64_mac_key : string prop;
   id : string prop;
   key_id : string prop;
@@ -115,6 +116,7 @@ let make ?id ?location ?project ?timeouts __id =
   let __type = "google_public_ca_external_account_key" in
   let __attrs =
     ({
+       tf_name = __id;
        b64_mac_key = Prop.computed __type __id "b64_mac_key";
        id = Prop.computed __type __id "id";
        key_id = Prop.computed __type __id "key_id";

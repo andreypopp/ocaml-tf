@@ -207,6 +207,7 @@ let aws_directory_service_region
   }
 
 type t = {
+  tf_name : string;
   desired_number_of_domain_controllers : float prop;
   directory_id : string prop;
   id : string prop;
@@ -220,6 +221,7 @@ let make ?desired_number_of_domain_controllers ?id ?tags ?tags_all
   let __type = "aws_directory_service_region" in
   let __attrs =
     ({
+       tf_name = __id;
        desired_number_of_domain_controllers =
          Prop.computed __type __id
            "desired_number_of_domain_controllers";

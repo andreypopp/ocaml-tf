@@ -241,6 +241,7 @@ let azurerm_spring_cloud_app_dynamics_application_performance_monitoring
   }
 
 type t = {
+  tf_name : string;
   agent_account_access_key : string prop;
   agent_account_name : string prop;
   agent_application_name : string prop;
@@ -266,6 +267,7 @@ let make ?agent_application_name ?agent_node_name ?agent_tier_name
   in
   let __attrs =
     ({
+       tf_name = __id;
        agent_account_access_key =
          Prop.computed __type __id "agent_account_access_key";
        agent_account_name =

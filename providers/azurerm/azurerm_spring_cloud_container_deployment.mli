@@ -44,6 +44,7 @@ val yojson_of_azurerm_spring_cloud_container_deployment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   addon_json : string prop;
   application_performance_monitoring_ids : string list prop;
   arguments : string list prop;

@@ -25,6 +25,7 @@ val yojson_of_cloudflare_dlp_datasets :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   datasets : datasets list prop;
 }

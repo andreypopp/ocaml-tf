@@ -41,6 +41,7 @@ val yojson_of_azurerm_spring_cloud_new_relic_application_performance_monitoring 
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   agent_enabled : bool prop;
   app_name : string prop;
   app_server_port : float prop;

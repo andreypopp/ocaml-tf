@@ -37,6 +37,7 @@ val yojson_of_azurerm_databricks_workspace :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   managed_disk_identity : managed_disk_identity list prop;

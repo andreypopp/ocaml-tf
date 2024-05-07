@@ -138,6 +138,7 @@ val yojson_of_google_workbench_instance : google_workbench_instance -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name: string;
   create_time: string prop;
   creator: string prop;
   desired_state: string prop;

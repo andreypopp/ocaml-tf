@@ -228,6 +228,7 @@ let azurerm_logic_app_action_http ?body ?headers ?id ?queries
   }
 
 type t = {
+  tf_name : string;
   body : string prop;
   headers : (string * string) list prop;
   id : string prop;
@@ -243,6 +244,7 @@ let make ?body ?headers ?id ?queries ?timeouts ~logic_app_id ~method_
   let __type = "azurerm_logic_app_action_http" in
   let __attrs =
     ({
+       tf_name = __id;
        body = Prop.computed __type __id "body";
        headers = Prop.computed __type __id "headers";
        id = Prop.computed __type __id "id";

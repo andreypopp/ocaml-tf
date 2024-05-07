@@ -403,6 +403,7 @@ let aws_quicksight_data_source ?aws_account_id ?id ?tags ?tags_all ?(credentials
   } : aws_quicksight_data_source);;
 
 type t = {
+  tf_name: string;
   arn: string prop;
   aws_account_id: string prop;
   data_source_id: string prop;
@@ -416,6 +417,7 @@ type t = {
 let make ?aws_account_id ?id ?tags ?tags_all ?(credentials=[]) ?(ssl_properties=[]) ?(vpc_connection_properties=[]) ~data_source_id ~name ~type_ ~parameters ~permission __id =
   let __type = "aws_quicksight_data_source" in
   let __attrs = ({
+    tf_name = __id;
     arn = Prop.computed __type __id "arn";
     aws_account_id = Prop.computed __type __id "aws_account_id";
     data_source_id = Prop.computed __type __id "data_source_id";

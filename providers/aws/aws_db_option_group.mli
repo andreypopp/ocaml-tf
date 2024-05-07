@@ -49,6 +49,7 @@ val yojson_of_aws_db_option_group : aws_db_option_group -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   engine_name : string prop;
   id : string prop;

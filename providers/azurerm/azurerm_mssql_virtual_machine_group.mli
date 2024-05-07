@@ -49,6 +49,7 @@ val yojson_of_azurerm_mssql_virtual_machine_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

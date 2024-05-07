@@ -161,6 +161,7 @@ let aws_servicecatalog_constraint ?accept_language ?description ?id
   }
 
 type t = {
+  tf_name : string;
   accept_language : string prop;
   description : string prop;
   id : string prop;
@@ -177,6 +178,7 @@ let make ?accept_language ?description ?id ?timeouts ~parameters
   let __type = "aws_servicecatalog_constraint" in
   let __attrs =
     ({
+       tf_name = __id;
        accept_language = Prop.computed __type __id "accept_language";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

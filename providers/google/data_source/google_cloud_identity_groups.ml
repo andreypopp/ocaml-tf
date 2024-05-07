@@ -195,6 +195,7 @@ let google_cloud_identity_groups ?id ~parent () :
   { id; parent }
 
 type t = {
+  tf_name : string;
   groups : groups list prop;
   id : string prop;
   parent : string prop;
@@ -204,6 +205,7 @@ let make ?id ~parent __id =
   let __type = "google_cloud_identity_groups" in
   let __attrs =
     ({
+       tf_name = __id;
        groups = Prop.computed __type __id "groups";
        id = Prop.computed __type __id "id";
        parent = Prop.computed __type __id "parent";

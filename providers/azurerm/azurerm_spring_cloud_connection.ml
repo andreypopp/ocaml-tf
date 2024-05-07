@@ -299,6 +299,7 @@ let azurerm_spring_cloud_connection ?client_type ?id ?vnet_solution
   }
 
 type t = {
+  tf_name : string;
   client_type : string prop;
   id : string prop;
   name : string prop;
@@ -313,6 +314,7 @@ let make ?client_type ?id ?vnet_solution ?(secret_store = [])
   let __type = "azurerm_spring_cloud_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        client_type = Prop.computed __type __id "client_type";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

@@ -170,6 +170,7 @@ let azurerm_api_management_redis_cache ?cache_location ?description
   }
 
 type t = {
+  tf_name : string;
   api_management_id : string prop;
   cache_location : string prop;
   connection_string : string prop;
@@ -184,6 +185,7 @@ let make ?cache_location ?description ?id ?redis_cache_id ?timeouts
   let __type = "azurerm_api_management_redis_cache" in
   let __attrs =
     ({
+       tf_name = __id;
        api_management_id =
          Prop.computed __type __id "api_management_id";
        cache_location = Prop.computed __type __id "cache_location";

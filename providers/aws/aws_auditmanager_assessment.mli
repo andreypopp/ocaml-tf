@@ -59,6 +59,7 @@ val yojson_of_aws_auditmanager_assessment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   framework_id : string prop;

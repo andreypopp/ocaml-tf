@@ -26,6 +26,7 @@ val yojson_of_aws_route53_resolver_firewall_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action : string prop;
   block_override_dns_type : string prop;
   block_override_domain : string prop;

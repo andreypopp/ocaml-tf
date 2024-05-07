@@ -43,7 +43,11 @@ val yojson_of_digitalocean_sizes : digitalocean_sizes -> json
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; sizes : sizes list prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  sizes : sizes list prop;
+}
 
 val register :
   ?tf_module:tf_module ->

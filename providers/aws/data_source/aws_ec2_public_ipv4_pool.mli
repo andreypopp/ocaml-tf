@@ -27,6 +27,7 @@ val yojson_of_aws_ec2_public_ipv4_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   network_border_group : string prop;

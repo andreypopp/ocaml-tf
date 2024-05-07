@@ -34,7 +34,11 @@ val yojson_of_aws_cloudfront_monitoring_subscription :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { distribution_id : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  distribution_id : string prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

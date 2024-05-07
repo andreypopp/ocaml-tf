@@ -24,6 +24,7 @@ val yojson_of_aws_servicecatalog_portfolio :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   accept_language : string prop;
   arn : string prop;
   created_time : string prop;

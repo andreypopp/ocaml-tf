@@ -623,6 +623,7 @@ let google_datastream_connection_profile ?id ?labels ?project
   }
 
 type t = {
+  tf_name : string;
   connection_profile_id : string prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;
@@ -642,6 +643,7 @@ let make ?id ?labels ?project ?(bigquery_profile = [])
   let __type = "google_datastream_connection_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        connection_profile_id =
          Prop.computed __type __id "connection_profile_id";
        display_name = Prop.computed __type __id "display_name";

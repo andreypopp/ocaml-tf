@@ -19,6 +19,7 @@ val yojson_of_aws_elasticache_user_group_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   user_group_id : string prop;
   user_id : string prop;

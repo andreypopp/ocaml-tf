@@ -229,6 +229,7 @@ let google_compute_target_https_proxy
   }
 
 type t = {
+  tf_name : string;
   certificate_manager_certificates : string list prop;
   certificate_map : string prop;
   creation_timestamp : string prop;
@@ -254,6 +255,7 @@ let make ?certificate_manager_certificates ?certificate_map
   let __type = "google_compute_target_https_proxy" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_manager_certificates =
          Prop.computed __type __id "certificate_manager_certificates";
        certificate_map = Prop.computed __type __id "certificate_map";

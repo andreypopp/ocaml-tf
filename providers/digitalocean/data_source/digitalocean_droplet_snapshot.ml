@@ -78,6 +78,7 @@ let digitalocean_droplet_snapshot ?id ?most_recent ?name ?name_regex
   { id; most_recent; name; name_regex; region }
 
 type t = {
+  tf_name : string;
   created_at : string prop;
   droplet_id : string prop;
   id : string prop;
@@ -94,6 +95,7 @@ let make ?id ?most_recent ?name ?name_regex ?region __id =
   let __type = "digitalocean_droplet_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        created_at = Prop.computed __type __id "created_at";
        droplet_id = Prop.computed __type __id "droplet_id";
        id = Prop.computed __type __id "id";

@@ -85,6 +85,7 @@ let aws_iam_policy_attachment ?groups ?id ?roles ?users ~name
   { groups; id; name; policy_arn; roles; users }
 
 type t = {
+  tf_name : string;
   groups : string list prop;
   id : string prop;
   name : string prop;
@@ -97,6 +98,7 @@ let make ?groups ?id ?roles ?users ~name ~policy_arn __id =
   let __type = "aws_iam_policy_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        groups = Prop.computed __type __id "groups";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

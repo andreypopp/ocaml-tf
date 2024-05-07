@@ -293,6 +293,7 @@ let google_secret_manager_secret ?id ?project ~secret_id () :
   { id; project; secret_id }
 
 type t = {
+  tf_name : string;
   annotations : (string * string) list prop;
   create_time : string prop;
   effective_annotations : (string * string) list prop;
@@ -315,6 +316,7 @@ let make ?id ?project ~secret_id __id =
   let __type = "google_secret_manager_secret" in
   let __attrs =
     ({
+       tf_name = __id;
        annotations = Prop.computed __type __id "annotations";
        create_time = Prop.computed __type __id "create_time";
        effective_annotations =

@@ -51,6 +51,7 @@ val yojson_of_aws_internetmonitor_monitor :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   max_city_networks_to_monitor : float prop;

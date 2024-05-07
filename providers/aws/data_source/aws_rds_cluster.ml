@@ -101,6 +101,7 @@ let aws_rds_cluster ?id ?tags ~cluster_identifier () :
   { cluster_identifier; id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zones : string list prop;
   backtrack_window : float prop;
@@ -140,6 +141,7 @@ let make ?id ?tags ~cluster_identifier __id =
   let __type = "aws_rds_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zones =
          Prop.computed __type __id "availability_zones";

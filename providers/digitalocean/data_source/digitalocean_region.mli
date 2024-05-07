@@ -14,6 +14,7 @@ val yojson_of_digitalocean_region : digitalocean_region -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   available : bool prop;
   features : string list prop;
   id : string prop;

@@ -216,6 +216,7 @@ val yojson_of_google_sql_database_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   available_maintenance_versions : string list prop;
   clone : clone list prop;
   connection_name : string prop;

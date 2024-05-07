@@ -14,6 +14,7 @@ val yojson_of_aws_ssoadmin_instances : aws_ssoadmin_instances -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arns : string list prop;
   id : string prop;
   identity_store_ids : string list prop;

@@ -32,6 +32,7 @@ val yojson_of_aws_storagegateway_file_system_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   audit_destination_arn : string prop;
   gateway_arn : string prop;

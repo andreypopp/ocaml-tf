@@ -32,6 +32,7 @@ val yojson_of_azurerm_network_function_azure_traffic_collector :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   collector_policy_ids : string list prop;
   id : string prop;
   location : string prop;

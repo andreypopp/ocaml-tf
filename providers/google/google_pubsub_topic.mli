@@ -48,6 +48,7 @@ val yojson_of_google_pubsub_topic : google_pubsub_topic -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   effective_labels : (string * string) list prop;
   id : string prop;
   kms_key_name : string prop;

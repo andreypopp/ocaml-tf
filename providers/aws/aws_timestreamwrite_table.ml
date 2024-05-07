@@ -418,6 +418,7 @@ let aws_timestreamwrite_table ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   database_name : string prop;
   id : string prop;
@@ -432,6 +433,7 @@ let make ?id ?tags ?tags_all ?(magnetic_store_write_properties = [])
   let __type = "aws_timestreamwrite_table" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        database_name = Prop.computed __type __id "database_name";
        id = Prop.computed __type __id "id";

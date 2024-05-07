@@ -212,6 +212,7 @@ let azurerm_virtual_desktop_application ?command_line_arguments
   }
 
 type t = {
+  tf_name : string;
   application_group_id : string prop;
   command_line_argument_policy : string prop;
   command_line_arguments : string prop;
@@ -232,6 +233,7 @@ let make ?command_line_arguments ?description ?friendly_name
   let __type = "azurerm_virtual_desktop_application" in
   let __attrs =
     ({
+       tf_name = __id;
        application_group_id =
          Prop.computed __type __id "application_group_id";
        command_line_argument_policy =

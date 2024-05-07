@@ -26,6 +26,7 @@ val yojson_of_google_sql_ca_certs : google_sql_ca_certs -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   active_version : string prop;
   certs : certs list prop;
   id : string prop;

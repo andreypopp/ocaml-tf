@@ -46,6 +46,7 @@ let aws_iot_thing_principal_attachment ?id ~principal ~thing () :
   { id; principal; thing }
 
 type t = {
+  tf_name : string;
   id : string prop;
   principal : string prop;
   thing : string prop;
@@ -55,6 +56,7 @@ let make ?id ~principal ~thing __id =
   let __type = "aws_iot_thing_principal_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        principal = Prop.computed __type __id "principal";
        thing = Prop.computed __type __id "thing";

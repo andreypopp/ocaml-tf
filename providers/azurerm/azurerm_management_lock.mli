@@ -31,6 +31,7 @@ val yojson_of_azurerm_management_lock :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   lock_level : string prop;
   name : string prop;

@@ -179,6 +179,7 @@ let azurerm_log_analytics_saved_search ?function_alias
   }
 
 type t = {
+  tf_name : string;
   category : string prop;
   display_name : string prop;
   function_alias : string prop;
@@ -196,6 +197,7 @@ let make ?function_alias ?function_parameters ?id ?tags ?timeouts
   let __type = "azurerm_log_analytics_saved_search" in
   let __attrs =
     ({
+       tf_name = __id;
        category = Prop.computed __type __id "category";
        display_name = Prop.computed __type __id "display_name";
        function_alias = Prop.computed __type __id "function_alias";

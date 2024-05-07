@@ -348,6 +348,7 @@ let google_compute_node_group ?description ?id ?initial_size
   }
 
 type t = {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   id : string prop;
@@ -368,6 +369,7 @@ let make ?description ?id ?initial_size ?maintenance_policy ?name
   let __type = "google_compute_node_group" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";
        description = Prop.computed __type __id "description";

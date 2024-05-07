@@ -73,12 +73,13 @@ let azurerm_traffic_manager_geographical_location ?id ?timeouts ~name
     () : azurerm_traffic_manager_geographical_location =
   { id; name; timeouts }
 
-type t = { id : string prop; name : string prop }
+type t = { tf_name : string; id : string prop; name : string prop }
 
 let make ?id ?timeouts ~name __id =
   let __type = "azurerm_traffic_manager_geographical_location" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
      }

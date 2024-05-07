@@ -313,6 +313,7 @@ let aws_subnet ?assign_ipv6_address_on_creation ?availability_zone
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   assign_ipv6_address_on_creation : bool prop;
   availability_zone : string prop;
@@ -349,6 +350,7 @@ let make ?assign_ipv6_address_on_creation ?availability_zone
   let __type = "aws_subnet" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        assign_ipv6_address_on_creation =
          Prop.computed __type __id "assign_ipv6_address_on_creation";

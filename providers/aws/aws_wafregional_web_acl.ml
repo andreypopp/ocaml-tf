@@ -371,6 +371,7 @@ let aws_wafregional_web_acl ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   metric_name : string prop;
@@ -384,6 +385,7 @@ let make ?id ?tags ?tags_all ?(logging_configuration = [])
   let __type = "aws_wafregional_web_acl" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        metric_name = Prop.computed __type __id "metric_name";

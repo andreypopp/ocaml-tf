@@ -47,6 +47,7 @@ val yojson_of_google_edgecontainer_node_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster : string prop;
   create_time : string prop;
   effective_labels : (string * string) list prop;

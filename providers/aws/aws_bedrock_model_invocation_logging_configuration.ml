@@ -253,13 +253,15 @@ let aws_bedrock_model_invocation_logging_configuration
     aws_bedrock_model_invocation_logging_configuration =
   { logging_config }
 
-type t = { id : string prop }
+type t = { tf_name : string; id : string prop }
 
 let make ~logging_config __id =
   let __type =
     "aws_bedrock_model_invocation_logging_configuration"
   in
-  let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
+  let __attrs =
+    ({ tf_name = __id; id = Prop.computed __type __id "id" } : t)
+  in
   {
     Tf_core.id = __id;
     type_ = __type;

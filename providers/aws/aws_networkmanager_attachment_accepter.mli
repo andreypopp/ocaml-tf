@@ -24,6 +24,7 @@ val yojson_of_aws_networkmanager_attachment_accepter :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   attachment_id : string prop;
   attachment_policy_rule_number : float prop;
   attachment_type : string prop;

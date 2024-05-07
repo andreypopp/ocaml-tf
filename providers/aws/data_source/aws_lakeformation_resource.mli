@@ -18,6 +18,7 @@ val yojson_of_aws_lakeformation_resource :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   last_modified : string prop;

@@ -30,6 +30,7 @@ val yojson_of_aws_codecatalyst_project :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   id : string prop;

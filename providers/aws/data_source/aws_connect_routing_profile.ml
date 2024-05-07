@@ -167,6 +167,7 @@ let aws_connect_routing_profile ?id ?name ?routing_profile_id ?tags
   { id; instance_id; name; routing_profile_id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   default_outbound_queue_id : string prop;
   description : string prop;
@@ -183,6 +184,7 @@ let make ?id ?name ?routing_profile_id ?tags ~instance_id __id =
   let __type = "aws_connect_routing_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        default_outbound_queue_id =
          Prop.computed __type __id "default_outbound_queue_id";

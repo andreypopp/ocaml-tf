@@ -254,12 +254,13 @@ let kubernetes_token_request_v1 ?id ?(spec = []) ~metadata () :
     kubernetes_token_request_v1 =
   { id; metadata; spec }
 
-type t = { id : string prop; token : string prop }
+type t = { tf_name : string; id : string prop; token : string prop }
 
 let make ?id ?(spec = []) ~metadata __id =
   let __type = "kubernetes_token_request_v1" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        token = Prop.computed __type __id "token";
      }

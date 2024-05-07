@@ -137,6 +137,7 @@ let hcloud_volumes ?id ?with_selector ?with_status () :
   { id; with_selector; with_status }
 
 type t = {
+  tf_name : string;
   id : string prop;
   volumes : volumes list prop;
   with_selector : string prop;
@@ -147,6 +148,7 @@ let make ?id ?with_selector ?with_status __id =
   let __type = "hcloud_volumes" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        volumes = Prop.computed __type __id "volumes";
        with_selector = Prop.computed __type __id "with_selector";

@@ -126,6 +126,7 @@ let aws_shield_protection_group ?id ?members ?resource_type ?tags
   }
 
 type t = {
+  tf_name : string;
   aggregation : string prop;
   id : string prop;
   members : string list prop;
@@ -142,6 +143,7 @@ let make ?id ?members ?resource_type ?tags ?tags_all ~aggregation
   let __type = "aws_shield_protection_group" in
   let __attrs =
     ({
+       tf_name = __id;
        aggregation = Prop.computed __type __id "aggregation";
        id = Prop.computed __type __id "id";
        members = Prop.computed __type __id "members";

@@ -130,6 +130,7 @@ let azurerm_private_dns_resolver_inbound_endpoint ?id ?timeouts ~name
   { id; name; private_dns_resolver_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   ip_configurations : ip_configurations list prop;
   location : string prop;
@@ -142,6 +143,7 @@ let make ?id ?timeouts ~name ~private_dns_resolver_id __id =
   let __type = "azurerm_private_dns_resolver_inbound_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ip_configurations =
          Prop.computed __type __id "ip_configurations";

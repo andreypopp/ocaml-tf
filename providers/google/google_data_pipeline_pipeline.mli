@@ -151,6 +151,7 @@ val yojson_of_google_data_pipeline_pipeline :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   display_name : string prop;
   id : string prop;

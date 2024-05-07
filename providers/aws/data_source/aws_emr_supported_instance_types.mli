@@ -21,7 +21,11 @@ val yojson_of_aws_emr_supported_instance_types :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; release_label : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  release_label : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

@@ -28,6 +28,7 @@ val yojson_of_google_container_azure_client :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_id : string prop;
   certificate : string prop;
   create_time : string prop;

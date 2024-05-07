@@ -24,6 +24,7 @@ val yojson_of_azurerm_virtual_desktop_application_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   friendly_name : string prop;
   host_pool_id : string prop;

@@ -47,6 +47,7 @@ let google_scc_source_iam_policy ?id ~organization ~source () :
   { id; organization; source }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   organization : string prop;
@@ -58,6 +59,7 @@ let make ?id ~organization ~source __id =
   let __type = "google_scc_source_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        organization = Prop.computed __type __id "organization";

@@ -36,6 +36,7 @@ val yojson_of_google_firestore_database :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_engine_integration_mode : string prop;
   concurrency_mode : string prop;
   create_time : string prop;

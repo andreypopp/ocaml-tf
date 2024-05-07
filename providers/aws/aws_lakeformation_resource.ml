@@ -91,6 +91,7 @@ let aws_lakeformation_resource ?hybrid_access_enabled ?id ?role_arn
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   hybrid_access_enabled : bool prop;
   id : string prop;
@@ -105,6 +106,7 @@ let make ?hybrid_access_enabled ?id ?role_arn
   let __type = "aws_lakeformation_resource" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        hybrid_access_enabled =
          Prop.computed __type __id "hybrid_access_enabled";

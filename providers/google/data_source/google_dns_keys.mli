@@ -54,6 +54,7 @@ val yojson_of_google_dns_keys : google_dns_keys -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   key_signing_keys : key_signing_keys list prop;
   managed_zone : string prop;

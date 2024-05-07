@@ -40,6 +40,7 @@ val yojson_of_aws_route53_resolver_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   direction : string prop;
   host_vpc_id : string prop;

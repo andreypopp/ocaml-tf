@@ -155,6 +155,7 @@ let azurerm_static_web_app ?id ?timeouts ~name ~resource_group_name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   api_key : string prop;
   app_settings : (string * string) list prop;
   basic_auth : basic_auth list prop;
@@ -175,6 +176,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_static_web_app" in
   let __attrs =
     ({
+       tf_name = __id;
        api_key = Prop.computed __type __id "api_key";
        app_settings = Prop.computed __type __id "app_settings";
        basic_auth = Prop.computed __type __id "basic_auth";

@@ -230,12 +230,17 @@ let cloudflare_load_balancer_pools ?id ?(filter = []) ?(pools = [])
     ~account_id () : cloudflare_load_balancer_pools =
   { account_id; id; filter; pools }
 
-type t = { account_id : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  account_id : string prop;
+  id : string prop;
+}
 
 let make ?id ?(filter = []) ?(pools = []) ~account_id __id =
   let __type = "cloudflare_load_balancer_pools" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
      }

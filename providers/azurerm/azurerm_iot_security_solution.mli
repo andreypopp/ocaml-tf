@@ -73,6 +73,7 @@ val yojson_of_azurerm_iot_security_solution :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   disabled_data_sources : string list prop;
   display_name : string prop;
   enabled : bool prop;

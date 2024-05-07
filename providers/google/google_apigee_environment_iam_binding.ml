@@ -116,6 +116,7 @@ let google_apigee_environment_iam_binding ?id ?(condition = [])
   { env_id; id; members; org_id; role; condition }
 
 type t = {
+  tf_name : string;
   env_id : string prop;
   etag : string prop;
   id : string prop;
@@ -128,6 +129,7 @@ let make ?id ?(condition = []) ~env_id ~members ~org_id ~role __id =
   let __type = "google_apigee_environment_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        env_id = Prop.computed __type __id "env_id";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

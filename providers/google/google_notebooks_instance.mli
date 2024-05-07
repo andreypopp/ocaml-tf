@@ -103,6 +103,7 @@ val yojson_of_google_notebooks_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   boot_disk_size_gb : float prop;
   boot_disk_type : string prop;
   create_time : string prop;

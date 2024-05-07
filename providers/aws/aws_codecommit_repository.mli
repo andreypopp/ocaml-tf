@@ -23,6 +23,7 @@ val yojson_of_aws_codecommit_repository :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   clone_url_http : string prop;
   clone_url_ssh : string prop;

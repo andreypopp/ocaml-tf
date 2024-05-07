@@ -107,6 +107,7 @@ let cloudflare_firewall_rule ?description ?id ?paused ?priority
   }
 
 type t = {
+  tf_name : string;
   action : string prop;
   description : string prop;
   filter_id : string prop;
@@ -122,6 +123,7 @@ let make ?description ?id ?paused ?priority ?products ~action
   let __type = "cloudflare_firewall_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        description = Prop.computed __type __id "description";
        filter_id = Prop.computed __type __id "filter_id";

@@ -281,6 +281,7 @@ let google_apigee_organization ?analytics_region ?authorized_network
   }
 
 type t = {
+  tf_name : string;
   analytics_region : string prop;
   apigee_project_id : string prop;
   authorized_network : string prop;
@@ -305,6 +306,7 @@ let make ?analytics_region ?authorized_network ?billing_type
   let __type = "google_apigee_organization" in
   let __attrs =
     ({
+       tf_name = __id;
        analytics_region =
          Prop.computed __type __id "analytics_region";
        apigee_project_id =

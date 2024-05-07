@@ -340,6 +340,7 @@ let digitalocean_firewall ?droplet_ids ?id ?tags ~name ~inbound_rule
   { droplet_ids; id; name; tags; inbound_rule; outbound_rule }
 
 type t = {
+  tf_name : string;
   created_at : string prop;
   droplet_ids : float list prop;
   id : string prop;
@@ -354,6 +355,7 @@ let make ?droplet_ids ?id ?tags ~name ~inbound_rule ~outbound_rule
   let __type = "digitalocean_firewall" in
   let __attrs =
     ({
+       tf_name = __id;
        created_at = Prop.computed __type __id "created_at";
        droplet_ids = Prop.computed __type __id "droplet_ids";
        id = Prop.computed __type __id "id";

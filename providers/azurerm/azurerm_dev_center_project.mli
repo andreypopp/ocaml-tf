@@ -35,6 +35,7 @@ val yojson_of_azurerm_dev_center_project :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   dev_center_id : string prop;
   dev_center_uri : string prop;

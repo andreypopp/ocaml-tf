@@ -31,6 +31,7 @@ val yojson_of_azurerm_dns_srv_record : azurerm_dns_srv_record -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   fqdn : string prop;
   id : string prop;
   name : string prop;

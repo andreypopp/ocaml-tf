@@ -21,6 +21,7 @@ val yojson_of_azurerm_client_config : azurerm_client_config -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   client_id : string prop;
   id : string prop;
   object_id : string prop;

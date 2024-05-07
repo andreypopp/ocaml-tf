@@ -82,6 +82,7 @@ val yojson_of_azurerm_virtual_network_gateway_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authorization_key : string prop;
   connection_mode : string prop;
   connection_protocol : string prop;

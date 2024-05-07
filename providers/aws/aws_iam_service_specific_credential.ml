@@ -60,6 +60,7 @@ let aws_iam_service_specific_credential ?id ?status ~service_name
   { id; service_name; status; user_name }
 
 type t = {
+  tf_name : string;
   id : string prop;
   service_name : string prop;
   service_password : string prop;
@@ -73,6 +74,7 @@ let make ?id ?status ~service_name ~user_name __id =
   let __type = "aws_iam_service_specific_credential" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        service_name = Prop.computed __type __id "service_name";
        service_password =

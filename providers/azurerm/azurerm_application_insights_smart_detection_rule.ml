@@ -166,6 +166,7 @@ let azurerm_application_insights_smart_detection_rule
   }
 
 type t = {
+  tf_name : string;
   additional_email_recipients : string list prop;
   application_insights_id : string prop;
   enabled : bool prop;
@@ -180,6 +181,7 @@ let make ?additional_email_recipients ?enabled ?id
   let __type = "azurerm_application_insights_smart_detection_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        additional_email_recipients =
          Prop.computed __type __id "additional_email_recipients";
        application_insights_id =

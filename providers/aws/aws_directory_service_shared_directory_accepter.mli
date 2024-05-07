@@ -24,6 +24,7 @@ val yojson_of_aws_directory_service_shared_directory_accepter :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   method_ : string prop;
   notes : string prop;

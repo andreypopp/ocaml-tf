@@ -142,6 +142,7 @@ let google_netapp_backup_vault ?description ?id ?labels ?project
   { description; id; labels; location; name; project; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   effective_labels : (string * string) list prop;
@@ -159,6 +160,7 @@ let make ?description ?id ?labels ?project ?timeouts ~location ~name
   let __type = "google_netapp_backup_vault" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        effective_labels =

@@ -64,6 +64,7 @@ val yojson_of_aws_iam_policy_document :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   json : string prop;
   override_json : string prop;

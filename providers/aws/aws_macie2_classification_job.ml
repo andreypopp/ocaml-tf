@@ -1469,6 +1469,7 @@ let aws_macie2_classification_job ?custom_data_identifier_ids
   }
 
 type t = {
+  tf_name : string;
   created_at : string prop;
   custom_data_identifier_ids : string list prop;
   description : string prop;
@@ -1493,6 +1494,7 @@ let make ?custom_data_identifier_ids ?description ?id ?initial_run
   let __type = "aws_macie2_classification_job" in
   let __attrs =
     ({
+       tf_name = __id;
        created_at = Prop.computed __type __id "created_at";
        custom_data_identifier_ids =
          Prop.computed __type __id "custom_data_identifier_ids";

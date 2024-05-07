@@ -378,6 +378,7 @@ let azurerm_gallery_application_version ?config_file
   }
 
 type t = {
+  tf_name : string;
   config_file : string prop;
   enable_health_check : bool prop;
   end_of_life_date : string prop;
@@ -397,6 +398,7 @@ let make ?config_file ?enable_health_check ?end_of_life_date
   let __type = "azurerm_gallery_application_version" in
   let __attrs =
     ({
+       tf_name = __id;
        config_file = Prop.computed __type __id "config_file";
        enable_health_check =
          Prop.computed __type __id "enable_health_check";

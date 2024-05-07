@@ -277,6 +277,7 @@ let aws_connect_quick_connect ?description ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -292,6 +293,7 @@ let make ?description ?id ?tags ?tags_all ~instance_id ~name
   let __type = "aws_connect_quick_connect" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

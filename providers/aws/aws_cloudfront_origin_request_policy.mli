@@ -63,6 +63,7 @@ val yojson_of_aws_cloudfront_origin_request_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   comment : string prop;
   etag : string prop;
   id : string prop;

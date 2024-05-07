@@ -43,6 +43,7 @@ let google_project ?id ?project_id () : google_project =
   { id; project_id }
 
 type t = {
+  tf_name : string;
   auto_create_network : bool prop;
   billing_account : string prop;
   effective_labels : (string * string) list prop;
@@ -61,6 +62,7 @@ let make ?id ?project_id __id =
   let __type = "google_project" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_create_network =
          Prop.computed __type __id "auto_create_network";
        billing_account = Prop.computed __type __id "billing_account";

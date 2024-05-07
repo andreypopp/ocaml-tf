@@ -158,6 +158,7 @@ val yojson_of_google_privateca_certificate_template :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   effective_labels : (string * string) list prop;

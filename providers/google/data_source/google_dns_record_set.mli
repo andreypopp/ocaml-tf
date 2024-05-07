@@ -21,6 +21,7 @@ val yojson_of_google_dns_record_set : google_dns_record_set -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   managed_zone : string prop;
   name : string prop;

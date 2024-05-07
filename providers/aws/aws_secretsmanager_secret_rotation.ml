@@ -133,6 +133,7 @@ let aws_secretsmanager_secret_rotation ?id ?rotate_immediately
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   rotate_immediately : bool prop;
   rotation_enabled : bool prop;
@@ -145,6 +146,7 @@ let make ?id ?rotate_immediately ?rotation_lambda_arn ~secret_id
   let __type = "aws_secretsmanager_secret_rotation" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        rotate_immediately =
          Prop.computed __type __id "rotate_immediately";

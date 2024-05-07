@@ -19,6 +19,7 @@ val yojson_of_aws_lightsail_lb_certificate_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_name : string prop;
   id : string prop;
   lb_name : string prop;

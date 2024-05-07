@@ -72,6 +72,7 @@ val yojson_of_aws_guardduty_detector : aws_guardduty_detector -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   arn : string prop;
   enable : bool prop;

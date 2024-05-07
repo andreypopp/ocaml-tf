@@ -219,6 +219,7 @@ let google_container_analysis_occurrence ?id ?project ?remediation
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   id : string prop;
   kind : string prop;
@@ -235,6 +236,7 @@ let make ?id ?project ?remediation ?timeouts ~note_name ~resource_uri
   let __type = "google_container_analysis_occurrence" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        id = Prop.computed __type __id "id";
        kind = Prop.computed __type __id "kind";

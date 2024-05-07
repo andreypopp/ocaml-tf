@@ -80,6 +80,7 @@ let aws_route53_resolver_firewall_rule_group ?id ?tags ?tags_all
   { id; name; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;
@@ -93,6 +94,7 @@ let make ?id ?tags ?tags_all ~name __id =
   let __type = "aws_route53_resolver_firewall_rule_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

@@ -94,6 +94,7 @@ let aws_vpc_ipam_pool_cidr_allocation ?cidr ?description
   }
 
 type t = {
+  tf_name : string;
   cidr : string prop;
   description : string prop;
   disallowed_cidrs : string list prop;
@@ -111,6 +112,7 @@ let make ?cidr ?description ?disallowed_cidrs ?id ?netmask_length
   let __type = "aws_vpc_ipam_pool_cidr_allocation" in
   let __attrs =
     ({
+       tf_name = __id;
        cidr = Prop.computed __type __id "cidr";
        description = Prop.computed __type __id "description";
        disallowed_cidrs =

@@ -2090,6 +2090,7 @@ let azurerm_app_service ?app_settings ?client_affinity_enabled
   }
 
 type t = {
+  tf_name : string;
   app_service_plan_id : string prop;
   app_settings : (string * string) list prop;
   client_affinity_enabled : bool prop;
@@ -2122,6 +2123,7 @@ let make ?app_settings ?client_affinity_enabled ?client_cert_enabled
   let __type = "azurerm_app_service" in
   let __attrs =
     ({
+       tf_name = __id;
        app_service_plan_id =
          Prop.computed __type __id "app_service_plan_id";
        app_settings = Prop.computed __type __id "app_settings";

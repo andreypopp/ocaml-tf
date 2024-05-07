@@ -89,6 +89,7 @@ let azurerm_billing_enrollment_account_scope ?id ?timeouts
   { billing_account_name; enrollment_account_name; id; timeouts }
 
 type t = {
+  tf_name : string;
   billing_account_name : string prop;
   enrollment_account_name : string prop;
   id : string prop;
@@ -99,6 +100,7 @@ let make ?id ?timeouts ~billing_account_name ~enrollment_account_name
   let __type = "azurerm_billing_enrollment_account_scope" in
   let __attrs =
     ({
+       tf_name = __id;
        billing_account_name =
          Prop.computed __type __id "billing_account_name";
        enrollment_account_name =

@@ -122,6 +122,7 @@ let google_scc_mute_config ?description ?id ?timeouts ~filter
   { description; filter; id; mute_config_id; parent; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   filter : string prop;
@@ -138,6 +139,7 @@ let make ?description ?id ?timeouts ~filter ~mute_config_id ~parent
   let __type = "google_scc_mute_config" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        filter = Prop.computed __type __id "filter";

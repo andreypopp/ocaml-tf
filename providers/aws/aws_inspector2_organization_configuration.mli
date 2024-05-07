@@ -38,6 +38,7 @@ val yojson_of_aws_inspector2_organization_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   max_account_limit_reached : bool prop;
 }

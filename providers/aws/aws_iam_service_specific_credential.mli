@@ -20,6 +20,7 @@ val yojson_of_aws_iam_service_specific_credential :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   service_name : string prop;
   service_password : string prop;

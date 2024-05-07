@@ -126,6 +126,7 @@ let aws_route53recoveryreadiness_cell ?cells ?id ?tags ?tags_all
   { cell_name; cells; id; tags; tags_all; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cell_name : string prop;
   cells : string list prop;
@@ -139,6 +140,7 @@ let make ?cells ?id ?tags ?tags_all ?timeouts ~cell_name __id =
   let __type = "aws_route53recoveryreadiness_cell" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cell_name = Prop.computed __type __id "cell_name";
        cells = Prop.computed __type __id "cells";

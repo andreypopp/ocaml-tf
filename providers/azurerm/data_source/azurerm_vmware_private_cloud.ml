@@ -176,6 +176,7 @@ let azurerm_vmware_private_cloud ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   circuit : circuit list prop;
   hcx_cloud_manager_endpoint : string prop;
   id : string prop;
@@ -200,6 +201,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_vmware_private_cloud" in
   let __attrs =
     ({
+       tf_name = __id;
        circuit = Prop.computed __type __id "circuit";
        hcx_cloud_manager_endpoint =
          Prop.computed __type __id "hcx_cloud_manager_endpoint";

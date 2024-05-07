@@ -180,6 +180,7 @@ let google_pubsub_lite_subscription ?id ?project ?region ?zone
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   project : string prop;
@@ -193,6 +194,7 @@ let make ?id ?project ?region ?zone ?(delivery_config = []) ?timeouts
   let __type = "google_pubsub_lite_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        project = Prop.computed __type __id "project";

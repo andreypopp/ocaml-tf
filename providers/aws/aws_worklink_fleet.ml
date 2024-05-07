@@ -191,6 +191,7 @@ let aws_worklink_fleet ?audit_stream_arn ?device_ca_certificate
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   audit_stream_arn : string prop;
   company_code : string prop;
@@ -209,6 +210,7 @@ let make ?audit_stream_arn ?device_ca_certificate ?display_name ?id
   let __type = "aws_worklink_fleet" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        audit_stream_arn =
          Prop.computed __type __id "audit_stream_arn";

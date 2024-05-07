@@ -150,6 +150,7 @@ let azurerm_log_analytics_linked_storage_account ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   data_source_type : string prop;
   id : string prop;
   resource_group_name : string prop;
@@ -162,6 +163,7 @@ let make ?id ?timeouts ~data_source_type ~resource_group_name
   let __type = "azurerm_log_analytics_linked_storage_account" in
   let __attrs =
     ({
+       tf_name = __id;
        data_source_type =
          Prop.computed __type __id "data_source_type";
        id = Prop.computed __type __id "id";

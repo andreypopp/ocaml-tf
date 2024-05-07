@@ -50,6 +50,7 @@ val yojson_of_aws_sfn_state_machine : aws_sfn_state_machine -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   creation_date : string prop;
   definition : string prop;

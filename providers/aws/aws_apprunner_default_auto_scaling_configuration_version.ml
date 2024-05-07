@@ -43,6 +43,7 @@ let aws_apprunner_default_auto_scaling_configuration_version
   { auto_scaling_configuration_arn }
 
 type t = {
+  tf_name : string;
   auto_scaling_configuration_arn : string prop;
   id : string prop;
 }
@@ -53,6 +54,7 @@ let make ~auto_scaling_configuration_arn __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        auto_scaling_configuration_arn =
          Prop.computed __type __id "auto_scaling_configuration_arn";
        id = Prop.computed __type __id "id";

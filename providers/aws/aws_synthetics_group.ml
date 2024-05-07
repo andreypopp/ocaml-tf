@@ -79,6 +79,7 @@ let aws_synthetics_group ?id ?tags ?tags_all ~name () :
   { id; name; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   group_id : string prop;
   id : string prop;
@@ -91,6 +92,7 @@ let make ?id ?tags ?tags_all ~name __id =
   let __type = "aws_synthetics_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        group_id = Prop.computed __type __id "group_id";
        id = Prop.computed __type __id "id";

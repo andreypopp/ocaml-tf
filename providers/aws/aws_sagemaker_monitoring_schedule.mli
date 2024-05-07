@@ -37,6 +37,7 @@ val yojson_of_aws_sagemaker_monitoring_schedule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;

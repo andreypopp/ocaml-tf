@@ -573,6 +573,7 @@ let aws_transfer_server ?certificate ?directory_id ?domain
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   certificate : string prop;
   directory_id : string prop;
@@ -607,6 +608,7 @@ let make ?certificate ?directory_id ?domain ?endpoint_type
   let __type = "aws_transfer_server" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        certificate = Prop.computed __type __id "certificate";
        directory_id = Prop.computed __type __id "directory_id";

@@ -118,6 +118,7 @@ let _ = yojson_of_google_projects
 let google_projects ?id ~filter () : google_projects = { filter; id }
 
 type t = {
+  tf_name : string;
   filter : string prop;
   id : string prop;
   projects : projects list prop;
@@ -127,6 +128,7 @@ let make ?id ~filter __id =
   let __type = "google_projects" in
   let __attrs =
     ({
+       tf_name = __id;
        filter = Prop.computed __type __id "filter";
        id = Prop.computed __type __id "id";
        projects = Prop.computed __type __id "projects";

@@ -39,6 +39,7 @@ val yojson_of_digitalocean_monitor_alert :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   compare : string prop;
   description : string prop;
   enabled : bool prop;

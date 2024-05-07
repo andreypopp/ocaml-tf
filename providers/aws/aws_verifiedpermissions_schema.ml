@@ -66,6 +66,7 @@ let aws_verifiedpermissions_schema ~policy_store_id ~definition () :
   { policy_store_id; definition }
 
 type t = {
+  tf_name : string;
   id : string prop;
   namespaces : string list prop;
   policy_store_id : string prop;
@@ -75,6 +76,7 @@ let make ~policy_store_id ~definition __id =
   let __type = "aws_verifiedpermissions_schema" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        namespaces = Prop.computed __type __id "namespaces";
        policy_store_id = Prop.computed __type __id "policy_store_id";

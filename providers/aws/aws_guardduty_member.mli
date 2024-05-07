@@ -28,6 +28,7 @@ val yojson_of_aws_guardduty_member : aws_guardduty_member -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   detector_id : string prop;
   disable_email_notification : bool prop;

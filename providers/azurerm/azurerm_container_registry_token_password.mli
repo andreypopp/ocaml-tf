@@ -39,6 +39,7 @@ val yojson_of_azurerm_container_registry_token_password :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   container_registry_token_id : string prop;
   id : string prop;
 }

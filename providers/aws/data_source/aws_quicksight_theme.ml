@@ -562,6 +562,7 @@ let aws_quicksight_theme ?aws_account_id ?id ?tags ~theme_id () :
   { aws_account_id; id; tags; theme_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   aws_account_id : string prop;
   base_theme_id : string prop;
@@ -582,6 +583,7 @@ let make ?aws_account_id ?id ?tags ~theme_id __id =
   let __type = "aws_quicksight_theme" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        aws_account_id = Prop.computed __type __id "aws_account_id";
        base_theme_id = Prop.computed __type __id "base_theme_id";

@@ -120,6 +120,7 @@ let google_container_analysis_note_iam_binding ?id ?project
   { id; members; note; project; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   members : string list prop;
@@ -132,6 +133,7 @@ let make ?id ?project ?(condition = []) ~members ~note ~role __id =
   let __type = "google_container_analysis_note_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        members = Prop.computed __type __id "members";

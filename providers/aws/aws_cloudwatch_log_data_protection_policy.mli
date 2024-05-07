@@ -19,6 +19,7 @@ val yojson_of_aws_cloudwatch_log_data_protection_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   log_group_name : string prop;
   policy_document : string prop;

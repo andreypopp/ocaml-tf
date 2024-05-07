@@ -29,6 +29,7 @@ val yojson_of_aws_codecommit_trigger : aws_codecommit_trigger -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   configuration_id : string prop;
   id : string prop;
   repository_name : string prop;

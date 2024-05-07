@@ -81,6 +81,7 @@ let cloudflare_authenticated_origin_pulls
   }
 
 type t = {
+  tf_name : string;
   authenticated_origin_pulls_certificate : string prop;
   enabled : bool prop;
   hostname : string prop;
@@ -93,6 +94,7 @@ let make ?authenticated_origin_pulls_certificate ?hostname ?id
   let __type = "cloudflare_authenticated_origin_pulls" in
   let __attrs =
     ({
+       tf_name = __id;
        authenticated_origin_pulls_certificate =
          Prop.computed __type __id
            "authenticated_origin_pulls_certificate";

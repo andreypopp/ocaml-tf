@@ -685,6 +685,7 @@ let azurerm_synapse_workspace ?aad_admin ?azuread_authentication_only
   }
 
 type t = {
+  tf_name : string;
   aad_admin : aad_admin list prop;
   azuread_authentication_only : bool prop;
   compute_subnet_id : string prop;
@@ -719,6 +720,7 @@ let make ?aad_admin ?azuread_authentication_only ?compute_subnet_id
   let __type = "azurerm_synapse_workspace" in
   let __attrs =
     ({
+       tf_name = __id;
        aad_admin = Prop.computed __type __id "aad_admin";
        azuread_authentication_only =
          Prop.computed __type __id "azuread_authentication_only";

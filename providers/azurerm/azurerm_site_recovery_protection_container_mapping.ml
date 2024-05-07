@@ -247,6 +247,7 @@ let azurerm_site_recovery_protection_container_mapping ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   recovery_fabric_name : string prop;
@@ -267,6 +268,7 @@ let make ?id ?(automatic_update = []) ?timeouts ~name
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        recovery_fabric_name =

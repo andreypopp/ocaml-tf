@@ -125,6 +125,7 @@ let aws_efs_mount_target ?id ?ip_address ?security_groups ?timeouts
   }
 
 type t = {
+  tf_name : string;
   availability_zone_id : string prop;
   availability_zone_name : string prop;
   dns_name : string prop;
@@ -144,6 +145,7 @@ let make ?id ?ip_address ?security_groups ?timeouts ~file_system_id
   let __type = "aws_efs_mount_target" in
   let __attrs =
     ({
+       tf_name = __id;
        availability_zone_id =
          Prop.computed __type __id "availability_zone_id";
        availability_zone_name =

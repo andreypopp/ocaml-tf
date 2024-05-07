@@ -122,6 +122,7 @@ let digitalocean_database_user ?id ?mysql_auth_plugin
   { cluster_id; id; mysql_auth_plugin; name; settings }
 
 type t = {
+  tf_name : string;
   access_cert : string prop;
   access_key : string prop;
   cluster_id : string prop;
@@ -137,6 +138,7 @@ let make ?id ?mysql_auth_plugin ?(settings = []) ~cluster_id ~name
   let __type = "digitalocean_database_user" in
   let __attrs =
     ({
+       tf_name = __id;
        access_cert = Prop.computed __type __id "access_cert";
        access_key = Prop.computed __type __id "access_key";
        cluster_id = Prop.computed __type __id "cluster_id";

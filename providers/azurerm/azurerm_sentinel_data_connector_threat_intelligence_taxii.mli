@@ -38,6 +38,7 @@ val yojson_of_azurerm_sentinel_data_connector_threat_intelligence_taxii :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_root_url : string prop;
   collection_id : string prop;
   display_name : string prop;

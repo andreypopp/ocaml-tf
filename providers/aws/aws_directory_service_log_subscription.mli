@@ -19,6 +19,7 @@ val yojson_of_aws_directory_service_log_subscription :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   directory_id : string prop;
   id : string prop;
   log_group_name : string prop;

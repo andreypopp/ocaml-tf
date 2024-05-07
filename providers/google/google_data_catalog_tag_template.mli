@@ -67,6 +67,7 @@ val yojson_of_google_data_catalog_tag_template :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   force_delete : bool prop;
   id : string prop;

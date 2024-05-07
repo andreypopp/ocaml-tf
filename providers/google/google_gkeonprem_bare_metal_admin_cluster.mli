@@ -254,6 +254,7 @@ val yojson_of_google_gkeonprem_bare_metal_admin_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   annotations : (string * string) list prop;
   bare_metal_version : string prop;
   create_time : string prop;

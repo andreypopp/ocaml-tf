@@ -211,6 +211,7 @@ let google_app_engine_domain_mapping ?id ?override_strategy ?project
   }
 
 type t = {
+  tf_name : string;
   domain_name : string prop;
   id : string prop;
   name : string prop;
@@ -224,6 +225,7 @@ let make ?id ?override_strategy ?project ?(ssl_settings = [])
   let __type = "google_app_engine_domain_mapping" in
   let __attrs =
     ({
+       tf_name = __id;
        domain_name = Prop.computed __type __id "domain_name";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

@@ -211,6 +211,7 @@ let azurerm_iot_time_series_insights_event_source_iothub ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   consumer_group_name : string prop;
   environment_id : string prop;
   event_source_resource_id : string prop;
@@ -233,6 +234,7 @@ let make ?id ?tags ?timestamp_property_name ?timeouts
   in
   let __attrs =
     ({
+       tf_name = __id;
        consumer_group_name =
          Prop.computed __type __id "consumer_group_name";
        environment_id = Prop.computed __type __id "environment_id";

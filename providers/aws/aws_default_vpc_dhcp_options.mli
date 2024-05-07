@@ -20,6 +20,7 @@ val yojson_of_aws_default_vpc_dhcp_options :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   domain_name : string prop;
   domain_name_servers : string prop;

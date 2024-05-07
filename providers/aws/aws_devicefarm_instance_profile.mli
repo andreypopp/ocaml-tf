@@ -24,6 +24,7 @@ val yojson_of_aws_devicefarm_instance_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   exclude_app_packages_from_cleanup : string list prop;

@@ -163,6 +163,7 @@ let google_scc_notification_config ?description ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   config_id : string prop;
   description : string prop;
   id : string prop;
@@ -177,6 +178,7 @@ let make ?description ?id ?timeouts ~config_id ~organization
   let __type = "google_scc_notification_config" in
   let __attrs =
     ({
+       tf_name = __id;
        config_id = Prop.computed __type __id "config_id";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

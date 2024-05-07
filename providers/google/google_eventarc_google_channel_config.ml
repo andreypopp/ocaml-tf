@@ -126,6 +126,7 @@ let google_eventarc_google_channel_config ?crypto_key_name ?id
   { crypto_key_name; id; location; name; project; timeouts }
 
 type t = {
+  tf_name : string;
   crypto_key_name : string prop;
   id : string prop;
   location : string prop;
@@ -139,6 +140,7 @@ let make ?crypto_key_name ?id ?project ?timeouts ~location ~name __id
   let __type = "google_eventarc_google_channel_config" in
   let __attrs =
     ({
+       tf_name = __id;
        crypto_key_name = Prop.computed __type __id "crypto_key_name";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

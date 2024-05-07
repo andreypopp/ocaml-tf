@@ -328,6 +328,7 @@ let aws_service_discovery_service ?description ?force_destroy ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   force_destroy : bool prop;
@@ -345,6 +346,7 @@ let make ?description ?force_destroy ?id ?namespace_id ?tags
   let __type = "aws_service_discovery_service" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        force_destroy = Prop.computed __type __id "force_destroy";

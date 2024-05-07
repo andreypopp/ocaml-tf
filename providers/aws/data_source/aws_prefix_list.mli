@@ -29,6 +29,7 @@ val yojson_of_aws_prefix_list : aws_prefix_list -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cidr_blocks : string list prop;
   id : string prop;
   name : string prop;

@@ -339,6 +339,7 @@ let azurerm_vpn_gateway ?bgp_route_translation_for_nat_enabled ?id
   }
 
 type t = {
+  tf_name : string;
   bgp_route_translation_for_nat_enabled : bool prop;
   id : string prop;
   location : string prop;
@@ -357,6 +358,7 @@ let make ?bgp_route_translation_for_nat_enabled ?id
   let __type = "azurerm_vpn_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        bgp_route_translation_for_nat_enabled =
          Prop.computed __type __id
            "bgp_route_translation_for_nat_enabled";

@@ -77,6 +77,7 @@ let aws_pricing_product ?id ~service_code ~filters () :
   { id; service_code; filters }
 
 type t = {
+  tf_name : string;
   id : string prop;
   result : string prop;
   service_code : string prop;
@@ -86,6 +87,7 @@ let make ?id ~service_code ~filters __id =
   let __type = "aws_pricing_product" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        result = Prop.computed __type __id "result";
        service_code = Prop.computed __type __id "service_code";

@@ -1006,6 +1006,7 @@ let azurerm_logic_app_standard ?app_settings ?bundle_version
   }
 
 type t = {
+  tf_name : string;
   app_service_plan_id : string prop;
   app_settings : (string * string) list prop;
   bundle_version : string prop;
@@ -1042,6 +1043,7 @@ let make ?app_settings ?bundle_version ?client_affinity_enabled
   let __type = "azurerm_logic_app_standard" in
   let __attrs =
     ({
+       tf_name = __id;
        app_service_plan_id =
          Prop.computed __type __id "app_service_plan_id";
        app_settings = Prop.computed __type __id "app_settings";

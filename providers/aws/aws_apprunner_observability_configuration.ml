@@ -128,6 +128,7 @@ let aws_apprunner_observability_configuration ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   latest : bool prop;
@@ -143,6 +144,7 @@ let make ?id ?tags ?tags_all ?(trace_configuration = [])
   let __type = "aws_apprunner_observability_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        latest = Prop.computed __type __id "latest";

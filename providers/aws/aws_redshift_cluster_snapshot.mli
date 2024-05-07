@@ -22,6 +22,7 @@ val yojson_of_aws_redshift_cluster_snapshot :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cluster_identifier : string prop;
   id : string prop;

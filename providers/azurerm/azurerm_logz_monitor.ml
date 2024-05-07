@@ -300,6 +300,7 @@ let azurerm_logz_monitor ?company_name ?enabled ?enterprise_app_id
   }
 
 type t = {
+  tf_name : string;
   company_name : string prop;
   enabled : bool prop;
   enterprise_app_id : string prop;
@@ -317,6 +318,7 @@ let make ?company_name ?enabled ?enterprise_app_id ?id ?tags
   let __type = "azurerm_logz_monitor" in
   let __attrs =
     ({
+       tf_name = __id;
        company_name = Prop.computed __type __id "company_name";
        enabled = Prop.computed __type __id "enabled";
        enterprise_app_id =

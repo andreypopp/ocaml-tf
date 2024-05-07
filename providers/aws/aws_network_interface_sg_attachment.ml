@@ -110,6 +110,7 @@ let aws_network_interface_sg_attachment ?id ?timeouts
   { id; network_interface_id; security_group_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   network_interface_id : string prop;
   security_group_id : string prop;
@@ -120,6 +121,7 @@ let make ?id ?timeouts ~network_interface_id ~security_group_id __id
   let __type = "aws_network_interface_sg_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        network_interface_id =
          Prop.computed __type __id "network_interface_id";

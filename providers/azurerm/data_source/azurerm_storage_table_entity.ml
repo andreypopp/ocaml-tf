@@ -106,6 +106,7 @@ let azurerm_storage_table_entity ?id ?timeouts ~partition_key
   }
 
 type t = {
+  tf_name : string;
   entity : (string * string) list prop;
   id : string prop;
   partition_key : string prop;
@@ -119,6 +120,7 @@ let make ?id ?timeouts ~partition_key ~row_key ~storage_account_name
   let __type = "azurerm_storage_table_entity" in
   let __attrs =
     ({
+       tf_name = __id;
        entity = Prop.computed __type __id "entity";
        id = Prop.computed __type __id "id";
        partition_key = Prop.computed __type __id "partition_key";

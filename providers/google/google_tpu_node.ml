@@ -271,6 +271,7 @@ let google_tpu_node ?cidr_block ?description ?id ?labels ?network
   }
 
 type t = {
+  tf_name : string;
   accelerator_type : string prop;
   cidr_block : string prop;
   description : string prop;
@@ -294,6 +295,7 @@ let make ?cidr_block ?description ?id ?labels ?network ?project
   let __type = "google_tpu_node" in
   let __attrs =
     ({
+       tf_name = __id;
        accelerator_type =
          Prop.computed __type __id "accelerator_type";
        cidr_block = Prop.computed __type __id "cidr_block";

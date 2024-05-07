@@ -44,6 +44,7 @@ val yojson_of_aws_vpc_peering_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   accepter : (string * bool) list prop;
   cidr_block : string prop;
   cidr_block_set : cidr_block_set list prop;

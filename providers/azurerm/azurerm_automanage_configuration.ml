@@ -831,6 +831,7 @@ let azurerm_automanage_configuration ?automation_account_enabled
   }
 
 type t = {
+  tf_name : string;
   automation_account_enabled : bool prop;
   boot_diagnostics_enabled : bool prop;
   defender_for_cloud_enabled : bool prop;
@@ -853,6 +854,7 @@ let make ?automation_account_enabled ?boot_diagnostics_enabled
   let __type = "azurerm_automanage_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        automation_account_enabled =
          Prop.computed __type __id "automation_account_enabled";
        boot_diagnostics_enabled =

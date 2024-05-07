@@ -137,6 +137,7 @@ val yojson_of_aws_cognito_risk_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   client_id : string prop;
   id : string prop;
   user_pool_id : string prop;

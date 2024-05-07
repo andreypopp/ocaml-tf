@@ -53,6 +53,7 @@ let aws_cloudwatch_dashboard ?id ~dashboard_body ~dashboard_name () :
   { dashboard_body; dashboard_name; id }
 
 type t = {
+  tf_name : string;
   dashboard_arn : string prop;
   dashboard_body : string prop;
   dashboard_name : string prop;
@@ -63,6 +64,7 @@ let make ?id ~dashboard_body ~dashboard_name __id =
   let __type = "aws_cloudwatch_dashboard" in
   let __attrs =
     ({
+       tf_name = __id;
        dashboard_arn = Prop.computed __type __id "dashboard_arn";
        dashboard_body = Prop.computed __type __id "dashboard_body";
        dashboard_name = Prop.computed __type __id "dashboard_name";

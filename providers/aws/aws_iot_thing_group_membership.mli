@@ -20,6 +20,7 @@ val yojson_of_aws_iot_thing_group_membership :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   override_dynamic_group : bool prop;
   thing_group_name : string prop;

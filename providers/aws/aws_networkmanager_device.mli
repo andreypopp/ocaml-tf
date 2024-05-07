@@ -55,6 +55,7 @@ val yojson_of_aws_networkmanager_device :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   global_network_id : string prop;

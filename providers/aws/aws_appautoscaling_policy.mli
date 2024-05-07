@@ -138,6 +138,7 @@ val yojson_of_aws_appautoscaling_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alarm_arns : string list prop;
   arn : string prop;
   id : string prop;

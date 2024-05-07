@@ -21,6 +21,7 @@ val yojson_of_hcloud_server : hcloud_server -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backup_window : string prop;
   backups : bool prop;
   datacenter : string prop;

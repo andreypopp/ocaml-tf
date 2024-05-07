@@ -34,6 +34,7 @@ val yojson_of_azurerm_storage_mover_source_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   export : string prop;
   host : string prop;

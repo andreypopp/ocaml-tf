@@ -149,6 +149,7 @@ let azurerm_log_analytics_linked_service ?id ?read_access_id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   read_access_id : string prop;
@@ -162,6 +163,7 @@ let make ?id ?read_access_id ?write_access_id ?timeouts
   let __type = "azurerm_log_analytics_linked_service" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        read_access_id = Prop.computed __type __id "read_access_id";

@@ -130,6 +130,7 @@ let google_document_ai_processor ?id ?kms_key_name ?project ?timeouts
   }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   kms_key_name : string prop;
@@ -144,6 +145,7 @@ let make ?id ?kms_key_name ?project ?timeouts ~display_name ~location
   let __type = "google_document_ai_processor" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";
        kms_key_name = Prop.computed __type __id "kms_key_name";

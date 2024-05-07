@@ -182,6 +182,7 @@ let google_compute_global_address ?address ?address_type ?description
   }
 
 type t = {
+  tf_name : string;
   address : string prop;
   address_type : string prop;
   creation_timestamp : string prop;
@@ -201,6 +202,7 @@ let make ?address ?address_type ?description ?id ?ip_version ?network
   let __type = "google_compute_global_address" in
   let __attrs =
     ({
+       tf_name = __id;
        address = Prop.computed __type __id "address";
        address_type = Prop.computed __type __id "address_type";
        creation_timestamp =

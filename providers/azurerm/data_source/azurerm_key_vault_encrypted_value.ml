@@ -114,6 +114,7 @@ let azurerm_key_vault_encrypted_value ?encrypted_data ?id
   }
 
 type t = {
+  tf_name : string;
   algorithm : string prop;
   decoded_plain_text_value : string prop;
   encrypted_data : string prop;
@@ -127,6 +128,7 @@ let make ?encrypted_data ?id ?plain_text_value ?timeouts ~algorithm
   let __type = "azurerm_key_vault_encrypted_value" in
   let __attrs =
     ({
+       tf_name = __id;
        algorithm = Prop.computed __type __id "algorithm";
        decoded_plain_text_value =
          Prop.computed __type __id "decoded_plain_text_value";

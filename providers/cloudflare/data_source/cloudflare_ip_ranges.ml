@@ -31,6 +31,7 @@ let _ = yojson_of_cloudflare_ip_ranges
 let cloudflare_ip_ranges ?id () : cloudflare_ip_ranges = { id }
 
 type t = {
+  tf_name : string;
   china_ipv4_cidr_blocks : string list prop;
   china_ipv6_cidr_blocks : string list prop;
   cidr_blocks : string list prop;
@@ -43,6 +44,7 @@ let make ?id __id =
   let __type = "cloudflare_ip_ranges" in
   let __attrs =
     ({
+       tf_name = __id;
        china_ipv4_cidr_blocks =
          Prop.computed __type __id "china_ipv4_cidr_blocks";
        china_ipv6_cidr_blocks =

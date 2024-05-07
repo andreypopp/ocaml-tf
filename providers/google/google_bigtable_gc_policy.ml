@@ -229,6 +229,7 @@ let google_bigtable_gc_policy ?deletion_policy ?gc_rules ?id ?mode
   }
 
 type t = {
+  tf_name : string;
   column_family : string prop;
   deletion_policy : string prop;
   gc_rules : string prop;
@@ -245,6 +246,7 @@ let make ?deletion_policy ?gc_rules ?id ?mode ?project
   let __type = "google_bigtable_gc_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        column_family = Prop.computed __type __id "column_family";
        deletion_policy = Prop.computed __type __id "deletion_policy";
        gc_rules = Prop.computed __type __id "gc_rules";

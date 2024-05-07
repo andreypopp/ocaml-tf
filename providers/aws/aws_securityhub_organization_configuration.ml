@@ -155,6 +155,7 @@ let aws_securityhub_organization_configuration ?auto_enable_standards
   }
 
 type t = {
+  tf_name : string;
   auto_enable : bool prop;
   auto_enable_standards : string prop;
   id : string prop;
@@ -165,6 +166,7 @@ let make ?auto_enable_standards ?id
   let __type = "aws_securityhub_organization_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_enable = Prop.computed __type __id "auto_enable";
        auto_enable_standards =
          Prop.computed __type __id "auto_enable_standards";

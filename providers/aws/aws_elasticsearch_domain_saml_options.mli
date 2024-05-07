@@ -45,7 +45,11 @@ val yojson_of_aws_elasticsearch_domain_saml_options :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { domain_name : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  domain_name : string prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

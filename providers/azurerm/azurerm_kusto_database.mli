@@ -33,6 +33,7 @@ val yojson_of_azurerm_kusto_database : azurerm_kusto_database -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_name : string prop;
   hot_cache_period : string prop;
   id : string prop;

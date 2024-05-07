@@ -701,6 +701,7 @@ let aws_elastictranscoder_preset ?description ?id ?name ?type_
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   container : string prop;
   description : string prop;
@@ -716,6 +717,7 @@ let make ?description ?id ?name ?type_ ?video_codec_options
   let __type = "aws_elastictranscoder_preset" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        container = Prop.computed __type __id "container";
        description = Prop.computed __type __id "description";

@@ -20,6 +20,7 @@ val yojson_of_aws_load_balancer_backend_server_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   instance_port : float prop;
   load_balancer_name : string prop;

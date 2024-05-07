@@ -95,6 +95,7 @@ let google_monitoring_monitored_project ?id ?timeouts ~metrics_scope
   { id; metrics_scope; name; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   id : string prop;
   metrics_scope : string prop;
@@ -105,6 +106,7 @@ let make ?id ?timeouts ~metrics_scope ~name __id =
   let __type = "google_monitoring_monitored_project" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        id = Prop.computed __type __id "id";
        metrics_scope = Prop.computed __type __id "metrics_scope";

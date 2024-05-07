@@ -27,6 +27,7 @@ val yojson_of_hcloud_placement_groups :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   most_recent : bool prop;
   placement_groups : placement_groups list prop;

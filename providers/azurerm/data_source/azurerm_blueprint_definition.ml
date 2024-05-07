@@ -84,6 +84,7 @@ let azurerm_blueprint_definition ?id ?timeouts ~name ~scope_id () :
   { id; name; scope_id; timeouts }
 
 type t = {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   id : string prop;
@@ -99,6 +100,7 @@ let make ?id ?timeouts ~name ~scope_id __id =
   let __type = "azurerm_blueprint_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";

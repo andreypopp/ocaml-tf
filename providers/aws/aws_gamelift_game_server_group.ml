@@ -387,6 +387,7 @@ let aws_gamelift_game_server_group ?balancing_strategy
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   auto_scaling_group_arn : string prop;
   balancing_strategy : string prop;
@@ -408,6 +409,7 @@ let make ?balancing_strategy ?game_server_protection_policy ?id ?tags
   let __type = "aws_gamelift_game_server_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        auto_scaling_group_arn =
          Prop.computed __type __id "auto_scaling_group_arn";

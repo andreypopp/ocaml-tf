@@ -199,6 +199,7 @@ let azurerm_snapshot ?id ?timeouts ~name ~resource_group_name () :
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   creation_option : string prop;
   disk_size_gb : float prop;
   encryption_settings : encryption_settings list prop;
@@ -217,6 +218,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_option = Prop.computed __type __id "creation_option";
        disk_size_gb = Prop.computed __type __id "disk_size_gb";
        encryption_settings =

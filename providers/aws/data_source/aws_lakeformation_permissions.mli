@@ -95,6 +95,7 @@ val yojson_of_aws_lakeformation_permissions :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   catalog_id : string prop;
   catalog_resource : bool prop;
   id : string prop;

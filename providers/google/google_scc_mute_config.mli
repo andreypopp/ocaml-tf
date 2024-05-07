@@ -30,6 +30,7 @@ val yojson_of_google_scc_mute_config : google_scc_mute_config -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   filter : string prop;

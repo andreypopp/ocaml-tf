@@ -114,12 +114,17 @@ let azurerm_security_center_auto_provisioning ?id ?timeouts
     ~auto_provision () : azurerm_security_center_auto_provisioning =
   { auto_provision; id; timeouts }
 
-type t = { auto_provision : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  auto_provision : string prop;
+  id : string prop;
+}
 
 let make ?id ?timeouts ~auto_provision __id =
   let __type = "azurerm_security_center_auto_provisioning" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_provision = Prop.computed __type __id "auto_provision";
        id = Prop.computed __type __id "id";
      }

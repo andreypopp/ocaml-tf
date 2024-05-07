@@ -430,12 +430,14 @@ let aws_iot_indexing_configuration ?id
     thing_indexing_configuration;
   }
 
-type t = { id : string prop }
+type t = { tf_name : string; id : string prop }
 
 let make ?id ?(thing_group_indexing_configuration = [])
     ?(thing_indexing_configuration = []) __id =
   let __type = "aws_iot_indexing_configuration" in
-  let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
+  let __attrs =
+    ({ tf_name = __id; id = Prop.computed __type __id "id" } : t)
+  in
   {
     Tf_core.id = __id;
     type_ = __type;

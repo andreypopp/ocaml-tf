@@ -162,6 +162,7 @@ let azurerm_kusto_database ?hot_cache_period ?id ?soft_delete_period
   }
 
 type t = {
+  tf_name : string;
   cluster_name : string prop;
   hot_cache_period : string prop;
   id : string prop;
@@ -177,6 +178,7 @@ let make ?hot_cache_period ?id ?soft_delete_period ?timeouts
   let __type = "azurerm_kusto_database" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_name = Prop.computed __type __id "cluster_name";
        hot_cache_period =
          Prop.computed __type __id "hot_cache_period";

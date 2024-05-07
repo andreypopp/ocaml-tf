@@ -107,6 +107,7 @@ val yojson_of_azurerm_spring_cloud_gateway :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_performance_monitoring_ids : string list prop;
   application_performance_monitoring_types : string list prop;
   environment_variables : (string * string) list prop;

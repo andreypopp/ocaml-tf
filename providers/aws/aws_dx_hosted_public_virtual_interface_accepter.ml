@@ -129,6 +129,7 @@ let aws_dx_hosted_public_virtual_interface_accepter ?id ?tags
   { id; tags; tags_all; virtual_interface_id; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   tags : (string * string) list prop;
@@ -140,6 +141,7 @@ let make ?id ?tags ?tags_all ?timeouts ~virtual_interface_id __id =
   let __type = "aws_dx_hosted_public_virtual_interface_accepter" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        tags = Prop.computed __type __id "tags";

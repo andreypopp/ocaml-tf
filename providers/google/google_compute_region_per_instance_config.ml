@@ -491,6 +491,7 @@ let google_compute_region_per_instance_config ?id ?minimal_action
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   minimal_action : string prop;
   most_disruptive_allowed_action : string prop;
@@ -509,6 +510,7 @@ let make ?id ?minimal_action ?most_disruptive_allowed_action ?project
   let __type = "google_compute_region_per_instance_config" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        minimal_action = Prop.computed __type __id "minimal_action";
        most_disruptive_allowed_action =

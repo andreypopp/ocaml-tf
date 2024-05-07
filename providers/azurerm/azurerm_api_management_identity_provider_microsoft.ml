@@ -145,6 +145,7 @@ let azurerm_api_management_identity_provider_microsoft ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   api_management_name : string prop;
   client_id : string prop;
   client_secret : string prop;
@@ -159,6 +160,7 @@ let make ?id ?timeouts ~api_management_name ~client_id ~client_secret
   in
   let __attrs =
     ({
+       tf_name = __id;
        api_management_name =
          Prop.computed __type __id "api_management_name";
        client_id = Prop.computed __type __id "client_id";

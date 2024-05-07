@@ -154,6 +154,7 @@ let aws_servicequotas_service_quota ?id ~quota_code ~service_code
   { id; quota_code; service_code; value }
 
 type t = {
+  tf_name : string;
   adjustable : bool prop;
   arn : string prop;
   default_value : float prop;
@@ -172,6 +173,7 @@ let make ?id ~quota_code ~service_code ~value __id =
   let __type = "aws_servicequotas_service_quota" in
   let __attrs =
     ({
+       tf_name = __id;
        adjustable = Prop.computed __type __id "adjustable";
        arn = Prop.computed __type __id "arn";
        default_value = Prop.computed __type __id "default_value";

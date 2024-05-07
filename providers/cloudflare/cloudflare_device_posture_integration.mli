@@ -42,6 +42,7 @@ val yojson_of_cloudflare_device_posture_integration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   identifier : string prop;

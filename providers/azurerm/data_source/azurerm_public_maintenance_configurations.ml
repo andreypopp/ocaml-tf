@@ -173,6 +173,7 @@ let azurerm_public_maintenance_configurations ?id ?location
   { id; location; recur_every; scope; timeouts }
 
 type t = {
+  tf_name : string;
   configs : configs list prop;
   id : string prop;
   location : string prop;
@@ -184,6 +185,7 @@ let make ?id ?location ?recur_every ?scope ?timeouts __id =
   let __type = "azurerm_public_maintenance_configurations" in
   let __attrs =
     ({
+       tf_name = __id;
        configs = Prop.computed __type __id "configs";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

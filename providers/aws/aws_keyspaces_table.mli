@@ -109,6 +109,7 @@ val yojson_of_aws_keyspaces_table : aws_keyspaces_table -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   default_time_to_live : float prop;
   id : string prop;

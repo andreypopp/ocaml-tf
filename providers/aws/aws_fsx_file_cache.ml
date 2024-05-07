@@ -491,6 +491,7 @@ let aws_fsx_file_cache ?copy_tags_to_data_repository_associations ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   copy_tags_to_data_repository_associations : bool prop;
   data_repository_association_ids : string list prop;
@@ -517,6 +518,7 @@ let make ?copy_tags_to_data_repository_associations ?id ?kms_key_id
   let __type = "aws_fsx_file_cache" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        copy_tags_to_data_repository_associations =
          Prop.computed __type __id

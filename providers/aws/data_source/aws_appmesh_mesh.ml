@@ -118,6 +118,7 @@ let aws_appmesh_mesh ?id ?mesh_owner ?tags ~name () :
   { id; mesh_owner; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_date : string prop;
   id : string prop;
@@ -133,6 +134,7 @@ let make ?id ?mesh_owner ?tags ~name __id =
   let __type = "aws_appmesh_mesh" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_date = Prop.computed __type __id "created_date";
        id = Prop.computed __type __id "id";

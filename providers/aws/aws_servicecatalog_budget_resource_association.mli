@@ -29,6 +29,7 @@ val yojson_of_aws_servicecatalog_budget_resource_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   budget_name : string prop;
   id : string prop;
   resource_id : string prop;

@@ -20,6 +20,7 @@ val yojson_of_cloudflare_queue : cloudflare_queue -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   name : string prop;

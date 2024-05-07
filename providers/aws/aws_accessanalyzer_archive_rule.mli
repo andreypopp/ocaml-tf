@@ -31,6 +31,7 @@ val yojson_of_aws_accessanalyzer_archive_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   analyzer_name : string prop;
   id : string prop;
   rule_name : string prop;

@@ -34,6 +34,7 @@ val yojson_of_azurerm_healthcare_medtech_service_fhir_destination :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   destination_fhir_mapping_json : string prop;
   destination_fhir_service_id : string prop;
   destination_identity_resolution_type : string prop;

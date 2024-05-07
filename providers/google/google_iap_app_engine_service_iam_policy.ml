@@ -67,6 +67,7 @@ let google_iap_app_engine_service_iam_policy ?id ?project ~app_id
   { app_id; id; policy_data; project; service }
 
 type t = {
+  tf_name : string;
   app_id : string prop;
   etag : string prop;
   id : string prop;
@@ -79,6 +80,7 @@ let make ?id ?project ~app_id ~policy_data ~service __id =
   let __type = "google_iap_app_engine_service_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        app_id = Prop.computed __type __id "app_id";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

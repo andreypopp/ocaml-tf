@@ -1480,6 +1480,7 @@ val yojson_of_kubernetes_pod : kubernetes_pod -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   spec : spec list prop;
   status : string prop;

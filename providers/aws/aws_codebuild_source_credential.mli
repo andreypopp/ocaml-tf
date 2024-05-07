@@ -21,6 +21,7 @@ val yojson_of_aws_codebuild_source_credential :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   auth_type : string prop;
   id : string prop;

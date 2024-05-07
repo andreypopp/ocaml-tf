@@ -68,6 +68,7 @@ val yojson_of_aws_osis_pipeline : aws_osis_pipeline -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   ingest_endpoint_urls : string list prop;
   max_units : float prop;

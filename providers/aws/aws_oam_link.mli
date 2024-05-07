@@ -31,6 +31,7 @@ val yojson_of_aws_oam_link : aws_oam_link -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   label : string prop;

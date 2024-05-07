@@ -114,6 +114,7 @@ let google_scc_source ?description ?id ?timeouts ~display_name
   { description; display_name; id; organization; timeouts }
 
 type t = {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   id : string prop;
@@ -126,6 +127,7 @@ let make ?description ?id ?timeouts ~display_name ~organization __id
   let __type = "google_scc_source" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";

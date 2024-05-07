@@ -50,6 +50,7 @@ let aws_auditmanager_assessment_report ?description ~assessment_id
   { assessment_id; description; name }
 
 type t = {
+  tf_name : string;
   assessment_id : string prop;
   author : string prop;
   description : string prop;
@@ -62,6 +63,7 @@ let make ?description ~assessment_id ~name __id =
   let __type = "aws_auditmanager_assessment_report" in
   let __attrs =
     ({
+       tf_name = __id;
        assessment_id = Prop.computed __type __id "assessment_id";
        author = Prop.computed __type __id "author";
        description = Prop.computed __type __id "description";

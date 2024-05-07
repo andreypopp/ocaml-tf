@@ -271,6 +271,7 @@ let azurerm_logic_app_integration_account_agreement ?id ?metadata
   }
 
 type t = {
+  tf_name : string;
   agreement_type : string prop;
   content : string prop;
   guest_partner_name : string prop;
@@ -288,6 +289,7 @@ let make ?id ?metadata ?timeouts ~agreement_type ~content
   let __type = "azurerm_logic_app_integration_account_agreement" in
   let __attrs =
     ({
+       tf_name = __id;
        agreement_type = Prop.computed __type __id "agreement_type";
        content = Prop.computed __type __id "content";
        guest_partner_name =

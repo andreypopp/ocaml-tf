@@ -432,6 +432,7 @@ let azurerm_monitor_scheduled_query_rules_alert
   }
 
 type t = {
+  tf_name : string;
   authorized_resource_ids : string list prop;
   auto_mitigation_enabled : bool prop;
   data_source_id : string prop;
@@ -457,6 +458,7 @@ let make ?authorized_resource_ids ?auto_mitigation_enabled
   let __type = "azurerm_monitor_scheduled_query_rules_alert" in
   let __attrs =
     ({
+       tf_name = __id;
        authorized_resource_ids =
          Prop.computed __type __id "authorized_resource_ids";
        auto_mitigation_enabled =

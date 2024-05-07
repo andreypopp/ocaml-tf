@@ -40,6 +40,7 @@ val yojson_of_aws_dx_transit_virtual_interface :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address_family : string prop;
   amazon_address : string prop;
   amazon_side_asn : string prop;

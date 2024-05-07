@@ -118,6 +118,7 @@ let azurerm_portal_tenant_configuration ?id ?timeouts
   { id; private_markdown_storage_enforced; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   private_markdown_storage_enforced : bool prop;
 }
@@ -126,6 +127,7 @@ let make ?id ?timeouts ~private_markdown_storage_enforced __id =
   let __type = "azurerm_portal_tenant_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        private_markdown_storage_enforced =
          Prop.computed __type __id

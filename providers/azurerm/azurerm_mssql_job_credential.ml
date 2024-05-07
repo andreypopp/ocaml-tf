@@ -131,6 +131,7 @@ let azurerm_mssql_job_credential ?id ?timeouts ~job_agent_id ~name
   { id; job_agent_id; name; password; username; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   job_agent_id : string prop;
   name : string prop;
@@ -142,6 +143,7 @@ let make ?id ?timeouts ~job_agent_id ~name ~password ~username __id =
   let __type = "azurerm_mssql_job_credential" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        job_agent_id = Prop.computed __type __id "job_agent_id";
        name = Prop.computed __type __id "name";

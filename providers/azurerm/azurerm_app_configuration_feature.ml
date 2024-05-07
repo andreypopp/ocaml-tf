@@ -373,6 +373,7 @@ let azurerm_app_configuration_feature ?description ?enabled ?etag ?id
   }
 
 type t = {
+  tf_name : string;
   configuration_store_id : string prop;
   description : string prop;
   enabled : bool prop;
@@ -392,6 +393,7 @@ let make ?description ?enabled ?etag ?id ?key ?label ?locked
   let __type = "azurerm_app_configuration_feature" in
   let __attrs =
     ({
+       tf_name = __id;
        configuration_store_id =
          Prop.computed __type __id "configuration_store_id";
        description = Prop.computed __type __id "description";

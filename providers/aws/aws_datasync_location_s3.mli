@@ -29,6 +29,7 @@ val yojson_of_aws_datasync_location_s3 :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   agent_arns : string list prop;
   arn : string prop;
   id : string prop;

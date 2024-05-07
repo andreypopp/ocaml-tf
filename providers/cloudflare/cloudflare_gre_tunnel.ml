@@ -152,6 +152,7 @@ let cloudflare_gre_tunnel ?account_id ?description
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   cloudflare_gre_endpoint : string prop;
   customer_gre_endpoint : string prop;
@@ -173,6 +174,7 @@ let make ?account_id ?description ?health_check_enabled
   let __type = "cloudflare_gre_tunnel" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        cloudflare_gre_endpoint =
          Prop.computed __type __id "cloudflare_gre_endpoint";

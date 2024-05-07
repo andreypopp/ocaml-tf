@@ -41,6 +41,7 @@ val yojson_of_azurerm_frontdoor_custom_https_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   custom_https_provisioning_enabled : bool prop;
   frontend_endpoint_id : string prop;
   id : string prop;

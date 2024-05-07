@@ -50,6 +50,7 @@ val yojson_of_azurerm_nginx_deployment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automatic_upgrade_channel : string prop;
   capacity : float prop;
   diagnose_support_enabled : bool prop;

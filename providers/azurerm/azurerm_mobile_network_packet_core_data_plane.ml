@@ -204,6 +204,7 @@ let azurerm_mobile_network_packet_core_data_plane ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   mobile_network_packet_core_control_plane_id : string prop;
@@ -222,6 +223,7 @@ let make ?id ?tags ?user_plane_access_ipv4_address
   let __type = "azurerm_mobile_network_packet_core_data_plane" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        mobile_network_packet_core_control_plane_id =

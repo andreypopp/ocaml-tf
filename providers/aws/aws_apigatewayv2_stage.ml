@@ -389,6 +389,7 @@ let aws_apigatewayv2_stage ?auto_deploy ?client_certificate_id
   }
 
 type t = {
+  tf_name : string;
   api_id : string prop;
   arn : string prop;
   auto_deploy : bool prop;
@@ -411,6 +412,7 @@ let make ?auto_deploy ?client_certificate_id ?deployment_id
   let __type = "aws_apigatewayv2_stage" in
   let __attrs =
     ({
+       tf_name = __id;
        api_id = Prop.computed __type __id "api_id";
        arn = Prop.computed __type __id "arn";
        auto_deploy = Prop.computed __type __id "auto_deploy";

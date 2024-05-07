@@ -30,6 +30,7 @@ val yojson_of_aws_ec2_instance_type_offering :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   instance_type : string prop;
   location_type : string prop;

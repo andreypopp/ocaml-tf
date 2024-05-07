@@ -19,6 +19,7 @@ val yojson_of_aws_ce_cost_allocation_tag :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   status : string prop;
   tag_key : string prop;

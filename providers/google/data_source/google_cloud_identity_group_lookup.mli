@@ -22,7 +22,11 @@ val yojson_of_google_cloud_identity_group_lookup :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; name : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  name : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

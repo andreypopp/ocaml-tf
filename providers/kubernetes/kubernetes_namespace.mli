@@ -33,6 +33,7 @@ val yojson_of_kubernetes_namespace : kubernetes_namespace -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   wait_for_default_service_account : bool prop;
 }

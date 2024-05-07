@@ -169,6 +169,7 @@ let aws_vpclattice_service_network_vpc_association ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_by : string prop;
   id : string prop;
@@ -185,6 +186,7 @@ let make ?id ?security_group_ids ?tags ?tags_all ?timeouts
   let __type = "aws_vpclattice_service_network_vpc_association" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_by = Prop.computed __type __id "created_by";
        id = Prop.computed __type __id "id";

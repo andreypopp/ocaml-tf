@@ -20,6 +20,7 @@ val yojson_of_aws_devicefarm_project : aws_devicefarm_project -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   default_job_timeout_minutes : float prop;
   id : string prop;

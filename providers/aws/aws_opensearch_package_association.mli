@@ -25,6 +25,7 @@ val yojson_of_aws_opensearch_package_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   domain_name : string prop;
   id : string prop;
   package_id : string prop;

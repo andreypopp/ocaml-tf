@@ -55,6 +55,7 @@ let google_dns_record_set ?project ~managed_zone ~name ~type_ () :
   { managed_zone; name; project; type_ }
 
 type t = {
+  tf_name : string;
   id : string prop;
   managed_zone : string prop;
   name : string prop;
@@ -68,6 +69,7 @@ let make ?project ~managed_zone ~name ~type_ __id =
   let __type = "google_dns_record_set" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        managed_zone = Prop.computed __type __id "managed_zone";
        name = Prop.computed __type __id "name";

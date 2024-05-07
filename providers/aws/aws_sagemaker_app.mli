@@ -35,6 +35,7 @@ val yojson_of_aws_sagemaker_app : aws_sagemaker_app -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_name : string prop;
   app_type : string prop;
   arn : string prop;

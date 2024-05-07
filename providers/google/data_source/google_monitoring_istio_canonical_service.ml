@@ -100,6 +100,7 @@ let google_monitoring_istio_canonical_service ?id ?project
   }
 
 type t = {
+  tf_name : string;
   canonical_service : string prop;
   canonical_service_namespace : string prop;
   display_name : string prop;
@@ -117,6 +118,7 @@ let make ?id ?project ~canonical_service ~canonical_service_namespace
   let __type = "google_monitoring_istio_canonical_service" in
   let __attrs =
     ({
+       tf_name = __id;
        canonical_service =
          Prop.computed __type __id "canonical_service";
        canonical_service_namespace =

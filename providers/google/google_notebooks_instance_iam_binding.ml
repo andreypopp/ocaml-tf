@@ -130,6 +130,7 @@ let google_notebooks_instance_iam_binding ?id ?location ?project
   { id; instance_name; location; members; project; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   instance_name : string prop;
@@ -144,6 +145,7 @@ let make ?id ?location ?project ?(condition = []) ~instance_name
   let __type = "google_notebooks_instance_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        instance_name = Prop.computed __type __id "instance_name";

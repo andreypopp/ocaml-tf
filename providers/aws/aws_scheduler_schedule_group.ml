@@ -139,6 +139,7 @@ let aws_scheduler_schedule_group ?id ?name ?name_prefix ?tags
   { id; name; name_prefix; tags; tags_all; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   creation_date : string prop;
   id : string prop;
@@ -154,6 +155,7 @@ let make ?id ?name ?name_prefix ?tags ?tags_all ?timeouts __id =
   let __type = "aws_scheduler_schedule_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        creation_date = Prop.computed __type __id "creation_date";
        id = Prop.computed __type __id "id";

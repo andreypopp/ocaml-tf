@@ -149,12 +149,17 @@ let aws_globalaccelerator_custom_routing_listener ?id ?timeouts
     aws_globalaccelerator_custom_routing_listener =
   { accelerator_arn; id; port_range; timeouts }
 
-type t = { accelerator_arn : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  accelerator_arn : string prop;
+  id : string prop;
+}
 
 let make ?id ?timeouts ~accelerator_arn ~port_range __id =
   let __type = "aws_globalaccelerator_custom_routing_listener" in
   let __attrs =
     ({
+       tf_name = __id;
        accelerator_arn = Prop.computed __type __id "accelerator_arn";
        id = Prop.computed __type __id "id";
      }

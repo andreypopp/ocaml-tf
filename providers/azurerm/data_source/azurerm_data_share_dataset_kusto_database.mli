@@ -24,6 +24,7 @@ val yojson_of_azurerm_data_share_dataset_kusto_database :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   kusto_cluster_location : string prop;

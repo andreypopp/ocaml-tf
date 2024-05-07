@@ -768,6 +768,7 @@ let azurerm_lab_service_lab ?description ?id ?lab_plan_id ?tags
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   lab_plan_id : string prop;
@@ -785,6 +786,7 @@ let make ?description ?id ?lab_plan_id ?tags ?(auto_shutdown = [])
   let __type = "azurerm_lab_service_lab" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        lab_plan_id = Prop.computed __type __id "lab_plan_id";

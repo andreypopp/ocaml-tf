@@ -260,6 +260,7 @@ let azurerm_virtual_hub ?address_prefix ?hub_routing_preference ?id
   }
 
 type t = {
+  tf_name : string;
   address_prefix : string prop;
   default_route_table_id : string prop;
   hub_routing_preference : string prop;
@@ -281,6 +282,7 @@ let make ?address_prefix ?hub_routing_preference ?id ?sku ?tags
   let __type = "azurerm_virtual_hub" in
   let __attrs =
     ({
+       tf_name = __id;
        address_prefix = Prop.computed __type __id "address_prefix";
        default_route_table_id =
          Prop.computed __type __id "default_route_table_id";

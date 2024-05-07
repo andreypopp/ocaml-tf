@@ -47,6 +47,7 @@ val yojson_of_aws_api_gateway_stage : aws_api_gateway_stage -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cache_cluster_enabled : bool prop;
   cache_cluster_size : string prop;

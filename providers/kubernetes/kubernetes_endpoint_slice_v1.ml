@@ -410,12 +410,17 @@ let kubernetes_endpoint_slice_v1 ?id ~address_type ~endpoint
     ~metadata ~port () : kubernetes_endpoint_slice_v1 =
   { address_type; id; endpoint; metadata; port }
 
-type t = { address_type : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  address_type : string prop;
+  id : string prop;
+}
 
 let make ?id ~address_type ~endpoint ~metadata ~port __id =
   let __type = "kubernetes_endpoint_slice_v1" in
   let __attrs =
     ({
+       tf_name = __id;
        address_type = Prop.computed __type __id "address_type";
        id = Prop.computed __type __id "id";
      }

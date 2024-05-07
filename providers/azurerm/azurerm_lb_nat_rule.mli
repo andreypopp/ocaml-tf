@@ -40,6 +40,7 @@ val yojson_of_azurerm_lb_nat_rule : azurerm_lb_nat_rule -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backend_address_pool_id : string prop;
   backend_ip_configuration_id : string prop;
   backend_port : float prop;

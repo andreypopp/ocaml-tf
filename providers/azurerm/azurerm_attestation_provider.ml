@@ -258,6 +258,7 @@ let azurerm_attestation_provider ?id ?open_enclave_policy_base64
   }
 
 type t = {
+  tf_name : string;
   attestation_uri : string prop;
   id : string prop;
   location : string prop;
@@ -280,6 +281,7 @@ let make ?id ?open_enclave_policy_base64
   let __type = "azurerm_attestation_provider" in
   let __attrs =
     ({
+       tf_name = __id;
        attestation_uri = Prop.computed __type __id "attestation_uri";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

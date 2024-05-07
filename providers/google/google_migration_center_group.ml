@@ -163,6 +163,7 @@ let google_migration_center_group ?description ?display_name ?id
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   display_name : string prop;
@@ -182,6 +183,7 @@ let make ?description ?display_name ?id ?labels ?project ?timeouts
   let __type = "google_migration_center_group" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";

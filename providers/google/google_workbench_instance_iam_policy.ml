@@ -21,6 +21,7 @@ let google_workbench_instance_iam_policy ?id ?location ?project ~name ~policy_da
   } : google_workbench_instance_iam_policy);;
 
 type t = {
+  tf_name: string;
   etag: string prop;
   id: string prop;
   location: string prop;
@@ -32,6 +33,7 @@ type t = {
 let make ?id ?location ?project ~name ~policy_data __id =
   let __type = "google_workbench_instance_iam_policy" in
   let __attrs = ({
+    tf_name = __id;
     etag = Prop.computed __type __id "etag";
     id = Prop.computed __type __id "id";
     location = Prop.computed __type __id "location";

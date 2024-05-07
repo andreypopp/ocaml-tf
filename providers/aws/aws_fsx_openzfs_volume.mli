@@ -73,6 +73,7 @@ val yojson_of_aws_fsx_openzfs_volume : aws_fsx_openzfs_volume -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   copy_tags_to_snapshots : bool prop;
   data_compression_type : string prop;

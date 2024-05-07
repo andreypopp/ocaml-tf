@@ -1086,6 +1086,7 @@ let azurerm_data_factory_flowlet_data_flow ?annotations ?description
   }
 
 type t = {
+  tf_name : string;
   annotations : string list prop;
   data_factory_id : string prop;
   description : string prop;
@@ -1102,6 +1103,7 @@ let make ?annotations ?description ?folder ?id ?script ?script_lines
   let __type = "azurerm_data_factory_flowlet_data_flow" in
   let __attrs =
     ({
+       tf_name = __id;
        annotations = Prop.computed __type __id "annotations";
        data_factory_id = Prop.computed __type __id "data_factory_id";
        description = Prop.computed __type __id "description";

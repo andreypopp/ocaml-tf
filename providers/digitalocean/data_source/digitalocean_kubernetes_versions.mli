@@ -18,6 +18,7 @@ val yojson_of_digitalocean_kubernetes_versions :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   latest_version : string prop;
   valid_versions : string list prop;

@@ -103,6 +103,7 @@ let digitalocean_vpc ?description ?id ?ip_range ?timeouts ~name
   { description; id; ip_range; name; region; timeouts }
 
 type t = {
+  tf_name : string;
   created_at : string prop;
   default : bool prop;
   description : string prop;
@@ -117,6 +118,7 @@ let make ?description ?id ?ip_range ?timeouts ~name ~region __id =
   let __type = "digitalocean_vpc" in
   let __attrs =
     ({
+       tf_name = __id;
        created_at = Prop.computed __type __id "created_at";
        default = Prop.computed __type __id "default";
        description = Prop.computed __type __id "description";

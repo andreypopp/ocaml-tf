@@ -74,6 +74,7 @@ let azurerm_subscription_template_deployment ?id ?timeouts ~name () :
   { id; name; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   output_content : string prop;
@@ -83,6 +84,7 @@ let make ?id ?timeouts ~name __id =
   let __type = "azurerm_subscription_template_deployment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        output_content = Prop.computed __type __id "output_content";

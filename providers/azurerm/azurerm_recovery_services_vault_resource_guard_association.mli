@@ -30,6 +30,7 @@ val yojson_of_azurerm_recovery_services_vault_resource_guard_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   resource_guard_id : string prop;

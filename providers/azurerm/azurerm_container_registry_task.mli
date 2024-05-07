@@ -173,6 +173,7 @@ val yojson_of_azurerm_container_registry_task :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   agent_pool_name : string prop;
   container_registry_id : string prop;
   enabled : bool prop;

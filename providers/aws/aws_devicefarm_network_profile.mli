@@ -31,6 +31,7 @@ val yojson_of_aws_devicefarm_network_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   downlink_bandwidth_bits : float prop;

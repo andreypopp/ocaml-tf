@@ -81,12 +81,17 @@ let aws_connect_bot_association ?id ~instance_id ~lex_bot () :
     aws_connect_bot_association =
   { id; instance_id; lex_bot }
 
-type t = { id : string prop; instance_id : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  instance_id : string prop;
+}
 
 let make ?id ~instance_id ~lex_bot __id =
   let __type = "aws_connect_bot_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        instance_id = Prop.computed __type __id "instance_id";
      }

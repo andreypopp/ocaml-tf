@@ -60,6 +60,7 @@ let cloudflare_email_routing_settings ?id ?skip_wizard ~enabled
   { enabled; id; skip_wizard; zone_id }
 
 type t = {
+  tf_name : string;
   created : string prop;
   enabled : bool prop;
   id : string prop;
@@ -75,6 +76,7 @@ let make ?id ?skip_wizard ~enabled ~zone_id __id =
   let __type = "cloudflare_email_routing_settings" in
   let __attrs =
     ({
+       tf_name = __id;
        created = Prop.computed __type __id "created";
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";

@@ -177,6 +177,7 @@ let azurerm_proximity_placement_group ?allowed_vm_sizes ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   allowed_vm_sizes : string list prop;
   id : string prop;
   location : string prop;
@@ -191,6 +192,7 @@ let make ?allowed_vm_sizes ?id ?tags ?zone ?timeouts ~location ~name
   let __type = "azurerm_proximity_placement_group" in
   let __attrs =
     ({
+       tf_name = __id;
        allowed_vm_sizes =
          Prop.computed __type __id "allowed_vm_sizes";
        id = Prop.computed __type __id "id";

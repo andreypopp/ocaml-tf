@@ -23,6 +23,7 @@ val yojson_of_aws_pricing_product : aws_pricing_product -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   result : string prop;
   service_code : string prop;

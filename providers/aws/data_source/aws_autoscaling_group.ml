@@ -1150,6 +1150,7 @@ let aws_autoscaling_group ?id ~name () : aws_autoscaling_group =
   { id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zones : string list prop;
   default_cooldown : float prop;
@@ -1188,6 +1189,7 @@ let make ?id ~name __id =
   let __type = "aws_autoscaling_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zones =
          Prop.computed __type __id "availability_zones";

@@ -282,6 +282,7 @@ let azurerm_data_factory_custom_dataset ?additional_properties
   }
 
 type t = {
+  tf_name : string;
   additional_properties : (string * string) list prop;
   annotations : string list prop;
   data_factory_id : string prop;
@@ -301,6 +302,7 @@ let make ?additional_properties ?annotations ?description ?folder ?id
   let __type = "azurerm_data_factory_custom_dataset" in
   let __attrs =
     ({
+       tf_name = __id;
        additional_properties =
          Prop.computed __type __id "additional_properties";
        annotations = Prop.computed __type __id "annotations";

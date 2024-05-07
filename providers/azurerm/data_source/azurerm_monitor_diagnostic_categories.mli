@@ -23,6 +23,7 @@ val yojson_of_azurerm_monitor_diagnostic_categories :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   log_category_groups : string list prop;
   log_category_types : string list prop;

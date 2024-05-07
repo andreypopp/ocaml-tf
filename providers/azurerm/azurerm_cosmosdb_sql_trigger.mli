@@ -33,6 +33,7 @@ val yojson_of_azurerm_cosmosdb_sql_trigger :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   body : string prop;
   container_id : string prop;
   id : string prop;

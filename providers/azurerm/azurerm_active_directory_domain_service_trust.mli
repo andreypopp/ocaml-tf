@@ -33,6 +33,7 @@ val yojson_of_azurerm_active_directory_domain_service_trust :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   domain_service_id : string prop;
   id : string prop;
   name : string prop;

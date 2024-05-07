@@ -44,6 +44,7 @@ val yojson_of_aws_globalaccelerator_custom_routing_accelerator :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dns_name : string prop;
   enabled : bool prop;
   hosted_zone_id : string prop;

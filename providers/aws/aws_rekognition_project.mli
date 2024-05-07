@@ -25,6 +25,7 @@ val yojson_of_aws_rekognition_project :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   auto_update : string prop;
   feature : string prop;

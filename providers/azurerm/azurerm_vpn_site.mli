@@ -70,6 +70,7 @@ val yojson_of_azurerm_vpn_site : azurerm_vpn_site -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address_cidrs : string list prop;
   device_model : string prop;
   device_vendor : string prop;

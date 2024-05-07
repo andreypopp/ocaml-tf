@@ -45,6 +45,7 @@ val yojson_of_digitalocean_database_mysql_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backup_hour : float prop;
   backup_minute : float prop;
   binlog_retention_period : float prop;

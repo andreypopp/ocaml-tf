@@ -93,6 +93,7 @@ let aws_lightsail_disk ?id ?tags ?tags_all ~availability_zone ~name
   { availability_zone; id; name; size_in_gb; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zone : string prop;
   created_at : string prop;
@@ -109,6 +110,7 @@ let make ?id ?tags ?tags_all ~availability_zone ~name ~size_in_gb
   let __type = "aws_lightsail_disk" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zone =
          Prop.computed __type __id "availability_zone";

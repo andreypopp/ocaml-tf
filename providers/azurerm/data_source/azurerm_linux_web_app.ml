@@ -2992,6 +2992,7 @@ let azurerm_linux_web_app ?id ?timeouts ~name ~resource_group_name ()
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   app_metadata : (string * string) list prop;
   app_settings : (string * string) list prop;
   auth_settings : auth_settings list prop;
@@ -3037,6 +3038,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_linux_web_app" in
   let __attrs =
     ({
+       tf_name = __id;
        app_metadata = Prop.computed __type __id "app_metadata";
        app_settings = Prop.computed __type __id "app_settings";
        auth_settings = Prop.computed __type __id "auth_settings";

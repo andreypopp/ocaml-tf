@@ -172,6 +172,7 @@ let aws_ec2_transit_gateway_vpc_attachment ?appliance_mode_support
   }
 
 type t = {
+  tf_name : string;
   appliance_mode_support : string prop;
   dns_support : string prop;
   id : string prop;
@@ -193,6 +194,7 @@ let make ?appliance_mode_support ?dns_support ?id ?ipv6_support ?tags
   let __type = "aws_ec2_transit_gateway_vpc_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        appliance_mode_support =
          Prop.computed __type __id "appliance_mode_support";
        dns_support = Prop.computed __type __id "dns_support";

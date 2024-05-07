@@ -33,6 +33,7 @@ val yojson_of_azurerm_palo_alto_local_rulestack_prefix_list :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   audit_comment : string prop;
   description : string prop;
   id : string prop;

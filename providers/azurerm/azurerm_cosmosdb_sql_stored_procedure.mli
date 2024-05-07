@@ -34,6 +34,7 @@ val yojson_of_azurerm_cosmosdb_sql_stored_procedure :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_name : string prop;
   body : string prop;
   container_name : string prop;

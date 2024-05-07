@@ -22,6 +22,7 @@ val yojson_of_aws_chime_voice_connector :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   aws_region : string prop;
   id : string prop;

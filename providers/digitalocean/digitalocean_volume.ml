@@ -129,6 +129,7 @@ let digitalocean_volume ?description ?filesystem_type ?id
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   droplet_ids : float list prop;
   filesystem_label : string prop;
@@ -150,6 +151,7 @@ let make ?description ?filesystem_type ?id ?initial_filesystem_label
   let __type = "digitalocean_volume" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        droplet_ids = Prop.computed __type __id "droplet_ids";
        filesystem_label =

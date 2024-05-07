@@ -455,6 +455,7 @@ val yojson_of_azurerm_linux_function_app_slot :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_settings : (string * string) list prop;
   builtin_logging_enabled : bool prop;
   client_certificate_enabled : bool prop;

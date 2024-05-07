@@ -36,6 +36,7 @@ val yojson_of_google_compute_target_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backup_pool : string prop;
   description : string prop;
   failover_ratio : float prop;

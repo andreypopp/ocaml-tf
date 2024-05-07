@@ -26,6 +26,7 @@ val yojson_of_aws_organizations_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   close_on_deletion : bool prop;
   create_govcloud : bool prop;

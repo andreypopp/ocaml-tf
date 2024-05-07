@@ -62,6 +62,7 @@ val yojson_of_google_dialogflow_cx_webhook :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   disabled : bool prop;
   display_name : string prop;
   enable_spell_correction : bool prop;

@@ -31,6 +31,7 @@ val yojson_of_azurerm_spring_cloud_gateway_custom_domain :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   spring_cloud_gateway_id : string prop;

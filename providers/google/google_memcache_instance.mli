@@ -97,6 +97,7 @@ val yojson_of_google_memcache_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authorized_network : string prop;
   create_time : string prop;
   discovery_endpoint : string prop;

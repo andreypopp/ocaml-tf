@@ -63,6 +63,7 @@ val yojson_of_azurerm_stream_analytics_job :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   compatibility_level : string prop;
   content_storage_policy : string prop;
   data_locale : string prop;

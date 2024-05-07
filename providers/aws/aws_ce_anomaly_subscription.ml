@@ -1106,6 +1106,7 @@ let aws_ce_anomaly_subscription ?account_id ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   arn : string prop;
   frequency : string prop;
@@ -1121,6 +1122,7 @@ let make ?account_id ?id ?tags ?tags_all ?(threshold_expression = [])
   let __type = "aws_ce_anomaly_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        arn = Prop.computed __type __id "arn";
        frequency = Prop.computed __type __id "frequency";

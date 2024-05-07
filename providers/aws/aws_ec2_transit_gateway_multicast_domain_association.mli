@@ -26,6 +26,7 @@ val yojson_of_aws_ec2_transit_gateway_multicast_domain_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   subnet_id : string prop;
   transit_gateway_attachment_id : string prop;

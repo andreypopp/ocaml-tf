@@ -1037,6 +1037,7 @@ let aws_batch_job_definition ?container_properties ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   arn_prefix : string prop;
   container_properties : string prop;
@@ -1060,6 +1061,7 @@ let make ?container_properties ?id ?node_properties ?parameters
   let __type = "aws_batch_job_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        arn_prefix = Prop.computed __type __id "arn_prefix";
        container_properties =

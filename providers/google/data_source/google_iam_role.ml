@@ -38,6 +38,7 @@ let _ = yojson_of_google_iam_role
 let google_iam_role ?id ~name () : google_iam_role = { id; name }
 
 type t = {
+  tf_name : string;
   id : string prop;
   included_permissions : string list prop;
   name : string prop;
@@ -49,6 +50,7 @@ let make ?id ~name __id =
   let __type = "google_iam_role" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        included_permissions =
          Prop.computed __type __id "included_permissions";

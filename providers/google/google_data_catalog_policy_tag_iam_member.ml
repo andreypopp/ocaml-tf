@@ -108,6 +108,7 @@ let google_data_catalog_policy_tag_iam_member ?id ?(condition = [])
   { id; member; policy_tag; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   member : string prop;
@@ -119,6 +120,7 @@ let make ?id ?(condition = []) ~member ~policy_tag ~role __id =
   let __type = "google_data_catalog_policy_tag_iam_member" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        member = Prop.computed __type __id "member";

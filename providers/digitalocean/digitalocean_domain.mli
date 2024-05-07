@@ -18,6 +18,7 @@ val yojson_of_digitalocean_domain : digitalocean_domain -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   ip_address : string prop;
   name : string prop;

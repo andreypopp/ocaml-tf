@@ -58,6 +58,7 @@ val yojson_of_google_apigee_keystores_aliases_key_cert_file :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alias : string prop;
   cert : string prop;
   environment : string prop;

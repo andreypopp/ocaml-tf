@@ -27,6 +27,7 @@ val yojson_of_aws_networkmanager_transit_gateway_connect_peer_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   device_id : string prop;
   global_network_id : string prop;
   id : string prop;

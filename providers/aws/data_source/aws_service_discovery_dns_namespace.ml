@@ -63,6 +63,7 @@ let aws_service_discovery_dns_namespace ?id ?tags ~name ~type_ () :
   { id; name; tags; type_ }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   hosted_zone : string prop;
@@ -76,6 +77,7 @@ let make ?id ?tags ~name ~type_ __id =
   let __type = "aws_service_discovery_dns_namespace" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        hosted_zone = Prop.computed __type __id "hosted_zone";

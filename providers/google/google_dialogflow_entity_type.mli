@@ -37,6 +37,7 @@ val yojson_of_google_dialogflow_entity_type :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   enable_fuzzy_extraction : bool prop;
   id : string prop;

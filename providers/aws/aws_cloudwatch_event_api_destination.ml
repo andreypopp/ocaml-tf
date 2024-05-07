@@ -97,6 +97,7 @@ let aws_cloudwatch_event_api_destination ?description ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   connection_arn : string prop;
   description : string prop;
@@ -112,6 +113,7 @@ let make ?description ?id ?invocation_rate_limit_per_second
   let __type = "aws_cloudwatch_event_api_destination" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        connection_arn = Prop.computed __type __id "connection_arn";
        description = Prop.computed __type __id "description";

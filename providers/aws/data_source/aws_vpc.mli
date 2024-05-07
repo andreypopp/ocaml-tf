@@ -38,6 +38,7 @@ val yojson_of_aws_vpc : aws_vpc -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cidr_block : string prop;
   cidr_block_associations : cidr_block_associations list prop;

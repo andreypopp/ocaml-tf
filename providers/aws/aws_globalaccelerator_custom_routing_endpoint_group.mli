@@ -41,6 +41,7 @@ val yojson_of_aws_globalaccelerator_custom_routing_endpoint_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   endpoint_group_region : string prop;
   id : string prop;

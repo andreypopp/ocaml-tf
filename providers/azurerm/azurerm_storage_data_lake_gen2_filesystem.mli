@@ -44,6 +44,7 @@ val yojson_of_azurerm_storage_data_lake_gen2_filesystem :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   group : string prop;
   id : string prop;
   name : string prop;

@@ -2085,6 +2085,7 @@ let azurerm_workloads_sap_three_tier_virtual_instance ?id
   }
 
 type t = {
+  tf_name : string;
   app_location : string prop;
   environment : string prop;
   id : string prop;
@@ -2104,6 +2105,7 @@ let make ?id ?managed_resource_group_name ?tags ?(identity = [])
   let __type = "azurerm_workloads_sap_three_tier_virtual_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        app_location = Prop.computed __type __id "app_location";
        environment = Prop.computed __type __id "environment";
        id = Prop.computed __type __id "id";

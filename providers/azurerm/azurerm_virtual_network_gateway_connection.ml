@@ -556,6 +556,7 @@ let azurerm_virtual_network_gateway_connection ?authorization_key
   }
 
 type t = {
+  tf_name : string;
   authorization_key : string prop;
   connection_mode : string prop;
   connection_protocol : string prop;
@@ -593,6 +594,7 @@ let make ?authorization_key ?connection_mode ?connection_protocol
   let __type = "azurerm_virtual_network_gateway_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        authorization_key =
          Prop.computed __type __id "authorization_key";
        connection_mode = Prop.computed __type __id "connection_mode";

@@ -32,6 +32,7 @@ val yojson_of_aws_directory_service_radius_settings :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authentication_protocol : string prop;
   directory_id : string prop;
   display_label : string prop;

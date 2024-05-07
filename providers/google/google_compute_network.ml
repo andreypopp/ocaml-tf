@@ -209,6 +209,7 @@ let google_compute_network ?auto_create_subnetworks
   }
 
 type t = {
+  tf_name : string;
   auto_create_subnetworks : bool prop;
   delete_default_routes_on_create : bool prop;
   description : string prop;
@@ -232,6 +233,7 @@ let make ?auto_create_subnetworks ?delete_default_routes_on_create
   let __type = "google_compute_network" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_create_subnetworks =
          Prop.computed __type __id "auto_create_subnetworks";
        delete_default_routes_on_create =

@@ -78,6 +78,7 @@ val yojson_of_azurerm_kusto_cluster : azurerm_kusto_cluster -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allowed_fqdns : string list prop;
   allowed_ip_ranges : string list prop;
   auto_stop_enabled : bool prop;

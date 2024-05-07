@@ -231,6 +231,7 @@ let azurerm_custom_ip_prefix ?commissioning_enabled ?id
   }
 
 type t = {
+  tf_name : string;
   cidr : string prop;
   commissioning_enabled : bool prop;
   id : string prop;
@@ -252,6 +253,7 @@ let make ?commissioning_enabled ?id ?internet_advertising_disabled
   let __type = "azurerm_custom_ip_prefix" in
   let __attrs =
     ({
+       tf_name = __id;
        cidr = Prop.computed __type __id "cidr";
        commissioning_enabled =
          Prop.computed __type __id "commissioning_enabled";

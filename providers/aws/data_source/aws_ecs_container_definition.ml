@@ -54,6 +54,7 @@ let aws_ecs_container_definition ?id ~container_name ~task_definition
   { container_name; id; task_definition }
 
 type t = {
+  tf_name : string;
   container_name : string prop;
   cpu : float prop;
   disable_networking : bool prop;
@@ -71,6 +72,7 @@ let make ?id ~container_name ~task_definition __id =
   let __type = "aws_ecs_container_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        container_name = Prop.computed __type __id "container_name";
        cpu = Prop.computed __type __id "cpu";
        disable_networking =

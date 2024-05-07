@@ -63,6 +63,7 @@ val yojson_of_google_discovery_engine_chat_engine :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   chat_engine_metadata : chat_engine_metadata list prop;
   collection_id : string prop;
   create_time : string prop;

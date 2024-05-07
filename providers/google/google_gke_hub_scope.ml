@@ -165,6 +165,7 @@ let google_gke_hub_scope ?id ?labels ?namespace_labels ?project
   { id; labels; namespace_labels; project; scope_id; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   delete_time : string prop;
   effective_labels : (string * string) list prop;
@@ -185,6 +186,7 @@ let make ?id ?labels ?namespace_labels ?project ?timeouts ~scope_id
   let __type = "google_gke_hub_scope" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        delete_time = Prop.computed __type __id "delete_time";
        effective_labels =

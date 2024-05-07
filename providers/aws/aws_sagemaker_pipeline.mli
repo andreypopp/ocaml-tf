@@ -42,6 +42,7 @@ val yojson_of_aws_sagemaker_pipeline : aws_sagemaker_pipeline -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   pipeline_definition : string prop;

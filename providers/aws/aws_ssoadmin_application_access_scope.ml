@@ -55,6 +55,7 @@ let aws_ssoadmin_application_access_scope ?authorized_targets
   { application_arn; authorized_targets; scope }
 
 type t = {
+  tf_name : string;
   application_arn : string prop;
   authorized_targets : string list prop;
   id : string prop;
@@ -65,6 +66,7 @@ let make ?authorized_targets ~application_arn ~scope __id =
   let __type = "aws_ssoadmin_application_access_scope" in
   let __attrs =
     ({
+       tf_name = __id;
        application_arn = Prop.computed __type __id "application_arn";
        authorized_targets =
          Prop.computed __type __id "authorized_targets";

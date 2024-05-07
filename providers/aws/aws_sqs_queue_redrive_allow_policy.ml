@@ -52,6 +52,7 @@ let aws_sqs_queue_redrive_allow_policy ?id ~queue_url
   { id; queue_url; redrive_allow_policy }
 
 type t = {
+  tf_name : string;
   id : string prop;
   queue_url : string prop;
   redrive_allow_policy : string prop;
@@ -61,6 +62,7 @@ let make ?id ~queue_url ~redrive_allow_policy __id =
   let __type = "aws_sqs_queue_redrive_allow_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        queue_url = Prop.computed __type __id "queue_url";
        redrive_allow_policy =

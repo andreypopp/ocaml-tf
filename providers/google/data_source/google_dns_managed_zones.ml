@@ -55,12 +55,17 @@ let google_dns_managed_zones ?project ?(managed_zones = []) () :
     google_dns_managed_zones =
   { project; managed_zones }
 
-type t = { id : string prop; project : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  project : string prop;
+}
 
 let make ?project ?(managed_zones = []) __id =
   let __type = "google_dns_managed_zones" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        project = Prop.computed __type __id "project";
      }

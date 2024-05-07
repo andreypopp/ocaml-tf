@@ -120,6 +120,7 @@ let cloudflare_static_route ?account_id ?colo_names ?colo_regions
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   colo_names : string list prop;
   colo_regions : string list prop;
@@ -136,6 +137,7 @@ let make ?account_id ?colo_names ?colo_regions ?description ?id
   let __type = "cloudflare_static_route" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        colo_names = Prop.computed __type __id "colo_names";
        colo_regions = Prop.computed __type __id "colo_regions";

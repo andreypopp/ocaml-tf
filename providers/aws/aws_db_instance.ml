@@ -1127,6 +1127,7 @@ let aws_db_instance ?allocated_storage ?allow_major_version_upgrade
   }
 
 type t = {
+  tf_name : string;
   address : string prop;
   allocated_storage : float prop;
   allow_major_version_upgrade : bool prop;
@@ -1231,6 +1232,7 @@ let make ?allocated_storage ?allow_major_version_upgrade
   let __type = "aws_db_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        address = Prop.computed __type __id "address";
        allocated_storage =
          Prop.computed __type __id "allocated_storage";

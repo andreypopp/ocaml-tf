@@ -215,6 +215,7 @@ let aws_cleanrooms_configured_table ?description ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   allowed_columns : string list prop;
   analysis_method : string prop;
   arn : string prop;
@@ -232,6 +233,7 @@ let make ?description ?id ?tags ?tags_all ?timeouts ~allowed_columns
   let __type = "aws_cleanrooms_configured_table" in
   let __attrs =
     ({
+       tf_name = __id;
        allowed_columns = Prop.computed __type __id "allowed_columns";
        analysis_method = Prop.computed __type __id "analysis_method";
        arn = Prop.computed __type __id "arn";

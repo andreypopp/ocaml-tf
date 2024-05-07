@@ -17,6 +17,7 @@ let _ = yojson_of_aws_s3_directory_buckets
 let aws_s3_directory_buckets () = ()
 
 type t = {
+  tf_name : string;
   arns : string list prop;
   buckets : string list prop;
   id : string prop;
@@ -26,6 +27,7 @@ let make __id =
   let __type = "aws_s3_directory_buckets" in
   let __attrs =
     ({
+       tf_name = __id;
        arns = Prop.computed __type __id "arns";
        buckets = Prop.computed __type __id "buckets";
        id = Prop.computed __type __id "id";

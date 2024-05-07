@@ -26,6 +26,7 @@ val yojson_of_aws_autoscaling_schedule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   autoscaling_group_name : string prop;
   desired_capacity : float prop;

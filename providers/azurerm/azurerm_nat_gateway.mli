@@ -34,6 +34,7 @@ val yojson_of_azurerm_nat_gateway : azurerm_nat_gateway -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   idle_timeout_in_minutes : float prop;
   location : string prop;

@@ -24,6 +24,7 @@ val yojson_of_aws_chime_voice_connector_termination_credentials :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   voice_connector_id : string prop;
 }

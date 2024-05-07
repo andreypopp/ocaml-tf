@@ -305,6 +305,7 @@ let google_binary_authorization_policy ?description
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   global_policy_evaluation_mode : string prop;
   id : string prop;
@@ -317,6 +318,7 @@ let make ?description ?global_policy_evaluation_mode ?id ?project
   let __type = "google_binary_authorization_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        global_policy_evaluation_mode =
          Prop.computed __type __id "global_policy_evaluation_mode";

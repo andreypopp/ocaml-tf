@@ -291,6 +291,7 @@ let aws_imagebuilder_image ?id ?tags ~arn () : aws_imagebuilder_image
   { arn; id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   build_version_arn : string prop;
   container_recipe_arn : string prop;
@@ -315,6 +316,7 @@ let make ?id ?tags ~arn __id =
   let __type = "aws_imagebuilder_image" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        build_version_arn =
          Prop.computed __type __id "build_version_arn";

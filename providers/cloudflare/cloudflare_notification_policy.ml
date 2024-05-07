@@ -658,6 +658,7 @@ let cloudflare_notification_policy ?description ?id ?(filters = [])
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   alert_type : string prop;
   created : string prop;
@@ -674,6 +675,7 @@ let make ?description ?id ?(filters = []) ~account_id ~alert_type
   let __type = "cloudflare_notification_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        alert_type = Prop.computed __type __id "alert_type";
        created = Prop.computed __type __id "created";

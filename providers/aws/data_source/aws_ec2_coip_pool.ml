@@ -151,6 +151,7 @@ let aws_ec2_coip_pool ?id ?local_gateway_route_table_id ?pool_id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   local_gateway_route_table_id : string prop;
@@ -164,6 +165,7 @@ let make ?id ?local_gateway_route_table_id ?pool_id ?tags ?timeouts
   let __type = "aws_ec2_coip_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        local_gateway_route_table_id =

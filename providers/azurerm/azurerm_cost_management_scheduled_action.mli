@@ -42,6 +42,7 @@ val yojson_of_azurerm_cost_management_scheduled_action :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   day_of_month : float prop;
   days_of_week : string list prop;
   display_name : string prop;

@@ -34,6 +34,7 @@ val yojson_of_google_securityposture_posture_deployment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   desired_posture_id : string prop;

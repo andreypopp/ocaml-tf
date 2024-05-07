@@ -59,6 +59,7 @@ let google_kms_key_ring ?id ?project ~location ~name () :
   { id; location; name; project }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -69,6 +70,7 @@ let make ?id ?project ~location ~name __id =
   let __type = "google_kms_key_ring" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

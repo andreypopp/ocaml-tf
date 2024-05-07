@@ -144,6 +144,7 @@ let aws_cognito_user_pool_client ?id ~client_id ~user_pool_id () :
   { client_id; id; user_pool_id }
 
 type t = {
+  tf_name : string;
   access_token_validity : float prop;
   allowed_oauth_flows : string list prop;
   allowed_oauth_flows_user_pool_client : bool prop;
@@ -174,6 +175,7 @@ let make ?id ~client_id ~user_pool_id __id =
   let __type = "aws_cognito_user_pool_client" in
   let __attrs =
     ({
+       tf_name = __id;
        access_token_validity =
          Prop.computed __type __id "access_token_validity";
        allowed_oauth_flows =

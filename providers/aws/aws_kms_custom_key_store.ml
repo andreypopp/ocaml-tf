@@ -132,6 +132,7 @@ let aws_kms_custom_key_store ?id ?timeouts ~cloud_hsm_cluster_id
   }
 
 type t = {
+  tf_name : string;
   cloud_hsm_cluster_id : string prop;
   custom_key_store_name : string prop;
   id : string prop;
@@ -144,6 +145,7 @@ let make ?id ?timeouts ~cloud_hsm_cluster_id ~custom_key_store_name
   let __type = "aws_kms_custom_key_store" in
   let __attrs =
     ({
+       tf_name = __id;
        cloud_hsm_cluster_id =
          Prop.computed __type __id "cloud_hsm_cluster_id";
        custom_key_store_name =

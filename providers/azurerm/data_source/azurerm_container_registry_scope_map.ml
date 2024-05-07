@@ -101,6 +101,7 @@ let azurerm_container_registry_scope_map ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   actions : string list prop;
   container_registry_name : string prop;
   description : string prop;
@@ -114,6 +115,7 @@ let make ?id ?timeouts ~container_registry_name ~name
   let __type = "azurerm_container_registry_scope_map" in
   let __attrs =
     ({
+       tf_name = __id;
        actions = Prop.computed __type __id "actions";
        container_registry_name =
          Prop.computed __type __id "container_registry_name";

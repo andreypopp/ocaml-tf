@@ -90,12 +90,13 @@ let aws_shield_proactive_engagement ?(emergency_contact = [])
     ~enabled () : aws_shield_proactive_engagement =
   { enabled; emergency_contact }
 
-type t = { enabled : bool prop; id : string prop }
+type t = { tf_name : string; enabled : bool prop; id : string prop }
 
 let make ?(emergency_contact = []) ~enabled __id =
   let __type = "aws_shield_proactive_engagement" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";
      }

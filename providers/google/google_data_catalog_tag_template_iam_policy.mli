@@ -21,6 +21,7 @@ val yojson_of_google_data_catalog_tag_template_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   policy_data : string prop;

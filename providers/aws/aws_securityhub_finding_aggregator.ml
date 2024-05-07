@@ -56,6 +56,7 @@ let aws_securityhub_finding_aggregator ?id ?specified_regions
   { id; linking_mode; specified_regions }
 
 type t = {
+  tf_name : string;
   id : string prop;
   linking_mode : string prop;
   specified_regions : string list prop;
@@ -65,6 +66,7 @@ let make ?id ?specified_regions ~linking_mode __id =
   let __type = "aws_securityhub_finding_aggregator" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        linking_mode = Prop.computed __type __id "linking_mode";
        specified_regions =

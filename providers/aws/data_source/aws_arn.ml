@@ -38,6 +38,7 @@ let _ = yojson_of_aws_arn
 let aws_arn ?id ~arn () : aws_arn = { arn; id }
 
 type t = {
+  tf_name : string;
   account : string prop;
   arn : string prop;
   id : string prop;
@@ -51,6 +52,7 @@ let make ?id ~arn __id =
   let __type = "aws_arn" in
   let __attrs =
     ({
+       tf_name = __id;
        account = Prop.computed __type __id "account";
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";

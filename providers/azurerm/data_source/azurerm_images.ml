@@ -283,6 +283,7 @@ let azurerm_images ?id ?tags_filter ?timeouts ~resource_group_name ()
   { id; resource_group_name; tags_filter; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   images : images list prop;
   resource_group_name : string prop;
@@ -293,6 +294,7 @@ let make ?id ?tags_filter ?timeouts ~resource_group_name __id =
   let __type = "azurerm_images" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        images = Prop.computed __type __id "images";
        resource_group_name =

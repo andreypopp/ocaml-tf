@@ -21,6 +21,7 @@ val yojson_of_aws_vpclattice_access_log_subscription :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   destination_arn : string prop;
   id : string prop;

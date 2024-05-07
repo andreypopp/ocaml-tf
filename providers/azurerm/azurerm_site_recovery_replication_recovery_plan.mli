@@ -194,6 +194,7 @@ val yojson_of_azurerm_site_recovery_replication_recovery_plan :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   recovery_vault_id : string prop;

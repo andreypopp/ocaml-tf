@@ -17,7 +17,11 @@ val yojson_of_aws_detective_invitation_accepter :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { graph_arn : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  graph_arn : string prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

@@ -86,6 +86,7 @@ let aws_emr_studio_session_mapping ?id ?identity_id ?identity_name
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   identity_id : string prop;
   identity_name : string prop;
@@ -99,6 +100,7 @@ let make ?id ?identity_id ?identity_name ~identity_type
   let __type = "aws_emr_studio_session_mapping" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        identity_id = Prop.computed __type __id "identity_id";
        identity_name = Prop.computed __type __id "identity_name";

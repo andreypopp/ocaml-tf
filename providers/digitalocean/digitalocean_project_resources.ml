@@ -50,6 +50,7 @@ let digitalocean_project_resources ?id ~project ~resources () :
   { id; project; resources }
 
 type t = {
+  tf_name : string;
   id : string prop;
   project : string prop;
   resources : string list prop;
@@ -59,6 +60,7 @@ let make ?id ~project ~resources __id =
   let __type = "digitalocean_project_resources" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        project = Prop.computed __type __id "project";
        resources = Prop.computed __type __id "resources";

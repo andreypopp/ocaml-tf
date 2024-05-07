@@ -37,6 +37,7 @@ val yojson_of_azurerm_storage_mover_job_definition :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   agent_name : string prop;
   copy_mode : string prop;
   description : string prop;

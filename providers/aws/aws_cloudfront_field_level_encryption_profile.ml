@@ -174,6 +174,7 @@ let aws_cloudfront_field_level_encryption_profile ?comment ?id ~name
   { comment; id; name; encryption_entities }
 
 type t = {
+  tf_name : string;
   caller_reference : string prop;
   comment : string prop;
   etag : string prop;
@@ -185,6 +186,7 @@ let make ?comment ?id ~name ~encryption_entities __id =
   let __type = "aws_cloudfront_field_level_encryption_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        caller_reference =
          Prop.computed __type __id "caller_reference";
        comment = Prop.computed __type __id "comment";

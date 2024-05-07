@@ -104,6 +104,7 @@ val yojson_of_google_cloudfunctions_function :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   available_memory_mb : float prop;
   build_environment_variables : (string * string) list prop;
   build_worker_pool : string prop;

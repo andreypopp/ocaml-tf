@@ -331,6 +331,7 @@ let google_vmwareengine_private_cloud ?id ?project ~location ~name ()
   { id; location; name; project }
 
 type t = {
+  tf_name : string;
   description : string prop;
   hcx : hcx list prop;
   id : string prop;
@@ -350,6 +351,7 @@ let make ?id ?project ~location ~name __id =
   let __type = "google_vmwareengine_private_cloud" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        hcx = Prop.computed __type __id "hcx";
        id = Prop.computed __type __id "id";

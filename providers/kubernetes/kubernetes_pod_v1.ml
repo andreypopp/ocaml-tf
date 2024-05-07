@@ -11666,12 +11666,17 @@ let kubernetes_pod_v1 ?id ?target_state ?timeouts ~metadata ~spec ()
     : kubernetes_pod_v1 =
   { id; target_state; metadata; spec; timeouts }
 
-type t = { id : string prop; target_state : string list prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  target_state : string list prop;
+}
 
 let make ?id ?target_state ?timeouts ~metadata ~spec __id =
   let __type = "kubernetes_pod_v1" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        target_state = Prop.computed __type __id "target_state";
      }

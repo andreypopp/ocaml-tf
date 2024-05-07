@@ -204,6 +204,7 @@ let aws_globalaccelerator_custom_routing_endpoint_group
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   endpoint_group_region : string prop;
   id : string prop;
@@ -217,6 +218,7 @@ let make ?endpoint_group_region ?id ?timeouts ~listener_arn
   in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        endpoint_group_region =
          Prop.computed __type __id "endpoint_group_region";

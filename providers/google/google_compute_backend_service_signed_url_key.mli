@@ -27,6 +27,7 @@ val yojson_of_google_compute_backend_service_signed_url_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backend_service : string prop;
   id : string prop;
   key_value : string prop;

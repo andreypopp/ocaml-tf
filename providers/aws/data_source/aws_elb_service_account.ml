@@ -44,6 +44,7 @@ let aws_elb_service_account ?id ?region () : aws_elb_service_account
   { id; region }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   region : string prop;
@@ -53,6 +54,7 @@ let make ?id ?region __id =
   let __type = "aws_elb_service_account" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        region = Prop.computed __type __id "region";

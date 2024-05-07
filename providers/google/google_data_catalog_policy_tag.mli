@@ -31,6 +31,7 @@ val yojson_of_google_data_catalog_policy_tag :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   child_policy_tags : string list prop;
   description : string prop;
   display_name : string prop;

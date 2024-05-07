@@ -34,6 +34,7 @@ val yojson_of_azurerm_private_link_service_endpoint_connections :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   private_endpoint_connections :

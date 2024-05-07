@@ -611,6 +611,7 @@ let aws_fsx_openzfs_file_system ?automatic_backup_retention_days
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   automatic_backup_retention_days : float prop;
   backup_id : string prop;
@@ -651,6 +652,7 @@ let make ?automatic_backup_retention_days ?backup_id
   let __type = "aws_fsx_openzfs_file_system" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        automatic_backup_retention_days =
          Prop.computed __type __id "automatic_backup_retention_days";

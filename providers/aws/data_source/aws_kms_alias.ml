@@ -38,6 +38,7 @@ let _ = yojson_of_aws_kms_alias
 let aws_kms_alias ?id ~name () : aws_kms_alias = { id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;
@@ -49,6 +50,7 @@ let make ?id ~name __id =
   let __type = "aws_kms_alias" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

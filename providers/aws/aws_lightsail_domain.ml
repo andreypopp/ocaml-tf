@@ -39,6 +39,7 @@ let aws_lightsail_domain ?id ~domain_name () : aws_lightsail_domain =
   { domain_name; id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   domain_name : string prop;
   id : string prop;
@@ -48,6 +49,7 @@ let make ?id ~domain_name __id =
   let __type = "aws_lightsail_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        domain_name = Prop.computed __type __id "domain_name";
        id = Prop.computed __type __id "id";

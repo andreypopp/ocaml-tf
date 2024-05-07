@@ -21,6 +21,7 @@ val yojson_of_aws_iam_virtual_mfa_device :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   base_32_string_seed : string prop;
   enable_date : string prop;

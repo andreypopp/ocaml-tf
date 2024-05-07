@@ -29,7 +29,11 @@ val yojson_of_aws_ssm_resource_data_sync :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; name : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  name : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

@@ -337,6 +337,7 @@ let azurerm_storage_account_local_user ?home_directory ?id
   }
 
 type t = {
+  tf_name : string;
   home_directory : string prop;
   id : string prop;
   name : string prop;
@@ -353,6 +354,7 @@ let make ?home_directory ?id ?ssh_key_enabled ?ssh_password_enabled
   let __type = "azurerm_storage_account_local_user" in
   let __attrs =
     ({
+       tf_name = __id;
        home_directory = Prop.computed __type __id "home_directory";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

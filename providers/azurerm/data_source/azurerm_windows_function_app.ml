@@ -2414,6 +2414,7 @@ let azurerm_windows_function_app ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   app_settings : (string * string) list prop;
   auth_settings : auth_settings list prop;
   auth_settings_v2 : auth_settings_v2 list prop;
@@ -2460,6 +2461,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_windows_function_app" in
   let __attrs =
     ({
+       tf_name = __id;
        app_settings = Prop.computed __type __id "app_settings";
        auth_settings = Prop.computed __type __id "auth_settings";
        auth_settings_v2 =

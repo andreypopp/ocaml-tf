@@ -45,6 +45,7 @@ val yojson_of_aws_ssm_association : aws_ssm_association -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   apply_only_at_cron_interval : bool prop;
   arn : string prop;
   association_id : string prop;

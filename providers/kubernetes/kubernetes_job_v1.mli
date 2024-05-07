@@ -2100,6 +2100,7 @@ val yojson_of_kubernetes_job_v1 : kubernetes_job_v1 -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   wait_for_completion : bool prop;
 }

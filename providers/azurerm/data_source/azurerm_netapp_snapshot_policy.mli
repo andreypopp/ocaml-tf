@@ -50,6 +50,7 @@ val yojson_of_azurerm_netapp_snapshot_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_name : string prop;
   daily_schedule : daily_schedule list prop;
   enabled : bool prop;

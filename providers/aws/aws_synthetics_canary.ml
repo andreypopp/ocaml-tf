@@ -527,6 +527,7 @@ let aws_synthetics_canary ?delete_lambda ?failure_retention_period
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   artifact_s3_location : string prop;
   delete_lambda : bool prop;
@@ -558,6 +559,7 @@ let make ?delete_lambda ?failure_retention_period ?id ?s3_bucket
   let __type = "aws_synthetics_canary" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        artifact_s3_location =
          Prop.computed __type __id "artifact_s3_location";

@@ -15,6 +15,7 @@ val yojson_of_aws_ecrpublic_authorization_token :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authorization_token : string prop;
   expires_at : string prop;
   id : string prop;

@@ -30,6 +30,7 @@ val yojson_of_aws_secretsmanager_secret_rotation :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   rotate_immediately : bool prop;
   rotation_enabled : bool prop;

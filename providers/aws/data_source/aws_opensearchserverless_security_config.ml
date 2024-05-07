@@ -51,6 +51,7 @@ let aws_opensearchserverless_security_config ~id ~saml_options () :
   { id; saml_options }
 
 type t = {
+  tf_name : string;
   config_version : string prop;
   created_date : string prop;
   description : string prop;
@@ -63,6 +64,7 @@ let make ~id ~saml_options __id =
   let __type = "aws_opensearchserverless_security_config" in
   let __attrs =
     ({
+       tf_name = __id;
        config_version = Prop.computed __type __id "config_version";
        created_date = Prop.computed __type __id "created_date";
        description = Prop.computed __type __id "description";

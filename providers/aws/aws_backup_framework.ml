@@ -301,6 +301,7 @@ let aws_backup_framework ?description ?id ?tags ?tags_all ?timeouts
   { description; id; name; tags; tags_all; control; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   creation_time : string prop;
   deployment_status : string prop;
@@ -317,6 +318,7 @@ let make ?description ?id ?tags ?tags_all ?timeouts ~name ~control
   let __type = "aws_backup_framework" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        creation_time = Prop.computed __type __id "creation_time";
        deployment_status =

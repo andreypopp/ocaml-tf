@@ -116,6 +116,7 @@ let azurerm_mssql_database ?id ?timeouts ~name ~server_id () :
   { id; name; server_id; timeouts }
 
 type t = {
+  tf_name : string;
   collation : string prop;
   elastic_pool_id : string prop;
   enclave_type : string prop;
@@ -141,6 +142,7 @@ let make ?id ?timeouts ~name ~server_id __id =
   let __type = "azurerm_mssql_database" in
   let __attrs =
     ({
+       tf_name = __id;
        collation = Prop.computed __type __id "collation";
        elastic_pool_id = Prop.computed __type __id "elastic_pool_id";
        enclave_type = Prop.computed __type __id "enclave_type";

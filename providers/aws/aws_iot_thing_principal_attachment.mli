@@ -19,6 +19,7 @@ val yojson_of_aws_iot_thing_principal_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   principal : string prop;
   thing : string prop;

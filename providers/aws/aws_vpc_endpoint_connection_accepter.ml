@@ -55,6 +55,7 @@ let aws_vpc_endpoint_connection_accepter ?id ~vpc_endpoint_id
   { id; vpc_endpoint_id; vpc_endpoint_service_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   vpc_endpoint_id : string prop;
   vpc_endpoint_service_id : string prop;
@@ -65,6 +66,7 @@ let make ?id ~vpc_endpoint_id ~vpc_endpoint_service_id __id =
   let __type = "aws_vpc_endpoint_connection_accepter" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        vpc_endpoint_id = Prop.computed __type __id "vpc_endpoint_id";
        vpc_endpoint_service_id =

@@ -123,6 +123,7 @@ let azurerm_network_interface_nat_rule_association ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   ip_configuration_name : string prop;
   nat_rule_id : string prop;
@@ -134,6 +135,7 @@ let make ?id ?timeouts ~ip_configuration_name ~nat_rule_id
   let __type = "azurerm_network_interface_nat_rule_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ip_configuration_name =
          Prop.computed __type __id "ip_configuration_name";

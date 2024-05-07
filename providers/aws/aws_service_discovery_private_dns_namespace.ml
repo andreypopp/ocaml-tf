@@ -97,6 +97,7 @@ let aws_service_discovery_private_dns_namespace ?description ?id
   { description; id; name; tags; tags_all; vpc }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   hosted_zone : string prop;
@@ -111,6 +112,7 @@ let make ?description ?id ?tags ?tags_all ~name ~vpc __id =
   let __type = "aws_service_discovery_private_dns_namespace" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        hosted_zone = Prop.computed __type __id "hosted_zone";

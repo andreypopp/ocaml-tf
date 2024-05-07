@@ -68,6 +68,7 @@ val yojson_of_azurerm_monitor_aad_diagnostic_setting :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   eventhub_authorization_rule_id : string prop;
   eventhub_name : string prop;
   id : string prop;

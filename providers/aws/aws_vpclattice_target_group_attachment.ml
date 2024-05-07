@@ -131,12 +131,17 @@ let aws_vpclattice_target_group_attachment ?id ?timeouts
     aws_vpclattice_target_group_attachment =
   { id; target_group_identifier; target; timeouts }
 
-type t = { id : string prop; target_group_identifier : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  target_group_identifier : string prop;
+}
 
 let make ?id ?timeouts ~target_group_identifier ~target __id =
   let __type = "aws_vpclattice_target_group_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        target_group_identifier =
          Prop.computed __type __id "target_group_identifier";

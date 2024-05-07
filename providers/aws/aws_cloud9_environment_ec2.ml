@@ -155,6 +155,7 @@ let aws_cloud9_environment_ec2 ?automatic_stop_time_minutes
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   automatic_stop_time_minutes : float prop;
   connection_type : string prop;
@@ -176,6 +177,7 @@ let make ?automatic_stop_time_minutes ?connection_type ?description
   let __type = "aws_cloud9_environment_ec2" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        automatic_stop_time_minutes =
          Prop.computed __type __id "automatic_stop_time_minutes";

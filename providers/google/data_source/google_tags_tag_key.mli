@@ -17,6 +17,7 @@ val yojson_of_google_tags_tag_key : google_tags_tag_key -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   id : string prop;

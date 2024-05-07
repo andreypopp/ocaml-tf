@@ -82,6 +82,7 @@ let aws_detective_member ?disable_email_notification ?id ?message
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   administrator_id : string prop;
   disable_email_notification : bool prop;
@@ -101,6 +102,7 @@ let make ?disable_email_notification ?id ?message ~account_id
   let __type = "aws_detective_member" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        administrator_id =
          Prop.computed __type __id "administrator_id";

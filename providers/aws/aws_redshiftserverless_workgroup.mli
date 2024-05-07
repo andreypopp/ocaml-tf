@@ -67,6 +67,7 @@ val yojson_of_aws_redshiftserverless_workgroup :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   base_capacity : float prop;
   endpoint : endpoint list prop;

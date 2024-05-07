@@ -173,6 +173,7 @@ let azurerm_stream_analytics_output_synapse ?id ?timeouts ~database
   }
 
 type t = {
+  tf_name : string;
   database : string prop;
   id : string prop;
   name : string prop;
@@ -189,6 +190,7 @@ let make ?id ?timeouts ~database ~name ~password ~resource_group_name
   let __type = "azurerm_stream_analytics_output_synapse" in
   let __attrs =
     ({
+       tf_name = __id;
        database = Prop.computed __type __id "database";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

@@ -39,6 +39,7 @@ val yojson_of_azurerm_spring_cloud_java_deployment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   environment_variables : (string * string) list prop;
   id : string prop;
   instance_count : float prop;

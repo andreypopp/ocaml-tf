@@ -130,6 +130,7 @@ let google_dataproc_cluster_iam_binding ?id ?project ?region
   { cluster; id; members; project; region; role; condition }
 
 type t = {
+  tf_name : string;
   cluster : string prop;
   etag : string prop;
   id : string prop;
@@ -144,6 +145,7 @@ let make ?id ?project ?region ?(condition = []) ~cluster ~members
   let __type = "google_dataproc_cluster_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster = Prop.computed __type __id "cluster";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

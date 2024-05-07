@@ -45,6 +45,7 @@ let aws_s3_bucket_policy ?id ~bucket ~policy () :
   { bucket; id; policy }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   id : string prop;
   policy : string prop;
@@ -54,6 +55,7 @@ let make ?id ~bucket ~policy __id =
   let __type = "aws_s3_bucket_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        id = Prop.computed __type __id "id";
        policy = Prop.computed __type __id "policy";

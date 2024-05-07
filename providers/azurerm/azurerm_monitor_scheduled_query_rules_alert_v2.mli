@@ -86,6 +86,7 @@ val yojson_of_azurerm_monitor_scheduled_query_rules_alert_v2 :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_mitigation_enabled : bool prop;
   created_with_api_version : string prop;
   description : string prop;

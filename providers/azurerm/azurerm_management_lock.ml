@@ -120,6 +120,7 @@ let azurerm_management_lock ?id ?notes ?timeouts ~lock_level ~name
   { id; lock_level; name; notes; scope; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   lock_level : string prop;
   name : string prop;
@@ -131,6 +132,7 @@ let make ?id ?notes ?timeouts ~lock_level ~name ~scope __id =
   let __type = "azurerm_management_lock" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        lock_level = Prop.computed __type __id "lock_level";
        name = Prop.computed __type __id "name";

@@ -35,6 +35,7 @@ val yojson_of_azurerm_confidential_ledger :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   azuread_based_service_principal :
     azuread_based_service_principal list prop;
   certificate_based_security_principal :

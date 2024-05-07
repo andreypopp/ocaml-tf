@@ -104,6 +104,7 @@ let google_monitoring_cluster_istio_service ?id ?project
   }
 
 type t = {
+  tf_name : string;
   cluster_name : string prop;
   display_name : string prop;
   id : string prop;
@@ -122,6 +123,7 @@ let make ?id ?project ~cluster_name ~location ~service_name
   let __type = "google_monitoring_cluster_istio_service" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_name = Prop.computed __type __id "cluster_name";
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";

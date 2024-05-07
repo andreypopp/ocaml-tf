@@ -502,6 +502,7 @@ let azurerm_app_configuration ?id ?local_auth_enabled
   }
 
 type t = {
+  tf_name : string;
   endpoint : string prop;
   id : string prop;
   local_auth_enabled : bool prop;
@@ -526,6 +527,7 @@ let make ?id ?local_auth_enabled ?public_network_access
   let __type = "azurerm_app_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        endpoint = Prop.computed __type __id "endpoint";
        id = Prop.computed __type __id "id";
        local_auth_enabled =

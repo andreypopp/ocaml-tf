@@ -20,6 +20,7 @@ val yojson_of_digitalocean_volume_snapshot :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created_at : string prop;
   id : string prop;
   min_disk_size : float prop;

@@ -23,6 +23,7 @@ val yojson_of_azurerm_eventhub_sas : azurerm_eventhub_sas -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   connection_string : string prop;
   expiry : string prop;
   id : string prop;

@@ -32,6 +32,7 @@ val yojson_of_azurerm_mssql_virtual_network_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   ignore_missing_vnet_service_endpoint : bool prop;
   name : string prop;

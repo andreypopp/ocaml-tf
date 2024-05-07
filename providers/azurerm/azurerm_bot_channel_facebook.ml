@@ -188,6 +188,7 @@ let azurerm_bot_channel_facebook ?id ?timeouts ~bot_name
   }
 
 type t = {
+  tf_name : string;
   bot_name : string prop;
   facebook_application_id : string prop;
   facebook_application_secret : string prop;
@@ -202,6 +203,7 @@ let make ?id ?timeouts ~bot_name ~facebook_application_id
   let __type = "azurerm_bot_channel_facebook" in
   let __attrs =
     ({
+       tf_name = __id;
        bot_name = Prop.computed __type __id "bot_name";
        facebook_application_id =
          Prop.computed __type __id "facebook_application_id";

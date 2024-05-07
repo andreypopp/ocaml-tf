@@ -123,6 +123,7 @@ let azurerm_stack_hci_cluster ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   automanage_configuration_id : string prop;
   client_id : string prop;
   cloud_id : string prop;
@@ -141,6 +142,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_stack_hci_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        automanage_configuration_id =
          Prop.computed __type __id "automanage_configuration_id";
        client_id = Prop.computed __type __id "client_id";

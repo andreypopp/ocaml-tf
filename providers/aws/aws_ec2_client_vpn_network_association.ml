@@ -98,6 +98,7 @@ let aws_ec2_client_vpn_network_association ?id ?timeouts
   { client_vpn_endpoint_id; id; subnet_id; timeouts }
 
 type t = {
+  tf_name : string;
   association_id : string prop;
   client_vpn_endpoint_id : string prop;
   id : string prop;
@@ -109,6 +110,7 @@ let make ?id ?timeouts ~client_vpn_endpoint_id ~subnet_id __id =
   let __type = "aws_ec2_client_vpn_network_association" in
   let __attrs =
     ({
+       tf_name = __id;
        association_id = Prop.computed __type __id "association_id";
        client_vpn_endpoint_id =
          Prop.computed __type __id "client_vpn_endpoint_id";

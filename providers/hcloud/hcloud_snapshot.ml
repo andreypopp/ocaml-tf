@@ -105,6 +105,7 @@ let hcloud_snapshot ?description ?id ?labels ?timeouts ~server_id ()
   { description; id; labels; server_id; timeouts }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   labels : (string * string) list prop;
@@ -115,6 +116,7 @@ let make ?description ?id ?labels ?timeouts ~server_id __id =
   let __type = "hcloud_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        labels = Prop.computed __type __id "labels";

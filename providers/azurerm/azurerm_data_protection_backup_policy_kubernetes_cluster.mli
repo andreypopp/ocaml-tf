@@ -78,6 +78,7 @@ val yojson_of_azurerm_data_protection_backup_policy_kubernetes_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backup_repeating_time_intervals : string list prop;
   id : string prop;
   name : string prop;

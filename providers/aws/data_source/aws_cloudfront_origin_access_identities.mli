@@ -18,6 +18,7 @@ val yojson_of_aws_cloudfront_origin_access_identities :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   comments : string list prop;
   iam_arns : string list prop;
   id : string prop;

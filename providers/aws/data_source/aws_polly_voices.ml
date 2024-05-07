@@ -82,6 +82,7 @@ let aws_polly_voices ?engine ?include_additional_language_codes
   }
 
 type t = {
+  tf_name : string;
   engine : string prop;
   id : string prop;
   include_additional_language_codes : bool prop;
@@ -93,6 +94,7 @@ let make ?engine ?include_additional_language_codes ?language_code
   let __type = "aws_polly_voices" in
   let __attrs =
     ({
+       tf_name = __id;
        engine = Prop.computed __type __id "engine";
        id = Prop.computed __type __id "id";
        include_additional_language_codes =

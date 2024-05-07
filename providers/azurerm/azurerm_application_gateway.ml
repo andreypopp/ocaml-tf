@@ -2919,6 +2919,7 @@ let azurerm_application_gateway ?enable_http2 ?fips_enabled
   }
 
 type t = {
+  tf_name : string;
   enable_http2 : bool prop;
   fips_enabled : bool prop;
   firewall_policy_id : string prop;
@@ -2950,6 +2951,7 @@ let make ?enable_http2 ?fips_enabled ?firewall_policy_id
   let __type = "azurerm_application_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        enable_http2 = Prop.computed __type __id "enable_http2";
        fips_enabled = Prop.computed __type __id "fips_enabled";
        firewall_policy_id =

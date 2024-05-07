@@ -246,6 +246,7 @@ let kubernetes_default_service_account_v1
   }
 
 type t = {
+  tf_name : string;
   automount_service_account_token : bool prop;
   default_secret_name : string prop;
   id : string prop;
@@ -256,6 +257,7 @@ let make ?automount_service_account_token ?id ?timeouts
   let __type = "kubernetes_default_service_account_v1" in
   let __attrs =
     ({
+       tf_name = __id;
        automount_service_account_token =
          Prop.computed __type __id "automount_service_account_token";
        default_secret_name =

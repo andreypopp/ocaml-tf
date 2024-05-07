@@ -42,6 +42,7 @@ val yojson_of_azurerm_dev_test_virtual_network :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allowed_subnets : allowed_subnets list prop;
   id : string prop;
   lab_name : string prop;

@@ -56,6 +56,7 @@ let aws_prometheus_rule_group_namespace ?id ~data ~name ~workspace_id
   { data; id; name; workspace_id }
 
 type t = {
+  tf_name : string;
   data : string prop;
   id : string prop;
   name : string prop;
@@ -66,6 +67,7 @@ let make ?id ~data ~name ~workspace_id __id =
   let __type = "aws_prometheus_rule_group_namespace" in
   let __attrs =
     ({
+       tf_name = __id;
        data = Prop.computed __type __id "data";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

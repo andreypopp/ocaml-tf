@@ -151,6 +151,7 @@ let google_cloudbuildv2_repository ?annotations ?id ?location
   }
 
 type t = {
+  tf_name : string;
   annotations : (string * string) list prop;
   create_time : string prop;
   effective_annotations : (string * string) list prop;
@@ -169,6 +170,7 @@ let make ?annotations ?id ?location ?project ?timeouts ~name
   let __type = "google_cloudbuildv2_repository" in
   let __attrs =
     ({
+       tf_name = __id;
        annotations = Prop.computed __type __id "annotations";
        create_time = Prop.computed __type __id "create_time";
        effective_annotations =

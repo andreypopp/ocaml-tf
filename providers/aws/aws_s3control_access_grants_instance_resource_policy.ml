@@ -44,6 +44,7 @@ let aws_s3control_access_grants_instance_resource_policy ?account_id
   { account_id; policy }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   policy : string prop;
@@ -55,6 +56,7 @@ let make ?account_id ~policy __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        policy = Prop.computed __type __id "policy";

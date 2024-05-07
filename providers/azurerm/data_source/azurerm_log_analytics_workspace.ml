@@ -86,6 +86,7 @@ let azurerm_log_analytics_workspace ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   daily_quota_gb : float prop;
   id : string prop;
   location : string prop;
@@ -103,6 +104,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_log_analytics_workspace" in
   let __attrs =
     ({
+       tf_name = __id;
        daily_quota_gb = Prop.computed __type __id "daily_quota_gb";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

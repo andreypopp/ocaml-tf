@@ -85,6 +85,7 @@ let aws_outposts_outpost ?arn ?id ?name ?owner_id ?tags () :
   { arn; id; name; owner_id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zone : string prop;
   availability_zone_id : string prop;
@@ -103,6 +104,7 @@ let make ?arn ?id ?name ?owner_id ?tags __id =
   let __type = "aws_outposts_outpost" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zone =
          Prop.computed __type __id "availability_zone";

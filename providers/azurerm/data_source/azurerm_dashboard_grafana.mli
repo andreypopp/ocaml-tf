@@ -37,6 +37,7 @@ val yojson_of_azurerm_dashboard_grafana :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_key_enabled : bool prop;
   auto_generated_domain_name_label_scope : string prop;
   azure_monitor_workspace_integrations :

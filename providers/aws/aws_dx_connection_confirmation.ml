@@ -40,12 +40,17 @@ let aws_dx_connection_confirmation ?id ~connection_id () :
     aws_dx_connection_confirmation =
   { connection_id; id }
 
-type t = { connection_id : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  connection_id : string prop;
+  id : string prop;
+}
 
 let make ?id ~connection_id __id =
   let __type = "aws_dx_connection_confirmation" in
   let __attrs =
     ({
+       tf_name = __id;
        connection_id = Prop.computed __type __id "connection_id";
        id = Prop.computed __type __id "id";
      }

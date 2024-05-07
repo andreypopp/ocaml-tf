@@ -844,12 +844,17 @@ let azurerm_storage_management_policy ?id ?(rule = []) ?timeouts
     ~storage_account_id () : azurerm_storage_management_policy =
   { id; storage_account_id; rule; timeouts }
 
-type t = { id : string prop; storage_account_id : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  storage_account_id : string prop;
+}
 
 let make ?id ?(rule = []) ?timeouts ~storage_account_id __id =
   let __type = "azurerm_storage_management_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        storage_account_id =
          Prop.computed __type __id "storage_account_id";

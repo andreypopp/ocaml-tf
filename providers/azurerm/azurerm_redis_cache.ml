@@ -645,6 +645,7 @@ let azurerm_redis_cache ?enable_non_ssl_port ?id ?minimum_tls_version
   }
 
 type t = {
+  tf_name : string;
   capacity : float prop;
   enable_non_ssl_port : bool prop;
   family : string prop;
@@ -683,6 +684,7 @@ let make ?enable_non_ssl_port ?id ?minimum_tls_version
   let __type = "azurerm_redis_cache" in
   let __attrs =
     ({
+       tf_name = __id;
        capacity = Prop.computed __type __id "capacity";
        enable_non_ssl_port =
          Prop.computed __type __id "enable_non_ssl_port";

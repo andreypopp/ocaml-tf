@@ -195,6 +195,7 @@ let aws_batch_job_queue ?compute_environments ?scheduling_policy_arn
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   compute_environments : string list prop;
   id : string prop;
@@ -212,6 +213,7 @@ let make ?compute_environments ?scheduling_policy_arn ?tags
   let __type = "aws_batch_job_queue" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        compute_environments =
          Prop.computed __type __id "compute_environments";

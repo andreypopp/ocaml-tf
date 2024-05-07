@@ -186,6 +186,7 @@ val yojson_of_aws_sagemaker_data_quality_job_definition :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;

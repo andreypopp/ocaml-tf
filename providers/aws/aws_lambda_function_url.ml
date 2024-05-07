@@ -219,6 +219,7 @@ let aws_lambda_function_url ?id ?invoke_mode ?qualifier ?(cors = [])
   }
 
 type t = {
+  tf_name : string;
   authorization_type : string prop;
   function_arn : string prop;
   function_name : string prop;
@@ -234,6 +235,7 @@ let make ?id ?invoke_mode ?qualifier ?(cors = []) ?timeouts
   let __type = "aws_lambda_function_url" in
   let __attrs =
     ({
+       tf_name = __id;
        authorization_type =
          Prop.computed __type __id "authorization_type";
        function_arn = Prop.computed __type __id "function_arn";

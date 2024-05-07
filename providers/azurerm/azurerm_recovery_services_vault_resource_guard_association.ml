@@ -122,6 +122,7 @@ let azurerm_recovery_services_vault_resource_guard_association ?id
   { id; name; resource_guard_id; vault_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   resource_guard_id : string prop;
@@ -134,6 +135,7 @@ let make ?id ?name ?timeouts ~resource_guard_id ~vault_id __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        resource_guard_id =

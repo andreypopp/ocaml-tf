@@ -118,6 +118,7 @@ let aws_dx_router_configuration ?id ~router_type_identifier
   { id; router_type_identifier; virtual_interface_id }
 
 type t = {
+  tf_name : string;
   customer_router_config : string prop;
   id : string prop;
   router : router list prop;
@@ -130,6 +131,7 @@ let make ?id ~router_type_identifier ~virtual_interface_id __id =
   let __type = "aws_dx_router_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        customer_router_config =
          Prop.computed __type __id "customer_router_config";
        id = Prop.computed __type __id "id";

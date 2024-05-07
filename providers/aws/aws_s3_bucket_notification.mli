@@ -55,6 +55,7 @@ val yojson_of_aws_s3_bucket_notification :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket : string prop;
   eventbridge : bool prop;
   id : string prop;

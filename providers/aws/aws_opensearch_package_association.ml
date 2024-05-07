@@ -95,6 +95,7 @@ let aws_opensearch_package_association ?id ?timeouts ~domain_name
   { domain_name; id; package_id; timeouts }
 
 type t = {
+  tf_name : string;
   domain_name : string prop;
   id : string prop;
   package_id : string prop;
@@ -105,6 +106,7 @@ let make ?id ?timeouts ~domain_name ~package_id __id =
   let __type = "aws_opensearch_package_association" in
   let __attrs =
     ({
+       tf_name = __id;
        domain_name = Prop.computed __type __id "domain_name";
        id = Prop.computed __type __id "id";
        package_id = Prop.computed __type __id "package_id";

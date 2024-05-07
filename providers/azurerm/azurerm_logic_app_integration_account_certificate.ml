@@ -215,6 +215,7 @@ let azurerm_logic_app_integration_account_certificate ?id ?metadata
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   integration_account_name : string prop;
   metadata : string prop;
@@ -229,6 +230,7 @@ let make ?id ?metadata ?public_certificate ?(key_vault_key = [])
   let __type = "azurerm_logic_app_integration_account_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        integration_account_name =
          Prop.computed __type __id "integration_account_name";

@@ -36,6 +36,7 @@ val yojson_of_cloudflare_bot_management :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_update_model : bool prop;
   enable_js : bool prop;
   fight_mode : bool prop;

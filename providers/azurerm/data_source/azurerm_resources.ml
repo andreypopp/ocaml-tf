@@ -185,6 +185,7 @@ let azurerm_resources ?id ?name ?required_tags ?resource_group_name
   { id; name; required_tags; resource_group_name; type_; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   required_tags : (string * string) list prop;
@@ -198,6 +199,7 @@ let make ?id ?name ?required_tags ?resource_group_name ?type_
   let __type = "azurerm_resources" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        required_tags = Prop.computed __type __id "required_tags";

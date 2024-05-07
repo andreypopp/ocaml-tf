@@ -119,6 +119,7 @@ let aws_sagemaker_human_task_ui ?id ?tags ?tags_all
   { human_task_ui_name; id; tags; tags_all; ui_template }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   human_task_ui_name : string prop;
   id : string prop;
@@ -130,6 +131,7 @@ let make ?id ?tags ?tags_all ~human_task_ui_name ~ui_template __id =
   let __type = "aws_sagemaker_human_task_ui" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        human_task_ui_name =
          Prop.computed __type __id "human_task_ui_name";

@@ -159,6 +159,7 @@ let google_network_connectivity_hub ?description ?id ?labels ?project
   { description; id; labels; name; project; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   effective_labels : (string * string) list prop;
@@ -177,6 +178,7 @@ let make ?description ?id ?labels ?project ?timeouts ~name __id =
   let __type = "google_network_connectivity_hub" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        effective_labels =

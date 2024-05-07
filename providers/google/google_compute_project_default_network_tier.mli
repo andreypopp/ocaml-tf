@@ -24,6 +24,7 @@ val yojson_of_google_compute_project_default_network_tier :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   network_tier : string prop;
   project : string prop;

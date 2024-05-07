@@ -21,6 +21,7 @@ val yojson_of_aws_iot_role_alias : aws_iot_role_alias -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alias : string prop;
   arn : string prop;
   credential_duration : float prop;

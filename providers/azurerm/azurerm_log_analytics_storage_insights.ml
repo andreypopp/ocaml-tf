@@ -179,6 +179,7 @@ let azurerm_log_analytics_storage_insights ?blob_container_names ?id
   }
 
 type t = {
+  tf_name : string;
   blob_container_names : string list prop;
   id : string prop;
   name : string prop;
@@ -195,6 +196,7 @@ let make ?blob_container_names ?id ?table_names ?timeouts ~name
   let __type = "azurerm_log_analytics_storage_insights" in
   let __attrs =
     ({
+       tf_name = __id;
        blob_container_names =
          Prop.computed __type __id "blob_container_names";
        id = Prop.computed __type __id "id";

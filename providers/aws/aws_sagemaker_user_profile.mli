@@ -354,6 +354,7 @@ val yojson_of_aws_sagemaker_user_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   domain_id : string prop;
   home_efs_file_system_uid : string prop;

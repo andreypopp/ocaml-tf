@@ -112,6 +112,7 @@ let google_vmwareengine_network_policy ?id ?project ~location ~name
   { id; location; name; project }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   edge_services_cidr : string prop;
@@ -131,6 +132,7 @@ let make ?id ?project ~location ~name __id =
   let __type = "google_vmwareengine_network_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        edge_services_cidr =

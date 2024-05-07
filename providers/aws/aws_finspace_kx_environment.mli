@@ -84,6 +84,7 @@ val yojson_of_aws_finspace_kx_environment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   availability_zones : string list prop;
   created_timestamp : string prop;

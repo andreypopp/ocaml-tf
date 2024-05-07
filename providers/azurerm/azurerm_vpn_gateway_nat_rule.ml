@@ -297,6 +297,7 @@ let azurerm_vpn_gateway_nat_rule ?external_address_space_mappings ?id
   }
 
 type t = {
+  tf_name : string;
   external_address_space_mappings : string list prop;
   id : string prop;
   internal_address_space_mappings : string list prop;
@@ -315,6 +316,7 @@ let make ?external_address_space_mappings ?id
   let __type = "azurerm_vpn_gateway_nat_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        external_address_space_mappings =
          Prop.computed __type __id "external_address_space_mappings";
        id = Prop.computed __type __id "id";

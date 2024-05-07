@@ -38,6 +38,7 @@ val yojson_of_google_compute_region_network_endpoint_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_engine : app_engine list prop;
   cloud_function : cloud_function list prop;
   cloud_run : cloud_run list prop;

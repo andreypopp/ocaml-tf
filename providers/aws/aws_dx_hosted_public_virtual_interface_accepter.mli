@@ -26,6 +26,7 @@ val yojson_of_aws_dx_hosted_public_virtual_interface_accepter :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   tags : (string * string) list prop;

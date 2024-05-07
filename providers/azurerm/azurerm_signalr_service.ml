@@ -553,6 +553,7 @@ let azurerm_signalr_service ?aad_auth_enabled
   }
 
 type t = {
+  tf_name : string;
   aad_auth_enabled : bool prop;
   connectivity_logs_enabled : bool prop;
   hostname : string prop;
@@ -589,6 +590,7 @@ let make ?aad_auth_enabled ?connectivity_logs_enabled
   let __type = "azurerm_signalr_service" in
   let __attrs =
     ({
+       tf_name = __id;
        aad_auth_enabled =
          Prop.computed __type __id "aad_auth_enabled";
        connectivity_logs_enabled =

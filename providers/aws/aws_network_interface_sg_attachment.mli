@@ -29,6 +29,7 @@ val yojson_of_aws_network_interface_sg_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   network_interface_id : string prop;
   security_group_id : string prop;

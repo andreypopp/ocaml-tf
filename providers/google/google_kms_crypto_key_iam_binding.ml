@@ -110,6 +110,7 @@ let google_kms_crypto_key_iam_binding ?id ?(condition = [])
   { crypto_key_id; id; members; role; condition }
 
 type t = {
+  tf_name : string;
   crypto_key_id : string prop;
   etag : string prop;
   id : string prop;
@@ -121,6 +122,7 @@ let make ?id ?(condition = []) ~crypto_key_id ~members ~role __id =
   let __type = "google_kms_crypto_key_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        crypto_key_id = Prop.computed __type __id "crypto_key_id";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

@@ -223,6 +223,7 @@ let aws_cloudhsm_v2_cluster ?id ?source_backup_identifier ?tags
   }
 
 type t = {
+  tf_name : string;
   cluster_certificates : cluster_certificates list prop;
   cluster_id : string prop;
   cluster_state : string prop;
@@ -241,6 +242,7 @@ let make ?id ?source_backup_identifier ?tags ?tags_all ?timeouts
   let __type = "aws_cloudhsm_v2_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_certificates =
          Prop.computed __type __id "cluster_certificates";
        cluster_id = Prop.computed __type __id "cluster_id";

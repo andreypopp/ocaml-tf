@@ -256,6 +256,7 @@ let azurerm_healthcare_fhir_service ?id ?tags ?timeouts ~name
   { id; name; tags; workspace_id; timeouts }
 
 type t = {
+  tf_name : string;
   access_policy_object_ids : string list prop;
   authentication : authentication list prop;
   configuration_export_storage_account_name : string prop;
@@ -274,6 +275,7 @@ let make ?id ?tags ?timeouts ~name ~workspace_id __id =
   let __type = "azurerm_healthcare_fhir_service" in
   let __attrs =
     ({
+       tf_name = __id;
        access_policy_object_ids =
          Prop.computed __type __id "access_policy_object_ids";
        authentication = Prop.computed __type __id "authentication";

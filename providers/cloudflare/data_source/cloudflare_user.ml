@@ -17,6 +17,7 @@ let _ = yojson_of_cloudflare_user
 let cloudflare_user () = ()
 
 type t = {
+  tf_name : string;
   email : string prop;
   id : string prop;
   username : string prop;
@@ -26,6 +27,7 @@ let make __id =
   let __type = "cloudflare_user" in
   let __attrs =
     ({
+       tf_name = __id;
        email = Prop.computed __type __id "email";
        id = Prop.computed __type __id "id";
        username = Prop.computed __type __id "username";

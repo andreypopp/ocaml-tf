@@ -151,6 +151,7 @@ let azurerm_cognitive_account ?id ?tags ?timeouts ~name
   { id; name; resource_group_name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   endpoint : string prop;
   id : string prop;
   identity : identity list prop;
@@ -169,6 +170,7 @@ let make ?id ?tags ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_cognitive_account" in
   let __attrs =
     ({
+       tf_name = __id;
        endpoint = Prop.computed __type __id "endpoint";
        id = Prop.computed __type __id "id";
        identity = Prop.computed __type __id "identity";

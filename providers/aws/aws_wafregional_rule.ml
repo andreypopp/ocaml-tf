@@ -128,6 +128,7 @@ let aws_wafregional_rule ?id ?tags ?tags_all ~metric_name ~name
   { id; metric_name; name; tags; tags_all; predicate }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   metric_name : string prop;
@@ -140,6 +141,7 @@ let make ?id ?tags ?tags_all ~metric_name ~name ~predicate __id =
   let __type = "aws_wafregional_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        metric_name = Prop.computed __type __id "metric_name";

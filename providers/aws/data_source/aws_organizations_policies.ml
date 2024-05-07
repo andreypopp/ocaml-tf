@@ -40,6 +40,7 @@ let aws_organizations_policies ?id ~filter () :
   { filter; id }
 
 type t = {
+  tf_name : string;
   filter : string prop;
   id : string prop;
   ids : string list prop;
@@ -49,6 +50,7 @@ let make ?id ~filter __id =
   let __type = "aws_organizations_policies" in
   let __attrs =
     ({
+       tf_name = __id;
        filter = Prop.computed __type __id "filter";
        id = Prop.computed __type __id "id";
        ids = Prop.computed __type __id "ids";

@@ -162,6 +162,7 @@ val yojson_of_azurerm_spring_cloud_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   build_agent_pool_size : string prop;
   id : string prop;
   location : string prop;

@@ -80,6 +80,7 @@ val yojson_of_aws_launch_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   associate_public_ip_address : bool prop;
   ebs_optimized : bool prop;

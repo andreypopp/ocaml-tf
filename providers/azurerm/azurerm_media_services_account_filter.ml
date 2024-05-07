@@ -332,6 +332,7 @@ let azurerm_media_services_account_filter ?first_quality_bitrate ?id
   }
 
 type t = {
+  tf_name : string;
   first_quality_bitrate : float prop;
   id : string prop;
   media_services_account_name : string prop;
@@ -345,6 +346,7 @@ let make ?first_quality_bitrate ?id ?(presentation_time_range = [])
   let __type = "azurerm_media_services_account_filter" in
   let __attrs =
     ({
+       tf_name = __id;
        first_quality_bitrate =
          Prop.computed __type __id "first_quality_bitrate";
        id = Prop.computed __type __id "id";

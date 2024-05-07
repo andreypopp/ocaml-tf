@@ -30,6 +30,7 @@ val yojson_of_aws_emr_studio : aws_emr_studio -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   auth_mode : string prop;
   default_s3_location : string prop;

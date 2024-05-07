@@ -220,6 +220,7 @@ let azurerm_iot_time_series_insights_gen2_environment ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   data_access_fqdn : string prop;
   id : string prop;
   id_properties : string list prop;
@@ -237,6 +238,7 @@ let make ?id ?tags ?warm_store_data_retention_time ?timeouts
   let __type = "azurerm_iot_time_series_insights_gen2_environment" in
   let __attrs =
     ({
+       tf_name = __id;
        data_access_fqdn =
          Prop.computed __type __id "data_access_fqdn";
        id = Prop.computed __type __id "id";

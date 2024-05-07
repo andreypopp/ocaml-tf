@@ -137,6 +137,7 @@ val yojson_of_google_storage_bucket : google_storage_bucket -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   default_event_based_hold : bool prop;
   effective_labels : (string * string) list prop;
   enable_object_retention : bool prop;

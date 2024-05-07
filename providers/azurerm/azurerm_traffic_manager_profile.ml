@@ -377,6 +377,7 @@ let azurerm_traffic_manager_profile ?id ?max_return ?profile_status
   }
 
 type t = {
+  tf_name : string;
   fqdn : string prop;
   id : string prop;
   max_return : float prop;
@@ -394,6 +395,7 @@ let make ?id ?max_return ?profile_status ?tags ?traffic_view_enabled
   let __type = "azurerm_traffic_manager_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        fqdn = Prop.computed __type __id "fqdn";
        id = Prop.computed __type __id "id";
        max_return = Prop.computed __type __id "max_return";

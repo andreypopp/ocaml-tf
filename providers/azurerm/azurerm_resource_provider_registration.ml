@@ -146,12 +146,13 @@ let azurerm_resource_provider_registration ?id ?timeouts ~name
     ~feature () : azurerm_resource_provider_registration =
   { id; name; feature; timeouts }
 
-type t = { id : string prop; name : string prop }
+type t = { tf_name : string; id : string prop; name : string prop }
 
 let make ?id ?timeouts ~name ~feature __id =
   let __type = "azurerm_resource_provider_registration" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
      }

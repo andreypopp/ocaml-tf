@@ -45,6 +45,7 @@ let cloudflare_tiered_cache ?id ~cache_type ~zone_id () :
   { cache_type; id; zone_id }
 
 type t = {
+  tf_name : string;
   cache_type : string prop;
   id : string prop;
   zone_id : string prop;
@@ -54,6 +55,7 @@ let make ?id ~cache_type ~zone_id __id =
   let __type = "cloudflare_tiered_cache" in
   let __attrs =
     ({
+       tf_name = __id;
        cache_type = Prop.computed __type __id "cache_type";
        id = Prop.computed __type __id "id";
        zone_id = Prop.computed __type __id "zone_id";

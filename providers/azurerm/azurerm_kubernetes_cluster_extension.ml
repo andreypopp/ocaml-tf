@@ -329,6 +329,7 @@ let azurerm_kubernetes_cluster_extension
   }
 
 type t = {
+  tf_name : string;
   aks_assigned_identity : aks_assigned_identity list prop;
   cluster_id : string prop;
   configuration_protected_settings : (string * string) list prop;
@@ -349,6 +350,7 @@ let make ?configuration_protected_settings ?configuration_settings
   let __type = "azurerm_kubernetes_cluster_extension" in
   let __attrs =
     ({
+       tf_name = __id;
        aks_assigned_identity =
          Prop.computed __type __id "aks_assigned_identity";
        cluster_id = Prop.computed __type __id "cluster_id";

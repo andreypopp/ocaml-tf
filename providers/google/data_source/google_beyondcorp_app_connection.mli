@@ -32,6 +32,7 @@ val yojson_of_google_beyondcorp_app_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_endpoint : application_endpoint list prop;
   connectors : string list prop;
   display_name : string prop;

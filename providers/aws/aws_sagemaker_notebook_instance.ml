@@ -284,6 +284,7 @@ let aws_sagemaker_notebook_instance ?accelerator_types
   }
 
 type t = {
+  tf_name : string;
   accelerator_types : string list prop;
   additional_code_repositories : string list prop;
   arn : string prop;
@@ -315,6 +316,7 @@ let make ?accelerator_types ?additional_code_repositories
   let __type = "aws_sagemaker_notebook_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        accelerator_types =
          Prop.computed __type __id "accelerator_types";
        additional_code_repositories =

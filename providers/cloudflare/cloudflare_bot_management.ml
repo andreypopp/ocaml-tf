@@ -149,6 +149,7 @@ let cloudflare_bot_management ?auto_update_model ?enable_js
   }
 
 type t = {
+  tf_name : string;
   auto_update_model : bool prop;
   enable_js : bool prop;
   fight_mode : bool prop;
@@ -170,6 +171,7 @@ let make ?auto_update_model ?enable_js ?fight_mode ?id
   let __type = "cloudflare_bot_management" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_update_model =
          Prop.computed __type __id "auto_update_model";
        enable_js = Prop.computed __type __id "enable_js";

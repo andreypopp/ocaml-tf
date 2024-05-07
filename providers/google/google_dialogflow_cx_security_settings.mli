@@ -56,6 +56,7 @@ val yojson_of_google_dialogflow_cx_security_settings :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   deidentify_template : string prop;
   display_name : string prop;
   id : string prop;

@@ -31,6 +31,7 @@ val yojson_of_aws_chime_voice_connector_origination :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   disabled : bool prop;
   id : string prop;
   voice_connector_id : string prop;

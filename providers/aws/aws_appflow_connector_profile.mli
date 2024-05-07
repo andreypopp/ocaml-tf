@@ -622,6 +622,7 @@ val yojson_of_aws_appflow_connector_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   connection_mode : string prop;
   connector_label : string prop;

@@ -53,6 +53,7 @@ val yojson_of_aws_verifiedaccess_trust_provider :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   device_trust_provider_type : string prop;
   id : string prop;

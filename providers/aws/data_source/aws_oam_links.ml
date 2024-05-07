@@ -30,12 +30,17 @@ let _ = yojson_of_aws_oam_links
 
 let aws_oam_links ?id () : aws_oam_links = { id }
 
-type t = { arns : string list prop; id : string prop }
+type t = {
+  tf_name : string;
+  arns : string list prop;
+  id : string prop;
+}
 
 let make ?id __id =
   let __type = "aws_oam_links" in
   let __attrs =
     ({
+       tf_name = __id;
        arns = Prop.computed __type __id "arns";
        id = Prop.computed __type __id "id";
      }

@@ -136,6 +136,7 @@ let aws_datasync_location_fsx_windows_file_system ?domain ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   creation_time : string prop;
   domain : string prop;
@@ -155,6 +156,7 @@ let make ?domain ?id ?subdirectory ?tags ?tags_all
   let __type = "aws_datasync_location_fsx_windows_file_system" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        creation_time = Prop.computed __type __id "creation_time";
        domain = Prop.computed __type __id "domain";

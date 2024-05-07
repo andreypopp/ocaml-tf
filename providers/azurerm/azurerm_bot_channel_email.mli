@@ -34,6 +34,7 @@ val yojson_of_azurerm_bot_channel_email :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bot_name : string prop;
   email_address : string prop;
   email_password : string prop;

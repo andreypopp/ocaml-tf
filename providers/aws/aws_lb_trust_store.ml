@@ -184,6 +184,7 @@ let aws_lb_trust_store ?ca_certificates_bundle_s3_object_version ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   arn_suffix : string prop;
   ca_certificates_bundle_s3_bucket : string prop;
@@ -203,6 +204,7 @@ let make ?ca_certificates_bundle_s3_object_version ?id ?name
   let __type = "aws_lb_trust_store" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        arn_suffix = Prop.computed __type __id "arn_suffix";
        ca_certificates_bundle_s3_bucket =

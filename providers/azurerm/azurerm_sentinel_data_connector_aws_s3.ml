@@ -155,6 +155,7 @@ let azurerm_sentinel_data_connector_aws_s3 ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   aws_role_arn : string prop;
   destination_table : string prop;
   id : string prop;
@@ -168,6 +169,7 @@ let make ?id ?timeouts ~aws_role_arn ~destination_table
   let __type = "azurerm_sentinel_data_connector_aws_s3" in
   let __attrs =
     ({
+       tf_name = __id;
        aws_role_arn = Prop.computed __type __id "aws_role_arn";
        destination_table =
          Prop.computed __type __id "destination_table";

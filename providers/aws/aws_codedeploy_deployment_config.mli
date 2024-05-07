@@ -54,6 +54,7 @@ val yojson_of_aws_codedeploy_deployment_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   compute_platform : string prop;
   deployment_config_id : string prop;

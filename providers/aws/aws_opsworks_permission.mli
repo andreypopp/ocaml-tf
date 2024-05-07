@@ -22,6 +22,7 @@ val yojson_of_aws_opsworks_permission :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_ssh : bool prop;
   allow_sudo : bool prop;
   id : string prop;

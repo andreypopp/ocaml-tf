@@ -150,6 +150,7 @@ let google_data_catalog_entry_group ?description ?display_name ?id
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   entry_group_id : string prop;
@@ -164,6 +165,7 @@ let make ?description ?display_name ?id ?project ?region ?timeouts
   let __type = "google_data_catalog_entry_group" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";
        entry_group_id = Prop.computed __type __id "entry_group_id";

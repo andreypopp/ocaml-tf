@@ -39,6 +39,7 @@ val yojson_of_hcloud_datacenters : hcloud_datacenters -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   datacenter_ids : string list prop;
   datacenters : json prop;
   descriptions : string list prop;

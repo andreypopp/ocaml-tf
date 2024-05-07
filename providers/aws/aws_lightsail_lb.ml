@@ -113,6 +113,7 @@ let aws_lightsail_lb ?health_check_path ?id ?ip_address_type ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_at : string prop;
   dns_name : string prop;
@@ -133,6 +134,7 @@ let make ?health_check_path ?id ?ip_address_type ?tags ?tags_all
   let __type = "aws_lightsail_lb" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_at = Prop.computed __type __id "created_at";
        dns_name = Prop.computed __type __id "dns_name";

@@ -99,6 +99,7 @@ let google_folder_iam_audit_config ?id ~folder ~service
   { folder; id; service; audit_log_config }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   folder : string prop;
   id : string prop;
@@ -109,6 +110,7 @@ let make ?id ~folder ~service ~audit_log_config __id =
   let __type = "google_folder_iam_audit_config" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        folder = Prop.computed __type __id "folder";
        id = Prop.computed __type __id "id";

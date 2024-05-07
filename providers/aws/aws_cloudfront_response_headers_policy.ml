@@ -890,6 +890,7 @@ let aws_cloudfront_response_headers_policy ?comment ?etag ?id
   }
 
 type t = {
+  tf_name : string;
   comment : string prop;
   etag : string prop;
   id : string prop;
@@ -903,6 +904,7 @@ let make ?comment ?etag ?id ?(cors_config = [])
   let __type = "aws_cloudfront_response_headers_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        comment = Prop.computed __type __id "comment";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

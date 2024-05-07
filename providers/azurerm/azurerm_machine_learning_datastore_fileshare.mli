@@ -36,6 +36,7 @@ val yojson_of_azurerm_machine_learning_datastore_fileshare :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_key : string prop;
   description : string prop;
   id : string prop;

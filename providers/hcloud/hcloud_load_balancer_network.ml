@@ -94,6 +94,7 @@ let hcloud_load_balancer_network ?enable_public_interface ?id ?ip
   }
 
 type t = {
+  tf_name : string;
   enable_public_interface : bool prop;
   id : string prop;
   ip : string prop;
@@ -107,6 +108,7 @@ let make ?enable_public_interface ?id ?ip ?network_id ?subnet_id
   let __type = "hcloud_load_balancer_network" in
   let __attrs =
     ({
+       tf_name = __id;
        enable_public_interface =
          Prop.computed __type __id "enable_public_interface";
        id = Prop.computed __type __id "id";

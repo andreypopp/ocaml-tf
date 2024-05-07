@@ -299,6 +299,7 @@ let aws_opensearch_outbound_connection ?accept_connection
   }
 
 type t = {
+  tf_name : string;
   accept_connection : bool prop;
   connection_alias : string prop;
   connection_mode : string prop;
@@ -312,6 +313,7 @@ let make ?accept_connection ?connection_mode ?id
   let __type = "aws_opensearch_outbound_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        accept_connection =
          Prop.computed __type __id "accept_connection";
        connection_alias =

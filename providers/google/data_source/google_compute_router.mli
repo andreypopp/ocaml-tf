@@ -34,6 +34,7 @@ val yojson_of_google_compute_router : google_compute_router -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bgp : bgp list prop;
   creation_timestamp : string prop;
   description : string prop;

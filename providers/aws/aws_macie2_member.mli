@@ -30,6 +30,7 @@ val yojson_of_aws_macie2_member : aws_macie2_member -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   administrator_account_id : string prop;
   arn : string prop;

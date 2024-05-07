@@ -91,6 +91,7 @@ let aws_load_balancer_listener_policy ?id ?policy_names ?triggers
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   load_balancer_name : string prop;
   load_balancer_port : float prop;
@@ -103,6 +104,7 @@ let make ?id ?policy_names ?triggers ~load_balancer_name
   let __type = "aws_load_balancer_listener_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        load_balancer_name =
          Prop.computed __type __id "load_balancer_name";

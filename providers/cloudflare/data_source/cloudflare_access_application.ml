@@ -78,6 +78,7 @@ let cloudflare_access_application ?account_id ?domain ?id ?name
   { account_id; domain; id; name; zone_id }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   aud : string prop;
   domain : string prop;
@@ -90,6 +91,7 @@ let make ?account_id ?domain ?id ?name ?zone_id __id =
   let __type = "cloudflare_access_application" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        aud = Prop.computed __type __id "aud";
        domain = Prop.computed __type __id "domain";

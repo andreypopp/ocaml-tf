@@ -190,6 +190,7 @@ let aws_vpc_ipam ?cascade ?description ?id ?tags ?tags_all ?timeouts
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cascade : bool prop;
   default_resource_discovery_association_id : string prop;
@@ -208,6 +209,7 @@ let make ?cascade ?description ?id ?tags ?tags_all ?timeouts
   let __type = "aws_vpc_ipam" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cascade = Prop.computed __type __id "cascade";
        default_resource_discovery_association_id =

@@ -95,6 +95,7 @@ val yojson_of_azurerm_api_management : azurerm_api_management -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   additional_location : additional_location list prop;
   developer_portal_url : string prop;
   gateway_regional_url : string prop;

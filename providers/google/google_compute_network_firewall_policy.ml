@@ -119,6 +119,7 @@ let google_compute_network_firewall_policy ?description ?id ?project
   { description; id; name; project; timeouts }
 
 type t = {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   fingerprint : string prop;
@@ -135,6 +136,7 @@ let make ?description ?id ?project ?timeouts ~name __id =
   let __type = "google_compute_network_firewall_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";
        description = Prop.computed __type __id "description";

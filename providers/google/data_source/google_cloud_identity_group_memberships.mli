@@ -44,6 +44,7 @@ val yojson_of_google_cloud_identity_group_memberships :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   group : string prop;
   id : string prop;
   memberships : memberships list prop;

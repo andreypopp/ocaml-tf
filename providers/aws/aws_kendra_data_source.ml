@@ -1683,6 +1683,7 @@ let aws_kendra_data_source ?description ?id ?language_code ?role_arn
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_at : string prop;
   data_source_id : string prop;
@@ -1708,6 +1709,7 @@ let make ?description ?id ?language_code ?role_arn ?schedule ?tags
   let __type = "aws_kendra_data_source" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_at = Prop.computed __type __id "created_at";
        data_source_id = Prop.computed __type __id "data_source_id";

@@ -189,6 +189,7 @@ let aws_appconfig_configuration_profile ?description ?id
   }
 
 type t = {
+  tf_name : string;
   application_id : string prop;
   arn : string prop;
   configuration_profile_id : string prop;
@@ -209,6 +210,7 @@ let make ?description ?id ?kms_key_identifier ?retrieval_role_arn
   let __type = "aws_appconfig_configuration_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        application_id = Prop.computed __type __id "application_id";
        arn = Prop.computed __type __id "arn";
        configuration_profile_id =

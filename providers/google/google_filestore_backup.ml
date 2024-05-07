@@ -169,6 +169,7 @@ let google_filestore_backup ?description ?id ?labels ?project
   }
 
 type t = {
+  tf_name : string;
   capacity_gb : string prop;
   create_time : string prop;
   description : string prop;
@@ -193,6 +194,7 @@ let make ?description ?id ?labels ?project ?timeouts ~location ~name
   let __type = "google_filestore_backup" in
   let __attrs =
     ({
+       tf_name = __id;
        capacity_gb = Prop.computed __type __id "capacity_gb";
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";

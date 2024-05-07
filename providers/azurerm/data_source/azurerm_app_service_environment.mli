@@ -29,6 +29,7 @@ val yojson_of_azurerm_app_service_environment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_setting : cluster_setting list prop;
   front_end_scale_factor : float prop;
   id : string prop;

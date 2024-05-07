@@ -238,6 +238,7 @@ let azurerm_static_site ?app_settings ?id ?sku_size ?sku_tier ?tags
   }
 
 type t = {
+  tf_name : string;
   api_key : string prop;
   app_settings : (string * string) list prop;
   default_host_name : string prop;
@@ -255,6 +256,7 @@ let make ?app_settings ?id ?sku_size ?sku_tier ?tags ?(identity = [])
   let __type = "azurerm_static_site" in
   let __attrs =
     ({
+       tf_name = __id;
        api_key = Prop.computed __type __id "api_key";
        app_settings = Prop.computed __type __id "app_settings";
        default_host_name =

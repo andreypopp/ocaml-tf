@@ -52,6 +52,7 @@ let aws_kms_public_key ?grant_tokens ?id ~key_id () :
   { grant_tokens; id; key_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   customer_master_key_spec : string prop;
   encryption_algorithms : string list prop;
@@ -68,6 +69,7 @@ let make ?grant_tokens ?id ~key_id __id =
   let __type = "aws_kms_public_key" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        customer_master_key_spec =
          Prop.computed __type __id "customer_master_key_spec";

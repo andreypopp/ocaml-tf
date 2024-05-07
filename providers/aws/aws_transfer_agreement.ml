@@ -130,6 +130,7 @@ let aws_transfer_agreement ?description ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   access_role : string prop;
   agreement_id : string prop;
   arn : string prop;
@@ -150,6 +151,7 @@ let make ?description ?id ?tags ?tags_all ~access_role
   let __type = "aws_transfer_agreement" in
   let __attrs =
     ({
+       tf_name = __id;
        access_role = Prop.computed __type __id "access_role";
        agreement_id = Prop.computed __type __id "agreement_id";
        arn = Prop.computed __type __id "arn";

@@ -49,6 +49,7 @@ val yojson_of_azurerm_signalr_service_network_acl :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   default_action : string prop;
   id : string prop;
   signalr_service_id : string prop;

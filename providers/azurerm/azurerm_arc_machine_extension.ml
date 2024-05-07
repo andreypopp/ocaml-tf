@@ -223,6 +223,7 @@ let azurerm_arc_machine_extension ?automatic_upgrade_enabled
   }
 
 type t = {
+  tf_name : string;
   arc_machine_id : string prop;
   automatic_upgrade_enabled : bool prop;
   force_update_tag : string prop;
@@ -244,6 +245,7 @@ let make ?automatic_upgrade_enabled ?force_update_tag ?id
   let __type = "azurerm_arc_machine_extension" in
   let __attrs =
     ({
+       tf_name = __id;
        arc_machine_id = Prop.computed __type __id "arc_machine_id";
        automatic_upgrade_enabled =
          Prop.computed __type __id "automatic_upgrade_enabled";

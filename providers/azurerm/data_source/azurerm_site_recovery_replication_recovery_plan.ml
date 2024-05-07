@@ -355,6 +355,7 @@ let azurerm_site_recovery_replication_recovery_plan ?id ?timeouts
   { id; name; recovery_vault_id; timeouts }
 
 type t = {
+  tf_name : string;
   azure_to_azure_settings : azure_to_azure_settings list prop;
   failover_deployment_model : string prop;
   id : string prop;
@@ -369,6 +370,7 @@ let make ?id ?timeouts ~name ~recovery_vault_id __id =
   let __type = "azurerm_site_recovery_replication_recovery_plan" in
   let __attrs =
     ({
+       tf_name = __id;
        azure_to_azure_settings =
          Prop.computed __type __id "azure_to_azure_settings";
        failover_deployment_model =

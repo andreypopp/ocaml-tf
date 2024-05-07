@@ -161,6 +161,7 @@ let google_logging_billing_account_bucket_config ?description ?id
   }
 
 type t = {
+  tf_name : string;
   billing_account : string prop;
   bucket_id : string prop;
   description : string prop;
@@ -176,6 +177,7 @@ let make ?description ?id ?retention_days ?(cmek_settings = [])
   let __type = "google_logging_billing_account_bucket_config" in
   let __attrs =
     ({
+       tf_name = __id;
        billing_account = Prop.computed __type __id "billing_account";
        bucket_id = Prop.computed __type __id "bucket_id";
        description = Prop.computed __type __id "description";

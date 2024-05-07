@@ -110,6 +110,7 @@ let aws_redshift_cluster_snapshot ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cluster_identifier : string prop;
   id : string prop;
@@ -126,6 +127,7 @@ let make ?id ?manual_snapshot_retention_period ?tags ?tags_all
   let __type = "aws_redshift_cluster_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cluster_identifier =
          Prop.computed __type __id "cluster_identifier";

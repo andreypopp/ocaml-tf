@@ -206,6 +206,7 @@ let azurerm_api_management_product ?approval_required ?description
   }
 
 type t = {
+  tf_name : string;
   api_management_name : string prop;
   approval_required : bool prop;
   description : string prop;
@@ -225,6 +226,7 @@ let make ?approval_required ?description ?id ?subscription_required
   let __type = "azurerm_api_management_product" in
   let __attrs =
     ({
+       tf_name = __id;
        api_management_name =
          Prop.computed __type __id "api_management_name";
        approval_required =

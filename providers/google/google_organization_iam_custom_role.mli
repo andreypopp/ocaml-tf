@@ -23,6 +23,7 @@ val yojson_of_google_organization_iam_custom_role :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   deleted : bool prop;
   description : string prop;
   id : string prop;

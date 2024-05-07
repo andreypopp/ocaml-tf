@@ -123,6 +123,7 @@ let aws_lightsail_lb_certificate ?domain_name ?id
   { domain_name; id; lb_name; name; subject_alternative_names }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_at : string prop;
   domain_name : string prop;
@@ -139,6 +140,7 @@ let make ?domain_name ?id ?subject_alternative_names ~lb_name ~name
   let __type = "aws_lightsail_lb_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_at = Prop.computed __type __id "created_at";
        domain_name = Prop.computed __type __id "domain_name";

@@ -198,6 +198,7 @@ let azurerm_machine_learning_datastore_fileshare ?account_key
   }
 
 type t = {
+  tf_name : string;
   account_key : string prop;
   description : string prop;
   id : string prop;
@@ -216,6 +217,7 @@ let make ?account_key ?description ?id ?service_data_identity
   let __type = "azurerm_machine_learning_datastore_fileshare" in
   let __attrs =
     ({
+       tf_name = __id;
        account_key = Prop.computed __type __id "account_key";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

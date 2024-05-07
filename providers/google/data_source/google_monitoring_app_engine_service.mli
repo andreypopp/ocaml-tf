@@ -23,6 +23,7 @@ val yojson_of_google_monitoring_app_engine_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   module_id : string prop;

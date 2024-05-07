@@ -90,6 +90,7 @@ let cloudflare_access_custom_page ?account_id ?app_count ?custom_html
   { account_id; app_count; custom_html; id; name; type_; zone_id }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   app_count : float prop;
   custom_html : string prop;
@@ -104,6 +105,7 @@ let make ?account_id ?app_count ?custom_html ?id ?zone_id ~name
   let __type = "cloudflare_access_custom_page" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        app_count = Prop.computed __type __id "app_count";
        custom_html = Prop.computed __type __id "custom_html";

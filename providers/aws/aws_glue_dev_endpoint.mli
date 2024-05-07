@@ -32,6 +32,7 @@ val yojson_of_aws_glue_dev_endpoint : aws_glue_dev_endpoint -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arguments : (string * string) list prop;
   arn : string prop;
   availability_zone : string prop;

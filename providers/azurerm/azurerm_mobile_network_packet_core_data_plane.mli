@@ -36,6 +36,7 @@ val yojson_of_azurerm_mobile_network_packet_core_data_plane :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   mobile_network_packet_core_control_plane_id : string prop;

@@ -519,6 +519,7 @@ let digitalocean_kubernetes_cluster ?auto_upgrade
   }
 
 type t = {
+  tf_name : string;
   auto_upgrade : bool prop;
   cluster_subnet : string prop;
   created_at : string prop;
@@ -548,6 +549,7 @@ let make ?auto_upgrade ?destroy_all_associated_resources ?ha ?id
   let __type = "digitalocean_kubernetes_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_upgrade = Prop.computed __type __id "auto_upgrade";
        cluster_subnet = Prop.computed __type __id "cluster_subnet";
        created_at = Prop.computed __type __id "created_at";

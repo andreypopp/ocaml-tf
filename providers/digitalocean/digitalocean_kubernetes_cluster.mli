@@ -86,6 +86,7 @@ val yojson_of_digitalocean_kubernetes_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_upgrade : bool prop;
   cluster_subnet : string prop;
   created_at : string prop;

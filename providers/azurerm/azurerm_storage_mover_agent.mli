@@ -33,6 +33,7 @@ val yojson_of_azurerm_storage_mover_agent :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arc_virtual_machine_id : string prop;
   arc_virtual_machine_uuid : string prop;
   description : string prop;

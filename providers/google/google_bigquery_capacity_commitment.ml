@@ -180,6 +180,7 @@ let google_bigquery_capacity_commitment ?capacity_commitment_id
   }
 
 type t = {
+  tf_name : string;
   capacity_commitment_id : string prop;
   commitment_end_time : string prop;
   commitment_start_time : string prop;
@@ -201,6 +202,7 @@ let make ?capacity_commitment_id ?edition
   let __type = "google_bigquery_capacity_commitment" in
   let __attrs =
     ({
+       tf_name = __id;
        capacity_commitment_id =
          Prop.computed __type __id "capacity_commitment_id";
        commitment_end_time =

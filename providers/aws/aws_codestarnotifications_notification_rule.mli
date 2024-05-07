@@ -30,6 +30,7 @@ val yojson_of_aws_codestarnotifications_notification_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   detail_type : string prop;
   event_type_ids : string list prop;

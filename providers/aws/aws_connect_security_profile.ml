@@ -108,6 +108,7 @@ let aws_connect_security_profile ?description ?id ?permissions ?tags
   { description; id; instance_id; name; permissions; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -125,6 +126,7 @@ let make ?description ?id ?permissions ?tags ?tags_all ~instance_id
   let __type = "aws_connect_security_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

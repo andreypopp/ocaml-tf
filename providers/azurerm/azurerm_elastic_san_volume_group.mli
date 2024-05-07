@@ -59,6 +59,7 @@ val yojson_of_azurerm_elastic_san_volume_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   elastic_san_id : string prop;
   encryption_type : string prop;
   id : string prop;

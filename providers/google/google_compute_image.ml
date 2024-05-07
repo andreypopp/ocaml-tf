@@ -371,6 +371,7 @@ let google_compute_image ?description ?disk_size_gb ?family ?id
   }
 
 type t = {
+  tf_name : string;
   archive_size_bytes : float prop;
   creation_timestamp : string prop;
   description : string prop;
@@ -398,6 +399,7 @@ let make ?description ?disk_size_gb ?family ?id ?labels ?licenses
   let __type = "google_compute_image" in
   let __attrs =
     ({
+       tf_name = __id;
        archive_size_bytes =
          Prop.computed __type __id "archive_size_bytes";
        creation_timestamp =

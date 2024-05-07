@@ -25,6 +25,7 @@ val yojson_of_aws_location_map : aws_location_map -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   id : string prop;

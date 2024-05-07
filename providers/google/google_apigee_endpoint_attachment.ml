@@ -119,6 +119,7 @@ let google_apigee_endpoint_attachment ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   connection_state : string prop;
   endpoint_attachment_id : string prop;
   host : string prop;
@@ -134,6 +135,7 @@ let make ?id ?timeouts ~endpoint_attachment_id ~location ~org_id
   let __type = "google_apigee_endpoint_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        connection_state =
          Prop.computed __type __id "connection_state";
        endpoint_attachment_id =

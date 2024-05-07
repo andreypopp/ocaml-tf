@@ -181,6 +181,7 @@ let aws_kms_key ?grant_tokens ?id ~key_id () : aws_kms_key =
   { grant_tokens; id; key_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   aws_account_id : string prop;
   cloud_hsm_cluster_id : string prop;
@@ -210,6 +211,7 @@ let make ?grant_tokens ?id ~key_id __id =
   let __type = "aws_kms_key" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        aws_account_id = Prop.computed __type __id "aws_account_id";
        cloud_hsm_cluster_id =

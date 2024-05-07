@@ -99,6 +99,7 @@ val yojson_of_aws_ses_receipt_rule : aws_ses_receipt_rule -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   after : string prop;
   arn : string prop;
   enabled : bool prop;

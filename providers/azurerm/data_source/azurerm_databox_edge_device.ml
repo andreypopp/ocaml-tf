@@ -178,6 +178,7 @@ let azurerm_databox_edge_device ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   device_properties : device_properties list prop;
   id : string prop;
   location : string prop;
@@ -191,6 +192,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_databox_edge_device" in
   let __attrs =
     ({
+       tf_name = __id;
        device_properties =
          Prop.computed __type __id "device_properties";
        id = Prop.computed __type __id "id";

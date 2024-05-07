@@ -48,6 +48,7 @@ val yojson_of_aws_prometheus_scraper : aws_prometheus_scraper -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alias : string prop;
   arn : string prop;
   id : string prop;

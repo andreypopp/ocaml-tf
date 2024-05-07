@@ -34,6 +34,7 @@ val yojson_of_aws_iot_provisioning_template :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   default_version_id : float prop;
   description : string prop;

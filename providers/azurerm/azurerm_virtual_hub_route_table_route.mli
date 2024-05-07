@@ -34,6 +34,7 @@ val yojson_of_azurerm_virtual_hub_route_table_route :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   destinations : string list prop;
   destinations_type : string prop;
   id : string prop;

@@ -25,6 +25,7 @@ val yojson_of_aws_appautoscaling_target :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   max_capacity : float prop;

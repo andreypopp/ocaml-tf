@@ -126,6 +126,7 @@ val yojson_of_aws_rds_cluster : aws_rds_cluster -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allocated_storage : float prop;
   allow_major_version_upgrade : bool prop;
   apply_immediately : bool prop;

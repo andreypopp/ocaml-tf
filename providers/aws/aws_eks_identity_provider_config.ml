@@ -245,6 +245,7 @@ let aws_eks_identity_provider_config ?id ?tags ?tags_all ?timeouts
   { cluster_name; id; tags; tags_all; oidc; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cluster_name : string prop;
   id : string prop;
@@ -257,6 +258,7 @@ let make ?id ?tags ?tags_all ?timeouts ~cluster_name ~oidc __id =
   let __type = "aws_eks_identity_provider_config" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cluster_name = Prop.computed __type __id "cluster_name";
        id = Prop.computed __type __id "id";

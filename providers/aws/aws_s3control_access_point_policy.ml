@@ -52,6 +52,7 @@ let aws_s3control_access_point_policy ?id ~access_point_arn ~policy
   { access_point_arn; id; policy }
 
 type t = {
+  tf_name : string;
   access_point_arn : string prop;
   has_public_access_policy : bool prop;
   id : string prop;
@@ -62,6 +63,7 @@ let make ?id ~access_point_arn ~policy __id =
   let __type = "aws_s3control_access_point_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        access_point_arn =
          Prop.computed __type __id "access_point_arn";
        has_public_access_policy =

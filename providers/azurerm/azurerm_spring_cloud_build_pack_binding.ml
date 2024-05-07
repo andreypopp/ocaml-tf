@@ -200,6 +200,7 @@ let azurerm_spring_cloud_build_pack_binding ?binding_type ?id
   }
 
 type t = {
+  tf_name : string;
   binding_type : string prop;
   id : string prop;
   name : string prop;
@@ -211,6 +212,7 @@ let make ?binding_type ?id ?(launch = []) ?timeouts ~name
   let __type = "azurerm_spring_cloud_build_pack_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        binding_type = Prop.computed __type __id "binding_type";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

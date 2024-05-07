@@ -863,6 +863,7 @@ let google_storage_bucket ?default_event_based_hold
   }
 
 type t = {
+  tf_name : string;
   default_event_based_hold : bool prop;
   effective_labels : (string * string) list prop;
   enable_object_retention : bool prop;
@@ -892,6 +893,7 @@ let make ?default_event_based_hold ?enable_object_retention
   let __type = "google_storage_bucket" in
   let __attrs =
     ({
+       tf_name = __id;
        default_event_based_hold =
          Prop.computed __type __id "default_event_based_hold";
        effective_labels =

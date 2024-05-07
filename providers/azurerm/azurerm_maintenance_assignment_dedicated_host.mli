@@ -30,6 +30,7 @@ val yojson_of_azurerm_maintenance_assignment_dedicated_host :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dedicated_host_id : string prop;
   id : string prop;
   location : string prop;

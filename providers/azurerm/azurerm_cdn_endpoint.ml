@@ -2262,6 +2262,7 @@ let azurerm_cdn_endpoint ?content_types_to_compress ?id
   }
 
 type t = {
+  tf_name : string;
   content_types_to_compress : string list prop;
   fqdn : string prop;
   id : string prop;
@@ -2289,6 +2290,7 @@ let make ?content_types_to_compress ?id ?is_compression_enabled
   let __type = "azurerm_cdn_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        content_types_to_compress =
          Prop.computed __type __id "content_types_to_compress";
        fqdn = Prop.computed __type __id "fqdn";

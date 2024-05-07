@@ -109,6 +109,7 @@ let aws_workspaces_connection_alias ?tags ?timeouts
   { connection_string; tags; timeouts }
 
 type t = {
+  tf_name : string;
   connection_string : string prop;
   id : string prop;
   owner_account_id : string prop;
@@ -121,6 +122,7 @@ let make ?tags ?timeouts ~connection_string __id =
   let __type = "aws_workspaces_connection_alias" in
   let __attrs =
     ({
+       tf_name = __id;
        connection_string =
          Prop.computed __type __id "connection_string";
        id = Prop.computed __type __id "id";

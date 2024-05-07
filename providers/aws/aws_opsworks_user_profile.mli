@@ -21,6 +21,7 @@ val yojson_of_aws_opsworks_user_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_self_management : bool prop;
   id : string prop;
   ssh_public_key : string prop;

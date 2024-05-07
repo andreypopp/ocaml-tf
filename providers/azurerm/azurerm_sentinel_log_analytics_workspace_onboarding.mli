@@ -31,6 +31,7 @@ val yojson_of_azurerm_sentinel_log_analytics_workspace_onboarding :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   customer_managed_key_enabled : bool prop;
   id : string prop;
   resource_group_name : string prop;

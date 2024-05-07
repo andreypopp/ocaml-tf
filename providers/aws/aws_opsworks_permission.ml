@@ -79,6 +79,7 @@ let aws_opsworks_permission ?allow_ssh ?allow_sudo ?id ?level
   { allow_ssh; allow_sudo; id; level; stack_id; user_arn }
 
 type t = {
+  tf_name : string;
   allow_ssh : bool prop;
   allow_sudo : bool prop;
   id : string prop;
@@ -91,6 +92,7 @@ let make ?allow_ssh ?allow_sudo ?id ?level ~stack_id ~user_arn __id =
   let __type = "aws_opsworks_permission" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_ssh = Prop.computed __type __id "allow_ssh";
        allow_sudo = Prop.computed __type __id "allow_sudo";
        id = Prop.computed __type __id "id";

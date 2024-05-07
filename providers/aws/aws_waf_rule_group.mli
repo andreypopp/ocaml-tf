@@ -36,6 +36,7 @@ val yojson_of_aws_waf_rule_group : aws_waf_rule_group -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   metric_name : string prop;

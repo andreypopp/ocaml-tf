@@ -379,6 +379,7 @@ let azurerm_healthcare_service ?access_policy_object_ids
   }
 
 type t = {
+  tf_name : string;
   access_policy_object_ids : string list prop;
   cosmosdb_key_vault_key_versionless_id : string prop;
   cosmosdb_throughput : float prop;
@@ -399,6 +400,7 @@ let make ?access_policy_object_ids
   let __type = "azurerm_healthcare_service" in
   let __attrs =
     ({
+       tf_name = __id;
        access_policy_object_ids =
          Prop.computed __type __id "access_policy_object_ids";
        cosmosdb_key_vault_key_versionless_id =

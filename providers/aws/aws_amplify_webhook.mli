@@ -19,6 +19,7 @@ val yojson_of_aws_amplify_webhook : aws_amplify_webhook -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_id : string prop;
   arn : string prop;
   branch_name : string prop;

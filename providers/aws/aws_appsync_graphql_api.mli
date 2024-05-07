@@ -112,6 +112,7 @@ val yojson_of_aws_appsync_graphql_api :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   authentication_type : string prop;
   id : string prop;

@@ -28,6 +28,7 @@ val yojson_of_aws_dx_bgp_peer : aws_dx_bgp_peer -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address_family : string prop;
   amazon_address : string prop;
   aws_device : string prop;

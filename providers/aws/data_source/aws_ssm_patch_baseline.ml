@@ -236,6 +236,7 @@ let aws_ssm_patch_baseline ?default_baseline ?id ?name_prefix
   { default_baseline; id; name_prefix; operating_system; owner }
 
 type t = {
+  tf_name : string;
   approval_rule : approval_rule list prop;
   approved_patches : string list prop;
   approved_patches_compliance_level : string prop;
@@ -259,6 +260,7 @@ let make ?default_baseline ?id ?name_prefix ?operating_system ~owner
   let __type = "aws_ssm_patch_baseline" in
   let __attrs =
     ({
+       tf_name = __id;
        approval_rule = Prop.computed __type __id "approval_rule";
        approved_patches =
          Prop.computed __type __id "approved_patches";

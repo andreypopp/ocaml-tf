@@ -580,6 +580,7 @@ let aws_vpclattice_listener_rule ?id ?tags ?tags_all ?timeouts
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   listener_identifier : string prop;
@@ -596,6 +597,7 @@ let make ?id ?tags ?tags_all ?timeouts ~listener_identifier ~name
   let __type = "aws_vpclattice_listener_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        listener_identifier =

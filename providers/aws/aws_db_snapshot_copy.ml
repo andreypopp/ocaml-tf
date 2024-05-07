@@ -204,6 +204,7 @@ let aws_db_snapshot_copy ?copy_tags ?destination_region ?id
   }
 
 type t = {
+  tf_name : string;
   allocated_storage : float prop;
   availability_zone : string prop;
   copy_tags : bool prop;
@@ -238,6 +239,7 @@ let make ?copy_tags ?destination_region ?id ?kms_key_id
   let __type = "aws_db_snapshot_copy" in
   let __attrs =
     ({
+       tf_name = __id;
        allocated_storage =
          Prop.computed __type __id "allocated_storage";
        availability_zone =

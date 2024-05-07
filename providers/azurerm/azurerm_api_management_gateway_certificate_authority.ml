@@ -150,6 +150,7 @@ let azurerm_api_management_gateway_certificate_authority ?id
   }
 
 type t = {
+  tf_name : string;
   api_management_id : string prop;
   certificate_name : string prop;
   gateway_name : string prop;
@@ -164,6 +165,7 @@ let make ?id ?is_trusted ?timeouts ~api_management_id
   in
   let __attrs =
     ({
+       tf_name = __id;
        api_management_id =
          Prop.computed __type __id "api_management_id";
        certificate_name =

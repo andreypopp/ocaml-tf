@@ -104,6 +104,7 @@ let azurerm_location ?id ?timeouts ~location () : azurerm_location =
   { id; location; timeouts }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   location : string prop;
@@ -114,6 +115,7 @@ let make ?id ?timeouts ~location __id =
   let __type = "azurerm_location" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

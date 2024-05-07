@@ -25,6 +25,7 @@ val yojson_of_google_apigee_envgroup_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   envgroup_id : string prop;
   environment : string prop;
   id : string prop;

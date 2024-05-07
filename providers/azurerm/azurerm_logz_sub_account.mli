@@ -43,6 +43,7 @@ val yojson_of_azurerm_logz_sub_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   logz_monitor_id : string prop;

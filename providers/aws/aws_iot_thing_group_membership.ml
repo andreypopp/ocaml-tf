@@ -63,6 +63,7 @@ let aws_iot_thing_group_membership ?id ?override_dynamic_group
   { id; override_dynamic_group; thing_group_name; thing_name }
 
 type t = {
+  tf_name : string;
   id : string prop;
   override_dynamic_group : bool prop;
   thing_group_name : string prop;
@@ -74,6 +75,7 @@ let make ?id ?override_dynamic_group ~thing_group_name ~thing_name
   let __type = "aws_iot_thing_group_membership" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        override_dynamic_group =
          Prop.computed __type __id "override_dynamic_group";

@@ -195,6 +195,7 @@ let azurerm_arc_kubernetes_cluster ?id ?tags ?timeouts
   }
 
 type t = {
+  tf_name : string;
   agent_public_key_certificate : string prop;
   agent_version : string prop;
   distribution : string prop;
@@ -215,6 +216,7 @@ let make ?id ?tags ?timeouts ~agent_public_key_certificate ~location
   let __type = "azurerm_arc_kubernetes_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        agent_public_key_certificate =
          Prop.computed __type __id "agent_public_key_certificate";
        agent_version = Prop.computed __type __id "agent_version";

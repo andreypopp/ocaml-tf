@@ -30,6 +30,7 @@ val yojson_of_azurerm_lighthouse_assignment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   lighthouse_definition_id : string prop;
   name : string prop;

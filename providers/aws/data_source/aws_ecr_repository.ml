@@ -125,6 +125,7 @@ let aws_ecr_repository ?id ?registry_id ?tags ~name () :
   { id; name; registry_id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   encryption_configuration : encryption_configuration list prop;
   id : string prop;
@@ -142,6 +143,7 @@ let make ?id ?registry_id ?tags ~name __id =
   let __type = "aws_ecr_repository" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        encryption_configuration =
          Prop.computed __type __id "encryption_configuration";

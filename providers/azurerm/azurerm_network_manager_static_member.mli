@@ -30,6 +30,7 @@ val yojson_of_azurerm_network_manager_static_member :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   network_group_id : string prop;

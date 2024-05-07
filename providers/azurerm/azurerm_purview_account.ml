@@ -263,6 +263,7 @@ let azurerm_purview_account ?id ?managed_resource_group_name
   }
 
 type t = {
+  tf_name : string;
   atlas_kafka_endpoint_primary_connection_string : string prop;
   atlas_kafka_endpoint_secondary_connection_string : string prop;
   catalog_endpoint : string prop;
@@ -284,6 +285,7 @@ let make ?id ?managed_resource_group_name ?public_network_enabled
   let __type = "azurerm_purview_account" in
   let __attrs =
     ({
+       tf_name = __id;
        atlas_kafka_endpoint_primary_connection_string =
          Prop.computed __type __id
            "atlas_kafka_endpoint_primary_connection_string";

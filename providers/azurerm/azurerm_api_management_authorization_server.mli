@@ -55,6 +55,7 @@ val yojson_of_azurerm_api_management_authorization_server :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_management_name : string prop;
   authorization_endpoint : string prop;
   authorization_methods : string list prop;

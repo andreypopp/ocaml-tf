@@ -209,6 +209,7 @@ let aws_ses_event_destination ?enabled ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   configuration_set_name : string prop;
   enabled : bool prop;
@@ -223,6 +224,7 @@ let make ?enabled ?id ?(kinesis_destination = [])
   let __type = "aws_ses_event_destination" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        configuration_set_name =
          Prop.computed __type __id "configuration_set_name";

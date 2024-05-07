@@ -60,6 +60,7 @@ let cloudflare_worker_cron_trigger ?id ~account_id ~schedules
   { account_id; id; schedules; script_name }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   schedules : string list prop;
@@ -70,6 +71,7 @@ let make ?id ~account_id ~schedules ~script_name __id =
   let __type = "cloudflare_worker_cron_trigger" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        schedules = Prop.computed __type __id "schedules";

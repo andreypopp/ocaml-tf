@@ -123,6 +123,7 @@ val yojson_of_azurerm_cdn_frontdoor_firewall_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   custom_block_response_body : string prop;
   custom_block_response_status_code : float prop;
   enabled : bool prop;

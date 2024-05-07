@@ -28,6 +28,7 @@ val yojson_of_aws_ecr_repository : aws_ecr_repository -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   encryption_configuration : encryption_configuration list prop;
   id : string prop;

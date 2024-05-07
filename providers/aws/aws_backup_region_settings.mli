@@ -19,6 +19,7 @@ val yojson_of_aws_backup_region_settings :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   resource_type_management_preference : (string * bool) list prop;
   resource_type_opt_in_preference : (string * bool) list prop;

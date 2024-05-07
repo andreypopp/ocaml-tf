@@ -41,6 +41,7 @@ val yojson_of_aws_ssoadmin_trusted_token_issuer :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   client_token : string prop;
   id : string prop;

@@ -38,6 +38,7 @@ val yojson_of_aws_backup_framework : aws_backup_framework -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   control : control list prop;
   creation_time : string prop;

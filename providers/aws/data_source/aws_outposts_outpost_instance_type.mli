@@ -20,6 +20,7 @@ val yojson_of_aws_outposts_outpost_instance_type :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   instance_type : string prop;

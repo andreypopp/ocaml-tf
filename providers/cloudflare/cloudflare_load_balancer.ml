@@ -1202,6 +1202,7 @@ let cloudflare_load_balancer ?description ?enabled ?id ?proxied
   }
 
 type t = {
+  tf_name : string;
   created_on : string prop;
   default_pool_ids : string list prop;
   description : string prop;
@@ -1227,6 +1228,7 @@ let make ?description ?enabled ?id ?proxied ?session_affinity
   let __type = "cloudflare_load_balancer" in
   let __attrs =
     ({
+       tf_name = __id;
        created_on = Prop.computed __type __id "created_on";
        default_pool_ids =
          Prop.computed __type __id "default_pool_ids";

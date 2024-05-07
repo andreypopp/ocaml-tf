@@ -118,6 +118,7 @@ let google_healthcare_consent_store_iam_binding ?id ?(condition = [])
   { consent_store_id; dataset; id; members; role; condition }
 
 type t = {
+  tf_name : string;
   consent_store_id : string prop;
   dataset : string prop;
   etag : string prop;
@@ -131,6 +132,7 @@ let make ?id ?(condition = []) ~consent_store_id ~dataset ~members
   let __type = "google_healthcare_consent_store_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        consent_store_id =
          Prop.computed __type __id "consent_store_id";
        dataset = Prop.computed __type __id "dataset";

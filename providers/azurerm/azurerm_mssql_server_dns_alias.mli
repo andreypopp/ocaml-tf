@@ -29,6 +29,7 @@ val yojson_of_azurerm_mssql_server_dns_alias :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dns_record : string prop;
   id : string prop;
   mssql_server_id : string prop;

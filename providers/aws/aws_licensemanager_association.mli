@@ -19,6 +19,7 @@ val yojson_of_aws_licensemanager_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   license_configuration_arn : string prop;
   resource_arn : string prop;

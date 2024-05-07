@@ -191,6 +191,7 @@ let cloudflare_zone_cache_variants ?avif ?bmp ?gif ?id ?jp2 ?jpeg
   }
 
 type t = {
+  tf_name : string;
   avif : string list prop;
   bmp : string list prop;
   gif : string list prop;
@@ -211,6 +212,7 @@ let make ?avif ?bmp ?gif ?id ?jp2 ?jpeg ?jpg ?jpg2 ?png ?tif ?tiff
   let __type = "cloudflare_zone_cache_variants" in
   let __attrs =
     ({
+       tf_name = __id;
        avif = Prop.computed __type __id "avif";
        bmp = Prop.computed __type __id "bmp";
        gif = Prop.computed __type __id "gif";

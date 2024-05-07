@@ -118,6 +118,7 @@ let google_bigtable_instance_iam_member ?id ?project
   { id; instance; member; project; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   instance : string prop;
@@ -131,6 +132,7 @@ let make ?id ?project ?(condition = []) ~instance ~member ~role __id
   let __type = "google_bigtable_instance_iam_member" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        instance = Prop.computed __type __id "instance";

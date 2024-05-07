@@ -21,6 +21,7 @@ val yojson_of_google_dataproc_cluster_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster : string prop;
   etag : string prop;
   id : string prop;

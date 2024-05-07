@@ -224,6 +224,7 @@ let azurerm_policy_set_definition ?display_name ?id
   { display_name; id; management_group_name; name; timeouts }
 
 type t = {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   id : string prop;
@@ -243,6 +244,7 @@ let make ?display_name ?id ?management_group_name ?name ?timeouts
   let __type = "azurerm_policy_set_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";

@@ -119,6 +119,7 @@ let google_compute_region_disk_resource_policy_attachment ?id
   { disk; id; name; project; region; timeouts }
 
 type t = {
+  tf_name : string;
   disk : string prop;
   id : string prop;
   name : string prop;
@@ -132,6 +133,7 @@ let make ?id ?project ?region ?timeouts ~disk ~name __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        disk = Prop.computed __type __id "disk";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

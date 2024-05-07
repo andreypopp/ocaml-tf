@@ -279,6 +279,7 @@ let aws_auditmanager_assessment ?description ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   framework_id : string prop;
@@ -296,6 +297,7 @@ let make ?description ?tags ?(assessment_reports_destination = [])
   let __type = "aws_auditmanager_assessment" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        framework_id = Prop.computed __type __id "framework_id";

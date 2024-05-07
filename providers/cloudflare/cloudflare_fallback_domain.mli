@@ -35,6 +35,7 @@ val yojson_of_cloudflare_fallback_domain :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   policy_id : string prop;

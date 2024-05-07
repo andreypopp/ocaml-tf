@@ -18,6 +18,7 @@ val yojson_of_aws_cognito_user_pool_signing_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate : string prop;
   id : string prop;
   user_pool_id : string prop;

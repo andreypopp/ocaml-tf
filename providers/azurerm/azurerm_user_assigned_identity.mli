@@ -32,6 +32,7 @@ val yojson_of_azurerm_user_assigned_identity :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   client_id : string prop;
   id : string prop;
   location : string prop;

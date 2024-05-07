@@ -117,6 +117,7 @@ let google_access_context_manager_access_policy ?id ?scopes ?timeouts
   { id; parent; scopes; title; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   id : string prop;
   name : string prop;
@@ -130,6 +131,7 @@ let make ?id ?scopes ?timeouts ~parent ~title __id =
   let __type = "google_access_context_manager_access_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

@@ -148,6 +148,7 @@ val yojson_of_azurerm_data_factory_integration_runtime_azure_ssis :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   credential_name : string prop;
   data_factory_id : string prop;
   description : string prop;

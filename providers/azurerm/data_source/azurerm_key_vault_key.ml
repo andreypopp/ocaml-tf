@@ -83,6 +83,7 @@ let azurerm_key_vault_key ?id ?timeouts ~key_vault_id ~name () :
   { id; key_vault_id; name; timeouts }
 
 type t = {
+  tf_name : string;
   curve : string prop;
   e : string prop;
   id : string prop;
@@ -107,6 +108,7 @@ let make ?id ?timeouts ~key_vault_id ~name __id =
   let __type = "azurerm_key_vault_key" in
   let __attrs =
     ({
+       tf_name = __id;
        curve = Prop.computed __type __id "curve";
        e = Prop.computed __type __id "e";
        id = Prop.computed __type __id "id";

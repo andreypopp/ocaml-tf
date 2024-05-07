@@ -81,6 +81,7 @@ val yojson_of_google_blockchain_node_engine_blockchain_nodes :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   blockchain_node_id : string prop;
   blockchain_type : string prop;
   connection_info : connection_info list prop;

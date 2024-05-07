@@ -115,6 +115,7 @@ val yojson_of_aws_opsworks_memcached_layer :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allocated_memory : float prop;
   arn : string prop;
   auto_assign_elastic_ips : bool prop;

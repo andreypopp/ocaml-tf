@@ -359,6 +359,7 @@ let azurerm_mssql_managed_instance ?collation ?dns_zone_partner_id
   }
 
 type t = {
+  tf_name : string;
   administrator_login : string prop;
   administrator_login_password : string prop;
   collation : string prop;
@@ -395,6 +396,7 @@ let make ?collation ?dns_zone_partner_id ?id
   let __type = "azurerm_mssql_managed_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        administrator_login =
          Prop.computed __type __id "administrator_login";
        administrator_login_password =

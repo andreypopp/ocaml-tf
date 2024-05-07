@@ -178,6 +178,7 @@ let azurerm_stream_analytics_output_powerbi ?id
   }
 
 type t = {
+  tf_name : string;
   dataset : string prop;
   group_id : string prop;
   group_name : string prop;
@@ -195,6 +196,7 @@ let make ?id ?token_user_display_name ?token_user_principal_name
   let __type = "azurerm_stream_analytics_output_powerbi" in
   let __attrs =
     ({
+       tf_name = __id;
        dataset = Prop.computed __type __id "dataset";
        group_id = Prop.computed __type __id "group_id";
        group_name = Prop.computed __type __id "group_name";

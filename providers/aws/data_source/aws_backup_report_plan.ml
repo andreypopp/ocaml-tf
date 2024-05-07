@@ -173,6 +173,7 @@ let aws_backup_report_plan ?id ?tags ~name () :
   { id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   creation_time : string prop;
   deployment_status : string prop;
@@ -188,6 +189,7 @@ let make ?id ?tags ~name __id =
   let __type = "aws_backup_report_plan" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        creation_time = Prop.computed __type __id "creation_time";
        deployment_status =

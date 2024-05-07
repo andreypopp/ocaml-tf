@@ -48984,6 +48984,7 @@ let aws_lexv2models_intent ?description ?parent_intent_signature
   }
 
 type t = {
+  tf_name : string;
   bot_id : string prop;
   bot_version : string prop;
   creation_date_time : string prop;
@@ -49006,6 +49007,7 @@ let make ?description ?parent_intent_signature
   let __type = "aws_lexv2models_intent" in
   let __attrs =
     ({
+       tf_name = __id;
        bot_id = Prop.computed __type __id "bot_id";
        bot_version = Prop.computed __type __id "bot_version";
        creation_date_time =

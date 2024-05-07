@@ -216,6 +216,7 @@ let azurerm_gallery_application ?description ?end_of_life_date ?eula
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   end_of_life_date : string prop;
   eula : string prop;
@@ -235,6 +236,7 @@ let make ?description ?end_of_life_date ?eula ?id
   let __type = "azurerm_gallery_application" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        end_of_life_date =
          Prop.computed __type __id "end_of_life_date";

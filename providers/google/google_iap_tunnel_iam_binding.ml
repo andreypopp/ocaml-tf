@@ -113,6 +113,7 @@ let google_iap_tunnel_iam_binding ?id ?project ?(condition = [])
   { id; members; project; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   members : string list prop;
@@ -124,6 +125,7 @@ let make ?id ?project ?(condition = []) ~members ~role __id =
   let __type = "google_iap_tunnel_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        members = Prop.computed __type __id "members";

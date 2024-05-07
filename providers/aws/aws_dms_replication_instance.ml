@@ -304,6 +304,7 @@ let aws_dms_replication_instance ?allocated_storage
   }
 
 type t = {
+  tf_name : string;
   allocated_storage : float prop;
   allow_major_version_upgrade : bool prop;
   apply_immediately : bool prop;
@@ -337,6 +338,7 @@ let make ?allocated_storage ?allow_major_version_upgrade
   let __type = "aws_dms_replication_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        allocated_storage =
          Prop.computed __type __id "allocated_storage";
        allow_major_version_upgrade =

@@ -120,6 +120,7 @@ let google_secret_manager_secret_iam_binding ?id ?project
   { id; members; project; role; secret_id; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   members : string list prop;
@@ -133,6 +134,7 @@ let make ?id ?project ?(condition = []) ~members ~role ~secret_id
   let __type = "google_secret_manager_secret_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        members = Prop.computed __type __id "members";

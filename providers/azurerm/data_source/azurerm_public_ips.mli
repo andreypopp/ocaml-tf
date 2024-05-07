@@ -33,6 +33,7 @@ val yojson_of_azurerm_public_ips : azurerm_public_ips -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allocation_type : string prop;
   attachment_status : string prop;
   id : string prop;

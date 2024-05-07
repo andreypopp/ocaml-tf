@@ -381,6 +381,7 @@ let aws_security_group ?description ?egress ?id ?ingress ?name
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   egress : egress list prop;
@@ -400,6 +401,7 @@ let make ?description ?egress ?id ?ingress ?name ?name_prefix
   let __type = "aws_security_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        egress = Prop.computed __type __id "egress";

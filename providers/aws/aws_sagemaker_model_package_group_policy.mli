@@ -19,6 +19,7 @@ val yojson_of_aws_sagemaker_model_package_group_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   model_package_group_name : string prop;
   resource_policy : string prop;

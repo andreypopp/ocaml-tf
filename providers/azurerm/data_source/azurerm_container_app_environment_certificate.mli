@@ -24,6 +24,7 @@ val yojson_of_azurerm_container_app_environment_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   container_app_environment_id : string prop;
   expiration_date : string prop;
   id : string prop;

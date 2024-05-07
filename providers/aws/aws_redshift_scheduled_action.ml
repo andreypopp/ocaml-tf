@@ -308,6 +308,7 @@ let aws_redshift_scheduled_action ?description ?enable ?end_time ?id
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   enable : bool prop;
   end_time : string prop;
@@ -323,6 +324,7 @@ let make ?description ?enable ?end_time ?id ?start_time ~iam_role
   let __type = "aws_redshift_scheduled_action" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        enable = Prop.computed __type __id "enable";
        end_time = Prop.computed __type __id "end_time";

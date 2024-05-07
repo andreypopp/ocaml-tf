@@ -754,6 +754,7 @@ let google_looker_instance ?consumer_network ?id ?platform_edition
   }
 
 type t = {
+  tf_name : string;
   consumer_network : string prop;
   create_time : string prop;
   egress_public_ip : string prop;
@@ -781,6 +782,7 @@ let make ?consumer_network ?id ?platform_edition ?private_ip_enabled
   let __type = "google_looker_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        consumer_network =
          Prop.computed __type __id "consumer_network";
        create_time = Prop.computed __type __id "create_time";

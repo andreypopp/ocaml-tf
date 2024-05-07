@@ -219,6 +219,7 @@ let aws_config_organization_custom_rule ?description
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   excluded_accounts : string list prop;
@@ -241,6 +242,7 @@ let make ?description ?excluded_accounts ?id ?input_parameters
   let __type = "aws_config_organization_custom_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        excluded_accounts =

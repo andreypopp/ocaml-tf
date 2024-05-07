@@ -17,6 +17,7 @@ val yojson_of_aws_ses_email_identity : aws_ses_email_identity -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   email : string prop;
   id : string prop;

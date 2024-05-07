@@ -186,6 +186,7 @@ let aws_iot_provisioning_template ?description ?enabled ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   default_version_id : float prop;
   description : string prop;
@@ -205,6 +206,7 @@ let make ?description ?enabled ?id ?tags ?tags_all ?type_
   let __type = "aws_iot_provisioning_template" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        default_version_id =
          Prop.computed __type __id "default_version_id";

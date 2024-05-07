@@ -19,6 +19,7 @@ val yojson_of_aws_config_configuration_recorder_status :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   is_enabled : bool prop;
   name : string prop;

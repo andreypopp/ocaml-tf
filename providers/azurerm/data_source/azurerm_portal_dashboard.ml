@@ -117,6 +117,7 @@ let azurerm_portal_dashboard ?dashboard_properties ?display_name ?id
   }
 
 type t = {
+  tf_name : string;
   dashboard_properties : string prop;
   display_name : string prop;
   id : string prop;
@@ -131,6 +132,7 @@ let make ?dashboard_properties ?display_name ?id ?name ?timeouts
   let __type = "azurerm_portal_dashboard" in
   let __attrs =
     ({
+       tf_name = __id;
        dashboard_properties =
          Prop.computed __type __id "dashboard_properties";
        display_name = Prop.computed __type __id "display_name";

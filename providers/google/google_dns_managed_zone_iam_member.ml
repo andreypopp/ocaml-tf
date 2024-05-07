@@ -118,6 +118,7 @@ let google_dns_managed_zone_iam_member ?id ?project ?(condition = [])
   { id; managed_zone; member; project; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   managed_zone : string prop;
@@ -131,6 +132,7 @@ let make ?id ?project ?(condition = []) ~managed_zone ~member ~role
   let __type = "google_dns_managed_zone_iam_member" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        managed_zone = Prop.computed __type __id "managed_zone";

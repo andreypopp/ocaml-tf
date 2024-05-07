@@ -58,6 +58,7 @@ let aws_serverlessapplicationrepository_application ?id
   { application_id; id; semantic_version }
 
 type t = {
+  tf_name : string;
   application_id : string prop;
   id : string prop;
   name : string prop;
@@ -71,6 +72,7 @@ let make ?id ?semantic_version ~application_id __id =
   let __type = "aws_serverlessapplicationrepository_application" in
   let __attrs =
     ({
+       tf_name = __id;
        application_id = Prop.computed __type __id "application_id";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

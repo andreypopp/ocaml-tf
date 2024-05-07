@@ -20,6 +20,7 @@ val yojson_of_aws_redshift_hsm_client_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   hsm_client_certificate_identifier : string prop;
   hsm_client_certificate_public_key : string prop;

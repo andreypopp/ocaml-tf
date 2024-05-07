@@ -195,6 +195,7 @@ let cloudflare_waiting_room_event ?custom_page_html ?description
   }
 
 type t = {
+  tf_name : string;
   created_on : string prop;
   custom_page_html : string prop;
   description : string prop;
@@ -223,6 +224,7 @@ let make ?custom_page_html ?description ?disable_session_renewal ?id
   let __type = "cloudflare_waiting_room_event" in
   let __attrs =
     ({
+       tf_name = __id;
        created_on = Prop.computed __type __id "created_on";
        custom_page_html =
          Prop.computed __type __id "custom_page_html";

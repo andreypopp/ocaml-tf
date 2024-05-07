@@ -79,6 +79,7 @@ val yojson_of_azurerm_automation_variables :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automation_account_id : string prop;
   bool_ : bool_ list prop;
   datetime : datetime list prop;

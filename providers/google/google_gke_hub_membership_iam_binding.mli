@@ -32,6 +32,7 @@ val yojson_of_google_gke_hub_membership_iam_binding :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   location : string prop;

@@ -27,6 +27,7 @@ val yojson_of_aws_api_gateway_method : aws_api_gateway_method -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_key_required : bool prop;
   authorization : string prop;
   authorization_scopes : string list prop;

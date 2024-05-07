@@ -342,6 +342,7 @@ let azurerm_virtual_network ?bgp_community ?dns_servers ?edge_zone
   }
 
 type t = {
+  tf_name : string;
   address_space : string list prop;
   bgp_community : string prop;
   dns_servers : string list prop;
@@ -363,6 +364,7 @@ let make ?bgp_community ?dns_servers ?edge_zone
   let __type = "azurerm_virtual_network" in
   let __attrs =
     ({
+       tf_name = __id;
        address_space = Prop.computed __type __id "address_space";
        bgp_community = Prop.computed __type __id "bgp_community";
        dns_servers = Prop.computed __type __id "dns_servers";

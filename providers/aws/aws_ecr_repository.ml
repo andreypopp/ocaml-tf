@@ -231,6 +231,7 @@ let aws_ecr_repository ?force_delete ?id ?image_tag_mutability ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   force_delete : bool prop;
   id : string prop;
@@ -248,6 +249,7 @@ let make ?force_delete ?id ?image_tag_mutability ?tags ?tags_all
   let __type = "aws_ecr_repository" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        force_delete = Prop.computed __type __id "force_delete";
        id = Prop.computed __type __id "id";

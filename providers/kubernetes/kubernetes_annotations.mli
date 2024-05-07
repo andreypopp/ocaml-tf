@@ -28,6 +28,7 @@ val yojson_of_kubernetes_annotations : kubernetes_annotations -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   annotations : (string * string) list prop;
   api_version : string prop;
   field_manager : string prop;

@@ -212,6 +212,7 @@ let azurerm_stream_analytics_function_javascript_uda ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   script : string prop;
@@ -223,6 +224,7 @@ let make ?id ?timeouts ~name ~script ~stream_analytics_job_id ~input
   let __type = "azurerm_stream_analytics_function_javascript_uda" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        script = Prop.computed __type __id "script";

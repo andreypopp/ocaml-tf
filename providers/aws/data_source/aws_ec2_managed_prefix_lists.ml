@@ -88,6 +88,7 @@ let aws_ec2_managed_prefix_lists ?id ?tags ~filter () :
   { id; tags; filter }
 
 type t = {
+  tf_name : string;
   id : string prop;
   ids : string list prop;
   tags : (string * string) list prop;
@@ -97,6 +98,7 @@ let make ?id ?tags ~filter __id =
   let __type = "aws_ec2_managed_prefix_lists" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ids = Prop.computed __type __id "ids";
        tags = Prop.computed __type __id "tags";

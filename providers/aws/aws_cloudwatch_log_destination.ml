@@ -92,6 +92,7 @@ let aws_cloudwatch_log_destination ?id ?tags ?tags_all ~name
   { id; name; role_arn; tags; tags_all; target_arn }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;
@@ -105,6 +106,7 @@ let make ?id ?tags ?tags_all ~name ~role_arn ~target_arn __id =
   let __type = "aws_cloudwatch_log_destination" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

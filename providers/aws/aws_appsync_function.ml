@@ -270,6 +270,7 @@ let aws_appsync_function ?code ?description ?function_version ?id
   }
 
 type t = {
+  tf_name : string;
   api_id : string prop;
   arn : string prop;
   code : string prop;
@@ -291,6 +292,7 @@ let make ?code ?description ?function_version ?id ?max_batch_size
   let __type = "aws_appsync_function" in
   let __attrs =
     ({
+       tf_name = __id;
        api_id = Prop.computed __type __id "api_id";
        arn = Prop.computed __type __id "arn";
        code = Prop.computed __type __id "code";

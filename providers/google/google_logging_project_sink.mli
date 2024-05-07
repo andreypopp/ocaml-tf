@@ -42,6 +42,7 @@ val yojson_of_google_logging_project_sink :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   custom_writer_identity : string prop;
   description : string prop;
   destination : string prop;

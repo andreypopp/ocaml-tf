@@ -522,6 +522,7 @@ let google_gke_backup_backup_plan ?deactivated ?description ?id
   }
 
 type t = {
+  tf_name : string;
   cluster : string prop;
   deactivated : bool prop;
   description : string prop;
@@ -546,6 +547,7 @@ let make ?deactivated ?description ?id ?labels ?project
   let __type = "google_gke_backup_backup_plan" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster = Prop.computed __type __id "cluster";
        deactivated = Prop.computed __type __id "deactivated";
        description = Prop.computed __type __id "description";

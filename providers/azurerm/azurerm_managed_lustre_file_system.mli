@@ -73,6 +73,7 @@ val yojson_of_azurerm_managed_lustre_file_system :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   mgs_address : string prop;

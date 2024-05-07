@@ -104,6 +104,7 @@ let aws_ecs_cluster ?id ?tags ~cluster_name () : aws_ecs_cluster =
   { cluster_name; id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cluster_name : string prop;
   id : string prop;
@@ -120,6 +121,7 @@ let make ?id ?tags ~cluster_name __id =
   let __type = "aws_ecs_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cluster_name = Prop.computed __type __id "cluster_name";
        id = Prop.computed __type __id "id";

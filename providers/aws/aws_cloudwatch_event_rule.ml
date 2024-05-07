@@ -178,6 +178,7 @@ let aws_cloudwatch_event_rule ?description ?event_bus_name
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   event_bus_name : string prop;
@@ -199,6 +200,7 @@ let make ?description ?event_bus_name ?event_pattern ?id ?is_enabled
   let __type = "aws_cloudwatch_event_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        event_bus_name = Prop.computed __type __id "event_bus_name";

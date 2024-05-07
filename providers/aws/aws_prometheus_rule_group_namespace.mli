@@ -20,6 +20,7 @@ val yojson_of_aws_prometheus_rule_group_namespace :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   data : string prop;
   id : string prop;
   name : string prop;

@@ -45,6 +45,7 @@ let aws_cloudfront_function ?id ~name ~stage () :
   { id; name; stage }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   code : string prop;
   comment : string prop;
@@ -61,6 +62,7 @@ let make ?id ~name ~stage __id =
   let __type = "aws_cloudfront_function" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        code = Prop.computed __type __id "code";
        comment = Prop.computed __type __id "comment";

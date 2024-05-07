@@ -22,6 +22,7 @@ val yojson_of_aws_apigatewayv2_route_response :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_id : string prop;
   id : string prop;
   model_selection_expression : string prop;

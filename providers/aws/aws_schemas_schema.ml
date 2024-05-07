@@ -116,6 +116,7 @@ let aws_schemas_schema ?description ?id ?tags ?tags_all ~content
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   content : string prop;
   description : string prop;
@@ -135,6 +136,7 @@ let make ?description ?id ?tags ?tags_all ~content ~name
   let __type = "aws_schemas_schema" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        content = Prop.computed __type __id "content";
        description = Prop.computed __type __id "description";

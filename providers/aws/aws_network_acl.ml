@@ -263,6 +263,7 @@ let aws_network_acl ?egress ?id ?ingress ?subnet_ids ?tags ?tags_all
   { egress; id; ingress; subnet_ids; tags; tags_all; vpc_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   egress : egress list prop;
   id : string prop;
@@ -279,6 +280,7 @@ let make ?egress ?id ?ingress ?subnet_ids ?tags ?tags_all ~vpc_id
   let __type = "aws_network_acl" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        egress = Prop.computed __type __id "egress";
        id = Prop.computed __type __id "id";

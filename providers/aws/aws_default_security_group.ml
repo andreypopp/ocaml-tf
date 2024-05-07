@@ -302,6 +302,7 @@ let aws_default_security_group ?egress ?id ?ingress
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   egress : egress list prop;
@@ -321,6 +322,7 @@ let make ?egress ?id ?ingress ?revoke_rules_on_delete ?tags ?tags_all
   let __type = "aws_default_security_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        egress = Prop.computed __type __id "egress";

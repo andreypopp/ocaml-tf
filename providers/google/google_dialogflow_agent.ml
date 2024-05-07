@@ -222,6 +222,7 @@ let google_dialogflow_agent ?api_version ?avatar_uri
   }
 
 type t = {
+  tf_name : string;
   api_version : string prop;
   avatar_uri : string prop;
   avatar_uri_backend : string prop;
@@ -245,6 +246,7 @@ let make ?api_version ?avatar_uri ?classification_threshold
   let __type = "google_dialogflow_agent" in
   let __attrs =
     ({
+       tf_name = __id;
        api_version = Prop.computed __type __id "api_version";
        avatar_uri = Prop.computed __type __id "avatar_uri";
        avatar_uri_backend =

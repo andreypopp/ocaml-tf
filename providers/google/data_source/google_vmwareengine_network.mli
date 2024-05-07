@@ -25,6 +25,7 @@ val yojson_of_google_vmwareengine_network :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   location : string prop;

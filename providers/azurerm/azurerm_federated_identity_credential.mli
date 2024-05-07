@@ -34,6 +34,7 @@ val yojson_of_azurerm_federated_identity_credential :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   audience : string list prop;
   id : string prop;
   issuer : string prop;

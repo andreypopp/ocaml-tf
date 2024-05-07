@@ -25,6 +25,7 @@ val yojson_of_azurerm_container_registry_scope_map :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   actions : string list prop;
   container_registry_name : string prop;
   description : string prop;

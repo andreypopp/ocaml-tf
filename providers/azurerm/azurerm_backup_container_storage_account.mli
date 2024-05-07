@@ -30,6 +30,7 @@ val yojson_of_azurerm_backup_container_storage_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   recovery_vault_name : string prop;
   resource_group_name : string prop;

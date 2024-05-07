@@ -74,6 +74,7 @@ let aws_rds_cluster_activity_stream
   }
 
 type t = {
+  tf_name : string;
   engine_native_audit_fields_included : bool prop;
   id : string prop;
   kinesis_stream_name : string prop;
@@ -87,6 +88,7 @@ let make ?engine_native_audit_fields_included ?id ~kms_key_id ~mode
   let __type = "aws_rds_cluster_activity_stream" in
   let __attrs =
     ({
+       tf_name = __id;
        engine_native_audit_fields_included =
          Prop.computed __type __id
            "engine_native_audit_fields_included";

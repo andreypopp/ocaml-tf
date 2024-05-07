@@ -34,6 +34,7 @@ val yojson_of_azurerm_automation_job_schedule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automation_account_name : string prop;
   id : string prop;
   job_schedule_id : string prop;

@@ -94,6 +94,7 @@ let aws_service ?dns_name ?id ?region ?reverse_dns_name
   }
 
 type t = {
+  tf_name : string;
   dns_name : string prop;
   id : string prop;
   partition : string prop;
@@ -109,6 +110,7 @@ let make ?dns_name ?id ?region ?reverse_dns_name ?reverse_dns_prefix
   let __type = "aws_service" in
   let __attrs =
     ({
+       tf_name = __id;
        dns_name = Prop.computed __type __id "dns_name";
        id = Prop.computed __type __id "id";
        partition = Prop.computed __type __id "partition";

@@ -58,6 +58,7 @@ let aws_db_instance_role_association ?id ~db_instance_identifier
   { db_instance_identifier; feature_name; id; role_arn }
 
 type t = {
+  tf_name : string;
   db_instance_identifier : string prop;
   feature_name : string prop;
   id : string prop;
@@ -68,6 +69,7 @@ let make ?id ~db_instance_identifier ~feature_name ~role_arn __id =
   let __type = "aws_db_instance_role_association" in
   let __attrs =
     ({
+       tf_name = __id;
        db_instance_identifier =
          Prop.computed __type __id "db_instance_identifier";
        feature_name = Prop.computed __type __id "feature_name";

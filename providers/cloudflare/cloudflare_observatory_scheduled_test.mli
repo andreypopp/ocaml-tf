@@ -28,6 +28,7 @@ val yojson_of_cloudflare_observatory_scheduled_test :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   frequency : string prop;
   id : string prop;
   region : string prop;

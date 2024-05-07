@@ -32,6 +32,7 @@ val yojson_of_azurerm_log_analytics_query_pack :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

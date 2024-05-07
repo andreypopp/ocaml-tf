@@ -113,6 +113,7 @@ let azurerm_virtual_desktop_workspace_application_group_association
   { application_group_id; id; workspace_id; timeouts }
 
 type t = {
+  tf_name : string;
   application_group_id : string prop;
   id : string prop;
   workspace_id : string prop;
@@ -124,6 +125,7 @@ let make ?id ?timeouts ~application_group_id ~workspace_id __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        application_group_id =
          Prop.computed __type __id "application_group_id";
        id = Prop.computed __type __id "id";

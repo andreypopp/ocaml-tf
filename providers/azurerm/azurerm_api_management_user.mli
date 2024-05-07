@@ -38,6 +38,7 @@ val yojson_of_azurerm_api_management_user :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_management_name : string prop;
   confirmation : string prop;
   email : string prop;

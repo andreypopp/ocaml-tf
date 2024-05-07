@@ -1620,6 +1620,7 @@ let google_dialogflow_cx_flow ?description ?id ?is_default_start_flow
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   id : string prop;
@@ -1637,6 +1638,7 @@ let make ?description ?id ?is_default_start_flow ?language_code
   let __type = "google_dialogflow_cx_flow" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";

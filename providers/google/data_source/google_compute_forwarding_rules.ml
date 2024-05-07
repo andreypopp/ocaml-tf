@@ -368,6 +368,7 @@ let google_compute_forwarding_rules ?id ?project ?region () :
   { id; project; region }
 
 type t = {
+  tf_name : string;
   id : string prop;
   project : string prop;
   region : string prop;
@@ -378,6 +379,7 @@ let make ?id ?project ?region __id =
   let __type = "google_compute_forwarding_rules" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        project = Prop.computed __type __id "project";
        region = Prop.computed __type __id "region";

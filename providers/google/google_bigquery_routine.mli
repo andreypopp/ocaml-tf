@@ -77,6 +77,7 @@ val yojson_of_google_bigquery_routine :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   creation_time : float prop;
   dataset_id : string prop;
   definition_body : string prop;

@@ -514,6 +514,7 @@ let cloudflare_device_posture_rule ?description ?expiration ?id ?name
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   description : string prop;
   expiration : string prop;
@@ -528,6 +529,7 @@ let make ?description ?expiration ?id ?name ?schedule ?(input = [])
   let __type = "cloudflare_device_posture_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        description = Prop.computed __type __id "description";
        expiration = Prop.computed __type __id "expiration";

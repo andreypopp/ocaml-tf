@@ -46,6 +46,7 @@ val yojson_of_aws_finspace_kx_volume : aws_finspace_kx_volume -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   attached_clusters : attached_clusters list prop;
   availability_zones : string list prop;

@@ -194,6 +194,7 @@ let azurerm_capacity_reservation ?id ?tags ?zone ?timeouts
   }
 
 type t = {
+  tf_name : string;
   capacity_reservation_group_id : string prop;
   id : string prop;
   name : string prop;
@@ -206,6 +207,7 @@ let make ?id ?tags ?zone ?timeouts ~capacity_reservation_group_id
   let __type = "azurerm_capacity_reservation" in
   let __attrs =
     ({
+       tf_name = __id;
        capacity_reservation_group_id =
          Prop.computed __type __id "capacity_reservation_group_id";
        id = Prop.computed __type __id "id";

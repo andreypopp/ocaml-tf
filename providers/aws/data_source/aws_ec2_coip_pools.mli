@@ -28,6 +28,7 @@ val yojson_of_aws_ec2_coip_pools : aws_ec2_coip_pools -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   pool_ids : string list prop;
   tags : (string * string) list prop;

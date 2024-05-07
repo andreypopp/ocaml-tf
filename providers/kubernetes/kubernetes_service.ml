@@ -662,6 +662,7 @@ let kubernetes_service ?id ?wait_for_load_balancer ?timeouts
   { id; wait_for_load_balancer; metadata; spec; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   status : status list prop;
   wait_for_load_balancer : bool prop;
@@ -671,6 +672,7 @@ let make ?id ?wait_for_load_balancer ?timeouts ~metadata ~spec __id =
   let __type = "kubernetes_service" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        status = Prop.computed __type __id "status";
        wait_for_load_balancer =

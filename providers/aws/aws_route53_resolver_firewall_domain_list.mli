@@ -21,6 +21,7 @@ val yojson_of_aws_route53_resolver_firewall_domain_list :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   domains : string list prop;
   id : string prop;

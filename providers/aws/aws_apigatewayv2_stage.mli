@@ -59,6 +59,7 @@ val yojson_of_aws_apigatewayv2_stage : aws_apigatewayv2_stage -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_id : string prop;
   arn : string prop;
   auto_deploy : bool prop;

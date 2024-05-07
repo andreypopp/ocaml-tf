@@ -67,6 +67,7 @@ let aws_s3control_access_grants_instance ?account_id
   { account_id; identity_center_arn; tags }
 
 type t = {
+  tf_name : string;
   access_grants_instance_arn : string prop;
   access_grants_instance_id : string prop;
   account_id : string prop;
@@ -81,6 +82,7 @@ let make ?account_id ?identity_center_arn ?tags __id =
   let __type = "aws_s3control_access_grants_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        access_grants_instance_arn =
          Prop.computed __type __id "access_grants_instance_arn";
        access_grants_instance_id =

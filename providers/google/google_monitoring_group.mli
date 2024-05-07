@@ -32,6 +32,7 @@ val yojson_of_google_monitoring_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   filter : string prop;
   id : string prop;

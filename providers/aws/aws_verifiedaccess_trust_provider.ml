@@ -333,6 +333,7 @@ let aws_verifiedaccess_trust_provider ?description
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   device_trust_provider_type : string prop;
   id : string prop;
@@ -350,6 +351,7 @@ let make ?description ?device_trust_provider_type ?id ?tags ?tags_all
   let __type = "aws_verifiedaccess_trust_provider" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        device_trust_provider_type =
          Prop.computed __type __id "device_trust_provider_type";

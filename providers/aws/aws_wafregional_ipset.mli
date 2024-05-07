@@ -23,6 +23,7 @@ val yojson_of_aws_wafregional_ipset : aws_wafregional_ipset -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;

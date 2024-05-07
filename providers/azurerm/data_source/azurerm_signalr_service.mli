@@ -24,6 +24,7 @@ val yojson_of_azurerm_signalr_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   aad_auth_enabled : bool prop;
   hostname : string prop;
   id : string prop;

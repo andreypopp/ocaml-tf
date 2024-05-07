@@ -73,6 +73,7 @@ let azurerm_resource_group ?id ?timeouts ~name () :
   { id; name; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   managed_by : string prop;
@@ -84,6 +85,7 @@ let make ?id ?timeouts ~name __id =
   let __type = "azurerm_resource_group" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        managed_by = Prop.computed __type __id "managed_by";

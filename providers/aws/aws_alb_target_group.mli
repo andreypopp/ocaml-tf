@@ -79,6 +79,7 @@ val yojson_of_aws_alb_target_group : aws_alb_target_group -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   arn_suffix : string prop;
   connection_termination : bool prop;

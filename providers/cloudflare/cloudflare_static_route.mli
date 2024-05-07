@@ -30,6 +30,7 @@ val yojson_of_cloudflare_static_route :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   colo_names : string list prop;
   colo_regions : string list prop;

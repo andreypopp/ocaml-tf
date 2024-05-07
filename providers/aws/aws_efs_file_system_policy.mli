@@ -20,6 +20,7 @@ val yojson_of_aws_efs_file_system_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bypass_policy_lockout_safety_check : bool prop;
   file_system_id : string prop;
   id : string prop;

@@ -27,6 +27,7 @@ val yojson_of_google_compute_region_disk_resource_policy_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   disk : string prop;
   id : string prop;
   name : string prop;

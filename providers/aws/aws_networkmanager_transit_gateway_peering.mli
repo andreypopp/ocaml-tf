@@ -27,6 +27,7 @@ val yojson_of_aws_networkmanager_transit_gateway_peering :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   core_network_arn : string prop;
   core_network_id : string prop;

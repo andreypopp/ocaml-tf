@@ -213,6 +213,7 @@ let azurerm_palo_alto_local_rulestack ?anti_spyware_profile
   }
 
 type t = {
+  tf_name : string;
   anti_spyware_profile : string prop;
   anti_virus_profile : string prop;
   description : string prop;
@@ -233,6 +234,7 @@ let make ?anti_spyware_profile ?anti_virus_profile ?description
   let __type = "azurerm_palo_alto_local_rulestack" in
   let __attrs =
     ({
+       tf_name = __id;
        anti_spyware_profile =
          Prop.computed __type __id "anti_spyware_profile";
        anti_virus_profile =

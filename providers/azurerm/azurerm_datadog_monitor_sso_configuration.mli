@@ -32,6 +32,7 @@ val yojson_of_azurerm_datadog_monitor_sso_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   datadog_monitor_id : string prop;
   enterprise_application_id : string prop;
   id : string prop;

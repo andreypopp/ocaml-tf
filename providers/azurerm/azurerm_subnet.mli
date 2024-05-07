@@ -54,6 +54,7 @@ val yojson_of_azurerm_subnet : azurerm_subnet -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address_prefixes : string list prop;
   enforce_private_link_endpoint_network_policies : bool prop;
   enforce_private_link_service_network_policies : bool prop;

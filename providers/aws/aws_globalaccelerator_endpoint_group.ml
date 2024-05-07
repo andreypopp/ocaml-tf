@@ -294,6 +294,7 @@ let aws_globalaccelerator_endpoint_group ?endpoint_group_region
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   endpoint_group_region : string prop;
   health_check_interval_seconds : float prop;
@@ -313,6 +314,7 @@ let make ?endpoint_group_region ?health_check_interval_seconds
   let __type = "aws_globalaccelerator_endpoint_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        endpoint_group_region =
          Prop.computed __type __id "endpoint_group_region";

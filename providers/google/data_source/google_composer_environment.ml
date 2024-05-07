@@ -1210,6 +1210,7 @@ let google_composer_environment ?id ?project ?region ~name () :
   { id; name; project; region }
 
 type t = {
+  tf_name : string;
   config : config list prop;
   effective_labels : (string * string) list prop;
   id : string prop;
@@ -1225,6 +1226,7 @@ let make ?id ?project ?region ~name __id =
   let __type = "google_composer_environment" in
   let __attrs =
     ({
+       tf_name = __id;
        config = Prop.computed __type __id "config";
        effective_labels =
          Prop.computed __type __id "effective_labels";

@@ -180,6 +180,7 @@ let aws_backup_framework ?id ?tags ~name () : aws_backup_framework =
   { id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   control : control list prop;
   creation_time : string prop;
@@ -195,6 +196,7 @@ let make ?id ?tags ~name __id =
   let __type = "aws_backup_framework" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        control = Prop.computed __type __id "control";
        creation_time = Prop.computed __type __id "creation_time";

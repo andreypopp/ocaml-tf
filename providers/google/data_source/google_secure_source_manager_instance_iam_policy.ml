@@ -66,6 +66,7 @@ let google_secure_source_manager_instance_iam_policy ?id ?location
   { id; instance_id; location; project }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   instance_id : string prop;
@@ -78,6 +79,7 @@ let make ?id ?location ?project ~instance_id __id =
   let __type = "google_secure_source_manager_instance_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        instance_id = Prop.computed __type __id "instance_id";

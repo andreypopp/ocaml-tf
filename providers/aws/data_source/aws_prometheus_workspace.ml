@@ -57,6 +57,7 @@ let aws_prometheus_workspace ?id ?tags ~workspace_id () :
   { id; tags; workspace_id }
 
 type t = {
+  tf_name : string;
   alias : string prop;
   arn : string prop;
   created_date : string prop;
@@ -72,6 +73,7 @@ let make ?id ?tags ~workspace_id __id =
   let __type = "aws_prometheus_workspace" in
   let __attrs =
     ({
+       tf_name = __id;
        alias = Prop.computed __type __id "alias";
        arn = Prop.computed __type __id "arn";
        created_date = Prop.computed __type __id "created_date";

@@ -464,6 +464,7 @@ let azurerm_eventgrid_domain
   }
 
 type t = {
+  tf_name : string;
   auto_create_topic_with_first_subscription : bool prop;
   auto_delete_topic_with_last_subscription : bool prop;
   endpoint : string prop;
@@ -489,6 +490,7 @@ let make ?auto_create_topic_with_first_subscription
   let __type = "azurerm_eventgrid_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_create_topic_with_first_subscription =
          Prop.computed __type __id
            "auto_create_topic_with_first_subscription";

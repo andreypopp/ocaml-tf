@@ -29,6 +29,7 @@ val yojson_of_azurerm_chaos_studio_capability :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   capability_type : string prop;
   chaos_studio_target_id : string prop;
   id : string prop;

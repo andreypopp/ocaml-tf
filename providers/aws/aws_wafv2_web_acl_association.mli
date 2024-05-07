@@ -28,6 +28,7 @@ val yojson_of_aws_wafv2_web_acl_association : aws_wafv2_web_acl_association -> j
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name: string;
   id: string prop;
   resource_arn: string prop;
   web_acl_arn: string prop;

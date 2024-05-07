@@ -292,6 +292,7 @@ let aws_cleanrooms_collaboration ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   create_time : string prop;
   creator_display_name : string prop;
@@ -311,6 +312,7 @@ let make ?tags ?tags_all ?(data_encryption_metadata = []) ?timeouts
   let __type = "aws_cleanrooms_collaboration" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        create_time = Prop.computed __type __id "create_time";
        creator_display_name =

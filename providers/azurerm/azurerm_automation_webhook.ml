@@ -202,6 +202,7 @@ let azurerm_automation_webhook ?enabled ?id ?parameters
   }
 
 type t = {
+  tf_name : string;
   automation_account_name : string prop;
   enabled : bool prop;
   expiry_time : string prop;
@@ -220,6 +221,7 @@ let make ?enabled ?id ?parameters ?run_on_worker_group ?uri ?timeouts
   let __type = "azurerm_automation_webhook" in
   let __attrs =
     ({
+       tf_name = __id;
        automation_account_name =
          Prop.computed __type __id "automation_account_name";
        enabled = Prop.computed __type __id "enabled";

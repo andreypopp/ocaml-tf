@@ -120,6 +120,7 @@ val yojson_of_aws_imagebuilder_distribution_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   date_created : string prop;
   date_updated : string prop;

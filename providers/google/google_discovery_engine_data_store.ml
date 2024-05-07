@@ -172,6 +172,7 @@ let google_discovery_engine_data_store ?create_advanced_site_search
   }
 
 type t = {
+  tf_name : string;
   content_config : string prop;
   create_advanced_site_search : bool prop;
   create_time : string prop;
@@ -192,6 +193,7 @@ let make ?create_advanced_site_search ?id ?project ?solution_types
   let __type = "google_discovery_engine_data_store" in
   let __attrs =
     ({
+       tf_name = __id;
        content_config = Prop.computed __type __id "content_config";
        create_advanced_site_search =
          Prop.computed __type __id "create_advanced_site_search";

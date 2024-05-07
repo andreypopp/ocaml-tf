@@ -108,6 +108,7 @@ let google_compute_shared_vpc_service_project ?deletion_policy ?id
   { deletion_policy; host_project; id; service_project; timeouts }
 
 type t = {
+  tf_name : string;
   deletion_policy : string prop;
   host_project : string prop;
   id : string prop;
@@ -119,6 +120,7 @@ let make ?deletion_policy ?id ?timeouts ~host_project
   let __type = "google_compute_shared_vpc_service_project" in
   let __attrs =
     ({
+       tf_name = __id;
        deletion_policy = Prop.computed __type __id "deletion_policy";
        host_project = Prop.computed __type __id "host_project";
        id = Prop.computed __type __id "id";

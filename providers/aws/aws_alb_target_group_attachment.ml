@@ -73,6 +73,7 @@ let aws_alb_target_group_attachment ?availability_zone ?id ?port
   { availability_zone; id; port; target_group_arn; target_id }
 
 type t = {
+  tf_name : string;
   availability_zone : string prop;
   id : string prop;
   port : float prop;
@@ -85,6 +86,7 @@ let make ?availability_zone ?id ?port ~target_group_arn ~target_id
   let __type = "aws_alb_target_group_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        availability_zone =
          Prop.computed __type __id "availability_zone";
        id = Prop.computed __type __id "id";

@@ -51,6 +51,7 @@ let google_binary_authorization_attestor_iam_policy ?id ?project
   { attestor; id; project }
 
 type t = {
+  tf_name : string;
   attestor : string prop;
   etag : string prop;
   id : string prop;
@@ -62,6 +63,7 @@ let make ?id ?project ~attestor __id =
   let __type = "google_binary_authorization_attestor_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        attestor = Prop.computed __type __id "attestor";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

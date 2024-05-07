@@ -20,6 +20,7 @@ val yojson_of_google_dataplex_lake_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   lake : string prop;

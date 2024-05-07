@@ -34,6 +34,7 @@ val yojson_of_azurerm_automation_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automation_account_name : string prop;
   base64 : string prop;
   description : string prop;

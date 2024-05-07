@@ -138,6 +138,7 @@ let aws_chime_voice_connector_streaming ?disabled ?id
   }
 
 type t = {
+  tf_name : string;
   data_retention : float prop;
   disabled : bool prop;
   id : string prop;
@@ -151,6 +152,7 @@ let make ?disabled ?id ?streaming_notification_targets
   let __type = "aws_chime_voice_connector_streaming" in
   let __attrs =
     ({
+       tf_name = __id;
        data_retention = Prop.computed __type __id "data_retention";
        disabled = Prop.computed __type __id "disabled";
        id = Prop.computed __type __id "id";

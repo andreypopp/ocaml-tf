@@ -71,6 +71,7 @@ let aws_lightsail_domain_entry ?id ?is_alias ~domain_name ~name
   { domain_name; id; is_alias; name; target; type_ }
 
 type t = {
+  tf_name : string;
   domain_name : string prop;
   id : string prop;
   is_alias : bool prop;
@@ -83,6 +84,7 @@ let make ?id ?is_alias ~domain_name ~name ~target ~type_ __id =
   let __type = "aws_lightsail_domain_entry" in
   let __attrs =
     ({
+       tf_name = __id;
        domain_name = Prop.computed __type __id "domain_name";
        id = Prop.computed __type __id "id";
        is_alias = Prop.computed __type __id "is_alias";

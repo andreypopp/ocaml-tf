@@ -19,6 +19,7 @@ val yojson_of_aws_shield_protection_health_check_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   health_check_arn : string prop;
   id : string prop;
   shield_protection_id : string prop;

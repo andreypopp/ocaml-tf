@@ -380,6 +380,7 @@ val yojson_of_google_privateca_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_authority : string prop;
   certificate_description : certificate_description list prop;
   certificate_template : string prop;

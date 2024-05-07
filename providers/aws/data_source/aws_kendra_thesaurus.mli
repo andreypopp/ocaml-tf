@@ -24,6 +24,7 @@ val yojson_of_aws_kendra_thesaurus : aws_kendra_thesaurus -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   created_at : string prop;
   description : string prop;

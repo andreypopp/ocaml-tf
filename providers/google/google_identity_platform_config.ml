@@ -1061,6 +1061,7 @@ let google_identity_platform_config ?authorized_domains
   }
 
 type t = {
+  tf_name : string;
   authorized_domains : string list prop;
   autodelete_anonymous_users : bool prop;
   id : string prop;
@@ -1075,6 +1076,7 @@ let make ?authorized_domains ?autodelete_anonymous_users ?id ?project
   let __type = "google_identity_platform_config" in
   let __attrs =
     ({
+       tf_name = __id;
        authorized_domains =
          Prop.computed __type __id "authorized_domains";
        autodelete_anonymous_users =

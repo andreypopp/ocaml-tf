@@ -306,6 +306,7 @@ let google_netapp_active_directory ?aes_encryption ?backup_operators
   }
 
 type t = {
+  tf_name : string;
   aes_encryption : bool prop;
   backup_operators : string list prop;
   create_time : string prop;
@@ -342,6 +343,7 @@ let make ?aes_encryption ?backup_operators ?description
   let __type = "google_netapp_active_directory" in
   let __attrs =
     ({
+       tf_name = __id;
        aes_encryption = Prop.computed __type __id "aes_encryption";
        backup_operators =
          Prop.computed __type __id "backup_operators";

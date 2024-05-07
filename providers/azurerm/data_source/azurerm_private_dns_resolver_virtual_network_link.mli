@@ -24,6 +24,7 @@ val yojson_of_azurerm_private_dns_resolver_virtual_network_link :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dns_forwarding_ruleset_id : string prop;
   id : string prop;
   metadata : (string * string) list prop;

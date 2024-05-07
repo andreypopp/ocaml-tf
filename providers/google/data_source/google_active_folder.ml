@@ -46,6 +46,7 @@ let google_active_folder ?id ~display_name ~parent () :
   { display_name; id; parent }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   name : string prop;
@@ -56,6 +57,7 @@ let make ?id ~display_name ~parent __id =
   let __type = "google_active_folder" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

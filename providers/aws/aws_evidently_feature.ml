@@ -335,6 +335,7 @@ let aws_evidently_feature ?default_variation ?description
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_time : string prop;
   default_variation : string prop;
@@ -358,6 +359,7 @@ let make ?default_variation ?description ?entity_overrides
   let __type = "aws_evidently_feature" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_time = Prop.computed __type __id "created_time";
        default_variation =

@@ -126,6 +126,7 @@ let aws_chimesdkvoice_sip_rule ?disabled ?id ~name ~trigger_type
   }
 
 type t = {
+  tf_name : string;
   disabled : bool prop;
   id : string prop;
   name : string prop;
@@ -138,6 +139,7 @@ let make ?disabled ?id ~name ~trigger_type ~trigger_value
   let __type = "aws_chimesdkvoice_sip_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        disabled = Prop.computed __type __id "disabled";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

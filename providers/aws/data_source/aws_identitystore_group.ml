@@ -254,6 +254,7 @@ let aws_identitystore_group ?group_id ?id
   { group_id; id; identity_store_id; alternate_identifier; filter }
 
 type t = {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   external_ids : external_ids list prop;
@@ -267,6 +268,7 @@ let make ?group_id ?id ?(alternate_identifier = []) ?(filter = [])
   let __type = "aws_identitystore_group" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";
        external_ids = Prop.computed __type __id "external_ids";

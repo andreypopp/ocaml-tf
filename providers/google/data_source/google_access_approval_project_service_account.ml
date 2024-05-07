@@ -42,6 +42,7 @@ let google_access_approval_project_service_account ?id ~project_id ()
   { id; project_id }
 
 type t = {
+  tf_name : string;
   account_email : string prop;
   id : string prop;
   name : string prop;
@@ -52,6 +53,7 @@ let make ?id ~project_id __id =
   let __type = "google_access_approval_project_service_account" in
   let __attrs =
     ({
+       tf_name = __id;
        account_email = Prop.computed __type __id "account_email";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

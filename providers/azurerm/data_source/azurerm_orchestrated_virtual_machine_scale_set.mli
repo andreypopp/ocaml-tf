@@ -78,6 +78,7 @@ val yojson_of_azurerm_orchestrated_virtual_machine_scale_set :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   identity : identity list prop;
   location : string prop;

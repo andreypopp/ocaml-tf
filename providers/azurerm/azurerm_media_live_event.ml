@@ -676,6 +676,7 @@ let azurerm_media_live_event ?auto_start_enabled ?description
   }
 
 type t = {
+  tf_name : string;
   auto_start_enabled : bool prop;
   description : string prop;
   hostname_prefix : string prop;
@@ -699,6 +700,7 @@ let make ?auto_start_enabled ?description ?hostname_prefix ?id
   let __type = "azurerm_media_live_event" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_start_enabled =
          Prop.computed __type __id "auto_start_enabled";
        description = Prop.computed __type __id "description";

@@ -58,6 +58,7 @@ val yojson_of_google_network_management_connectivity_test :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   effective_labels : (string * string) list prop;
   id : string prop;

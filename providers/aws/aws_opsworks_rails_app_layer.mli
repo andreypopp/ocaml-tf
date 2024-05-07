@@ -120,6 +120,7 @@ val yojson_of_aws_opsworks_rails_app_layer :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_server : string prop;
   arn : string prop;
   auto_assign_elastic_ips : bool prop;

@@ -125,6 +125,7 @@ let aws_api_gateway_documentation_part ?id ~properties ~rest_api_id
   { id; properties; rest_api_id; location }
 
 type t = {
+  tf_name : string;
   id : string prop;
   properties : string prop;
   rest_api_id : string prop;
@@ -134,6 +135,7 @@ let make ?id ~properties ~rest_api_id ~location __id =
   let __type = "aws_api_gateway_documentation_part" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        properties = Prop.computed __type __id "properties";
        rest_api_id = Prop.computed __type __id "rest_api_id";

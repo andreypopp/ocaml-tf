@@ -160,6 +160,7 @@ let google_apigee_sharedflow ?detect_md5hash ?id ?timeouts
   { config_bundle; detect_md5hash; id; name; org_id; timeouts }
 
 type t = {
+  tf_name : string;
   config_bundle : string prop;
   detect_md5hash : string prop;
   id : string prop;
@@ -176,6 +177,7 @@ let make ?detect_md5hash ?id ?timeouts ~config_bundle ~name ~org_id
   let __type = "google_apigee_sharedflow" in
   let __attrs =
     ({
+       tf_name = __id;
        config_bundle = Prop.computed __type __id "config_bundle";
        detect_md5hash = Prop.computed __type __id "detect_md5hash";
        id = Prop.computed __type __id "id";

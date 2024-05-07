@@ -6705,6 +6705,7 @@ let google_container_cluster ?allow_net_admin ?cluster_ipv4_cidr
   }
 
 type t = {
+  tf_name : string;
   allow_net_admin : bool prop;
   cluster_ipv4_cidr : string prop;
   datapath_provider : string prop;
@@ -6773,6 +6774,7 @@ let make ?allow_net_admin ?cluster_ipv4_cidr ?datapath_provider
   let __type = "google_container_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_net_admin = Prop.computed __type __id "allow_net_admin";
        cluster_ipv4_cidr =
          Prop.computed __type __id "cluster_ipv4_cidr";

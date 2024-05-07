@@ -87,6 +87,7 @@ let aws_s3_bucket_object ?id ?range ?tags ?version_id ~bucket ~key ()
   { bucket; id; key; range; tags; version_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   body : string prop;
   bucket : string prop;
@@ -120,6 +121,7 @@ let make ?id ?range ?tags ?version_id ~bucket ~key __id =
   let __type = "aws_s3_bucket_object" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        body = Prop.computed __type __id "body";
        bucket = Prop.computed __type __id "bucket";

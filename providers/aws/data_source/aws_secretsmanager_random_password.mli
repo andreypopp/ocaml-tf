@@ -25,6 +25,7 @@ val yojson_of_aws_secretsmanager_random_password :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   exclude_characters : string prop;
   exclude_lowercase : bool prop;
   exclude_numbers : bool prop;

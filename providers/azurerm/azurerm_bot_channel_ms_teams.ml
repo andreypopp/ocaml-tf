@@ -168,6 +168,7 @@ let azurerm_bot_channel_ms_teams ?calling_web_hook
   }
 
 type t = {
+  tf_name : string;
   bot_name : string prop;
   calling_web_hook : string prop;
   deployment_environment : string prop;
@@ -182,6 +183,7 @@ let make ?calling_web_hook ?deployment_environment ?enable_calling
   let __type = "azurerm_bot_channel_ms_teams" in
   let __attrs =
     ({
+       tf_name = __id;
        bot_name = Prop.computed __type __id "bot_name";
        calling_web_hook =
          Prop.computed __type __id "calling_web_hook";

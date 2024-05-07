@@ -36,6 +36,7 @@ val yojson_of_google_healthcare_dicom_store :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dataset : string prop;
   effective_labels : (string * string) list prop;
   id : string prop;

@@ -35,6 +35,7 @@ val yojson_of_azurerm_backup_protected_vm :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backup_policy_id : string prop;
   exclude_disk_luns : float list prop;
   id : string prop;

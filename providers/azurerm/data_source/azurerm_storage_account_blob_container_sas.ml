@@ -256,6 +256,7 @@ let azurerm_storage_account_blob_container_sas ?cache_control
   }
 
 type t = {
+  tf_name : string;
   cache_control : string prop;
   connection_string : string prop;
   container_name : string prop;
@@ -278,6 +279,7 @@ let make ?cache_control ?content_disposition ?content_encoding
   let __type = "azurerm_storage_account_blob_container_sas" in
   let __attrs =
     ({
+       tf_name = __id;
        cache_control = Prop.computed __type __id "cache_control";
        connection_string =
          Prop.computed __type __id "connection_string";

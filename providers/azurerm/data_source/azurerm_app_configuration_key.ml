@@ -96,6 +96,7 @@ let azurerm_app_configuration_key ?id ?label ?timeouts
   { configuration_store_id; id; key; label; timeouts }
 
 type t = {
+  tf_name : string;
   configuration_store_id : string prop;
   content_type : string prop;
   etag : string prop;
@@ -113,6 +114,7 @@ let make ?id ?label ?timeouts ~configuration_store_id ~key __id =
   let __type = "azurerm_app_configuration_key" in
   let __attrs =
     ({
+       tf_name = __id;
        configuration_store_id =
          Prop.computed __type __id "configuration_store_id";
        content_type = Prop.computed __type __id "content_type";

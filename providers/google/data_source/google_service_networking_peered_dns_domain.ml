@@ -63,6 +63,7 @@ let google_service_networking_peered_dns_domain ?id ~name ~network
   { id; name; network; project; service }
 
 type t = {
+  tf_name : string;
   dns_suffix : string prop;
   id : string prop;
   name : string prop;
@@ -76,6 +77,7 @@ let make ?id ~name ~network ~project ~service __id =
   let __type = "google_service_networking_peered_dns_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        dns_suffix = Prop.computed __type __id "dns_suffix";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

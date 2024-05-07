@@ -66,6 +66,7 @@ let digitalocean_container_registry_docker_credentials
   { expiry_seconds; id; registry_name; write }
 
 type t = {
+  tf_name : string;
   credential_expiration_time : string prop;
   docker_credentials : string prop;
   expiry_seconds : float prop;
@@ -80,6 +81,7 @@ let make ?expiry_seconds ?id ?write ~registry_name __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        credential_expiration_time =
          Prop.computed __type __id "credential_expiration_time";
        docker_credentials =

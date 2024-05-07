@@ -93,12 +93,17 @@ let aws_autoscaling_group_tag ?id ~autoscaling_group_name ~tag () :
     aws_autoscaling_group_tag =
   { autoscaling_group_name; id; tag }
 
-type t = { autoscaling_group_name : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  autoscaling_group_name : string prop;
+  id : string prop;
+}
 
 let make ?id ~autoscaling_group_name ~tag __id =
   let __type = "aws_autoscaling_group_tag" in
   let __attrs =
     ({
+       tf_name = __id;
        autoscaling_group_name =
          Prop.computed __type __id "autoscaling_group_name";
        id = Prop.computed __type __id "id";

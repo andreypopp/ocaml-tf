@@ -89,6 +89,7 @@ let aws_dataexchange_revision ?comment ?id ?tags ?tags_all
   { comment; data_set_id; id; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   comment : string prop;
   data_set_id : string prop;
@@ -102,6 +103,7 @@ let make ?comment ?id ?tags ?tags_all ~data_set_id __id =
   let __type = "aws_dataexchange_revision" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        comment = Prop.computed __type __id "comment";
        data_set_id = Prop.computed __type __id "data_set_id";

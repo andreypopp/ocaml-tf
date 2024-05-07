@@ -198,6 +198,7 @@ val yojson_of_cloudflare_load_balancer :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created_on : string prop;
   default_pool_ids : string list prop;
   description : string prop;

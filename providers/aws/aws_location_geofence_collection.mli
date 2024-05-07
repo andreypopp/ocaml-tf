@@ -32,6 +32,7 @@ val yojson_of_aws_location_geofence_collection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   collection_arn : string prop;
   collection_name : string prop;
   create_time : string prop;

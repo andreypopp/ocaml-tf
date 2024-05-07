@@ -27,6 +27,7 @@ val yojson_of_aws_storagegateway_cached_iscsi_volume :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   chap_enabled : bool prop;
   gateway_arn : string prop;

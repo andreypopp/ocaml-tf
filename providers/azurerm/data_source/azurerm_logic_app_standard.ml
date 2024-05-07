@@ -786,6 +786,7 @@ let azurerm_logic_app_standard ?id ?tags ?(site_config = [])
   { id; name; resource_group_name; tags; site_config; timeouts }
 
 type t = {
+  tf_name : string;
   app_service_plan_id : string prop;
   app_settings : (string * string) list prop;
   bundle_version : string prop;
@@ -819,6 +820,7 @@ let make ?id ?tags ?(site_config = []) ?timeouts ~name
   let __type = "azurerm_logic_app_standard" in
   let __attrs =
     ({
+       tf_name = __id;
        app_service_plan_id =
          Prop.computed __type __id "app_service_plan_id";
        app_settings = Prop.computed __type __id "app_settings";

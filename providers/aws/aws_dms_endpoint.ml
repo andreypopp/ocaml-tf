@@ -1735,6 +1735,7 @@ let aws_dms_endpoint ?certificate_arn ?database_name
   }
 
 type t = {
+  tf_name : string;
   certificate_arn : string prop;
   database_name : string prop;
   endpoint_arn : string prop;
@@ -1769,6 +1770,7 @@ let make ?certificate_arn ?database_name ?extra_connection_attributes
   let __type = "aws_dms_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_arn = Prop.computed __type __id "certificate_arn";
        database_name = Prop.computed __type __id "database_name";
        endpoint_arn = Prop.computed __type __id "endpoint_arn";

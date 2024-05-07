@@ -90,6 +90,7 @@ let aws_networkmanager_core_network_policy_attachment ?id ?timeouts
   { core_network_id; id; policy_document; timeouts }
 
 type t = {
+  tf_name : string;
   core_network_id : string prop;
   id : string prop;
   policy_document : string prop;
@@ -100,6 +101,7 @@ let make ?id ?timeouts ~core_network_id ~policy_document __id =
   let __type = "aws_networkmanager_core_network_policy_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        core_network_id = Prop.computed __type __id "core_network_id";
        id = Prop.computed __type __id "id";
        policy_document = Prop.computed __type __id "policy_document";

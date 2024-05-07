@@ -107,6 +107,7 @@ let google_compute_subnetwork ?id ?name ?project ?region ?self_link
   { id; name; project; region; self_link }
 
 type t = {
+  tf_name : string;
   description : string prop;
   gateway_address : string prop;
   id : string prop;
@@ -125,6 +126,7 @@ let make ?id ?name ?project ?region ?self_link __id =
   let __type = "google_compute_subnetwork" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        gateway_address = Prop.computed __type __id "gateway_address";
        id = Prop.computed __type __id "id";

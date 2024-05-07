@@ -44,6 +44,7 @@ val yojson_of_google_compute_vpn_tunnel :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   detailed_status : string prop;

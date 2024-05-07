@@ -33,6 +33,7 @@ val yojson_of_google_netapp_kmsconfig :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   crypto_key_name : string prop;
   description : string prop;
   effective_labels : (string * string) list prop;

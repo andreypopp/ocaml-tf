@@ -26,6 +26,7 @@ val yojson_of_azurerm_site_recovery_protection_container :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   recovery_fabric_name : string prop;

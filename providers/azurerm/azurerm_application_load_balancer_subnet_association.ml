@@ -156,6 +156,7 @@ let azurerm_application_load_balancer_subnet_association ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   application_load_balancer_id : string prop;
   id : string prop;
   name : string prop;
@@ -170,6 +171,7 @@ let make ?id ?tags ?timeouts ~application_load_balancer_id ~name
   in
   let __attrs =
     ({
+       tf_name = __id;
        application_load_balancer_id =
          Prop.computed __type __id "application_load_balancer_id";
        id = Prop.computed __type __id "id";

@@ -37,12 +37,13 @@ let _ = yojson_of_aws_waf_ipset
 
 let aws_waf_ipset ?id ~name () : aws_waf_ipset = { id; name }
 
-type t = { id : string prop; name : string prop }
+type t = { tf_name : string; id : string prop; name : string prop }
 
 let make ?id ~name __id =
   let __type = "aws_waf_ipset" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
      }

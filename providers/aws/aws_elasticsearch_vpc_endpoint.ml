@@ -152,6 +152,7 @@ let aws_elasticsearch_vpc_endpoint ?id ?timeouts ~domain_arn
   { domain_arn; id; timeouts; vpc_options }
 
 type t = {
+  tf_name : string;
   domain_arn : string prop;
   endpoint : string prop;
   id : string prop;
@@ -161,6 +162,7 @@ let make ?id ?timeouts ~domain_arn ~vpc_options __id =
   let __type = "aws_elasticsearch_vpc_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        domain_arn = Prop.computed __type __id "domain_arn";
        endpoint = Prop.computed __type __id "endpoint";
        id = Prop.computed __type __id "id";

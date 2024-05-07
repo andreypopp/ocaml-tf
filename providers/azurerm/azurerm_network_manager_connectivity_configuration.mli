@@ -51,6 +51,7 @@ val yojson_of_azurerm_network_manager_connectivity_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   connectivity_topology : string prop;
   delete_existing_peering_enabled : bool prop;
   description : string prop;

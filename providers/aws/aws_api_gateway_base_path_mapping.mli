@@ -21,6 +21,7 @@ val yojson_of_aws_api_gateway_base_path_mapping :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_id : string prop;
   base_path : string prop;
   domain_name : string prop;

@@ -323,6 +323,7 @@ let google_discovery_engine_chat_engine ?id ?industry_vertical
   }
 
 type t = {
+  tf_name : string;
   chat_engine_metadata : chat_engine_metadata list prop;
   collection_id : string prop;
   create_time : string prop;
@@ -343,6 +344,7 @@ let make ?id ?industry_vertical ?project ?(common_config = [])
   let __type = "google_discovery_engine_chat_engine" in
   let __attrs =
     ({
+       tf_name = __id;
        chat_engine_metadata =
          Prop.computed __type __id "chat_engine_metadata";
        collection_id = Prop.computed __type __id "collection_id";

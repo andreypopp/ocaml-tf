@@ -71,6 +71,7 @@ let cloudflare_worker_domain ?environment ?id ~account_id ~hostname
   { account_id; environment; hostname; id; service; zone_id }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   environment : string prop;
   hostname : string prop;
@@ -84,6 +85,7 @@ let make ?environment ?id ~account_id ~hostname ~service ~zone_id
   let __type = "cloudflare_worker_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        environment = Prop.computed __type __id "environment";
        hostname = Prop.computed __type __id "hostname";

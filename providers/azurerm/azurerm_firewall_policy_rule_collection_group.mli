@@ -129,6 +129,7 @@ val yojson_of_azurerm_firewall_policy_rule_collection_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   firewall_policy_id : string prop;
   id : string prop;
   name : string prop;

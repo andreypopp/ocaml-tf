@@ -269,6 +269,7 @@ let google_certificate_manager_trust_config ?description ?id ?labels
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   effective_labels : (string * string) list prop;
@@ -286,6 +287,7 @@ let make ?description ?id ?labels ?project ?timeouts
   let __type = "google_certificate_manager_trust_config" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        effective_labels =

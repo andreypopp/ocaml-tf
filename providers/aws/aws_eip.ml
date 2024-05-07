@@ -234,6 +234,7 @@ let aws_eip ?address ?associate_with_private_ip
   }
 
 type t = {
+  tf_name : string;
   address : string prop;
   allocation_id : string prop;
   associate_with_private_ip : string prop;
@@ -263,6 +264,7 @@ let make ?address ?associate_with_private_ip
   let __type = "aws_eip" in
   let __attrs =
     ({
+       tf_name = __id;
        address = Prop.computed __type __id "address";
        allocation_id = Prop.computed __type __id "allocation_id";
        associate_with_private_ip =

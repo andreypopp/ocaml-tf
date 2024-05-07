@@ -35,6 +35,7 @@ val yojson_of_azurerm_relay_hybrid_connection_authorization_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   hybrid_connection_name : string prop;
   id : string prop;
   listen : bool prop;

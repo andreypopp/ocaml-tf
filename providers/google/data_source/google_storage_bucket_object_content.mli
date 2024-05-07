@@ -30,6 +30,7 @@ val yojson_of_google_storage_bucket_object_content :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket : string prop;
   cache_control : string prop;
   content : string prop;

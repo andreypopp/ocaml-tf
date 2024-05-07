@@ -80,6 +80,7 @@ let aws_appintegrations_event_integration ?id ?tags ~name () :
   { id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   event_filter : event_filter list prop;
@@ -93,6 +94,7 @@ let make ?id ?tags ~name __id =
   let __type = "aws_appintegrations_event_integration" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        event_filter = Prop.computed __type __id "event_filter";

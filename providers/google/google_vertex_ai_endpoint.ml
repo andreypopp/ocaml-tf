@@ -557,6 +557,7 @@ let google_vertex_ai_endpoint ?description ?id ?labels ?network
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   deployed_models : deployed_models list prop;
   description : string prop;
@@ -581,6 +582,7 @@ let make ?description ?id ?labels ?network ?project ?region
   let __type = "google_vertex_ai_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        deployed_models = Prop.computed __type __id "deployed_models";
        description = Prop.computed __type __id "description";

@@ -117,6 +117,7 @@ let azurerm_servicebus_namespace_authorization_rule ?id ?namespace_id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   namespace_id : string prop;
@@ -135,6 +136,7 @@ let make ?id ?namespace_id ?namespace_name ?resource_group_name
   let __type = "azurerm_servicebus_namespace_authorization_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        namespace_id = Prop.computed __type __id "namespace_id";

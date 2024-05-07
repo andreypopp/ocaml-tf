@@ -126,6 +126,7 @@ let google_firebase_app_check_recaptcha_v3_config ?id ?project
   { app_id; id; project; site_secret; token_ttl; timeouts }
 
 type t = {
+  tf_name : string;
   app_id : string prop;
   id : string prop;
   name : string prop;
@@ -140,6 +141,7 @@ let make ?id ?project ?token_ttl ?timeouts ~app_id ~site_secret __id
   let __type = "google_firebase_app_check_recaptcha_v3_config" in
   let __attrs =
     ({
+       tf_name = __id;
        app_id = Prop.computed __type __id "app_id";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

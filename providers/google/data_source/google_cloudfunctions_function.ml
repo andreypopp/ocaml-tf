@@ -278,6 +278,7 @@ let google_cloudfunctions_function ?id ?project ?region ~name () :
   { id; name; project; region }
 
 type t = {
+  tf_name : string;
   available_memory_mb : float prop;
   build_environment_variables : (string * string) list prop;
   build_worker_pool : string prop;
@@ -320,6 +321,7 @@ let make ?id ?project ?region ~name __id =
   let __type = "google_cloudfunctions_function" in
   let __attrs =
     ({
+       tf_name = __id;
        available_memory_mb =
          Prop.computed __type __id "available_memory_mb";
        build_environment_variables =

@@ -198,6 +198,7 @@ let azurerm_synapse_sql_pool_security_alert_policy ?disabled_alerts
   }
 
 type t = {
+  tf_name : string;
   disabled_alerts : string list prop;
   email_account_admins_enabled : bool prop;
   email_addresses : string list prop;
@@ -215,6 +216,7 @@ let make ?disabled_alerts ?email_account_admins_enabled
   let __type = "azurerm_synapse_sql_pool_security_alert_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        disabled_alerts = Prop.computed __type __id "disabled_alerts";
        email_account_admins_enabled =
          Prop.computed __type __id "email_account_admins_enabled";

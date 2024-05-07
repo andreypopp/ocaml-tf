@@ -40,6 +40,7 @@ let aws_iam_instance_profiles ?id ~role_name () :
   { id; role_name }
 
 type t = {
+  tf_name : string;
   arns : string list prop;
   id : string prop;
   names : string list prop;
@@ -51,6 +52,7 @@ let make ?id ~role_name __id =
   let __type = "aws_iam_instance_profiles" in
   let __attrs =
     ({
+       tf_name = __id;
        arns = Prop.computed __type __id "arns";
        id = Prop.computed __type __id "id";
        names = Prop.computed __type __id "names";

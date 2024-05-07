@@ -56,6 +56,7 @@ let aws_securityhub_action_target ?id ~description ~identifier ~name
   { description; id; identifier; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -67,6 +68,7 @@ let make ?id ~description ~identifier ~name __id =
   let __type = "aws_securityhub_action_target" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

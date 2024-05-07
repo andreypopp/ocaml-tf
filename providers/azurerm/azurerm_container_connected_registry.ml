@@ -290,6 +290,7 @@ let azurerm_container_connected_registry ?audit_log_enabled
   }
 
 type t = {
+  tf_name : string;
   audit_log_enabled : bool prop;
   client_token_ids : string list prop;
   container_registry_id : string prop;
@@ -311,6 +312,7 @@ let make ?audit_log_enabled ?client_token_ids ?id ?log_level ?mode
   let __type = "azurerm_container_connected_registry" in
   let __attrs =
     ({
+       tf_name = __id;
        audit_log_enabled =
          Prop.computed __type __id "audit_log_enabled";
        client_token_ids =

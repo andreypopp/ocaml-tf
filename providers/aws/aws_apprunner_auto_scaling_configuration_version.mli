@@ -23,6 +23,7 @@ val yojson_of_aws_apprunner_auto_scaling_configuration_version :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   auto_scaling_configuration_name : string prop;
   auto_scaling_configuration_revision : float prop;

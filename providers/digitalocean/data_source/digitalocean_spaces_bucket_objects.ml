@@ -91,6 +91,7 @@ let digitalocean_spaces_bucket_objects ?delimiter ?encoding_type ?id
   { bucket; delimiter; encoding_type; id; max_keys; prefix; region }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   common_prefixes : string list prop;
   delimiter : string prop;
@@ -108,6 +109,7 @@ let make ?delimiter ?encoding_type ?id ?max_keys ?prefix ~bucket
   let __type = "digitalocean_spaces_bucket_objects" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        common_prefixes = Prop.computed __type __id "common_prefixes";
        delimiter = Prop.computed __type __id "delimiter";

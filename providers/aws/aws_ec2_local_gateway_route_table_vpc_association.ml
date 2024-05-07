@@ -91,6 +91,7 @@ let aws_ec2_local_gateway_route_table_vpc_association ?id ?tags
   { id; local_gateway_route_table_id; tags; tags_all; vpc_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   local_gateway_id : string prop;
   local_gateway_route_table_id : string prop;
@@ -104,6 +105,7 @@ let make ?id ?tags ?tags_all ~local_gateway_route_table_id ~vpc_id
   let __type = "aws_ec2_local_gateway_route_table_vpc_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        local_gateway_id =
          Prop.computed __type __id "local_gateway_id";

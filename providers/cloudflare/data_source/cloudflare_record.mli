@@ -24,6 +24,7 @@ val yojson_of_cloudflare_record : cloudflare_record -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   content : string prop;
   hostname : string prop;
   id : string prop;

@@ -119,6 +119,7 @@ let aws_ec2_transit_gateway_multicast_domain_association ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   subnet_id : string prop;
   transit_gateway_attachment_id : string prop;
@@ -132,6 +133,7 @@ let make ?id ?timeouts ~subnet_id ~transit_gateway_attachment_id
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        subnet_id = Prop.computed __type __id "subnet_id";
        transit_gateway_attachment_id =

@@ -33,6 +33,7 @@ val yojson_of_azurerm_private_link_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alias : string prop;
   auto_approval_subscription_ids : string list prop;
   enable_proxy_protocol : bool prop;

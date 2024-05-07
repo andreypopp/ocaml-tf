@@ -35,6 +35,7 @@ val yojson_of_aws_nat_gateway : aws_nat_gateway -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allocation_id : string prop;
   association_id : string prop;
   connectivity_type : string prop;

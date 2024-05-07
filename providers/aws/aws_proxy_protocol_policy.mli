@@ -19,6 +19,7 @@ val yojson_of_aws_proxy_protocol_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   instance_ports : string list prop;
   load_balancer : string prop;

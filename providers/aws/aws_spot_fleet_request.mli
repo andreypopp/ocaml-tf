@@ -281,6 +281,7 @@ val yojson_of_aws_spot_fleet_request : aws_spot_fleet_request -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allocation_strategy : string prop;
   client_token : string prop;
   context : string prop;

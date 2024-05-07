@@ -154,6 +154,7 @@ let aws_vpc_endpoint_service ?id ?service ?service_name ?service_type
   { id; service; service_name; service_type; tags; filter; timeouts }
 
 type t = {
+  tf_name : string;
   acceptance_required : bool prop;
   arn : string prop;
   availability_zones : string list prop;
@@ -176,6 +177,7 @@ let make ?id ?service ?service_name ?service_type ?tags ?timeouts
   let __type = "aws_vpc_endpoint_service" in
   let __attrs =
     ({
+       tf_name = __id;
        acceptance_required =
          Prop.computed __type __id "acceptance_required";
        arn = Prop.computed __type __id "arn";

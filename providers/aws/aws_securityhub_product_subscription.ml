@@ -41,6 +41,7 @@ let aws_securityhub_product_subscription ?id ~product_arn () :
   { id; product_arn }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   product_arn : string prop;
@@ -50,6 +51,7 @@ let make ?id ~product_arn __id =
   let __type = "aws_securityhub_product_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        product_arn = Prop.computed __type __id "product_arn";

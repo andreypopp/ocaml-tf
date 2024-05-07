@@ -82,6 +82,7 @@ let aws_ec2_transit_gateway_policy_table ?id ?tags ?tags_all
   { id; tags; tags_all; transit_gateway_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   state : string prop;
@@ -94,6 +95,7 @@ let make ?id ?tags ?tags_all ~transit_gateway_id __id =
   let __type = "aws_ec2_transit_gateway_policy_table" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        state = Prop.computed __type __id "state";

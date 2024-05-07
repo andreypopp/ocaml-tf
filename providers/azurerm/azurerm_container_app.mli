@@ -342,6 +342,7 @@ val yojson_of_azurerm_container_app : azurerm_container_app -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   container_app_environment_id : string prop;
   custom_domain_verification_id : string prop;
   id : string prop;

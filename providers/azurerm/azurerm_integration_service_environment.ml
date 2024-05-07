@@ -185,6 +185,7 @@ let azurerm_integration_service_environment ?id ?sku_name ?tags
   }
 
 type t = {
+  tf_name : string;
   access_endpoint_type : string prop;
   connector_endpoint_ip_addresses : string list prop;
   connector_outbound_ip_addresses : string list prop;
@@ -205,6 +206,7 @@ let make ?id ?sku_name ?tags ?timeouts ~access_endpoint_type
   let __type = "azurerm_integration_service_environment" in
   let __attrs =
     ({
+       tf_name = __id;
        access_endpoint_type =
          Prop.computed __type __id "access_endpoint_type";
        connector_endpoint_ip_addresses =

@@ -18,6 +18,7 @@ val yojson_of_aws_redshiftserverless_namespace :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   admin_username : string prop;
   arn : string prop;
   db_name : string prop;

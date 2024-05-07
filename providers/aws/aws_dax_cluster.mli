@@ -53,6 +53,7 @@ val yojson_of_aws_dax_cluster : aws_dax_cluster -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   availability_zones : string list prop;
   cluster_address : string prop;

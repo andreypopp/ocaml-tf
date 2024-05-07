@@ -23,6 +23,7 @@ val yojson_of_cloudflare_zone : cloudflare_zone -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   name : string prop;

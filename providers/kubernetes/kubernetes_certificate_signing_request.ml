@@ -226,6 +226,7 @@ let kubernetes_certificate_signing_request ?auto_approve ?id
   { auto_approve; id; metadata; spec; timeouts }
 
 type t = {
+  tf_name : string;
   auto_approve : bool prop;
   certificate : string prop;
   id : string prop;
@@ -235,6 +236,7 @@ let make ?auto_approve ?id ?timeouts ~metadata ~spec __id =
   let __type = "kubernetes_certificate_signing_request" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_approve = Prop.computed __type __id "auto_approve";
        certificate = Prop.computed __type __id "certificate";
        id = Prop.computed __type __id "id";

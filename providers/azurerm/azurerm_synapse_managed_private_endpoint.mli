@@ -31,6 +31,7 @@ val yojson_of_azurerm_synapse_managed_private_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   subresource_name : string prop;

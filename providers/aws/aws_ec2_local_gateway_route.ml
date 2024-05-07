@@ -72,6 +72,7 @@ let aws_ec2_local_gateway_route ?id ~destination_cidr_block
   }
 
 type t = {
+  tf_name : string;
   destination_cidr_block : string prop;
   id : string prop;
   local_gateway_route_table_id : string prop;
@@ -83,6 +84,7 @@ let make ?id ~destination_cidr_block ~local_gateway_route_table_id
   let __type = "aws_ec2_local_gateway_route" in
   let __attrs =
     ({
+       tf_name = __id;
        destination_cidr_block =
          Prop.computed __type __id "destination_cidr_block";
        id = Prop.computed __type __id "id";

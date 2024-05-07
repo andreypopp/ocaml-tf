@@ -67,6 +67,7 @@ let hcloud_server_type ?deprecation_announced ?id ?name
   { deprecation_announced; id; name; unavailable_after }
 
 type t = {
+  tf_name : string;
   architecture : string prop;
   cores : float prop;
   cpu_type : string prop;
@@ -86,6 +87,7 @@ let make ?deprecation_announced ?id ?name ?unavailable_after __id =
   let __type = "hcloud_server_type" in
   let __attrs =
     ({
+       tf_name = __id;
        architecture = Prop.computed __type __id "architecture";
        cores = Prop.computed __type __id "cores";
        cpu_type = Prop.computed __type __id "cpu_type";

@@ -153,6 +153,7 @@ let aws_rolesanywhere_profile ?duration_seconds ?enabled ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   duration_seconds : float prop;
   enabled : bool prop;
@@ -172,6 +173,7 @@ let make ?duration_seconds ?enabled ?id ?managed_policy_arns
   let __type = "aws_rolesanywhere_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        duration_seconds =
          Prop.computed __type __id "duration_seconds";

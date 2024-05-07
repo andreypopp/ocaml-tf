@@ -184,6 +184,7 @@ let google_compute_region_target_https_proxy
   }
 
 type t = {
+  tf_name : string;
   certificate_manager_certificates : string list prop;
   creation_timestamp : string prop;
   description : string prop;
@@ -204,6 +205,7 @@ let make ?certificate_manager_certificates ?description ?id ?project
   let __type = "google_compute_region_target_https_proxy" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_manager_certificates =
          Prop.computed __type __id "certificate_manager_certificates";
        creation_timestamp =

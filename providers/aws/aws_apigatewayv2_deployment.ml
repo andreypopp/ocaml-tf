@@ -72,6 +72,7 @@ let aws_apigatewayv2_deployment ?description ?id ?triggers ~api_id ()
   { api_id; description; id; triggers }
 
 type t = {
+  tf_name : string;
   api_id : string prop;
   auto_deployed : bool prop;
   description : string prop;
@@ -83,6 +84,7 @@ let make ?description ?id ?triggers ~api_id __id =
   let __type = "aws_apigatewayv2_deployment" in
   let __attrs =
     ({
+       tf_name = __id;
        api_id = Prop.computed __type __id "api_id";
        auto_deployed = Prop.computed __type __id "auto_deployed";
        description = Prop.computed __type __id "description";

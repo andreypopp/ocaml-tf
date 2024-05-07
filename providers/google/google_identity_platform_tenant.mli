@@ -32,6 +32,7 @@ val yojson_of_google_identity_platform_tenant :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_password_signup : bool prop;
   disable_auth : bool prop;
   display_name : string prop;

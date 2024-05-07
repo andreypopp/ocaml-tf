@@ -72,6 +72,7 @@ val yojson_of_google_compute_packet_mirroring :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   name : string prop;

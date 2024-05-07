@@ -19,6 +19,7 @@ val yojson_of_aws_route53recoverycontrolconfig_control_panel :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cluster_arn : string prop;
   default_control_panel : bool prop;

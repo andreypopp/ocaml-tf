@@ -138,6 +138,7 @@ val yojson_of_aws_ecs_task_definition :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   arn_without_revision : string prop;
   container_definitions : string prop;

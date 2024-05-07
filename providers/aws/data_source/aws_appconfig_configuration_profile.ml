@@ -102,6 +102,7 @@ let aws_appconfig_configuration_profile ?id ?tags ~application_id
   { application_id; configuration_profile_id; id; tags }
 
 type t = {
+  tf_name : string;
   application_id : string prop;
   arn : string prop;
   configuration_profile_id : string prop;
@@ -120,6 +121,7 @@ let make ?id ?tags ~application_id ~configuration_profile_id __id =
   let __type = "aws_appconfig_configuration_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        application_id = Prop.computed __type __id "application_id";
        arn = Prop.computed __type __id "arn";
        configuration_profile_id =

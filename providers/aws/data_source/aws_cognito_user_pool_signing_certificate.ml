@@ -41,6 +41,7 @@ let aws_cognito_user_pool_signing_certificate ?id ~user_pool_id () :
   { id; user_pool_id }
 
 type t = {
+  tf_name : string;
   certificate : string prop;
   id : string prop;
   user_pool_id : string prop;
@@ -50,6 +51,7 @@ let make ?id ~user_pool_id __id =
   let __type = "aws_cognito_user_pool_signing_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate = Prop.computed __type __id "certificate";
        id = Prop.computed __type __id "id";
        user_pool_id = Prop.computed __type __id "user_pool_id";

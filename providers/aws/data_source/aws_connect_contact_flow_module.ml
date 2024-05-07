@@ -82,6 +82,7 @@ let aws_connect_contact_flow_module ?contact_flow_module_id ?id ?name
   { contact_flow_module_id; id; instance_id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   contact_flow_module_id : string prop;
   content : string prop;
@@ -98,6 +99,7 @@ let make ?contact_flow_module_id ?id ?name ?tags ~instance_id __id =
   let __type = "aws_connect_contact_flow_module" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        contact_flow_module_id =
          Prop.computed __type __id "contact_flow_module_id";

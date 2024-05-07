@@ -92,6 +92,7 @@ let aws_appsync_api_cache ?at_rest_encryption_enabled ?id
   }
 
 type t = {
+  tf_name : string;
   api_caching_behavior : string prop;
   api_id : string prop;
   at_rest_encryption_enabled : bool prop;
@@ -106,6 +107,7 @@ let make ?at_rest_encryption_enabled ?id ?transit_encryption_enabled
   let __type = "aws_appsync_api_cache" in
   let __attrs =
     ({
+       tf_name = __id;
        api_caching_behavior =
          Prop.computed __type __id "api_caching_behavior";
        api_id = Prop.computed __type __id "api_id";

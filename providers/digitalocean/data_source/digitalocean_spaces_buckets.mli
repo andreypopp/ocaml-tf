@@ -40,7 +40,11 @@ val yojson_of_digitalocean_spaces_buckets :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { buckets : buckets list prop; id : string prop }
+type t = private {
+  tf_name : string;
+  buckets : buckets list prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

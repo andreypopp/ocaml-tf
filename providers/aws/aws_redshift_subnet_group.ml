@@ -99,6 +99,7 @@ let aws_redshift_subnet_group ?description ?id ?tags ?tags_all ~name
   { description; id; name; subnet_ids; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -112,6 +113,7 @@ let make ?description ?id ?tags ?tags_all ~name ~subnet_ids __id =
   let __type = "aws_redshift_subnet_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

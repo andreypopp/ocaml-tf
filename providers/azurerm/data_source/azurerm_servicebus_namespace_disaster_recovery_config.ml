@@ -131,6 +131,7 @@ let azurerm_servicebus_namespace_disaster_recovery_config
   }
 
 type t = {
+  tf_name : string;
   alias_authorization_rule_id : string prop;
   default_primary_key : string prop;
   default_secondary_key : string prop;
@@ -151,6 +152,7 @@ let make ?alias_authorization_rule_id ?id ?namespace_id
   in
   let __attrs =
     ({
+       tf_name = __id;
        alias_authorization_rule_id =
          Prop.computed __type __id "alias_authorization_rule_id";
        default_primary_key =

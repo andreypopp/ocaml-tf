@@ -24,6 +24,7 @@ val yojson_of_aws_neptune_cluster_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cluster_endpoint_identifier : string prop;
   cluster_identifier : string prop;

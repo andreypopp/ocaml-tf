@@ -73,6 +73,7 @@ let hcloud_locations ?descriptions ?id ?location_ids ?names () :
   { descriptions; id; location_ids; names }
 
 type t = {
+  tf_name : string;
   descriptions : string list prop;
   id : string prop;
   location_ids : string list prop;
@@ -84,6 +85,7 @@ let make ?descriptions ?id ?location_ids ?names __id =
   let __type = "hcloud_locations" in
   let __attrs =
     ({
+       tf_name = __id;
        descriptions = Prop.computed __type __id "descriptions";
        id = Prop.computed __type __id "id";
        location_ids = Prop.computed __type __id "location_ids";

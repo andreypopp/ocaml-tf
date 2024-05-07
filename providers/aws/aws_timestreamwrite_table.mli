@@ -78,6 +78,7 @@ val yojson_of_aws_timestreamwrite_table :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   database_name : string prop;
   id : string prop;

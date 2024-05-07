@@ -126,6 +126,7 @@ val yojson_of_azurerm_hybrid_compute_machine :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   ad_fqdn : string prop;
   agent_configuration : agent_configuration list prop;
   agent_version : string prop;

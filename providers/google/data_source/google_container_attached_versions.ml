@@ -46,6 +46,7 @@ let google_container_attached_versions ?id ~location ~project () :
   { id; location; project }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   project : string prop;
@@ -56,6 +57,7 @@ let make ?id ~location ~project __id =
   let __type = "google_container_attached_versions" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        project = Prop.computed __type __id "project";

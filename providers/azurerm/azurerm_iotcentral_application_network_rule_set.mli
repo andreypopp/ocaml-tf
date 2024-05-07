@@ -37,6 +37,7 @@ val yojson_of_azurerm_iotcentral_application_network_rule_set :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   apply_to_device : bool prop;
   default_action : string prop;
   id : string prop;

@@ -136,6 +136,7 @@ let google_dataplex_task_iam_binding ?id ?location ?project
   { id; lake; location; members; project; role; task_id; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   lake : string prop;
@@ -151,6 +152,7 @@ let make ?id ?location ?project ?(condition = []) ~lake ~members
   let __type = "google_dataplex_task_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        lake = Prop.computed __type __id "lake";

@@ -20,6 +20,7 @@ val yojson_of_aws_iot_logging_options :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   default_log_level : string prop;
   disable_all_logs : bool prop;
   id : string prop;

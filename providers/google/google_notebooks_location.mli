@@ -29,6 +29,7 @@ val yojson_of_google_notebooks_location :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   project : string prop;

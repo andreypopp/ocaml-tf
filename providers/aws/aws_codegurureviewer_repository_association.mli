@@ -93,6 +93,7 @@ val yojson_of_aws_codegurureviewer_repository_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   association_id : string prop;
   connection_arn : string prop;

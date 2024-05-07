@@ -25,6 +25,7 @@ val yojson_of_google_vpc_access_connector :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   connected_projects : string list prop;
   id : string prop;
   ip_cidr_range : string prop;

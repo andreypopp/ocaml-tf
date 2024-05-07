@@ -214,6 +214,7 @@ val yojson_of_google_composer_environment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   config : config list prop;
   effective_labels : (string * string) list prop;
   id : string prop;

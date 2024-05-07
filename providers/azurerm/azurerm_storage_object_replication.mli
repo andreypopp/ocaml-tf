@@ -41,6 +41,7 @@ val yojson_of_azurerm_storage_object_replication :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   destination_object_replication_id : string prop;
   destination_storage_account_id : string prop;
   id : string prop;

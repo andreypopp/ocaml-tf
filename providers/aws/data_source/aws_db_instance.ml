@@ -103,6 +103,7 @@ let aws_db_instance ?db_instance_identifier ?id ?tags () :
   { db_instance_identifier; id; tags }
 
 type t = {
+  tf_name : string;
   address : string prop;
   allocated_storage : float prop;
   auto_minor_version_upgrade : bool prop;
@@ -152,6 +153,7 @@ let make ?db_instance_identifier ?id ?tags __id =
   let __type = "aws_db_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        address = Prop.computed __type __id "address";
        allocated_storage =
          Prop.computed __type __id "allocated_storage";

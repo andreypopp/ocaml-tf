@@ -45,6 +45,7 @@ let aws_api_gateway_resource ?id ~path ~rest_api_id () :
   { id; path; rest_api_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   parent_id : string prop;
   path : string prop;
@@ -56,6 +57,7 @@ let make ?id ~path ~rest_api_id __id =
   let __type = "aws_api_gateway_resource" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        parent_id = Prop.computed __type __id "parent_id";
        path = Prop.computed __type __id "path";

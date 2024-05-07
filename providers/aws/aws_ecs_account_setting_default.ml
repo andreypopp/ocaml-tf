@@ -46,6 +46,7 @@ let aws_ecs_account_setting_default ?id ~name ~value () :
   { id; name; value }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   principal_arn : string prop;
@@ -56,6 +57,7 @@ let make ?id ~name ~value __id =
   let __type = "aws_ecs_account_setting_default" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        principal_arn = Prop.computed __type __id "principal_arn";

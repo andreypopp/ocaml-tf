@@ -38,6 +38,7 @@ val yojson_of_google_workflows_workflow :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   call_log_level : string prop;
   create_time : string prop;
   crypto_key_name : string prop;

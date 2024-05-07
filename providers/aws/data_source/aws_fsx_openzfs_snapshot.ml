@@ -123,6 +123,7 @@ let aws_fsx_openzfs_snapshot ?id ?most_recent ?name ?snapshot_ids
   { id; most_recent; name; snapshot_ids; tags; filter }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   creation_time : string prop;
   id : string prop;
@@ -138,6 +139,7 @@ let make ?id ?most_recent ?name ?snapshot_ids ?tags ~filter __id =
   let __type = "aws_fsx_openzfs_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        creation_time = Prop.computed __type __id "creation_time";
        id = Prop.computed __type __id "id";

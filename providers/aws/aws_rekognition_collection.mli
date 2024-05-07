@@ -23,6 +23,7 @@ val yojson_of_aws_rekognition_collection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   collection_id : string prop;
   face_model_version : string prop;

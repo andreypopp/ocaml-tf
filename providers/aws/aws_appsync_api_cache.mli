@@ -22,6 +22,7 @@ val yojson_of_aws_appsync_api_cache : aws_appsync_api_cache -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_caching_behavior : string prop;
   api_id : string prop;
   at_rest_encryption_enabled : bool prop;

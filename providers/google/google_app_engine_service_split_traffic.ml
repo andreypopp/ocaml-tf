@@ -170,6 +170,7 @@ let google_app_engine_service_split_traffic ?id ?migrate_traffic
   { id; migrate_traffic; project; service; split; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   migrate_traffic : bool prop;
   project : string prop;
@@ -181,6 +182,7 @@ let make ?id ?migrate_traffic ?project ?timeouts ~service ~split __id
   let __type = "google_app_engine_service_split_traffic" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        migrate_traffic = Prop.computed __type __id "migrate_traffic";
        project = Prop.computed __type __id "project";

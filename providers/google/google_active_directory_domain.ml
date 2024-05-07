@@ -178,6 +178,7 @@ let google_active_directory_domain ?admin ?authorized_networks ?id
   }
 
 type t = {
+  tf_name : string;
   admin : string prop;
   authorized_networks : string list prop;
   domain_name : string prop;
@@ -197,6 +198,7 @@ let make ?admin ?authorized_networks ?id ?labels ?project ?timeouts
   let __type = "google_active_directory_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        admin = Prop.computed __type __id "admin";
        authorized_networks =
          Prop.computed __type __id "authorized_networks";

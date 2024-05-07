@@ -115,6 +115,7 @@ let aws_lb_trust_store_revocation ?id ?revocations_s3_object_version
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   revocation_id : float prop;
   revocations_s3_bucket : string prop;
@@ -129,6 +130,7 @@ let make ?id ?revocations_s3_object_version ?timeouts
   let __type = "aws_lb_trust_store_revocation" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        revocation_id = Prop.computed __type __id "revocation_id";
        revocations_s3_bucket =

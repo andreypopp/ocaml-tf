@@ -82,6 +82,7 @@ let aws_api_gateway_domain_name ?id ?tags ~domain_name () :
   { domain_name; id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   certificate_arn : string prop;
   certificate_name : string prop;
@@ -103,6 +104,7 @@ let make ?id ?tags ~domain_name __id =
   let __type = "aws_api_gateway_domain_name" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        certificate_arn = Prop.computed __type __id "certificate_arn";
        certificate_name =

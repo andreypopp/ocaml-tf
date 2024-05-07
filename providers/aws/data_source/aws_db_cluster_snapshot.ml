@@ -127,6 +127,7 @@ let aws_db_cluster_snapshot ?db_cluster_identifier
   }
 
 type t = {
+  tf_name : string;
   allocated_storage : float prop;
   availability_zones : string list prop;
   db_cluster_identifier : string prop;
@@ -156,6 +157,7 @@ let make ?db_cluster_identifier ?db_cluster_snapshot_identifier ?id
   let __type = "aws_db_cluster_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        allocated_storage =
          Prop.computed __type __id "allocated_storage";
        availability_zones =

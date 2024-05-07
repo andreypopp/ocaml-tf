@@ -335,6 +335,7 @@ let google_data_catalog_tag_template ?display_name ?force_delete ?id
   }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   force_delete : bool prop;
   id : string prop;
@@ -349,6 +350,7 @@ let make ?display_name ?force_delete ?id ?project ?region ?timeouts
   let __type = "google_data_catalog_tag_template" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        force_delete = Prop.computed __type __id "force_delete";
        id = Prop.computed __type __id "id";

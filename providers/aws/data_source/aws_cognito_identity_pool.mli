@@ -25,6 +25,7 @@ val yojson_of_aws_cognito_identity_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_classic_flow : bool prop;
   allow_unauthenticated_identities : bool prop;
   arn : string prop;

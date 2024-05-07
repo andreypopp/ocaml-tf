@@ -34,6 +34,7 @@ val yojson_of_aws_medialive_input_security_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   inputs : string list prop;

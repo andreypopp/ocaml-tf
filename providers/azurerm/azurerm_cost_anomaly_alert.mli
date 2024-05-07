@@ -34,6 +34,7 @@ val yojson_of_azurerm_cost_anomaly_alert :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   email_addresses : string list prop;
   email_subject : string prop;

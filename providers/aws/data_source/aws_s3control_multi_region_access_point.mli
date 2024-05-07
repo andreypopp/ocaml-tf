@@ -32,6 +32,7 @@ val yojson_of_aws_s3control_multi_region_access_point :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   alias : string prop;
   arn : string prop;

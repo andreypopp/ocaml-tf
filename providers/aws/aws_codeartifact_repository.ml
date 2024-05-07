@@ -188,6 +188,7 @@ let aws_codeartifact_repository ?description ?domain_owner ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   administrator_account : string prop;
   arn : string prop;
   description : string prop;
@@ -205,6 +206,7 @@ let make ?description ?domain_owner ?id ?tags ?tags_all
   let __type = "aws_codeartifact_repository" in
   let __attrs =
     ({
+       tf_name = __id;
        administrator_account =
          Prop.computed __type __id "administrator_account";
        arn = Prop.computed __type __id "arn";

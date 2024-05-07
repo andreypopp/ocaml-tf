@@ -33,7 +33,11 @@ val yojson_of_aws_globalaccelerator_custom_routing_listener :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { accelerator_arn : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  accelerator_arn : string prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

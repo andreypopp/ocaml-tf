@@ -839,6 +839,7 @@ let azurerm_monitor_autoscale_setting ?enabled ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   location : string prop;
@@ -854,6 +855,7 @@ let make ?enabled ?id ?tags ?(notification = []) ?(predictive = [])
   let __type = "azurerm_monitor_autoscale_setting" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

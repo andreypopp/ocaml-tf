@@ -49,6 +49,7 @@ let aws_iot_event_configurations ?id ~event_configurations () :
   { event_configurations; id }
 
 type t = {
+  tf_name : string;
   event_configurations : (string * bool) list prop;
   id : string prop;
 }
@@ -57,6 +58,7 @@ let make ?id ~event_configurations __id =
   let __type = "aws_iot_event_configurations" in
   let __attrs =
     ({
+       tf_name = __id;
        event_configurations =
          Prop.computed __type __id "event_configurations";
        id = Prop.computed __type __id "id";

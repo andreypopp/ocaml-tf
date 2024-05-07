@@ -103,6 +103,7 @@ let azurerm_ssh_public_key ?id ?tags ?timeouts ~name
   { id; name; resource_group_name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   public_key : string prop;
@@ -114,6 +115,7 @@ let make ?id ?tags ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_ssh_public_key" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        public_key = Prop.computed __type __id "public_key";

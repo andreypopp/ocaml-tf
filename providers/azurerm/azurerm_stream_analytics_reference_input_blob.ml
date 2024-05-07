@@ -260,6 +260,7 @@ let azurerm_stream_analytics_reference_input_blob
   }
 
 type t = {
+  tf_name : string;
   authentication_mode : string prop;
   date_format : string prop;
   id : string prop;
@@ -280,6 +281,7 @@ let make ?authentication_mode ?id ?storage_account_key ?timeouts
   let __type = "azurerm_stream_analytics_reference_input_blob" in
   let __attrs =
     ({
+       tf_name = __id;
        authentication_mode =
          Prop.computed __type __id "authentication_mode";
        date_format = Prop.computed __type __id "date_format";

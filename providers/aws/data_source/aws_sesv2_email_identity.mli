@@ -36,6 +36,7 @@ val yojson_of_aws_sesv2_email_identity :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   configuration_set_name : string prop;
   dkim_signing_attributes : dkim_signing_attributes list prop;

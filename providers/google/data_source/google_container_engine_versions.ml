@@ -68,6 +68,7 @@ let google_container_engine_versions ?id ?location ?project
   { id; location; project; version_prefix }
 
 type t = {
+  tf_name : string;
   default_cluster_version : string prop;
   id : string prop;
   latest_master_version : string prop;
@@ -85,6 +86,7 @@ let make ?id ?location ?project ?version_prefix __id =
   let __type = "google_container_engine_versions" in
   let __attrs =
     ({
+       tf_name = __id;
        default_cluster_version =
          Prop.computed __type __id "default_cluster_version";
        id = Prop.computed __type __id "id";

@@ -60,6 +60,7 @@ val yojson_of_google_compute_reservation :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   commitment : string prop;
   creation_timestamp : string prop;
   description : string prop;

@@ -19,6 +19,7 @@ val yojson_of_google_container_azure_versions :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   project : string prop;

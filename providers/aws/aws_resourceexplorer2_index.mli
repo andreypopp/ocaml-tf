@@ -28,6 +28,7 @@ val yojson_of_aws_resourceexplorer2_index :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   tags : (string * string) list prop;

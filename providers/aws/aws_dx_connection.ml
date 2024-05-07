@@ -143,6 +143,7 @@ let aws_dx_connection ?encryption_mode ?id ?provider_name
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   aws_device : string prop;
   bandwidth : string prop;
@@ -169,6 +170,7 @@ let make ?encryption_mode ?id ?provider_name ?request_macsec
   let __type = "aws_dx_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        aws_device = Prop.computed __type __id "aws_device";
        bandwidth = Prop.computed __type __id "bandwidth";

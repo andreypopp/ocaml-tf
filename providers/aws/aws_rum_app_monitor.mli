@@ -42,6 +42,7 @@ val yojson_of_aws_rum_app_monitor : aws_rum_app_monitor -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_monitor_id : string prop;
   arn : string prop;
   cw_log_enabled : bool prop;

@@ -179,6 +179,7 @@ let azurerm_api_management_openid_connect_provider ?description ?id
   }
 
 type t = {
+  tf_name : string;
   api_management_name : string prop;
   client_id : string prop;
   client_secret : string prop;
@@ -196,6 +197,7 @@ let make ?description ?id ?timeouts ~api_management_name ~client_id
   let __type = "azurerm_api_management_openid_connect_provider" in
   let __attrs =
     ({
+       tf_name = __id;
        api_management_name =
          Prop.computed __type __id "api_management_name";
        client_id = Prop.computed __type __id "client_id";

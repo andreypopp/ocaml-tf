@@ -33,6 +33,7 @@ val yojson_of_google_bigquery_analytics_hub_listing_iam_member :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   data_exchange_id : string prop;
   etag : string prop;
   id : string prop;

@@ -51,6 +51,7 @@ val yojson_of_google_edgecontainer_vpn_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster : string prop;
   create_time : string prop;
   details : details list prop;

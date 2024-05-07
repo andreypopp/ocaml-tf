@@ -944,6 +944,7 @@ val yojson_of_aws_securityhub_insight :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   group_by_attribute : string prop;
   id : string prop;

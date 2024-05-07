@@ -339,6 +339,7 @@ let azurerm_sql_server ?connection_policy ?id ?tags ?(identity = [])
   }
 
 type t = {
+  tf_name : string;
   administrator_login : string prop;
   administrator_login_password : string prop;
   connection_policy : string prop;
@@ -358,6 +359,7 @@ let make ?connection_policy ?id ?tags ?(identity = [])
   let __type = "azurerm_sql_server" in
   let __attrs =
     ({
+       tf_name = __id;
        administrator_login =
          Prop.computed __type __id "administrator_login";
        administrator_login_password =

@@ -71,6 +71,7 @@ let google_notebooks_runtime_iam_policy ?id ?location ?project
   { id; location; policy_data; project; runtime_name }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   location : string prop;
@@ -83,6 +84,7 @@ let make ?id ?location ?project ~policy_data ~runtime_name __id =
   let __type = "google_notebooks_runtime_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

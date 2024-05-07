@@ -823,6 +823,7 @@ let google_compute_health_check ?check_interval_sec ?description
   }
 
 type t = {
+  tf_name : string;
   check_interval_sec : float prop;
   creation_timestamp : string prop;
   description : string prop;
@@ -845,6 +846,7 @@ let make ?check_interval_sec ?description ?healthy_threshold ?id
   let __type = "google_compute_health_check" in
   let __attrs =
     ({
+       tf_name = __id;
        check_interval_sec =
          Prop.computed __type __id "check_interval_sec";
        creation_timestamp =

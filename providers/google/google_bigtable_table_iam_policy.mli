@@ -21,6 +21,7 @@ val yojson_of_google_bigtable_table_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   instance : string prop;

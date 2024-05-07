@@ -268,6 +268,7 @@ let azurerm_application_insights_workbook_template ?author ?id
   }
 
 type t = {
+  tf_name : string;
   author : string prop;
   id : string prop;
   localized : string prop;
@@ -284,6 +285,7 @@ let make ?author ?id ?localized ?priority ?tags ?timeouts ~location
   let __type = "azurerm_application_insights_workbook_template" in
   let __attrs =
     ({
+       tf_name = __id;
        author = Prop.computed __type __id "author";
        id = Prop.computed __type __id "id";
        localized = Prop.computed __type __id "localized";

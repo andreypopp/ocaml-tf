@@ -69,6 +69,7 @@ val yojson_of_azurerm_express_route_port :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bandwidth_in_gbps : float prop;
   billing_type : string prop;
   encapsulation : string prop;

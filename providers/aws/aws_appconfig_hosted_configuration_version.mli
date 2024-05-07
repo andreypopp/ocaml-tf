@@ -22,6 +22,7 @@ val yojson_of_aws_appconfig_hosted_configuration_version :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_id : string prop;
   arn : string prop;
   configuration_profile_id : string prop;

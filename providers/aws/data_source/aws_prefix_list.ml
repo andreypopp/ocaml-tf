@@ -126,6 +126,7 @@ let aws_prefix_list ?id ?name ?prefix_list_id ?timeouts ~filter () :
   { id; name; prefix_list_id; filter; timeouts }
 
 type t = {
+  tf_name : string;
   cidr_blocks : string list prop;
   id : string prop;
   name : string prop;
@@ -136,6 +137,7 @@ let make ?id ?name ?prefix_list_id ?timeouts ~filter __id =
   let __type = "aws_prefix_list" in
   let __attrs =
     ({
+       tf_name = __id;
        cidr_blocks = Prop.computed __type __id "cidr_blocks";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

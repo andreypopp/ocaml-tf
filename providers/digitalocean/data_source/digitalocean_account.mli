@@ -14,6 +14,7 @@ val yojson_of_digitalocean_account : digitalocean_account -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   droplet_limit : float prop;
   email : string prop;
   email_verified : bool prop;

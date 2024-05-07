@@ -66,6 +66,7 @@ val yojson_of_aws_storagegateway_gateway :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   activation_key : string prop;
   arn : string prop;
   average_download_rate_limit_in_bits_per_sec : float prop;

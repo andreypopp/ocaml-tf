@@ -142,6 +142,7 @@ let azurerm_resource_management_private_link_association ?id ?name
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   management_group_id : string prop;
   name : string prop;
@@ -158,6 +159,7 @@ let make ?id ?name ?timeouts ~management_group_id
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        management_group_id =
          Prop.computed __type __id "management_group_id";

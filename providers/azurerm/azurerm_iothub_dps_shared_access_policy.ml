@@ -193,6 +193,7 @@ let azurerm_iothub_dps_shared_access_policy ?enrollment_read
   }
 
 type t = {
+  tf_name : string;
   enrollment_read : bool prop;
   enrollment_write : bool prop;
   id : string prop;
@@ -214,6 +215,7 @@ let make ?enrollment_read ?enrollment_write ?id ?registration_read
   let __type = "azurerm_iothub_dps_shared_access_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        enrollment_read = Prop.computed __type __id "enrollment_read";
        enrollment_write =
          Prop.computed __type __id "enrollment_write";

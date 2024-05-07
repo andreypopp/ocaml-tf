@@ -398,6 +398,7 @@ let aws_glue_job ?connections ?default_arguments ?description
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   connections : string list prop;
   default_arguments : (string * string) list prop;
@@ -427,6 +428,7 @@ let make ?connections ?default_arguments ?description
   let __type = "aws_glue_job" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        connections = Prop.computed __type __id "connections";
        default_arguments =

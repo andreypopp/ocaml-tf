@@ -19,6 +19,7 @@ val yojson_of_aws_organizations_resource_tags :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   resource_id : string prop;
   tags : (string * string) list prop;

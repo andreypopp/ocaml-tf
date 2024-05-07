@@ -157,6 +157,7 @@ let azurerm_container_app_environment_storage ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   access_key : string prop;
   access_mode : string prop;
   account_name : string prop;
@@ -171,6 +172,7 @@ let make ?id ?timeouts ~access_key ~access_mode ~account_name
   let __type = "azurerm_container_app_environment_storage" in
   let __attrs =
     ({
+       tf_name = __id;
        access_key = Prop.computed __type __id "access_key";
        access_mode = Prop.computed __type __id "access_mode";
        account_name = Prop.computed __type __id "account_name";

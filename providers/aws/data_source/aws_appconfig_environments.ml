@@ -42,6 +42,7 @@ let aws_appconfig_environments ?id ~application_id () :
   { application_id; id }
 
 type t = {
+  tf_name : string;
   application_id : string prop;
   environment_ids : string list prop;
   id : string prop;
@@ -51,6 +52,7 @@ let make ?id ~application_id __id =
   let __type = "aws_appconfig_environments" in
   let __attrs =
     ({
+       tf_name = __id;
        application_id = Prop.computed __type __id "application_id";
        environment_ids = Prop.computed __type __id "environment_ids";
        id = Prop.computed __type __id "id";

@@ -721,6 +721,7 @@ let azurerm_key_vault_certificate ?id ?tags ?(certificate = [])
   }
 
 type t = {
+  tf_name : string;
   certificate_attribute : certificate_attribute list prop;
   certificate_data : string prop;
   certificate_data_base64 : string prop;
@@ -742,6 +743,7 @@ let make ?id ?tags ?(certificate = []) ?(certificate_policy = [])
   let __type = "azurerm_key_vault_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_attribute =
          Prop.computed __type __id "certificate_attribute";
        certificate_data =

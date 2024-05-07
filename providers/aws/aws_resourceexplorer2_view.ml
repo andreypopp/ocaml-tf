@@ -123,6 +123,7 @@ let aws_resourceexplorer2_view ?default_view ?tags ?(filters = [])
   { default_view; name; tags; filters; included_property }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   default_view : bool prop;
   id : string prop;
@@ -136,6 +137,7 @@ let make ?default_view ?tags ?(filters = [])
   let __type = "aws_resourceexplorer2_view" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        default_view = Prop.computed __type __id "default_view";
        id = Prop.computed __type __id "id";

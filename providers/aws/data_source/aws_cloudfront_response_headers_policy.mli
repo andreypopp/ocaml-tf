@@ -130,6 +130,7 @@ val yojson_of_aws_cloudfront_response_headers_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   comment : string prop;
   cors_config : cors_config list prop;
   custom_headers_config : custom_headers_config list prop;

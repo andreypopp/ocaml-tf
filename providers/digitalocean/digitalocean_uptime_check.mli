@@ -21,6 +21,7 @@ val yojson_of_digitalocean_uptime_check :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   name : string prop;

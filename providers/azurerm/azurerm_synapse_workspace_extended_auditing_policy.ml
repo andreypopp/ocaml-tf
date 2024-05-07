@@ -183,6 +183,7 @@ let azurerm_synapse_workspace_extended_auditing_policy ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   log_monitoring_enabled : bool prop;
   retention_in_days : float prop;
@@ -201,6 +202,7 @@ let make ?id ?log_monitoring_enabled ?retention_in_days
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        log_monitoring_enabled =
          Prop.computed __type __id "log_monitoring_enabled";

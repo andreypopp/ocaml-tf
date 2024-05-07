@@ -158,6 +158,7 @@ let azurerm_healthbot ?id ?tags ?timeouts ~location ~name
   }
 
 type t = {
+  tf_name : string;
   bot_management_portal_url : string prop;
   id : string prop;
   location : string prop;
@@ -172,6 +173,7 @@ let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
   let __type = "azurerm_healthbot" in
   let __attrs =
     ({
+       tf_name = __id;
        bot_management_portal_url =
          Prop.computed __type __id "bot_management_portal_url";
        id = Prop.computed __type __id "id";

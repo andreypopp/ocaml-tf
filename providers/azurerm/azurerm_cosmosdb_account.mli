@@ -157,6 +157,7 @@ val yojson_of_azurerm_cosmosdb_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_key_metadata_writes_enabled : bool prop;
   analytical_storage_enabled : bool prop;
   connection_strings : string list prop;

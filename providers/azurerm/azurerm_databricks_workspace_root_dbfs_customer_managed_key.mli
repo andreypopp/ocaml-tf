@@ -30,6 +30,7 @@ val yojson_of_azurerm_databricks_workspace_root_dbfs_customer_managed_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   key_vault_key_id : string prop;
   workspace_id : string prop;

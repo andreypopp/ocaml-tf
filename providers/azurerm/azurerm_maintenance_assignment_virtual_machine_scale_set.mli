@@ -30,6 +30,7 @@ val yojson_of_azurerm_maintenance_assignment_virtual_machine_scale_set :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   maintenance_configuration_id : string prop;

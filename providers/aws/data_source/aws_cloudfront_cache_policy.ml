@@ -350,6 +350,7 @@ let aws_cloudfront_cache_policy ?id ?name () :
   { id; name }
 
 type t = {
+  tf_name : string;
   comment : string prop;
   default_ttl : float prop;
   etag : string prop;
@@ -365,6 +366,7 @@ let make ?id ?name __id =
   let __type = "aws_cloudfront_cache_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        comment = Prop.computed __type __id "comment";
        default_ttl = Prop.computed __type __id "default_ttl";
        etag = Prop.computed __type __id "etag";

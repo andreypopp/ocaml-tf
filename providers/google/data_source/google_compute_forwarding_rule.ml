@@ -94,6 +94,7 @@ let google_compute_forwarding_rule ?id ?project ?region ~name () :
   { id; name; project; region }
 
 type t = {
+  tf_name : string;
   all_ports : bool prop;
   allow_global_access : bool prop;
   allow_psc_global_access : bool prop;
@@ -136,6 +137,7 @@ let make ?id ?project ?region ~name __id =
   let __type = "google_compute_forwarding_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        all_ports = Prop.computed __type __id "all_ports";
        allow_global_access =
          Prop.computed __type __id "allow_global_access";

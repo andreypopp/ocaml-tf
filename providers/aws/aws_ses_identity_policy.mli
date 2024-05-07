@@ -20,6 +20,7 @@ val yojson_of_aws_ses_identity_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   identity : string prop;
   name : string prop;

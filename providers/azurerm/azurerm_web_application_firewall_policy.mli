@@ -166,6 +166,7 @@ val yojson_of_azurerm_web_application_firewall_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   http_listener_ids : string list prop;
   id : string prop;
   location : string prop;

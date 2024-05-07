@@ -324,6 +324,7 @@ let aws_apigatewayv2_integration ?connection_id ?connection_type
   }
 
 type t = {
+  tf_name : string;
   api_id : string prop;
   connection_id : string prop;
   connection_type : string prop;
@@ -354,6 +355,7 @@ let make ?connection_id ?connection_type ?content_handling_strategy
   let __type = "aws_apigatewayv2_integration" in
   let __attrs =
     ({
+       tf_name = __id;
        api_id = Prop.computed __type __id "api_id";
        connection_id = Prop.computed __type __id "connection_id";
        connection_type = Prop.computed __type __id "connection_type";

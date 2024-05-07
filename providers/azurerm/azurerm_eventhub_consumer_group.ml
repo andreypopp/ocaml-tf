@@ -154,6 +154,7 @@ let azurerm_eventhub_consumer_group ?id ?user_metadata ?timeouts
   }
 
 type t = {
+  tf_name : string;
   eventhub_name : string prop;
   id : string prop;
   name : string prop;
@@ -167,6 +168,7 @@ let make ?id ?user_metadata ?timeouts ~eventhub_name ~name
   let __type = "azurerm_eventhub_consumer_group" in
   let __attrs =
     ({
+       tf_name = __id;
        eventhub_name = Prop.computed __type __id "eventhub_name";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

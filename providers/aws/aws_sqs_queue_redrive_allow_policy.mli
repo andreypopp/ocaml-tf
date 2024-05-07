@@ -19,6 +19,7 @@ val yojson_of_aws_sqs_queue_redrive_allow_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   queue_url : string prop;
   redrive_allow_policy : string prop;

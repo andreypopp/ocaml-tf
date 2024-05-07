@@ -413,6 +413,7 @@ let azurerm_express_route_port ?billing_type ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   bandwidth_in_gbps : float prop;
   billing_type : string prop;
   encapsulation : string prop;
@@ -433,6 +434,7 @@ let make ?billing_type ?id ?tags ?(identity = []) ?(link1 = [])
   let __type = "azurerm_express_route_port" in
   let __attrs =
     ({
+       tf_name = __id;
        bandwidth_in_gbps =
          Prop.computed __type __id "bandwidth_in_gbps";
        billing_type = Prop.computed __type __id "billing_type";

@@ -87,6 +87,7 @@ let google_organization_iam_custom_role ?description ?id ?stage
   { description; id; org_id; permissions; role_id; stage; title }
 
 type t = {
+  tf_name : string;
   deleted : bool prop;
   description : string prop;
   id : string prop;
@@ -103,6 +104,7 @@ let make ?description ?id ?stage ~org_id ~permissions ~role_id ~title
   let __type = "google_organization_iam_custom_role" in
   let __attrs =
     ({
+       tf_name = __id;
        deleted = Prop.computed __type __id "deleted";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

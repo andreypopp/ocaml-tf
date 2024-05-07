@@ -40,6 +40,7 @@ let aws_cur_report_definition ?id ~report_name () :
   { id; report_name }
 
 type t = {
+  tf_name : string;
   additional_artifacts : string list prop;
   additional_schema_elements : string list prop;
   compression : string prop;
@@ -58,6 +59,7 @@ let make ?id ~report_name __id =
   let __type = "aws_cur_report_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        additional_artifacts =
          Prop.computed __type __id "additional_artifacts";
        additional_schema_elements =

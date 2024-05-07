@@ -31,6 +31,7 @@ val yojson_of_aws_kms_custom_key_store :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cloud_hsm_cluster_id : string prop;
   custom_key_store_name : string prop;
   id : string prop;

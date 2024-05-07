@@ -131,6 +131,7 @@ let secret ?context ?encryption_algorithm ?grant_tokens ?key_id ~name
 let aws_kms_secrets ?id ~secret () : aws_kms_secrets = { id; secret }
 
 type t = {
+  tf_name : string;
   id : string prop;
   plaintext : (string * string) list prop;
 }
@@ -139,6 +140,7 @@ let make ?id ~secret __id =
   let __type = "aws_kms_secrets" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        plaintext = Prop.computed __type __id "plaintext";
      }

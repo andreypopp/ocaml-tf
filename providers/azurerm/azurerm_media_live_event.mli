@@ -109,6 +109,7 @@ val yojson_of_azurerm_media_live_event :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_start_enabled : bool prop;
   description : string prop;
   hostname_prefix : string prop;

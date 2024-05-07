@@ -259,6 +259,7 @@ let azurerm_shared_image_gallery ?description ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   location : string prop;
@@ -273,6 +274,7 @@ let make ?description ?id ?tags ?(sharing = []) ?timeouts ~location
   let __type = "azurerm_shared_image_gallery" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

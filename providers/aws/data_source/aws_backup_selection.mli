@@ -18,6 +18,7 @@ val yojson_of_aws_backup_selection : aws_backup_selection -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   iam_role_arn : string prop;
   id : string prop;
   name : string prop;

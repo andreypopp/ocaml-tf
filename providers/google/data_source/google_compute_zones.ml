@@ -67,6 +67,7 @@ let google_compute_zones ?id ?project ?region ?status () :
   { id; project; region; status }
 
 type t = {
+  tf_name : string;
   id : string prop;
   names : string list prop;
   project : string prop;
@@ -78,6 +79,7 @@ let make ?id ?project ?region ?status __id =
   let __type = "google_compute_zones" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        names = Prop.computed __type __id "names";
        project = Prop.computed __type __id "project";

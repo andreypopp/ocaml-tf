@@ -56,6 +56,7 @@ let aws_route53_hosted_zone_dnssec ?id ?signing_status
   { hosted_zone_id; id; signing_status }
 
 type t = {
+  tf_name : string;
   hosted_zone_id : string prop;
   id : string prop;
   signing_status : string prop;
@@ -65,6 +66,7 @@ let make ?id ?signing_status ~hosted_zone_id __id =
   let __type = "aws_route53_hosted_zone_dnssec" in
   let __attrs =
     ({
+       tf_name = __id;
        hosted_zone_id = Prop.computed __type __id "hosted_zone_id";
        id = Prop.computed __type __id "id";
        signing_status = Prop.computed __type __id "signing_status";

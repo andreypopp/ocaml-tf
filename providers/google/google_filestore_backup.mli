@@ -34,6 +34,7 @@ val yojson_of_google_filestore_backup :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   capacity_gb : string prop;
   create_time : string prop;
   description : string prop;

@@ -67,6 +67,7 @@ val yojson_of_aws_config_config_rule : aws_config_config_rule -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;

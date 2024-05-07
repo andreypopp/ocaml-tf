@@ -24,6 +24,7 @@ val yojson_of_azurerm_maps_account : azurerm_maps_account -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   primary_access_key : string prop;

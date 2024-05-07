@@ -30,6 +30,7 @@ val yojson_of_azurerm_stack_hci_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automanage_configuration_id : string prop;
   client_id : string prop;
   cloud_id : string prop;

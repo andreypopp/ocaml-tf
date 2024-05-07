@@ -110,6 +110,7 @@ val yojson_of_azurerm_monitor_action_rule_action_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action_group_id : string prop;
   description : string prop;
   enabled : bool prop;

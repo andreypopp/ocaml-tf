@@ -28,6 +28,7 @@ val yojson_of_aws_connect_vocabulary : aws_connect_vocabulary -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   content : string prop;
   failure_reason : string prop;

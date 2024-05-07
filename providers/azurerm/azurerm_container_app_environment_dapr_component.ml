@@ -269,6 +269,7 @@ let azurerm_container_app_environment_dapr_component ?id
   }
 
 type t = {
+  tf_name : string;
   component_type : string prop;
   container_app_environment_id : string prop;
   id : string prop;
@@ -285,6 +286,7 @@ let make ?id ?ignore_errors ?init_timeout ?scopes ?(metadata = [])
   let __type = "azurerm_container_app_environment_dapr_component" in
   let __attrs =
     ({
+       tf_name = __id;
        component_type = Prop.computed __type __id "component_type";
        container_app_environment_id =
          Prop.computed __type __id "container_app_environment_id";

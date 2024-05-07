@@ -1008,6 +1008,7 @@ let aws_dms_endpoint ?id ?tags ~endpoint_id () : aws_dms_endpoint =
   { endpoint_id; id; tags }
 
 type t = {
+  tf_name : string;
   certificate_arn : string prop;
   database_name : string prop;
   elasticsearch_settings : elasticsearch_settings list prop;
@@ -1040,6 +1041,7 @@ let make ?id ?tags ~endpoint_id __id =
   let __type = "aws_dms_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_arn = Prop.computed __type __id "certificate_arn";
        database_name = Prop.computed __type __id "database_name";
        elasticsearch_settings =

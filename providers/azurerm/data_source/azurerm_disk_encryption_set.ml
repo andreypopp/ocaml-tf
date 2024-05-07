@@ -134,6 +134,7 @@ let azurerm_disk_encryption_set ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   auto_key_rotation_enabled : bool prop;
   id : string prop;
   identity : identity list prop;
@@ -148,6 +149,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_disk_encryption_set" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_key_rotation_enabled =
          Prop.computed __type __id "auto_key_rotation_enabled";
        id = Prop.computed __type __id "id";

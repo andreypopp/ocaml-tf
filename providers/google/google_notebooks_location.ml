@@ -112,6 +112,7 @@ let google_notebooks_location ?id ?name ?project ?timeouts () :
   { id; name; project; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   project : string prop;
@@ -122,6 +123,7 @@ let make ?id ?name ?project ?timeouts __id =
   let __type = "google_notebooks_location" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        project = Prop.computed __type __id "project";

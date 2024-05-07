@@ -97,6 +97,7 @@ val yojson_of_aws_eks_cluster : aws_eks_cluster -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   certificate_authority : certificate_authority list prop;
   cluster_id : string prop;

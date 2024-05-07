@@ -522,6 +522,7 @@ let azurerm_sql_database ?collation ?create_mode ?edition
   }
 
 type t = {
+  tf_name : string;
   collation : string prop;
   create_mode : string prop;
   creation_date : string prop;
@@ -556,6 +557,7 @@ let make ?collation ?create_mode ?edition ?elastic_pool_name ?id
   let __type = "azurerm_sql_database" in
   let __attrs =
     ({
+       tf_name = __id;
        collation = Prop.computed __type __id "collation";
        create_mode = Prop.computed __type __id "create_mode";
        creation_date = Prop.computed __type __id "creation_date";

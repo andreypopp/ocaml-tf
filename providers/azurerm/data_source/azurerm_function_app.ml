@@ -750,6 +750,7 @@ let azurerm_function_app ?id ?tags ?timeouts ~name
   { id; name; resource_group_name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   app_service_plan_id : string prop;
   app_settings : (string * string) list prop;
   client_cert_mode : string prop;
@@ -775,6 +776,7 @@ let make ?id ?tags ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_function_app" in
   let __attrs =
     ({
+       tf_name = __id;
        app_service_plan_id =
          Prop.computed __type __id "app_service_plan_id";
        app_settings = Prop.computed __type __id "app_settings";

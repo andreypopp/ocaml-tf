@@ -114,6 +114,7 @@ let aws_ec2_instance_state ?force ?id ?timeouts ~instance_id ~state
   { force; id; instance_id; state; timeouts }
 
 type t = {
+  tf_name : string;
   force : bool prop;
   id : string prop;
   instance_id : string prop;
@@ -124,6 +125,7 @@ let make ?force ?id ?timeouts ~instance_id ~state __id =
   let __type = "aws_ec2_instance_state" in
   let __attrs =
     ({
+       tf_name = __id;
        force = Prop.computed __type __id "force";
        id = Prop.computed __type __id "id";
        instance_id = Prop.computed __type __id "instance_id";

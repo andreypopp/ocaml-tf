@@ -243,6 +243,7 @@ let azurerm_data_factory ?id ?timeouts ~name ~resource_group_name ()
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   github_configuration : github_configuration list prop;
   id : string prop;
   identity : identity list prop;
@@ -257,6 +258,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_data_factory" in
   let __attrs =
     ({
+       tf_name = __id;
        github_configuration =
          Prop.computed __type __id "github_configuration";
        id = Prop.computed __type __id "id";

@@ -45,6 +45,7 @@ val yojson_of_azurerm_dev_test_global_vm_shutdown_schedule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   daily_recurrence_time : string prop;
   enabled : bool prop;
   id : string prop;

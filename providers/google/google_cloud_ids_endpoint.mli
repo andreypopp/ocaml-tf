@@ -34,6 +34,7 @@ val yojson_of_google_cloud_ids_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   endpoint_forwarding_rule : string prop;

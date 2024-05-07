@@ -193,6 +193,7 @@ let aws_securitylake_subscriber_notification ?(configuration = [])
   { subscriber_id; configuration }
 
 type t = {
+  tf_name : string;
   endpoint_id : string prop;
   id : string prop;
   subscriber_id : string prop;
@@ -202,6 +203,7 @@ let make ?(configuration = []) ~subscriber_id __id =
   let __type = "aws_securitylake_subscriber_notification" in
   let __attrs =
     ({
+       tf_name = __id;
        endpoint_id = Prop.computed __type __id "endpoint_id";
        id = Prop.computed __type __id "id";
        subscriber_id = Prop.computed __type __id "subscriber_id";

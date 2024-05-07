@@ -17,7 +17,11 @@ val yojson_of_aws_elastic_beanstalk_hosted_zone :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; region : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  region : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

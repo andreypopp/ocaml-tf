@@ -25,6 +25,7 @@ val yojson_of_aws_cloudsearch_domain_service_access_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_policy : string prop;
   domain_name : string prop;
   id : string prop;

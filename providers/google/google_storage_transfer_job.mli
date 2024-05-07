@@ -194,6 +194,7 @@ val yojson_of_google_storage_transfer_job :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   creation_time : string prop;
   deletion_time : string prop;
   description : string prop;

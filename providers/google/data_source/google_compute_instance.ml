@@ -1057,6 +1057,7 @@ let google_compute_instance ?id ?name ?project ?self_link ?zone () :
   { id; name; project; self_link; zone }
 
 type t = {
+  tf_name : string;
   advanced_machine_features : advanced_machine_features list prop;
   allow_stopping_for_update : bool prop;
   attached_disk : attached_disk list prop;
@@ -1104,6 +1105,7 @@ let make ?id ?name ?project ?self_link ?zone __id =
   let __type = "google_compute_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        advanced_machine_features =
          Prop.computed __type __id "advanced_machine_features";
        allow_stopping_for_update =

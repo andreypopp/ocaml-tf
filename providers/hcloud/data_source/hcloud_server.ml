@@ -96,6 +96,7 @@ let hcloud_server ?id ?name ?placement_group_id ?selector
   }
 
 type t = {
+  tf_name : string;
   backup_window : string prop;
   backups : bool prop;
   datacenter : string prop;
@@ -126,6 +127,7 @@ let make ?id ?name ?placement_group_id ?selector ?with_selector
   let __type = "hcloud_server" in
   let __attrs =
     ({
+       tf_name = __id;
        backup_window = Prop.computed __type __id "backup_window";
        backups = Prop.computed __type __id "backups";
        datacenter = Prop.computed __type __id "datacenter";

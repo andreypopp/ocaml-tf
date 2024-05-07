@@ -70,7 +70,11 @@ val yojson_of_google_apigee_addons_config :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; org : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  org : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

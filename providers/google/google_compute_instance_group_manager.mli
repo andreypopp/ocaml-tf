@@ -156,6 +156,7 @@ val yojson_of_google_compute_instance_group_manager :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   base_instance_name : string prop;
   creation_timestamp : string prop;
   description : string prop;

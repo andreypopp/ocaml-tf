@@ -881,6 +881,7 @@ let aws_opsworks_custom_layer ?auto_assign_elastic_ips
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   auto_assign_elastic_ips : bool prop;
   auto_assign_public_ips : bool prop;
@@ -920,6 +921,7 @@ let make ?auto_assign_elastic_ips ?auto_assign_public_ips
   let __type = "aws_opsworks_custom_layer" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        auto_assign_elastic_ips =
          Prop.computed __type __id "auto_assign_elastic_ips";

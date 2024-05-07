@@ -30,6 +30,7 @@ val yojson_of_azurerm_spring_cloud_active_deployment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   deployment_name : string prop;
   id : string prop;
   spring_cloud_app_id : string prop;

@@ -23,6 +23,7 @@ val yojson_of_aws_cloudfront_key_value_store :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   comment : string prop;
   etag : string prop;

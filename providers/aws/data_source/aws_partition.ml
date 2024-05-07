@@ -31,6 +31,7 @@ let _ = yojson_of_aws_partition
 let aws_partition ?id () : aws_partition = { id }
 
 type t = {
+  tf_name : string;
   dns_suffix : string prop;
   id : string prop;
   partition : string prop;
@@ -41,6 +42,7 @@ let make ?id __id =
   let __type = "aws_partition" in
   let __attrs =
     ({
+       tf_name = __id;
        dns_suffix = Prop.computed __type __id "dns_suffix";
        id = Prop.computed __type __id "id";
        partition = Prop.computed __type __id "partition";

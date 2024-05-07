@@ -82,6 +82,7 @@ let aws_route53_traffic_policy_instance ?id ~hosted_zone_id ~name
   }
 
 type t = {
+  tf_name : string;
   hosted_zone_id : string prop;
   id : string prop;
   name : string prop;
@@ -95,6 +96,7 @@ let make ?id ~hosted_zone_id ~name ~traffic_policy_id
   let __type = "aws_route53_traffic_policy_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        hosted_zone_id = Prop.computed __type __id "hosted_zone_id";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

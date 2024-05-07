@@ -1726,6 +1726,7 @@ let google_gkeonprem_vmware_cluster ?annotations ?description
   }
 
 type t = {
+  tf_name : string;
   admin_cluster_membership : string prop;
   annotations : (string * string) list prop;
   create_time : string prop;
@@ -1761,6 +1762,7 @@ let make ?annotations ?description ?enable_control_plane_v2 ?id
   let __type = "google_gkeonprem_vmware_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        admin_cluster_membership =
          Prop.computed __type __id "admin_cluster_membership";
        annotations = Prop.computed __type __id "annotations";

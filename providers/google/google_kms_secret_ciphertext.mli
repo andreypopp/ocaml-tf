@@ -26,6 +26,7 @@ val yojson_of_google_kms_secret_ciphertext :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   additional_authenticated_data : string prop;
   ciphertext : string prop;
   crypto_key : string prop;

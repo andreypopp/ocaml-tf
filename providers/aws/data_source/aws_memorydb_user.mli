@@ -23,6 +23,7 @@ val yojson_of_aws_memorydb_user : aws_memorydb_user -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_string : string prop;
   arn : string prop;
   authentication_mode : authentication_mode list prop;

@@ -788,6 +788,7 @@ let aws_opensearch_domain ?id ?tags ?(off_peak_window_options = [])
   { domain_name; id; tags; off_peak_window_options }
 
 type t = {
+  tf_name : string;
   access_policies : string prop;
   advanced_options : (string * string) list prop;
   advanced_security_options : advanced_security_options list prop;
@@ -820,6 +821,7 @@ let make ?id ?tags ?(off_peak_window_options = []) ~domain_name __id
   let __type = "aws_opensearch_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        access_policies = Prop.computed __type __id "access_policies";
        advanced_options =
          Prop.computed __type __id "advanced_options";

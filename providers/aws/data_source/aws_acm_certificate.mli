@@ -22,6 +22,7 @@ val yojson_of_aws_acm_certificate : aws_acm_certificate -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   certificate : string prop;
   certificate_chain : string prop;

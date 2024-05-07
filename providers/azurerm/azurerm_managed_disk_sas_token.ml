@@ -122,6 +122,7 @@ let azurerm_managed_disk_sas_token ?id ?timeouts ~access_level
   }
 
 type t = {
+  tf_name : string;
   access_level : string prop;
   duration_in_seconds : float prop;
   id : string prop;
@@ -134,6 +135,7 @@ let make ?id ?timeouts ~access_level ~duration_in_seconds
   let __type = "azurerm_managed_disk_sas_token" in
   let __attrs =
     ({
+       tf_name = __id;
        access_level = Prop.computed __type __id "access_level";
        duration_in_seconds =
          Prop.computed __type __id "duration_in_seconds";

@@ -105,6 +105,7 @@ let azurerm_platform_image ?id ?version ?timeouts ~location ~offer
   { id; location; offer; publisher; sku; version; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   offer : string prop;
@@ -118,6 +119,7 @@ let make ?id ?version ?timeouts ~location ~offer ~publisher ~sku __id
   let __type = "azurerm_platform_image" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        offer = Prop.computed __type __id "offer";

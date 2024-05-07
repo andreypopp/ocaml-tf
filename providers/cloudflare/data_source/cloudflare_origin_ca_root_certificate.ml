@@ -41,6 +41,7 @@ let cloudflare_origin_ca_root_certificate ?id ~algorithm () :
   { algorithm; id }
 
 type t = {
+  tf_name : string;
   algorithm : string prop;
   cert_pem : string prop;
   id : string prop;
@@ -50,6 +51,7 @@ let make ?id ~algorithm __id =
   let __type = "cloudflare_origin_ca_root_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        algorithm = Prop.computed __type __id "algorithm";
        cert_pem = Prop.computed __type __id "cert_pem";
        id = Prop.computed __type __id "id";

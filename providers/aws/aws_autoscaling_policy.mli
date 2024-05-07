@@ -345,6 +345,7 @@ val yojson_of_aws_autoscaling_policy : aws_autoscaling_policy -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   adjustment_type : string prop;
   arn : string prop;
   autoscaling_group_name : string prop;

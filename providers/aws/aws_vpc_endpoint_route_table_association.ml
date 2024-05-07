@@ -54,6 +54,7 @@ let aws_vpc_endpoint_route_table_association ?id ~route_table_id
   { id; route_table_id; vpc_endpoint_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   route_table_id : string prop;
   vpc_endpoint_id : string prop;
@@ -63,6 +64,7 @@ let make ?id ~route_table_id ~vpc_endpoint_id __id =
   let __type = "aws_vpc_endpoint_route_table_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        route_table_id = Prop.computed __type __id "route_table_id";
        vpc_endpoint_id = Prop.computed __type __id "vpc_endpoint_id";

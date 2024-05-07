@@ -45,6 +45,7 @@ val yojson_of_aws_network_interface : aws_network_interface -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;

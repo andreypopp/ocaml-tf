@@ -120,6 +120,7 @@ let azurerm_mysql_configuration ?id ?timeouts ~name
   { id; name; resource_group_name; server_name; value; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   resource_group_name : string prop;
@@ -132,6 +133,7 @@ let make ?id ?timeouts ~name ~resource_group_name ~server_name ~value
   let __type = "azurerm_mysql_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        resource_group_name =

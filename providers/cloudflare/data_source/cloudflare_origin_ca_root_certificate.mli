@@ -23,6 +23,7 @@ val yojson_of_cloudflare_origin_ca_root_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   algorithm : string prop;
   cert_pem : string prop;
   id : string prop;

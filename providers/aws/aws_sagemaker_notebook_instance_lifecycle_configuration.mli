@@ -20,6 +20,7 @@ val yojson_of_aws_sagemaker_notebook_instance_lifecycle_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;

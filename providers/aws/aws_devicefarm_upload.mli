@@ -20,6 +20,7 @@ val yojson_of_aws_devicefarm_upload : aws_devicefarm_upload -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   category : string prop;
   content_type : string prop;

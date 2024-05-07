@@ -21,6 +21,7 @@ val yojson_of_cloudflare_custom_hostname_fallback_origin :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   origin : string prop;
   status : string prop;

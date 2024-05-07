@@ -171,6 +171,7 @@ val yojson_of_google_compute_security_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   fingerprint : string prop;
   id : string prop;

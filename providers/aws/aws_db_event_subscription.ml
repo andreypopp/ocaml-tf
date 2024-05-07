@@ -211,6 +211,7 @@ let aws_db_event_subscription ?enabled ?event_categories ?id ?name
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   customer_aws_id : string prop;
   enabled : bool prop;
@@ -231,6 +232,7 @@ let make ?enabled ?event_categories ?id ?name ?name_prefix
   let __type = "aws_db_event_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        customer_aws_id = Prop.computed __type __id "customer_aws_id";
        enabled = Prop.computed __type __id "enabled";

@@ -44,6 +44,7 @@ val yojson_of_aws_dms_replication_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allocated_storage : float prop;
   allow_major_version_upgrade : bool prop;
   apply_immediately : bool prop;

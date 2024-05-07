@@ -643,6 +643,7 @@ let aws_lambda_event_source_mapping ?batch_size
   }
 
 type t = {
+  tf_name : string;
   batch_size : float prop;
   bisect_batch_on_function_error : bool prop;
   enabled : bool prop;
@@ -682,6 +683,7 @@ let make ?batch_size ?bisect_batch_on_function_error ?enabled
   let __type = "aws_lambda_event_source_mapping" in
   let __attrs =
     ({
+       tf_name = __id;
        batch_size = Prop.computed __type __id "batch_size";
        bisect_batch_on_function_error =
          Prop.computed __type __id "bisect_batch_on_function_error";

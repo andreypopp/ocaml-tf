@@ -28,7 +28,11 @@ val yojson_of_azurerm_palo_alto_local_rulestack_outbound_untrust_certificate_ass
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { certificate_id : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  certificate_id : string prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

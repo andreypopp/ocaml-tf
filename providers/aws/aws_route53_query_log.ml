@@ -51,6 +51,7 @@ let aws_route53_query_log ?id ~cloudwatch_log_group_arn ~zone_id () :
   { cloudwatch_log_group_arn; id; zone_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cloudwatch_log_group_arn : string prop;
   id : string prop;
@@ -61,6 +62,7 @@ let make ?id ~cloudwatch_log_group_arn ~zone_id __id =
   let __type = "aws_route53_query_log" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cloudwatch_log_group_arn =
          Prop.computed __type __id "cloudwatch_log_group_arn";

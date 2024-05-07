@@ -63,6 +63,7 @@ let aws_cloudwatch_log_destination_policy ?force_update ?id
   { access_policy; destination_name; force_update; id }
 
 type t = {
+  tf_name : string;
   access_policy : string prop;
   destination_name : string prop;
   force_update : bool prop;
@@ -73,6 +74,7 @@ let make ?force_update ?id ~access_policy ~destination_name __id =
   let __type = "aws_cloudwatch_log_destination_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        access_policy = Prop.computed __type __id "access_policy";
        destination_name =
          Prop.computed __type __id "destination_name";

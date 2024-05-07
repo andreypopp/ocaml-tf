@@ -29,6 +29,7 @@ val yojson_of_google_monitoring_dashboard :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dashboard_json : string prop;
   id : string prop;
   project : string prop;

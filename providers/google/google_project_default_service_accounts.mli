@@ -30,6 +30,7 @@ val yojson_of_google_project_default_service_accounts :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action : string prop;
   id : string prop;
   project : string prop;

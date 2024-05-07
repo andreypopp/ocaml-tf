@@ -18,6 +18,7 @@ val yojson_of_google_service_account_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   policy_data : string prop;

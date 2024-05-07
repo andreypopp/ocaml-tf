@@ -26,6 +26,7 @@ val yojson_of_azurerm_servicebus_topic :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_delete_on_idle : string prop;
   default_message_ttl : string prop;
   duplicate_detection_history_time_window : string prop;

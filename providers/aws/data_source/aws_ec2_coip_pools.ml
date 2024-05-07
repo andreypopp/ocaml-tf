@@ -124,6 +124,7 @@ let aws_ec2_coip_pools ?id ?tags ?timeouts ~filter () :
   { id; tags; filter; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   pool_ids : string list prop;
   tags : (string * string) list prop;
@@ -133,6 +134,7 @@ let make ?id ?tags ?timeouts ~filter __id =
   let __type = "aws_ec2_coip_pools" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        pool_ids = Prop.computed __type __id "pool_ids";
        tags = Prop.computed __type __id "tags";

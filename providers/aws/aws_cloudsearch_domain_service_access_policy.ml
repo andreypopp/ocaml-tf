@@ -96,6 +96,7 @@ let aws_cloudsearch_domain_service_access_policy ?id ?timeouts
   { access_policy; domain_name; id; timeouts }
 
 type t = {
+  tf_name : string;
   access_policy : string prop;
   domain_name : string prop;
   id : string prop;
@@ -105,6 +106,7 @@ let make ?id ?timeouts ~access_policy ~domain_name __id =
   let __type = "aws_cloudsearch_domain_service_access_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        access_policy = Prop.computed __type __id "access_policy";
        domain_name = Prop.computed __type __id "domain_name";
        id = Prop.computed __type __id "id";

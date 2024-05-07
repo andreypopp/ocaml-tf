@@ -809,6 +809,7 @@ let google_container_azure_cluster ?annotations ?client ?description
   }
 
 type t = {
+  tf_name : string;
   annotations : (string * string) list prop;
   azure_region : string prop;
   client : string prop;
@@ -836,6 +837,7 @@ let make ?annotations ?client ?description ?id ?project
   let __type = "google_container_azure_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        annotations = Prop.computed __type __id "annotations";
        azure_region = Prop.computed __type __id "azure_region";
        client = Prop.computed __type __id "client";

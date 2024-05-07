@@ -469,6 +469,7 @@ let google_secret_manager_secrets ?filter ?id ?project () :
   { filter; id; project }
 
 type t = {
+  tf_name : string;
   filter : string prop;
   id : string prop;
   project : string prop;
@@ -479,6 +480,7 @@ let make ?filter ?id ?project __id =
   let __type = "google_secret_manager_secrets" in
   let __attrs =
     ({
+       tf_name = __id;
        filter = Prop.computed __type __id "filter";
        id = Prop.computed __type __id "id";
        project = Prop.computed __type __id "project";

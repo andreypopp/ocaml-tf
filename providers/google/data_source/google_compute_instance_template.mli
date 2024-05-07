@@ -179,6 +179,7 @@ val yojson_of_google_compute_instance_template :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   advanced_machine_features : advanced_machine_features list prop;
   can_ip_forward : bool prop;
   confidential_instance_config :

@@ -54,6 +54,7 @@ val yojson_of_aws_dms_replication_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   replication_config_identifier : string prop;

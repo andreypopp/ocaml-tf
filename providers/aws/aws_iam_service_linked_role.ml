@@ -109,6 +109,7 @@ let aws_iam_service_linked_role ?custom_suffix ?description ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   aws_service_name : string prop;
   create_date : string prop;
@@ -127,6 +128,7 @@ let make ?custom_suffix ?description ?id ?tags ?tags_all
   let __type = "aws_iam_service_linked_role" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        aws_service_name =
          Prop.computed __type __id "aws_service_name";

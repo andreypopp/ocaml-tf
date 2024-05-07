@@ -14,7 +14,11 @@ val yojson_of_aws_billing_service_account :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { arn : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  arn : string prop;
+  id : string prop;
+}
 
 val register : ?tf_module:tf_module -> ?id:string prop -> string -> t
 val make : ?id:string prop -> string -> t Tf_core.resource

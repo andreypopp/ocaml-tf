@@ -37,6 +37,7 @@ val yojson_of_cloudflare_device_settings_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   allow_mode_switch : bool prop;
   allow_updates : bool prop;

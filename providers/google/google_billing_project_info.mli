@@ -29,6 +29,7 @@ val yojson_of_google_billing_project_info :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   billing_account : string prop;
   id : string prop;
   project : string prop;

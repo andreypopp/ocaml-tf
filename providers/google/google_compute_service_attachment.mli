@@ -53,6 +53,7 @@ val yojson_of_google_compute_service_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   connected_endpoints : connected_endpoints list prop;
   connection_preference : string prop;
   consumer_reject_lists : string list prop;

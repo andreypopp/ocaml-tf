@@ -92,6 +92,7 @@ let aws_ecr_image ?id ?image_digest ?image_tag ?most_recent
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   image_digest : string prop;
   image_pushed_at : float prop;
@@ -109,6 +110,7 @@ let make ?id ?image_digest ?image_tag ?most_recent ?registry_id
   let __type = "aws_ecr_image" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        image_digest = Prop.computed __type __id "image_digest";
        image_pushed_at = Prop.computed __type __id "image_pushed_at";

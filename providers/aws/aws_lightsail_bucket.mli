@@ -21,6 +21,7 @@ val yojson_of_aws_lightsail_bucket : aws_lightsail_bucket -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   availability_zone : string prop;
   bundle_id : string prop;

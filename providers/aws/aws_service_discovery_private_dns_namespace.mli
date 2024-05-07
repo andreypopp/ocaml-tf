@@ -22,6 +22,7 @@ val yojson_of_aws_service_discovery_private_dns_namespace :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   hosted_zone : string prop;

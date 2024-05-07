@@ -117,6 +117,7 @@ let google_apigee_env_references ?description ?id ?timeouts ~env_id
   { description; env_id; id; name; refers; resource_type; timeouts }
 
 type t = {
+  tf_name : string;
   description : string prop;
   env_id : string prop;
   id : string prop;
@@ -130,6 +131,7 @@ let make ?description ?id ?timeouts ~env_id ~name ~refers
   let __type = "google_apigee_env_references" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        env_id = Prop.computed __type __id "env_id";
        id = Prop.computed __type __id "id";

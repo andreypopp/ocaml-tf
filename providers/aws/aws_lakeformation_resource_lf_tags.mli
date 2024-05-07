@@ -63,7 +63,11 @@ val yojson_of_aws_lakeformation_resource_lf_tags :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { catalog_id : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  catalog_id : string prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

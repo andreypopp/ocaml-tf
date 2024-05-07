@@ -82,6 +82,7 @@ val yojson_of_azurerm_databox_edge_order :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   device_name : string prop;
   id : string prop;
   name : string prop;

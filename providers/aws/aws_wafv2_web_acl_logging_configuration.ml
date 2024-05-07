@@ -123,6 +123,7 @@ let aws_wafv2_web_acl_logging_configuration ?id ?(logging_filter=[]) ?(redacted_
   } : aws_wafv2_web_acl_logging_configuration);;
 
 type t = {
+  tf_name: string;
   id: string prop;
   log_destination_configs: string list prop;
   resource_arn: string prop;
@@ -131,6 +132,7 @@ type t = {
 let make ?id ?(logging_filter=[]) ?(redacted_fields=[]) ~log_destination_configs ~resource_arn __id =
   let __type = "aws_wafv2_web_acl_logging_configuration" in
   let __attrs = ({
+    tf_name = __id;
     id = Prop.computed __type __id "id";
     log_destination_configs = Prop.computed __type __id "log_destination_configs";
     resource_arn = Prop.computed __type __id "resource_arn";

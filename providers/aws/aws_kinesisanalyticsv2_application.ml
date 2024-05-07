@@ -2502,6 +2502,7 @@ let aws_kinesisanalyticsv2_application ?description ?force_stop ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   create_timestamp : string prop;
   description : string prop;
@@ -2525,6 +2526,7 @@ let make ?description ?force_stop ?id ?start_application ?tags
   let __type = "aws_kinesisanalyticsv2_application" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        create_timestamp =
          Prop.computed __type __id "create_timestamp";

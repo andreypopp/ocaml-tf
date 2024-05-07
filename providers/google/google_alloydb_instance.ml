@@ -453,6 +453,7 @@ let google_alloydb_instance ?annotations ?availability_type
   }
 
 type t = {
+  tf_name : string;
   annotations : (string * string) list prop;
   availability_type : string prop;
   cluster : string prop;
@@ -483,6 +484,7 @@ let make ?annotations ?availability_type ?database_flags
   let __type = "google_alloydb_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        annotations = Prop.computed __type __id "annotations";
        availability_type =
          Prop.computed __type __id "availability_type";

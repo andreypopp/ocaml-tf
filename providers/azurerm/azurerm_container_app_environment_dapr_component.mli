@@ -50,6 +50,7 @@ val yojson_of_azurerm_container_app_environment_dapr_component :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   component_type : string prop;
   container_app_environment_id : string prop;
   id : string prop;

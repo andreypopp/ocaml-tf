@@ -642,6 +642,7 @@ let aws_fis_experiment_template ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   role_arn : string prop;
@@ -654,6 +655,7 @@ let make ?id ?tags ?tags_all ?(log_configuration = []) ?timeouts
   let __type = "aws_fis_experiment_template" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        role_arn = Prop.computed __type __id "role_arn";

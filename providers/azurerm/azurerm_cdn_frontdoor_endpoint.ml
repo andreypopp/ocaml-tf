@@ -150,6 +150,7 @@ let azurerm_cdn_frontdoor_endpoint ?enabled ?id ?tags ?timeouts
   { cdn_frontdoor_profile_id; enabled; id; name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   cdn_frontdoor_profile_id : string prop;
   enabled : bool prop;
   host_name : string prop;
@@ -163,6 +164,7 @@ let make ?enabled ?id ?tags ?timeouts ~cdn_frontdoor_profile_id ~name
   let __type = "azurerm_cdn_frontdoor_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        cdn_frontdoor_profile_id =
          Prop.computed __type __id "cdn_frontdoor_profile_id";
        enabled = Prop.computed __type __id "enabled";

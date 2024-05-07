@@ -162,6 +162,7 @@ let azurerm_route ?id ?next_hop_in_ip_address ?timeouts
   }
 
 type t = {
+  tf_name : string;
   address_prefix : string prop;
   id : string prop;
   name : string prop;
@@ -176,6 +177,7 @@ let make ?id ?next_hop_in_ip_address ?timeouts ~address_prefix ~name
   let __type = "azurerm_route" in
   let __attrs =
     ({
+       tf_name = __id;
        address_prefix = Prop.computed __type __id "address_prefix";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

@@ -270,6 +270,7 @@ let azurerm_app_service_certificate_order ?auto_renew ?csr
   }
 
 type t = {
+  tf_name : string;
   app_service_certificate_not_renewable_reasons : string list prop;
   auto_renew : bool prop;
   certificates : certificates list prop;
@@ -298,6 +299,7 @@ let make ?auto_renew ?csr ?distinguished_name ?id ?key_size
   let __type = "azurerm_app_service_certificate_order" in
   let __attrs =
     ({
+       tf_name = __id;
        app_service_certificate_not_renewable_reasons =
          Prop.computed __type __id
            "app_service_certificate_not_renewable_reasons";

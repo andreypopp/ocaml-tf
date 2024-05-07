@@ -113,6 +113,7 @@ let google_sql_databases ?id ?project ~instance () :
   { id; instance; project }
 
 type t = {
+  tf_name : string;
   databases : databases list prop;
   id : string prop;
   instance : string prop;
@@ -123,6 +124,7 @@ let make ?id ?project ~instance __id =
   let __type = "google_sql_databases" in
   let __attrs =
     ({
+       tf_name = __id;
        databases = Prop.computed __type __id "databases";
        id = Prop.computed __type __id "id";
        instance = Prop.computed __type __id "instance";

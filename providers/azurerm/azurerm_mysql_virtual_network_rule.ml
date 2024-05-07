@@ -134,6 +134,7 @@ let azurerm_mysql_virtual_network_rule ?id ?timeouts ~name
   { id; name; resource_group_name; server_name; subnet_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   resource_group_name : string prop;
@@ -146,6 +147,7 @@ let make ?id ?timeouts ~name ~resource_group_name ~server_name
   let __type = "azurerm_mysql_virtual_network_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        resource_group_name =

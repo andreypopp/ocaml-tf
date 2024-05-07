@@ -25,6 +25,7 @@ val yojson_of_azurerm_marketplace_agreement :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   license_text_link : string prop;
   offer : string prop;

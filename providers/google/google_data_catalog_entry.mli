@@ -68,6 +68,7 @@ val yojson_of_google_data_catalog_entry :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bigquery_date_sharded_spec : bigquery_date_sharded_spec list prop;
   bigquery_table_spec : bigquery_table_spec list prop;
   description : string prop;

@@ -66,6 +66,7 @@ let google_cloudfunctions_function_iam_policy ?id ?project ?region
   { cloud_function; id; project; region }
 
 type t = {
+  tf_name : string;
   cloud_function : string prop;
   etag : string prop;
   id : string prop;
@@ -78,6 +79,7 @@ let make ?id ?project ?region ~cloud_function __id =
   let __type = "google_cloudfunctions_function_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        cloud_function = Prop.computed __type __id "cloud_function";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

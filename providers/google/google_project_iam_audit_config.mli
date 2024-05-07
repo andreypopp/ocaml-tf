@@ -28,6 +28,7 @@ val yojson_of_google_project_iam_audit_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   project : string prop;

@@ -1483,6 +1483,7 @@ let google_securityposture_posture ?description ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   etag : string prop;
@@ -1502,6 +1503,7 @@ let make ?description ?id ?timeouts ~location ~parent ~posture_id
   let __type = "google_securityposture_posture" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        etag = Prop.computed __type __id "etag";

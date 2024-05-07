@@ -79,12 +79,17 @@ let aws_emr_release_labels ?id ?(filters = []) () :
     aws_emr_release_labels =
   { id; filters }
 
-type t = { id : string prop; release_labels : string list prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  release_labels : string list prop;
+}
 
 let make ?id ?(filters = []) __id =
   let __type = "aws_emr_release_labels" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        release_labels = Prop.computed __type __id "release_labels";
      }

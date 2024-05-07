@@ -120,6 +120,7 @@ let cloudflare_device_posture_rules ?id ?name ?type_ ~account_id () :
   { account_id; id; name; type_ }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   name : string prop;
@@ -131,6 +132,7 @@ let make ?id ?name ?type_ ~account_id __id =
   let __type = "cloudflare_device_posture_rules" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

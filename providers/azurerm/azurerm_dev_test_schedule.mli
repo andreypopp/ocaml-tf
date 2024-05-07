@@ -66,6 +66,7 @@ val yojson_of_azurerm_dev_test_schedule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   lab_name : string prop;
   location : string prop;

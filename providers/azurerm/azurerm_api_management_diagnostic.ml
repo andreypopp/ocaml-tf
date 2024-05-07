@@ -914,6 +914,7 @@ let azurerm_api_management_diagnostic ?always_log_errors
   }
 
 type t = {
+  tf_name : string;
   always_log_errors : bool prop;
   api_management_logger_id : string prop;
   api_management_name : string prop;
@@ -936,6 +937,7 @@ let make ?always_log_errors ?http_correlation_protocol ?id
   let __type = "azurerm_api_management_diagnostic" in
   let __attrs =
     ({
+       tf_name = __id;
        always_log_errors =
          Prop.computed __type __id "always_log_errors";
        api_management_logger_id =

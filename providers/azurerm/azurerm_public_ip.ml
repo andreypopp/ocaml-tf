@@ -305,6 +305,7 @@ let azurerm_public_ip ?ddos_protection_mode ?ddos_protection_plan_id
   }
 
 type t = {
+  tf_name : string;
   allocation_method : string prop;
   ddos_protection_mode : string prop;
   ddos_protection_plan_id : string prop;
@@ -335,6 +336,7 @@ let make ?ddos_protection_mode ?ddos_protection_plan_id
   let __type = "azurerm_public_ip" in
   let __attrs =
     ({
+       tf_name = __id;
        allocation_method =
          Prop.computed __type __id "allocation_method";
        ddos_protection_mode =

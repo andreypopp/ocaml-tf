@@ -64,6 +64,7 @@ let aws_apprunner_deployment ?timeouts ~service_arn () :
   { service_arn; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   operation_id : string prop;
   service_arn : string prop;
@@ -74,6 +75,7 @@ let make ?timeouts ~service_arn __id =
   let __type = "aws_apprunner_deployment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        operation_id = Prop.computed __type __id "operation_id";
        service_arn = Prop.computed __type __id "service_arn";

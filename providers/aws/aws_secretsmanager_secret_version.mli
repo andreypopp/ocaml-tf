@@ -21,6 +21,7 @@ val yojson_of_aws_secretsmanager_secret_version :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   secret_binary : string prop;

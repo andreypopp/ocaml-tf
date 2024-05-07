@@ -20,6 +20,7 @@ val yojson_of_aws_cognito_user_pool_domain :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   aws_account_id : string prop;
   certificate_arn : string prop;
   cloudfront_distribution : string prop;

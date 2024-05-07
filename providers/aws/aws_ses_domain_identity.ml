@@ -40,6 +40,7 @@ let aws_ses_domain_identity ?id ~domain () : aws_ses_domain_identity
   { domain; id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   domain : string prop;
   id : string prop;
@@ -50,6 +51,7 @@ let make ?id ~domain __id =
   let __type = "aws_ses_domain_identity" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        domain = Prop.computed __type __id "domain";
        id = Prop.computed __type __id "id";

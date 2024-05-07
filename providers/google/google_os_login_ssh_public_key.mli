@@ -31,6 +31,7 @@ val yojson_of_google_os_login_ssh_public_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   expiration_time_usec : string prop;
   fingerprint : string prop;
   id : string prop;

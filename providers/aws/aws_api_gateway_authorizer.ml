@@ -136,6 +136,7 @@ let aws_api_gateway_authorizer ?authorizer_credentials
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   authorizer_credentials : string prop;
   authorizer_result_ttl_in_seconds : float prop;
@@ -156,6 +157,7 @@ let make ?authorizer_credentials ?authorizer_result_ttl_in_seconds
   let __type = "aws_api_gateway_authorizer" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        authorizer_credentials =
          Prop.computed __type __id "authorizer_credentials";

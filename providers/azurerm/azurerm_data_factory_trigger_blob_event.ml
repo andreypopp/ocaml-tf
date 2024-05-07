@@ -285,6 +285,7 @@ let azurerm_data_factory_trigger_blob_event ?activated
   }
 
 type t = {
+  tf_name : string;
   activated : bool prop;
   additional_properties : (string * string) list prop;
   annotations : string list prop;
@@ -306,6 +307,7 @@ let make ?activated ?additional_properties ?annotations
   let __type = "azurerm_data_factory_trigger_blob_event" in
   let __attrs =
     ({
+       tf_name = __id;
        activated = Prop.computed __type __id "activated";
        additional_properties =
          Prop.computed __type __id "additional_properties";

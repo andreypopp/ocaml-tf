@@ -175,6 +175,7 @@ let google_compute_region_disk ?id ?project ?region ~name () :
   { id; name; project; region }
 
 type t = {
+  tf_name : string;
   async_primary_disk : async_primary_disk list prop;
   creation_timestamp : string prop;
   description : string prop;
@@ -209,6 +210,7 @@ let make ?id ?project ?region ~name __id =
   let __type = "google_compute_region_disk" in
   let __attrs =
     ({
+       tf_name = __id;
        async_primary_disk =
          Prop.computed __type __id "async_primary_disk";
        creation_timestamp =

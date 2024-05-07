@@ -1798,6 +1798,7 @@ let google_network_services_edge_cache_service ?description
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   disable_http2 : bool prop;
   disable_quic : bool prop;
@@ -1822,6 +1823,7 @@ let make ?description ?disable_http2 ?disable_quic
   let __type = "google_network_services_edge_cache_service" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        disable_http2 = Prop.computed __type __id "disable_http2";
        disable_quic = Prop.computed __type __id "disable_quic";

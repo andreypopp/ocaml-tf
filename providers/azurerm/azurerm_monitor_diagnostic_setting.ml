@@ -496,6 +496,7 @@ let azurerm_monitor_diagnostic_setting
   }
 
 type t = {
+  tf_name : string;
   eventhub_authorization_rule_id : string prop;
   eventhub_name : string prop;
   id : string prop;
@@ -514,6 +515,7 @@ let make ?eventhub_authorization_rule_id ?eventhub_name ?id
   let __type = "azurerm_monitor_diagnostic_setting" in
   let __attrs =
     ({
+       tf_name = __id;
        eventhub_authorization_rule_id =
          Prop.computed __type __id "eventhub_authorization_rule_id";
        eventhub_name = Prop.computed __type __id "eventhub_name";

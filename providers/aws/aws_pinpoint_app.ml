@@ -282,6 +282,7 @@ let aws_pinpoint_app ?id ?name ?name_prefix ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   application_id : string prop;
   arn : string prop;
   id : string prop;
@@ -296,6 +297,7 @@ let make ?id ?name ?name_prefix ?tags ?tags_all ?(campaign_hook = [])
   let __type = "aws_pinpoint_app" in
   let __attrs =
     ({
+       tf_name = __id;
        application_id = Prop.computed __type __id "application_id";
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";

@@ -112,6 +112,7 @@ let google_service_account_iam_binding ?id ?(condition = []) ~members
   { id; members; role; service_account_id; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   members : string list prop;
@@ -124,6 +125,7 @@ let make ?id ?(condition = []) ~members ~role ~service_account_id
   let __type = "google_service_account_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        members = Prop.computed __type __id "members";

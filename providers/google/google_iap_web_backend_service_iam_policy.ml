@@ -63,6 +63,7 @@ let google_iap_web_backend_service_iam_policy ?id ?project
   { id; policy_data; project; web_backend_service }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   policy_data : string prop;
@@ -74,6 +75,7 @@ let make ?id ?project ~policy_data ~web_backend_service __id =
   let __type = "google_iap_web_backend_service_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        policy_data = Prop.computed __type __id "policy_data";

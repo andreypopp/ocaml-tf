@@ -20,6 +20,7 @@ val yojson_of_google_data_catalog_entry_group_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   entry_group : string prop;
   etag : string prop;
   id : string prop;

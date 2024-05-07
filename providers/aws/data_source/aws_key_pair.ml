@@ -162,6 +162,7 @@ let aws_key_pair ?id ?include_public_key ?key_name ?key_pair_id ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   create_time : string prop;
   fingerprint : string prop;
@@ -179,6 +180,7 @@ let make ?id ?include_public_key ?key_name ?key_pair_id ?tags
   let __type = "aws_key_pair" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        create_time = Prop.computed __type __id "create_time";
        fingerprint = Prop.computed __type __id "fingerprint";

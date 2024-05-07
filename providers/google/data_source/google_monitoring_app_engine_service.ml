@@ -72,6 +72,7 @@ let google_monitoring_app_engine_service ?id ?project ~module_id () :
   { id; module_id; project }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   module_id : string prop;
@@ -86,6 +87,7 @@ let make ?id ?project ~module_id __id =
   let __type = "google_monitoring_app_engine_service" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";
        module_id = Prop.computed __type __id "module_id";

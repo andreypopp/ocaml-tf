@@ -41,6 +41,7 @@ val yojson_of_azurerm_data_protection_backup_vault :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   datastore_type : string prop;
   id : string prop;
   location : string prop;

@@ -62,6 +62,7 @@ val yojson_of_google_compute_image : google_compute_image -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   archive_size_bytes : float prop;
   creation_timestamp : string prop;
   description : string prop;

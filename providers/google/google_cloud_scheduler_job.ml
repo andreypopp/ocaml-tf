@@ -662,6 +662,7 @@ let google_cloud_scheduler_job ?attempt_deadline ?description ?id
   }
 
 type t = {
+  tf_name : string;
   attempt_deadline : string prop;
   description : string prop;
   id : string prop;
@@ -681,6 +682,7 @@ let make ?attempt_deadline ?description ?id ?paused ?project ?region
   let __type = "google_cloud_scheduler_job" in
   let __attrs =
     ({
+       tf_name = __id;
        attempt_deadline =
          Prop.computed __type __id "attempt_deadline";
        description = Prop.computed __type __id "description";

@@ -24,6 +24,7 @@ val yojson_of_hcloud_snapshot : hcloud_snapshot -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   labels : (string * string) list prop;

@@ -43,6 +43,7 @@ val yojson_of_azurerm_static_site : azurerm_static_site -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_key : string prop;
   app_settings : (string * string) list prop;
   default_host_name : string prop;

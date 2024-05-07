@@ -143,6 +143,7 @@ let aws_iam_account_password_policy ?allow_users_to_change_password
   }
 
 type t = {
+  tf_name : string;
   allow_users_to_change_password : bool prop;
   expire_passwords : bool prop;
   hard_expiry : bool prop;
@@ -164,6 +165,7 @@ let make ?allow_users_to_change_password ?hard_expiry ?id
   let __type = "aws_iam_account_password_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_users_to_change_password =
          Prop.computed __type __id "allow_users_to_change_password";
        expire_passwords =

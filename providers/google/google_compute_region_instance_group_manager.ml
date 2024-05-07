@@ -982,6 +982,7 @@ let google_compute_region_instance_group_manager ?description
   }
 
 type t = {
+  tf_name : string;
   base_instance_name : string prop;
   creation_timestamp : string prop;
   description : string prop;
@@ -1013,6 +1014,7 @@ let make ?description ?distribution_policy_target_shape
   let __type = "google_compute_region_instance_group_manager" in
   let __attrs =
     ({
+       tf_name = __id;
        base_instance_name =
          Prop.computed __type __id "base_instance_name";
        creation_timestamp =

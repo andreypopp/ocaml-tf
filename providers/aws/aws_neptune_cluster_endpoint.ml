@@ -132,6 +132,7 @@ let aws_neptune_cluster_endpoint ?excluded_members ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cluster_endpoint_identifier : string prop;
   cluster_identifier : string prop;
@@ -150,6 +151,7 @@ let make ?excluded_members ?id ?static_members ?tags ?tags_all
   let __type = "aws_neptune_cluster_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cluster_endpoint_identifier =
          Prop.computed __type __id "cluster_endpoint_identifier";

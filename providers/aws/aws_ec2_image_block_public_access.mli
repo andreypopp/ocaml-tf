@@ -22,7 +22,11 @@ val yojson_of_aws_ec2_image_block_public_access :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; state : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  state : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

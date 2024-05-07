@@ -427,6 +427,7 @@ let kubernetes_ingress ?id ~metadata () : kubernetes_ingress =
   { id; metadata }
 
 type t = {
+  tf_name : string;
   id : string prop;
   spec : spec list prop;
   status : status list prop;
@@ -436,6 +437,7 @@ let make ?id ~metadata __id =
   let __type = "kubernetes_ingress" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        spec = Prop.computed __type __id "spec";
        status = Prop.computed __type __id "status";

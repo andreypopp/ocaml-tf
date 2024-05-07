@@ -154,6 +154,7 @@ let azurerm_logic_app_trigger_http_request ?id ?method_
   }
 
 type t = {
+  tf_name : string;
   callback_url : string prop;
   id : string prop;
   logic_app_id : string prop;
@@ -168,6 +169,7 @@ let make ?id ?method_ ?relative_path ?timeouts ~logic_app_id ~name
   let __type = "azurerm_logic_app_trigger_http_request" in
   let __attrs =
     ({
+       tf_name = __id;
        callback_url = Prop.computed __type __id "callback_url";
        id = Prop.computed __type __id "id";
        logic_app_id = Prop.computed __type __id "logic_app_id";

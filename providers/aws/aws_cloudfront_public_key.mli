@@ -21,6 +21,7 @@ val yojson_of_aws_cloudfront_public_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   caller_reference : string prop;
   comment : string prop;
   encoded_key : string prop;

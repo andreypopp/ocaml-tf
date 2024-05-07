@@ -145,6 +145,7 @@ let google_dataplex_zone_iam_binding ?id ?location ?project
   }
 
 type t = {
+  tf_name : string;
   dataplex_zone : string prop;
   etag : string prop;
   id : string prop;
@@ -160,6 +161,7 @@ let make ?id ?location ?project ?(condition = []) ~dataplex_zone
   let __type = "google_dataplex_zone_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        dataplex_zone = Prop.computed __type __id "dataplex_zone";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

@@ -78,6 +78,7 @@ let aws_db_proxy_target ?db_cluster_identifier
   }
 
 type t = {
+  tf_name : string;
   db_cluster_identifier : string prop;
   db_instance_identifier : string prop;
   db_proxy_name : string prop;
@@ -96,6 +97,7 @@ let make ?db_cluster_identifier ?db_instance_identifier ?id
   let __type = "aws_db_proxy_target" in
   let __attrs =
     ({
+       tf_name = __id;
        db_cluster_identifier =
          Prop.computed __type __id "db_cluster_identifier";
        db_instance_identifier =

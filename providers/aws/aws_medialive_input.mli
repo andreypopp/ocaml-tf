@@ -67,6 +67,7 @@ val yojson_of_aws_medialive_input : aws_medialive_input -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   attached_channels : string list prop;
   id : string prop;

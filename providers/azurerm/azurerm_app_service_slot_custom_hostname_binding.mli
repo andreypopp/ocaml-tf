@@ -31,6 +31,7 @@ val yojson_of_azurerm_app_service_slot_custom_hostname_binding :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_service_slot_id : string prop;
   hostname : string prop;
   id : string prop;

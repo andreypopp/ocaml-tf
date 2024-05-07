@@ -30,6 +30,7 @@ val yojson_of_aws_ec2_transit_gateway_connect_peer :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   bgp_asn : string prop;
   bgp_peer_address : string prop;

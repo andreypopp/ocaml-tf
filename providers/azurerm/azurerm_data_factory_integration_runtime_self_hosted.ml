@@ -175,6 +175,7 @@ let azurerm_data_factory_integration_runtime_self_hosted ?description
   }
 
 type t = {
+  tf_name : string;
   data_factory_id : string prop;
   description : string prop;
   id : string prop;
@@ -190,6 +191,7 @@ let make ?description ?id ?timeouts ~data_factory_id ~name
   in
   let __attrs =
     ({
+       tf_name = __id;
        data_factory_id = Prop.computed __type __id "data_factory_id";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

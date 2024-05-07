@@ -44,6 +44,7 @@ val yojson_of_aws_lakeformation_data_lake_settings :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   admins : string list prop;
   allow_external_data_filtering : bool prop;
   authorized_session_tag_value_list : string list prop;

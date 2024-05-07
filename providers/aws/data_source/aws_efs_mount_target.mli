@@ -19,6 +19,7 @@ val yojson_of_aws_efs_mount_target : aws_efs_mount_target -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_point_id : string prop;
   availability_zone_id : string prop;
   availability_zone_name : string prop;

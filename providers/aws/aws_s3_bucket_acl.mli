@@ -54,6 +54,7 @@ val yojson_of_aws_s3_bucket_acl : aws_s3_bucket_acl -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   acl : string prop;
   bucket : string prop;
   expected_bucket_owner : string prop;

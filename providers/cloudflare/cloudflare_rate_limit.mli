@@ -77,6 +77,7 @@ val yojson_of_cloudflare_rate_limit : cloudflare_rate_limit -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bypass_url_patterns : string list prop;
   description : string prop;
   disabled : bool prop;

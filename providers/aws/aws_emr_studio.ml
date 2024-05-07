@@ -192,6 +192,7 @@ let aws_emr_studio ?description ?id ?idp_auth_url
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   auth_mode : string prop;
   default_s3_location : string prop;
@@ -219,6 +220,7 @@ let make ?description ?id ?idp_auth_url
   let __type = "aws_emr_studio" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        auth_mode = Prop.computed __type __id "auth_mode";
        default_s3_location =

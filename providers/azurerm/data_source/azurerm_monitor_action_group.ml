@@ -655,6 +655,7 @@ let azurerm_monitor_action_group ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   arm_role_receiver : arm_role_receiver list prop;
   automation_runbook_receiver :
     automation_runbook_receiver list prop;
@@ -678,6 +679,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_monitor_action_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arm_role_receiver =
          Prop.computed __type __id "arm_role_receiver";
        automation_runbook_receiver =

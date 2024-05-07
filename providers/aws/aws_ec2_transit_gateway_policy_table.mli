@@ -20,6 +20,7 @@ val yojson_of_aws_ec2_transit_gateway_policy_table :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   state : string prop;

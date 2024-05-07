@@ -827,6 +827,7 @@ let aws_customerprofiles_profile ?account_number
   }
 
 type t = {
+  tf_name : string;
   account_number : string prop;
   additional_information : string prop;
   attributes : (string * string) list prop;
@@ -859,6 +860,7 @@ let make ?account_number ?additional_information ?attributes
   let __type = "aws_customerprofiles_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        account_number = Prop.computed __type __id "account_number";
        additional_information =
          Prop.computed __type __id "additional_information";

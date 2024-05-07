@@ -84,12 +84,17 @@ let aws_chime_voice_connector_termination_credentials ?id
     aws_chime_voice_connector_termination_credentials =
   { id; voice_connector_id; credentials }
 
-type t = { id : string prop; voice_connector_id : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  voice_connector_id : string prop;
+}
 
 let make ?id ~voice_connector_id ~credentials __id =
   let __type = "aws_chime_voice_connector_termination_credentials" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        voice_connector_id =
          Prop.computed __type __id "voice_connector_id";

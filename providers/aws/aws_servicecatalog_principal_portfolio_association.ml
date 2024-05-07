@@ -135,6 +135,7 @@ let aws_servicecatalog_principal_portfolio_association
   }
 
 type t = {
+  tf_name : string;
   accept_language : string prop;
   id : string prop;
   portfolio_id : string prop;
@@ -149,6 +150,7 @@ let make ?accept_language ?id ?principal_type ?timeouts ~portfolio_id
   in
   let __attrs =
     ({
+       tf_name = __id;
        accept_language = Prop.computed __type __id "accept_language";
        id = Prop.computed __type __id "id";
        portfolio_id = Prop.computed __type __id "portfolio_id";

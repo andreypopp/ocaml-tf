@@ -96,6 +96,7 @@ let aws_pinpoint_email_channel ?configuration_set ?enabled ?id
   }
 
 type t = {
+  tf_name : string;
   application_id : string prop;
   configuration_set : string prop;
   enabled : bool prop;
@@ -111,6 +112,7 @@ let make ?configuration_set ?enabled ?id ?role_arn ~application_id
   let __type = "aws_pinpoint_email_channel" in
   let __attrs =
     ({
+       tf_name = __id;
        application_id = Prop.computed __type __id "application_id";
        configuration_set =
          Prop.computed __type __id "configuration_set";

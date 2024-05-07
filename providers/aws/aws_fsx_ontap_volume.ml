@@ -658,6 +658,7 @@ let aws_fsx_ontap_volume ?bypass_snaplock_enterprise_retention
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   bypass_snaplock_enterprise_retention : bool prop;
   copy_tags_to_backups : bool prop;
@@ -688,6 +689,7 @@ let make ?bypass_snaplock_enterprise_retention ?copy_tags_to_backups
   let __type = "aws_fsx_ontap_volume" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        bypass_snaplock_enterprise_retention =
          Prop.computed __type __id

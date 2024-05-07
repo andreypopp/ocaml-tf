@@ -669,6 +669,7 @@ let azurerm_monitor_action_rule_suppression ?description ?enabled ?id
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   enabled : bool prop;
   id : string prop;
@@ -683,6 +684,7 @@ let make ?description ?enabled ?id ?tags ?(condition = [])
   let __type = "azurerm_monitor_action_rule_suppression" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";

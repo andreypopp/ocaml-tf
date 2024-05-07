@@ -68,6 +68,7 @@ val yojson_of_azurerm_firewall : azurerm_firewall -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dns_proxy_enabled : bool prop;
   dns_servers : string list prop;
   firewall_policy_id : string prop;

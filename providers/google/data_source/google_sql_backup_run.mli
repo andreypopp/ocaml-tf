@@ -20,6 +20,7 @@ val yojson_of_google_sql_backup_run : google_sql_backup_run -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backup_id : float prop;
   id : string prop;
   instance : string prop;

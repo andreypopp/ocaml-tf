@@ -65,6 +65,7 @@ let aws_codeartifact_authorization_token ?domain_owner
   { domain; domain_owner; duration_seconds; id }
 
 type t = {
+  tf_name : string;
   authorization_token : string prop;
   domain : string prop;
   domain_owner : string prop;
@@ -77,6 +78,7 @@ let make ?domain_owner ?duration_seconds ?id ~domain __id =
   let __type = "aws_codeartifact_authorization_token" in
   let __attrs =
     ({
+       tf_name = __id;
        authorization_token =
          Prop.computed __type __id "authorization_token";
        domain = Prop.computed __type __id "domain";

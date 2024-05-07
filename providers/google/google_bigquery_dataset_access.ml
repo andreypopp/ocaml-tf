@@ -345,6 +345,7 @@ let google_bigquery_dataset_access ?domain ?group_by_email
   }
 
 type t = {
+  tf_name : string;
   api_updated_member : bool prop;
   dataset_id : string prop;
   domain : string prop;
@@ -363,6 +364,7 @@ let make ?domain ?group_by_email ?iam_member ?id ?project ?role
   let __type = "google_bigquery_dataset_access" in
   let __attrs =
     ({
+       tf_name = __id;
        api_updated_member =
          Prop.computed __type __id "api_updated_member";
        dataset_id = Prop.computed __type __id "dataset_id";

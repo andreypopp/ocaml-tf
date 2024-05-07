@@ -113,6 +113,7 @@ let cloudflare_device_dex_test ?id ~account_id ~description ~enabled
   { account_id; description; enabled; id; interval; name; data }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   created : string prop;
   description : string prop;
@@ -128,6 +129,7 @@ let make ?id ~account_id ~description ~enabled ~interval ~name ~data
   let __type = "cloudflare_device_dex_test" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        created = Prop.computed __type __id "created";
        description = Prop.computed __type __id "description";

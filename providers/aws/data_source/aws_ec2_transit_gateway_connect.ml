@@ -136,6 +136,7 @@ let aws_ec2_transit_gateway_connect ?id ?tags
   { id; tags; transit_gateway_connect_id; filter; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   protocol : string prop;
   tags : (string * string) list prop;
@@ -149,6 +150,7 @@ let make ?id ?tags ?transit_gateway_connect_id ?timeouts ~filter __id
   let __type = "aws_ec2_transit_gateway_connect" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        protocol = Prop.computed __type __id "protocol";
        tags = Prop.computed __type __id "tags";

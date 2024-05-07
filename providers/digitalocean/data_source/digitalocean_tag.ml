@@ -38,6 +38,7 @@ let _ = yojson_of_digitalocean_tag
 let digitalocean_tag ?id ~name () : digitalocean_tag = { id; name }
 
 type t = {
+  tf_name : string;
   databases_count : float prop;
   droplets_count : float prop;
   id : string prop;
@@ -52,6 +53,7 @@ let make ?id ~name __id =
   let __type = "digitalocean_tag" in
   let __attrs =
     ({
+       tf_name = __id;
        databases_count = Prop.computed __type __id "databases_count";
        droplets_count = Prop.computed __type __id "droplets_count";
        id = Prop.computed __type __id "id";

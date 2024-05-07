@@ -177,6 +177,7 @@ let aws_ec2_transit_gateway_connect_peer ?bgp_asn ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   bgp_asn : string prop;
   bgp_peer_address : string prop;
@@ -196,6 +197,7 @@ let make ?bgp_asn ?id ?tags ?tags_all ?transit_gateway_address
   let __type = "aws_ec2_transit_gateway_connect_peer" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        bgp_asn = Prop.computed __type __id "bgp_asn";
        bgp_peer_address =

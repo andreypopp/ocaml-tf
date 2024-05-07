@@ -52,6 +52,7 @@ let aws_ecrpublic_repository_policy ?id ~policy ~repository_name () :
   { id; policy; repository_name }
 
 type t = {
+  tf_name : string;
   id : string prop;
   policy : string prop;
   registry_id : string prop;
@@ -62,6 +63,7 @@ let make ?id ~policy ~repository_name __id =
   let __type = "aws_ecrpublic_repository_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        policy = Prop.computed __type __id "policy";
        registry_id = Prop.computed __type __id "registry_id";

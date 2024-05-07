@@ -614,6 +614,7 @@ let azurerm_mysql_flexible_server ?administrator_login
   }
 
 type t = {
+  tf_name : string;
   administrator_login : string prop;
   administrator_password : string prop;
   backup_retention_days : float prop;
@@ -648,6 +649,7 @@ let make ?administrator_login ?administrator_password
   let __type = "azurerm_mysql_flexible_server" in
   let __attrs =
     ({
+       tf_name = __id;
        administrator_login =
          Prop.computed __type __id "administrator_login";
        administrator_password =

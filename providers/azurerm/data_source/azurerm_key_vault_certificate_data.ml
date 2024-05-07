@@ -94,6 +94,7 @@ let azurerm_key_vault_certificate_data ?id ?version ?timeouts
   { id; key_vault_id; name; version; timeouts }
 
 type t = {
+  tf_name : string;
   certificates_count : float prop;
   expires : string prop;
   hex : string prop;
@@ -111,6 +112,7 @@ let make ?id ?version ?timeouts ~key_vault_id ~name __id =
   let __type = "azurerm_key_vault_certificate_data" in
   let __attrs =
     ({
+       tf_name = __id;
        certificates_count =
          Prop.computed __type __id "certificates_count";
        expires = Prop.computed __type __id "expires";

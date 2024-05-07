@@ -22,6 +22,7 @@ val yojson_of_digitalocean_spaces_bucket_object :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   body : string prop;
   bucket : string prop;
   cache_control : string prop;

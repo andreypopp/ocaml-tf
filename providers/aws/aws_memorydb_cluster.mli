@@ -75,6 +75,7 @@ val yojson_of_aws_memorydb_cluster : aws_memorydb_cluster -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   acl_name : string prop;
   arn : string prop;
   auto_minor_version_upgrade : bool prop;

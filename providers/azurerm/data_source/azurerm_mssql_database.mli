@@ -28,6 +28,7 @@ val yojson_of_azurerm_mssql_database : azurerm_mssql_database -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   collation : string prop;
   elastic_pool_id : string prop;
   enclave_type : string prop;

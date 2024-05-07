@@ -202,6 +202,7 @@ let google_compute_external_vpn_gateway ?description ?id ?labels
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   effective_labels : (string * string) list prop;
   id : string prop;
@@ -219,6 +220,7 @@ let make ?description ?id ?labels ?project ?redundancy_type
   let __type = "google_compute_external_vpn_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        effective_labels =
          Prop.computed __type __id "effective_labels";

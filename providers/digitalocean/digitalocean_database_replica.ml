@@ -112,6 +112,7 @@ let digitalocean_database_replica ?id ?private_network_uuid ?region
   }
 
 type t = {
+  tf_name : string;
   cluster_id : string prop;
   database : string prop;
   host : string prop;
@@ -136,6 +137,7 @@ let make ?id ?private_network_uuid ?region ?size ?storage_size_mib
   let __type = "digitalocean_database_replica" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_id = Prop.computed __type __id "cluster_id";
        database = Prop.computed __type __id "database";
        host = Prop.computed __type __id "host";

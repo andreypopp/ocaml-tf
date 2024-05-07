@@ -151,6 +151,7 @@ let azurerm_iothub_enrichment ?id ?timeouts ~endpoint_names
   }
 
 type t = {
+  tf_name : string;
   endpoint_names : string list prop;
   id : string prop;
   iothub_name : string prop;
@@ -164,6 +165,7 @@ let make ?id ?timeouts ~endpoint_names ~iothub_name ~key
   let __type = "azurerm_iothub_enrichment" in
   let __attrs =
     ({
+       tf_name = __id;
        endpoint_names = Prop.computed __type __id "endpoint_names";
        id = Prop.computed __type __id "id";
        iothub_name = Prop.computed __type __id "iothub_name";

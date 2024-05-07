@@ -130,6 +130,7 @@ val yojson_of_google_netapp_volume : google_netapp_volume -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   active_directory : string prop;
   capacity_gib : string prop;
   create_time : string prop;

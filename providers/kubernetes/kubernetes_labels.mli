@@ -27,6 +27,7 @@ val yojson_of_kubernetes_labels : kubernetes_labels -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_version : string prop;
   field_manager : string prop;
   force : bool prop;

@@ -50,6 +50,7 @@ let aws_appstream_fleet_stack_association ?id ~fleet_name ~stack_name
   { fleet_name; id; stack_name }
 
 type t = {
+  tf_name : string;
   fleet_name : string prop;
   id : string prop;
   stack_name : string prop;
@@ -59,6 +60,7 @@ let make ?id ~fleet_name ~stack_name __id =
   let __type = "aws_appstream_fleet_stack_association" in
   let __attrs =
     ({
+       tf_name = __id;
        fleet_name = Prop.computed __type __id "fleet_name";
        id = Prop.computed __type __id "id";
        stack_name = Prop.computed __type __id "stack_name";

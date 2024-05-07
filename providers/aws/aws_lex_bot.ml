@@ -456,6 +456,7 @@ let aws_lex_bot ?create_version ?description ?detect_sentiment
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   checksum : string prop;
   child_directed : bool prop;
@@ -485,6 +486,7 @@ let make ?create_version ?description ?detect_sentiment
   let __type = "aws_lex_bot" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        checksum = Prop.computed __type __id "checksum";
        child_directed = Prop.computed __type __id "child_directed";

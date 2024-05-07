@@ -25,6 +25,7 @@ val yojson_of_aws_autoscaling_lifecycle_hook :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   autoscaling_group_name : string prop;
   default_result : string prop;
   heartbeat_timeout : float prop;

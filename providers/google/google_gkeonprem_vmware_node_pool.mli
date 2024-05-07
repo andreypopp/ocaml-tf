@@ -98,6 +98,7 @@ val yojson_of_google_gkeonprem_vmware_node_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   annotations : (string * string) list prop;
   create_time : string prop;
   delete_time : string prop;

@@ -238,6 +238,7 @@ let aws_securitylake_custom_log_source ?event_classes ?source_version
   { event_classes; source_name; source_version; configuration }
 
 type t = {
+  tf_name : string;
   attributes : attributes list prop;
   event_classes : string list prop;
   id : string prop;
@@ -251,6 +252,7 @@ let make ?event_classes ?source_version ?(configuration = [])
   let __type = "aws_securitylake_custom_log_source" in
   let __attrs =
     ({
+       tf_name = __id;
        attributes = Prop.computed __type __id "attributes";
        event_classes = Prop.computed __type __id "event_classes";
        id = Prop.computed __type __id "id";

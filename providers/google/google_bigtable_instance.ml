@@ -312,6 +312,7 @@ let google_bigtable_instance ?deletion_protection ?display_name ?id
   }
 
 type t = {
+  tf_name : string;
   deletion_protection : bool prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;
@@ -328,6 +329,7 @@ let make ?deletion_protection ?display_name ?id ?instance_type
   let __type = "google_bigtable_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        deletion_protection =
          Prop.computed __type __id "deletion_protection";
        display_name = Prop.computed __type __id "display_name";

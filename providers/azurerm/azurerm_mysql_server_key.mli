@@ -30,6 +30,7 @@ val yojson_of_azurerm_mysql_server_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   key_vault_key_id : string prop;
   server_id : string prop;

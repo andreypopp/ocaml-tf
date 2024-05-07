@@ -5601,6 +5601,7 @@ let aws_kinesis_firehose_delivery_stream ?arn ?destination_id ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   destination : string prop;
   destination_id : string prop;
@@ -5623,6 +5624,7 @@ let make ?arn ?destination_id ?id ?tags ?tags_all ?version_id
   let __type = "aws_kinesis_firehose_delivery_stream" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        destination = Prop.computed __type __id "destination";
        destination_id = Prop.computed __type __id "destination_id";

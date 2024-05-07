@@ -363,6 +363,7 @@ let google_cloud_run_domain_mapping ?id ?project ?(metadata = [])
   { id; location; name; project; metadata; spec; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -375,6 +376,7 @@ let make ?id ?project ?(metadata = []) ?timeouts ~location ~name
   let __type = "google_cloud_run_domain_mapping" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

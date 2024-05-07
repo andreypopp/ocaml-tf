@@ -237,6 +237,7 @@ let aws_resourcegroupstaggingapi_resources
   }
 
 type t = {
+  tf_name : string;
   exclude_compliant_resources : bool prop;
   id : string prop;
   include_compliance_details : bool prop;
@@ -251,6 +252,7 @@ let make ?exclude_compliant_resources ?id ?include_compliance_details
   let __type = "aws_resourcegroupstaggingapi_resources" in
   let __attrs =
     ({
+       tf_name = __id;
        exclude_compliant_resources =
          Prop.computed __type __id "exclude_compliant_resources";
        id = Prop.computed __type __id "id";

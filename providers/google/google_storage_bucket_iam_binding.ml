@@ -109,6 +109,7 @@ let google_storage_bucket_iam_binding ?id ?(condition = []) ~bucket
   { bucket; id; members; role; condition }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   etag : string prop;
   id : string prop;
@@ -120,6 +121,7 @@ let make ?id ?(condition = []) ~bucket ~members ~role __id =
   let __type = "google_storage_bucket_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

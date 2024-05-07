@@ -55,6 +55,7 @@ let cloudflare_pages_domain ?id ~account_id ~domain ~project_name ()
   { account_id; domain; id; project_name }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   domain : string prop;
   id : string prop;
@@ -66,6 +67,7 @@ let make ?id ~account_id ~domain ~project_name __id =
   let __type = "cloudflare_pages_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        domain = Prop.computed __type __id "domain";
        id = Prop.computed __type __id "id";

@@ -1359,6 +1359,7 @@ let google_database_migration_service_connection_profile
   }
 
 type t = {
+  tf_name : string;
   connection_profile_id : string prop;
   create_time : string prop;
   dbprovider : string prop;
@@ -1382,6 +1383,7 @@ let make ?display_name ?id ?labels ?location ?project ?(alloydb = [])
   in
   let __attrs =
     ({
+       tf_name = __id;
        connection_profile_id =
          Prop.computed __type __id "connection_profile_id";
        create_time = Prop.computed __type __id "create_time";

@@ -32,6 +32,7 @@ val yojson_of_azurerm_cdn_frontdoor_custom_domain :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cdn_frontdoor_profile_id : string prop;
   dns_zone_id : string prop;
   expiration_date : string prop;

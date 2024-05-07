@@ -32,6 +32,7 @@ val yojson_of_azurerm_cognitive_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   endpoint : string prop;
   id : string prop;
   identity : identity list prop;

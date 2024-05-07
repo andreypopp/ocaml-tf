@@ -245,6 +245,7 @@ let aws_ec2_transit_gateway_multicast_domain ?id ?tags
   { id; tags; transit_gateway_multicast_domain_id; filter; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   associations : associations list prop;
   auto_accept_shared_associations : string prop;
@@ -266,6 +267,7 @@ let make ?id ?tags ?transit_gateway_multicast_domain_id ?timeouts
   let __type = "aws_ec2_transit_gateway_multicast_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        associations = Prop.computed __type __id "associations";
        auto_accept_shared_associations =

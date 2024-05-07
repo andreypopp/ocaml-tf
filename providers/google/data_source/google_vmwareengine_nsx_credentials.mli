@@ -18,6 +18,7 @@ val yojson_of_google_vmwareengine_nsx_credentials :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   parent : string prop;
   password : string prop;

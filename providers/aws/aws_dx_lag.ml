@@ -134,6 +134,7 @@ let aws_dx_lag ?connection_id ?force_destroy ?id ?provider_name ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   connection_id : string prop;
   connections_bandwidth : string prop;
@@ -154,6 +155,7 @@ let make ?connection_id ?force_destroy ?id ?provider_name ?tags
   let __type = "aws_dx_lag" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        connection_id = Prop.computed __type __id "connection_id";
        connections_bandwidth =

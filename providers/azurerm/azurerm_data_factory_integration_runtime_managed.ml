@@ -379,6 +379,7 @@ let azurerm_data_factory_integration_runtime_managed ?credential_name
   }
 
 type t = {
+  tf_name : string;
   credential_name : string prop;
   data_factory_id : string prop;
   description : string prop;
@@ -400,6 +401,7 @@ let make ?credential_name ?description ?edition ?id ?license_type
   let __type = "azurerm_data_factory_integration_runtime_managed" in
   let __attrs =
     ({
+       tf_name = __id;
        credential_name = Prop.computed __type __id "credential_name";
        data_factory_id = Prop.computed __type __id "data_factory_id";
        description = Prop.computed __type __id "description";

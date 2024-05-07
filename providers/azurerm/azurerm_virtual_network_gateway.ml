@@ -1095,6 +1095,7 @@ let azurerm_virtual_network_gateway ?active_active
   }
 
 type t = {
+  tf_name : string;
   active_active : bool prop;
   bgp_route_translation_for_nat_enabled : bool prop;
   default_local_network_gateway_id : string prop;
@@ -1128,6 +1129,7 @@ let make ?active_active ?bgp_route_translation_for_nat_enabled
   let __type = "azurerm_virtual_network_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        active_active = Prop.computed __type __id "active_active";
        bgp_route_translation_for_nat_enabled =
          Prop.computed __type __id

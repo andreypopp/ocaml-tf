@@ -38,6 +38,7 @@ val yojson_of_azurerm_data_factory_pipeline :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   activities_json : string prop;
   annotations : string list prop;
   concurrency : float prop;

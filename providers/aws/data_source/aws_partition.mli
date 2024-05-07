@@ -12,6 +12,7 @@ val yojson_of_aws_partition : aws_partition -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dns_suffix : string prop;
   id : string prop;
   partition : string prop;

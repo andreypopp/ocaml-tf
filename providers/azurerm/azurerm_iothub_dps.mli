@@ -61,6 +61,7 @@ val yojson_of_azurerm_iothub_dps : azurerm_iothub_dps -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allocation_policy : string prop;
   data_residency_enabled : bool prop;
   device_provisioning_host_name : string prop;

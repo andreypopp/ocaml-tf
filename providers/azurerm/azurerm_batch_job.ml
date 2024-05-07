@@ -178,6 +178,7 @@ let azurerm_batch_job ?common_environment_properties ?display_name
   }
 
 type t = {
+  tf_name : string;
   batch_pool_id : string prop;
   common_environment_properties : (string * string) list prop;
   display_name : string prop;
@@ -192,6 +193,7 @@ let make ?common_environment_properties ?display_name ?id ?priority
   let __type = "azurerm_batch_job" in
   let __attrs =
     ({
+       tf_name = __id;
        batch_pool_id = Prop.computed __type __id "batch_pool_id";
        common_environment_properties =
          Prop.computed __type __id "common_environment_properties";

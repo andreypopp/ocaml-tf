@@ -47,6 +47,7 @@ val yojson_of_aws_default_security_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   egress : egress list prop;

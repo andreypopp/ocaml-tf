@@ -23,6 +23,7 @@ val yojson_of_aws_polly_voices : aws_polly_voices -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   engine : string prop;
   id : string prop;
   include_additional_language_codes : bool prop;

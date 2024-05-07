@@ -30,6 +30,7 @@ val yojson_of_azurerm_hdinsight_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_version : string prop;
   component_versions : (string * string) list prop;
   edge_ssh_endpoint : string prop;

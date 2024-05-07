@@ -74,6 +74,7 @@ let aws_vpc_security_group_rule ?security_group_rule_id ~filter () :
   { security_group_rule_id; filter }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cidr_ipv4 : string prop;
   cidr_ipv6 : string prop;
@@ -94,6 +95,7 @@ let make ?security_group_rule_id ~filter __id =
   let __type = "aws_vpc_security_group_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cidr_ipv4 = Prop.computed __type __id "cidr_ipv4";
        cidr_ipv6 = Prop.computed __type __id "cidr_ipv6";

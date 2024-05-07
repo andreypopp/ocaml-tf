@@ -136,6 +136,7 @@ let aws_ec2_local_gateway_virtual_interface_group ?id
   { id; local_gateway_id; tags; filter; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   local_gateway_id : string prop;
   local_gateway_virtual_interface_ids : string list prop;
@@ -146,6 +147,7 @@ let make ?id ?local_gateway_id ?tags ?timeouts ~filter __id =
   let __type = "aws_ec2_local_gateway_virtual_interface_group" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        local_gateway_id =
          Prop.computed __type __id "local_gateway_id";

@@ -2400,6 +2400,7 @@ let google_privateca_certificate ?certificate_authority
   }
 
 type t = {
+  tf_name : string;
   certificate_authority : string prop;
   certificate_description : certificate_description list prop;
   certificate_template : string prop;
@@ -2427,6 +2428,7 @@ let make ?certificate_authority ?certificate_template ?id ?labels
   let __type = "google_privateca_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_authority =
          Prop.computed __type __id "certificate_authority";
        certificate_description =

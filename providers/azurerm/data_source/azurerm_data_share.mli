@@ -29,6 +29,7 @@ val yojson_of_azurerm_data_share : azurerm_data_share -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   description : string prop;
   id : string prop;

@@ -21,6 +21,7 @@ val yojson_of_hcloud_network : hcloud_network -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   delete_protection : bool prop;
   expose_routes_to_vswitch : bool prop;
   id : float prop;

@@ -522,6 +522,7 @@ let aws_sagemaker_feature_group ?description ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   event_time_feature_name : string prop;
@@ -541,6 +542,7 @@ let make ?description ?id ?tags ?tags_all
   let __type = "aws_sagemaker_feature_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        event_time_feature_name =

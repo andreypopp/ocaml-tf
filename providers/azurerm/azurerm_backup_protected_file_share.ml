@@ -158,6 +158,7 @@ let azurerm_backup_protected_file_share ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   backup_policy_id : string prop;
   id : string prop;
   recovery_vault_name : string prop;
@@ -172,6 +173,7 @@ let make ?id ?timeouts ~backup_policy_id ~recovery_vault_name
   let __type = "azurerm_backup_protected_file_share" in
   let __attrs =
     ({
+       tf_name = __id;
        backup_policy_id =
          Prop.computed __type __id "backup_policy_id";
        id = Prop.computed __type __id "id";

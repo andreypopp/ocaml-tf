@@ -20,6 +20,7 @@ val yojson_of_aws_vpc_endpoint_security_group_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   replace_default_association : bool prop;
   security_group_id : string prop;

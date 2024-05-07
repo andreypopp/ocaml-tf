@@ -1054,6 +1054,7 @@ let aws_apprunner_service ?auto_scaling_configuration_arn ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   auto_scaling_configuration_arn : string prop;
   id : string prop;
@@ -1073,6 +1074,7 @@ let make ?auto_scaling_configuration_arn ?id ?tags ?tags_all
   let __type = "aws_apprunner_service" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        auto_scaling_configuration_arn =
          Prop.computed __type __id "auto_scaling_configuration_arn";

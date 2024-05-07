@@ -30,6 +30,7 @@ val yojson_of_aws_wafregional_rule : aws_wafregional_rule -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   metric_name : string prop;

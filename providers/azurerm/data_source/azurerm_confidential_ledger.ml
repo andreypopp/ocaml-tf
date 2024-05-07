@@ -164,6 +164,7 @@ let azurerm_confidential_ledger ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   azuread_based_service_principal :
     azuread_based_service_principal list prop;
   certificate_based_security_principal :
@@ -182,6 +183,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_confidential_ledger" in
   let __attrs =
     ({
+       tf_name = __id;
        azuread_based_service_principal =
          Prop.computed __type __id "azuread_based_service_principal";
        certificate_based_security_principal =

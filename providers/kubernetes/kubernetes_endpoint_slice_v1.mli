@@ -73,7 +73,11 @@ val yojson_of_kubernetes_endpoint_slice_v1 :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { address_type : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  address_type : string prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

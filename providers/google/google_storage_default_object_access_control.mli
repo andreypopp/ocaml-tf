@@ -36,6 +36,7 @@ val yojson_of_google_storage_default_object_access_control :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket : string prop;
   domain : string prop;
   email : string prop;

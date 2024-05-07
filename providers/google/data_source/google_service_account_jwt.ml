@@ -73,6 +73,7 @@ let google_service_account_jwt ?delegates ?expires_in ?id ~payload
   { delegates; expires_in; id; payload; target_service_account }
 
 type t = {
+  tf_name : string;
   delegates : string list prop;
   expires_in : float prop;
   id : string prop;
@@ -86,6 +87,7 @@ let make ?delegates ?expires_in ?id ~payload ~target_service_account
   let __type = "google_service_account_jwt" in
   let __attrs =
     ({
+       tf_name = __id;
        delegates = Prop.computed __type __id "delegates";
        expires_in = Prop.computed __type __id "expires_in";
        id = Prop.computed __type __id "id";

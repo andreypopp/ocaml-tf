@@ -23,6 +23,7 @@ val yojson_of_azurerm_dev_test_lab : azurerm_dev_test_lab -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   artifacts_storage_account_id : string prop;
   default_premium_storage_account_id : string prop;
   default_storage_account_id : string prop;

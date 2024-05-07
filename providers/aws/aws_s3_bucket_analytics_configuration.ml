@@ -294,6 +294,7 @@ let aws_s3_bucket_analytics_configuration ?id ?(filter = [])
   { bucket; id; name; filter; storage_class_analysis }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   id : string prop;
   name : string prop;
@@ -304,6 +305,7 @@ let make ?id ?(filter = []) ?(storage_class_analysis = []) ~bucket
   let __type = "aws_s3_bucket_analytics_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

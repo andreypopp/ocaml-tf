@@ -25,6 +25,7 @@ val yojson_of_hcloud_ssh_keys : hcloud_ssh_keys -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   ssh_keys : ssh_keys list prop;
   with_selector : string prop;

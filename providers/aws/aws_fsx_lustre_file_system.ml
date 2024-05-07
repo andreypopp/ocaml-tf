@@ -462,6 +462,7 @@ let aws_fsx_lustre_file_system ?auto_import_policy
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   auto_import_policy : string prop;
   automatic_backup_retention_days : float prop;
@@ -505,6 +506,7 @@ let make ?auto_import_policy ?automatic_backup_retention_days
   let __type = "aws_fsx_lustre_file_system" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        auto_import_policy =
          Prop.computed __type __id "auto_import_policy";

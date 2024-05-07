@@ -231,6 +231,7 @@ let aws_route ?carrier_gateway_id ?core_network_arn
   }
 
 type t = {
+  tf_name : string;
   carrier_gateway_id : string prop;
   core_network_arn : string prop;
   destination_cidr_block : string prop;
@@ -257,6 +258,7 @@ let make ?carrier_gateway_id ?core_network_arn
   let __type = "aws_route" in
   let __attrs =
     ({
+       tf_name = __id;
        carrier_gateway_id =
          Prop.computed __type __id "carrier_gateway_id";
        core_network_arn =

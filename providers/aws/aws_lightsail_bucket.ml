@@ -95,6 +95,7 @@ let aws_lightsail_bucket ?force_delete ?id ?tags ?tags_all ~bundle_id
   { bundle_id; force_delete; id; name; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zone : string prop;
   bundle_id : string prop;
@@ -113,6 +114,7 @@ let make ?force_delete ?id ?tags ?tags_all ~bundle_id ~name __id =
   let __type = "aws_lightsail_bucket" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zone =
          Prop.computed __type __id "availability_zone";

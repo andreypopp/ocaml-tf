@@ -51,6 +51,7 @@ val yojson_of_google_vertex_ai_index : google_vertex_ai_index -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name: string;
   create_time: string prop;
   deployed_indexes: deployed_indexes list prop;
   description: string prop;

@@ -252,6 +252,7 @@ val yojson_of_google_clouddeploy_delivery_pipeline :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   annotations : (string * string) list prop;
   condition : condition list prop;
   create_time : string prop;

@@ -18,6 +18,7 @@ val yojson_of_aws_codecommit_approval_rule_template :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   approval_rule_template_id : string prop;
   content : string prop;
   creation_date : string prop;

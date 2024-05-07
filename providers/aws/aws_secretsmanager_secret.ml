@@ -199,6 +199,7 @@ let aws_secretsmanager_secret ?description
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   force_overwrite_replica_secret : bool prop;
@@ -218,6 +219,7 @@ let make ?description ?force_overwrite_replica_secret ?id ?kms_key_id
   let __type = "aws_secretsmanager_secret" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        force_overwrite_replica_secret =

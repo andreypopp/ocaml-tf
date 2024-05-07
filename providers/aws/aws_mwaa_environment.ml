@@ -787,6 +787,7 @@ let aws_mwaa_environment ?airflow_configuration_options
   }
 
 type t = {
+  tf_name : string;
   airflow_configuration_options : (string * string) list prop;
   airflow_version : string prop;
   arn : string prop;
@@ -830,6 +831,7 @@ let make ?airflow_configuration_options ?airflow_version
   let __type = "aws_mwaa_environment" in
   let __attrs =
     ({
+       tf_name = __id;
        airflow_configuration_options =
          Prop.computed __type __id "airflow_configuration_options";
        airflow_version = Prop.computed __type __id "airflow_version";

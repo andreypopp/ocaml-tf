@@ -108,6 +108,7 @@ val yojson_of_aws_alb_listener : aws_alb_listener -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alpn_policy : string prop;
   arn : string prop;
   certificate_arn : string prop;

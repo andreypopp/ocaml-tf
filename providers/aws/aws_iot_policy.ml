@@ -130,6 +130,7 @@ let aws_iot_policy ?id ?tags ?tags_all ?timeouts ~name ~policy () :
   { id; name; policy; tags; tags_all; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   default_version_id : string prop;
   id : string prop;
@@ -143,6 +144,7 @@ let make ?id ?tags ?tags_all ?timeouts ~name ~policy __id =
   let __type = "aws_iot_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        default_version_id =
          Prop.computed __type __id "default_version_id";

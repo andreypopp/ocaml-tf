@@ -289,6 +289,7 @@ let aws_flow_log ?deliver_cross_account_role ?eni_id ?iam_role_arn
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   deliver_cross_account_role : string prop;
   eni_id : string prop;
@@ -316,6 +317,7 @@ let make ?deliver_cross_account_role ?eni_id ?iam_role_arn ?id
   let __type = "aws_flow_log" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        deliver_cross_account_role =
          Prop.computed __type __id "deliver_cross_account_role";

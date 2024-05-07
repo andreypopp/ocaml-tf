@@ -130,6 +130,7 @@ let aws_ebs_snapshot_ids ?id ?owners ?restorable_by_user_ids
   { id; owners; restorable_by_user_ids; filter; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   ids : string list prop;
   owners : string list prop;
@@ -140,6 +141,7 @@ let make ?id ?owners ?restorable_by_user_ids ?timeouts ~filter __id =
   let __type = "aws_ebs_snapshot_ids" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ids = Prop.computed __type __id "ids";
        owners = Prop.computed __type __id "owners";

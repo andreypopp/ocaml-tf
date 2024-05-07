@@ -57,6 +57,7 @@ val yojson_of_aws_cloudtrail_event_data_store :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   kms_key_id : string prop;

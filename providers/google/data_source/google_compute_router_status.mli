@@ -58,6 +58,7 @@ val yojson_of_google_compute_router_status :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   best_routes : best_routes list prop;
   best_routes_for_router : best_routes_for_router list prop;
   id : string prop;

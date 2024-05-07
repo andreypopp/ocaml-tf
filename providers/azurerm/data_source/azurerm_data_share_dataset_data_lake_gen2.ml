@@ -84,6 +84,7 @@ let azurerm_data_share_dataset_data_lake_gen2 ?id ?timeouts ~name
   { id; name; share_id; timeouts }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   file_path : string prop;
   file_system_name : string prop;
@@ -98,6 +99,7 @@ let make ?id ?timeouts ~name ~share_id __id =
   let __type = "azurerm_data_share_dataset_data_lake_gen2" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        file_path = Prop.computed __type __id "file_path";
        file_system_name =

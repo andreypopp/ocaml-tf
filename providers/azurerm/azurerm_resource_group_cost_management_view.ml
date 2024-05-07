@@ -390,6 +390,7 @@ let azurerm_resource_group_cost_management_view ?id ?(kpi = [])
   }
 
 type t = {
+  tf_name : string;
   accumulated : bool prop;
   chart_type : string prop;
   display_name : string prop;
@@ -406,6 +407,7 @@ let make ?id ?(kpi = []) ?(pivot = []) ?timeouts ~accumulated
   let __type = "azurerm_resource_group_cost_management_view" in
   let __attrs =
     ({
+       tf_name = __id;
        accumulated = Prop.computed __type __id "accumulated";
        chart_type = Prop.computed __type __id "chart_type";
        display_name = Prop.computed __type __id "display_name";

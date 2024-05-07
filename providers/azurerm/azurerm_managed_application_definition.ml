@@ -273,6 +273,7 @@ let azurerm_managed_application_definition ?create_ui_definition
   }
 
 type t = {
+  tf_name : string;
   create_ui_definition : string prop;
   description : string prop;
   display_name : string prop;
@@ -294,6 +295,7 @@ let make ?create_ui_definition ?description ?id ?main_template
   let __type = "azurerm_managed_application_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        create_ui_definition =
          Prop.computed __type __id "create_ui_definition";
        description = Prop.computed __type __id "description";

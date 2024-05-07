@@ -17,6 +17,7 @@ val yojson_of_aws_transfer_server : aws_transfer_server -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   certificate : string prop;
   domain : string prop;

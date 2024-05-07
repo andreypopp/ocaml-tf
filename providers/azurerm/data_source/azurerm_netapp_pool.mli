@@ -24,6 +24,7 @@ val yojson_of_azurerm_netapp_pool : azurerm_netapp_pool -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_name : string prop;
   encryption_type : string prop;
   id : string prop;

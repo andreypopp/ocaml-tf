@@ -483,6 +483,7 @@ let google_storage_bucket ?id ~name () : google_storage_bucket =
   { id; name }
 
 type t = {
+  tf_name : string;
   autoclass : autoclass list prop;
   cors : cors list prop;
   custom_placement_config : custom_placement_config list prop;
@@ -515,6 +516,7 @@ let make ?id ~name __id =
   let __type = "google_storage_bucket" in
   let __attrs =
     ({
+       tf_name = __id;
        autoclass = Prop.computed __type __id "autoclass";
        cors = Prop.computed __type __id "cors";
        custom_placement_config =

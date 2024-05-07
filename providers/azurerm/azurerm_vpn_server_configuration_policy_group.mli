@@ -42,6 +42,7 @@ val yojson_of_azurerm_vpn_server_configuration_policy_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   is_default : bool prop;
   name : string prop;

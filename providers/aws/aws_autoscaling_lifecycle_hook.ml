@@ -122,6 +122,7 @@ let aws_autoscaling_lifecycle_hook ?default_result ?heartbeat_timeout
   }
 
 type t = {
+  tf_name : string;
   autoscaling_group_name : string prop;
   default_result : string prop;
   heartbeat_timeout : float prop;
@@ -139,6 +140,7 @@ let make ?default_result ?heartbeat_timeout ?id
   let __type = "aws_autoscaling_lifecycle_hook" in
   let __attrs =
     ({
+       tf_name = __id;
        autoscaling_group_name =
          Prop.computed __type __id "autoscaling_group_name";
        default_result = Prop.computed __type __id "default_result";

@@ -283,6 +283,7 @@ let azurerm_monitor_scheduled_query_rules_log
   }
 
 type t = {
+  tf_name : string;
   authorized_resource_ids : string list prop;
   data_source_id : string prop;
   description : string prop;
@@ -300,6 +301,7 @@ let make ?authorized_resource_ids ?description ?enabled ?id ?tags
   let __type = "azurerm_monitor_scheduled_query_rules_log" in
   let __attrs =
     ({
+       tf_name = __id;
        authorized_resource_ids =
          Prop.computed __type __id "authorized_resource_ids";
        data_source_id = Prop.computed __type __id "data_source_id";

@@ -179,6 +179,7 @@ let azurerm_synapse_integration_runtime_azure ?compute_type
   }
 
 type t = {
+  tf_name : string;
   compute_type : string prop;
   core_count : float prop;
   description : string prop;
@@ -194,6 +195,7 @@ let make ?compute_type ?core_count ?description ?id ?time_to_live_min
   let __type = "azurerm_synapse_integration_runtime_azure" in
   let __attrs =
     ({
+       tf_name = __id;
        compute_type = Prop.computed __type __id "compute_type";
        core_count = Prop.computed __type __id "core_count";
        description = Prop.computed __type __id "description";

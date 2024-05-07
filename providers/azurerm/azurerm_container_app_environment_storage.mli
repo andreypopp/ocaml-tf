@@ -34,6 +34,7 @@ val yojson_of_azurerm_container_app_environment_storage :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_key : string prop;
   access_mode : string prop;
   account_name : string prop;

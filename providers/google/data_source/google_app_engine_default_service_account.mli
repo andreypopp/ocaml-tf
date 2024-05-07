@@ -18,6 +18,7 @@ val yojson_of_google_app_engine_default_service_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   email : string prop;
   id : string prop;

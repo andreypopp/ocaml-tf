@@ -180,6 +180,7 @@ let azurerm_mssql_server_microsoft_support_auditing_policy
   }
 
 type t = {
+  tf_name : string;
   blob_storage_endpoint : string prop;
   enabled : bool prop;
   id : string prop;
@@ -197,6 +198,7 @@ let make ?blob_storage_endpoint ?enabled ?id ?log_monitoring_enabled
   in
   let __attrs =
     ({
+       tf_name = __id;
        blob_storage_endpoint =
          Prop.computed __type __id "blob_storage_endpoint";
        enabled = Prop.computed __type __id "enabled";

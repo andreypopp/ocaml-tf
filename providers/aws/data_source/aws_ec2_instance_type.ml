@@ -237,6 +237,7 @@ let aws_ec2_instance_type ?id ?timeouts ~instance_type () :
   { id; instance_type; timeouts }
 
 type t = {
+  tf_name : string;
   auto_recovery_supported : bool prop;
   bare_metal : bool prop;
   burstable_performance_supported : bool prop;
@@ -291,6 +292,7 @@ let make ?id ?timeouts ~instance_type __id =
   let __type = "aws_ec2_instance_type" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_recovery_supported =
          Prop.computed __type __id "auto_recovery_supported";
        bare_metal = Prop.computed __type __id "bare_metal";

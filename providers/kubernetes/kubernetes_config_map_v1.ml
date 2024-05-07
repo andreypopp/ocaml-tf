@@ -179,6 +179,7 @@ let kubernetes_config_map_v1 ?binary_data ?data ?id ?immutable
   { binary_data; data; id; immutable; metadata }
 
 type t = {
+  tf_name : string;
   binary_data : (string * string) list prop;
   data : (string * string) list prop;
   id : string prop;
@@ -189,6 +190,7 @@ let make ?binary_data ?data ?id ?immutable ~metadata __id =
   let __type = "kubernetes_config_map_v1" in
   let __attrs =
     ({
+       tf_name = __id;
        binary_data = Prop.computed __type __id "binary_data";
        data = Prop.computed __type __id "data";
        id = Prop.computed __type __id "id";

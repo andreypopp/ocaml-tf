@@ -167,6 +167,7 @@ let azurerm_storage_mover_source_endpoint ?description ?export ?id
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   export : string prop;
   host : string prop;
@@ -181,6 +182,7 @@ let make ?description ?export ?id ?nfs_version ?timeouts ~host ~name
   let __type = "azurerm_storage_mover_source_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        export = Prop.computed __type __id "export";
        host = Prop.computed __type __id "host";

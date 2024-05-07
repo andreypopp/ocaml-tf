@@ -42,6 +42,7 @@ val yojson_of_azurerm_snapshot : azurerm_snapshot -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   creation_option : string prop;
   disk_size_gb : float prop;
   encryption_settings : encryption_settings list prop;

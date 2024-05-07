@@ -37,6 +37,7 @@ val yojson_of_azurerm_mssql_managed_instance_security_alert_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   disabled_alerts : string list prop;
   email_account_admins_enabled : bool prop;
   email_addresses : string list prop;

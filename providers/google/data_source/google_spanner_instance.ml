@@ -202,6 +202,7 @@ let google_spanner_instance ?config ?display_name ?id ?project ~name
   { config; display_name; id; name; project }
 
 type t = {
+  tf_name : string;
   autoscaling_config : autoscaling_config list prop;
   config : string prop;
   display_name : string prop;
@@ -221,6 +222,7 @@ let make ?config ?display_name ?id ?project ~name __id =
   let __type = "google_spanner_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        autoscaling_config =
          Prop.computed __type __id "autoscaling_config";
        config = Prop.computed __type __id "config";

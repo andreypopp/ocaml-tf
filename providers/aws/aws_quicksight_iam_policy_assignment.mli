@@ -31,6 +31,7 @@ val yojson_of_aws_quicksight_iam_policy_assignment : aws_quicksight_iam_policy_a
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name: string;
   assignment_id: string prop;
   assignment_name: string prop;
   assignment_status: string prop;

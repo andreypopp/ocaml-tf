@@ -155,6 +155,7 @@ let azurerm_active_directory_domain_service_trust ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   domain_service_id : string prop;
   id : string prop;
   name : string prop;
@@ -168,6 +169,7 @@ let make ?id ?timeouts ~domain_service_id ~name ~password
   let __type = "azurerm_active_directory_domain_service_trust" in
   let __attrs =
     ({
+       tf_name = __id;
        domain_service_id =
          Prop.computed __type __id "domain_service_id";
        id = Prop.computed __type __id "id";

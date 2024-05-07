@@ -17,6 +17,7 @@ val yojson_of_aws_rds_certificate : aws_rds_certificate -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   certificate_type : string prop;
   customer_override : bool prop;

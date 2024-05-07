@@ -214,6 +214,7 @@ let aws_networkmanager_site ?description ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   global_network_id : string prop;
@@ -227,6 +228,7 @@ let make ?description ?id ?tags ?tags_all ?(location = []) ?timeouts
   let __type = "aws_networkmanager_site" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        global_network_id =

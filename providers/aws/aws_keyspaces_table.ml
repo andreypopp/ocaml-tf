@@ -610,6 +610,7 @@ let aws_keyspaces_table ?default_time_to_live ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   default_time_to_live : float prop;
   id : string prop;
@@ -627,6 +628,7 @@ let make ?default_time_to_live ?id ?tags ?tags_all
   let __type = "aws_keyspaces_table" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        default_time_to_live =
          Prop.computed __type __id "default_time_to_live";

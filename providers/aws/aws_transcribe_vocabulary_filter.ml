@@ -119,6 +119,7 @@ let aws_transcribe_vocabulary_filter ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   download_uri : string prop;
   id : string prop;
@@ -135,6 +136,7 @@ let make ?id ?tags ?tags_all ?vocabulary_filter_file_uri ?words
   let __type = "aws_transcribe_vocabulary_filter" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        download_uri = Prop.computed __type __id "download_uri";
        id = Prop.computed __type __id "id";

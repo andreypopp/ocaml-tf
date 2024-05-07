@@ -269,6 +269,7 @@ let aws_verifiedaccess_instance_logging_configuration ?id
   { id; verifiedaccess_instance_id; access_logs }
 
 type t = {
+  tf_name : string;
   id : string prop;
   verifiedaccess_instance_id : string prop;
 }
@@ -277,6 +278,7 @@ let make ?id ~verifiedaccess_instance_id ~access_logs __id =
   let __type = "aws_verifiedaccess_instance_logging_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        verifiedaccess_instance_id =
          Prop.computed __type __id "verifiedaccess_instance_id";

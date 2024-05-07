@@ -187,6 +187,7 @@ let azurerm_virtual_desktop_workspace ?description ?friendly_name ?id
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   friendly_name : string prop;
   id : string prop;
@@ -203,6 +204,7 @@ let make ?description ?friendly_name ?id
   let __type = "azurerm_virtual_desktop_workspace" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        friendly_name = Prop.computed __type __id "friendly_name";
        id = Prop.computed __type __id "id";

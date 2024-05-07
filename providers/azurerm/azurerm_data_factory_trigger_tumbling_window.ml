@@ -394,6 +394,7 @@ let azurerm_data_factory_trigger_tumbling_window ?activated
   }
 
 type t = {
+  tf_name : string;
   activated : bool prop;
   additional_properties : (string * string) list prop;
   annotations : string list prop;
@@ -416,6 +417,7 @@ let make ?activated ?additional_properties ?annotations ?delay
   let __type = "azurerm_data_factory_trigger_tumbling_window" in
   let __attrs =
     ({
+       tf_name = __id;
        activated = Prop.computed __type __id "activated";
        additional_properties =
          Prop.computed __type __id "additional_properties";

@@ -76,6 +76,7 @@ let cloudflare_api_shield_schema ?id ?kind ?validation_enabled ~name
   { id; kind; name; source; validation_enabled; zone_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   kind : string prop;
   name : string prop;
@@ -88,6 +89,7 @@ let make ?id ?kind ?validation_enabled ~name ~source ~zone_id __id =
   let __type = "cloudflare_api_shield_schema" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        kind = Prop.computed __type __id "kind";
        name = Prop.computed __type __id "name";

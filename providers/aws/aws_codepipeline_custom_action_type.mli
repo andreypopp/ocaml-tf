@@ -65,6 +65,7 @@ val yojson_of_aws_codepipeline_custom_action_type :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   category : string prop;
   id : string prop;

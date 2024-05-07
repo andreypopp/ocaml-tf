@@ -542,6 +542,7 @@ val yojson_of_azurerm_linux_web_app_slot :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_metadata : (string * string) list prop;
   app_service_id : string prop;
   app_settings : (string * string) list prop;

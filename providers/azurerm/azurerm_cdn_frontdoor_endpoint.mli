@@ -32,6 +32,7 @@ val yojson_of_azurerm_cdn_frontdoor_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cdn_frontdoor_profile_id : string prop;
   enabled : bool prop;
   host_name : string prop;

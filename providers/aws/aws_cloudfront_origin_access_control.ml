@@ -88,6 +88,7 @@ let aws_cloudfront_origin_access_control ?description ?id ~name
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   etag : string prop;
   id : string prop;
@@ -102,6 +103,7 @@ let make ?description ?id ~name ~origin_access_control_origin_type
   let __type = "aws_cloudfront_origin_access_control" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

@@ -161,6 +161,7 @@ let aws_ec2_managed_prefix_list ?id ?name ?tags ?timeouts ~filter ()
   { id; name; tags; filter; timeouts }
 
 type t = {
+  tf_name : string;
   address_family : string prop;
   arn : string prop;
   entries : entries list prop;
@@ -176,6 +177,7 @@ let make ?id ?name ?tags ?timeouts ~filter __id =
   let __type = "aws_ec2_managed_prefix_list" in
   let __attrs =
     ({
+       tf_name = __id;
        address_family = Prop.computed __type __id "address_family";
        arn = Prop.computed __type __id "arn";
        entries = Prop.computed __type __id "entries";

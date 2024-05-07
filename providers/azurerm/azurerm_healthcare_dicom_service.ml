@@ -268,6 +268,7 @@ let azurerm_healthcare_dicom_service ?id
   }
 
 type t = {
+  tf_name : string;
   authentication : authentication list prop;
   id : string prop;
   location : string prop;
@@ -284,6 +285,7 @@ let make ?id ?public_network_access_enabled ?tags ?(identity = [])
   let __type = "azurerm_healthcare_dicom_service" in
   let __attrs =
     ({
+       tf_name = __id;
        authentication = Prop.computed __type __id "authentication";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

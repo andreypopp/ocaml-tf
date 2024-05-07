@@ -43,6 +43,7 @@ let aws_redshiftserverless_namespace ?id ~namespace_name () :
   { id; namespace_name }
 
 type t = {
+  tf_name : string;
   admin_username : string prop;
   arn : string prop;
   db_name : string prop;
@@ -59,6 +60,7 @@ let make ?id ~namespace_name __id =
   let __type = "aws_redshiftserverless_namespace" in
   let __attrs =
     ({
+       tf_name = __id;
        admin_username = Prop.computed __type __id "admin_username";
        arn = Prop.computed __type __id "arn";
        db_name = Prop.computed __type __id "db_name";

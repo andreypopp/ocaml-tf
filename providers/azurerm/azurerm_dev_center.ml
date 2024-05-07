@@ -196,6 +196,7 @@ let azurerm_dev_center ?id ?tags ?(identity = []) ?timeouts ~location
   }
 
 type t = {
+  tf_name : string;
   dev_center_uri : string prop;
   id : string prop;
   location : string prop;
@@ -209,6 +210,7 @@ let make ?id ?tags ?(identity = []) ?timeouts ~location ~name
   let __type = "azurerm_dev_center" in
   let __attrs =
     ({
+       tf_name = __id;
        dev_center_uri = Prop.computed __type __id "dev_center_uri";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

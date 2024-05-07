@@ -25,6 +25,7 @@ val yojson_of_aws_internet_gateway_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   internet_gateway_id : string prop;
   vpc_id : string prop;

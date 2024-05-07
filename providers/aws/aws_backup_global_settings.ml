@@ -48,6 +48,7 @@ let aws_backup_global_settings ?id ~global_settings () :
   { global_settings; id }
 
 type t = {
+  tf_name : string;
   global_settings : (string * string) list prop;
   id : string prop;
 }
@@ -56,6 +57,7 @@ let make ?id ~global_settings __id =
   let __type = "aws_backup_global_settings" in
   let __attrs =
     ({
+       tf_name = __id;
        global_settings = Prop.computed __type __id "global_settings";
        id = Prop.computed __type __id "id";
      }

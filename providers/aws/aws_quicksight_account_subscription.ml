@@ -59,6 +59,7 @@ let aws_quicksight_account_subscription ?active_directory_name ?admin_group ?aut
   } : aws_quicksight_account_subscription);;
 
 type t = {
+  tf_name: string;
   account_name: string prop;
   account_subscription_status: string prop;
   active_directory_name: string prop;
@@ -81,6 +82,7 @@ type t = {
 let make ?active_directory_name ?admin_group ?author_group ?aws_account_id ?contact_number ?directory_id ?email_address ?first_name ?id ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email __id =
   let __type = "aws_quicksight_account_subscription" in
   let __attrs = ({
+    tf_name = __id;
     account_name = Prop.computed __type __id "account_name";
     account_subscription_status = Prop.computed __type __id "account_subscription_status";
     active_directory_name = Prop.computed __type __id "active_directory_name";

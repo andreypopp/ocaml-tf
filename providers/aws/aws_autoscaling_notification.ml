@@ -64,6 +64,7 @@ let aws_autoscaling_notification ?id ~group_names ~notifications
   { group_names; id; notifications; topic_arn }
 
 type t = {
+  tf_name : string;
   group_names : string list prop;
   id : string prop;
   notifications : string list prop;
@@ -74,6 +75,7 @@ let make ?id ~group_names ~notifications ~topic_arn __id =
   let __type = "aws_autoscaling_notification" in
   let __attrs =
     ({
+       tf_name = __id;
        group_names = Prop.computed __type __id "group_names";
        id = Prop.computed __type __id "id";
        notifications = Prop.computed __type __id "notifications";

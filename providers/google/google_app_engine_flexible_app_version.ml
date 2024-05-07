@@ -1828,6 +1828,7 @@ let google_app_engine_flexible_app_version ?beta_settings
   }
 
 type t = {
+  tf_name : string;
   beta_settings : (string * string) list prop;
   default_expiration : string prop;
   delete_service_on_destroy : bool prop;
@@ -1863,6 +1864,7 @@ let make ?beta_settings ?default_expiration
   let __type = "google_app_engine_flexible_app_version" in
   let __attrs =
     ({
+       tf_name = __id;
        beta_settings = Prop.computed __type __id "beta_settings";
        default_expiration =
          Prop.computed __type __id "default_expiration";

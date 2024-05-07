@@ -55,6 +55,7 @@ val yojson_of_aws_glue_job : aws_glue_job -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   connections : string list prop;
   default_arguments : (string * string) list prop;

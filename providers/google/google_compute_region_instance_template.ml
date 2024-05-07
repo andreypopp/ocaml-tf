@@ -1541,6 +1541,7 @@ let google_compute_region_instance_template ?can_ip_forward
   }
 
 type t = {
+  tf_name : string;
   can_ip_forward : bool prop;
   description : string prop;
   effective_labels : (string * string) list prop;
@@ -1576,6 +1577,7 @@ let make ?can_ip_forward ?description ?id ?instance_description
   let __type = "google_compute_region_instance_template" in
   let __attrs =
     ({
+       tf_name = __id;
        can_ip_forward = Prop.computed __type __id "can_ip_forward";
        description = Prop.computed __type __id "description";
        effective_labels =

@@ -91,6 +91,7 @@ let aws_ami_launch_permission ?account_id ?group ?id
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   group : string prop;
   id : string prop;
@@ -104,6 +105,7 @@ let make ?account_id ?group ?id ?organization_arn
   let __type = "aws_ami_launch_permission" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        group = Prop.computed __type __id "group";
        id = Prop.computed __type __id "id";

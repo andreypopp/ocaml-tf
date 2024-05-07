@@ -177,6 +177,7 @@ let azurerm_stream_analytics_output_cosmosdb ?document_id ?id
   }
 
 type t = {
+  tf_name : string;
   container_name : string prop;
   cosmosdb_account_key : string prop;
   cosmosdb_sql_database_id : string prop;
@@ -193,6 +194,7 @@ let make ?document_id ?id ?partition_key ?timeouts ~container_name
   let __type = "azurerm_stream_analytics_output_cosmosdb" in
   let __attrs =
     ({
+       tf_name = __id;
        container_name = Prop.computed __type __id "container_name";
        cosmosdb_account_key =
          Prop.computed __type __id "cosmosdb_account_key";

@@ -152,6 +152,7 @@ let azurerm_data_share_dataset_data_lake_gen2 ?file_path ?folder_path
   }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   file_path : string prop;
   file_system_name : string prop;
@@ -167,6 +168,7 @@ let make ?file_path ?folder_path ?id ?timeouts ~file_system_name
   let __type = "azurerm_data_share_dataset_data_lake_gen2" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        file_path = Prop.computed __type __id "file_path";
        file_system_name =

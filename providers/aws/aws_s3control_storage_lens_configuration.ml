@@ -1262,6 +1262,7 @@ let aws_s3control_storage_lens_configuration ?account_id ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   arn : string prop;
   config_id : string prop;
@@ -1275,6 +1276,7 @@ let make ?account_id ?id ?tags ?tags_all ~config_id
   let __type = "aws_s3control_storage_lens_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        arn = Prop.computed __type __id "arn";
        config_id = Prop.computed __type __id "config_id";

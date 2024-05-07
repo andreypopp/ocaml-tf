@@ -18,6 +18,7 @@ val yojson_of_aws_iam_roles : aws_iam_roles -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arns : string list prop;
   id : string prop;
   name_regex : string prop;

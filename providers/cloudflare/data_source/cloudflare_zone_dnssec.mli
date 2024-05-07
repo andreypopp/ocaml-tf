@@ -19,6 +19,7 @@ val yojson_of_cloudflare_zone_dnssec : cloudflare_zone_dnssec -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   algorithm : string prop;
   digest : string prop;
   digest_algorithm : string prop;

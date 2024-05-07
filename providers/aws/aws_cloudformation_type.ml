@@ -125,6 +125,7 @@ let aws_cloudformation_type ?execution_role_arn ?id ?type_
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   default_version_id : string prop;
   deprecated_status : string prop;
@@ -149,6 +150,7 @@ let make ?execution_role_arn ?id ?type_ ?(logging_config = [])
   let __type = "aws_cloudformation_type" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        default_version_id =
          Prop.computed __type __id "default_version_id";

@@ -462,6 +462,7 @@ let aws_storagegateway_gateway ?activation_key
   }
 
 type t = {
+  tf_name : string;
   activation_key : string prop;
   arn : string prop;
   average_download_rate_limit_in_bits_per_sec : float prop;
@@ -499,6 +500,7 @@ let make ?activation_key ?average_download_rate_limit_in_bits_per_sec
   let __type = "aws_storagegateway_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        activation_key = Prop.computed __type __id "activation_key";
        arn = Prop.computed __type __id "arn";
        average_download_rate_limit_in_bits_per_sec =

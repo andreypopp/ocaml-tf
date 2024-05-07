@@ -100,6 +100,7 @@ let aws_vpc_endpoint_policy ?id ?policy ?timeouts ~vpc_endpoint_id ()
   { id; policy; vpc_endpoint_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   policy : string prop;
   vpc_endpoint_id : string prop;
@@ -109,6 +110,7 @@ let make ?id ?policy ?timeouts ~vpc_endpoint_id __id =
   let __type = "aws_vpc_endpoint_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        policy = Prop.computed __type __id "policy";
        vpc_endpoint_id = Prop.computed __type __id "vpc_endpoint_id";

@@ -129,6 +129,7 @@ let azurerm_mobile_network_sim ?id ?timeouts
   { id; mobile_network_sim_group_id; name; timeouts }
 
 type t = {
+  tf_name : string;
   device_type : string prop;
   id : string prop;
   integrated_circuit_card_identifier : string prop;
@@ -146,6 +147,7 @@ let make ?id ?timeouts ~mobile_network_sim_group_id ~name __id =
   let __type = "azurerm_mobile_network_sim" in
   let __attrs =
     ({
+       tf_name = __id;
        device_type = Prop.computed __type __id "device_type";
        id = Prop.computed __type __id "id";
        integrated_circuit_card_identifier =

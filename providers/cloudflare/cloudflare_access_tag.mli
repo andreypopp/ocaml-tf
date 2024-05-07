@@ -24,6 +24,7 @@ val yojson_of_cloudflare_access_tag : cloudflare_access_tag -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   app_count : float prop;
   id : string prop;

@@ -270,6 +270,7 @@ let aws_evidently_project ?description ?id ?tags ?tags_all
   { description; id; name; tags; tags_all; data_delivery; timeouts }
 
 type t = {
+  tf_name : string;
   active_experiment_count : float prop;
   active_launch_count : float prop;
   arn : string prop;
@@ -291,6 +292,7 @@ let make ?description ?id ?tags ?tags_all ?(data_delivery = [])
   let __type = "aws_evidently_project" in
   let __attrs =
     ({
+       tf_name = __id;
        active_experiment_count =
          Prop.computed __type __id "active_experiment_count";
        active_launch_count =

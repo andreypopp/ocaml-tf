@@ -111,6 +111,7 @@ let aws_sns_sms_preferences ?default_sender_id ?default_sms_type
   }
 
 type t = {
+  tf_name : string;
   default_sender_id : string prop;
   default_sms_type : string prop;
   delivery_status_iam_role_arn : string prop;
@@ -127,6 +128,7 @@ let make ?default_sender_id ?default_sms_type
   let __type = "aws_sns_sms_preferences" in
   let __attrs =
     ({
+       tf_name = __id;
        default_sender_id =
          Prop.computed __type __id "default_sender_id";
        default_sms_type =

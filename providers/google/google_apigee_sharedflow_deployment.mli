@@ -32,6 +32,7 @@ val yojson_of_google_apigee_sharedflow_deployment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   environment : string prop;
   id : string prop;
   org_id : string prop;

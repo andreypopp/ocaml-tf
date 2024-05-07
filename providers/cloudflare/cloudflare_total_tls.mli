@@ -22,6 +22,7 @@ val yojson_of_cloudflare_total_tls : cloudflare_total_tls -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_authority : string prop;
   enabled : bool prop;
   id : string prop;

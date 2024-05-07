@@ -119,6 +119,7 @@ let aws_codecommit_trigger ?id ~repository_name ~trigger () :
   { id; repository_name; trigger }
 
 type t = {
+  tf_name : string;
   configuration_id : string prop;
   id : string prop;
   repository_name : string prop;
@@ -128,6 +129,7 @@ let make ?id ~repository_name ~trigger __id =
   let __type = "aws_codecommit_trigger" in
   let __attrs =
     ({
+       tf_name = __id;
        configuration_id =
          Prop.computed __type __id "configuration_id";
        id = Prop.computed __type __id "id";

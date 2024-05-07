@@ -31,6 +31,7 @@ val yojson_of_azurerm_synapse_integration_runtime_self_hosted :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authorization_key_primary : string prop;
   authorization_key_secondary : string prop;
   description : string prop;

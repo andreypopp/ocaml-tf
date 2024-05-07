@@ -117,6 +117,7 @@ let aws_organizations_delegated_administrators ?id ?service_principal
   { id; service_principal }
 
 type t = {
+  tf_name : string;
   delegated_administrators : delegated_administrators list prop;
   id : string prop;
   service_principal : string prop;
@@ -126,6 +127,7 @@ let make ?id ?service_principal __id =
   let __type = "aws_organizations_delegated_administrators" in
   let __attrs =
     ({
+       tf_name = __id;
        delegated_administrators =
          Prop.computed __type __id "delegated_administrators";
        id = Prop.computed __type __id "id";

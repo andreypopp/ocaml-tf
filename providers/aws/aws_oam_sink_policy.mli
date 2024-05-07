@@ -28,6 +28,7 @@ val yojson_of_aws_oam_sink_policy : aws_oam_sink_policy -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   policy : string prop;

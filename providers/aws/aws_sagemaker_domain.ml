@@ -2991,6 +2991,7 @@ let aws_sagemaker_domain ?app_network_access_type
   }
 
 type t = {
+  tf_name : string;
   app_network_access_type : string prop;
   app_security_group_management : string prop;
   arn : string prop;
@@ -3016,6 +3017,7 @@ let make ?app_network_access_type ?app_security_group_management ?id
   let __type = "aws_sagemaker_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        app_network_access_type =
          Prop.computed __type __id "app_network_access_type";
        app_security_group_management =

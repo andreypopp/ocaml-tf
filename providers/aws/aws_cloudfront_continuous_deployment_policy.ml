@@ -262,6 +262,7 @@ let aws_cloudfront_continuous_deployment_policy
   { enabled; staging_distribution_dns_names; traffic_config }
 
 type t = {
+  tf_name : string;
   enabled : bool prop;
   etag : string prop;
   id : string prop;
@@ -273,6 +274,7 @@ let make ?(staging_distribution_dns_names = [])
   let __type = "aws_cloudfront_continuous_deployment_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

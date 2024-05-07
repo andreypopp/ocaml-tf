@@ -61,6 +61,7 @@ let aws_eks_addon_version ?id ?most_recent ~addon_name
   { addon_name; id; kubernetes_version; most_recent }
 
 type t = {
+  tf_name : string;
   addon_name : string prop;
   id : string prop;
   kubernetes_version : string prop;
@@ -72,6 +73,7 @@ let make ?id ?most_recent ~addon_name ~kubernetes_version __id =
   let __type = "aws_eks_addon_version" in
   let __attrs =
     ({
+       tf_name = __id;
        addon_name = Prop.computed __type __id "addon_name";
        id = Prop.computed __type __id "id";
        kubernetes_version =

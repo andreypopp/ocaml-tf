@@ -113,6 +113,7 @@ let aws_route53_resolver_query_log_config ?id ?name
   { id; name; resolver_query_log_config_id; tags; filter }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   destination_arn : string prop;
   id : string prop;
@@ -127,6 +128,7 @@ let make ?id ?name ?resolver_query_log_config_id ?tags ~filter __id =
   let __type = "aws_route53_resolver_query_log_config" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        destination_arn = Prop.computed __type __id "destination_arn";
        id = Prop.computed __type __id "id";

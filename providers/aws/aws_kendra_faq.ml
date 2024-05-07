@@ -212,6 +212,7 @@ let aws_kendra_faq ?description ?file_format ?id ?language_code ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_at : string prop;
   description : string prop;
@@ -234,6 +235,7 @@ let make ?description ?file_format ?id ?language_code ?tags ?tags_all
   let __type = "aws_kendra_faq" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_at = Prop.computed __type __id "created_at";
        description = Prop.computed __type __id "description";

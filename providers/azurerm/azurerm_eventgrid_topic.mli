@@ -73,6 +73,7 @@ val yojson_of_azurerm_eventgrid_topic :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   endpoint : string prop;
   id : string prop;
   inbound_ip_rule : inbound_ip_rule list prop;

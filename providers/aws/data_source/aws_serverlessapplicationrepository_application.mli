@@ -19,6 +19,7 @@ val yojson_of_aws_serverlessapplicationrepository_application :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_id : string prop;
   id : string prop;
   name : string prop;

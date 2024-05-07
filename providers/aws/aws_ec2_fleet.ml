@@ -1673,6 +1673,7 @@ let aws_ec2_fleet ?context ?excess_capacity_termination_policy
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   context : string prop;
   excess_capacity_termination_policy : string prop;
@@ -1700,6 +1701,7 @@ let make ?context ?excess_capacity_termination_policy ?fleet_state
   let __type = "aws_ec2_fleet" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        context = Prop.computed __type __id "context";
        excess_capacity_termination_policy =

@@ -18,6 +18,7 @@ val yojson_of_aws_kinesis_resource_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   policy : string prop;
   resource_arn : string prop;

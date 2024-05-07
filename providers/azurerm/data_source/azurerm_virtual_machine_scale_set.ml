@@ -524,6 +524,7 @@ let azurerm_virtual_machine_scale_set ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   identity : identity list prop;
   instances : instances list prop;
@@ -537,6 +538,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_virtual_machine_scale_set" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        identity = Prop.computed __type __id "identity";
        instances = Prop.computed __type __id "instances";

@@ -129,6 +129,7 @@ let google_secure_source_manager_instance_iam_member ?id ?location
   { id; instance_id; location; member; project; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   instance_id : string prop;
@@ -143,6 +144,7 @@ let make ?id ?location ?project ?(condition = []) ~instance_id
   let __type = "google_secure_source_manager_instance_iam_member" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        instance_id = Prop.computed __type __id "instance_id";

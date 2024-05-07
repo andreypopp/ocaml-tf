@@ -19,6 +19,7 @@ val yojson_of_google_sql_database : google_sql_database -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   charset : string prop;
   collation : string prop;
   deletion_policy : string prop;

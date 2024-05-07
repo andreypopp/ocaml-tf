@@ -33,6 +33,7 @@ val yojson_of_azurerm_security_center_storage_defender :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   malware_scanning_on_upload_cap_gb_per_month : float prop;
   malware_scanning_on_upload_enabled : bool prop;

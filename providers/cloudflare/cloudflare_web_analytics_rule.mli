@@ -30,6 +30,7 @@ val yojson_of_cloudflare_web_analytics_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   host : string prop;
   id : string prop;

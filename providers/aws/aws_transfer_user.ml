@@ -264,6 +264,7 @@ let aws_transfer_user ?home_directory ?home_directory_type ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   home_directory : string prop;
   home_directory_type : string prop;
@@ -282,6 +283,7 @@ let make ?home_directory ?home_directory_type ?id ?policy ?tags
   let __type = "aws_transfer_user" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        home_directory = Prop.computed __type __id "home_directory";
        home_directory_type =

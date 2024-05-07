@@ -54,6 +54,7 @@ val yojson_of_google_container_analysis_note :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   expiration_time : string prop;
   id : string prop;

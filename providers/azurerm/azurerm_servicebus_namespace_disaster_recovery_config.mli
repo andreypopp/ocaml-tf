@@ -32,6 +32,7 @@ val yojson_of_azurerm_servicebus_namespace_disaster_recovery_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alias_authorization_rule_id : string prop;
   default_primary_key : string prop;
   default_secondary_key : string prop;

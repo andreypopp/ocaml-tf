@@ -128,6 +128,7 @@ let google_dataplex_datascan_iam_member ?id ?location ?project
   { data_scan_id; id; location; member; project; role; condition }
 
 type t = {
+  tf_name : string;
   data_scan_id : string prop;
   etag : string prop;
   id : string prop;
@@ -142,6 +143,7 @@ let make ?id ?location ?project ?(condition = []) ~data_scan_id
   let __type = "google_dataplex_datascan_iam_member" in
   let __attrs =
     ({
+       tf_name = __id;
        data_scan_id = Prop.computed __type __id "data_scan_id";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

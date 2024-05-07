@@ -117,6 +117,7 @@ val yojson_of_aws_sagemaker_endpoint : aws_sagemaker_endpoint -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   endpoint_config_name : string prop;
   id : string prop;

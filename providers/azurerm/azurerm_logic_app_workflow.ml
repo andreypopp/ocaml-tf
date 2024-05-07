@@ -594,6 +594,7 @@ let azurerm_logic_app_workflow ?enabled ?id
   }
 
 type t = {
+  tf_name : string;
   access_endpoint : string prop;
   connector_endpoint_ip_addresses : string list prop;
   connector_outbound_ip_addresses : string list prop;
@@ -621,6 +622,7 @@ let make ?enabled ?id ?integration_service_environment_id
   let __type = "azurerm_logic_app_workflow" in
   let __attrs =
     ({
+       tf_name = __id;
        access_endpoint = Prop.computed __type __id "access_endpoint";
        connector_endpoint_ip_addresses =
          Prop.computed __type __id "connector_endpoint_ip_addresses";

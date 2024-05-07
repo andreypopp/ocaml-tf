@@ -252,6 +252,7 @@ let aws_vpc_endpoint_service ?allowed_principals
   }
 
 type t = {
+  tf_name : string;
   acceptance_required : bool prop;
   allowed_principals : string list prop;
   arn : string prop;
@@ -279,6 +280,7 @@ let make ?allowed_principals ?gateway_load_balancer_arns ?id
   let __type = "aws_vpc_endpoint_service" in
   let __attrs =
     ({
+       tf_name = __id;
        acceptance_required =
          Prop.computed __type __id "acceptance_required";
        allowed_principals =

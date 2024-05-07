@@ -47,6 +47,7 @@ val yojson_of_google_netapp_active_directory :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   aes_encryption : bool prop;
   backup_operators : string list prop;
   create_time : string prop;

@@ -190,6 +190,7 @@ let google_compute_router_interface ?id ?interconnect_attachment
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   interconnect_attachment : string prop;
   ip_range : string prop;
@@ -209,6 +210,7 @@ let make ?id ?interconnect_attachment ?ip_range ?private_ip_address
   let __type = "google_compute_router_interface" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        interconnect_attachment =
          Prop.computed __type __id "interconnect_attachment";

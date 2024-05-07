@@ -180,6 +180,7 @@ let azurerm_relay_hybrid_connection_authorization_rule ?id ?listen
   }
 
 type t = {
+  tf_name : string;
   hybrid_connection_name : string prop;
   id : string prop;
   listen : bool prop;
@@ -201,6 +202,7 @@ let make ?id ?listen ?manage ?send ?timeouts ~hybrid_connection_name
   in
   let __attrs =
     ({
+       tf_name = __id;
        hybrid_connection_name =
          Prop.computed __type __id "hybrid_connection_name";
        id = Prop.computed __type __id "id";

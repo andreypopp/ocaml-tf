@@ -27,6 +27,7 @@ val yojson_of_aws_grafana_role_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   group_ids : string list prop;
   id : string prop;
   role : string prop;

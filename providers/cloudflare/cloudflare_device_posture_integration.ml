@@ -196,6 +196,7 @@ let cloudflare_device_posture_integration ?id ?identifier ?interval
   { account_id; id; identifier; interval; name; type_; config }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   identifier : string prop;
@@ -209,6 +210,7 @@ let make ?id ?identifier ?interval ?(config = []) ~account_id ~name
   let __type = "cloudflare_device_posture_integration" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        identifier = Prop.computed __type __id "identifier";

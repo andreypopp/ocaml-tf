@@ -104,6 +104,7 @@ let cloudflare_turnstile_widget ?bot_fight_mode ?id ?offlabel ?region
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   bot_fight_mode : bool prop;
   domains : string list prop;
@@ -120,6 +121,7 @@ let make ?bot_fight_mode ?id ?offlabel ?region ~account_id ~domains
   let __type = "cloudflare_turnstile_widget" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        bot_fight_mode = Prop.computed __type __id "bot_fight_mode";
        domains = Prop.computed __type __id "domains";

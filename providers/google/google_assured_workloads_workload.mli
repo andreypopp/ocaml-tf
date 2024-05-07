@@ -91,6 +91,7 @@ val yojson_of_google_assured_workloads_workload :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   billing_account : string prop;
   compliance_regime : string prop;
   compliance_status : compliance_status list prop;

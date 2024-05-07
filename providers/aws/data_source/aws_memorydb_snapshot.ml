@@ -167,6 +167,7 @@ let aws_memorydb_snapshot ?id ?tags ~name () : aws_memorydb_snapshot
   { id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cluster_configuration : cluster_configuration list prop;
   cluster_name : string prop;
@@ -181,6 +182,7 @@ let make ?id ?tags ~name __id =
   let __type = "aws_memorydb_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cluster_configuration =
          Prop.computed __type __id "cluster_configuration";

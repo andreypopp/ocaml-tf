@@ -320,6 +320,7 @@ let aws_cloudfront_field_level_encryption_config ?comment ?id
   }
 
 type t = {
+  tf_name : string;
   caller_reference : string prop;
   comment : string prop;
   etag : string prop;
@@ -331,6 +332,7 @@ let make ?comment ?id ~content_type_profile_config
   let __type = "aws_cloudfront_field_level_encryption_config" in
   let __attrs =
     ({
+       tf_name = __id;
        caller_reference =
          Prop.computed __type __id "caller_reference";
        comment = Prop.computed __type __id "comment";

@@ -23,6 +23,7 @@ val yojson_of_azurerm_key_vault_key : azurerm_key_vault_key -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   curve : string prop;
   e : string prop;
   id : string prop;

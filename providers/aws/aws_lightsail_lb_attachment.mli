@@ -19,6 +19,7 @@ val yojson_of_aws_lightsail_lb_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   instance_name : string prop;
   lb_name : string prop;

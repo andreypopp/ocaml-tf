@@ -134,6 +134,7 @@ let aws_vpc_dhcp_options ?dhcp_options_id ?id ?tags ?timeouts ~filter
   { dhcp_options_id; id; tags; filter; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   dhcp_options_id : string prop;
   domain_name : string prop;
@@ -150,6 +151,7 @@ let make ?dhcp_options_id ?id ?tags ?timeouts ~filter __id =
   let __type = "aws_vpc_dhcp_options" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        dhcp_options_id = Prop.computed __type __id "dhcp_options_id";
        domain_name = Prop.computed __type __id "domain_name";

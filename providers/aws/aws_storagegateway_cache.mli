@@ -19,6 +19,7 @@ val yojson_of_aws_storagegateway_cache :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   disk_id : string prop;
   gateway_arn : string prop;
   id : string prop;

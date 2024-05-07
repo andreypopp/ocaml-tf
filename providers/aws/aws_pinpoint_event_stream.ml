@@ -60,6 +60,7 @@ let aws_pinpoint_event_stream ?id ~application_id
   { application_id; destination_stream_arn; id; role_arn }
 
 type t = {
+  tf_name : string;
   application_id : string prop;
   destination_stream_arn : string prop;
   id : string prop;
@@ -70,6 +71,7 @@ let make ?id ~application_id ~destination_stream_arn ~role_arn __id =
   let __type = "aws_pinpoint_event_stream" in
   let __attrs =
     ({
+       tf_name = __id;
        application_id = Prop.computed __type __id "application_id";
        destination_stream_arn =
          Prop.computed __type __id "destination_stream_arn";

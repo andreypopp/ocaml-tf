@@ -36,6 +36,7 @@ val yojson_of_google_compute_global_forwarding_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   base_forwarding_rule : string prop;
   description : string prop;
   effective_labels : (string * string) list prop;

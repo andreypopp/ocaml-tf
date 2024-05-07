@@ -35,6 +35,7 @@ val yojson_of_aws_route : aws_route -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   carrier_gateway_id : string prop;
   core_network_arn : string prop;
   destination_cidr_block : string prop;

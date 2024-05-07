@@ -134,6 +134,7 @@ let aws_redshift_snapshot_schedule ?description ?force_destroy ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   definitions : string list prop;
   description : string prop;
@@ -150,6 +151,7 @@ let make ?description ?force_destroy ?id ?identifier
   let __type = "aws_redshift_snapshot_schedule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        definitions = Prop.computed __type __id "definitions";
        description = Prop.computed __type __id "description";

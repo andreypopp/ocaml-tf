@@ -18,6 +18,7 @@ val yojson_of_aws_cloudformation_export :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   exporting_stack_id : string prop;
   id : string prop;
   name : string prop;

@@ -47,6 +47,7 @@ val yojson_of_google_tpu_node : google_tpu_node -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   accelerator_type : string prop;
   cidr_block : string prop;
   description : string prop;

@@ -68,6 +68,7 @@ val yojson_of_aws_gamelift_game_server_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   auto_scaling_group_arn : string prop;
   balancing_strategy : string prop;

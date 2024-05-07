@@ -56,6 +56,7 @@ let cloudflare_url_normalization_settings ?id ~scope ~type_ ~zone_id
   { id; scope; type_; zone_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   scope : string prop;
   type_ : string prop;
@@ -66,6 +67,7 @@ let make ?id ~scope ~type_ ~zone_id __id =
   let __type = "cloudflare_url_normalization_settings" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        scope = Prop.computed __type __id "scope";
        type_ = Prop.computed __type __id "type";

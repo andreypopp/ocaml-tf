@@ -133,6 +133,7 @@ let azurerm_mariadb_server ?id ?timeouts ~name ~resource_group_name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   administrator_login : string prop;
   fqdn : string prop;
   id : string prop;
@@ -150,6 +151,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_mariadb_server" in
   let __attrs =
     ({
+       tf_name = __id;
        administrator_login =
          Prop.computed __type __id "administrator_login";
        fqdn = Prop.computed __type __id "fqdn";

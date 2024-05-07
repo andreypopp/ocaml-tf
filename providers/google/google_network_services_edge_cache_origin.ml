@@ -561,6 +561,7 @@ let google_network_services_edge_cache_origin ?description
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   effective_labels : (string * string) list prop;
   failover_origin : string prop;
@@ -584,6 +585,7 @@ let make ?description ?failover_origin ?id ?labels ?max_attempts
   let __type = "google_network_services_edge_cache_origin" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        effective_labels =
          Prop.computed __type __id "effective_labels";

@@ -92,12 +92,17 @@ let cloudflare_api_shield ?id ?(auth_id_characteristics = [])
     ~zone_id () : cloudflare_api_shield =
   { id; zone_id; auth_id_characteristics }
 
-type t = { id : string prop; zone_id : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  zone_id : string prop;
+}
 
 let make ?id ?(auth_id_characteristics = []) ~zone_id __id =
   let __type = "cloudflare_api_shield" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        zone_id = Prop.computed __type __id "zone_id";
      }

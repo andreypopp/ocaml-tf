@@ -18,6 +18,7 @@ val yojson_of_aws_ecr_pull_through_cache_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   credential_arn : string prop;
   ecr_repository_prefix : string prop;
   id : string prop;

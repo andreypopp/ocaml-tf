@@ -30,6 +30,7 @@ val yojson_of_azurerm_vmware_netapp_volume_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   netapp_volume_id : string prop;

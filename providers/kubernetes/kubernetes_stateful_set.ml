@@ -13226,12 +13226,17 @@ let kubernetes_stateful_set ?id ?wait_for_rollout ?timeouts ~metadata
     ~spec () : kubernetes_stateful_set =
   { id; wait_for_rollout; metadata; spec; timeouts }
 
-type t = { id : string prop; wait_for_rollout : bool prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  wait_for_rollout : bool prop;
+}
 
 let make ?id ?wait_for_rollout ?timeouts ~metadata ~spec __id =
   let __type = "kubernetes_stateful_set" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        wait_for_rollout =
          Prop.computed __type __id "wait_for_rollout";

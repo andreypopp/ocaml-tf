@@ -49,6 +49,7 @@ let aws_ssm_patch_group ?id ~baseline_id ~patch_group () :
   { baseline_id; id; patch_group }
 
 type t = {
+  tf_name : string;
   baseline_id : string prop;
   id : string prop;
   patch_group : string prop;
@@ -58,6 +59,7 @@ let make ?id ~baseline_id ~patch_group __id =
   let __type = "aws_ssm_patch_group" in
   let __attrs =
     ({
+       tf_name = __id;
        baseline_id = Prop.computed __type __id "baseline_id";
        id = Prop.computed __type __id "id";
        patch_group = Prop.computed __type __id "patch_group";

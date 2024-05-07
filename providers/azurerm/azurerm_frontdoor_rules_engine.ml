@@ -448,6 +448,7 @@ let azurerm_frontdoor_rules_engine ?enabled ?id ?(rule = [])
   }
 
 type t = {
+  tf_name : string;
   enabled : bool prop;
   frontdoor_name : string prop;
   id : string prop;
@@ -461,6 +462,7 @@ let make ?enabled ?id ?(rule = []) ?timeouts ~frontdoor_name ~name
   let __type = "azurerm_frontdoor_rules_engine" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        frontdoor_name = Prop.computed __type __id "frontdoor_name";
        id = Prop.computed __type __id "id";

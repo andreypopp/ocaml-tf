@@ -31,6 +31,7 @@ val yojson_of_aws_ec2_capacity_reservation :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   availability_zone : string prop;
   ebs_optimized : bool prop;

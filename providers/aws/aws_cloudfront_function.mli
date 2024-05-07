@@ -22,6 +22,7 @@ val yojson_of_aws_cloudfront_function :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   code : string prop;
   comment : string prop;

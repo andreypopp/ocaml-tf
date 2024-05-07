@@ -200,6 +200,7 @@ val yojson_of_google_document_ai_warehouse_document_schema :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   document_is_folder : bool prop;
   id : string prop;

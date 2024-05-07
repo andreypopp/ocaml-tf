@@ -78,6 +78,7 @@ let digitalocean_volume_snapshot ?id ?most_recent ?name ?name_regex
   { id; most_recent; name; name_regex; region }
 
 type t = {
+  tf_name : string;
   created_at : string prop;
   id : string prop;
   min_disk_size : float prop;
@@ -95,6 +96,7 @@ let make ?id ?most_recent ?name ?name_regex ?region __id =
   let __type = "digitalocean_volume_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        created_at = Prop.computed __type __id "created_at";
        id = Prop.computed __type __id "id";
        min_disk_size = Prop.computed __type __id "min_disk_size";

@@ -26,6 +26,7 @@ val yojson_of_aws_kms_secrets : aws_kms_secrets -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   plaintext : (string * string) list prop;
 }

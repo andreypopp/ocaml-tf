@@ -227,6 +227,7 @@ let azurerm_elastic_san ?extended_size_in_tib ?id ?tags ?zones
   }
 
 type t = {
+  tf_name : string;
   base_size_in_tib : float prop;
   extended_size_in_tib : float prop;
   id : string prop;
@@ -248,6 +249,7 @@ let make ?extended_size_in_tib ?id ?tags ?zones ?timeouts
   let __type = "azurerm_elastic_san" in
   let __attrs =
     ({
+       tf_name = __id;
        base_size_in_tib =
          Prop.computed __type __id "base_size_in_tib";
        extended_size_in_tib =

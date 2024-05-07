@@ -64,6 +64,7 @@ val yojson_of_aws_cloudsearch_domain : aws_cloudsearch_domain -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   document_service_endpoint : string prop;
   domain_id : string prop;

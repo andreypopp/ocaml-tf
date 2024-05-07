@@ -76,6 +76,7 @@ val yojson_of_azurerm_palo_alto_local_rulestack_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action : string prop;
   applications : string list prop;
   audit_comment : string prop;

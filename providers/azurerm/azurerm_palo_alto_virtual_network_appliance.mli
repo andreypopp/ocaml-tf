@@ -29,6 +29,7 @@ val yojson_of_azurerm_palo_alto_virtual_network_appliance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   virtual_hub_id : string prop;

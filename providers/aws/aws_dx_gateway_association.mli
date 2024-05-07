@@ -33,6 +33,7 @@ val yojson_of_aws_dx_gateway_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allowed_prefixes : string list prop;
   associated_gateway_id : string prop;
   associated_gateway_owner_account_id : string prop;

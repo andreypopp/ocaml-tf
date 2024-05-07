@@ -189,6 +189,7 @@ let azurerm_backup_protected_vm ?backup_policy_id ?exclude_disk_luns
   }
 
 type t = {
+  tf_name : string;
   backup_policy_id : string prop;
   exclude_disk_luns : float list prop;
   id : string prop;
@@ -205,6 +206,7 @@ let make ?backup_policy_id ?exclude_disk_luns ?id ?include_disk_luns
   let __type = "azurerm_backup_protected_vm" in
   let __attrs =
     ({
+       tf_name = __id;
        backup_policy_id =
          Prop.computed __type __id "backup_policy_id";
        exclude_disk_luns =

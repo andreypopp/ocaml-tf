@@ -112,6 +112,7 @@ val yojson_of_google_migration_center_preference_set :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   display_name : string prop;

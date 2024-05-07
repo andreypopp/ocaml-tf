@@ -168,6 +168,7 @@ let azurerm_kusto_cosmosdb_data_connection ?id ?mapping_rule_name
   }
 
 type t = {
+  tf_name : string;
   cosmosdb_container_id : string prop;
   id : string prop;
   kusto_database_id : string prop;
@@ -185,6 +186,7 @@ let make ?id ?mapping_rule_name ?retrieval_start_date ?timeouts
   let __type = "azurerm_kusto_cosmosdb_data_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        cosmosdb_container_id =
          Prop.computed __type __id "cosmosdb_container_id";
        id = Prop.computed __type __id "id";

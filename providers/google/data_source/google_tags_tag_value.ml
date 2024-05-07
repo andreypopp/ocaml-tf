@@ -36,6 +36,7 @@ let google_tags_tag_value ~parent ~short_name () :
   { parent; short_name }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   id : string prop;
@@ -50,6 +51,7 @@ let make ~parent ~short_name __id =
   let __type = "google_tags_tag_value" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

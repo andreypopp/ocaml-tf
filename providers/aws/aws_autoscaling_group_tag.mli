@@ -28,6 +28,7 @@ val yojson_of_aws_autoscaling_group_tag :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   autoscaling_group_name : string prop;
   id : string prop;
 }

@@ -22,6 +22,7 @@ val yojson_of_aws_verifiedpermissions_schema :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   namespaces : string list prop;
   policy_store_id : string prop;

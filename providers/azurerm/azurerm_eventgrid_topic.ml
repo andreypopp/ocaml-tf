@@ -432,6 +432,7 @@ let azurerm_eventgrid_topic ?id ?inbound_ip_rule ?input_schema
   }
 
 type t = {
+  tf_name : string;
   endpoint : string prop;
   id : string prop;
   inbound_ip_rule : inbound_ip_rule list prop;
@@ -453,6 +454,7 @@ let make ?id ?inbound_ip_rule ?input_schema ?local_auth_enabled
   let __type = "azurerm_eventgrid_topic" in
   let __attrs =
     ({
+       tf_name = __id;
        endpoint = Prop.computed __type __id "endpoint";
        id = Prop.computed __type __id "id";
        inbound_ip_rule = Prop.computed __type __id "inbound_ip_rule";

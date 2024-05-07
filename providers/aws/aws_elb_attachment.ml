@@ -44,6 +44,7 @@ let aws_elb_attachment ?id ~elb ~instance () : aws_elb_attachment =
   { elb; id; instance }
 
 type t = {
+  tf_name : string;
   elb : string prop;
   id : string prop;
   instance : string prop;
@@ -53,6 +54,7 @@ let make ?id ~elb ~instance __id =
   let __type = "aws_elb_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        elb = Prop.computed __type __id "elb";
        id = Prop.computed __type __id "id";
        instance = Prop.computed __type __id "instance";

@@ -27,6 +27,7 @@ val yojson_of_aws_network_acl_rule : aws_network_acl_rule -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cidr_block : string prop;
   egress : bool prop;
   from_port : float prop;

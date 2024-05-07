@@ -212,6 +212,7 @@ let azurerm_arc_resource_bridge_appliance ?id ?public_key_base64
   }
 
 type t = {
+  tf_name : string;
   distro : string prop;
   id : string prop;
   infrastructure_provider : string prop;
@@ -228,6 +229,7 @@ let make ?id ?public_key_base64 ?tags ?timeouts ~distro
   let __type = "azurerm_arc_resource_bridge_appliance" in
   let __attrs =
     ({
+       tf_name = __id;
        distro = Prop.computed __type __id "distro";
        id = Prop.computed __type __id "id";
        infrastructure_provider =

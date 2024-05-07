@@ -28,6 +28,7 @@ val yojson_of_google_bigquery_reservation_assignment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   assignee : string prop;
   id : string prop;
   job_type : string prop;

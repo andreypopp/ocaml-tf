@@ -34,6 +34,7 @@ val yojson_of_azurerm_media_asset : azurerm_media_asset -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alternate_id : string prop;
   container : string prop;
   description : string prop;

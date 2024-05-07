@@ -130,6 +130,7 @@ let google_data_catalog_tag_template_iam_binding ?id ?project ?region
   { id; members; project; region; role; tag_template; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   members : string list prop;
@@ -144,6 +145,7 @@ let make ?id ?project ?region ?(condition = []) ~members ~role
   let __type = "google_data_catalog_tag_template_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        members = Prop.computed __type __id "members";

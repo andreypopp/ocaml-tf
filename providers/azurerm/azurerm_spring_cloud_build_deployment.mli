@@ -40,6 +40,7 @@ val yojson_of_azurerm_spring_cloud_build_deployment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   addon_json : string prop;
   application_performance_monitoring_ids : string list prop;
   build_result_id : string prop;

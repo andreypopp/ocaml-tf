@@ -49,6 +49,7 @@ val yojson_of_aws_lexv2models_bot : aws_lexv2models_bot -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;

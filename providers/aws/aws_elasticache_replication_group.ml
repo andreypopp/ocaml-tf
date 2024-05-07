@@ -600,6 +600,7 @@ let aws_elasticache_replication_group ?apply_immediately
   }
 
 type t = {
+  tf_name : string;
   apply_immediately : bool prop;
   arn : string prop;
   at_rest_encryption_enabled : bool prop;
@@ -664,6 +665,7 @@ let make ?apply_immediately ?at_rest_encryption_enabled ?auth_token
   let __type = "aws_elasticache_replication_group" in
   let __attrs =
     ({
+       tf_name = __id;
        apply_immediately =
          Prop.computed __type __id "apply_immediately";
        arn = Prop.computed __type __id "arn";

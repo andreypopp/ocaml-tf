@@ -17,6 +17,7 @@ val yojson_of_aws_ses_domain_dkim : aws_ses_domain_dkim -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dkim_tokens : string list prop;
   domain : string prop;
   id : string prop;

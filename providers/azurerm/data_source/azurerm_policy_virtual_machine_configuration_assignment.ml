@@ -99,6 +99,7 @@ let azurerm_policy_virtual_machine_configuration_assignment ?id
   { id; name; resource_group_name; virtual_machine_name; timeouts }
 
 type t = {
+  tf_name : string;
   assignment_hash : string prop;
   compliance_status : string prop;
   content_hash : string prop;
@@ -118,6 +119,7 @@ let make ?id ?timeouts ~name ~resource_group_name
   in
   let __attrs =
     ({
+       tf_name = __id;
        assignment_hash = Prop.computed __type __id "assignment_hash";
        compliance_status =
          Prop.computed __type __id "compliance_status";

@@ -103,6 +103,7 @@ let aws_msk_broker_nodes ?id ~cluster_arn () : aws_msk_broker_nodes =
   { cluster_arn; id }
 
 type t = {
+  tf_name : string;
   cluster_arn : string prop;
   id : string prop;
   node_info_list : node_info_list list prop;
@@ -112,6 +113,7 @@ let make ?id ~cluster_arn __id =
   let __type = "aws_msk_broker_nodes" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_arn = Prop.computed __type __id "cluster_arn";
        id = Prop.computed __type __id "id";
        node_info_list = Prop.computed __type __id "node_info_list";

@@ -56,6 +56,7 @@ let digitalocean_spaces_bucket_policy ?id ~bucket ~policy ~region ()
   { bucket; id; policy; region }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   id : string prop;
   policy : string prop;
@@ -66,6 +67,7 @@ let make ?id ~bucket ~policy ~region __id =
   let __type = "digitalocean_spaces_bucket_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        id = Prop.computed __type __id "id";
        policy = Prop.computed __type __id "policy";

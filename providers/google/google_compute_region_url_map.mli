@@ -704,6 +704,7 @@ val yojson_of_google_compute_region_url_map :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   creation_timestamp : string prop;
   default_service : string prop;
   description : string prop;

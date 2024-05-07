@@ -450,6 +450,7 @@ let azurerm_monitor_alert_prometheus_rule_group ?cluster_name
   }
 
 type t = {
+  tf_name : string;
   cluster_name : string prop;
   description : string prop;
   id : string prop;
@@ -468,6 +469,7 @@ let make ?cluster_name ?description ?id ?interval ?rule_group_enabled
   let __type = "azurerm_monitor_alert_prometheus_rule_group" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_name = Prop.computed __type __id "cluster_name";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

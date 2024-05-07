@@ -72,6 +72,7 @@ val yojson_of_aws_sesv2_configuration_set_event_destination :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   configuration_set_name : string prop;
   event_destination_name : string prop;
   id : string prop;

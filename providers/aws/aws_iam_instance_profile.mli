@@ -23,6 +23,7 @@ val yojson_of_aws_iam_instance_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   create_date : string prop;
   id : string prop;

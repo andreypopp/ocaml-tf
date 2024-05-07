@@ -72,6 +72,7 @@ let aws_vpc_network_performance_metric_subscription ?id ?metric
   { destination; id; metric; source; statistic }
 
 type t = {
+  tf_name : string;
   destination : string prop;
   id : string prop;
   metric : string prop;
@@ -84,6 +85,7 @@ let make ?id ?metric ?statistic ~destination ~source __id =
   let __type = "aws_vpc_network_performance_metric_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        destination = Prop.computed __type __id "destination";
        id = Prop.computed __type __id "id";
        metric = Prop.computed __type __id "metric";

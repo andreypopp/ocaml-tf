@@ -41,6 +41,7 @@ let google_logging_project_settings ?id ~project () :
   { id; project }
 
 type t = {
+  tf_name : string;
   disable_default_sink : bool prop;
   id : string prop;
   kms_key_name : string prop;
@@ -55,6 +56,7 @@ let make ?id ~project __id =
   let __type = "google_logging_project_settings" in
   let __attrs =
     ({
+       tf_name = __id;
        disable_default_sink =
          Prop.computed __type __id "disable_default_sink";
        id = Prop.computed __type __id "id";

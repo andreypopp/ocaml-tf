@@ -206,6 +206,7 @@ let azurerm_api_management_identity_provider_aadb2c ?id
   }
 
 type t = {
+  tf_name : string;
   allowed_tenant : string prop;
   api_management_name : string prop;
   authority : string prop;
@@ -227,6 +228,7 @@ let make ?id ?password_reset_policy ?profile_editing_policy ?timeouts
   let __type = "azurerm_api_management_identity_provider_aadb2c" in
   let __attrs =
     ({
+       tf_name = __id;
        allowed_tenant = Prop.computed __type __id "allowed_tenant";
        api_management_name =
          Prop.computed __type __id "api_management_name";

@@ -50,6 +50,7 @@ let google_vmwareengine_network_peering ?id ?project ~name () :
   { id; name; project }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   export_custom_routes : bool prop;
@@ -73,6 +74,7 @@ let make ?id ?project ~name __id =
   let __type = "google_vmwareengine_network_peering" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        export_custom_routes =

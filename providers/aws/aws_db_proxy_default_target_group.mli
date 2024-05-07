@@ -36,6 +36,7 @@ val yojson_of_aws_db_proxy_default_target_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   db_proxy_name : string prop;
   id : string prop;

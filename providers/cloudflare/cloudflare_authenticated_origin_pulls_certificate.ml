@@ -98,6 +98,7 @@ let cloudflare_authenticated_origin_pulls_certificate ?id ?timeouts
   { certificate; id; private_key; type_; zone_id; timeouts }
 
 type t = {
+  tf_name : string;
   certificate : string prop;
   expires_on : string prop;
   id : string prop;
@@ -116,6 +117,7 @@ let make ?id ?timeouts ~certificate ~private_key ~type_ ~zone_id __id
   let __type = "cloudflare_authenticated_origin_pulls_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate = Prop.computed __type __id "certificate";
        expires_on = Prop.computed __type __id "expires_on";
        id = Prop.computed __type __id "id";

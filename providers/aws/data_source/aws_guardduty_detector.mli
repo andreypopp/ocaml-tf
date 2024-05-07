@@ -26,6 +26,7 @@ val yojson_of_aws_guardduty_detector : aws_guardduty_detector -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   features : features list prop;
   finding_publishing_frequency : string prop;
   id : string prop;

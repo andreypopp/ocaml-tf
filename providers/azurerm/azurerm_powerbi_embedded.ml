@@ -181,6 +181,7 @@ let azurerm_powerbi_embedded ?id ?mode ?tags ?timeouts
   }
 
 type t = {
+  tf_name : string;
   administrators : string list prop;
   id : string prop;
   location : string prop;
@@ -196,6 +197,7 @@ let make ?id ?mode ?tags ?timeouts ~administrators ~location ~name
   let __type = "azurerm_powerbi_embedded" in
   let __attrs =
     ({
+       tf_name = __id;
        administrators = Prop.computed __type __id "administrators";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

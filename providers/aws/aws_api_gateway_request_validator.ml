@@ -77,6 +77,7 @@ let aws_api_gateway_request_validator ?id ?validate_request_body
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   rest_api_id : string prop;
@@ -89,6 +90,7 @@ let make ?id ?validate_request_body ?validate_request_parameters
   let __type = "aws_api_gateway_request_validator" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        rest_api_id = Prop.computed __type __id "rest_api_id";

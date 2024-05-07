@@ -1211,6 +1211,7 @@ let azurerm_kubernetes_cluster ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   aci_connector_linux : aci_connector_linux list prop;
   agent_pool_profile : agent_pool_profile list prop;
   api_server_authorized_ip_ranges : string list prop;
@@ -1262,6 +1263,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_kubernetes_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        aci_connector_linux =
          Prop.computed __type __id "aci_connector_linux";
        agent_pool_profile =

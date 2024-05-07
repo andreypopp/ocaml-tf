@@ -765,6 +765,7 @@ let aws_s3_bucket_replication_configuration ?id ?token ~bucket ~role
   { bucket; id; role; token; rule }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   id : string prop;
   role : string prop;
@@ -775,6 +776,7 @@ let make ?id ?token ~bucket ~role ~rule __id =
   let __type = "aws_s3_bucket_replication_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        id = Prop.computed __type __id "id";
        role = Prop.computed __type __id "role";

@@ -3684,6 +3684,7 @@ let google_data_loss_prevention_job_trigger ?description
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   display_name : string prop;
@@ -3701,6 +3702,7 @@ let make ?description ?display_name ?id ?status ?trigger_id
   let __type = "google_data_loss_prevention_job_trigger" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";

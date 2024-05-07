@@ -129,6 +129,7 @@ let google_artifact_registry_repository_iam_member ?id ?location
   { id; location; member; project; repository; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   location : string prop;
@@ -143,6 +144,7 @@ let make ?id ?location ?project ?(condition = []) ~member ~repository
   let __type = "google_artifact_registry_repository_iam_member" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

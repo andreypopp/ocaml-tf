@@ -33,6 +33,7 @@ val yojson_of_azurerm_backup_protected_file_share :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backup_policy_id : string prop;
   id : string prop;
   recovery_vault_name : string prop;

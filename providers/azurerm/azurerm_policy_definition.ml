@@ -193,6 +193,7 @@ let azurerm_policy_definition ?description ?id ?management_group_id
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   id : string prop;
@@ -212,6 +213,7 @@ let make ?description ?id ?management_group_id ?metadata ?parameters
   let __type = "azurerm_policy_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";

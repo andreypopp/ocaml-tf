@@ -145,6 +145,7 @@ let azurerm_batch_account ?encryption ?id ?timeouts ~name
   { encryption; id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   account_endpoint : string prop;
   encryption : encryption list prop;
   id : string prop;
@@ -163,6 +164,7 @@ let make ?encryption ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_batch_account" in
   let __attrs =
     ({
+       tf_name = __id;
        account_endpoint =
          Prop.computed __type __id "account_endpoint";
        encryption = Prop.computed __type __id "encryption";

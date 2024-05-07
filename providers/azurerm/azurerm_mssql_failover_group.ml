@@ -257,6 +257,7 @@ let azurerm_mssql_failover_group ?databases ?id
   }
 
 type t = {
+  tf_name : string;
   databases : string list prop;
   id : string prop;
   name : string prop;
@@ -271,6 +272,7 @@ let make ?databases ?id ?readonly_endpoint_failover_policy_enabled
   let __type = "azurerm_mssql_failover_group" in
   let __attrs =
     ({
+       tf_name = __id;
        databases = Prop.computed __type __id "databases";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

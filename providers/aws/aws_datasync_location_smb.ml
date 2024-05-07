@@ -167,6 +167,7 @@ let aws_datasync_location_smb ?domain ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   agent_arns : string list prop;
   arn : string prop;
   domain : string prop;
@@ -185,6 +186,7 @@ let make ?domain ?id ?tags ?tags_all ?(mount_options = [])
   let __type = "aws_datasync_location_smb" in
   let __attrs =
     ({
+       tf_name = __id;
        agent_arns = Prop.computed __type __id "agent_arns";
        arn = Prop.computed __type __id "arn";
        domain = Prop.computed __type __id "domain";

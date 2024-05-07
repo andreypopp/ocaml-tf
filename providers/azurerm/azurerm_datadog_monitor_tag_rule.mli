@@ -64,6 +64,7 @@ val yojson_of_azurerm_datadog_monitor_tag_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   datadog_monitor_id : string prop;
   id : string prop;
   name : string prop;

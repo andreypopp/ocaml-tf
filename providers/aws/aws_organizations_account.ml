@@ -147,6 +147,7 @@ let aws_organizations_account ?close_on_deletion ?create_govcloud
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   close_on_deletion : bool prop;
   create_govcloud : bool prop;
@@ -170,6 +171,7 @@ let make ?close_on_deletion ?create_govcloud
   let __type = "aws_organizations_account" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        close_on_deletion =
          Prop.computed __type __id "close_on_deletion";

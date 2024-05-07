@@ -85,6 +85,7 @@ let aws_vpc_endpoint_connection_notification ?id ?vpc_endpoint_id
   }
 
 type t = {
+  tf_name : string;
   connection_events : string list prop;
   connection_notification_arn : string prop;
   id : string prop;
@@ -99,6 +100,7 @@ let make ?id ?vpc_endpoint_id ?vpc_endpoint_service_id
   let __type = "aws_vpc_endpoint_connection_notification" in
   let __attrs =
     ({
+       tf_name = __id;
        connection_events =
          Prop.computed __type __id "connection_events";
        connection_notification_arn =

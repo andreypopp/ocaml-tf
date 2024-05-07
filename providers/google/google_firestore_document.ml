@@ -138,6 +138,7 @@ let google_firestore_document ?database ?id ?project ?timeouts
   }
 
 type t = {
+  tf_name : string;
   collection : string prop;
   create_time : string prop;
   database : string prop;
@@ -155,6 +156,7 @@ let make ?database ?id ?project ?timeouts ~collection ~document_id
   let __type = "google_firestore_document" in
   let __attrs =
     ({
+       tf_name = __id;
        collection = Prop.computed __type __id "collection";
        create_time = Prop.computed __type __id "create_time";
        database = Prop.computed __type __id "database";

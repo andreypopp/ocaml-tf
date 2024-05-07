@@ -21,6 +21,7 @@ val yojson_of_aws_app_cookie_stickiness_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cookie_name : string prop;
   id : string prop;
   lb_port : float prop;

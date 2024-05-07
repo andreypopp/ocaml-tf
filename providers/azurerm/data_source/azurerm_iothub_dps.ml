@@ -103,6 +103,7 @@ let azurerm_iothub_dps ?id ?tags ?timeouts ~name ~resource_group_name
   { id; name; resource_group_name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   allocation_policy : string prop;
   device_provisioning_host_name : string prop;
   id : string prop;
@@ -118,6 +119,7 @@ let make ?id ?tags ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_iothub_dps" in
   let __attrs =
     ({
+       tf_name = __id;
        allocation_policy =
          Prop.computed __type __id "allocation_policy";
        device_provisioning_host_name =

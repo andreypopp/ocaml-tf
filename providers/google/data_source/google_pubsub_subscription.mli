@@ -70,6 +70,7 @@ val yojson_of_google_pubsub_subscription :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   ack_deadline_seconds : float prop;
   bigquery_config : bigquery_config list prop;
   cloud_storage_config : cloud_storage_config list prop;

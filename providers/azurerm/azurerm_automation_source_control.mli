@@ -47,6 +47,7 @@ val yojson_of_azurerm_automation_source_control :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automatic_sync : bool prop;
   automation_account_id : string prop;
   branch : string prop;

@@ -36,6 +36,7 @@ val yojson_of_azurerm_media_live_event_output :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   archive_window_duration : string prop;
   asset_name : string prop;
   description : string prop;

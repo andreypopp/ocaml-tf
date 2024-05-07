@@ -123,6 +123,7 @@ let azurerm_private_endpoint_application_security_group_association
   }
 
 type t = {
+  tf_name : string;
   application_security_group_id : string prop;
   id : string prop;
   private_endpoint_id : string prop;
@@ -135,6 +136,7 @@ let make ?id ?timeouts ~application_security_group_id
   in
   let __attrs =
     ({
+       tf_name = __id;
        application_security_group_id =
          Prop.computed __type __id "application_security_group_id";
        id = Prop.computed __type __id "id";

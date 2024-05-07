@@ -46,6 +46,7 @@ val yojson_of_azurerm_cosmosdb_cassandra_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authentication_method : string prop;
   client_certificate_pems : string list prop;
   default_admin_password : string prop;

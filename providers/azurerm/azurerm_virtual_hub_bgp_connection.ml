@@ -153,6 +153,7 @@ let azurerm_virtual_hub_bgp_connection ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   peer_asn : float prop;
@@ -166,6 +167,7 @@ let make ?id ?virtual_network_connection_id ?timeouts ~name ~peer_asn
   let __type = "azurerm_virtual_hub_bgp_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        peer_asn = Prop.computed __type __id "peer_asn";

@@ -37,6 +37,7 @@ let aws_opensearchserverless_lifecycle_policy ~name ~type_ () :
   { name; type_ }
 
 type t = {
+  tf_name : string;
   created_date : string prop;
   description : string prop;
   id : string prop;
@@ -51,6 +52,7 @@ let make ~name ~type_ __id =
   let __type = "aws_opensearchserverless_lifecycle_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        created_date = Prop.computed __type __id "created_date";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

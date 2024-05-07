@@ -125,6 +125,7 @@ let aws_vpc_ipv6_cidr_block_association ?id ?ipv6_cidr_block
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   ipv6_cidr_block : string prop;
   ipv6_ipam_pool_id : string prop;
@@ -137,6 +138,7 @@ let make ?id ?ipv6_cidr_block ?ipv6_netmask_length ?timeouts
   let __type = "aws_vpc_ipv6_cidr_block_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ipv6_cidr_block = Prop.computed __type __id "ipv6_cidr_block";
        ipv6_ipam_pool_id =

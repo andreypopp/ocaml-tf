@@ -147,6 +147,7 @@ let aws_network_acl_rule ?cidr_block ?egress ?from_port ?icmp_code
   }
 
 type t = {
+  tf_name : string;
   cidr_block : string prop;
   egress : bool prop;
   from_port : float prop;
@@ -167,6 +168,7 @@ let make ?cidr_block ?egress ?from_port ?icmp_code ?icmp_type ?id
   let __type = "aws_network_acl_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        cidr_block = Prop.computed __type __id "cidr_block";
        egress = Prop.computed __type __id "egress";
        from_port = Prop.computed __type __id "from_port";

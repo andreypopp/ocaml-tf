@@ -46,6 +46,7 @@ val yojson_of_aws_finspace_kx_dataview :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   auto_update : bool prop;
   availability_zone_id : string prop;

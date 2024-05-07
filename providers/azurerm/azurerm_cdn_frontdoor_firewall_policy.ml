@@ -727,6 +727,7 @@ let azurerm_cdn_frontdoor_firewall_policy ?custom_block_response_body
   }
 
 type t = {
+  tf_name : string;
   custom_block_response_body : string prop;
   custom_block_response_status_code : float prop;
   enabled : bool prop;
@@ -749,6 +750,7 @@ let make ?custom_block_response_body
   let __type = "azurerm_cdn_frontdoor_firewall_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        custom_block_response_body =
          Prop.computed __type __id "custom_block_response_body";
        custom_block_response_status_code =

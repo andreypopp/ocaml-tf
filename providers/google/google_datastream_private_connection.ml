@@ -226,6 +226,7 @@ let google_datastream_private_connection ?id ?labels ?project
   }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   effective_labels : (string * string) list prop;
   error : error list prop;
@@ -244,6 +245,7 @@ let make ?id ?labels ?project ?timeouts ~display_name ~location
   let __type = "google_datastream_private_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        effective_labels =
          Prop.computed __type __id "effective_labels";

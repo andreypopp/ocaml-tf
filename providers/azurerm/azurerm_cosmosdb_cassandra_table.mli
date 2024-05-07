@@ -67,6 +67,7 @@ val yojson_of_azurerm_cosmosdb_cassandra_table :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   analytical_storage_ttl : float prop;
   cassandra_keyspace_id : string prop;
   default_ttl : float prop;

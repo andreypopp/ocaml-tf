@@ -49,6 +49,7 @@ let google_service_account ?id ?project ~account_id () :
   { account_id; id; project }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   display_name : string prop;
   email : string prop;
@@ -63,6 +64,7 @@ let make ?id ?project ~account_id __id =
   let __type = "google_service_account" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        display_name = Prop.computed __type __id "display_name";
        email = Prop.computed __type __id "email";

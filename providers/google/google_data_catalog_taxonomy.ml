@@ -150,6 +150,7 @@ let google_data_catalog_taxonomy ?activated_policy_types ?description
   }
 
 type t = {
+  tf_name : string;
   activated_policy_types : string list prop;
   description : string prop;
   display_name : string prop;
@@ -164,6 +165,7 @@ let make ?activated_policy_types ?description ?id ?project ?region
   let __type = "google_data_catalog_taxonomy" in
   let __attrs =
     ({
+       tf_name = __id;
        activated_policy_types =
          Prop.computed __type __id "activated_policy_types";
        description = Prop.computed __type __id "description";

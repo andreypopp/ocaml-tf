@@ -91,6 +91,7 @@ let azurerm_dns_ptr_record ?id ?timeouts ~name ~resource_group_name
   { id; name; resource_group_name; zone_name; timeouts }
 
 type t = {
+  tf_name : string;
   fqdn : string prop;
   id : string prop;
   name : string prop;
@@ -105,6 +106,7 @@ let make ?id ?timeouts ~name ~resource_group_name ~zone_name __id =
   let __type = "azurerm_dns_ptr_record" in
   let __attrs =
     ({
+       tf_name = __id;
        fqdn = Prop.computed __type __id "fqdn";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

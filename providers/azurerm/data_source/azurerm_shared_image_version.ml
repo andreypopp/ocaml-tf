@@ -159,6 +159,7 @@ let azurerm_shared_image_version ?id ?sort_versions_by_semver
   }
 
 type t = {
+  tf_name : string;
   exclude_from_latest : bool prop;
   gallery_name : string prop;
   id : string prop;
@@ -179,6 +180,7 @@ let make ?id ?sort_versions_by_semver ?timeouts ~gallery_name
   let __type = "azurerm_shared_image_version" in
   let __attrs =
     ({
+       tf_name = __id;
        exclude_from_latest =
          Prop.computed __type __id "exclude_from_latest";
        gallery_name = Prop.computed __type __id "gallery_name";

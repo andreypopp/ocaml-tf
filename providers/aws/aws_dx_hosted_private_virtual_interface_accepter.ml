@@ -158,6 +158,7 @@ let aws_dx_hosted_private_virtual_interface_accepter ?dx_gateway_id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   dx_gateway_id : string prop;
   id : string prop;
@@ -172,6 +173,7 @@ let make ?dx_gateway_id ?id ?tags ?tags_all ?vpn_gateway_id ?timeouts
   let __type = "aws_dx_hosted_private_virtual_interface_accepter" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        dx_gateway_id = Prop.computed __type __id "dx_gateway_id";
        id = Prop.computed __type __id "id";

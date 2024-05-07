@@ -32,6 +32,7 @@ val yojson_of_azurerm_log_analytics_linked_storage_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   data_source_type : string prop;
   id : string prop;
   resource_group_name : string prop;

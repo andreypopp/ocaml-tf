@@ -107,6 +107,7 @@ let aws_servicecatalog_budget_resource_association ?id ?timeouts
   { budget_name; id; resource_id; timeouts }
 
 type t = {
+  tf_name : string;
   budget_name : string prop;
   id : string prop;
   resource_id : string prop;
@@ -116,6 +117,7 @@ let make ?id ?timeouts ~budget_name ~resource_id __id =
   let __type = "aws_servicecatalog_budget_resource_association" in
   let __attrs =
     ({
+       tf_name = __id;
        budget_name = Prop.computed __type __id "budget_name";
        id = Prop.computed __type __id "id";
        resource_id = Prop.computed __type __id "resource_id";

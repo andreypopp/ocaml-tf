@@ -32,6 +32,7 @@ val yojson_of_azurerm_spring_cloud_custom_domain :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_name : string prop;
   id : string prop;
   name : string prop;

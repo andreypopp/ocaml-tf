@@ -393,6 +393,7 @@ let aws_rds_cluster_instance ?apply_immediately
   }
 
 type t = {
+  tf_name : string;
   apply_immediately : bool prop;
   arn : string prop;
   auto_minor_version_upgrade : bool prop;
@@ -443,6 +444,7 @@ let make ?apply_immediately ?auto_minor_version_upgrade
   let __type = "aws_rds_cluster_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        apply_immediately =
          Prop.computed __type __id "apply_immediately";
        arn = Prop.computed __type __id "arn";

@@ -218,6 +218,7 @@ let azurerm_container_registry_webhook ?custom_headers ?id ?scope
   }
 
 type t = {
+  tf_name : string;
   actions : string list prop;
   custom_headers : (string * string) list prop;
   id : string prop;
@@ -237,6 +238,7 @@ let make ?custom_headers ?id ?scope ?status ?tags ?timeouts ~actions
   let __type = "azurerm_container_registry_webhook" in
   let __attrs =
     ({
+       tf_name = __id;
        actions = Prop.computed __type __id "actions";
        custom_headers = Prop.computed __type __id "custom_headers";
        id = Prop.computed __type __id "id";

@@ -30,6 +30,7 @@ val yojson_of_azurerm_disk_pool_iscsi_target_lun :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   disk_pool_managed_disk_attachment_id : string prop;
   id : string prop;
   iscsi_target_id : string prop;

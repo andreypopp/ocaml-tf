@@ -23,6 +23,7 @@ val yojson_of_aws_pinpoint_email_channel :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_id : string prop;
   configuration_set : string prop;
   enabled : bool prop;

@@ -113,6 +113,7 @@ let google_kms_secret_ciphertext ?additional_authenticated_data ?id
   }
 
 type t = {
+  tf_name : string;
   additional_authenticated_data : string prop;
   ciphertext : string prop;
   crypto_key : string prop;
@@ -125,6 +126,7 @@ let make ?additional_authenticated_data ?id ?timeouts ~crypto_key
   let __type = "google_kms_secret_ciphertext" in
   let __attrs =
     ({
+       tf_name = __id;
        additional_authenticated_data =
          Prop.computed __type __id "additional_authenticated_data";
        ciphertext = Prop.computed __type __id "ciphertext";

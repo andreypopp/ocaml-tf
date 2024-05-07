@@ -107,6 +107,7 @@ val yojson_of_google_datastream_connection_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   connection_profile_id : string prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;

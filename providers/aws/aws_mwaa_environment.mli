@@ -121,6 +121,7 @@ val yojson_of_aws_mwaa_environment : aws_mwaa_environment -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   airflow_configuration_options : (string * string) list prop;
   airflow_version : string prop;
   arn : string prop;

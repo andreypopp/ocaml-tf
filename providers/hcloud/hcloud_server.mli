@@ -61,6 +61,7 @@ val yojson_of_hcloud_server : hcloud_server -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_deprecated_images : bool prop;
   backup_window : string prop;
   backups : bool prop;

@@ -131,6 +131,7 @@ let google_network_security_gateway_security_policy ?description ?id
   { description; id; location; name; project; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   id : string prop;
@@ -145,6 +146,7 @@ let make ?description ?id ?location ?project ?timeouts ~name __id =
   let __type = "google_network_security_gateway_security_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

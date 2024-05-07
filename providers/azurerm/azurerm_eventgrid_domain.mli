@@ -75,6 +75,7 @@ val yojson_of_azurerm_eventgrid_domain :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_create_topic_with_first_subscription : bool prop;
   auto_delete_topic_with_last_subscription : bool prop;
   endpoint : string prop;

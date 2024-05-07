@@ -35,6 +35,7 @@ val yojson_of_aws_glue_partition_index :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   catalog_id : string prop;
   database_name : string prop;
   id : string prop;

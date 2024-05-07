@@ -139,6 +139,7 @@ let azurerm_elastic_cloud_elasticsearch ?id ?(logs = []) ?timeouts
   { id; name; resource_group_name; logs; timeouts }
 
 type t = {
+  tf_name : string;
   elastic_cloud_deployment_id : string prop;
   elastic_cloud_email_address : string prop;
   elastic_cloud_sso_default_url : string prop;
@@ -159,6 +160,7 @@ let make ?id ?(logs = []) ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_elastic_cloud_elasticsearch" in
   let __attrs =
     ({
+       tf_name = __id;
        elastic_cloud_deployment_id =
          Prop.computed __type __id "elastic_cloud_deployment_id";
        elastic_cloud_email_address =

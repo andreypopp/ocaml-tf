@@ -37,6 +37,7 @@ let cloudflare_email_routing_address ~account_id ~email () :
   { account_id; email }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   created : string prop;
   email : string prop;
@@ -50,6 +51,7 @@ let make ~account_id ~email __id =
   let __type = "cloudflare_email_routing_address" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        created = Prop.computed __type __id "created";
        email = Prop.computed __type __id "email";

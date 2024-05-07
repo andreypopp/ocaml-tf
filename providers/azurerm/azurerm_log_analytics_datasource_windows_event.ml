@@ -158,6 +158,7 @@ let azurerm_log_analytics_datasource_windows_event ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   event_log_name : string prop;
   event_types : string list prop;
   id : string prop;
@@ -171,6 +172,7 @@ let make ?id ?timeouts ~event_log_name ~event_types ~name
   let __type = "azurerm_log_analytics_datasource_windows_event" in
   let __attrs =
     ({
+       tf_name = __id;
        event_log_name = Prop.computed __type __id "event_log_name";
        event_types = Prop.computed __type __id "event_types";
        id = Prop.computed __type __id "id";

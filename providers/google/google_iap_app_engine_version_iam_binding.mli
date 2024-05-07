@@ -33,6 +33,7 @@ val yojson_of_google_iap_app_engine_version_iam_binding :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_id : string prop;
   etag : string prop;
   id : string prop;

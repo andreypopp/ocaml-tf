@@ -127,6 +127,7 @@ val yojson_of_azurerm_lab_service_lab :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   lab_plan_id : string prop;

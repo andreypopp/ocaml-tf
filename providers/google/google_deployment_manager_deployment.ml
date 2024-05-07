@@ -310,6 +310,7 @@ let google_deployment_manager_deployment ?create_policy
   }
 
 type t = {
+  tf_name : string;
   create_policy : string prop;
   delete_policy : string prop;
   deployment_id : string prop;
@@ -327,6 +328,7 @@ let make ?create_policy ?delete_policy ?description ?id ?preview
   let __type = "google_deployment_manager_deployment" in
   let __attrs =
     ({
+       tf_name = __id;
        create_policy = Prop.computed __type __id "create_policy";
        delete_policy = Prop.computed __type __id "delete_policy";
        deployment_id = Prop.computed __type __id "deployment_id";

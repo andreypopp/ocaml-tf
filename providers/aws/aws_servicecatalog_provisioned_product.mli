@@ -71,6 +71,7 @@ val yojson_of_aws_servicecatalog_provisioned_product :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   accept_language : string prop;
   arn : string prop;
   cloudwatch_dashboard_names : string list prop;

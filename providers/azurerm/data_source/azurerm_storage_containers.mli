@@ -30,6 +30,7 @@ val yojson_of_azurerm_storage_containers :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   containers : containers list prop;
   id : string prop;
   name_prefix : string prop;

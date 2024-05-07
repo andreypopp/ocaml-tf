@@ -39,6 +39,7 @@ let aws_lightsail_static_ip ?id ~name () : aws_lightsail_static_ip =
   { id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   ip_address : string prop;
@@ -50,6 +51,7 @@ let make ?id ~name __id =
   let __type = "aws_lightsail_static_ip" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        ip_address = Prop.computed __type __id "ip_address";

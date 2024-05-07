@@ -493,6 +493,7 @@ let aws_ssmincidents_response_plan ?chat_channel ?display_name
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   chat_channel : string list prop;
   display_name : string prop;
@@ -509,6 +510,7 @@ let make ?chat_channel ?display_name ?engagements ?id ?tags ?tags_all
   let __type = "aws_ssmincidents_response_plan" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        chat_channel = Prop.computed __type __id "chat_channel";
        display_name = Prop.computed __type __id "display_name";

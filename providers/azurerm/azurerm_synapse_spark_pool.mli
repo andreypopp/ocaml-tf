@@ -72,6 +72,7 @@ val yojson_of_azurerm_synapse_spark_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cache_size : float prop;
   compute_isolation_enabled : bool prop;
   dynamic_executor_allocation_enabled : bool prop;

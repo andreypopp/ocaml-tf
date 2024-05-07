@@ -17,7 +17,11 @@ val yojson_of_aws_dx_connection_confirmation :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { connection_id : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  connection_id : string prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

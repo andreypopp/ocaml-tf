@@ -246,6 +246,7 @@ let azurerm_orbital_spacecraft ?id ?tags ?timeouts ~location ~name
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -261,6 +262,7 @@ let make ?id ?tags ?timeouts ~location ~name ~norad_id
   let __type = "azurerm_orbital_spacecraft" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

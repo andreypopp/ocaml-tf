@@ -154,6 +154,7 @@ let aws_fsx_openzfs_snapshot ?id ?tags ?tags_all ?timeouts ~name
   { id; name; tags; tags_all; volume_id; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   creation_time : string prop;
   id : string prop;
@@ -167,6 +168,7 @@ let make ?id ?tags ?tags_all ?timeouts ~name ~volume_id __id =
   let __type = "aws_fsx_openzfs_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        creation_time = Prop.computed __type __id "creation_time";
        id = Prop.computed __type __id "id";

@@ -24,6 +24,7 @@ val yojson_of_azurerm_network_manager_network_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   name : string prop;

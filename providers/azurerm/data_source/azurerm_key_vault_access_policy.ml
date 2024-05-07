@@ -74,6 +74,7 @@ let azurerm_key_vault_access_policy ?id ?timeouts ~name () :
   { id; name; timeouts }
 
 type t = {
+  tf_name : string;
   certificate_permissions : string list prop;
   id : string prop;
   key_permissions : string list prop;
@@ -85,6 +86,7 @@ let make ?id ?timeouts ~name __id =
   let __type = "azurerm_key_vault_access_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_permissions =
          Prop.computed __type __id "certificate_permissions";
        id = Prop.computed __type __id "id";

@@ -86,6 +86,7 @@ val yojson_of_azurerm_data_factory_dataset_parquet :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   additional_properties : (string * string) list prop;
   annotations : string list prop;
   compression_codec : string prop;

@@ -1674,6 +1674,7 @@ let google_compute_instance ?allow_stopping_for_update
   }
 
 type t = {
+  tf_name : string;
   allow_stopping_for_update : bool prop;
   can_ip_forward : bool prop;
   cpu_platform : string prop;
@@ -1718,6 +1719,7 @@ let make ?allow_stopping_for_update ?can_ip_forward
   let __type = "google_compute_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_stopping_for_update =
          Prop.computed __type __id "allow_stopping_for_update";
        can_ip_forward = Prop.computed __type __id "can_ip_forward";

@@ -165,6 +165,7 @@ let azurerm_virtual_desktop_host_pool ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   custom_rdp_properties : string prop;
   description : string prop;
   friendly_name : string prop;
@@ -187,6 +188,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_virtual_desktop_host_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        custom_rdp_properties =
          Prop.computed __type __id "custom_rdp_properties";
        description = Prop.computed __type __id "description";

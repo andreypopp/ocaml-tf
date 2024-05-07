@@ -22,6 +22,7 @@ val yojson_of_aws_lightsail_key_pair : aws_lightsail_key_pair -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   encrypted_fingerprint : string prop;
   encrypted_private_key : string prop;

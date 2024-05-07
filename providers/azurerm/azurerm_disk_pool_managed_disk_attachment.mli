@@ -29,6 +29,7 @@ val yojson_of_azurerm_disk_pool_managed_disk_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   disk_pool_id : string prop;
   id : string prop;
   managed_disk_id : string prop;

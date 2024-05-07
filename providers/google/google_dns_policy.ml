@@ -268,6 +268,7 @@ let google_dns_policy ?description ?enable_inbound_forwarding
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   enable_inbound_forwarding : bool prop;
   enable_logging : bool prop;
@@ -282,6 +283,7 @@ let make ?description ?enable_inbound_forwarding ?enable_logging ?id
   let __type = "google_dns_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        enable_inbound_forwarding =
          Prop.computed __type __id "enable_inbound_forwarding";

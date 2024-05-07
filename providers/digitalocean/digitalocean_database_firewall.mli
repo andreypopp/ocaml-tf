@@ -22,7 +22,11 @@ val yojson_of_digitalocean_database_firewall :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { cluster_id : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  cluster_id : string prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

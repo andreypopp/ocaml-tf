@@ -19,6 +19,7 @@ val yojson_of_aws_msk_scram_secret_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_arn : string prop;
   id : string prop;
   secret_arn_list : string list prop;

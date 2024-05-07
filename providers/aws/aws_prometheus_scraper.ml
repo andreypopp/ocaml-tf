@@ -254,6 +254,7 @@ let aws_prometheus_scraper ?alias ?tags ?(destination = [])
   }
 
 type t = {
+  tf_name : string;
   alias : string prop;
   arn : string prop;
   id : string prop;
@@ -268,6 +269,7 @@ let make ?alias ?tags ?(destination = []) ?(source = []) ?timeouts
   let __type = "aws_prometheus_scraper" in
   let __attrs =
     ({
+       tf_name = __id;
        alias = Prop.computed __type __id "alias";
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";

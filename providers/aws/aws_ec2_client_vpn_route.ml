@@ -124,6 +124,7 @@ let aws_ec2_client_vpn_route ?description ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   client_vpn_endpoint_id : string prop;
   description : string prop;
   destination_cidr_block : string prop;
@@ -138,6 +139,7 @@ let make ?description ?id ?timeouts ~client_vpn_endpoint_id
   let __type = "aws_ec2_client_vpn_route" in
   let __attrs =
     ({
+       tf_name = __id;
        client_vpn_endpoint_id =
          Prop.computed __type __id "client_vpn_endpoint_id";
        description = Prop.computed __type __id "description";

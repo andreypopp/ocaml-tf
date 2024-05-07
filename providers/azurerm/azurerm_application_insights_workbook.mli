@@ -47,6 +47,7 @@ val yojson_of_azurerm_application_insights_workbook :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   category : string prop;
   data_json : string prop;
   description : string prop;

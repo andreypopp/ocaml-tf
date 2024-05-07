@@ -178,6 +178,7 @@ let google_bigtable_table ?change_stream_retention
   }
 
 type t = {
+  tf_name : string;
   change_stream_retention : string prop;
   deletion_protection : string prop;
   id : string prop;
@@ -192,6 +193,7 @@ let make ?change_stream_retention ?deletion_protection ?id ?project
   let __type = "google_bigtable_table" in
   let __attrs =
     ({
+       tf_name = __id;
        change_stream_retention =
          Prop.computed __type __id "change_stream_retention";
        deletion_protection =

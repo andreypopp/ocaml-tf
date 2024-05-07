@@ -20,6 +20,7 @@ val yojson_of_aws_storagegateway_upload_buffer :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   disk_id : string prop;
   disk_path : string prop;
   gateway_arn : string prop;

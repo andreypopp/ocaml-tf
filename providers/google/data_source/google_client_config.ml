@@ -17,6 +17,7 @@ let _ = yojson_of_google_client_config
 let google_client_config () = ()
 
 type t = {
+  tf_name : string;
   access_token : string prop;
   id : string prop;
   project : string prop;
@@ -28,6 +29,7 @@ let make __id =
   let __type = "google_client_config" in
   let __attrs =
     ({
+       tf_name = __id;
        access_token = Prop.computed __type __id "access_token";
        id = Prop.computed __type __id "id";
        project = Prop.computed __type __id "project";

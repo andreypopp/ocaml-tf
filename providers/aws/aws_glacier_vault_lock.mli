@@ -20,6 +20,7 @@ val yojson_of_aws_glacier_vault_lock : aws_glacier_vault_lock -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   complete_lock : bool prop;
   id : string prop;
   ignore_deletion_error : bool prop;

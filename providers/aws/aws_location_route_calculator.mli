@@ -32,6 +32,7 @@ val yojson_of_aws_location_route_calculator :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   calculator_arn : string prop;
   calculator_name : string prop;
   create_time : string prop;

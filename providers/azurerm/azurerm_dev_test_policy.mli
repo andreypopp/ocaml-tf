@@ -37,6 +37,7 @@ val yojson_of_azurerm_dev_test_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   evaluator_type : string prop;
   fact_data : string prop;

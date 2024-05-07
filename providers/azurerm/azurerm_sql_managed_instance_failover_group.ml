@@ -247,6 +247,7 @@ let azurerm_sql_managed_instance_failover_group ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   managed_instance_name : string prop;
@@ -265,6 +266,7 @@ let make ?id ?readonly_endpoint_failover_policy_enabled ?timeouts
   let __type = "azurerm_sql_managed_instance_failover_group" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        managed_instance_name =

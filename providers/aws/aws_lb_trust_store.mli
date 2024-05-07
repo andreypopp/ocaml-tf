@@ -29,6 +29,7 @@ val yojson_of_aws_lb_trust_store : aws_lb_trust_store -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   arn_suffix : string prop;
   ca_certificates_bundle_s3_bucket : string prop;

@@ -19,6 +19,7 @@ val yojson_of_aws_ssoadmin_application_access_scope :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_arn : string prop;
   authorized_targets : string list prop;
   id : string prop;

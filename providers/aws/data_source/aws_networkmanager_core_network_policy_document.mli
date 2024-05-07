@@ -99,6 +99,7 @@ val yojson_of_aws_networkmanager_core_network_policy_document :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   json : string prop;
   version : string prop;

@@ -52,6 +52,7 @@ val yojson_of_azurerm_iot_security_device_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   iothub_id : string prop;
   name : string prop;

@@ -522,6 +522,7 @@ let aws_ssmcontacts_rotation ?start_time ?tags ?(recurrence = [])
   { contact_ids; name; start_time; tags; time_zone_id; recurrence }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   contact_ids : string list prop;
   id : string prop;
@@ -537,6 +538,7 @@ let make ?start_time ?tags ?(recurrence = []) ~contact_ids ~name
   let __type = "aws_ssmcontacts_rotation" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        contact_ids = Prop.computed __type __id "contact_ids";
        id = Prop.computed __type __id "id";

@@ -238,6 +238,7 @@ let google_network_services_edge_cache_keyset ?description ?id
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   effective_labels : (string * string) list prop;
   id : string prop;
@@ -252,6 +253,7 @@ let make ?description ?id ?labels ?project ?(public_key = [])
   let __type = "google_network_services_edge_cache_keyset" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        effective_labels =
          Prop.computed __type __id "effective_labels";

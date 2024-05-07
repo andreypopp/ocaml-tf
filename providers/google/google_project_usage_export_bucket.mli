@@ -26,6 +26,7 @@ val yojson_of_google_project_usage_export_bucket :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket_name : string prop;
   id : string prop;
   prefix : string prop;

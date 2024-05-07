@@ -46,6 +46,7 @@ let google_apigee_environment_iam_policy ?id ~env_id ~org_id () :
   { env_id; id; org_id }
 
 type t = {
+  tf_name : string;
   env_id : string prop;
   etag : string prop;
   id : string prop;
@@ -57,6 +58,7 @@ let make ?id ~env_id ~org_id __id =
   let __type = "google_apigee_environment_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        env_id = Prop.computed __type __id "env_id";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

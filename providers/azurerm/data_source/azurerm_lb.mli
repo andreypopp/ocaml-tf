@@ -36,6 +36,7 @@ val yojson_of_azurerm_lb : azurerm_lb -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   frontend_ip_configuration : frontend_ip_configuration list prop;
   id : string prop;
   location : string prop;

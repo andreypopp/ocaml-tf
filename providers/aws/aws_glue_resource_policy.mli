@@ -19,6 +19,7 @@ val yojson_of_aws_glue_resource_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enable_hybrid : string prop;
   id : string prop;
   policy : string prop;

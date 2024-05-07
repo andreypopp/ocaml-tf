@@ -21,6 +21,7 @@ val yojson_of_aws_transfer_profile : aws_transfer_profile -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   as2_id : string prop;
   certificate_ids : string list prop;

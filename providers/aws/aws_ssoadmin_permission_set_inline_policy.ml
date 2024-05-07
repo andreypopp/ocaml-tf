@@ -104,6 +104,7 @@ let aws_ssoadmin_permission_set_inline_policy ?id ?timeouts
   { id; inline_policy; instance_arn; permission_set_arn; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   inline_policy : string prop;
   instance_arn : string prop;
@@ -115,6 +116,7 @@ let make ?id ?timeouts ~inline_policy ~instance_arn
   let __type = "aws_ssoadmin_permission_set_inline_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        inline_policy = Prop.computed __type __id "inline_policy";
        instance_arn = Prop.computed __type __id "instance_arn";

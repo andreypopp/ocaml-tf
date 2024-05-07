@@ -276,6 +276,7 @@ let aws_ami ?executable_users ?id ?include_deprecated ?most_recent
   }
 
 type t = {
+  tf_name : string;
   architecture : string prop;
   arn : string prop;
   block_device_mappings : block_device_mappings list prop;
@@ -321,6 +322,7 @@ let make ?executable_users ?id ?include_deprecated ?most_recent
   let __type = "aws_ami" in
   let __attrs =
     ({
+       tf_name = __id;
        architecture = Prop.computed __type __id "architecture";
        arn = Prop.computed __type __id "arn";
        block_device_mappings =

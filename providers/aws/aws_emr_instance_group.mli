@@ -35,6 +35,7 @@ val yojson_of_aws_emr_instance_group : aws_emr_instance_group -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   autoscaling_policy : string prop;
   bid_price : string prop;
   cluster_id : string prop;

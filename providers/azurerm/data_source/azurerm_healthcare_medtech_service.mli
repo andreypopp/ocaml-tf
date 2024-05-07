@@ -31,6 +31,7 @@ val yojson_of_azurerm_healthcare_medtech_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   device_mapping_json : string prop;
   eventhub_consumer_group_name : string prop;
   eventhub_name : string prop;

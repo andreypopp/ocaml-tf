@@ -222,6 +222,7 @@ let aws_glue_connection ?catalog_id ?connection_properties
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   catalog_id : string prop;
   connection_properties : (string * string) list prop;
@@ -240,6 +241,7 @@ let make ?catalog_id ?connection_properties ?connection_type
   let __type = "aws_glue_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        catalog_id = Prop.computed __type __id "catalog_id";
        connection_properties =

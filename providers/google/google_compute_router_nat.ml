@@ -494,6 +494,7 @@ let google_compute_router_nat ?drain_nat_ips
   }
 
 type t = {
+  tf_name : string;
   drain_nat_ips : string list prop;
   enable_dynamic_port_allocation : bool prop;
   enable_endpoint_independent_mapping : bool prop;
@@ -524,6 +525,7 @@ let make ?drain_nat_ips ?enable_dynamic_port_allocation
   let __type = "google_compute_router_nat" in
   let __attrs =
     ({
+       tf_name = __id;
        drain_nat_ips = Prop.computed __type __id "drain_nat_ips";
        enable_dynamic_port_allocation =
          Prop.computed __type __id "enable_dynamic_port_allocation";

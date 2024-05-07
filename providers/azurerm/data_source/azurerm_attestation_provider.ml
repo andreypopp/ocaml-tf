@@ -86,6 +86,7 @@ let azurerm_attestation_provider ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   attestation_uri : string prop;
   id : string prop;
   location : string prop;
@@ -99,6 +100,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_attestation_provider" in
   let __attrs =
     ({
+       tf_name = __id;
        attestation_uri = Prop.computed __type __id "attestation_uri";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

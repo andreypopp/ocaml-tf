@@ -421,6 +421,7 @@ let aws_fsx_openzfs_volume ?copy_tags_to_snapshots
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   copy_tags_to_snapshots : bool prop;
   data_compression_type : string prop;
@@ -446,6 +447,7 @@ let make ?copy_tags_to_snapshots ?data_compression_type
   let __type = "aws_fsx_openzfs_volume" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        copy_tags_to_snapshots =
          Prop.computed __type __id "copy_tags_to_snapshots";

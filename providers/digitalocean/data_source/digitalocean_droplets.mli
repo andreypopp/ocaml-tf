@@ -59,7 +59,11 @@ val yojson_of_digitalocean_droplets : digitalocean_droplets -> json
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { droplets : droplets list prop; id : string prop }
+type t = private {
+  tf_name : string;
+  droplets : droplets list prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

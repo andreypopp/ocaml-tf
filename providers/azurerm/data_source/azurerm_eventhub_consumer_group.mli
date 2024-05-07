@@ -26,6 +26,7 @@ val yojson_of_azurerm_eventhub_consumer_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   eventhub_name : string prop;
   id : string prop;
   name : string prop;

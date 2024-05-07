@@ -90,6 +90,7 @@ val yojson_of_aws_sagemaker_flow_definition :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   flow_definition_name : string prop;
   id : string prop;

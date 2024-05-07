@@ -103,6 +103,7 @@ let aws_mq_broker_engine_types ?engine_type ?id () :
   { engine_type; id }
 
 type t = {
+  tf_name : string;
   broker_engine_types : broker_engine_types list prop;
   engine_type : string prop;
   id : string prop;
@@ -112,6 +113,7 @@ let make ?engine_type ?id __id =
   let __type = "aws_mq_broker_engine_types" in
   let __attrs =
     ({
+       tf_name = __id;
        broker_engine_types =
          Prop.computed __type __id "broker_engine_types";
        engine_type = Prop.computed __type __id "engine_type";

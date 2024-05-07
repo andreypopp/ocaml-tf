@@ -318,6 +318,7 @@ let google_dataflow_job ?additional_experiments
   }
 
 type t = {
+  tf_name : string;
   additional_experiments : string list prop;
   effective_labels : (string * string) list prop;
   enable_streaming_engine : bool prop;
@@ -355,6 +356,7 @@ let make ?additional_experiments ?enable_streaming_engine ?id
   let __type = "google_dataflow_job" in
   let __attrs =
     ({
+       tf_name = __id;
        additional_experiments =
          Prop.computed __type __id "additional_experiments";
        effective_labels =

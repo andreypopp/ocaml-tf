@@ -116,6 +116,7 @@ let azurerm_signalr_service_custom_certificate ?id ?timeouts
   { custom_certificate_id; id; name; signalr_service_id; timeouts }
 
 type t = {
+  tf_name : string;
   certificate_version : string prop;
   custom_certificate_id : string prop;
   id : string prop;
@@ -128,6 +129,7 @@ let make ?id ?timeouts ~custom_certificate_id ~name
   let __type = "azurerm_signalr_service_custom_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_version =
          Prop.computed __type __id "certificate_version";
        custom_certificate_id =

@@ -39,6 +39,7 @@ let aws_eks_cluster_auth ?id ~name () : aws_eks_cluster_auth =
   { id; name }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   token : string prop;
@@ -48,6 +49,7 @@ let make ?id ~name __id =
   let __type = "aws_eks_cluster_auth" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        token = Prop.computed __type __id "token";

@@ -79,6 +79,7 @@ val yojson_of_aws_fsx_file_cache : aws_fsx_file_cache -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   copy_tags_to_data_repository_associations : bool prop;
   data_repository_association_ids : string list prop;

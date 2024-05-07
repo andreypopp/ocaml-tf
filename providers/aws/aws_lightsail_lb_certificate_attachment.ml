@@ -52,6 +52,7 @@ let aws_lightsail_lb_certificate_attachment ?id ~certificate_name
   { certificate_name; id; lb_name }
 
 type t = {
+  tf_name : string;
   certificate_name : string prop;
   id : string prop;
   lb_name : string prop;
@@ -61,6 +62,7 @@ let make ?id ~certificate_name ~lb_name __id =
   let __type = "aws_lightsail_lb_certificate_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_name =
          Prop.computed __type __id "certificate_name";
        id = Prop.computed __type __id "id";

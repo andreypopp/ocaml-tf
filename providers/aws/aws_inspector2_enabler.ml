@@ -112,6 +112,7 @@ let aws_inspector2_enabler ?id ?timeouts ~account_ids ~resource_types
   { account_ids; id; resource_types; timeouts }
 
 type t = {
+  tf_name : string;
   account_ids : string list prop;
   id : string prop;
   resource_types : string list prop;
@@ -121,6 +122,7 @@ let make ?id ?timeouts ~account_ids ~resource_types __id =
   let __type = "aws_inspector2_enabler" in
   let __attrs =
     ({
+       tf_name = __id;
        account_ids = Prop.computed __type __id "account_ids";
        id = Prop.computed __type __id "id";
        resource_types = Prop.computed __type __id "resource_types";

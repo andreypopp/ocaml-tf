@@ -21,6 +21,7 @@ val yojson_of_aws_opsworks_rds_db_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   db_password : string prop;
   db_user : string prop;
   id : string prop;

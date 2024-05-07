@@ -136,6 +136,7 @@ let azurerm_key_vault_certificates ?id ?include_pending ?timeouts
   { id; include_pending; key_vault_id; timeouts }
 
 type t = {
+  tf_name : string;
   certificates : certificates list prop;
   id : string prop;
   include_pending : bool prop;
@@ -147,6 +148,7 @@ let make ?id ?include_pending ?timeouts ~key_vault_id __id =
   let __type = "azurerm_key_vault_certificates" in
   let __attrs =
     ({
+       tf_name = __id;
        certificates = Prop.computed __type __id "certificates";
        id = Prop.computed __type __id "id";
        include_pending = Prop.computed __type __id "include_pending";

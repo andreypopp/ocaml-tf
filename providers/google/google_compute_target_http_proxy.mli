@@ -33,6 +33,7 @@ val yojson_of_google_compute_target_http_proxy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   http_keep_alive_timeout_sec : float prop;

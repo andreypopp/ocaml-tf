@@ -71,6 +71,7 @@ let aws_iot_thing ?attributes ?id ?thing_type_name ~name () :
   { attributes; id; name; thing_type_name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   attributes : (string * string) list prop;
   default_client_id : string prop;
@@ -84,6 +85,7 @@ let make ?attributes ?id ?thing_type_name ~name __id =
   let __type = "aws_iot_thing" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        attributes = Prop.computed __type __id "attributes";
        default_client_id =

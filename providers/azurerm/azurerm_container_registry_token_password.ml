@@ -184,6 +184,7 @@ let azurerm_container_registry_token_password ?id ?(password2 = [])
   { container_registry_token_id; id; password1; password2; timeouts }
 
 type t = {
+  tf_name : string;
   container_registry_token_id : string prop;
   id : string prop;
 }
@@ -193,6 +194,7 @@ let make ?id ?(password2 = []) ?timeouts ~container_registry_token_id
   let __type = "azurerm_container_registry_token_password" in
   let __attrs =
     ({
+       tf_name = __id;
        container_registry_token_id =
          Prop.computed __type __id "container_registry_token_id";
        id = Prop.computed __type __id "id";

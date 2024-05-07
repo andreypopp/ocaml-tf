@@ -57,6 +57,7 @@ let aws_lb_hosted_zone_id ?id ?load_balancer_type ?region () :
   { id; load_balancer_type; region }
 
 type t = {
+  tf_name : string;
   id : string prop;
   load_balancer_type : string prop;
   region : string prop;
@@ -66,6 +67,7 @@ let make ?id ?load_balancer_type ?region __id =
   let __type = "aws_lb_hosted_zone_id" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        load_balancer_type =
          Prop.computed __type __id "load_balancer_type";

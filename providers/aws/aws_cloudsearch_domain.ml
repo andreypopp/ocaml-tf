@@ -374,6 +374,7 @@ let aws_cloudsearch_domain ?id ?multi_az ?(endpoint_options = [])
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   document_service_endpoint : string prop;
   domain_id : string prop;
@@ -388,6 +389,7 @@ let make ?id ?multi_az ?(endpoint_options = [])
   let __type = "aws_cloudsearch_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        document_service_endpoint =
          Prop.computed __type __id "document_service_endpoint";

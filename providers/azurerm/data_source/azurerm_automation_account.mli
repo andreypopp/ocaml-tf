@@ -36,6 +36,7 @@ val yojson_of_azurerm_automation_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   endpoint : string prop;
   hybrid_service_url : string prop;
   id : string prop;

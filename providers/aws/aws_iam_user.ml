@@ -117,6 +117,7 @@ let aws_iam_user ?force_destroy ?id ?path ?permissions_boundary ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   force_destroy : bool prop;
   id : string prop;
@@ -133,6 +134,7 @@ let make ?force_destroy ?id ?path ?permissions_boundary ?tags
   let __type = "aws_iam_user" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        force_destroy = Prop.computed __type __id "force_destroy";
        id = Prop.computed __type __id "id";

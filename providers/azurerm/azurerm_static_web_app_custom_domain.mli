@@ -30,6 +30,7 @@ val yojson_of_azurerm_static_web_app_custom_domain :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   domain_name : string prop;
   id : string prop;
   static_web_app_id : string prop;

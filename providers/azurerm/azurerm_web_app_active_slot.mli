@@ -30,6 +30,7 @@ val yojson_of_azurerm_web_app_active_slot :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   last_successful_swap : string prop;
   overwrite_network_config : bool prop;

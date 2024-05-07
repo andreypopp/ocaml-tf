@@ -35,6 +35,7 @@ val yojson_of_azurerm_powerbi_embedded :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   administrators : string list prop;
   id : string prop;
   location : string prop;

@@ -358,6 +358,7 @@ val yojson_of_aws_quicksight_data_set : aws_quicksight_data_set -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name: string;
   arn: string prop;
   aws_account_id: string prop;
   data_set_id: string prop;

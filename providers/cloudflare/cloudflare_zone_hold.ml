@@ -69,6 +69,7 @@ let cloudflare_zone_hold ?hold_after ?id ?include_subdomains ~hold
   { hold; hold_after; id; include_subdomains; zone_id }
 
 type t = {
+  tf_name : string;
   hold : bool prop;
   hold_after : string prop;
   id : string prop;
@@ -80,6 +81,7 @@ let make ?hold_after ?id ?include_subdomains ~hold ~zone_id __id =
   let __type = "cloudflare_zone_hold" in
   let __attrs =
     ({
+       tf_name = __id;
        hold = Prop.computed __type __id "hold";
        hold_after = Prop.computed __type __id "hold_after";
        id = Prop.computed __type __id "id";

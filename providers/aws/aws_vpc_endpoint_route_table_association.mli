@@ -19,6 +19,7 @@ val yojson_of_aws_vpc_endpoint_route_table_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   route_table_id : string prop;
   vpc_endpoint_id : string prop;

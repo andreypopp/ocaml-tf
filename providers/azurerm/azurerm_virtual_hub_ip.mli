@@ -33,6 +33,7 @@ val yojson_of_azurerm_virtual_hub_ip : azurerm_virtual_hub_ip -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   private_ip_address : string prop;

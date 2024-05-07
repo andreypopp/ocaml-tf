@@ -140,6 +140,7 @@ let google_alloydb_user ?database_roles ?id ?password ?timeouts
   }
 
 type t = {
+  tf_name : string;
   cluster : string prop;
   database_roles : string list prop;
   id : string prop;
@@ -154,6 +155,7 @@ let make ?database_roles ?id ?password ?timeouts ~cluster ~user_id
   let __type = "google_alloydb_user" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster = Prop.computed __type __id "cluster";
        database_roles = Prop.computed __type __id "database_roles";
        id = Prop.computed __type __id "id";

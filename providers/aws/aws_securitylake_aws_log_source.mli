@@ -24,7 +24,7 @@ val yojson_of_aws_securitylake_aws_log_source :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop }
+type t = private { tf_name : string; id : string prop }
 
 val register :
   ?tf_module:tf_module -> ?source:source list -> string -> t

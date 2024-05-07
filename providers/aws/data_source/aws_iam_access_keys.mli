@@ -20,6 +20,7 @@ val yojson_of_aws_iam_access_keys : aws_iam_access_keys -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_keys : access_keys list prop;
   id : string prop;
   user : string prop;

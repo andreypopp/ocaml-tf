@@ -294,6 +294,7 @@ let azurerm_cdn_frontdoor_origin_group ?id
   }
 
 type t = {
+  tf_name : string;
   cdn_frontdoor_profile_id : string prop;
   id : string prop;
   name : string prop;
@@ -309,6 +310,7 @@ let make ?id
   let __type = "azurerm_cdn_frontdoor_origin_group" in
   let __attrs =
     ({
+       tf_name = __id;
        cdn_frontdoor_profile_id =
          Prop.computed __type __id "cdn_frontdoor_profile_id";
        id = Prop.computed __type __id "id";

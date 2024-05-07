@@ -25,6 +25,7 @@ val yojson_of_azurerm_private_dns_zone_virtual_network_link :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   private_dns_zone_name : string prop;

@@ -97,6 +97,7 @@ val yojson_of_aws_comprehend_entity_recognizer :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   data_access_role_arn : string prop;
   id : string prop;

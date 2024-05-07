@@ -22,6 +22,7 @@ val yojson_of_aws_cloudfront_origin_access_control :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   etag : string prop;
   id : string prop;

@@ -244,6 +244,7 @@ let aws_medialive_multiplex ?id ?start_multiplex ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zones : string list prop;
   id : string prop;
@@ -259,6 +260,7 @@ let make ?id ?start_multiplex ?tags ?tags_all
   let __type = "aws_medialive_multiplex" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zones =
          Prop.computed __type __id "availability_zones";

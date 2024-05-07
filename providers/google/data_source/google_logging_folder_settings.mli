@@ -18,6 +18,7 @@ val yojson_of_google_logging_folder_settings :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   disable_default_sink : bool prop;
   folder : string prop;
   id : string prop;

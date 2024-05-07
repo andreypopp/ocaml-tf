@@ -95,6 +95,7 @@ val yojson_of_aws_fsx_openzfs_file_system :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   automatic_backup_retention_days : float prop;
   backup_id : string prop;

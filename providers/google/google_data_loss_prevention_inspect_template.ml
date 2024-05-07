@@ -1905,6 +1905,7 @@ let google_data_loss_prevention_inspect_template ?description
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   id : string prop;
@@ -1918,6 +1919,7 @@ let make ?description ?display_name ?id ?template_id
   let __type = "google_data_loss_prevention_inspect_template" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";

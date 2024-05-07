@@ -128,6 +128,7 @@ let google_data_fusion_instance_iam_member ?id ?project ?region
   { id; member; name; project; region; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   member : string prop;
@@ -142,6 +143,7 @@ let make ?id ?project ?region ?(condition = []) ~member ~name ~role
   let __type = "google_data_fusion_instance_iam_member" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        member = Prop.computed __type __id "member";

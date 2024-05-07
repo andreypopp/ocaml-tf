@@ -54,6 +54,7 @@ let google_tpu_tensorflow_versions ?id ?project ?zone () :
   { id; project; zone }
 
 type t = {
+  tf_name : string;
   id : string prop;
   project : string prop;
   versions : string list prop;
@@ -64,6 +65,7 @@ let make ?id ?project ?zone __id =
   let __type = "google_tpu_tensorflow_versions" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        project = Prop.computed __type __id "project";
        versions = Prop.computed __type __id "versions";

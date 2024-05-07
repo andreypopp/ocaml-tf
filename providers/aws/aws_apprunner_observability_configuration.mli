@@ -26,6 +26,7 @@ val yojson_of_aws_apprunner_observability_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   latest : bool prop;

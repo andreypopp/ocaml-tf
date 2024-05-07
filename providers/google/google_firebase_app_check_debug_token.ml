@@ -122,6 +122,7 @@ let google_firebase_app_check_debug_token ?id ?project ?timeouts
   { app_id; display_name; id; project; token; timeouts }
 
 type t = {
+  tf_name : string;
   app_id : string prop;
   debug_token_id : string prop;
   display_name : string prop;
@@ -134,6 +135,7 @@ let make ?id ?project ?timeouts ~app_id ~display_name ~token __id =
   let __type = "google_firebase_app_check_debug_token" in
   let __attrs =
     ({
+       tf_name = __id;
        app_id = Prop.computed __type __id "app_id";
        debug_token_id = Prop.computed __type __id "debug_token_id";
        display_name = Prop.computed __type __id "display_name";

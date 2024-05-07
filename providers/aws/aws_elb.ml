@@ -493,6 +493,7 @@ let aws_elb ?availability_zones ?connection_draining
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zones : string list prop;
   connection_draining : bool prop;
@@ -524,6 +525,7 @@ let make ?availability_zones ?connection_draining
   let __type = "aws_elb" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zones =
          Prop.computed __type __id "availability_zones";

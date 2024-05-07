@@ -97,6 +97,7 @@ let aws_elasticache_user_group ?id ?tags ?tags_all ?user_ids ~engine
   { engine; id; tags; tags_all; user_group_id; user_ids }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   engine : string prop;
   id : string prop;
@@ -110,6 +111,7 @@ let make ?id ?tags ?tags_all ?user_ids ~engine ~user_group_id __id =
   let __type = "aws_elasticache_user_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        engine = Prop.computed __type __id "engine";
        id = Prop.computed __type __id "id";

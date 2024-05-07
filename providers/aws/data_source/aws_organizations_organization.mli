@@ -43,6 +43,7 @@ val yojson_of_aws_organizations_organization :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   accounts : accounts list prop;
   arn : string prop;
   aws_service_access_principals : string list prop;

@@ -24,6 +24,7 @@ val yojson_of_azurerm_container_app_environment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   default_domain : string prop;
   docker_bridge_cidr : string prop;
   id : string prop;

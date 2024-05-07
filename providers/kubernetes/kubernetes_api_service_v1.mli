@@ -50,7 +50,7 @@ val yojson_of_kubernetes_api_service_v1 :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop }
+type t = private { tf_name : string; id : string prop }
 
 val register :
   ?tf_module:tf_module ->

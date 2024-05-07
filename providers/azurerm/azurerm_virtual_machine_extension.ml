@@ -291,6 +291,7 @@ let azurerm_virtual_machine_extension ?auto_upgrade_minor_version
   }
 
 type t = {
+  tf_name : string;
   auto_upgrade_minor_version : bool prop;
   automatic_upgrade_enabled : bool prop;
   failure_suppression_enabled : bool prop;
@@ -315,6 +316,7 @@ let make ?auto_upgrade_minor_version ?automatic_upgrade_enabled
   let __type = "azurerm_virtual_machine_extension" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_upgrade_minor_version =
          Prop.computed __type __id "auto_upgrade_minor_version";
        automatic_upgrade_enabled =

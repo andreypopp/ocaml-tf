@@ -45,6 +45,7 @@ val yojson_of_aws_directory_service_directory :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_url : string prop;
   alias : string prop;
   connect_settings : connect_settings list prop;

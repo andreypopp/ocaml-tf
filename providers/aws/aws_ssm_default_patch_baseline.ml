@@ -52,6 +52,7 @@ let aws_ssm_default_patch_baseline ?id ~baseline_id ~operating_system
   { baseline_id; id; operating_system }
 
 type t = {
+  tf_name : string;
   baseline_id : string prop;
   id : string prop;
   operating_system : string prop;
@@ -61,6 +62,7 @@ let make ?id ~baseline_id ~operating_system __id =
   let __type = "aws_ssm_default_patch_baseline" in
   let __attrs =
     ({
+       tf_name = __id;
        baseline_id = Prop.computed __type __id "baseline_id";
        id = Prop.computed __type __id "id";
        operating_system =

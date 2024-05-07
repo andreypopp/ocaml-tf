@@ -229,6 +229,7 @@ let azurerm_network_function_collector_policy ?id ?tags ?timeouts
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -241,6 +242,7 @@ let make ?id ?tags ?timeouts ~location ~name ~traffic_collector_id
   let __type = "azurerm_network_function_collector_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

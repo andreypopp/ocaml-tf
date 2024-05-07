@@ -358,6 +358,7 @@ let google_bigquery_data_transfer_config ?data_refresh_window_days
   }
 
 type t = {
+  tf_name : string;
   data_refresh_window_days : float prop;
   data_source_id : string prop;
   destination_dataset_id : string prop;
@@ -381,6 +382,7 @@ let make ?data_refresh_window_days ?destination_dataset_id ?disabled
   let __type = "google_bigquery_data_transfer_config" in
   let __attrs =
     ({
+       tf_name = __id;
        data_refresh_window_days =
          Prop.computed __type __id "data_refresh_window_days";
        data_source_id = Prop.computed __type __id "data_source_id";

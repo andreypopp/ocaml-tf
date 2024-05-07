@@ -39,6 +39,7 @@ val yojson_of_aws_datasync_location_fsx_openzfs_file_system :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   creation_time : string prop;
   fsx_filesystem_arn : string prop;

@@ -51,6 +51,7 @@ val yojson_of_google_apigee_organization :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   analytics_region : string prop;
   apigee_project_id : string prop;
   authorized_network : string prop;

@@ -120,6 +120,7 @@ let google_bigquery_dataset_iam_binding ?id ?project
   { dataset_id; id; members; project; role; condition }
 
 type t = {
+  tf_name : string;
   dataset_id : string prop;
   etag : string prop;
   id : string prop;
@@ -133,6 +134,7 @@ let make ?id ?project ?(condition = []) ~dataset_id ~members ~role
   let __type = "google_bigquery_dataset_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        dataset_id = Prop.computed __type __id "dataset_id";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

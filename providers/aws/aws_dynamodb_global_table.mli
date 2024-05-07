@@ -33,6 +33,7 @@ val yojson_of_aws_dynamodb_global_table :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;

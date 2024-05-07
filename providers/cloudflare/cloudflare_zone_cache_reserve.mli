@@ -26,6 +26,7 @@ val yojson_of_cloudflare_zone_cache_reserve :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   zone_id : string prop;

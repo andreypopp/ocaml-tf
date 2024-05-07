@@ -293,6 +293,7 @@ let google_compute_reservation ?id ?project ~name ~zone () :
   { id; name; project; zone }
 
 type t = {
+  tf_name : string;
   commitment : string prop;
   creation_timestamp : string prop;
   description : string prop;
@@ -311,6 +312,7 @@ let make ?id ?project ~name ~zone __id =
   let __type = "google_compute_reservation" in
   let __attrs =
     ({
+       tf_name = __id;
        commitment = Prop.computed __type __id "commitment";
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";

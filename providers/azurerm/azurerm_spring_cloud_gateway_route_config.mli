@@ -56,6 +56,7 @@ val yojson_of_azurerm_spring_cloud_gateway_route_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   filters : string list prop;
   id : string prop;
   name : string prop;

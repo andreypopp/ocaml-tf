@@ -48,6 +48,7 @@ val yojson_of_google_secure_source_manager_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   effective_labels : (string * string) list prop;
   host_config : host_config list prop;

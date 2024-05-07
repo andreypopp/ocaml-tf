@@ -98,6 +98,7 @@ let aws_lambda_layer_version_permission ?id ?organization_id
   }
 
 type t = {
+  tf_name : string;
   action : string prop;
   id : string prop;
   layer_name : string prop;
@@ -115,6 +116,7 @@ let make ?id ?organization_id ?skip_destroy ~action ~layer_name
   let __type = "aws_lambda_layer_version_permission" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        id = Prop.computed __type __id "id";
        layer_name = Prop.computed __type __id "layer_name";

@@ -31,6 +31,7 @@ val yojson_of_azurerm_logic_app_trigger_custom :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   body : string prop;
   id : string prop;
   logic_app_id : string prop;

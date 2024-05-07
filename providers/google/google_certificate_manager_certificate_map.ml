@@ -214,6 +214,7 @@ let google_certificate_manager_certificate_map ?description ?id
   { description; id; labels; name; project; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   effective_labels : (string * string) list prop;
@@ -230,6 +231,7 @@ let make ?description ?id ?labels ?project ?timeouts ~name __id =
   let __type = "google_certificate_manager_certificate_map" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        effective_labels =

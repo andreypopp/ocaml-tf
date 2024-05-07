@@ -254,6 +254,7 @@ let aws_iot_thing_group ?id ?parent_group_name ?tags ?tags_all
   { id; name; parent_group_name; tags; tags_all; properties }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   metadata : metadata list prop;
@@ -269,6 +270,7 @@ let make ?id ?parent_group_name ?tags ?tags_all ?(properties = [])
   let __type = "aws_iot_thing_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        metadata = Prop.computed __type __id "metadata";

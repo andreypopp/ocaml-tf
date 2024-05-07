@@ -125,6 +125,7 @@ let google_os_login_ssh_public_key ?expiration_time_usec ?id ?project
   { expiration_time_usec; id; key; project; user; timeouts }
 
 type t = {
+  tf_name : string;
   expiration_time_usec : string prop;
   fingerprint : string prop;
   id : string prop;
@@ -138,6 +139,7 @@ let make ?expiration_time_usec ?id ?project ?timeouts ~key ~user __id
   let __type = "google_os_login_ssh_public_key" in
   let __attrs =
     ({
+       tf_name = __id;
        expiration_time_usec =
          Prop.computed __type __id "expiration_time_usec";
        fingerprint = Prop.computed __type __id "fingerprint";

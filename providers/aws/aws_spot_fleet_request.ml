@@ -1981,6 +1981,7 @@ let aws_spot_fleet_request ?allocation_strategy ?context
   }
 
 type t = {
+  tf_name : string;
   allocation_strategy : string prop;
   client_token : string prop;
   context : string prop;
@@ -2024,6 +2025,7 @@ let make ?allocation_strategy ?context
   let __type = "aws_spot_fleet_request" in
   let __attrs =
     ({
+       tf_name = __id;
        allocation_strategy =
          Prop.computed __type __id "allocation_strategy";
        client_token = Prop.computed __type __id "client_token";

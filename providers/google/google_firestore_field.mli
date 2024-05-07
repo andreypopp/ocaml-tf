@@ -50,6 +50,7 @@ val yojson_of_google_firestore_field : google_firestore_field -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   collection : string prop;
   database : string prop;
   field : string prop;

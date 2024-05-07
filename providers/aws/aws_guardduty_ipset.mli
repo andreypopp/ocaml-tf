@@ -23,6 +23,7 @@ val yojson_of_aws_guardduty_ipset : aws_guardduty_ipset -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   activate : bool prop;
   arn : string prop;
   detector_id : string prop;

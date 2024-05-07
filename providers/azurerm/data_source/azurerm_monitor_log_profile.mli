@@ -28,6 +28,7 @@ val yojson_of_azurerm_monitor_log_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   categories : string list prop;
   id : string prop;
   locations : string list prop;

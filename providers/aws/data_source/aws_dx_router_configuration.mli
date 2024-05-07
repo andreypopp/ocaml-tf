@@ -30,6 +30,7 @@ val yojson_of_aws_dx_router_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   customer_router_config : string prop;
   id : string prop;
   router : router list prop;

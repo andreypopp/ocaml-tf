@@ -582,6 +582,7 @@ let azurerm_automation_runbook ?content ?description ?id
   }
 
 type t = {
+  tf_name : string;
   automation_account_name : string prop;
   content : string prop;
   description : string prop;
@@ -605,6 +606,7 @@ let make ?content ?description ?id ?job_schedule
   let __type = "azurerm_automation_runbook" in
   let __attrs =
     ({
+       tf_name = __id;
        automation_account_name =
          Prop.computed __type __id "automation_account_name";
        content = Prop.computed __type __id "content";

@@ -174,6 +174,7 @@ let aws_rolesanywhere_trust_anchor ?enabled ?id ?tags ?tags_all ~name
   { enabled; id; name; tags; tags_all; source }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   enabled : bool prop;
   id : string prop;
@@ -186,6 +187,7 @@ let make ?enabled ?id ?tags ?tags_all ~name ~source __id =
   let __type = "aws_rolesanywhere_trust_anchor" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";

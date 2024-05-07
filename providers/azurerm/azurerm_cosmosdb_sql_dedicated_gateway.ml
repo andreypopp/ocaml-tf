@@ -134,6 +134,7 @@ let azurerm_cosmosdb_sql_dedicated_gateway ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   cosmosdb_account_id : string prop;
   id : string prop;
   instance_count : float prop;
@@ -145,6 +146,7 @@ let make ?id ?timeouts ~cosmosdb_account_id ~instance_count
   let __type = "azurerm_cosmosdb_sql_dedicated_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        cosmosdb_account_id =
          Prop.computed __type __id "cosmosdb_account_id";
        id = Prop.computed __type __id "id";

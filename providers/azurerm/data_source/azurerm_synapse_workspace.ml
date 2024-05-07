@@ -133,6 +133,7 @@ let azurerm_synapse_workspace ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   connectivity_endpoints : (string * string) list prop;
   id : string prop;
   identity : identity list prop;
@@ -146,6 +147,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_synapse_workspace" in
   let __attrs =
     ({
+       tf_name = __id;
        connectivity_endpoints =
          Prop.computed __type __id "connectivity_endpoints";
        id = Prop.computed __type __id "id";

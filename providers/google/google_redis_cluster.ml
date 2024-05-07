@@ -381,6 +381,7 @@ let google_redis_cluster ?authorization_mode ?id ?name ?project
   }
 
 type t = {
+  tf_name : string;
   authorization_mode : string prop;
   create_time : string prop;
   discovery_endpoints : discovery_endpoints list prop;
@@ -404,6 +405,7 @@ let make ?authorization_mode ?id ?name ?project ?region
   let __type = "google_redis_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        authorization_mode =
          Prop.computed __type __id "authorization_mode";
        create_time = Prop.computed __type __id "create_time";

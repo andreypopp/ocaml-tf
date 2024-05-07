@@ -103,6 +103,7 @@ val yojson_of_aws_customerprofiles_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_number : string prop;
   additional_information : string prop;
   attributes : (string * string) list prop;

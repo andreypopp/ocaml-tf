@@ -26,6 +26,7 @@ val yojson_of_cloudflare_account_roles :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   roles : roles list prop;

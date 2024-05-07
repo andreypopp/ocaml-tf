@@ -20,6 +20,7 @@ val yojson_of_google_compute_region_ssl_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate : string prop;
   certificate_id : float prop;
   creation_timestamp : string prop;

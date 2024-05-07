@@ -375,6 +375,7 @@ let aws_medialive_input ?id ?input_security_groups ?role_arn ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   attached_channels : string list prop;
   id : string prop;
@@ -395,6 +396,7 @@ let make ?id ?input_security_groups ?role_arn ?tags ?tags_all
   let __type = "aws_medialive_input" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        attached_channels =
          Prop.computed __type __id "attached_channels";

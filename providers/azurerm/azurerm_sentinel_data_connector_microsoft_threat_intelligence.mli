@@ -33,6 +33,7 @@ val yojson_of_azurerm_sentinel_data_connector_microsoft_threat_intelligence :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bing_safety_phishing_url_lookback_date : string prop;
   id : string prop;
   log_analytics_workspace_id : string prop;

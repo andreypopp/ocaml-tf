@@ -130,6 +130,7 @@ let aws_workspaces_ip_group ?description ?id ?tags ?tags_all ~name
   { description; id; name; tags; tags_all; rules }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   name : string prop;
@@ -141,6 +142,7 @@ let make ?description ?id ?tags ?tags_all ~name ~rules __id =
   let __type = "aws_workspaces_ip_group" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

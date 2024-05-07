@@ -22,6 +22,7 @@ val yojson_of_aws_vpc_ipam_pool_cidr_allocation :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cidr : string prop;
   description : string prop;
   disallowed_cidrs : string list prop;

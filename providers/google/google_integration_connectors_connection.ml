@@ -2625,6 +2625,7 @@ let google_integration_connectors_connection ?description
   }
 
 type t = {
+  tf_name : string;
   connection_revision : string prop;
   connector_version : string prop;
   connector_version_infra_config :
@@ -2658,6 +2659,7 @@ let make ?description ?eventing_enablement_type ?id ?labels ?project
   let __type = "google_integration_connectors_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        connection_revision =
          Prop.computed __type __id "connection_revision";
        connector_version =

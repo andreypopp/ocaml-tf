@@ -29,6 +29,7 @@ let aws_quicksight_user ?aws_account_id ?iam_arn ?id ?namespace ?session_name ?u
   } : aws_quicksight_user);;
 
 type t = {
+  tf_name: string;
   arn: string prop;
   aws_account_id: string prop;
   email: string prop;
@@ -44,6 +45,7 @@ type t = {
 let make ?aws_account_id ?iam_arn ?id ?namespace ?session_name ?user_name ~email ~identity_type ~user_role __id =
   let __type = "aws_quicksight_user" in
   let __attrs = ({
+    tf_name = __id;
     arn = Prop.computed __type __id "arn";
     aws_account_id = Prop.computed __type __id "aws_account_id";
     email = Prop.computed __type __id "email";

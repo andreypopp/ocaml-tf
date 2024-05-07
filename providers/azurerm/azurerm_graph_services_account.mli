@@ -32,6 +32,7 @@ val yojson_of_azurerm_graph_services_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_id : string prop;
   billing_plan_id : string prop;
   id : string prop;

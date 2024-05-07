@@ -50,6 +50,7 @@ val yojson_of_azurerm_container_connected_registry :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   audit_log_enabled : bool prop;
   client_token_ids : string list prop;
   container_registry_id : string prop;

@@ -224,6 +224,7 @@ let aws_vpc_endpoint ?id ?service_name ?state ?tags ?vpc_id ?timeouts
   { id; service_name; state; tags; vpc_id; filter; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cidr_blocks : string list prop;
   dns_entry : dns_entry list prop;
@@ -251,6 +252,7 @@ let make ?id ?service_name ?state ?tags ?vpc_id ?timeouts ~filter
   let __type = "aws_vpc_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cidr_blocks = Prop.computed __type __id "cidr_blocks";
        dns_entry = Prop.computed __type __id "dns_entry";

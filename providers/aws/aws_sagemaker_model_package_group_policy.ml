@@ -55,6 +55,7 @@ let aws_sagemaker_model_package_group_policy ?id
   { id; model_package_group_name; resource_policy }
 
 type t = {
+  tf_name : string;
   id : string prop;
   model_package_group_name : string prop;
   resource_policy : string prop;
@@ -64,6 +65,7 @@ let make ?id ~model_package_group_name ~resource_policy __id =
   let __type = "aws_sagemaker_model_package_group_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        model_package_group_name =
          Prop.computed __type __id "model_package_group_name";

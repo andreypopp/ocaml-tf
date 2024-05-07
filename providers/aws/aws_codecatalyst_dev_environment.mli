@@ -52,6 +52,7 @@ val yojson_of_aws_codecatalyst_dev_environment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alias : string prop;
   id : string prop;
   inactivity_timeout_minutes : float prop;

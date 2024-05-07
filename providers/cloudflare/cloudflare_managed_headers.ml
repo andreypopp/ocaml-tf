@@ -126,13 +126,18 @@ let cloudflare_managed_headers ?id ~zone_id ~managed_request_headers
     ~managed_response_headers () : cloudflare_managed_headers =
   { id; zone_id; managed_request_headers; managed_response_headers }
 
-type t = { id : string prop; zone_id : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  zone_id : string prop;
+}
 
 let make ?id ~zone_id ~managed_request_headers
     ~managed_response_headers __id =
   let __type = "cloudflare_managed_headers" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        zone_id = Prop.computed __type __id "zone_id";
      }

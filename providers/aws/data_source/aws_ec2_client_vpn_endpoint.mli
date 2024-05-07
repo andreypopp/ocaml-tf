@@ -56,6 +56,7 @@ val yojson_of_aws_ec2_client_vpn_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   authentication_options : authentication_options list prop;
   client_cidr_block : string prop;

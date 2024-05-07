@@ -185,6 +185,7 @@ let aws_security_group_rule ?cidr_blocks ?description ?id
   }
 
 type t = {
+  tf_name : string;
   cidr_blocks : string list prop;
   description : string prop;
   from_port : float prop;
@@ -206,6 +207,7 @@ let make ?cidr_blocks ?description ?id ?ipv6_cidr_blocks
   let __type = "aws_security_group_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        cidr_blocks = Prop.computed __type __id "cidr_blocks";
        description = Prop.computed __type __id "description";
        from_port = Prop.computed __type __id "from_port";

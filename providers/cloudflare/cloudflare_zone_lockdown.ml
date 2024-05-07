@@ -126,6 +126,7 @@ let cloudflare_zone_lockdown ?description ?id ?paused ?priority ~urls
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   paused : bool prop;
@@ -139,6 +140,7 @@ let make ?description ?id ?paused ?priority ~urls ~zone_id
   let __type = "cloudflare_zone_lockdown" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        paused = Prop.computed __type __id "paused";

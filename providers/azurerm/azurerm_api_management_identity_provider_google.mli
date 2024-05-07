@@ -32,6 +32,7 @@ val yojson_of_azurerm_api_management_identity_provider_google :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_management_name : string prop;
   client_id : string prop;
   client_secret : string prop;

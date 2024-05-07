@@ -199,6 +199,7 @@ let azurerm_marketplace_role_assignment ?condition ?condition_version
   }
 
 type t = {
+  tf_name : string;
   condition : string prop;
   condition_version : string prop;
   delegated_managed_identity_resource_id : string prop;
@@ -219,6 +220,7 @@ let make ?condition ?condition_version
   let __type = "azurerm_marketplace_role_assignment" in
   let __attrs =
     ({
+       tf_name = __id;
        condition = Prop.computed __type __id "condition";
        condition_version =
          Prop.computed __type __id "condition_version";

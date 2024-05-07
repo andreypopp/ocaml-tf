@@ -290,6 +290,7 @@ let azurerm_sql_failover_group ?databases ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   databases : string list prop;
   id : string prop;
   location : string prop;
@@ -307,6 +308,7 @@ let make ?databases ?id ?tags
   let __type = "azurerm_sql_failover_group" in
   let __attrs =
     ({
+       tf_name = __id;
        databases = Prop.computed __type __id "databases";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

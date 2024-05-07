@@ -248,6 +248,7 @@ let aws_ssm_document ?document_format ?id ?permissions ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   content : string prop;
   created_date : string prop;
@@ -279,6 +280,7 @@ let make ?document_format ?id ?permissions ?tags ?tags_all
   let __type = "aws_ssm_document" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        content = Prop.computed __type __id "content";
        created_date = Prop.computed __type __id "created_date";

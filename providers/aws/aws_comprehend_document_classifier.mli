@@ -79,6 +79,7 @@ val yojson_of_aws_comprehend_document_classifier :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   data_access_role_arn : string prop;
   id : string prop;

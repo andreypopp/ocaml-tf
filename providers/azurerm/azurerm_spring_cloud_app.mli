@@ -78,6 +78,7 @@ val yojson_of_azurerm_spring_cloud_app :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   addon_json : string prop;
   fqdn : string prop;
   https_only : bool prop;

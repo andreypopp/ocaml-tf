@@ -260,6 +260,7 @@ let aws_guardduty_filter ?description ?id ?tags ?tags_all ~action
   }
 
 type t = {
+  tf_name : string;
   action : string prop;
   arn : string prop;
   description : string prop;
@@ -276,6 +277,7 @@ let make ?description ?id ?tags ?tags_all ~action ~detector_id ~name
   let __type = "aws_guardduty_filter" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";

@@ -130,6 +130,7 @@ let google_compute_disk_iam_binding ?id ?project ?zone
   { id; members; name; project; role; zone; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   members : string list prop;
@@ -144,6 +145,7 @@ let make ?id ?project ?zone ?(condition = []) ~members ~name ~role
   let __type = "google_compute_disk_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        members = Prop.computed __type __id "members";

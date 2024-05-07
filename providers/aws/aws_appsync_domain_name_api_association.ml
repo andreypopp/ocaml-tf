@@ -46,6 +46,7 @@ let aws_appsync_domain_name_api_association ?id ~api_id ~domain_name
   { api_id; domain_name; id }
 
 type t = {
+  tf_name : string;
   api_id : string prop;
   domain_name : string prop;
   id : string prop;
@@ -55,6 +56,7 @@ let make ?id ~api_id ~domain_name __id =
   let __type = "aws_appsync_domain_name_api_association" in
   let __attrs =
     ({
+       tf_name = __id;
        api_id = Prop.computed __type __id "api_id";
        domain_name = Prop.computed __type __id "domain_name";
        id = Prop.computed __type __id "id";

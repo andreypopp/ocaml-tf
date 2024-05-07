@@ -59,6 +59,7 @@ let cloudflare_worker_route ?id ?script_name ~pattern ~zone_id () :
   { id; pattern; script_name; zone_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   pattern : string prop;
   script_name : string prop;
@@ -69,6 +70,7 @@ let make ?id ?script_name ~pattern ~zone_id __id =
   let __type = "cloudflare_worker_route" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        pattern = Prop.computed __type __id "pattern";
        script_name = Prop.computed __type __id "script_name";

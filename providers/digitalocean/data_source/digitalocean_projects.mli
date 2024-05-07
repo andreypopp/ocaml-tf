@@ -45,7 +45,11 @@ val yojson_of_digitalocean_projects : digitalocean_projects -> json
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; projects : projects list prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  projects : projects list prop;
+}
 
 val register :
   ?tf_module:tf_module ->

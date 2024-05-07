@@ -36,6 +36,7 @@ val yojson_of_aws_grafana_workspace_saml_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   admin_role_values : string list prop;
   allowed_organizations : string list prop;
   editor_role_values : string list prop;

@@ -123,6 +123,7 @@ let azurerm_hdinsight_cluster ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   cluster_version : string prop;
   component_versions : (string * string) list prop;
   edge_ssh_endpoint : string prop;
@@ -144,6 +145,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_hdinsight_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_version = Prop.computed __type __id "cluster_version";
        component_versions =
          Prop.computed __type __id "component_versions";

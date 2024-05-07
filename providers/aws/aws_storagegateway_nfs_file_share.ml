@@ -434,6 +434,7 @@ let aws_storagegateway_nfs_file_share ?audit_destination_arn
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   audit_destination_arn : string prop;
   bucket_region : string prop;
@@ -469,6 +470,7 @@ let make ?audit_destination_arn ?bucket_region ?default_storage_class
   let __type = "aws_storagegateway_nfs_file_share" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        audit_destination_arn =
          Prop.computed __type __id "audit_destination_arn";

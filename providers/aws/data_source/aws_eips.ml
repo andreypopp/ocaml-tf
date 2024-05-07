@@ -123,6 +123,7 @@ let aws_eips ?id ?tags ?timeouts ~filter () : aws_eips =
   { id; tags; filter; timeouts }
 
 type t = {
+  tf_name : string;
   allocation_ids : string list prop;
   id : string prop;
   public_ips : string list prop;
@@ -133,6 +134,7 @@ let make ?id ?tags ?timeouts ~filter __id =
   let __type = "aws_eips" in
   let __attrs =
     ({
+       tf_name = __id;
        allocation_ids = Prop.computed __type __id "allocation_ids";
        id = Prop.computed __type __id "id";
        public_ips = Prop.computed __type __id "public_ips";

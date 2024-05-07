@@ -53,6 +53,7 @@ let aws_vpc_endpoint_service_allowed_principal ?id ~principal_arn
   { id; principal_arn; vpc_endpoint_service_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   principal_arn : string prop;
   vpc_endpoint_service_id : string prop;
@@ -62,6 +63,7 @@ let make ?id ~principal_arn ~vpc_endpoint_service_id __id =
   let __type = "aws_vpc_endpoint_service_allowed_principal" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        principal_arn = Prop.computed __type __id "principal_arn";
        vpc_endpoint_service_id =

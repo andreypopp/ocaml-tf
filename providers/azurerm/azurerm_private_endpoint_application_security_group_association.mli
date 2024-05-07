@@ -30,6 +30,7 @@ val yojson_of_azurerm_private_endpoint_application_security_group_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_security_group_id : string prop;
   id : string prop;
   private_endpoint_id : string prop;

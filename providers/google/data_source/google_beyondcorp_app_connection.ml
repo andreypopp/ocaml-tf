@@ -134,6 +134,7 @@ let google_beyondcorp_app_connection ?id ?project ?region ~name () :
   { id; name; project; region }
 
 type t = {
+  tf_name : string;
   application_endpoint : application_endpoint list prop;
   connectors : string list prop;
   display_name : string prop;
@@ -152,6 +153,7 @@ let make ?id ?project ?region ~name __id =
   let __type = "google_beyondcorp_app_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        application_endpoint =
          Prop.computed __type __id "application_endpoint";
        connectors = Prop.computed __type __id "connectors";

@@ -141,6 +141,7 @@ let azurerm_application_load_balancer_frontend ?id ?tags ?timeouts
   { application_load_balancer_id; id; name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   application_load_balancer_id : string prop;
   fully_qualified_domain_name : string prop;
   id : string prop;
@@ -153,6 +154,7 @@ let make ?id ?tags ?timeouts ~application_load_balancer_id ~name __id
   let __type = "azurerm_application_load_balancer_frontend" in
   let __attrs =
     ({
+       tf_name = __id;
        application_load_balancer_id =
          Prop.computed __type __id "application_load_balancer_id";
        fully_qualified_domain_name =

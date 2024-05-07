@@ -31,6 +31,7 @@ val yojson_of_azurerm_sentinel_data_connector_aws_cloud_trail :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   aws_role_arn : string prop;
   id : string prop;
   log_analytics_workspace_id : string prop;

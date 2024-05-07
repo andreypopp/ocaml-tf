@@ -213,6 +213,7 @@ let azurerm_spring_cloud_app_cosmosdb_association
   }
 
 type t = {
+  tf_name : string;
   api_type : string prop;
   cosmosdb_access_key : string prop;
   cosmosdb_account_id : string prop;
@@ -234,6 +235,7 @@ let make ?cosmosdb_cassandra_keyspace_name
   let __type = "azurerm_spring_cloud_app_cosmosdb_association" in
   let __attrs =
     ({
+       tf_name = __id;
        api_type = Prop.computed __type __id "api_type";
        cosmosdb_access_key =
          Prop.computed __type __id "cosmosdb_access_key";

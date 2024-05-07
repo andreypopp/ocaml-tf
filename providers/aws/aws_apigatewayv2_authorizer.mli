@@ -35,6 +35,7 @@ val yojson_of_aws_apigatewayv2_authorizer :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_id : string prop;
   authorizer_credentials_arn : string prop;
   authorizer_payload_format_version : string prop;

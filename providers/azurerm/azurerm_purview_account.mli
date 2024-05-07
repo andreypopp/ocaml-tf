@@ -50,6 +50,7 @@ val yojson_of_azurerm_purview_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   atlas_kafka_endpoint_primary_connection_string : string prop;
   atlas_kafka_endpoint_secondary_connection_string : string prop;
   catalog_endpoint : string prop;

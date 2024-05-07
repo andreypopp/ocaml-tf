@@ -124,6 +124,7 @@ let azurerm_backup_container_storage_account ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   recovery_vault_name : string prop;
   resource_group_name : string prop;
@@ -135,6 +136,7 @@ let make ?id ?timeouts ~recovery_vault_name ~resource_group_name
   let __type = "azurerm_backup_container_storage_account" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        recovery_vault_name =
          Prop.computed __type __id "recovery_vault_name";

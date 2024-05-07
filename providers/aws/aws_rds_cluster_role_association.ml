@@ -104,6 +104,7 @@ let aws_rds_cluster_role_association ?id ?timeouts
   { db_cluster_identifier; feature_name; id; role_arn; timeouts }
 
 type t = {
+  tf_name : string;
   db_cluster_identifier : string prop;
   feature_name : string prop;
   id : string prop;
@@ -115,6 +116,7 @@ let make ?id ?timeouts ~db_cluster_identifier ~feature_name ~role_arn
   let __type = "aws_rds_cluster_role_association" in
   let __attrs =
     ({
+       tf_name = __id;
        db_cluster_identifier =
          Prop.computed __type __id "db_cluster_identifier";
        feature_name = Prop.computed __type __id "feature_name";

@@ -653,6 +653,7 @@ let cloudflare_record ?allow_overwrite ?comment ?id ?priority
   }
 
 type t = {
+  tf_name : string;
   allow_overwrite : bool prop;
   comment : string prop;
   created_on : string prop;
@@ -676,6 +677,7 @@ let make ?allow_overwrite ?comment ?id ?priority ?proxied ?tags ?ttl
   let __type = "cloudflare_record" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_overwrite = Prop.computed __type __id "allow_overwrite";
        comment = Prop.computed __type __id "comment";
        created_on = Prop.computed __type __id "created_on";

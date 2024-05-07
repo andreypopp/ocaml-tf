@@ -198,6 +198,7 @@ let google_project ?auto_create_network ?billing_account ?folder_id
   }
 
 type t = {
+  tf_name : string;
   auto_create_network : bool prop;
   billing_account : string prop;
   effective_labels : (string * string) list prop;
@@ -217,6 +218,7 @@ let make ?auto_create_network ?billing_account ?folder_id ?id ?labels
   let __type = "google_project" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_create_network =
          Prop.computed __type __id "auto_create_network";
        billing_account = Prop.computed __type __id "billing_account";

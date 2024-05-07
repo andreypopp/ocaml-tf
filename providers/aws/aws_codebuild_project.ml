@@ -1588,6 +1588,7 @@ let aws_codebuild_project ?badge_enabled ?build_timeout
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   badge_enabled : bool prop;
   badge_url : string prop;
@@ -1618,6 +1619,7 @@ let make ?badge_enabled ?build_timeout ?concurrent_build_limit
   let __type = "aws_codebuild_project" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        badge_enabled = Prop.computed __type __id "badge_enabled";
        badge_url = Prop.computed __type __id "badge_url";

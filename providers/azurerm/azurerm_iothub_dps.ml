@@ -355,6 +355,7 @@ let azurerm_iothub_dps ?allocation_policy ?data_residency_enabled ?id
   }
 
 type t = {
+  tf_name : string;
   allocation_policy : string prop;
   data_residency_enabled : bool prop;
   device_provisioning_host_name : string prop;
@@ -375,6 +376,7 @@ let make ?allocation_policy ?data_residency_enabled ?id
   let __type = "azurerm_iothub_dps" in
   let __attrs =
     ({
+       tf_name = __id;
        allocation_policy =
          Prop.computed __type __id "allocation_policy";
        data_residency_enabled =

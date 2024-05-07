@@ -521,6 +521,7 @@ let azurerm_kusto_cluster ?allowed_fqdns ?allowed_ip_ranges
   }
 
 type t = {
+  tf_name : string;
   allowed_fqdns : string list prop;
   allowed_ip_ranges : string list prop;
   auto_stop_enabled : bool prop;
@@ -555,6 +556,7 @@ let make ?allowed_fqdns ?allowed_ip_ranges ?auto_stop_enabled
   let __type = "azurerm_kusto_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        allowed_fqdns = Prop.computed __type __id "allowed_fqdns";
        allowed_ip_ranges =
          Prop.computed __type __id "allowed_ip_ranges";

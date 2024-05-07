@@ -24,6 +24,7 @@ val yojson_of_azurerm_ssh_public_key : azurerm_ssh_public_key -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   public_key : string prop;

@@ -185,6 +185,7 @@ let aws_kinesis_video_stream ?data_retention_in_hours ?device_name
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   creation_time : string prop;
   data_retention_in_hours : float prop;
@@ -203,6 +204,7 @@ let make ?data_retention_in_hours ?device_name ?id ?kms_key_id
   let __type = "aws_kinesis_video_stream" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        creation_time = Prop.computed __type __id "creation_time";
        data_retention_in_hours =

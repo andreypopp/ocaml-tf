@@ -207,6 +207,7 @@ let azurerm_storage_object_replication ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   destination_object_replication_id : string prop;
   destination_storage_account_id : string prop;
   id : string prop;
@@ -219,6 +220,7 @@ let make ?id ?timeouts ~destination_storage_account_id
   let __type = "azurerm_storage_object_replication" in
   let __attrs =
     ({
+       tf_name = __id;
        destination_object_replication_id =
          Prop.computed __type __id
            "destination_object_replication_id";

@@ -51,6 +51,7 @@ val yojson_of_kubernetes_storage_class :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_volume_expansion : bool prop;
   id : string prop;
   mount_options : string list prop;

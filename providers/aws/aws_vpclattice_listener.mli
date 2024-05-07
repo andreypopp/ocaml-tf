@@ -63,6 +63,7 @@ val yojson_of_aws_vpclattice_listener :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   created_at : string prop;
   id : string prop;

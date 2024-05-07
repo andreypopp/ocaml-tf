@@ -163,12 +163,17 @@ let azurerm_key_vault_certificate_contacts ?id ?timeouts
     azurerm_key_vault_certificate_contacts =
   { id; key_vault_id; contact; timeouts }
 
-type t = { id : string prop; key_vault_id : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  key_vault_id : string prop;
+}
 
 let make ?id ?timeouts ~key_vault_id ~contact __id =
   let __type = "azurerm_key_vault_certificate_contacts" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        key_vault_id = Prop.computed __type __id "key_vault_id";
      }

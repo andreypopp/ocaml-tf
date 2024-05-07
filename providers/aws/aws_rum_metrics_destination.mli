@@ -21,6 +21,7 @@ val yojson_of_aws_rum_metrics_destination :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_monitor_name : string prop;
   destination : string prop;
   destination_arn : string prop;

@@ -26,6 +26,7 @@ val yojson_of_aws_bedrock_provisioned_model_throughput :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   commitment_duration : string prop;
   id : string prop;
   model_arn : string prop;

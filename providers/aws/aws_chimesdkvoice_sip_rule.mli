@@ -31,6 +31,7 @@ val yojson_of_aws_chimesdkvoice_sip_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   disabled : bool prop;
   id : string prop;
   name : string prop;

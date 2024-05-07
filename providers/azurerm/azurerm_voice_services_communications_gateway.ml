@@ -355,6 +355,7 @@ let azurerm_voice_services_communications_gateway ?api_bridge
   }
 
 type t = {
+  tf_name : string;
   api_bridge : string prop;
   auto_generated_domain_name_label_scope : string prop;
   codecs : string prop;
@@ -379,6 +380,7 @@ let make ?api_bridge ?auto_generated_domain_name_label_scope
   let __type = "azurerm_voice_services_communications_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        api_bridge = Prop.computed __type __id "api_bridge";
        auto_generated_domain_name_label_scope =
          Prop.computed __type __id

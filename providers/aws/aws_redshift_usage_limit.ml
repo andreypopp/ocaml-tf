@@ -130,6 +130,7 @@ let aws_redshift_usage_limit ?breach_action ?id ?period ?tags
   }
 
 type t = {
+  tf_name : string;
   amount : float prop;
   arn : string prop;
   breach_action : string prop;
@@ -147,6 +148,7 @@ let make ?breach_action ?id ?period ?tags ?tags_all ~amount
   let __type = "aws_redshift_usage_limit" in
   let __attrs =
     ({
+       tf_name = __id;
        amount = Prop.computed __type __id "amount";
        arn = Prop.computed __type __id "arn";
        breach_action = Prop.computed __type __id "breach_action";

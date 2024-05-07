@@ -164,6 +164,7 @@ let aws_storagegateway_file_system_association ?audit_destination_arn
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   audit_destination_arn : string prop;
   gateway_arn : string prop;
@@ -181,6 +182,7 @@ let make ?audit_destination_arn ?id ?tags ?tags_all
   let __type = "aws_storagegateway_file_system_association" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        audit_destination_arn =
          Prop.computed __type __id "audit_destination_arn";

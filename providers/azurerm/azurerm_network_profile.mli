@@ -49,6 +49,7 @@ val yojson_of_azurerm_network_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   container_network_interface_ids : string list prop;
   id : string prop;
   location : string prop;

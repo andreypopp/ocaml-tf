@@ -53,6 +53,7 @@ let google_container_registry ?id ?location ?project () :
   { id; location; project }
 
 type t = {
+  tf_name : string;
   bucket_self_link : string prop;
   id : string prop;
   location : string prop;
@@ -63,6 +64,7 @@ let make ?id ?location ?project __id =
   let __type = "google_container_registry" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket_self_link =
          Prop.computed __type __id "bucket_self_link";
        id = Prop.computed __type __id "id";

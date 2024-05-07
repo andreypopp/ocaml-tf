@@ -45,6 +45,7 @@ val yojson_of_aws_datapipeline_pipeline_definition :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   parameter_object : parameter_object list prop;
   pipeline_id : string prop;

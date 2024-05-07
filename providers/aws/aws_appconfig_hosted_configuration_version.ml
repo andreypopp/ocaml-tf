@@ -84,6 +84,7 @@ let aws_appconfig_hosted_configuration_version ?description ?id
   }
 
 type t = {
+  tf_name : string;
   application_id : string prop;
   arn : string prop;
   configuration_profile_id : string prop;
@@ -99,6 +100,7 @@ let make ?description ?id ~application_id ~configuration_profile_id
   let __type = "aws_appconfig_hosted_configuration_version" in
   let __attrs =
     ({
+       tf_name = __id;
        application_id = Prop.computed __type __id "application_id";
        arn = Prop.computed __type __id "arn";
        configuration_profile_id =

@@ -20,6 +20,7 @@ val yojson_of_hcloud_firewall_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   firewall_id : float prop;
   id : string prop;
   label_selectors : string list prop;

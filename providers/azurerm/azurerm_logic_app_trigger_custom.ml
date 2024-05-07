@@ -125,6 +125,7 @@ let azurerm_logic_app_trigger_custom ?id ?timeouts ~body
   { body; id; logic_app_id; name; timeouts }
 
 type t = {
+  tf_name : string;
   body : string prop;
   id : string prop;
   logic_app_id : string prop;
@@ -135,6 +136,7 @@ let make ?id ?timeouts ~body ~logic_app_id ~name __id =
   let __type = "azurerm_logic_app_trigger_custom" in
   let __attrs =
     ({
+       tf_name = __id;
        body = Prop.computed __type __id "body";
        id = Prop.computed __type __id "id";
        logic_app_id = Prop.computed __type __id "logic_app_id";

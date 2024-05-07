@@ -356,7 +356,11 @@ let google_access_context_manager_service_perimeter_egress_policy ?id
     google_access_context_manager_service_perimeter_egress_policy =
   { id; perimeter; egress_from; egress_to; timeouts }
 
-type t = { id : string prop; perimeter : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  perimeter : string prop;
+}
 
 let make ?id ?(egress_from = []) ?(egress_to = []) ?timeouts
     ~perimeter __id =
@@ -365,6 +369,7 @@ let make ?id ?(egress_from = []) ?(egress_to = []) ?timeouts
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        perimeter = Prop.computed __type __id "perimeter";
      }

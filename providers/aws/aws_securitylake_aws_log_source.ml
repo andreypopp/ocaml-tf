@@ -89,11 +89,13 @@ let aws_securitylake_aws_log_source ?(source = []) () :
     aws_securitylake_aws_log_source =
   { source }
 
-type t = { id : string prop }
+type t = { tf_name : string; id : string prop }
 
 let make ?(source = []) __id =
   let __type = "aws_securitylake_aws_log_source" in
-  let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
+  let __attrs =
+    ({ tf_name = __id; id = Prop.computed __type __id "id" } : t)
+  in
   {
     Tf_core.id = __id;
     type_ = __type;

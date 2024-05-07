@@ -510,6 +510,7 @@ let aws_glue_trigger ?description ?enabled ?id ?schedule
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   enabled : bool prop;
@@ -530,6 +531,7 @@ let make ?description ?enabled ?id ?schedule ?start_on_creation ?tags
   let __type = "aws_glue_trigger" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        enabled = Prop.computed __type __id "enabled";

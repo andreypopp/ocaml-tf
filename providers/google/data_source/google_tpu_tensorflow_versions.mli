@@ -19,6 +19,7 @@ val yojson_of_google_tpu_tensorflow_versions :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   project : string prop;
   versions : string list prop;

@@ -21,6 +21,7 @@ val yojson_of_aws_eks_pod_identity_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   association_arn : string prop;
   association_id : string prop;
   cluster_name : string prop;

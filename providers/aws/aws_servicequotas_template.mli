@@ -20,6 +20,7 @@ val yojson_of_aws_servicequotas_template :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   global_quota : bool prop;
   id : string prop;
   quota_code : string prop;

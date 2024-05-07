@@ -29,6 +29,7 @@ val yojson_of_aws_vpclattice_target_group_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   target_group_identifier : string prop;
 }

@@ -381,6 +381,7 @@ let azurerm_virtual_desktop_host_pool ?custom_rdp_properties
   }
 
 type t = {
+  tf_name : string;
   custom_rdp_properties : string prop;
   description : string prop;
   friendly_name : string prop;
@@ -408,6 +409,7 @@ let make ?custom_rdp_properties ?description ?friendly_name ?id
   let __type = "azurerm_virtual_desktop_host_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        custom_rdp_properties =
          Prop.computed __type __id "custom_rdp_properties";
        description = Prop.computed __type __id "description";

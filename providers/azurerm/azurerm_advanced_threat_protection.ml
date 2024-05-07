@@ -121,6 +121,7 @@ let azurerm_advanced_threat_protection ?id ?timeouts ~enabled
   { enabled; id; target_resource_id; timeouts }
 
 type t = {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   target_resource_id : string prop;
@@ -130,6 +131,7 @@ let make ?id ?timeouts ~enabled ~target_resource_id __id =
   let __type = "azurerm_advanced_threat_protection" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";
        target_resource_id =

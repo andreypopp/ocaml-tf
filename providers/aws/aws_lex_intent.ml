@@ -1038,6 +1038,7 @@ let aws_lex_intent ?create_version ?description ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   checksum : string prop;
   create_version : bool prop;
@@ -1059,6 +1060,7 @@ let make ?create_version ?description ?id ?parent_intent_signature
   let __type = "aws_lex_intent" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        checksum = Prop.computed __type __id "checksum";
        create_version = Prop.computed __type __id "create_version";

@@ -101,6 +101,7 @@ val yojson_of_azurerm_palo_alto_next_generation_firewall_virtual_network_panoram
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

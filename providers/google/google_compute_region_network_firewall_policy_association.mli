@@ -28,6 +28,7 @@ val yojson_of_google_compute_region_network_firewall_policy_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   attachment_target : string prop;
   firewall_policy : string prop;
   id : string prop;

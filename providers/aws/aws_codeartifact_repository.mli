@@ -36,6 +36,7 @@ val yojson_of_aws_codeartifact_repository :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   administrator_account : string prop;
   arn : string prop;
   description : string prop;

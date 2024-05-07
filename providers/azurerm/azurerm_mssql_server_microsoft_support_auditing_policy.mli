@@ -34,6 +34,7 @@ val yojson_of_azurerm_mssql_server_microsoft_support_auditing_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   blob_storage_endpoint : string prop;
   enabled : bool prop;
   id : string prop;

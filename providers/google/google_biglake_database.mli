@@ -39,6 +39,7 @@ val yojson_of_google_biglake_database :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   catalog : string prop;
   create_time : string prop;
   delete_time : string prop;

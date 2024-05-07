@@ -27,6 +27,7 @@ val yojson_of_aws_vpc_ipv4_cidr_block_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cidr_block : string prop;
   id : string prop;
   ipv4_ipam_pool_id : string prop;

@@ -233,6 +233,7 @@ let aws_networkmanager_link ?description ?id ?provider_name ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   global_network_id : string prop;
@@ -249,6 +250,7 @@ let make ?description ?id ?provider_name ?tags ?tags_all ?type_
   let __type = "aws_networkmanager_link" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        global_network_id =

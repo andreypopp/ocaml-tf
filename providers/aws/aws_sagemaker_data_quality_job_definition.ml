@@ -1060,6 +1060,7 @@ let aws_sagemaker_data_quality_job_definition ?id ?name ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;
@@ -1076,6 +1077,7 @@ let make ?id ?name ?tags ?tags_all
   let __type = "aws_sagemaker_data_quality_job_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

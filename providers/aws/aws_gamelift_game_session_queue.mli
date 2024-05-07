@@ -33,6 +33,7 @@ val yojson_of_aws_gamelift_game_session_queue :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   custom_event_data : string prop;
   destinations : string list prop;

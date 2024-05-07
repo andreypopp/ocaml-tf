@@ -55,6 +55,7 @@ val yojson_of_azurerm_pim_active_role_assignment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   justification : string prop;
   principal_id : string prop;

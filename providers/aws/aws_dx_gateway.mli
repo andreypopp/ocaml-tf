@@ -24,6 +24,7 @@ val yojson_of_aws_dx_gateway : aws_dx_gateway -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   amazon_side_asn : string prop;
   id : string prop;
   name : string prop;

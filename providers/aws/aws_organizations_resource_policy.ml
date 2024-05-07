@@ -80,6 +80,7 @@ let aws_organizations_resource_policy ?id ?tags ?tags_all ~content ()
   { content; id; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   content : string prop;
   id : string prop;
@@ -91,6 +92,7 @@ let make ?id ?tags ?tags_all ~content __id =
   let __type = "aws_organizations_resource_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        content = Prop.computed __type __id "content";
        id = Prop.computed __type __id "id";

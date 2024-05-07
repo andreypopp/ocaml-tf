@@ -370,6 +370,7 @@ let aws_appstream_fleet ?description ?disconnect_timeout_in_seconds
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_time : string prop;
   description : string prop;
@@ -400,6 +401,7 @@ let make ?description ?disconnect_timeout_in_seconds ?display_name
   let __type = "aws_appstream_fleet" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_time = Prop.computed __type __id "created_time";
        description = Prop.computed __type __id "description";

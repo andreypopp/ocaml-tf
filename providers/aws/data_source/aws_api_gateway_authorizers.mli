@@ -18,6 +18,7 @@ val yojson_of_aws_api_gateway_authorizers :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   ids : string list prop;
   rest_api_id : string prop;

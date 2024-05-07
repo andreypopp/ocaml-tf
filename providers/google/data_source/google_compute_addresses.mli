@@ -30,6 +30,7 @@ val yojson_of_google_compute_addresses :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   addresses : addresses list prop;
   filter : string prop;
   id : string prop;

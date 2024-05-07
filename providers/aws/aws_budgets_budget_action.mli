@@ -88,6 +88,7 @@ val yojson_of_aws_budgets_budget_action :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   action_id : string prop;
   action_type : string prop;

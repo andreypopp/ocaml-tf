@@ -151,6 +151,7 @@ let aws_glue_data_quality_ruleset ?description ?id ?tags ?tags_all
   { description; id; name; ruleset; tags; tags_all; target_table }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_on : string prop;
   description : string prop;
@@ -168,6 +169,7 @@ let make ?description ?id ?tags ?tags_all ?(target_table = []) ~name
   let __type = "aws_glue_data_quality_ruleset" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_on = Prop.computed __type __id "created_on";
        description = Prop.computed __type __id "description";

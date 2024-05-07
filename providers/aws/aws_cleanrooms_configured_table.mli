@@ -42,6 +42,7 @@ val yojson_of_aws_cleanrooms_configured_table :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allowed_columns : string list prop;
   analysis_method : string prop;
   arn : string prop;

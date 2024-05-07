@@ -30,6 +30,7 @@ val yojson_of_google_compute_public_delegated_prefix :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   ip_cidr_range : string prop;

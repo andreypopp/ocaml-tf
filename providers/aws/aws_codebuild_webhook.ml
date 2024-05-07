@@ -143,6 +143,7 @@ let aws_codebuild_webhook ?branch_filter ?build_type ?id
   { branch_filter; build_type; id; project_name; filter_group }
 
 type t = {
+  tf_name : string;
   branch_filter : string prop;
   build_type : string prop;
   id : string prop;
@@ -157,6 +158,7 @@ let make ?branch_filter ?build_type ?id ~project_name ~filter_group
   let __type = "aws_codebuild_webhook" in
   let __attrs =
     ({
+       tf_name = __id;
        branch_filter = Prop.computed __type __id "branch_filter";
        build_type = Prop.computed __type __id "build_type";
        id = Prop.computed __type __id "id";

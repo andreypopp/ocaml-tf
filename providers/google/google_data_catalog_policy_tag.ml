@@ -133,6 +133,7 @@ let google_data_catalog_policy_tag ?description ?id
   }
 
 type t = {
+  tf_name : string;
   child_policy_tags : string list prop;
   description : string prop;
   display_name : string prop;
@@ -147,6 +148,7 @@ let make ?description ?id ?parent_policy_tag ?timeouts ~display_name
   let __type = "google_data_catalog_policy_tag" in
   let __attrs =
     ({
+       tf_name = __id;
        child_policy_tags =
          Prop.computed __type __id "child_policy_tags";
        description = Prop.computed __type __id "description";

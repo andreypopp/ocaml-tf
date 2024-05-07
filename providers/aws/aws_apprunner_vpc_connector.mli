@@ -22,6 +22,7 @@ val yojson_of_aws_apprunner_vpc_connector :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   security_groups : string list prop;

@@ -106,6 +106,7 @@ val yojson_of_google_compute_resource_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   disk_consistency_group_policy :
     disk_consistency_group_policy list prop;

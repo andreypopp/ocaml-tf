@@ -59,6 +59,7 @@ let aws_msk_kafka_version ?id ?preferred_versions ?version () :
   { id; preferred_versions; version }
 
 type t = {
+  tf_name : string;
   id : string prop;
   preferred_versions : string list prop;
   status : string prop;
@@ -69,6 +70,7 @@ let make ?id ?preferred_versions ?version __id =
   let __type = "aws_msk_kafka_version" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        preferred_versions =
          Prop.computed __type __id "preferred_versions";

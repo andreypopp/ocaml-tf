@@ -26,6 +26,7 @@ val yojson_of_google_alloydb_locations :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   locations : locations list prop;
   project : string prop;

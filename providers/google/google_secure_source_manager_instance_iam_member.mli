@@ -32,6 +32,7 @@ val yojson_of_google_secure_source_manager_instance_iam_member :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   instance_id : string prop;

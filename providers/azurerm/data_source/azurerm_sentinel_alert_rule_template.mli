@@ -48,6 +48,7 @@ val yojson_of_azurerm_sentinel_alert_rule_template :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   log_analytics_workspace_id : string prop;

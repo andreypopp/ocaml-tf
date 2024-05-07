@@ -59,6 +59,7 @@ let aws_quicksight_folder ?aws_account_id ?folder_type ?id ?name ?parent_folder_
   } : aws_quicksight_folder);;
 
 type t = {
+  tf_name: string;
   arn: string prop;
   aws_account_id: string prop;
   created_time: string prop;
@@ -76,6 +77,7 @@ type t = {
 let make ?aws_account_id ?folder_type ?id ?name ?parent_folder_arn ?tags ?tags_all ?(permissions=[]) ?timeouts ~folder_id __id =
   let __type = "aws_quicksight_folder" in
   let __attrs = ({
+    tf_name = __id;
     arn = Prop.computed __type __id "arn";
     aws_account_id = Prop.computed __type __id "aws_account_id";
     created_time = Prop.computed __type __id "created_time";

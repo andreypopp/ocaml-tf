@@ -49,6 +49,7 @@ val yojson_of_azurerm_sql_managed_instance_failover_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   managed_instance_name : string prop;

@@ -28,6 +28,7 @@ val yojson_of_google_monitoring_notification_channel :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   enabled : bool prop;

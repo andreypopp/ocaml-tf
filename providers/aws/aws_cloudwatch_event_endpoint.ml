@@ -285,6 +285,7 @@ let aws_cloudwatch_event_endpoint ?description ?id ?role_arn
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   endpoint_url : string prop;
@@ -298,6 +299,7 @@ let make ?description ?id ?role_arn ?(replication_config = []) ~name
   let __type = "aws_cloudwatch_event_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        endpoint_url = Prop.computed __type __id "endpoint_url";

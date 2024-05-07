@@ -21,6 +21,7 @@ val yojson_of_aws_dataexchange_revision :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   comment : string prop;
   data_set_id : string prop;

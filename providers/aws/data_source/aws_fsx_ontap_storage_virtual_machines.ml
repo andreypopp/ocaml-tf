@@ -70,12 +70,17 @@ let aws_fsx_ontap_storage_virtual_machines ?id ~filter () :
     aws_fsx_ontap_storage_virtual_machines =
   { id; filter }
 
-type t = { id : string prop; ids : string list prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  ids : string list prop;
+}
 
 let make ?id ~filter __id =
   let __type = "aws_fsx_ontap_storage_virtual_machines" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ids = Prop.computed __type __id "ids";
      }

@@ -119,6 +119,7 @@ let google_endpoints_service_consumers_iam_binding ?id
   { consumer_project; id; members; role; service_name; condition }
 
 type t = {
+  tf_name : string;
   consumer_project : string prop;
   etag : string prop;
   id : string prop;
@@ -132,6 +133,7 @@ let make ?id ?(condition = []) ~consumer_project ~members ~role
   let __type = "google_endpoints_service_consumers_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        consumer_project =
          Prop.computed __type __id "consumer_project";
        etag = Prop.computed __type __id "etag";

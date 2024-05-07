@@ -23,6 +23,7 @@ val yojson_of_google_service_account_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   keepers : (string * string) list prop;
   key_algorithm : string prop;

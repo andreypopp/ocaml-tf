@@ -208,6 +208,7 @@ val yojson_of_aws_ecs_service : aws_ecs_service -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster : string prop;
   deployment_maximum_percent : float prop;
   deployment_minimum_healthy_percent : float prop;

@@ -76,6 +76,7 @@ val yojson_of_azurerm_data_factory_linked_service_azure_databricks :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_token : string prop;
   adb_domain : string prop;
   additional_properties : (string * string) list prop;

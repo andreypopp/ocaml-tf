@@ -187,6 +187,7 @@ let azurerm_route_server ?branch_to_branch_traffic_enabled ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   branch_to_branch_traffic_enabled : bool prop;
   id : string prop;
   location : string prop;
@@ -207,6 +208,7 @@ let make ?branch_to_branch_traffic_enabled ?id ?tags ?timeouts
   let __type = "azurerm_route_server" in
   let __attrs =
     ({
+       tf_name = __id;
        branch_to_branch_traffic_enabled =
          Prop.computed __type __id "branch_to_branch_traffic_enabled";
        id = Prop.computed __type __id "id";

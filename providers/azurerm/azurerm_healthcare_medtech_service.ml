@@ -232,6 +232,7 @@ let azurerm_healthcare_medtech_service ?id ?tags ?(identity = [])
   }
 
 type t = {
+  tf_name : string;
   device_mapping_json : string prop;
   eventhub_consumer_group_name : string prop;
   eventhub_name : string prop;
@@ -249,6 +250,7 @@ let make ?id ?tags ?(identity = []) ?timeouts ~device_mapping_json
   let __type = "azurerm_healthcare_medtech_service" in
   let __attrs =
     ({
+       tf_name = __id;
        device_mapping_json =
          Prop.computed __type __id "device_mapping_json";
        eventhub_consumer_group_name =

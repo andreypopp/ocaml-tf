@@ -133,6 +133,7 @@ let aws_ec2_network_insights_path ?destination_ip ?destination_port
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   destination : string prop;
   destination_arn : string prop;
@@ -152,6 +153,7 @@ let make ?destination_ip ?destination_port ?id ?source_ip ?tags
   let __type = "aws_ec2_network_insights_path" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        destination = Prop.computed __type __id "destination";
        destination_arn = Prop.computed __type __id "destination_arn";

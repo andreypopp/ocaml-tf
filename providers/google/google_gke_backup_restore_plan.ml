@@ -875,6 +875,7 @@ let google_gke_backup_restore_plan ?description ?id ?labels ?project
   }
 
 type t = {
+  tf_name : string;
   backup_plan : string prop;
   cluster : string prop;
   description : string prop;
@@ -895,6 +896,7 @@ let make ?description ?id ?labels ?project ?timeouts ~backup_plan
   let __type = "google_gke_backup_restore_plan" in
   let __attrs =
     ({
+       tf_name = __id;
        backup_plan = Prop.computed __type __id "backup_plan";
        cluster = Prop.computed __type __id "cluster";
        description = Prop.computed __type __id "description";

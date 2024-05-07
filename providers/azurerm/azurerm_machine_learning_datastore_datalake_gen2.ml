@@ -222,6 +222,7 @@ let azurerm_machine_learning_datastore_datalake_gen2 ?authority_url
   }
 
 type t = {
+  tf_name : string;
   authority_url : string prop;
   client_id : string prop;
   client_secret : string prop;
@@ -242,6 +243,7 @@ let make ?authority_url ?client_id ?client_secret ?description ?id
   let __type = "azurerm_machine_learning_datastore_datalake_gen2" in
   let __attrs =
     ({
+       tf_name = __id;
        authority_url = Prop.computed __type __id "authority_url";
        client_id = Prop.computed __type __id "client_id";
        client_secret = Prop.computed __type __id "client_secret";

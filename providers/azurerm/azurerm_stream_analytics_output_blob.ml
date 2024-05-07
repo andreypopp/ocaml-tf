@@ -303,6 +303,7 @@ let azurerm_stream_analytics_output_blob ?authentication_mode
   }
 
 type t = {
+  tf_name : string;
   authentication_mode : string prop;
   batch_max_wait_time : string prop;
   batch_min_rows : float prop;
@@ -327,6 +328,7 @@ let make ?authentication_mode ?batch_max_wait_time ?batch_min_rows
   let __type = "azurerm_stream_analytics_output_blob" in
   let __attrs =
     ({
+       tf_name = __id;
        authentication_mode =
          Prop.computed __type __id "authentication_mode";
        batch_max_wait_time =

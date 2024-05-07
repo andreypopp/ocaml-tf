@@ -33,6 +33,7 @@ val yojson_of_azurerm_sentinel_data_connector_aws_s3 :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   aws_role_arn : string prop;
   destination_table : string prop;
   id : string prop;

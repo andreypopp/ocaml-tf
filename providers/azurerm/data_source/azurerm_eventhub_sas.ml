@@ -85,6 +85,7 @@ let azurerm_eventhub_sas ?id ?timeouts ~connection_string ~expiry ()
   { connection_string; expiry; id; timeouts }
 
 type t = {
+  tf_name : string;
   connection_string : string prop;
   expiry : string prop;
   id : string prop;
@@ -95,6 +96,7 @@ let make ?id ?timeouts ~connection_string ~expiry __id =
   let __type = "azurerm_eventhub_sas" in
   let __attrs =
     ({
+       tf_name = __id;
        connection_string =
          Prop.computed __type __id "connection_string";
        expiry = Prop.computed __type __id "expiry";

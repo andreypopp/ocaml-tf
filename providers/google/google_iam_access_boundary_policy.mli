@@ -59,6 +59,7 @@ val yojson_of_google_iam_access_boundary_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   etag : string prop;
   id : string prop;

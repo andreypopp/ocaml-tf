@@ -33,6 +33,7 @@ val yojson_of_aws_backup_report_plan : aws_backup_report_plan -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   creation_time : string prop;
   deployment_status : string prop;

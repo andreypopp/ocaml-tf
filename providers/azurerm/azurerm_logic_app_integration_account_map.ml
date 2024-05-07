@@ -170,6 +170,7 @@ let azurerm_logic_app_integration_account_map ?id ?metadata ?timeouts
   }
 
 type t = {
+  tf_name : string;
   content : string prop;
   id : string prop;
   integration_account_name : string prop;
@@ -184,6 +185,7 @@ let make ?id ?metadata ?timeouts ~content ~integration_account_name
   let __type = "azurerm_logic_app_integration_account_map" in
   let __attrs =
     ({
+       tf_name = __id;
        content = Prop.computed __type __id "content";
        id = Prop.computed __type __id "id";
        integration_account_name =

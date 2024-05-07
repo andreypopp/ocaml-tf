@@ -564,6 +564,7 @@ let azurerm_api_management_backend ?description ?id ?resource_id
   }
 
 type t = {
+  tf_name : string;
   api_management_name : string prop;
   description : string prop;
   id : string prop;
@@ -582,6 +583,7 @@ let make ?description ?id ?resource_id ?title ?(credentials = [])
   let __type = "azurerm_api_management_backend" in
   let __attrs =
     ({
+       tf_name = __id;
        api_management_name =
          Prop.computed __type __id "api_management_name";
        description = Prop.computed __type __id "description";

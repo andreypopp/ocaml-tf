@@ -42,6 +42,7 @@ val yojson_of_azurerm_image : azurerm_image -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   data_disk : data_disk list prop;
   id : string prop;
   location : string prop;

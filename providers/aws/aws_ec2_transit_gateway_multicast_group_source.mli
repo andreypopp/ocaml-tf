@@ -20,6 +20,7 @@ val yojson_of_aws_ec2_transit_gateway_multicast_group_source :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   group_ip_address : string prop;
   id : string prop;
   network_interface_id : string prop;

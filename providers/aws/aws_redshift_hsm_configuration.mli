@@ -25,6 +25,7 @@ val yojson_of_aws_redshift_hsm_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   hsm_configuration_identifier : string prop;

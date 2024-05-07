@@ -121,6 +121,7 @@ let aws_location_map ?description ?id ?tags ?tags_all ~map_name
   { description; id; map_name; tags; tags_all; configuration }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   id : string prop;
@@ -136,6 +137,7 @@ let make ?description ?id ?tags ?tags_all ~map_name ~configuration
   let __type = "aws_location_map" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

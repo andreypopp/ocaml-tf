@@ -131,6 +131,7 @@ let aws_glue_workflow ?default_run_properties ?description ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   default_run_properties : (string * string) list prop;
   description : string prop;
@@ -146,6 +147,7 @@ let make ?default_run_properties ?description ?id
   let __type = "aws_glue_workflow" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        default_run_properties =
          Prop.computed __type __id "default_run_properties";

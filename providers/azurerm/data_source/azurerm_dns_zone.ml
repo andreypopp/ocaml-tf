@@ -87,6 +87,7 @@ let azurerm_dns_zone ?id ?resource_group_name ?timeouts ~name () :
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   max_number_of_record_sets : float prop;
   name : string prop;
@@ -100,6 +101,7 @@ let make ?id ?resource_group_name ?timeouts ~name __id =
   let __type = "azurerm_dns_zone" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        max_number_of_record_sets =
          Prop.computed __type __id "max_number_of_record_sets";

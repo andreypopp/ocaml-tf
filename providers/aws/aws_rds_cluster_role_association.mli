@@ -26,6 +26,7 @@ val yojson_of_aws_rds_cluster_role_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   db_cluster_identifier : string prop;
   feature_name : string prop;
   id : string prop;

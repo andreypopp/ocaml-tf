@@ -28,6 +28,7 @@ val yojson_of_google_compute_public_advertised_prefix :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   dns_verification_ip : string prop;
   id : string prop;

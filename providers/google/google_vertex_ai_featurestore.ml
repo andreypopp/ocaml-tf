@@ -283,6 +283,7 @@ let google_vertex_ai_featurestore ?force_destroy ?id ?labels ?name
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   effective_labels : (string * string) list prop;
   etag : string prop;
@@ -302,6 +303,7 @@ let make ?force_destroy ?id ?labels ?name ?project ?region
   let __type = "google_vertex_ai_featurestore" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        effective_labels =
          Prop.computed __type __id "effective_labels";

@@ -26,6 +26,7 @@ val yojson_of_aws_ec2_instance_connect_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   availability_zone : string prop;
   dns_name : string prop;

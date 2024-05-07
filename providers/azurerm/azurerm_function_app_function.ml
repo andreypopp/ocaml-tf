@@ -202,6 +202,7 @@ let azurerm_function_app_function ?enabled ?id ?language ?test_data
   }
 
 type t = {
+  tf_name : string;
   config_json : string prop;
   config_url : string prop;
   enabled : bool prop;
@@ -223,6 +224,7 @@ let make ?enabled ?id ?language ?test_data ?(file = []) ?timeouts
   let __type = "azurerm_function_app_function" in
   let __attrs =
     ({
+       tf_name = __id;
        config_json = Prop.computed __type __id "config_json";
        config_url = Prop.computed __type __id "config_url";
        enabled = Prop.computed __type __id "enabled";

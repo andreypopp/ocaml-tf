@@ -3562,6 +3562,7 @@ let aws_pipes_pipe ?description ?desired_state ?enrichment ?id ?name
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   desired_state : string prop;
@@ -3583,6 +3584,7 @@ let make ?description ?desired_state ?enrichment ?id ?name
   let __type = "aws_pipes_pipe" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        desired_state = Prop.computed __type __id "desired_state";

@@ -30,6 +30,7 @@ val yojson_of_azurerm_sql_managed_database :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

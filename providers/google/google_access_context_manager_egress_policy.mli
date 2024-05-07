@@ -25,6 +25,7 @@ val yojson_of_google_access_context_manager_egress_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   egress_policy_name : string prop;
   id : string prop;
   resource : string prop;

@@ -202,6 +202,7 @@ let azurerm_data_factory_integration_runtime_azure ?cleanup_enabled
   }
 
 type t = {
+  tf_name : string;
   cleanup_enabled : bool prop;
   compute_type : string prop;
   core_count : float prop;
@@ -220,6 +221,7 @@ let make ?cleanup_enabled ?compute_type ?core_count ?description ?id
   let __type = "azurerm_data_factory_integration_runtime_azure" in
   let __attrs =
     ({
+       tf_name = __id;
        cleanup_enabled = Prop.computed __type __id "cleanup_enabled";
        compute_type = Prop.computed __type __id "compute_type";
        core_count = Prop.computed __type __id "core_count";

@@ -1243,6 +1243,7 @@ let azurerm_linux_virtual_machine ?admin_password
   }
 
 type t = {
+  tf_name : string;
   admin_password : string prop;
   admin_username : string prop;
   allow_extension_operations : bool prop;
@@ -1311,6 +1312,7 @@ let make ?admin_password ?allow_extension_operations
   let __type = "azurerm_linux_virtual_machine" in
   let __attrs =
     ({
+       tf_name = __id;
        admin_password = Prop.computed __type __id "admin_password";
        admin_username = Prop.computed __type __id "admin_username";
        allow_extension_operations =

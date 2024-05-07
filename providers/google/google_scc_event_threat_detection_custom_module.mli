@@ -32,6 +32,7 @@ val yojson_of_google_scc_event_threat_detection_custom_module :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   config : string prop;
   display_name : string prop;
   enablement_state : string prop;

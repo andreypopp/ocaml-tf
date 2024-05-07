@@ -116,6 +116,7 @@ let google_project_default_service_accounts ?id ?restore_policy
   { action; id; project; restore_policy; timeouts }
 
 type t = {
+  tf_name : string;
   action : string prop;
   id : string prop;
   project : string prop;
@@ -127,6 +128,7 @@ let make ?id ?restore_policy ?timeouts ~action ~project __id =
   let __type = "google_project_default_service_accounts" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        id = Prop.computed __type __id "id";
        project = Prop.computed __type __id "project";

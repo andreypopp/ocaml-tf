@@ -33,6 +33,7 @@ val yojson_of_aws_ivs_channel : aws_ivs_channel -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   authorized : bool prop;
   id : string prop;

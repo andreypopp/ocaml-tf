@@ -21,6 +21,7 @@ val yojson_of_hcloud_network_subnet : hcloud_network_subnet -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   gateway : string prop;
   id : string prop;
   ip_range : string prop;

@@ -45,6 +45,7 @@ val yojson_of_cloudflare_dlp_profile : cloudflare_dlp_profile -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   allowed_match_count : float prop;
   description : string prop;

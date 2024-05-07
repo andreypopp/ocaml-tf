@@ -33,6 +33,7 @@ val yojson_of_azurerm_servicebus_topic_authorization_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   listen : bool prop;
   manage : bool prop;

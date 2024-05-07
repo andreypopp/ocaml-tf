@@ -28,6 +28,7 @@ val yojson_of_google_apigee_env_references :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   env_id : string prop;
   id : string prop;

@@ -19,6 +19,7 @@ val yojson_of_aws_ssm_default_patch_baseline :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   baseline_id : string prop;
   id : string prop;
   operating_system : string prop;

@@ -30,6 +30,7 @@ val yojson_of_aws_chime_voice_connector_streaming :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   data_retention : float prop;
   disabled : bool prop;
   id : string prop;

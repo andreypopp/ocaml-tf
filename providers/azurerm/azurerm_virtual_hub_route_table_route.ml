@@ -165,6 +165,7 @@ let azurerm_virtual_hub_route_table_route ?id ?next_hop_type
   }
 
 type t = {
+  tf_name : string;
   destinations : string list prop;
   destinations_type : string prop;
   id : string prop;
@@ -179,6 +180,7 @@ let make ?id ?next_hop_type ?timeouts ~destinations
   let __type = "azurerm_virtual_hub_route_table_route" in
   let __attrs =
     ({
+       tf_name = __id;
        destinations = Prop.computed __type __id "destinations";
        destinations_type =
          Prop.computed __type __id "destinations_type";

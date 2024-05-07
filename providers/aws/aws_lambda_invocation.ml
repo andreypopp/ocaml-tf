@@ -106,6 +106,7 @@ let aws_lambda_invocation ?id ?lifecycle_scope ?qualifier
   }
 
 type t = {
+  tf_name : string;
   function_name : string prop;
   id : string prop;
   input : string prop;
@@ -121,6 +122,7 @@ let make ?id ?lifecycle_scope ?qualifier ?terraform_key ?triggers
   let __type = "aws_lambda_invocation" in
   let __attrs =
     ({
+       tf_name = __id;
        function_name = Prop.computed __type __id "function_name";
        id = Prop.computed __type __id "id";
        input = Prop.computed __type __id "input";

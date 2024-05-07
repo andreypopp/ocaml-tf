@@ -115,6 +115,7 @@ let azurerm_data_protection_backup_policy_blob_storage ?id ?timeouts
   { id; name; retention_duration; vault_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   retention_duration : string prop;
@@ -127,6 +128,7 @@ let make ?id ?timeouts ~name ~retention_duration ~vault_id __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        retention_duration =

@@ -27,6 +27,7 @@ val yojson_of_aws_ec2_client_vpn_route :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   client_vpn_endpoint_id : string prop;
   description : string prop;
   destination_cidr_block : string prop;

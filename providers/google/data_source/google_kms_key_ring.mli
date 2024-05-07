@@ -19,6 +19,7 @@ val yojson_of_google_kms_key_ring : google_kms_key_ring -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

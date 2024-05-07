@@ -196,11 +196,13 @@ let rule ?resource_names ~api_groups ~resources ~verbs () : rule =
 let kubernetes_role ?id ~metadata ~rule () : kubernetes_role =
   { id; metadata; rule }
 
-type t = { id : string prop }
+type t = { tf_name : string; id : string prop }
 
 let make ?id ~metadata ~rule __id =
   let __type = "kubernetes_role" in
-  let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
+  let __attrs =
+    ({ tf_name = __id; id = Prop.computed __type __id "id" } : t)
+  in
   {
     Tf_core.id = __id;
     type_ = __type;

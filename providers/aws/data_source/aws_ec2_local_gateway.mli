@@ -29,6 +29,7 @@ val yojson_of_aws_ec2_local_gateway : aws_ec2_local_gateway -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   outpost_arn : string prop;
   owner_id : string prop;

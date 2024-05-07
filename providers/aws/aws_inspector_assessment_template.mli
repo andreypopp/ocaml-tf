@@ -32,6 +32,7 @@ val yojson_of_aws_inspector_assessment_template :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   duration : float prop;
   id : string prop;

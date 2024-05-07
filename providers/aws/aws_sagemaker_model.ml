@@ -779,6 +779,7 @@ let aws_sagemaker_model ?enable_network_isolation ?id ?name ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   enable_network_isolation : bool prop;
   execution_role_arn : string prop;
@@ -795,6 +796,7 @@ let make ?enable_network_isolation ?id ?name ?tags ?tags_all
   let __type = "aws_sagemaker_model" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        enable_network_isolation =
          Prop.computed __type __id "enable_network_isolation";

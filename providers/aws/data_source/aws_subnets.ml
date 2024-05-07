@@ -123,6 +123,7 @@ let aws_subnets ?id ?tags ?timeouts ~filter () : aws_subnets =
   { id; tags; filter; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   ids : string list prop;
   tags : (string * string) list prop;
@@ -132,6 +133,7 @@ let make ?id ?tags ?timeouts ~filter __id =
   let __type = "aws_subnets" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ids = Prop.computed __type __id "ids";
        tags = Prop.computed __type __id "tags";

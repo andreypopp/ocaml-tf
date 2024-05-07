@@ -166,6 +166,7 @@ let aws_servicecatalog_portfolio ?description ?id ?tags ?tags_all
   { description; id; name; provider_name; tags; tags_all; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_time : string prop;
   description : string prop;
@@ -181,6 +182,7 @@ let make ?description ?id ?tags ?tags_all ?timeouts ~name
   let __type = "aws_servicecatalog_portfolio" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_time = Prop.computed __type __id "created_time";
        description = Prop.computed __type __id "description";

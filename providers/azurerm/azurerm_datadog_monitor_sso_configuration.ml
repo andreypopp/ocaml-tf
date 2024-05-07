@@ -151,6 +151,7 @@ let azurerm_datadog_monitor_sso_configuration ?id ?name ?timeouts
   }
 
 type t = {
+  tf_name : string;
   datadog_monitor_id : string prop;
   enterprise_application_id : string prop;
   id : string prop;
@@ -164,6 +165,7 @@ let make ?id ?name ?timeouts ~datadog_monitor_id
   let __type = "azurerm_datadog_monitor_sso_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        datadog_monitor_id =
          Prop.computed __type __id "datadog_monitor_id";
        enterprise_application_id =

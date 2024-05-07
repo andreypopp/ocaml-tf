@@ -161,6 +161,7 @@ val yojson_of_google_privateca_certificate_authority :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_urls : access_urls list prop;
   certificate_authority_id : string prop;
   config : config list prop;

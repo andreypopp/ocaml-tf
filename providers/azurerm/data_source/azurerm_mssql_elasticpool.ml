@@ -136,6 +136,7 @@ let azurerm_mssql_elasticpool ?id ?timeouts ~name
   { id; name; resource_group_name; server_name; timeouts }
 
 type t = {
+  tf_name : string;
   enclave_type : string prop;
   id : string prop;
   license_type : string prop;
@@ -156,6 +157,7 @@ let make ?id ?timeouts ~name ~resource_group_name ~server_name __id =
   let __type = "azurerm_mssql_elasticpool" in
   let __attrs =
     ({
+       tf_name = __id;
        enclave_type = Prop.computed __type __id "enclave_type";
        id = Prop.computed __type __id "id";
        license_type = Prop.computed __type __id "license_type";

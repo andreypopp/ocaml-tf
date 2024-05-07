@@ -177,6 +177,7 @@ let aws_servicecatalog_portfolio_share ?accept_language ?id
   }
 
 type t = {
+  tf_name : string;
   accept_language : string prop;
   accepted : bool prop;
   id : string prop;
@@ -194,6 +195,7 @@ let make ?accept_language ?id ?share_principals ?share_tag_options
   let __type = "aws_servicecatalog_portfolio_share" in
   let __attrs =
     ({
+       tf_name = __id;
        accept_language = Prop.computed __type __id "accept_language";
        accepted = Prop.computed __type __id "accepted";
        id = Prop.computed __type __id "id";

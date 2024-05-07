@@ -268,6 +268,7 @@ let azurerm_automation_schedule ?description ?expiry_time ?id
   }
 
 type t = {
+  tf_name : string;
   automation_account_name : string prop;
   description : string prop;
   expiry_time : string prop;
@@ -289,6 +290,7 @@ let make ?description ?expiry_time ?id ?interval ?month_days
   let __type = "azurerm_automation_schedule" in
   let __attrs =
     ({
+       tf_name = __id;
        automation_account_name =
          Prop.computed __type __id "automation_account_name";
        description = Prop.computed __type __id "description";

@@ -200,6 +200,7 @@ let aws_docdbelastic_cluster ?kms_key_id
   }
 
 type t = {
+  tf_name : string;
   admin_user_name : string prop;
   admin_user_password : string prop;
   arn : string prop;
@@ -224,6 +225,7 @@ let make ?kms_key_id ?preferred_maintenance_window ?subnet_ids ?tags
   let __type = "aws_docdbelastic_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        admin_user_name = Prop.computed __type __id "admin_user_name";
        admin_user_password =
          Prop.computed __type __id "admin_user_password";

@@ -293,6 +293,7 @@ let google_compute_interconnect_attachment ?admin_enabled ?bandwidth
   }
 
 type t = {
+  tf_name : string;
   admin_enabled : bool prop;
   bandwidth : string prop;
   candidate_subnets : string list prop;
@@ -328,6 +329,7 @@ let make ?admin_enabled ?bandwidth ?candidate_subnets ?description
   let __type = "google_compute_interconnect_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        admin_enabled = Prop.computed __type __id "admin_enabled";
        bandwidth = Prop.computed __type __id "bandwidth";
        candidate_subnets =

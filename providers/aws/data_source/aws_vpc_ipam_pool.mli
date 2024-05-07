@@ -30,6 +30,7 @@ val yojson_of_aws_vpc_ipam_pool : aws_vpc_ipam_pool -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address_family : string prop;
   allocation_default_netmask_length : float prop;
   allocation_max_netmask_length : float prop;

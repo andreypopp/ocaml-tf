@@ -53,6 +53,7 @@ let aws_glue_resource_policy ?enable_hybrid ?id ~policy () :
   { enable_hybrid; id; policy }
 
 type t = {
+  tf_name : string;
   enable_hybrid : string prop;
   id : string prop;
   policy : string prop;
@@ -62,6 +63,7 @@ let make ?enable_hybrid ?id ~policy __id =
   let __type = "aws_glue_resource_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        enable_hybrid = Prop.computed __type __id "enable_hybrid";
        id = Prop.computed __type __id "id";
        policy = Prop.computed __type __id "policy";

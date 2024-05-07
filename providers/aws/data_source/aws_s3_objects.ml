@@ -124,6 +124,7 @@ let aws_s3_objects ?delimiter ?encoding_type ?fetch_owner ?id
   }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   common_prefixes : string list prop;
   delimiter : string prop;
@@ -144,6 +145,7 @@ let make ?delimiter ?encoding_type ?fetch_owner ?id ?max_keys ?prefix
   let __type = "aws_s3_objects" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        common_prefixes = Prop.computed __type __id "common_prefixes";
        delimiter = Prop.computed __type __id "delimiter";

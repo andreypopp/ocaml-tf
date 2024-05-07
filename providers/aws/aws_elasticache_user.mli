@@ -44,6 +44,7 @@ val yojson_of_aws_elasticache_user : aws_elasticache_user -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_string : string prop;
   arn : string prop;
   engine : string prop;

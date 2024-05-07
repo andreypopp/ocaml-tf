@@ -194,6 +194,7 @@ let google_dns_response_policy ?description ?id ?project
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   project : string prop;
@@ -205,6 +206,7 @@ let make ?description ?id ?project ?(gke_clusters = [])
   let __type = "google_dns_response_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        project = Prop.computed __type __id "project";

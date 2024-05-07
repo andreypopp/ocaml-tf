@@ -114,6 +114,7 @@ let aws_ce_anomaly_monitor ?id ?monitor_dimension
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   monitor_dimension : string prop;
@@ -129,6 +130,7 @@ let make ?id ?monitor_dimension ?monitor_specification ?tags
   let __type = "aws_ce_anomaly_monitor" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        monitor_dimension =

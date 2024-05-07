@@ -43,6 +43,7 @@ val yojson_of_azurerm_machine_learning_synapse_spark :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   local_auth_enabled : bool prop;

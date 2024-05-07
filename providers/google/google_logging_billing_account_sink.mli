@@ -40,6 +40,7 @@ val yojson_of_google_logging_billing_account_sink :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   billing_account : string prop;
   description : string prop;
   destination : string prop;

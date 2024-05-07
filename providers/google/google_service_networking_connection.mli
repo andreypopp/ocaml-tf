@@ -31,6 +31,7 @@ val yojson_of_google_service_networking_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   deletion_policy : string prop;
   id : string prop;
   network : string prop;

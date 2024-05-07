@@ -790,6 +790,7 @@ let aws_customerprofiles_domain ?dead_letter_queue_url
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   dead_letter_queue_url : string prop;
   default_encryption_key : string prop;
@@ -806,6 +807,7 @@ let make ?dead_letter_queue_url ?default_encryption_key ?id ?tags
   let __type = "aws_customerprofiles_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        dead_letter_queue_url =
          Prop.computed __type __id "dead_letter_queue_url";

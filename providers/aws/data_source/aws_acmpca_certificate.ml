@@ -52,6 +52,7 @@ let aws_acmpca_certificate ?id ~arn ~certificate_authority_arn () :
   { arn; certificate_authority_arn; id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   certificate : string prop;
   certificate_authority_arn : string prop;
@@ -63,6 +64,7 @@ let make ?id ~arn ~certificate_authority_arn __id =
   let __type = "aws_acmpca_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        certificate = Prop.computed __type __id "certificate";
        certificate_authority_arn =

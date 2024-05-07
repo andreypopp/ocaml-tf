@@ -27,6 +27,7 @@ val yojson_of_cloudflare_lists : cloudflare_lists -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   lists : lists list prop;

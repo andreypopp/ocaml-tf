@@ -34,6 +34,7 @@ val yojson_of_azurerm_bot_channel_ms_teams :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bot_name : string prop;
   calling_web_hook : string prop;
   deployment_environment : string prop;

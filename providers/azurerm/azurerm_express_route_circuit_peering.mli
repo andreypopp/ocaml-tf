@@ -71,6 +71,7 @@ val yojson_of_azurerm_express_route_circuit_peering :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   azure_asn : float prop;
   express_route_circuit_name : string prop;
   gateway_manager_etag : string prop;

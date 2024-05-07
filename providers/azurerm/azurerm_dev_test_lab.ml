@@ -162,6 +162,7 @@ let azurerm_dev_test_lab ?id ?storage_type ?tags ?timeouts ~location
   }
 
 type t = {
+  tf_name : string;
   artifacts_storage_account_id : string prop;
   default_premium_storage_account_id : string prop;
   default_storage_account_id : string prop;
@@ -181,6 +182,7 @@ let make ?id ?storage_type ?tags ?timeouts ~location ~name
   let __type = "azurerm_dev_test_lab" in
   let __attrs =
     ({
+       tf_name = __id;
        artifacts_storage_account_id =
          Prop.computed __type __id "artifacts_storage_account_id";
        default_premium_storage_account_id =

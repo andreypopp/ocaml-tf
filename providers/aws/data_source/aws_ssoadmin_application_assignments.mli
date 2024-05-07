@@ -21,7 +21,11 @@ val yojson_of_aws_ssoadmin_application_assignments :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { application_arn : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  application_arn : string prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

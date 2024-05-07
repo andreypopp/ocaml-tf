@@ -101,6 +101,7 @@ let digitalocean_database_user ?id ~cluster_id ~name () :
   { cluster_id; id; name }
 
 type t = {
+  tf_name : string;
   access_cert : string prop;
   access_key : string prop;
   cluster_id : string prop;
@@ -116,6 +117,7 @@ let make ?id ~cluster_id ~name __id =
   let __type = "digitalocean_database_user" in
   let __attrs =
     ({
+       tf_name = __id;
        access_cert = Prop.computed __type __id "access_cert";
        access_key = Prop.computed __type __id "access_key";
        cluster_id = Prop.computed __type __id "cluster_id";

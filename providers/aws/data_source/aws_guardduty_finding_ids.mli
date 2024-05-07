@@ -15,6 +15,7 @@ val yojson_of_aws_guardduty_finding_ids :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   detector_id : string prop;
   finding_ids : string list prop;
   has_findings : bool prop;

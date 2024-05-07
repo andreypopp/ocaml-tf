@@ -32,6 +32,7 @@ val yojson_of_azurerm_redis_linked_server :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   geo_replicated_primary_host_name : string prop;
   id : string prop;
   linked_redis_cache_id : string prop;

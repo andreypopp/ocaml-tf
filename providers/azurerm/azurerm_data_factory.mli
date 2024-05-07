@@ -82,6 +82,7 @@ val yojson_of_azurerm_data_factory : azurerm_data_factory -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   customer_managed_key_id : string prop;
   customer_managed_key_identity_id : string prop;
   id : string prop;

@@ -100,6 +100,7 @@ let aws_appstream_user ?enabled ?first_name ?id ?last_name
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   authentication_type : string prop;
   created_time : string prop;
@@ -116,6 +117,7 @@ let make ?enabled ?first_name ?id ?last_name ?send_email_notification
   let __type = "aws_appstream_user" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        authentication_type =
          Prop.computed __type __id "authentication_type";

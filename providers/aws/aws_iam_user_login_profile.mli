@@ -21,6 +21,7 @@ val yojson_of_aws_iam_user_login_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   encrypted_password : string prop;
   id : string prop;
   key_fingerprint : string prop;

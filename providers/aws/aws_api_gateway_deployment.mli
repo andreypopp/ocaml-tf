@@ -23,6 +23,7 @@ val yojson_of_aws_api_gateway_deployment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created_date : string prop;
   description : string prop;
   execution_arn : string prop;

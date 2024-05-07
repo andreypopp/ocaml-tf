@@ -36,6 +36,7 @@ let aws_servicequotas_template_association ?skip_destroy () :
   { skip_destroy }
 
 type t = {
+  tf_name : string;
   id : string prop;
   skip_destroy : bool prop;
   status : string prop;
@@ -45,6 +46,7 @@ let make ?skip_destroy __id =
   let __type = "aws_servicequotas_template_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        skip_destroy = Prop.computed __type __id "skip_destroy";
        status = Prop.computed __type __id "status";

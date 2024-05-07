@@ -222,6 +222,7 @@ val yojson_of_aws_opensearch_domain : aws_opensearch_domain -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_policies : string prop;
   advanced_options : (string * string) list prop;
   arn : string prop;

@@ -316,6 +316,7 @@ val yojson_of_google_container_node_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster : string prop;
   id : string prop;
   initial_node_count : float prop;

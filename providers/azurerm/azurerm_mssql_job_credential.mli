@@ -32,6 +32,7 @@ val yojson_of_azurerm_mssql_job_credential :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   job_agent_id : string prop;
   name : string prop;

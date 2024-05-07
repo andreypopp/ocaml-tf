@@ -1216,6 +1216,7 @@ let google_monitoring_slo ?calendar_period ?display_name ?id ?project
   }
 
 type t = {
+  tf_name : string;
   calendar_period : string prop;
   display_name : string prop;
   goal : float prop;
@@ -1235,6 +1236,7 @@ let make ?calendar_period ?display_name ?id ?project
   let __type = "google_monitoring_slo" in
   let __attrs =
     ({
+       tf_name = __id;
        calendar_period = Prop.computed __type __id "calendar_period";
        display_name = Prop.computed __type __id "display_name";
        goal = Prop.computed __type __id "goal";

@@ -378,6 +378,7 @@ let azurerm_managed_lustre_file_system ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   mgs_address : string prop;
@@ -397,6 +398,7 @@ let make ?id ?tags ?(encryption_key = []) ?(hsm_setting = [])
   let __type = "azurerm_managed_lustre_file_system" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        mgs_address = Prop.computed __type __id "mgs_address";

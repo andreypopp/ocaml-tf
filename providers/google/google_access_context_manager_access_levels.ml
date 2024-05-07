@@ -653,12 +653,13 @@ let google_access_context_manager_access_levels ?id ?timeouts ~parent
     ~access_levels () : google_access_context_manager_access_levels =
   { id; parent; access_levels; timeouts }
 
-type t = { id : string prop; parent : string prop }
+type t = { tf_name : string; id : string prop; parent : string prop }
 
 let make ?id ?timeouts ~parent ~access_levels __id =
   let __type = "google_access_context_manager_access_levels" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        parent = Prop.computed __type __id "parent";
      }

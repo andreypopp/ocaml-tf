@@ -119,6 +119,7 @@ let azurerm_site_recovery_hyperv_replication_policy_association ?id
   { hyperv_site_id; id; name; policy_id; timeouts }
 
 type t = {
+  tf_name : string;
   hyperv_site_id : string prop;
   id : string prop;
   name : string prop;
@@ -131,6 +132,7 @@ let make ?id ?timeouts ~hyperv_site_id ~name ~policy_id __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        hyperv_site_id = Prop.computed __type __id "hyperv_site_id";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

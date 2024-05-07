@@ -338,6 +338,7 @@ let azurerm_kubernetes_fleet_update_run ?fleet_update_strategy_id ?id
   }
 
 type t = {
+  tf_name : string;
   fleet_update_strategy_id : string prop;
   id : string prop;
   kubernetes_fleet_manager_id : string prop;
@@ -349,6 +350,7 @@ let make ?fleet_update_strategy_id ?id ?(stage = []) ?timeouts
   let __type = "azurerm_kubernetes_fleet_update_run" in
   let __attrs =
     ({
+       tf_name = __id;
        fleet_update_strategy_id =
          Prop.computed __type __id "fleet_update_strategy_id";
        id = Prop.computed __type __id "id";

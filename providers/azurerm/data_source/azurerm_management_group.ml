@@ -91,6 +91,7 @@ let azurerm_management_group ?display_name ?id ?name ?timeouts () :
   { display_name; id; name; timeouts }
 
 type t = {
+  tf_name : string;
   all_management_group_ids : string list prop;
   all_subscription_ids : string list prop;
   display_name : string prop;
@@ -105,6 +106,7 @@ let make ?display_name ?id ?name ?timeouts __id =
   let __type = "azurerm_management_group" in
   let __attrs =
     ({
+       tf_name = __id;
        all_management_group_ids =
          Prop.computed __type __id "all_management_group_ids";
        all_subscription_ids =

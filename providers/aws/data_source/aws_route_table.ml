@@ -356,6 +356,7 @@ let aws_route_table ?gateway_id ?id ?route_table_id ?subnet_id ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   associations : associations list prop;
   gateway_id : string prop;
@@ -373,6 +374,7 @@ let make ?gateway_id ?id ?route_table_id ?subnet_id ?tags ?vpc_id
   let __type = "aws_route_table" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        associations = Prop.computed __type __id "associations";
        gateway_id = Prop.computed __type __id "gateway_id";

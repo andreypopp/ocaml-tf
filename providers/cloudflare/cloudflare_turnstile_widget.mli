@@ -27,6 +27,7 @@ val yojson_of_cloudflare_turnstile_widget :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   bot_fight_mode : bool prop;
   domains : string list prop;

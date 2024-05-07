@@ -33,6 +33,7 @@ val yojson_of_azurerm_application_insights_smart_detection_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   additional_email_recipients : string list prop;
   application_insights_id : string prop;
   enabled : bool prop;

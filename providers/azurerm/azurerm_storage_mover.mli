@@ -32,6 +32,7 @@ val yojson_of_azurerm_storage_mover : azurerm_storage_mover -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   location : string prop;

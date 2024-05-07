@@ -27,6 +27,7 @@ val yojson_of_aws_imagebuilder_workflow :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   change_description : string prop;
   data : string prop;

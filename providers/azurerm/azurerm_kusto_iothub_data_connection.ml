@@ -220,6 +220,7 @@ let azurerm_kusto_iothub_data_connection ?data_format
   }
 
 type t = {
+  tf_name : string;
   cluster_name : string prop;
   consumer_group : string prop;
   data_format : string prop;
@@ -243,6 +244,7 @@ let make ?data_format ?database_routing_type ?event_system_properties
   let __type = "azurerm_kusto_iothub_data_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_name = Prop.computed __type __id "cluster_name";
        consumer_group = Prop.computed __type __id "consumer_group";
        data_format = Prop.computed __type __id "data_format";

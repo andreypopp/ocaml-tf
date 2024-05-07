@@ -314,6 +314,7 @@ let aws_apigatewayv2_api ?api_key_selection_expression ?body
   }
 
 type t = {
+  tf_name : string;
   api_endpoint : string prop;
   api_key_selection_expression : string prop;
   arn : string prop;
@@ -341,6 +342,7 @@ let make ?api_key_selection_expression ?body ?credentials_arn
   let __type = "aws_apigatewayv2_api" in
   let __attrs =
     ({
+       tf_name = __id;
        api_endpoint = Prop.computed __type __id "api_endpoint";
        api_key_selection_expression =
          Prop.computed __type __id "api_key_selection_expression";

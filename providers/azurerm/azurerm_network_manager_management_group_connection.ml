@@ -148,6 +148,7 @@ let azurerm_network_manager_management_group_connection ?description
   }
 
 type t = {
+  tf_name : string;
   connection_state : string prop;
   description : string prop;
   id : string prop;
@@ -163,6 +164,7 @@ let make ?description ?id ?timeouts ~management_group_id ~name
   in
   let __attrs =
     ({
+       tf_name = __id;
        connection_state =
          Prop.computed __type __id "connection_state";
        description = Prop.computed __type __id "description";

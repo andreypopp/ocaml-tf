@@ -248,6 +248,7 @@ let azurerm_virtual_hub_connection ?id ?timeouts ~name
   { id; name; resource_group_name; virtual_hub_name; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   internet_security_enabled : bool prop;
   name : string prop;
@@ -263,6 +264,7 @@ let make ?id ?timeouts ~name ~resource_group_name ~virtual_hub_name
   let __type = "azurerm_virtual_hub_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        internet_security_enabled =
          Prop.computed __type __id "internet_security_enabled";

@@ -85,6 +85,7 @@ let cloudflare_access_service_token ?account_id ?duration ?id
   { account_id; duration; id; min_days_for_renewal; name; zone_id }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   client_id : string prop;
   client_secret : string prop;
@@ -101,6 +102,7 @@ let make ?account_id ?duration ?id ?min_days_for_renewal ?zone_id
   let __type = "cloudflare_access_service_token" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        client_id = Prop.computed __type __id "client_id";
        client_secret = Prop.computed __type __id "client_secret";

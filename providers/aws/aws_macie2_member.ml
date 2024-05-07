@@ -185,6 +185,7 @@ let aws_macie2_member ?id ?invitation_disable_email_notification
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   administrator_account_id : string prop;
   arn : string prop;
@@ -208,6 +209,7 @@ let make ?id ?invitation_disable_email_notification
   let __type = "aws_macie2_member" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        administrator_account_id =
          Prop.computed __type __id "administrator_account_id";

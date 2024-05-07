@@ -38,6 +38,7 @@ val yojson_of_azurerm_sql_elasticpool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   creation_date : string prop;
   db_dtu_max : float prop;
   db_dtu_min : float prop;

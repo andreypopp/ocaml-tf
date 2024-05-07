@@ -66,6 +66,7 @@ let aws_apigatewayv2_api_mapping ?api_mapping_key ?id ~api_id
   { api_id; api_mapping_key; domain_name; id; stage }
 
 type t = {
+  tf_name : string;
   api_id : string prop;
   api_mapping_key : string prop;
   domain_name : string prop;
@@ -77,6 +78,7 @@ let make ?api_mapping_key ?id ~api_id ~domain_name ~stage __id =
   let __type = "aws_apigatewayv2_api_mapping" in
   let __attrs =
     ({
+       tf_name = __id;
        api_id = Prop.computed __type __id "api_id";
        api_mapping_key = Prop.computed __type __id "api_mapping_key";
        domain_name = Prop.computed __type __id "domain_name";

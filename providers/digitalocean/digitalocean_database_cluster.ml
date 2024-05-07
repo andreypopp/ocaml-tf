@@ -280,6 +280,7 @@ let digitalocean_database_cluster ?eviction_policy ?id
   }
 
 type t = {
+  tf_name : string;
   database : string prop;
   engine : string prop;
   eviction_policy : string prop;
@@ -311,6 +312,7 @@ let make ?eviction_policy ?id ?private_network_uuid ?project_id
   let __type = "digitalocean_database_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        database = Prop.computed __type __id "database";
        engine = Prop.computed __type __id "engine";
        eviction_policy = Prop.computed __type __id "eviction_policy";

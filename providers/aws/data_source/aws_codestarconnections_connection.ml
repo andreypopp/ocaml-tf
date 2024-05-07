@@ -71,6 +71,7 @@ let aws_codestarconnections_connection ?arn ?id ?name ?tags () :
   { arn; id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   connection_status : string prop;
   host_arn : string prop;
@@ -84,6 +85,7 @@ let make ?arn ?id ?name ?tags __id =
   let __type = "aws_codestarconnections_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        connection_status =
          Prop.computed __type __id "connection_status";

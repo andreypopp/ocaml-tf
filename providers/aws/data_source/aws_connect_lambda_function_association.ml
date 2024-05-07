@@ -50,6 +50,7 @@ let aws_connect_lambda_function_association ?id ~function_arn
   { function_arn; id; instance_id }
 
 type t = {
+  tf_name : string;
   function_arn : string prop;
   id : string prop;
   instance_id : string prop;
@@ -59,6 +60,7 @@ let make ?id ~function_arn ~instance_id __id =
   let __type = "aws_connect_lambda_function_association" in
   let __attrs =
     ({
+       tf_name = __id;
        function_arn = Prop.computed __type __id "function_arn";
        id = Prop.computed __type __id "id";
        instance_id = Prop.computed __type __id "instance_id";

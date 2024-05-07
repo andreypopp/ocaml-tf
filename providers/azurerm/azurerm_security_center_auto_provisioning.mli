@@ -28,7 +28,11 @@ val yojson_of_azurerm_security_center_auto_provisioning :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { auto_provision : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  auto_provision : string prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

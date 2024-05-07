@@ -142,6 +142,7 @@ let azurerm_mssql_job_agent ?id ?tags ?timeouts ~database_id
   { database_id; id; location; name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   database_id : string prop;
   id : string prop;
   location : string prop;
@@ -153,6 +154,7 @@ let make ?id ?tags ?timeouts ~database_id ~location ~name __id =
   let __type = "azurerm_mssql_job_agent" in
   let __attrs =
     ({
+       tf_name = __id;
        database_id = Prop.computed __type __id "database_id";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

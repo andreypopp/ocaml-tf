@@ -66,6 +66,7 @@ let aws_codebuild_source_credential ?id ?user_name ~auth_type
   { auth_type; id; server_type; token; user_name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   auth_type : string prop;
   id : string prop;
@@ -78,6 +79,7 @@ let make ?id ?user_name ~auth_type ~server_type ~token __id =
   let __type = "aws_codebuild_source_credential" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        auth_type = Prop.computed __type __id "auth_type";
        id = Prop.computed __type __id "id";

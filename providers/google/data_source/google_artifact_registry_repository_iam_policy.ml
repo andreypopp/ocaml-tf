@@ -66,6 +66,7 @@ let google_artifact_registry_repository_iam_policy ?id ?location
   { id; location; project; repository }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   location : string prop;
@@ -78,6 +79,7 @@ let make ?id ?location ?project ~repository __id =
   let __type = "google_artifact_registry_repository_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

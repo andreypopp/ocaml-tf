@@ -191,6 +191,7 @@ let google_netapp_backup_policy ?description ?enabled ?id ?labels
   }
 
 type t = {
+  tf_name : string;
   assigned_volume_count : float prop;
   create_time : string prop;
   daily_backup_limit : float prop;
@@ -214,6 +215,7 @@ let make ?description ?enabled ?id ?labels ?project ?timeouts
   let __type = "google_netapp_backup_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        assigned_volume_count =
          Prop.computed __type __id "assigned_volume_count";
        create_time = Prop.computed __type __id "create_time";

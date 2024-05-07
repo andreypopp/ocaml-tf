@@ -19,6 +19,7 @@ val yojson_of_aws_ecr_repository_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   policy : string prop;
   registry_id : string prop;

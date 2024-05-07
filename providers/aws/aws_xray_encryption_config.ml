@@ -49,6 +49,7 @@ let aws_xray_encryption_config ?id ?key_id ~type_ () :
   { id; key_id; type_ }
 
 type t = {
+  tf_name : string;
   id : string prop;
   key_id : string prop;
   type_ : string prop;
@@ -58,6 +59,7 @@ let make ?id ?key_id ~type_ __id =
   let __type = "aws_xray_encryption_config" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        key_id = Prop.computed __type __id "key_id";
        type_ = Prop.computed __type __id "type";

@@ -195,6 +195,7 @@ let azurerm_hpc_cache_blob_nfs_target ?access_policy_name ?id
   }
 
 type t = {
+  tf_name : string;
   access_policy_name : string prop;
   cache_name : string prop;
   id : string prop;
@@ -214,6 +215,7 @@ let make ?access_policy_name ?id ?verification_timer_in_seconds
   let __type = "azurerm_hpc_cache_blob_nfs_target" in
   let __attrs =
     ({
+       tf_name = __id;
        access_policy_name =
          Prop.computed __type __id "access_policy_name";
        cache_name = Prop.computed __type __id "cache_name";

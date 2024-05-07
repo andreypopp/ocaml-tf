@@ -229,11 +229,13 @@ let kubernetes_ingress_class_v1 ?id ~metadata ~spec () :
     kubernetes_ingress_class_v1 =
   { id; metadata; spec }
 
-type t = { id : string prop }
+type t = { tf_name : string; id : string prop }
 
 let make ?id ~metadata ~spec __id =
   let __type = "kubernetes_ingress_class_v1" in
-  let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
+  let __attrs =
+    ({ tf_name = __id; id = Prop.computed __type __id "id" } : t)
+  in
   {
     Tf_core.id = __id;
     type_ = __type;

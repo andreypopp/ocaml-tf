@@ -127,6 +127,7 @@ let aws_prometheus_workspace ?alias ?id ?kms_key_arn ?tags ?tags_all
   { alias; id; kms_key_arn; tags; tags_all; logging_configuration }
 
 type t = {
+  tf_name : string;
   alias : string prop;
   arn : string prop;
   id : string prop;
@@ -141,6 +142,7 @@ let make ?alias ?id ?kms_key_arn ?tags ?tags_all
   let __type = "aws_prometheus_workspace" in
   let __attrs =
     ({
+       tf_name = __id;
        alias = Prop.computed __type __id "alias";
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";

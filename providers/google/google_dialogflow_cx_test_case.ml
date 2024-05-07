@@ -1296,6 +1296,7 @@ let google_dialogflow_cx_test_case ?id ?notes ?parent ?tags
   }
 
 type t = {
+  tf_name : string;
   creation_time : string prop;
   display_name : string prop;
   id : string prop;
@@ -1312,6 +1313,7 @@ let make ?id ?notes ?parent ?tags
   let __type = "google_dialogflow_cx_test_case" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_time = Prop.computed __type __id "creation_time";
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";

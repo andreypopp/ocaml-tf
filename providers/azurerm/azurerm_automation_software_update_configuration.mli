@@ -140,6 +140,7 @@ val yojson_of_azurerm_automation_software_update_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automation_account_id : string prop;
   duration : string prop;
   error_code : string prop;

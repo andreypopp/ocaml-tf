@@ -71,6 +71,7 @@ let hcloud_network_subnet ?id ?vswitch_id ~ip_range ~network_id
   { id; ip_range; network_id; network_zone; type_; vswitch_id }
 
 type t = {
+  tf_name : string;
   gateway : string prop;
   id : string prop;
   ip_range : string prop;
@@ -85,6 +86,7 @@ let make ?id ?vswitch_id ~ip_range ~network_id ~network_zone ~type_
   let __type = "hcloud_network_subnet" in
   let __attrs =
     ({
+       tf_name = __id;
        gateway = Prop.computed __type __id "gateway";
        id = Prop.computed __type __id "id";
        ip_range = Prop.computed __type __id "ip_range";

@@ -306,6 +306,7 @@ val yojson_of_azurerm_eventgrid_system_topic_event_subscription :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   advanced_filtering_on_arrays_enabled : bool prop;
   event_delivery_schema : string prop;
   eventhub_endpoint_id : string prop;

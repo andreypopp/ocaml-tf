@@ -52,6 +52,7 @@ val yojson_of_azurerm_virtual_network_gateway_nat_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   ip_configuration_id : string prop;
   mode : string prop;

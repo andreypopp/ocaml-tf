@@ -770,6 +770,7 @@ let aws_ssm_maintenance_window_task ?cutoff_behavior ?description ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cutoff_behavior : string prop;
   description : string prop;
@@ -792,6 +793,7 @@ let make ?cutoff_behavior ?description ?id ?max_concurrency
   let __type = "aws_ssm_maintenance_window_task" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cutoff_behavior = Prop.computed __type __id "cutoff_behavior";
        description = Prop.computed __type __id "description";

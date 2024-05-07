@@ -690,6 +690,7 @@ let azurerm_hybrid_compute_machine ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   ad_fqdn : string prop;
   agent_configuration : agent_configuration list prop;
   agent_version : string prop;
@@ -727,6 +728,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_hybrid_compute_machine" in
   let __attrs =
     ({
+       tf_name = __id;
        ad_fqdn = Prop.computed __type __id "ad_fqdn";
        agent_configuration =
          Prop.computed __type __id "agent_configuration";

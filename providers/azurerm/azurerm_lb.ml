@@ -330,6 +330,7 @@ let azurerm_lb ?edge_zone ?id ?sku ?sku_tier ?tags
   }
 
 type t = {
+  tf_name : string;
   edge_zone : string prop;
   id : string prop;
   location : string prop;
@@ -348,6 +349,7 @@ let make ?edge_zone ?id ?sku ?sku_tier ?tags
   let __type = "azurerm_lb" in
   let __attrs =
     ({
+       tf_name = __id;
        edge_zone = Prop.computed __type __id "edge_zone";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

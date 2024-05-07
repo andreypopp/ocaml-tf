@@ -32,6 +32,7 @@ val yojson_of_google_notebooks_instance_iam_binding :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   instance_name : string prop;

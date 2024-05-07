@@ -19,6 +19,7 @@ val yojson_of_aws_organizations_policies_for_target :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   filter : string prop;
   id : string prop;
   ids : string list prop;

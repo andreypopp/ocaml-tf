@@ -426,6 +426,7 @@ let google_apikeys_key ?display_name ?id ?project
   { display_name; id; name; project; restrictions; timeouts }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   key_string : string prop;
@@ -439,6 +440,7 @@ let make ?display_name ?id ?project ?(restrictions = []) ?timeouts
   let __type = "google_apikeys_key" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";
        key_string = Prop.computed __type __id "key_string";

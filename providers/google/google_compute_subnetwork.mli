@@ -58,6 +58,7 @@ val yojson_of_google_compute_subnetwork :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   external_ipv6_prefix : string prop;

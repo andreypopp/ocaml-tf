@@ -23,6 +23,7 @@ val yojson_of_aws_api_gateway_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_key_version : string prop;
   cloudwatch_role_arn : string prop;
   features : string list prop;

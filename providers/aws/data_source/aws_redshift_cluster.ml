@@ -105,6 +105,7 @@ let aws_redshift_cluster ?id ?tags ~cluster_identifier () :
   { cluster_identifier; id; tags }
 
 type t = {
+  tf_name : string;
   allow_version_upgrade : bool prop;
   aqua_configuration_status : string prop;
   arn : string prop;
@@ -152,6 +153,7 @@ let make ?id ?tags ~cluster_identifier __id =
   let __type = "aws_redshift_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_version_upgrade =
          Prop.computed __type __id "allow_version_upgrade";
        aqua_configuration_status =

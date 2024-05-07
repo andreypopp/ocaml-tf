@@ -558,6 +558,7 @@ val yojson_of_digitalocean_app : digitalocean_app -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   active_deployment_id : string prop;
   app_id : string prop;
   created_at : string prop;

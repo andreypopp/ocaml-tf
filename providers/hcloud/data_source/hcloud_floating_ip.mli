@@ -20,6 +20,7 @@ val yojson_of_hcloud_floating_ip : hcloud_floating_ip -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   delete_protection : bool prop;
   description : string prop;
   home_location : string prop;

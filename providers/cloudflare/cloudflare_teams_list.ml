@@ -77,6 +77,7 @@ let cloudflare_teams_list ?description ?id ?items ~account_id ~name
   { account_id; description; id; items; name; type_ }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   description : string prop;
   id : string prop;
@@ -89,6 +90,7 @@ let make ?description ?id ?items ~account_id ~name ~type_ __id =
   let __type = "cloudflare_teams_list" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

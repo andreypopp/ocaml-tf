@@ -44,6 +44,7 @@ let google_netblock_ip_ranges ?id ?range_type () :
   { id; range_type }
 
 type t = {
+  tf_name : string;
   cidr_blocks : string list prop;
   cidr_blocks_ipv4 : string list prop;
   cidr_blocks_ipv6 : string list prop;
@@ -55,6 +56,7 @@ let make ?id ?range_type __id =
   let __type = "google_netblock_ip_ranges" in
   let __attrs =
     ({
+       tf_name = __id;
        cidr_blocks = Prop.computed __type __id "cidr_blocks";
        cidr_blocks_ipv4 =
          Prop.computed __type __id "cidr_blocks_ipv4";

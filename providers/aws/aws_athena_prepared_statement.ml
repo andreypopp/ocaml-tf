@@ -123,6 +123,7 @@ let aws_athena_prepared_statement ?description ?id ?timeouts ~name
   { description; id; name; query_statement; workgroup; timeouts }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   name : string prop;
@@ -135,6 +136,7 @@ let make ?description ?id ?timeouts ~name ~query_statement ~workgroup
   let __type = "aws_athena_prepared_statement" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

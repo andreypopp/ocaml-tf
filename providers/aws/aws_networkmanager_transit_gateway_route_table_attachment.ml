@@ -148,6 +148,7 @@ let aws_networkmanager_transit_gateway_route_table_attachment ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   attachment_policy_rule_number : float prop;
   attachment_type : string prop;
@@ -172,6 +173,7 @@ let make ?id ?tags ?tags_all ?timeouts ~peering_id
   in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        attachment_policy_rule_number =
          Prop.computed __type __id "attachment_policy_rule_number";

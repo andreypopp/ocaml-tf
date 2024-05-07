@@ -92,6 +92,7 @@ val yojson_of_aws_instance : aws_instance -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   ami : string prop;
   arn : string prop;
   associate_public_ip_address : bool prop;

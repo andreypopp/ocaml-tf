@@ -221,6 +221,7 @@ let azurerm_storage_account_network_rules ?bypass ?id ?ip_rules
   }
 
 type t = {
+  tf_name : string;
   bypass : string list prop;
   default_action : string prop;
   id : string prop;
@@ -235,6 +236,7 @@ let make ?bypass ?id ?ip_rules ?virtual_network_subnet_ids
   let __type = "azurerm_storage_account_network_rules" in
   let __attrs =
     ({
+       tf_name = __id;
        bypass = Prop.computed __type __id "bypass";
        default_action = Prop.computed __type __id "default_action";
        id = Prop.computed __type __id "id";

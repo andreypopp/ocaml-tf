@@ -25,6 +25,7 @@ val yojson_of_cloudflare_byo_ip_prefix :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   advertisement : string prop;
   description : string prop;

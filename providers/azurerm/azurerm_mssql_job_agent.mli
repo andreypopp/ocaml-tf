@@ -32,6 +32,7 @@ val yojson_of_azurerm_mssql_job_agent :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   database_id : string prop;
   id : string prop;
   location : string prop;

@@ -299,6 +299,7 @@ let azurerm_servicebus_subscription_rule ?action ?id ?sql_filter
   }
 
 type t = {
+  tf_name : string;
   action : string prop;
   filter_type : string prop;
   id : string prop;
@@ -313,6 +314,7 @@ let make ?action ?id ?sql_filter ?(correlation_filter = []) ?timeouts
   let __type = "azurerm_servicebus_subscription_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        filter_type = Prop.computed __type __id "filter_type";
        id = Prop.computed __type __id "id";

@@ -149,6 +149,7 @@ let google_compute_region_network_endpoint ?fqdn ?id ?ip_address
   }
 
 type t = {
+  tf_name : string;
   fqdn : string prop;
   id : string prop;
   ip_address : string prop;
@@ -163,6 +164,7 @@ let make ?fqdn ?id ?ip_address ?project ?region ?timeouts ~port
   let __type = "google_compute_region_network_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        fqdn = Prop.computed __type __id "fqdn";
        id = Prop.computed __type __id "id";
        ip_address = Prop.computed __type __id "ip_address";

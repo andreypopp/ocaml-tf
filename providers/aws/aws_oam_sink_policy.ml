@@ -106,6 +106,7 @@ let aws_oam_sink_policy ?id ?timeouts ~policy ~sink_identifier () :
   { id; policy; sink_identifier; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   policy : string prop;
@@ -117,6 +118,7 @@ let make ?id ?timeouts ~policy ~sink_identifier __id =
   let __type = "aws_oam_sink_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        policy = Prop.computed __type __id "policy";

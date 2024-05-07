@@ -249,12 +249,13 @@ let aws_s3control_bucket_lifecycle_configuration ?id ~bucket ~rule ()
     : aws_s3control_bucket_lifecycle_configuration =
   { bucket; id; rule }
 
-type t = { bucket : string prop; id : string prop }
+type t = { tf_name : string; bucket : string prop; id : string prop }
 
 let make ?id ~bucket ~rule __id =
   let __type = "aws_s3control_bucket_lifecycle_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        id = Prop.computed __type __id "id";
      }

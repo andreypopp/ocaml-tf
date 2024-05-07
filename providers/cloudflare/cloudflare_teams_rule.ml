@@ -697,6 +697,7 @@ let cloudflare_teams_rule ?device_posture ?enabled ?filters ?id
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   action : string prop;
   description : string prop;
@@ -717,6 +718,7 @@ let make ?device_posture ?enabled ?filters ?id ?identity ?traffic
   let __type = "cloudflare_teams_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        action = Prop.computed __type __id "action";
        description = Prop.computed __type __id "description";

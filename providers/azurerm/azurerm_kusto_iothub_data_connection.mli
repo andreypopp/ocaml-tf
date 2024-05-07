@@ -40,6 +40,7 @@ val yojson_of_azurerm_kusto_iothub_data_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_name : string prop;
   consumer_group : string prop;
   data_format : string prop;

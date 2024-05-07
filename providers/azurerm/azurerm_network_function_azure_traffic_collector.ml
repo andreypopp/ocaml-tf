@@ -147,6 +147,7 @@ let azurerm_network_function_azure_traffic_collector ?id ?tags
   { id; location; name; resource_group_name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   collector_policy_ids : string list prop;
   id : string prop;
   location : string prop;
@@ -161,6 +162,7 @@ let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
   let __type = "azurerm_network_function_azure_traffic_collector" in
   let __attrs =
     ({
+       tf_name = __id;
        collector_policy_ids =
          Prop.computed __type __id "collector_policy_ids";
        id = Prop.computed __type __id "id";

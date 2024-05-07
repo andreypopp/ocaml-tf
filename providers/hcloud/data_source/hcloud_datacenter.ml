@@ -42,6 +42,7 @@ let _ = yojson_of_hcloud_datacenter
 let hcloud_datacenter ?id ?name () : hcloud_datacenter = { id; name }
 
 type t = {
+  tf_name : string;
   available_server_type_ids : float list prop;
   description : string prop;
   id : float prop;
@@ -54,6 +55,7 @@ let make ?id ?name __id =
   let __type = "hcloud_datacenter" in
   let __attrs =
     ({
+       tf_name = __id;
        available_server_type_ids =
          Prop.computed __type __id "available_server_type_ids";
        description = Prop.computed __type __id "description";

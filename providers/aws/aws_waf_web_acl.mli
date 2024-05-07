@@ -71,6 +71,7 @@ val yojson_of_aws_waf_web_acl : aws_waf_web_acl -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   metric_name : string prop;

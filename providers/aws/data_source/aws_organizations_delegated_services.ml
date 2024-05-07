@@ -77,6 +77,7 @@ let aws_organizations_delegated_services ?id ~account_id () :
   { account_id; id }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   delegated_services : delegated_services list prop;
   id : string prop;
@@ -86,6 +87,7 @@ let make ?id ~account_id __id =
   let __type = "aws_organizations_delegated_services" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        delegated_services =
          Prop.computed __type __id "delegated_services";

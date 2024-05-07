@@ -36,6 +36,7 @@ val yojson_of_azurerm_logic_app_integration_account_assembly :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   assembly_name : string prop;
   assembly_version : string prop;
   content : string prop;

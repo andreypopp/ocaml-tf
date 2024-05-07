@@ -18,6 +18,7 @@ val yojson_of_aws_route53_resolver_firewall_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   firewall_fail_open : string prop;
   id : string prop;
   owner_id : string prop;

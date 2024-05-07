@@ -107,6 +107,7 @@ let google_kms_key_ring_iam_member ?id ?(condition = []) ~key_ring_id
   { id; key_ring_id; member; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   key_ring_id : string prop;
@@ -118,6 +119,7 @@ let make ?id ?(condition = []) ~key_ring_id ~member ~role __id =
   let __type = "google_kms_key_ring_iam_member" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        key_ring_id = Prop.computed __type __id "key_ring_id";

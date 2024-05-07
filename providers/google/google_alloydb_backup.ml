@@ -314,6 +314,7 @@ let google_alloydb_backup ?annotations ?description ?display_name ?id
   }
 
 type t = {
+  tf_name : string;
   annotations : (string * string) list prop;
   backup_id : string prop;
   cluster_name : string prop;
@@ -348,6 +349,7 @@ let make ?annotations ?description ?display_name ?id ?labels ?project
   let __type = "google_alloydb_backup" in
   let __attrs =
     ({
+       tf_name = __id;
        annotations = Prop.computed __type __id "annotations";
        backup_id = Prop.computed __type __id "backup_id";
        cluster_name = Prop.computed __type __id "cluster_name";

@@ -52,6 +52,7 @@ val yojson_of_azurerm_app_service_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_service_id : string prop;
   client_type : string prop;
   id : string prop;

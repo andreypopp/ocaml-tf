@@ -373,6 +373,7 @@ let azurerm_virtual_network_gateway ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   active_active : bool prop;
   bgp_settings : bgp_settings list prop;
   custom_route : custom_route list prop;
@@ -396,6 +397,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_virtual_network_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        active_active = Prop.computed __type __id "active_active";
        bgp_settings = Prop.computed __type __id "bgp_settings";
        custom_route = Prop.computed __type __id "custom_route";

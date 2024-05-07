@@ -22,7 +22,11 @@ val yojson_of_aws_servicecatalog_organizations_access :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { enabled : bool prop; id : string prop }
+type t = private {
+  tf_name : string;
+  enabled : bool prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

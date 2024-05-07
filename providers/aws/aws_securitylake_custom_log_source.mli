@@ -54,6 +54,7 @@ val yojson_of_aws_securitylake_custom_log_source :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   attributes : attributes list prop;
   event_classes : string list prop;
   id : string prop;

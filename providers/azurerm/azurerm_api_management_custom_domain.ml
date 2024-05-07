@@ -616,7 +616,11 @@ let azurerm_api_management_custom_domain ?id ?(developer_portal = [])
     timeouts;
   }
 
-type t = { api_management_id : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  api_management_id : string prop;
+  id : string prop;
+}
 
 let make ?id ?(developer_portal = []) ?(gateway = [])
     ?(management = []) ?(portal = []) ?(scm = []) ?timeouts
@@ -624,6 +628,7 @@ let make ?id ?(developer_portal = []) ?(gateway = [])
   let __type = "azurerm_api_management_custom_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        api_management_id =
          Prop.computed __type __id "api_management_id";
        id = Prop.computed __type __id "id";

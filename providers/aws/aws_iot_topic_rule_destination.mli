@@ -39,6 +39,7 @@ val yojson_of_aws_iot_topic_rule_destination :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   enabled : bool prop;
   id : string prop;

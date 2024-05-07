@@ -509,6 +509,7 @@ let aws_gamelift_fleet ?build_id ?description ?fleet_type ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   build_arn : string prop;
   build_id : string prop;
@@ -537,6 +538,7 @@ let make ?build_id ?description ?fleet_type ?id ?instance_role_arn
   let __type = "aws_gamelift_fleet" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        build_arn = Prop.computed __type __id "build_arn";
        build_id = Prop.computed __type __id "build_id";

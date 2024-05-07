@@ -54,7 +54,11 @@ val yojson_of_aws_s3control_bucket_lifecycle_configuration :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { bucket : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  bucket : string prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

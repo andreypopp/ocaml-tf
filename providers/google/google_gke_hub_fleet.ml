@@ -322,6 +322,7 @@ let google_gke_hub_fleet ?display_name ?id ?project
   { display_name; id; project; default_cluster_config; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   delete_time : string prop;
   display_name : string prop;
@@ -337,6 +338,7 @@ let make ?display_name ?id ?project ?(default_cluster_config = [])
   let __type = "google_gke_hub_fleet" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        delete_time = Prop.computed __type __id "delete_time";
        display_name = Prop.computed __type __id "display_name";

@@ -204,6 +204,7 @@ val yojson_of_aws_codedeploy_deployment_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_name : string prop;
   arn : string prop;
   autoscaling_groups : string list prop;

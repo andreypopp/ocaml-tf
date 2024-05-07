@@ -32,6 +32,7 @@ val yojson_of_google_data_catalog_entry_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   entry_group_id : string prop;

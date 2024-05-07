@@ -22,6 +22,7 @@ val yojson_of_aws_swf_domain : aws_swf_domain -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;

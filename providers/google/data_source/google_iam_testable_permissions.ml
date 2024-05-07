@@ -120,6 +120,7 @@ let google_iam_testable_permissions ?custom_support_level ?id ?stages
   { custom_support_level; full_resource_name; id; stages }
 
 type t = {
+  tf_name : string;
   custom_support_level : string prop;
   full_resource_name : string prop;
   id : string prop;
@@ -131,6 +132,7 @@ let make ?custom_support_level ?id ?stages ~full_resource_name __id =
   let __type = "google_iam_testable_permissions" in
   let __attrs =
     ({
+       tf_name = __id;
        custom_support_level =
          Prop.computed __type __id "custom_support_level";
        full_resource_name =

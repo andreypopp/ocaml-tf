@@ -310,6 +310,7 @@ let aws_db_proxy ?debug_logging ?id ?idle_client_timeout ?require_tls
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   debug_logging : bool prop;
   endpoint : string prop;
@@ -331,6 +332,7 @@ let make ?debug_logging ?id ?idle_client_timeout ?require_tls ?tags
   let __type = "aws_db_proxy" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        debug_logging = Prop.computed __type __id "debug_logging";
        endpoint = Prop.computed __type __id "endpoint";

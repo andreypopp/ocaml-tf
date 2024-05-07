@@ -75,6 +75,7 @@ let aws_pinpoint_sms_channel ?enabled ?id ?sender_id ?short_code
   { application_id; enabled; id; sender_id; short_code }
 
 type t = {
+  tf_name : string;
   application_id : string prop;
   enabled : bool prop;
   id : string prop;
@@ -88,6 +89,7 @@ let make ?enabled ?id ?sender_id ?short_code ~application_id __id =
   let __type = "aws_pinpoint_sms_channel" in
   let __attrs =
     ({
+       tf_name = __id;
        application_id = Prop.computed __type __id "application_id";
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";

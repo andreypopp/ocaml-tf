@@ -119,6 +119,7 @@ let hcloud_image ?id ?include_deprecated ?most_recent ?name ?selector
   }
 
 type t = {
+  tf_name : string;
   architecture : string prop;
   created : string prop;
   deprecated : string prop;
@@ -143,6 +144,7 @@ let make ?id ?include_deprecated ?most_recent ?name ?selector
   let __type = "hcloud_image" in
   let __attrs =
     ({
+       tf_name = __id;
        architecture = Prop.computed __type __id "architecture";
        created = Prop.computed __type __id "created";
        deprecated = Prop.computed __type __id "deprecated";

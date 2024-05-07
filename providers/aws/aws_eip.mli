@@ -37,6 +37,7 @@ val yojson_of_aws_eip : aws_eip -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address : string prop;
   allocation_id : string prop;
   associate_with_private_ip : string prop;

@@ -40,12 +40,17 @@ let aws_detective_invitation_accepter ?id ~graph_arn () :
     aws_detective_invitation_accepter =
   { graph_arn; id }
 
-type t = { graph_arn : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  graph_arn : string prop;
+  id : string prop;
+}
 
 let make ?id ~graph_arn __id =
   let __type = "aws_detective_invitation_accepter" in
   let __attrs =
     ({
+       tf_name = __id;
        graph_arn = Prop.computed __type __id "graph_arn";
        id = Prop.computed __type __id "id";
      }

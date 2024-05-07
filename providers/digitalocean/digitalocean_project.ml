@@ -138,6 +138,7 @@ let digitalocean_project ?description ?environment ?id ?is_default
   }
 
 type t = {
+  tf_name : string;
   created_at : string prop;
   description : string prop;
   environment : string prop;
@@ -156,6 +157,7 @@ let make ?description ?environment ?id ?is_default ?purpose
   let __type = "digitalocean_project" in
   let __attrs =
     ({
+       tf_name = __id;
        created_at = Prop.computed __type __id "created_at";
        description = Prop.computed __type __id "description";
        environment = Prop.computed __type __id "environment";

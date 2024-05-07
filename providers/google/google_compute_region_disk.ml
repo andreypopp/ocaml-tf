@@ -402,6 +402,7 @@ let google_compute_region_disk ?description ?id ?labels ?licenses
   }
 
 type t = {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   effective_labels : (string * string) list prop;
@@ -436,6 +437,7 @@ let make ?description ?id ?labels ?licenses
   let __type = "google_compute_region_disk" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";
        description = Prop.computed __type __id "description";

@@ -159,6 +159,7 @@ val yojson_of_google_edgecontainer_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_ca_certificate : string prop;
   control_plane_version : string prop;
   create_time : string prop;

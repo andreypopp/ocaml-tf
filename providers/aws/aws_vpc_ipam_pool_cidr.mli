@@ -34,6 +34,7 @@ val yojson_of_aws_vpc_ipam_pool_cidr : aws_vpc_ipam_pool_cidr -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cidr : string prop;
   id : string prop;
   ipam_pool_cidr_id : string prop;

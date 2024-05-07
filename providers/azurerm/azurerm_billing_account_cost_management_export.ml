@@ -261,6 +261,7 @@ let azurerm_billing_account_cost_management_export ?active ?id
   }
 
 type t = {
+  tf_name : string;
   active : bool prop;
   billing_account_id : string prop;
   id : string prop;
@@ -277,6 +278,7 @@ let make ?active ?id ?timeouts ~billing_account_id ~name
   let __type = "azurerm_billing_account_cost_management_export" in
   let __attrs =
     ({
+       tf_name = __id;
        active = Prop.computed __type __id "active";
        billing_account_id =
          Prop.computed __type __id "billing_account_id";

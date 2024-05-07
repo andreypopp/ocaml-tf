@@ -44,6 +44,7 @@ val yojson_of_azurerm_logic_app_trigger_recurrence :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   frequency : string prop;
   id : string prop;
   interval : float prop;

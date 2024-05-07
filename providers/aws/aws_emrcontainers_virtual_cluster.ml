@@ -227,6 +227,7 @@ let aws_emrcontainers_virtual_cluster ?id ?tags ?tags_all ?timeouts
   { id; name; tags; tags_all; container_provider; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;
@@ -239,6 +240,7 @@ let make ?id ?tags ?tags_all ?timeouts ~name ~container_provider __id
   let __type = "aws_emrcontainers_virtual_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

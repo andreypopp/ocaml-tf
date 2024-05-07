@@ -15,6 +15,7 @@ val yojson_of_aws_iot_registration_code :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   registration_code : string prop;
 }

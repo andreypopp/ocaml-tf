@@ -107,6 +107,7 @@ let azurerm_mssql_server_dns_alias ?id ?timeouts ~mssql_server_id
   { id; mssql_server_id; name; timeouts }
 
 type t = {
+  tf_name : string;
   dns_record : string prop;
   id : string prop;
   mssql_server_id : string prop;
@@ -117,6 +118,7 @@ let make ?id ?timeouts ~mssql_server_id ~name __id =
   let __type = "azurerm_mssql_server_dns_alias" in
   let __attrs =
     ({
+       tf_name = __id;
        dns_record = Prop.computed __type __id "dns_record";
        id = Prop.computed __type __id "id";
        mssql_server_id = Prop.computed __type __id "mssql_server_id";

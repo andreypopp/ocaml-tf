@@ -2015,6 +2015,7 @@ let aws_emr_cluster ?additional_info ?applications ?autoscaling_role
   }
 
 type t = {
+  tf_name : string;
   additional_info : string prop;
   applications : string list prop;
   arn : string prop;
@@ -2059,6 +2060,7 @@ let make ?additional_info ?applications ?autoscaling_role
   let __type = "aws_emr_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        additional_info = Prop.computed __type __id "additional_info";
        applications = Prop.computed __type __id "applications";
        arn = Prop.computed __type __id "arn";

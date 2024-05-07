@@ -23,6 +23,7 @@ val yojson_of_digitalocean_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_chain : string prop;
   domains : string list prop;
   id : string prop;

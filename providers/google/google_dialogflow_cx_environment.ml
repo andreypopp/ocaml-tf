@@ -159,6 +159,7 @@ let google_dialogflow_cx_environment ?description ?id ?parent
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   id : string prop;
@@ -172,6 +173,7 @@ let make ?description ?id ?parent ?timeouts ~display_name
   let __type = "google_dialogflow_cx_environment" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";

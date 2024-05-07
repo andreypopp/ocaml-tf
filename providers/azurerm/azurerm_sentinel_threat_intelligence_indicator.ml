@@ -542,6 +542,7 @@ let azurerm_sentinel_threat_intelligence_indicator ?confidence
   }
 
 type t = {
+  tf_name : string;
   confidence : float prop;
   created_by : string prop;
   created_on : string prop;
@@ -579,6 +580,7 @@ let make ?confidence ?created_by ?description ?extension ?id
   let __type = "azurerm_sentinel_threat_intelligence_indicator" in
   let __attrs =
     ({
+       tf_name = __id;
        confidence = Prop.computed __type __id "confidence";
        created_by = Prop.computed __type __id "created_by";
        created_on = Prop.computed __type __id "created_on";

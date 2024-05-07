@@ -64,6 +64,7 @@ val yojson_of_azurerm_data_factory_trigger_tumbling_window :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   activated : bool prop;
   additional_properties : (string * string) list prop;
   annotations : string list prop;

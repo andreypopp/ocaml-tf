@@ -144,6 +144,7 @@ let aws_apprunner_vpc_ingress_connection ?id ?tags ?tags_all ~name
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   domain_name : string prop;
   id : string prop;
@@ -159,6 +160,7 @@ let make ?id ?tags ?tags_all ~name ~service_arn
   let __type = "aws_apprunner_vpc_ingress_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        domain_name = Prop.computed __type __id "domain_name";
        id = Prop.computed __type __id "id";

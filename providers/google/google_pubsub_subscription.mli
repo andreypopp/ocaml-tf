@@ -116,6 +116,7 @@ val yojson_of_google_pubsub_subscription :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   ack_deadline_seconds : float prop;
   effective_labels : (string * string) list prop;
   enable_exactly_once_delivery : bool prop;

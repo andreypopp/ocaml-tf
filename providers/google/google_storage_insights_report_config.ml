@@ -474,6 +474,7 @@ let google_storage_insights_report_config ?display_name ?id ?project
   }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   location : string prop;
@@ -487,6 +488,7 @@ let make ?display_name ?id ?project ?(frequency_options = [])
   let __type = "google_storage_insights_report_config" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

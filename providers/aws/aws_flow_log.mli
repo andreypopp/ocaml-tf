@@ -41,6 +41,7 @@ val yojson_of_aws_flow_log : aws_flow_log -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   deliver_cross_account_role : string prop;
   eni_id : string prop;

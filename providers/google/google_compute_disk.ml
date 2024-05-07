@@ -552,6 +552,7 @@ let google_compute_disk ?description ?enable_confidential_compute ?id
   }
 
 type t = {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   disk_id : string prop;
@@ -592,6 +593,7 @@ let make ?description ?enable_confidential_compute ?id ?image ?labels
   let __type = "google_compute_disk" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";
        description = Prop.computed __type __id "description";

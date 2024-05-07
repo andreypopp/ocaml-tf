@@ -77,6 +77,7 @@ let aws_iam_access_keys ?id ~user () : aws_iam_access_keys =
   { id; user }
 
 type t = {
+  tf_name : string;
   access_keys : access_keys list prop;
   id : string prop;
   user : string prop;
@@ -86,6 +87,7 @@ let make ?id ~user __id =
   let __type = "aws_iam_access_keys" in
   let __attrs =
     ({
+       tf_name = __id;
        access_keys = Prop.computed __type __id "access_keys";
        id = Prop.computed __type __id "id";
        user = Prop.computed __type __id "user";

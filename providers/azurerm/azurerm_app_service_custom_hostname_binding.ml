@@ -145,6 +145,7 @@ let azurerm_app_service_custom_hostname_binding ?id ?ssl_state
   }
 
 type t = {
+  tf_name : string;
   app_service_name : string prop;
   hostname : string prop;
   id : string prop;
@@ -159,6 +160,7 @@ let make ?id ?ssl_state ?thumbprint ?timeouts ~app_service_name
   let __type = "azurerm_app_service_custom_hostname_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        app_service_name =
          Prop.computed __type __id "app_service_name";
        hostname = Prop.computed __type __id "hostname";

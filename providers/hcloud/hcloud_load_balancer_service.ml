@@ -330,6 +330,7 @@ let hcloud_load_balancer_service ?destination_port ?id ?listen_port
   }
 
 type t = {
+  tf_name : string;
   destination_port : float prop;
   id : string prop;
   listen_port : float prop;
@@ -344,6 +345,7 @@ let make ?destination_port ?id ?listen_port ?proxyprotocol
   let __type = "hcloud_load_balancer_service" in
   let __attrs =
     ({
+       tf_name = __id;
        destination_port =
          Prop.computed __type __id "destination_port";
        id = Prop.computed __type __id "id";

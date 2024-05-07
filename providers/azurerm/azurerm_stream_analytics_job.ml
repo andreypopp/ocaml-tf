@@ -398,6 +398,7 @@ let azurerm_stream_analytics_job ?compatibility_level
   }
 
 type t = {
+  tf_name : string;
   compatibility_level : string prop;
   content_storage_policy : string prop;
   data_locale : string prop;
@@ -428,6 +429,7 @@ let make ?compatibility_level ?content_storage_policy ?data_locale
   let __type = "azurerm_stream_analytics_job" in
   let __attrs =
     ({
+       tf_name = __id;
        compatibility_level =
          Prop.computed __type __id "compatibility_level";
        content_storage_policy =

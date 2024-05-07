@@ -31,6 +31,7 @@ val yojson_of_azurerm_container_app_custom_domain :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_binding_type : string prop;
   container_app_environment_certificate_id : string prop;
   container_app_id : string prop;

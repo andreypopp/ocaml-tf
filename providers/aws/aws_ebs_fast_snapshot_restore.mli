@@ -24,6 +24,7 @@ val yojson_of_aws_ebs_fast_snapshot_restore :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   availability_zone : string prop;
   id : string prop;
   snapshot_id : string prop;

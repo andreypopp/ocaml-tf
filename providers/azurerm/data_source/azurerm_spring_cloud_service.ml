@@ -459,6 +459,7 @@ let azurerm_spring_cloud_service ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   config_server_git_setting : config_server_git_setting list prop;
   id : string prop;
   location : string prop;
@@ -474,6 +475,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_spring_cloud_service" in
   let __attrs =
     ({
+       tf_name = __id;
        config_server_git_setting =
          Prop.computed __type __id "config_server_git_setting";
        id = Prop.computed __type __id "id";

@@ -24,6 +24,7 @@ val yojson_of_google_vmwareengine_subnet :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   dhcp_address_ranges : dhcp_address_ranges list prop;
   gateway_id : string prop;

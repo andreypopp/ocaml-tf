@@ -19,6 +19,7 @@ val yojson_of_aws_ip_ranges : aws_ip_ranges -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cidr_blocks : string list prop;
   create_date : string prop;
   id : string prop;

@@ -91,6 +91,7 @@ let azurerm_kusto_database ?id ?timeouts ~cluster_name ~name
   { cluster_name; id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   cluster_name : string prop;
   hot_cache_period : string prop;
   id : string prop;
@@ -106,6 +107,7 @@ let make ?id ?timeouts ~cluster_name ~name ~resource_group_name __id
   let __type = "azurerm_kusto_database" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_name = Prop.computed __type __id "cluster_name";
        hot_cache_period =
          Prop.computed __type __id "hot_cache_period";

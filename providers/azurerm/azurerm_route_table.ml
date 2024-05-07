@@ -223,6 +223,7 @@ let azurerm_route_table ?disable_bgp_route_propagation ?id ?route
   }
 
 type t = {
+  tf_name : string;
   disable_bgp_route_propagation : bool prop;
   id : string prop;
   location : string prop;
@@ -238,6 +239,7 @@ let make ?disable_bgp_route_propagation ?id ?route ?tags ?timeouts
   let __type = "azurerm_route_table" in
   let __attrs =
     ({
+       tf_name = __id;
        disable_bgp_route_propagation =
          Prop.computed __type __id "disable_bgp_route_propagation";
        id = Prop.computed __type __id "id";

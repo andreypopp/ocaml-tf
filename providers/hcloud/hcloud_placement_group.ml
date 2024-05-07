@@ -63,6 +63,7 @@ let hcloud_placement_group ?id ?labels ~name ~type_ () :
   { id; labels; name; type_ }
 
 type t = {
+  tf_name : string;
   id : string prop;
   labels : (string * string) list prop;
   name : string prop;
@@ -74,6 +75,7 @@ let make ?id ?labels ~name ~type_ __id =
   let __type = "hcloud_placement_group" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        labels = Prop.computed __type __id "labels";
        name = Prop.computed __type __id "name";

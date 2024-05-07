@@ -198,6 +198,7 @@ let azurerm_digital_twins_instance ?id ?tags ?(identity = [])
   }
 
 type t = {
+  tf_name : string;
   host_name : string prop;
   id : string prop;
   location : string prop;
@@ -211,6 +212,7 @@ let make ?id ?tags ?(identity = []) ?timeouts ~location ~name
   let __type = "azurerm_digital_twins_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        host_name = Prop.computed __type __id "host_name";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

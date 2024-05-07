@@ -73,12 +73,13 @@ let aws_ec2_image_block_public_access ?id ?timeouts ~state () :
     aws_ec2_image_block_public_access =
   { id; state; timeouts }
 
-type t = { id : string prop; state : string prop }
+type t = { tf_name : string; id : string prop; state : string prop }
 
 let make ?id ?timeouts ~state __id =
   let __type = "aws_ec2_image_block_public_access" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        state = Prop.computed __type __id "state";
      }

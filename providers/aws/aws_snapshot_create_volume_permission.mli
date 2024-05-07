@@ -25,6 +25,7 @@ val yojson_of_aws_snapshot_create_volume_permission :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   snapshot_id : string prop;

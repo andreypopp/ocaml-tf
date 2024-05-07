@@ -61,6 +61,7 @@ let google_billing_subaccount ?deletion_policy ?id ~display_name
   { deletion_policy; display_name; id; master_billing_account }
 
 type t = {
+  tf_name : string;
   billing_account_id : string prop;
   deletion_policy : string prop;
   display_name : string prop;
@@ -75,6 +76,7 @@ let make ?deletion_policy ?id ~display_name ~master_billing_account
   let __type = "google_billing_subaccount" in
   let __attrs =
     ({
+       tf_name = __id;
        billing_account_id =
          Prop.computed __type __id "billing_account_id";
        deletion_policy = Prop.computed __type __id "deletion_policy";

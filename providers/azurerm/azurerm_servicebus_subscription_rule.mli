@@ -49,6 +49,7 @@ val yojson_of_azurerm_servicebus_subscription_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action : string prop;
   filter_type : string prop;
   id : string prop;

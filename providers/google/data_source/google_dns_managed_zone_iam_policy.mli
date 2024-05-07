@@ -19,6 +19,7 @@ val yojson_of_google_dns_managed_zone_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   managed_zone : string prop;

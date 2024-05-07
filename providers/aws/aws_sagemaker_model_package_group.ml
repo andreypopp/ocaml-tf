@@ -101,6 +101,7 @@ let aws_sagemaker_model_package_group ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   model_package_group_description : string prop;
@@ -114,6 +115,7 @@ let make ?id ?model_package_group_description ?tags ?tags_all
   let __type = "aws_sagemaker_model_package_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        model_package_group_description =

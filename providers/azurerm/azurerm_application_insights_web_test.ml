@@ -244,6 +244,7 @@ let azurerm_application_insights_web_test ?description ?enabled
   }
 
 type t = {
+  tf_name : string;
   application_insights_id : string prop;
   configuration : string prop;
   description : string prop;
@@ -267,6 +268,7 @@ let make ?description ?enabled ?frequency ?id ?retry_enabled ?tags
   let __type = "azurerm_application_insights_web_test" in
   let __attrs =
     ({
+       tf_name = __id;
        application_insights_id =
          Prop.computed __type __id "application_insights_id";
        configuration = Prop.computed __type __id "configuration";

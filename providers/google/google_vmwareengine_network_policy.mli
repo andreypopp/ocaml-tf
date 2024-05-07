@@ -43,6 +43,7 @@ val yojson_of_google_vmwareengine_network_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   edge_services_cidr : string prop;

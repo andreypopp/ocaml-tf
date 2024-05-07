@@ -133,6 +133,7 @@ let digitalocean_record ?flags ?id ?port ?priority ?tag ?ttl ?weight
   }
 
 type t = {
+  tf_name : string;
   domain : string prop;
   flags : float prop;
   fqdn : string prop;
@@ -152,6 +153,7 @@ let make ?flags ?id ?port ?priority ?tag ?ttl ?weight ~domain ~name
   let __type = "digitalocean_record" in
   let __attrs =
     ({
+       tf_name = __id;
        domain = Prop.computed __type __id "domain";
        flags = Prop.computed __type __id "flags";
        fqdn = Prop.computed __type __id "fqdn";

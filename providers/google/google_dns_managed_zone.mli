@@ -113,6 +113,7 @@ val yojson_of_google_dns_managed_zone :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   creation_time : string prop;
   description : string prop;
   dns_name : string prop;

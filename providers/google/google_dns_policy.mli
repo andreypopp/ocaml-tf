@@ -53,6 +53,7 @@ val yojson_of_google_dns_policy : google_dns_policy -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   enable_inbound_forwarding : bool prop;
   enable_logging : bool prop;

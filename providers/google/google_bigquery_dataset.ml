@@ -569,6 +569,7 @@ let google_bigquery_dataset ?default_collation
   }
 
 type t = {
+  tf_name : string;
   creation_time : float prop;
   dataset_id : string prop;
   default_collation : string prop;
@@ -600,6 +601,7 @@ let make ?default_collation ?default_partition_expiration_ms
   let __type = "google_bigquery_dataset" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_time = Prop.computed __type __id "creation_time";
        dataset_id = Prop.computed __type __id "dataset_id";
        default_collation =

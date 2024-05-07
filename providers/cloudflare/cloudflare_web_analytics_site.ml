@@ -104,6 +104,7 @@ let cloudflare_web_analytics_site ?host ?id ?zone_tag ?timeouts
   { account_id; auto_install; host; id; zone_tag; timeouts }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   auto_install : bool prop;
   host : string prop;
@@ -120,6 +121,7 @@ let make ?host ?id ?zone_tag ?timeouts ~account_id ~auto_install __id
   let __type = "cloudflare_web_analytics_site" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        auto_install = Prop.computed __type __id "auto_install";
        host = Prop.computed __type __id "host";

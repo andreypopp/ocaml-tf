@@ -33,6 +33,7 @@ val yojson_of_azurerm_monitor_data_collection_rule_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   data_collection_endpoint_id : string prop;
   data_collection_rule_id : string prop;
   description : string prop;

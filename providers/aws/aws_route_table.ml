@@ -278,6 +278,7 @@ let aws_route_table ?id ?propagating_vgws ?route ?tags ?tags_all
   { id; propagating_vgws; route; tags; tags_all; vpc_id; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   owner_id : string prop;
@@ -293,6 +294,7 @@ let make ?id ?propagating_vgws ?route ?tags ?tags_all ?timeouts
   let __type = "aws_route_table" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        owner_id = Prop.computed __type __id "owner_id";

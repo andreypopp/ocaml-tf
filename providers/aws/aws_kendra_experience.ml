@@ -303,6 +303,7 @@ let aws_kendra_experience ?description ?id ?(configuration = [])
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   endpoints : endpoints list prop;
@@ -319,6 +320,7 @@ let make ?description ?id ?(configuration = []) ?timeouts ~index_id
   let __type = "aws_kendra_experience" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        endpoints = Prop.computed __type __id "endpoints";

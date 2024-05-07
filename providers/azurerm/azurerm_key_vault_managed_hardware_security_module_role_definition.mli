@@ -44,6 +44,7 @@ val yojson_of_azurerm_key_vault_managed_hardware_security_module_role_definition
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   name : string prop;

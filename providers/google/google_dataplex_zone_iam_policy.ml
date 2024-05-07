@@ -77,6 +77,7 @@ let google_dataplex_zone_iam_policy ?id ?location ?project
   { dataplex_zone; id; lake; location; policy_data; project }
 
 type t = {
+  tf_name : string;
   dataplex_zone : string prop;
   etag : string prop;
   id : string prop;
@@ -91,6 +92,7 @@ let make ?id ?location ?project ~dataplex_zone ~lake ~policy_data
   let __type = "google_dataplex_zone_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        dataplex_zone = Prop.computed __type __id "dataplex_zone";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

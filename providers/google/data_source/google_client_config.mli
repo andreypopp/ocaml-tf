@@ -14,6 +14,7 @@ val yojson_of_google_client_config : google_client_config -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_token : string prop;
   id : string prop;
   project : string prop;

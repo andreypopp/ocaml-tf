@@ -51,6 +51,7 @@ val yojson_of_digitalocean_kubernetes_node_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   actual_node_count : float prop;
   auto_scale : bool prop;
   cluster_id : string prop;

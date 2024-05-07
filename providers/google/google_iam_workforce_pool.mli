@@ -50,6 +50,7 @@ val yojson_of_google_iam_workforce_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   disabled : bool prop;
   display_name : string prop;

@@ -323,6 +323,7 @@ val yojson_of_azurerm_hdinsight_hadoop_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_version : string prop;
   https_endpoint : string prop;
   id : string prop;

@@ -25,6 +25,7 @@ val yojson_of_cloudflare_web3_hostname :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created_on : string prop;
   description : string prop;
   dnslink : string prop;

@@ -19,6 +19,7 @@ val yojson_of_aws_ecs_container_definition :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   container_name : string prop;
   cpu : float prop;
   disable_networking : bool prop;

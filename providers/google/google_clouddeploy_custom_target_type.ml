@@ -382,6 +382,7 @@ let google_clouddeploy_custom_target_type ?annotations ?description
   }
 
 type t = {
+  tf_name : string;
   annotations : (string * string) list prop;
   create_time : string prop;
   custom_target_type_id : string prop;
@@ -404,6 +405,7 @@ let make ?annotations ?description ?id ?labels ?project
   let __type = "google_clouddeploy_custom_target_type" in
   let __attrs =
     ({
+       tf_name = __id;
        annotations = Prop.computed __type __id "annotations";
        create_time = Prop.computed __type __id "create_time";
        custom_target_type_id =

@@ -67,6 +67,7 @@ val yojson_of_digitalocean_spaces_bucket :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   acl : string prop;
   bucket_domain_name : string prop;
   endpoint : string prop;

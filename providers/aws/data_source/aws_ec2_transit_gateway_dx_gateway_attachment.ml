@@ -146,6 +146,7 @@ let aws_ec2_transit_gateway_dx_gateway_attachment ?dx_gateway_id ?id
   { dx_gateway_id; id; tags; transit_gateway_id; filter; timeouts }
 
 type t = {
+  tf_name : string;
   dx_gateway_id : string prop;
   id : string prop;
   tags : (string * string) list prop;
@@ -157,6 +158,7 @@ let make ?dx_gateway_id ?id ?tags ?transit_gateway_id ?timeouts
   let __type = "aws_ec2_transit_gateway_dx_gateway_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        dx_gateway_id = Prop.computed __type __id "dx_gateway_id";
        id = Prop.computed __type __id "id";
        tags = Prop.computed __type __id "tags";

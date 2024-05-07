@@ -189,6 +189,7 @@ let aws_apigatewayv2_authorizer ?authorizer_credentials_arn
   }
 
 type t = {
+  tf_name : string;
   api_id : string prop;
   authorizer_credentials_arn : string prop;
   authorizer_payload_format_version : string prop;
@@ -209,6 +210,7 @@ let make ?authorizer_credentials_arn
   let __type = "aws_apigatewayv2_authorizer" in
   let __attrs =
     ({
+       tf_name = __id;
        api_id = Prop.computed __type __id "api_id";
        authorizer_credentials_arn =
          Prop.computed __type __id "authorizer_credentials_arn";

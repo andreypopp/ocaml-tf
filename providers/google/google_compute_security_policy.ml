@@ -922,6 +922,7 @@ let google_compute_security_policy ?description ?id ?project ?type_
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   fingerprint : string prop;
   id : string prop;
@@ -938,6 +939,7 @@ let make ?description ?id ?project ?type_
   let __type = "google_compute_security_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        fingerprint = Prop.computed __type __id "fingerprint";
        id = Prop.computed __type __id "id";

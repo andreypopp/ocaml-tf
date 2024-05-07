@@ -17,6 +17,7 @@ val yojson_of_aws_cognito_user_pools : aws_cognito_user_pools -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arns : string list prop;
   id : string prop;
   ids : string list prop;

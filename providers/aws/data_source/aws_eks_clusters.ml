@@ -30,12 +30,17 @@ let _ = yojson_of_aws_eks_clusters
 
 let aws_eks_clusters ?id () : aws_eks_clusters = { id }
 
-type t = { id : string prop; names : string list prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  names : string list prop;
+}
 
 let make ?id __id =
   let __type = "aws_eks_clusters" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        names = Prop.computed __type __id "names";
      }

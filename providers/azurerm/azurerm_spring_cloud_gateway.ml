@@ -729,6 +729,7 @@ let azurerm_spring_cloud_gateway
   }
 
 type t = {
+  tf_name : string;
   application_performance_monitoring_ids : string list prop;
   application_performance_monitoring_types : string list prop;
   environment_variables : (string * string) list prop;
@@ -753,6 +754,7 @@ let make ?application_performance_monitoring_ids
   let __type = "azurerm_spring_cloud_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        application_performance_monitoring_ids =
          Prop.computed __type __id
            "application_performance_monitoring_ids";

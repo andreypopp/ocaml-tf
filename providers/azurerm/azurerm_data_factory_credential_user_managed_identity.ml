@@ -162,6 +162,7 @@ let azurerm_data_factory_credential_user_managed_identity
   }
 
 type t = {
+  tf_name : string;
   annotations : string list prop;
   data_factory_id : string prop;
   description : string prop;
@@ -177,6 +178,7 @@ let make ?annotations ?description ?id ?timeouts ~data_factory_id
   in
   let __attrs =
     ({
+       tf_name = __id;
        annotations = Prop.computed __type __id "annotations";
        data_factory_id = Prop.computed __type __id "data_factory_id";
        description = Prop.computed __type __id "description";

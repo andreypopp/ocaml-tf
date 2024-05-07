@@ -189,6 +189,7 @@ let azurerm_tenant_template_deployment ?debug_level ?id
   }
 
 type t = {
+  tf_name : string;
   debug_level : string prop;
   id : string prop;
   location : string prop;
@@ -205,6 +206,7 @@ let make ?debug_level ?id ?parameters_content ?tags ?template_content
   let __type = "azurerm_tenant_template_deployment" in
   let __attrs =
     ({
+       tf_name = __id;
        debug_level = Prop.computed __type __id "debug_level";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

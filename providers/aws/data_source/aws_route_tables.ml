@@ -134,6 +134,7 @@ let aws_route_tables ?id ?tags ?vpc_id ?timeouts ~filter () :
   { id; tags; vpc_id; filter; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   ids : string list prop;
   tags : (string * string) list prop;
@@ -144,6 +145,7 @@ let make ?id ?tags ?vpc_id ?timeouts ~filter __id =
   let __type = "aws_route_tables" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ids = Prop.computed __type __id "ids";
        tags = Prop.computed __type __id "tags";

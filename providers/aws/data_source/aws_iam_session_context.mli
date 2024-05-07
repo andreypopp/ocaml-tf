@@ -18,6 +18,7 @@ val yojson_of_aws_iam_session_context :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   issuer_arn : string prop;

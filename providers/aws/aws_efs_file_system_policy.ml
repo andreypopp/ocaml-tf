@@ -62,6 +62,7 @@ let aws_efs_file_system_policy ?bypass_policy_lockout_safety_check
   { bypass_policy_lockout_safety_check; file_system_id; id; policy }
 
 type t = {
+  tf_name : string;
   bypass_policy_lockout_safety_check : bool prop;
   file_system_id : string prop;
   id : string prop;
@@ -73,6 +74,7 @@ let make ?bypass_policy_lockout_safety_check ?id ~file_system_id
   let __type = "aws_efs_file_system_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        bypass_policy_lockout_safety_check =
          Prop.computed __type __id
            "bypass_policy_lockout_safety_check";

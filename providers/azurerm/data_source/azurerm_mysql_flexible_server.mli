@@ -43,6 +43,7 @@ val yojson_of_azurerm_mysql_flexible_server :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   administrator_login : string prop;
   backup_retention_days : float prop;
   delegated_subnet_id : string prop;

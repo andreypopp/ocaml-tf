@@ -33,6 +33,7 @@ val yojson_of_azurerm_security_center_contact :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alert_notifications : bool prop;
   alerts_to_admins : bool prop;
   email : string prop;

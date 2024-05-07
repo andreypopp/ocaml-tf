@@ -253,6 +253,7 @@ let azurerm_servicebus_topic ?auto_delete_on_idle
   }
 
 type t = {
+  tf_name : string;
   auto_delete_on_idle : string prop;
   default_message_ttl : string prop;
   duplicate_detection_history_time_window : string prop;
@@ -278,6 +279,7 @@ let make ?auto_delete_on_idle ?default_message_ttl
   let __type = "azurerm_servicebus_topic" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_delete_on_idle =
          Prop.computed __type __id "auto_delete_on_idle";
        default_message_ttl =

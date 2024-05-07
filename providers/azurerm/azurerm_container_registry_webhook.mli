@@ -38,6 +38,7 @@ val yojson_of_azurerm_container_registry_webhook :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   actions : string list prop;
   custom_headers : (string * string) list prop;
   id : string prop;

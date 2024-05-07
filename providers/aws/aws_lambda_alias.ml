@@ -122,6 +122,7 @@ let aws_lambda_alias ?description ?id ?(routing_config = [])
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   function_name : string prop;
@@ -136,6 +137,7 @@ let make ?description ?id ?(routing_config = []) ~function_name
   let __type = "aws_lambda_alias" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        function_name = Prop.computed __type __id "function_name";

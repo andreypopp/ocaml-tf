@@ -31,6 +31,7 @@ val yojson_of_aws_availability_zones : aws_availability_zones -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   all_availability_zones : bool prop;
   exclude_names : string list prop;
   exclude_zone_ids : string list prop;

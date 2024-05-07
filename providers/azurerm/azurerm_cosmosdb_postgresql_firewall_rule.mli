@@ -32,6 +32,7 @@ val yojson_of_azurerm_cosmosdb_postgresql_firewall_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_id : string prop;
   end_ip_address : string prop;
   id : string prop;

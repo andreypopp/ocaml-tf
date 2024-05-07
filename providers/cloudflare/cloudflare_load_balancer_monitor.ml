@@ -252,6 +252,7 @@ let cloudflare_load_balancer_monitor ?allow_insecure
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   allow_insecure : bool prop;
   consecutive_down : float prop;
@@ -280,6 +281,7 @@ let make ?allow_insecure ?consecutive_down ?consecutive_up
   let __type = "cloudflare_load_balancer_monitor" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        allow_insecure = Prop.computed __type __id "allow_insecure";
        consecutive_down =

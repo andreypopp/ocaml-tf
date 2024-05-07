@@ -42,6 +42,7 @@ val yojson_of_azurerm_mobile_network_sim_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   encryption_key_url : string prop;
   id : string prop;
   location : string prop;

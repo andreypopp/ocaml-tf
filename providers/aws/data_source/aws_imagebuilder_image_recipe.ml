@@ -234,6 +234,7 @@ let aws_imagebuilder_image_recipe ?id ?tags ~arn () :
   { arn; id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   block_device_mapping : block_device_mapping list prop;
   component : component list prop;
@@ -254,6 +255,7 @@ let make ?id ?tags ~arn __id =
   let __type = "aws_imagebuilder_image_recipe" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        block_device_mapping =
          Prop.computed __type __id "block_device_mapping";

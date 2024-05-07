@@ -344,6 +344,7 @@ val yojson_of_azurerm_windows_virtual_machine_scale_set :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   admin_password : string prop;
   admin_username : string prop;
   capacity_reservation_group_id : string prop;

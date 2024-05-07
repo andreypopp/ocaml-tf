@@ -1221,6 +1221,7 @@ let azurerm_media_streaming_policy ?default_content_key_policy_name
   }
 
 type t = {
+  tf_name : string;
   default_content_key_policy_name : string prop;
   id : string prop;
   media_services_account_name : string prop;
@@ -1236,6 +1237,7 @@ let make ?default_content_key_policy_name ?id
   let __type = "azurerm_media_streaming_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        default_content_key_policy_name =
          Prop.computed __type __id "default_content_key_policy_name";
        id = Prop.computed __type __id "id";

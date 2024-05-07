@@ -31,6 +31,7 @@ val yojson_of_aws_ec2_transit_gateway_dx_gateway_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dx_gateway_id : string prop;
   id : string prop;
   tags : (string * string) list prop;

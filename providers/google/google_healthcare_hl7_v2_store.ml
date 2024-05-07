@@ -297,6 +297,7 @@ let google_healthcare_hl7_v2_store ?id ?labels
   }
 
 type t = {
+  tf_name : string;
   dataset : string prop;
   effective_labels : (string * string) list prop;
   id : string prop;
@@ -313,6 +314,7 @@ let make ?id ?labels ?reject_duplicate_message
   let __type = "google_healthcare_hl7_v2_store" in
   let __attrs =
     ({
+       tf_name = __id;
        dataset = Prop.computed __type __id "dataset";
        effective_labels =
          Prop.computed __type __id "effective_labels";

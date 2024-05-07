@@ -185,6 +185,7 @@ let aws_db_proxy_endpoint ?id ?tags ?tags_all ?target_role
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   db_proxy_endpoint_name : string prop;
   db_proxy_name : string prop;
@@ -205,6 +206,7 @@ let make ?id ?tags ?tags_all ?target_role ?vpc_security_group_ids
   let __type = "aws_db_proxy_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        db_proxy_endpoint_name =
          Prop.computed __type __id "db_proxy_endpoint_name";

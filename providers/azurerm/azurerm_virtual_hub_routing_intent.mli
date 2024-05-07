@@ -40,6 +40,7 @@ val yojson_of_azurerm_virtual_hub_routing_intent :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   virtual_hub_id : string prop;

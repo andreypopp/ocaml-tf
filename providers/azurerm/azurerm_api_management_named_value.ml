@@ -229,6 +229,7 @@ let azurerm_api_management_named_value ?id ?secret ?tags ?value
   }
 
 type t = {
+  tf_name : string;
   api_management_name : string prop;
   display_name : string prop;
   id : string prop;
@@ -245,6 +246,7 @@ let make ?id ?secret ?tags ?value ?timeouts
   let __type = "azurerm_api_management_named_value" in
   let __attrs =
     ({
+       tf_name = __id;
        api_management_name =
          Prop.computed __type __id "api_management_name";
        display_name = Prop.computed __type __id "display_name";

@@ -63,6 +63,7 @@ val yojson_of_azurerm_dev_test_linux_virtual_machine :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_claim : bool prop;
   disallow_public_ip_address : bool prop;
   fqdn : string prop;

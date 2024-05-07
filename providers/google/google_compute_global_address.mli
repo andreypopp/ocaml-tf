@@ -32,6 +32,7 @@ val yojson_of_google_compute_global_address :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address : string prop;
   address_type : string prop;
   creation_timestamp : string prop;

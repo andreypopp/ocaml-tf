@@ -316,11 +316,13 @@ let kubernetes_endpoints ?id ~metadata ~subset () :
     kubernetes_endpoints =
   { id; metadata; subset }
 
-type t = { id : string prop }
+type t = { tf_name : string; id : string prop }
 
 let make ?id ~metadata ~subset __id =
   let __type = "kubernetes_endpoints" in
-  let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
+  let __attrs =
+    ({ tf_name = __id; id = Prop.computed __type __id "id" } : t)
+  in
   {
     Tf_core.id = __id;
     type_ = __type;

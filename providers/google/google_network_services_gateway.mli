@@ -42,6 +42,7 @@ val yojson_of_google_network_services_gateway :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   addresses : string list prop;
   certificate_urls : string list prop;
   create_time : string prop;

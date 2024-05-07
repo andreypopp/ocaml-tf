@@ -69,6 +69,7 @@ let aws_dx_hosted_connection ?id ~bandwidth ~connection_id ~name
   { bandwidth; connection_id; id; name; owner_account_id; vlan }
 
 type t = {
+  tf_name : string;
   aws_device : string prop;
   bandwidth : string prop;
   connection_id : string prop;
@@ -92,6 +93,7 @@ let make ?id ~bandwidth ~connection_id ~name ~owner_account_id ~vlan
   let __type = "aws_dx_hosted_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        aws_device = Prop.computed __type __id "aws_device";
        bandwidth = Prop.computed __type __id "bandwidth";
        connection_id = Prop.computed __type __id "connection_id";

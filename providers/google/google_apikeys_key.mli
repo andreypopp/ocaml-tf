@@ -88,6 +88,7 @@ val yojson_of_google_apikeys_key : google_apikeys_key -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   key_string : string prop;

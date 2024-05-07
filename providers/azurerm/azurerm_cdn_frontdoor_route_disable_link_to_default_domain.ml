@@ -137,6 +137,7 @@ let azurerm_cdn_frontdoor_route_disable_link_to_default_domain ?id
   }
 
 type t = {
+  tf_name : string;
   cdn_frontdoor_custom_domain_ids : string list prop;
   cdn_frontdoor_route_id : string prop;
   id : string prop;
@@ -149,6 +150,7 @@ let make ?id ?timeouts ~cdn_frontdoor_custom_domain_ids
   in
   let __attrs =
     ({
+       tf_name = __id;
        cdn_frontdoor_custom_domain_ids =
          Prop.computed __type __id "cdn_frontdoor_custom_domain_ids";
        cdn_frontdoor_route_id =

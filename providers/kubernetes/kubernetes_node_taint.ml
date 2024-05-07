@@ -127,6 +127,7 @@ let kubernetes_node_taint ?field_manager ?force ?id ~metadata ~taint
   { field_manager; force; id; metadata; taint }
 
 type t = {
+  tf_name : string;
   field_manager : string prop;
   force : bool prop;
   id : string prop;
@@ -136,6 +137,7 @@ let make ?field_manager ?force ?id ~metadata ~taint __id =
   let __type = "kubernetes_node_taint" in
   let __attrs =
     ({
+       tf_name = __id;
        field_manager = Prop.computed __type __id "field_manager";
        force = Prop.computed __type __id "force";
        id = Prop.computed __type __id "id";

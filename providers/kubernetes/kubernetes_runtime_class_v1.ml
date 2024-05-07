@@ -125,12 +125,17 @@ let kubernetes_runtime_class_v1 ?id ~handler ~metadata () :
     kubernetes_runtime_class_v1 =
   { handler; id; metadata }
 
-type t = { handler : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  handler : string prop;
+  id : string prop;
+}
 
 let make ?id ~handler ~metadata __id =
   let __type = "kubernetes_runtime_class_v1" in
   let __attrs =
     ({
+       tf_name = __id;
        handler = Prop.computed __type __id "handler";
        id = Prop.computed __type __id "id";
      }

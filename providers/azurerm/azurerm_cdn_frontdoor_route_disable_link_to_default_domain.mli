@@ -30,6 +30,7 @@ val yojson_of_azurerm_cdn_frontdoor_route_disable_link_to_default_domain :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cdn_frontdoor_custom_domain_ids : string list prop;
   cdn_frontdoor_route_id : string prop;
   id : string prop;

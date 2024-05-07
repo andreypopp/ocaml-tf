@@ -128,6 +128,7 @@ let google_dataproc_job_iam_member ?id ?project ?region
   { id; job_id; member; project; region; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   job_id : string prop;
@@ -142,6 +143,7 @@ let make ?id ?project ?region ?(condition = []) ~job_id ~member ~role
   let __type = "google_dataproc_job_iam_member" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        job_id = Prop.computed __type __id "job_id";

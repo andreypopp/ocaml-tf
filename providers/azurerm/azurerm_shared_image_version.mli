@@ -54,6 +54,7 @@ val yojson_of_azurerm_shared_image_version :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   blob_uri : string prop;
   deletion_of_replicated_locations_enabled : bool prop;
   end_of_life_date : string prop;

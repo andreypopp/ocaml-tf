@@ -76,6 +76,7 @@ let cloudflare_mtls_certificate ?id ?name ?private_key ~account_id
   { account_id; ca; certificates; id; name; private_key }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   ca : bool prop;
   certificates : string prop;
@@ -93,6 +94,7 @@ let make ?id ?name ?private_key ~account_id ~ca ~certificates __id =
   let __type = "cloudflare_mtls_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        ca = Prop.computed __type __id "ca";
        certificates = Prop.computed __type __id "certificates";

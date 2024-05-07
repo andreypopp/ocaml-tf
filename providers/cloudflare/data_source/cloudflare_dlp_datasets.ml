@@ -78,12 +78,17 @@ let cloudflare_dlp_datasets ~account_id () : cloudflare_dlp_datasets
     =
   { account_id }
 
-type t = { account_id : string prop; datasets : datasets list prop }
+type t = {
+  tf_name : string;
+  account_id : string prop;
+  datasets : datasets list prop;
+}
 
 let make ~account_id __id =
   let __type = "cloudflare_dlp_datasets" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        datasets = Prop.computed __type __id "datasets";
      }

@@ -32,6 +32,7 @@ val yojson_of_google_compute_region_instance_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   instances : instances list prop;
   name : string prop;

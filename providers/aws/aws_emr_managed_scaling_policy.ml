@@ -125,12 +125,17 @@ let aws_emr_managed_scaling_policy ?id ~cluster_id ~compute_limits ()
     : aws_emr_managed_scaling_policy =
   { cluster_id; id; compute_limits }
 
-type t = { cluster_id : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  cluster_id : string prop;
+  id : string prop;
+}
 
 let make ?id ~cluster_id ~compute_limits __id =
   let __type = "aws_emr_managed_scaling_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_id = Prop.computed __type __id "cluster_id";
        id = Prop.computed __type __id "id";
      }

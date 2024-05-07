@@ -463,6 +463,7 @@ val yojson_of_google_dataproc_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   effective_labels : (string * string) list prop;
   graceful_decommission_timeout : string prop;
   id : string prop;

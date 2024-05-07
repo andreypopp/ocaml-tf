@@ -122,6 +122,7 @@ val yojson_of_azurerm_hpc_cache : azurerm_hpc_cache -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automatically_rotate_key_to_latest_enabled : bool prop;
   cache_size_in_gb : float prop;
   id : string prop;

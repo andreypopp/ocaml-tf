@@ -70,6 +70,7 @@ val yojson_of_azurerm_virtual_desktop_scaling_plan :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   exclusion_tag : string prop;
   friendly_name : string prop;

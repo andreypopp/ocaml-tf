@@ -1114,6 +1114,7 @@ let azurerm_media_content_key_policy ?description ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   media_services_account_name : string prop;
@@ -1126,6 +1127,7 @@ let make ?description ?id ?timeouts ~media_services_account_name
   let __type = "azurerm_media_content_key_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        media_services_account_name =

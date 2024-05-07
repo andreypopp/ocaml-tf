@@ -45,6 +45,7 @@ val yojson_of_azurerm_mariadb_server : azurerm_mariadb_server -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   administrator_login : string prop;
   administrator_login_password : string prop;
   auto_grow_enabled : bool prop;

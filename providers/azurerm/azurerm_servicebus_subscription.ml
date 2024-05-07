@@ -326,6 +326,7 @@ let azurerm_servicebus_subscription ?auto_delete_on_idle
   }
 
 type t = {
+  tf_name : string;
   auto_delete_on_idle : string prop;
   client_scoped_subscription_enabled : bool prop;
   dead_lettering_on_filter_evaluation_error : bool prop;
@@ -353,6 +354,7 @@ let make ?auto_delete_on_idle ?client_scoped_subscription_enabled
   let __type = "azurerm_servicebus_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_delete_on_idle =
          Prop.computed __type __id "auto_delete_on_idle";
        client_scoped_subscription_enabled =

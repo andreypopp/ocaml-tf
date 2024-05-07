@@ -498,6 +498,7 @@ let aws_emrserverless_application ?architecture ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   architecture : string prop;
   arn : string prop;
   id : string prop;
@@ -516,6 +517,7 @@ let make ?architecture ?id ?tags ?tags_all
   let __type = "aws_emrserverless_application" in
   let __attrs =
     ({
+       tf_name = __id;
        architecture = Prop.computed __type __id "architecture";
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";

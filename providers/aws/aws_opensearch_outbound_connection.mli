@@ -62,6 +62,7 @@ val yojson_of_aws_opensearch_outbound_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   accept_connection : bool prop;
   connection_alias : string prop;
   connection_mode : string prop;

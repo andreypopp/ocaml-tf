@@ -114,6 +114,7 @@ let azurerm_resource_management_private_link ?id ?timeouts ~location
   { id; location; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -124,6 +125,7 @@ let make ?id ?timeouts ~location ~name ~resource_group_name __id =
   let __type = "azurerm_resource_management_private_link" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

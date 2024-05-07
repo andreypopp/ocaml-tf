@@ -31,6 +31,7 @@ val yojson_of_aws_servicecatalog_tag_option :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   active : bool prop;
   id : string prop;
   key : string prop;

@@ -109,6 +109,7 @@ let aws_apigatewayv2_integration_response ?content_handling_strategy
   }
 
 type t = {
+  tf_name : string;
   api_id : string prop;
   content_handling_strategy : string prop;
   id : string prop;
@@ -124,6 +125,7 @@ let make ?content_handling_strategy ?id ?response_templates
   let __type = "aws_apigatewayv2_integration_response" in
   let __attrs =
     ({
+       tf_name = __id;
        api_id = Prop.computed __type __id "api_id";
        content_handling_strategy =
          Prop.computed __type __id "content_handling_strategy";

@@ -610,6 +610,7 @@ val yojson_of_google_dialogflow_cx_page :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   language_code : string prop;

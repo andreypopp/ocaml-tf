@@ -32,6 +32,7 @@ val yojson_of_azurerm_mobile_network_site :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   mobile_network_id : string prop;

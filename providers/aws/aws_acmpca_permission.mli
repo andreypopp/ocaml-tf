@@ -20,6 +20,7 @@ val yojson_of_aws_acmpca_permission : aws_acmpca_permission -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   actions : string list prop;
   certificate_authority_arn : string prop;
   id : string prop;

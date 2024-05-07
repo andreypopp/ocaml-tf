@@ -45,6 +45,7 @@ let aws_route53_resolver_firewall_rule_group ?id
   { firewall_rule_group_id; id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   creation_time : string prop;
   creator_request_id : string prop;
@@ -63,6 +64,7 @@ let make ?id ~firewall_rule_group_id __id =
   let __type = "aws_route53_resolver_firewall_rule_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        creation_time = Prop.computed __type __id "creation_time";
        creator_request_id =

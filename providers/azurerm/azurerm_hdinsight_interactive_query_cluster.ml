@@ -1649,6 +1649,7 @@ let azurerm_hdinsight_interactive_query_cluster
   }
 
 type t = {
+  tf_name : string;
   cluster_version : string prop;
   encryption_in_transit_enabled : bool prop;
   https_endpoint : string prop;
@@ -1672,6 +1673,7 @@ let make ?encryption_in_transit_enabled ?id ?tags ?tls_min_version
   let __type = "azurerm_hdinsight_interactive_query_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_version = Prop.computed __type __id "cluster_version";
        encryption_in_transit_enabled =
          Prop.computed __type __id "encryption_in_transit_enabled";

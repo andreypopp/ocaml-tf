@@ -201,6 +201,7 @@ let azurerm_security_center_assessment ?additional_data ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   additional_data : (string * string) list prop;
   assessment_policy_id : string prop;
   id : string prop;
@@ -212,6 +213,7 @@ let make ?additional_data ?id ?timeouts ~assessment_policy_id
   let __type = "azurerm_security_center_assessment" in
   let __attrs =
     ({
+       tf_name = __id;
        additional_data = Prop.computed __type __id "additional_data";
        assessment_policy_id =
          Prop.computed __type __id "assessment_policy_id";

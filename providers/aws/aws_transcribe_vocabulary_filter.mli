@@ -23,6 +23,7 @@ val yojson_of_aws_transcribe_vocabulary_filter :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   download_uri : string prop;
   id : string prop;

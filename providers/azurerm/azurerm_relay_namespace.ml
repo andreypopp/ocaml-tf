@@ -158,6 +158,7 @@ let azurerm_relay_namespace ?id ?tags ?timeouts ~location ~name
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   metric_id : string prop;
@@ -176,6 +177,7 @@ let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
   let __type = "azurerm_relay_namespace" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        metric_id = Prop.computed __type __id "metric_id";

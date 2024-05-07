@@ -28,7 +28,11 @@ val yojson_of_google_compute_disk_async_replication :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; primary_disk : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  primary_disk : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

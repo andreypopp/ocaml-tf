@@ -23,6 +23,7 @@ val yojson_of_aws_apigatewayv2_export :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_id : string prop;
   body : string prop;
   export_version : string prop;

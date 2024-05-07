@@ -39,6 +39,7 @@ val yojson_of_google_dialogflow_agent :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_version : string prop;
   avatar_uri : string prop;
   avatar_uri_backend : string prop;

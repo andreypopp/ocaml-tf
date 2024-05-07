@@ -62,6 +62,7 @@ let aws_ec2_managed_prefix_list_entry ?description ?id ~cidr
   { cidr; description; id; prefix_list_id }
 
 type t = {
+  tf_name : string;
   cidr : string prop;
   description : string prop;
   id : string prop;
@@ -72,6 +73,7 @@ let make ?description ?id ~cidr ~prefix_list_id __id =
   let __type = "aws_ec2_managed_prefix_list_entry" in
   let __attrs =
     ({
+       tf_name = __id;
        cidr = Prop.computed __type __id "cidr";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

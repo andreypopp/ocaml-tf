@@ -39,6 +39,7 @@ let aws_eks_node_groups ?id ~cluster_name () : aws_eks_node_groups =
   { cluster_name; id }
 
 type t = {
+  tf_name : string;
   cluster_name : string prop;
   id : string prop;
   names : string list prop;
@@ -48,6 +49,7 @@ let make ?id ~cluster_name __id =
   let __type = "aws_eks_node_groups" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_name = Prop.computed __type __id "cluster_name";
        id = Prop.computed __type __id "id";
        names = Prop.computed __type __id "names";

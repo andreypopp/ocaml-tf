@@ -164,6 +164,7 @@ let azurerm_site_recovery_hyperv_replication_policy ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   application_consistent_snapshot_frequency_in_hours : float prop;
   id : string prop;
   name : string prop;
@@ -179,6 +180,7 @@ let make ?id ?timeouts
   let __type = "azurerm_site_recovery_hyperv_replication_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        application_consistent_snapshot_frequency_in_hours =
          Prop.computed __type __id
            "application_consistent_snapshot_frequency_in_hours";

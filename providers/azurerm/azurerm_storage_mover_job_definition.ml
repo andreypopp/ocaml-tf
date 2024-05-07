@@ -193,6 +193,7 @@ let azurerm_storage_mover_job_definition ?agent_name ?description ?id
   }
 
 type t = {
+  tf_name : string;
   agent_name : string prop;
   copy_mode : string prop;
   description : string prop;
@@ -211,6 +212,7 @@ let make ?agent_name ?description ?id ?source_sub_path
   let __type = "azurerm_storage_mover_job_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        agent_name = Prop.computed __type __id "agent_name";
        copy_mode = Prop.computed __type __id "copy_mode";
        description = Prop.computed __type __id "description";

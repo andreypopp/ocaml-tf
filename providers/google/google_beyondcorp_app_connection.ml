@@ -261,6 +261,7 @@ let google_beyondcorp_app_connection ?connectors ?display_name ?id
   }
 
 type t = {
+  tf_name : string;
   connectors : string list prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;
@@ -279,6 +280,7 @@ let make ?connectors ?display_name ?id ?labels ?project ?region
   let __type = "google_beyondcorp_app_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        connectors = Prop.computed __type __id "connectors";
        display_name = Prop.computed __type __id "display_name";
        effective_labels =

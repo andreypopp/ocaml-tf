@@ -351,13 +351,18 @@ let aws_lakeformation_resource_lf_tags ?catalog_id ?id
     timeouts;
   }
 
-type t = { catalog_id : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  catalog_id : string prop;
+  id : string prop;
+}
 
 let make ?catalog_id ?id ?(database = []) ?(table = [])
     ?(table_with_columns = []) ?timeouts ~lf_tag __id =
   let __type = "aws_lakeformation_resource_lf_tags" in
   let __attrs =
     ({
+       tf_name = __id;
        catalog_id = Prop.computed __type __id "catalog_id";
        id = Prop.computed __type __id "id";
      }

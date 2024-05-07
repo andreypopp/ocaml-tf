@@ -35,6 +35,7 @@ val yojson_of_azurerm_express_route_gateway :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_non_virtual_wan_traffic : bool prop;
   id : string prop;
   location : string prop;

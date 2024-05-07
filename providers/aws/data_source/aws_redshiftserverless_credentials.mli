@@ -20,6 +20,7 @@ val yojson_of_aws_redshiftserverless_credentials :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   db_name : string prop;
   db_password : string prop;
   db_user : string prop;

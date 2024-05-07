@@ -45,6 +45,7 @@ val yojson_of_azurerm_private_dns_zone :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   max_number_of_record_sets : float prop;
   max_number_of_virtual_network_links : float prop;

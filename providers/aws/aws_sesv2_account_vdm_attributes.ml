@@ -126,13 +126,18 @@ let aws_sesv2_account_vdm_attributes ?id ?(dashboard_attributes = [])
     aws_sesv2_account_vdm_attributes =
   { id; vdm_enabled; dashboard_attributes; guardian_attributes }
 
-type t = { id : string prop; vdm_enabled : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  vdm_enabled : string prop;
+}
 
 let make ?id ?(dashboard_attributes = []) ?(guardian_attributes = [])
     ~vdm_enabled __id =
   let __type = "aws_sesv2_account_vdm_attributes" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        vdm_enabled = Prop.computed __type __id "vdm_enabled";
      }

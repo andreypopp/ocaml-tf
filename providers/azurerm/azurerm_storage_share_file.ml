@@ -211,6 +211,7 @@ let azurerm_storage_share_file ?content_disposition ?content_encoding
   }
 
 type t = {
+  tf_name : string;
   content_disposition : string prop;
   content_encoding : string prop;
   content_length : float prop;
@@ -230,6 +231,7 @@ let make ?content_disposition ?content_encoding ?content_md5
   let __type = "azurerm_storage_share_file" in
   let __attrs =
     ({
+       tf_name = __id;
        content_disposition =
          Prop.computed __type __id "content_disposition";
        content_encoding =

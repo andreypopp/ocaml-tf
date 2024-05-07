@@ -126,6 +126,7 @@ let aws_connect_queue ?id ?name ?queue_id ?tags ~instance_id () :
   { id; instance_id; name; queue_id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   hours_of_operation_id : string prop;
@@ -143,6 +144,7 @@ let make ?id ?name ?queue_id ?tags ~instance_id __id =
   let __type = "aws_connect_queue" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        hours_of_operation_id =

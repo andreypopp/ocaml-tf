@@ -70,6 +70,7 @@ let google_privateca_ca_pool_iam_policy ?id ?location ?project
   { ca_pool; id; location; policy_data; project }
 
 type t = {
+  tf_name : string;
   ca_pool : string prop;
   etag : string prop;
   id : string prop;
@@ -82,6 +83,7 @@ let make ?id ?location ?project ~ca_pool ~policy_data __id =
   let __type = "google_privateca_ca_pool_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        ca_pool = Prop.computed __type __id "ca_pool";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

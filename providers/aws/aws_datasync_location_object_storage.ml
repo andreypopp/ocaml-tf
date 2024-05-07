@@ -173,6 +173,7 @@ let aws_datasync_location_object_storage ?access_key ?id ?secret_key
   }
 
 type t = {
+  tf_name : string;
   access_key : string prop;
   agent_arns : string list prop;
   arn : string prop;
@@ -195,6 +196,7 @@ let make ?access_key ?id ?secret_key ?server_certificate ?server_port
   let __type = "aws_datasync_location_object_storage" in
   let __attrs =
     ({
+       tf_name = __id;
        access_key = Prop.computed __type __id "access_key";
        agent_arns = Prop.computed __type __id "agent_arns";
        arn = Prop.computed __type __id "arn";

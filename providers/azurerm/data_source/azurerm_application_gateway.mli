@@ -395,6 +395,7 @@ val yojson_of_azurerm_application_gateway :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authentication_certificate : authentication_certificate list prop;
   autoscale_configuration : autoscale_configuration list prop;
   backend_address_pool : backend_address_pool list prop;

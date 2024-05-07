@@ -1588,6 +1588,7 @@ let google_bigquery_job ?id ?job_timeout_ms ?labels ?location
   }
 
 type t = {
+  tf_name : string;
   effective_labels : (string * string) list prop;
   id : string prop;
   job_id : string prop;
@@ -1607,6 +1608,7 @@ let make ?id ?job_timeout_ms ?labels ?location ?project ?(copy = [])
   let __type = "google_bigquery_job" in
   let __attrs =
     ({
+       tf_name = __id;
        effective_labels =
          Prop.computed __type __id "effective_labels";
        id = Prop.computed __type __id "id";

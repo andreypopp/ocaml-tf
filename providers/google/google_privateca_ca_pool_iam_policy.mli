@@ -21,6 +21,7 @@ val yojson_of_google_privateca_ca_pool_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   ca_pool : string prop;
   etag : string prop;
   id : string prop;

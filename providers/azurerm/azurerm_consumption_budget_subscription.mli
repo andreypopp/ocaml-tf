@@ -110,6 +110,7 @@ val yojson_of_azurerm_consumption_budget_subscription :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   amount : float prop;
   etag : string prop;
   id : string prop;

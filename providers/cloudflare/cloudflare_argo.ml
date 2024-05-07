@@ -63,6 +63,7 @@ let cloudflare_argo ?id ?smart_routing ?tiered_caching ~zone_id () :
   { id; smart_routing; tiered_caching; zone_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   smart_routing : string prop;
   tiered_caching : string prop;
@@ -73,6 +74,7 @@ let make ?id ?smart_routing ?tiered_caching ~zone_id __id =
   let __type = "cloudflare_argo" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        smart_routing = Prop.computed __type __id "smart_routing";
        tiered_caching = Prop.computed __type __id "tiered_caching";

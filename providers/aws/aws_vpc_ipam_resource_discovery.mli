@@ -36,6 +36,7 @@ val yojson_of_aws_vpc_ipam_resource_discovery :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;

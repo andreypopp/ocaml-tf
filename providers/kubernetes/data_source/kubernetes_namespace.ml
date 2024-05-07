@@ -133,12 +133,17 @@ let metadata ?annotations ?labels ?name () : metadata =
 let kubernetes_namespace ?id ~metadata () : kubernetes_namespace =
   { id; metadata }
 
-type t = { id : string prop; spec : spec list prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  spec : spec list prop;
+}
 
 let make ?id ~metadata __id =
   let __type = "kubernetes_namespace" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        spec = Prop.computed __type __id "spec";
      }

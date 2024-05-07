@@ -416,6 +416,7 @@ let google_apigee_keystores_aliases_self_signed_cert
   }
 
 type t = {
+  tf_name : string;
   alias : string prop;
   cert_validity_in_days : float prop;
   certs_info : certs_info list prop;
@@ -434,6 +435,7 @@ let make ?cert_validity_in_days ?id ?key_size
   let __type = "google_apigee_keystores_aliases_self_signed_cert" in
   let __attrs =
     ({
+       tf_name = __id;
        alias = Prop.computed __type __id "alias";
        cert_validity_in_days =
          Prop.computed __type __id "cert_validity_in_days";

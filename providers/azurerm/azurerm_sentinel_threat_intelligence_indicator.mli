@@ -82,6 +82,7 @@ val yojson_of_azurerm_sentinel_threat_intelligence_indicator :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   confidence : float prop;
   created_by : string prop;
   created_on : string prop;

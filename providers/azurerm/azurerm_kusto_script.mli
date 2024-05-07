@@ -34,6 +34,7 @@ val yojson_of_azurerm_kusto_script : azurerm_kusto_script -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   continue_on_errors_enabled : bool prop;
   database_id : string prop;
   force_an_update_when_value_changed : string prop;

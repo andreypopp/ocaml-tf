@@ -165,6 +165,7 @@ let azurerm_arc_private_link_scope ?id ?public_network_access_enabled
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -178,6 +179,7 @@ let make ?id ?public_network_access_enabled ?tags ?timeouts ~location
   let __type = "azurerm_arc_private_link_scope" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

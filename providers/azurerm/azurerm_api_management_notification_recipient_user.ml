@@ -117,6 +117,7 @@ let azurerm_api_management_notification_recipient_user ?id ?timeouts
   { api_management_id; id; notification_type; user_id; timeouts }
 
 type t = {
+  tf_name : string;
   api_management_id : string prop;
   id : string prop;
   notification_type : string prop;
@@ -130,6 +131,7 @@ let make ?id ?timeouts ~api_management_id ~notification_type ~user_id
   in
   let __attrs =
     ({
+       tf_name = __id;
        api_management_id =
          Prop.computed __type __id "api_management_id";
        id = Prop.computed __type __id "id";

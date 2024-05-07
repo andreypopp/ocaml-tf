@@ -41,6 +41,7 @@ val yojson_of_google_dns_response_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   project : string prop;

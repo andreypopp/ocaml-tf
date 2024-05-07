@@ -1280,6 +1280,7 @@ let aws_ecs_service ?cluster ?deployment_maximum_percent
   }
 
 type t = {
+  tf_name : string;
   cluster : string prop;
   deployment_maximum_percent : float prop;
   deployment_minimum_healthy_percent : float prop;
@@ -1317,6 +1318,7 @@ let make ?cluster ?deployment_maximum_percent
   let __type = "aws_ecs_service" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster = Prop.computed __type __id "cluster";
        deployment_maximum_percent =
          Prop.computed __type __id "deployment_maximum_percent";

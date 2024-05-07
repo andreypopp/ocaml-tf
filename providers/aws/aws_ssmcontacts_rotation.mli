@@ -106,6 +106,7 @@ val yojson_of_aws_ssmcontacts_rotation :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   contact_ids : string list prop;
   id : string prop;

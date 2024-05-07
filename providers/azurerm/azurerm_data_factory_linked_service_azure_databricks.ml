@@ -537,6 +537,7 @@ let azurerm_data_factory_linked_service_azure_databricks
   }
 
 type t = {
+  tf_name : string;
   access_token : string prop;
   adb_domain : string prop;
   additional_properties : (string * string) list prop;
@@ -561,6 +562,7 @@ let make ?access_token ?additional_properties ?annotations
   in
   let __attrs =
     ({
+       tf_name = __id;
        access_token = Prop.computed __type __id "access_token";
        adb_domain = Prop.computed __type __id "adb_domain";
        additional_properties =

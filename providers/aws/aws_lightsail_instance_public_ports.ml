@@ -134,12 +134,17 @@ let aws_lightsail_instance_public_ports ?id ~instance_name ~port_info
     () : aws_lightsail_instance_public_ports =
   { id; instance_name; port_info }
 
-type t = { id : string prop; instance_name : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  instance_name : string prop;
+}
 
 let make ?id ~instance_name ~port_info __id =
   let __type = "aws_lightsail_instance_public_ports" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        instance_name = Prop.computed __type __id "instance_name";
      }

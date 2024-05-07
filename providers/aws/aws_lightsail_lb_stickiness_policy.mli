@@ -20,6 +20,7 @@ val yojson_of_aws_lightsail_lb_stickiness_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cookie_duration : float prop;
   enabled : bool prop;
   id : string prop;

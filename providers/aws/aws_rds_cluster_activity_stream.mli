@@ -21,6 +21,7 @@ val yojson_of_aws_rds_cluster_activity_stream :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   engine_native_audit_fields_included : bool prop;
   id : string prop;
   kinesis_stream_name : string prop;

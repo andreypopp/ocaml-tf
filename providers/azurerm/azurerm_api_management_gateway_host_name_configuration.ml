@@ -201,6 +201,7 @@ let azurerm_api_management_gateway_host_name_configuration
   }
 
 type t = {
+  tf_name : string;
   api_management_id : string prop;
   certificate_id : string prop;
   gateway_name : string prop;
@@ -221,6 +222,7 @@ let make ?http2_enabled ?id ?request_client_certificate_enabled
   in
   let __attrs =
     ({
+       tf_name = __id;
        api_management_id =
          Prop.computed __type __id "api_management_id";
        certificate_id = Prop.computed __type __id "certificate_id";

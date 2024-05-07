@@ -63,6 +63,7 @@ let aws_quicksight_user ?aws_account_id ?id ?namespace ~user_name ()
   { aws_account_id; id; namespace; user_name }
 
 type t = {
+  tf_name : string;
   active : bool prop;
   arn : string prop;
   aws_account_id : string prop;
@@ -79,6 +80,7 @@ let make ?aws_account_id ?id ?namespace ~user_name __id =
   let __type = "aws_quicksight_user" in
   let __attrs =
     ({
+       tf_name = __id;
        active = Prop.computed __type __id "active";
        arn = Prop.computed __type __id "arn";
        aws_account_id = Prop.computed __type __id "aws_account_id";

@@ -44,6 +44,7 @@ let aws_prometheus_workspaces ?alias_prefix ?id () :
   { alias_prefix; id }
 
 type t = {
+  tf_name : string;
   alias_prefix : string prop;
   aliases : string list prop;
   arns : string list prop;
@@ -55,6 +56,7 @@ let make ?alias_prefix ?id __id =
   let __type = "aws_prometheus_workspaces" in
   let __attrs =
     ({
+       tf_name = __id;
        alias_prefix = Prop.computed __type __id "alias_prefix";
        aliases = Prop.computed __type __id "aliases";
        arns = Prop.computed __type __id "arns";

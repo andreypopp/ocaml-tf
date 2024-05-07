@@ -28,6 +28,7 @@ val yojson_of_kubernetes_config_map : kubernetes_config_map -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   binary_data : (string * string) list prop;
   data : (string * string) list prop;
   id : string prop;

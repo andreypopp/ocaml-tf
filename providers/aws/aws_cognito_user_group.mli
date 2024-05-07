@@ -21,6 +21,7 @@ val yojson_of_aws_cognito_user_group : aws_cognito_user_group -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   name : string prop;

@@ -139,6 +139,7 @@ let hcloud_primary_ips ?id ?with_selector () : hcloud_primary_ips =
   { id; with_selector }
 
 type t = {
+  tf_name : string;
   id : string prop;
   primary_ips : primary_ips list prop;
   with_selector : string prop;
@@ -148,6 +149,7 @@ let make ?id ?with_selector __id =
   let __type = "hcloud_primary_ips" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        primary_ips = Prop.computed __type __id "primary_ips";
        with_selector = Prop.computed __type __id "with_selector";

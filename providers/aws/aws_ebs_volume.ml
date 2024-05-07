@@ -254,6 +254,7 @@ let aws_ebs_volume ?encrypted ?final_snapshot ?id ?iops ?kms_key_id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zone : string prop;
   encrypted : bool prop;
@@ -277,6 +278,7 @@ let make ?encrypted ?final_snapshot ?id ?iops ?kms_key_id
   let __type = "aws_ebs_volume" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zone =
          Prop.computed __type __id "availability_zone";

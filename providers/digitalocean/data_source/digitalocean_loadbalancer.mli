@@ -51,6 +51,7 @@ val yojson_of_digitalocean_loadbalancer :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   algorithm : string prop;
   disable_lets_encrypt_dns_records : bool prop;
   droplet_ids : float list prop;

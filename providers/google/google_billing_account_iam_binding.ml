@@ -112,6 +112,7 @@ let google_billing_account_iam_binding ?id ?(condition = [])
   { billing_account_id; id; members; role; condition }
 
 type t = {
+  tf_name : string;
   billing_account_id : string prop;
   etag : string prop;
   id : string prop;
@@ -124,6 +125,7 @@ let make ?id ?(condition = []) ~billing_account_id ~members ~role
   let __type = "google_billing_account_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        billing_account_id =
          Prop.computed __type __id "billing_account_id";
        etag = Prop.computed __type __id "etag";

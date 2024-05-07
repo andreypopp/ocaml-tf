@@ -42,6 +42,7 @@ val yojson_of_azurerm_private_dns_resolver_forwarding_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dns_forwarding_ruleset_id : string prop;
   domain_name : string prop;
   enabled : bool prop;

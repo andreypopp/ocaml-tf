@@ -33,6 +33,7 @@ val yojson_of_aws_cloudwatch_log_metric_filter :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   log_group_name : string prop;
   name : string prop;

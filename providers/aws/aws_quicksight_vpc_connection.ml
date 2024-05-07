@@ -43,6 +43,7 @@ let aws_quicksight_vpc_connection ?aws_account_id ?dns_resolvers ?tags ?timeouts
   } : aws_quicksight_vpc_connection);;
 
 type t = {
+  tf_name: string;
   arn: string prop;
   availability_status: string prop;
   aws_account_id: string prop;
@@ -60,6 +61,7 @@ type t = {
 let make ?aws_account_id ?dns_resolvers ?tags ?timeouts ~name ~role_arn ~security_group_ids ~subnet_ids ~vpc_connection_id __id =
   let __type = "aws_quicksight_vpc_connection" in
   let __attrs = ({
+    tf_name = __id;
     arn = Prop.computed __type __id "arn";
     availability_status = Prop.computed __type __id "availability_status";
     aws_account_id = Prop.computed __type __id "aws_account_id";

@@ -21,6 +21,7 @@ val yojson_of_aws_redshift_data_share_consumer_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_writes : bool prop;
   associate_entire_account : bool prop;
   consumer_arn : string prop;

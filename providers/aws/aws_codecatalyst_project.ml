@@ -114,6 +114,7 @@ let aws_codecatalyst_project ?description ?id ?timeouts ~display_name
   { description; display_name; id; space_name; timeouts }
 
 type t = {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   id : string prop;
@@ -125,6 +126,7 @@ let make ?description ?id ?timeouts ~display_name ~space_name __id =
   let __type = "aws_codecatalyst_project" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";

@@ -137,6 +137,7 @@ let azurerm_sentinel_watchlist_item ?id ?name ?timeouts ~properties
   { id; name; properties; watchlist_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   properties : (string * string) list prop;
@@ -147,6 +148,7 @@ let make ?id ?name ?timeouts ~properties ~watchlist_id __id =
   let __type = "azurerm_sentinel_watchlist_item" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        properties = Prop.computed __type __id "properties";

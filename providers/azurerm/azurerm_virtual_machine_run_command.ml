@@ -562,6 +562,7 @@ let azurerm_virtual_machine_run_command ?error_blob_uri ?id
   }
 
 type t = {
+  tf_name : string;
   error_blob_uri : string prop;
   id : string prop;
   instance_view : instance_view list prop;
@@ -582,6 +583,7 @@ let make ?error_blob_uri ?id ?output_blob_uri ?run_as_password
   let __type = "azurerm_virtual_machine_run_command" in
   let __attrs =
     ({
+       tf_name = __id;
        error_blob_uri = Prop.computed __type __id "error_blob_uri";
        id = Prop.computed __type __id "id";
        instance_view = Prop.computed __type __id "instance_view";

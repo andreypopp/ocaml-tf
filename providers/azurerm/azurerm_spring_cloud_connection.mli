@@ -52,6 +52,7 @@ val yojson_of_azurerm_spring_cloud_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   client_type : string prop;
   id : string prop;
   name : string prop;

@@ -162,6 +162,7 @@ let azurerm_digital_twins_endpoint_eventhub
   }
 
 type t = {
+  tf_name : string;
   dead_letter_storage_secret : string prop;
   digital_twins_id : string prop;
   eventhub_primary_connection_string : string prop;
@@ -176,6 +177,7 @@ let make ?dead_letter_storage_secret ?id ?timeouts ~digital_twins_id
   let __type = "azurerm_digital_twins_endpoint_eventhub" in
   let __attrs =
     ({
+       tf_name = __id;
        dead_letter_storage_secret =
          Prop.computed __type __id "dead_letter_storage_secret";
        digital_twins_id =

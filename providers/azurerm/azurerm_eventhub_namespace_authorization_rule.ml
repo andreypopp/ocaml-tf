@@ -169,6 +169,7 @@ let azurerm_eventhub_namespace_authorization_rule ?id ?listen ?manage
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   listen : bool prop;
   manage : bool prop;
@@ -189,6 +190,7 @@ let make ?id ?listen ?manage ?send ?timeouts ~name ~namespace_name
   let __type = "azurerm_eventhub_namespace_authorization_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        listen = Prop.computed __type __id "listen";
        manage = Prop.computed __type __id "manage";

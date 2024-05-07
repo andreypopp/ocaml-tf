@@ -19,6 +19,7 @@ val yojson_of_aws_vpn_gateway_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   vpc_id : string prop;
   vpn_gateway_id : string prop;

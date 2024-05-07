@@ -28,6 +28,7 @@ val yojson_of_aws_eips : aws_eips -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allocation_ids : string list prop;
   id : string prop;
   public_ips : string list prop;

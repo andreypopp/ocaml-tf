@@ -51,6 +51,7 @@ val yojson_of_google_compute_region_commitment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_renew : bool prop;
   category : string prop;
   commitment_id : float prop;

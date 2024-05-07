@@ -155,6 +155,7 @@ let aws_elasticache_cluster ?id ?tags ~cluster_id () :
   { cluster_id; id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zone : string prop;
   cache_nodes : cache_nodes list prop;
@@ -186,6 +187,7 @@ let make ?id ?tags ~cluster_id __id =
   let __type = "aws_elasticache_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zone =
          Prop.computed __type __id "availability_zone";

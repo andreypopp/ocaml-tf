@@ -186,6 +186,7 @@ let azurerm_cosmosdb_mongo_database ?id ?throughput
   }
 
 type t = {
+  tf_name : string;
   account_name : string prop;
   id : string prop;
   name : string prop;
@@ -198,6 +199,7 @@ let make ?id ?throughput ?(autoscale_settings = []) ?timeouts
   let __type = "azurerm_cosmosdb_mongo_database" in
   let __attrs =
     ({
+       tf_name = __id;
        account_name = Prop.computed __type __id "account_name";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

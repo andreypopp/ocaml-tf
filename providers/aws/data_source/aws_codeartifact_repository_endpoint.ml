@@ -66,6 +66,7 @@ let aws_codeartifact_repository_endpoint ?domain_owner ?id ~domain
   { domain; domain_owner; format; id; repository }
 
 type t = {
+  tf_name : string;
   domain : string prop;
   domain_owner : string prop;
   format : string prop;
@@ -78,6 +79,7 @@ let make ?domain_owner ?id ~domain ~format ~repository __id =
   let __type = "aws_codeartifact_repository_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        domain = Prop.computed __type __id "domain";
        domain_owner = Prop.computed __type __id "domain_owner";
        format = Prop.computed __type __id "format";

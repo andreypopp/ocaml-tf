@@ -61,6 +61,7 @@ let aws_directory_service_conditional_forwarder ?id ~directory_id
   { directory_id; dns_ips; id; remote_domain_name }
 
 type t = {
+  tf_name : string;
   directory_id : string prop;
   dns_ips : string list prop;
   id : string prop;
@@ -71,6 +72,7 @@ let make ?id ~directory_id ~dns_ips ~remote_domain_name __id =
   let __type = "aws_directory_service_conditional_forwarder" in
   let __attrs =
     ({
+       tf_name = __id;
        directory_id = Prop.computed __type __id "directory_id";
        dns_ips = Prop.computed __type __id "dns_ips";
        id = Prop.computed __type __id "id";

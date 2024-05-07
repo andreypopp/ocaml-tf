@@ -18,6 +18,7 @@ val yojson_of_aws_securityhub_product_subscription :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   product_arn : string prop;

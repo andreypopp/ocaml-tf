@@ -78,6 +78,7 @@ val yojson_of_azurerm_healthcare_fhir_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_policy_object_ids : string list prop;
   configuration_export_storage_account_name : string prop;
   container_registry_login_server_url : string list prop;

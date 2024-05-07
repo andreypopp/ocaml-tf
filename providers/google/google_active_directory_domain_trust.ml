@@ -173,6 +173,7 @@ let google_active_directory_domain_trust ?id ?project
   }
 
 type t = {
+  tf_name : string;
   domain : string prop;
   id : string prop;
   project : string prop;
@@ -190,6 +191,7 @@ let make ?id ?project ?selective_authentication ?timeouts ~domain
   let __type = "google_active_directory_domain_trust" in
   let __attrs =
     ({
+       tf_name = __id;
        domain = Prop.computed __type __id "domain";
        id = Prop.computed __type __id "id";
        project = Prop.computed __type __id "project";

@@ -32,6 +32,7 @@ val yojson_of_azurerm_site_recovery_vmware_replication_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_consistent_snapshot_frequency_in_minutes : float prop;
   id : string prop;
   name : string prop;

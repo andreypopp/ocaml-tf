@@ -1505,6 +1505,7 @@ let google_gke_hub_feature_membership ?id ?membership_location
   }
 
 type t = {
+  tf_name : string;
   feature : string prop;
   id : string prop;
   location : string prop;
@@ -1519,6 +1520,7 @@ let make ?id ?membership_location ?project ?(configmanagement = [])
   let __type = "google_gke_hub_feature_membership" in
   let __attrs =
     ({
+       tf_name = __id;
        feature = Prop.computed __type __id "feature";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

@@ -275,6 +275,7 @@ let aws_macie2_findings_filter ?description ?id ?name ?name_prefix
   }
 
 type t = {
+  tf_name : string;
   action : string prop;
   arn : string prop;
   description : string prop;
@@ -291,6 +292,7 @@ let make ?description ?id ?name ?name_prefix ?position ?tags
   let __type = "aws_macie2_findings_filter" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";

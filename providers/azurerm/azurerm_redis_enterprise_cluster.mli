@@ -35,6 +35,7 @@ val yojson_of_azurerm_redis_enterprise_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   hostname : string prop;
   id : string prop;
   location : string prop;

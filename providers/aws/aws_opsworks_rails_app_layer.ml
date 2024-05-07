@@ -947,6 +947,7 @@ let aws_opsworks_rails_app_layer ?app_server ?auto_assign_elastic_ips
   }
 
 type t = {
+  tf_name : string;
   app_server : string prop;
   arn : string prop;
   auto_assign_elastic_ips : bool prop;
@@ -992,6 +993,7 @@ let make ?app_server ?auto_assign_elastic_ips ?auto_assign_public_ips
   let __type = "aws_opsworks_rails_app_layer" in
   let __attrs =
     ({
+       tf_name = __id;
        app_server = Prop.computed __type __id "app_server";
        arn = Prop.computed __type __id "arn";
        auto_assign_elastic_ips =

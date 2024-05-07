@@ -375,6 +375,7 @@ let azurerm_machine_learning_compute_cluster ?description ?id
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   local_auth_enabled : bool prop;
@@ -397,6 +398,7 @@ let make ?description ?id ?local_auth_enabled ?node_public_ip_enabled
   let __type = "azurerm_machine_learning_compute_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        local_auth_enabled =

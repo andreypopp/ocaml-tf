@@ -41,6 +41,7 @@ val yojson_of_azurerm_security_center_assessment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   additional_data : (string * string) list prop;
   assessment_policy_id : string prop;
   id : string prop;

@@ -55,6 +55,7 @@ let _ = yojson_of_aws_bedrock_custom_models
 let aws_bedrock_custom_models () = ()
 
 type t = {
+  tf_name : string;
   id : string prop;
   model_summaries : model_summaries list prop;
 }
@@ -63,6 +64,7 @@ let make __id =
   let __type = "aws_bedrock_custom_models" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        model_summaries = Prop.computed __type __id "model_summaries";
      }

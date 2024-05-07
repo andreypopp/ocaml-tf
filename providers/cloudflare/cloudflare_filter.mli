@@ -26,6 +26,7 @@ val yojson_of_cloudflare_filter : cloudflare_filter -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   expression : string prop;
   id : string prop;

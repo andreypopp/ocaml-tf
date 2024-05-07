@@ -164,6 +164,7 @@ let azurerm_network_manager_deployment ?id ?triggers ?timeouts
   }
 
 type t = {
+  tf_name : string;
   configuration_ids : string list prop;
   id : string prop;
   location : string prop;
@@ -177,6 +178,7 @@ let make ?id ?triggers ?timeouts ~configuration_ids ~location
   let __type = "azurerm_network_manager_deployment" in
   let __attrs =
     ({
+       tf_name = __id;
        configuration_ids =
          Prop.computed __type __id "configuration_ids";
        id = Prop.computed __type __id "id";

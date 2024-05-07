@@ -30,6 +30,7 @@ val yojson_of_google_storage_bucket_iam_member :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket : string prop;
   etag : string prop;
   id : string prop;

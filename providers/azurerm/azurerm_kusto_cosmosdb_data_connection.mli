@@ -35,6 +35,7 @@ val yojson_of_azurerm_kusto_cosmosdb_data_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cosmosdb_container_id : string prop;
   id : string prop;
   kusto_database_id : string prop;

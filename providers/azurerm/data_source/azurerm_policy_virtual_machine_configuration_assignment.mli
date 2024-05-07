@@ -25,6 +25,7 @@ val yojson_of_azurerm_policy_virtual_machine_configuration_assignment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   assignment_hash : string prop;
   compliance_status : string prop;
   content_hash : string prop;

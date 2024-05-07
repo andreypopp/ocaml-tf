@@ -27,6 +27,7 @@ val yojson_of_aws_scheduler_schedule_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   creation_date : string prop;
   id : string prop;

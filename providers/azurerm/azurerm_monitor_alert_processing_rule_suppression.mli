@@ -186,6 +186,7 @@ val yojson_of_azurerm_monitor_alert_processing_rule_suppression :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   enabled : bool prop;
   id : string prop;

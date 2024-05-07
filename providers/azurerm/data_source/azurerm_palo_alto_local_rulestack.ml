@@ -86,6 +86,7 @@ let azurerm_palo_alto_local_rulestack ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   anti_spyware_profile : string prop;
   anti_virus_profile : string prop;
   description : string prop;
@@ -105,6 +106,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_palo_alto_local_rulestack" in
   let __attrs =
     ({
+       tf_name = __id;
        anti_spyware_profile =
          Prop.computed __type __id "anti_spyware_profile";
        anti_virus_profile =

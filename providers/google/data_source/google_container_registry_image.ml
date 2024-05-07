@@ -84,6 +84,7 @@ let google_container_registry_image ?digest ?id ?project ?region ?tag
   { digest; id; name; project; region; tag }
 
 type t = {
+  tf_name : string;
   digest : string prop;
   id : string prop;
   image_url : string prop;
@@ -97,6 +98,7 @@ let make ?digest ?id ?project ?region ?tag ~name __id =
   let __type = "google_container_registry_image" in
   let __attrs =
     ({
+       tf_name = __id;
        digest = Prop.computed __type __id "digest";
        id = Prop.computed __type __id "id";
        image_url = Prop.computed __type __id "image_url";

@@ -25,6 +25,7 @@ val yojson_of_google_biglake_catalog : google_biglake_catalog -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   delete_time : string prop;
   expire_time : string prop;

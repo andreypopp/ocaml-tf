@@ -24,6 +24,7 @@ val yojson_of_hcloud_volume : hcloud_volume -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automount : bool prop;
   delete_protection : bool prop;
   format : string prop;

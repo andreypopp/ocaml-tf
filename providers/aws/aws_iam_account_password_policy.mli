@@ -26,6 +26,7 @@ val yojson_of_aws_iam_account_password_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_users_to_change_password : bool prop;
   expire_passwords : bool prop;
   hard_expiry : bool prop;

@@ -18,6 +18,7 @@ val yojson_of_aws_ram_sharing_with_organization : aws_ram_sharing_with_organizat
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name: string;
   id: string prop;
 }
 

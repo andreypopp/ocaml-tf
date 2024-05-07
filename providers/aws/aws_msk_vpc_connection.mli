@@ -23,6 +23,7 @@ val yojson_of_aws_msk_vpc_connection : aws_msk_vpc_connection -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   authentication : string prop;
   client_subnets : string list prop;

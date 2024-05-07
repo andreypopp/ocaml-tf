@@ -36,6 +36,7 @@ val yojson_of_azurerm_api_management_openid_connect_provider :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_management_name : string prop;
   client_id : string prop;
   client_secret : string prop;

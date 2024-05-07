@@ -38,6 +38,7 @@ val yojson_of_azurerm_gallery_application :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   end_of_life_date : string prop;
   eula : string prop;

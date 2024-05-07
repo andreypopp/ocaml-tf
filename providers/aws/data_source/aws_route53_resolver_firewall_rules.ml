@@ -175,6 +175,7 @@ let aws_route53_resolver_firewall_rules ?action ?id ?priority
   { action; firewall_rule_group_id; id; priority }
 
 type t = {
+  tf_name : string;
   action : string prop;
   firewall_rule_group_id : string prop;
   firewall_rules : firewall_rules list prop;
@@ -186,6 +187,7 @@ let make ?action ?id ?priority ~firewall_rule_group_id __id =
   let __type = "aws_route53_resolver_firewall_rules" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        firewall_rule_group_id =
          Prop.computed __type __id "firewall_rule_group_id";

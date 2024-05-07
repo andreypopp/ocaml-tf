@@ -158,6 +158,7 @@ let azurerm_storage_encryption_scope ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   infrastructure_encryption_required : bool prop;
   key_vault_key_id : string prop;
@@ -171,6 +172,7 @@ let make ?id ?infrastructure_encryption_required ?key_vault_key_id
   let __type = "azurerm_storage_encryption_scope" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        infrastructure_encryption_required =
          Prop.computed __type __id

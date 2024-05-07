@@ -30,6 +30,7 @@ val yojson_of_google_pubsub_schema : google_pubsub_schema -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   definition : string prop;
   id : string prop;
   name : string prop;

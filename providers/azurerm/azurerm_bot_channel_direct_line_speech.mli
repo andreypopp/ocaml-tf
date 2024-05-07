@@ -36,6 +36,7 @@ val yojson_of_azurerm_bot_channel_direct_line_speech :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bot_name : string prop;
   cognitive_account_id : string prop;
   cognitive_service_access_key : string prop;

@@ -67,6 +67,7 @@ let aws_ecs_service ?id ?tags ~cluster_arn ~service_name () :
   { cluster_arn; id; service_name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cluster_arn : string prop;
   desired_count : float prop;
@@ -82,6 +83,7 @@ let make ?id ?tags ~cluster_arn ~service_name __id =
   let __type = "aws_ecs_service" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cluster_arn = Prop.computed __type __id "cluster_arn";
        desired_count = Prop.computed __type __id "desired_count";

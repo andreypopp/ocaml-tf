@@ -321,6 +321,7 @@ let aws_networkmanager_connect_peer ?core_network_address ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   configuration : configuration list prop;
   connect_attachment_id : string prop;
@@ -344,6 +345,7 @@ let make ?core_network_address ?id ?inside_cidr_blocks ?subnet_arn
   let __type = "aws_networkmanager_connect_peer" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        configuration = Prop.computed __type __id "configuration";
        connect_attachment_id =

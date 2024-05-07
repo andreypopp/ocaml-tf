@@ -98,6 +98,7 @@ let aws_kinesisanalyticsv2_application_snapshot ?id ?timeouts
   { application_name; id; snapshot_name; timeouts }
 
 type t = {
+  tf_name : string;
   application_name : string prop;
   application_version_id : float prop;
   id : string prop;
@@ -109,6 +110,7 @@ let make ?id ?timeouts ~application_name ~snapshot_name __id =
   let __type = "aws_kinesisanalyticsv2_application_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        application_name =
          Prop.computed __type __id "application_name";
        application_version_id =

@@ -381,6 +381,7 @@ let aws_securitylake_data_lake ?tags ?(configuration = []) ?timeouts
   { meta_store_manager_role_arn; tags; configuration; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   meta_store_manager_role_arn : string prop;
@@ -394,6 +395,7 @@ let make ?tags ?(configuration = []) ?timeouts
   let __type = "aws_securitylake_data_lake" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        meta_store_manager_role_arn =

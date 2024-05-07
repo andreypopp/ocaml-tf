@@ -31,6 +31,7 @@ val yojson_of_azurerm_mobile_network_sim :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   device_type : string prop;
   id : string prop;
   integrated_circuit_card_identifier : string prop;

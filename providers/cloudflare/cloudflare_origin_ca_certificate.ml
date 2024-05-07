@@ -88,6 +88,7 @@ let cloudflare_origin_ca_certificate ?id ?min_days_for_renewal
   }
 
 type t = {
+  tf_name : string;
   certificate : string prop;
   csr : string prop;
   expires_on : string prop;
@@ -103,6 +104,7 @@ let make ?id ?min_days_for_renewal ?requested_validity ~csr
   let __type = "cloudflare_origin_ca_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate = Prop.computed __type __id "certificate";
        csr = Prop.computed __type __id "csr";
        expires_on = Prop.computed __type __id "expires_on";

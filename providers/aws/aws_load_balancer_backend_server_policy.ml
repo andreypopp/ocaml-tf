@@ -65,6 +65,7 @@ let aws_load_balancer_backend_server_policy ?id ?policy_names
   { id; instance_port; load_balancer_name; policy_names }
 
 type t = {
+  tf_name : string;
   id : string prop;
   instance_port : float prop;
   load_balancer_name : string prop;
@@ -75,6 +76,7 @@ let make ?id ?policy_names ~instance_port ~load_balancer_name __id =
   let __type = "aws_load_balancer_backend_server_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        instance_port = Prop.computed __type __id "instance_port";
        load_balancer_name =

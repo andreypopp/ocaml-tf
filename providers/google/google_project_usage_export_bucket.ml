@@ -109,6 +109,7 @@ let google_project_usage_export_bucket ?id ?prefix ?project ?timeouts
   { bucket_name; id; prefix; project; timeouts }
 
 type t = {
+  tf_name : string;
   bucket_name : string prop;
   id : string prop;
   prefix : string prop;
@@ -119,6 +120,7 @@ let make ?id ?prefix ?project ?timeouts ~bucket_name __id =
   let __type = "google_project_usage_export_bucket" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket_name = Prop.computed __type __id "bucket_name";
        id = Prop.computed __type __id "id";
        prefix = Prop.computed __type __id "prefix";

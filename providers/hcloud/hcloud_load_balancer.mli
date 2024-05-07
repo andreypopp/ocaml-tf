@@ -37,6 +37,7 @@ val yojson_of_hcloud_load_balancer : hcloud_load_balancer -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   delete_protection : bool prop;
   id : string prop;
   ipv4 : string prop;

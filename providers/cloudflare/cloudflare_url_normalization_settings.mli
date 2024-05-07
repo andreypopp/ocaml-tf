@@ -23,6 +23,7 @@ val yojson_of_cloudflare_url_normalization_settings :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   scope : string prop;
   type_ : string prop;

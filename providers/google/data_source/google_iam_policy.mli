@@ -51,7 +51,11 @@ val yojson_of_google_iam_policy : google_iam_policy -> json
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; policy_data : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  policy_data : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

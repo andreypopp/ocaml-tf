@@ -2617,6 +2617,7 @@ let google_os_config_os_policy_assignment ?description ?id ?project
   }
 
 type t = {
+  tf_name : string;
   baseline : bool prop;
   deleted : bool prop;
   description : string prop;
@@ -2638,6 +2639,7 @@ let make ?description ?id ?project ?skip_await_rollout ?timeouts
   let __type = "google_os_config_os_policy_assignment" in
   let __attrs =
     ({
+       tf_name = __id;
        baseline = Prop.computed __type __id "baseline";
        deleted = Prop.computed __type __id "deleted";
        description = Prop.computed __type __id "description";

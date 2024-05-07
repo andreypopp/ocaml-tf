@@ -19,6 +19,7 @@ val yojson_of_google_logging_project_cmek_settings :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   kms_key_name : string prop;
   kms_key_version_name : string prop;

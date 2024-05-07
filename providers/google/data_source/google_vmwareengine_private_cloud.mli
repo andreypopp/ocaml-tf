@@ -63,6 +63,7 @@ val yojson_of_google_vmwareengine_private_cloud :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   hcx : hcx list prop;
   id : string prop;

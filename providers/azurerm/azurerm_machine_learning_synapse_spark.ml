@@ -218,6 +218,7 @@ let azurerm_machine_learning_synapse_spark ?description ?id
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   local_auth_enabled : bool prop;
@@ -234,6 +235,7 @@ let make ?description ?id ?local_auth_enabled ?tags ?(identity = [])
   let __type = "azurerm_machine_learning_synapse_spark" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        local_auth_enabled =

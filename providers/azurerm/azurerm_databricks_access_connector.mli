@@ -41,6 +41,7 @@ val yojson_of_azurerm_databricks_access_connector :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

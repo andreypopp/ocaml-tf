@@ -156,6 +156,7 @@ val yojson_of_google_app_engine_standard_app_version :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_engine_apis : bool prop;
   delete_service_on_destroy : bool prop;
   env_variables : (string * string) list prop;

@@ -33,6 +33,7 @@ val yojson_of_azurerm_iothub_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_content : string prop;
   id : string prop;
   iothub_name : string prop;

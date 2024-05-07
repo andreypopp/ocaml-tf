@@ -67,6 +67,7 @@ val yojson_of_google_cloud_tasks_queue :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

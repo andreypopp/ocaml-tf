@@ -363,6 +363,7 @@ let google_spanner_instance ?force_destroy ?id ?labels ?name
   }
 
 type t = {
+  tf_name : string;
   config : string prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;
@@ -383,6 +384,7 @@ let make ?force_destroy ?id ?labels ?name ?num_nodes
   let __type = "google_spanner_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        config = Prop.computed __type __id "config";
        display_name = Prop.computed __type __id "display_name";
        effective_labels =

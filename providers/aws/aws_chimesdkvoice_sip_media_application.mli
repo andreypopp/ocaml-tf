@@ -26,6 +26,7 @@ val yojson_of_aws_chimesdkvoice_sip_media_application :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   aws_region : string prop;
   id : string prop;

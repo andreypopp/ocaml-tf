@@ -29,6 +29,7 @@ val yojson_of_azurerm_subnet_network_security_group_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   network_security_group_id : string prop;
   subnet_id : string prop;

@@ -49,6 +49,7 @@ let aws_api_gateway_authorizer ?id ~authorizer_id ~rest_api_id () :
   { authorizer_id; id; rest_api_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   authorizer_credentials : string prop;
   authorizer_id : string prop;
@@ -67,6 +68,7 @@ let make ?id ~authorizer_id ~rest_api_id __id =
   let __type = "aws_api_gateway_authorizer" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        authorizer_credentials =
          Prop.computed __type __id "authorizer_credentials";

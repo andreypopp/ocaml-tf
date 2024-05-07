@@ -28,6 +28,7 @@ val yojson_of_aws_cur_report_definition :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   additional_artifacts : string list prop;
   additional_schema_elements : string list prop;
   arn : string prop;

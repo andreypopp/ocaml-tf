@@ -41,6 +41,7 @@ val yojson_of_azurerm_logz_tag_rule : azurerm_logz_tag_rule -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   logz_monitor_id : string prop;
   send_aad_logs : bool prop;

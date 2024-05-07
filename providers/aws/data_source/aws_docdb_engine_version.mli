@@ -21,6 +21,7 @@ val yojson_of_aws_docdb_engine_version :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   engine : string prop;
   engine_description : string prop;
   exportable_log_types : string list prop;

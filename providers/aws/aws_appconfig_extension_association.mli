@@ -20,6 +20,7 @@ val yojson_of_aws_appconfig_extension_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   extension_arn : string prop;
   extension_version : float prop;

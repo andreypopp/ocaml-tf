@@ -85,6 +85,7 @@ let azurerm_aadb2c_directory ?id ?timeouts ~domain_name
   { domain_name; id; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   billing_type : string prop;
   data_residency_location : string prop;
   domain_name : string prop;
@@ -100,6 +101,7 @@ let make ?id ?timeouts ~domain_name ~resource_group_name __id =
   let __type = "azurerm_aadb2c_directory" in
   let __attrs =
     ({
+       tf_name = __id;
        billing_type = Prop.computed __type __id "billing_type";
        data_residency_location =
          Prop.computed __type __id "data_residency_location";

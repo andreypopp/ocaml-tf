@@ -53,6 +53,7 @@ let google_endpoints_service_consumers_iam_policy ?id
   { consumer_project; id; service_name }
 
 type t = {
+  tf_name : string;
   consumer_project : string prop;
   etag : string prop;
   id : string prop;
@@ -64,6 +65,7 @@ let make ?id ~consumer_project ~service_name __id =
   let __type = "google_endpoints_service_consumers_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        consumer_project =
          Prop.computed __type __id "consumer_project";
        etag = Prop.computed __type __id "etag";

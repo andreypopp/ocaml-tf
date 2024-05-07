@@ -149,6 +149,7 @@ let azurerm_spring_cloud_custom_domain ?certificate_name ?id
   }
 
 type t = {
+  tf_name : string;
   certificate_name : string prop;
   id : string prop;
   name : string prop;
@@ -161,6 +162,7 @@ let make ?certificate_name ?id ?thumbprint ?timeouts ~name
   let __type = "azurerm_spring_cloud_custom_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_name =
          Prop.computed __type __id "certificate_name";
        id = Prop.computed __type __id "id";

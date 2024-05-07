@@ -133,6 +133,7 @@ let aws_workspaces_bundle ?bundle_id ?id ?name ?owner () :
   { bundle_id; id; name; owner }
 
 type t = {
+  tf_name : string;
   bundle_id : string prop;
   compute_type : compute_type list prop;
   description : string prop;
@@ -147,6 +148,7 @@ let make ?bundle_id ?id ?name ?owner __id =
   let __type = "aws_workspaces_bundle" in
   let __attrs =
     ({
+       tf_name = __id;
        bundle_id = Prop.computed __type __id "bundle_id";
        compute_type = Prop.computed __type __id "compute_type";
        description = Prop.computed __type __id "description";

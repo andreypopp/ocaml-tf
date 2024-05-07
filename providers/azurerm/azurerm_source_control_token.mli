@@ -31,6 +31,7 @@ val yojson_of_azurerm_source_control_token :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   token : string prop;
   token_secret : string prop;

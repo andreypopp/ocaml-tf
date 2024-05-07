@@ -35,6 +35,7 @@ val yojson_of_google_project : google_project -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_create_network : bool prop;
   billing_account : string prop;
   effective_labels : (string * string) list prop;

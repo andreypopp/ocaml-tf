@@ -40,6 +40,7 @@ val yojson_of_aws_worklink_fleet : aws_worklink_fleet -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   audit_stream_arn : string prop;
   company_code : string prop;

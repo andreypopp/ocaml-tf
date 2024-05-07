@@ -19,6 +19,7 @@ val yojson_of_aws_redshift_authentication_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authentication_profile_content : string prop;
   authentication_profile_name : string prop;
   id : string prop;

@@ -296,6 +296,7 @@ let aws_sfn_state_machine ?id ?name ?name_prefix ?publish ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   creation_date : string prop;
   definition : string prop;
@@ -320,6 +321,7 @@ let make ?id ?name ?name_prefix ?publish ?tags ?tags_all ?type_
   let __type = "aws_sfn_state_machine" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        creation_date = Prop.computed __type __id "creation_date";
        definition = Prop.computed __type __id "definition";

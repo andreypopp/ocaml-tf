@@ -29,6 +29,7 @@ val yojson_of_aws_ec2_transit_gateway_route_table_propagations :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   ids : string list prop;
   transit_gateway_route_table_id : string prop;

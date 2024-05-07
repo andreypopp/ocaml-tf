@@ -180,6 +180,7 @@ let aws_datasync_location_efs ?access_point_arn
   }
 
 type t = {
+  tf_name : string;
   access_point_arn : string prop;
   arn : string prop;
   efs_file_system_arn : string prop;
@@ -198,6 +199,7 @@ let make ?access_point_arn ?file_system_access_role_arn ?id
   let __type = "aws_datasync_location_efs" in
   let __attrs =
     ({
+       tf_name = __id;
        access_point_arn =
          Prop.computed __type __id "access_point_arn";
        arn = Prop.computed __type __id "arn";

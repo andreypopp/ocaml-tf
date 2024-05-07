@@ -85,6 +85,7 @@ let aws_ec2_transit_gateway_prefix_list_reference ?blackhole ?id
   }
 
 type t = {
+  tf_name : string;
   blackhole : bool prop;
   id : string prop;
   prefix_list_id : string prop;
@@ -98,6 +99,7 @@ let make ?blackhole ?id ?transit_gateway_attachment_id
   let __type = "aws_ec2_transit_gateway_prefix_list_reference" in
   let __attrs =
     ({
+       tf_name = __id;
        blackhole = Prop.computed __type __id "blackhole";
        id = Prop.computed __type __id "id";
        prefix_list_id = Prop.computed __type __id "prefix_list_id";

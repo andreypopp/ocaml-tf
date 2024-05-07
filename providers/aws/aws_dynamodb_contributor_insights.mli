@@ -25,6 +25,7 @@ val yojson_of_aws_dynamodb_contributor_insights :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   index_name : string prop;
   table_name : string prop;

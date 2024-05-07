@@ -62,6 +62,7 @@ let aws_cloudwatch_query_definition ?id ?log_group_names ~name
   { id; log_group_names; name; query_string }
 
 type t = {
+  tf_name : string;
   id : string prop;
   log_group_names : string list prop;
   name : string prop;
@@ -73,6 +74,7 @@ let make ?id ?log_group_names ~name ~query_string __id =
   let __type = "aws_cloudwatch_query_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        log_group_names = Prop.computed __type __id "log_group_names";
        name = Prop.computed __type __id "name";

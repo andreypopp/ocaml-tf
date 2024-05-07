@@ -710,6 +710,7 @@ let google_pubsub_subscription ?ack_deadline_seconds
   }
 
 type t = {
+  tf_name : string;
   ack_deadline_seconds : float prop;
   effective_labels : (string * string) list prop;
   enable_exactly_once_delivery : bool prop;
@@ -735,6 +736,7 @@ let make ?ack_deadline_seconds ?enable_exactly_once_delivery
   let __type = "google_pubsub_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        ack_deadline_seconds =
          Prop.computed __type __id "ack_deadline_seconds";
        effective_labels =

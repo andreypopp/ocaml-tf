@@ -19,6 +19,7 @@ val yojson_of_aws_ssm_document : aws_ssm_document -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   content : string prop;
   document_format : string prop;

@@ -242,6 +242,7 @@ let google_biglake_table ?database ?id ?type_ ?(hive_options = [])
   { database; id; name; type_; hive_options; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   database : string prop;
   delete_time : string prop;
@@ -258,6 +259,7 @@ let make ?database ?id ?type_ ?(hive_options = []) ?timeouts ~name
   let __type = "google_biglake_table" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        database = Prop.computed __type __id "database";
        delete_time = Prop.computed __type __id "delete_time";

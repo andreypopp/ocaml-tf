@@ -19,6 +19,7 @@ val yojson_of_aws_alb_listener_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_arn : string prop;
   id : string prop;
   listener_arn : string prop;

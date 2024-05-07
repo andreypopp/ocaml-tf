@@ -106,6 +106,7 @@ let cloudflare_keyless_certificate ?bundle_method ?enabled ?id ?name
   }
 
 type t = {
+  tf_name : string;
   bundle_method : string prop;
   certificate : string prop;
   enabled : bool prop;
@@ -122,6 +123,7 @@ let make ?bundle_method ?enabled ?id ?name ?port ~certificate ~host
   let __type = "cloudflare_keyless_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        bundle_method = Prop.computed __type __id "bundle_method";
        certificate = Prop.computed __type __id "certificate";
        enabled = Prop.computed __type __id "enabled";

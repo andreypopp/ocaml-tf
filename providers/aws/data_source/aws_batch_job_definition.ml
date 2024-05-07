@@ -1817,6 +1817,7 @@ let aws_batch_job_definition ?arn ?name ?revision ?status () :
   { arn; name; revision; status }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   arn_prefix : string prop;
   container_orchestration_type : string prop;
@@ -1837,6 +1838,7 @@ let make ?arn ?name ?revision ?status __id =
   let __type = "aws_batch_job_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        arn_prefix = Prop.computed __type __id "arn_prefix";
        container_orchestration_type =

@@ -1430,6 +1430,7 @@ let google_dataproc_job ?force_delete ?id ?labels ?project ?region
   }
 
 type t = {
+  tf_name : string;
   driver_controls_files_uri : string prop;
   driver_output_resource_uri : string prop;
   effective_labels : (string * string) list prop;
@@ -1450,6 +1451,7 @@ let make ?force_delete ?id ?labels ?project ?region
   let __type = "google_dataproc_job" in
   let __attrs =
     ({
+       tf_name = __id;
        driver_controls_files_uri =
          Prop.computed __type __id "driver_controls_files_uri";
        driver_output_resource_uri =

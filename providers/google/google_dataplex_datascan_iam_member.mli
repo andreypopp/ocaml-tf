@@ -32,6 +32,7 @@ val yojson_of_google_dataplex_datascan_iam_member :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   data_scan_id : string prop;
   etag : string prop;
   id : string prop;

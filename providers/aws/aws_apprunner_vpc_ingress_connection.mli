@@ -30,6 +30,7 @@ val yojson_of_aws_apprunner_vpc_ingress_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   domain_name : string prop;
   id : string prop;

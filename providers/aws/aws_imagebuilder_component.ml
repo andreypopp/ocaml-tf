@@ -179,6 +179,7 @@ let aws_imagebuilder_component ?change_description ?data ?description
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   change_description : string prop;
   data : string prop;
@@ -205,6 +206,7 @@ let make ?change_description ?data ?description ?id ?kms_key_id
   let __type = "aws_imagebuilder_component" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        change_description =
          Prop.computed __type __id "change_description";

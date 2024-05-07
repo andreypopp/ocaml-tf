@@ -139,6 +139,7 @@ let aws_directory_service_shared_directory ?id ?method_ ?notes
   { directory_id; id; method_; notes; target; timeouts }
 
 type t = {
+  tf_name : string;
   directory_id : string prop;
   id : string prop;
   method_ : string prop;
@@ -150,6 +151,7 @@ let make ?id ?method_ ?notes ?timeouts ~directory_id ~target __id =
   let __type = "aws_directory_service_shared_directory" in
   let __attrs =
     ({
+       tf_name = __id;
        directory_id = Prop.computed __type __id "directory_id";
        id = Prop.computed __type __id "id";
        method_ = Prop.computed __type __id "method";

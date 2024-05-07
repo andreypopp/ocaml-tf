@@ -734,6 +734,7 @@ let azurerm_hpc_cache ?automatically_rotate_key_to_latest_enabled ?id
   }
 
 type t = {
+  tf_name : string;
   automatically_rotate_key_to_latest_enabled : bool prop;
   cache_size_in_gb : float prop;
   id : string prop;
@@ -758,6 +759,7 @@ let make ?automatically_rotate_key_to_latest_enabled ?id
   let __type = "azurerm_hpc_cache" in
   let __attrs =
     ({
+       tf_name = __id;
        automatically_rotate_key_to_latest_enabled =
          Prop.computed __type __id
            "automatically_rotate_key_to_latest_enabled";

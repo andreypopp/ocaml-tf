@@ -249,6 +249,7 @@ val yojson_of_google_bigquery_job : google_bigquery_job -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   effective_labels : (string * string) list prop;
   id : string prop;
   job_id : string prop;

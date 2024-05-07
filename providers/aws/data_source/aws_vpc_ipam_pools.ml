@@ -232,12 +232,17 @@ let filter ~name ~values () : filter = { name; values }
 let aws_vpc_ipam_pools ?id ~filter () : aws_vpc_ipam_pools =
   { id; filter }
 
-type t = { id : string prop; ipam_pools : ipam_pools list prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  ipam_pools : ipam_pools list prop;
+}
 
 let make ?id ~filter __id =
   let __type = "aws_vpc_ipam_pools" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ipam_pools = Prop.computed __type __id "ipam_pools";
      }

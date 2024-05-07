@@ -410,6 +410,7 @@ let aws_cloudwatch_log_data_protection_policy_document ?description
   { description; id; name; version; statement }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   json : string prop;
@@ -423,6 +424,7 @@ let make ?description ?id ?version ~name ~statement __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        json = Prop.computed __type __id "json";

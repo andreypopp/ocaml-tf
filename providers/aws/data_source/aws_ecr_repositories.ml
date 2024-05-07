@@ -16,12 +16,17 @@ let _ = yojson_of_aws_ecr_repositories
 
 let aws_ecr_repositories () = ()
 
-type t = { id : string prop; names : string list prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  names : string list prop;
+}
 
 let make __id =
   let __type = "aws_ecr_repositories" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        names = Prop.computed __type __id "names";
      }

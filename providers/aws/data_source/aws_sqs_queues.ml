@@ -43,6 +43,7 @@ let aws_sqs_queues ?id ?queue_name_prefix () : aws_sqs_queues =
   { id; queue_name_prefix }
 
 type t = {
+  tf_name : string;
   id : string prop;
   queue_name_prefix : string prop;
   queue_urls : string list prop;
@@ -52,6 +53,7 @@ let make ?id ?queue_name_prefix __id =
   let __type = "aws_sqs_queues" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        queue_name_prefix =
          Prop.computed __type __id "queue_name_prefix";

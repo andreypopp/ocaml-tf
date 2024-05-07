@@ -35,6 +35,7 @@ val yojson_of_google_sql_source_representation_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   ca_certificate : string prop;
   client_certificate : string prop;
   client_key : string prop;

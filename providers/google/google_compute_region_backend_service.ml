@@ -1338,6 +1338,7 @@ let google_compute_region_backend_service ?affinity_cookie_ttl_sec
   }
 
 type t = {
+  tf_name : string;
   affinity_cookie_ttl_sec : float prop;
   connection_draining_timeout_sec : float prop;
   creation_timestamp : string prop;
@@ -1370,6 +1371,7 @@ let make ?affinity_cookie_ttl_sec ?connection_draining_timeout_sec
   let __type = "google_compute_region_backend_service" in
   let __attrs =
     ({
+       tf_name = __id;
        affinity_cookie_ttl_sec =
          Prop.computed __type __id "affinity_cookie_ttl_sec";
        connection_draining_timeout_sec =

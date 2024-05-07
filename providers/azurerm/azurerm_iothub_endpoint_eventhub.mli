@@ -36,6 +36,7 @@ val yojson_of_azurerm_iothub_endpoint_eventhub :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authentication_type : string prop;
   connection_string : string prop;
   endpoint_uri : string prop;

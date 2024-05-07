@@ -40,6 +40,7 @@ val yojson_of_google_certificate_manager_dns_authorization :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   dns_resource_record : dns_resource_record list prop;
   domain : string prop;

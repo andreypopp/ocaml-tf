@@ -282,6 +282,7 @@ let azurerm_stream_analytics_output_eventhub ?authentication_mode ?id
   }
 
 type t = {
+  tf_name : string;
   authentication_mode : string prop;
   eventhub_name : string prop;
   id : string prop;
@@ -302,6 +303,7 @@ let make ?authentication_mode ?id ?partition_key ?property_columns
   let __type = "azurerm_stream_analytics_output_eventhub" in
   let __attrs =
     ({
+       tf_name = __id;
        authentication_mode =
          Prop.computed __type __id "authentication_mode";
        eventhub_name = Prop.computed __type __id "eventhub_name";

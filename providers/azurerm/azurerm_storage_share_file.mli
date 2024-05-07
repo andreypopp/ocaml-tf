@@ -37,6 +37,7 @@ val yojson_of_azurerm_storage_share_file :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   content_disposition : string prop;
   content_encoding : string prop;
   content_length : float prop;

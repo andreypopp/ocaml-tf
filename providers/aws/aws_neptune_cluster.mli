@@ -66,6 +66,7 @@ val yojson_of_aws_neptune_cluster : aws_neptune_cluster -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_major_version_upgrade : bool prop;
   apply_immediately : bool prop;
   arn : string prop;

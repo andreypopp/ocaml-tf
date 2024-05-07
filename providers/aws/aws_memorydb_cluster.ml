@@ -536,6 +536,7 @@ let aws_memorydb_cluster ?auto_minor_version_upgrade ?data_tiering
   }
 
 type t = {
+  tf_name : string;
   acl_name : string prop;
   arn : string prop;
   auto_minor_version_upgrade : bool prop;
@@ -578,6 +579,7 @@ let make ?auto_minor_version_upgrade ?data_tiering ?description
   let __type = "aws_memorydb_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        acl_name = Prop.computed __type __id "acl_name";
        arn = Prop.computed __type __id "arn";
        auto_minor_version_upgrade =

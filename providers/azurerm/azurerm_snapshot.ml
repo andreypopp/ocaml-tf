@@ -355,6 +355,7 @@ let azurerm_snapshot ?disk_size_gb ?id ?incremental_enabled
   }
 
 type t = {
+  tf_name : string;
   create_option : string prop;
   disk_size_gb : float prop;
   id : string prop;
@@ -376,6 +377,7 @@ let make ?disk_size_gb ?id ?incremental_enabled ?source_resource_id
   let __type = "azurerm_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        create_option = Prop.computed __type __id "create_option";
        disk_size_gb = Prop.computed __type __id "disk_size_gb";
        id = Prop.computed __type __id "id";

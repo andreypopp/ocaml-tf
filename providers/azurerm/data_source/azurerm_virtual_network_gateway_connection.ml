@@ -201,6 +201,7 @@ let azurerm_virtual_network_gateway_connection ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   authorization_key : string prop;
   connection_protocol : string prop;
   dpd_timeout_seconds : float prop;
@@ -231,6 +232,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_virtual_network_gateway_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        authorization_key =
          Prop.computed __type __id "authorization_key";
        connection_protocol =

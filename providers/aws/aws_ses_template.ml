@@ -73,6 +73,7 @@ let aws_ses_template ?html ?id ?subject ?text ~name () :
   { html; id; name; subject; text }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   html : string prop;
   id : string prop;
@@ -85,6 +86,7 @@ let make ?html ?id ?subject ?text ~name __id =
   let __type = "aws_ses_template" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        html = Prop.computed __type __id "html";
        id = Prop.computed __type __id "id";

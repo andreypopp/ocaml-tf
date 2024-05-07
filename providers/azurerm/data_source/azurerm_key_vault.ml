@@ -219,6 +219,7 @@ let azurerm_key_vault ?id ?timeouts ~name ~resource_group_name () :
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   access_policy : access_policy list prop;
   enable_rbac_authorization : bool prop;
   enabled_for_deployment : bool prop;
@@ -241,6 +242,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_key_vault" in
   let __attrs =
     ({
+       tf_name = __id;
        access_policy = Prop.computed __type __id "access_policy";
        enable_rbac_authorization =
          Prop.computed __type __id "enable_rbac_authorization";

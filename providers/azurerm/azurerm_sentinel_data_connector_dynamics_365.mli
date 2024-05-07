@@ -30,6 +30,7 @@ val yojson_of_azurerm_sentinel_data_connector_dynamics_365 :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   log_analytics_workspace_id : string prop;
   name : string prop;

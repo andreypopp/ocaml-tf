@@ -886,6 +886,7 @@ let aws_dynamodb_table ?billing_mode ?deletion_protection_enabled
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   billing_mode : string prop;
   deletion_protection_enabled : bool prop;
@@ -917,6 +918,7 @@ let make ?billing_mode ?deletion_protection_enabled ?hash_key ?id
   let __type = "aws_dynamodb_table" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        billing_mode = Prop.computed __type __id "billing_mode";
        deletion_protection_enabled =

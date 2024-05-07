@@ -130,6 +130,7 @@ let aws_redshift_cluster_iam_roles ?default_iam_role_arn
   }
 
 type t = {
+  tf_name : string;
   cluster_identifier : string prop;
   default_iam_role_arn : string prop;
   iam_role_arns : string list prop;
@@ -141,6 +142,7 @@ let make ?default_iam_role_arn ?iam_role_arns ?id ?timeouts
   let __type = "aws_redshift_cluster_iam_roles" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_identifier =
          Prop.computed __type __id "cluster_identifier";
        default_iam_role_arn =

@@ -239,6 +239,7 @@ let google_vpc_access_connector ?id ?ip_cidr_range ?machine_type
   }
 
 type t = {
+  tf_name : string;
   connected_projects : string list prop;
   id : string prop;
   ip_cidr_range : string prop;
@@ -261,6 +262,7 @@ let make ?id ?ip_cidr_range ?machine_type ?max_instances
   let __type = "google_vpc_access_connector" in
   let __attrs =
     ({
+       tf_name = __id;
        connected_projects =
          Prop.computed __type __id "connected_projects";
        id = Prop.computed __type __id "id";

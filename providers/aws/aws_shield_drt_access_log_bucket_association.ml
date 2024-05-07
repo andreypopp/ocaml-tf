@@ -88,6 +88,7 @@ let aws_shield_drt_access_log_bucket_association ?timeouts
   { log_bucket; role_arn_association_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   log_bucket : string prop;
   role_arn_association_id : string prop;
@@ -97,6 +98,7 @@ let make ?timeouts ~log_bucket ~role_arn_association_id __id =
   let __type = "aws_shield_drt_access_log_bucket_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        log_bucket = Prop.computed __type __id "log_bucket";
        role_arn_association_id =

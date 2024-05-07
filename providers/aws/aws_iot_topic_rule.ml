@@ -2854,6 +2854,7 @@ let aws_iot_topic_rule ?description ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   enabled : bool prop;
@@ -2874,6 +2875,7 @@ let make ?description ?id ?tags ?tags_all ?(error_action = [])
   let __type = "aws_iot_topic_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        enabled = Prop.computed __type __id "enabled";

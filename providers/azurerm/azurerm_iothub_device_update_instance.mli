@@ -42,6 +42,7 @@ val yojson_of_azurerm_iothub_device_update_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   device_update_account_id : string prop;
   diagnostic_enabled : bool prop;
   id : string prop;

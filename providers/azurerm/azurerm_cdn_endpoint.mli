@@ -366,6 +366,7 @@ val yojson_of_azurerm_cdn_endpoint : azurerm_cdn_endpoint -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   content_types_to_compress : string list prop;
   fqdn : string prop;
   id : string prop;

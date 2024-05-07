@@ -118,6 +118,7 @@ let cloudflare_split_tunnel ?id ?policy_id ~account_id ~mode ~tunnels
   { account_id; id; mode; policy_id; tunnels }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   mode : string prop;
@@ -128,6 +129,7 @@ let make ?id ?policy_id ~account_id ~mode ~tunnels __id =
   let __type = "cloudflare_split_tunnel" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        mode = Prop.computed __type __id "mode";

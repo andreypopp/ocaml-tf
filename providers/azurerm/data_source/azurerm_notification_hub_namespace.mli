@@ -25,6 +25,7 @@ val yojson_of_azurerm_notification_hub_namespace :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   location : string prop;

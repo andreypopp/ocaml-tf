@@ -42,6 +42,7 @@ val yojson_of_azurerm_servicebus_namespace_network_rule_set :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   default_action : string prop;
   id : string prop;
   ip_rules : string list prop;

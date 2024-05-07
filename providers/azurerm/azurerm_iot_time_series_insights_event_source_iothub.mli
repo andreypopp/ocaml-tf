@@ -38,6 +38,7 @@ val yojson_of_azurerm_iot_time_series_insights_event_source_iothub :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   consumer_group_name : string prop;
   environment_id : string prop;
   event_source_resource_id : string prop;

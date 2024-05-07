@@ -147,6 +147,7 @@ let aws_ec2_traffic_mirror_session ?description ?id ?packet_length
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -167,6 +168,7 @@ let make ?description ?id ?packet_length ?tags ?tags_all
   let __type = "aws_ec2_traffic_mirror_session" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

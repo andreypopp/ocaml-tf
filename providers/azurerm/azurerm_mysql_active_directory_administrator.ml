@@ -148,6 +148,7 @@ let azurerm_mysql_active_directory_administrator ?id ?timeouts ~login
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   login : string prop;
   object_id : string prop;
@@ -161,6 +162,7 @@ let make ?id ?timeouts ~login ~object_id ~resource_group_name
   let __type = "azurerm_mysql_active_directory_administrator" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        login = Prop.computed __type __id "login";
        object_id = Prop.computed __type __id "object_id";

@@ -127,6 +127,7 @@ let aws_lambda_function_url ?id ?qualifier ~function_name () :
   { function_name; id; qualifier }
 
 type t = {
+  tf_name : string;
   authorization_type : string prop;
   cors : cors list prop;
   creation_time : string prop;
@@ -144,6 +145,7 @@ let make ?id ?qualifier ~function_name __id =
   let __type = "aws_lambda_function_url" in
   let __attrs =
     ({
+       tf_name = __id;
        authorization_type =
          Prop.computed __type __id "authorization_type";
        cors = Prop.computed __type __id "cors";

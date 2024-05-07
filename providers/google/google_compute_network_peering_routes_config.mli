@@ -32,6 +32,7 @@ val yojson_of_google_compute_network_peering_routes_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   export_custom_routes : bool prop;
   id : string prop;
   import_custom_routes : bool prop;

@@ -170,6 +170,7 @@ let azurerm_storage_share_directory ?id ?metadata ?share_name
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   metadata : (string * string) list prop;
   name : string prop;
@@ -183,6 +184,7 @@ let make ?id ?metadata ?share_name ?storage_account_name
   let __type = "azurerm_storage_share_directory" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        metadata = Prop.computed __type __id "metadata";
        name = Prop.computed __type __id "name";

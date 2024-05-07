@@ -120,6 +120,7 @@ let cloudflare_web_analytics_rule ?id ?timeouts ~account_id ~host
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   host : string prop;
   id : string prop;
@@ -134,6 +135,7 @@ let make ?id ?timeouts ~account_id ~host ~inclusive ~is_paused ~paths
   let __type = "cloudflare_web_analytics_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        host = Prop.computed __type __id "host";
        id = Prop.computed __type __id "id";

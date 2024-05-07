@@ -59,6 +59,7 @@ val yojson_of_azurerm_automation_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dsc_primary_access_key : string prop;
   dsc_secondary_access_key : string prop;
   dsc_server_endpoint : string prop;

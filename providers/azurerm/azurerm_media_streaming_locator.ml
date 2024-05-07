@@ -301,6 +301,7 @@ let azurerm_media_streaming_locator ?alternative_media_id
   }
 
 type t = {
+  tf_name : string;
   alternative_media_id : string prop;
   asset_name : string prop;
   default_content_key_policy_name : string prop;
@@ -323,6 +324,7 @@ let make ?alternative_media_id ?default_content_key_policy_name
   let __type = "azurerm_media_streaming_locator" in
   let __attrs =
     ({
+       tf_name = __id;
        alternative_media_id =
          Prop.computed __type __id "alternative_media_id";
        asset_name = Prop.computed __type __id "asset_name";

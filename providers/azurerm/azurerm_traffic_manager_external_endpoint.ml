@@ -288,6 +288,7 @@ let azurerm_traffic_manager_external_endpoint ?always_serve_enabled
   }
 
 type t = {
+  tf_name : string;
   always_serve_enabled : bool prop;
   enabled : bool prop;
   endpoint_location : string prop;
@@ -306,6 +307,7 @@ let make ?always_serve_enabled ?enabled ?endpoint_location
   let __type = "azurerm_traffic_manager_external_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        always_serve_enabled =
          Prop.computed __type __id "always_serve_enabled";
        enabled = Prop.computed __type __id "enabled";

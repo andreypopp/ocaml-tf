@@ -27,6 +27,7 @@ val yojson_of_aws_sagemaker_device : aws_sagemaker_device -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   agent_version : string prop;
   arn : string prop;
   device_fleet_name : string prop;

@@ -206,6 +206,7 @@ let aws_devicefarm_network_profile ?description
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   downlink_bandwidth_bits : float prop;
@@ -231,6 +232,7 @@ let make ?description ?downlink_bandwidth_bits ?downlink_delay_ms
   let __type = "aws_devicefarm_network_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        downlink_bandwidth_bits =

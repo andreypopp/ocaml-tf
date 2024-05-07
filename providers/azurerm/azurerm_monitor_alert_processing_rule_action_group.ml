@@ -982,6 +982,7 @@ let azurerm_monitor_alert_processing_rule_action_group ?description
   }
 
 type t = {
+  tf_name : string;
   add_action_group_ids : string list prop;
   description : string prop;
   enabled : bool prop;
@@ -1000,6 +1001,7 @@ let make ?description ?enabled ?id ?tags ?(condition = [])
   in
   let __attrs =
     ({
+       tf_name = __id;
        add_action_group_ids =
          Prop.computed __type __id "add_action_group_ids";
        description = Prop.computed __type __id "description";

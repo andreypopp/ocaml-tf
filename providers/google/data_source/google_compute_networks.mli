@@ -18,6 +18,7 @@ val yojson_of_google_compute_networks :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   networks : string list prop;
   project : string prop;

@@ -35,6 +35,7 @@ val yojson_of_cloudflare_ipsec_tunnel :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   allow_null_cipher : bool prop;
   cloudflare_endpoint : string prop;

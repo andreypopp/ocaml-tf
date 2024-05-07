@@ -25,6 +25,7 @@ val yojson_of_aws_dax_parameter_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   name : string prop;

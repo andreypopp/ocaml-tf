@@ -190,6 +190,7 @@ let cloudflare_logpush_job ?account_id ?enabled ?filter ?frequency
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   dataset : string prop;
   destination_conf : string prop;
@@ -214,6 +215,7 @@ let make ?account_id ?enabled ?filter ?frequency ?id ?kind
   let __type = "cloudflare_logpush_job" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        dataset = Prop.computed __type __id "dataset";
        destination_conf =

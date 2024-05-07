@@ -177,6 +177,7 @@ let azurerm_security_center_storage_defender ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   malware_scanning_on_upload_cap_gb_per_month : float prop;
   malware_scanning_on_upload_enabled : bool prop;
@@ -193,6 +194,7 @@ let make ?id ?malware_scanning_on_upload_cap_gb_per_month
   let __type = "azurerm_security_center_storage_defender" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        malware_scanning_on_upload_cap_gb_per_month =
          Prop.computed __type __id

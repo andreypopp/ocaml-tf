@@ -536,6 +536,7 @@ let aws_amplify_app ?access_token ?auto_branch_creation_patterns
   }
 
 type t = {
+  tf_name : string;
   access_token : string prop;
   arn : string prop;
   auto_branch_creation_patterns : string list prop;
@@ -571,6 +572,7 @@ let make ?access_token ?auto_branch_creation_patterns
   let __type = "aws_amplify_app" in
   let __attrs =
     ({
+       tf_name = __id;
        access_token = Prop.computed __type __id "access_token";
        arn = Prop.computed __type __id "arn";
        auto_branch_creation_patterns =

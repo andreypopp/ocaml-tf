@@ -69,6 +69,7 @@ val yojson_of_aws_mq_broker : aws_mq_broker -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   authentication_strategy : string prop;
   auto_minor_version_upgrade : bool prop;

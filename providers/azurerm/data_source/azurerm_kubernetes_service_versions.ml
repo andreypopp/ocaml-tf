@@ -99,6 +99,7 @@ let azurerm_kubernetes_service_versions ?id ?include_preview
   { id; include_preview; location; version_prefix; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   include_preview : bool prop;
   latest_version : string prop;
@@ -112,6 +113,7 @@ let make ?id ?include_preview ?version_prefix ?timeouts ~location
   let __type = "azurerm_kubernetes_service_versions" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        include_preview = Prop.computed __type __id "include_preview";
        latest_version = Prop.computed __type __id "latest_version";

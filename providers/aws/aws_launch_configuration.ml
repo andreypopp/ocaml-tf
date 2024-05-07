@@ -548,6 +548,7 @@ let aws_launch_configuration ?associate_public_ip_address
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   associate_public_ip_address : bool prop;
   ebs_optimized : bool prop;
@@ -575,6 +576,7 @@ let make ?associate_public_ip_address ?ebs_optimized
   let __type = "aws_launch_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        associate_public_ip_address =
          Prop.computed __type __id "associate_public_ip_address";

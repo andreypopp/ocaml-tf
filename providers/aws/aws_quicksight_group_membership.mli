@@ -22,6 +22,7 @@ val yojson_of_aws_quicksight_group_membership : aws_quicksight_group_membership 
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name: string;
   arn: string prop;
   aws_account_id: string prop;
   group_name: string prop;

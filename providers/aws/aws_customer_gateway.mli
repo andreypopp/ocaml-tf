@@ -23,6 +23,7 @@ val yojson_of_aws_customer_gateway : aws_customer_gateway -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   bgp_asn : string prop;
   certificate_arn : string prop;

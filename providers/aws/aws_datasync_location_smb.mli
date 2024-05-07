@@ -30,6 +30,7 @@ val yojson_of_aws_datasync_location_smb :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   agent_arns : string list prop;
   arn : string prop;
   domain : string prop;

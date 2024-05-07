@@ -195,6 +195,7 @@ val yojson_of_aws_dlm_lifecycle_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   execution_role_arn : string prop;

@@ -25,6 +25,7 @@ val yojson_of_aws_securityhub_configuration_policy_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   policy_id : string prop;
   target_id : string prop;

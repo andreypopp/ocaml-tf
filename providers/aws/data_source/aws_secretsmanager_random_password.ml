@@ -131,6 +131,7 @@ let aws_secretsmanager_random_password ?exclude_characters
   }
 
 type t = {
+  tf_name : string;
   exclude_characters : string prop;
   exclude_lowercase : bool prop;
   exclude_numbers : bool prop;
@@ -149,6 +150,7 @@ let make ?exclude_characters ?exclude_lowercase ?exclude_numbers
   let __type = "aws_secretsmanager_random_password" in
   let __attrs =
     ({
+       tf_name = __id;
        exclude_characters =
          Prop.computed __type __id "exclude_characters";
        exclude_lowercase =

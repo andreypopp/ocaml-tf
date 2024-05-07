@@ -295,6 +295,7 @@ let aws_db_option_group ?id ?name ?name_prefix
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   engine_name : string prop;
   id : string prop;
@@ -312,6 +313,7 @@ let make ?id ?name ?name_prefix ?option_group_description ?tags
   let __type = "aws_db_option_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        engine_name = Prop.computed __type __id "engine_name";
        id = Prop.computed __type __id "id";

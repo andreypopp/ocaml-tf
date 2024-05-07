@@ -178,6 +178,7 @@ let aws_fsx_ontap_file_system ?tags ~id () :
   { id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   automatic_backup_retention_days : float prop;
   daily_automatic_backup_start_time : string prop;
@@ -207,6 +208,7 @@ let make ?tags ~id __id =
   let __type = "aws_fsx_ontap_file_system" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        automatic_backup_retention_days =
          Prop.computed __type __id "automatic_backup_retention_days";

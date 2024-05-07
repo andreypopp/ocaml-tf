@@ -243,6 +243,7 @@ let google_firestore_field ?database ?id ?project
   }
 
 type t = {
+  tf_name : string;
   collection : string prop;
   database : string prop;
   field : string prop;
@@ -256,6 +257,7 @@ let make ?database ?id ?project ?(index_config = []) ?timeouts
   let __type = "google_firestore_field" in
   let __attrs =
     ({
+       tf_name = __id;
        collection = Prop.computed __type __id "collection";
        database = Prop.computed __type __id "database";
        field = Prop.computed __type __id "field";

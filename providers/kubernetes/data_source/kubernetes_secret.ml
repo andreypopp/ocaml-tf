@@ -151,6 +151,7 @@ let kubernetes_secret ?binary_data ?id ~metadata () :
   { binary_data; id; metadata }
 
 type t = {
+  tf_name : string;
   binary_data : (string * string) list prop;
   data : (string * string) list prop;
   id : string prop;
@@ -162,6 +163,7 @@ let make ?binary_data ?id ~metadata __id =
   let __type = "kubernetes_secret" in
   let __attrs =
     ({
+       tf_name = __id;
        binary_data = Prop.computed __type __id "binary_data";
        data = Prop.computed __type __id "data";
        id = Prop.computed __type __id "id";

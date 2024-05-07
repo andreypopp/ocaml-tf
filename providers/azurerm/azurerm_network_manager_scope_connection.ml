@@ -154,6 +154,7 @@ let azurerm_network_manager_scope_connection ?description ?id
   }
 
 type t = {
+  tf_name : string;
   connection_state : string prop;
   description : string prop;
   id : string prop;
@@ -168,6 +169,7 @@ let make ?description ?id ?timeouts ~name ~network_manager_id
   let __type = "azurerm_network_manager_scope_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        connection_state =
          Prop.computed __type __id "connection_state";
        description = Prop.computed __type __id "description";

@@ -65,6 +65,7 @@ val yojson_of_azurerm_mssql_virtual_machine_availability_group_listener :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   availability_group_name : string prop;
   id : string prop;
   name : string prop;

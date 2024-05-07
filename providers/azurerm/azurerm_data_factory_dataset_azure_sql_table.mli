@@ -48,6 +48,7 @@ val yojson_of_azurerm_data_factory_dataset_azure_sql_table :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   additional_properties : (string * string) list prop;
   annotations : string list prop;
   data_factory_id : string prop;

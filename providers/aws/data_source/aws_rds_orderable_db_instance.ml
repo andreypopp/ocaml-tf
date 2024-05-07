@@ -309,6 +309,7 @@ let aws_rds_orderable_db_instance ?availability_zone_group
   }
 
 type t = {
+  tf_name : string;
   availability_zone_group : string prop;
   availability_zones : string list prop;
   engine : string prop;
@@ -357,6 +358,7 @@ let make ?availability_zone_group ?engine_latest_version
   let __type = "aws_rds_orderable_db_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        availability_zone_group =
          Prop.computed __type __id "availability_zone_group";
        availability_zones =

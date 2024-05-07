@@ -172,6 +172,7 @@ let azurerm_log_analytics_datasource_windows_performance_counter ?id
   }
 
 type t = {
+  tf_name : string;
   counter_name : string prop;
   id : string prop;
   instance_name : string prop;
@@ -189,6 +190,7 @@ let make ?id ?timeouts ~counter_name ~instance_name ~interval_seconds
   in
   let __attrs =
     ({
+       tf_name = __id;
        counter_name = Prop.computed __type __id "counter_name";
        id = Prop.computed __type __id "id";
        instance_name = Prop.computed __type __id "instance_name";

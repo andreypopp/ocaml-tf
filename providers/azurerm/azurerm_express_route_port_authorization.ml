@@ -122,6 +122,7 @@ let azurerm_express_route_port_authorization ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   authorization_key : string prop;
   authorization_use_status : string prop;
   express_route_port_name : string prop;
@@ -135,6 +136,7 @@ let make ?id ?timeouts ~express_route_port_name ~name
   let __type = "azurerm_express_route_port_authorization" in
   let __attrs =
     ({
+       tf_name = __id;
        authorization_key =
          Prop.computed __type __id "authorization_key";
        authorization_use_status =

@@ -66,6 +66,7 @@ let aws_dms_replication_subnet_group ?id ?tags
   { id; replication_subnet_group_id; tags }
 
 type t = {
+  tf_name : string;
   id : string prop;
   replication_subnet_group_arn : string prop;
   replication_subnet_group_description : string prop;
@@ -80,6 +81,7 @@ let make ?id ?tags ~replication_subnet_group_id __id =
   let __type = "aws_dms_replication_subnet_group" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        replication_subnet_group_arn =
          Prop.computed __type __id "replication_subnet_group_arn";

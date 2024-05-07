@@ -30,6 +30,7 @@ val yojson_of_azurerm_managed_disk_sas_token :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_level : string prop;
   duration_in_seconds : float prop;
   id : string prop;

@@ -48,6 +48,7 @@ val yojson_of_aws_ec2_instance_type : aws_ec2_instance_type -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_recovery_supported : bool prop;
   bare_metal : bool prop;
   burstable_performance_supported : bool prop;

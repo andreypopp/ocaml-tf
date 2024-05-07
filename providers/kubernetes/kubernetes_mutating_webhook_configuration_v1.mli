@@ -110,7 +110,7 @@ val yojson_of_kubernetes_mutating_webhook_configuration_v1 :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop }
+type t = private { tf_name : string; id : string prop }
 
 val register :
   ?tf_module:tf_module ->

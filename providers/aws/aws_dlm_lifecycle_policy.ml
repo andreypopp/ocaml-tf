@@ -1179,6 +1179,7 @@ let aws_dlm_lifecycle_policy ?id ?state ?tags ?tags_all ~description
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   execution_role_arn : string prop;
@@ -1193,6 +1194,7 @@ let make ?id ?state ?tags ?tags_all ~description ~execution_role_arn
   let __type = "aws_dlm_lifecycle_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        execution_role_arn =

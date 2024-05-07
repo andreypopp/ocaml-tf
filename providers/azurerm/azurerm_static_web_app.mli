@@ -54,6 +54,7 @@ val yojson_of_azurerm_static_web_app : azurerm_static_web_app -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_key : string prop;
   app_settings : (string * string) list prop;
   configuration_file_changes_enabled : bool prop;

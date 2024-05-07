@@ -357,6 +357,7 @@ let aws_sagemaker_app_image_config ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   app_image_config_name : string prop;
   arn : string prop;
   id : string prop;
@@ -369,6 +370,7 @@ let make ?id ?tags ?tags_all ?(jupyter_lab_image_config = [])
   let __type = "aws_sagemaker_app_image_config" in
   let __attrs =
     ({
+       tf_name = __id;
        app_image_config_name =
          Prop.computed __type __id "app_image_config_name";
        arn = Prop.computed __type __id "arn";

@@ -118,6 +118,7 @@ let google_sourcerepo_repository_iam_member ?id ?project
   { id; member; project; repository; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   member : string prop;
@@ -131,6 +132,7 @@ let make ?id ?project ?(condition = []) ~member ~repository ~role
   let __type = "google_sourcerepo_repository_iam_member" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        member = Prop.computed __type __id "member";

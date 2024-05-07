@@ -107,6 +107,7 @@ let aws_api_gateway_method_response ?id ?response_models
   }
 
 type t = {
+  tf_name : string;
   http_method : string prop;
   id : string prop;
   resource_id : string prop;
@@ -121,6 +122,7 @@ let make ?id ?response_models ?response_parameters ~http_method
   let __type = "aws_api_gateway_method_response" in
   let __attrs =
     ({
+       tf_name = __id;
        http_method = Prop.computed __type __id "http_method";
        id = Prop.computed __type __id "id";
        resource_id = Prop.computed __type __id "resource_id";

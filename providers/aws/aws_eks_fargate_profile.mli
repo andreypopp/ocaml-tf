@@ -38,6 +38,7 @@ val yojson_of_aws_eks_fargate_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cluster_name : string prop;
   fargate_profile_name : string prop;

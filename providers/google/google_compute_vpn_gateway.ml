@@ -124,6 +124,7 @@ let google_compute_vpn_gateway ?description ?id ?project ?region
   { description; id; name; network; project; region; timeouts }
 
 type t = {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   gateway_id : float prop;
@@ -140,6 +141,7 @@ let make ?description ?id ?project ?region ?timeouts ~name ~network
   let __type = "google_compute_vpn_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";
        description = Prop.computed __type __id "description";

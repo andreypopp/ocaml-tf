@@ -165,6 +165,7 @@ let azurerm_sentinel_watchlist ?default_duration ?description ?id
   }
 
 type t = {
+  tf_name : string;
   default_duration : string prop;
   description : string prop;
   display_name : string prop;
@@ -181,6 +182,7 @@ let make ?default_duration ?description ?id ?labels ?timeouts
   let __type = "azurerm_sentinel_watchlist" in
   let __attrs =
     ({
+       tf_name = __id;
        default_duration =
          Prop.computed __type __id "default_duration";
        description = Prop.computed __type __id "description";

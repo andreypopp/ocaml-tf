@@ -27,6 +27,7 @@ val yojson_of_aws_lambda_provisioned_concurrency_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   function_name : string prop;
   id : string prop;
   provisioned_concurrent_executions : float prop;

@@ -31,6 +31,7 @@ val yojson_of_azurerm_storage_mover_project :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   name : string prop;

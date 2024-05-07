@@ -208,6 +208,7 @@ let azurerm_monitor_log_profile ?id ?servicebus_rule_id
   }
 
 type t = {
+  tf_name : string;
   categories : string list prop;
   id : string prop;
   locations : string list prop;
@@ -221,6 +222,7 @@ let make ?id ?servicebus_rule_id ?storage_account_id ?timeouts
   let __type = "azurerm_monitor_log_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        categories = Prop.computed __type __id "categories";
        id = Prop.computed __type __id "id";
        locations = Prop.computed __type __id "locations";

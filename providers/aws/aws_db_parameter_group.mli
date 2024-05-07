@@ -32,6 +32,7 @@ val yojson_of_aws_db_parameter_group : aws_db_parameter_group -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   family : string prop;

@@ -46,6 +46,7 @@ val yojson_of_aws_vpc_peering_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   accept_status : string prop;
   auto_accept : bool prop;
   id : string prop;

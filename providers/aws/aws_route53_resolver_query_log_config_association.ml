@@ -55,6 +55,7 @@ let aws_route53_resolver_query_log_config_association ?id
   { id; resolver_query_log_config_id; resource_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   resolver_query_log_config_id : string prop;
   resource_id : string prop;
@@ -64,6 +65,7 @@ let make ?id ~resolver_query_log_config_id ~resource_id __id =
   let __type = "aws_route53_resolver_query_log_config_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        resolver_query_log_config_id =
          Prop.computed __type __id "resolver_query_log_config_id";

@@ -328,6 +328,7 @@ let aws_lightsail_container_service ?id ?is_disabled ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zone : string prop;
   created_at : string prop;
@@ -352,6 +353,7 @@ let make ?id ?is_disabled ?tags ?tags_all
   let __type = "aws_lightsail_container_service" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zone =
          Prop.computed __type __id "availability_zone";

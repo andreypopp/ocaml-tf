@@ -59,6 +59,7 @@ val yojson_of_aws_redshift_scheduled_action :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   enable : bool prop;
   end_time : string prop;

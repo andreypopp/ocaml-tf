@@ -30,6 +30,7 @@ val yojson_of_azurerm_virtual_desktop_host_pool_registration_info :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   expiration_date : string prop;
   hostpool_id : string prop;
   id : string prop;

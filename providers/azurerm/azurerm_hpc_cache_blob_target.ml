@@ -163,6 +163,7 @@ let azurerm_hpc_cache_blob_target ?access_policy_name ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   access_policy_name : string prop;
   cache_name : string prop;
   id : string prop;
@@ -177,6 +178,7 @@ let make ?access_policy_name ?id ?timeouts ~cache_name ~name
   let __type = "azurerm_hpc_cache_blob_target" in
   let __attrs =
     ({
+       tf_name = __id;
        access_policy_name =
          Prop.computed __type __id "access_policy_name";
        cache_name = Prop.computed __type __id "cache_name";

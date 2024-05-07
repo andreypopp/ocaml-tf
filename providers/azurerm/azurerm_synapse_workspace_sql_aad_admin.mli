@@ -32,6 +32,7 @@ val yojson_of_azurerm_synapse_workspace_sql_aad_admin :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   login : string prop;
   object_id : string prop;

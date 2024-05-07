@@ -38,7 +38,11 @@ val yojson_of_digitalocean_ssh_keys : digitalocean_ssh_keys -> json
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; ssh_keys : ssh_keys list prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  ssh_keys : ssh_keys list prop;
+}
 
 val register :
   ?tf_module:tf_module ->

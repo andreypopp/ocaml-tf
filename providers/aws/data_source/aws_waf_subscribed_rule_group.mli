@@ -19,6 +19,7 @@ val yojson_of_aws_waf_subscribed_rule_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   metric_name : string prop;
   name : string prop;

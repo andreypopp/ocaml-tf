@@ -87,6 +87,7 @@ val yojson_of_azurerm_managed_disk : azurerm_managed_disk -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_option : string prop;
   disk_access_id : string prop;
   disk_encryption_set_id : string prop;

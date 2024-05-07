@@ -164,6 +164,7 @@ let aws_efs_replication_configuration ?id ?timeouts
   { id; source_file_system_id; destination; timeouts }
 
 type t = {
+  tf_name : string;
   creation_time : string prop;
   id : string prop;
   original_source_file_system_arn : string prop;
@@ -176,6 +177,7 @@ let make ?id ?timeouts ~source_file_system_id ~destination __id =
   let __type = "aws_efs_replication_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_time = Prop.computed __type __id "creation_time";
        id = Prop.computed __type __id "id";
        original_source_file_system_arn =

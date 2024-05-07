@@ -297,12 +297,17 @@ let azurerm_storage_blob_inventory_policy ?id ?timeouts
     azurerm_storage_blob_inventory_policy =
   { id; storage_account_id; rules; timeouts }
 
-type t = { id : string prop; storage_account_id : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  storage_account_id : string prop;
+}
 
 let make ?id ?timeouts ~storage_account_id ~rules __id =
   let __type = "azurerm_storage_blob_inventory_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        storage_account_id =
          Prop.computed __type __id "storage_account_id";

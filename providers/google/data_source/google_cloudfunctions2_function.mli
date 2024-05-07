@@ -118,6 +118,7 @@ val yojson_of_google_cloudfunctions2_function :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   build_config : build_config list prop;
   description : string prop;
   effective_labels : (string * string) list prop;

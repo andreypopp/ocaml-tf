@@ -165,6 +165,7 @@ let aws_mq_broker_instance_type_offerings ?engine_type
   { engine_type; host_instance_type; id; storage_type }
 
 type t = {
+  tf_name : string;
   broker_instance_options : broker_instance_options list prop;
   engine_type : string prop;
   host_instance_type : string prop;
@@ -176,6 +177,7 @@ let make ?engine_type ?host_instance_type ?id ?storage_type __id =
   let __type = "aws_mq_broker_instance_type_offerings" in
   let __attrs =
     ({
+       tf_name = __id;
        broker_instance_options =
          Prop.computed __type __id "broker_instance_options";
        engine_type = Prop.computed __type __id "engine_type";

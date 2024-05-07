@@ -838,6 +838,7 @@ let aws_finspace_kx_cluster ?availability_zone_id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zone_id : string prop;
   az_mode : string prop;
@@ -871,6 +872,7 @@ let make ?availability_zone_id ?command_line_arguments ?description
   let __type = "aws_finspace_kx_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zone_id =
          Prop.computed __type __id "availability_zone_id";

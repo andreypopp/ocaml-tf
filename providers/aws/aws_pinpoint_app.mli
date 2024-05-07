@@ -47,6 +47,7 @@ val yojson_of_aws_pinpoint_app : aws_pinpoint_app -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_id : string prop;
   arn : string prop;
   id : string prop;

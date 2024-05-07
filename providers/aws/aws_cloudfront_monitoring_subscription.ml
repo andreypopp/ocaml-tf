@@ -133,12 +133,17 @@ let aws_cloudfront_monitoring_subscription ?id ~distribution_id
     aws_cloudfront_monitoring_subscription =
   { distribution_id; id; monitoring_subscription }
 
-type t = { distribution_id : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  distribution_id : string prop;
+  id : string prop;
+}
 
 let make ?id ~distribution_id ~monitoring_subscription __id =
   let __type = "aws_cloudfront_monitoring_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        distribution_id = Prop.computed __type __id "distribution_id";
        id = Prop.computed __type __id "id";
      }

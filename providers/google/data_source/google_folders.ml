@@ -107,6 +107,7 @@ let google_folders ?id ~parent_id () : google_folders =
   { id; parent_id }
 
 type t = {
+  tf_name : string;
   folders : folders list prop;
   id : string prop;
   parent_id : string prop;
@@ -116,6 +117,7 @@ let make ?id ~parent_id __id =
   let __type = "google_folders" in
   let __attrs =
     ({
+       tf_name = __id;
        folders = Prop.computed __type __id "folders";
        id = Prop.computed __type __id "id";
        parent_id = Prop.computed __type __id "parent_id";

@@ -62,6 +62,7 @@ let aws_route53recoverycontrolconfig_routing_control
   { cluster_arn; control_panel_arn; id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cluster_arn : string prop;
   control_panel_arn : string prop;
@@ -74,6 +75,7 @@ let make ?control_panel_arn ?id ~cluster_arn ~name __id =
   let __type = "aws_route53recoverycontrolconfig_routing_control" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cluster_arn = Prop.computed __type __id "cluster_arn";
        control_panel_arn =

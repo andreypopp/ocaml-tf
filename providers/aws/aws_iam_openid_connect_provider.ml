@@ -101,6 +101,7 @@ let aws_iam_openid_connect_provider ?id ?tags ?tags_all
   { client_id_list; id; tags; tags_all; thumbprint_list; url }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   client_id_list : string list prop;
   id : string prop;
@@ -115,6 +116,7 @@ let make ?id ?tags ?tags_all ~client_id_list ~thumbprint_list ~url
   let __type = "aws_iam_openid_connect_provider" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        client_id_list = Prop.computed __type __id "client_id_list";
        id = Prop.computed __type __id "id";

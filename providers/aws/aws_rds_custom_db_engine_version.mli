@@ -40,6 +40,7 @@ val yojson_of_aws_rds_custom_db_engine_version :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   create_time : string prop;
   database_installation_files_s3_bucket_name : string prop;

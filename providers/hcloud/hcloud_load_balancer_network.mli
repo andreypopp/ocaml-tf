@@ -22,6 +22,7 @@ val yojson_of_hcloud_load_balancer_network :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enable_public_interface : bool prop;
   id : string prop;
   ip : string prop;

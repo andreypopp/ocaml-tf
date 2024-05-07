@@ -64,6 +64,7 @@ val yojson_of_aws_opsworks_application :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_bundle_on_deploy : string prop;
   aws_flow_ruby_settings : string prop;
   data_source_arn : string prop;

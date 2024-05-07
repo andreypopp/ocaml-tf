@@ -30,6 +30,7 @@ val yojson_of_aws_ecs_cluster_capacity_providers :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   capacity_providers : string list prop;
   cluster_name : string prop;
   id : string prop;

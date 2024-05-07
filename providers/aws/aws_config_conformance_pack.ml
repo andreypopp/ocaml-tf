@@ -141,6 +141,7 @@ let aws_config_conformance_pack ?delivery_s3_bucket
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   delivery_s3_bucket : string prop;
   delivery_s3_key_prefix : string prop;
@@ -155,6 +156,7 @@ let make ?delivery_s3_bucket ?delivery_s3_key_prefix ?id
   let __type = "aws_config_conformance_pack" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        delivery_s3_bucket =
          Prop.computed __type __id "delivery_s3_bucket";

@@ -693,6 +693,7 @@ let aws_cognito_risk_configuration ?client_id ?id
   }
 
 type t = {
+  tf_name : string;
   client_id : string prop;
   id : string prop;
   user_pool_id : string prop;
@@ -704,6 +705,7 @@ let make ?client_id ?id ?(account_takeover_risk_configuration = [])
   let __type = "aws_cognito_risk_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        client_id = Prop.computed __type __id "client_id";
        id = Prop.computed __type __id "id";
        user_pool_id = Prop.computed __type __id "user_pool_id";

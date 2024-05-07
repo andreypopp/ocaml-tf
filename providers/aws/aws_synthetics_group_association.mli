@@ -19,6 +19,7 @@ val yojson_of_aws_synthetics_group_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   canary_arn : string prop;
   group_arn : string prop;
   group_id : string prop;

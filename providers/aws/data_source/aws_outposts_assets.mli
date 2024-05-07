@@ -19,6 +19,7 @@ val yojson_of_aws_outposts_assets : aws_outposts_assets -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   asset_ids : string list prop;
   host_id_filter : string list prop;

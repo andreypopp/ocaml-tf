@@ -56,6 +56,7 @@ let aws_backup_vault ?id ?tags ~name () : aws_backup_vault =
   { id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   kms_key_arn : string prop;
@@ -68,6 +69,7 @@ let make ?id ?tags ~name __id =
   let __type = "aws_backup_vault" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        kms_key_arn = Prop.computed __type __id "kms_key_arn";

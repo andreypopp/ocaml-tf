@@ -21,6 +21,7 @@ val yojson_of_aws_vpc_endpoint_connection_notification :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   connection_events : string list prop;
   connection_notification_arn : string prop;
   id : string prop;

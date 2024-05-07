@@ -115,6 +115,7 @@ let azurerm_servicebus_topic ?id ?namespace_id ?namespace_name
   }
 
 type t = {
+  tf_name : string;
   auto_delete_on_idle : string prop;
   default_message_ttl : string prop;
   duplicate_detection_history_time_window : string prop;
@@ -137,6 +138,7 @@ let make ?id ?namespace_id ?namespace_name ?resource_group_name
   let __type = "azurerm_servicebus_topic" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_delete_on_idle =
          Prop.computed __type __id "auto_delete_on_idle";
        default_message_ttl =

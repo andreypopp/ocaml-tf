@@ -144,6 +144,7 @@ let aws_vpc_ipam_scope ?description ?id ?tags ?tags_all ?timeouts
   { description; id; ipam_id; tags; tags_all; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -160,6 +161,7 @@ let make ?description ?id ?tags ?tags_all ?timeouts ~ipam_id __id =
   let __type = "aws_vpc_ipam_scope" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

@@ -143,6 +143,7 @@ let google_eventarc_channel ?crypto_key_name ?id ?project
   }
 
 type t = {
+  tf_name : string;
   activation_token : string prop;
   create_time : string prop;
   crypto_key_name : string prop;
@@ -162,6 +163,7 @@ let make ?crypto_key_name ?id ?project ?third_party_provider
   let __type = "google_eventarc_channel" in
   let __attrs =
     ({
+       tf_name = __id;
        activation_token =
          Prop.computed __type __id "activation_token";
        create_time = Prop.computed __type __id "create_time";

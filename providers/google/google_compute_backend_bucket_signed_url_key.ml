@@ -114,6 +114,7 @@ let google_compute_backend_bucket_signed_url_key ?id ?project
   { backend_bucket; id; key_value; name; project; timeouts }
 
 type t = {
+  tf_name : string;
   backend_bucket : string prop;
   id : string prop;
   key_value : string prop;
@@ -126,6 +127,7 @@ let make ?id ?project ?timeouts ~backend_bucket ~key_value ~name __id
   let __type = "google_compute_backend_bucket_signed_url_key" in
   let __attrs =
     ({
+       tf_name = __id;
        backend_bucket = Prop.computed __type __id "backend_bucket";
        id = Prop.computed __type __id "id";
        key_value = Prop.computed __type __id "key_value";

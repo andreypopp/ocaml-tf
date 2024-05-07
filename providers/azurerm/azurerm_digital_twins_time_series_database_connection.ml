@@ -195,6 +195,7 @@ let azurerm_digital_twins_time_series_database_connection
   }
 
 type t = {
+  tf_name : string;
   digital_twins_id : string prop;
   eventhub_consumer_group_name : string prop;
   eventhub_name : string prop;
@@ -218,6 +219,7 @@ let make ?eventhub_consumer_group_name ?id ?kusto_table_name
   in
   let __attrs =
     ({
+       tf_name = __id;
        digital_twins_id =
          Prop.computed __type __id "digital_twins_id";
        eventhub_consumer_group_name =

@@ -17,7 +17,11 @@ val yojson_of_aws_cloudfront_log_delivery_canonical_user_id :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; region : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  region : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

@@ -23,6 +23,7 @@ val yojson_of_aws_neptune_orderable_db_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   availability_zones : string list prop;
   engine : string prop;
   engine_version : string prop;

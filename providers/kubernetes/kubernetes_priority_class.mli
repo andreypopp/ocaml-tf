@@ -32,6 +32,7 @@ val yojson_of_kubernetes_priority_class :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   global_default : bool prop;
   id : string prop;

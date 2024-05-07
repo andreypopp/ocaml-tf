@@ -51,6 +51,7 @@ val yojson_of_google_alloydb_backup : google_alloydb_backup -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   annotations : (string * string) list prop;
   backup_id : string prop;
   cluster_name : string prop;

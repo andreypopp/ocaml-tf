@@ -167,6 +167,7 @@ val yojson_of_aws_apprunner_service : aws_apprunner_service -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   auto_scaling_configuration_arn : string prop;
   id : string prop;

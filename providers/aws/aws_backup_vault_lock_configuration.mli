@@ -21,6 +21,7 @@ val yojson_of_aws_backup_vault_lock_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backup_vault_arn : string prop;
   backup_vault_name : string prop;
   changeable_for_days : float prop;

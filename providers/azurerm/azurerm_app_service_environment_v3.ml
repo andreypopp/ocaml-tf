@@ -298,6 +298,7 @@ let azurerm_app_service_environment_v3
   }
 
 type t = {
+  tf_name : string;
   allow_new_private_endpoint_connections : bool prop;
   dedicated_host_count : float prop;
   dns_suffix : string prop;
@@ -328,6 +329,7 @@ let make ?allow_new_private_endpoint_connections
   let __type = "azurerm_app_service_environment_v3" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_new_private_endpoint_connections =
          Prop.computed __type __id
            "allow_new_private_endpoint_connections";

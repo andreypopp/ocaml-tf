@@ -34,6 +34,7 @@ val yojson_of_azurerm_resources : azurerm_resources -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   required_tags : (string * string) list prop;

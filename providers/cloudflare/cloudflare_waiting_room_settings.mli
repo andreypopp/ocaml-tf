@@ -21,6 +21,7 @@ val yojson_of_cloudflare_waiting_room_settings :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   search_engine_crawler_bypass : bool prop;
   zone_id : string prop;

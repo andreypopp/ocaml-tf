@@ -92,6 +92,7 @@ let azurerm_blueprint_published_version ?id ?timeouts ~blueprint_name
   { blueprint_name; id; scope_id; version; timeouts }
 
 type t = {
+  tf_name : string;
   blueprint_name : string prop;
   description : string prop;
   display_name : string prop;
@@ -108,6 +109,7 @@ let make ?id ?timeouts ~blueprint_name ~scope_id ~version __id =
   let __type = "azurerm_blueprint_published_version" in
   let __attrs =
     ({
+       tf_name = __id;
        blueprint_name = Prop.computed __type __id "blueprint_name";
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";

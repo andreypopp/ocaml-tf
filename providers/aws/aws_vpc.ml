@@ -217,6 +217,7 @@ let aws_vpc ?assign_generated_ipv6_cidr_block ?cidr_block
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   assign_generated_ipv6_cidr_block : bool prop;
   cidr_block : string prop;
@@ -251,6 +252,7 @@ let make ?assign_generated_ipv6_cidr_block ?cidr_block
   let __type = "aws_vpc" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        assign_generated_ipv6_cidr_block =
          Prop.computed __type __id "assign_generated_ipv6_cidr_block";

@@ -65,6 +65,7 @@ let cloudflare_api_shield_operation_schema_validation_settings ?id
   { id; mitigation_action; operation_id; zone_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   mitigation_action : string prop;
   operation_id : string prop;
@@ -77,6 +78,7 @@ let make ?id ?mitigation_action ~operation_id ~zone_id __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        mitigation_action =
          Prop.computed __type __id "mitigation_action";

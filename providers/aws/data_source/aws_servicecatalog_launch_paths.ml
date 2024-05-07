@@ -173,6 +173,7 @@ let aws_servicecatalog_launch_paths ?accept_language ?id ?timeouts
   { accept_language; id; product_id; timeouts }
 
 type t = {
+  tf_name : string;
   accept_language : string prop;
   id : string prop;
   product_id : string prop;
@@ -183,6 +184,7 @@ let make ?accept_language ?id ?timeouts ~product_id __id =
   let __type = "aws_servicecatalog_launch_paths" in
   let __attrs =
     ({
+       tf_name = __id;
        accept_language = Prop.computed __type __id "accept_language";
        id = Prop.computed __type __id "id";
        product_id = Prop.computed __type __id "product_id";

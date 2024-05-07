@@ -613,6 +613,7 @@ let aws_sagemaker_endpoint ?id ?name ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   endpoint_config_name : string prop;
   id : string prop;
@@ -626,6 +627,7 @@ let make ?id ?name ?tags ?tags_all ?(deployment_config = [])
   let __type = "aws_sagemaker_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        endpoint_config_name =
          Prop.computed __type __id "endpoint_config_name";

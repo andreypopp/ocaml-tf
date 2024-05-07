@@ -221,6 +221,7 @@ let aws_sagemaker_project ?id ?project_description ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   project_description : string prop;
@@ -235,6 +236,7 @@ let make ?id ?project_description ?tags ?tags_all ~project_name
   let __type = "aws_sagemaker_project" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        project_description =

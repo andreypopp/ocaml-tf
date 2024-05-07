@@ -114,6 +114,7 @@ let azurerm_chaos_studio_target ?id ?timeouts ~location
   { id; location; target_resource_id; target_type; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   target_resource_id : string prop;
@@ -125,6 +126,7 @@ let make ?id ?timeouts ~location ~target_resource_id ~target_type
   let __type = "azurerm_chaos_studio_target" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        target_resource_id =

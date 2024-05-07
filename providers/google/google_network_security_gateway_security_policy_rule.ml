@@ -199,6 +199,7 @@ let google_network_security_gateway_security_policy_rule
   }
 
 type t = {
+  tf_name : string;
   application_matcher : string prop;
   basic_profile : string prop;
   create_time : string prop;
@@ -225,6 +226,7 @@ let make ?application_matcher ?description ?id ?project
   in
   let __attrs =
     ({
+       tf_name = __id;
        application_matcher =
          Prop.computed __type __id "application_matcher";
        basic_profile = Prop.computed __type __id "basic_profile";

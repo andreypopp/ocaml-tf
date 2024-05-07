@@ -116,6 +116,7 @@ let azurerm_app_service_certificate_binding ?id ?timeouts
   { certificate_id; hostname_binding_id; id; ssl_state; timeouts }
 
 type t = {
+  tf_name : string;
   app_service_name : string prop;
   certificate_id : string prop;
   hostname : string prop;
@@ -130,6 +131,7 @@ let make ?id ?timeouts ~certificate_id ~hostname_binding_id
   let __type = "azurerm_app_service_certificate_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        app_service_name =
          Prop.computed __type __id "app_service_name";
        certificate_id = Prop.computed __type __id "certificate_id";

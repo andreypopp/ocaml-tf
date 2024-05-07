@@ -37,6 +37,7 @@ val yojson_of_azurerm_bot_connection : azurerm_bot_connection -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bot_name : string prop;
   client_id : string prop;
   client_secret : string prop;

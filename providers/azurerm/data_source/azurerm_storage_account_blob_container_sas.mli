@@ -46,6 +46,7 @@ val yojson_of_azurerm_storage_account_blob_container_sas :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cache_control : string prop;
   connection_string : string prop;
   container_name : string prop;

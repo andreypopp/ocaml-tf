@@ -33,6 +33,7 @@ val yojson_of_azurerm_arc_private_link_scope :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

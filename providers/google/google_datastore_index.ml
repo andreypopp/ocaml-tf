@@ -143,6 +143,7 @@ let google_datastore_index ?ancestor ?id ?project ?(properties = [])
   { ancestor; id; kind; project; properties; timeouts }
 
 type t = {
+  tf_name : string;
   ancestor : string prop;
   id : string prop;
   index_id : string prop;
@@ -155,6 +156,7 @@ let make ?ancestor ?id ?project ?(properties = []) ?timeouts ~kind
   let __type = "google_datastore_index" in
   let __attrs =
     ({
+       tf_name = __id;
        ancestor = Prop.computed __type __id "ancestor";
        id = Prop.computed __type __id "id";
        index_id = Prop.computed __type __id "index_id";

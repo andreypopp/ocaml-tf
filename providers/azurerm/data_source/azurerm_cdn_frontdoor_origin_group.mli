@@ -40,6 +40,7 @@ val yojson_of_azurerm_cdn_frontdoor_origin_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cdn_frontdoor_profile_id : string prop;
   health_probe : health_probe list prop;
   id : string prop;

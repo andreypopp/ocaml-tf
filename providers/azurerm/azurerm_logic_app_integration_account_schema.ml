@@ -166,6 +166,7 @@ let azurerm_logic_app_integration_account_schema ?file_name ?id
   }
 
 type t = {
+  tf_name : string;
   content : string prop;
   file_name : string prop;
   id : string prop;
@@ -180,6 +181,7 @@ let make ?file_name ?id ?metadata ?timeouts ~content
   let __type = "azurerm_logic_app_integration_account_schema" in
   let __attrs =
     ({
+       tf_name = __id;
        content = Prop.computed __type __id "content";
        file_name = Prop.computed __type __id "file_name";
        id = Prop.computed __type __id "id";

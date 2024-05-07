@@ -46,6 +46,7 @@ let aws_opensearchserverless_security_policy ?id ~name ~type_ () :
   { id; name; type_ }
 
 type t = {
+  tf_name : string;
   created_date : string prop;
   description : string prop;
   id : string prop;
@@ -60,6 +61,7 @@ let make ?id ~name ~type_ __id =
   let __type = "aws_opensearchserverless_security_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        created_date = Prop.computed __type __id "created_date";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

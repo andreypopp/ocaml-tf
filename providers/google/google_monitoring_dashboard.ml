@@ -111,6 +111,7 @@ let google_monitoring_dashboard ?id ?project ?timeouts
   { dashboard_json; id; project; timeouts }
 
 type t = {
+  tf_name : string;
   dashboard_json : string prop;
   id : string prop;
   project : string prop;
@@ -120,6 +121,7 @@ let make ?id ?project ?timeouts ~dashboard_json __id =
   let __type = "google_monitoring_dashboard" in
   let __attrs =
     ({
+       tf_name = __id;
        dashboard_json = Prop.computed __type __id "dashboard_json";
        id = Prop.computed __type __id "id";
        project = Prop.computed __type __id "project";

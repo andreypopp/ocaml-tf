@@ -91,6 +91,7 @@ let aws_iam_virtual_mfa_device ?id ?path ?tags ?tags_all
   { id; path; tags; tags_all; virtual_mfa_device_name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   base_32_string_seed : string prop;
   enable_date : string prop;
@@ -107,6 +108,7 @@ let make ?id ?path ?tags ?tags_all ~virtual_mfa_device_name __id =
   let __type = "aws_iam_virtual_mfa_device" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        base_32_string_seed =
          Prop.computed __type __id "base_32_string_seed";

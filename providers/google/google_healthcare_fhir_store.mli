@@ -80,6 +80,7 @@ val yojson_of_google_healthcare_fhir_store :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   complex_data_type_reference_parsing : string prop;
   dataset : string prop;
   default_search_handling_strict : bool prop;

@@ -178,6 +178,7 @@ val yojson_of_aws_dms_endpoint : aws_dms_endpoint -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_arn : string prop;
   database_name : string prop;
   elasticsearch_settings : elasticsearch_settings list prop;

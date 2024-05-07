@@ -31,6 +31,7 @@ val yojson_of_azurerm_disk_pool_iscsi_target :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   acl_mode : string prop;
   disks_pool_id : string prop;
   endpoints : string list prop;

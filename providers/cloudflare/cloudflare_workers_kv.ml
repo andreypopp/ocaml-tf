@@ -61,6 +61,7 @@ let cloudflare_workers_kv ?id ~account_id ~key ~namespace_id ~value
   { account_id; id; key; namespace_id; value }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   key : string prop;
@@ -72,6 +73,7 @@ let make ?id ~account_id ~key ~namespace_id ~value __id =
   let __type = "cloudflare_workers_kv" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        key = Prop.computed __type __id "key";

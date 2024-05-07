@@ -76,12 +76,17 @@ let digitalocean_database_firewall ?id ~cluster_id ~rule () :
     digitalocean_database_firewall =
   { cluster_id; id; rule }
 
-type t = { cluster_id : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  cluster_id : string prop;
+  id : string prop;
+}
 
 let make ?id ~cluster_id ~rule __id =
   let __type = "digitalocean_database_firewall" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_id = Prop.computed __type __id "cluster_id";
        id = Prop.computed __type __id "id";
      }

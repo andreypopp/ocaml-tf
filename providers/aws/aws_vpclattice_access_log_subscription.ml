@@ -91,6 +91,7 @@ let aws_vpclattice_access_log_subscription ?id ?tags ?tags_all
   { destination_arn; id; resource_identifier; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   destination_arn : string prop;
   id : string prop;
@@ -105,6 +106,7 @@ let make ?id ?tags ?tags_all ~destination_arn ~resource_identifier
   let __type = "aws_vpclattice_access_log_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        destination_arn = Prop.computed __type __id "destination_arn";
        id = Prop.computed __type __id "id";

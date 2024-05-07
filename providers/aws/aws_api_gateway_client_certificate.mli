@@ -20,6 +20,7 @@ val yojson_of_aws_api_gateway_client_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   created_date : string prop;
   description : string prop;

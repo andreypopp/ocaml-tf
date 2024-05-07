@@ -17,6 +17,7 @@ let aws_macie2_account ?finding_publishing_frequency ?id ?status () =
   } : aws_macie2_account);;
 
 type t = {
+  tf_name: string;
   created_at: string prop;
   finding_publishing_frequency: string prop;
   id: string prop;
@@ -28,6 +29,7 @@ type t = {
 let make ?finding_publishing_frequency ?id ?status __id =
   let __type = "aws_macie2_account" in
   let __attrs = ({
+    tf_name = __id;
     created_at = Prop.computed __type __id "created_at";
     finding_publishing_frequency = Prop.computed __type __id "finding_publishing_frequency";
     id = Prop.computed __type __id "id";

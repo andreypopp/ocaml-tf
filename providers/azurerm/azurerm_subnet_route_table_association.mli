@@ -29,6 +29,7 @@ val yojson_of_azurerm_subnet_route_table_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   route_table_id : string prop;
   subnet_id : string prop;

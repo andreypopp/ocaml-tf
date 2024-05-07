@@ -27,6 +27,7 @@ val yojson_of_aws_opensearchserverless_collection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   collection_endpoint : string prop;
   dashboard_endpoint : string prop;

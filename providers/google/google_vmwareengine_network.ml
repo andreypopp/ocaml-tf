@@ -160,6 +160,7 @@ let google_vmwareengine_network ?description ?id ?project ?timeouts
   { description; id; location; name; project; type_; timeouts }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   location : string prop;
@@ -176,6 +177,7 @@ let make ?description ?id ?project ?timeouts ~location ~name ~type_
   let __type = "google_vmwareengine_network" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

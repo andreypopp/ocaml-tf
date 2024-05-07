@@ -141,6 +141,7 @@ let azurerm_automation_hybrid_runbook_worker ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   automation_account_name : string prop;
   id : string prop;
   ip : string prop;
@@ -159,6 +160,7 @@ let make ?id ?timeouts ~automation_account_name ~resource_group_name
   let __type = "azurerm_automation_hybrid_runbook_worker" in
   let __attrs =
     ({
+       tf_name = __id;
        automation_account_name =
          Prop.computed __type __id "automation_account_name";
        id = Prop.computed __type __id "id";

@@ -129,6 +129,7 @@ let google_storage_object_signed_url ?content_md5 ?content_type
   }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   content_md5 : string prop;
   content_type : string prop;
@@ -146,6 +147,7 @@ let make ?content_md5 ?content_type ?credentials ?duration
   let __type = "google_storage_object_signed_url" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        content_md5 = Prop.computed __type __id "content_md5";
        content_type = Prop.computed __type __id "content_type";

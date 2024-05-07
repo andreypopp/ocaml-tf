@@ -27,6 +27,7 @@ val yojson_of_aws_cloud9_environment_ec2 :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   automatic_stop_time_minutes : float prop;
   connection_type : string prop;

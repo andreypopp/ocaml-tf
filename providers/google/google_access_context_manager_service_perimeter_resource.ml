@@ -102,6 +102,7 @@ let google_access_context_manager_service_perimeter_resource ?id
   { id; perimeter_name; resource; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   perimeter_name : string prop;
   resource : string prop;
@@ -113,6 +114,7 @@ let make ?id ?timeouts ~perimeter_name ~resource __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        perimeter_name = Prop.computed __type __id "perimeter_name";
        resource = Prop.computed __type __id "resource";

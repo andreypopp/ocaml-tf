@@ -484,6 +484,7 @@ let aws_ecs_task_set ?external_id ?force_delete ?id ?launch_type
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cluster : string prop;
   external_id : string prop;
@@ -511,6 +512,7 @@ let make ?external_id ?force_delete ?id ?launch_type
   let __type = "aws_ecs_task_set" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cluster = Prop.computed __type __id "cluster";
        external_id = Prop.computed __type __id "external_id";

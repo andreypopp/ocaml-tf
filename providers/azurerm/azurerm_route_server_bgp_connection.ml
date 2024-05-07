@@ -120,6 +120,7 @@ let azurerm_route_server_bgp_connection ?id ?timeouts ~name ~peer_asn
   { id; name; peer_asn; peer_ip; route_server_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   peer_asn : float prop;
@@ -132,6 +133,7 @@ let make ?id ?timeouts ~name ~peer_asn ~peer_ip ~route_server_id __id
   let __type = "azurerm_route_server_bgp_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        peer_asn = Prop.computed __type __id "peer_asn";

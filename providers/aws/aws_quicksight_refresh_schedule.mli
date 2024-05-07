@@ -48,6 +48,7 @@ val yojson_of_aws_quicksight_refresh_schedule : aws_quicksight_refresh_schedule 
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name: string;
   arn: string prop;
   aws_account_id: string prop;
   data_set_id: string prop;

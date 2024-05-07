@@ -441,6 +441,7 @@ let azurerm_eventhub_namespace ?auto_inflate_enabled ?capacity
   }
 
 type t = {
+  tf_name : string;
   auto_inflate_enabled : bool prop;
   capacity : float prop;
   dedicated_cluster_id : string prop;
@@ -473,6 +474,7 @@ let make ?auto_inflate_enabled ?capacity ?dedicated_cluster_id ?id
   let __type = "azurerm_eventhub_namespace" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_inflate_enabled =
          Prop.computed __type __id "auto_inflate_enabled";
        capacity = Prop.computed __type __id "capacity";

@@ -38,6 +38,7 @@ val yojson_of_kubernetes_secret_v1 : kubernetes_secret_v1 -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   binary_data : (string * string) list prop;
   data : (string * string) list prop;
   id : string prop;

@@ -19,6 +19,7 @@ val yojson_of_aws_networkmanager_sites :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   global_network_id : string prop;
   id : string prop;
   ids : string list prop;

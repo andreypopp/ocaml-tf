@@ -76,6 +76,7 @@ val yojson_of_google_compute_region_network_firewall_policy_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action : string prop;
   description : string prop;
   direction : string prop;

@@ -332,6 +332,7 @@ let aws_appstream_image_builder ?appstream_agent_version ?description
   }
 
 type t = {
+  tf_name : string;
   appstream_agent_version : string prop;
   arn : string prop;
   created_time : string prop;
@@ -356,6 +357,7 @@ let make ?appstream_agent_version ?description ?display_name
   let __type = "aws_appstream_image_builder" in
   let __attrs =
     ({
+       tf_name = __id;
        appstream_agent_version =
          Prop.computed __type __id "appstream_agent_version";
        arn = Prop.computed __type __id "arn";

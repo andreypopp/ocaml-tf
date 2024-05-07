@@ -267,6 +267,7 @@ let azurerm_vpn_gateway ?id ?timeouts ~name ~resource_group_name () :
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   bgp_settings : bgp_settings list prop;
   id : string prop;
   location : string prop;
@@ -281,6 +282,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_vpn_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        bgp_settings = Prop.computed __type __id "bgp_settings";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

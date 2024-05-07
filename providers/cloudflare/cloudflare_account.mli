@@ -23,6 +23,7 @@ val yojson_of_cloudflare_account : cloudflare_account -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enforce_twofactor : bool prop;
   id : string prop;
   name : string prop;

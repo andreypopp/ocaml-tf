@@ -1810,6 +1810,7 @@ let google_sql_database_instance ?deletion_protection
   }
 
 type t = {
+  tf_name : string;
   available_maintenance_versions : string list prop;
   connection_name : string prop;
   database_version : string prop;
@@ -1842,6 +1843,7 @@ let make ?deletion_protection ?encryption_key_name ?id ?instance_type
   let __type = "google_sql_database_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        available_maintenance_versions =
          Prop.computed __type __id "available_maintenance_versions";
        connection_name = Prop.computed __type __id "connection_name";

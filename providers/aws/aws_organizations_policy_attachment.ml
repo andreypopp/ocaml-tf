@@ -60,6 +60,7 @@ let aws_organizations_policy_attachment ?id ?skip_destroy ~policy_id
   { id; policy_id; skip_destroy; target_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   policy_id : string prop;
   skip_destroy : bool prop;
@@ -70,6 +71,7 @@ let make ?id ?skip_destroy ~policy_id ~target_id __id =
   let __type = "aws_organizations_policy_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        policy_id = Prop.computed __type __id "policy_id";
        skip_destroy = Prop.computed __type __id "skip_destroy";

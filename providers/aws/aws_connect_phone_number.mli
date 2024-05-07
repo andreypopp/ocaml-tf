@@ -39,6 +39,7 @@ val yojson_of_aws_connect_phone_number :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   country_code : string prop;
   description : string prop;

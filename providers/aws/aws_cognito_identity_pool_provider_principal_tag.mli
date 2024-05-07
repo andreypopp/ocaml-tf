@@ -21,6 +21,7 @@ val yojson_of_aws_cognito_identity_pool_provider_principal_tag :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   identity_pool_id : string prop;
   identity_provider_name : string prop;

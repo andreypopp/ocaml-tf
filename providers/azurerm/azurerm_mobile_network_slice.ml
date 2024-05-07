@@ -227,6 +227,7 @@ let azurerm_mobile_network_slice ?description ?id ?tags ?timeouts
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   location : string prop;
@@ -241,6 +242,7 @@ let make ?description ?id ?tags ?timeouts ~location
   let __type = "azurerm_mobile_network_slice" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

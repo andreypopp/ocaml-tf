@@ -130,6 +130,7 @@ let aws_api_gateway_integration_response ?content_handling ?id
   }
 
 type t = {
+  tf_name : string;
   content_handling : string prop;
   http_method : string prop;
   id : string prop;
@@ -147,6 +148,7 @@ let make ?content_handling ?id ?response_parameters
   let __type = "aws_api_gateway_integration_response" in
   let __attrs =
     ({
+       tf_name = __id;
        content_handling =
          Prop.computed __type __id "content_handling";
        http_method = Prop.computed __type __id "http_method";

@@ -17,6 +17,7 @@ val yojson_of_aws_lightsail_domain : aws_lightsail_domain -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   domain_name : string prop;
   id : string prop;

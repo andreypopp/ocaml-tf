@@ -25,6 +25,7 @@ val yojson_of_aws_ec2_host : aws_ec2_host -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   asset_id : string prop;
   auto_placement : string prop;

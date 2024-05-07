@@ -40,6 +40,7 @@ val yojson_of_azurerm_security_center_subscription_pricing :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   resource_type : string prop;
   subplan : string prop;

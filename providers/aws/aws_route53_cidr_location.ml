@@ -51,6 +51,7 @@ let aws_route53_cidr_location ~cidr_blocks ~cidr_collection_id ~name
   { cidr_blocks; cidr_collection_id; name }
 
 type t = {
+  tf_name : string;
   cidr_blocks : string list prop;
   cidr_collection_id : string prop;
   id : string prop;
@@ -61,6 +62,7 @@ let make ~cidr_blocks ~cidr_collection_id ~name __id =
   let __type = "aws_route53_cidr_location" in
   let __attrs =
     ({
+       tf_name = __id;
        cidr_blocks = Prop.computed __type __id "cidr_blocks";
        cidr_collection_id =
          Prop.computed __type __id "cidr_collection_id";

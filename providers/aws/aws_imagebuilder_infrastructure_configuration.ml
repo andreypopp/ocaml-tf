@@ -328,6 +328,7 @@ let aws_imagebuilder_infrastructure_configuration ?description ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   date_created : string prop;
   date_updated : string prop;
@@ -353,6 +354,7 @@ let make ?description ?id ?instance_types ?key_pair ?resource_tags
   let __type = "aws_imagebuilder_infrastructure_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        date_created = Prop.computed __type __id "date_created";
        date_updated = Prop.computed __type __id "date_updated";

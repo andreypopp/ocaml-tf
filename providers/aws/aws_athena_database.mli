@@ -37,6 +37,7 @@ val yojson_of_aws_athena_database : aws_athena_database -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket : string prop;
   comment : string prop;
   expected_bucket_owner : string prop;

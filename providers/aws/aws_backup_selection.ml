@@ -332,6 +332,7 @@ let aws_backup_selection ?id ?not_resources ?resources ~iam_role_arn
   }
 
 type t = {
+  tf_name : string;
   iam_role_arn : string prop;
   id : string prop;
   name : string prop;
@@ -345,6 +346,7 @@ let make ?id ?not_resources ?resources ~iam_role_arn ~name ~plan_id
   let __type = "aws_backup_selection" in
   let __attrs =
     ({
+       tf_name = __id;
        iam_role_arn = Prop.computed __type __id "iam_role_arn";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

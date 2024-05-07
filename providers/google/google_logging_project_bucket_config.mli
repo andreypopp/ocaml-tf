@@ -38,6 +38,7 @@ val yojson_of_google_logging_project_bucket_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket_id : string prop;
   description : string prop;
   enable_analytics : bool prop;

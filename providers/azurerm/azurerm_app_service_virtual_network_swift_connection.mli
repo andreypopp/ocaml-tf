@@ -30,6 +30,7 @@ val yojson_of_azurerm_app_service_virtual_network_swift_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_service_id : string prop;
   id : string prop;
   subnet_id : string prop;

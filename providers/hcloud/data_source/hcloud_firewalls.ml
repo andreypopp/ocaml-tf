@@ -212,6 +212,7 @@ let hcloud_firewalls ?id ?most_recent ?with_selector () :
   { id; most_recent; with_selector }
 
 type t = {
+  tf_name : string;
   firewalls : firewalls list prop;
   id : string prop;
   most_recent : bool prop;
@@ -222,6 +223,7 @@ let make ?id ?most_recent ?with_selector __id =
   let __type = "hcloud_firewalls" in
   let __attrs =
     ({
+       tf_name = __id;
        firewalls = Prop.computed __type __id "firewalls";
        id = Prop.computed __type __id "id";
        most_recent = Prop.computed __type __id "most_recent";

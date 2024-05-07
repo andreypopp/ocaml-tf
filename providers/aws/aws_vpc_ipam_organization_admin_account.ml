@@ -48,6 +48,7 @@ let aws_vpc_ipam_organization_admin_account ?id
   { delegated_admin_account_id; id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   delegated_admin_account_id : string prop;
   email : string prop;
@@ -60,6 +61,7 @@ let make ?id ~delegated_admin_account_id __id =
   let __type = "aws_vpc_ipam_organization_admin_account" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        delegated_admin_account_id =
          Prop.computed __type __id "delegated_admin_account_id";

@@ -92,6 +92,7 @@ let aws_ssmcontacts_contact_channel ?id ~contact_id ~name ~type_
   { contact_id; id; name; type_; delivery_address }
 
 type t = {
+  tf_name : string;
   activation_status : string prop;
   arn : string prop;
   contact_id : string prop;
@@ -104,6 +105,7 @@ let make ?id ~contact_id ~name ~type_ ~delivery_address __id =
   let __type = "aws_ssmcontacts_contact_channel" in
   let __attrs =
     ({
+       tf_name = __id;
        activation_status =
          Prop.computed __type __id "activation_status";
        arn = Prop.computed __type __id "arn";

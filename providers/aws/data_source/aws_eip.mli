@@ -29,6 +29,7 @@ val yojson_of_aws_eip : aws_eip -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   association_id : string prop;
   carrier_ip : string prop;
   customer_owned_ip : string prop;

@@ -187,6 +187,7 @@ let google_certificate_manager_certificate_map_entry ?description
   }
 
 type t = {
+  tf_name : string;
   certificates : string list prop;
   create_time : string prop;
   description : string prop;
@@ -208,6 +209,7 @@ let make ?description ?hostname ?id ?labels ?matcher ?project
   let __type = "google_certificate_manager_certificate_map_entry" in
   let __attrs =
     ({
+       tf_name = __id;
        certificates = Prop.computed __type __id "certificates";
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";

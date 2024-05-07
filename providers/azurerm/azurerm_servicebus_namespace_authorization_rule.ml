@@ -151,6 +151,7 @@ let azurerm_servicebus_namespace_authorization_rule ?id ?listen
   { id; listen; manage; name; namespace_id; send; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   listen : bool prop;
   manage : bool prop;
@@ -170,6 +171,7 @@ let make ?id ?listen ?manage ?send ?timeouts ~name ~namespace_id __id
   let __type = "azurerm_servicebus_namespace_authorization_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        listen = Prop.computed __type __id "listen";
        manage = Prop.computed __type __id "manage";

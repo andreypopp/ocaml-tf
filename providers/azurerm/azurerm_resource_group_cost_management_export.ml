@@ -260,6 +260,7 @@ let azurerm_resource_group_cost_management_export ?active ?id
   }
 
 type t = {
+  tf_name : string;
   active : bool prop;
   id : string prop;
   name : string prop;
@@ -275,6 +276,7 @@ let make ?active ?id ?timeouts ~name ~recurrence_period_end_date
   let __type = "azurerm_resource_group_cost_management_export" in
   let __attrs =
     ({
+       tf_name = __id;
        active = Prop.computed __type __id "active";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

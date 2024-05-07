@@ -260,6 +260,7 @@ let aws_ami_copy ?deprecation_time ?description
   }
 
 type t = {
+  tf_name : string;
   architecture : string prop;
   arn : string prop;
   boot_mode : string prop;
@@ -302,6 +303,7 @@ let make ?deprecation_time ?description ?destination_outpost_arn
   let __type = "aws_ami_copy" in
   let __attrs =
     ({
+       tf_name = __id;
        architecture = Prop.computed __type __id "architecture";
        arn = Prop.computed __type __id "arn";
        boot_mode = Prop.computed __type __id "boot_mode";

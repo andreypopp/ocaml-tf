@@ -19,6 +19,7 @@ val yojson_of_google_container_registry_repository :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   project : string prop;
   region : string prop;

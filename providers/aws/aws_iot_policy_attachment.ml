@@ -45,6 +45,7 @@ let aws_iot_policy_attachment ?id ~policy ~target () :
   { id; policy; target }
 
 type t = {
+  tf_name : string;
   id : string prop;
   policy : string prop;
   target : string prop;
@@ -54,6 +55,7 @@ let make ?id ~policy ~target __id =
   let __type = "aws_iot_policy_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        policy = Prop.computed __type __id "policy";
        target = Prop.computed __type __id "target";

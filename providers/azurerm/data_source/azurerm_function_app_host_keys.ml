@@ -86,6 +86,7 @@ let azurerm_function_app_host_keys ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   blobs_extension_key : string prop;
   default_function_key : string prop;
   durabletask_extension_key : string prop;
@@ -103,6 +104,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_function_app_host_keys" in
   let __attrs =
     ({
+       tf_name = __id;
        blobs_extension_key =
          Prop.computed __type __id "blobs_extension_key";
        default_function_key =

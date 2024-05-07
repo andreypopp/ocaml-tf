@@ -46,6 +46,7 @@ val yojson_of_azurerm_dns_zone : azurerm_dns_zone -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   max_number_of_record_sets : float prop;
   name : string prop;

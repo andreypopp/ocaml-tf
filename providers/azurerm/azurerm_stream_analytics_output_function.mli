@@ -36,6 +36,7 @@ val yojson_of_azurerm_stream_analytics_output_function :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_key : string prop;
   batch_max_count : float prop;
   batch_max_in_bytes : float prop;

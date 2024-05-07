@@ -25,6 +25,7 @@ val yojson_of_google_storage_object_signed_url :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket : string prop;
   content_md5 : string prop;
   content_type : string prop;

@@ -45,6 +45,7 @@ val yojson_of_cloudflare_load_balancer_monitor :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   allow_insecure : bool prop;
   consecutive_down : float prop;

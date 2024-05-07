@@ -35,6 +35,7 @@ val yojson_of_google_app_engine_service_network_settings :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   project : string prop;
   service : string prop;

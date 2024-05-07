@@ -95,6 +95,7 @@ let azurerm_iothub_dps_shared_access_policy ?id ?timeouts
   { id; iothub_dps_name; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   iothub_dps_name : string prop;
   name : string prop;
@@ -110,6 +111,7 @@ let make ?id ?timeouts ~iothub_dps_name ~name ~resource_group_name
   let __type = "azurerm_iothub_dps_shared_access_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        iothub_dps_name = Prop.computed __type __id "iothub_dps_name";
        name = Prop.computed __type __id "name";

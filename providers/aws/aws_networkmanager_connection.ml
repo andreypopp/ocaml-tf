@@ -194,6 +194,7 @@ let aws_networkmanager_connection ?connected_link_id ?description ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   connected_device_id : string prop;
   connected_link_id : string prop;
@@ -212,6 +213,7 @@ let make ?connected_link_id ?description ?id ?link_id ?tags ?tags_all
   let __type = "aws_networkmanager_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        connected_device_id =
          Prop.computed __type __id "connected_device_id";

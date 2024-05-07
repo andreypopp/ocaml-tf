@@ -130,6 +130,7 @@ let google_gke_hub_membership_iam_binding ?id ?location ?project
   { id; location; members; membership_id; project; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   location : string prop;
@@ -144,6 +145,7 @@ let make ?id ?location ?project ?(condition = []) ~members
   let __type = "google_gke_hub_membership_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

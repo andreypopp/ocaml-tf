@@ -365,6 +365,7 @@ let cloudflare_load_balancer_pool ?check_regions ?description
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   check_regions : string list prop;
   created_on : string prop;
@@ -386,6 +387,7 @@ let make ?check_regions ?description ?enabled ?id ?latitude
   let __type = "cloudflare_load_balancer_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        check_regions = Prop.computed __type __id "check_regions";
        created_on = Prop.computed __type __id "created_on";

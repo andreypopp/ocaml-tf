@@ -91,6 +91,7 @@ val yojson_of_aws_route53_record : aws_route53_record -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_overwrite : bool prop;
   fqdn : string prop;
   health_check_id : string prop;

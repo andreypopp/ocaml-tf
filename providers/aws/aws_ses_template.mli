@@ -20,6 +20,7 @@ val yojson_of_aws_ses_template : aws_ses_template -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   html : string prop;
   id : string prop;

@@ -48,6 +48,7 @@ val yojson_of_azurerm_data_protection_backup_policy_disk :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backup_repeating_time_intervals : string list prop;
   default_retention_duration : string prop;
   id : string prop;

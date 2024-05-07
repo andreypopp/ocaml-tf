@@ -51,6 +51,7 @@ val yojson_of_azurerm_logic_app_integration_account_agreement :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   agreement_type : string prop;
   content : string prop;
   guest_partner_name : string prop;

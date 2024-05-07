@@ -39,6 +39,7 @@ val yojson_of_azurerm_api_management_identity_provider_aadb2c :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allowed_tenant : string prop;
   api_management_name : string prop;
   authority : string prop;

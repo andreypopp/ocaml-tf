@@ -39,6 +39,7 @@ let aws_workspaces_image ?id ~image_id () : aws_workspaces_image =
   { id; image_id }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   image_id : string prop;
@@ -52,6 +53,7 @@ let make ?id ~image_id __id =
   let __type = "aws_workspaces_image" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        image_id = Prop.computed __type __id "image_id";

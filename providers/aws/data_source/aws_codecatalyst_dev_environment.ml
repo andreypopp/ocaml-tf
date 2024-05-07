@@ -174,6 +174,7 @@ let aws_codecatalyst_dev_environment ?alias ?creator_id ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   alias : string prop;
   creator_id : string prop;
   env_id : string prop;
@@ -195,6 +196,7 @@ let make ?alias ?creator_id ?id ?tags ?(repositories = []) ~env_id
   let __type = "aws_codecatalyst_dev_environment" in
   let __attrs =
     ({
+       tf_name = __id;
        alias = Prop.computed __type __id "alias";
        creator_id = Prop.computed __type __id "creator_id";
        env_id = Prop.computed __type __id "env_id";

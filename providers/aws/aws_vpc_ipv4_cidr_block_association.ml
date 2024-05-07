@@ -127,6 +127,7 @@ let aws_vpc_ipv4_cidr_block_association ?cidr_block ?id
   }
 
 type t = {
+  tf_name : string;
   cidr_block : string prop;
   id : string prop;
   ipv4_ipam_pool_id : string prop;
@@ -139,6 +140,7 @@ let make ?cidr_block ?id ?ipv4_ipam_pool_id ?ipv4_netmask_length
   let __type = "aws_vpc_ipv4_cidr_block_association" in
   let __attrs =
     ({
+       tf_name = __id;
        cidr_block = Prop.computed __type __id "cidr_block";
        id = Prop.computed __type __id "id";
        ipv4_ipam_pool_id =

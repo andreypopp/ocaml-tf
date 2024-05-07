@@ -22,6 +22,7 @@ val yojson_of_hcloud_rdns : hcloud_rdns -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dns_ptr : string prop;
   floating_ip_id : float prop;
   id : string prop;

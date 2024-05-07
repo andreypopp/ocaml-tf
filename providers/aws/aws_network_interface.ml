@@ -331,6 +331,7 @@ let aws_network_interface ?description ?id ?interface_type
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -369,6 +370,7 @@ let make ?description ?id ?interface_type ?ipv4_prefix_count
   let __type = "aws_network_interface" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

@@ -230,6 +230,7 @@ val yojson_of_google_compute_instance_template :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   can_ip_forward : bool prop;
   description : string prop;
   effective_labels : (string * string) list prop;

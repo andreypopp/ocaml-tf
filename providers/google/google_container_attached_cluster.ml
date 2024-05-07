@@ -636,6 +636,7 @@ let google_container_attached_cluster ?annotations ?deletion_policy
   }
 
 type t = {
+  tf_name : string;
   annotations : (string * string) list prop;
   cluster_region : string prop;
   create_time : string prop;
@@ -665,6 +666,7 @@ let make ?annotations ?deletion_policy ?description ?id ?project
   let __type = "google_container_attached_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        annotations = Prop.computed __type __id "annotations";
        cluster_region = Prop.computed __type __id "cluster_region";
        create_time = Prop.computed __type __id "create_time";

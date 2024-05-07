@@ -162,6 +162,7 @@ let azurerm_storage_mover ?description ?id ?tags ?timeouts ~location
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   location : string prop;
@@ -175,6 +176,7 @@ let make ?description ?id ?tags ?timeouts ~location ~name
   let __type = "azurerm_storage_mover" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

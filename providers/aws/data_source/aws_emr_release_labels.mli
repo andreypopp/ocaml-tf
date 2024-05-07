@@ -22,6 +22,7 @@ val yojson_of_aws_emr_release_labels : aws_emr_release_labels -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   release_labels : string list prop;
 }

@@ -23,6 +23,7 @@ val yojson_of_aws_ec2_traffic_mirror_target :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   gateway_load_balancer_endpoint_id : string prop;

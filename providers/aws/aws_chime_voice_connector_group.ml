@@ -82,12 +82,13 @@ let aws_chime_voice_connector_group ?id ~name ~connector () :
     aws_chime_voice_connector_group =
   { id; name; connector }
 
-type t = { id : string prop; name : string prop }
+type t = { tf_name : string; id : string prop; name : string prop }
 
 let make ?id ~name ~connector __id =
   let __type = "aws_chime_voice_connector_group" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
      }

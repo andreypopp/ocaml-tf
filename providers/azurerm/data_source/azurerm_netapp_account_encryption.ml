@@ -123,6 +123,7 @@ let azurerm_netapp_account_encryption ?encryption_key ?id
   }
 
 type t = {
+  tf_name : string;
   encryption_key : string prop;
   id : string prop;
   netapp_account_id : string prop;
@@ -135,6 +136,7 @@ let make ?encryption_key ?id ?system_assigned_identity_principal_id
   let __type = "azurerm_netapp_account_encryption" in
   let __attrs =
     ({
+       tf_name = __id;
        encryption_key = Prop.computed __type __id "encryption_key";
        id = Prop.computed __type __id "id";
        netapp_account_id =

@@ -32,6 +32,7 @@ val yojson_of_azurerm_site_recovery_hyperv_network_mapping :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   recovery_vault_id : string prop;

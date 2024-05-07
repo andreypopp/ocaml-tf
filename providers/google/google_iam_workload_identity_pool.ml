@@ -151,6 +151,7 @@ let google_iam_workload_identity_pool ?description ?disabled
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   disabled : bool prop;
   display_name : string prop;
@@ -166,6 +167,7 @@ let make ?description ?disabled ?display_name ?id ?project ?timeouts
   let __type = "google_iam_workload_identity_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        disabled = Prop.computed __type __id "disabled";
        display_name = Prop.computed __type __id "display_name";

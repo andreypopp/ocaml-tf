@@ -437,6 +437,7 @@ let azurerm_synapse_spark_pool ?cache_size ?compute_isolation_enabled
   }
 
 type t = {
+  tf_name : string;
   cache_size : float prop;
   compute_isolation_enabled : bool prop;
   dynamic_executor_allocation_enabled : bool prop;
@@ -465,6 +466,7 @@ let make ?cache_size ?compute_isolation_enabled
   let __type = "azurerm_synapse_spark_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        cache_size = Prop.computed __type __id "cache_size";
        compute_isolation_enabled =
          Prop.computed __type __id "compute_isolation_enabled";

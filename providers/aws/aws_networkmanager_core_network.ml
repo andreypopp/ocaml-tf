@@ -290,6 +290,7 @@ let aws_networkmanager_core_network ?base_policy_document
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   base_policy_document : string prop;
   base_policy_region : string prop;
@@ -312,6 +313,7 @@ let make ?base_policy_document ?base_policy_region
   let __type = "aws_networkmanager_core_network" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        base_policy_document =
          Prop.computed __type __id "base_policy_document";

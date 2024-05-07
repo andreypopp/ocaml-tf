@@ -239,6 +239,7 @@ let azurerm_app_service_environment ?allowed_user_ip_cidrs
   }
 
 type t = {
+  tf_name : string;
   allowed_user_ip_cidrs : string list prop;
   front_end_scale_factor : float prop;
   id : string prop;
@@ -261,6 +262,7 @@ let make ?allowed_user_ip_cidrs ?front_end_scale_factor ?id
   let __type = "azurerm_app_service_environment" in
   let __attrs =
     ({
+       tf_name = __id;
        allowed_user_ip_cidrs =
          Prop.computed __type __id "allowed_user_ip_cidrs";
        front_end_scale_factor =

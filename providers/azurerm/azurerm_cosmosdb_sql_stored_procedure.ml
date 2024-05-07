@@ -157,6 +157,7 @@ let azurerm_cosmosdb_sql_stored_procedure ?id ?timeouts ~account_name
   }
 
 type t = {
+  tf_name : string;
   account_name : string prop;
   body : string prop;
   container_name : string prop;
@@ -171,6 +172,7 @@ let make ?id ?timeouts ~account_name ~body ~container_name
   let __type = "azurerm_cosmosdb_sql_stored_procedure" in
   let __attrs =
     ({
+       tf_name = __id;
        account_name = Prop.computed __type __id "account_name";
        body = Prop.computed __type __id "body";
        container_name = Prop.computed __type __id "container_name";

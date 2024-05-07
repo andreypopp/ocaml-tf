@@ -21,6 +21,7 @@ val yojson_of_aws_route53_resolver_query_log_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   destination_arn : string prop;
   id : string prop;

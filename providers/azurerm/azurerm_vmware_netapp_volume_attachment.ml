@@ -116,6 +116,7 @@ let azurerm_vmware_netapp_volume_attachment ?id ?timeouts ~name
   { id; name; netapp_volume_id; vmware_cluster_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   netapp_volume_id : string prop;
@@ -127,6 +128,7 @@ let make ?id ?timeouts ~name ~netapp_volume_id ~vmware_cluster_id
   let __type = "azurerm_vmware_netapp_volume_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        netapp_volume_id =

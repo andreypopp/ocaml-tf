@@ -67,6 +67,7 @@ val yojson_of_aws_s3_object_copy : aws_s3_object_copy -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   acl : string prop;
   arn : string prop;
   bucket : string prop;

@@ -77,6 +77,7 @@ let google_vmwareengine_subnet ?id ~name ~parent () :
   { id; name; parent }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   dhcp_address_ranges : dhcp_address_ranges list prop;
   gateway_id : string prop;
@@ -97,6 +98,7 @@ let make ?id ~name ~parent __id =
   let __type = "google_vmwareengine_subnet" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        dhcp_address_ranges =
          Prop.computed __type __id "dhcp_address_ranges";

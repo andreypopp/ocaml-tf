@@ -71,6 +71,7 @@ val yojson_of_aws_dms_s3_endpoint : aws_dms_s3_endpoint -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   add_column_name : bool prop;
   add_trailing_padding_character : bool prop;
   bucket_folder : string prop;

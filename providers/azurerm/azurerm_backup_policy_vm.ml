@@ -556,6 +556,7 @@ let azurerm_backup_policy_vm ?id ?instant_restore_retention_days
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   instant_restore_retention_days : float prop;
   name : string prop;
@@ -573,6 +574,7 @@ let make ?id ?instant_restore_retention_days ?policy_type ?timezone
   let __type = "azurerm_backup_policy_vm" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        instant_restore_retention_days =
          Prop.computed __type __id "instant_restore_retention_days";

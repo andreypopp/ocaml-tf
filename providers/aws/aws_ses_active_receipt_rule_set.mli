@@ -18,6 +18,7 @@ val yojson_of_aws_ses_active_receipt_rule_set :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   rule_set_name : string prop;

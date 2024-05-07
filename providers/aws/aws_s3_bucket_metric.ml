@@ -116,6 +116,7 @@ let aws_s3_bucket_metric ?id ?(filter = []) ~bucket ~name () :
   { bucket; id; name; filter }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   id : string prop;
   name : string prop;
@@ -125,6 +126,7 @@ let make ?id ?(filter = []) ~bucket ~name __id =
   let __type = "aws_s3_bucket_metric" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

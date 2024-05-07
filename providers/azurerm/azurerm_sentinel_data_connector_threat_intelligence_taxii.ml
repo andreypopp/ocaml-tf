@@ -210,6 +210,7 @@ let azurerm_sentinel_data_connector_threat_intelligence_taxii ?id
   }
 
 type t = {
+  tf_name : string;
   api_root_url : string prop;
   collection_id : string prop;
   display_name : string prop;
@@ -231,6 +232,7 @@ let make ?id ?lookback_date ?password ?polling_frequency ?tenant_id
   in
   let __attrs =
     ({
+       tf_name = __id;
        api_root_url = Prop.computed __type __id "api_root_url";
        collection_id = Prop.computed __type __id "collection_id";
        display_name = Prop.computed __type __id "display_name";

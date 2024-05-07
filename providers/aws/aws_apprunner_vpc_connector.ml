@@ -107,6 +107,7 @@ let aws_apprunner_vpc_connector ?id ?tags ?tags_all ~security_groups
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   security_groups : string list prop;
@@ -123,6 +124,7 @@ let make ?id ?tags ?tags_all ~security_groups ~subnets
   let __type = "aws_apprunner_vpc_connector" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        security_groups = Prop.computed __type __id "security_groups";

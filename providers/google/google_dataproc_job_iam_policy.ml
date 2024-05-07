@@ -70,6 +70,7 @@ let google_dataproc_job_iam_policy ?id ?project ?region ~job_id
   { id; job_id; policy_data; project; region }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   job_id : string prop;
@@ -82,6 +83,7 @@ let make ?id ?project ?region ~job_id ~policy_data __id =
   let __type = "google_dataproc_job_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        job_id = Prop.computed __type __id "job_id";

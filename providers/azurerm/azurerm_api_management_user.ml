@@ -202,6 +202,7 @@ let azurerm_api_management_user ?confirmation ?id ?note ?password
   }
 
 type t = {
+  tf_name : string;
   api_management_name : string prop;
   confirmation : string prop;
   email : string prop;
@@ -221,6 +222,7 @@ let make ?confirmation ?id ?note ?password ?state ?timeouts
   let __type = "azurerm_api_management_user" in
   let __attrs =
     ({
+       tf_name = __id;
        api_management_name =
          Prop.computed __type __id "api_management_name";
        confirmation = Prop.computed __type __id "confirmation";

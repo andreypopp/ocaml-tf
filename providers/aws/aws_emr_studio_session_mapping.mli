@@ -22,6 +22,7 @@ val yojson_of_aws_emr_studio_session_mapping :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   identity_id : string prop;
   identity_name : string prop;

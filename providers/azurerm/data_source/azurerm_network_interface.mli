@@ -46,6 +46,7 @@ val yojson_of_azurerm_network_interface :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   applied_dns_servers : string list prop;
   dns_servers : string list prop;
   enable_accelerated_networking : bool prop;

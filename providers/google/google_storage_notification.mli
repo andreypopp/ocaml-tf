@@ -23,6 +23,7 @@ val yojson_of_google_storage_notification :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket : string prop;
   custom_attributes : (string * string) list prop;
   event_types : string list prop;

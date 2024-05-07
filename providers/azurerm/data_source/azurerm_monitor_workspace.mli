@@ -24,6 +24,7 @@ val yojson_of_azurerm_monitor_workspace :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   default_data_collection_endpoint_id : string prop;
   default_data_collection_rule_id : string prop;
   id : string prop;

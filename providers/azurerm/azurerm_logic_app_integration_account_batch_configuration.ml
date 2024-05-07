@@ -429,6 +429,7 @@ let azurerm_logic_app_integration_account_batch_configuration ?id
   }
 
 type t = {
+  tf_name : string;
   batch_group_name : string prop;
   id : string prop;
   integration_account_name : string prop;
@@ -445,6 +446,7 @@ let make ?id ?metadata ?timeouts ~batch_group_name
   in
   let __attrs =
     ({
+       tf_name = __id;
        batch_group_name =
          Prop.computed __type __id "batch_group_name";
        id = Prop.computed __type __id "id";

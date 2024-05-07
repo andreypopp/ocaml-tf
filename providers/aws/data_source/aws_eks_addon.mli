@@ -19,6 +19,7 @@ val yojson_of_aws_eks_addon : aws_eks_addon -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   addon_name : string prop;
   addon_version : string prop;
   arn : string prop;

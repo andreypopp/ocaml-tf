@@ -153,6 +153,7 @@ let google_storage_default_object_access_control ?id ?object_
   { bucket; entity; id; object_; role; timeouts }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   domain : string prop;
   email : string prop;
@@ -169,6 +170,7 @@ let make ?id ?object_ ?timeouts ~bucket ~entity ~role __id =
   let __type = "google_storage_default_object_access_control" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        domain = Prop.computed __type __id "domain";
        email = Prop.computed __type __id "email";

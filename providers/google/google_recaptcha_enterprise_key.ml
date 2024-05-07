@@ -432,6 +432,7 @@ let google_recaptcha_enterprise_key ?id ?labels ?project
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;
@@ -448,6 +449,7 @@ let make ?id ?labels ?project ?(android_settings = [])
   let __type = "google_recaptcha_enterprise_key" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        display_name = Prop.computed __type __id "display_name";
        effective_labels =

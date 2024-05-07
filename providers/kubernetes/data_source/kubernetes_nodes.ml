@@ -456,12 +456,17 @@ let metadata ~labels () : metadata = { labels }
 let kubernetes_nodes ?id ?(metadata = []) () : kubernetes_nodes =
   { id; metadata }
 
-type t = { id : string prop; nodes : nodes list prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  nodes : nodes list prop;
+}
 
 let make ?id ?(metadata = []) __id =
   let __type = "kubernetes_nodes" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        nodes = Prop.computed __type __id "nodes";
      }

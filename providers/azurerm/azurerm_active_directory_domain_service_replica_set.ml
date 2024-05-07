@@ -115,6 +115,7 @@ let azurerm_active_directory_domain_service_replica_set ?id ?timeouts
   { domain_service_id; id; location; subnet_id; timeouts }
 
 type t = {
+  tf_name : string;
   domain_controller_ip_addresses : string list prop;
   domain_service_id : string prop;
   external_access_ip_address : string prop;
@@ -130,6 +131,7 @@ let make ?id ?timeouts ~domain_service_id ~location ~subnet_id __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        domain_controller_ip_addresses =
          Prop.computed __type __id "domain_controller_ip_addresses";
        domain_service_id =

@@ -299,6 +299,7 @@ let azurerm_machine_learning_inference_cluster ?cluster_purpose
   }
 
 type t = {
+  tf_name : string;
   cluster_purpose : string prop;
   description : string prop;
   id : string prop;
@@ -315,6 +316,7 @@ let make ?cluster_purpose ?description ?id ?tags ?(identity = [])
   let __type = "azurerm_machine_learning_inference_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_purpose = Prop.computed __type __id "cluster_purpose";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

@@ -85,6 +85,7 @@ let azurerm_lb_rule ?id ?timeouts ~loadbalancer_id ~name () :
   { id; loadbalancer_id; name; timeouts }
 
 type t = {
+  tf_name : string;
   backend_address_pool_id : string prop;
   backend_port : float prop;
   disable_outbound_snat : bool prop;
@@ -105,6 +106,7 @@ let make ?id ?timeouts ~loadbalancer_id ~name __id =
   let __type = "azurerm_lb_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        backend_address_pool_id =
          Prop.computed __type __id "backend_address_pool_id";
        backend_port = Prop.computed __type __id "backend_port";

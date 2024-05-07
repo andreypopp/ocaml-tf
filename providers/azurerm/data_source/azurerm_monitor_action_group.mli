@@ -111,6 +111,7 @@ val yojson_of_azurerm_monitor_action_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arm_role_receiver : arm_role_receiver list prop;
   automation_runbook_receiver :
     automation_runbook_receiver list prop;

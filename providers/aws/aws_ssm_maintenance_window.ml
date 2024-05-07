@@ -184,6 +184,7 @@ let aws_ssm_maintenance_window ?allow_unassociated_targets
   }
 
 type t = {
+  tf_name : string;
   allow_unassociated_targets : bool prop;
   cutoff : float prop;
   description : string prop;
@@ -206,6 +207,7 @@ let make ?allow_unassociated_targets ?description ?enabled ?end_date
   let __type = "aws_ssm_maintenance_window" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_unassociated_targets =
          Prop.computed __type __id "allow_unassociated_targets";
        cutoff = Prop.computed __type __id "cutoff";

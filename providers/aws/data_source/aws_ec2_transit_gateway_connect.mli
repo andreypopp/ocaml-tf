@@ -30,6 +30,7 @@ val yojson_of_aws_ec2_transit_gateway_connect :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   protocol : string prop;
   tags : (string * string) list prop;

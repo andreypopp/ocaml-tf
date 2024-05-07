@@ -147,6 +147,7 @@ let aws_sesv2_email_identity ?id ?tags ~email_identity () :
   { email_identity; id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   configuration_set_name : string prop;
   dkim_signing_attributes : dkim_signing_attributes list prop;
@@ -161,6 +162,7 @@ let make ?id ?tags ~email_identity __id =
   let __type = "aws_sesv2_email_identity" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        configuration_set_name =
          Prop.computed __type __id "configuration_set_name";

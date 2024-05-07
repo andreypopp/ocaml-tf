@@ -218,6 +218,7 @@ let azurerm_stream_analytics_reference_input_mssql
   }
 
 type t = {
+  tf_name : string;
   database : string prop;
   delta_snapshot_query : string prop;
   full_snapshot_query : string prop;
@@ -240,6 +241,7 @@ let make ?delta_snapshot_query ?id ?refresh_interval_duration ?table
   let __type = "azurerm_stream_analytics_reference_input_mssql" in
   let __attrs =
     ({
+       tf_name = __id;
        database = Prop.computed __type __id "database";
        delta_snapshot_query =
          Prop.computed __type __id "delta_snapshot_query";

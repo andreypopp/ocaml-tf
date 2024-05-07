@@ -263,6 +263,7 @@ let azurerm_synapse_sql_pool ?collation ?create_mode ?data_encrypted
   }
 
 type t = {
+  tf_name : string;
   collation : string prop;
   create_mode : string prop;
   data_encrypted : bool prop;
@@ -283,6 +284,7 @@ let make ?collation ?create_mode ?data_encrypted
   let __type = "azurerm_synapse_sql_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        collation = Prop.computed __type __id "collation";
        create_mode = Prop.computed __type __id "create_mode";
        data_encrypted = Prop.computed __type __id "data_encrypted";

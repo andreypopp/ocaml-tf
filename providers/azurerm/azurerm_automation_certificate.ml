@@ -165,6 +165,7 @@ let azurerm_automation_certificate ?description ?exportable ?id
   }
 
 type t = {
+  tf_name : string;
   automation_account_name : string prop;
   base64 : string prop;
   description : string prop;
@@ -181,6 +182,7 @@ let make ?description ?exportable ?id ?timeouts
   let __type = "azurerm_automation_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        automation_account_name =
          Prop.computed __type __id "automation_account_name";
        base64 = Prop.computed __type __id "base64";

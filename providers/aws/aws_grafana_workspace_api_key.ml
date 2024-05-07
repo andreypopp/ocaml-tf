@@ -65,6 +65,7 @@ let aws_grafana_workspace_api_key ?id ~key_name ~key_role
   { id; key_name; key_role; seconds_to_live; workspace_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   key : string prop;
   key_name : string prop;
@@ -78,6 +79,7 @@ let make ?id ~key_name ~key_role ~seconds_to_live ~workspace_id __id
   let __type = "aws_grafana_workspace_api_key" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        key = Prop.computed __type __id "key";
        key_name = Prop.computed __type __id "key_name";

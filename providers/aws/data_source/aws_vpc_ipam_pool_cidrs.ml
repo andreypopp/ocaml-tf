@@ -138,6 +138,7 @@ let aws_vpc_ipam_pool_cidrs ?id ?timeouts ~ipam_pool_id ~filter () :
   { id; ipam_pool_id; filter; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   ipam_pool_cidrs : ipam_pool_cidrs list prop;
   ipam_pool_id : string prop;
@@ -147,6 +148,7 @@ let make ?id ?timeouts ~ipam_pool_id ~filter __id =
   let __type = "aws_vpc_ipam_pool_cidrs" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ipam_pool_cidrs = Prop.computed __type __id "ipam_pool_cidrs";
        ipam_pool_id = Prop.computed __type __id "ipam_pool_id";

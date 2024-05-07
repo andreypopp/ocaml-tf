@@ -17,6 +17,7 @@ val yojson_of_aws_servicequotas_template_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   skip_destroy : bool prop;
   status : string prop;

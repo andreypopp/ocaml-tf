@@ -38,6 +38,7 @@ val yojson_of_aws_qldb_stream : aws_qldb_stream -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   exclusive_end_time : string prop;
   id : string prop;

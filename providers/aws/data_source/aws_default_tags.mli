@@ -12,6 +12,7 @@ val yojson_of_aws_default_tags : aws_default_tags -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   tags : (string * string) list prop;
 }

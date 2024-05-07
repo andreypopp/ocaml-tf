@@ -506,6 +506,7 @@ let aws_sagemaker_flow_definition ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   flow_definition_name : string prop;
   id : string prop;
@@ -520,6 +521,7 @@ let make ?id ?tags ?tags_all ?(human_loop_activation_config = [])
   let __type = "aws_sagemaker_flow_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        flow_definition_name =
          Prop.computed __type __id "flow_definition_name";

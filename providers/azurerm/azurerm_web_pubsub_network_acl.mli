@@ -49,6 +49,7 @@ val yojson_of_azurerm_web_pubsub_network_acl :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   default_action : string prop;
   id : string prop;
   web_pubsub_id : string prop;

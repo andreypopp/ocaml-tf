@@ -28,6 +28,7 @@ val yojson_of_cloudflare_web_analytics_site :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   auto_install : bool prop;
   host : string prop;

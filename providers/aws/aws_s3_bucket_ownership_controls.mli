@@ -22,7 +22,11 @@ val yojson_of_aws_s3_bucket_ownership_controls :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { bucket : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  bucket : string prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

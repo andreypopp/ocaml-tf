@@ -94,6 +94,7 @@ let cloudflare_access_mutual_tls_certificate ?account_id
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   associated_hostnames : string list prop;
   certificate : string prop;
@@ -108,6 +109,7 @@ let make ?account_id ?associated_hostnames ?certificate ?id ?zone_id
   let __type = "cloudflare_access_mutual_tls_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        associated_hostnames =
          Prop.computed __type __id "associated_hostnames";

@@ -169,6 +169,7 @@ let aws_glue_data_catalog_encryption_settings ?id ~catalog_id () :
   { catalog_id; id }
 
 type t = {
+  tf_name : string;
   catalog_id : string prop;
   data_catalog_encryption_settings :
     data_catalog_encryption_settings list prop;
@@ -179,6 +180,7 @@ let make ?id ~catalog_id __id =
   let __type = "aws_glue_data_catalog_encryption_settings" in
   let __attrs =
     ({
+       tf_name = __id;
        catalog_id = Prop.computed __type __id "catalog_id";
        data_catalog_encryption_settings =
          Prop.computed __type __id "data_catalog_encryption_settings";

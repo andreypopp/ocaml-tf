@@ -129,6 +129,7 @@ let azurerm_iothub_consumer_group ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   eventhub_endpoint_name : string prop;
   id : string prop;
   iothub_name : string prop;
@@ -141,6 +142,7 @@ let make ?id ?timeouts ~eventhub_endpoint_name ~iothub_name ~name
   let __type = "azurerm_iothub_consumer_group" in
   let __attrs =
     ({
+       tf_name = __id;
        eventhub_endpoint_name =
          Prop.computed __type __id "eventhub_endpoint_name";
        id = Prop.computed __type __id "id";

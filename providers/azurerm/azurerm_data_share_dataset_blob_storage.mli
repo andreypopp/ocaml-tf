@@ -42,6 +42,7 @@ val yojson_of_azurerm_data_share_dataset_blob_storage :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   container_name : string prop;
   data_share_id : string prop;
   display_name : string prop;

@@ -612,6 +612,7 @@ let aws_lightsail_distribution ?certificate_name ?id ?ip_address_type
   }
 
 type t = {
+  tf_name : string;
   alternative_domain_names : string list prop;
   arn : string prop;
   bundle_id : string prop;
@@ -637,6 +638,7 @@ let make ?certificate_name ?id ?ip_address_type ?is_enabled ?tags
   let __type = "aws_lightsail_distribution" in
   let __attrs =
     ({
+       tf_name = __id;
        alternative_domain_names =
          Prop.computed __type __id "alternative_domain_names";
        arn = Prop.computed __type __id "arn";

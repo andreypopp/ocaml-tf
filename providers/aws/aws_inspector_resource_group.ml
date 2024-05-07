@@ -49,6 +49,7 @@ let aws_inspector_resource_group ?id ~tags () :
   { id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   tags : (string * string) list prop;
@@ -58,6 +59,7 @@ let make ?id ~tags __id =
   let __type = "aws_inspector_resource_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        tags = Prop.computed __type __id "tags";

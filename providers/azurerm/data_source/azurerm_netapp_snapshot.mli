@@ -27,6 +27,7 @@ val yojson_of_azurerm_netapp_snapshot :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_name : string prop;
   id : string prop;
   location : string prop;

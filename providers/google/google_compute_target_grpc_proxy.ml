@@ -148,6 +148,7 @@ let google_compute_target_grpc_proxy ?description ?id ?project
   }
 
 type t = {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   fingerprint : string prop;
@@ -165,6 +166,7 @@ let make ?description ?id ?project ?url_map ?validate_for_proxyless
   let __type = "google_compute_target_grpc_proxy" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";
        description = Prop.computed __type __id "description";

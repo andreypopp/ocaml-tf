@@ -21,6 +21,7 @@ val yojson_of_aws_ec2_subnet_cidr_reservation :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cidr_block : string prop;
   description : string prop;
   id : string prop;

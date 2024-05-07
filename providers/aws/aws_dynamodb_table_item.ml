@@ -65,6 +65,7 @@ let aws_dynamodb_table_item ?id ?range_key ~hash_key ~item
   { hash_key; id; item; range_key; table_name }
 
 type t = {
+  tf_name : string;
   hash_key : string prop;
   id : string prop;
   item : string prop;
@@ -76,6 +77,7 @@ let make ?id ?range_key ~hash_key ~item ~table_name __id =
   let __type = "aws_dynamodb_table_item" in
   let __attrs =
     ({
+       tf_name = __id;
        hash_key = Prop.computed __type __id "hash_key";
        id = Prop.computed __type __id "id";
        item = Prop.computed __type __id "item";

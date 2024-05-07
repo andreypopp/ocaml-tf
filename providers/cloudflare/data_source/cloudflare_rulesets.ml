@@ -2031,6 +2031,7 @@ let cloudflare_rulesets ?account_id ?id ?include_rules ?zone_id
   { account_id; id; include_rules; zone_id; filter }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   include_rules : bool prop;
@@ -2043,6 +2044,7 @@ let make ?account_id ?id ?include_rules ?zone_id ?(filter = []) __id
   let __type = "cloudflare_rulesets" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        include_rules = Prop.computed __type __id "include_rules";

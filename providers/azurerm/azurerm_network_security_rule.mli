@@ -46,6 +46,7 @@ val yojson_of_azurerm_network_security_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access : string prop;
   description : string prop;
   destination_address_prefix : string prop;

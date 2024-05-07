@@ -62,6 +62,7 @@ val yojson_of_azurerm_virtual_desktop_host_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   custom_rdp_properties : string prop;
   description : string prop;
   friendly_name : string prop;

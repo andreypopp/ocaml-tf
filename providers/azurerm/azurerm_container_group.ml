@@ -1808,6 +1808,7 @@ let azurerm_container_group ?dns_name_label
   }
 
 type t = {
+  tf_name : string;
   dns_name_label : string prop;
   dns_name_label_reuse_policy : string prop;
   exposed_port : exposed_port list prop;
@@ -1841,6 +1842,7 @@ let make ?dns_name_label ?dns_name_label_reuse_policy ?exposed_port
   let __type = "azurerm_container_group" in
   let __attrs =
     ({
+       tf_name = __id;
        dns_name_label = Prop.computed __type __id "dns_name_label";
        dns_name_label_reuse_policy =
          Prop.computed __type __id "dns_name_label_reuse_policy";

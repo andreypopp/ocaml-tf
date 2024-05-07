@@ -49,6 +49,7 @@ let aws_ssm_service_setting ?id ~setting_id ~setting_value () :
   { id; setting_id; setting_value }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   setting_id : string prop;
@@ -60,6 +61,7 @@ let make ?id ~setting_id ~setting_value __id =
   let __type = "aws_ssm_service_setting" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        setting_id = Prop.computed __type __id "setting_id";

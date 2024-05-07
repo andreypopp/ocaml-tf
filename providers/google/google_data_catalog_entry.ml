@@ -389,6 +389,7 @@ let google_data_catalog_entry ?description ?display_name ?id
   }
 
 type t = {
+  tf_name : string;
   bigquery_date_sharded_spec : bigquery_date_sharded_spec list prop;
   bigquery_table_spec : bigquery_table_spec list prop;
   description : string prop;
@@ -411,6 +412,7 @@ let make ?description ?display_name ?id ?linked_resource ?schema
   let __type = "google_data_catalog_entry" in
   let __attrs =
     ({
+       tf_name = __id;
        bigquery_date_sharded_spec =
          Prop.computed __type __id "bigquery_date_sharded_spec";
        bigquery_table_spec =

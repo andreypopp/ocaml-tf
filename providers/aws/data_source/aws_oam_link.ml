@@ -62,6 +62,7 @@ let aws_oam_link ?id ?tags ~link_identifier () : aws_oam_link =
   { id; link_identifier; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   label : string prop;
@@ -77,6 +78,7 @@ let make ?id ?tags ~link_identifier __id =
   let __type = "aws_oam_link" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        label = Prop.computed __type __id "label";

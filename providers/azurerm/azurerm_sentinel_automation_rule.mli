@@ -71,6 +71,7 @@ val yojson_of_azurerm_sentinel_automation_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   condition_json : string prop;
   display_name : string prop;
   enabled : bool prop;

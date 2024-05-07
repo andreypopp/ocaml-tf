@@ -41,6 +41,7 @@ val yojson_of_azurerm_lb_outbound_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allocated_outbound_ports : float prop;
   backend_address_pool_id : string prop;
   enable_tcp_reset : bool prop;

@@ -34,6 +34,7 @@ val yojson_of_azurerm_data_protection_backup_instance_postgresql :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backup_policy_id : string prop;
   database_credential_key_vault_secret_id : string prop;
   database_id : string prop;

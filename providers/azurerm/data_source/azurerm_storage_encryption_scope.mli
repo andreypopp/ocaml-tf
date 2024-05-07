@@ -24,6 +24,7 @@ val yojson_of_azurerm_storage_encryption_scope :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   key_vault_key_id : string prop;
   name : string prop;

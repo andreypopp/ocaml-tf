@@ -170,6 +170,7 @@ let azurerm_palo_alto_local_rulestack_certificate ?audit_comment
   }
 
 type t = {
+  tf_name : string;
   audit_comment : string prop;
   description : string prop;
   id : string prop;
@@ -184,6 +185,7 @@ let make ?audit_comment ?description ?id ?key_vault_certificate_id
   let __type = "azurerm_palo_alto_local_rulestack_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        audit_comment = Prop.computed __type __id "audit_comment";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

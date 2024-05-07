@@ -31,6 +31,7 @@ val yojson_of_aws_finspace_kx_user : aws_finspace_kx_user -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   environment_id : string prop;
   iam_role : string prop;

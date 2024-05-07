@@ -18,6 +18,7 @@ val yojson_of_aws_servicequotas_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   service_code : string prop;
   service_name : string prop;

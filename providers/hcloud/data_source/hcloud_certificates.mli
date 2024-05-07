@@ -30,6 +30,7 @@ val yojson_of_hcloud_certificates : hcloud_certificates -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificates : certificates list prop;
   id : string prop;
   with_selector : string prop;

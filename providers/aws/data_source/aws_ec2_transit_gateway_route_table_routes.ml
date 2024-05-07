@@ -143,6 +143,7 @@ let aws_ec2_transit_gateway_route_table_routes ?id
   { id; transit_gateway_route_table_id; filter }
 
 type t = {
+  tf_name : string;
   id : string prop;
   routes : routes list prop;
   transit_gateway_route_table_id : string prop;
@@ -152,6 +153,7 @@ let make ?id ~transit_gateway_route_table_id ~filter __id =
   let __type = "aws_ec2_transit_gateway_route_table_routes" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        routes = Prop.computed __type __id "routes";
        transit_gateway_route_table_id =

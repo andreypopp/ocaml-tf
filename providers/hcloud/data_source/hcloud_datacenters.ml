@@ -73,6 +73,7 @@ let hcloud_datacenters ?datacenter_ids ?descriptions ?id ?names () :
   { datacenter_ids; descriptions; id; names }
 
 type t = {
+  tf_name : string;
   datacenter_ids : string list prop;
   datacenters : json prop;
   descriptions : string list prop;
@@ -84,6 +85,7 @@ let make ?datacenter_ids ?descriptions ?id ?names __id =
   let __type = "hcloud_datacenters" in
   let __attrs =
     ({
+       tf_name = __id;
        datacenter_ids = Prop.computed __type __id "datacenter_ids";
        datacenters = Prop.computed __type __id "datacenters";
        descriptions = Prop.computed __type __id "descriptions";

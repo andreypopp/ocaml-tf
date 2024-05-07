@@ -472,6 +472,7 @@ let google_blockchain_node_engine_blockchain_nodes ?blockchain_type
   }
 
 type t = {
+  tf_name : string;
   blockchain_node_id : string prop;
   blockchain_type : string prop;
   connection_info : connection_info list prop;
@@ -492,6 +493,7 @@ let make ?blockchain_type ?id ?labels ?project
   let __type = "google_blockchain_node_engine_blockchain_nodes" in
   let __attrs =
     ({
+       tf_name = __id;
        blockchain_node_id =
          Prop.computed __type __id "blockchain_node_id";
        blockchain_type = Prop.computed __type __id "blockchain_type";

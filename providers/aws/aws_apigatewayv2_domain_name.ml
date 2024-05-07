@@ -260,6 +260,7 @@ let aws_apigatewayv2_domain_name ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   api_mapping_selection_expression : string prop;
   arn : string prop;
   domain_name : string prop;
@@ -273,6 +274,7 @@ let make ?id ?tags ?tags_all ?(mutual_tls_authentication = [])
   let __type = "aws_apigatewayv2_domain_name" in
   let __attrs =
     ({
+       tf_name = __id;
        api_mapping_selection_expression =
          Prop.computed __type __id "api_mapping_selection_expression";
        arn = Prop.computed __type __id "arn";

@@ -84,6 +84,7 @@ val yojson_of_google_compute_disk : google_compute_disk -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   disk_id : string prop;

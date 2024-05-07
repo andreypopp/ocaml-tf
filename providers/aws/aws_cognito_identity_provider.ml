@@ -109,6 +109,7 @@ let aws_cognito_identity_provider ?attribute_mapping ?id
   }
 
 type t = {
+  tf_name : string;
   attribute_mapping : (string * string) list prop;
   id : string prop;
   idp_identifiers : string list prop;
@@ -123,6 +124,7 @@ let make ?attribute_mapping ?id ?idp_identifiers ~provider_details
   let __type = "aws_cognito_identity_provider" in
   let __attrs =
     ({
+       tf_name = __id;
        attribute_mapping =
          Prop.computed __type __id "attribute_mapping";
        id = Prop.computed __type __id "id";

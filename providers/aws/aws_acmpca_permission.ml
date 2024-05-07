@@ -77,6 +77,7 @@ let aws_acmpca_permission ?id ?source_account ~actions
   }
 
 type t = {
+  tf_name : string;
   actions : string list prop;
   certificate_authority_arn : string prop;
   id : string prop;
@@ -90,6 +91,7 @@ let make ?id ?source_account ~actions ~certificate_authority_arn
   let __type = "aws_acmpca_permission" in
   let __attrs =
     ({
+       tf_name = __id;
        actions = Prop.computed __type __id "actions";
        certificate_authority_arn =
          Prop.computed __type __id "certificate_authority_arn";

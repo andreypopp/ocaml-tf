@@ -63,6 +63,7 @@ let google_compute_address ?id ?project ?region ~name () :
   { id; name; project; region }
 
 type t = {
+  tf_name : string;
   address : string prop;
   address_type : string prop;
   id : string prop;
@@ -83,6 +84,7 @@ let make ?id ?project ?region ~name __id =
   let __type = "google_compute_address" in
   let __attrs =
     ({
+       tf_name = __id;
        address = Prop.computed __type __id "address";
        address_type = Prop.computed __type __id "address_type";
        id = Prop.computed __type __id "id";

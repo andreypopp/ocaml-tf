@@ -30,6 +30,7 @@ val yojson_of_google_iap_web_type_compute_iam_binding :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   members : string list prop;

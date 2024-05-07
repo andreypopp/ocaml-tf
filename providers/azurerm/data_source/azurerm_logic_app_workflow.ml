@@ -133,6 +133,7 @@ let azurerm_logic_app_workflow ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   access_endpoint : string prop;
   connector_endpoint_ip_addresses : string list prop;
   connector_outbound_ip_addresses : string list prop;
@@ -154,6 +155,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_logic_app_workflow" in
   let __attrs =
     ({
+       tf_name = __id;
        access_endpoint = Prop.computed __type __id "access_endpoint";
        connector_endpoint_ip_addresses =
          Prop.computed __type __id "connector_endpoint_ip_addresses";

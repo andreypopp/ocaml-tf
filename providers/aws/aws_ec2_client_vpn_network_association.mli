@@ -25,6 +25,7 @@ val yojson_of_aws_ec2_client_vpn_network_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   association_id : string prop;
   client_vpn_endpoint_id : string prop;
   id : string prop;

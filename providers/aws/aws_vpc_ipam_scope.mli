@@ -30,6 +30,7 @@ val yojson_of_aws_vpc_ipam_scope : aws_vpc_ipam_scope -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;

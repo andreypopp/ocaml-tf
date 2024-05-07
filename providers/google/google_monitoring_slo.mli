@@ -215,6 +215,7 @@ val yojson_of_google_monitoring_slo : google_monitoring_slo -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   calendar_period : string prop;
   display_name : string prop;
   goal : float prop;

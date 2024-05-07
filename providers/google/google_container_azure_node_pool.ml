@@ -489,6 +489,7 @@ let google_container_azure_node_pool ?annotations
   }
 
 type t = {
+  tf_name : string;
   annotations : (string * string) list prop;
   azure_availability_zone : string prop;
   cluster : string prop;
@@ -513,6 +514,7 @@ let make ?annotations ?azure_availability_zone ?id ?project
   let __type = "google_container_azure_node_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        annotations = Prop.computed __type __id "annotations";
        azure_availability_zone =
          Prop.computed __type __id "azure_availability_zone";

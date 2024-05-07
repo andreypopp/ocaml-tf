@@ -52,6 +52,7 @@ val yojson_of_aws_config_remediation_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   automatic : bool prop;
   config_rule_name : string prop;

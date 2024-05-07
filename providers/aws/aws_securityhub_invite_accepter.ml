@@ -41,6 +41,7 @@ let aws_securityhub_invite_accepter ?id ~master_id () :
   { id; master_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   invitation_id : string prop;
   master_id : string prop;
@@ -50,6 +51,7 @@ let make ?id ~master_id __id =
   let __type = "aws_securityhub_invite_accepter" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        invitation_id = Prop.computed __type __id "invitation_id";
        master_id = Prop.computed __type __id "master_id";

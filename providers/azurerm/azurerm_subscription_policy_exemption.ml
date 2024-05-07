@@ -205,6 +205,7 @@ let azurerm_subscription_policy_exemption ?description ?display_name
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   exemption_category : string prop;
@@ -223,6 +224,7 @@ let make ?description ?display_name ?expires_on ?id ?metadata
   let __type = "azurerm_subscription_policy_exemption" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";
        exemption_category =

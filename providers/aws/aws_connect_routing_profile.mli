@@ -43,6 +43,7 @@ val yojson_of_aws_connect_routing_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   default_outbound_queue_id : string prop;
   description : string prop;

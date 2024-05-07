@@ -19,6 +19,7 @@ val yojson_of_aws_ecs_account_setting_default :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   principal_arn : string prop;

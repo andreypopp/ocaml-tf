@@ -143,6 +143,7 @@ let aws_networkmanager_transit_gateway_peering ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   core_network_arn : string prop;
   core_network_id : string prop;
@@ -162,6 +163,7 @@ let make ?id ?tags ?tags_all ?timeouts ~core_network_id
   let __type = "aws_networkmanager_transit_gateway_peering" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        core_network_arn =
          Prop.computed __type __id "core_network_arn";

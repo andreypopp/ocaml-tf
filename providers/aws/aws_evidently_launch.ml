@@ -512,6 +512,7 @@ let aws_evidently_launch ?description ?id ?randomization_salt ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_time : string prop;
   description : string prop;
@@ -534,6 +535,7 @@ let make ?description ?id ?randomization_salt ?tags ?tags_all
   let __type = "aws_evidently_launch" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_time = Prop.computed __type __id "created_time";
        description = Prop.computed __type __id "description";

@@ -25,6 +25,7 @@ val yojson_of_aws_sagemaker_human_task_ui :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   human_task_ui_name : string prop;
   id : string prop;

@@ -18,6 +18,7 @@ val yojson_of_google_netblock_ip_ranges :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cidr_blocks : string list prop;
   cidr_blocks_ipv4 : string list prop;
   cidr_blocks_ipv6 : string list prop;

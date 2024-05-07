@@ -70,6 +70,7 @@ let aws_secretsmanager_secret ?arn ?id ?name ?tags () :
   { arn; id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_date : string prop;
   description : string prop;
@@ -85,6 +86,7 @@ let make ?arn ?id ?name ?tags __id =
   let __type = "aws_secretsmanager_secret" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_date = Prop.computed __type __id "created_date";
        description = Prop.computed __type __id "description";

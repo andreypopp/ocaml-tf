@@ -30,6 +30,7 @@ val yojson_of_google_storage_hmac_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_id : string prop;
   id : string prop;
   project : string prop;

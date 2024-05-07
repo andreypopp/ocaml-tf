@@ -225,6 +225,7 @@ let google_dns_response_policy_rule ?id ?project ?(local_data = [])
   }
 
 type t = {
+  tf_name : string;
   dns_name : string prop;
   id : string prop;
   project : string prop;
@@ -237,6 +238,7 @@ let make ?id ?project ?(local_data = []) ?timeouts ~dns_name
   let __type = "google_dns_response_policy_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        dns_name = Prop.computed __type __id "dns_name";
        id = Prop.computed __type __id "id";
        project = Prop.computed __type __id "project";

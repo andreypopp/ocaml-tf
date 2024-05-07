@@ -295,6 +295,7 @@ let azurerm_redis_cache ?id ?timeouts ~name ~resource_group_name () :
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   capacity : float prop;
   enable_non_ssl_port : bool prop;
   family : string prop;
@@ -324,6 +325,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_redis_cache" in
   let __attrs =
     ({
+       tf_name = __id;
        capacity = Prop.computed __type __id "capacity";
        enable_non_ssl_port =
          Prop.computed __type __id "enable_non_ssl_port";

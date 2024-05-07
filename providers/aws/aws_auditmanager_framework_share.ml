@@ -61,6 +61,7 @@ let aws_auditmanager_framework_share ?comment ~destination_account
   { comment; destination_account; destination_region; framework_id }
 
 type t = {
+  tf_name : string;
   comment : string prop;
   destination_account : string prop;
   destination_region : string prop;
@@ -74,6 +75,7 @@ let make ?comment ~destination_account ~destination_region
   let __type = "aws_auditmanager_framework_share" in
   let __attrs =
     ({
+       tf_name = __id;
        comment = Prop.computed __type __id "comment";
        destination_account =
          Prop.computed __type __id "destination_account";

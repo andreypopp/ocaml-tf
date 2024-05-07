@@ -409,6 +409,7 @@ let azurerm_vpn_site ?address_cidrs ?device_model ?device_vendor ?id
   }
 
 type t = {
+  tf_name : string;
   address_cidrs : string list prop;
   device_model : string prop;
   device_vendor : string prop;
@@ -426,6 +427,7 @@ let make ?address_cidrs ?device_model ?device_vendor ?id ?tags
   let __type = "azurerm_vpn_site" in
   let __attrs =
     ({
+       tf_name = __id;
        address_cidrs = Prop.computed __type __id "address_cidrs";
        device_model = Prop.computed __type __id "device_model";
        device_vendor = Prop.computed __type __id "device_vendor";

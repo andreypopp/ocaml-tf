@@ -195,6 +195,7 @@ let aws_athena_database ?bucket ?comment ?expected_bucket_owner
   }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   comment : string prop;
   expected_bucket_owner : string prop;
@@ -210,6 +211,7 @@ let make ?bucket ?comment ?expected_bucket_owner ?force_destroy ?id
   let __type = "aws_athena_database" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        comment = Prop.computed __type __id "comment";
        expected_bucket_owner =

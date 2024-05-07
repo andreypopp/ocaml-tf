@@ -84,6 +84,7 @@ let aws_redshift_data_share_consumer_association ?allow_writes
   }
 
 type t = {
+  tf_name : string;
   allow_writes : bool prop;
   associate_entire_account : bool prop;
   consumer_arn : string prop;
@@ -99,6 +100,7 @@ let make ?allow_writes ?associate_entire_account ?consumer_arn
   let __type = "aws_redshift_data_share_consumer_association" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_writes = Prop.computed __type __id "allow_writes";
        associate_entire_account =
          Prop.computed __type __id "associate_entire_account";

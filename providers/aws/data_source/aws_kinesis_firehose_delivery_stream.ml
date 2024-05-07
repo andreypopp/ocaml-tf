@@ -40,12 +40,18 @@ let aws_kinesis_firehose_delivery_stream ?id ~name () :
     aws_kinesis_firehose_delivery_stream =
   { id; name }
 
-type t = { arn : string prop; id : string prop; name : string prop }
+type t = {
+  tf_name : string;
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+}
 
 let make ?id ~name __id =
   let __type = "aws_kinesis_firehose_delivery_stream" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

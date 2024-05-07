@@ -134,6 +134,7 @@ let aws_ec2_host ?host_id ?id ?tags ?timeouts ~filter () :
   { host_id; id; tags; filter; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   asset_id : string prop;
   auto_placement : string prop;
@@ -155,6 +156,7 @@ let make ?host_id ?id ?tags ?timeouts ~filter __id =
   let __type = "aws_ec2_host" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        asset_id = Prop.computed __type __id "asset_id";
        auto_placement = Prop.computed __type __id "auto_placement";

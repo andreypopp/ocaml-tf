@@ -31,6 +31,7 @@ val yojson_of_azurerm_application_load_balancer_frontend :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_load_balancer_id : string prop;
   fully_qualified_domain_name : string prop;
   id : string prop;

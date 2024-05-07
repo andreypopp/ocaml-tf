@@ -99,6 +99,7 @@ val yojson_of_azurerm_virtual_machine_run_command :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   error_blob_uri : string prop;
   id : string prop;
   instance_view : instance_view list prop;

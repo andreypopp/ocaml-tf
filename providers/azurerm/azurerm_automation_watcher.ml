@@ -219,6 +219,7 @@ let azurerm_automation_watcher ?description ?etag ?id
   }
 
 type t = {
+  tf_name : string;
   automation_account_id : string prop;
   description : string prop;
   etag : string prop;
@@ -239,6 +240,7 @@ let make ?description ?etag ?id ?script_parameters ?tags ?timeouts
   let __type = "azurerm_automation_watcher" in
   let __attrs =
     ({
+       tf_name = __id;
        automation_account_id =
          Prop.computed __type __id "automation_account_id";
        description = Prop.computed __type __id "description";

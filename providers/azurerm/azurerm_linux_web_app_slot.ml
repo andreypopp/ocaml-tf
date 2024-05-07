@@ -3925,6 +3925,7 @@ let azurerm_linux_web_app_slot ?app_settings ?client_affinity_enabled
   }
 
 type t = {
+  tf_name : string;
   app_metadata : (string * string) list prop;
   app_service_id : string prop;
   app_settings : (string * string) list prop;
@@ -3968,6 +3969,7 @@ let make ?app_settings ?client_affinity_enabled
   let __type = "azurerm_linux_web_app_slot" in
   let __attrs =
     ({
+       tf_name = __id;
        app_metadata = Prop.computed __type __id "app_metadata";
        app_service_id = Prop.computed __type __id "app_service_id";
        app_settings = Prop.computed __type __id "app_settings";

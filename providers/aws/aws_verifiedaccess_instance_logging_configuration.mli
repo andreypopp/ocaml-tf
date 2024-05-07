@@ -56,6 +56,7 @@ val yojson_of_aws_verifiedaccess_instance_logging_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   verifiedaccess_instance_id : string prop;
 }

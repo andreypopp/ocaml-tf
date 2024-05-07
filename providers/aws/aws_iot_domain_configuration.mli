@@ -39,6 +39,7 @@ val yojson_of_aws_iot_domain_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   domain_name : string prop;
   domain_type : string prop;

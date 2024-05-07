@@ -37,6 +37,7 @@ val yojson_of_aws_kms_key : aws_kms_key -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   aws_account_id : string prop;
   cloud_hsm_cluster_id : string prop;

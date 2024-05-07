@@ -61,6 +61,7 @@ let aws_cloudfront_key_group ?comment ?id ~items ~name () :
   { comment; id; items; name }
 
 type t = {
+  tf_name : string;
   comment : string prop;
   etag : string prop;
   id : string prop;
@@ -72,6 +73,7 @@ let make ?comment ?id ~items ~name __id =
   let __type = "aws_cloudfront_key_group" in
   let __attrs =
     ({
+       tf_name = __id;
        comment = Prop.computed __type __id "comment";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

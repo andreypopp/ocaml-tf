@@ -199,6 +199,7 @@ let google_logging_billing_account_sink ?description ?disabled
   }
 
 type t = {
+  tf_name : string;
   billing_account : string prop;
   description : string prop;
   destination : string prop;
@@ -214,6 +215,7 @@ let make ?description ?disabled ?filter ?id ?(bigquery_options = [])
   let __type = "google_logging_billing_account_sink" in
   let __attrs =
     ({
+       tf_name = __id;
        billing_account = Prop.computed __type __id "billing_account";
        description = Prop.computed __type __id "description";
        destination = Prop.computed __type __id "destination";

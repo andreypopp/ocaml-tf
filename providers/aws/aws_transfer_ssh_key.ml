@@ -55,6 +55,7 @@ let aws_transfer_ssh_key ?id ~body ~server_id ~user_name () :
   { body; id; server_id; user_name }
 
 type t = {
+  tf_name : string;
   body : string prop;
   id : string prop;
   server_id : string prop;
@@ -65,6 +66,7 @@ let make ?id ~body ~server_id ~user_name __id =
   let __type = "aws_transfer_ssh_key" in
   let __attrs =
     ({
+       tf_name = __id;
        body = Prop.computed __type __id "body";
        id = Prop.computed __type __id "id";
        server_id = Prop.computed __type __id "server_id";

@@ -27,6 +27,7 @@ val yojson_of_aws_apprunner_custom_domain_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_validation_records :
     certificate_validation_records list prop;
   dns_target : string prop;

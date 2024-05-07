@@ -52,6 +52,7 @@ let aws_ram_principal_association ?id ~principal ~resource_share_arn
   { id; principal; resource_share_arn }
 
 type t = {
+  tf_name : string;
   id : string prop;
   principal : string prop;
   resource_share_arn : string prop;
@@ -61,6 +62,7 @@ let make ?id ~principal ~resource_share_arn __id =
   let __type = "aws_ram_principal_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        principal = Prop.computed __type __id "principal";
        resource_share_arn =

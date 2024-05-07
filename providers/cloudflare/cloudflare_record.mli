@@ -80,6 +80,7 @@ val yojson_of_cloudflare_record : cloudflare_record -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_overwrite : bool prop;
   comment : string prop;
   created_on : string prop;

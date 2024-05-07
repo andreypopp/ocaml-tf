@@ -997,6 +997,7 @@ let google_privateca_certificate_authority ?certificate_authority_id
   { certificate_authority_id; id; location; pool; project }
 
 type t = {
+  tf_name : string;
   access_urls : access_urls list prop;
   certificate_authority_id : string prop;
   config : config list prop;
@@ -1030,6 +1031,7 @@ let make ?certificate_authority_id ?id ?location ?pool ?project __id
   let __type = "google_privateca_certificate_authority" in
   let __attrs =
     ({
+       tf_name = __id;
        access_urls = Prop.computed __type __id "access_urls";
        certificate_authority_id =
          Prop.computed __type __id "certificate_authority_id";

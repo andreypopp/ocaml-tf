@@ -45,6 +45,7 @@ val yojson_of_aws_transfer_connector : aws_transfer_connector -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_role : string prop;
   arn : string prop;
   connector_id : string prop;

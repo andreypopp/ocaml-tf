@@ -4232,6 +4232,7 @@ let aws_ec2_network_insights_analysis ?id
   { id; network_insights_analysis_id; tags; filter }
 
 type t = {
+  tf_name : string;
   alternate_path_hints : alternate_path_hints list prop;
   arn : string prop;
   explanations : explanations list prop;
@@ -4253,6 +4254,7 @@ let make ?id ?network_insights_analysis_id ?tags ~filter __id =
   let __type = "aws_ec2_network_insights_analysis" in
   let __attrs =
     ({
+       tf_name = __id;
        alternate_path_hints =
          Prop.computed __type __id "alternate_path_hints";
        arn = Prop.computed __type __id "arn";

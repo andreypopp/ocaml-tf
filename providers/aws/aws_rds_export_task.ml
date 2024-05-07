@@ -138,6 +138,7 @@ let aws_rds_export_task ?export_only ?s3_prefix ?timeouts
   }
 
 type t = {
+  tf_name : string;
   export_only : string list prop;
   export_task_identifier : string prop;
   failure_cause : string prop;
@@ -161,6 +162,7 @@ let make ?export_only ?s3_prefix ?timeouts ~export_task_identifier
   let __type = "aws_rds_export_task" in
   let __attrs =
     ({
+       tf_name = __id;
        export_only = Prop.computed __type __id "export_only";
        export_task_identifier =
          Prop.computed __type __id "export_task_identifier";

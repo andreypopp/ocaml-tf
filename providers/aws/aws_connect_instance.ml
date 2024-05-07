@@ -195,6 +195,7 @@ let aws_connect_instance ?auto_resolve_best_voices_enabled
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   auto_resolve_best_voices_enabled : bool prop;
   contact_flow_logs_enabled : bool prop;
@@ -220,6 +221,7 @@ let make ?auto_resolve_best_voices_enabled ?contact_flow_logs_enabled
   let __type = "aws_connect_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        auto_resolve_best_voices_enabled =
          Prop.computed __type __id "auto_resolve_best_voices_enabled";

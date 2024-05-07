@@ -142,6 +142,7 @@ let aws_iot_thing_type ?deprecated ?id ?tags ?tags_all
   { deprecated; id; name; tags; tags_all; properties }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   deprecated : bool prop;
   id : string prop;
@@ -155,6 +156,7 @@ let make ?deprecated ?id ?tags ?tags_all ?(properties = []) ~name
   let __type = "aws_iot_thing_type" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        deprecated = Prop.computed __type __id "deprecated";
        id = Prop.computed __type __id "id";

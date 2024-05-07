@@ -23,6 +23,7 @@ val yojson_of_cloudflare_argo : cloudflare_argo -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   smart_routing : string prop;
   tiered_caching : string prop;

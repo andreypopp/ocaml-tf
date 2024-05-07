@@ -54,6 +54,7 @@ let aws_cloudwatch_log_data_protection_policy ?id ~log_group_name
   { id; log_group_name; policy_document }
 
 type t = {
+  tf_name : string;
   id : string prop;
   log_group_name : string prop;
   policy_document : string prop;
@@ -63,6 +64,7 @@ let make ?id ~log_group_name ~policy_document __id =
   let __type = "aws_cloudwatch_log_data_protection_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        log_group_name = Prop.computed __type __id "log_group_name";
        policy_document = Prop.computed __type __id "policy_document";

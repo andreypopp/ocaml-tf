@@ -1702,6 +1702,7 @@ let google_os_config_patch_deployment ?description ?duration ?id
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   duration : string prop;
@@ -1720,6 +1721,7 @@ let make ?description ?duration ?id ?project
   let __type = "google_os_config_patch_deployment" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        duration = Prop.computed __type __id "duration";

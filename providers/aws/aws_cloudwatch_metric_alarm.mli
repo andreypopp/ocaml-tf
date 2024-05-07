@@ -65,6 +65,7 @@ val yojson_of_aws_cloudwatch_metric_alarm :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   actions_enabled : bool prop;
   alarm_actions : string list prop;
   alarm_description : string prop;

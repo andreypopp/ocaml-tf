@@ -42,6 +42,7 @@ val yojson_of_aws_sagemaker_notebook_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   accelerator_types : string list prop;
   additional_code_repositories : string list prop;
   arn : string prop;

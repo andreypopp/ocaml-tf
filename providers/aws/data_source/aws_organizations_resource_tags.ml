@@ -58,6 +58,7 @@ let aws_organizations_resource_tags ?id ?tags ~resource_id () :
   { id; resource_id; tags }
 
 type t = {
+  tf_name : string;
   id : string prop;
   resource_id : string prop;
   tags : (string * string) list prop;
@@ -67,6 +68,7 @@ let make ?id ?tags ~resource_id __id =
   let __type = "aws_organizations_resource_tags" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        resource_id = Prop.computed __type __id "resource_id";
        tags = Prop.computed __type __id "tags";

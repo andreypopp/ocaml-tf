@@ -45,6 +45,7 @@ let aws_connect_prompt ?id ~instance_id ~name () : aws_connect_prompt
   { id; instance_id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   instance_id : string prop;
@@ -56,6 +57,7 @@ let make ?id ~instance_id ~name __id =
   let __type = "aws_connect_prompt" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        instance_id = Prop.computed __type __id "instance_id";

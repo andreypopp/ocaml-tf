@@ -21,6 +21,7 @@ val yojson_of_cloudflare_r2_bucket : cloudflare_r2_bucket -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   location : string prop;

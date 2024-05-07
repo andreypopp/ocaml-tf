@@ -87,6 +87,7 @@ let aws_identitystore_group ?description ?id ~display_name
   { description; display_name; id; identity_store_id }
 
 type t = {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   external_ids : external_ids list prop;
@@ -99,6 +100,7 @@ let make ?description ?id ~display_name ~identity_store_id __id =
   let __type = "aws_identitystore_group" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";
        external_ids = Prop.computed __type __id "external_ids";

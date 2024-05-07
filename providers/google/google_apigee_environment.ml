@@ -217,6 +217,7 @@ let google_apigee_environment ?api_proxy_type ?deployment_type
   }
 
 type t = {
+  tf_name : string;
   api_proxy_type : string prop;
   deployment_type : string prop;
   description : string prop;
@@ -232,6 +233,7 @@ let make ?api_proxy_type ?deployment_type ?description ?display_name
   let __type = "google_apigee_environment" in
   let __attrs =
     ({
+       tf_name = __id;
        api_proxy_type = Prop.computed __type __id "api_proxy_type";
        deployment_type = Prop.computed __type __id "deployment_type";
        description = Prop.computed __type __id "description";

@@ -156,6 +156,7 @@ let azurerm_storage_mover_agent ?description ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   arc_virtual_machine_id : string prop;
   arc_virtual_machine_uuid : string prop;
   description : string prop;
@@ -169,6 +170,7 @@ let make ?description ?id ?timeouts ~arc_virtual_machine_id
   let __type = "azurerm_storage_mover_agent" in
   let __attrs =
     ({
+       tf_name = __id;
        arc_virtual_machine_id =
          Prop.computed __type __id "arc_virtual_machine_id";
        arc_virtual_machine_uuid =

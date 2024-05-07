@@ -203,6 +203,7 @@ val yojson_of_aws_spot_instance_request :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   ami : string prop;
   arn : string prop;
   associate_public_ip_address : bool prop;

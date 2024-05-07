@@ -77,6 +77,7 @@ let google_billing_account ?billing_account ?display_name ?id
   { billing_account; display_name; id; lookup_projects; open_ }
 
 type t = {
+  tf_name : string;
   billing_account : string prop;
   display_name : string prop;
   id : string prop;
@@ -91,6 +92,7 @@ let make ?billing_account ?display_name ?id ?lookup_projects ?open_
   let __type = "google_billing_account" in
   let __attrs =
     ({
+       tf_name = __id;
        billing_account = Prop.computed __type __id "billing_account";
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";

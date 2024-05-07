@@ -542,6 +542,7 @@ val yojson_of_google_datastream_stream :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   customer_managed_encryption_key : string prop;
   desired_state : string prop;
   display_name : string prop;

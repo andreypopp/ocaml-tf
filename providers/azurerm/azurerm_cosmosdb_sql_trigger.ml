@@ -137,6 +137,7 @@ let azurerm_cosmosdb_sql_trigger ?id ?timeouts ~body ~container_id
   { body; container_id; id; name; operation; type_; timeouts }
 
 type t = {
+  tf_name : string;
   body : string prop;
   container_id : string prop;
   id : string prop;
@@ -150,6 +151,7 @@ let make ?id ?timeouts ~body ~container_id ~name ~operation ~type_
   let __type = "azurerm_cosmosdb_sql_trigger" in
   let __attrs =
     ({
+       tf_name = __id;
        body = Prop.computed __type __id "body";
        container_id = Prop.computed __type __id "container_id";
        id = Prop.computed __type __id "id";

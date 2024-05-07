@@ -28,6 +28,7 @@ val yojson_of_google_iam_testable_permissions :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   custom_support_level : string prop;
   full_resource_name : string prop;
   id : string prop;

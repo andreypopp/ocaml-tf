@@ -29,6 +29,7 @@ val yojson_of_aws_xray_group : aws_xray_group -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   filter_expression : string prop;
   group_name : string prop;

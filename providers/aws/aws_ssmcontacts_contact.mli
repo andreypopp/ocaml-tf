@@ -22,6 +22,7 @@ val yojson_of_aws_ssmcontacts_contact :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alias : string prop;
   arn : string prop;
   display_name : string prop;

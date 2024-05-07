@@ -74,6 +74,7 @@ val yojson_of_azurerm_logic_app_integration_account_batch_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   batch_group_name : string prop;
   id : string prop;
   integration_account_name : string prop;

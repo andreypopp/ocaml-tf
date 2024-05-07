@@ -179,6 +179,7 @@ let azurerm_subscriptions ?display_name_contains ?display_name_prefix
   { display_name_contains; display_name_prefix; id; timeouts }
 
 type t = {
+  tf_name : string;
   display_name_contains : string prop;
   display_name_prefix : string prop;
   id : string prop;
@@ -190,6 +191,7 @@ let make ?display_name_contains ?display_name_prefix ?id ?timeouts
   let __type = "azurerm_subscriptions" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name_contains =
          Prop.computed __type __id "display_name_contains";
        display_name_prefix =

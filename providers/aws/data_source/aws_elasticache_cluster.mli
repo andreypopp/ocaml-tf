@@ -34,6 +34,7 @@ val yojson_of_aws_elasticache_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   availability_zone : string prop;
   cache_nodes : cache_nodes list prop;

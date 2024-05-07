@@ -153,12 +153,17 @@ let google_app_engine_application_url_dispatch_rules ?id ?project
     google_app_engine_application_url_dispatch_rules =
   { id; project; dispatch_rules; timeouts }
 
-type t = { id : string prop; project : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  project : string prop;
+}
 
 let make ?id ?project ?timeouts ~dispatch_rules __id =
   let __type = "google_app_engine_application_url_dispatch_rules" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        project = Prop.computed __type __id "project";
      }

@@ -182,6 +182,7 @@ let azurerm_dev_center_project ?description ?id
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   dev_center_id : string prop;
   dev_center_uri : string prop;
@@ -198,6 +199,7 @@ let make ?description ?id ?maximum_dev_boxes_per_user ?tags ?timeouts
   let __type = "azurerm_dev_center_project" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        dev_center_id = Prop.computed __type __id "dev_center_id";
        dev_center_uri = Prop.computed __type __id "dev_center_uri";

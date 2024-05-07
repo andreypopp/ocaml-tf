@@ -1000,6 +1000,7 @@ let google_notebooks_runtime ?id ?labels ?project
   }
 
 type t = {
+  tf_name : string;
   effective_labels : (string * string) list prop;
   health_state : string prop;
   id : string prop;
@@ -1018,6 +1019,7 @@ let make ?id ?labels ?project ?(access_config = [])
   let __type = "google_notebooks_runtime" in
   let __attrs =
     ({
+       tf_name = __id;
        effective_labels =
          Prop.computed __type __id "effective_labels";
        health_state = Prop.computed __type __id "health_state";

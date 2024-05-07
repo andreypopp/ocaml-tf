@@ -95,6 +95,7 @@ val yojson_of_google_vertex_ai_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   deployed_models : deployed_models list prop;
   description : string prop;

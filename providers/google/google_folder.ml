@@ -118,6 +118,7 @@ let google_folder ?id ?timeouts ~display_name ~parent () :
   { display_name; id; parent; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   display_name : string prop;
   folder_id : string prop;
@@ -131,6 +132,7 @@ let make ?id ?timeouts ~display_name ~parent __id =
   let __type = "google_folder" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        display_name = Prop.computed __type __id "display_name";
        folder_id = Prop.computed __type __id "folder_id";

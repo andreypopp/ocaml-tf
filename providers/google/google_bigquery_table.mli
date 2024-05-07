@@ -211,6 +211,7 @@ val yojson_of_google_bigquery_table : google_bigquery_table -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   clustering : string list prop;
   creation_time : float prop;
   dataset_id : string prop;

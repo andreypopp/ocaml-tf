@@ -131,6 +131,7 @@ let aws_apigatewayv2_api ?id ?tags ~api_id () : aws_apigatewayv2_api
   { api_id; id; tags }
 
 type t = {
+  tf_name : string;
   api_endpoint : string prop;
   api_id : string prop;
   api_key_selection_expression : string prop;
@@ -151,6 +152,7 @@ let make ?id ?tags ~api_id __id =
   let __type = "aws_apigatewayv2_api" in
   let __attrs =
     ({
+       tf_name = __id;
        api_endpoint = Prop.computed __type __id "api_endpoint";
        api_id = Prop.computed __type __id "api_id";
        api_key_selection_expression =

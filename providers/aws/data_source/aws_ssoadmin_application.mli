@@ -30,6 +30,7 @@ val yojson_of_aws_ssoadmin_application :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_account : string prop;
   application_arn : string prop;
   application_provider_arn : string prop;

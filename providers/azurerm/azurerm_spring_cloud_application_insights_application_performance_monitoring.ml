@@ -201,6 +201,7 @@ let azurerm_spring_cloud_application_insights_application_performance_monitoring
   }
 
 type t = {
+  tf_name : string;
   connection_string : string prop;
   globally_enabled : bool prop;
   id : string prop;
@@ -220,6 +221,7 @@ let make ?connection_string ?globally_enabled ?id ?role_instance
   in
   let __attrs =
     ({
+       tf_name = __id;
        connection_string =
          Prop.computed __type __id "connection_string";
        globally_enabled =

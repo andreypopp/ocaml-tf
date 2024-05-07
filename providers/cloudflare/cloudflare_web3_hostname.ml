@@ -75,6 +75,7 @@ let cloudflare_web3_hostname ?description ?dnslink ?id ~name ~target
   { description; dnslink; id; name; target; zone_id }
 
 type t = {
+  tf_name : string;
   created_on : string prop;
   description : string prop;
   dnslink : string prop;
@@ -90,6 +91,7 @@ let make ?description ?dnslink ?id ~name ~target ~zone_id __id =
   let __type = "cloudflare_web3_hostname" in
   let __attrs =
     ({
+       tf_name = __id;
        created_on = Prop.computed __type __id "created_on";
        description = Prop.computed __type __id "description";
        dnslink = Prop.computed __type __id "dnslink";

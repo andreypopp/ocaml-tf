@@ -19,6 +19,7 @@ val yojson_of_google_folder_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   folder : string prop;
   id : string prop;

@@ -212,6 +212,7 @@ let azurerm_lb_outbound_rule ?allocated_outbound_ports
   }
 
 type t = {
+  tf_name : string;
   allocated_outbound_ports : float prop;
   backend_address_pool_id : string prop;
   enable_tcp_reset : bool prop;
@@ -229,6 +230,7 @@ let make ?allocated_outbound_ports ?enable_tcp_reset ?id
   let __type = "azurerm_lb_outbound_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        allocated_outbound_ports =
          Prop.computed __type __id "allocated_outbound_ports";
        backend_address_pool_id =

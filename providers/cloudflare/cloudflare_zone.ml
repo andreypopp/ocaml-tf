@@ -89,6 +89,7 @@ let cloudflare_zone ?id ?jump_start ?paused ?plan ?type_ ~account_id
   { account_id; id; jump_start; paused; plan; type_; zone }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   jump_start : bool prop;
@@ -108,6 +109,7 @@ let make ?id ?jump_start ?paused ?plan ?type_ ~account_id ~zone __id
   let __type = "cloudflare_zone" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        jump_start = Prop.computed __type __id "jump_start";

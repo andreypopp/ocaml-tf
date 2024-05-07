@@ -84,6 +84,7 @@ val yojson_of_aws_glue_trigger : aws_glue_trigger -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   enabled : bool prop;

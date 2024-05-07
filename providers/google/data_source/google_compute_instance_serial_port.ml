@@ -70,6 +70,7 @@ let google_compute_instance_serial_port ?id ?project ?zone ~instance
   { id; instance; port; project; zone }
 
 type t = {
+  tf_name : string;
   contents : string prop;
   id : string prop;
   instance : string prop;
@@ -82,6 +83,7 @@ let make ?id ?project ?zone ~instance ~port __id =
   let __type = "google_compute_instance_serial_port" in
   let __attrs =
     ({
+       tf_name = __id;
        contents = Prop.computed __type __id "contents";
        id = Prop.computed __type __id "id";
        instance = Prop.computed __type __id "instance";

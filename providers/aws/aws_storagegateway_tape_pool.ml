@@ -115,6 +115,7 @@ let aws_storagegateway_tape_pool ?id ?retention_lock_time_in_days
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   pool_name : string prop;
@@ -130,6 +131,7 @@ let make ?id ?retention_lock_time_in_days ?retention_lock_type ?tags
   let __type = "aws_storagegateway_tape_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        pool_name = Prop.computed __type __id "pool_name";

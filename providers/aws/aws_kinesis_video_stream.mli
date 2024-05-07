@@ -34,6 +34,7 @@ val yojson_of_aws_kinesis_video_stream :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   creation_time : string prop;
   data_retention_in_hours : float prop;

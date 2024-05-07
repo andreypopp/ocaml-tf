@@ -257,12 +257,17 @@ let aws_connect_user_hierarchy_structure ?id ~instance_id
     ~hierarchy_structure () : aws_connect_user_hierarchy_structure =
   { id; instance_id; hierarchy_structure }
 
-type t = { id : string prop; instance_id : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  instance_id : string prop;
+}
 
 let make ?id ~instance_id ~hierarchy_structure __id =
   let __type = "aws_connect_user_hierarchy_structure" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        instance_id = Prop.computed __type __id "instance_id";
      }

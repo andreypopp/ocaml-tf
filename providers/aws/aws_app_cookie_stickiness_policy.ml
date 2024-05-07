@@ -62,6 +62,7 @@ let aws_app_cookie_stickiness_policy ?id ~cookie_name ~lb_port
   { cookie_name; id; lb_port; load_balancer; name }
 
 type t = {
+  tf_name : string;
   cookie_name : string prop;
   id : string prop;
   lb_port : float prop;
@@ -73,6 +74,7 @@ let make ?id ~cookie_name ~lb_port ~load_balancer ~name __id =
   let __type = "aws_app_cookie_stickiness_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        cookie_name = Prop.computed __type __id "cookie_name";
        id = Prop.computed __type __id "id";
        lb_port = Prop.computed __type __id "lb_port";

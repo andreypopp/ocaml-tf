@@ -98,6 +98,7 @@ let aws_rekognition_project ?auto_update ?feature ?timeouts ~name ()
   { auto_update; feature; name; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   auto_update : string prop;
   feature : string prop;
@@ -109,6 +110,7 @@ let make ?auto_update ?feature ?timeouts ~name __id =
   let __type = "aws_rekognition_project" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        auto_update = Prop.computed __type __id "auto_update";
        feature = Prop.computed __type __id "feature";

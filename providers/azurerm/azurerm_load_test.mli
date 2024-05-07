@@ -41,6 +41,7 @@ val yojson_of_azurerm_load_test : azurerm_load_test -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   data_plane_uri : string prop;
   description : string prop;
   id : string prop;

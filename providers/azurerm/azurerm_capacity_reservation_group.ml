@@ -158,6 +158,7 @@ let azurerm_capacity_reservation_group ?id ?tags ?zones ?timeouts
   { id; location; name; resource_group_name; tags; zones; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -171,6 +172,7 @@ let make ?id ?tags ?zones ?timeouts ~location ~name
   let __type = "azurerm_capacity_reservation_group" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

@@ -73,6 +73,7 @@ val yojson_of_aws_fsx_ontap_storage_virtual_machine :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   active_directory_configuration :
     active_directory_configuration list prop;
   arn : string prop;

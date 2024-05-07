@@ -996,6 +996,7 @@ let google_app_engine_standard_app_version ?app_engine_apis
   }
 
 type t = {
+  tf_name : string;
   app_engine_apis : bool prop;
   delete_service_on_destroy : bool prop;
   env_variables : (string * string) list prop;
@@ -1023,6 +1024,7 @@ let make ?app_engine_apis ?delete_service_on_destroy ?env_variables
   let __type = "google_app_engine_standard_app_version" in
   let __attrs =
     ({
+       tf_name = __id;
        app_engine_apis = Prop.computed __type __id "app_engine_apis";
        delete_service_on_destroy =
          Prop.computed __type __id "delete_service_on_destroy";

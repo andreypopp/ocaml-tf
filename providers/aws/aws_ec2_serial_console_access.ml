@@ -44,12 +44,13 @@ let aws_ec2_serial_console_access ?enabled ?id () :
     aws_ec2_serial_console_access =
   { enabled; id }
 
-type t = { enabled : bool prop; id : string prop }
+type t = { tf_name : string; enabled : bool prop; id : string prop }
 
 let make ?enabled ?id __id =
   let __type = "aws_ec2_serial_console_access" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";
      }

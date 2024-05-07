@@ -20,6 +20,7 @@ val yojson_of_aws_chime_voice_connector_logging :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enable_media_metric_logs : bool prop;
   enable_sip_logs : bool prop;
   id : string prop;

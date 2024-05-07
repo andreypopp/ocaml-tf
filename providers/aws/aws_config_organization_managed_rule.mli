@@ -37,6 +37,7 @@ val yojson_of_aws_config_organization_managed_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   excluded_accounts : string list prop;

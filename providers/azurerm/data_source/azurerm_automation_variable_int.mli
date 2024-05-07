@@ -25,6 +25,7 @@ val yojson_of_azurerm_automation_variable_int :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automation_account_name : string prop;
   description : string prop;
   encrypted : bool prop;

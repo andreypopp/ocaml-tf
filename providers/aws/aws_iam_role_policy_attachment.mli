@@ -19,6 +19,7 @@ val yojson_of_aws_iam_role_policy_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   policy_arn : string prop;
   role : string prop;

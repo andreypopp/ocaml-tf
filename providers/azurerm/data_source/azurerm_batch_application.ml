@@ -91,6 +91,7 @@ let azurerm_batch_application ?id ?timeouts ~account_name ~name
   { account_name; id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   account_name : string prop;
   allow_updates : bool prop;
   default_version : string prop;
@@ -105,6 +106,7 @@ let make ?id ?timeouts ~account_name ~name ~resource_group_name __id
   let __type = "azurerm_batch_application" in
   let __attrs =
     ({
+       tf_name = __id;
        account_name = Prop.computed __type __id "account_name";
        allow_updates = Prop.computed __type __id "allow_updates";
        default_version = Prop.computed __type __id "default_version";

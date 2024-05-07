@@ -24,6 +24,7 @@ val yojson_of_azurerm_log_analytics_workspace :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   daily_quota_gb : float prop;
   id : string prop;
   location : string prop;

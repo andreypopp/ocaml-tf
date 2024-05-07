@@ -23,6 +23,7 @@ val yojson_of_aws_cloudwatch_event_api_destination :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   connection_arn : string prop;
   description : string prop;

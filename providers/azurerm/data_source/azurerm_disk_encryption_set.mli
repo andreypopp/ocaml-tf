@@ -31,6 +31,7 @@ val yojson_of_azurerm_disk_encryption_set :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_key_rotation_enabled : bool prop;
   id : string prop;
   identity : identity list prop;

@@ -76,6 +76,7 @@ let digitalocean_spaces_bucket_object ?id ?range ?version_id ~bucket
   { bucket; id; key; range; region; version_id }
 
 type t = {
+  tf_name : string;
   body : string prop;
   bucket : string prop;
   cache_control : string prop;
@@ -101,6 +102,7 @@ let make ?id ?range ?version_id ~bucket ~key ~region __id =
   let __type = "digitalocean_spaces_bucket_object" in
   let __attrs =
     ({
+       tf_name = __id;
        body = Prop.computed __type __id "body";
        bucket = Prop.computed __type __id "bucket";
        cache_control = Prop.computed __type __id "cache_control";

@@ -131,6 +131,7 @@ val yojson_of_aws_sagemaker_model : aws_sagemaker_model -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   enable_network_isolation : bool prop;
   execution_role_arn : string prop;

@@ -20,6 +20,7 @@ val yojson_of_aws_ec2_transit_gateway_route_table_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   replace_existing_association : bool prop;
   resource_id : string prop;

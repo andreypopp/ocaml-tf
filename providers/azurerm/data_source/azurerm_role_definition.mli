@@ -34,6 +34,7 @@ val yojson_of_azurerm_role_definition :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   assignable_scopes : string list prop;
   description : string prop;
   id : string prop;

@@ -30,6 +30,7 @@ val yojson_of_azurerm_site_recovery_vmware_replication_policy_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   policy_id : string prop;

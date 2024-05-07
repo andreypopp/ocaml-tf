@@ -223,6 +223,7 @@ let azurerm_stream_analytics_function_javascript_udf ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   resource_group_name : string prop;
@@ -235,6 +236,7 @@ let make ?id ?timeouts ~name ~resource_group_name ~script
   let __type = "azurerm_stream_analytics_function_javascript_udf" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        resource_group_name =

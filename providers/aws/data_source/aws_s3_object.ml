@@ -97,6 +97,7 @@ let aws_s3_object ?checksum_mode ?id ?range ?tags ?version_id ~bucket
   { bucket; checksum_mode; id; key; range; tags; version_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   body : string prop;
   bucket : string prop;
@@ -136,6 +137,7 @@ let make ?checksum_mode ?id ?range ?tags ?version_id ~bucket ~key
   let __type = "aws_s3_object" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        body = Prop.computed __type __id "body";
        bucket = Prop.computed __type __id "bucket";

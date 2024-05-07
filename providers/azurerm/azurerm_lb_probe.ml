@@ -188,6 +188,7 @@ let azurerm_lb_probe ?id ?interval_in_seconds ?number_of_probes
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   interval_in_seconds : float prop;
   load_balancer_rules : string list prop;
@@ -206,6 +207,7 @@ let make ?id ?interval_in_seconds ?number_of_probes ?probe_threshold
   let __type = "azurerm_lb_probe" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        interval_in_seconds =
          Prop.computed __type __id "interval_in_seconds";

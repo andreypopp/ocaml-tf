@@ -216,6 +216,7 @@ let azurerm_dev_test_virtual_network ?description ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   lab_name : string prop;
@@ -230,6 +231,7 @@ let make ?description ?id ?tags ?(subnet = []) ?timeouts ~lab_name
   let __type = "azurerm_dev_test_virtual_network" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        lab_name = Prop.computed __type __id "lab_name";

@@ -83,6 +83,7 @@ let aws_api_gateway_export ?accepts ?id ?parameters ~export_type
   { accepts; export_type; id; parameters; rest_api_id; stage_name }
 
 type t = {
+  tf_name : string;
   accepts : string prop;
   body : string prop;
   content_disposition : string prop;
@@ -99,6 +100,7 @@ let make ?accepts ?id ?parameters ~export_type ~rest_api_id
   let __type = "aws_api_gateway_export" in
   let __attrs =
     ({
+       tf_name = __id;
        accepts = Prop.computed __type __id "accepts";
        body = Prop.computed __type __id "body";
        content_disposition =

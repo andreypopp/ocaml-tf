@@ -31,6 +31,7 @@ val yojson_of_hcloud_datacenter : hcloud_datacenter -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   available_server_type_ids : float list prop;
   description : string prop;
   id : float prop;

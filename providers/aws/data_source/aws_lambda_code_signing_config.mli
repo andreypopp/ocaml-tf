@@ -28,6 +28,7 @@ val yojson_of_aws_lambda_code_signing_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allowed_publishers : allowed_publishers list prop;
   arn : string prop;
   config_id : string prop;

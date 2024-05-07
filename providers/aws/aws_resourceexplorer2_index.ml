@@ -103,6 +103,7 @@ let aws_resourceexplorer2_index ?tags ?timeouts ~type_ () :
   { tags; type_; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   tags : (string * string) list prop;
@@ -114,6 +115,7 @@ let make ?tags ?timeouts ~type_ __id =
   let __type = "aws_resourceexplorer2_index" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        tags = Prop.computed __type __id "tags";

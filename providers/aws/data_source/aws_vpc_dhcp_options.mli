@@ -29,6 +29,7 @@ val yojson_of_aws_vpc_dhcp_options : aws_vpc_dhcp_options -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   dhcp_options_id : string prop;
   domain_name : string prop;

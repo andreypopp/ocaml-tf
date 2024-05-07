@@ -285,7 +285,7 @@ val yojson_of_kubernetes_horizontal_pod_autoscaler_v2 :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop }
+type t = private { tf_name : string; id : string prop }
 
 val register :
   ?tf_module:tf_module ->

@@ -78,6 +78,7 @@ val yojson_of_aws_gamelift_fleet : aws_gamelift_fleet -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   build_arn : string prop;
   build_id : string prop;

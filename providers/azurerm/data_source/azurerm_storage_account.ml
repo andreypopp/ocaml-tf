@@ -263,6 +263,7 @@ let azurerm_storage_account ?id ?min_tls_version ?timeouts ~name
   { id; min_tls_version; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   access_tier : string prop;
   account_kind : string prop;
   account_replication_type : string prop;
@@ -362,6 +363,7 @@ let make ?id ?min_tls_version ?timeouts ~name ~resource_group_name
   let __type = "azurerm_storage_account" in
   let __attrs =
     ({
+       tf_name = __id;
        access_tier = Prop.computed __type __id "access_tier";
        account_kind = Prop.computed __type __id "account_kind";
        account_replication_type =

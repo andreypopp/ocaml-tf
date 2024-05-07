@@ -44,6 +44,7 @@ val yojson_of_azurerm_spring_cloud_builder :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   spring_cloud_service_id : string prop;

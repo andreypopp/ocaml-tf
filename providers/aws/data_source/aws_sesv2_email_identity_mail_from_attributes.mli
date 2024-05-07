@@ -18,6 +18,7 @@ val yojson_of_aws_sesv2_email_identity_mail_from_attributes :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   behavior_on_mx_failure : string prop;
   email_identity : string prop;
   id : string prop;

@@ -34,6 +34,7 @@ val yojson_of_azurerm_iothub_fallback_route :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   condition : string prop;
   enabled : bool prop;
   endpoint_names : string list prop;

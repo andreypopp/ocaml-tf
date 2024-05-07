@@ -342,6 +342,7 @@ let aws_ssmincidents_response_plan ?id ?tags ~arn () :
   { arn; id; tags }
 
 type t = {
+  tf_name : string;
   action : action list prop;
   arn : string prop;
   chat_channel : string list prop;
@@ -358,6 +359,7 @@ let make ?id ?tags ~arn __id =
   let __type = "aws_ssmincidents_response_plan" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        arn = Prop.computed __type __id "arn";
        chat_channel = Prop.computed __type __id "chat_channel";

@@ -35,6 +35,7 @@ val yojson_of_aws_quicksight_vpc_connection : aws_quicksight_vpc_connection -> j
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name: string;
   arn: string prop;
   availability_status: string prop;
   aws_account_id: string prop;

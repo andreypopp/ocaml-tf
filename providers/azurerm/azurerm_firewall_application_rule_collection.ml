@@ -292,6 +292,7 @@ let azurerm_firewall_application_rule_collection ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   action : string prop;
   azure_firewall_name : string prop;
   id : string prop;
@@ -305,6 +306,7 @@ let make ?id ?timeouts ~action ~azure_firewall_name ~name ~priority
   let __type = "azurerm_firewall_application_rule_collection" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        azure_firewall_name =
          Prop.computed __type __id "azure_firewall_name";

@@ -265,6 +265,7 @@ let azurerm_storage_share ?access_tier ?enabled_protocol ?id
   }
 
 type t = {
+  tf_name : string;
   access_tier : string prop;
   enabled_protocol : string prop;
   id : string prop;
@@ -281,6 +282,7 @@ let make ?access_tier ?enabled_protocol ?id ?metadata ?timeouts ~name
   let __type = "azurerm_storage_share" in
   let __attrs =
     ({
+       tf_name = __id;
        access_tier = Prop.computed __type __id "access_tier";
        enabled_protocol =
          Prop.computed __type __id "enabled_protocol";

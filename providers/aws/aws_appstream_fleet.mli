@@ -55,6 +55,7 @@ val yojson_of_aws_appstream_fleet : aws_appstream_fleet -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   created_time : string prop;
   description : string prop;

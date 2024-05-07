@@ -98,6 +98,7 @@ val yojson_of_kubernetes_ingress : kubernetes_ingress -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   status : status list prop;
   wait_for_load_balancer : bool prop;

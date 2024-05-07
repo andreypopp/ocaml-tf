@@ -26,6 +26,7 @@ val yojson_of_cloudflare_worker_cron_trigger :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   schedules : string list prop;

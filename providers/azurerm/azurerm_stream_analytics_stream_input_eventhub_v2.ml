@@ -261,6 +261,7 @@ let azurerm_stream_analytics_stream_input_eventhub_v2
   }
 
 type t = {
+  tf_name : string;
   authentication_mode : string prop;
   eventhub_consumer_group_name : string prop;
   eventhub_name : string prop;
@@ -281,6 +282,7 @@ let make ?authentication_mode ?eventhub_consumer_group_name ?id
   let __type = "azurerm_stream_analytics_stream_input_eventhub_v2" in
   let __attrs =
     ({
+       tf_name = __id;
        authentication_mode =
          Prop.computed __type __id "authentication_mode";
        eventhub_consumer_group_name =

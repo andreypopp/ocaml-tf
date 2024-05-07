@@ -26,6 +26,7 @@ val yojson_of_google_tags_location_tag_binding :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

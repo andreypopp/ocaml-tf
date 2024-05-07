@@ -67,6 +67,7 @@ let hcloud_ssh_key ?id ?labels ~name ~public_key () : hcloud_ssh_key
   { id; labels; name; public_key }
 
 type t = {
+  tf_name : string;
   fingerprint : string prop;
   id : string prop;
   labels : (string * string) list prop;
@@ -78,6 +79,7 @@ let make ?id ?labels ~name ~public_key __id =
   let __type = "hcloud_ssh_key" in
   let __attrs =
     ({
+       tf_name = __id;
        fingerprint = Prop.computed __type __id "fingerprint";
        id = Prop.computed __type __id "id";
        labels = Prop.computed __type __id "labels";

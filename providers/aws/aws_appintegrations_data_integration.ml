@@ -166,6 +166,7 @@ let aws_appintegrations_data_integration ?description ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -181,6 +182,7 @@ let make ?description ?id ?tags ?tags_all ~kms_key ~name ~source_uri
   let __type = "aws_appintegrations_data_integration" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

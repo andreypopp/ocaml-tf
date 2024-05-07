@@ -107,6 +107,7 @@ let aws_main_route_table_association ?id ?timeouts ~route_table_id
   { id; route_table_id; vpc_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   original_route_table_id : string prop;
   route_table_id : string prop;
@@ -117,6 +118,7 @@ let make ?id ?timeouts ~route_table_id ~vpc_id __id =
   let __type = "aws_main_route_table_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        original_route_table_id =
          Prop.computed __type __id "original_route_table_id";

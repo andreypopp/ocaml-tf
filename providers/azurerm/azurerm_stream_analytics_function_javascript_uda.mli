@@ -45,6 +45,7 @@ val yojson_of_azurerm_stream_analytics_function_javascript_uda :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   script : string prop;

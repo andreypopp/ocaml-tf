@@ -69,6 +69,7 @@ let aws_iam_user_policy ?id ?name ?name_prefix ~policy ~user () :
   { id; name; name_prefix; policy; user }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   name_prefix : string prop;
@@ -80,6 +81,7 @@ let make ?id ?name ?name_prefix ~policy ~user __id =
   let __type = "aws_iam_user_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        name_prefix = Prop.computed __type __id "name_prefix";

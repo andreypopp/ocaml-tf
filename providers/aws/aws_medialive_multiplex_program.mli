@@ -56,6 +56,7 @@ val yojson_of_aws_medialive_multiplex_program :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   multiplex_id : string prop;
   program_name : string prop;

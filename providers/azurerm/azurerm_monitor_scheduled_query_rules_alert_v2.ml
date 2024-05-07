@@ -549,6 +549,7 @@ let azurerm_monitor_scheduled_query_rules_alert_v2
   }
 
 type t = {
+  tf_name : string;
   auto_mitigation_enabled : bool prop;
   created_with_api_version : string prop;
   description : string prop;
@@ -581,6 +582,7 @@ let make ?auto_mitigation_enabled ?description ?display_name ?enabled
   let __type = "azurerm_monitor_scheduled_query_rules_alert_v2" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_mitigation_enabled =
          Prop.computed __type __id "auto_mitigation_enabled";
        created_with_api_version =

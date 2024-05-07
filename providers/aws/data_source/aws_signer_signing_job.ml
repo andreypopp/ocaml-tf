@@ -180,6 +180,7 @@ let aws_signer_signing_job ?id ~job_id () : aws_signer_signing_job =
   { id; job_id }
 
 type t = {
+  tf_name : string;
   completed_at : string prop;
   created_at : string prop;
   id : string prop;
@@ -203,6 +204,7 @@ let make ?id ~job_id __id =
   let __type = "aws_signer_signing_job" in
   let __attrs =
     ({
+       tf_name = __id;
        completed_at = Prop.computed __type __id "completed_at";
        created_at = Prop.computed __type __id "created_at";
        id = Prop.computed __type __id "id";

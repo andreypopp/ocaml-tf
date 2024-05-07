@@ -446,6 +446,7 @@ let google_healthcare_fhir_store ?complex_data_type_reference_parsing
   }
 
 type t = {
+  tf_name : string;
   complex_data_type_reference_parsing : string prop;
   dataset : string prop;
   default_search_handling_strict : bool prop;
@@ -470,6 +471,7 @@ let make ?complex_data_type_reference_parsing
   let __type = "google_healthcare_fhir_store" in
   let __attrs =
     ({
+       tf_name = __id;
        complex_data_type_reference_parsing =
          Prop.computed __type __id
            "complex_data_type_reference_parsing";

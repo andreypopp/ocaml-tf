@@ -122,6 +122,7 @@ let google_vmwareengine_external_address ?description ?id ?timeouts
   { description; id; internal_ip; name; parent; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   external_ip : string prop;
@@ -138,6 +139,7 @@ let make ?description ?id ?timeouts ~internal_ip ~name ~parent __id =
   let __type = "google_vmwareengine_external_address" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        external_ip = Prop.computed __type __id "external_ip";

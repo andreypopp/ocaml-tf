@@ -42,6 +42,7 @@ val yojson_of_azurerm_logz_sub_account_tag_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   logz_sub_account_id : string prop;
   send_aad_logs : bool prop;

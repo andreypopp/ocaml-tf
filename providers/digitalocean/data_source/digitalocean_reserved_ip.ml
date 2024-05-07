@@ -40,6 +40,7 @@ let digitalocean_reserved_ip ?id ~ip_address () :
   { id; ip_address }
 
 type t = {
+  tf_name : string;
   droplet_id : float prop;
   id : string prop;
   ip_address : string prop;
@@ -51,6 +52,7 @@ let make ?id ~ip_address __id =
   let __type = "digitalocean_reserved_ip" in
   let __attrs =
     ({
+       tf_name = __id;
        droplet_id = Prop.computed __type __id "droplet_id";
        id = Prop.computed __type __id "id";
        ip_address = Prop.computed __type __id "ip_address";

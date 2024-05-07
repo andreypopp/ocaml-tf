@@ -2151,6 +2151,7 @@ let aws_sagemaker_user_profile ?id ?single_sign_on_user_identifier
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   domain_id : string prop;
   home_efs_file_system_uid : string prop;
@@ -2168,6 +2169,7 @@ let make ?id ?single_sign_on_user_identifier
   let __type = "aws_sagemaker_user_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        domain_id = Prop.computed __type __id "domain_id";
        home_efs_file_system_uid =

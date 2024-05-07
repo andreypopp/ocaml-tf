@@ -1710,6 +1710,7 @@ let azurerm_eventgrid_event_subscription
   }
 
 type t = {
+  tf_name : string;
   advanced_filtering_on_arrays_enabled : bool prop;
   event_delivery_schema : string prop;
   eventhub_endpoint_id : string prop;
@@ -1737,6 +1738,7 @@ let make ?advanced_filtering_on_arrays_enabled ?event_delivery_schema
   let __type = "azurerm_eventgrid_event_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        advanced_filtering_on_arrays_enabled =
          Prop.computed __type __id
            "advanced_filtering_on_arrays_enabled";

@@ -25,6 +25,7 @@ val yojson_of_aws_cloudwatch_log_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   kms_key_id : string prop;

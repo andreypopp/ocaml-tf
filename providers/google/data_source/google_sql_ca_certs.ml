@@ -103,6 +103,7 @@ let google_sql_ca_certs ?id ?project ~instance () :
   { id; instance; project }
 
 type t = {
+  tf_name : string;
   active_version : string prop;
   certs : certs list prop;
   id : string prop;
@@ -114,6 +115,7 @@ let make ?id ?project ~instance __id =
   let __type = "google_sql_ca_certs" in
   let __attrs =
     ({
+       tf_name = __id;
        active_version = Prop.computed __type __id "active_version";
        certs = Prop.computed __type __id "certs";
        id = Prop.computed __type __id "id";

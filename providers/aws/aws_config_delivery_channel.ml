@@ -138,6 +138,7 @@ let aws_config_delivery_channel ?id ?name ?s3_key_prefix
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   s3_bucket_name : string prop;
@@ -151,6 +152,7 @@ let make ?id ?name ?s3_key_prefix ?s3_kms_key_arn ?sns_topic_arn
   let __type = "aws_config_delivery_channel" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        s3_bucket_name = Prop.computed __type __id "s3_bucket_name";

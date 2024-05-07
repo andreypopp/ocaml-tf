@@ -84,6 +84,7 @@ let aws_route53_resolver_endpoint ?id ?resolver_endpoint_id ~filter
   { id; resolver_endpoint_id; filter }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   direction : string prop;
   id : string prop;
@@ -100,6 +101,7 @@ let make ?id ?resolver_endpoint_id ~filter __id =
   let __type = "aws_route53_resolver_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        direction = Prop.computed __type __id "direction";
        id = Prop.computed __type __id "id";

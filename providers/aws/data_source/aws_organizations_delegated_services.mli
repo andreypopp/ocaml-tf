@@ -24,6 +24,7 @@ val yojson_of_aws_organizations_delegated_services :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   delegated_services : delegated_services list prop;
   id : string prop;

@@ -30,12 +30,17 @@ let _ = yojson_of_aws_dx_locations
 
 let aws_dx_locations ?id () : aws_dx_locations = { id }
 
-type t = { id : string prop; location_codes : string list prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  location_codes : string list prop;
+}
 
 let make ?id __id =
   let __type = "aws_dx_locations" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location_codes = Prop.computed __type __id "location_codes";
      }

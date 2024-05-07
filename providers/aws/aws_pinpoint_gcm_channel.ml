@@ -61,6 +61,7 @@ let aws_pinpoint_gcm_channel ?enabled ?id ~api_key ~application_id ()
   { api_key; application_id; enabled; id }
 
 type t = {
+  tf_name : string;
   api_key : string prop;
   application_id : string prop;
   enabled : bool prop;
@@ -71,6 +72,7 @@ let make ?enabled ?id ~api_key ~application_id __id =
   let __type = "aws_pinpoint_gcm_channel" in
   let __attrs =
     ({
+       tf_name = __id;
        api_key = Prop.computed __type __id "api_key";
        application_id = Prop.computed __type __id "application_id";
        enabled = Prop.computed __type __id "enabled";

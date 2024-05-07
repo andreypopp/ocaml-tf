@@ -142,6 +142,7 @@ let aws_s3control_multi_region_access_point ?account_id ?id ~name ()
   { account_id; id; name }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   alias : string prop;
   arn : string prop;
@@ -158,6 +159,7 @@ let make ?account_id ?id ~name __id =
   let __type = "aws_s3control_multi_region_access_point" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        alias = Prop.computed __type __id "alias";
        arn = Prop.computed __type __id "arn";

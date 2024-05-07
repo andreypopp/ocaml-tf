@@ -239,6 +239,7 @@ let aws_config_organization_custom_policy_rule
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   debug_log_delivery_accounts : string list prop;
   description : string prop;
@@ -264,6 +265,7 @@ let make ?debug_log_delivery_accounts ?description ?excluded_accounts
   let __type = "aws_config_organization_custom_policy_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        debug_log_delivery_accounts =
          Prop.computed __type __id "debug_log_delivery_accounts";

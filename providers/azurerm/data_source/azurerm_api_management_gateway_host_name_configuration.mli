@@ -25,6 +25,7 @@ val yojson_of_azurerm_api_management_gateway_host_name_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_management_id : string prop;
   certificate_id : string prop;
   gateway_name : string prop;

@@ -130,6 +130,7 @@ val yojson_of_aws_ssm_maintenance_window_task :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cutoff_behavior : string prop;
   description : string prop;

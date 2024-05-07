@@ -72,6 +72,7 @@ let aws_verifiedpermissions_policy_store ?description
   { description; validation_settings }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -82,6 +83,7 @@ let make ?description ?(validation_settings = []) __id =
   let __type = "aws_verifiedpermissions_policy_store" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

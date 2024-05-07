@@ -107,6 +107,7 @@ let aws_servicecatalog_tag_option_resource_association ?id ?timeouts
   { id; resource_id; tag_option_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   resource_arn : string prop;
   resource_created_time : string prop;
@@ -122,6 +123,7 @@ let make ?id ?timeouts ~resource_id ~tag_option_id __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        resource_arn = Prop.computed __type __id "resource_arn";
        resource_created_time =

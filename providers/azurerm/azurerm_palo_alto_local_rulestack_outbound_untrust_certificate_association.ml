@@ -107,7 +107,11 @@ let azurerm_palo_alto_local_rulestack_outbound_untrust_certificate_association
     =
   { certificate_id; id; timeouts }
 
-type t = { certificate_id : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  certificate_id : string prop;
+  id : string prop;
+}
 
 let make ?id ?timeouts ~certificate_id __id =
   let __type =
@@ -115,6 +119,7 @@ let make ?id ?timeouts ~certificate_id __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_id = Prop.computed __type __id "certificate_id";
        id = Prop.computed __type __id "id";
      }

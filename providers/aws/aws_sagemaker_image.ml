@@ -113,6 +113,7 @@ let aws_sagemaker_image ?description ?display_name ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   display_name : string prop;
@@ -128,6 +129,7 @@ let make ?description ?display_name ?id ?tags ?tags_all ~image_name
   let __type = "aws_sagemaker_image" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";

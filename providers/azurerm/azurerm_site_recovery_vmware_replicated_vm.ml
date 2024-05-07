@@ -494,6 +494,7 @@ let azurerm_site_recovery_vmware_replicated_vm
   }
 
 type t = {
+  tf_name : string;
   appliance_name : string prop;
   default_log_storage_account_id : string prop;
   default_recovery_disk_type : string prop;
@@ -529,6 +530,7 @@ let make ?default_log_storage_account_id ?default_recovery_disk_type
   let __type = "azurerm_site_recovery_vmware_replicated_vm" in
   let __attrs =
     ({
+       tf_name = __id;
        appliance_name = Prop.computed __type __id "appliance_name";
        default_log_storage_account_id =
          Prop.computed __type __id "default_log_storage_account_id";

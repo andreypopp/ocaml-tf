@@ -46,6 +46,7 @@ val yojson_of_aws_neptune_cluster_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address : string prop;
   apply_immediately : bool prop;
   arn : string prop;

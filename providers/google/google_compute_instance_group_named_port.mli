@@ -28,6 +28,7 @@ val yojson_of_google_compute_instance_group_named_port :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   group : string prop;
   id : string prop;
   name : string prop;

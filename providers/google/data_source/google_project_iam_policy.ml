@@ -40,6 +40,7 @@ let google_project_iam_policy ?id ~project () :
   { id; project }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   policy_data : string prop;
@@ -50,6 +51,7 @@ let make ?id ~project __id =
   let __type = "google_project_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        policy_data = Prop.computed __type __id "policy_data";

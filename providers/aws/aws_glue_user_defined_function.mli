@@ -32,6 +32,7 @@ val yojson_of_aws_glue_user_defined_function :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   catalog_id : string prop;
   class_name : string prop;

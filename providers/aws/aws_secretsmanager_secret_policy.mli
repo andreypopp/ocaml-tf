@@ -20,6 +20,7 @@ val yojson_of_aws_secretsmanager_secret_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   block_public_policy : bool prop;
   id : string prop;
   policy : string prop;

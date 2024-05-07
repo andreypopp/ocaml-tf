@@ -36,6 +36,7 @@ val yojson_of_aws_redshift_event_subscription :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   customer_aws_id : string prop;
   enabled : bool prop;

@@ -1631,6 +1631,7 @@ let azurerm_container_app ?id ?timeouts ~name ~resource_group_name ()
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   container_app_environment_id : string prop;
   custom_domain_verification_id : string prop;
   dapr : dapr list prop;
@@ -1655,6 +1656,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_container_app" in
   let __attrs =
     ({
+       tf_name = __id;
        container_app_environment_id =
          Prop.computed __type __id "container_app_environment_id";
        custom_domain_verification_id =

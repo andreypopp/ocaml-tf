@@ -155,12 +155,17 @@ let aws_inspector2_organization_configuration ?id ?timeouts
     ~auto_enable () : aws_inspector2_organization_configuration =
   { id; auto_enable; timeouts }
 
-type t = { id : string prop; max_account_limit_reached : bool prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  max_account_limit_reached : bool prop;
+}
 
 let make ?id ?timeouts ~auto_enable __id =
   let __type = "aws_inspector2_organization_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        max_account_limit_reached =
          Prop.computed __type __id "max_account_limit_reached";

@@ -89,6 +89,7 @@ let cloudflare_teams_location ?client_default ?id ~account_id ~name
   { account_id; client_default; id; name; networks }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   anonymized_logs_enabled : bool prop;
   client_default : bool prop;
@@ -104,6 +105,7 @@ let make ?client_default ?id ~account_id ~name ~networks __id =
   let __type = "cloudflare_teams_location" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        anonymized_logs_enabled =
          Prop.computed __type __id "anonymized_logs_enabled";

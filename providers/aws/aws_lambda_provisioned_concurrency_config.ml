@@ -123,6 +123,7 @@ let aws_lambda_provisioned_concurrency_config ?id ?skip_destroy
   }
 
 type t = {
+  tf_name : string;
   function_name : string prop;
   id : string prop;
   provisioned_concurrent_executions : float prop;
@@ -135,6 +136,7 @@ let make ?id ?skip_destroy ?timeouts ~function_name
   let __type = "aws_lambda_provisioned_concurrency_config" in
   let __attrs =
     ({
+       tf_name = __id;
        function_name = Prop.computed __type __id "function_name";
        id = Prop.computed __type __id "id";
        provisioned_concurrent_executions =

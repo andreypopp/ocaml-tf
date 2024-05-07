@@ -715,6 +715,7 @@ let aws_emrcontainers_job_template ?id ?kms_key_arn ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   kms_key_arn : string prop;
@@ -728,6 +729,7 @@ let make ?id ?kms_key_arn ?tags ?tags_all ?timeouts ~name
   let __type = "aws_emrcontainers_job_template" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        kms_key_arn = Prop.computed __type __id "kms_key_arn";

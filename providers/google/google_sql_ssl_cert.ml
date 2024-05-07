@@ -104,6 +104,7 @@ let google_sql_ssl_cert ?id ?project ?timeouts ~common_name ~instance
   { common_name; id; instance; project; timeouts }
 
 type t = {
+  tf_name : string;
   cert : string prop;
   cert_serial_number : string prop;
   common_name : string prop;
@@ -121,6 +122,7 @@ let make ?id ?project ?timeouts ~common_name ~instance __id =
   let __type = "google_sql_ssl_cert" in
   let __attrs =
     ({
+       tf_name = __id;
        cert = Prop.computed __type __id "cert";
        cert_serial_number =
          Prop.computed __type __id "cert_serial_number";

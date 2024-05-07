@@ -21,6 +21,7 @@ val yojson_of_aws_ecr_image : aws_ecr_image -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   image_digest : string prop;
   image_pushed_at : float prop;

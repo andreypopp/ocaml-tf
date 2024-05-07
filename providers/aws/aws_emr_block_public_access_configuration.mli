@@ -28,6 +28,7 @@ val yojson_of_aws_emr_block_public_access_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   block_public_security_group_rules : bool prop;
   id : string prop;
 }

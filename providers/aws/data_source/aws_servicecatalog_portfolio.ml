@@ -96,6 +96,7 @@ let aws_servicecatalog_portfolio ?accept_language ?tags ?timeouts ~id
   { accept_language; id; tags; timeouts }
 
 type t = {
+  tf_name : string;
   accept_language : string prop;
   arn : string prop;
   created_time : string prop;
@@ -110,6 +111,7 @@ let make ?accept_language ?tags ?timeouts ~id __id =
   let __type = "aws_servicecatalog_portfolio" in
   let __attrs =
     ({
+       tf_name = __id;
        accept_language = Prop.computed __type __id "accept_language";
        arn = Prop.computed __type __id "arn";
        created_time = Prop.computed __type __id "created_time";

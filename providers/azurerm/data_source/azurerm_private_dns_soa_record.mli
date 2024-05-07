@@ -25,6 +25,7 @@ val yojson_of_azurerm_private_dns_soa_record :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   email : string prop;
   expire_time : float prop;
   fqdn : string prop;

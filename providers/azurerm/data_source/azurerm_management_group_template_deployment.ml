@@ -87,6 +87,7 @@ let azurerm_management_group_template_deployment ?id ?timeouts
   { id; management_group_id; name; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   management_group_id : string prop;
   name : string prop;
@@ -97,6 +98,7 @@ let make ?id ?timeouts ~management_group_id ~name __id =
   let __type = "azurerm_management_group_template_deployment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        management_group_id =
          Prop.computed __type __id "management_group_id";

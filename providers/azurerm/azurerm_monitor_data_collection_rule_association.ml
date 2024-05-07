@@ -166,6 +166,7 @@ let azurerm_monitor_data_collection_rule_association
   }
 
 type t = {
+  tf_name : string;
   data_collection_endpoint_id : string prop;
   data_collection_rule_id : string prop;
   description : string prop;
@@ -179,6 +180,7 @@ let make ?data_collection_endpoint_id ?data_collection_rule_id
   let __type = "azurerm_monitor_data_collection_rule_association" in
   let __attrs =
     ({
+       tf_name = __id;
        data_collection_endpoint_id =
          Prop.computed __type __id "data_collection_endpoint_id";
        data_collection_rule_id =

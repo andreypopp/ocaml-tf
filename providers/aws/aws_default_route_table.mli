@@ -46,6 +46,7 @@ val yojson_of_aws_default_route_table :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   default_route_table_id : string prop;
   id : string prop;

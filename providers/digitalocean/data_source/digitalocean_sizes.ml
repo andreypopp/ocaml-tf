@@ -212,12 +212,17 @@ let digitalocean_sizes ?id ?(sort = []) ~filter () :
     digitalocean_sizes =
   { id; filter; sort }
 
-type t = { id : string prop; sizes : sizes list prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  sizes : sizes list prop;
+}
 
 let make ?id ?(sort = []) ~filter __id =
   let __type = "digitalocean_sizes" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        sizes = Prop.computed __type __id "sizes";
      }

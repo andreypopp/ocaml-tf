@@ -116,6 +116,7 @@ let azurerm_video_analyzer_edge_module ?id ?timeouts ~name
   { id; name; resource_group_name; video_analyzer_name; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   resource_group_name : string prop;
@@ -127,6 +128,7 @@ let make ?id ?timeouts ~name ~resource_group_name
   let __type = "azurerm_video_analyzer_edge_module" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        resource_group_name =

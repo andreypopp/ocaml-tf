@@ -21,6 +21,7 @@ val yojson_of_aws_route53_key_signing_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   digest_algorithm_mnemonic : string prop;
   digest_algorithm_type : float prop;
   digest_value : string prop;

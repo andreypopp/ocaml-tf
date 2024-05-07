@@ -588,6 +588,7 @@ let google_bigquery_connection ?connection_id ?description
   }
 
 type t = {
+  tf_name : string;
   connection_id : string prop;
   description : string prop;
   friendly_name : string prop;
@@ -605,6 +606,7 @@ let make ?connection_id ?description ?friendly_name ?id ?location
   let __type = "google_bigquery_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        connection_id = Prop.computed __type __id "connection_id";
        description = Prop.computed __type __id "description";
        friendly_name = Prop.computed __type __id "friendly_name";

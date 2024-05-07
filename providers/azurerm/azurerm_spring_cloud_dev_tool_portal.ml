@@ -237,6 +237,7 @@ let azurerm_spring_cloud_dev_tool_portal
   }
 
 type t = {
+  tf_name : string;
   application_accelerator_enabled : bool prop;
   application_live_view_enabled : bool prop;
   id : string prop;
@@ -251,6 +252,7 @@ let make ?application_accelerator_enabled
   let __type = "azurerm_spring_cloud_dev_tool_portal" in
   let __attrs =
     ({
+       tf_name = __id;
        application_accelerator_enabled =
          Prop.computed __type __id "application_accelerator_enabled";
        application_live_view_enabled =

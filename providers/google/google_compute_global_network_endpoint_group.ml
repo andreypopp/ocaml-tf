@@ -136,6 +136,7 @@ let google_compute_global_network_endpoint_group ?default_port
   }
 
 type t = {
+  tf_name : string;
   default_port : float prop;
   description : string prop;
   id : string prop;
@@ -150,6 +151,7 @@ let make ?default_port ?description ?id ?project ?timeouts ~name
   let __type = "google_compute_global_network_endpoint_group" in
   let __attrs =
     ({
+       tf_name = __id;
        default_port = Prop.computed __type __id "default_port";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

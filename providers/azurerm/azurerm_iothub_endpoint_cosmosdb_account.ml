@@ -226,6 +226,7 @@ let azurerm_iothub_endpoint_cosmosdb_account ?authentication_type ?id
   }
 
 type t = {
+  tf_name : string;
   authentication_type : string prop;
   container_name : string prop;
   database_name : string prop;
@@ -248,6 +249,7 @@ let make ?authentication_type ?id ?identity_id ?partition_key_name
   let __type = "azurerm_iothub_endpoint_cosmosdb_account" in
   let __attrs =
     ({
+       tf_name = __id;
        authentication_type =
          Prop.computed __type __id "authentication_type";
        container_name = Prop.computed __type __id "container_name";

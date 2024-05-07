@@ -44,6 +44,7 @@ let aws_db_event_categories ?id ?source_type () :
   { id; source_type }
 
 type t = {
+  tf_name : string;
   event_categories : string list prop;
   id : string prop;
   source_type : string prop;
@@ -53,6 +54,7 @@ let make ?id ?source_type __id =
   let __type = "aws_db_event_categories" in
   let __attrs =
     ({
+       tf_name = __id;
        event_categories =
          Prop.computed __type __id "event_categories";
        id = Prop.computed __type __id "id";

@@ -28,6 +28,7 @@ val yojson_of_digitalocean_custom_image :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created_at : string prop;
   description : string prop;
   distribution : string prop;

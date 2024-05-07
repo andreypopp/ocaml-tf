@@ -291,6 +291,7 @@ let aws_ssm_association ?apply_only_at_cron_interval
   }
 
 type t = {
+  tf_name : string;
   apply_only_at_cron_interval : bool prop;
   arn : string prop;
   association_id : string prop;
@@ -318,6 +319,7 @@ let make ?apply_only_at_cron_interval ?association_name
   let __type = "aws_ssm_association" in
   let __attrs =
     ({
+       tf_name = __id;
        apply_only_at_cron_interval =
          Prop.computed __type __id "apply_only_at_cron_interval";
        arn = Prop.computed __type __id "arn";

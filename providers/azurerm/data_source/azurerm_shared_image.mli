@@ -36,6 +36,7 @@ val yojson_of_azurerm_shared_image : azurerm_shared_image -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   architecture : string prop;
   description : string prop;
   eula : string prop;

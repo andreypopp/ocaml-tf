@@ -312,6 +312,7 @@ let azurerm_key_vault_key ?curve ?expiration_date ?id ?key_size
   }
 
 type t = {
+  tf_name : string;
   curve : string prop;
   e : string prop;
   expiration_date : string prop;
@@ -340,6 +341,7 @@ let make ?curve ?expiration_date ?id ?key_size ?not_before_date ?tags
   let __type = "azurerm_key_vault_key" in
   let __attrs =
     ({
+       tf_name = __id;
        curve = Prop.computed __type __id "curve";
        e = Prop.computed __type __id "e";
        expiration_date = Prop.computed __type __id "expiration_date";

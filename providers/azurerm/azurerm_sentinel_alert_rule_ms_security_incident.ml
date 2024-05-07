@@ -218,6 +218,7 @@ let azurerm_sentinel_alert_rule_ms_security_incident
   }
 
 type t = {
+  tf_name : string;
   alert_rule_template_guid : string prop;
   description : string prop;
   display_name : string prop;
@@ -238,6 +239,7 @@ let make ?alert_rule_template_guid ?description
   let __type = "azurerm_sentinel_alert_rule_ms_security_incident" in
   let __attrs =
     ({
+       tf_name = __id;
        alert_rule_template_guid =
          Prop.computed __type __id "alert_rule_template_guid";
        description = Prop.computed __type __id "description";

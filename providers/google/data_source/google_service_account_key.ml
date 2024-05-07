@@ -63,6 +63,7 @@ let google_service_account_key ?id ?project ?public_key_type ~name ()
   { id; name; project; public_key_type }
 
 type t = {
+  tf_name : string;
   id : string prop;
   key_algorithm : string prop;
   name : string prop;
@@ -75,6 +76,7 @@ let make ?id ?project ?public_key_type ~name __id =
   let __type = "google_service_account_key" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        key_algorithm = Prop.computed __type __id "key_algorithm";
        name = Prop.computed __type __id "name";

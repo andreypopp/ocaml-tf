@@ -20,6 +20,7 @@ val yojson_of_google_secret_manager_secret_version :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   destroy_time : string prop;
   enabled : bool prop;

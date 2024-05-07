@@ -282,6 +282,7 @@ let azurerm_application_insights ?daily_data_cap_in_gb
   }
 
 type t = {
+  tf_name : string;
   app_id : string prop;
   application_type : string prop;
   connection_string : string prop;
@@ -312,6 +313,7 @@ let make ?daily_data_cap_in_gb ?daily_data_cap_notifications_disabled
   let __type = "azurerm_application_insights" in
   let __attrs =
     ({
+       tf_name = __id;
        app_id = Prop.computed __type __id "app_id";
        application_type =
          Prop.computed __type __id "application_type";

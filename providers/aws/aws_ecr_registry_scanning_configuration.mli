@@ -35,6 +35,7 @@ val yojson_of_aws_ecr_registry_scanning_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   registry_id : string prop;
   scan_type : string prop;

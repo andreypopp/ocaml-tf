@@ -196,6 +196,7 @@ let google_compute_target_pool ?backup_pool ?description
   }
 
 type t = {
+  tf_name : string;
   backup_pool : string prop;
   description : string prop;
   failover_ratio : float prop;
@@ -215,6 +216,7 @@ let make ?backup_pool ?description ?failover_ratio ?health_checks ?id
   let __type = "google_compute_target_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        backup_pool = Prop.computed __type __id "backup_pool";
        description = Prop.computed __type __id "description";
        failover_ratio = Prop.computed __type __id "failover_ratio";

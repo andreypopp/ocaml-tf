@@ -123,6 +123,7 @@ let aws_route53_resolver_firewall_rule_group_association ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   firewall_rule_group_id : string prop;
   id : string prop;
@@ -141,6 +142,7 @@ let make ?id ?mutation_protection ?tags ?tags_all
   in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        firewall_rule_group_id =
          Prop.computed __type __id "firewall_rule_group_id";

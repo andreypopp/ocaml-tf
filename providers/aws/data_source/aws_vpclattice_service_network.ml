@@ -65,6 +65,7 @@ let aws_vpclattice_service_network ?id ?tags
   { id; service_network_identifier; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   auth_type : string prop;
   created_at : string prop;
@@ -81,6 +82,7 @@ let make ?id ?tags ~service_network_identifier __id =
   let __type = "aws_vpclattice_service_network" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        auth_type = Prop.computed __type __id "auth_type";
        created_at = Prop.computed __type __id "created_at";

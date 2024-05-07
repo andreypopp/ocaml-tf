@@ -139,6 +139,7 @@ let google_scc_event_threat_detection_custom_module ?display_name ?id
   }
 
 type t = {
+  tf_name : string;
   config : string prop;
   display_name : string prop;
   enablement_state : string prop;
@@ -155,6 +156,7 @@ let make ?display_name ?id ?timeouts ~config ~enablement_state
   let __type = "google_scc_event_threat_detection_custom_module" in
   let __attrs =
     ({
+       tf_name = __id;
        config = Prop.computed __type __id "config";
        display_name = Prop.computed __type __id "display_name";
        enablement_state =

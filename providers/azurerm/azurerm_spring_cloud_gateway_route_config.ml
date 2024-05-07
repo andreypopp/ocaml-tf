@@ -357,6 +357,7 @@ let azurerm_spring_cloud_gateway_route_config ?filters ?id
   }
 
 type t = {
+  tf_name : string;
   filters : string list prop;
   id : string prop;
   name : string prop;
@@ -373,6 +374,7 @@ let make ?filters ?id ?predicates ?protocol ?spring_cloud_app_id
   let __type = "azurerm_spring_cloud_gateway_route_config" in
   let __attrs =
     ({
+       tf_name = __id;
        filters = Prop.computed __type __id "filters";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

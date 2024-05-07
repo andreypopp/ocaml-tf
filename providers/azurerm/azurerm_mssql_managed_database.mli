@@ -52,6 +52,7 @@ val yojson_of_azurerm_mssql_managed_database :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   managed_instance_id : string prop;
   name : string prop;

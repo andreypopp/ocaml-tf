@@ -106,6 +106,7 @@ val yojson_of_azurerm_backup_policy_vm_workload :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   recovery_vault_name : string prop;

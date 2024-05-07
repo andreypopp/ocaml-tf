@@ -31,6 +31,7 @@ val yojson_of_azurerm_api_management_api_operation_tag :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_operation_id : string prop;
   display_name : string prop;
   id : string prop;

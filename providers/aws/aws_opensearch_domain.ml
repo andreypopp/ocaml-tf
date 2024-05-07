@@ -1372,6 +1372,7 @@ let aws_opensearch_domain ?access_policies ?advanced_options
   }
 
 type t = {
+  tf_name : string;
   access_policies : string prop;
   advanced_options : (string * string) list prop;
   arn : string prop;
@@ -1398,6 +1399,7 @@ let make ?access_policies ?advanced_options ?engine_version ?id ?tags
   let __type = "aws_opensearch_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        access_policies = Prop.computed __type __id "access_policies";
        advanced_options =
          Prop.computed __type __id "advanced_options";

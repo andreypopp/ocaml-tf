@@ -622,6 +622,7 @@ val yojson_of_aws_appmesh_virtual_node :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   created_date : string prop;
   id : string prop;

@@ -171,6 +171,7 @@ let azurerm_digital_twins_endpoint_eventgrid
   }
 
 type t = {
+  tf_name : string;
   dead_letter_storage_secret : string prop;
   digital_twins_id : string prop;
   eventgrid_topic_endpoint : string prop;
@@ -186,6 +187,7 @@ let make ?dead_letter_storage_secret ?id ?timeouts ~digital_twins_id
   let __type = "azurerm_digital_twins_endpoint_eventgrid" in
   let __attrs =
     ({
+       tf_name = __id;
        dead_letter_storage_secret =
          Prop.computed __type __id "dead_letter_storage_secret";
        digital_twins_id =

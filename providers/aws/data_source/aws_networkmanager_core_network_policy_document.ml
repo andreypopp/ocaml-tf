@@ -633,6 +633,7 @@ let aws_networkmanager_core_network_policy_document ?id ?version
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   json : string prop;
   version : string prop;
@@ -644,6 +645,7 @@ let make ?id ?version ?(attachment_policies = [])
   let __type = "aws_networkmanager_core_network_policy_document" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        json = Prop.computed __type __id "json";
        version = Prop.computed __type __id "version";

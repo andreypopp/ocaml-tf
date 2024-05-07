@@ -29,6 +29,7 @@ val yojson_of_aws_glacier_vault : aws_glacier_vault -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_policy : string prop;
   arn : string prop;
   id : string prop;

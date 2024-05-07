@@ -88,6 +88,7 @@ let aws_batch_job_queue ?id ?tags ~name () : aws_batch_job_queue =
   { id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   compute_environment_order : compute_environment_order list prop;
   id : string prop;
@@ -104,6 +105,7 @@ let make ?id ?tags ~name __id =
   let __type = "aws_batch_job_queue" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        compute_environment_order =
          Prop.computed __type __id "compute_environment_order";

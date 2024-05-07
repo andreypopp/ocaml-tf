@@ -413,6 +413,7 @@ let azurerm_sentinel_automation_rule ?condition_json ?enabled
   }
 
 type t = {
+  tf_name : string;
   condition_json : string prop;
   display_name : string prop;
   enabled : bool prop;
@@ -432,6 +433,7 @@ let make ?condition_json ?enabled ?expiration ?id ?triggers_on
   let __type = "azurerm_sentinel_automation_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        condition_json = Prop.computed __type __id "condition_json";
        display_name = Prop.computed __type __id "display_name";
        enabled = Prop.computed __type __id "enabled";

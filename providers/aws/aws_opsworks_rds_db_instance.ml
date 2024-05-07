@@ -65,6 +65,7 @@ let aws_opsworks_rds_db_instance ?id ~db_password ~db_user
   { db_password; db_user; id; rds_db_instance_arn; stack_id }
 
 type t = {
+  tf_name : string;
   db_password : string prop;
   db_user : string prop;
   id : string prop;
@@ -77,6 +78,7 @@ let make ?id ~db_password ~db_user ~rds_db_instance_arn ~stack_id
   let __type = "aws_opsworks_rds_db_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        db_password = Prop.computed __type __id "db_password";
        db_user = Prop.computed __type __id "db_user";
        id = Prop.computed __type __id "id";

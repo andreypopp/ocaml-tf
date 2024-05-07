@@ -21,6 +21,7 @@ val yojson_of_aws_appstream_user_stack_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authentication_type : string prop;
   id : string prop;
   send_email_notification : bool prop;

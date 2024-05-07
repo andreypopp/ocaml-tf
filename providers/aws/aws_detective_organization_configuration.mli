@@ -19,6 +19,7 @@ val yojson_of_aws_detective_organization_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_enable : bool prop;
   graph_arn : string prop;
   id : string prop;

@@ -75,6 +75,7 @@ let aws_appstream_user_stack_association ?id ?send_email_notification
   }
 
 type t = {
+  tf_name : string;
   authentication_type : string prop;
   id : string prop;
   send_email_notification : bool prop;
@@ -87,6 +88,7 @@ let make ?id ?send_email_notification ~authentication_type
   let __type = "aws_appstream_user_stack_association" in
   let __attrs =
     ({
+       tf_name = __id;
        authentication_type =
          Prop.computed __type __id "authentication_type";
        id = Prop.computed __type __id "id";

@@ -179,6 +179,7 @@ let aws_xray_sampling_rule ?attributes ?id ?rule_name ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   attributes : (string * string) list prop;
   fixed_rate : float prop;
@@ -203,6 +204,7 @@ let make ?attributes ?id ?rule_name ?tags ?tags_all ~fixed_rate ~host
   let __type = "aws_xray_sampling_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        attributes = Prop.computed __type __id "attributes";
        fixed_rate = Prop.computed __type __id "fixed_rate";

@@ -323,6 +323,7 @@ let aws_neptune_cluster_instance ?apply_immediately
   }
 
 type t = {
+  tf_name : string;
   address : string prop;
   apply_immediately : bool prop;
   arn : string prop;
@@ -363,6 +364,7 @@ let make ?apply_immediately ?auto_minor_version_upgrade
   let __type = "aws_neptune_cluster_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        address = Prop.computed __type __id "address";
        apply_immediately =
          Prop.computed __type __id "apply_immediately";

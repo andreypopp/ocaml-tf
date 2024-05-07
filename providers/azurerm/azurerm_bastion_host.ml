@@ -285,6 +285,7 @@ let azurerm_bastion_host ?copy_paste_enabled ?file_copy_enabled ?id
   }
 
 type t = {
+  tf_name : string;
   copy_paste_enabled : bool prop;
   dns_name : string prop;
   file_copy_enabled : bool prop;
@@ -307,6 +308,7 @@ let make ?copy_paste_enabled ?file_copy_enabled ?id
   let __type = "azurerm_bastion_host" in
   let __attrs =
     ({
+       tf_name = __id;
        copy_paste_enabled =
          Prop.computed __type __id "copy_paste_enabled";
        dns_name = Prop.computed __type __id "dns_name";

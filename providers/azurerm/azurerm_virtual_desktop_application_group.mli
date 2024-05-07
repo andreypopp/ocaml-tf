@@ -37,6 +37,7 @@ val yojson_of_azurerm_virtual_desktop_application_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   default_desktop_display_name : string prop;
   description : string prop;
   friendly_name : string prop;

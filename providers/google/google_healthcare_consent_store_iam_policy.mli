@@ -20,6 +20,7 @@ val yojson_of_google_healthcare_consent_store_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   consent_store_id : string prop;
   dataset : string prop;
   etag : string prop;

@@ -31,6 +31,7 @@ val yojson_of_azurerm_iothub_consumer_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   eventhub_endpoint_name : string prop;
   id : string prop;
   iothub_name : string prop;

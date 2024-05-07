@@ -555,6 +555,7 @@ let azurerm_databricks_workspace ?customer_managed_key_enabled ?id
   }
 
 type t = {
+  tf_name : string;
   customer_managed_key_enabled : bool prop;
   disk_encryption_set_id : string prop;
   id : string prop;
@@ -591,6 +592,7 @@ let make ?customer_managed_key_enabled ?id
   let __type = "azurerm_databricks_workspace" in
   let __attrs =
     ({
+       tf_name = __id;
        customer_managed_key_enabled =
          Prop.computed __type __id "customer_managed_key_enabled";
        disk_encryption_set_id =

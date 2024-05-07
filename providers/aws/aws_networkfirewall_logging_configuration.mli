@@ -35,7 +35,11 @@ val yojson_of_aws_networkfirewall_logging_configuration :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { firewall_arn : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  firewall_arn : string prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

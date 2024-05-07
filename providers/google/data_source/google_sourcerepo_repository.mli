@@ -25,6 +25,7 @@ val yojson_of_google_sourcerepo_repository :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   project : string prop;

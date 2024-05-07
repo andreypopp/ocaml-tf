@@ -17,6 +17,7 @@ val yojson_of_aws_config_retention_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   retention_period_in_days : float prop;

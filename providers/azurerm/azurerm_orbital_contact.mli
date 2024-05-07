@@ -33,6 +33,7 @@ val yojson_of_azurerm_orbital_contact :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   contact_profile_id : string prop;
   ground_station_name : string prop;
   id : string prop;

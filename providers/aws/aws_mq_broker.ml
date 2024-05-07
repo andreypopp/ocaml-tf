@@ -767,6 +767,7 @@ let aws_mq_broker ?apply_immediately ?authentication_strategy
   }
 
 type t = {
+  tf_name : string;
   apply_immediately : bool prop;
   arn : string prop;
   authentication_strategy : string prop;
@@ -800,6 +801,7 @@ let make ?apply_immediately ?authentication_strategy
   let __type = "aws_mq_broker" in
   let __attrs =
     ({
+       tf_name = __id;
        apply_immediately =
          Prop.computed __type __id "apply_immediately";
        arn = Prop.computed __type __id "arn";

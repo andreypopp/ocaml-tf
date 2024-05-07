@@ -130,6 +130,7 @@ let google_bigquery_connection_iam_binding ?id ?location ?project
   { connection_id; id; location; members; project; role; condition }
 
 type t = {
+  tf_name : string;
   connection_id : string prop;
   etag : string prop;
   id : string prop;
@@ -144,6 +145,7 @@ let make ?id ?location ?project ?(condition = []) ~connection_id
   let __type = "google_bigquery_connection_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        connection_id = Prop.computed __type __id "connection_id";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

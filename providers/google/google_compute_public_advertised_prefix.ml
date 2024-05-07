@@ -132,6 +132,7 @@ let google_compute_public_advertised_prefix ?description ?id ?project
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   dns_verification_ip : string prop;
   id : string prop;
@@ -146,6 +147,7 @@ let make ?description ?id ?project ?timeouts ~dns_verification_ip
   let __type = "google_compute_public_advertised_prefix" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        dns_verification_ip =
          Prop.computed __type __id "dns_verification_ip";

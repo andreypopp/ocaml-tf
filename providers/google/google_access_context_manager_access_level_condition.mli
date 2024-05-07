@@ -66,6 +66,7 @@ val yojson_of_google_access_context_manager_access_level_condition :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_level : string prop;
   id : string prop;
   ip_subnetworks : string list prop;

@@ -31,6 +31,7 @@ val yojson_of_azurerm_key_vault_certificates :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificates : certificates list prop;
   id : string prop;
   include_pending : bool prop;

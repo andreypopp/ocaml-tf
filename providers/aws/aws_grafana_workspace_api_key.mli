@@ -21,6 +21,7 @@ val yojson_of_aws_grafana_workspace_api_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   key : string prop;
   key_name : string prop;

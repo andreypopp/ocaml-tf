@@ -278,6 +278,7 @@ let digitalocean_droplet ?backups ?droplet_agent ?graceful_shutdown
   }
 
 type t = {
+  tf_name : string;
   backups : bool prop;
   created_at : string prop;
   disk : float prop;
@@ -316,6 +317,7 @@ let make ?backups ?droplet_agent ?graceful_shutdown ?id ?ipv6
   let __type = "digitalocean_droplet" in
   let __attrs =
     ({
+       tf_name = __id;
        backups = Prop.computed __type __id "backups";
        created_at = Prop.computed __type __id "created_at";
        disk = Prop.computed __type __id "disk";

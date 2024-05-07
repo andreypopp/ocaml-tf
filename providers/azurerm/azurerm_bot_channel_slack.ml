@@ -179,6 +179,7 @@ let azurerm_bot_channel_slack ?id ?landing_page_url ?signing_secret
   }
 
 type t = {
+  tf_name : string;
   bot_name : string prop;
   client_id : string prop;
   client_secret : string prop;
@@ -196,6 +197,7 @@ let make ?id ?landing_page_url ?signing_secret ?timeouts ~bot_name
   let __type = "azurerm_bot_channel_slack" in
   let __attrs =
     ({
+       tf_name = __id;
        bot_name = Prop.computed __type __id "bot_name";
        client_id = Prop.computed __type __id "client_id";
        client_secret = Prop.computed __type __id "client_secret";

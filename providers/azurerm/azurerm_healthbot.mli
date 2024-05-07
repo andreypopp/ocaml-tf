@@ -32,6 +32,7 @@ val yojson_of_azurerm_healthbot : azurerm_healthbot -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bot_management_portal_url : string prop;
   id : string prop;
   location : string prop;

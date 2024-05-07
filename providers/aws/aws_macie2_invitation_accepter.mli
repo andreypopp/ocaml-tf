@@ -23,6 +23,7 @@ val yojson_of_aws_macie2_invitation_accepter :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   administrator_account_id : string prop;
   id : string prop;
   invitation_id : string prop;

@@ -45,6 +45,7 @@ val yojson_of_aws_quicksight_folder : aws_quicksight_folder -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name: string;
   arn: string prop;
   aws_account_id: string prop;
   created_time: string prop;

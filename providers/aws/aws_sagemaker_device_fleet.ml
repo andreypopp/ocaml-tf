@@ -167,6 +167,7 @@ let aws_sagemaker_device_fleet ?description ?enable_iot_role_alias
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   device_fleet_name : string prop;
@@ -183,6 +184,7 @@ let make ?description ?enable_iot_role_alias ?id ?tags ?tags_all
   let __type = "aws_sagemaker_device_fleet" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        device_fleet_name =

@@ -34,6 +34,7 @@ val yojson_of_azurerm_notification_hub :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   apns_credential : apns_credential list prop;
   gcm_credential : gcm_credential list prop;
   id : string prop;

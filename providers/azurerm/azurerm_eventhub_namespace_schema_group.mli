@@ -31,6 +31,7 @@ val yojson_of_azurerm_eventhub_namespace_schema_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   namespace_id : string prop;

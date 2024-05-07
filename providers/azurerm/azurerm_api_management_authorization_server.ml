@@ -342,6 +342,7 @@ let azurerm_api_management_authorization_server
   }
 
 type t = {
+  tf_name : string;
   api_management_name : string prop;
   authorization_endpoint : string prop;
   authorization_methods : string list prop;
@@ -373,6 +374,7 @@ let make ?bearer_token_sending_methods ?client_authentication_method
   let __type = "azurerm_api_management_authorization_server" in
   let __attrs =
     ({
+       tf_name = __id;
        api_management_name =
          Prop.computed __type __id "api_management_name";
        authorization_endpoint =

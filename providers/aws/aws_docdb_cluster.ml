@@ -440,6 +440,7 @@ let aws_docdb_cluster ?allow_major_version_upgrade ?apply_immediately
   }
 
 type t = {
+  tf_name : string;
   allow_major_version_upgrade : bool prop;
   apply_immediately : bool prop;
   arn : string prop;
@@ -490,6 +491,7 @@ let make ?allow_major_version_upgrade ?apply_immediately
   let __type = "aws_docdb_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_major_version_upgrade =
          Prop.computed __type __id "allow_major_version_upgrade";
        apply_immediately =

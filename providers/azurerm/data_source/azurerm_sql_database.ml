@@ -109,6 +109,7 @@ let azurerm_sql_database ?id ?tags ?timeouts ~name
   { id; name; resource_group_name; server_name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   collation : string prop;
   default_secondary_location : string prop;
   edition : string prop;
@@ -128,6 +129,7 @@ let make ?id ?tags ?timeouts ~name ~resource_group_name ~server_name
   let __type = "azurerm_sql_database" in
   let __attrs =
     ({
+       tf_name = __id;
        collation = Prop.computed __type __id "collation";
        default_secondary_location =
          Prop.computed __type __id "default_secondary_location";

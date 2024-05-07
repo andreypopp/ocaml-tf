@@ -22,6 +22,7 @@ val yojson_of_google_container_registry_image :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   digest : string prop;
   id : string prop;
   image_url : string prop;

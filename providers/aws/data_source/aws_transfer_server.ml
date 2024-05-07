@@ -39,6 +39,7 @@ let aws_transfer_server ?id ~server_id () : aws_transfer_server =
   { id; server_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   certificate : string prop;
   domain : string prop;
@@ -59,6 +60,7 @@ let make ?id ~server_id __id =
   let __type = "aws_transfer_server" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        certificate = Prop.computed __type __id "certificate";
        domain = Prop.computed __type __id "domain";

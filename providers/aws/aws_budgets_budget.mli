@@ -88,6 +88,7 @@ val yojson_of_aws_budgets_budget : aws_budgets_budget -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   arn : string prop;
   budget_type : string prop;

@@ -32,6 +32,7 @@ val yojson_of_digitalocean_spaces_bucket_cors_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket : string prop;
   id : string prop;
   region : string prop;

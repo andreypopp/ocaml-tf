@@ -23,6 +23,7 @@ val yojson_of_aws_ssm_activation : aws_ssm_activation -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   activation_code : string prop;
   description : string prop;
   expiration_date : string prop;

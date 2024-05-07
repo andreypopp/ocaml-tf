@@ -160,6 +160,7 @@ let google_netapp_kmsconfig ?description ?id ?labels ?project
   }
 
 type t = {
+  tf_name : string;
   crypto_key_name : string prop;
   description : string prop;
   effective_labels : (string * string) list prop;
@@ -178,6 +179,7 @@ let make ?description ?id ?labels ?project ?timeouts ~crypto_key_name
   let __type = "google_netapp_kmsconfig" in
   let __attrs =
     ({
+       tf_name = __id;
        crypto_key_name = Prop.computed __type __id "crypto_key_name";
        description = Prop.computed __type __id "description";
        effective_labels =

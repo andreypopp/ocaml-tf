@@ -198,6 +198,7 @@ let azurerm_public_ip_prefix ?id ?ip_version ?prefix_length ?sku
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   ip_prefix : string prop;
   ip_version : string prop;
@@ -215,6 +216,7 @@ let make ?id ?ip_version ?prefix_length ?sku ?tags ?zones ?timeouts
   let __type = "azurerm_public_ip_prefix" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ip_prefix = Prop.computed __type __id "ip_prefix";
        ip_version = Prop.computed __type __id "ip_version";

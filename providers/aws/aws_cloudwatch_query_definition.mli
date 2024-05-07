@@ -20,6 +20,7 @@ val yojson_of_aws_cloudwatch_query_definition :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   log_group_names : string list prop;
   name : string prop;

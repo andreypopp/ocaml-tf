@@ -24,6 +24,7 @@ val yojson_of_aws_rds_cluster : aws_rds_cluster -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   availability_zones : string list prop;
   backtrack_window : float prop;

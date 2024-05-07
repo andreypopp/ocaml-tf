@@ -213,6 +213,7 @@ let azurerm_lb_nat_pool ?floating_ip_enabled ?id
   }
 
 type t = {
+  tf_name : string;
   backend_port : float prop;
   floating_ip_enabled : bool prop;
   frontend_ip_configuration_id : string prop;
@@ -236,6 +237,7 @@ let make ?floating_ip_enabled ?id ?idle_timeout_in_minutes
   let __type = "azurerm_lb_nat_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        backend_port = Prop.computed __type __id "backend_port";
        floating_ip_enabled =
          Prop.computed __type __id "floating_ip_enabled";

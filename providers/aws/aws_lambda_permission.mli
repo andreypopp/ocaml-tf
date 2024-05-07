@@ -27,6 +27,7 @@ val yojson_of_aws_lambda_permission : aws_lambda_permission -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action : string prop;
   event_source_token : string prop;
   function_name : string prop;

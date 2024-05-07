@@ -94,6 +94,7 @@ let google_tags_tag_binding ?id ?timeouts ~parent ~tag_value () :
   { id; parent; tag_value; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   parent : string prop;
@@ -104,6 +105,7 @@ let make ?id ?timeouts ~parent ~tag_value __id =
   let __type = "google_tags_tag_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        parent = Prop.computed __type __id "parent";

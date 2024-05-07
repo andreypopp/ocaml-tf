@@ -30,6 +30,7 @@ val yojson_of_aws_vpc : aws_vpc -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   assign_generated_ipv6_cidr_block : bool prop;
   cidr_block : string prop;

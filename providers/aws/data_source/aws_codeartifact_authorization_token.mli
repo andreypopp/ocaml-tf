@@ -20,6 +20,7 @@ val yojson_of_aws_codeartifact_authorization_token :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authorization_token : string prop;
   domain : string prop;
   domain_owner : string prop;

@@ -80,6 +80,7 @@ val yojson_of_azurerm_mobile_network_sim_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   default_slice_id : string prop;
   id : string prop;
   location : string prop;

@@ -302,6 +302,7 @@ let aws_ec2_client_vpn_endpoint ?client_vpn_endpoint_id ?id ?tags
   { client_vpn_endpoint_id; id; tags; filter; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   authentication_options : authentication_options list prop;
   client_cidr_block : string prop;
@@ -330,6 +331,7 @@ let make ?client_vpn_endpoint_id ?id ?tags ?timeouts ~filter __id =
   let __type = "aws_ec2_client_vpn_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        authentication_options =
          Prop.computed __type __id "authentication_options";

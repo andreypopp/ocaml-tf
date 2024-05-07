@@ -432,6 +432,7 @@ let aws_imagebuilder_image_recipe ?description ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   date_created : string prop;
   description : string prop;
@@ -453,6 +454,7 @@ let make ?description ?id ?tags ?tags_all ?user_data_base64
   let __type = "aws_imagebuilder_image_recipe" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        date_created = Prop.computed __type __id "date_created";
        description = Prop.computed __type __id "description";

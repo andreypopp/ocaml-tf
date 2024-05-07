@@ -136,6 +136,7 @@ let google_compute_region_target_http_proxy ?description ?id ?project
   { description; id; name; project; region; url_map; timeouts }
 
 type t = {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   id : string prop;
@@ -152,6 +153,7 @@ let make ?description ?id ?project ?region ?timeouts ~name ~url_map
   let __type = "google_compute_region_target_http_proxy" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";
        description = Prop.computed __type __id "description";

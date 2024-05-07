@@ -39,6 +39,7 @@ let aws_db_parameter_group ?id ~name () : aws_db_parameter_group =
   { id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   family : string prop;
@@ -50,6 +51,7 @@ let make ?id ~name __id =
   let __type = "aws_db_parameter_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        family = Prop.computed __type __id "family";

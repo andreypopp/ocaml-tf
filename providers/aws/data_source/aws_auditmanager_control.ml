@@ -96,6 +96,7 @@ let aws_auditmanager_control ~name ~type_ ~control_mapping_sources ()
   { name; type_; control_mapping_sources }
 
 type t = {
+  tf_name : string;
   action_plan_instructions : string prop;
   action_plan_title : string prop;
   arn : string prop;
@@ -111,6 +112,7 @@ let make ~name ~type_ ~control_mapping_sources __id =
   let __type = "aws_auditmanager_control" in
   let __attrs =
     ({
+       tf_name = __id;
        action_plan_instructions =
          Prop.computed __type __id "action_plan_instructions";
        action_plan_title =

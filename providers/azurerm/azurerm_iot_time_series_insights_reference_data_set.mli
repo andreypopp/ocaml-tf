@@ -39,6 +39,7 @@ val yojson_of_azurerm_iot_time_series_insights_reference_data_set :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   data_string_comparison_behavior : string prop;
   id : string prop;
   location : string prop;

@@ -18,6 +18,7 @@ val yojson_of_google_kms_crypto_key_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   crypto_key_id : string prop;
   etag : string prop;
   id : string prop;

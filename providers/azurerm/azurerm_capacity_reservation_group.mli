@@ -33,6 +33,7 @@ val yojson_of_azurerm_capacity_reservation_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

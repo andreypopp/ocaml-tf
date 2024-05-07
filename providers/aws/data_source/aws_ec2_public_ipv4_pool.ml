@@ -103,6 +103,7 @@ let aws_ec2_public_ipv4_pool ?id ?tags ~pool_id () :
   { id; pool_id; tags }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   network_border_group : string prop;
@@ -117,6 +118,7 @@ let make ?id ?tags ~pool_id __id =
   let __type = "aws_ec2_public_ipv4_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        network_border_group =

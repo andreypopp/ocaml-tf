@@ -24,6 +24,7 @@ val yojson_of_azurerm_eventhub : azurerm_eventhub -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   namespace_name : string prop;

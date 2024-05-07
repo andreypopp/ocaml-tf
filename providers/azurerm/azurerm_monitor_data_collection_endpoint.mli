@@ -35,6 +35,7 @@ val yojson_of_azurerm_monitor_data_collection_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   configuration_access_endpoint : string prop;
   description : string prop;
   id : string prop;

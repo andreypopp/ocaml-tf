@@ -31,6 +31,7 @@ val yojson_of_azurerm_mssql_server_transparent_data_encryption :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_rotation_enabled : bool prop;
   id : string prop;
   key_vault_key_id : string prop;

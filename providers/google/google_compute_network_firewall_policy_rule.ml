@@ -480,6 +480,7 @@ let google_compute_network_firewall_policy_rule ?description
   }
 
 type t = {
+  tf_name : string;
   action : string prop;
   description : string prop;
   direction : string prop;
@@ -502,6 +503,7 @@ let make ?description ?disabled ?enable_logging ?id ?project
   let __type = "google_compute_network_firewall_policy_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        description = Prop.computed __type __id "description";
        direction = Prop.computed __type __id "direction";

@@ -43,6 +43,7 @@ val yojson_of_azurerm_application_insights :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_id : string prop;
   application_type : string prop;
   connection_string : string prop;

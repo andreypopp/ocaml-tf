@@ -47,6 +47,7 @@ let aws_route53recoverycontrolconfig_control_panel ?id ~cluster_arn
   { cluster_arn; id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cluster_arn : string prop;
   default_control_panel : bool prop;
@@ -60,6 +61,7 @@ let make ?id ~cluster_arn ~name __id =
   let __type = "aws_route53recoverycontrolconfig_control_panel" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cluster_arn = Prop.computed __type __id "cluster_arn";
        default_control_panel =

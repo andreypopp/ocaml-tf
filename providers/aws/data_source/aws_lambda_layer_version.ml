@@ -80,6 +80,7 @@ let aws_lambda_layer_version ?compatible_architecture
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   compatible_architecture : string prop;
   compatible_architectures : string list prop;
@@ -103,6 +104,7 @@ let make ?compatible_architecture ?compatible_runtime ?id ?version
   let __type = "aws_lambda_layer_version" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        compatible_architecture =
          Prop.computed __type __id "compatible_architecture";

@@ -137,6 +137,7 @@ let google_service_account ?create_ignore_already_exists ?description
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   create_ignore_already_exists : bool prop;
   description : string prop;
@@ -155,6 +156,7 @@ let make ?create_ignore_already_exists ?description ?disabled
   let __type = "google_service_account" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        create_ignore_already_exists =
          Prop.computed __type __id "create_ignore_already_exists";

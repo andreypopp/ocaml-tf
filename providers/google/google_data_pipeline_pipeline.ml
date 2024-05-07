@@ -1112,6 +1112,7 @@ let google_data_pipeline_pipeline ?display_name ?id ?pipeline_sources
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   display_name : string prop;
   id : string prop;
@@ -1132,6 +1133,7 @@ let make ?display_name ?id ?pipeline_sources ?project ?region
   let __type = "google_data_pipeline_pipeline" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";

@@ -89,6 +89,7 @@ let aws_codedeploy_app ?compute_platform ?id ?tags ?tags_all ~name ()
   { compute_platform; id; name; tags; tags_all }
 
 type t = {
+  tf_name : string;
   application_id : string prop;
   arn : string prop;
   compute_platform : string prop;
@@ -104,6 +105,7 @@ let make ?compute_platform ?id ?tags ?tags_all ~name __id =
   let __type = "aws_codedeploy_app" in
   let __attrs =
     ({
+       tf_name = __id;
        application_id = Prop.computed __type __id "application_id";
        arn = Prop.computed __type __id "arn";
        compute_platform =

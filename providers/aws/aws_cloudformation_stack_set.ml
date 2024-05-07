@@ -430,6 +430,7 @@ let aws_cloudformation_stack_set ?administration_role_arn ?call_as
   }
 
 type t = {
+  tf_name : string;
   administration_role_arn : string prop;
   arn : string prop;
   call_as : string prop;
@@ -455,6 +456,7 @@ let make ?administration_role_arn ?call_as ?capabilities ?description
   let __type = "aws_cloudformation_stack_set" in
   let __attrs =
     ({
+       tf_name = __id;
        administration_role_arn =
          Prop.computed __type __id "administration_role_arn";
        arn = Prop.computed __type __id "arn";

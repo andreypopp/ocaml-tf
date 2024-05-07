@@ -462,6 +462,7 @@ let aws_budgets_budget_action ?account_id ?id ?timeouts ~action_type
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   action_id : string prop;
   action_type : string prop;
@@ -480,6 +481,7 @@ let make ?account_id ?id ?timeouts ~action_type ~approval_model
   let __type = "aws_budgets_budget_action" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        action_id = Prop.computed __type __id "action_id";
        action_type = Prop.computed __type __id "action_type";

@@ -35,6 +35,7 @@ val yojson_of_google_bigquery_capacity_commitment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   capacity_commitment_id : string prop;
   commitment_end_time : string prop;
   commitment_start_time : string prop;

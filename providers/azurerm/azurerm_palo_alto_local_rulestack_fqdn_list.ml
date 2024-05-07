@@ -158,6 +158,7 @@ let azurerm_palo_alto_local_rulestack_fqdn_list ?audit_comment
   }
 
 type t = {
+  tf_name : string;
   audit_comment : string prop;
   description : string prop;
   fully_qualified_domain_names : string list prop;
@@ -171,6 +172,7 @@ let make ?audit_comment ?description ?id ?timeouts
   let __type = "azurerm_palo_alto_local_rulestack_fqdn_list" in
   let __attrs =
     ({
+       tf_name = __id;
        audit_comment = Prop.computed __type __id "audit_comment";
        description = Prop.computed __type __id "description";
        fully_qualified_domain_names =

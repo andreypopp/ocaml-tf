@@ -488,6 +488,7 @@ let google_compute_per_instance_config ?id ?minimal_action
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   instance_group_manager : string prop;
   minimal_action : string prop;
@@ -506,6 +507,7 @@ let make ?id ?minimal_action ?most_disruptive_allowed_action ?project
   let __type = "google_compute_per_instance_config" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        instance_group_manager =
          Prop.computed __type __id "instance_group_manager";

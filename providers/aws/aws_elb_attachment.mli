@@ -18,6 +18,7 @@ val yojson_of_aws_elb_attachment : aws_elb_attachment -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   elb : string prop;
   id : string prop;
   instance : string prop;

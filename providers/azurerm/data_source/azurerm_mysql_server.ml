@@ -200,6 +200,7 @@ let azurerm_mysql_server ?id ?timeouts ~name ~resource_group_name ()
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   administrator_login : string prop;
   auto_grow_enabled : bool prop;
   backup_retention_days : float prop;
@@ -226,6 +227,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_mysql_server" in
   let __attrs =
     ({
+       tf_name = __id;
        administrator_login =
          Prop.computed __type __id "administrator_login";
        auto_grow_enabled =

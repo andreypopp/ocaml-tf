@@ -134,6 +134,7 @@ let google_network_security_url_lists ?description ?id ?project
   { description; id; location; name; project; values; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   id : string prop;
@@ -149,6 +150,7 @@ let make ?description ?id ?project ?timeouts ~location ~name ~values
   let __type = "google_network_security_url_lists" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

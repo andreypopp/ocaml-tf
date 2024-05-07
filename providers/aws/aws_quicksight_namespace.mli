@@ -30,6 +30,7 @@ val yojson_of_aws_quicksight_namespace : aws_quicksight_namespace -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name: string;
   arn: string prop;
   aws_account_id: string prop;
   capacity_region: string prop;

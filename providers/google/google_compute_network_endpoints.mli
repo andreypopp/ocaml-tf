@@ -40,6 +40,7 @@ val yojson_of_google_compute_network_endpoints :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   network_endpoint_group : string prop;
   project : string prop;

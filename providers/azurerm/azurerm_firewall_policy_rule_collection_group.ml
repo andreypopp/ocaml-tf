@@ -830,6 +830,7 @@ let azurerm_firewall_policy_rule_collection_group ?id
   }
 
 type t = {
+  tf_name : string;
   firewall_policy_id : string prop;
   id : string prop;
   name : string prop;
@@ -842,6 +843,7 @@ let make ?id ?(application_rule_collection = [])
   let __type = "azurerm_firewall_policy_rule_collection_group" in
   let __attrs =
     ({
+       tf_name = __id;
        firewall_policy_id =
          Prop.computed __type __id "firewall_policy_id";
        id = Prop.computed __type __id "id";

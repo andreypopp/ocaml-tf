@@ -4349,6 +4349,7 @@ let azurerm_kubernetes_cluster ?api_server_authorized_ip_ranges
   }
 
 type t = {
+  tf_name : string;
   api_server_authorized_ip_ranges : string list prop;
   automatic_channel_upgrade : string prop;
   azure_policy_enabled : bool prop;
@@ -4424,6 +4425,7 @@ let make ?api_server_authorized_ip_ranges ?automatic_channel_upgrade
   let __type = "azurerm_kubernetes_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        api_server_authorized_ip_ranges =
          Prop.computed __type __id "api_server_authorized_ip_ranges";
        automatic_channel_upgrade =

@@ -145,6 +145,7 @@ let aws_appconfig_deployment_strategy ?description
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   deployment_duration_in_minutes : float prop;
   description : string prop;
@@ -164,6 +165,7 @@ let make ?description ?final_bake_time_in_minutes ?growth_type ?id
   let __type = "aws_appconfig_deployment_strategy" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        deployment_duration_in_minutes =
          Prop.computed __type __id "deployment_duration_in_minutes";

@@ -63,6 +63,7 @@ let aws_redshift_partner ?id ~account_id ~cluster_identifier
   { account_id; cluster_identifier; database_name; id; partner_name }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   cluster_identifier : string prop;
   database_name : string prop;
@@ -77,6 +78,7 @@ let make ?id ~account_id ~cluster_identifier ~database_name
   let __type = "aws_redshift_partner" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        cluster_identifier =
          Prop.computed __type __id "cluster_identifier";

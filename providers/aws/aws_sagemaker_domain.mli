@@ -484,6 +484,7 @@ val yojson_of_aws_sagemaker_domain : aws_sagemaker_domain -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_network_access_type : string prop;
   app_security_group_management : string prop;
   arn : string prop;

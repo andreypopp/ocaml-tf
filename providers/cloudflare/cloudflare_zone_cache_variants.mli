@@ -31,6 +31,7 @@ val yojson_of_cloudflare_zone_cache_variants :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   avif : string list prop;
   bmp : string list prop;
   gif : string list prop;

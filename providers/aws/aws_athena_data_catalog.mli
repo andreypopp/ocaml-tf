@@ -23,6 +23,7 @@ val yojson_of_aws_athena_data_catalog :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;

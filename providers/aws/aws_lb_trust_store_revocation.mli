@@ -26,6 +26,7 @@ val yojson_of_aws_lb_trust_store_revocation :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   revocation_id : float prop;
   revocations_s3_bucket : string prop;

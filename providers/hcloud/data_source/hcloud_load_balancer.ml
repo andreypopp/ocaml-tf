@@ -346,6 +346,7 @@ let hcloud_load_balancer ?id ?name ?with_selector () :
   { id; name; with_selector }
 
 type t = {
+  tf_name : string;
   algorithm : algorithm list prop;
   delete_protection : bool prop;
   id : float prop;
@@ -367,6 +368,7 @@ let make ?id ?name ?with_selector __id =
   let __type = "hcloud_load_balancer" in
   let __attrs =
     ({
+       tf_name = __id;
        algorithm = Prop.computed __type __id "algorithm";
        delete_protection =
          Prop.computed __type __id "delete_protection";

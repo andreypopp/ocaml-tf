@@ -33,6 +33,7 @@ val yojson_of_azurerm_data_protection_backup_instance_blob_storage :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backup_policy_id : string prop;
   id : string prop;
   location : string prop;

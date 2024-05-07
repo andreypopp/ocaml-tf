@@ -81,6 +81,7 @@ val yojson_of_azurerm_frontdoor_rules_engine :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enabled : bool prop;
   frontdoor_name : string prop;
   id : string prop;

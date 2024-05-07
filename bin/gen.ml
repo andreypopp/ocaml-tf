@@ -436,6 +436,7 @@ let gen_resource_constructor ppf kind (name, (schema : schema)) =
   Format.fprintf ppf "let make %s __id =@." args;
   Format.fprintf ppf "  let __type = %S in@." name;
   Format.fprintf ppf "  let __attrs = ({@.";
+  Format.fprintf ppf "    tf_name = __id;@.";
   List.iter schema.block.attributes ~f:(fun (attr_name, _attr) ->
       let ocaml_name = to_ocaml_name attr_name in
       let ocaml_value =
@@ -469,6 +470,7 @@ let gen_resource_attributes_ty ~is_mli ppf (_name, (schema : schema))
     =
   Format.fprintf ppf "type t = %s{@."
     (if is_mli then "private " else "");
+  Format.fprintf ppf "  tf_name: string;@.";
   List.iter schema.block.attributes ~f:(fun (attr_name, attr) ->
       let ocaml_name = to_ocaml_name attr_name in
       let ty = gen_attribute_type_name' "" [ attr_name ] in

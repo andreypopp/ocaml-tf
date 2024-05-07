@@ -19,6 +19,7 @@ val yojson_of_hcloud_network_route : hcloud_network_route -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   destination : string prop;
   gateway : string prop;
   id : string prop;

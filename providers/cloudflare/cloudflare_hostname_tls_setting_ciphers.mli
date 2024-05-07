@@ -24,6 +24,7 @@ val yojson_of_cloudflare_hostname_tls_setting_ciphers :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created_at : string prop;
   hostname : string prop;
   id : string prop;

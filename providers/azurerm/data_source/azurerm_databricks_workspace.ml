@@ -180,6 +180,7 @@ let azurerm_databricks_workspace ?id ?tags ?timeouts ~name
   { id; name; resource_group_name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   managed_disk_identity : managed_disk_identity list prop;
@@ -196,6 +197,7 @@ let make ?id ?tags ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_databricks_workspace" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        managed_disk_identity =

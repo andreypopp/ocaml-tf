@@ -284,6 +284,7 @@ let azurerm_kusto_attached_database_configuration
   }
 
 type t = {
+  tf_name : string;
   attached_database_names : string list prop;
   cluster_name : string prop;
   cluster_resource_id : string prop;
@@ -301,6 +302,7 @@ let make ?default_principal_modification_kind ?id ?(sharing = [])
   let __type = "azurerm_kusto_attached_database_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        attached_database_names =
          Prop.computed __type __id "attached_database_names";
        cluster_name = Prop.computed __type __id "cluster_name";

@@ -140,6 +140,7 @@ let aws_guardduty_member ?disable_email_notification ?id
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   detector_id : string prop;
   disable_email_notification : bool prop;
@@ -155,6 +156,7 @@ let make ?disable_email_notification ?id ?invitation_message ?invite
   let __type = "aws_guardduty_member" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        detector_id = Prop.computed __type __id "detector_id";
        disable_email_notification =

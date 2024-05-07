@@ -79,6 +79,7 @@ let aws_vpc_security_group_rules ?tags ~filter () :
   { tags; filter }
 
 type t = {
+  tf_name : string;
   id : string prop;
   ids : string list prop;
   tags : (string * string) list prop;
@@ -88,6 +89,7 @@ let make ?tags ~filter __id =
   let __type = "aws_vpc_security_group_rules" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ids = Prop.computed __type __id "ids";
        tags = Prop.computed __type __id "tags";

@@ -178,6 +178,7 @@ val yojson_of_aws_ce_tags : aws_ce_tags -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   search_string : string prop;
   tag_key : string prop;

@@ -77,6 +77,7 @@ let aws_iam_server_certificate ?id ?latest ?name ?name_prefix
   { id; latest; name; name_prefix; path_prefix }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   certificate_body : string prop;
   certificate_chain : string prop;
@@ -94,6 +95,7 @@ let make ?id ?latest ?name ?name_prefix ?path_prefix __id =
   let __type = "aws_iam_server_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        certificate_body =
          Prop.computed __type __id "certificate_body";

@@ -128,6 +128,7 @@ let google_dataplex_lake_iam_member ?id ?location ?project
   { id; lake; location; member; project; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   lake : string prop;
@@ -142,6 +143,7 @@ let make ?id ?location ?project ?(condition = []) ~lake ~member ~role
   let __type = "google_dataplex_lake_iam_member" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        lake = Prop.computed __type __id "lake";

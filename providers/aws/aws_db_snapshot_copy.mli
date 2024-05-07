@@ -31,6 +31,7 @@ val yojson_of_aws_db_snapshot_copy : aws_db_snapshot_copy -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allocated_storage : float prop;
   availability_zone : string prop;
   copy_tags : bool prop;

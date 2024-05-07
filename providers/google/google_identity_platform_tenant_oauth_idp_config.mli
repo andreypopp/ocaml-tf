@@ -35,6 +35,7 @@ val yojson_of_google_identity_platform_tenant_oauth_idp_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   client_id : string prop;
   client_secret : string prop;
   display_name : string prop;

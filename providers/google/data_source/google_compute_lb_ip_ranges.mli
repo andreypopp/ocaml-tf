@@ -15,6 +15,7 @@ val yojson_of_google_compute_lb_ip_ranges :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   http_ssl_tcp_internal : string list prop;
   id : string prop;
   network : string list prop;

@@ -85,6 +85,7 @@ let azurerm_dev_test_lab ?id ?timeouts ~name ~resource_group_name ()
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   artifacts_storage_account_id : string prop;
   default_premium_storage_account_id : string prop;
   default_storage_account_id : string prop;
@@ -103,6 +104,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_dev_test_lab" in
   let __attrs =
     ({
+       tf_name = __id;
        artifacts_storage_account_id =
          Prop.computed __type __id "artifacts_storage_account_id";
        default_premium_storage_account_id =

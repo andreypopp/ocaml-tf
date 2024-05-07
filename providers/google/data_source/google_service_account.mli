@@ -18,6 +18,7 @@ val yojson_of_google_service_account : google_service_account -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   display_name : string prop;
   email : string prop;

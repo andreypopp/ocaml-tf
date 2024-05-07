@@ -44,6 +44,7 @@ let aws_rds_certificate ?id ?latest_valid_till () :
   { id; latest_valid_till }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   certificate_type : string prop;
   customer_override : bool prop;
@@ -59,6 +60,7 @@ let make ?id ?latest_valid_till __id =
   let __type = "aws_rds_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        certificate_type =
          Prop.computed __type __id "certificate_type";

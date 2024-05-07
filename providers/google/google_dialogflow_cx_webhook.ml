@@ -353,6 +353,7 @@ let google_dialogflow_cx_webhook ?disabled ?enable_spell_correction
   }
 
 type t = {
+  tf_name : string;
   disabled : bool prop;
   display_name : string prop;
   enable_spell_correction : bool prop;
@@ -372,6 +373,7 @@ let make ?disabled ?enable_spell_correction
   let __type = "google_dialogflow_cx_webhook" in
   let __attrs =
     ({
+       tf_name = __id;
        disabled = Prop.computed __type __id "disabled";
        display_name = Prop.computed __type __id "display_name";
        enable_spell_correction =

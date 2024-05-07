@@ -200,6 +200,7 @@ let cloudflare_list_item ?asn ?comment ?ip ?(hostname = [])
   { account_id; asn; comment; ip; list_id; hostname; redirect }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   asn : float prop;
   comment : string prop;
@@ -213,6 +214,7 @@ let make ?asn ?comment ?ip ?(hostname = []) ?(redirect = [])
   let __type = "cloudflare_list_item" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        asn = Prop.computed __type __id "asn";
        comment = Prop.computed __type __id "comment";

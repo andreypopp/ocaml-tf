@@ -41,6 +41,7 @@ let aws_lightsail_bucket_access_key ?id ~bucket_name () :
   { bucket_name; id }
 
 type t = {
+  tf_name : string;
   access_key_id : string prop;
   bucket_name : string prop;
   created_at : string prop;
@@ -53,6 +54,7 @@ let make ?id ~bucket_name __id =
   let __type = "aws_lightsail_bucket_access_key" in
   let __attrs =
     ({
+       tf_name = __id;
        access_key_id = Prop.computed __type __id "access_key_id";
        bucket_name = Prop.computed __type __id "bucket_name";
        created_at = Prop.computed __type __id "created_at";

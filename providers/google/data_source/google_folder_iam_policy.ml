@@ -40,6 +40,7 @@ let google_folder_iam_policy ?id ~folder () :
   { folder; id }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   folder : string prop;
   id : string prop;
@@ -50,6 +51,7 @@ let make ?id ~folder __id =
   let __type = "google_folder_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        folder = Prop.computed __type __id "folder";
        id = Prop.computed __type __id "id";

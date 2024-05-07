@@ -31,6 +31,7 @@ val yojson_of_google_essential_contacts_contact :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   email : string prop;
   id : string prop;
   language_tag : string prop;

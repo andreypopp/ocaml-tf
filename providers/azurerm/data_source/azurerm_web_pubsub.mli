@@ -23,6 +23,7 @@ val yojson_of_azurerm_web_pubsub : azurerm_web_pubsub -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   aad_auth_enabled : bool prop;
   capacity : float prop;
   external_ip : string prop;

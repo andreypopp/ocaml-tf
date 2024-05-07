@@ -35,6 +35,7 @@ val yojson_of_azurerm_batch_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_name : string prop;
   certificate : string prop;
   format : string prop;

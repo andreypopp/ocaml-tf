@@ -25,6 +25,7 @@ val yojson_of_aws_identitystore_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   external_ids : external_ids list prop;

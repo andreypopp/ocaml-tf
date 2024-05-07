@@ -97,6 +97,7 @@ let aws_securityhub_configuration_policy_association ?id ?timeouts
   { id; policy_id; target_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   policy_id : string prop;
   target_id : string prop;
@@ -106,6 +107,7 @@ let make ?id ?timeouts ~policy_id ~target_id __id =
   let __type = "aws_securityhub_configuration_policy_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        policy_id = Prop.computed __type __id "policy_id";
        target_id = Prop.computed __type __id "target_id";

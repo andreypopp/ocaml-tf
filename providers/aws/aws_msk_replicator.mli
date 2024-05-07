@@ -89,6 +89,7 @@ val yojson_of_aws_msk_replicator : aws_msk_replicator -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   current_version : string prop;
   description : string prop;

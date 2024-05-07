@@ -133,6 +133,7 @@ let aws_backup_vault ?force_destroy ?id ?kms_key_arn ?tags ?tags_all
   { force_destroy; id; kms_key_arn; name; tags; tags_all; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   force_destroy : bool prop;
   id : string prop;
@@ -148,6 +149,7 @@ let make ?force_destroy ?id ?kms_key_arn ?tags ?tags_all ?timeouts
   let __type = "aws_backup_vault" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        force_destroy = Prop.computed __type __id "force_destroy";
        id = Prop.computed __type __id "id";

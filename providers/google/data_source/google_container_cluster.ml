@@ -5057,6 +5057,7 @@ let google_container_cluster ?id ?location ?project ~name () :
   { id; location; name; project }
 
 type t = {
+  tf_name : string;
   addons_config : addons_config list prop;
   allow_net_admin : bool prop;
   authenticator_groups_config :
@@ -5136,6 +5137,7 @@ let make ?id ?location ?project ~name __id =
   let __type = "google_container_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        addons_config = Prop.computed __type __id "addons_config";
        allow_net_admin = Prop.computed __type __id "allow_net_admin";
        authenticator_groups_config =

@@ -169,6 +169,7 @@ val yojson_of_google_clouddomains_registration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   contact_notices : string list prop;
   create_time : string prop;
   domain_name : string prop;

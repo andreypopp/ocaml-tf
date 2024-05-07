@@ -125,6 +125,7 @@ let azurerm_log_analytics_cluster_customer_managed_key ?id ?timeouts
   { id; key_vault_key_id; log_analytics_cluster_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   key_vault_key_id : string prop;
   log_analytics_cluster_id : string prop;
@@ -137,6 +138,7 @@ let make ?id ?timeouts ~key_vault_key_id ~log_analytics_cluster_id
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        key_vault_key_id =
          Prop.computed __type __id "key_vault_key_id";

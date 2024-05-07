@@ -154,6 +154,7 @@ let aws_availability_zone ?all_availability_zones ?id ?name ?state
   }
 
 type t = {
+  tf_name : string;
   all_availability_zones : bool prop;
   group_name : string prop;
   id : string prop;
@@ -174,6 +175,7 @@ let make ?all_availability_zones ?id ?name ?state ?zone_id ?timeouts
   let __type = "aws_availability_zone" in
   let __attrs =
     ({
+       tf_name = __id;
        all_availability_zones =
          Prop.computed __type __id "all_availability_zones";
        group_name = Prop.computed __type __id "group_name";

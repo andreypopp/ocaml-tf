@@ -20,6 +20,7 @@ val yojson_of_aws_network_interface_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   attachment_id : string prop;
   device_index : float prop;
   id : string prop;

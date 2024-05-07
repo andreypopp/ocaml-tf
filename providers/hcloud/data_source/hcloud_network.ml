@@ -95,6 +95,7 @@ let hcloud_network ?id ?ip_range ?labels ?most_recent ?name
   { id; ip_range; labels; most_recent; name; with_selector }
 
 type t = {
+  tf_name : string;
   delete_protection : bool prop;
   expose_routes_to_vswitch : bool prop;
   id : float prop;
@@ -110,6 +111,7 @@ let make ?id ?ip_range ?labels ?most_recent ?name ?with_selector __id
   let __type = "hcloud_network" in
   let __attrs =
     ({
+       tf_name = __id;
        delete_protection =
          Prop.computed __type __id "delete_protection";
        expose_routes_to_vswitch =

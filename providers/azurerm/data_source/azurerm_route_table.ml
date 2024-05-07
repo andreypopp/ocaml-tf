@@ -133,6 +133,7 @@ let azurerm_route_table ?id ?timeouts ~name ~resource_group_name () :
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   bgp_route_propagation_enabled : bool prop;
   id : string prop;
   location : string prop;
@@ -147,6 +148,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_route_table" in
   let __attrs =
     ({
+       tf_name = __id;
        bgp_route_propagation_enabled =
          Prop.computed __type __id "bgp_route_propagation_enabled";
        id = Prop.computed __type __id "id";

@@ -82,6 +82,7 @@ val yojson_of_google_storage_bucket : google_storage_bucket -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   autoclass : autoclass list prop;
   cors : cors list prop;
   custom_placement_config : custom_placement_config list prop;

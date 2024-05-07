@@ -51,6 +51,7 @@ val yojson_of_google_endpoints_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   apis : apis list prop;
   config_id : string prop;
   dns_address : string prop;

@@ -62,6 +62,7 @@ val yojson_of_azurerm_datadog_monitor :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   marketplace_subscription_status : string prop;

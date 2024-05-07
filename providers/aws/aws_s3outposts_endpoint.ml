@@ -109,6 +109,7 @@ let aws_s3outposts_endpoint ?access_type ?customer_owned_ipv4_pool
   }
 
 type t = {
+  tf_name : string;
   access_type : string prop;
   arn : string prop;
   cidr_block : string prop;
@@ -126,6 +127,7 @@ let make ?access_type ?customer_owned_ipv4_pool ?id ~outpost_id
   let __type = "aws_s3outposts_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        access_type = Prop.computed __type __id "access_type";
        arn = Prop.computed __type __id "arn";
        cidr_block = Prop.computed __type __id "cidr_block";

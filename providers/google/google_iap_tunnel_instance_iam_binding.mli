@@ -32,6 +32,7 @@ val yojson_of_google_iap_tunnel_instance_iam_binding :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   instance : string prop;

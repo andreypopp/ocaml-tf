@@ -54,6 +54,7 @@ let aws_ec2_tag ?id ~key ~resource_id ~value () : aws_ec2_tag =
   { id; key; resource_id; value }
 
 type t = {
+  tf_name : string;
   id : string prop;
   key : string prop;
   resource_id : string prop;
@@ -64,6 +65,7 @@ let make ?id ~key ~resource_id ~value __id =
   let __type = "aws_ec2_tag" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        key = Prop.computed __type __id "key";
        resource_id = Prop.computed __type __id "resource_id";

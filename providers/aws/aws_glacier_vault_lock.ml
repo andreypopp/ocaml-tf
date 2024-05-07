@@ -65,6 +65,7 @@ let aws_glacier_vault_lock ?id ?ignore_deletion_error ~complete_lock
   { complete_lock; id; ignore_deletion_error; policy; vault_name }
 
 type t = {
+  tf_name : string;
   complete_lock : bool prop;
   id : string prop;
   ignore_deletion_error : bool prop;
@@ -77,6 +78,7 @@ let make ?id ?ignore_deletion_error ~complete_lock ~policy
   let __type = "aws_glacier_vault_lock" in
   let __attrs =
     ({
+       tf_name = __id;
        complete_lock = Prop.computed __type __id "complete_lock";
        id = Prop.computed __type __id "id";
        ignore_deletion_error =

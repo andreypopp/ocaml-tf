@@ -60,6 +60,7 @@ val yojson_of_azurerm_cdn_frontdoor_security_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cdn_frontdoor_profile_id : string prop;
   id : string prop;
   name : string prop;

@@ -77,6 +77,7 @@ let google_service_account_access_token ?delegates ?id ?lifetime
   { delegates; id; lifetime; scopes; target_service_account }
 
 type t = {
+  tf_name : string;
   access_token : string prop;
   delegates : string list prop;
   id : string prop;
@@ -90,6 +91,7 @@ let make ?delegates ?id ?lifetime ~scopes ~target_service_account
   let __type = "google_service_account_access_token" in
   let __attrs =
     ({
+       tf_name = __id;
        access_token = Prop.computed __type __id "access_token";
        delegates = Prop.computed __type __id "delegates";
        id = Prop.computed __type __id "id";

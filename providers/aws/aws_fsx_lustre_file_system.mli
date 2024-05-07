@@ -66,6 +66,7 @@ val yojson_of_aws_fsx_lustre_file_system :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   auto_import_policy : string prop;
   automatic_backup_retention_days : float prop;

@@ -269,6 +269,7 @@ val yojson_of_google_cloudbuild_trigger :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   approval_config : approval_config list prop;
   bitbucket_server_trigger_config :
     bitbucket_server_trigger_config list prop;

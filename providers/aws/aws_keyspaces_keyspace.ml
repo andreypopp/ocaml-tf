@@ -124,6 +124,7 @@ let aws_keyspaces_keyspace ?id ?tags ?tags_all ?timeouts ~name () :
   { id; name; tags; tags_all; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;
@@ -135,6 +136,7 @@ let make ?id ?tags ?tags_all ?timeouts ~name __id =
   let __type = "aws_keyspaces_keyspace" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

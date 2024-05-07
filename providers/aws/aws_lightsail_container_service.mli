@@ -65,6 +65,7 @@ val yojson_of_aws_lightsail_container_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   availability_zone : string prop;
   created_at : string prop;

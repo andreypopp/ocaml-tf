@@ -172,6 +172,7 @@ val yojson_of_azurerm_virtual_network_gateway :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   active_active : bool prop;
   bgp_route_translation_for_nat_enabled : bool prop;
   default_local_network_gateway_id : string prop;

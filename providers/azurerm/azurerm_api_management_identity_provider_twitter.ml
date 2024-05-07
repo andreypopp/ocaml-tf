@@ -147,6 +147,7 @@ let azurerm_api_management_identity_provider_twitter ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   api_key : string prop;
   api_management_name : string prop;
   api_secret_key : string prop;
@@ -159,6 +160,7 @@ let make ?id ?timeouts ~api_key ~api_management_name ~api_secret_key
   let __type = "azurerm_api_management_identity_provider_twitter" in
   let __attrs =
     ({
+       tf_name = __id;
        api_key = Prop.computed __type __id "api_key";
        api_management_name =
          Prop.computed __type __id "api_management_name";

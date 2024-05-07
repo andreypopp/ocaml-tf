@@ -21,6 +21,7 @@ val yojson_of_aws_dms_certificate : aws_dms_certificate -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_arn : string prop;
   certificate_id : string prop;
   certificate_pem : string prop;

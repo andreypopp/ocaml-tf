@@ -75,6 +75,7 @@ val yojson_of_aws_securitylake_subscriber :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_type : string prop;
   arn : string prop;
   id : string prop;

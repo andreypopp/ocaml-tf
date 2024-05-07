@@ -93,6 +93,7 @@ val yojson_of_azurerm_private_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   custom_dns_configs : custom_dns_configs list prop;
   custom_network_interface_name : string prop;
   id : string prop;

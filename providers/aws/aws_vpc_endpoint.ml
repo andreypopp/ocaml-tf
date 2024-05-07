@@ -336,6 +336,7 @@ let aws_vpc_endpoint ?auto_accept ?id ?ip_address_type ?policy
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   auto_accept : bool prop;
   cidr_blocks : string list prop;
@@ -366,6 +367,7 @@ let make ?auto_accept ?id ?ip_address_type ?policy
   let __type = "aws_vpc_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        auto_accept = Prop.computed __type __id "auto_accept";
        cidr_blocks = Prop.computed __type __id "cidr_blocks";

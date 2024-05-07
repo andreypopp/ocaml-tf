@@ -38,6 +38,7 @@ val yojson_of_google_netapp_storage_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   active_directory : string prop;
   capacity_gib : string prop;
   description : string prop;

@@ -31,6 +31,7 @@ val yojson_of_aws_cloudwatch_event_permission :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action : string prop;
   event_bus_name : string prop;
   id : string prop;

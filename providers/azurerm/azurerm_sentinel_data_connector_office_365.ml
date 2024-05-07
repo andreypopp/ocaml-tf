@@ -173,6 +173,7 @@ let azurerm_sentinel_data_connector_office_365 ?exchange_enabled ?id
   }
 
 type t = {
+  tf_name : string;
   exchange_enabled : bool prop;
   id : string prop;
   log_analytics_workspace_id : string prop;
@@ -187,6 +188,7 @@ let make ?exchange_enabled ?id ?sharepoint_enabled ?teams_enabled
   let __type = "azurerm_sentinel_data_connector_office_365" in
   let __attrs =
     ({
+       tf_name = __id;
        exchange_enabled =
          Prop.computed __type __id "exchange_enabled";
        id = Prop.computed __type __id "id";

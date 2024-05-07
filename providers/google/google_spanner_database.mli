@@ -41,6 +41,7 @@ val yojson_of_google_spanner_database :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   database_dialect : string prop;
   ddl : string list prop;
   deletion_protection : bool prop;

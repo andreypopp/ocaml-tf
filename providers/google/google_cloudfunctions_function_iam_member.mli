@@ -32,6 +32,7 @@ val yojson_of_google_cloudfunctions_function_iam_member :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cloud_function : string prop;
   etag : string prop;
   id : string prop;

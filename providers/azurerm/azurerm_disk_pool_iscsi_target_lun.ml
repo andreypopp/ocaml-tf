@@ -124,6 +124,7 @@ let azurerm_disk_pool_iscsi_target_lun ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   disk_pool_managed_disk_attachment_id : string prop;
   id : string prop;
   iscsi_target_id : string prop;
@@ -136,6 +137,7 @@ let make ?id ?timeouts ~disk_pool_managed_disk_attachment_id
   let __type = "azurerm_disk_pool_iscsi_target_lun" in
   let __attrs =
     ({
+       tf_name = __id;
        disk_pool_managed_disk_attachment_id =
          Prop.computed __type __id
            "disk_pool_managed_disk_attachment_id";

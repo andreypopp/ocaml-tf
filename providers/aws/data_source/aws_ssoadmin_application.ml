@@ -89,6 +89,7 @@ let aws_ssoadmin_application ?(portal_options = []) ~application_arn
   { application_arn; portal_options }
 
 type t = {
+  tf_name : string;
   application_account : string prop;
   application_arn : string prop;
   application_provider_arn : string prop;
@@ -103,6 +104,7 @@ let make ?(portal_options = []) ~application_arn __id =
   let __type = "aws_ssoadmin_application" in
   let __attrs =
     ({
+       tf_name = __id;
        application_account =
          Prop.computed __type __id "application_account";
        application_arn = Prop.computed __type __id "application_arn";

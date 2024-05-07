@@ -40,12 +40,13 @@ let aws_sagemaker_servicecatalog_portfolio_status ?id ~status () :
     aws_sagemaker_servicecatalog_portfolio_status =
   { id; status }
 
-type t = { id : string prop; status : string prop }
+type t = { tf_name : string; id : string prop; status : string prop }
 
 let make ?id ~status __id =
   let __type = "aws_sagemaker_servicecatalog_portfolio_status" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        status = Prop.computed __type __id "status";
      }

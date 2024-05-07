@@ -461,6 +461,7 @@ let google_dataplex_zone ?description ?display_name ?id ?labels
   }
 
 type t = {
+  tf_name : string;
   asset_status : asset_status list prop;
   create_time : string prop;
   description : string prop;
@@ -485,6 +486,7 @@ let make ?description ?display_name ?id ?labels ?project ?timeouts
   let __type = "google_dataplex_zone" in
   let __attrs =
     ({
+       tf_name = __id;
        asset_status = Prop.computed __type __id "asset_status";
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";

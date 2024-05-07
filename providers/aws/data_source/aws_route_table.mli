@@ -61,6 +61,7 @@ val yojson_of_aws_route_table : aws_route_table -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   associations : associations list prop;
   gateway_id : string prop;

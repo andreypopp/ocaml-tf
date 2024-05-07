@@ -154,6 +154,7 @@ let azurerm_kusto_cluster_customer_managed_key ?id ?key_version
   }
 
 type t = {
+  tf_name : string;
   cluster_id : string prop;
   id : string prop;
   key_name : string prop;
@@ -167,6 +168,7 @@ let make ?id ?key_version ?user_identity ?timeouts ~cluster_id
   let __type = "azurerm_kusto_cluster_customer_managed_key" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_id = Prop.computed __type __id "cluster_id";
        id = Prop.computed __type __id "id";
        key_name = Prop.computed __type __id "key_name";

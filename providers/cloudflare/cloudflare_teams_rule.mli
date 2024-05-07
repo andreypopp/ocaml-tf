@@ -112,6 +112,7 @@ val yojson_of_cloudflare_teams_rule : cloudflare_teams_rule -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   action : string prop;
   description : string prop;

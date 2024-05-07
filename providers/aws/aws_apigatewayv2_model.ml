@@ -71,6 +71,7 @@ let aws_apigatewayv2_model ?description ?id ~api_id ~content_type
   { api_id; content_type; description; id; name; schema }
 
 type t = {
+  tf_name : string;
   api_id : string prop;
   content_type : string prop;
   description : string prop;
@@ -83,6 +84,7 @@ let make ?description ?id ~api_id ~content_type ~name ~schema __id =
   let __type = "aws_apigatewayv2_model" in
   let __attrs =
     ({
+       tf_name = __id;
        api_id = Prop.computed __type __id "api_id";
        content_type = Prop.computed __type __id "content_type";
        description = Prop.computed __type __id "description";

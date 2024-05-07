@@ -161,6 +161,7 @@ let azurerm_private_dns_resolver_outbound_endpoint ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -174,6 +175,7 @@ let make ?id ?tags ?timeouts ~location ~name ~private_dns_resolver_id
   let __type = "azurerm_private_dns_resolver_outbound_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

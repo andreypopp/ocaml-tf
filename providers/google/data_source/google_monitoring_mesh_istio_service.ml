@@ -91,6 +91,7 @@ let google_monitoring_mesh_istio_service ?id ?project ~mesh_uid
   { id; mesh_uid; project; service_name; service_namespace }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   mesh_uid : string prop;
@@ -108,6 +109,7 @@ let make ?id ?project ~mesh_uid ~service_name ~service_namespace __id
   let __type = "google_monitoring_mesh_istio_service" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";
        mesh_uid = Prop.computed __type __id "mesh_uid";

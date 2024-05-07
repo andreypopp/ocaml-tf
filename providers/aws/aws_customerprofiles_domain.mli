@@ -140,6 +140,7 @@ val yojson_of_aws_customerprofiles_domain :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   dead_letter_queue_url : string prop;
   default_encryption_key : string prop;

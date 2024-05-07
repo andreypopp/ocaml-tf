@@ -22,6 +22,7 @@ val yojson_of_aws_api_gateway_vpc_link :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;

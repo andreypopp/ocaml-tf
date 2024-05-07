@@ -474,6 +474,7 @@ let azurerm_active_directory_domain_service
   }
 
 type t = {
+  tf_name : string;
   deployment_id : string prop;
   domain_configuration_type : string prop;
   domain_name : string prop;
@@ -497,6 +498,7 @@ let make ?domain_configuration_type ?filtered_sync_enabled ?id ?tags
   let __type = "azurerm_active_directory_domain_service" in
   let __attrs =
     ({
+       tf_name = __id;
        deployment_id = Prop.computed __type __id "deployment_id";
        domain_configuration_type =
          Prop.computed __type __id "domain_configuration_type";

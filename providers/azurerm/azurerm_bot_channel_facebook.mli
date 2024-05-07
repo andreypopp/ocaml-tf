@@ -38,6 +38,7 @@ val yojson_of_azurerm_bot_channel_facebook :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bot_name : string prop;
   facebook_application_id : string prop;
   facebook_application_secret : string prop;

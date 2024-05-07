@@ -17,6 +17,7 @@ val yojson_of_aws_sqs_queues : aws_sqs_queues -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   queue_name_prefix : string prop;
   queue_urls : string list prop;

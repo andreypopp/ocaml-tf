@@ -169,6 +169,7 @@ let aws_connect_user ?id ?name ?tags ?user_id ~instance_id () :
   { id; instance_id; name; tags; user_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   directory_user_id : string prop;
   hierarchy_group_id : string prop;
@@ -187,6 +188,7 @@ let make ?id ?name ?tags ?user_id ~instance_id __id =
   let __type = "aws_connect_user" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        directory_user_id =
          Prop.computed __type __id "directory_user_id";

@@ -826,6 +826,7 @@ let aws_lambda_function ?architectures ?code_signing_config_arn
   }
 
 type t = {
+  tf_name : string;
   architectures : string list prop;
   arn : string prop;
   code_signing_config_arn : string prop;
@@ -878,6 +879,7 @@ let make ?architectures ?code_signing_config_arn ?description
   let __type = "aws_lambda_function" in
   let __attrs =
     ({
+       tf_name = __id;
        architectures = Prop.computed __type __id "architectures";
        arn = Prop.computed __type __id "arn";
        code_signing_config_arn =

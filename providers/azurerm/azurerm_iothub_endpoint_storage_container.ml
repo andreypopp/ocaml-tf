@@ -234,6 +234,7 @@ let azurerm_iothub_endpoint_storage_container ?authentication_type
   }
 
 type t = {
+  tf_name : string;
   authentication_type : string prop;
   batch_frequency_in_seconds : float prop;
   connection_string : string prop;
@@ -256,6 +257,7 @@ let make ?authentication_type ?batch_frequency_in_seconds
   let __type = "azurerm_iothub_endpoint_storage_container" in
   let __attrs =
     ({
+       tf_name = __id;
        authentication_type =
          Prop.computed __type __id "authentication_type";
        batch_frequency_in_seconds =

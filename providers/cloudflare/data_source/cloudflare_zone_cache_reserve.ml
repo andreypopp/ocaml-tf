@@ -41,6 +41,7 @@ let cloudflare_zone_cache_reserve ?id ~zone_id () :
   { id; zone_id }
 
 type t = {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   zone_id : string prop;
@@ -50,6 +51,7 @@ let make ?id ~zone_id __id =
   let __type = "cloudflare_zone_cache_reserve" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";
        zone_id = Prop.computed __type __id "zone_id";

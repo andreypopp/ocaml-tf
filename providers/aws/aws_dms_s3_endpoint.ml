@@ -655,6 +655,7 @@ let aws_dms_s3_endpoint ?add_column_name
   }
 
 type t = {
+  tf_name : string;
   add_column_name : bool prop;
   add_trailing_padding_character : bool prop;
   bucket_folder : string prop;
@@ -733,6 +734,7 @@ let make ?add_column_name ?add_trailing_padding_character
   let __type = "aws_dms_s3_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        add_column_name = Prop.computed __type __id "add_column_name";
        add_trailing_padding_character =
          Prop.computed __type __id "add_trailing_padding_character";

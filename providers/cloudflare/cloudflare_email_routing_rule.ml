@@ -154,6 +154,7 @@ let cloudflare_email_routing_rule ?enabled ?priority ~name ~zone_id
   { enabled; name; priority; zone_id; action; matcher }
 
 type t = {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   name : string prop;
@@ -166,6 +167,7 @@ let make ?enabled ?priority ~name ~zone_id ~action ~matcher __id =
   let __type = "cloudflare_email_routing_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

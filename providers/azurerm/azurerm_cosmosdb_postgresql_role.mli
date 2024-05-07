@@ -30,6 +30,7 @@ val yojson_of_azurerm_cosmosdb_postgresql_role :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_id : string prop;
   id : string prop;
   name : string prop;

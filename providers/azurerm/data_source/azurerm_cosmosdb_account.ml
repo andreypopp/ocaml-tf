@@ -213,6 +213,7 @@ let azurerm_cosmosdb_account ?id ?timeouts ~name ~resource_group_name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   capabilities : capabilities list prop;
   connection_strings : string list prop;
   consistency_policy : consistency_policy list prop;
@@ -252,6 +253,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_cosmosdb_account" in
   let __attrs =
     ({
+       tf_name = __id;
        capabilities = Prop.computed __type __id "capabilities";
        connection_strings =
          Prop.computed __type __id "connection_strings";

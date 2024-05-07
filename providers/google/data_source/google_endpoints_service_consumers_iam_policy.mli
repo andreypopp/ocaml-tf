@@ -19,6 +19,7 @@ val yojson_of_google_endpoints_service_consumers_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   consumer_project : string prop;
   etag : string prop;
   id : string prop;

@@ -57,6 +57,7 @@ val yojson_of_google_cloud_asset_project_feed :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   asset_names : string list prop;
   asset_types : string list prop;
   billing_project : string prop;

@@ -588,6 +588,7 @@ let google_org_policy_policy ?id ?(dry_run_spec = []) ?(spec = [])
   { id; name; parent; dry_run_spec; spec; timeouts }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   name : string prop;
@@ -599,6 +600,7 @@ let make ?id ?(dry_run_spec = []) ?(spec = []) ?timeouts ~name
   let __type = "google_org_policy_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

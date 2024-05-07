@@ -41,6 +41,7 @@ let aws_licensemanager_grant_accepter ?id ~grant_arn () :
   { grant_arn; id }
 
 type t = {
+  tf_name : string;
   allowed_operations : string list prop;
   grant_arn : string prop;
   home_region : string prop;
@@ -57,6 +58,7 @@ let make ?id ~grant_arn __id =
   let __type = "aws_licensemanager_grant_accepter" in
   let __attrs =
     ({
+       tf_name = __id;
        allowed_operations =
          Prop.computed __type __id "allowed_operations";
        grant_arn = Prop.computed __type __id "grant_arn";

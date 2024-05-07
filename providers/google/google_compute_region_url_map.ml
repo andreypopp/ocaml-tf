@@ -4206,6 +4206,7 @@ let google_compute_region_url_map ?default_service ?description ?id
   }
 
 type t = {
+  tf_name : string;
   creation_timestamp : string prop;
   default_service : string prop;
   description : string prop;
@@ -4225,6 +4226,7 @@ let make ?default_service ?description ?id ?project ?region
   let __type = "google_compute_region_url_map" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";
        default_service = Prop.computed __type __id "default_service";

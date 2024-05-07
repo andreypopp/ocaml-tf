@@ -180,6 +180,7 @@ let aws_mskconnect_custom_plugin ?description ?id ?timeouts
   { content_type; description; id; name; location; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   content_type : string prop;
   description : string prop;
@@ -194,6 +195,7 @@ let make ?description ?id ?timeouts ~content_type ~name ~location
   let __type = "aws_mskconnect_custom_plugin" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        content_type = Prop.computed __type __id "content_type";
        description = Prop.computed __type __id "description";

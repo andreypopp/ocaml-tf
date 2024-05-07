@@ -31,6 +31,7 @@ val yojson_of_hcloud_primary_ips : hcloud_primary_ips -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   primary_ips : primary_ips list prop;
   with_selector : string prop;

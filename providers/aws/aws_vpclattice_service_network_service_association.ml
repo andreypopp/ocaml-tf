@@ -190,6 +190,7 @@ let aws_vpclattice_service_network_service_association ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_by : string prop;
   custom_domain_name : string prop;
@@ -209,6 +210,7 @@ let make ?id ?tags ?tags_all ?timeouts ~service_identifier
   in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_by = Prop.computed __type __id "created_by";
        custom_domain_name =

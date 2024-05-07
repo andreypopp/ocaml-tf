@@ -273,6 +273,7 @@ let azurerm_confidential_ledger ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   identity_service_endpoint : string prop;
   ledger_endpoint : string prop;
@@ -289,6 +290,7 @@ let make ?id ?tags ?(certificate_based_security_principal = [])
   let __type = "azurerm_confidential_ledger" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        identity_service_endpoint =
          Prop.computed __type __id "identity_service_endpoint";

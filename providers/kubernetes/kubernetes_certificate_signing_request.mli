@@ -44,6 +44,7 @@ val yojson_of_kubernetes_certificate_signing_request :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_approve : bool prop;
   certificate : string prop;
   id : string prop;

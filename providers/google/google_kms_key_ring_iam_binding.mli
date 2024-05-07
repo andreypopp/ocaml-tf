@@ -30,6 +30,7 @@ val yojson_of_google_kms_key_ring_iam_binding :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   key_ring_id : string prop;

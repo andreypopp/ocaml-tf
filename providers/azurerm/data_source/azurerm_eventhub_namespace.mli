@@ -24,6 +24,7 @@ val yojson_of_azurerm_eventhub_namespace :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_inflate_enabled : bool prop;
   capacity : float prop;
   dedicated_cluster_id : string prop;

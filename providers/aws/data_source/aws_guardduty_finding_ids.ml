@@ -29,6 +29,7 @@ let aws_guardduty_finding_ids ~detector_id () :
   { detector_id }
 
 type t = {
+  tf_name : string;
   detector_id : string prop;
   finding_ids : string list prop;
   has_findings : bool prop;
@@ -39,6 +40,7 @@ let make ~detector_id __id =
   let __type = "aws_guardduty_finding_ids" in
   let __attrs =
     ({
+       tf_name = __id;
        detector_id = Prop.computed __type __id "detector_id";
        finding_ids = Prop.computed __type __id "finding_ids";
        has_findings = Prop.computed __type __id "has_findings";

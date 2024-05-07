@@ -36,6 +36,7 @@ val yojson_of_azurerm_automation_python3_package :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automation_account_name : string prop;
   content_uri : string prop;
   content_version : string prop;

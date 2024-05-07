@@ -266,6 +266,7 @@ let azurerm_kusto_eventgrid_data_connection ?blob_storage_event_type
   }
 
 type t = {
+  tf_name : string;
   blob_storage_event_type : string prop;
   cluster_name : string prop;
   data_format : string prop;
@@ -294,6 +295,7 @@ let make ?blob_storage_event_type ?data_format ?database_routing_type
   let __type = "azurerm_kusto_eventgrid_data_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        blob_storage_event_type =
          Prop.computed __type __id "blob_storage_event_type";
        cluster_name = Prop.computed __type __id "cluster_name";

@@ -100,6 +100,7 @@ let aws_codeguruprofiler_profiling_group ?compute_platform ?tags
   { compute_platform; name; tags; agent_orchestration_config }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   compute_platform : string prop;
   id : string prop;
@@ -113,6 +114,7 @@ let make ?compute_platform ?tags ?(agent_orchestration_config = [])
   let __type = "aws_codeguruprofiler_profiling_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        compute_platform =
          Prop.computed __type __id "compute_platform";

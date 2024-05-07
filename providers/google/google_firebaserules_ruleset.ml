@@ -204,6 +204,7 @@ let google_firebaserules_ruleset ?id ?project ?timeouts ~source () :
   { id; project; source; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   id : string prop;
   metadata : metadata list prop;
@@ -215,6 +216,7 @@ let make ?id ?project ?timeouts ~source __id =
   let __type = "google_firebaserules_ruleset" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        id = Prop.computed __type __id "id";
        metadata = Prop.computed __type __id "metadata";

@@ -61,6 +61,7 @@ let aws_iot_logging_options ?disable_all_logs ?id ~default_log_level
   { default_log_level; disable_all_logs; id; role_arn }
 
 type t = {
+  tf_name : string;
   default_log_level : string prop;
   disable_all_logs : bool prop;
   id : string prop;
@@ -71,6 +72,7 @@ let make ?disable_all_logs ?id ~default_log_level ~role_arn __id =
   let __type = "aws_iot_logging_options" in
   let __attrs =
     ({
+       tf_name = __id;
        default_log_level =
          Prop.computed __type __id "default_log_level";
        disable_all_logs =

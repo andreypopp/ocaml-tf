@@ -45,6 +45,7 @@ let aws_ce_cost_allocation_tag ?id ~status ~tag_key () :
   { id; status; tag_key }
 
 type t = {
+  tf_name : string;
   id : string prop;
   status : string prop;
   tag_key : string prop;
@@ -55,6 +56,7 @@ let make ?id ~status ~tag_key __id =
   let __type = "aws_ce_cost_allocation_tag" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        status = Prop.computed __type __id "status";
        tag_key = Prop.computed __type __id "tag_key";

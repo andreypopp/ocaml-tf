@@ -99,6 +99,7 @@ let aws_guardduty_detector_feature ?id
   { detector_id; id; name; status; additional_configuration }
 
 type t = {
+  tf_name : string;
   detector_id : string prop;
   id : string prop;
   name : string prop;
@@ -110,6 +111,7 @@ let make ?id ?(additional_configuration = []) ~detector_id ~name
   let __type = "aws_guardduty_detector_feature" in
   let __attrs =
     ({
+       tf_name = __id;
        detector_id = Prop.computed __type __id "detector_id";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

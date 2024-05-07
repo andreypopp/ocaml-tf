@@ -424,6 +424,7 @@ let aws_sesv2_configuration_set ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   configuration_set_name : string prop;
   id : string prop;
@@ -438,6 +439,7 @@ let make ?id ?tags ?tags_all ?(delivery_options = [])
   let __type = "aws_sesv2_configuration_set" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        configuration_set_name =
          Prop.computed __type __id "configuration_set_name";

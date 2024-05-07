@@ -203,6 +203,7 @@ let cloudflare_api_token ?expires_on ?id ?not_before
   { expires_on; id; name; not_before; condition; policy }
 
 type t = {
+  tf_name : string;
   expires_on : string prop;
   id : string prop;
   issued_on : string prop;
@@ -218,6 +219,7 @@ let make ?expires_on ?id ?not_before ?(condition = []) ~name ~policy
   let __type = "cloudflare_api_token" in
   let __attrs =
     ({
+       tf_name = __id;
        expires_on = Prop.computed __type __id "expires_on";
        id = Prop.computed __type __id "id";
        issued_on = Prop.computed __type __id "issued_on";

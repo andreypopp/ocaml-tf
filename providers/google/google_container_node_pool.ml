@@ -1981,6 +1981,7 @@ let google_container_node_pool ?id ?initial_node_count ?location
   }
 
 type t = {
+  tf_name : string;
   cluster : string prop;
   id : string prop;
   initial_node_count : float prop;
@@ -2005,6 +2006,7 @@ let make ?id ?initial_node_count ?location ?max_pods_per_node ?name
   let __type = "google_container_node_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster = Prop.computed __type __id "cluster";
        id = Prop.computed __type __id "id";
        initial_node_count =

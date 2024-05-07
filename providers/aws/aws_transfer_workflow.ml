@@ -1576,6 +1576,7 @@ let aws_transfer_workflow ?description ?id ?tags ?tags_all
   { description; id; tags; tags_all; on_exception_steps; steps }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -1588,6 +1589,7 @@ let make ?description ?id ?tags ?tags_all ?(on_exception_steps = [])
   let __type = "aws_transfer_workflow" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

@@ -41,6 +41,7 @@ val yojson_of_google_bigtable_gc_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   column_family : string prop;
   deletion_policy : string prop;
   gc_rules : string prop;

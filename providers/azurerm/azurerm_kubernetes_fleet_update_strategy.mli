@@ -44,6 +44,7 @@ val yojson_of_azurerm_kubernetes_fleet_update_strategy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   kubernetes_fleet_manager_id : string prop;
   name : string prop;

@@ -150,6 +150,7 @@ let aws_datasync_location_s3 ?agent_arns ?id ?s3_storage_class ?tags
   }
 
 type t = {
+  tf_name : string;
   agent_arns : string list prop;
   arn : string prop;
   id : string prop;
@@ -166,6 +167,7 @@ let make ?agent_arns ?id ?s3_storage_class ?tags ?tags_all
   let __type = "aws_datasync_location_s3" in
   let __attrs =
     ({
+       tf_name = __id;
        agent_arns = Prop.computed __type __id "agent_arns";
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";

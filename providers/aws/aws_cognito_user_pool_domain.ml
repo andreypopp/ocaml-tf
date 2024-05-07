@@ -60,6 +60,7 @@ let aws_cognito_user_pool_domain ?certificate_arn ?id ~domain
   { certificate_arn; domain; id; user_pool_id }
 
 type t = {
+  tf_name : string;
   aws_account_id : string prop;
   certificate_arn : string prop;
   cloudfront_distribution : string prop;
@@ -76,6 +77,7 @@ let make ?certificate_arn ?id ~domain ~user_pool_id __id =
   let __type = "aws_cognito_user_pool_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        aws_account_id = Prop.computed __type __id "aws_account_id";
        certificate_arn = Prop.computed __type __id "certificate_arn";
        cloudfront_distribution =

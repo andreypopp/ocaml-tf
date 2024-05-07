@@ -30,6 +30,7 @@ val yojson_of_azurerm_key_vault_secrets :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   key_vault_id : string prop;
   names : string list prop;

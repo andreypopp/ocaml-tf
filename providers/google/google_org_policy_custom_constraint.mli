@@ -35,6 +35,7 @@ val yojson_of_google_org_policy_custom_constraint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action_type : string prop;
   condition : string prop;
   description : string prop;

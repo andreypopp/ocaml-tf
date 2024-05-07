@@ -24,6 +24,7 @@ val yojson_of_aws_transfer_agreement : aws_transfer_agreement -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_role : string prop;
   agreement_id : string prop;
   arn : string prop;

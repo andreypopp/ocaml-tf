@@ -79,6 +79,7 @@ let cloudflare_filter ?description ?id ?paused ?ref ~expression
   { description; expression; id; paused; ref; zone_id }
 
 type t = {
+  tf_name : string;
   description : string prop;
   expression : string prop;
   id : string prop;
@@ -91,6 +92,7 @@ let make ?description ?id ?paused ?ref ~expression ~zone_id __id =
   let __type = "cloudflare_filter" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        expression = Prop.computed __type __id "expression";
        id = Prop.computed __type __id "id";

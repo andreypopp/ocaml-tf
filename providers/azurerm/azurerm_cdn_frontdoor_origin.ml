@@ -293,6 +293,7 @@ let azurerm_cdn_frontdoor_origin ?enabled ?health_probes_enabled
   }
 
 type t = {
+  tf_name : string;
   cdn_frontdoor_origin_group_id : string prop;
   certificate_name_check_enabled : bool prop;
   enabled : bool prop;
@@ -314,6 +315,7 @@ let make ?enabled ?health_probes_enabled ?http_port ?https_port ?id
   let __type = "azurerm_cdn_frontdoor_origin" in
   let __attrs =
     ({
+       tf_name = __id;
        cdn_frontdoor_origin_group_id =
          Prop.computed __type __id "cdn_frontdoor_origin_group_id";
        certificate_name_check_enabled =

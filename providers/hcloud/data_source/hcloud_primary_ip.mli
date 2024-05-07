@@ -20,6 +20,7 @@ val yojson_of_hcloud_primary_ip : hcloud_primary_ip -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   assignee_id : float prop;
   assignee_type : string prop;
   auto_delete : bool prop;

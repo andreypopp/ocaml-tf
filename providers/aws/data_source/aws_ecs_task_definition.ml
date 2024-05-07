@@ -42,6 +42,7 @@ let aws_ecs_task_definition ?id ~task_definition () :
   { id; task_definition }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   arn_without_revision : string prop;
   execution_role_arn : string prop;
@@ -58,6 +59,7 @@ let make ?id ~task_definition __id =
   let __type = "aws_ecs_task_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        arn_without_revision =
          Prop.computed __type __id "arn_without_revision";

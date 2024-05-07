@@ -61,6 +61,7 @@ let aws_api_gateway_documentation_version ?description ?id
   { description; id; rest_api_id; version }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   rest_api_id : string prop;
@@ -71,6 +72,7 @@ let make ?description ?id ~rest_api_id ~version __id =
   let __type = "aws_api_gateway_documentation_version" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        rest_api_id = Prop.computed __type __id "rest_api_id";

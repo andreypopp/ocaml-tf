@@ -21,6 +21,7 @@ val yojson_of_aws_cognito_user_pool_ui_customization :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   client_id : string prop;
   creation_date : string prop;
   css : string prop;

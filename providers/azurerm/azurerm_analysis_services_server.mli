@@ -47,6 +47,7 @@ val yojson_of_azurerm_analysis_services_server :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   admin_users : string list prop;
   backup_blob_container_uri : string prop;
   enable_power_bi_service : bool prop;

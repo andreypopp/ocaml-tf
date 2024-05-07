@@ -44,6 +44,7 @@ val yojson_of_azurerm_kusto_eventgrid_data_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   blob_storage_event_type : string prop;
   cluster_name : string prop;
   data_format : string prop;

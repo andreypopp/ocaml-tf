@@ -19,6 +19,7 @@ val yojson_of_aws_s3control_bucket_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket : string prop;
   id : string prop;
   policy : string prop;

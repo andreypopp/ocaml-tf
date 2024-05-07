@@ -224,6 +224,7 @@ let aws_efs_access_point ?id ?tags ?tags_all ?(posix_user = [])
   { file_system_id; id; tags; tags_all; posix_user; root_directory }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   file_system_arn : string prop;
   file_system_id : string prop;
@@ -238,6 +239,7 @@ let make ?id ?tags ?tags_all ?(posix_user = [])
   let __type = "aws_efs_access_point" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        file_system_arn = Prop.computed __type __id "file_system_arn";
        file_system_id = Prop.computed __type __id "file_system_id";

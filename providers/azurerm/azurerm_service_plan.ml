@@ -223,6 +223,7 @@ let azurerm_service_plan ?app_service_environment_id ?id
   }
 
 type t = {
+  tf_name : string;
   app_service_environment_id : string prop;
   id : string prop;
   kind : string prop;
@@ -246,6 +247,7 @@ let make ?app_service_environment_id ?id
   let __type = "azurerm_service_plan" in
   let __attrs =
     ({
+       tf_name = __id;
        app_service_environment_id =
          Prop.computed __type __id "app_service_environment_id";
        id = Prop.computed __type __id "id";

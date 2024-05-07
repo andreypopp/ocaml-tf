@@ -60,6 +60,7 @@ val yojson_of_google_bigquery_data_transfer_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   data_refresh_window_days : float prop;
   data_source_id : string prop;
   destination_dataset_id : string prop;

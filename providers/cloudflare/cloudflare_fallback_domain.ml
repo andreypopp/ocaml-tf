@@ -114,6 +114,7 @@ let cloudflare_fallback_domain ?id ?policy_id ~account_id ~domains ()
   { account_id; id; policy_id; domains }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   policy_id : string prop;
@@ -123,6 +124,7 @@ let make ?id ?policy_id ~account_id ~domains __id =
   let __type = "cloudflare_fallback_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        policy_id = Prop.computed __type __id "policy_id";

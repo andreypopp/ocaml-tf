@@ -877,6 +877,7 @@ val yojson_of_aws_kinesis_firehose_delivery_stream :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   destination : string prop;
   destination_id : string prop;

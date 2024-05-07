@@ -2440,6 +2440,7 @@ let aws_securityhub_automation_rule ?is_terminal ?rule_status ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -2456,6 +2457,7 @@ let make ?is_terminal ?rule_status ?tags ?(criteria = [])
   let __type = "aws_securityhub_automation_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

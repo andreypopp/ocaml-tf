@@ -55,6 +55,7 @@ val yojson_of_google_sql_user : google_sql_user -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   deletion_policy : string prop;
   host : string prop;
   id : string prop;

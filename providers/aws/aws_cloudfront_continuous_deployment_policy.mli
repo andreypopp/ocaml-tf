@@ -62,6 +62,7 @@ val yojson_of_aws_cloudfront_continuous_deployment_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enabled : bool prop;
   etag : string prop;
   id : string prop;

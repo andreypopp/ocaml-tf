@@ -33,6 +33,7 @@ val yojson_of_azurerm_databricks_workspace_private_endpoint_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   connections : connections list prop;
   id : string prop;
   private_endpoint_id : string prop;

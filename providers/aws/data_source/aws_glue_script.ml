@@ -196,6 +196,7 @@ let aws_glue_script ?id ?language ~dag_edge ~dag_node () :
   { id; language; dag_edge; dag_node }
 
 type t = {
+  tf_name : string;
   id : string prop;
   language : string prop;
   python_script : string prop;
@@ -206,6 +207,7 @@ let make ?id ?language ~dag_edge ~dag_node __id =
   let __type = "aws_glue_script" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        language = Prop.computed __type __id "language";
        python_script = Prop.computed __type __id "python_script";

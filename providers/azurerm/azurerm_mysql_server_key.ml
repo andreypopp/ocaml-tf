@@ -120,6 +120,7 @@ let azurerm_mysql_server_key ?id ?timeouts ~key_vault_key_id
   { id; key_vault_key_id; server_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   key_vault_key_id : string prop;
   server_id : string prop;
@@ -129,6 +130,7 @@ let make ?id ?timeouts ~key_vault_key_id ~server_id __id =
   let __type = "azurerm_mysql_server_key" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        key_vault_key_id =
          Prop.computed __type __id "key_vault_key_id";

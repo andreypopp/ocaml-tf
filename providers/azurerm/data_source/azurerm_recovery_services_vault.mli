@@ -24,6 +24,7 @@ val yojson_of_azurerm_recovery_services_vault :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

@@ -61,6 +61,7 @@ let aws_appsync_domain_name ?description ?id ~certificate_arn
   { certificate_arn; description; domain_name; id }
 
 type t = {
+  tf_name : string;
   appsync_domain_name : string prop;
   certificate_arn : string prop;
   description : string prop;
@@ -73,6 +74,7 @@ let make ?description ?id ~certificate_arn ~domain_name __id =
   let __type = "aws_appsync_domain_name" in
   let __attrs =
     ({
+       tf_name = __id;
        appsync_domain_name =
          Prop.computed __type __id "appsync_domain_name";
        certificate_arn = Prop.computed __type __id "certificate_arn";

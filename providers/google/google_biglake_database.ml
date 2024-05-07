@@ -166,6 +166,7 @@ let google_biglake_database ?id ?timeouts ~catalog ~name ~type_
   { catalog; id; name; type_; hive_options; timeouts }
 
 type t = {
+  tf_name : string;
   catalog : string prop;
   create_time : string prop;
   delete_time : string prop;
@@ -180,6 +181,7 @@ let make ?id ?timeouts ~catalog ~name ~type_ ~hive_options __id =
   let __type = "google_biglake_database" in
   let __attrs =
     ({
+       tf_name = __id;
        catalog = Prop.computed __type __id "catalog";
        create_time = Prop.computed __type __id "create_time";
        delete_time = Prop.computed __type __id "delete_time";

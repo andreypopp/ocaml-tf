@@ -158,6 +158,7 @@ let azurerm_log_analytics_workspace_table ?id ?plan
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   plan : string prop;
@@ -171,6 +172,7 @@ let make ?id ?plan ?retention_in_days ?total_retention_in_days
   let __type = "azurerm_log_analytics_workspace_table" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        plan = Prop.computed __type __id "plan";

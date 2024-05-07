@@ -26,7 +26,11 @@ val yojson_of_aws_shield_drt_access_role_arn_association :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; role_arn : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  role_arn : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

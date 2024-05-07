@@ -50,6 +50,7 @@ let aws_prometheus_alert_manager_definition ?id ~definition
   { definition; id; workspace_id }
 
 type t = {
+  tf_name : string;
   definition : string prop;
   id : string prop;
   workspace_id : string prop;
@@ -59,6 +60,7 @@ let make ?id ~definition ~workspace_id __id =
   let __type = "aws_prometheus_alert_manager_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        definition = Prop.computed __type __id "definition";
        id = Prop.computed __type __id "id";
        workspace_id = Prop.computed __type __id "workspace_id";

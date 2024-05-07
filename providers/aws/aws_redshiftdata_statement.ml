@@ -192,6 +192,7 @@ let aws_redshiftdata_statement ?cluster_identifier ?db_user ?id
   }
 
 type t = {
+  tf_name : string;
   cluster_identifier : string prop;
   database : string prop;
   db_user : string prop;
@@ -209,6 +210,7 @@ let make ?cluster_identifier ?db_user ?id ?secret_arn ?statement_name
   let __type = "aws_redshiftdata_statement" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_identifier =
          Prop.computed __type __id "cluster_identifier";
        database = Prop.computed __type __id "database";

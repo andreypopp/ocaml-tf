@@ -33,6 +33,7 @@ val yojson_of_azurerm_spring_cloud_app_redis_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   redis_access_key : string prop;

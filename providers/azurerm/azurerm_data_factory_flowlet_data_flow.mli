@@ -182,6 +182,7 @@ val yojson_of_azurerm_data_factory_flowlet_data_flow :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   annotations : string list prop;
   data_factory_id : string prop;
   description : string prop;

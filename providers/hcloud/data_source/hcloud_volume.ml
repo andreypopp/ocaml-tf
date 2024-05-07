@@ -107,6 +107,7 @@ let hcloud_volume ?id ?location ?name ?selector ?server_id
   }
 
 type t = {
+  tf_name : string;
   delete_protection : bool prop;
   id : float prop;
   labels : (string * string) list prop;
@@ -125,6 +126,7 @@ let make ?id ?location ?name ?selector ?server_id ?with_selector
   let __type = "hcloud_volume" in
   let __attrs =
     ({
+       tf_name = __id;
        delete_protection =
          Prop.computed __type __id "delete_protection";
        id = Prop.computed __type __id "id";

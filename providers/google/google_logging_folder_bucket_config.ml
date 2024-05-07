@@ -159,6 +159,7 @@ let google_logging_folder_bucket_config ?description ?id
   }
 
 type t = {
+  tf_name : string;
   bucket_id : string prop;
   description : string prop;
   folder : string prop;
@@ -174,6 +175,7 @@ let make ?description ?id ?retention_days ?(cmek_settings = [])
   let __type = "google_logging_folder_bucket_config" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket_id = Prop.computed __type __id "bucket_id";
        description = Prop.computed __type __id "description";
        folder = Prop.computed __type __id "folder";

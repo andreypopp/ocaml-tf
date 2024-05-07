@@ -50,6 +50,7 @@ val yojson_of_azurerm_storage_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_tier : string prop;
   account_kind : string prop;
   account_replication_type : string prop;

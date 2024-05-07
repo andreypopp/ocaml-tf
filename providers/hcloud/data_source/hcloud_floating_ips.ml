@@ -133,6 +133,7 @@ let hcloud_floating_ips ?id ?with_selector () : hcloud_floating_ips =
   { id; with_selector }
 
 type t = {
+  tf_name : string;
   floating_ips : floating_ips list prop;
   id : string prop;
   with_selector : string prop;
@@ -142,6 +143,7 @@ let make ?id ?with_selector __id =
   let __type = "hcloud_floating_ips" in
   let __attrs =
     ({
+       tf_name = __id;
        floating_ips = Prop.computed __type __id "floating_ips";
        id = Prop.computed __type __id "id";
        with_selector = Prop.computed __type __id "with_selector";

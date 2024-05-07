@@ -46,6 +46,7 @@ val yojson_of_aws_network_acl : aws_network_acl -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   egress : egress list prop;
   id : string prop;

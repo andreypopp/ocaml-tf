@@ -156,6 +156,7 @@ let aws_verifiedaccess_instance ?description ?fips_enabled ?id ?tags
   { description; fips_enabled; id; tags; tags_all }
 
 type t = {
+  tf_name : string;
   creation_time : string prop;
   description : string prop;
   fips_enabled : bool prop;
@@ -171,6 +172,7 @@ let make ?description ?fips_enabled ?id ?tags ?tags_all __id =
   let __type = "aws_verifiedaccess_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_time = Prop.computed __type __id "creation_time";
        description = Prop.computed __type __id "description";
        fips_enabled = Prop.computed __type __id "fips_enabled";

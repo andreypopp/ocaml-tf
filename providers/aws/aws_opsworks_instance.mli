@@ -86,6 +86,7 @@ val yojson_of_aws_opsworks_instance : aws_opsworks_instance -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   agent_version : string prop;
   ami_id : string prop;
   architecture : string prop;

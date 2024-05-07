@@ -1490,6 +1490,7 @@ let azurerm_batch_pool ?id ?timeouts ~account_name ~name
   { account_name; id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   account_name : string prop;
   auto_scale : auto_scale list prop;
   certificate : certificate list prop;
@@ -1524,6 +1525,7 @@ let make ?id ?timeouts ~account_name ~name ~resource_group_name __id
   let __type = "azurerm_batch_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        account_name = Prop.computed __type __id "account_name";
        auto_scale = Prop.computed __type __id "auto_scale";
        certificate = Prop.computed __type __id "certificate";

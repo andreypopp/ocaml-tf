@@ -267,6 +267,7 @@ let google_network_services_gateway ?addresses ?certificate_urls
   }
 
 type t = {
+  tf_name : string;
   addresses : string list prop;
   certificate_urls : string list prop;
   create_time : string prop;
@@ -298,6 +299,7 @@ let make ?addresses ?certificate_urls
   let __type = "google_network_services_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        addresses = Prop.computed __type __id "addresses";
        certificate_urls =
          Prop.computed __type __id "certificate_urls";

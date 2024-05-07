@@ -134,6 +134,7 @@ let azurerm_container_app_custom_domain ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   certificate_binding_type : string prop;
   container_app_environment_certificate_id : string prop;
   container_app_id : string prop;
@@ -147,6 +148,7 @@ let make ?id ?timeouts ~certificate_binding_type
   let __type = "azurerm_container_app_custom_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_binding_type =
          Prop.computed __type __id "certificate_binding_type";
        container_app_environment_certificate_id =

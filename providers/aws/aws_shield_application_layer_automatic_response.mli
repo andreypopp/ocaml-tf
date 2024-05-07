@@ -28,6 +28,7 @@ val yojson_of_aws_shield_application_layer_automatic_response :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action : string prop;
   id : string prop;
   resource_arn : string prop;

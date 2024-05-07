@@ -55,6 +55,7 @@ val yojson_of_azurerm_network_watcher_flow_log :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   location : string prop;

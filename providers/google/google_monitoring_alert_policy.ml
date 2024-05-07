@@ -1304,6 +1304,7 @@ let google_monitoring_alert_policy ?enabled ?id
   }
 
 type t = {
+  tf_name : string;
   combiner : string prop;
   creation_record : creation_record list prop;
   display_name : string prop;
@@ -1322,6 +1323,7 @@ let make ?enabled ?id ?notification_channels ?project ?severity
   let __type = "google_monitoring_alert_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        combiner = Prop.computed __type __id "combiner";
        creation_record = Prop.computed __type __id "creation_record";
        display_name = Prop.computed __type __id "display_name";

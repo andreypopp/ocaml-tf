@@ -158,6 +158,7 @@ let azurerm_security_center_contact ?id ?name ?phone ?timeouts
   }
 
 type t = {
+  tf_name : string;
   alert_notifications : bool prop;
   alerts_to_admins : bool prop;
   email : string prop;
@@ -171,6 +172,7 @@ let make ?id ?name ?phone ?timeouts ~alert_notifications
   let __type = "azurerm_security_center_contact" in
   let __attrs =
     ({
+       tf_name = __id;
        alert_notifications =
          Prop.computed __type __id "alert_notifications";
        alerts_to_admins =

@@ -41,6 +41,7 @@ let google_healthcare_fhir_store_iam_policy ?id ~fhir_store_id () :
   { fhir_store_id; id }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   fhir_store_id : string prop;
   id : string prop;
@@ -51,6 +52,7 @@ let make ?id ~fhir_store_id __id =
   let __type = "google_healthcare_fhir_store_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        fhir_store_id = Prop.computed __type __id "fhir_store_id";
        id = Prop.computed __type __id "id";

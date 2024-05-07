@@ -744,6 +744,7 @@ let azurerm_sentinel_alert_rule_scheduled ?alert_rule_template_guid
   }
 
 type t = {
+  tf_name : string;
   alert_rule_template_guid : string prop;
   alert_rule_template_version : string prop;
   custom_details : (string * string) list prop;
@@ -776,6 +777,7 @@ let make ?alert_rule_template_guid ?alert_rule_template_version
   let __type = "azurerm_sentinel_alert_rule_scheduled" in
   let __attrs =
     ({
+       tf_name = __id;
        alert_rule_template_guid =
          Prop.computed __type __id "alert_rule_template_guid";
        alert_rule_template_version =

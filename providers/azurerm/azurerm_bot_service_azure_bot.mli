@@ -48,6 +48,7 @@ val yojson_of_azurerm_bot_service_azure_bot :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   developer_app_insights_api_key : string prop;
   developer_app_insights_application_id : string prop;
   developer_app_insights_key : string prop;

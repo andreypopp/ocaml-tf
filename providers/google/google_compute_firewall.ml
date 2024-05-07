@@ -376,6 +376,7 @@ let google_compute_firewall ?description ?destination_ranges
   }
 
 type t = {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   destination_ranges : string list prop;
@@ -403,6 +404,7 @@ let make ?description ?destination_ranges ?direction ?disabled
   let __type = "google_compute_firewall" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";
        description = Prop.computed __type __id "description";

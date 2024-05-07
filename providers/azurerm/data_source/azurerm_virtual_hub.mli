@@ -23,6 +23,7 @@ val yojson_of_azurerm_virtual_hub : azurerm_virtual_hub -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address_prefix : string prop;
   default_route_table_id : string prop;
   id : string prop;

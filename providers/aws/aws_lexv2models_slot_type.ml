@@ -575,6 +575,7 @@ let aws_lexv2models_slot_type ?description
   }
 
 type t = {
+  tf_name : string;
   bot_id : string prop;
   bot_version : string prop;
   description : string prop;
@@ -593,6 +594,7 @@ let make ?description ?parent_slot_type_signature
   let __type = "aws_lexv2models_slot_type" in
   let __attrs =
     ({
+       tf_name = __id;
        bot_id = Prop.computed __type __id "bot_id";
        bot_version = Prop.computed __type __id "bot_version";
        description = Prop.computed __type __id "description";

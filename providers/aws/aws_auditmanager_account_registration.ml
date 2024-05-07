@@ -59,6 +59,7 @@ let aws_auditmanager_account_registration ?delegated_admin_account
   { delegated_admin_account; deregister_on_destroy; kms_key }
 
 type t = {
+  tf_name : string;
   delegated_admin_account : string prop;
   deregister_on_destroy : bool prop;
   id : string prop;
@@ -71,6 +72,7 @@ let make ?delegated_admin_account ?deregister_on_destroy ?kms_key
   let __type = "aws_auditmanager_account_registration" in
   let __attrs =
     ({
+       tf_name = __id;
        delegated_admin_account =
          Prop.computed __type __id "delegated_admin_account";
        deregister_on_destroy =

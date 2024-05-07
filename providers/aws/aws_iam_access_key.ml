@@ -63,6 +63,7 @@ let aws_iam_access_key ?id ?pgp_key ?status ~user () :
   { id; pgp_key; status; user }
 
 type t = {
+  tf_name : string;
   create_date : string prop;
   encrypted_secret : string prop;
   encrypted_ses_smtp_password_v4 : string prop;
@@ -79,6 +80,7 @@ let make ?id ?pgp_key ?status ~user __id =
   let __type = "aws_iam_access_key" in
   let __attrs =
     ({
+       tf_name = __id;
        create_date = Prop.computed __type __id "create_date";
        encrypted_secret =
          Prop.computed __type __id "encrypted_secret";

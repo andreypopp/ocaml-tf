@@ -98,6 +98,7 @@ val yojson_of_azurerm_redhat_openshift_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   console_url : string prop;
   id : string prop;
   location : string prop;

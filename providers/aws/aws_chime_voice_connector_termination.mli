@@ -23,6 +23,7 @@ val yojson_of_aws_chime_voice_connector_termination :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   calling_regions : string list prop;
   cidr_allow_list : string list prop;
   cps_limit : float prop;

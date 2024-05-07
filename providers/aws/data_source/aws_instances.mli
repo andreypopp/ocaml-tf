@@ -29,6 +29,7 @@ val yojson_of_aws_instances : aws_instances -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   ids : string list prop;
   instance_state_names : string list prop;

@@ -21,6 +21,7 @@ val yojson_of_aws_codeartifact_domain :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   asset_size_bytes : string prop;
   created_time : string prop;

@@ -39,6 +39,7 @@ let aws_db_subnet_group ?id ~name () : aws_db_subnet_group =
   { id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -53,6 +54,7 @@ let make ?id ~name __id =
   let __type = "aws_db_subnet_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

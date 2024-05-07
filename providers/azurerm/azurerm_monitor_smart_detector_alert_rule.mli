@@ -48,6 +48,7 @@ val yojson_of_azurerm_monitor_smart_detector_alert_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   detector_type : string prop;
   enabled : bool prop;

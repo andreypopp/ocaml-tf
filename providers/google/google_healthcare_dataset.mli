@@ -31,6 +31,7 @@ val yojson_of_google_healthcare_dataset :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

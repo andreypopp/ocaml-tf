@@ -41,6 +41,7 @@ val yojson_of_azurerm_spring_cloud_app_dynamics_application_performance_monitori
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   agent_account_access_key : string prop;
   agent_account_name : string prop;
   agent_application_name : string prop;

@@ -180,6 +180,7 @@ let azurerm_iotcentral_application_network_rule_set ?apply_to_device
   }
 
 type t = {
+  tf_name : string;
   apply_to_device : bool prop;
   default_action : string prop;
   id : string prop;
@@ -191,6 +192,7 @@ let make ?apply_to_device ?default_action ?id ?(ip_rule = [])
   let __type = "azurerm_iotcentral_application_network_rule_set" in
   let __attrs =
     ({
+       tf_name = __id;
        apply_to_device = Prop.computed __type __id "apply_to_device";
        default_action = Prop.computed __type __id "default_action";
        id = Prop.computed __type __id "id";

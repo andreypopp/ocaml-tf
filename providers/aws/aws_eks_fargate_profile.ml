@@ -211,6 +211,7 @@ let aws_eks_fargate_profile ?id ?subnet_ids ?tags ?tags_all ?timeouts
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cluster_name : string prop;
   fargate_profile_name : string prop;
@@ -227,6 +228,7 @@ let make ?id ?subnet_ids ?tags ?tags_all ?timeouts ~cluster_name
   let __type = "aws_eks_fargate_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cluster_name = Prop.computed __type __id "cluster_name";
        fargate_profile_name =

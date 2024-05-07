@@ -63,6 +63,7 @@ let aws_securityhub_member ?email ?id ?invite ~account_id () :
   { account_id; email; id; invite }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   email : string prop;
   id : string prop;
@@ -75,6 +76,7 @@ let make ?email ?id ?invite ~account_id __id =
   let __type = "aws_securityhub_member" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        email = Prop.computed __type __id "email";
        id = Prop.computed __type __id "id";

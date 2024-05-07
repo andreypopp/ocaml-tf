@@ -33,6 +33,7 @@ let aws_quicksight_namespace ?aws_account_id ?identity_store ?tags ?timeouts ~na
   } : aws_quicksight_namespace);;
 
 type t = {
+  tf_name: string;
   arn: string prop;
   aws_account_id: string prop;
   capacity_region: string prop;
@@ -47,6 +48,7 @@ type t = {
 let make ?aws_account_id ?identity_store ?tags ?timeouts ~namespace __id =
   let __type = "aws_quicksight_namespace" in
   let __attrs = ({
+    tf_name = __id;
     arn = Prop.computed __type __id "arn";
     aws_account_id = Prop.computed __type __id "aws_account_id";
     capacity_region = Prop.computed __type __id "capacity_region";

@@ -72,6 +72,7 @@ val yojson_of_google_redis_instance : google_redis_instance -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alternative_location_id : string prop;
   auth_enabled : bool prop;
   auth_string : string prop;

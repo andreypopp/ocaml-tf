@@ -137,6 +137,7 @@ let google_logging_organization_settings ?disable_default_sink ?id
   }
 
 type t = {
+  tf_name : string;
   disable_default_sink : bool prop;
   id : string prop;
   kms_key_name : string prop;
@@ -152,6 +153,7 @@ let make ?disable_default_sink ?id ?kms_key_name ?storage_location
   let __type = "google_logging_organization_settings" in
   let __attrs =
     ({
+       tf_name = __id;
        disable_default_sink =
          Prop.computed __type __id "disable_default_sink";
        id = Prop.computed __type __id "id";

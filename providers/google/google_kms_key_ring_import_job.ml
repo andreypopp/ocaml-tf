@@ -164,6 +164,7 @@ let google_kms_key_ring_import_job ?id ?timeouts ~import_job_id
   }
 
 type t = {
+  tf_name : string;
   attestation : attestation list prop;
   expire_time : string prop;
   id : string prop;
@@ -181,6 +182,7 @@ let make ?id ?timeouts ~import_job_id ~import_method ~key_ring
   let __type = "google_kms_key_ring_import_job" in
   let __attrs =
     ({
+       tf_name = __id;
        attestation = Prop.computed __type __id "attestation";
        expire_time = Prop.computed __type __id "expire_time";
        id = Prop.computed __type __id "id";

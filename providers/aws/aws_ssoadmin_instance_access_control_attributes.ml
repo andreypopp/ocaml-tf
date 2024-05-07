@@ -106,6 +106,7 @@ let aws_ssoadmin_instance_access_control_attributes ?id ~instance_arn
   { id; instance_arn; attribute }
 
 type t = {
+  tf_name : string;
   id : string prop;
   instance_arn : string prop;
   status : string prop;
@@ -116,6 +117,7 @@ let make ?id ~instance_arn ~attribute __id =
   let __type = "aws_ssoadmin_instance_access_control_attributes" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        instance_arn = Prop.computed __type __id "instance_arn";
        status = Prop.computed __type __id "status";

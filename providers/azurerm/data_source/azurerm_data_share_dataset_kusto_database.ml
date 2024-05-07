@@ -84,6 +84,7 @@ let azurerm_data_share_dataset_kusto_database ?id ?timeouts ~name
   { id; name; share_id; timeouts }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   kusto_cluster_location : string prop;
@@ -96,6 +97,7 @@ let make ?id ?timeouts ~name ~share_id __id =
   let __type = "azurerm_data_share_dataset_kusto_database" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";
        kusto_cluster_location =

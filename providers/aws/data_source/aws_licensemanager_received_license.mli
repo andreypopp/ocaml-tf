@@ -69,6 +69,7 @@ val yojson_of_aws_licensemanager_received_license :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   beneficiary : string prop;
   consumption_configuration : consumption_configuration list prop;
   create_time : string prop;

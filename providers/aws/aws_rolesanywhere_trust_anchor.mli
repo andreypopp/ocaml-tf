@@ -38,6 +38,7 @@ val yojson_of_aws_rolesanywhere_trust_anchor :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   enabled : bool prop;
   id : string prop;

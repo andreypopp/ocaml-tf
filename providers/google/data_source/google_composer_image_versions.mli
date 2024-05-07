@@ -25,6 +25,7 @@ val yojson_of_google_composer_image_versions :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   image_versions : image_versions list prop;
   project : string prop;

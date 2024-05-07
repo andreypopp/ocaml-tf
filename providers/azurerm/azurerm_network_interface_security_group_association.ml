@@ -113,6 +113,7 @@ let azurerm_network_interface_security_group_association ?id
   { id; network_interface_id; network_security_group_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   network_interface_id : string prop;
   network_security_group_id : string prop;
@@ -125,6 +126,7 @@ let make ?id ?timeouts ~network_interface_id
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        network_interface_id =
          Prop.computed __type __id "network_interface_id";

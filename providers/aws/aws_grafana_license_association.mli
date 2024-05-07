@@ -25,6 +25,7 @@ val yojson_of_aws_grafana_license_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   free_trial_expiration : string prop;
   id : string prop;
   license_expiration : string prop;

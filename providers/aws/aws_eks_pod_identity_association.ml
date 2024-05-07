@@ -73,6 +73,7 @@ let aws_eks_pod_identity_association ?tags ~cluster_name ~namespace
   { cluster_name; namespace; role_arn; service_account; tags }
 
 type t = {
+  tf_name : string;
   association_arn : string prop;
   association_id : string prop;
   cluster_name : string prop;
@@ -89,6 +90,7 @@ let make ?tags ~cluster_name ~namespace ~role_arn ~service_account
   let __type = "aws_eks_pod_identity_association" in
   let __attrs =
     ({
+       tf_name = __id;
        association_arn = Prop.computed __type __id "association_arn";
        association_id = Prop.computed __type __id "association_id";
        cluster_name = Prop.computed __type __id "cluster_name";

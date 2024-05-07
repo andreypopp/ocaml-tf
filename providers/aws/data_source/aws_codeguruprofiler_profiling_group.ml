@@ -134,6 +134,7 @@ let aws_codeguruprofiler_profiling_group ~name () :
   { name }
 
 type t = {
+  tf_name : string;
   agent_orchestration_config : agent_orchestration_config list prop;
   arn : string prop;
   compute_platform : string prop;
@@ -149,6 +150,7 @@ let make ~name __id =
   let __type = "aws_codeguruprofiler_profiling_group" in
   let __attrs =
     ({
+       tf_name = __id;
        agent_orchestration_config =
          Prop.computed __type __id "agent_orchestration_config";
        arn = Prop.computed __type __id "arn";

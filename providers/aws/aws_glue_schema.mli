@@ -24,6 +24,7 @@ val yojson_of_aws_glue_schema : aws_glue_schema -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   compatibility : string prop;
   data_format : string prop;

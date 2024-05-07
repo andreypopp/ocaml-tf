@@ -25,6 +25,7 @@ val yojson_of_aws_networkmanager_transit_gateway_registration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   global_network_id : string prop;
   id : string prop;
   transit_gateway_arn : string prop;

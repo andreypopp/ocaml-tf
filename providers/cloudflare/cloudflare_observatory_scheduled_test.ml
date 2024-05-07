@@ -97,6 +97,7 @@ let cloudflare_observatory_scheduled_test ?id ?timeouts ~frequency
   { frequency; id; region; url; zone_id; timeouts }
 
 type t = {
+  tf_name : string;
   frequency : string prop;
   id : string prop;
   region : string prop;
@@ -108,6 +109,7 @@ let make ?id ?timeouts ~frequency ~region ~url ~zone_id __id =
   let __type = "cloudflare_observatory_scheduled_test" in
   let __attrs =
     ({
+       tf_name = __id;
        frequency = Prop.computed __type __id "frequency";
        id = Prop.computed __type __id "id";
        region = Prop.computed __type __id "region";

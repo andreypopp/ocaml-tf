@@ -774,6 +774,7 @@ let azurerm_kubernetes_flux_configuration
   }
 
 type t = {
+  tf_name : string;
   cluster_id : string prop;
   continuous_reconciliation_enabled : bool prop;
   id : string prop;
@@ -788,6 +789,7 @@ let make ?continuous_reconciliation_enabled ?id ?scope
   let __type = "azurerm_kubernetes_flux_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_id = Prop.computed __type __id "cluster_id";
        continuous_reconciliation_enabled =
          Prop.computed __type __id

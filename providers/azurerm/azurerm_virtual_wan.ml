@@ -199,6 +199,7 @@ let azurerm_virtual_wan ?allow_branch_to_branch_traffic
   }
 
 type t = {
+  tf_name : string;
   allow_branch_to_branch_traffic : bool prop;
   disable_vpn_encryption : bool prop;
   id : string prop;
@@ -216,6 +217,7 @@ let make ?allow_branch_to_branch_traffic ?disable_vpn_encryption ?id
   let __type = "azurerm_virtual_wan" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_branch_to_branch_traffic =
          Prop.computed __type __id "allow_branch_to_branch_traffic";
        disable_vpn_encryption =

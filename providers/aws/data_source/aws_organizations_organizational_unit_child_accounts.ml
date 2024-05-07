@@ -94,6 +94,7 @@ let aws_organizations_organizational_unit_child_accounts ?id
   { id; parent_id }
 
 type t = {
+  tf_name : string;
   accounts : accounts list prop;
   id : string prop;
   parent_id : string prop;
@@ -105,6 +106,7 @@ let make ?id ~parent_id __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        accounts = Prop.computed __type __id "accounts";
        id = Prop.computed __type __id "id";
        parent_id = Prop.computed __type __id "parent_id";

@@ -35,12 +35,17 @@ let aws_inspector_rules_packages ?id () :
     aws_inspector_rules_packages =
   { id }
 
-type t = { arns : string list prop; id : string prop }
+type t = {
+  tf_name : string;
+  arns : string list prop;
+  id : string prop;
+}
 
 let make ?id __id =
   let __type = "aws_inspector_rules_packages" in
   let __attrs =
     ({
+       tf_name = __id;
        arns = Prop.computed __type __id "arns";
        id = Prop.computed __type __id "id";
      }

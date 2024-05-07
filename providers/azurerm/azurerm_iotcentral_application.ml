@@ -237,6 +237,7 @@ let azurerm_iotcentral_application ?display_name ?id
   }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   location : string prop;
@@ -255,6 +256,7 @@ let make ?display_name ?id ?public_network_access_enabled ?sku ?tags
   let __type = "azurerm_iotcentral_application" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

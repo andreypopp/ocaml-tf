@@ -38,6 +38,7 @@ val yojson_of_google_vertex_ai_tensorboard :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   blob_storage_path_prefix : string prop;
   create_time : string prop;
   description : string prop;

@@ -138,6 +138,7 @@ let google_compute_global_network_endpoint ?fqdn ?id ?ip_address
   }
 
 type t = {
+  tf_name : string;
   fqdn : string prop;
   global_network_endpoint_group : string prop;
   id : string prop;
@@ -151,6 +152,7 @@ let make ?fqdn ?id ?ip_address ?project ?timeouts
   let __type = "google_compute_global_network_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        fqdn = Prop.computed __type __id "fqdn";
        global_network_endpoint_group =
          Prop.computed __type __id "global_network_endpoint_group";

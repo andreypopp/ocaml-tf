@@ -33,6 +33,7 @@ val yojson_of_aws_security_group_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cidr_blocks : string list prop;
   description : string prop;
   from_port : float prop;

@@ -28,6 +28,7 @@ val yojson_of_google_compute_vpn_gateway :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   gateway_id : float prop;

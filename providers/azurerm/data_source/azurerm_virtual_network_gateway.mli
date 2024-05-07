@@ -70,6 +70,7 @@ val yojson_of_azurerm_virtual_network_gateway :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   active_active : bool prop;
   bgp_settings : bgp_settings list prop;
   custom_route : custom_route list prop;

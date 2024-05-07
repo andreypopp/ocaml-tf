@@ -136,6 +136,7 @@ let aws_autoscaling_schedule ?desired_capacity ?end_time ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   autoscaling_group_name : string prop;
   desired_capacity : float prop;
@@ -155,6 +156,7 @@ let make ?desired_capacity ?end_time ?id ?max_size ?min_size
   let __type = "aws_autoscaling_schedule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        autoscaling_group_name =
          Prop.computed __type __id "autoscaling_group_name";

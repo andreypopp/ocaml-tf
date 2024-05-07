@@ -85,6 +85,7 @@ let azurerm_nginx_certificate ?id ?timeouts ~name
   { id; name; nginx_deployment_id; timeouts }
 
 type t = {
+  tf_name : string;
   certificate_virtual_path : string prop;
   id : string prop;
   key_vault_secret_id : string prop;
@@ -97,6 +98,7 @@ let make ?id ?timeouts ~name ~nginx_deployment_id __id =
   let __type = "azurerm_nginx_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_virtual_path =
          Prop.computed __type __id "certificate_virtual_path";
        id = Prop.computed __type __id "id";

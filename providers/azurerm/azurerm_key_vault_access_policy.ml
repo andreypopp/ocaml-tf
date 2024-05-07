@@ -196,6 +196,7 @@ let azurerm_key_vault_access_policy ?application_id
   }
 
 type t = {
+  tf_name : string;
   application_id : string prop;
   certificate_permissions : string list prop;
   id : string prop;
@@ -213,6 +214,7 @@ let make ?application_id ?certificate_permissions ?id
   let __type = "azurerm_key_vault_access_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        application_id = Prop.computed __type __id "application_id";
        certificate_permissions =
          Prop.computed __type __id "certificate_permissions";

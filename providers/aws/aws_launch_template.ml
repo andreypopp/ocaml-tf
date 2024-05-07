@@ -2453,6 +2453,7 @@ let aws_launch_template ?default_version ?description
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   default_version : float prop;
   description : string prop;
@@ -2495,6 +2496,7 @@ let make ?default_version ?description ?disable_api_stop
   let __type = "aws_launch_template" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        default_version = Prop.computed __type __id "default_version";
        description = Prop.computed __type __id "description";

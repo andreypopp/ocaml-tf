@@ -21,6 +21,7 @@ val yojson_of_aws_ec2_local_gateway_route_table_vpc_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   local_gateway_id : string prop;
   local_gateway_route_table_id : string prop;

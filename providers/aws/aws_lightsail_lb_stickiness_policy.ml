@@ -58,6 +58,7 @@ let aws_lightsail_lb_stickiness_policy ?id ~cookie_duration ~enabled
   { cookie_duration; enabled; id; lb_name }
 
 type t = {
+  tf_name : string;
   cookie_duration : float prop;
   enabled : bool prop;
   id : string prop;
@@ -68,6 +69,7 @@ let make ?id ~cookie_duration ~enabled ~lb_name __id =
   let __type = "aws_lightsail_lb_stickiness_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        cookie_duration = Prop.computed __type __id "cookie_duration";
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";

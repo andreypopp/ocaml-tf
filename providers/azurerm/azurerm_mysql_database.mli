@@ -31,6 +31,7 @@ val yojson_of_azurerm_mysql_database : azurerm_mysql_database -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   charset : string prop;
   collation : string prop;
   id : string prop;

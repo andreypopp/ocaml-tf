@@ -120,6 +120,7 @@ let aws_codecommit_repository ?default_branch ?description ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   clone_url_http : string prop;
   clone_url_ssh : string prop;
@@ -138,6 +139,7 @@ let make ?default_branch ?description ?id ?kms_key_id ?tags ?tags_all
   let __type = "aws_codecommit_repository" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        clone_url_http = Prop.computed __type __id "clone_url_http";
        clone_url_ssh = Prop.computed __type __id "clone_url_ssh";

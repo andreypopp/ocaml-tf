@@ -167,6 +167,7 @@ let azurerm_policy_assignment ?id ?timeouts ~name ~scope_id () :
   { id; name; scope_id; timeouts }
 
 type t = {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   enforce : bool prop;
@@ -186,6 +187,7 @@ let make ?id ?timeouts ~name ~scope_id __id =
   let __type = "azurerm_policy_assignment" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";
        enforce = Prop.computed __type __id "enforce";

@@ -20,6 +20,7 @@ val yojson_of_digitalocean_reserved_ip :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   droplet_id : float prop;
   id : string prop;
   ip_address : string prop;

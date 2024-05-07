@@ -32,6 +32,7 @@ val yojson_of_aws_kms_grant : aws_kms_grant -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   grant_creation_tokens : string list prop;
   grant_id : string prop;
   grant_token : string prop;

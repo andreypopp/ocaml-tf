@@ -502,6 +502,7 @@ let azurerm_backup_policy_file_share ?id ?timezone
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   recovery_vault_name : string prop;
@@ -516,6 +517,7 @@ let make ?id ?timezone ?(retention_monthly = [])
   let __type = "azurerm_backup_policy_file_share" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        recovery_vault_name =

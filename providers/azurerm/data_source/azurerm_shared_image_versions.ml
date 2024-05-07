@@ -237,6 +237,7 @@ let azurerm_shared_image_versions ?id ?tags_filter ?timeouts
   }
 
 type t = {
+  tf_name : string;
   gallery_name : string prop;
   id : string prop;
   image_name : string prop;
@@ -250,6 +251,7 @@ let make ?id ?tags_filter ?timeouts ~gallery_name ~image_name
   let __type = "azurerm_shared_image_versions" in
   let __attrs =
     ({
+       tf_name = __id;
        gallery_name = Prop.computed __type __id "gallery_name";
        id = Prop.computed __type __id "id";
        image_name = Prop.computed __type __id "image_name";

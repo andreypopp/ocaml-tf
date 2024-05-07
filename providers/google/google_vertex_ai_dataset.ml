@@ -193,6 +193,7 @@ let google_vertex_ai_dataset ?id ?labels ?project ?region
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;
@@ -211,6 +212,7 @@ let make ?id ?labels ?project ?region ?(encryption_spec = [])
   let __type = "google_vertex_ai_dataset" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        display_name = Prop.computed __type __id "display_name";
        effective_labels =

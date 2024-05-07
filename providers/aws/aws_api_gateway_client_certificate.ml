@@ -84,6 +84,7 @@ let aws_api_gateway_client_certificate ?description ?id ?tags
   { description; id; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_date : string prop;
   description : string prop;
@@ -98,6 +99,7 @@ let make ?description ?id ?tags ?tags_all __id =
   let __type = "aws_api_gateway_client_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_date = Prop.computed __type __id "created_date";
        description = Prop.computed __type __id "description";

@@ -18,6 +18,7 @@ val yojson_of_aws_opensearchserverless_vpc_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created_date : string prop;
   id : string prop;
   name : string prop;

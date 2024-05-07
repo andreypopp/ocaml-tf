@@ -91,6 +91,7 @@ val yojson_of_azurerm_management_group_policy_assignment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   enforce : bool prop;

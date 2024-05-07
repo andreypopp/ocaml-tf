@@ -241,6 +241,7 @@ let aws_auditmanager_control ?action_plan_instructions
   }
 
 type t = {
+  tf_name : string;
   action_plan_instructions : string prop;
   action_plan_title : string prop;
   arn : string prop;
@@ -258,6 +259,7 @@ let make ?action_plan_instructions ?action_plan_title ?description
   let __type = "aws_auditmanager_control" in
   let __attrs =
     ({
+       tf_name = __id;
        action_plan_instructions =
          Prop.computed __type __id "action_plan_instructions";
        action_plan_title =

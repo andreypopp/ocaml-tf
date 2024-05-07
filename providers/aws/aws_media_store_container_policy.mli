@@ -19,6 +19,7 @@ val yojson_of_aws_media_store_container_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   container_name : string prop;
   id : string prop;
   policy : string prop;

@@ -85,6 +85,7 @@ let google_service_account_id_token ?delegates ?id ?include_email
   }
 
 type t = {
+  tf_name : string;
   delegates : string list prop;
   id : string prop;
   id_token : string prop;
@@ -98,6 +99,7 @@ let make ?delegates ?id ?include_email ?target_service_account
   let __type = "google_service_account_id_token" in
   let __attrs =
     ({
+       tf_name = __id;
        delegates = Prop.computed __type __id "delegates";
        id = Prop.computed __type __id "id";
        id_token = Prop.computed __type __id "id_token";

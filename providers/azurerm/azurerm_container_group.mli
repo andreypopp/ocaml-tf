@@ -260,6 +260,7 @@ val yojson_of_azurerm_container_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dns_name_label : string prop;
   dns_name_label_reuse_policy : string prop;
   exposed_port : exposed_port list prop;

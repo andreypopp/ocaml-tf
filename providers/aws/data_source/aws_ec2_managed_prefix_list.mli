@@ -35,6 +35,7 @@ val yojson_of_aws_ec2_managed_prefix_list :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address_family : string prop;
   arn : string prop;
   entries : entries list prop;

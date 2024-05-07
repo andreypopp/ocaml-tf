@@ -113,6 +113,7 @@ let kubernetes_config_map_v1_data ?field_manager ?force ?id ~data
   { data; field_manager; force; id; metadata }
 
 type t = {
+  tf_name : string;
   data : (string * string) list prop;
   field_manager : string prop;
   force : bool prop;
@@ -123,6 +124,7 @@ let make ?field_manager ?force ?id ~data ~metadata __id =
   let __type = "kubernetes_config_map_v1_data" in
   let __attrs =
     ({
+       tf_name = __id;
        data = Prop.computed __type __id "data";
        field_manager = Prop.computed __type __id "field_manager";
        force = Prop.computed __type __id "force";

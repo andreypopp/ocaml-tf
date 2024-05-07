@@ -30,6 +30,7 @@ val yojson_of_aws_xray_sampling_rule : aws_xray_sampling_rule -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   attributes : (string * string) list prop;
   fixed_rate : float prop;

@@ -240,6 +240,7 @@ val yojson_of_google_compute_instance_from_template :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_stopping_for_update : bool prop;
   attached_disk : attached_disk list prop;
   can_ip_forward : bool prop;

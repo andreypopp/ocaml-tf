@@ -118,6 +118,7 @@ let aws_api_gateway_deployment ?description ?id ?stage_description
   }
 
 type t = {
+  tf_name : string;
   created_date : string prop;
   description : string prop;
   execution_arn : string prop;
@@ -135,6 +136,7 @@ let make ?description ?id ?stage_description ?stage_name ?triggers
   let __type = "aws_api_gateway_deployment" in
   let __attrs =
     ({
+       tf_name = __id;
        created_date = Prop.computed __type __id "created_date";
        description = Prop.computed __type __id "description";
        execution_arn = Prop.computed __type __id "execution_arn";

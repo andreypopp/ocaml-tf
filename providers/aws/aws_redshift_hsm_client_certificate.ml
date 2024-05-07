@@ -85,6 +85,7 @@ let aws_redshift_hsm_client_certificate ?id ?tags ?tags_all
   { hsm_client_certificate_identifier; id; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   hsm_client_certificate_identifier : string prop;
   hsm_client_certificate_public_key : string prop;
@@ -98,6 +99,7 @@ let make ?id ?tags ?tags_all ~hsm_client_certificate_identifier __id
   let __type = "aws_redshift_hsm_client_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        hsm_client_certificate_identifier =
          Prop.computed __type __id

@@ -96,6 +96,7 @@ val yojson_of_google_gke_backup_backup_plan :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster : string prop;
   deactivated : bool prop;
   description : string prop;

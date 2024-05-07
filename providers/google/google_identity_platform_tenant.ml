@@ -148,6 +148,7 @@ let google_identity_platform_tenant ?allow_password_signup
   }
 
 type t = {
+  tf_name : string;
   allow_password_signup : bool prop;
   disable_auth : bool prop;
   display_name : string prop;
@@ -163,6 +164,7 @@ let make ?allow_password_signup ?disable_auth
   let __type = "google_identity_platform_tenant" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_password_signup =
          Prop.computed __type __id "allow_password_signup";
        disable_auth = Prop.computed __type __id "disable_auth";

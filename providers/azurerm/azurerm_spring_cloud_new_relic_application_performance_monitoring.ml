@@ -247,6 +247,7 @@ let azurerm_spring_cloud_new_relic_application_performance_monitoring
   }
 
 type t = {
+  tf_name : string;
   agent_enabled : bool prop;
   app_name : string prop;
   app_server_port : float prop;
@@ -271,6 +272,7 @@ let make ?agent_enabled ?app_server_port ?audit_mode_enabled
   in
   let __attrs =
     ({
+       tf_name = __id;
        agent_enabled = Prop.computed __type __id "agent_enabled";
        app_name = Prop.computed __type __id "app_name";
        app_server_port = Prop.computed __type __id "app_server_port";

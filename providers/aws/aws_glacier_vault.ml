@@ -131,6 +131,7 @@ let aws_glacier_vault ?access_policy ?id ?tags ?tags_all
   { access_policy; id; name; tags; tags_all; notification }
 
 type t = {
+  tf_name : string;
   access_policy : string prop;
   arn : string prop;
   id : string prop;
@@ -145,6 +146,7 @@ let make ?access_policy ?id ?tags ?tags_all ?(notification = [])
   let __type = "aws_glacier_vault" in
   let __attrs =
     ({
+       tf_name = __id;
        access_policy = Prop.computed __type __id "access_policy";
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";

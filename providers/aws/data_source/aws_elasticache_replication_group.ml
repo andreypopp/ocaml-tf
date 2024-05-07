@@ -89,6 +89,7 @@ let aws_elasticache_replication_group ?id ~replication_group_id () :
   { id; replication_group_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   auth_token_enabled : bool prop;
   automatic_failover_enabled : bool prop;
@@ -114,6 +115,7 @@ let make ?id ~replication_group_id __id =
   let __type = "aws_elasticache_replication_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        auth_token_enabled =
          Prop.computed __type __id "auth_token_enabled";

@@ -262,6 +262,7 @@ let google_edgecontainer_node_pool ?id ?labels ?machine_filter
   }
 
 type t = {
+  tf_name : string;
   cluster : string prop;
   create_time : string prop;
   effective_labels : (string * string) list prop;
@@ -284,6 +285,7 @@ let make ?id ?labels ?machine_filter ?project
   let __type = "google_edgecontainer_node_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster = Prop.computed __type __id "cluster";
        create_time = Prop.computed __type __id "create_time";
        effective_labels =

@@ -238,6 +238,7 @@ let azurerm_cosmosdb_cassandra_datacenter ?availability_zones_enabled
   }
 
 type t = {
+  tf_name : string;
   availability_zones_enabled : bool prop;
   backup_storage_customer_key_uri : string prop;
   base64_encoded_yaml_fragment : string prop;
@@ -262,6 +263,7 @@ let make ?availability_zones_enabled ?backup_storage_customer_key_uri
   let __type = "azurerm_cosmosdb_cassandra_datacenter" in
   let __attrs =
     ({
+       tf_name = __id;
        availability_zones_enabled =
          Prop.computed __type __id "availability_zones_enabled";
        backup_storage_customer_key_uri =

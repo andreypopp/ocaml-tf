@@ -39,6 +39,7 @@ val yojson_of_google_app_engine_service_split_traffic :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   migrate_traffic : bool prop;
   project : string prop;

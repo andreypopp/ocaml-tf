@@ -19,6 +19,7 @@ val yojson_of_google_vmwareengine_external_address :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   external_ip : string prop;

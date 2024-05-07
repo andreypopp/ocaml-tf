@@ -23,6 +23,7 @@ val yojson_of_aws_redshift_cluster_credentials :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_create : bool prop;
   cluster_identifier : string prop;
   db_groups : string list prop;

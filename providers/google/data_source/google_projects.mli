@@ -24,6 +24,7 @@ val yojson_of_google_projects : google_projects -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   filter : string prop;
   id : string prop;
   projects : projects list prop;

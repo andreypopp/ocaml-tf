@@ -155,6 +155,7 @@ let aws_eks_access_policy_association ?id ?timeouts ~cluster_name
   }
 
 type t = {
+  tf_name : string;
   associated_at : string prop;
   cluster_name : string prop;
   id : string prop;
@@ -168,6 +169,7 @@ let make ?id ?timeouts ~cluster_name ~policy_arn ~principal_arn
   let __type = "aws_eks_access_policy_association" in
   let __attrs =
     ({
+       tf_name = __id;
        associated_at = Prop.computed __type __id "associated_at";
        cluster_name = Prop.computed __type __id "cluster_name";
        id = Prop.computed __type __id "id";

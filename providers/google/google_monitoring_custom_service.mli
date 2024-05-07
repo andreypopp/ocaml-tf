@@ -36,6 +36,7 @@ val yojson_of_google_monitoring_custom_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   name : string prop;

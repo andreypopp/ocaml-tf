@@ -135,6 +135,7 @@ let aws_ec2_managed_prefix_list ?id ?tags ?tags_all ~address_family
   { address_family; id; max_entries; name; tags; tags_all; entry }
 
 type t = {
+  tf_name : string;
   address_family : string prop;
   arn : string prop;
   id : string prop;
@@ -151,6 +152,7 @@ let make ?id ?tags ?tags_all ~address_family ~max_entries ~name
   let __type = "aws_ec2_managed_prefix_list" in
   let __attrs =
     ({
+       tf_name = __id;
        address_family = Prop.computed __type __id "address_family";
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";

@@ -53,6 +53,7 @@ val yojson_of_azurerm_dedicated_hardware_security_module :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

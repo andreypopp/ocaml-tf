@@ -20,6 +20,7 @@ val yojson_of_aws_api_gateway_usage_plan_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   key_id : string prop;
   key_type : string prop;

@@ -21,6 +21,7 @@ val yojson_of_aws_vpc_network_performance_metric_subscription :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   destination : string prop;
   id : string prop;
   metric : string prop;

@@ -34,6 +34,7 @@ val yojson_of_azurerm_sentinel_data_connector_microsoft_cloud_app_security :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alerts_enabled : bool prop;
   discovery_logs_enabled : bool prop;
   id : string prop;

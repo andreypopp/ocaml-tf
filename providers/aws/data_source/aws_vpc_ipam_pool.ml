@@ -160,6 +160,7 @@ let aws_vpc_ipam_pool ?allocation_resource_tags ?id ?ipam_pool_id
   }
 
 type t = {
+  tf_name : string;
   address_family : string prop;
   allocation_default_netmask_length : float prop;
   allocation_max_netmask_length : float prop;
@@ -186,6 +187,7 @@ let make ?allocation_resource_tags ?id ?ipam_pool_id ?tags ?timeouts
   let __type = "aws_vpc_ipam_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        address_family = Prop.computed __type __id "address_family";
        allocation_default_netmask_length =
          Prop.computed __type __id

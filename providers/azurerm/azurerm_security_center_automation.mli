@@ -70,6 +70,7 @@ val yojson_of_azurerm_security_center_automation :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   enabled : bool prop;
   id : string prop;

@@ -44,6 +44,7 @@ val yojson_of_aws_securitylake_subscriber_notification :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   endpoint_id : string prop;
   id : string prop;
   subscriber_id : string prop;

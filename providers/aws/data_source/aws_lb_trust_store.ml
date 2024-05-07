@@ -51,12 +51,18 @@ let _ = yojson_of_aws_lb_trust_store
 let aws_lb_trust_store ?arn ?id ?name () : aws_lb_trust_store =
   { arn; id; name }
 
-type t = { arn : string prop; id : string prop; name : string prop }
+type t = {
+  tf_name : string;
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+}
 
 let make ?arn ?id ?name __id =
   let __type = "aws_lb_trust_store" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

@@ -162,6 +162,7 @@ let azurerm_sentinel_data_connector_microsoft_threat_intelligence
   }
 
 type t = {
+  tf_name : string;
   bing_safety_phishing_url_lookback_date : string prop;
   id : string prop;
   log_analytics_workspace_id : string prop;
@@ -178,6 +179,7 @@ let make ?bing_safety_phishing_url_lookback_date ?id
   in
   let __attrs =
     ({
+       tf_name = __id;
        bing_safety_phishing_url_lookback_date =
          Prop.computed __type __id
            "bing_safety_phishing_url_lookback_date";

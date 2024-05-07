@@ -1037,6 +1037,7 @@ let google_compute_instance_template ?filter ?id ?most_recent ?name
   { filter; id; most_recent; name; project; self_link_unique }
 
 type t = {
+  tf_name : string;
   advanced_machine_features : advanced_machine_features list prop;
   can_ip_forward : bool prop;
   confidential_instance_config :
@@ -1079,6 +1080,7 @@ let make ?filter ?id ?most_recent ?name ?project ?self_link_unique
   let __type = "google_compute_instance_template" in
   let __attrs =
     ({
+       tf_name = __id;
        advanced_machine_features =
          Prop.computed __type __id "advanced_machine_features";
        can_ip_forward = Prop.computed __type __id "can_ip_forward";

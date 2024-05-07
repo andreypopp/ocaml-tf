@@ -152,6 +152,7 @@ let aws_vpc_ipam_resource_discovery_association ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   ipam_arn : string prop;
@@ -170,6 +171,7 @@ let make ?id ?tags ?tags_all ?timeouts ~ipam_id
   let __type = "aws_vpc_ipam_resource_discovery_association" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        ipam_arn = Prop.computed __type __id "ipam_arn";

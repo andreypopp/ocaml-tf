@@ -23,6 +23,7 @@ val yojson_of_azurerm_extended_locations :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   extended_locations : string list prop;
   id : string prop;
   location : string prop;

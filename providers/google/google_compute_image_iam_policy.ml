@@ -60,6 +60,7 @@ let google_compute_image_iam_policy ?id ?project ~image ~policy_data
   { id; image; policy_data; project }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   image : string prop;
@@ -71,6 +72,7 @@ let make ?id ?project ~image ~policy_data __id =
   let __type = "google_compute_image_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        image = Prop.computed __type __id "image";

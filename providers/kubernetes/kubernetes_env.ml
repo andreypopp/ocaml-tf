@@ -452,6 +452,7 @@ let kubernetes_env ?container ?field_manager ?force ?id
   }
 
 type t = {
+  tf_name : string;
   api_version : string prop;
   container : string prop;
   field_manager : string prop;
@@ -466,6 +467,7 @@ let make ?container ?field_manager ?force ?id ?init_container
   let __type = "kubernetes_env" in
   let __attrs =
     ({
+       tf_name = __id;
        api_version = Prop.computed __type __id "api_version";
        container = Prop.computed __type __id "container";
        field_manager = Prop.computed __type __id "field_manager";

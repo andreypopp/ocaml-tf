@@ -64,6 +64,7 @@ val yojson_of_aws_sagemaker_app_image_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_image_config_name : string prop;
   arn : string prop;
   id : string prop;

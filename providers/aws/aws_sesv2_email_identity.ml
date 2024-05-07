@@ -167,6 +167,7 @@ let aws_sesv2_email_identity ?configuration_set_name ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   configuration_set_name : string prop;
   email_identity : string prop;
@@ -182,6 +183,7 @@ let make ?configuration_set_name ?id ?tags ?tags_all
   let __type = "aws_sesv2_email_identity" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        configuration_set_name =
          Prop.computed __type __id "configuration_set_name";

@@ -21,6 +21,7 @@ val yojson_of_aws_lb_target_group_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   availability_zone : string prop;
   id : string prop;
   port : float prop;

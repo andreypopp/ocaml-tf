@@ -21,6 +21,7 @@ let aws_quicksight_group ?aws_account_id ?description ?id ?namespace ~group_name
   } : aws_quicksight_group);;
 
 type t = {
+  tf_name: string;
   arn: string prop;
   aws_account_id: string prop;
   description: string prop;
@@ -32,6 +33,7 @@ type t = {
 let make ?aws_account_id ?description ?id ?namespace ~group_name __id =
   let __type = "aws_quicksight_group" in
   let __attrs = ({
+    tf_name = __id;
     arn = Prop.computed __type __id "arn";
     aws_account_id = Prop.computed __type __id "aws_account_id";
     description = Prop.computed __type __id "description";

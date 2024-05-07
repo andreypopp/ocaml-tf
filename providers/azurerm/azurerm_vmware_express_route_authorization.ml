@@ -108,6 +108,7 @@ let azurerm_vmware_express_route_authorization ?id ?timeouts ~name
   { id; name; private_cloud_id; timeouts }
 
 type t = {
+  tf_name : string;
   express_route_authorization_id : string prop;
   express_route_authorization_key : string prop;
   id : string prop;
@@ -119,6 +120,7 @@ let make ?id ?timeouts ~name ~private_cloud_id __id =
   let __type = "azurerm_vmware_express_route_authorization" in
   let __attrs =
     ({
+       tf_name = __id;
        express_route_authorization_id =
          Prop.computed __type __id "express_route_authorization_id";
        express_route_authorization_key =

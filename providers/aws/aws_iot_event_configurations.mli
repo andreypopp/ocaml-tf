@@ -18,6 +18,7 @@ val yojson_of_aws_iot_event_configurations :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   event_configurations : (string * bool) list prop;
   id : string prop;
 }

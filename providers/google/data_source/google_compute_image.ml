@@ -87,6 +87,7 @@ let google_compute_image ?family ?filter ?id ?most_recent ?name
   { family; filter; id; most_recent; name; project }
 
 type t = {
+  tf_name : string;
   archive_size_bytes : float prop;
   creation_timestamp : string prop;
   description : string prop;
@@ -114,6 +115,7 @@ let make ?family ?filter ?id ?most_recent ?name ?project __id =
   let __type = "google_compute_image" in
   let __attrs =
     ({
+       tf_name = __id;
        archive_size_bytes =
          Prop.computed __type __id "archive_size_bytes";
        creation_timestamp =

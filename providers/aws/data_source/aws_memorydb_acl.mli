@@ -18,6 +18,7 @@ val yojson_of_aws_memorydb_acl : aws_memorydb_acl -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   minimum_engine_version : string prop;

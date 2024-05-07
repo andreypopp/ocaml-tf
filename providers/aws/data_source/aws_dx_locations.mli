@@ -12,6 +12,7 @@ val yojson_of_aws_dx_locations : aws_dx_locations -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location_codes : string list prop;
 }

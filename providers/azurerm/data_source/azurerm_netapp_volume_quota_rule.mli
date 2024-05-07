@@ -24,6 +24,7 @@ val yojson_of_azurerm_netapp_volume_quota_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

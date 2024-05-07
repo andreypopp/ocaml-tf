@@ -165,6 +165,7 @@ let aws_ami_ids ?executable_users ?id ?include_deprecated ?name_regex
   }
 
 type t = {
+  tf_name : string;
   executable_users : string list prop;
   id : string prop;
   ids : string list prop;
@@ -179,6 +180,7 @@ let make ?executable_users ?id ?include_deprecated ?name_regex
   let __type = "aws_ami_ids" in
   let __attrs =
     ({
+       tf_name = __id;
        executable_users =
          Prop.computed __type __id "executable_users";
        id = Prop.computed __type __id "id";

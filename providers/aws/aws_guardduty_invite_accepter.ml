@@ -86,6 +86,7 @@ let aws_guardduty_invite_accepter ?id ?timeouts ~detector_id
   { detector_id; id; master_account_id; timeouts }
 
 type t = {
+  tf_name : string;
   detector_id : string prop;
   id : string prop;
   master_account_id : string prop;
@@ -95,6 +96,7 @@ let make ?id ?timeouts ~detector_id ~master_account_id __id =
   let __type = "aws_guardduty_invite_accepter" in
   let __attrs =
     ({
+       tf_name = __id;
        detector_id = Prop.computed __type __id "detector_id";
        id = Prop.computed __type __id "id";
        master_account_id =

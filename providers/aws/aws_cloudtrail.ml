@@ -526,6 +526,7 @@ let aws_cloudtrail ?cloud_watch_logs_group_arn
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cloud_watch_logs_group_arn : string prop;
   cloud_watch_logs_role_arn : string prop;
@@ -555,6 +556,7 @@ let make ?cloud_watch_logs_group_arn ?cloud_watch_logs_role_arn
   let __type = "aws_cloudtrail" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cloud_watch_logs_group_arn =
          Prop.computed __type __id "cloud_watch_logs_group_arn";

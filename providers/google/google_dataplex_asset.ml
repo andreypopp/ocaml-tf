@@ -623,6 +623,7 @@ let google_dataplex_asset ?description ?display_name ?id ?labels
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   dataplex_zone : string prop;
   description : string prop;
@@ -649,6 +650,7 @@ let make ?description ?display_name ?id ?labels ?project ?timeouts
   let __type = "google_dataplex_asset" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        dataplex_zone = Prop.computed __type __id "dataplex_zone";
        description = Prop.computed __type __id "description";

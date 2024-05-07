@@ -148,12 +148,17 @@ let filter ?account_id ?lookup_type ?match_ ?name ?paused ?status ()
 let cloudflare_zones ?id ~filter () : cloudflare_zones =
   { id; filter }
 
-type t = { id : string prop; zones : zones list prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  zones : zones list prop;
+}
 
 let make ?id ~filter __id =
   let __type = "cloudflare_zones" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        zones = Prop.computed __type __id "zones";
      }

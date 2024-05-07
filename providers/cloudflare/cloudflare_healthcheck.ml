@@ -311,6 +311,7 @@ let cloudflare_healthcheck ?allow_insecure ?check_regions
   }
 
 type t = {
+  tf_name : string;
   address : string prop;
   allow_insecure : bool prop;
   check_regions : string list prop;
@@ -343,6 +344,7 @@ let make ?allow_insecure ?check_regions ?consecutive_fails
   let __type = "cloudflare_healthcheck" in
   let __attrs =
     ({
+       tf_name = __id;
        address = Prop.computed __type __id "address";
        allow_insecure = Prop.computed __type __id "allow_insecure";
        check_regions = Prop.computed __type __id "check_regions";

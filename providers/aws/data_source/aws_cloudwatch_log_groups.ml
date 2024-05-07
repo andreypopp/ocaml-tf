@@ -45,6 +45,7 @@ let aws_cloudwatch_log_groups ?id ?log_group_name_prefix () :
   { id; log_group_name_prefix }
 
 type t = {
+  tf_name : string;
   arns : string list prop;
   id : string prop;
   log_group_name_prefix : string prop;
@@ -55,6 +56,7 @@ let make ?id ?log_group_name_prefix __id =
   let __type = "aws_cloudwatch_log_groups" in
   let __attrs =
     ({
+       tf_name = __id;
        arns = Prop.computed __type __id "arns";
        id = Prop.computed __type __id "id";
        log_group_name_prefix =

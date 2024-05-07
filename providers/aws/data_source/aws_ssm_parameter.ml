@@ -53,6 +53,7 @@ let aws_ssm_parameter ?id ?with_decryption ~name () :
   { id; name; with_decryption }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   insecure_value : string prop;
@@ -67,6 +68,7 @@ let make ?id ?with_decryption ~name __id =
   let __type = "aws_ssm_parameter" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        insecure_value = Prop.computed __type __id "insecure_value";

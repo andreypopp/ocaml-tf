@@ -312,6 +312,7 @@ let kubernetes_manifest ?computed_fields ?object_ ?wait_for
   }
 
 type t = {
+  tf_name : string;
   computed_fields : string list prop;
   manifest : json prop;
   object_ : json prop;
@@ -323,6 +324,7 @@ let make ?computed_fields ?object_ ?wait_for ?(field_manager = [])
   let __type = "kubernetes_manifest" in
   let __attrs =
     ({
+       tf_name = __id;
        computed_fields = Prop.computed __type __id "computed_fields";
        manifest = Prop.computed __type __id "manifest";
        object_ = Prop.computed __type __id "object";

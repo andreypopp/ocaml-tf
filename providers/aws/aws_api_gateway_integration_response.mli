@@ -25,6 +25,7 @@ val yojson_of_aws_api_gateway_integration_response :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   content_handling : string prop;
   http_method : string prop;
   id : string prop;

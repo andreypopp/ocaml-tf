@@ -363,6 +363,7 @@ let google_compute_subnetwork ?description ?external_ipv6_prefix ?id
   }
 
 type t = {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   external_ipv6_prefix : string prop;
@@ -393,6 +394,7 @@ let make ?description ?external_ipv6_prefix ?id ?ipv6_access_type
   let __type = "google_compute_subnetwork" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";
        description = Prop.computed __type __id "description";

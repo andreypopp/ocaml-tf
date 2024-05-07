@@ -257,6 +257,7 @@ let azurerm_application_insights_workbook ?category ?description ?id
   }
 
 type t = {
+  tf_name : string;
   category : string prop;
   data_json : string prop;
   description : string prop;
@@ -276,6 +277,7 @@ let make ?category ?description ?id ?source_id ?storage_container_id
   let __type = "azurerm_application_insights_workbook" in
   let __attrs =
     ({
+       tf_name = __id;
        category = Prop.computed __type __id "category";
        data_json = Prop.computed __type __id "data_json";
        description = Prop.computed __type __id "description";

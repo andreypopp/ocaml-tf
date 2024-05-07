@@ -778,6 +778,7 @@ let aws_redshift_cluster ?allow_version_upgrade ?apply_immediately
   }
 
 type t = {
+  tf_name : string;
   allow_version_upgrade : bool prop;
   apply_immediately : bool prop;
   aqua_configuration_status : string prop;
@@ -848,6 +849,7 @@ let make ?allow_version_upgrade ?apply_immediately
   let __type = "aws_redshift_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_version_upgrade =
          Prop.computed __type __id "allow_version_upgrade";
        apply_immediately =

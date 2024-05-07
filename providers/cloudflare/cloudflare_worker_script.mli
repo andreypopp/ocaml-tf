@@ -104,6 +104,7 @@ val yojson_of_cloudflare_worker_script :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   compatibility_date : string prop;
   compatibility_flags : string list prop;

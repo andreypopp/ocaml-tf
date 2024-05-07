@@ -266,6 +266,7 @@ val yojson_of_azurerm_virtual_machine_scale_set :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automatic_os_upgrade : bool prop;
   eviction_policy : string prop;
   health_probe_id : string prop;

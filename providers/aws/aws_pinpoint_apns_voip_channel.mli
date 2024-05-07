@@ -26,6 +26,7 @@ val yojson_of_aws_pinpoint_apns_voip_channel :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_id : string prop;
   bundle_id : string prop;
   certificate : string prop;

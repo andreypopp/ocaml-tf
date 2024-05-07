@@ -323,6 +323,7 @@ let google_dialogflow_cx_security_settings ?deidentify_template ?id
   }
 
 type t = {
+  tf_name : string;
   deidentify_template : string prop;
   display_name : string prop;
   id : string prop;
@@ -345,6 +346,7 @@ let make ?deidentify_template ?id ?inspect_template ?project
   let __type = "google_dialogflow_cx_security_settings" in
   let __attrs =
     ({
+       tf_name = __id;
        deidentify_template =
          Prop.computed __type __id "deidentify_template";
        display_name = Prop.computed __type __id "display_name";

@@ -30,6 +30,7 @@ val yojson_of_azurerm_mssql_server : azurerm_mssql_server -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   administrator_login : string prop;
   fully_qualified_domain_name : string prop;
   id : string prop;

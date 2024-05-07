@@ -128,6 +128,7 @@ let aws_vpc_peering_connection_options ?id ?(accepter = [])
   { id; vpc_peering_connection_id; accepter; requester }
 
 type t = {
+  tf_name : string;
   id : string prop;
   vpc_peering_connection_id : string prop;
 }
@@ -137,6 +138,7 @@ let make ?id ?(accepter = []) ?(requester = [])
   let __type = "aws_vpc_peering_connection_options" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        vpc_peering_connection_id =
          Prop.computed __type __id "vpc_peering_connection_id";

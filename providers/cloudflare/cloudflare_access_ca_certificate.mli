@@ -25,6 +25,7 @@ val yojson_of_cloudflare_access_ca_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   application_id : string prop;
   aud : string prop;

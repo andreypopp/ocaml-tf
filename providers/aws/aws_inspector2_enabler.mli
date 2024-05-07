@@ -28,6 +28,7 @@ val yojson_of_aws_inspector2_enabler : aws_inspector2_enabler -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_ids : string list prop;
   id : string prop;
   resource_types : string list prop;

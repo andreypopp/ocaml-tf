@@ -134,6 +134,7 @@ let azurerm_lab_service_user ?additional_usage_quota ?id ?timeouts
   { additional_usage_quota; email; id; lab_id; name; timeouts }
 
 type t = {
+  tf_name : string;
   additional_usage_quota : string prop;
   email : string prop;
   id : string prop;
@@ -146,6 +147,7 @@ let make ?additional_usage_quota ?id ?timeouts ~email ~lab_id ~name
   let __type = "azurerm_lab_service_user" in
   let __attrs =
     ({
+       tf_name = __id;
        additional_usage_quota =
          Prop.computed __type __id "additional_usage_quota";
        email = Prop.computed __type __id "email";

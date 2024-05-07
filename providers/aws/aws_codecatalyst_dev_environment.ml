@@ -270,6 +270,7 @@ let aws_codecatalyst_dev_environment ?alias ?id
   }
 
 type t = {
+  tf_name : string;
   alias : string prop;
   id : string prop;
   inactivity_timeout_minutes : float prop;
@@ -284,6 +285,7 @@ let make ?alias ?id ?inactivity_timeout_minutes ?(repositories = [])
   let __type = "aws_codecatalyst_dev_environment" in
   let __attrs =
     ({
+       tf_name = __id;
        alias = Prop.computed __type __id "alias";
        id = Prop.computed __type __id "id";
        inactivity_timeout_minutes =

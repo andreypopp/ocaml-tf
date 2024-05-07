@@ -92,6 +92,7 @@ val yojson_of_aws_emrserverless_application :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   architecture : string prop;
   arn : string prop;
   id : string prop;

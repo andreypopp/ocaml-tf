@@ -206,6 +206,7 @@ let google_netapp_storage_pool ?active_directory ?description ?id
   }
 
 type t = {
+  tf_name : string;
   active_directory : string prop;
   capacity_gib : string prop;
   description : string prop;
@@ -231,6 +232,7 @@ let make ?active_directory ?description ?id ?kms_config ?labels
   let __type = "google_netapp_storage_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        active_directory =
          Prop.computed __type __id "active_directory";
        capacity_gib = Prop.computed __type __id "capacity_gib";

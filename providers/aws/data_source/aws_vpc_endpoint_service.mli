@@ -32,6 +32,7 @@ val yojson_of_aws_vpc_endpoint_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   acceptance_required : bool prop;
   arn : string prop;
   availability_zones : string list prop;

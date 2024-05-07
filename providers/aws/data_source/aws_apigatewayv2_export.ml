@@ -94,6 +94,7 @@ let aws_apigatewayv2_export ?export_version ?id ?include_extensions
   }
 
 type t = {
+  tf_name : string;
   api_id : string prop;
   body : string prop;
   export_version : string prop;
@@ -109,6 +110,7 @@ let make ?export_version ?id ?include_extensions ?stage_name ~api_id
   let __type = "aws_apigatewayv2_export" in
   let __attrs =
     ({
+       tf_name = __id;
        api_id = Prop.computed __type __id "api_id";
        body = Prop.computed __type __id "body";
        export_version = Prop.computed __type __id "export_version";

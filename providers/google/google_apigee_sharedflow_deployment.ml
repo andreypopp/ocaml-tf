@@ -136,6 +136,7 @@ let google_apigee_sharedflow_deployment ?id ?service_account
   }
 
 type t = {
+  tf_name : string;
   environment : string prop;
   id : string prop;
   org_id : string prop;
@@ -149,6 +150,7 @@ let make ?id ?service_account ?timeouts ~environment ~org_id
   let __type = "google_apigee_sharedflow_deployment" in
   let __attrs =
     ({
+       tf_name = __id;
        environment = Prop.computed __type __id "environment";
        id = Prop.computed __type __id "id";
        org_id = Prop.computed __type __id "org_id";

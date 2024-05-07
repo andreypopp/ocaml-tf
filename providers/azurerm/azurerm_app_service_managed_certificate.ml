@@ -135,6 +135,7 @@ let azurerm_app_service_managed_certificate ?id ?tags ?timeouts
   { custom_hostname_binding_id; id; tags; timeouts }
 
 type t = {
+  tf_name : string;
   canonical_name : string prop;
   custom_hostname_binding_id : string prop;
   expiration_date : string prop;
@@ -152,6 +153,7 @@ let make ?id ?tags ?timeouts ~custom_hostname_binding_id __id =
   let __type = "azurerm_app_service_managed_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        canonical_name = Prop.computed __type __id "canonical_name";
        custom_hostname_binding_id =
          Prop.computed __type __id "custom_hostname_binding_id";

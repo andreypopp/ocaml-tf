@@ -38,6 +38,7 @@ val yojson_of_azurerm_vmware_private_cloud :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   circuit : circuit list prop;
   hcx_cloud_manager_endpoint : string prop;
   id : string prop;

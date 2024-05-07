@@ -69,6 +69,7 @@ let aws_guardduty_publishing_destination ?destination_type ?id
   { destination_arn; destination_type; detector_id; id; kms_key_arn }
 
 type t = {
+  tf_name : string;
   destination_arn : string prop;
   destination_type : string prop;
   detector_id : string prop;
@@ -81,6 +82,7 @@ let make ?destination_type ?id ~destination_arn ~detector_id
   let __type = "aws_guardduty_publishing_destination" in
   let __attrs =
     ({
+       tf_name = __id;
        destination_arn = Prop.computed __type __id "destination_arn";
        destination_type =
          Prop.computed __type __id "destination_type";

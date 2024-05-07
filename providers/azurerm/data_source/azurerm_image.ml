@@ -226,6 +226,7 @@ let azurerm_image ?id ?name ?name_regex ?sort_descending ?timeouts
   }
 
 type t = {
+  tf_name : string;
   data_disk : data_disk list prop;
   id : string prop;
   location : string prop;
@@ -243,6 +244,7 @@ let make ?id ?name ?name_regex ?sort_descending ?timeouts
   let __type = "azurerm_image" in
   let __attrs =
     ({
+       tf_name = __id;
        data_disk = Prop.computed __type __id "data_disk";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

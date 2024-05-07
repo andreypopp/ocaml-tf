@@ -207,6 +207,7 @@ let aws_dx_public_virtual_interface ?amazon_address ?bgp_auth_key
   }
 
 type t = {
+  tf_name : string;
   address_family : string prop;
   amazon_address : string prop;
   amazon_side_asn : string prop;
@@ -230,6 +231,7 @@ let make ?amazon_address ?bgp_auth_key ?customer_address ?id ?tags
   let __type = "aws_dx_public_virtual_interface" in
   let __attrs =
     ({
+       tf_name = __id;
        address_family = Prop.computed __type __id "address_family";
        amazon_address = Prop.computed __type __id "amazon_address";
        amazon_side_asn = Prop.computed __type __id "amazon_side_asn";

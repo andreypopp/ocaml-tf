@@ -197,6 +197,7 @@ let azurerm_iot_time_series_insights_standard_environment ?id
   }
 
 type t = {
+  tf_name : string;
   data_retention_time : string prop;
   id : string prop;
   location : string prop;
@@ -216,6 +217,7 @@ let make ?id ?partition_key ?storage_limit_exceeded_behavior ?tags
   in
   let __attrs =
     ({
+       tf_name = __id;
        data_retention_time =
          Prop.computed __type __id "data_retention_time";
        id = Prop.computed __type __id "id";

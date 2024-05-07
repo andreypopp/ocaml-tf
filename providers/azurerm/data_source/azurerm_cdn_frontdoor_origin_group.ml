@@ -184,6 +184,7 @@ let azurerm_cdn_frontdoor_origin_group ?id ?timeouts ~name
   { id; name; profile_name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   cdn_frontdoor_profile_id : string prop;
   health_probe : health_probe list prop;
   id : string prop;
@@ -201,6 +202,7 @@ let make ?id ?timeouts ~name ~profile_name ~resource_group_name __id
   let __type = "azurerm_cdn_frontdoor_origin_group" in
   let __attrs =
     ({
+       tf_name = __id;
        cdn_frontdoor_profile_id =
          Prop.computed __type __id "cdn_frontdoor_profile_id";
        health_probe = Prop.computed __type __id "health_probe";

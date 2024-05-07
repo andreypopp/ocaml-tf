@@ -350,6 +350,7 @@ let aws_licensemanager_received_license ?id ~license_arn () :
   { id; license_arn }
 
 type t = {
+  tf_name : string;
   beneficiary : string prop;
   consumption_configuration : consumption_configuration list prop;
   create_time : string prop;
@@ -372,6 +373,7 @@ let make ?id ~license_arn __id =
   let __type = "aws_licensemanager_received_license" in
   let __attrs =
     ({
+       tf_name = __id;
        beneficiary = Prop.computed __type __id "beneficiary";
        consumption_configuration =
          Prop.computed __type __id "consumption_configuration";

@@ -49,6 +49,7 @@ val yojson_of_google_discovery_engine_search_engine :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   collection_id : string prop;
   create_time : string prop;
   data_store_ids : string list prop;

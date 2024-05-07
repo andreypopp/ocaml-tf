@@ -103,6 +103,7 @@ let aws_redshift_cluster_credentials ?auto_create ?db_groups ?db_name
   }
 
 type t = {
+  tf_name : string;
   auto_create : bool prop;
   cluster_identifier : string prop;
   db_groups : string list prop;
@@ -119,6 +120,7 @@ let make ?auto_create ?db_groups ?db_name ?duration_seconds ?id
   let __type = "aws_redshift_cluster_credentials" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_create = Prop.computed __type __id "auto_create";
        cluster_identifier =
          Prop.computed __type __id "cluster_identifier";

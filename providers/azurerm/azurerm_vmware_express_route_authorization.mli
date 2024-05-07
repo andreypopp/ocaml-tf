@@ -29,6 +29,7 @@ val yojson_of_azurerm_vmware_express_route_authorization :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   express_route_authorization_id : string prop;
   express_route_authorization_key : string prop;
   id : string prop;

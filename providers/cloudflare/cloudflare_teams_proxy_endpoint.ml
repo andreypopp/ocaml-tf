@@ -58,6 +58,7 @@ let cloudflare_teams_proxy_endpoint ?id ~account_id ~ips ~name () :
   { account_id; id; ips; name }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   ips : string list prop;
@@ -69,6 +70,7 @@ let make ?id ~account_id ~ips ~name __id =
   let __type = "cloudflare_teams_proxy_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        ips = Prop.computed __type __id "ips";

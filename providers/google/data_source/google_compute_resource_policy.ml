@@ -567,6 +567,7 @@ let google_compute_resource_policy ?id ?project ?region ~name () :
   { id; name; project; region }
 
 type t = {
+  tf_name : string;
   description : string prop;
   disk_consistency_group_policy :
     disk_consistency_group_policy list prop;
@@ -584,6 +585,7 @@ let make ?id ?project ?region ~name __id =
   let __type = "google_compute_resource_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        disk_consistency_group_policy =
          Prop.computed __type __id "disk_consistency_group_policy";

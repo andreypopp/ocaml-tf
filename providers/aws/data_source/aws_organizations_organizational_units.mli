@@ -24,6 +24,7 @@ val yojson_of_aws_organizations_organizational_units :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   children : children list prop;
   id : string prop;
   parent_id : string prop;

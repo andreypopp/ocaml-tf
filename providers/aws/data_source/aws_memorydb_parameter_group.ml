@@ -84,6 +84,7 @@ let aws_memorydb_parameter_group ?id ?tags ~name () :
   { id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   family : string prop;
@@ -97,6 +98,7 @@ let make ?id ?tags ~name __id =
   let __type = "aws_memorydb_parameter_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        family = Prop.computed __type __id "family";

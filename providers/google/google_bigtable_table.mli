@@ -33,6 +33,7 @@ val yojson_of_google_bigtable_table : google_bigtable_table -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   change_stream_retention : string prop;
   deletion_protection : string prop;
   id : string prop;

@@ -251,6 +251,7 @@ let aws_lb_target_group ?arn ?id ?load_balancing_anomaly_mitigation
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   arn_suffix : string prop;
   connection_termination : bool prop;
@@ -280,6 +281,7 @@ let make ?arn ?id ?load_balancing_anomaly_mitigation ?name ?tags
   let __type = "aws_lb_target_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        arn_suffix = Prop.computed __type __id "arn_suffix";
        connection_termination =

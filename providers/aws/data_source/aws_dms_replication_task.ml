@@ -63,6 +63,7 @@ let aws_dms_replication_task ?id ?tags ~replication_task_id () :
   { id; replication_task_id; tags }
 
 type t = {
+  tf_name : string;
   cdc_start_position : string prop;
   cdc_start_time : string prop;
   id : string prop;
@@ -83,6 +84,7 @@ let make ?id ?tags ~replication_task_id __id =
   let __type = "aws_dms_replication_task" in
   let __attrs =
     ({
+       tf_name = __id;
        cdc_start_position =
          Prop.computed __type __id "cdc_start_position";
        cdc_start_time = Prop.computed __type __id "cdc_start_time";

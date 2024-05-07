@@ -123,6 +123,7 @@ let azurerm_function_app_active_slot ?id ?overwrite_network_config
   { id; overwrite_network_config; slot_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   last_successful_swap : string prop;
   overwrite_network_config : bool prop;
@@ -133,6 +134,7 @@ let make ?id ?overwrite_network_config ?timeouts ~slot_id __id =
   let __type = "azurerm_function_app_active_slot" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        last_successful_swap =
          Prop.computed __type __id "last_successful_swap";

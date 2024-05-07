@@ -151,6 +151,7 @@ let azurerm_virtual_hub_route_table ?id ?timeouts ~name
   { id; name; resource_group_name; virtual_hub_name; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   labels : string list prop;
   name : string prop;
@@ -165,6 +166,7 @@ let make ?id ?timeouts ~name ~resource_group_name ~virtual_hub_name
   let __type = "azurerm_virtual_hub_route_table" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        labels = Prop.computed __type __id "labels";
        name = Prop.computed __type __id "name";

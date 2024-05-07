@@ -40,6 +40,7 @@ val yojson_of_aws_cognito_identity_pool_roles_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   identity_pool_id : string prop;
   roles : (string * string) list prop;

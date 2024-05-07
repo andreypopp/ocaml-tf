@@ -95,6 +95,7 @@ let aws_resourcegroups_resource ?id ?timeouts ~group_arn
   { group_arn; id; resource_arn; timeouts }
 
 type t = {
+  tf_name : string;
   group_arn : string prop;
   id : string prop;
   resource_arn : string prop;
@@ -105,6 +106,7 @@ let make ?id ?timeouts ~group_arn ~resource_arn __id =
   let __type = "aws_resourcegroups_resource" in
   let __attrs =
     ({
+       tf_name = __id;
        group_arn = Prop.computed __type __id "group_arn";
        id = Prop.computed __type __id "id";
        resource_arn = Prop.computed __type __id "resource_arn";

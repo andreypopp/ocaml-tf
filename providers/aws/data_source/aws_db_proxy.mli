@@ -24,6 +24,7 @@ val yojson_of_aws_db_proxy : aws_db_proxy -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   auth : auth list prop;
   debug_logging : bool prop;

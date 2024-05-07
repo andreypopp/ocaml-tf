@@ -147,6 +147,7 @@ let azurerm_kubernetes_fleet_member ?group ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   group : string prop;
   id : string prop;
   kubernetes_cluster_id : string prop;
@@ -159,6 +160,7 @@ let make ?group ?id ?timeouts ~kubernetes_cluster_id
   let __type = "azurerm_kubernetes_fleet_member" in
   let __attrs =
     ({
+       tf_name = __id;
        group = Prop.computed __type __id "group";
        id = Prop.computed __type __id "id";
        kubernetes_cluster_id =

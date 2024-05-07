@@ -127,6 +127,7 @@ let azurerm_virtual_network_dns_servers ?dns_servers ?id ?timeouts
   { dns_servers; id; virtual_network_id; timeouts }
 
 type t = {
+  tf_name : string;
   dns_servers : string list prop;
   id : string prop;
   virtual_network_id : string prop;
@@ -136,6 +137,7 @@ let make ?dns_servers ?id ?timeouts ~virtual_network_id __id =
   let __type = "azurerm_virtual_network_dns_servers" in
   let __attrs =
     ({
+       tf_name = __id;
        dns_servers = Prop.computed __type __id "dns_servers";
        id = Prop.computed __type __id "id";
        virtual_network_id =

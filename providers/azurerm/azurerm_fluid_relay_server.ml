@@ -208,6 +208,7 @@ let azurerm_fluid_relay_server ?id ?storage_sku ?tags
   }
 
 type t = {
+  tf_name : string;
   frs_tenant_id : string prop;
   id : string prop;
   location : string prop;
@@ -227,6 +228,7 @@ let make ?id ?storage_sku ?tags ?(identity = []) ?timeouts ~location
   let __type = "azurerm_fluid_relay_server" in
   let __attrs =
     ({
+       tf_name = __id;
        frs_tenant_id = Prop.computed __type __id "frs_tenant_id";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

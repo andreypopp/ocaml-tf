@@ -33,6 +33,7 @@ val yojson_of_cloudflare_firewall_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action : string prop;
   description : string prop;
   filter_id : string prop;

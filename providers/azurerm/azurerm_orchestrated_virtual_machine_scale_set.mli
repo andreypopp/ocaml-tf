@@ -337,6 +337,7 @@ val yojson_of_azurerm_orchestrated_virtual_machine_scale_set :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   capacity_reservation_group_id : string prop;
   encryption_at_host_enabled : bool prop;
   eviction_policy : string prop;

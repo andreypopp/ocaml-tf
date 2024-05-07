@@ -247,6 +247,7 @@ let azurerm_blueprint_assignment ?id ?lock_exclude_actions
   }
 
 type t = {
+  tf_name : string;
   blueprint_name : string prop;
   description : string prop;
   display_name : string prop;
@@ -269,6 +270,7 @@ let make ?id ?lock_exclude_actions ?lock_exclude_principals
   let __type = "azurerm_blueprint_assignment" in
   let __attrs =
     ({
+       tf_name = __id;
        blueprint_name = Prop.computed __type __id "blueprint_name";
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";

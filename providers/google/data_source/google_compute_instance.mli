@@ -183,6 +183,7 @@ val yojson_of_google_compute_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   advanced_machine_features : advanced_machine_features list prop;
   allow_stopping_for_update : bool prop;
   attached_disk : attached_disk list prop;

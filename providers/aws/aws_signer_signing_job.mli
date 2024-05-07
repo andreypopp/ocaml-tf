@@ -57,6 +57,7 @@ val yojson_of_aws_signer_signing_job : aws_signer_signing_job -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   completed_at : string prop;
   created_at : string prop;
   id : string prop;

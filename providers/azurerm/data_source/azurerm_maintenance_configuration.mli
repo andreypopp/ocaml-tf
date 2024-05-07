@@ -56,6 +56,7 @@ val yojson_of_azurerm_maintenance_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   in_guest_user_patch_mode : string prop;
   install_patches : install_patches list prop;

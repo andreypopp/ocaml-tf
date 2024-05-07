@@ -120,6 +120,7 @@ let google_firebase_app_check_service_config ?enforcement_mode ?id
   { enforcement_mode; id; project; service_id; timeouts }
 
 type t = {
+  tf_name : string;
   enforcement_mode : string prop;
   id : string prop;
   name : string prop;
@@ -131,6 +132,7 @@ let make ?enforcement_mode ?id ?project ?timeouts ~service_id __id =
   let __type = "google_firebase_app_check_service_config" in
   let __attrs =
     ({
+       tf_name = __id;
        enforcement_mode =
          Prop.computed __type __id "enforcement_mode";
        id = Prop.computed __type __id "id";

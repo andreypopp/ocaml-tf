@@ -945,6 +945,7 @@ let google_compute_instance_group_manager ?description ?id
   }
 
 type t = {
+  tf_name : string;
   base_instance_name : string prop;
   creation_timestamp : string prop;
   description : string prop;
@@ -974,6 +975,7 @@ let make ?description ?id ?list_managed_instances_results ?project
   let __type = "google_compute_instance_group_manager" in
   let __attrs =
     ({
+       tf_name = __id;
        base_instance_name =
          Prop.computed __type __id "base_instance_name";
        creation_timestamp =

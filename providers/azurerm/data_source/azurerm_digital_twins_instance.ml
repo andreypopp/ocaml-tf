@@ -86,6 +86,7 @@ let azurerm_digital_twins_instance ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   host_name : string prop;
   id : string prop;
   location : string prop;
@@ -98,6 +99,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_digital_twins_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        host_name = Prop.computed __type __id "host_name";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

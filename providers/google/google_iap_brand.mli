@@ -25,6 +25,7 @@ val yojson_of_google_iap_brand : google_iap_brand -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_title : string prop;
   id : string prop;
   name : string prop;

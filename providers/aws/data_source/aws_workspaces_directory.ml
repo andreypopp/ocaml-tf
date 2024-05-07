@@ -263,6 +263,7 @@ let aws_workspaces_directory ?id ?tags ~directory_id () :
   { directory_id; id; tags }
 
 type t = {
+  tf_name : string;
   alias : string prop;
   customer_user_name : string prop;
   directory_id : string prop;
@@ -287,6 +288,7 @@ let make ?id ?tags ~directory_id __id =
   let __type = "aws_workspaces_directory" in
   let __attrs =
     ({
+       tf_name = __id;
        alias = Prop.computed __type __id "alias";
        customer_user_name =
          Prop.computed __type __id "customer_user_name";

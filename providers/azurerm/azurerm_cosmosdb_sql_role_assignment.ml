@@ -162,6 +162,7 @@ let azurerm_cosmosdb_sql_role_assignment ?id ?name ?timeouts
   }
 
 type t = {
+  tf_name : string;
   account_name : string prop;
   id : string prop;
   name : string prop;
@@ -176,6 +177,7 @@ let make ?id ?name ?timeouts ~account_name ~principal_id
   let __type = "azurerm_cosmosdb_sql_role_assignment" in
   let __attrs =
     ({
+       tf_name = __id;
        account_name = Prop.computed __type __id "account_name";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

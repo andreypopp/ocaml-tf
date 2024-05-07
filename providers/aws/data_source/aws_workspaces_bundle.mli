@@ -22,6 +22,7 @@ val yojson_of_aws_workspaces_bundle : aws_workspaces_bundle -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bundle_id : string prop;
   compute_type : compute_type list prop;
   description : string prop;

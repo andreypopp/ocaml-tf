@@ -187,6 +187,7 @@ val yojson_of_aws_elasticsearch_domain :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_policies : string prop;
   advanced_options : (string * string) list prop;
   arn : string prop;

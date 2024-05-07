@@ -49,6 +49,7 @@ val yojson_of_cloudflare_api_token : cloudflare_api_token -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   expires_on : string prop;
   id : string prop;
   issued_on : string prop;

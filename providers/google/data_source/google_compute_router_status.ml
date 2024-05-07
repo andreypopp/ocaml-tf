@@ -308,6 +308,7 @@ let google_compute_router_status ?id ?project ?region ~name () :
   { id; name; project; region }
 
 type t = {
+  tf_name : string;
   best_routes : best_routes list prop;
   best_routes_for_router : best_routes_for_router list prop;
   id : string prop;
@@ -321,6 +322,7 @@ let make ?id ?project ?region ~name __id =
   let __type = "google_compute_router_status" in
   let __attrs =
     ({
+       tf_name = __id;
        best_routes = Prop.computed __type __id "best_routes";
        best_routes_for_router =
          Prop.computed __type __id "best_routes_for_router";

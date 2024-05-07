@@ -180,6 +180,7 @@ let aws_cognito_user ?attributes ?client_metadata
   }
 
 type t = {
+  tf_name : string;
   attributes : (string * string) list prop;
   client_metadata : (string * string) list prop;
   creation_date : string prop;
@@ -207,6 +208,7 @@ let make ?attributes ?client_metadata ?desired_delivery_mediums
   let __type = "aws_cognito_user" in
   let __attrs =
     ({
+       tf_name = __id;
        attributes = Prop.computed __type __id "attributes";
        client_metadata = Prop.computed __type __id "client_metadata";
        creation_date = Prop.computed __type __id "creation_date";

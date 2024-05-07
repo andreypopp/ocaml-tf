@@ -56,6 +56,7 @@ val yojson_of_aws_opsworks_stack : aws_opsworks_stack -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   agent_version : string prop;
   arn : string prop;
   berkshelf_version : string prop;

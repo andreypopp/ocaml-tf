@@ -28,6 +28,7 @@ val yojson_of_aws_ec2_client_vpn_authorization_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_group_id : string prop;
   authorize_all_groups : bool prop;
   client_vpn_endpoint_id : string prop;

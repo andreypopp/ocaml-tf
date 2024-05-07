@@ -181,6 +181,7 @@ let azurerm_kusto_script ?continue_on_errors_enabled
   }
 
 type t = {
+  tf_name : string;
   continue_on_errors_enabled : bool prop;
   database_id : string prop;
   force_an_update_when_value_changed : string prop;
@@ -197,6 +198,7 @@ let make ?continue_on_errors_enabled
   let __type = "azurerm_kusto_script" in
   let __attrs =
     ({
+       tf_name = __id;
        continue_on_errors_enabled =
          Prop.computed __type __id "continue_on_errors_enabled";
        database_id = Prop.computed __type __id "database_id";

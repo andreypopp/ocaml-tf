@@ -18,6 +18,7 @@ val yojson_of_aws_sfn_state_machine_versions :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   statemachine_arn : string prop;
   statemachine_versions : string list prop;

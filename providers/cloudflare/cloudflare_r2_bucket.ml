@@ -49,6 +49,7 @@ let cloudflare_r2_bucket ?location ~account_id ~name () :
   { account_id; location; name }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   location : string prop;
@@ -59,6 +60,7 @@ let make ?location ~account_id ~name __id =
   let __type = "cloudflare_r2_bucket" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

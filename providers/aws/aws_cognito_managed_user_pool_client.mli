@@ -58,6 +58,7 @@ val yojson_of_aws_cognito_managed_user_pool_client :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_token_validity : float prop;
   allowed_oauth_flows : string list prop;
   allowed_oauth_flows_user_pool_client : bool prop;

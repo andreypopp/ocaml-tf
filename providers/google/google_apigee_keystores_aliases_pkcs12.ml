@@ -256,6 +256,7 @@ let google_apigee_keystores_aliases_pkcs12 ?id ?password ?timeouts
   }
 
 type t = {
+  tf_name : string;
   alias : string prop;
   certs_info : certs_info list prop;
   environment : string prop;
@@ -273,6 +274,7 @@ let make ?id ?password ?timeouts ~alias ~environment ~file ~filehash
   let __type = "google_apigee_keystores_aliases_pkcs12" in
   let __attrs =
     ({
+       tf_name = __id;
        alias = Prop.computed __type __id "alias";
        certs_info = Prop.computed __type __id "certs_info";
        environment = Prop.computed __type __id "environment";

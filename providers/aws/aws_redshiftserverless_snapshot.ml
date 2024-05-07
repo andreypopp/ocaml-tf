@@ -63,6 +63,7 @@ let aws_redshiftserverless_snapshot ?id ?retention_period
   { id; namespace_name; retention_period; snapshot_name }
 
 type t = {
+  tf_name : string;
   accounts_with_provisioned_restore_access : string list prop;
   accounts_with_restore_access : string list prop;
   admin_username : string prop;
@@ -80,6 +81,7 @@ let make ?id ?retention_period ~namespace_name ~snapshot_name __id =
   let __type = "aws_redshiftserverless_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        accounts_with_provisioned_restore_access =
          Prop.computed __type __id
            "accounts_with_provisioned_restore_access";

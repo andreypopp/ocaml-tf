@@ -21,6 +21,7 @@ val yojson_of_aws_sagemaker_model_package_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   model_package_group_description : string prop;

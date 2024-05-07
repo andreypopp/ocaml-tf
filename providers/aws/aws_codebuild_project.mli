@@ -243,6 +243,7 @@ val yojson_of_aws_codebuild_project : aws_codebuild_project -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   badge_enabled : bool prop;
   badge_url : string prop;

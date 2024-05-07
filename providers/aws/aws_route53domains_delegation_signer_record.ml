@@ -131,6 +131,7 @@ let aws_route53domains_delegation_signer_record
   { domain_name; signing_attributes; timeouts }
 
 type t = {
+  tf_name : string;
   dnssec_key_id : string prop;
   domain_name : string prop;
   id : string prop;
@@ -140,6 +141,7 @@ let make ?(signing_attributes = []) ?timeouts ~domain_name __id =
   let __type = "aws_route53domains_delegation_signer_record" in
   let __attrs =
     ({
+       tf_name = __id;
        dnssec_key_id = Prop.computed __type __id "dnssec_key_id";
        domain_name = Prop.computed __type __id "domain_name";
        id = Prop.computed __type __id "id";

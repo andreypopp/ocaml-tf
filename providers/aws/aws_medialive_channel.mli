@@ -1955,6 +1955,7 @@ val yojson_of_aws_medialive_channel : aws_medialive_channel -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   channel_class : string prop;
   channel_id : string prop;

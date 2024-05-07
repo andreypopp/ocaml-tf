@@ -20,6 +20,7 @@ val yojson_of_aws_route53_vpc_association_authorization :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   vpc_id : string prop;
   vpc_region : string prop;

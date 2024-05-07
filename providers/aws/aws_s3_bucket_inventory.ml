@@ -338,6 +338,7 @@ let aws_s3_bucket_inventory ?enabled ?id ?optional_fields
   }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   enabled : bool prop;
   id : string prop;
@@ -351,6 +352,7 @@ let make ?enabled ?id ?optional_fields ?(filter = []) ~bucket
   let __type = "aws_s3_bucket_inventory" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";

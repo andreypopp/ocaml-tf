@@ -73,6 +73,7 @@ let aws_api_gateway_sdk ?id ?parameters ~rest_api_id ~sdk_type
   { id; parameters; rest_api_id; sdk_type; stage_name }
 
 type t = {
+  tf_name : string;
   body : string prop;
   content_disposition : string prop;
   content_type : string prop;
@@ -87,6 +88,7 @@ let make ?id ?parameters ~rest_api_id ~sdk_type ~stage_name __id =
   let __type = "aws_api_gateway_sdk" in
   let __attrs =
     ({
+       tf_name = __id;
        body = Prop.computed __type __id "body";
        content_disposition =
          Prop.computed __type __id "content_disposition";

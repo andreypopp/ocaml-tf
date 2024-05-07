@@ -32,6 +32,7 @@ val yojson_of_aws_glue_data_quality_ruleset :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   created_on : string prop;
   description : string prop;

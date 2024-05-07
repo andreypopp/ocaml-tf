@@ -21,6 +21,7 @@ val yojson_of_google_container_attached_install_manifest :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_id : string prop;
   id : string prop;
   location : string prop;

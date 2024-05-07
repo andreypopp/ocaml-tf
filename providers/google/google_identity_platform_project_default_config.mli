@@ -68,6 +68,7 @@ val yojson_of_google_identity_platform_project_default_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   project : string prop;

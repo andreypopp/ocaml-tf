@@ -186,6 +186,7 @@ let azurerm_key_vault_managed_storage_account ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   key_vault_id : string prop;
   name : string prop;
@@ -202,6 +203,7 @@ let make ?id ?regenerate_key_automatically ?regeneration_period ?tags
   let __type = "azurerm_key_vault_managed_storage_account" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        key_vault_id = Prop.computed __type __id "key_vault_id";
        name = Prop.computed __type __id "name";

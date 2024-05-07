@@ -103,6 +103,7 @@ let azurerm_storage_container ?id ?metadata ?timeouts ~name
   { id; metadata; name; storage_account_name; timeouts }
 
 type t = {
+  tf_name : string;
   container_access_type : string prop;
   has_immutability_policy : bool prop;
   has_legal_hold : bool prop;
@@ -117,6 +118,7 @@ let make ?id ?metadata ?timeouts ~name ~storage_account_name __id =
   let __type = "azurerm_storage_container" in
   let __attrs =
     ({
+       tf_name = __id;
        container_access_type =
          Prop.computed __type __id "container_access_type";
        has_immutability_policy =

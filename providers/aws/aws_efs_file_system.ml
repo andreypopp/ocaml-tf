@@ -307,6 +307,7 @@ let aws_efs_file_system ?availability_zone_name ?creation_token
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zone_id : string prop;
   availability_zone_name : string prop;
@@ -333,6 +334,7 @@ let make ?availability_zone_name ?creation_token ?encrypted ?id
   let __type = "aws_efs_file_system" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zone_id =
          Prop.computed __type __id "availability_zone_id";

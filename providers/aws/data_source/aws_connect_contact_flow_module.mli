@@ -21,6 +21,7 @@ val yojson_of_aws_connect_contact_flow_module :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   contact_flow_module_id : string prop;
   content : string prop;

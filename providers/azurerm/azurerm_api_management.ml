@@ -1687,6 +1687,7 @@ let azurerm_api_management ?client_certificate_enabled
   }
 
 type t = {
+  tf_name : string;
   client_certificate_enabled : bool prop;
   developer_portal_url : string prop;
   gateway_disabled : bool prop;
@@ -1728,6 +1729,7 @@ let make ?client_certificate_enabled ?gateway_disabled ?id
   let __type = "azurerm_api_management" in
   let __attrs =
     ({
+       tf_name = __id;
        client_certificate_enabled =
          Prop.computed __type __id "client_certificate_enabled";
        developer_portal_url =

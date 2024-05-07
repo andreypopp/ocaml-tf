@@ -593,6 +593,7 @@ let azurerm_arc_machine ?id ?timeouts ~name ~resource_group_name () :
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   active_directory_fqdn : string prop;
   agent : agent list prop;
   agent_version : string prop;
@@ -629,6 +630,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_arc_machine" in
   let __attrs =
     ({
+       tf_name = __id;
        active_directory_fqdn =
          Prop.computed __type __id "active_directory_fqdn";
        agent = Prop.computed __type __id "agent";

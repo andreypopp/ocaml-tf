@@ -118,6 +118,7 @@ let google_compute_instance_group_membership ?id ?project ?zone
   { id; instance; instance_group; project; zone; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   instance : string prop;
   instance_group : string prop;
@@ -130,6 +131,7 @@ let make ?id ?project ?zone ?timeouts ~instance ~instance_group __id
   let __type = "google_compute_instance_group_membership" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        instance = Prop.computed __type __id "instance";
        instance_group = Prop.computed __type __id "instance_group";

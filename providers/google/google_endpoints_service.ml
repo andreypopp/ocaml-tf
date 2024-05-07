@@ -263,6 +263,7 @@ let google_endpoints_service ?grpc_config ?id ?openapi_config
   }
 
 type t = {
+  tf_name : string;
   apis : apis list prop;
   config_id : string prop;
   dns_address : string prop;
@@ -280,6 +281,7 @@ let make ?grpc_config ?id ?openapi_config ?project
   let __type = "google_endpoints_service" in
   let __attrs =
     ({
+       tf_name = __id;
        apis = Prop.computed __type __id "apis";
        config_id = Prop.computed __type __id "config_id";
        dns_address = Prop.computed __type __id "dns_address";

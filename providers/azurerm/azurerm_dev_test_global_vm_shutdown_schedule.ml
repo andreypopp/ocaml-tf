@@ -244,6 +244,7 @@ let azurerm_dev_test_global_vm_shutdown_schedule ?enabled ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   daily_recurrence_time : string prop;
   enabled : bool prop;
   id : string prop;
@@ -259,6 +260,7 @@ let make ?enabled ?id ?tags ?timeouts ~daily_recurrence_time
   let __type = "azurerm_dev_test_global_vm_shutdown_schedule" in
   let __attrs =
     ({
+       tf_name = __id;
        daily_recurrence_time =
          Prop.computed __type __id "daily_recurrence_time";
        enabled = Prop.computed __type __id "enabled";

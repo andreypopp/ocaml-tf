@@ -211,6 +211,7 @@ val yojson_of_google_monitoring_alert_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   combiner : string prop;
   creation_record : creation_record list prop;
   display_name : string prop;

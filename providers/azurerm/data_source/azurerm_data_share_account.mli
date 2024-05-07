@@ -30,6 +30,7 @@ val yojson_of_azurerm_data_share_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   identity : identity list prop;
   name : string prop;

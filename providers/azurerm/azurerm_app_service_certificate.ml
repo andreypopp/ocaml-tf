@@ -209,6 +209,7 @@ let azurerm_app_service_certificate ?app_service_plan_id ?id
   }
 
 type t = {
+  tf_name : string;
   app_service_plan_id : string prop;
   expiration_date : string prop;
   friendly_name : string prop;
@@ -235,6 +236,7 @@ let make ?app_service_plan_id ?id ?key_vault_id ?key_vault_secret_id
   let __type = "azurerm_app_service_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        app_service_plan_id =
          Prop.computed __type __id "app_service_plan_id";
        expiration_date = Prop.computed __type __id "expiration_date";

@@ -141,6 +141,7 @@ let azurerm_private_link_service ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   alias : string prop;
   auto_approval_subscription_ids : string list prop;
   enable_proxy_protocol : bool prop;
@@ -158,6 +159,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_private_link_service" in
   let __attrs =
     ({
+       tf_name = __id;
        alias = Prop.computed __type __id "alias";
        auto_approval_subscription_ids =
          Prop.computed __type __id "auto_approval_subscription_ids";

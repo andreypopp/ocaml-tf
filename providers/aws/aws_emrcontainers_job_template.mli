@@ -125,6 +125,7 @@ val yojson_of_aws_emrcontainers_job_template :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   kms_key_arn : string prop;

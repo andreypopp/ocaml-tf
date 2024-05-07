@@ -190,6 +190,7 @@ let aws_dms_event_subscription ?enabled ?id ?source_ids ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   enabled : bool prop;
   event_categories : string list prop;
@@ -207,6 +208,7 @@ let make ?enabled ?id ?source_ids ?tags ?tags_all ?timeouts
   let __type = "aws_dms_event_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        enabled = Prop.computed __type __id "enabled";
        event_categories =

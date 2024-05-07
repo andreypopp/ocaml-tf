@@ -957,6 +957,7 @@ let aws_ce_cost_category ?id ?tags ~cost_category_arn () :
   { cost_category_arn; id; tags }
 
 type t = {
+  tf_name : string;
   cost_category_arn : string prop;
   default_value : string prop;
   effective_end : string prop;
@@ -973,6 +974,7 @@ let make ?id ?tags ~cost_category_arn __id =
   let __type = "aws_ce_cost_category" in
   let __attrs =
     ({
+       tf_name = __id;
        cost_category_arn =
          Prop.computed __type __id "cost_category_arn";
        default_value = Prop.computed __type __id "default_value";

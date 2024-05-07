@@ -500,6 +500,7 @@ let azurerm_media_streaming_endpoint ?auto_start_enabled ?cdn_enabled
   }
 
 type t = {
+  tf_name : string;
   auto_start_enabled : bool prop;
   cdn_enabled : bool prop;
   cdn_profile : string prop;
@@ -526,6 +527,7 @@ let make ?auto_start_enabled ?cdn_enabled ?cdn_profile ?cdn_provider
   let __type = "azurerm_media_streaming_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_start_enabled =
          Prop.computed __type __id "auto_start_enabled";
        cdn_enabled = Prop.computed __type __id "cdn_enabled";

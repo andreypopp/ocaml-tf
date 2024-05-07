@@ -101,6 +101,7 @@ let cloudflare_regional_hostname ?id ?timeouts ~hostname ~region_key
   { hostname; id; region_key; zone_id; timeouts }
 
 type t = {
+  tf_name : string;
   created_on : string prop;
   hostname : string prop;
   id : string prop;
@@ -112,6 +113,7 @@ let make ?id ?timeouts ~hostname ~region_key ~zone_id __id =
   let __type = "cloudflare_regional_hostname" in
   let __attrs =
     ({
+       tf_name = __id;
        created_on = Prop.computed __type __id "created_on";
        hostname = Prop.computed __type __id "hostname";
        id = Prop.computed __type __id "id";

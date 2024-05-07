@@ -21,7 +21,11 @@ val yojson_of_aws_servicequotas_templates :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; region : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  region : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

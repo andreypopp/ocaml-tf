@@ -25,6 +25,7 @@ val yojson_of_aws_kinesisanalyticsv2_application_snapshot :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_name : string prop;
   application_version_id : float prop;
   id : string prop;

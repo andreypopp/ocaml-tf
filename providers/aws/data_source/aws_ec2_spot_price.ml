@@ -126,6 +126,7 @@ let aws_ec2_spot_price ?availability_zone ?id ?instance_type
   { availability_zone; id; instance_type; filter; timeouts }
 
 type t = {
+  tf_name : string;
   availability_zone : string prop;
   id : string prop;
   instance_type : string prop;
@@ -138,6 +139,7 @@ let make ?availability_zone ?id ?instance_type ?timeouts ~filter __id
   let __type = "aws_ec2_spot_price" in
   let __attrs =
     ({
+       tf_name = __id;
        availability_zone =
          Prop.computed __type __id "availability_zone";
        id = Prop.computed __type __id "id";

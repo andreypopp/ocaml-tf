@@ -26,6 +26,7 @@ val yojson_of_aws_organizations_organizational_unit_child_accounts :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   accounts : accounts list prop;
   id : string prop;
   parent_id : string prop;

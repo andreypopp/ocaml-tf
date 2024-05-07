@@ -208,6 +208,7 @@ let aws_vpclattice_service ?auth_type ?certificate_arn
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   auth_type : string prop;
   certificate_arn : string prop;
@@ -225,6 +226,7 @@ let make ?auth_type ?certificate_arn ?custom_domain_name ?id ?tags
   let __type = "aws_vpclattice_service" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        auth_type = Prop.computed __type __id "auth_type";
        certificate_arn = Prop.computed __type __id "certificate_arn";

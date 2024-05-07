@@ -700,6 +700,7 @@ let google_cloudfunctions_function ?available_memory_mb
   }
 
 type t = {
+  tf_name : string;
   available_memory_mb : float prop;
   build_environment_variables : (string * string) list prop;
   build_worker_pool : string prop;
@@ -747,6 +748,7 @@ let make ?available_memory_mb ?build_environment_variables
   let __type = "google_cloudfunctions_function" in
   let __attrs =
     ({
+       tf_name = __id;
        available_memory_mb =
          Prop.computed __type __id "available_memory_mb";
        build_environment_variables =

@@ -175,6 +175,7 @@ let azurerm_cdn_frontdoor_secret ?id ?timeouts
   { cdn_frontdoor_profile_id; id; name; secret; timeouts }
 
 type t = {
+  tf_name : string;
   cdn_frontdoor_profile_id : string prop;
   cdn_frontdoor_profile_name : string prop;
   id : string prop;
@@ -185,6 +186,7 @@ let make ?id ?timeouts ~cdn_frontdoor_profile_id ~name ~secret __id =
   let __type = "azurerm_cdn_frontdoor_secret" in
   let __attrs =
     ({
+       tf_name = __id;
        cdn_frontdoor_profile_id =
          Prop.computed __type __id "cdn_frontdoor_profile_id";
        cdn_frontdoor_profile_name =

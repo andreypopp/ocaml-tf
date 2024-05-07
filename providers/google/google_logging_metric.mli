@@ -88,6 +88,7 @@ val yojson_of_google_logging_metric : google_logging_metric -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket_name : string prop;
   description : string prop;
   disabled : bool prop;

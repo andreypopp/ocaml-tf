@@ -179,6 +179,7 @@ let aws_ebs_snapshot ?id ?most_recent ?owners ?restorable_by_user_ids
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   data_encryption_key_id : string prop;
   description : string prop;
@@ -205,6 +206,7 @@ let make ?id ?most_recent ?owners ?restorable_by_user_ids
   let __type = "aws_ebs_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        data_encryption_key_id =
          Prop.computed __type __id "data_encryption_key_id";

@@ -160,6 +160,7 @@ let aws_macie2_custom_data_identifier ?description ?id ?ignore_words
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_at : string prop;
   description : string prop;
@@ -180,6 +181,7 @@ let make ?description ?id ?ignore_words ?keywords
   let __type = "aws_macie2_custom_data_identifier" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_at = Prop.computed __type __id "created_at";
        description = Prop.computed __type __id "description";

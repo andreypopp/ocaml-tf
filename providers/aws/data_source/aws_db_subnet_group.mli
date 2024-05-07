@@ -14,6 +14,7 @@ val yojson_of_aws_db_subnet_group : aws_db_subnet_group -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;

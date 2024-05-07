@@ -131,13 +131,18 @@ let aws_autoscaling_traffic_source_attachment ?id ?timeouts
     aws_autoscaling_traffic_source_attachment =
   { autoscaling_group_name; id; timeouts; traffic_source }
 
-type t = { autoscaling_group_name : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  autoscaling_group_name : string prop;
+  id : string prop;
+}
 
 let make ?id ?timeouts ?(traffic_source = []) ~autoscaling_group_name
     __id =
   let __type = "aws_autoscaling_traffic_source_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        autoscaling_group_name =
          Prop.computed __type __id "autoscaling_group_name";
        id = Prop.computed __type __id "id";

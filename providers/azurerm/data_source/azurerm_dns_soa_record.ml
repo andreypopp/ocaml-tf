@@ -95,6 +95,7 @@ let azurerm_dns_soa_record ?id ?name ?timeouts ~resource_group_name
   { id; name; resource_group_name; zone_name; timeouts }
 
 type t = {
+  tf_name : string;
   email : string prop;
   expire_time : float prop;
   fqdn : string prop;
@@ -115,6 +116,7 @@ let make ?id ?name ?timeouts ~resource_group_name ~zone_name __id =
   let __type = "azurerm_dns_soa_record" in
   let __attrs =
     ({
+       tf_name = __id;
        email = Prop.computed __type __id "email";
        expire_time = Prop.computed __type __id "expire_time";
        fqdn = Prop.computed __type __id "fqdn";

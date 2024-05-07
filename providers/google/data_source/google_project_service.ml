@@ -49,6 +49,7 @@ let google_project_service ?id ?project ~service () :
   { id; project; service }
 
 type t = {
+  tf_name : string;
   disable_dependent_services : bool prop;
   disable_on_destroy : bool prop;
   id : string prop;
@@ -60,6 +61,7 @@ let make ?id ?project ~service __id =
   let __type = "google_project_service" in
   let __attrs =
     ({
+       tf_name = __id;
        disable_dependent_services =
          Prop.computed __type __id "disable_dependent_services";
        disable_on_destroy =

@@ -296,6 +296,7 @@ let aws_elastic_beanstalk_environment ?cname_prefix ?description ?id
   }
 
 type t = {
+  tf_name : string;
   all_settings : all_settings list prop;
   application : string prop;
   arn : string prop;
@@ -329,6 +330,7 @@ let make ?cname_prefix ?description ?id ?platform_arn ?poll_interval
   let __type = "aws_elastic_beanstalk_environment" in
   let __attrs =
     ({
+       tf_name = __id;
        all_settings = Prop.computed __type __id "all_settings";
        application = Prop.computed __type __id "application";
        arn = Prop.computed __type __id "arn";

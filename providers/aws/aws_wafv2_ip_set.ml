@@ -27,6 +27,7 @@ let aws_wafv2_ip_set ?addresses ?description ?id ?tags ?tags_all ~ip_address_ver
   } : aws_wafv2_ip_set);;
 
 type t = {
+  tf_name: string;
   addresses: string list prop;
   arn: string prop;
   description: string prop;
@@ -42,6 +43,7 @@ type t = {
 let make ?addresses ?description ?id ?tags ?tags_all ~ip_address_version ~name ~scope __id =
   let __type = "aws_wafv2_ip_set" in
   let __attrs = ({
+    tf_name = __id;
     addresses = Prop.computed __type __id "addresses";
     arn = Prop.computed __type __id "arn";
     description = Prop.computed __type __id "description";

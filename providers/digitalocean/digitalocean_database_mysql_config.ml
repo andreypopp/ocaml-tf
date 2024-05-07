@@ -358,6 +358,7 @@ let digitalocean_database_mysql_config ?backup_hour ?backup_minute
   }
 
 type t = {
+  tf_name : string;
   backup_hour : float prop;
   backup_minute : float prop;
   binlog_retention_period : float prop;
@@ -403,6 +404,7 @@ let make ?backup_hour ?backup_minute ?binlog_retention_period
   let __type = "digitalocean_database_mysql_config" in
   let __attrs =
     ({
+       tf_name = __id;
        backup_hour = Prop.computed __type __id "backup_hour";
        backup_minute = Prop.computed __type __id "backup_minute";
        binlog_retention_period =

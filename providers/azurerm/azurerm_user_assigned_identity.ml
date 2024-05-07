@@ -145,6 +145,7 @@ let azurerm_user_assigned_identity ?id ?tags ?timeouts ~location
   { id; location; name; resource_group_name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   client_id : string prop;
   id : string prop;
   location : string prop;
@@ -160,6 +161,7 @@ let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
   let __type = "azurerm_user_assigned_identity" in
   let __attrs =
     ({
+       tf_name = __id;
        client_id = Prop.computed __type __id "client_id";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

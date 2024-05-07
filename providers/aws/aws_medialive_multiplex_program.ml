@@ -263,6 +263,7 @@ let aws_medialive_multiplex_program
   { multiplex_id; program_name; multiplex_program_settings }
 
 type t = {
+  tf_name : string;
   id : string prop;
   multiplex_id : string prop;
   program_name : string prop;
@@ -273,6 +274,7 @@ let make ?(multiplex_program_settings = []) ~multiplex_id
   let __type = "aws_medialive_multiplex_program" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        multiplex_id = Prop.computed __type __id "multiplex_id";
        program_name = Prop.computed __type __id "program_name";

@@ -102,12 +102,17 @@ let aws_ec2_transit_gateway_vpc_attachments ?id ?timeouts ~filter ()
     : aws_ec2_transit_gateway_vpc_attachments =
   { id; filter; timeouts }
 
-type t = { id : string prop; ids : string list prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  ids : string list prop;
+}
 
 let make ?id ?timeouts ~filter __id =
   let __type = "aws_ec2_transit_gateway_vpc_attachments" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ids = Prop.computed __type __id "ids";
      }

@@ -436,6 +436,7 @@ let google_data_fusion_instance ?dataproc_service_account
   }
 
 type t = {
+  tf_name : string;
   api_endpoint : string prop;
   create_time : string prop;
   dataproc_service_account : string prop;
@@ -475,6 +476,7 @@ let make ?dataproc_service_account ?description ?display_name
   let __type = "google_data_fusion_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        api_endpoint = Prop.computed __type __id "api_endpoint";
        create_time = Prop.computed __type __id "create_time";
        dataproc_service_account =

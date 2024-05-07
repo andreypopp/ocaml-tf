@@ -47,6 +47,7 @@ val yojson_of_google_compute_machine_types :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   filter : string prop;
   id : string prop;
   machine_types : machine_types list prop;

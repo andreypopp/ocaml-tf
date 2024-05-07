@@ -19,6 +19,7 @@ val yojson_of_aws_securityhub_member : aws_securityhub_member -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   email : string prop;
   id : string prop;

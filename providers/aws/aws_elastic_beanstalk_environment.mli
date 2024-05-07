@@ -48,6 +48,7 @@ val yojson_of_aws_elastic_beanstalk_environment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   all_settings : all_settings list prop;
   application : string prop;
   arn : string prop;

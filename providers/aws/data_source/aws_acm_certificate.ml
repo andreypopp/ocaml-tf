@@ -107,6 +107,7 @@ let aws_acm_certificate ?id ?key_types ?most_recent ?statuses ?tags
   { domain; id; key_types; most_recent; statuses; tags; types }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   certificate : string prop;
   certificate_chain : string prop;
@@ -125,6 +126,7 @@ let make ?id ?key_types ?most_recent ?statuses ?tags ?types ~domain
   let __type = "aws_acm_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        certificate = Prop.computed __type __id "certificate";
        certificate_chain =

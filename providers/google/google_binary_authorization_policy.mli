@@ -57,6 +57,7 @@ val yojson_of_google_binary_authorization_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   global_policy_evaluation_mode : string prop;
   id : string prop;

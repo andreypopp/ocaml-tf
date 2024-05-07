@@ -618,6 +618,7 @@ val yojson_of_aws_appflow_flow : aws_appflow_flow -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   flow_status : string prop;

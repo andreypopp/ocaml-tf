@@ -257,6 +257,7 @@ let google_dns_keys ?project ~managed_zone () : google_dns_keys =
   { managed_zone; project }
 
 type t = {
+  tf_name : string;
   id : string prop;
   key_signing_keys : key_signing_keys list prop;
   managed_zone : string prop;
@@ -268,6 +269,7 @@ let make ?project ~managed_zone __id =
   let __type = "google_dns_keys" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        key_signing_keys =
          Prop.computed __type __id "key_signing_keys";

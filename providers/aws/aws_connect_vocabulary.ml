@@ -151,6 +151,7 @@ let aws_connect_vocabulary ?id ?tags ?tags_all ?timeouts ~content
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   content : string prop;
   failure_reason : string prop;
@@ -170,6 +171,7 @@ let make ?id ?tags ?tags_all ?timeouts ~content ~instance_id
   let __type = "aws_connect_vocabulary" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        content = Prop.computed __type __id "content";
        failure_reason = Prop.computed __type __id "failure_reason";

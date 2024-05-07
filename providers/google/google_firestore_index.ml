@@ -197,6 +197,7 @@ let google_firestore_index ?api_scope ?database ?id ?project
   }
 
 type t = {
+  tf_name : string;
   api_scope : string prop;
   collection : string prop;
   database : string prop;
@@ -211,6 +212,7 @@ let make ?api_scope ?database ?id ?project ?query_scope ?timeouts
   let __type = "google_firestore_index" in
   let __attrs =
     ({
+       tf_name = __id;
        api_scope = Prop.computed __type __id "api_scope";
        collection = Prop.computed __type __id "collection";
        database = Prop.computed __type __id "database";

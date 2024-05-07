@@ -36,6 +36,7 @@ val yojson_of_azurerm_firewall_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   base_policy_id : string prop;
   child_policies : string list prop;
   dns : dns list prop;

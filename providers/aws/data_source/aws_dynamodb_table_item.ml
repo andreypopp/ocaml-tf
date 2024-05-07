@@ -85,6 +85,7 @@ let aws_dynamodb_table_item ?expression_attribute_names ?id
   }
 
 type t = {
+  tf_name : string;
   expression_attribute_names : (string * string) list prop;
   id : string prop;
   item : string prop;
@@ -98,6 +99,7 @@ let make ?expression_attribute_names ?id ?projection_expression ~key
   let __type = "aws_dynamodb_table_item" in
   let __attrs =
     ({
+       tf_name = __id;
        expression_attribute_names =
          Prop.computed __type __id "expression_attribute_names";
        id = Prop.computed __type __id "id";

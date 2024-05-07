@@ -45,6 +45,7 @@ val yojson_of_azurerm_bot_channels_registration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cmk_key_vault_url : string prop;
   description : string prop;
   developer_app_insights_api_key : string prop;

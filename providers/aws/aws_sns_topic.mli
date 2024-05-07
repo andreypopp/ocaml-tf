@@ -44,6 +44,7 @@ val yojson_of_aws_sns_topic : aws_sns_topic -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_failure_feedback_role_arn : string prop;
   application_success_feedback_role_arn : string prop;
   application_success_feedback_sample_rate : float prop;

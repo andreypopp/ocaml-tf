@@ -281,6 +281,7 @@ let aws_connect_user_hierarchy_structure ?id ~instance_id () :
   { id; instance_id }
 
 type t = {
+  tf_name : string;
   hierarchy_structure : hierarchy_structure list prop;
   id : string prop;
   instance_id : string prop;
@@ -290,6 +291,7 @@ let make ?id ~instance_id __id =
   let __type = "aws_connect_user_hierarchy_structure" in
   let __attrs =
     ({
+       tf_name = __id;
        hierarchy_structure =
          Prop.computed __type __id "hierarchy_structure";
        id = Prop.computed __type __id "id";

@@ -62,6 +62,7 @@ val yojson_of_google_spanner_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   config : string prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;

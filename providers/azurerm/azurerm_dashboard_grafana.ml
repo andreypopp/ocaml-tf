@@ -429,6 +429,7 @@ let azurerm_dashboard_grafana ?api_key_enabled
   }
 
 type t = {
+  tf_name : string;
   api_key_enabled : bool prop;
   auto_generated_domain_name_label_scope : string prop;
   deterministic_outbound_ip_enabled : bool prop;
@@ -456,6 +457,7 @@ let make ?api_key_enabled ?auto_generated_domain_name_label_scope
   let __type = "azurerm_dashboard_grafana" in
   let __attrs =
     ({
+       tf_name = __id;
        api_key_enabled = Prop.computed __type __id "api_key_enabled";
        auto_generated_domain_name_label_scope =
          Prop.computed __type __id

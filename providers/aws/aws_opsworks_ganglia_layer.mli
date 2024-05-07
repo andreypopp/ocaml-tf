@@ -117,6 +117,7 @@ val yojson_of_aws_opsworks_ganglia_layer :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   auto_assign_elastic_ips : bool prop;
   auto_assign_public_ips : bool prop;

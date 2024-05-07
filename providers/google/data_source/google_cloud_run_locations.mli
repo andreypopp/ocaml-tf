@@ -18,6 +18,7 @@ val yojson_of_google_cloud_run_locations :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   locations : string list prop;
   project : string prop;

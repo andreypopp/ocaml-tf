@@ -56,6 +56,7 @@ let aws_qldb_ledger ?id ?tags ~name () : aws_qldb_ledger =
   { id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   deletion_protection : bool prop;
   id : string prop;
@@ -69,6 +70,7 @@ let make ?id ?tags ~name __id =
   let __type = "aws_qldb_ledger" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        deletion_protection =
          Prop.computed __type __id "deletion_protection";

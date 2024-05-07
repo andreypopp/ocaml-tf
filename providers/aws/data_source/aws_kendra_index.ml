@@ -563,6 +563,7 @@ let _ = yojson_of_aws_kendra_index
 let aws_kendra_index ?tags ~id () : aws_kendra_index = { id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   capacity_units : capacity_units list prop;
   created_at : string prop;
@@ -590,6 +591,7 @@ let make ?tags ~id __id =
   let __type = "aws_kendra_index" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        capacity_units = Prop.computed __type __id "capacity_units";
        created_at = Prop.computed __type __id "created_at";

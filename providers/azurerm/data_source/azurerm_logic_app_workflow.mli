@@ -31,6 +31,7 @@ val yojson_of_azurerm_logic_app_workflow :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_endpoint : string prop;
   connector_endpoint_ip_addresses : string list prop;
   connector_outbound_ip_addresses : string list prop;

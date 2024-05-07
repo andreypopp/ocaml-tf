@@ -22,6 +22,7 @@ val yojson_of_aws_eip_association : aws_eip_association -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allocation_id : string prop;
   allow_reassociation : bool prop;
   id : string prop;

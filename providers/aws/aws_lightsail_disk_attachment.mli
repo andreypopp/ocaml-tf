@@ -20,6 +20,7 @@ val yojson_of_aws_lightsail_disk_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   disk_name : string prop;
   disk_path : string prop;
   id : string prop;

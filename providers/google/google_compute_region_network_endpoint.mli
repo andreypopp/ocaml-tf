@@ -29,6 +29,7 @@ val yojson_of_google_compute_region_network_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   fqdn : string prop;
   id : string prop;
   ip_address : string prop;

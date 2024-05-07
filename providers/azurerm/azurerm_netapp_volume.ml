@@ -561,6 +561,7 @@ let azurerm_netapp_volume ?azure_vmware_data_store_enabled
   }
 
 type t = {
+  tf_name : string;
   account_name : string prop;
   azure_vmware_data_store_enabled : bool prop;
   create_from_snapshot_resource_id : string prop;
@@ -600,6 +601,7 @@ let make ?azure_vmware_data_store_enabled
   let __type = "azurerm_netapp_volume" in
   let __attrs =
     ({
+       tf_name = __id;
        account_name = Prop.computed __type __id "account_name";
        azure_vmware_data_store_enabled =
          Prop.computed __type __id "azure_vmware_data_store_enabled";

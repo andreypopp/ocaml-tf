@@ -104,6 +104,7 @@ let aws_ec2_transit_gateway_attachment ?id ?tags
   { id; tags; transit_gateway_attachment_id; filter }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   association_state : string prop;
   association_transit_gateway_route_table_id : string prop;
@@ -122,6 +123,7 @@ let make ?id ?tags ?transit_gateway_attachment_id ~filter __id =
   let __type = "aws_ec2_transit_gateway_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        association_state =
          Prop.computed __type __id "association_state";

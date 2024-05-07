@@ -33,6 +33,7 @@ val yojson_of_google_dataplex_zone_iam_member :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dataplex_zone : string prop;
   etag : string prop;
   id : string prop;

@@ -39,6 +39,7 @@ let aws_auditmanager_organization_admin_account_registration
   { admin_account_id }
 
 type t = {
+  tf_name : string;
   admin_account_id : string prop;
   id : string prop;
   organization_id : string prop;
@@ -50,6 +51,7 @@ let make ~admin_account_id __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        admin_account_id =
          Prop.computed __type __id "admin_account_id";
        id = Prop.computed __type __id "id";

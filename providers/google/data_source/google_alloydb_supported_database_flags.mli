@@ -45,6 +45,7 @@ val yojson_of_google_alloydb_supported_database_flags :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   project : string prop;

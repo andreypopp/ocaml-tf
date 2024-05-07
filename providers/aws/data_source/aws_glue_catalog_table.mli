@@ -100,6 +100,7 @@ val yojson_of_aws_glue_catalog_table : aws_glue_catalog_table -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   catalog_id : string prop;
   database_name : string prop;

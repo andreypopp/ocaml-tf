@@ -33,6 +33,7 @@ val yojson_of_azurerm_palo_alto_local_rulestack_fqdn_list :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   audit_comment : string prop;
   description : string prop;
   fully_qualified_domain_names : string list prop;

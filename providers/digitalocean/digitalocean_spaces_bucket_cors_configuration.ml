@@ -151,6 +151,7 @@ let digitalocean_spaces_bucket_cors_configuration ?id ~bucket ~region
   { bucket; id; region; cors_rule }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   id : string prop;
   region : string prop;
@@ -160,6 +161,7 @@ let make ?id ~bucket ~region ~cors_rule __id =
   let __type = "digitalocean_spaces_bucket_cors_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        id = Prop.computed __type __id "id";
        region = Prop.computed __type __id "region";

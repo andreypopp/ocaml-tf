@@ -51,6 +51,7 @@ val yojson_of_aws_networkmanager_connect_peer :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   configuration : configuration list prop;
   connect_attachment_id : string prop;

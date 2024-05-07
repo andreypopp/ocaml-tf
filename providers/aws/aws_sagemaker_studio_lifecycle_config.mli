@@ -22,6 +22,7 @@ val yojson_of_aws_sagemaker_studio_lifecycle_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   studio_lifecycle_config_app_type : string prop;

@@ -146,6 +146,7 @@ let aws_elastic_beanstalk_configuration_template ?description
   }
 
 type t = {
+  tf_name : string;
   application : string prop;
   description : string prop;
   environment_id : string prop;
@@ -159,6 +160,7 @@ let make ?description ?environment_id ?id ?solution_stack_name
   let __type = "aws_elastic_beanstalk_configuration_template" in
   let __attrs =
     ({
+       tf_name = __id;
        application = Prop.computed __type __id "application";
        description = Prop.computed __type __id "description";
        environment_id = Prop.computed __type __id "environment_id";

@@ -21,6 +21,7 @@ val yojson_of_cloudflare_workers_kv_namespace :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   title : string prop;

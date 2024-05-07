@@ -63,6 +63,7 @@ let aws_backup_vault_notifications ?id ~backup_vault_events
   { backup_vault_events; backup_vault_name; id; sns_topic_arn }
 
 type t = {
+  tf_name : string;
   backup_vault_arn : string prop;
   backup_vault_events : string list prop;
   backup_vault_name : string prop;
@@ -75,6 +76,7 @@ let make ?id ~backup_vault_events ~backup_vault_name ~sns_topic_arn
   let __type = "aws_backup_vault_notifications" in
   let __attrs =
     ({
+       tf_name = __id;
        backup_vault_arn =
          Prop.computed __type __id "backup_vault_arn";
        backup_vault_events =

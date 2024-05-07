@@ -57,6 +57,7 @@ let aws_cloudformation_stack ?id ?tags ~name () :
   { id; name; tags }
 
 type t = {
+  tf_name : string;
   capabilities : string list prop;
   description : string prop;
   disable_rollback : bool prop;
@@ -75,6 +76,7 @@ let make ?id ?tags ~name __id =
   let __type = "aws_cloudformation_stack" in
   let __attrs =
     ({
+       tf_name = __id;
        capabilities = Prop.computed __type __id "capabilities";
        description = Prop.computed __type __id "description";
        disable_rollback =

@@ -29,6 +29,7 @@ val yojson_of_azurerm_cosmosdb_sql_role_definition :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_name : string prop;
   assignable_scopes : string list prop;
   id : string prop;

@@ -1001,6 +1001,7 @@ let cloudflare_pages_project ?id ?(build_config = [])
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   created_on : string prop;
   domains : string list prop;
@@ -1015,6 +1016,7 @@ let make ?id ?(build_config = []) ?(deployment_configs = [])
   let __type = "cloudflare_pages_project" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        created_on = Prop.computed __type __id "created_on";
        domains = Prop.computed __type __id "domains";

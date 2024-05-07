@@ -262,6 +262,7 @@ let google_monitoring_notification_channel ?description ?display_name
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   enabled : bool prop;
@@ -281,6 +282,7 @@ let make ?description ?display_name ?enabled ?force_delete ?id
   let __type = "google_monitoring_notification_channel" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";
        enabled = Prop.computed __type __id "enabled";

@@ -32,6 +32,7 @@ val yojson_of_azurerm_communication_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   data_location : string prop;
   id : string prop;
   name : string prop;

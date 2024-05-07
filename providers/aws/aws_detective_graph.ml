@@ -69,6 +69,7 @@ let aws_detective_graph ?id ?tags ?tags_all () : aws_detective_graph
   { id; tags; tags_all }
 
 type t = {
+  tf_name : string;
   created_time : string prop;
   graph_arn : string prop;
   id : string prop;
@@ -80,6 +81,7 @@ let make ?id ?tags ?tags_all __id =
   let __type = "aws_detective_graph" in
   let __attrs =
     ({
+       tf_name = __id;
        created_time = Prop.computed __type __id "created_time";
        graph_arn = Prop.computed __type __id "graph_arn";
        id = Prop.computed __type __id "id";

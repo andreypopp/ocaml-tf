@@ -17,6 +17,7 @@ val yojson_of_aws_workspaces_image : aws_workspaces_image -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   image_id : string prop;

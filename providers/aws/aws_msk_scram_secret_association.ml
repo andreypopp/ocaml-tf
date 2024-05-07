@@ -54,6 +54,7 @@ let aws_msk_scram_secret_association ?id ~cluster_arn
   { cluster_arn; id; secret_arn_list }
 
 type t = {
+  tf_name : string;
   cluster_arn : string prop;
   id : string prop;
   secret_arn_list : string list prop;
@@ -63,6 +64,7 @@ let make ?id ~cluster_arn ~secret_arn_list __id =
   let __type = "aws_msk_scram_secret_association" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_arn = Prop.computed __type __id "cluster_arn";
        id = Prop.computed __type __id "id";
        secret_arn_list = Prop.computed __type __id "secret_arn_list";

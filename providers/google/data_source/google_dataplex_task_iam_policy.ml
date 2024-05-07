@@ -70,6 +70,7 @@ let google_dataplex_task_iam_policy ?id ?location ?project ~lake
   { id; lake; location; project; task_id }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   lake : string prop;
@@ -83,6 +84,7 @@ let make ?id ?location ?project ~lake ~task_id __id =
   let __type = "google_dataplex_task_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        lake = Prop.computed __type __id "lake";

@@ -335,6 +335,7 @@ let aws_connect_instance_storage_config ?id ~association_id
   { association_id; id; instance_id; resource_type }
 
 type t = {
+  tf_name : string;
   association_id : string prop;
   id : string prop;
   instance_id : string prop;
@@ -346,6 +347,7 @@ let make ?id ~association_id ~instance_id ~resource_type __id =
   let __type = "aws_connect_instance_storage_config" in
   let __attrs =
     ({
+       tf_name = __id;
        association_id = Prop.computed __type __id "association_id";
        id = Prop.computed __type __id "id";
        instance_id = Prop.computed __type __id "instance_id";

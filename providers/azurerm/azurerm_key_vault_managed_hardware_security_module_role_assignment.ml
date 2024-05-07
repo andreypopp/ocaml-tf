@@ -143,6 +143,7 @@ let azurerm_key_vault_managed_hardware_security_module_role_assignment
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   principal_id : string prop;
@@ -159,6 +160,7 @@ let make ?id ?timeouts ~name ~principal_id ~role_definition_id ~scope
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        principal_id = Prop.computed __type __id "principal_id";

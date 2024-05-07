@@ -40,6 +40,7 @@ let aws_cloudformation_export ?id ~name () :
   { id; name }
 
 type t = {
+  tf_name : string;
   exporting_stack_id : string prop;
   id : string prop;
   name : string prop;
@@ -50,6 +51,7 @@ let make ?id ~name __id =
   let __type = "aws_cloudformation_export" in
   let __attrs =
     ({
+       tf_name = __id;
        exporting_stack_id =
          Prop.computed __type __id "exporting_stack_id";
        id = Prop.computed __type __id "id";

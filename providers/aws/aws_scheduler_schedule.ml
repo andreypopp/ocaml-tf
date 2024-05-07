@@ -945,6 +945,7 @@ let aws_scheduler_schedule ?description ?end_date ?group_name ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   end_date : string prop;
@@ -965,6 +966,7 @@ let make ?description ?end_date ?group_name ?id ?kms_key_arn ?name
   let __type = "aws_scheduler_schedule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        end_date = Prop.computed __type __id "end_date";

@@ -50,6 +50,7 @@ let digitalocean_volume_attachment ?id ~droplet_id ~volume_id () :
   { droplet_id; id; volume_id }
 
 type t = {
+  tf_name : string;
   droplet_id : float prop;
   id : string prop;
   volume_id : string prop;
@@ -59,6 +60,7 @@ let make ?id ~droplet_id ~volume_id __id =
   let __type = "digitalocean_volume_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        droplet_id = Prop.computed __type __id "droplet_id";
        id = Prop.computed __type __id "id";
        volume_id = Prop.computed __type __id "volume_id";

@@ -17,6 +17,7 @@ val yojson_of_aws_efs_access_points : aws_efs_access_points -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arns : string list prop;
   file_system_id : string prop;
   id : string prop;

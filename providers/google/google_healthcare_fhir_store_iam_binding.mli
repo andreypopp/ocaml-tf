@@ -30,6 +30,7 @@ val yojson_of_google_healthcare_fhir_store_iam_binding :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   fhir_store_id : string prop;
   id : string prop;

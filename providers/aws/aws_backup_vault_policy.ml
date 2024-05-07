@@ -51,6 +51,7 @@ let aws_backup_vault_policy ?id ~backup_vault_name ~policy () :
   { backup_vault_name; id; policy }
 
 type t = {
+  tf_name : string;
   backup_vault_arn : string prop;
   backup_vault_name : string prop;
   id : string prop;
@@ -61,6 +62,7 @@ let make ?id ~backup_vault_name ~policy __id =
   let __type = "aws_backup_vault_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        backup_vault_arn =
          Prop.computed __type __id "backup_vault_arn";
        backup_vault_name =

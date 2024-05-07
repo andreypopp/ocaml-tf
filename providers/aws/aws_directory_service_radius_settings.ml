@@ -161,6 +161,7 @@ let aws_directory_service_radius_settings ?id ?use_same_username
   }
 
 type t = {
+  tf_name : string;
   authentication_protocol : string prop;
   directory_id : string prop;
   display_label : string prop;
@@ -179,6 +180,7 @@ let make ?id ?use_same_username ?timeouts ~authentication_protocol
   let __type = "aws_directory_service_radius_settings" in
   let __attrs =
     ({
+       tf_name = __id;
        authentication_protocol =
          Prop.computed __type __id "authentication_protocol";
        directory_id = Prop.computed __type __id "directory_id";

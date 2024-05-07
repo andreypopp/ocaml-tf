@@ -184,6 +184,7 @@ let aws_kms_grant ?grant_creation_tokens ?id ?name ?retire_on_delete
   }
 
 type t = {
+  tf_name : string;
   grant_creation_tokens : string list prop;
   grant_id : string prop;
   grant_token : string prop;
@@ -202,6 +203,7 @@ let make ?grant_creation_tokens ?id ?name ?retire_on_delete
   let __type = "aws_kms_grant" in
   let __attrs =
     ({
+       tf_name = __id;
        grant_creation_tokens =
          Prop.computed __type __id "grant_creation_tokens";
        grant_id = Prop.computed __type __id "grant_id";

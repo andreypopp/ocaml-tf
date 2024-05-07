@@ -24,6 +24,7 @@ val yojson_of_cloudflare_worker_domain :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   environment : string prop;
   hostname : string prop;

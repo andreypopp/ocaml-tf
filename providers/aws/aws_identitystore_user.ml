@@ -491,6 +491,7 @@ let aws_identitystore_user ?id ?locale ?nickname ?preferred_language
   }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   external_ids : external_ids list prop;
   id : string prop;
@@ -513,6 +514,7 @@ let make ?id ?locale ?nickname ?preferred_language ?profile_url
   let __type = "aws_identitystore_user" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        external_ids = Prop.computed __type __id "external_ids";
        id = Prop.computed __type __id "id";

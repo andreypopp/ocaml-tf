@@ -38,6 +38,7 @@ val yojson_of_azurerm_log_analytics_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_id : string prop;
   id : string prop;
   location : string prop;

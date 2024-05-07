@@ -23,6 +23,7 @@ val yojson_of_aws_signer_signing_profile_permission :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action : string prop;
   id : string prop;
   principal : string prop;

@@ -46,6 +46,7 @@ let aws_config_configuration_recorder_status ?id ~is_enabled ~name ()
   { id; is_enabled; name }
 
 type t = {
+  tf_name : string;
   id : string prop;
   is_enabled : bool prop;
   name : string prop;
@@ -55,6 +56,7 @@ let make ?id ~is_enabled ~name __id =
   let __type = "aws_config_configuration_recorder_status" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        is_enabled = Prop.computed __type __id "is_enabled";
        name = Prop.computed __type __id "name";

@@ -19,6 +19,7 @@ val yojson_of_aws_s3control_access_point_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_point_arn : string prop;
   has_public_access_policy : bool prop;
   id : string prop;

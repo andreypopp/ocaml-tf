@@ -153,6 +153,7 @@ let google_sql_database ?charset ?collation ?deletion_policy ?id
   }
 
 type t = {
+  tf_name : string;
   charset : string prop;
   collation : string prop;
   deletion_policy : string prop;
@@ -168,6 +169,7 @@ let make ?charset ?collation ?deletion_policy ?id ?project ?timeouts
   let __type = "google_sql_database" in
   let __attrs =
     ({
+       tf_name = __id;
        charset = Prop.computed __type __id "charset";
        collation = Prop.computed __type __id "collation";
        deletion_policy = Prop.computed __type __id "deletion_policy";

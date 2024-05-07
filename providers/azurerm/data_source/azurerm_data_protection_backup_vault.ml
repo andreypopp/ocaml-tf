@@ -124,6 +124,7 @@ let azurerm_data_protection_backup_vault ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   datastore_type : string prop;
   id : string prop;
   identity : identity list prop;
@@ -138,6 +139,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_data_protection_backup_vault" in
   let __attrs =
     ({
+       tf_name = __id;
        datastore_type = Prop.computed __type __id "datastore_type";
        id = Prop.computed __type __id "id";
        identity = Prop.computed __type __id "identity";

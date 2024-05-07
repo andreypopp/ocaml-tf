@@ -224,6 +224,7 @@ let azurerm_frontdoor_custom_https_configuration ?id
   }
 
 type t = {
+  tf_name : string;
   custom_https_provisioning_enabled : bool prop;
   frontend_endpoint_id : string prop;
   id : string prop;
@@ -234,6 +235,7 @@ let make ?id ?(custom_https_configuration = []) ?timeouts
   let __type = "azurerm_frontdoor_custom_https_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        custom_https_provisioning_enabled =
          Prop.computed __type __id
            "custom_https_provisioning_enabled";

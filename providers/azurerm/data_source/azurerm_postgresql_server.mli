@@ -30,6 +30,7 @@ val yojson_of_azurerm_postgresql_server :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   administrator_login : string prop;
   fqdn : string prop;
   id : string prop;

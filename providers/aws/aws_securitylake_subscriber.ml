@@ -392,6 +392,7 @@ let aws_securitylake_subscriber ?access_type ?subscriber_description
   }
 
 type t = {
+  tf_name : string;
   access_type : string prop;
   arn : string prop;
   id : string prop;
@@ -412,6 +413,7 @@ let make ?access_type ?subscriber_description ?subscriber_name ?tags
   let __type = "aws_securitylake_subscriber" in
   let __attrs =
     ({
+       tf_name = __id;
        access_type = Prop.computed __type __id "access_type";
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";

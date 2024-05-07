@@ -40,6 +40,7 @@ let google_dns_managed_zone ?project ~name () :
   { name; project }
 
 type t = {
+  tf_name : string;
   description : string prop;
   dns_name : string prop;
   id : string prop;
@@ -54,6 +55,7 @@ let make ?project ~name __id =
   let __type = "google_dns_managed_zone" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        dns_name = Prop.computed __type __id "dns_name";
        id = Prop.computed __type __id "id";

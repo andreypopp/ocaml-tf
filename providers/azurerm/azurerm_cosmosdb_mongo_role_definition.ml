@@ -224,6 +224,7 @@ let azurerm_cosmosdb_mongo_role_definition ?id ?inherited_role_names
   }
 
 type t = {
+  tf_name : string;
   cosmos_mongo_database_id : string prop;
   id : string prop;
   inherited_role_names : string list prop;
@@ -235,6 +236,7 @@ let make ?id ?inherited_role_names ?(privilege = []) ?timeouts
   let __type = "azurerm_cosmosdb_mongo_role_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        cosmos_mongo_database_id =
          Prop.computed __type __id "cosmos_mongo_database_id";
        id = Prop.computed __type __id "id";

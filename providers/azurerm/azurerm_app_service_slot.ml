@@ -1848,6 +1848,7 @@ let azurerm_app_service_slot ?app_settings ?client_affinity_enabled
   }
 
 type t = {
+  tf_name : string;
   app_service_name : string prop;
   app_service_plan_id : string prop;
   app_settings : (string * string) list prop;
@@ -1872,6 +1873,7 @@ let make ?app_settings ?client_affinity_enabled ?enabled ?https_only
   let __type = "azurerm_app_service_slot" in
   let __attrs =
     ({
+       tf_name = __id;
        app_service_name =
          Prop.computed __type __id "app_service_name";
        app_service_plan_id =

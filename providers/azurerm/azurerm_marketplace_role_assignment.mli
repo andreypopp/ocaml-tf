@@ -36,6 +36,7 @@ val yojson_of_azurerm_marketplace_role_assignment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   condition : string prop;
   condition_version : string prop;
   delegated_managed_identity_resource_id : string prop;

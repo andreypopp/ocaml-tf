@@ -19,6 +19,7 @@ val yojson_of_aws_iot_thing : aws_iot_thing -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   attributes : (string * string) list prop;
   default_client_id : string prop;

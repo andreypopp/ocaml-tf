@@ -28,6 +28,7 @@ val yojson_of_aws_workspaces_connection_alias :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   connection_string : string prop;
   id : string prop;
   owner_account_id : string prop;

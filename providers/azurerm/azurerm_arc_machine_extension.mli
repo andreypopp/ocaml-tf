@@ -39,6 +39,7 @@ val yojson_of_azurerm_arc_machine_extension :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arc_machine_id : string prop;
   automatic_upgrade_enabled : bool prop;
   force_update_tag : string prop;

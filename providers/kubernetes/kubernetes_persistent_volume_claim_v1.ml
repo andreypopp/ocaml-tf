@@ -431,12 +431,17 @@ let kubernetes_persistent_volume_claim_v1 ?id ?wait_until_bound
     kubernetes_persistent_volume_claim_v1 =
   { id; wait_until_bound; metadata; spec; timeouts }
 
-type t = { id : string prop; wait_until_bound : bool prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  wait_until_bound : bool prop;
+}
 
 let make ?id ?wait_until_bound ?timeouts ~metadata ~spec __id =
   let __type = "kubernetes_persistent_volume_claim_v1" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        wait_until_bound =
          Prop.computed __type __id "wait_until_bound";

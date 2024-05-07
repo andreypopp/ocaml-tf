@@ -367,6 +367,7 @@ let aws_cloudtrail_event_data_store ?id ?kms_key_id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   kms_key_id : string prop;
@@ -385,6 +386,7 @@ let make ?id ?kms_key_id ?multi_region_enabled ?organization_enabled
   let __type = "aws_cloudtrail_event_data_store" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        kms_key_id = Prop.computed __type __id "kms_key_id";

@@ -18,6 +18,7 @@ val yojson_of_google_storage_transfer_project_service_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   email : string prop;
   id : string prop;
   member : string prop;

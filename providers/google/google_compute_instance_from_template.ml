@@ -1654,6 +1654,7 @@ let google_compute_instance_from_template ?allow_stopping_for_update
   }
 
 type t = {
+  tf_name : string;
   allow_stopping_for_update : bool prop;
   attached_disk : attached_disk list prop;
   can_ip_forward : bool prop;
@@ -1702,6 +1703,7 @@ let make ?allow_stopping_for_update ?attached_disk ?can_ip_forward
   let __type = "google_compute_instance_from_template" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_stopping_for_update =
          Prop.computed __type __id "allow_stopping_for_update";
        attached_disk = Prop.computed __type __id "attached_disk";

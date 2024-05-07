@@ -73,6 +73,7 @@ let aws_amplify_backend_environment ?deployment_artifacts ?id
   { app_id; deployment_artifacts; environment_name; id; stack_name }
 
 type t = {
+  tf_name : string;
   app_id : string prop;
   arn : string prop;
   deployment_artifacts : string prop;
@@ -86,6 +87,7 @@ let make ?deployment_artifacts ?id ?stack_name ~app_id
   let __type = "aws_amplify_backend_environment" in
   let __attrs =
     ({
+       tf_name = __id;
        app_id = Prop.computed __type __id "app_id";
        arn = Prop.computed __type __id "arn";
        deployment_artifacts =

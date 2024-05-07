@@ -44,6 +44,7 @@ val yojson_of_azurerm_spring_cloud_dev_tool_portal :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_accelerator_enabled : bool prop;
   application_live_view_enabled : bool prop;
   id : string prop;

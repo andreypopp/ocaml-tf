@@ -3873,6 +3873,7 @@ let google_dataproc_workflow_template ?dag_timeout ?id ?labels
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   dag_timeout : string prop;
   effective_labels : (string * string) list prop;
@@ -3892,6 +3893,7 @@ let make ?dag_timeout ?id ?labels ?project ?version
   let __type = "google_dataproc_workflow_template" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        dag_timeout = Prop.computed __type __id "dag_timeout";
        effective_labels =

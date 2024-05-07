@@ -57,6 +57,7 @@ val yojson_of_cloudflare_spectrum_application :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   argo_smart_routing : bool prop;
   id : string prop;
   ip_firewall : bool prop;

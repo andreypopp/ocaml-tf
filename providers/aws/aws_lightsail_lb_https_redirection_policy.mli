@@ -19,6 +19,7 @@ val yojson_of_aws_lightsail_lb_https_redirection_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   lb_name : string prop;

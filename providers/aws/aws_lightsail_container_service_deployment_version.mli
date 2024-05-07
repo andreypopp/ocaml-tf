@@ -57,6 +57,7 @@ val yojson_of_aws_lightsail_container_service_deployment_version :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created_at : string prop;
   id : string prop;
   service_name : string prop;

@@ -32,6 +32,7 @@ val yojson_of_azurerm_api_management_identity_provider_twitter :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_key : string prop;
   api_management_name : string prop;
   api_secret_key : string prop;

@@ -2247,6 +2247,7 @@ let aws_autoscaling_group ?availability_zones ?capacity_rebalance
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zones : string list prop;
   capacity_rebalance : bool prop;
@@ -2302,6 +2303,7 @@ let make ?availability_zones ?capacity_rebalance ?context
   let __type = "aws_autoscaling_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zones =
          Prop.computed __type __id "availability_zones";

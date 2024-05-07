@@ -385,6 +385,7 @@ let aws_glue_ml_transform ?description ?glue_version ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   glue_version : string prop;
@@ -408,6 +409,7 @@ let make ?description ?glue_version ?id ?max_capacity ?max_retries
   let __type = "aws_glue_ml_transform" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        glue_version = Prop.computed __type __id "glue_version";

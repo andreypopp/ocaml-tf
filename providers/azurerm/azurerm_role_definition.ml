@@ -240,6 +240,7 @@ let azurerm_role_definition ?assignable_scopes ?description ?id
   }
 
 type t = {
+  tf_name : string;
   assignable_scopes : string list prop;
   description : string prop;
   id : string prop;
@@ -254,6 +255,7 @@ let make ?assignable_scopes ?description ?id ?role_definition_id
   let __type = "azurerm_role_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        assignable_scopes =
          Prop.computed __type __id "assignable_scopes";
        description = Prop.computed __type __id "description";

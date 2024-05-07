@@ -128,6 +128,7 @@ let aws_appautoscaling_target ?id ?role_arn ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   max_capacity : float prop;
@@ -145,6 +146,7 @@ let make ?id ?role_arn ?tags ?tags_all ~max_capacity ~min_capacity
   let __type = "aws_appautoscaling_target" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        max_capacity = Prop.computed __type __id "max_capacity";

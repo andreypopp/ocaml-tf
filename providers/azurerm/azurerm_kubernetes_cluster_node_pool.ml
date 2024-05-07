@@ -1356,6 +1356,7 @@ let azurerm_kubernetes_cluster_node_pool
   }
 
 type t = {
+  tf_name : string;
   capacity_reservation_group_id : string prop;
   custom_ca_trust_enabled : bool prop;
   enable_auto_scaling : bool prop;
@@ -1414,6 +1415,7 @@ let make ?capacity_reservation_group_id ?custom_ca_trust_enabled
   let __type = "azurerm_kubernetes_cluster_node_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        capacity_reservation_group_id =
          Prop.computed __type __id "capacity_reservation_group_id";
        custom_ca_trust_enabled =

@@ -46,6 +46,7 @@ let aws_lightsail_lb_https_redirection_policy ?id ~enabled ~lb_name
   { enabled; id; lb_name }
 
 type t = {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   lb_name : string prop;
@@ -55,6 +56,7 @@ let make ?id ~enabled ~lb_name __id =
   let __type = "aws_lightsail_lb_https_redirection_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";
        lb_name = Prop.computed __type __id "lb_name";

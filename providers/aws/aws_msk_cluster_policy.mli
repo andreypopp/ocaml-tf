@@ -18,6 +18,7 @@ val yojson_of_aws_msk_cluster_policy : aws_msk_cluster_policy -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_arn : string prop;
   current_version : string prop;
   id : string prop;

@@ -3496,6 +3496,7 @@ let google_dialogflow_cx_page ?id ?language_code ?parent
   }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   language_code : string prop;
@@ -3511,6 +3512,7 @@ let make ?id ?language_code ?parent ?transition_route_groups
   let __type = "google_dialogflow_cx_page" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";
        language_code = Prop.computed __type __id "language_code";

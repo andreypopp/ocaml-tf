@@ -253,6 +253,7 @@ let azurerm_arc_kubernetes_cluster_extension
   }
 
 type t = {
+  tf_name : string;
   cluster_id : string prop;
   configuration_protected_settings : (string * string) list prop;
   configuration_settings : (string * string) list prop;
@@ -272,6 +273,7 @@ let make ?configuration_protected_settings ?configuration_settings
   let __type = "azurerm_arc_kubernetes_cluster_extension" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_id = Prop.computed __type __id "cluster_id";
        configuration_protected_settings =
          Prop.computed __type __id "configuration_protected_settings";

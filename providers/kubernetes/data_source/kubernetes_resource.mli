@@ -24,6 +24,7 @@ val yojson_of_kubernetes_resource : kubernetes_resource -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_version : string prop;
   kind : string prop;
   object_ : json prop;

@@ -23,6 +23,7 @@ val yojson_of_azurerm_storage_sync : azurerm_storage_sync -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   incoming_traffic_policy : string prop;
   location : string prop;

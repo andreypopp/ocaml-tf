@@ -95,6 +95,7 @@ let _ = yojson_of_google_logging_sink
 let google_logging_sink ~id () : google_logging_sink = { id }
 
 type t = {
+  tf_name : string;
   bigquery_options : bigquery_options list prop;
   description : string prop;
   destination : string prop;
@@ -110,6 +111,7 @@ let make ~id __id =
   let __type = "google_logging_sink" in
   let __attrs =
     ({
+       tf_name = __id;
        bigquery_options =
          Prop.computed __type __id "bigquery_options";
        description = Prop.computed __type __id "description";

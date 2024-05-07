@@ -19,6 +19,7 @@ val yojson_of_aws_iam_access_key : aws_iam_access_key -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_date : string prop;
   encrypted_secret : string prop;
   encrypted_ses_smtp_password_v4 : string prop;

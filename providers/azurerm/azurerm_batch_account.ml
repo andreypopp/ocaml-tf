@@ -559,6 +559,7 @@ let azurerm_batch_account ?allowed_authentication_modes ?encryption
   }
 
 type t = {
+  tf_name : string;
   account_endpoint : string prop;
   allowed_authentication_modes : string list prop;
   encryption : encryption list prop;
@@ -585,6 +586,7 @@ let make ?allowed_authentication_modes ?encryption ?id
   let __type = "azurerm_batch_account" in
   let __attrs =
     ({
+       tf_name = __id;
        account_endpoint =
          Prop.computed __type __id "account_endpoint";
        allowed_authentication_modes =

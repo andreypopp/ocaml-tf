@@ -31,6 +31,7 @@ val yojson_of_azurerm_sentinel_watchlist_item :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   properties : (string * string) list prop;

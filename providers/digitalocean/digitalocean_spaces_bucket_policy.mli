@@ -20,6 +20,7 @@ val yojson_of_digitalocean_spaces_bucket_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket : string prop;
   id : string prop;
   policy : string prop;

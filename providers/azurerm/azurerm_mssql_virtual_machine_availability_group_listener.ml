@@ -353,6 +353,7 @@ let azurerm_mssql_virtual_machine_availability_group_listener
   }
 
 type t = {
+  tf_name : string;
   availability_group_name : string prop;
   id : string prop;
   name : string prop;
@@ -369,6 +370,7 @@ let make ?availability_group_name ?id ?port
   in
   let __attrs =
     ({
+       tf_name = __id;
        availability_group_name =
          Prop.computed __type __id "availability_group_name";
        id = Prop.computed __type __id "id";

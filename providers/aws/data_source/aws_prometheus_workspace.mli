@@ -19,6 +19,7 @@ val yojson_of_aws_prometheus_workspace :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alias : string prop;
   arn : string prop;
   created_date : string prop;

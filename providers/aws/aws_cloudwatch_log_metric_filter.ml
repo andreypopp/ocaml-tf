@@ -148,6 +148,7 @@ let aws_cloudwatch_log_metric_filter ?id ~log_group_name ~name
   { id; log_group_name; name; pattern; metric_transformation }
 
 type t = {
+  tf_name : string;
   id : string prop;
   log_group_name : string prop;
   name : string prop;
@@ -159,6 +160,7 @@ let make ?id ~log_group_name ~name ~pattern ~metric_transformation
   let __type = "aws_cloudwatch_log_metric_filter" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        log_group_name = Prop.computed __type __id "log_group_name";
        name = Prop.computed __type __id "name";

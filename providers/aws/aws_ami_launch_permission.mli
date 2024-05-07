@@ -22,6 +22,7 @@ val yojson_of_aws_ami_launch_permission :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   group : string prop;
   id : string prop;

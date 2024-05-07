@@ -41,6 +41,7 @@ val yojson_of_aws_networkmanager_vpc_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   attachment_policy_rule_number : float prop;
   attachment_type : string prop;

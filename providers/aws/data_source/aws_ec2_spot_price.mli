@@ -29,6 +29,7 @@ val yojson_of_aws_ec2_spot_price : aws_ec2_spot_price -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   availability_zone : string prop;
   id : string prop;
   instance_type : string prop;

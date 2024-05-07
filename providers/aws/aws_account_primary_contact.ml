@@ -164,6 +164,7 @@ let aws_account_primary_contact ?account_id ?address_line_2
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   address_line_1 : string prop;
   address_line_2 : string prop;
@@ -187,6 +188,7 @@ let make ?account_id ?address_line_2 ?address_line_3 ?company_name
   let __type = "aws_account_primary_contact" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        address_line_1 = Prop.computed __type __id "address_line_1";
        address_line_2 = Prop.computed __type __id "address_line_2";

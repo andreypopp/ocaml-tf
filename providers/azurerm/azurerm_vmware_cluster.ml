@@ -141,6 +141,7 @@ let azurerm_vmware_cluster ?id ?timeouts ~cluster_node_count ~name
   }
 
 type t = {
+  tf_name : string;
   cluster_node_count : float prop;
   cluster_number : float prop;
   hosts : string list prop;
@@ -155,6 +156,7 @@ let make ?id ?timeouts ~cluster_node_count ~name ~sku_name
   let __type = "azurerm_vmware_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_node_count =
          Prop.computed __type __id "cluster_node_count";
        cluster_number = Prop.computed __type __id "cluster_number";

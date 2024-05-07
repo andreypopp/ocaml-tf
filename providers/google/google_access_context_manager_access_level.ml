@@ -605,6 +605,7 @@ let google_access_context_manager_access_level ?description ?id
   { description; id; name; parent; title; basic; custom; timeouts }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   name : string prop;
@@ -617,6 +618,7 @@ let make ?description ?id ?(basic = []) ?(custom = []) ?timeouts
   let __type = "google_access_context_manager_access_level" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

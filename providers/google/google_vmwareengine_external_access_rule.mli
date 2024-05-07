@@ -53,6 +53,7 @@ val yojson_of_google_vmwareengine_external_access_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action : string prop;
   create_time : string prop;
   description : string prop;

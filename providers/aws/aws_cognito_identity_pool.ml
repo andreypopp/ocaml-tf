@@ -233,6 +233,7 @@ let aws_cognito_identity_pool ?allow_classic_flow
   }
 
 type t = {
+  tf_name : string;
   allow_classic_flow : bool prop;
   allow_unauthenticated_identities : bool prop;
   arn : string prop;
@@ -253,6 +254,7 @@ let make ?allow_classic_flow ?allow_unauthenticated_identities
   let __type = "aws_cognito_identity_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_classic_flow =
          Prop.computed __type __id "allow_classic_flow";
        allow_unauthenticated_identities =

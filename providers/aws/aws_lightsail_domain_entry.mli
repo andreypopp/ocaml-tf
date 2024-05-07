@@ -22,6 +22,7 @@ val yojson_of_aws_lightsail_domain_entry :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   domain_name : string prop;
   id : string prop;
   is_alias : bool prop;

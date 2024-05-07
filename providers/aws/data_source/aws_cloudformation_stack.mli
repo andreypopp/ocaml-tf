@@ -19,6 +19,7 @@ val yojson_of_aws_cloudformation_stack :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   capabilities : string list prop;
   description : string prop;
   disable_rollback : bool prop;

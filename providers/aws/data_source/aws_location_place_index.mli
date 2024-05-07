@@ -23,6 +23,7 @@ val yojson_of_aws_location_place_index :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   data_source : string prop;
   data_source_configuration : data_source_configuration list prop;

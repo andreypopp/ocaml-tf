@@ -104,6 +104,7 @@ let aws_networkmanager_link_association ?id ?timeouts ~device_id
   { device_id; global_network_id; id; link_id; timeouts }
 
 type t = {
+  tf_name : string;
   device_id : string prop;
   global_network_id : string prop;
   id : string prop;
@@ -114,6 +115,7 @@ let make ?id ?timeouts ~device_id ~global_network_id ~link_id __id =
   let __type = "aws_networkmanager_link_association" in
   let __attrs =
     ({
+       tf_name = __id;
        device_id = Prop.computed __type __id "device_id";
        global_network_id =
          Prop.computed __type __id "global_network_id";

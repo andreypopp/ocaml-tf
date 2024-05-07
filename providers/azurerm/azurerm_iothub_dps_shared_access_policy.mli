@@ -36,6 +36,7 @@ val yojson_of_azurerm_iothub_dps_shared_access_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enrollment_read : bool prop;
   enrollment_write : bool prop;
   id : string prop;

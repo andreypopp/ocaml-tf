@@ -68,6 +68,7 @@ val yojson_of_azurerm_recovery_services_vault :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   classic_vmware_replication_enabled : bool prop;
   cross_region_restore_enabled : bool prop;
   id : string prop;

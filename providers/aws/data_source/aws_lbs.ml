@@ -50,6 +50,7 @@ let _ = yojson_of_aws_lbs
 let aws_lbs ?id ?tags () : aws_lbs = { id; tags }
 
 type t = {
+  tf_name : string;
   arns : string list prop;
   id : string prop;
   tags : (string * string) list prop;
@@ -59,6 +60,7 @@ let make ?id ?tags __id =
   let __type = "aws_lbs" in
   let __attrs =
     ({
+       tf_name = __id;
        arns = Prop.computed __type __id "arns";
        id = Prop.computed __type __id "id";
        tags = Prop.computed __type __id "tags";

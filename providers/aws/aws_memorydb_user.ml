@@ -137,6 +137,7 @@ let aws_memorydb_user ?id ?tags ?tags_all ~access_string ~user_name
   }
 
 type t = {
+  tf_name : string;
   access_string : string prop;
   arn : string prop;
   id : string prop;
@@ -151,6 +152,7 @@ let make ?id ?tags ?tags_all ~access_string ~user_name
   let __type = "aws_memorydb_user" in
   let __attrs =
     ({
+       tf_name = __id;
        access_string = Prop.computed __type __id "access_string";
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";

@@ -73,6 +73,7 @@ let aws_cloudfront_public_key ?comment ?id ?name ?name_prefix
   { comment; encoded_key; id; name; name_prefix }
 
 type t = {
+  tf_name : string;
   caller_reference : string prop;
   comment : string prop;
   encoded_key : string prop;
@@ -86,6 +87,7 @@ let make ?comment ?id ?name ?name_prefix ~encoded_key __id =
   let __type = "aws_cloudfront_public_key" in
   let __attrs =
     ({
+       tf_name = __id;
        caller_reference =
          Prop.computed __type __id "caller_reference";
        comment = Prop.computed __type __id "comment";

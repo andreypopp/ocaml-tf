@@ -213,6 +213,7 @@ let google_bigquery_reservation ?concurrency ?edition ?id
   }
 
 type t = {
+  tf_name : string;
   concurrency : float prop;
   edition : string prop;
   id : string prop;
@@ -230,6 +231,7 @@ let make ?concurrency ?edition ?id ?ignore_idle_slots ?location
   let __type = "google_bigquery_reservation" in
   let __attrs =
     ({
+       tf_name = __id;
        concurrency = Prop.computed __type __id "concurrency";
        edition = Prop.computed __type __id "edition";
        id = Prop.computed __type __id "id";

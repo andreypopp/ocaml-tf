@@ -28,6 +28,7 @@ val yojson_of_cloudflare_regional_hostname :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created_on : string prop;
   hostname : string prop;
   id : string prop;

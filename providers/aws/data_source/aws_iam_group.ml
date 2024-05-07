@@ -83,6 +83,7 @@ let aws_iam_group ?id ~group_name () : aws_iam_group =
   { group_name; id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   group_id : string prop;
   group_name : string prop;
@@ -95,6 +96,7 @@ let make ?id ~group_name __id =
   let __type = "aws_iam_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        group_id = Prop.computed __type __id "group_id";
        group_name = Prop.computed __type __id "group_name";

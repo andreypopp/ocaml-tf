@@ -55,6 +55,7 @@ val yojson_of_azurerm_kubernetes_cluster_extension :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   aks_assigned_identity : aks_assigned_identity list prop;
   cluster_id : string prop;
   configuration_protected_settings : (string * string) list prop;

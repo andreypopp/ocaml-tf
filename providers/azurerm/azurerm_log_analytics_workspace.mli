@@ -52,6 +52,7 @@ val yojson_of_azurerm_log_analytics_workspace :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_resource_only_permissions : bool prop;
   cmk_for_query_forced : bool prop;
   daily_quota_gb : float prop;

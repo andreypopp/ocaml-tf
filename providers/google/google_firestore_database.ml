@@ -185,6 +185,7 @@ let google_firestore_database ?app_engine_integration_mode
   }
 
 type t = {
+  tf_name : string;
   app_engine_integration_mode : string prop;
   concurrency_mode : string prop;
   create_time : string prop;
@@ -211,6 +212,7 @@ let make ?app_engine_integration_mode ?concurrency_mode
   let __type = "google_firestore_database" in
   let __attrs =
     ({
+       tf_name = __id;
        app_engine_integration_mode =
          Prop.computed __type __id "app_engine_integration_mode";
        concurrency_mode =

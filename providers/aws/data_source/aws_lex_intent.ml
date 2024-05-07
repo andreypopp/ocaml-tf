@@ -48,6 +48,7 @@ let aws_lex_intent ?id ?version ~name () : aws_lex_intent =
   { id; name; version }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   checksum : string prop;
   created_date : string prop;
@@ -63,6 +64,7 @@ let make ?id ?version ~name __id =
   let __type = "aws_lex_intent" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        checksum = Prop.computed __type __id "checksum";
        created_date = Prop.computed __type __id "created_date";

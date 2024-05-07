@@ -114,6 +114,7 @@ val yojson_of_aws_autoscalingplans_scaling_plan :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   scaling_plan_version : float prop;

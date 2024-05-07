@@ -273,6 +273,7 @@ let azurerm_cognitive_deployment ?id ?rai_policy_name
   }
 
 type t = {
+  tf_name : string;
   cognitive_account_id : string prop;
   id : string prop;
   name : string prop;
@@ -285,6 +286,7 @@ let make ?id ?rai_policy_name ?version_upgrade_option ?timeouts
   let __type = "azurerm_cognitive_deployment" in
   let __attrs =
     ({
+       tf_name = __id;
        cognitive_account_id =
          Prop.computed __type __id "cognitive_account_id";
        id = Prop.computed __type __id "id";

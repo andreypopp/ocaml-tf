@@ -184,6 +184,7 @@ let aws_lex_slot_type ?create_version ?description ?id
   }
 
 type t = {
+  tf_name : string;
   checksum : string prop;
   create_version : bool prop;
   created_date : string prop;
@@ -200,6 +201,7 @@ let make ?create_version ?description ?id ?value_selection_strategy
   let __type = "aws_lex_slot_type" in
   let __attrs =
     ({
+       tf_name = __id;
        checksum = Prop.computed __type __id "checksum";
        create_version = Prop.computed __type __id "create_version";
        created_date = Prop.computed __type __id "created_date";

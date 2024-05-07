@@ -107,6 +107,7 @@ let azurerm_spring_cloud_accelerator ?id ?timeouts ~name
   { id; name; spring_cloud_service_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   spring_cloud_service_id : string prop;
@@ -116,6 +117,7 @@ let make ?id ?timeouts ~name ~spring_cloud_service_id __id =
   let __type = "azurerm_spring_cloud_accelerator" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        spring_cloud_service_id =

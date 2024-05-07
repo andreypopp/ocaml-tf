@@ -32,6 +32,7 @@ val yojson_of_azurerm_synapse_workspace_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   active : bool prop;
   customer_managed_key_name : string prop;
   customer_managed_key_versionless_id : string prop;

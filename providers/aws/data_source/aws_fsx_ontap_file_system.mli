@@ -38,6 +38,7 @@ val yojson_of_aws_fsx_ontap_file_system :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   automatic_backup_retention_days : float prop;
   daily_automatic_backup_start_time : string prop;

@@ -220,6 +220,7 @@ let google_compute_route ?description ?id ?next_hop_gateway
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   dest_range : string prop;
   id : string prop;
@@ -245,6 +246,7 @@ let make ?description ?id ?next_hop_gateway ?next_hop_ilb
   let __type = "google_compute_route" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        dest_range = Prop.computed __type __id "dest_range";
        id = Prop.computed __type __id "id";

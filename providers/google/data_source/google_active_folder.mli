@@ -18,6 +18,7 @@ val yojson_of_google_active_folder : google_active_folder -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   name : string prop;

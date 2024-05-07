@@ -79,6 +79,7 @@ let aws_docdb_engine_version ?engine ?id ?parameter_group_family
   { engine; id; parameter_group_family; preferred_versions; version }
 
 type t = {
+  tf_name : string;
   engine : string prop;
   engine_description : string prop;
   exportable_log_types : string list prop;
@@ -96,6 +97,7 @@ let make ?engine ?id ?parameter_group_family ?preferred_versions
   let __type = "aws_docdb_engine_version" in
   let __attrs =
     ({
+       tf_name = __id;
        engine = Prop.computed __type __id "engine";
        engine_description =
          Prop.computed __type __id "engine_description";

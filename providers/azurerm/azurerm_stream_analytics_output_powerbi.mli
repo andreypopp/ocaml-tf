@@ -36,6 +36,7 @@ val yojson_of_azurerm_stream_analytics_output_powerbi :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dataset : string prop;
   group_id : string prop;
   group_name : string prop;

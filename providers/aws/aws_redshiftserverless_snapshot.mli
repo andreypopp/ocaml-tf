@@ -20,6 +20,7 @@ val yojson_of_aws_redshiftserverless_snapshot :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   accounts_with_provisioned_restore_access : string list prop;
   accounts_with_restore_access : string list prop;
   admin_username : string prop;

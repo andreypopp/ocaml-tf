@@ -145,6 +145,7 @@ let aws_workspaces_workspace ?directory_id ?id ?tags ?user_name
   { directory_id; id; tags; user_name; workspace_id }
 
 type t = {
+  tf_name : string;
   bundle_id : string prop;
   computer_name : string prop;
   directory_id : string prop;
@@ -164,6 +165,7 @@ let make ?directory_id ?id ?tags ?user_name ?workspace_id __id =
   let __type = "aws_workspaces_workspace" in
   let __attrs =
     ({
+       tf_name = __id;
        bundle_id = Prop.computed __type __id "bundle_id";
        computer_name = Prop.computed __type __id "computer_name";
        directory_id = Prop.computed __type __id "directory_id";

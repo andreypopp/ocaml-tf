@@ -451,6 +451,7 @@ let aws_identitystore_user ?id ?user_id ?(alternate_identifier = [])
   { id; identity_store_id; user_id; alternate_identifier; filter }
 
 type t = {
+  tf_name : string;
   addresses : addresses list prop;
   display_name : string prop;
   emails : emails list prop;
@@ -475,6 +476,7 @@ let make ?id ?user_id ?(alternate_identifier = []) ?(filter = [])
   let __type = "aws_identitystore_user" in
   let __attrs =
     ({
+       tf_name = __id;
        addresses = Prop.computed __type __id "addresses";
        display_name = Prop.computed __type __id "display_name";
        emails = Prop.computed __type __id "emails";

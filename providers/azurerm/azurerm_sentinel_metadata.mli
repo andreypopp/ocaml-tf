@@ -85,6 +85,7 @@ val yojson_of_azurerm_sentinel_metadata :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   content_id : string prop;
   content_schema_version : string prop;
   custom_version : string prop;

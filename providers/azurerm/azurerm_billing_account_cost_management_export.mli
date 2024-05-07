@@ -52,6 +52,7 @@ val yojson_of_azurerm_billing_account_cost_management_export :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   active : bool prop;
   billing_account_id : string prop;
   id : string prop;

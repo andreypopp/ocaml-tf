@@ -125,6 +125,7 @@ let aws_route53_resolver_firewall_rule ?block_override_dns_type
   }
 
 type t = {
+  tf_name : string;
   action : string prop;
   block_override_dns_type : string prop;
   block_override_domain : string prop;
@@ -144,6 +145,7 @@ let make ?block_override_dns_type ?block_override_domain
   let __type = "aws_route53_resolver_firewall_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        block_override_dns_type =
          Prop.computed __type __id "block_override_dns_type";

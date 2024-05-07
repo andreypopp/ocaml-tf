@@ -130,6 +130,7 @@ let google_data_catalog_entry_group_iam_binding ?id ?project ?region
   { entry_group; id; members; project; region; role; condition }
 
 type t = {
+  tf_name : string;
   entry_group : string prop;
   etag : string prop;
   id : string prop;
@@ -144,6 +145,7 @@ let make ?id ?project ?region ?(condition = []) ~entry_group ~members
   let __type = "google_data_catalog_entry_group_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        entry_group = Prop.computed __type __id "entry_group";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

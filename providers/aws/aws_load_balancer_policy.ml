@@ -115,6 +115,7 @@ let aws_load_balancer_policy ?id ~load_balancer_name ~policy_name
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   load_balancer_name : string prop;
   policy_name : string prop;
@@ -126,6 +127,7 @@ let make ?id ~load_balancer_name ~policy_name ~policy_type_name
   let __type = "aws_load_balancer_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        load_balancer_name =
          Prop.computed __type __id "load_balancer_name";

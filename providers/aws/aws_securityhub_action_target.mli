@@ -20,6 +20,7 @@ val yojson_of_aws_securityhub_action_target :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;

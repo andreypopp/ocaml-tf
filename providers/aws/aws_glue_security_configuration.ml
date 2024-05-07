@@ -250,12 +250,13 @@ let aws_glue_security_configuration ?id ~name
     ~encryption_configuration () : aws_glue_security_configuration =
   { id; name; encryption_configuration }
 
-type t = { id : string prop; name : string prop }
+type t = { tf_name : string; id : string prop; name : string prop }
 
 let make ?id ~name ~encryption_configuration __id =
   let __type = "aws_glue_security_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
      }

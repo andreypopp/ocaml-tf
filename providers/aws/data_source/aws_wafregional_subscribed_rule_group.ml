@@ -54,6 +54,7 @@ let aws_wafregional_subscribed_rule_group ?id ?metric_name ?name () :
   { id; metric_name; name }
 
 type t = {
+  tf_name : string;
   id : string prop;
   metric_name : string prop;
   name : string prop;
@@ -63,6 +64,7 @@ let make ?id ?metric_name ?name __id =
   let __type = "aws_wafregional_subscribed_rule_group" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        metric_name = Prop.computed __type __id "metric_name";
        name = Prop.computed __type __id "name";

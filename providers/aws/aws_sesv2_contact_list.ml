@@ -157,6 +157,7 @@ let aws_sesv2_contact_list ?description ?id ?tags ?tags_all
   { contact_list_name; description; id; tags; tags_all; topic }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   contact_list_name : string prop;
   created_timestamp : string prop;
@@ -172,6 +173,7 @@ let make ?description ?id ?tags ?tags_all ~contact_list_name ~topic
   let __type = "aws_sesv2_contact_list" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        contact_list_name =
          Prop.computed __type __id "contact_list_name";

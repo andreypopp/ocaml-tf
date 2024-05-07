@@ -865,6 +865,7 @@ let cloudflare_access_application ?account_id
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   allow_authenticate_via_warp : bool prop;
   allowed_idps : string list prop;
@@ -907,6 +908,7 @@ let make ?account_id ?allow_authenticate_via_warp ?allowed_idps
   let __type = "cloudflare_access_application" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        allow_authenticate_via_warp =
          Prop.computed __type __id "allow_authenticate_via_warp";

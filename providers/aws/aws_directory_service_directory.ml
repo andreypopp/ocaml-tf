@@ -353,6 +353,7 @@ let aws_directory_service_directory ?alias ?description
   }
 
 type t = {
+  tf_name : string;
   access_url : string prop;
   alias : string prop;
   description : string prop;
@@ -378,6 +379,7 @@ let make ?alias ?description ?desired_number_of_domain_controllers
   let __type = "aws_directory_service_directory" in
   let __attrs =
     ({
+       tf_name = __id;
        access_url = Prop.computed __type __id "access_url";
        alias = Prop.computed __type __id "alias";
        description = Prop.computed __type __id "description";

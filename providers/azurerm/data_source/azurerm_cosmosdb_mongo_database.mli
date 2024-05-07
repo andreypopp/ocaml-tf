@@ -25,6 +25,7 @@ val yojson_of_azurerm_cosmosdb_mongo_database :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_name : string prop;
   id : string prop;
   name : string prop;

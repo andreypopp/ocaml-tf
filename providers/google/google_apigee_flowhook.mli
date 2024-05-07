@@ -28,6 +28,7 @@ val yojson_of_google_apigee_flowhook : google_apigee_flowhook -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   continue_on_error : bool prop;
   description : string prop;
   environment : string prop;

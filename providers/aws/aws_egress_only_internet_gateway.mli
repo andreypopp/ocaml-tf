@@ -20,6 +20,7 @@ val yojson_of_aws_egress_only_internet_gateway :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;

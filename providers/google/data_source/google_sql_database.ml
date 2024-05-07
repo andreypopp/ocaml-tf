@@ -59,6 +59,7 @@ let google_sql_database ?id ?project ~instance ~name () :
   { id; instance; name; project }
 
 type t = {
+  tf_name : string;
   charset : string prop;
   collation : string prop;
   deletion_policy : string prop;
@@ -73,6 +74,7 @@ let make ?id ?project ~instance ~name __id =
   let __type = "google_sql_database" in
   let __attrs =
     ({
+       tf_name = __id;
        charset = Prop.computed __type __id "charset";
        collation = Prop.computed __type __id "collation";
        deletion_policy = Prop.computed __type __id "deletion_policy";

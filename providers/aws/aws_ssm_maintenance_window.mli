@@ -30,6 +30,7 @@ val yojson_of_aws_ssm_maintenance_window :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_unassociated_targets : bool prop;
   cutoff : float prop;
   description : string prop;

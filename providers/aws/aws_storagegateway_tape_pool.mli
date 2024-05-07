@@ -23,6 +23,7 @@ val yojson_of_aws_storagegateway_tape_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   pool_name : string prop;

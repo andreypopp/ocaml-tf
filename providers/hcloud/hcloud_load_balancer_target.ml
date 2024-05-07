@@ -101,6 +101,7 @@ let hcloud_load_balancer_target ?id ?ip ?label_selector ?server_id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   ip : string prop;
   label_selector : string prop;
@@ -115,6 +116,7 @@ let make ?id ?ip ?label_selector ?server_id ?use_private_ip
   let __type = "hcloud_load_balancer_target" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ip = Prop.computed __type __id "ip";
        label_selector = Prop.computed __type __id "label_selector";

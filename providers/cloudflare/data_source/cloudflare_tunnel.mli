@@ -19,6 +19,7 @@ val yojson_of_cloudflare_tunnel : cloudflare_tunnel -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   name : string prop;

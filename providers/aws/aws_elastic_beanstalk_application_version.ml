@@ -129,6 +129,7 @@ let aws_elastic_beanstalk_application_version ?description
   }
 
 type t = {
+  tf_name : string;
   application : string prop;
   arn : string prop;
   bucket : string prop;
@@ -146,6 +147,7 @@ let make ?description ?force_delete ?id ?tags ?tags_all ~application
   let __type = "aws_elastic_beanstalk_application_version" in
   let __attrs =
     ({
+       tf_name = __id;
        application = Prop.computed __type __id "application";
        arn = Prop.computed __type __id "arn";
        bucket = Prop.computed __type __id "bucket";

@@ -534,6 +534,7 @@ let aws_imagebuilder_container_recipe ?description
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   container_type : string prop;
   date_created : string prop;
@@ -562,6 +563,7 @@ let make ?description ?dockerfile_template_data
   let __type = "aws_imagebuilder_container_recipe" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        container_type = Prop.computed __type __id "container_type";
        date_created = Prop.computed __type __id "date_created";

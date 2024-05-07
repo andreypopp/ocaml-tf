@@ -165,6 +165,7 @@ let google_sourcerepo_repository ?id ?project ?timeouts ~name
   { id; name; project; pubsub_configs; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   project : string prop;
@@ -176,6 +177,7 @@ let make ?id ?project ?timeouts ~name ~pubsub_configs __id =
   let __type = "google_sourcerepo_repository" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        project = Prop.computed __type __id "project";

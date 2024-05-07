@@ -25,6 +25,7 @@ val yojson_of_aws_redshift_usage_limit :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   amount : float prop;
   arn : string prop;
   breach_action : string prop;

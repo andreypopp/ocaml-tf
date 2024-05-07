@@ -28,6 +28,7 @@ val yojson_of_aws_elasticache_parameter_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   family : string prop;

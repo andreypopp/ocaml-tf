@@ -131,6 +131,7 @@ let azurerm_synapse_managed_private_endpoint ?id ?timeouts ~name
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   subresource_name : string prop;
@@ -143,6 +144,7 @@ let make ?id ?timeouts ~name ~subresource_name ~synapse_workspace_id
   let __type = "azurerm_synapse_managed_private_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        subresource_name =

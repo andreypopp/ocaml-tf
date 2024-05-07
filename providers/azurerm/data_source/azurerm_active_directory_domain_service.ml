@@ -349,6 +349,7 @@ let azurerm_active_directory_domain_service ?id ?tags ?timeouts ~name
   { id; name; resource_group_name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   deployment_id : string prop;
   domain_configuration_type : string prop;
   domain_name : string prop;
@@ -373,6 +374,7 @@ let make ?id ?tags ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_active_directory_domain_service" in
   let __attrs =
     ({
+       tf_name = __id;
        deployment_id = Prop.computed __type __id "deployment_id";
        domain_configuration_type =
          Prop.computed __type __id "domain_configuration_type";

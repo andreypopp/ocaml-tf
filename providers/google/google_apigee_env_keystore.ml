@@ -98,6 +98,7 @@ let google_apigee_env_keystore ?id ?name ?timeouts ~env_id () :
   { env_id; id; name; timeouts }
 
 type t = {
+  tf_name : string;
   aliases : string list prop;
   env_id : string prop;
   id : string prop;
@@ -108,6 +109,7 @@ let make ?id ?name ?timeouts ~env_id __id =
   let __type = "google_apigee_env_keystore" in
   let __attrs =
     ({
+       tf_name = __id;
        aliases = Prop.computed __type __id "aliases";
        env_id = Prop.computed __type __id "env_id";
        id = Prop.computed __type __id "id";

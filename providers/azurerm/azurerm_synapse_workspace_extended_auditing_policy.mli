@@ -34,6 +34,7 @@ val yojson_of_azurerm_synapse_workspace_extended_auditing_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   log_monitoring_enabled : bool prop;
   retention_in_days : float prop;

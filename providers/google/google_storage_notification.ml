@@ -107,6 +107,7 @@ let google_storage_notification ?custom_attributes ?event_types ?id
   }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   custom_attributes : (string * string) list prop;
   event_types : string list prop;
@@ -123,6 +124,7 @@ let make ?custom_attributes ?event_types ?id ?object_name_prefix
   let __type = "google_storage_notification" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        custom_attributes =
          Prop.computed __type __id "custom_attributes";

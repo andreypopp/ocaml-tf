@@ -19,6 +19,7 @@ val yojson_of_aws_iam_user_group_membership :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   groups : string list prop;
   id : string prop;
   user : string prop;

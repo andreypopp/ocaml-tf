@@ -40,6 +40,7 @@ val yojson_of_aws_lambda_function_event_invoke_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   function_name : string prop;
   id : string prop;
   maximum_event_age_in_seconds : float prop;

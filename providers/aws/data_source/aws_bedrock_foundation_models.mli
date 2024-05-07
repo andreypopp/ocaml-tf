@@ -35,6 +35,7 @@ val yojson_of_aws_bedrock_foundation_models :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   by_customization_type : string prop;
   by_inference_type : string prop;
   by_output_modality : string prop;

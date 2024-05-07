@@ -78,6 +78,7 @@ let azurerm_monitor_diagnostic_categories ?id ?timeouts ~resource_id
   { id; resource_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   log_category_groups : string list prop;
   log_category_types : string list prop;
@@ -90,6 +91,7 @@ let make ?id ?timeouts ~resource_id __id =
   let __type = "azurerm_monitor_diagnostic_categories" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        log_category_groups =
          Prop.computed __type __id "log_category_groups";

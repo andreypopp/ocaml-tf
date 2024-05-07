@@ -41,6 +41,7 @@ let google_access_approval_folder_service_account ?id ~folder_id () :
   { folder_id; id }
 
 type t = {
+  tf_name : string;
   account_email : string prop;
   folder_id : string prop;
   id : string prop;
@@ -51,6 +52,7 @@ let make ?id ~folder_id __id =
   let __type = "google_access_approval_folder_service_account" in
   let __attrs =
     ({
+       tf_name = __id;
        account_email = Prop.computed __type __id "account_email";
        folder_id = Prop.computed __type __id "folder_id";
        id = Prop.computed __type __id "id";

@@ -130,6 +130,7 @@ let azurerm_sentinel_data_connector_aws_cloud_trail ?id ?timeouts
   { aws_role_arn; id; log_analytics_workspace_id; name; timeouts }
 
 type t = {
+  tf_name : string;
   aws_role_arn : string prop;
   id : string prop;
   log_analytics_workspace_id : string prop;
@@ -141,6 +142,7 @@ let make ?id ?timeouts ~aws_role_arn ~log_analytics_workspace_id
   let __type = "azurerm_sentinel_data_connector_aws_cloud_trail" in
   let __attrs =
     ({
+       tf_name = __id;
        aws_role_arn = Prop.computed __type __id "aws_role_arn";
        id = Prop.computed __type __id "id";
        log_analytics_workspace_id =

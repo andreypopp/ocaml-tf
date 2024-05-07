@@ -184,6 +184,7 @@ let azurerm_api_connection ?display_name ?id ?parameter_values ?tags
   }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   managed_api_id : string prop;
@@ -198,6 +199,7 @@ let make ?display_name ?id ?parameter_values ?tags ?timeouts
   let __type = "azurerm_api_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";
        managed_api_id = Prop.computed __type __id "managed_api_id";

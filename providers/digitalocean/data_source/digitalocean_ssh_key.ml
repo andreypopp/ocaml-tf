@@ -27,6 +27,7 @@ let _ = yojson_of_digitalocean_ssh_key
 let digitalocean_ssh_key ~name () : digitalocean_ssh_key = { name }
 
 type t = {
+  tf_name : string;
   fingerprint : string prop;
   id : float prop;
   name : string prop;
@@ -37,6 +38,7 @@ let make ~name __id =
   let __type = "digitalocean_ssh_key" in
   let __attrs =
     ({
+       tf_name = __id;
        fingerprint = Prop.computed __type __id "fingerprint";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

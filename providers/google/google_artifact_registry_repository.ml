@@ -1118,6 +1118,7 @@ let google_artifact_registry_repository ?cleanup_policy_dry_run
   }
 
 type t = {
+  tf_name : string;
   cleanup_policy_dry_run : bool prop;
   create_time : string prop;
   description : string prop;
@@ -1143,6 +1144,7 @@ let make ?cleanup_policy_dry_run ?description ?id ?kms_key_name
   let __type = "google_artifact_registry_repository" in
   let __attrs =
     ({
+       tf_name = __id;
        cleanup_policy_dry_run =
          Prop.computed __type __id "cleanup_policy_dry_run";
        create_time = Prop.computed __type __id "create_time";

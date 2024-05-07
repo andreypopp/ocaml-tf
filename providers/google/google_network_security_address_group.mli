@@ -35,6 +35,7 @@ val yojson_of_google_network_security_address_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   capacity : float prop;
   create_time : string prop;
   description : string prop;

@@ -59,6 +59,7 @@ let aws_identitystore_group_membership ?id ~group_id
   { group_id; id; identity_store_id; member_id }
 
 type t = {
+  tf_name : string;
   group_id : string prop;
   id : string prop;
   identity_store_id : string prop;
@@ -70,6 +71,7 @@ let make ?id ~group_id ~identity_store_id ~member_id __id =
   let __type = "aws_identitystore_group_membership" in
   let __attrs =
     ({
+       tf_name = __id;
        group_id = Prop.computed __type __id "group_id";
        id = Prop.computed __type __id "id";
        identity_store_id =

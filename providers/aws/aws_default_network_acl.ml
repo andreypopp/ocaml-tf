@@ -322,6 +322,7 @@ let aws_default_network_acl ?id ?subnet_ids ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   default_network_acl_id : string prop;
   id : string prop;
@@ -337,6 +338,7 @@ let make ?id ?subnet_ids ?tags ?tags_all ~default_network_acl_id
   let __type = "aws_default_network_acl" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        default_network_acl_id =
          Prop.computed __type __id "default_network_acl_id";

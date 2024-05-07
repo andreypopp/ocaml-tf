@@ -54,6 +54,7 @@ val yojson_of_azurerm_express_route_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authorization_key : string prop;
   enable_internet_security : bool prop;
   express_route_circuit_peering_id : string prop;

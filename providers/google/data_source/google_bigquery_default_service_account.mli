@@ -18,6 +18,7 @@ val yojson_of_google_bigquery_default_service_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   email : string prop;
   id : string prop;
   member : string prop;

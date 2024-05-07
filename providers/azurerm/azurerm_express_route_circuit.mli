@@ -44,6 +44,7 @@ val yojson_of_azurerm_express_route_circuit :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_classic_operations : bool prop;
   authorization_key : string prop;
   bandwidth_in_gbps : float prop;

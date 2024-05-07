@@ -89,6 +89,7 @@ let aws_devicefarm_project ?default_job_timeout_minutes ?id ?tags
   { default_job_timeout_minutes; id; name; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   default_job_timeout_minutes : float prop;
   id : string prop;
@@ -102,6 +103,7 @@ let make ?default_job_timeout_minutes ?id ?tags ?tags_all ~name __id
   let __type = "aws_devicefarm_project" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        default_job_timeout_minutes =
          Prop.computed __type __id "default_job_timeout_minutes";

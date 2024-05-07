@@ -17,6 +17,7 @@ val yojson_of_digitalocean_project : digitalocean_project -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created_at : string prop;
   description : string prop;
   environment : string prop;

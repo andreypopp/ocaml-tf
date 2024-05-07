@@ -30,6 +30,7 @@ val yojson_of_azurerm_log_analytics_cluster_customer_managed_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   key_vault_key_id : string prop;
   log_analytics_cluster_id : string prop;

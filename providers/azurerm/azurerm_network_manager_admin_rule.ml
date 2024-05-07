@@ -289,6 +289,7 @@ let azurerm_network_manager_admin_rule ?description
   }
 
 type t = {
+  tf_name : string;
   action : string prop;
   admin_rule_collection_id : string prop;
   description : string prop;
@@ -308,6 +309,7 @@ let make ?description ?destination_port_ranges ?id
   let __type = "azurerm_network_manager_admin_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        admin_rule_collection_id =
          Prop.computed __type __id "admin_rule_collection_id";

@@ -45,6 +45,7 @@ let aws_cloudfront_origin_access_identity ?comment ?id () :
   { comment; id }
 
 type t = {
+  tf_name : string;
   caller_reference : string prop;
   cloudfront_access_identity_path : string prop;
   comment : string prop;
@@ -58,6 +59,7 @@ let make ?comment ?id __id =
   let __type = "aws_cloudfront_origin_access_identity" in
   let __attrs =
     ({
+       tf_name = __id;
        caller_reference =
          Prop.computed __type __id "caller_reference";
        cloudfront_access_identity_path =

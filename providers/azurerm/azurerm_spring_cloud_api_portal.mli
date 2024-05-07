@@ -46,6 +46,7 @@ val yojson_of_azurerm_spring_cloud_api_portal :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_try_out_enabled : bool prop;
   gateway_ids : string list prop;
   https_only_enabled : bool prop;

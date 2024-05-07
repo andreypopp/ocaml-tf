@@ -132,6 +132,7 @@ let digitalocean_custom_image ?description ?distribution ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   created_at : string prop;
   description : string prop;
   distribution : string prop;
@@ -154,6 +155,7 @@ let make ?description ?distribution ?id ?tags ?timeouts ~name
   let __type = "digitalocean_custom_image" in
   let __attrs =
     ({
+       tf_name = __id;
        created_at = Prop.computed __type __id "created_at";
        description = Prop.computed __type __id "description";
        distribution = Prop.computed __type __id "distribution";

@@ -42,6 +42,7 @@ val yojson_of_aws_vpc_endpoint : aws_vpc_endpoint -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cidr_blocks : string list prop;
   dns_entry : dns_entry list prop;

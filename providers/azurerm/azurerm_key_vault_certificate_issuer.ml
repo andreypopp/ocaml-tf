@@ -231,6 +231,7 @@ let azurerm_key_vault_certificate_issuer ?account_id ?id ?org_id
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   key_vault_id : string prop;
@@ -245,6 +246,7 @@ let make ?account_id ?id ?org_id ?password ?(admin = []) ?timeouts
   let __type = "azurerm_key_vault_certificate_issuer" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        key_vault_id = Prop.computed __type __id "key_vault_id";

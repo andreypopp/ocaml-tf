@@ -102,6 +102,7 @@ val yojson_of_aws_kendra_index : aws_kendra_index -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   capacity_units : capacity_units list prop;
   created_at : string prop;

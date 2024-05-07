@@ -53,6 +53,7 @@ let aws_licensemanager_association ?id ~license_configuration_arn
   { id; license_configuration_arn; resource_arn }
 
 type t = {
+  tf_name : string;
   id : string prop;
   license_configuration_arn : string prop;
   resource_arn : string prop;
@@ -62,6 +63,7 @@ let make ?id ~license_configuration_arn ~resource_arn __id =
   let __type = "aws_licensemanager_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        license_configuration_arn =
          Prop.computed __type __id "license_configuration_arn";

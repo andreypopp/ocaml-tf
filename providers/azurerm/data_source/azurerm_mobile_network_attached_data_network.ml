@@ -218,6 +218,7 @@ let azurerm_mobile_network_attached_data_network ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   dns_addresses : string list prop;
   id : string prop;
   location : string prop;
@@ -239,6 +240,7 @@ let make ?id ?timeouts ~mobile_network_data_network_name
   let __type = "azurerm_mobile_network_attached_data_network" in
   let __attrs =
     ({
+       tf_name = __id;
        dns_addresses = Prop.computed __type __id "dns_addresses";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

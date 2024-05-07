@@ -32,6 +32,7 @@ val yojson_of_azurerm_kubernetes_fleet_member :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   group : string prop;
   id : string prop;
   kubernetes_cluster_id : string prop;

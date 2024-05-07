@@ -111,6 +111,7 @@ let google_billing_project_info ?id ?project ?timeouts
   { billing_account; id; project; timeouts }
 
 type t = {
+  tf_name : string;
   billing_account : string prop;
   id : string prop;
   project : string prop;
@@ -120,6 +121,7 @@ let make ?id ?project ?timeouts ~billing_account __id =
   let __type = "google_billing_project_info" in
   let __attrs =
     ({
+       tf_name = __id;
        billing_account = Prop.computed __type __id "billing_account";
        id = Prop.computed __type __id "id";
        project = Prop.computed __type __id "project";

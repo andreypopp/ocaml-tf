@@ -79,6 +79,7 @@ let cloudflare_custom_pages ?account_id ?id ?state ?zone_id ~type_
   { account_id; id; state; type_; url; zone_id }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   state : string prop;
@@ -91,6 +92,7 @@ let make ?account_id ?id ?state ?zone_id ~type_ ~url __id =
   let __type = "cloudflare_custom_pages" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        state = Prop.computed __type __id "state";

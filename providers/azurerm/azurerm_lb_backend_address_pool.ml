@@ -196,6 +196,7 @@ let azurerm_lb_backend_address_pool ?id ?virtual_network_id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   backend_ip_configurations : string list prop;
   id : string prop;
   inbound_nat_rules : string list prop;
@@ -211,6 +212,7 @@ let make ?id ?virtual_network_id ?timeouts ?(tunnel_interface = [])
   let __type = "azurerm_lb_backend_address_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        backend_ip_configurations =
          Prop.computed __type __id "backend_ip_configurations";
        id = Prop.computed __type __id "id";

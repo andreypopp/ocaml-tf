@@ -87,6 +87,7 @@ let aws_apprunner_connection ?id ?tags ?tags_all ~connection_name
   { connection_name; id; provider_type; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   connection_name : string prop;
   id : string prop;
@@ -100,6 +101,7 @@ let make ?id ?tags ?tags_all ~connection_name ~provider_type __id =
   let __type = "aws_apprunner_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        connection_name = Prop.computed __type __id "connection_name";
        id = Prop.computed __type __id "id";

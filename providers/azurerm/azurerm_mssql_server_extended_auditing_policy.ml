@@ -203,6 +203,7 @@ let azurerm_mssql_server_extended_auditing_policy ?enabled ?id
   }
 
 type t = {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   log_monitoring_enabled : bool prop;
@@ -222,6 +223,7 @@ let make ?enabled ?id ?log_monitoring_enabled ?retention_in_days
   let __type = "azurerm_mssql_server_extended_auditing_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";
        log_monitoring_enabled =

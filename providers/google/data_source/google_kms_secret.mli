@@ -19,6 +19,7 @@ val yojson_of_google_kms_secret : google_kms_secret -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   additional_authenticated_data : string prop;
   ciphertext : string prop;
   crypto_key : string prop;

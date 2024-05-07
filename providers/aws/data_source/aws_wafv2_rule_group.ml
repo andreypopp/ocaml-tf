@@ -44,6 +44,7 @@ let aws_wafv2_rule_group ?id ~name ~scope () : aws_wafv2_rule_group =
   { id; name; scope }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -55,6 +56,7 @@ let make ?id ~name ~scope __id =
   let __type = "aws_wafv2_rule_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

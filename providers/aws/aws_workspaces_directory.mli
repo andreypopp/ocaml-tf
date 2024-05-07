@@ -61,6 +61,7 @@ val yojson_of_aws_workspaces_directory :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alias : string prop;
   customer_user_name : string prop;
   directory_id : string prop;

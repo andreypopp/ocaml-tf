@@ -52,6 +52,7 @@ let aws_verifiedpermissions_policy_store ~id () :
   { id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_date : string prop;
   description : string prop;
@@ -64,6 +65,7 @@ let make ~id __id =
   let __type = "aws_verifiedpermissions_policy_store" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_date = Prop.computed __type __id "created_date";
        description = Prop.computed __type __id "description";

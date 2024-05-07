@@ -154,6 +154,7 @@ let azurerm_container_registry_token ?enabled ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   container_registry_name : string prop;
   enabled : bool prop;
   id : string prop;
@@ -167,6 +168,7 @@ let make ?enabled ?id ?timeouts ~container_registry_name ~name
   let __type = "azurerm_container_registry_token" in
   let __attrs =
     ({
+       tf_name = __id;
        container_registry_name =
          Prop.computed __type __id "container_registry_name";
        enabled = Prop.computed __type __id "enabled";

@@ -112,6 +112,7 @@ val yojson_of_google_bigquery_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   connection_id : string prop;
   description : string prop;
   friendly_name : string prop;

@@ -141,6 +141,7 @@ let azurerm_mssql_server_transparent_data_encryption
   }
 
 type t = {
+  tf_name : string;
   auto_rotation_enabled : bool prop;
   id : string prop;
   key_vault_key_id : string prop;
@@ -152,6 +153,7 @@ let make ?auto_rotation_enabled ?id ?key_vault_key_id ?timeouts
   let __type = "azurerm_mssql_server_transparent_data_encryption" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_rotation_enabled =
          Prop.computed __type __id "auto_rotation_enabled";
        id = Prop.computed __type __id "id";

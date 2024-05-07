@@ -307,6 +307,7 @@ let azurerm_spring_cloud_configuration_service ?generation ?id
   }
 
 type t = {
+  tf_name : string;
   generation : string prop;
   id : string prop;
   name : string prop;
@@ -320,6 +321,7 @@ let make ?generation ?id ?refresh_interval_in_seconds
   let __type = "azurerm_spring_cloud_configuration_service" in
   let __attrs =
     ({
+       tf_name = __id;
        generation = Prop.computed __type __id "generation";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

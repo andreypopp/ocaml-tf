@@ -120,6 +120,7 @@ let azurerm_sentinel_data_connector_office_power_bi ?id ?tenant_id
   { id; log_analytics_workspace_id; name; tenant_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   log_analytics_workspace_id : string prop;
   name : string prop;
@@ -131,6 +132,7 @@ let make ?id ?tenant_id ?timeouts ~log_analytics_workspace_id ~name
   let __type = "azurerm_sentinel_data_connector_office_power_bi" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        log_analytics_workspace_id =
          Prop.computed __type __id "log_analytics_workspace_id";

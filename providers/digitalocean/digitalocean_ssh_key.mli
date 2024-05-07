@@ -18,6 +18,7 @@ val yojson_of_digitalocean_ssh_key : digitalocean_ssh_key -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   fingerprint : string prop;
   id : string prop;
   name : string prop;

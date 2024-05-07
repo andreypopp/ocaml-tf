@@ -35,6 +35,7 @@ val yojson_of_aws_eks_access_policy_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   associated_at : string prop;
   cluster_name : string prop;
   id : string prop;

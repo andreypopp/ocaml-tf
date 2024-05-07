@@ -198,6 +198,7 @@ let azurerm_healthcare_service ?id ?timeouts ~location ~name
   { id; location; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   access_policy_object_ids : string list prop;
   authentication_configuration :
     authentication_configuration list prop;
@@ -216,6 +217,7 @@ let make ?id ?timeouts ~location ~name ~resource_group_name __id =
   let __type = "azurerm_healthcare_service" in
   let __attrs =
     ({
+       tf_name = __id;
        access_policy_object_ids =
          Prop.computed __type __id "access_policy_object_ids";
        authentication_configuration =

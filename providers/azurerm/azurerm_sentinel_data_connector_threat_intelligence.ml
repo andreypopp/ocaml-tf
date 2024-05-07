@@ -137,6 +137,7 @@ let azurerm_sentinel_data_connector_threat_intelligence ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   log_analytics_workspace_id : string prop;
   lookback_date : string prop;
@@ -151,6 +152,7 @@ let make ?id ?lookback_date ?tenant_id ?timeouts
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        log_analytics_workspace_id =
          Prop.computed __type __id "log_analytics_workspace_id";

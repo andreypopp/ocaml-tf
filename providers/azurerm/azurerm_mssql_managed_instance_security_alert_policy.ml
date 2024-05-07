@@ -215,6 +215,7 @@ let azurerm_mssql_managed_instance_security_alert_policy
   }
 
 type t = {
+  tf_name : string;
   disabled_alerts : string list prop;
   email_account_admins_enabled : bool prop;
   email_addresses : string list prop;
@@ -236,6 +237,7 @@ let make ?disabled_alerts ?email_account_admins_enabled
   in
   let __attrs =
     ({
+       tf_name = __id;
        disabled_alerts = Prop.computed __type __id "disabled_alerts";
        email_account_admins_enabled =
          Prop.computed __type __id "email_account_admins_enabled";

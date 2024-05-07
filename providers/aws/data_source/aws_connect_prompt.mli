@@ -18,6 +18,7 @@ val yojson_of_aws_connect_prompt : aws_connect_prompt -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   instance_id : string prop;

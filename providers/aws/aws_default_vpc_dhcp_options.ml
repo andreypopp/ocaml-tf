@@ -84,6 +84,7 @@ let aws_default_vpc_dhcp_options ?id ?owner_id ?tags ?tags_all () :
   { id; owner_id; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   domain_name : string prop;
   domain_name_servers : string prop;
@@ -100,6 +101,7 @@ let make ?id ?owner_id ?tags ?tags_all __id =
   let __type = "aws_default_vpc_dhcp_options" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        domain_name = Prop.computed __type __id "domain_name";
        domain_name_servers =

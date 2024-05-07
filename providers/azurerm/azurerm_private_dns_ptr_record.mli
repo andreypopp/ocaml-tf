@@ -34,6 +34,7 @@ val yojson_of_azurerm_private_dns_ptr_record :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   fqdn : string prop;
   id : string prop;
   name : string prop;

@@ -32,6 +32,7 @@ val yojson_of_azurerm_automation_dsc_nodeconfiguration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automation_account_name : string prop;
   configuration_name : string prop;
   content_embedded : string prop;

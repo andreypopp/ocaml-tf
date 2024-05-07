@@ -30,6 +30,7 @@ val yojson_of_azurerm_app_service_plan :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_service_environment_id : string prop;
   id : string prop;
   is_xenon : bool prop;

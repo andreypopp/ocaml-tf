@@ -19,6 +19,7 @@ let aws_quicksight_ingestion ?aws_account_id ~data_set_id ~ingestion_id ~ingesti
   } : aws_quicksight_ingestion);;
 
 type t = {
+  tf_name: string;
   arn: string prop;
   aws_account_id: string prop;
   data_set_id: string prop;
@@ -31,6 +32,7 @@ type t = {
 let make ?aws_account_id ~data_set_id ~ingestion_id ~ingestion_type __id =
   let __type = "aws_quicksight_ingestion" in
   let __attrs = ({
+    tf_name = __id;
     arn = Prop.computed __type __id "arn";
     aws_account_id = Prop.computed __type __id "aws_account_id";
     data_set_id = Prop.computed __type __id "data_set_id";

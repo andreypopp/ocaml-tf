@@ -27,6 +27,7 @@ val yojson_of_google_resource_manager_lien :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   id : string prop;
   name : string prop;

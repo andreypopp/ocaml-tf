@@ -1005,6 +1005,7 @@ let azurerm_iothub ?endpoint ?enrichment ?event_hub_partition_count
   }
 
 type t = {
+  tf_name : string;
   endpoint : endpoint list prop;
   enrichment : enrichment list prop;
   event_hub_events_endpoint : string prop;
@@ -1037,6 +1038,7 @@ let make ?endpoint ?enrichment ?event_hub_partition_count
   let __type = "azurerm_iothub" in
   let __attrs =
     ({
+       tf_name = __id;
        endpoint = Prop.computed __type __id "endpoint";
        enrichment = Prop.computed __type __id "enrichment";
        event_hub_events_endpoint =

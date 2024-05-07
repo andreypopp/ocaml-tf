@@ -97,6 +97,7 @@ let aws_vpc_endpoint_subnet_association ?id ?timeouts ~subnet_id
   { id; subnet_id; vpc_endpoint_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   subnet_id : string prop;
   vpc_endpoint_id : string prop;
@@ -106,6 +107,7 @@ let make ?id ?timeouts ~subnet_id ~vpc_endpoint_id __id =
   let __type = "aws_vpc_endpoint_subnet_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        subnet_id = Prop.computed __type __id "subnet_id";
        vpc_endpoint_id = Prop.computed __type __id "vpc_endpoint_id";

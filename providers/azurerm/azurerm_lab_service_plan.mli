@@ -68,6 +68,7 @@ val yojson_of_azurerm_lab_service_plan :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allowed_regions : string list prop;
   default_network_subnet_id : string prop;
   id : string prop;

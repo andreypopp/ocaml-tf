@@ -130,6 +130,7 @@ let aws_mq_configuration ?authentication_strategy ?description ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   authentication_strategy : string prop;
   data : string prop;
@@ -148,6 +149,7 @@ let make ?authentication_strategy ?description ?id ?tags ?tags_all
   let __type = "aws_mq_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        authentication_strategy =
          Prop.computed __type __id "authentication_strategy";

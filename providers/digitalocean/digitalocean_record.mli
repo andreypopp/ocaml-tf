@@ -26,6 +26,7 @@ val yojson_of_digitalocean_record : digitalocean_record -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   domain : string prop;
   flags : float prop;
   fqdn : string prop;

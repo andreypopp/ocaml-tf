@@ -42,6 +42,7 @@ let _ = yojson_of_hcloud_location
 let hcloud_location ?id ?name () : hcloud_location = { id; name }
 
 type t = {
+  tf_name : string;
   city : string prop;
   country : string prop;
   description : string prop;
@@ -56,6 +57,7 @@ let make ?id ?name __id =
   let __type = "hcloud_location" in
   let __attrs =
     ({
+       tf_name = __id;
        city = Prop.computed __type __id "city";
        country = Prop.computed __type __id "country";
        description = Prop.computed __type __id "description";

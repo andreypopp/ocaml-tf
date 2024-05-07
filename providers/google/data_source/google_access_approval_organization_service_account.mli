@@ -18,6 +18,7 @@ val yojson_of_google_access_approval_organization_service_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_email : string prop;
   id : string prop;
   name : string prop;

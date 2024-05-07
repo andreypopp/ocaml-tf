@@ -58,6 +58,7 @@ let aws_redshift_authentication_profile ?id
   { authentication_profile_content; authentication_profile_name; id }
 
 type t = {
+  tf_name : string;
   authentication_profile_content : string prop;
   authentication_profile_name : string prop;
   id : string prop;
@@ -68,6 +69,7 @@ let make ?id ~authentication_profile_content
   let __type = "aws_redshift_authentication_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        authentication_profile_content =
          Prop.computed __type __id "authentication_profile_content";
        authentication_profile_name =

@@ -110,6 +110,7 @@ val yojson_of_aws_lambda_event_source_mapping :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   batch_size : float prop;
   bisect_batch_on_function_error : bool prop;
   enabled : bool prop;

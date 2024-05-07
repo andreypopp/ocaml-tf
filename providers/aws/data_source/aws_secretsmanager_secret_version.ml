@@ -64,6 +64,7 @@ let aws_secretsmanager_secret_version ?id ?version_id ?version_stage
   { id; secret_id; version_id; version_stage }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_date : string prop;
   id : string prop;
@@ -79,6 +80,7 @@ let make ?id ?version_id ?version_stage ~secret_id __id =
   let __type = "aws_secretsmanager_secret_version" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_date = Prop.computed __type __id "created_date";
        id = Prop.computed __type __id "id";

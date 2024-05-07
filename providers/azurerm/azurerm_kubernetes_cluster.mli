@@ -594,6 +594,7 @@ val yojson_of_azurerm_kubernetes_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_server_authorized_ip_ranges : string list prop;
   automatic_channel_upgrade : string prop;
   azure_policy_enabled : bool prop;

@@ -2190,6 +2190,7 @@ let azurerm_orchestrated_virtual_machine_scale_set
   }
 
 type t = {
+  tf_name : string;
   capacity_reservation_group_id : string prop;
   encryption_at_host_enabled : bool prop;
   eviction_policy : string prop;
@@ -2231,6 +2232,7 @@ let make ?capacity_reservation_group_id ?encryption_at_host_enabled
   let __type = "azurerm_orchestrated_virtual_machine_scale_set" in
   let __attrs =
     ({
+       tf_name = __id;
        capacity_reservation_group_id =
          Prop.computed __type __id "capacity_reservation_group_id";
        encryption_at_host_enabled =

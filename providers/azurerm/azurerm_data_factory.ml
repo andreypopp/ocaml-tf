@@ -484,6 +484,7 @@ let azurerm_data_factory ?customer_managed_key_id
   }
 
 type t = {
+  tf_name : string;
   customer_managed_key_id : string prop;
   customer_managed_key_identity_id : string prop;
   id : string prop;
@@ -504,6 +505,7 @@ let make ?customer_managed_key_id ?customer_managed_key_identity_id
   let __type = "azurerm_data_factory" in
   let __attrs =
     ({
+       tf_name = __id;
        customer_managed_key_id =
          Prop.computed __type __id "customer_managed_key_id";
        customer_managed_key_identity_id =

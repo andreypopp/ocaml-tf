@@ -109,6 +109,7 @@ let aws_docdb_orderable_db_instance ?engine ?engine_version ?id
   }
 
 type t = {
+  tf_name : string;
   availability_zones : string list prop;
   engine : string prop;
   engine_version : string prop;
@@ -124,6 +125,7 @@ let make ?engine ?engine_version ?id ?instance_class ?license_model
   let __type = "aws_docdb_orderable_db_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        availability_zones =
          Prop.computed __type __id "availability_zones";
        engine = Prop.computed __type __id "engine";

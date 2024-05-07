@@ -97,6 +97,7 @@ val yojson_of_aws_elastictranscoder_preset :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   container : string prop;
   description : string prop;

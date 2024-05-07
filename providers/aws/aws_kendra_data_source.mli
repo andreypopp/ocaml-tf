@@ -285,6 +285,7 @@ val yojson_of_aws_kendra_data_source : aws_kendra_data_source -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   created_at : string prop;
   data_source_id : string prop;

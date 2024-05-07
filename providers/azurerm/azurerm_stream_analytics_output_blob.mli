@@ -52,6 +52,7 @@ val yojson_of_azurerm_stream_analytics_output_blob :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authentication_mode : string prop;
   batch_max_wait_time : string prop;
   batch_min_rows : float prop;

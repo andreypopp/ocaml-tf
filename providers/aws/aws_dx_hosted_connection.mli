@@ -22,6 +22,7 @@ val yojson_of_aws_dx_hosted_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   aws_device : string prop;
   bandwidth : string prop;
   connection_id : string prop;

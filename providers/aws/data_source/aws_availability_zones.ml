@@ -159,6 +159,7 @@ let aws_availability_zones ?all_availability_zones ?exclude_names
   }
 
 type t = {
+  tf_name : string;
   all_availability_zones : bool prop;
   exclude_names : string list prop;
   exclude_zone_ids : string list prop;
@@ -174,6 +175,7 @@ let make ?all_availability_zones ?exclude_names ?exclude_zone_ids ?id
   let __type = "aws_availability_zones" in
   let __attrs =
     ({
+       tf_name = __id;
        all_availability_zones =
          Prop.computed __type __id "all_availability_zones";
        exclude_names = Prop.computed __type __id "exclude_names";

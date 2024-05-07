@@ -86,6 +86,7 @@ let aws_inspector2_member_association ?id ?timeouts ~account_id () :
   { account_id; id; timeouts }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   delegated_admin_account_id : string prop;
   id : string prop;
@@ -97,6 +98,7 @@ let make ?id ?timeouts ~account_id __id =
   let __type = "aws_inspector2_member_association" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        delegated_admin_account_id =
          Prop.computed __type __id "delegated_admin_account_id";

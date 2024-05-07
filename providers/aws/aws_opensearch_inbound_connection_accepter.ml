@@ -89,6 +89,7 @@ let aws_opensearch_inbound_connection_accepter ?id ?timeouts
   { connection_id; id; timeouts }
 
 type t = {
+  tf_name : string;
   connection_id : string prop;
   connection_status : string prop;
   id : string prop;
@@ -98,6 +99,7 @@ let make ?id ?timeouts ~connection_id __id =
   let __type = "aws_opensearch_inbound_connection_accepter" in
   let __attrs =
     ({
+       tf_name = __id;
        connection_id = Prop.computed __type __id "connection_id";
        connection_status =
          Prop.computed __type __id "connection_status";

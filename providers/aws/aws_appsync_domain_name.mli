@@ -20,6 +20,7 @@ val yojson_of_aws_appsync_domain_name :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   appsync_domain_name : string prop;
   certificate_arn : string prop;
   description : string prop;

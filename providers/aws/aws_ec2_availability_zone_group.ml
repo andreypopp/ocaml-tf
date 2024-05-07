@@ -50,6 +50,7 @@ let aws_ec2_availability_zone_group ?id ~group_name ~opt_in_status ()
   { group_name; id; opt_in_status }
 
 type t = {
+  tf_name : string;
   group_name : string prop;
   id : string prop;
   opt_in_status : string prop;
@@ -59,6 +60,7 @@ let make ?id ~group_name ~opt_in_status __id =
   let __type = "aws_ec2_availability_zone_group" in
   let __attrs =
     ({
+       tf_name = __id;
        group_name = Prop.computed __type __id "group_name";
        id = Prop.computed __type __id "id";
        opt_in_status = Prop.computed __type __id "opt_in_status";

@@ -18,6 +18,7 @@ val yojson_of_aws_ses_domain_identity :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   domain : string prop;
   id : string prop;

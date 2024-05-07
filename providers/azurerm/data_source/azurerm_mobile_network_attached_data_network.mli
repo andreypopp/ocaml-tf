@@ -45,6 +45,7 @@ val yojson_of_azurerm_mobile_network_attached_data_network :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dns_addresses : string list prop;
   id : string prop;
   location : string prop;

@@ -92,6 +92,7 @@ let google_composer_image_versions ?id ?project ?region () :
   { id; project; region }
 
 type t = {
+  tf_name : string;
   id : string prop;
   image_versions : image_versions list prop;
   project : string prop;
@@ -102,6 +103,7 @@ let make ?id ?project ?region __id =
   let __type = "google_composer_image_versions" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        image_versions = Prop.computed __type __id "image_versions";
        project = Prop.computed __type __id "project";

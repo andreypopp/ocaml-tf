@@ -157,6 +157,7 @@ val yojson_of_aws_scheduler_schedule : aws_scheduler_schedule -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   end_date : string prop;

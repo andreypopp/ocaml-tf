@@ -36,6 +36,7 @@ val yojson_of_aws_globalaccelerator_listener :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   accelerator_arn : string prop;
   client_affinity : string prop;
   id : string prop;

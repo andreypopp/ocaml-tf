@@ -38,6 +38,7 @@ val yojson_of_azurerm_iothub_file_upload :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authentication_type : string prop;
   connection_string : string prop;
   container_name : string prop;

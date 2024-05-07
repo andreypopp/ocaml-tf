@@ -21,6 +21,7 @@ val yojson_of_aws_lambda_layer_version :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   compatible_architecture : string prop;
   compatible_architectures : string list prop;

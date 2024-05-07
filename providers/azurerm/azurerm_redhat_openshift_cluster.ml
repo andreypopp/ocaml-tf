@@ -541,6 +541,7 @@ let azurerm_redhat_openshift_cluster ?id ?tags ?timeouts ~location
   }
 
 type t = {
+  tf_name : string;
   console_url : string prop;
   id : string prop;
   location : string prop;
@@ -556,6 +557,7 @@ let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
   let __type = "azurerm_redhat_openshift_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        console_url = Prop.computed __type __id "console_url";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

@@ -235,6 +235,7 @@ let aws_iot_domain_configuration ?domain_name ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   domain_name : string prop;
   domain_type : string prop;
@@ -254,6 +255,7 @@ let make ?domain_name ?id ?server_certificate_arns ?service_type
   let __type = "aws_iot_domain_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        domain_name = Prop.computed __type __id "domain_name";
        domain_type = Prop.computed __type __id "domain_type";

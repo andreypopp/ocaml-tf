@@ -86,6 +86,7 @@ let aws_inspector2_delegated_admin_account ?id ?timeouts ~account_id
   { account_id; id; timeouts }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   relationship_status : string prop;
@@ -95,6 +96,7 @@ let make ?id ?timeouts ~account_id __id =
   let __type = "aws_inspector2_delegated_admin_account" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        relationship_status =

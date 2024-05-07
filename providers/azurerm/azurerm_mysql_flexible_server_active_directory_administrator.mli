@@ -34,6 +34,7 @@ val yojson_of_azurerm_mysql_flexible_server_active_directory_administrator :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   identity_id : string prop;
   login : string prop;

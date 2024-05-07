@@ -155,6 +155,7 @@ let aws_ram_resource_share ?allow_external_principals ?id
   }
 
 type t = {
+  tf_name : string;
   allow_external_principals : bool prop;
   arn : string prop;
   id : string prop;
@@ -169,6 +170,7 @@ let make ?allow_external_principals ?id ?permission_arns ?tags
   let __type = "aws_ram_resource_share" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_external_principals =
          Prop.computed __type __id "allow_external_principals";
        arn = Prop.computed __type __id "arn";

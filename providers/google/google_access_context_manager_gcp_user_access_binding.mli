@@ -30,6 +30,7 @@ val yojson_of_google_access_context_manager_gcp_user_access_binding :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_levels : string list prop;
   group_key : string prop;
   id : string prop;

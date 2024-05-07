@@ -27,6 +27,7 @@ val yojson_of_aws_db_instance_automated_backups_replication :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   kms_key_id : string prop;
   pre_signed_url : string prop;

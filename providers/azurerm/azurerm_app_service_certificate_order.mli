@@ -45,6 +45,7 @@ val yojson_of_azurerm_app_service_certificate_order :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_service_certificate_not_renewable_reasons : string list prop;
   auto_renew : bool prop;
   certificates : certificates list prop;

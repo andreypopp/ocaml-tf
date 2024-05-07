@@ -43,6 +43,7 @@ val yojson_of_digitalocean_droplet : digitalocean_droplet -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backups : bool prop;
   created_at : string prop;
   disk : float prop;

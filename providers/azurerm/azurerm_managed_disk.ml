@@ -630,6 +630,7 @@ let azurerm_managed_disk ?disk_access_id ?disk_encryption_set_id
   }
 
 type t = {
+  tf_name : string;
   create_option : string prop;
   disk_access_id : string prop;
   disk_encryption_set_id : string prop;
@@ -682,6 +683,7 @@ let make ?disk_access_id ?disk_encryption_set_id ?disk_iops_read_only
   let __type = "azurerm_managed_disk" in
   let __attrs =
     ({
+       tf_name = __id;
        create_option = Prop.computed __type __id "create_option";
        disk_access_id = Prop.computed __type __id "disk_access_id";
        disk_encryption_set_id =

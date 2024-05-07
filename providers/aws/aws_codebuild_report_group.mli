@@ -42,6 +42,7 @@ val yojson_of_aws_codebuild_report_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   created : string prop;
   delete_reports : bool prop;

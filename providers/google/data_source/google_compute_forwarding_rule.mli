@@ -25,6 +25,7 @@ val yojson_of_google_compute_forwarding_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   all_ports : bool prop;
   allow_global_access : bool prop;
   allow_psc_global_access : bool prop;

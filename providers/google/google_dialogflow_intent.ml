@@ -269,6 +269,7 @@ let google_dialogflow_intent ?action ?default_response_platforms
   }
 
 type t = {
+  tf_name : string;
   action : string prop;
   default_response_platforms : string list prop;
   display_name : string prop;
@@ -294,6 +295,7 @@ let make ?action ?default_response_platforms ?events ?id
   let __type = "google_dialogflow_intent" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        default_response_platforms =
          Prop.computed __type __id "default_response_platforms";

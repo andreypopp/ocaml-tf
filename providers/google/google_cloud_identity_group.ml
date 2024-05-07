@@ -223,6 +223,7 @@ let google_cloud_identity_group ?description ?display_name ?id
   }
 
 type t = {
+  tf_name : string;
   additional_group_keys : additional_group_keys list prop;
   create_time : string prop;
   description : string prop;
@@ -240,6 +241,7 @@ let make ?description ?display_name ?id ?initial_group_config
   let __type = "google_cloud_identity_group" in
   let __attrs =
     ({
+       tf_name = __id;
        additional_group_keys =
          Prop.computed __type __id "additional_group_keys";
        create_time = Prop.computed __type __id "create_time";

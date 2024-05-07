@@ -24,6 +24,7 @@ val yojson_of_azurerm_dedicated_host_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automatic_placement_enabled : bool prop;
   id : string prop;
   location : string prop;

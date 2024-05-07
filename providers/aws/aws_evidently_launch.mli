@@ -94,6 +94,7 @@ val yojson_of_aws_evidently_launch : aws_evidently_launch -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   created_time : string prop;
   description : string prop;

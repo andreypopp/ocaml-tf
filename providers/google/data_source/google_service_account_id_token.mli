@@ -21,6 +21,7 @@ val yojson_of_google_service_account_id_token :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   delegates : string list prop;
   id : string prop;
   id_token : string prop;

@@ -87,6 +87,7 @@ let azurerm_virtual_desktop_application_group ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   description : string prop;
   friendly_name : string prop;
   host_pool_id : string prop;
@@ -103,6 +104,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_virtual_desktop_application_group" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        friendly_name = Prop.computed __type __id "friendly_name";
        host_pool_id = Prop.computed __type __id "host_pool_id";

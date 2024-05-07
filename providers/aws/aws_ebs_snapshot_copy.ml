@@ -207,6 +207,7 @@ let aws_ebs_snapshot_copy ?description ?encrypted ?id ?kms_key_id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   data_encryption_key_id : string prop;
   description : string prop;
@@ -233,6 +234,7 @@ let make ?description ?encrypted ?id ?kms_key_id ?permanent_restore
   let __type = "aws_ebs_snapshot_copy" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        data_encryption_key_id =
          Prop.computed __type __id "data_encryption_key_id";

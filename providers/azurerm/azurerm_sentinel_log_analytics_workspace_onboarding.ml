@@ -143,6 +143,7 @@ let azurerm_sentinel_log_analytics_workspace_onboarding
   }
 
 type t = {
+  tf_name : string;
   customer_managed_key_enabled : bool prop;
   id : string prop;
   resource_group_name : string prop;
@@ -157,6 +158,7 @@ let make ?customer_managed_key_enabled ?id ?resource_group_name
   in
   let __attrs =
     ({
+       tf_name = __id;
        customer_managed_key_enabled =
          Prop.computed __type __id "customer_managed_key_enabled";
        id = Prop.computed __type __id "id";

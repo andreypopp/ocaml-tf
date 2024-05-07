@@ -153,6 +153,7 @@ let aws_ec2_transit_gateway_vpn_attachment ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   tags : (string * string) list prop;
   transit_gateway_id : string prop;
@@ -164,6 +165,7 @@ let make ?id ?tags ?transit_gateway_id ?vpn_connection_id ?timeouts
   let __type = "aws_ec2_transit_gateway_vpn_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        tags = Prop.computed __type __id "tags";
        transit_gateway_id =

@@ -300,6 +300,7 @@ let azurerm_cosmosdb_mongo_collection ?analytical_storage_ttl
   }
 
 type t = {
+  tf_name : string;
   account_name : string prop;
   analytical_storage_ttl : float prop;
   database_name : string prop;
@@ -318,6 +319,7 @@ let make ?analytical_storage_ttl ?default_ttl_seconds ?id ?shard_key
   let __type = "azurerm_cosmosdb_mongo_collection" in
   let __attrs =
     ({
+       tf_name = __id;
        account_name = Prop.computed __type __id "account_name";
        analytical_storage_ttl =
          Prop.computed __type __id "analytical_storage_ttl";

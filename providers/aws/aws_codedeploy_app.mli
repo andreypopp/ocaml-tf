@@ -20,6 +20,7 @@ val yojson_of_aws_codedeploy_app : aws_codedeploy_app -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_id : string prop;
   arn : string prop;
   compute_platform : string prop;

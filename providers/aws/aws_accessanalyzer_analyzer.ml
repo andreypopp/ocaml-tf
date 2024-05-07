@@ -162,6 +162,7 @@ let aws_accessanalyzer_analyzer ?id ?tags ?tags_all ?type_
   { analyzer_name; id; tags; tags_all; type_; configuration }
 
 type t = {
+  tf_name : string;
   analyzer_name : string prop;
   arn : string prop;
   id : string prop;
@@ -175,6 +176,7 @@ let make ?id ?tags ?tags_all ?type_ ?(configuration = [])
   let __type = "aws_accessanalyzer_analyzer" in
   let __attrs =
     ({
+       tf_name = __id;
        analyzer_name = Prop.computed __type __id "analyzer_name";
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";

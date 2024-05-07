@@ -33,12 +33,17 @@ let _ = yojson_of_kubernetes_all_namespaces
 let kubernetes_all_namespaces ?id () : kubernetes_all_namespaces =
   { id }
 
-type t = { id : string prop; namespaces : string list prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  namespaces : string list prop;
+}
 
 let make ?id __id =
   let __type = "kubernetes_all_namespaces" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        namespaces = Prop.computed __type __id "namespaces";
      }

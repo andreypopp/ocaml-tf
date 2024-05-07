@@ -37,6 +37,7 @@ val yojson_of_azurerm_resource_policy_exemption :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   exemption_category : string prop;

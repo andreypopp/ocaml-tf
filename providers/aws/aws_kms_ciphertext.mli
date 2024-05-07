@@ -19,6 +19,7 @@ val yojson_of_aws_kms_ciphertext : aws_kms_ciphertext -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   ciphertext_blob : string prop;
   context : (string * string) list prop;
   id : string prop;

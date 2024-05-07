@@ -117,6 +117,7 @@ let google_compute_snapshot_iam_member ?id ?project ?(condition = [])
   { id; member; name; project; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   member : string prop;
@@ -129,6 +130,7 @@ let make ?id ?project ?(condition = []) ~member ~name ~role __id =
   let __type = "google_compute_snapshot_iam_member" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        member = Prop.computed __type __id "member";

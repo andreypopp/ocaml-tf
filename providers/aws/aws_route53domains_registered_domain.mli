@@ -125,6 +125,7 @@ val yojson_of_aws_route53domains_registered_domain :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   abuse_contact_email : string prop;
   abuse_contact_phone : string prop;
   admin_privacy : bool prop;

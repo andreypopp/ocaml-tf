@@ -53,6 +53,7 @@ val yojson_of_aws_iam_principal_policy_simulation :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action_names : string list prop;
   additional_policies_json : string list prop;
   all_allowed : bool prop;

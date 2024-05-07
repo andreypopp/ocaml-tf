@@ -29,6 +29,7 @@ val yojson_of_azurerm_bastion_host : azurerm_bastion_host -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   copy_paste_enabled : bool prop;
   dns_name : string prop;
   file_copy_enabled : bool prop;

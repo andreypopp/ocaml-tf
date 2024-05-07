@@ -308,6 +308,7 @@ let google_iam_deny_policy ?display_name ?id ?timeouts ~name ~parent
   { display_name; id; name; parent; rules; timeouts }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   etag : string prop;
   id : string prop;
@@ -319,6 +320,7 @@ let make ?display_name ?id ?timeouts ~name ~parent ~rules __id =
   let __type = "google_iam_deny_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

@@ -20,6 +20,7 @@ val yojson_of_aws_organizations_policy_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   policy_id : string prop;
   skip_destroy : bool prop;

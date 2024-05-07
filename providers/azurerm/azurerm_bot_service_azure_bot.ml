@@ -337,6 +337,7 @@ let azurerm_bot_service_azure_bot ?developer_app_insights_api_key
   }
 
 type t = {
+  tf_name : string;
   developer_app_insights_api_key : string prop;
   developer_app_insights_application_id : string prop;
   developer_app_insights_key : string prop;
@@ -371,6 +372,7 @@ let make ?developer_app_insights_api_key
   let __type = "azurerm_bot_service_azure_bot" in
   let __attrs =
     ({
+       tf_name = __id;
        developer_app_insights_api_key =
          Prop.computed __type __id "developer_app_insights_api_key";
        developer_app_insights_application_id =

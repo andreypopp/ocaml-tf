@@ -105,6 +105,7 @@ let google_tags_location_tag_binding ?id ?location ?timeouts ~parent
   { id; location; parent; tag_value; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -116,6 +117,7 @@ let make ?id ?location ?timeouts ~parent ~tag_value __id =
   let __type = "google_tags_location_tag_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

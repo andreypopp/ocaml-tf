@@ -43,6 +43,7 @@ val yojson_of_aws_ec2_traffic_mirror_filter_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   destination_cidr_block : string prop;

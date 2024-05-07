@@ -105,6 +105,7 @@ let aws_athena_data_catalog ?id ?tags ?tags_all ~description ~name
   { description; id; name; parameters; tags; tags_all; type_ }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -120,6 +121,7 @@ let make ?id ?tags ?tags_all ~description ~name ~parameters ~type_
   let __type = "aws_athena_data_catalog" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

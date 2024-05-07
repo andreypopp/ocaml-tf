@@ -30,6 +30,7 @@ val yojson_of_aws_sagemaker_code_repository :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   code_repository_name : string prop;
   id : string prop;

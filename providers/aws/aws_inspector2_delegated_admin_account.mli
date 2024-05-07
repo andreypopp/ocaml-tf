@@ -24,6 +24,7 @@ val yojson_of_aws_inspector2_delegated_admin_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   relationship_status : string prop;

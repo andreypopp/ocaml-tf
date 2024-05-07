@@ -40,6 +40,7 @@ val yojson_of_google_firestore_backup_schedule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   database : string prop;
   id : string prop;
   name : string prop;

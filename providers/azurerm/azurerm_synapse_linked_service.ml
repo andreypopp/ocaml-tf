@@ -262,6 +262,7 @@ let azurerm_synapse_linked_service ?additional_properties
   }
 
 type t = {
+  tf_name : string;
   additional_properties : (string * string) list prop;
   annotations : string list prop;
   description : string prop;
@@ -279,6 +280,7 @@ let make ?additional_properties ?annotations ?description ?id
   let __type = "azurerm_synapse_linked_service" in
   let __attrs =
     ({
+       tf_name = __id;
        additional_properties =
          Prop.computed __type __id "additional_properties";
        annotations = Prop.computed __type __id "annotations";

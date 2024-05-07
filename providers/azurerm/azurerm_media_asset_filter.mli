@@ -61,6 +61,7 @@ val yojson_of_azurerm_media_asset_filter :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   asset_id : string prop;
   first_quality_bitrate : float prop;
   id : string prop;

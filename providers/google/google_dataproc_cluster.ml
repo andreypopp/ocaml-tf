@@ -2870,6 +2870,7 @@ let google_dataproc_cluster ?graceful_decommission_timeout ?id
   }
 
 type t = {
+  tf_name : string;
   effective_labels : (string * string) list prop;
   graceful_decommission_timeout : string prop;
   id : string prop;
@@ -2886,6 +2887,7 @@ let make ?graceful_decommission_timeout ?id ?labels ?project ?region
   let __type = "google_dataproc_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        effective_labels =
          Prop.computed __type __id "effective_labels";
        graceful_decommission_timeout =

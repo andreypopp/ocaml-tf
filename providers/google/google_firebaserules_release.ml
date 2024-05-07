@@ -105,6 +105,7 @@ let google_firebaserules_release ?id ?project ?timeouts ~name
   { id; name; project; ruleset_name; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   disabled : bool prop;
   id : string prop;
@@ -118,6 +119,7 @@ let make ?id ?project ?timeouts ~name ~ruleset_name __id =
   let __type = "google_firebaserules_release" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        disabled = Prop.computed __type __id "disabled";
        id = Prop.computed __type __id "id";

@@ -456,6 +456,7 @@ val yojson_of_google_integration_connectors_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   connection_revision : string prop;
   connector_version : string prop;
   connector_version_infra_config :

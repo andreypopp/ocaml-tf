@@ -109,6 +109,7 @@ val yojson_of_azurerm_monitor_metric_alert :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_mitigate : bool prop;
   description : string prop;
   enabled : bool prop;

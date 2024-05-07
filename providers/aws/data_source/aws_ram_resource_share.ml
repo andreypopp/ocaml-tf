@@ -119,6 +119,7 @@ let aws_ram_resource_share ?id ?name ?resource_share_status ?tags
   { id; name; resource_owner; resource_share_status; tags; filter }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;
@@ -135,6 +136,7 @@ let make ?id ?name ?resource_share_status ?tags ~resource_owner
   let __type = "aws_ram_resource_share" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

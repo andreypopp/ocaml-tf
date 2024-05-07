@@ -155,6 +155,7 @@ let aws_ssoadmin_customer_managed_policy_attachment ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   instance_arn : string prop;
   permission_set_arn : string prop;
@@ -165,6 +166,7 @@ let make ?id ?timeouts ~instance_arn ~permission_set_arn
   let __type = "aws_ssoadmin_customer_managed_policy_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        instance_arn = Prop.computed __type __id "instance_arn";
        permission_set_arn =

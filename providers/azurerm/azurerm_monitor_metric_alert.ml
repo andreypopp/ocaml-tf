@@ -671,6 +671,7 @@ let azurerm_monitor_metric_alert ?auto_mitigate ?description ?enabled
   }
 
 type t = {
+  tf_name : string;
   auto_mitigate : bool prop;
   description : string prop;
   enabled : bool prop;
@@ -695,6 +696,7 @@ let make ?auto_mitigate ?description ?enabled ?frequency ?id
   let __type = "azurerm_monitor_metric_alert" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_mitigate = Prop.computed __type __id "auto_mitigate";
        description = Prop.computed __type __id "description";
        enabled = Prop.computed __type __id "enabled";

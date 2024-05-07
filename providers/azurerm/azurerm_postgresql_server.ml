@@ -466,6 +466,7 @@ let azurerm_postgresql_server ?administrator_login
   }
 
 type t = {
+  tf_name : string;
   administrator_login : string prop;
   administrator_login_password : string prop;
   auto_grow_enabled : bool prop;
@@ -501,6 +502,7 @@ let make ?administrator_login ?administrator_login_password
   let __type = "azurerm_postgresql_server" in
   let __attrs =
     ({
+       tf_name = __id;
        administrator_login =
          Prop.computed __type __id "administrator_login";
        administrator_login_password =

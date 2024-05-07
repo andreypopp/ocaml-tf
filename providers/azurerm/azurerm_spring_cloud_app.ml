@@ -453,6 +453,7 @@ let azurerm_spring_cloud_app ?addon_json ?https_only ?id ?is_public
   }
 
 type t = {
+  tf_name : string;
   addon_json : string prop;
   fqdn : string prop;
   https_only : bool prop;
@@ -474,6 +475,7 @@ let make ?addon_json ?https_only ?id ?is_public
   let __type = "azurerm_spring_cloud_app" in
   let __attrs =
     ({
+       tf_name = __id;
        addon_json = Prop.computed __type __id "addon_json";
        fqdn = Prop.computed __type __id "fqdn";
        https_only = Prop.computed __type __id "https_only";

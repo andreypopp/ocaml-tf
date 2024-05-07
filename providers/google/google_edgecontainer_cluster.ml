@@ -913,6 +913,7 @@ let google_edgecontainer_cluster ?default_max_pods_per_node
   }
 
 type t = {
+  tf_name : string;
   cluster_ca_certificate : string prop;
   control_plane_version : string prop;
   create_time : string prop;
@@ -944,6 +945,7 @@ let make ?default_max_pods_per_node
   let __type = "google_edgecontainer_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_ca_certificate =
          Prop.computed __type __id "cluster_ca_certificate";
        control_plane_version =

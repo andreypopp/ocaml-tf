@@ -75,6 +75,7 @@ val yojson_of_aws_elasticache_replication_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   apply_immediately : bool prop;
   arn : string prop;
   at_rest_encryption_enabled : bool prop;

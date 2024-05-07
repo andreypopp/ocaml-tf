@@ -31,6 +31,7 @@ val yojson_of_azurerm_synapse_workspace :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   connectivity_endpoints : (string * string) list prop;
   id : string prop;
   identity : identity list prop;

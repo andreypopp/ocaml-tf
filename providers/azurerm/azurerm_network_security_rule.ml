@@ -313,6 +313,7 @@ let azurerm_network_security_rule ?description
   }
 
 type t = {
+  tf_name : string;
   access : string prop;
   description : string prop;
   destination_address_prefix : string prop;
@@ -346,6 +347,7 @@ let make ?description ?destination_address_prefix
   let __type = "azurerm_network_security_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        access = Prop.computed __type __id "access";
        description = Prop.computed __type __id "description";
        destination_address_prefix =

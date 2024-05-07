@@ -85,12 +85,17 @@ let aws_shield_drt_access_role_arn_association ?timeouts ~role_arn ()
     : aws_shield_drt_access_role_arn_association =
   { role_arn; timeouts }
 
-type t = { id : string prop; role_arn : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  role_arn : string prop;
+}
 
 let make ?timeouts ~role_arn __id =
   let __type = "aws_shield_drt_access_role_arn_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        role_arn = Prop.computed __type __id "role_arn";
      }

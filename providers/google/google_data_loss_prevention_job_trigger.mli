@@ -685,6 +685,7 @@ val yojson_of_google_data_loss_prevention_job_trigger :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   display_name : string prop;

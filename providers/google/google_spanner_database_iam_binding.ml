@@ -126,6 +126,7 @@ let google_spanner_database_iam_binding ?id ?project
   { database; id; instance; members; project; role; condition }
 
 type t = {
+  tf_name : string;
   database : string prop;
   etag : string prop;
   id : string prop;
@@ -140,6 +141,7 @@ let make ?id ?project ?(condition = []) ~database ~instance ~members
   let __type = "google_spanner_database_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        database = Prop.computed __type __id "database";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

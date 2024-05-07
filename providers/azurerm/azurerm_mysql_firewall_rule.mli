@@ -33,6 +33,7 @@ val yojson_of_azurerm_mysql_firewall_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   end_ip_address : string prop;
   id : string prop;
   name : string prop;

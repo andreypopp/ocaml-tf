@@ -45,6 +45,7 @@ val yojson_of_aws_memorydb_snapshot : aws_memorydb_snapshot -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cluster_configuration : cluster_configuration list prop;
   cluster_name : string prop;

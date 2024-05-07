@@ -33,6 +33,7 @@ val yojson_of_aws_devicefarm_device_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;

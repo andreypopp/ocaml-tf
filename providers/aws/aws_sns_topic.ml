@@ -403,6 +403,7 @@ let aws_sns_topic ?application_failure_feedback_role_arn
   }
 
 type t = {
+  tf_name : string;
   application_failure_feedback_role_arn : string prop;
   application_success_feedback_role_arn : string prop;
   application_success_feedback_sample_rate : float prop;
@@ -455,6 +456,7 @@ let make ?application_failure_feedback_role_arn
   let __type = "aws_sns_topic" in
   let __attrs =
     ({
+       tf_name = __id;
        application_failure_feedback_role_arn =
          Prop.computed __type __id
            "application_failure_feedback_role_arn";

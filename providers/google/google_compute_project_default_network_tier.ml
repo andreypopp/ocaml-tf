@@ -89,6 +89,7 @@ let google_compute_project_default_network_tier ?id ?project
   { id; network_tier; project; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   network_tier : string prop;
   project : string prop;
@@ -98,6 +99,7 @@ let make ?id ?project ?timeouts ~network_tier __id =
   let __type = "google_compute_project_default_network_tier" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        network_tier = Prop.computed __type __id "network_tier";
        project = Prop.computed __type __id "project";

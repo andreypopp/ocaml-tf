@@ -127,6 +127,7 @@ let hcloud_volume ?automount ?delete_protection ?format ?id ?labels
   }
 
 type t = {
+  tf_name : string;
   automount : bool prop;
   delete_protection : bool prop;
   format : string prop;
@@ -144,6 +145,7 @@ let make ?automount ?delete_protection ?format ?id ?labels ?location
   let __type = "hcloud_volume" in
   let __attrs =
     ({
+       tf_name = __id;
        automount = Prop.computed __type __id "automount";
        delete_protection =
          Prop.computed __type __id "delete_protection";

@@ -46,6 +46,7 @@ let cloudflare_device_policy_certificates ?id ~enabled ~zone_id () :
   { enabled; id; zone_id }
 
 type t = {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   zone_id : string prop;
@@ -55,6 +56,7 @@ let make ?id ~enabled ~zone_id __id =
   let __type = "cloudflare_device_policy_certificates" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";
        zone_id = Prop.computed __type __id "zone_id";

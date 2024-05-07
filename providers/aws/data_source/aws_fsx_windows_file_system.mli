@@ -31,6 +31,7 @@ val yojson_of_aws_fsx_windows_file_system :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   active_directory_id : string prop;
   aliases : string list prop;
   arn : string prop;

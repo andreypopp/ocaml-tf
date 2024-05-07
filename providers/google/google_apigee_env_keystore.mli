@@ -25,6 +25,7 @@ val yojson_of_google_apigee_env_keystore :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   aliases : string list prop;
   env_id : string prop;
   id : string prop;

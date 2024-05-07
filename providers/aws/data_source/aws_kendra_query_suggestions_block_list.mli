@@ -25,6 +25,7 @@ val yojson_of_aws_kendra_query_suggestions_block_list :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   created_at : string prop;
   description : string prop;

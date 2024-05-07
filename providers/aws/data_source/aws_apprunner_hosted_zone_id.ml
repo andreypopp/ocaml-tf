@@ -35,12 +35,13 @@ let aws_apprunner_hosted_zone_id ?region () :
     aws_apprunner_hosted_zone_id =
   { region }
 
-type t = { id : string prop; region : string prop }
+type t = { tf_name : string; id : string prop; region : string prop }
 
 let make ?region __id =
   let __type = "aws_apprunner_hosted_zone_id" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        region = Prop.computed __type __id "region";
      }

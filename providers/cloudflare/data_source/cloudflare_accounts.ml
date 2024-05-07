@@ -89,6 +89,7 @@ let cloudflare_accounts ?id ?name () : cloudflare_accounts =
   { id; name }
 
 type t = {
+  tf_name : string;
   accounts : accounts list prop;
   id : string prop;
   name : string prop;
@@ -98,6 +99,7 @@ let make ?id ?name __id =
   let __type = "cloudflare_accounts" in
   let __attrs =
     ({
+       tf_name = __id;
        accounts = Prop.computed __type __id "accounts";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

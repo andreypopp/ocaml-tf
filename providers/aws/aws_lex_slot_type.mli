@@ -39,6 +39,7 @@ val yojson_of_aws_lex_slot_type : aws_lex_slot_type -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   checksum : string prop;
   create_version : bool prop;
   created_date : string prop;

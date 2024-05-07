@@ -204,6 +204,7 @@ let azurerm_logz_sub_account_tag_rule ?id ?send_aad_logs
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   logz_sub_account_id : string prop;
   send_aad_logs : bool prop;
@@ -217,6 +218,7 @@ let make ?id ?send_aad_logs ?send_activity_logs
   let __type = "azurerm_logz_sub_account_tag_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        logz_sub_account_id =
          Prop.computed __type __id "logz_sub_account_id";

@@ -564,6 +564,7 @@ val yojson_of_google_dataproc_workflow_template :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   dag_timeout : string prop;
   effective_labels : (string * string) list prop;

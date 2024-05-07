@@ -18,12 +18,13 @@ let _ = yojson_of_google_client_openid_userinfo
 
 let google_client_openid_userinfo () = ()
 
-type t = { email : string prop; id : string prop }
+type t = { tf_name : string; email : string prop; id : string prop }
 
 let make __id =
   let __type = "google_client_openid_userinfo" in
   let __attrs =
     ({
+       tf_name = __id;
        email = Prop.computed __type __id "email";
        id = Prop.computed __type __id "id";
      }

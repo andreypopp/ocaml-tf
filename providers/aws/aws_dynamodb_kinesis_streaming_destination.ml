@@ -50,6 +50,7 @@ let aws_dynamodb_kinesis_streaming_destination ?id ~stream_arn
   { id; stream_arn; table_name }
 
 type t = {
+  tf_name : string;
   id : string prop;
   stream_arn : string prop;
   table_name : string prop;
@@ -59,6 +60,7 @@ let make ?id ~stream_arn ~table_name __id =
   let __type = "aws_dynamodb_kinesis_streaming_destination" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        stream_arn = Prop.computed __type __id "stream_arn";
        table_name = Prop.computed __type __id "table_name";

@@ -38,6 +38,7 @@ val yojson_of_azurerm_automation_watcher :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automation_account_id : string prop;
   description : string prop;
   etag : string prop;

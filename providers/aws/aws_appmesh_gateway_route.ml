@@ -1760,6 +1760,7 @@ let aws_appmesh_gateway_route ?id ?mesh_owner ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_date : string prop;
   id : string prop;
@@ -1778,6 +1779,7 @@ let make ?id ?mesh_owner ?tags ?tags_all ~mesh_name ~name
   let __type = "aws_appmesh_gateway_route" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_date = Prop.computed __type __id "created_date";
        id = Prop.computed __type __id "id";

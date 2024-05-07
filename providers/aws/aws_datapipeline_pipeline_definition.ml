@@ -265,13 +265,18 @@ let aws_datapipeline_pipeline_definition ?id ~pipeline_id
     pipeline_object;
   }
 
-type t = { id : string prop; pipeline_id : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  pipeline_id : string prop;
+}
 
 let make ?id ~pipeline_id ~parameter_object ~parameter_value
     ~pipeline_object __id =
   let __type = "aws_datapipeline_pipeline_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        pipeline_id = Prop.computed __type __id "pipeline_id";
      }

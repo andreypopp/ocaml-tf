@@ -54,6 +54,7 @@ val yojson_of_aws_fsx_data_repository_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   association_id : string prop;
   batch_import_meta_data_on_create : bool prop;

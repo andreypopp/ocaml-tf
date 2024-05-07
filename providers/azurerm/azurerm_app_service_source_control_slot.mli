@@ -64,6 +64,7 @@ val yojson_of_azurerm_app_service_source_control_slot :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   branch : string prop;
   id : string prop;
   repo_url : string prop;

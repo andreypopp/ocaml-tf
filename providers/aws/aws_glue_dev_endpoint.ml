@@ -239,6 +239,7 @@ let aws_glue_dev_endpoint ?arguments ?extra_jars_s3_path
   }
 
 type t = {
+  tf_name : string;
   arguments : (string * string) list prop;
   arn : string prop;
   availability_zone : string prop;
@@ -274,6 +275,7 @@ let make ?arguments ?extra_jars_s3_path ?extra_python_libs_s3_path
   let __type = "aws_glue_dev_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        arguments = Prop.computed __type __id "arguments";
        arn = Prop.computed __type __id "arn";
        availability_zone =

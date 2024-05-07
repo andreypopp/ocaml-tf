@@ -24,6 +24,7 @@ val yojson_of_aws_dx_lag : aws_dx_lag -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   connection_id : string prop;
   connections_bandwidth : string prop;

@@ -19,6 +19,7 @@ val yojson_of_aws_quicksight_user : aws_quicksight_user -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   active : bool prop;
   arn : string prop;
   aws_account_id : string prop;

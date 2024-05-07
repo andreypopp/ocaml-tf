@@ -19,6 +19,7 @@ val yojson_of_aws_ssm_service_setting :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   setting_id : string prop;

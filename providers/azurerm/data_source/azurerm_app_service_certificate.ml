@@ -104,6 +104,7 @@ let azurerm_app_service_certificate ?id ?tags ?timeouts ~name
   { id; name; resource_group_name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   expiration_date : string prop;
   friendly_name : string prop;
   host_names : string list prop;
@@ -122,6 +123,7 @@ let make ?id ?tags ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_app_service_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        expiration_date = Prop.computed __type __id "expiration_date";
        friendly_name = Prop.computed __type __id "friendly_name";
        host_names = Prop.computed __type __id "host_names";

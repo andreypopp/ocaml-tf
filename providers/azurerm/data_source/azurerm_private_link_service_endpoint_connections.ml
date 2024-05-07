@@ -159,6 +159,7 @@ let azurerm_private_link_service_endpoint_connections ?id ?timeouts
   { id; resource_group_name; service_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   private_endpoint_connections :
@@ -172,6 +173,7 @@ let make ?id ?timeouts ~resource_group_name ~service_id __id =
   let __type = "azurerm_private_link_service_endpoint_connections" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        private_endpoint_connections =

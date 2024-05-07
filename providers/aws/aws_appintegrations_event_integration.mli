@@ -27,6 +27,7 @@ val yojson_of_aws_appintegrations_event_integration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   eventbridge_bus : string prop;

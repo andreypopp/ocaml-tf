@@ -160,6 +160,7 @@ let azurerm_relay_hybrid_connection ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   relay_namespace_name : string prop;
@@ -173,6 +174,7 @@ let make ?id ?requires_client_authorization ?user_metadata ?timeouts
   let __type = "azurerm_relay_hybrid_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        relay_namespace_name =

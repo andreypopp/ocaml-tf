@@ -34,6 +34,7 @@ val yojson_of_azurerm_proximity_placement_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allowed_vm_sizes : string list prop;
   id : string prop;
   location : string prop;

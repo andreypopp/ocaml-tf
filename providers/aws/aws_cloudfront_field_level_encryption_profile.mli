@@ -43,6 +43,7 @@ val yojson_of_aws_cloudfront_field_level_encryption_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   caller_reference : string prop;
   comment : string prop;
   etag : string prop;

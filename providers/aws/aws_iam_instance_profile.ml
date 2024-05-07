@@ -113,6 +113,7 @@ let aws_iam_instance_profile ?id ?name ?name_prefix ?path ?role ?tags
   { id; name; name_prefix; path; role; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   create_date : string prop;
   id : string prop;
@@ -129,6 +130,7 @@ let make ?id ?name ?name_prefix ?path ?role ?tags ?tags_all __id =
   let __type = "aws_iam_instance_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        create_date = Prop.computed __type __id "create_date";
        id = Prop.computed __type __id "id";

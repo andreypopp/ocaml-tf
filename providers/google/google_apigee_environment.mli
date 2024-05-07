@@ -43,6 +43,7 @@ val yojson_of_google_apigee_environment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_proxy_type : string prop;
   deployment_type : string prop;
   description : string prop;

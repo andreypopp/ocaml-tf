@@ -168,6 +168,7 @@ let aws_kms_external_key ?bypass_policy_lockout_safety_check
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   bypass_policy_lockout_safety_check : bool prop;
   deletion_window_in_days : float prop;
@@ -191,6 +192,7 @@ let make ?bypass_policy_lockout_safety_check ?deletion_window_in_days
   let __type = "aws_kms_external_key" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        bypass_policy_lockout_safety_check =
          Prop.computed __type __id

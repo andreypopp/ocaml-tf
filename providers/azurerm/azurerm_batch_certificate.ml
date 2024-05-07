@@ -167,6 +167,7 @@ let azurerm_batch_certificate ?id ?password ?timeouts ~account_name
   }
 
 type t = {
+  tf_name : string;
   account_name : string prop;
   certificate : string prop;
   format : string prop;
@@ -184,6 +185,7 @@ let make ?id ?password ?timeouts ~account_name ~certificate ~format
   let __type = "azurerm_batch_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        account_name = Prop.computed __type __id "account_name";
        certificate = Prop.computed __type __id "certificate";
        format = Prop.computed __type __id "format";

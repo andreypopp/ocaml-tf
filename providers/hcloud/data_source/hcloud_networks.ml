@@ -111,6 +111,7 @@ let hcloud_networks ?id ?with_selector () : hcloud_networks =
   { id; with_selector }
 
 type t = {
+  tf_name : string;
   id : string prop;
   networks : networks list prop;
   with_selector : string prop;
@@ -120,6 +121,7 @@ let make ?id ?with_selector __id =
   let __type = "hcloud_networks" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        networks = Prop.computed __type __id "networks";
        with_selector = Prop.computed __type __id "with_selector";

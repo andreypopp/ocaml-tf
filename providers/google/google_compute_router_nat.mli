@@ -79,6 +79,7 @@ val yojson_of_google_compute_router_nat :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   drain_nat_ips : string list prop;
   enable_dynamic_port_allocation : bool prop;
   enable_endpoint_independent_mapping : bool prop;

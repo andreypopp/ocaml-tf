@@ -222,6 +222,7 @@ let aws_service_discovery_service ?id ?tags ?tags_all ~name
   { id; name; namespace_id; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   dns_config : dns_config list prop;
@@ -238,6 +239,7 @@ let make ?id ?tags ?tags_all ~name ~namespace_id __id =
   let __type = "aws_service_discovery_service" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        dns_config = Prop.computed __type __id "dns_config";

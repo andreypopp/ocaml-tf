@@ -32,6 +32,7 @@ val yojson_of_google_service_networking_peered_dns_domain :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dns_suffix : string prop;
   id : string prop;
   name : string prop;

@@ -20,6 +20,7 @@ val yojson_of_aws_directory_service_conditional_forwarder :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   directory_id : string prop;
   dns_ips : string list prop;
   id : string prop;

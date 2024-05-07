@@ -177,6 +177,7 @@ let azurerm_template_deployment ?id ?parameters ?parameters_body
   }
 
 type t = {
+  tf_name : string;
   deployment_mode : string prop;
   id : string prop;
   name : string prop;
@@ -192,6 +193,7 @@ let make ?id ?parameters ?parameters_body ?template_body ?timeouts
   let __type = "azurerm_template_deployment" in
   let __attrs =
     ({
+       tf_name = __id;
        deployment_mode = Prop.computed __type __id "deployment_mode";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

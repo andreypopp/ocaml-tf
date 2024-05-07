@@ -237,6 +237,7 @@ let azurerm_data_protection_backup_policy_disk ?id ?time_zone
   }
 
 type t = {
+  tf_name : string;
   backup_repeating_time_intervals : string list prop;
   default_retention_duration : string prop;
   id : string prop;
@@ -251,6 +252,7 @@ let make ?id ?time_zone ?(retention_rule = []) ?timeouts
   let __type = "azurerm_data_protection_backup_policy_disk" in
   let __attrs =
     ({
+       tf_name = __id;
        backup_repeating_time_intervals =
          Prop.computed __type __id "backup_repeating_time_intervals";
        default_retention_duration =

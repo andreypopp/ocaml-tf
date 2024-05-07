@@ -877,6 +877,7 @@ let aws_alb_listener ?alpn_policy ?certificate_arn ?id ?port
   }
 
 type t = {
+  tf_name : string;
   alpn_policy : string prop;
   arn : string prop;
   certificate_arn : string prop;
@@ -895,6 +896,7 @@ let make ?alpn_policy ?certificate_arn ?id ?port ?protocol
   let __type = "aws_alb_listener" in
   let __attrs =
     ({
+       tf_name = __id;
        alpn_policy = Prop.computed __type __id "alpn_policy";
        arn = Prop.computed __type __id "arn";
        certificate_arn = Prop.computed __type __id "certificate_arn";

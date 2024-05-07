@@ -187,6 +187,7 @@ let azurerm_nat_gateway ?id ?idle_timeout_in_minutes ?sku_name ?tags
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   idle_timeout_in_minutes : float prop;
   location : string prop;
@@ -203,6 +204,7 @@ let make ?id ?idle_timeout_in_minutes ?sku_name ?tags ?zones
   let __type = "azurerm_nat_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        idle_timeout_in_minutes =
          Prop.computed __type __id "idle_timeout_in_minutes";

@@ -725,6 +725,7 @@ let aws_ecs_task_execution ?client_token ?desired_count
   }
 
 type t = {
+  tf_name : string;
   client_token : string prop;
   cluster : string prop;
   desired_count : float prop;
@@ -751,6 +752,7 @@ let make ?client_token ?desired_count ?enable_ecs_managed_tags
   let __type = "aws_ecs_task_execution" in
   let __attrs =
     ({
+       tf_name = __id;
        client_token = Prop.computed __type __id "client_token";
        cluster = Prop.computed __type __id "cluster";
        desired_count = Prop.computed __type __id "desired_count";

@@ -181,6 +181,7 @@ let azurerm_system_center_virtual_machine_manager_availability_set
   }
 
 type t = {
+  tf_name : string;
   custom_location_id : string prop;
   id : string prop;
   location : string prop;
@@ -198,6 +199,7 @@ let make ?id ?tags ?timeouts ~custom_location_id ~location ~name
   in
   let __attrs =
     ({
+       tf_name = __id;
        custom_location_id =
          Prop.computed __type __id "custom_location_id";
        id = Prop.computed __type __id "id";

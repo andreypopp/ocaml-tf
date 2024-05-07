@@ -42,6 +42,7 @@ let aws_controltower_controls ?id ~target_identifier () :
   { id; target_identifier }
 
 type t = {
+  tf_name : string;
   enabled_controls : string list prop;
   id : string prop;
   target_identifier : string prop;
@@ -51,6 +52,7 @@ let make ?id ~target_identifier __id =
   let __type = "aws_controltower_controls" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled_controls =
          Prop.computed __type __id "enabled_controls";
        id = Prop.computed __type __id "id";

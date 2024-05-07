@@ -60,6 +60,7 @@ val yojson_of_azurerm_machine_learning_compute_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authorization_type : string prop;
   description : string prop;
   id : string prop;

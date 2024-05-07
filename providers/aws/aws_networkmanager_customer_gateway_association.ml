@@ -124,6 +124,7 @@ let aws_networkmanager_customer_gateway_association ?id ?link_id
   }
 
 type t = {
+  tf_name : string;
   customer_gateway_arn : string prop;
   device_id : string prop;
   global_network_id : string prop;
@@ -136,6 +137,7 @@ let make ?id ?link_id ?timeouts ~customer_gateway_arn ~device_id
   let __type = "aws_networkmanager_customer_gateway_association" in
   let __attrs =
     ({
+       tf_name = __id;
        customer_gateway_arn =
          Prop.computed __type __id "customer_gateway_arn";
        device_id = Prop.computed __type __id "device_id";

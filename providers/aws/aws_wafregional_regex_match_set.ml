@@ -139,12 +139,13 @@ let aws_wafregional_regex_match_set ?id ~name ~regex_match_tuple () :
     aws_wafregional_regex_match_set =
   { id; name; regex_match_tuple }
 
-type t = { id : string prop; name : string prop }
+type t = { tf_name : string; id : string prop; name : string prop }
 
 let make ?id ~name ~regex_match_tuple __id =
   let __type = "aws_wafregional_regex_match_set" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
      }

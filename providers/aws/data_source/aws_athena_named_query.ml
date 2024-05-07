@@ -49,6 +49,7 @@ let aws_athena_named_query ?id ?workgroup ~name () :
   { id; name; workgroup }
 
 type t = {
+  tf_name : string;
   database : string prop;
   description : string prop;
   id : string prop;
@@ -61,6 +62,7 @@ let make ?id ?workgroup ~name __id =
   let __type = "aws_athena_named_query" in
   let __attrs =
     ({
+       tf_name = __id;
        database = Prop.computed __type __id "database";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

@@ -27,6 +27,7 @@ val yojson_of_aws_kms_replica_external_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   bypass_policy_lockout_safety_check : bool prop;
   deletion_window_in_days : float prop;

@@ -935,6 +935,7 @@ let aws_opsworks_java_app_layer ?app_server ?app_server_version
   }
 
 type t = {
+  tf_name : string;
   app_server : string prop;
   app_server_version : string prop;
   arn : string prop;
@@ -978,6 +979,7 @@ let make ?app_server ?app_server_version ?auto_assign_elastic_ips
   let __type = "aws_opsworks_java_app_layer" in
   let __attrs =
     ({
+       tf_name = __id;
        app_server = Prop.computed __type __id "app_server";
        app_server_version =
          Prop.computed __type __id "app_server_version";

@@ -60,6 +60,7 @@ let aws_route53_vpc_association_authorization ?id ?vpc_region ~vpc_id
   { id; vpc_id; vpc_region; zone_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   vpc_id : string prop;
   vpc_region : string prop;
@@ -70,6 +71,7 @@ let make ?id ?vpc_region ~vpc_id ~zone_id __id =
   let __type = "aws_route53_vpc_association_authorization" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        vpc_id = Prop.computed __type __id "vpc_id";
        vpc_region = Prop.computed __type __id "vpc_region";

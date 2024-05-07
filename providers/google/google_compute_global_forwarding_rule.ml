@@ -398,6 +398,7 @@ let google_compute_global_forwarding_rule ?description ?id
   }
 
 type t = {
+  tf_name : string;
   base_forwarding_rule : string prop;
   description : string prop;
   effective_labels : (string * string) list prop;
@@ -430,6 +431,7 @@ let make ?description ?id ?ip_address ?ip_protocol ?ip_version
   let __type = "google_compute_global_forwarding_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        base_forwarding_rule =
          Prop.computed __type __id "base_forwarding_rule";
        description = Prop.computed __type __id "description";

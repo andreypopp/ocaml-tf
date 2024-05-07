@@ -1634,6 +1634,7 @@ let aws_instance ?ami ?associate_public_ip_address ?availability_zone
   }
 
 type t = {
+  tf_name : string;
   ami : string prop;
   arn : string prop;
   associate_public_ip_address : bool prop;
@@ -1702,6 +1703,7 @@ let make ?ami ?associate_public_ip_address ?availability_zone
   let __type = "aws_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        ami = Prop.computed __type __id "ami";
        arn = Prop.computed __type __id "arn";
        associate_public_ip_address =

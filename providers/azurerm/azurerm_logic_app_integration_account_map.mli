@@ -34,6 +34,7 @@ val yojson_of_azurerm_logic_app_integration_account_map :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   content : string prop;
   id : string prop;
   integration_account_name : string prop;

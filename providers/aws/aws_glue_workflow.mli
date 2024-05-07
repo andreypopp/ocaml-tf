@@ -22,6 +22,7 @@ val yojson_of_aws_glue_workflow : aws_glue_workflow -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   default_run_properties : (string * string) list prop;
   description : string prop;

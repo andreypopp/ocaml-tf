@@ -42,6 +42,7 @@ val yojson_of_azurerm_api_management_gateway :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_management_id : string prop;
   description : string prop;
   id : string prop;

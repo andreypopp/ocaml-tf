@@ -33,6 +33,7 @@ val yojson_of_aws_route53domains_delegation_signer_record :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dnssec_key_id : string prop;
   domain_name : string prop;
   id : string prop;

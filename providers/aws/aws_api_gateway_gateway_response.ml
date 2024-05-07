@@ -104,6 +104,7 @@ let aws_api_gateway_gateway_response ?id ?response_parameters
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   response_parameters : (string * string) list prop;
   response_templates : (string * string) list prop;
@@ -117,6 +118,7 @@ let make ?id ?response_parameters ?response_templates ?status_code
   let __type = "aws_api_gateway_gateway_response" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        response_parameters =
          Prop.computed __type __id "response_parameters";

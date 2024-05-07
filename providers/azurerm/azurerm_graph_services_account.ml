@@ -148,6 +148,7 @@ let azurerm_graph_services_account ?id ?tags ?timeouts
   { application_id; id; name; resource_group_name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   application_id : string prop;
   billing_plan_id : string prop;
   id : string prop;
@@ -161,6 +162,7 @@ let make ?id ?tags ?timeouts ~application_id ~name
   let __type = "azurerm_graph_services_account" in
   let __attrs =
     ({
+       tf_name = __id;
        application_id = Prop.computed __type __id "application_id";
        billing_plan_id = Prop.computed __type __id "billing_plan_id";
        id = Prop.computed __type __id "id";

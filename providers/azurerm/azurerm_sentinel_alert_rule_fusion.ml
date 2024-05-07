@@ -248,6 +248,7 @@ let azurerm_sentinel_alert_rule_fusion ?enabled ?id ?(source = [])
   }
 
 type t = {
+  tf_name : string;
   alert_rule_template_guid : string prop;
   enabled : bool prop;
   id : string prop;
@@ -261,6 +262,7 @@ let make ?enabled ?id ?(source = []) ?timeouts
   let __type = "azurerm_sentinel_alert_rule_fusion" in
   let __attrs =
     ({
+       tf_name = __id;
        alert_rule_template_guid =
          Prop.computed __type __id "alert_rule_template_guid";
        enabled = Prop.computed __type __id "enabled";

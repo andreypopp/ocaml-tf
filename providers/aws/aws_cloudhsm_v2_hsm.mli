@@ -26,6 +26,7 @@ val yojson_of_aws_cloudhsm_v2_hsm : aws_cloudhsm_v2_hsm -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   availability_zone : string prop;
   cluster_id : string prop;
   hsm_eni_id : string prop;

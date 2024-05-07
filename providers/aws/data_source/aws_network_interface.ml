@@ -238,6 +238,7 @@ let aws_network_interface ?id ?tags ?timeouts ~filter () :
   { id; tags; filter; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   association : association list prop;
   attachment : attachment list prop;
@@ -263,6 +264,7 @@ let make ?id ?tags ?timeouts ~filter __id =
   let __type = "aws_network_interface" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        association = Prop.computed __type __id "association";
        attachment = Prop.computed __type __id "attachment";

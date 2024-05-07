@@ -33,6 +33,7 @@ val yojson_of_azurerm_network_manager_deployment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   configuration_ids : string list prop;
   id : string prop;
   location : string prop;

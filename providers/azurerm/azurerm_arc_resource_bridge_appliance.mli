@@ -40,6 +40,7 @@ val yojson_of_azurerm_arc_resource_bridge_appliance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   distro : string prop;
   id : string prop;
   infrastructure_provider : string prop;

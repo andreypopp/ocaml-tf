@@ -111,6 +111,7 @@ let azurerm_marketplace_agreement ?id ?timeouts ~offer ~plan
   { id; offer; plan; publisher; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   license_text_link : string prop;
   offer : string prop;
@@ -123,6 +124,7 @@ let make ?id ?timeouts ~offer ~plan ~publisher __id =
   let __type = "azurerm_marketplace_agreement" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        license_text_link =
          Prop.computed __type __id "license_text_link";

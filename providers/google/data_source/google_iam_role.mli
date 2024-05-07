@@ -14,6 +14,7 @@ val yojson_of_google_iam_role : google_iam_role -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   included_permissions : string list prop;
   name : string prop;

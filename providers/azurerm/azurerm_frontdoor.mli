@@ -153,6 +153,7 @@ val yojson_of_azurerm_frontdoor : azurerm_frontdoor -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backend_pool_health_probes : (string * string) list prop;
   backend_pool_load_balancing_settings : (string * string) list prop;
   backend_pools : (string * string) list prop;

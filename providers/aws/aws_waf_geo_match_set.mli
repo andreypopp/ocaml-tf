@@ -26,6 +26,7 @@ val yojson_of_aws_waf_geo_match_set : aws_waf_geo_match_set -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;

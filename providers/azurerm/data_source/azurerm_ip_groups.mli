@@ -23,6 +23,7 @@ val yojson_of_azurerm_ip_groups : azurerm_ip_groups -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   ids : string list prop;
   location : string prop;

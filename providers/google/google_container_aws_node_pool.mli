@@ -135,6 +135,7 @@ val yojson_of_google_container_aws_node_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   annotations : (string * string) list prop;
   cluster : string prop;
   create_time : string prop;

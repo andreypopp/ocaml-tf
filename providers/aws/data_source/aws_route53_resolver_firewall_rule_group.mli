@@ -18,6 +18,7 @@ val yojson_of_aws_route53_resolver_firewall_rule_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   creation_time : string prop;
   creator_request_id : string prop;

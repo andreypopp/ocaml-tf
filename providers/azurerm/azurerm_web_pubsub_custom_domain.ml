@@ -129,6 +129,7 @@ let azurerm_web_pubsub_custom_domain ?id ?timeouts ~domain_name ~name
   }
 
 type t = {
+  tf_name : string;
   domain_name : string prop;
   id : string prop;
   name : string prop;
@@ -141,6 +142,7 @@ let make ?id ?timeouts ~domain_name ~name
   let __type = "azurerm_web_pubsub_custom_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        domain_name = Prop.computed __type __id "domain_name";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

@@ -33,6 +33,7 @@ val yojson_of_azurerm_kusto_cluster_customer_managed_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_id : string prop;
   id : string prop;
   key_name : string prop;

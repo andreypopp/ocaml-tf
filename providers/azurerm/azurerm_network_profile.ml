@@ -235,6 +235,7 @@ let azurerm_network_profile ?id ?tags ?timeouts ~location ~name
   }
 
 type t = {
+  tf_name : string;
   container_network_interface_ids : string list prop;
   id : string prop;
   location : string prop;
@@ -248,6 +249,7 @@ let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
   let __type = "azurerm_network_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        container_network_interface_ids =
          Prop.computed __type __id "container_network_interface_ids";
        id = Prop.computed __type __id "id";

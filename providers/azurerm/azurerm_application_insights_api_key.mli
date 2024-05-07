@@ -31,6 +31,7 @@ val yojson_of_azurerm_application_insights_api_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_key : string prop;
   application_insights_id : string prop;
   id : string prop;

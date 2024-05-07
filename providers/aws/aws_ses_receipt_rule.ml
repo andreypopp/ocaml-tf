@@ -559,6 +559,7 @@ let aws_ses_receipt_rule ?after ?enabled ?id ?recipients
   }
 
 type t = {
+  tf_name : string;
   after : string prop;
   arn : string prop;
   enabled : bool prop;
@@ -577,6 +578,7 @@ let make ?after ?enabled ?id ?recipients ?scan_enabled ?tls_policy
   let __type = "aws_ses_receipt_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        after = Prop.computed __type __id "after";
        arn = Prop.computed __type __id "arn";
        enabled = Prop.computed __type __id "enabled";

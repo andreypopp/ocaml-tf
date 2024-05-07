@@ -121,6 +121,7 @@ let google_access_context_manager_gcp_user_access_binding ?id
   { access_levels; group_key; id; organization_id; timeouts }
 
 type t = {
+  tf_name : string;
   access_levels : string list prop;
   group_key : string prop;
   id : string prop;
@@ -135,6 +136,7 @@ let make ?id ?timeouts ~access_levels ~group_key ~organization_id
   in
   let __attrs =
     ({
+       tf_name = __id;
        access_levels = Prop.computed __type __id "access_levels";
        group_key = Prop.computed __type __id "group_key";
        id = Prop.computed __type __id "id";

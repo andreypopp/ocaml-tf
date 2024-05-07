@@ -67,6 +67,7 @@ val yojson_of_aws_ami : aws_ami -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   architecture : string prop;
   arn : string prop;
   boot_mode : string prop;

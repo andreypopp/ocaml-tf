@@ -24,6 +24,7 @@ val yojson_of_azurerm_servicebus_namespace :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   capacity : float prop;
   default_primary_connection_string : string prop;
   default_primary_key : string prop;

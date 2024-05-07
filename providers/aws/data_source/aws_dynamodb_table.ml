@@ -310,6 +310,7 @@ let aws_dynamodb_table ?id ?tags ?(server_side_encryption = []) ~name
   { id; name; tags; server_side_encryption }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   attribute : attribute list prop;
   billing_mode : string prop;
@@ -337,6 +338,7 @@ let make ?id ?tags ?(server_side_encryption = []) ~name __id =
   let __type = "aws_dynamodb_table" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        attribute = Prop.computed __type __id "attribute";
        billing_mode = Prop.computed __type __id "billing_mode";

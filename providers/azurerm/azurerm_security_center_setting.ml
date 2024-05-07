@@ -119,6 +119,7 @@ let azurerm_security_center_setting ?id ?timeouts ~enabled
   { enabled; id; setting_name; timeouts }
 
 type t = {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   setting_name : string prop;
@@ -128,6 +129,7 @@ let make ?id ?timeouts ~enabled ~setting_name __id =
   let __type = "azurerm_security_center_setting" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";
        setting_name = Prop.computed __type __id "setting_name";

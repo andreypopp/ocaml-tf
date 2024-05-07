@@ -18,6 +18,7 @@ val yojson_of_aws_backup_global_settings :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   global_settings : (string * string) list prop;
   id : string prop;
 }

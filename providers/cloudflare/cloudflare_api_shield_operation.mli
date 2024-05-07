@@ -24,6 +24,7 @@ val yojson_of_cloudflare_api_shield_operation :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   endpoint : string prop;
   host : string prop;
   id : string prop;

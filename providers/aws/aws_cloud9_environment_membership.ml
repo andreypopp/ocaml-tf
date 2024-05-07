@@ -58,6 +58,7 @@ let aws_cloud9_environment_membership ?id ~environment_id
   { environment_id; id; permissions; user_arn }
 
 type t = {
+  tf_name : string;
   environment_id : string prop;
   id : string prop;
   permissions : string prop;
@@ -69,6 +70,7 @@ let make ?id ~environment_id ~permissions ~user_arn __id =
   let __type = "aws_cloud9_environment_membership" in
   let __attrs =
     ({
+       tf_name = __id;
        environment_id = Prop.computed __type __id "environment_id";
        id = Prop.computed __type __id "id";
        permissions = Prop.computed __type __id "permissions";

@@ -153,6 +153,7 @@ let azurerm_api_management_api_tag_description ?description
   }
 
 type t = {
+  tf_name : string;
   api_tag_id : string prop;
   description : string prop;
   external_documentation_description : string prop;
@@ -165,6 +166,7 @@ let make ?description ?external_documentation_description
   let __type = "azurerm_api_management_api_tag_description" in
   let __attrs =
     ({
+       tf_name = __id;
        api_tag_id = Prop.computed __type __id "api_tag_id";
        description = Prop.computed __type __id "description";
        external_documentation_description =

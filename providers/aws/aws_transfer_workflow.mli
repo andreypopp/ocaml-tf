@@ -275,6 +275,7 @@ val yojson_of_aws_transfer_workflow : aws_transfer_workflow -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;

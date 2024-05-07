@@ -30,6 +30,7 @@ val yojson_of_azurerm_local_network_gateway :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address_space : string list prop;
   bgp_settings : bgp_settings list prop;
   gateway_address : string prop;

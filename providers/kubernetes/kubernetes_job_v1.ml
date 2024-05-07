@@ -12881,12 +12881,17 @@ let kubernetes_job_v1 ?id ?wait_for_completion ?timeouts ~metadata
     ~spec () : kubernetes_job_v1 =
   { id; wait_for_completion; metadata; spec; timeouts }
 
-type t = { id : string prop; wait_for_completion : bool prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  wait_for_completion : bool prop;
+}
 
 let make ?id ?wait_for_completion ?timeouts ~metadata ~spec __id =
   let __type = "kubernetes_job_v1" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        wait_for_completion =
          Prop.computed __type __id "wait_for_completion";

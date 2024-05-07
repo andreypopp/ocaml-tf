@@ -137,6 +137,7 @@ let aws_cloudfront_realtime_log_config ?id ~fields ~name
   { fields; id; name; sampling_rate; endpoint }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   fields : string list prop;
   id : string prop;
@@ -148,6 +149,7 @@ let make ?id ~fields ~name ~sampling_rate ~endpoint __id =
   let __type = "aws_cloudfront_realtime_log_config" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        fields = Prop.computed __type __id "fields";
        id = Prop.computed __type __id "id";

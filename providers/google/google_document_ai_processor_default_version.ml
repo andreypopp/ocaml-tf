@@ -96,6 +96,7 @@ let google_document_ai_processor_default_version ?id ?timeouts
   { id; processor; version; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   processor : string prop;
   version : string prop;
@@ -105,6 +106,7 @@ let make ?id ?timeouts ~processor ~version __id =
   let __type = "google_document_ai_processor_default_version" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        processor = Prop.computed __type __id "processor";
        version = Prop.computed __type __id "version";

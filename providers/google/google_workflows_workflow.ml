@@ -234,6 +234,7 @@ let google_workflows_workflow ?call_log_level ?crypto_key_name
   }
 
 type t = {
+  tf_name : string;
   call_log_level : string prop;
   create_time : string prop;
   crypto_key_name : string prop;
@@ -260,6 +261,7 @@ let make ?call_log_level ?crypto_key_name ?description ?id ?labels
   let __type = "google_workflows_workflow" in
   let __attrs =
     ({
+       tf_name = __id;
        call_log_level = Prop.computed __type __id "call_log_level";
        create_time = Prop.computed __type __id "create_time";
        crypto_key_name = Prop.computed __type __id "crypto_key_name";

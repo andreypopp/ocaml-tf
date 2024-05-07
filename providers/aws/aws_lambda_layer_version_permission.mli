@@ -24,6 +24,7 @@ val yojson_of_aws_lambda_layer_version_permission :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action : string prop;
   id : string prop;
   layer_name : string prop;

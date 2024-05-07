@@ -169,6 +169,7 @@ let azurerm_iothub_route ?condition ?id ?timeouts ~enabled
   }
 
 type t = {
+  tf_name : string;
   condition : string prop;
   enabled : bool prop;
   endpoint_names : string list prop;
@@ -184,6 +185,7 @@ let make ?condition ?id ?timeouts ~enabled ~endpoint_names
   let __type = "azurerm_iothub_route" in
   let __attrs =
     ({
+       tf_name = __id;
        condition = Prop.computed __type __id "condition";
        enabled = Prop.computed __type __id "enabled";
        endpoint_names = Prop.computed __type __id "endpoint_names";

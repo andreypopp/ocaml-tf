@@ -33,6 +33,7 @@ val yojson_of_azurerm_data_share_dataset_data_lake_gen2 :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   file_path : string prop;
   file_system_name : string prop;

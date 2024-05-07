@@ -360,6 +360,7 @@ let aws_iam_policy_document ?id ?override_json
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   json : string prop;
   override_json : string prop;
@@ -376,6 +377,7 @@ let make ?id ?override_json ?override_policy_documents ?policy_id
   let __type = "aws_iam_policy_document" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        json = Prop.computed __type __id "json";
        override_json = Prop.computed __type __id "override_json";

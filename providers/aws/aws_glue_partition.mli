@@ -75,6 +75,7 @@ val yojson_of_aws_glue_partition : aws_glue_partition -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   catalog_id : string prop;
   creation_time : string prop;
   database_name : string prop;

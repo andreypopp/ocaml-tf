@@ -96,6 +96,7 @@ let aws_dx_gateway ?id ?timeouts ~amazon_side_asn ~name () :
   { amazon_side_asn; id; name; timeouts }
 
 type t = {
+  tf_name : string;
   amazon_side_asn : string prop;
   id : string prop;
   name : string prop;
@@ -106,6 +107,7 @@ let make ?id ?timeouts ~amazon_side_asn ~name __id =
   let __type = "aws_dx_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        amazon_side_asn = Prop.computed __type __id "amazon_side_asn";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

@@ -414,6 +414,7 @@ let aws_ssmcontacts_rotation ~arn () : aws_ssmcontacts_rotation =
   { arn }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   contact_ids : string list prop;
   id : string prop;
@@ -428,6 +429,7 @@ let make ~arn __id =
   let __type = "aws_ssmcontacts_rotation" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        contact_ids = Prop.computed __type __id "contact_ids";
        id = Prop.computed __type __id "id";

@@ -158,6 +158,7 @@ let azurerm_spring_cloud_app_mysql_association ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   database_name : string prop;
   id : string prop;
   mysql_server_id : string prop;
@@ -172,6 +173,7 @@ let make ?id ?timeouts ~database_name ~mysql_server_id ~name
   let __type = "azurerm_spring_cloud_app_mysql_association" in
   let __attrs =
     ({
+       tf_name = __id;
        database_name = Prop.computed __type __id "database_name";
        id = Prop.computed __type __id "id";
        mysql_server_id = Prop.computed __type __id "mysql_server_id";

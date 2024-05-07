@@ -36,6 +36,7 @@ val yojson_of_azurerm_bot_channel_slack :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bot_name : string prop;
   client_id : string prop;
   client_secret : string prop;

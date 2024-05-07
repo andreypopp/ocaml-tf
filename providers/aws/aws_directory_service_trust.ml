@@ -116,6 +116,7 @@ let aws_directory_service_trust ?conditional_forwarder_ip_addrs
   }
 
 type t = {
+  tf_name : string;
   conditional_forwarder_ip_addrs : string list prop;
   created_date_time : string prop;
   delete_associated_conditional_forwarder : bool prop;
@@ -139,6 +140,7 @@ let make ?conditional_forwarder_ip_addrs
   let __type = "aws_directory_service_trust" in
   let __attrs =
     ({
+       tf_name = __id;
        conditional_forwarder_ip_addrs =
          Prop.computed __type __id "conditional_forwarder_ip_addrs";
        created_date_time =

@@ -326,11 +326,13 @@ let kubernetes_resource_quota ?id ?(spec = []) ?timeouts ~metadata ()
     : kubernetes_resource_quota =
   { id; metadata; spec; timeouts }
 
-type t = { id : string prop }
+type t = { tf_name : string; id : string prop }
 
 let make ?id ?(spec = []) ?timeouts ~metadata __id =
   let __type = "kubernetes_resource_quota" in
-  let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
+  let __attrs =
+    ({ tf_name = __id; id = Prop.computed __type __id "id" } : t)
+  in
   {
     Tf_core.id = __id;
     type_ = __type;

@@ -18,6 +18,7 @@ val yojson_of_aws_detective_graph : aws_detective_graph -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created_time : string prop;
   graph_arn : string prop;
   id : string prop;

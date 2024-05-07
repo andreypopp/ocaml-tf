@@ -242,6 +242,7 @@ val yojson_of_google_gke_hub_feature_membership :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   feature : string prop;
   id : string prop;
   location : string prop;

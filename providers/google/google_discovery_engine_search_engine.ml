@@ -253,6 +253,7 @@ let google_discovery_engine_search_engine ?id ?industry_vertical
   }
 
 type t = {
+  tf_name : string;
   collection_id : string prop;
   create_time : string prop;
   data_store_ids : string list prop;
@@ -272,6 +273,7 @@ let make ?id ?industry_vertical ?project ?(common_config = [])
   let __type = "google_discovery_engine_search_engine" in
   let __attrs =
     ({
+       tf_name = __id;
        collection_id = Prop.computed __type __id "collection_id";
        create_time = Prop.computed __type __id "create_time";
        data_store_ids = Prop.computed __type __id "data_store_ids";

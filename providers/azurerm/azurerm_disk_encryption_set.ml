@@ -241,6 +241,7 @@ let azurerm_disk_encryption_set ?auto_key_rotation_enabled
   }
 
 type t = {
+  tf_name : string;
   auto_key_rotation_enabled : bool prop;
   encryption_type : string prop;
   federated_client_id : string prop;
@@ -259,6 +260,7 @@ let make ?auto_key_rotation_enabled ?encryption_type
   let __type = "azurerm_disk_encryption_set" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_key_rotation_enabled =
          Prop.computed __type __id "auto_key_rotation_enabled";
        encryption_type = Prop.computed __type __id "encryption_type";

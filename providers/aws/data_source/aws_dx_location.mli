@@ -17,6 +17,7 @@ val yojson_of_aws_dx_location : aws_dx_location -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   available_macsec_port_speeds : string list prop;
   available_port_speeds : string list prop;
   available_providers : string list prop;

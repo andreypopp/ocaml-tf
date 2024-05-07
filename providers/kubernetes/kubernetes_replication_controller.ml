@@ -12528,11 +12528,13 @@ let kubernetes_replication_controller ?id ?timeouts ~metadata ~spec
     () : kubernetes_replication_controller =
   { id; metadata; spec; timeouts }
 
-type t = { id : string prop }
+type t = { tf_name : string; id : string prop }
 
 let make ?id ?timeouts ~metadata ~spec __id =
   let __type = "kubernetes_replication_controller" in
-  let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
+  let __attrs =
+    ({ tf_name = __id; id = Prop.computed __type __id "id" } : t)
+  in
   {
     Tf_core.id = __id;
     type_ = __type;

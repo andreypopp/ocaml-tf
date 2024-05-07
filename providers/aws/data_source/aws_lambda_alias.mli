@@ -18,6 +18,7 @@ val yojson_of_aws_lambda_alias : aws_lambda_alias -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   function_name : string prop;

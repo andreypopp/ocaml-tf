@@ -1253,6 +1253,7 @@ let google_sql_database_instance ?id ?project ~name () :
   { id; name; project }
 
 type t = {
+  tf_name : string;
   available_maintenance_versions : string list prop;
   clone : clone list prop;
   connection_name : string prop;
@@ -1285,6 +1286,7 @@ let make ?id ?project ~name __id =
   let __type = "google_sql_database_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        available_maintenance_versions =
          Prop.computed __type __id "available_maintenance_versions";
        clone = Prop.computed __type __id "clone";

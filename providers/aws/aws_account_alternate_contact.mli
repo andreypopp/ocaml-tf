@@ -33,6 +33,7 @@ val yojson_of_aws_account_alternate_contact :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   alternate_contact_type : string prop;
   email_address : string prop;

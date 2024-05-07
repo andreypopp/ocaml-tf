@@ -24,6 +24,7 @@ val yojson_of_aws_guardduty_threatintelset :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   activate : bool prop;
   arn : string prop;
   detector_id : string prop;

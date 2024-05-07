@@ -124,6 +124,7 @@ let aws_security_groups ?id ?tags ?timeouts ~filter () :
   { id; tags; filter; timeouts }
 
 type t = {
+  tf_name : string;
   arns : string list prop;
   id : string prop;
   ids : string list prop;
@@ -135,6 +136,7 @@ let make ?id ?tags ?timeouts ~filter __id =
   let __type = "aws_security_groups" in
   let __attrs =
     ({
+       tf_name = __id;
        arns = Prop.computed __type __id "arns";
        id = Prop.computed __type __id "id";
        ids = Prop.computed __type __id "ids";

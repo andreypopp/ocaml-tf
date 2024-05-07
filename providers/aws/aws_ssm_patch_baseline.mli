@@ -62,6 +62,7 @@ val yojson_of_aws_ssm_patch_baseline : aws_ssm_patch_baseline -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   approved_patches : string list prop;
   approved_patches_compliance_level : string prop;
   approved_patches_enable_non_security : bool prop;

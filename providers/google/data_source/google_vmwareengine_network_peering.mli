@@ -19,6 +19,7 @@ val yojson_of_google_vmwareengine_network_peering :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   description : string prop;
   export_custom_routes : bool prop;

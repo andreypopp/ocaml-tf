@@ -30,6 +30,7 @@ val yojson_of_azurerm_storage_queue : azurerm_storage_queue -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   metadata : (string * string) list prop;
   name : string prop;

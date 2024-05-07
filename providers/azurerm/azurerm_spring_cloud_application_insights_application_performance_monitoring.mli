@@ -37,6 +37,7 @@ val yojson_of_azurerm_spring_cloud_application_insights_application_performance_
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   connection_string : string prop;
   globally_enabled : bool prop;
   id : string prop;

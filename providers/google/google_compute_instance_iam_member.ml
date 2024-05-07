@@ -128,6 +128,7 @@ let google_compute_instance_iam_member ?id ?project ?zone
   { id; instance_name; member; project; role; zone; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   instance_name : string prop;
@@ -142,6 +143,7 @@ let make ?id ?project ?zone ?(condition = []) ~instance_name ~member
   let __type = "google_compute_instance_iam_member" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        instance_name = Prop.computed __type __id "instance_name";

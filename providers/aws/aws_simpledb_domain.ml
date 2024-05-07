@@ -26,12 +26,13 @@ let _ = yojson_of_aws_simpledb_domain
 
 let aws_simpledb_domain ~name () : aws_simpledb_domain = { name }
 
-type t = { id : string prop; name : string prop }
+type t = { tf_name : string; id : string prop; name : string prop }
 
 let make ~name __id =
   let __type = "aws_simpledb_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
      }

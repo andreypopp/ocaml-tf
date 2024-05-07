@@ -23,6 +23,7 @@ val yojson_of_aws_iot_authorizer : aws_iot_authorizer -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   authorizer_function_arn : string prop;
   enable_caching_for_http : bool prop;

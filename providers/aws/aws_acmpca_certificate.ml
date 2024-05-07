@@ -129,6 +129,7 @@ let aws_acmpca_certificate ?api_passthrough ?id ?template_arn
   }
 
 type t = {
+  tf_name : string;
   api_passthrough : string prop;
   arn : string prop;
   certificate : string prop;
@@ -146,6 +147,7 @@ let make ?api_passthrough ?id ?template_arn
   let __type = "aws_acmpca_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        api_passthrough = Prop.computed __type __id "api_passthrough";
        arn = Prop.computed __type __id "arn";
        certificate = Prop.computed __type __id "certificate";

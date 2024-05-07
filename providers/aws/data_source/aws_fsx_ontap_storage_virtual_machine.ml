@@ -398,6 +398,7 @@ let aws_fsx_ontap_storage_virtual_machine ?id ?tags ~filter () :
   { id; tags; filter }
 
 type t = {
+  tf_name : string;
   active_directory_configuration :
     active_directory_configuration list prop;
   arn : string prop;
@@ -418,6 +419,7 @@ let make ?id ?tags ~filter __id =
   let __type = "aws_fsx_ontap_storage_virtual_machine" in
   let __attrs =
     ({
+       tf_name = __id;
        active_directory_configuration =
          Prop.computed __type __id "active_directory_configuration";
        arn = Prop.computed __type __id "arn";

@@ -23,6 +23,7 @@ val yojson_of_aws_regions : aws_regions -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   all_regions : bool prop;
   id : string prop;
   names : string list prop;

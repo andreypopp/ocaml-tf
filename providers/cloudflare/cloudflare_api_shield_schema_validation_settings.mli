@@ -23,6 +23,7 @@ val yojson_of_cloudflare_api_shield_schema_validation_settings :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   validation_default_mitigation_action : string prop;
   validation_override_mitigation_action : string prop;

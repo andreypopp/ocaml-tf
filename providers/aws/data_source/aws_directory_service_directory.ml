@@ -248,6 +248,7 @@ let aws_directory_service_directory ?id ?tags ~directory_id () :
   { directory_id; id; tags }
 
 type t = {
+  tf_name : string;
   access_url : string prop;
   alias : string prop;
   connect_settings : connect_settings list prop;
@@ -271,6 +272,7 @@ let make ?id ?tags ~directory_id __id =
   let __type = "aws_directory_service_directory" in
   let __attrs =
     ({
+       tf_name = __id;
        access_url = Prop.computed __type __id "access_url";
        alias = Prop.computed __type __id "alias";
        connect_settings =

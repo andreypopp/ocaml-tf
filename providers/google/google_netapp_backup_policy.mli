@@ -36,6 +36,7 @@ val yojson_of_google_netapp_backup_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   assigned_volume_count : float prop;
   create_time : string prop;
   daily_backup_limit : float prop;

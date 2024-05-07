@@ -344,6 +344,7 @@ let aws_eks_cluster ?id ?tags ~name () : aws_eks_cluster =
   { id; name; tags }
 
 type t = {
+  tf_name : string;
   access_config : access_config list prop;
   arn : string prop;
   certificate_authority : certificate_authority list prop;
@@ -368,6 +369,7 @@ let make ?id ?tags ~name __id =
   let __type = "aws_eks_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        access_config = Prop.computed __type __id "access_config";
        arn = Prop.computed __type __id "arn";
        certificate_authority =

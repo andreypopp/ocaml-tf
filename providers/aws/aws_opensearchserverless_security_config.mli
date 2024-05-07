@@ -30,6 +30,7 @@ val yojson_of_aws_opensearchserverless_security_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   config_version : string prop;
   description : string prop;
   id : string prop;

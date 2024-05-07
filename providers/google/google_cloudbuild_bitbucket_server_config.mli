@@ -54,6 +54,7 @@ val yojson_of_google_cloudbuild_bitbucket_server_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_key : string prop;
   config_id : string prop;
   host_uri : string prop;

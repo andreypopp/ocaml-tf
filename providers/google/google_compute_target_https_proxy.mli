@@ -39,6 +39,7 @@ val yojson_of_google_compute_target_https_proxy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_manager_certificates : string list prop;
   certificate_map : string prop;
   creation_timestamp : string prop;

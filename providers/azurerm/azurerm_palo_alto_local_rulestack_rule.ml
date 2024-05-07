@@ -516,6 +516,7 @@ let azurerm_palo_alto_local_rulestack_rule ?audit_comment
   }
 
 type t = {
+  tf_name : string;
   action : string prop;
   applications : string list prop;
   audit_comment : string prop;
@@ -543,6 +544,7 @@ let make ?audit_comment ?decryption_rule_type ?description ?enabled
   let __type = "azurerm_palo_alto_local_rulestack_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        applications = Prop.computed __type __id "applications";
        audit_comment = Prop.computed __type __id "audit_comment";

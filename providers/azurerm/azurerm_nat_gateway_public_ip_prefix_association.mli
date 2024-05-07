@@ -29,6 +29,7 @@ val yojson_of_azurerm_nat_gateway_public_ip_prefix_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   nat_gateway_id : string prop;
   public_ip_prefix_id : string prop;

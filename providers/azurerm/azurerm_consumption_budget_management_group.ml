@@ -532,6 +532,7 @@ let azurerm_consumption_budget_management_group ?etag ?id ?time_grain
   }
 
 type t = {
+  tf_name : string;
   amount : float prop;
   etag : string prop;
   id : string prop;
@@ -545,6 +546,7 @@ let make ?etag ?id ?time_grain ?(filter = []) ?timeouts ~amount
   let __type = "azurerm_consumption_budget_management_group" in
   let __attrs =
     ({
+       tf_name = __id;
        amount = Prop.computed __type __id "amount";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

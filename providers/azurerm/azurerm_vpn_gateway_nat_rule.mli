@@ -54,6 +54,7 @@ val yojson_of_azurerm_vpn_gateway_nat_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   external_address_space_mappings : string list prop;
   id : string prop;
   internal_address_space_mappings : string list prop;

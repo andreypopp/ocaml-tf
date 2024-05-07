@@ -32,6 +32,7 @@ val yojson_of_azurerm_automation_hybrid_runbook_worker :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automation_account_name : string prop;
   id : string prop;
   ip : string prop;

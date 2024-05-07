@@ -45,6 +45,7 @@ let aws_msk_cluster_policy ?id ~cluster_arn ~policy () :
   { cluster_arn; id; policy }
 
 type t = {
+  tf_name : string;
   cluster_arn : string prop;
   current_version : string prop;
   id : string prop;
@@ -55,6 +56,7 @@ let make ?id ~cluster_arn ~policy __id =
   let __type = "aws_msk_cluster_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_arn = Prop.computed __type __id "cluster_arn";
        current_version = Prop.computed __type __id "current_version";
        id = Prop.computed __type __id "id";

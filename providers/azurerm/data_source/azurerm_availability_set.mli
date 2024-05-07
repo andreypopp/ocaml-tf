@@ -24,6 +24,7 @@ val yojson_of_azurerm_availability_set :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   managed : bool prop;

@@ -31,6 +31,7 @@ val yojson_of_aws_verifiedaccess_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   creation_time : string prop;
   deletion_time : string prop;
   description : string prop;

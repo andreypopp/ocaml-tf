@@ -143,6 +143,7 @@ let azurerm_storage_sync_cloud_endpoint ?id
   }
 
 type t = {
+  tf_name : string;
   file_share_name : string prop;
   id : string prop;
   name : string prop;
@@ -156,6 +157,7 @@ let make ?id ?storage_account_tenant_id ?timeouts ~file_share_name
   let __type = "azurerm_storage_sync_cloud_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        file_share_name = Prop.computed __type __id "file_share_name";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

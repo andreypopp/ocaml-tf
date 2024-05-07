@@ -303,6 +303,7 @@ let azurerm_datadog_monitor_tag_rule ?id ?name ?(log = [])
   { datadog_monitor_id; id; name; log; metric; timeouts }
 
 type t = {
+  tf_name : string;
   datadog_monitor_id : string prop;
   id : string prop;
   name : string prop;
@@ -313,6 +314,7 @@ let make ?id ?name ?(log = []) ?(metric = []) ?timeouts
   let __type = "azurerm_datadog_monitor_tag_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        datadog_monitor_id =
          Prop.computed __type __id "datadog_monitor_id";
        id = Prop.computed __type __id "id";

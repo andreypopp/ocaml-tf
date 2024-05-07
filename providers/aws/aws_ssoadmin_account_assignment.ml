@@ -137,6 +137,7 @@ let aws_ssoadmin_account_assignment ?id ?target_type ?timeouts
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   instance_arn : string prop;
   permission_set_arn : string prop;
@@ -151,6 +152,7 @@ let make ?id ?target_type ?timeouts ~instance_arn ~permission_set_arn
   let __type = "aws_ssoadmin_account_assignment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        instance_arn = Prop.computed __type __id "instance_arn";
        permission_set_arn =

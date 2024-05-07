@@ -98,6 +98,7 @@ let aws_sesv2_dedicated_ip_pool ?id ?tags ~pool_name () :
   { id; pool_name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   dedicated_ips : dedicated_ips list prop;
   id : string prop;
@@ -110,6 +111,7 @@ let make ?id ?tags ~pool_name __id =
   let __type = "aws_sesv2_dedicated_ip_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        dedicated_ips = Prop.computed __type __id "dedicated_ips";
        id = Prop.computed __type __id "id";

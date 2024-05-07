@@ -32,6 +32,7 @@ val yojson_of_azurerm_eventhub_namespace_disaster_recovery_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   namespace_name : string prop;

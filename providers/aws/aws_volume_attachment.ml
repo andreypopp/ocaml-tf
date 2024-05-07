@@ -141,6 +141,7 @@ let aws_volume_attachment ?force_detach ?id ?skip_destroy
   }
 
 type t = {
+  tf_name : string;
   device_name : string prop;
   force_detach : bool prop;
   id : string prop;
@@ -156,6 +157,7 @@ let make ?force_detach ?id ?skip_destroy
   let __type = "aws_volume_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        device_name = Prop.computed __type __id "device_name";
        force_detach = Prop.computed __type __id "force_detach";
        id = Prop.computed __type __id "id";

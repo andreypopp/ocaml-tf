@@ -17,6 +17,7 @@ val yojson_of_aws_iot_endpoint : aws_iot_endpoint -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   endpoint_address : string prop;
   endpoint_type : string prop;
   id : string prop;

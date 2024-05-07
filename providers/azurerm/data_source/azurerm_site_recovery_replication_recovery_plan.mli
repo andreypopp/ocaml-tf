@@ -67,6 +67,7 @@ val yojson_of_azurerm_site_recovery_replication_recovery_plan :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   azure_to_azure_settings : azure_to_azure_settings list prop;
   failover_deployment_model : string prop;
   id : string prop;

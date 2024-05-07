@@ -39,6 +39,7 @@ let aws_ses_domain_dkim ?id ~domain () : aws_ses_domain_dkim =
   { domain; id }
 
 type t = {
+  tf_name : string;
   dkim_tokens : string list prop;
   domain : string prop;
   id : string prop;
@@ -48,6 +49,7 @@ let make ?id ~domain __id =
   let __type = "aws_ses_domain_dkim" in
   let __attrs =
     ({
+       tf_name = __id;
        dkim_tokens = Prop.computed __type __id "dkim_tokens";
        domain = Prop.computed __type __id "domain";
        id = Prop.computed __type __id "id";

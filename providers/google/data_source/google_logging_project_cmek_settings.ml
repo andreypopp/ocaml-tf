@@ -54,6 +54,7 @@ let google_logging_project_cmek_settings ?id ?kms_key_name ~project
   { id; kms_key_name; project }
 
 type t = {
+  tf_name : string;
   id : string prop;
   kms_key_name : string prop;
   kms_key_version_name : string prop;
@@ -66,6 +67,7 @@ let make ?id ?kms_key_name ~project __id =
   let __type = "google_logging_project_cmek_settings" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        kms_key_name = Prop.computed __type __id "kms_key_name";
        kms_key_version_name =

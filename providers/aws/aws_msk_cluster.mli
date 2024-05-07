@@ -237,6 +237,7 @@ val yojson_of_aws_msk_cluster : aws_msk_cluster -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   bootstrap_brokers : string prop;
   bootstrap_brokers_public_sasl_iam : string prop;

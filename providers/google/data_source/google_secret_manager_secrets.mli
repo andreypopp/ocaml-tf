@@ -81,6 +81,7 @@ val yojson_of_google_secret_manager_secrets :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   filter : string prop;
   id : string prop;
   project : string prop;

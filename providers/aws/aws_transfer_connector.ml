@@ -264,6 +264,7 @@ let aws_transfer_connector ?id ?logging_role ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   access_role : string prop;
   arn : string prop;
   connector_id : string prop;
@@ -279,6 +280,7 @@ let make ?id ?logging_role ?tags ?tags_all ?(as2_config = [])
   let __type = "aws_transfer_connector" in
   let __attrs =
     ({
+       tf_name = __id;
        access_role = Prop.computed __type __id "access_role";
        arn = Prop.computed __type __id "arn";
        connector_id = Prop.computed __type __id "connector_id";

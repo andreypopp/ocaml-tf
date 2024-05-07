@@ -19,6 +19,7 @@ val yojson_of_hcloud_floating_ip_assignment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   floating_ip_id : float prop;
   id : string prop;
   server_id : float prop;

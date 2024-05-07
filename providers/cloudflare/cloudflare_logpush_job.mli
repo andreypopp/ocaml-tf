@@ -42,6 +42,7 @@ val yojson_of_cloudflare_logpush_job : cloudflare_logpush_job -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   dataset : string prop;
   destination_conf : string prop;

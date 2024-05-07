@@ -461,6 +461,7 @@ let aws_ami ?architecture ?boot_mode ?deprecation_time ?description
   }
 
 type t = {
+  tf_name : string;
   architecture : string prop;
   arn : string prop;
   boot_mode : string prop;
@@ -499,6 +500,7 @@ let make ?architecture ?boot_mode ?deprecation_time ?description
   let __type = "aws_ami" in
   let __attrs =
     ({
+       tf_name = __id;
        architecture = Prop.computed __type __id "architecture";
        arn = Prop.computed __type __id "arn";
        boot_mode = Prop.computed __type __id "boot_mode";

@@ -1086,6 +1086,7 @@ let aws_cloudwatch_event_target ?event_bus_name ?id ?input
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   event_bus_name : string prop;
   id : string prop;
@@ -1106,6 +1107,7 @@ let make ?event_bus_name ?id ?input ?input_path ?role_arn ?target_id
   let __type = "aws_cloudwatch_event_target" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        event_bus_name = Prop.computed __type __id "event_bus_name";
        id = Prop.computed __type __id "id";

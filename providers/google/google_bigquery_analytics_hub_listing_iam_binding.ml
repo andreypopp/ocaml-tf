@@ -148,6 +148,7 @@ let google_bigquery_analytics_hub_listing_iam_binding ?id ?location
   }
 
 type t = {
+  tf_name : string;
   data_exchange_id : string prop;
   etag : string prop;
   id : string prop;
@@ -163,6 +164,7 @@ let make ?id ?location ?project ?(condition = []) ~data_exchange_id
   let __type = "google_bigquery_analytics_hub_listing_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        data_exchange_id =
          Prop.computed __type __id "data_exchange_id";
        etag = Prop.computed __type __id "etag";

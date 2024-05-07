@@ -85,6 +85,7 @@ let azurerm_monitor_workspace ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   default_data_collection_endpoint_id : string prop;
   default_data_collection_rule_id : string prop;
   id : string prop;
@@ -100,6 +101,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_monitor_workspace" in
   let __attrs =
     ({
+       tf_name = __id;
        default_data_collection_endpoint_id =
          Prop.computed __type __id
            "default_data_collection_endpoint_id";

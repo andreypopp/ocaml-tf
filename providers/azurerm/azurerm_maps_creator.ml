@@ -158,6 +158,7 @@ let azurerm_maps_creator ?id ?tags ?timeouts ~location
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   maps_account_id : string prop;
@@ -171,6 +172,7 @@ let make ?id ?tags ?timeouts ~location ~maps_account_id ~name
   let __type = "azurerm_maps_creator" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        maps_account_id = Prop.computed __type __id "maps_account_id";

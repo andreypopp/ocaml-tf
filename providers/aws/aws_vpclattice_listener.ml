@@ -332,6 +332,7 @@ let aws_vpclattice_listener ?id ?port ?service_arn
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_at : string prop;
   id : string prop;
@@ -351,6 +352,7 @@ let make ?id ?port ?service_arn ?service_identifier ?tags ?tags_all
   let __type = "aws_vpclattice_listener" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_at = Prop.computed __type __id "created_at";
        id = Prop.computed __type __id "id";

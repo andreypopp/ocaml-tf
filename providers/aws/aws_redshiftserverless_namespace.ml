@@ -194,6 +194,7 @@ let aws_redshiftserverless_namespace
   }
 
 type t = {
+  tf_name : string;
   admin_password_secret_arn : string prop;
   admin_password_secret_kms_key_id : string prop;
   admin_user_password : string prop;
@@ -219,6 +220,7 @@ let make ?admin_password_secret_kms_key_id ?admin_user_password
   let __type = "aws_redshiftserverless_namespace" in
   let __attrs =
     ({
+       tf_name = __id;
        admin_password_secret_arn =
          Prop.computed __type __id "admin_password_secret_arn";
        admin_password_secret_kms_key_id =

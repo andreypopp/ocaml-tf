@@ -23,7 +23,11 @@ val yojson_of_google_dns_managed_zones :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; project : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  project : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

@@ -19,6 +19,7 @@ let aws_quicksight_folder_membership ?aws_account_id ~folder_id ~member_id ~memb
   } : aws_quicksight_folder_membership);;
 
 type t = {
+  tf_name: string;
   aws_account_id: string prop;
   folder_id: string prop;
   id: string prop;
@@ -29,6 +30,7 @@ type t = {
 let make ?aws_account_id ~folder_id ~member_id ~member_type __id =
   let __type = "aws_quicksight_folder_membership" in
   let __attrs = ({
+    tf_name = __id;
     aws_account_id = Prop.computed __type __id "aws_account_id";
     folder_id = Prop.computed __type __id "folder_id";
     id = Prop.computed __type __id "id";

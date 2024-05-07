@@ -627,6 +627,7 @@ let google_cloudbuildv2_connection ?annotations ?disabled ?id
   }
 
 type t = {
+  tf_name : string;
   annotations : (string * string) list prop;
   create_time : string prop;
   disabled : bool prop;
@@ -647,6 +648,7 @@ let make ?annotations ?disabled ?id ?project ?(github_config = [])
   let __type = "google_cloudbuildv2_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        annotations = Prop.computed __type __id "annotations";
        create_time = Prop.computed __type __id "create_time";
        disabled = Prop.computed __type __id "disabled";

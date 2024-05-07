@@ -181,6 +181,7 @@ let azurerm_api_management_certificate ?data ?id
   }
 
 type t = {
+  tf_name : string;
   api_management_name : string prop;
   data : string prop;
   expiration : string prop;
@@ -200,6 +201,7 @@ let make ?data ?id ?key_vault_identity_client_id ?key_vault_secret_id
   let __type = "azurerm_api_management_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        api_management_name =
          Prop.computed __type __id "api_management_name";
        data = Prop.computed __type __id "data";

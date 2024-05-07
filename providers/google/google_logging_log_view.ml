@@ -153,6 +153,7 @@ let google_logging_log_view ?description ?filter ?id ?location
   }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   create_time : string prop;
   description : string prop;
@@ -169,6 +170,7 @@ let make ?description ?filter ?id ?location ?parent ?timeouts ~bucket
   let __type = "google_logging_log_view" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";

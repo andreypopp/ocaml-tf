@@ -30,6 +30,7 @@ val yojson_of_aws_sns_platform_application :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   apple_platform_bundle_id : string prop;
   apple_platform_team_id : string prop;
   arn : string prop;

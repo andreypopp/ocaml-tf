@@ -228,6 +228,7 @@ let aws_alb ?arn ?id ?name ?tags ?timeouts () : aws_alb =
   { arn; id; name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   access_logs : access_logs list prop;
   arn : string prop;
   arn_suffix : string prop;
@@ -265,6 +266,7 @@ let make ?arn ?id ?name ?tags ?timeouts __id =
   let __type = "aws_alb" in
   let __attrs =
     ({
+       tf_name = __id;
        access_logs = Prop.computed __type __id "access_logs";
        arn = Prop.computed __type __id "arn";
        arn_suffix = Prop.computed __type __id "arn_suffix";

@@ -333,6 +333,7 @@ val yojson_of_google_cloud_run_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   autogenerate_revision_name : bool prop;
   id : string prop;
   location : string prop;

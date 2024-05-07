@@ -149,6 +149,7 @@ let aws_globalaccelerator_custom_routing_accelerator ?arn ?id ?name
   { arn; id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   attributes : attributes list prop;
   dns_name : string prop;
@@ -165,6 +166,7 @@ let make ?arn ?id ?name ?tags __id =
   let __type = "aws_globalaccelerator_custom_routing_accelerator" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        attributes = Prop.computed __type __id "attributes";
        dns_name = Prop.computed __type __id "dns_name";

@@ -59,6 +59,7 @@ val yojson_of_google_deployment_manager_deployment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_policy : string prop;
   delete_policy : string prop;
   deployment_id : string prop;

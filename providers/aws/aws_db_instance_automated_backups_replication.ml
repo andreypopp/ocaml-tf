@@ -130,6 +130,7 @@ let aws_db_instance_automated_backups_replication ?id ?kms_key_id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   kms_key_id : string prop;
   pre_signed_url : string prop;
@@ -142,6 +143,7 @@ let make ?id ?kms_key_id ?pre_signed_url ?retention_period ?timeouts
   let __type = "aws_db_instance_automated_backups_replication" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        kms_key_id = Prop.computed __type __id "kms_key_id";
        pre_signed_url = Prop.computed __type __id "pre_signed_url";

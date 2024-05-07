@@ -46,6 +46,7 @@ let digitalocean_database_connection_pool ?id ~cluster_id ~name () :
   { cluster_id; id; name }
 
 type t = {
+  tf_name : string;
   cluster_id : string prop;
   db_name : string prop;
   host : string prop;
@@ -65,6 +66,7 @@ let make ?id ~cluster_id ~name __id =
   let __type = "digitalocean_database_connection_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_id = Prop.computed __type __id "cluster_id";
        db_name = Prop.computed __type __id "db_name";
        host = Prop.computed __type __id "host";

@@ -21,6 +21,7 @@ val yojson_of_aws_auditmanager_assessment_delegation :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   assessment_id : string prop;
   comment : string prop;
   control_set_id : string prop;

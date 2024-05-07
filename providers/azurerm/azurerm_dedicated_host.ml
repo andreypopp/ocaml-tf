@@ -190,6 +190,7 @@ let azurerm_dedicated_host ?auto_replace_on_failure ?id ?license_type
   }
 
 type t = {
+  tf_name : string;
   auto_replace_on_failure : bool prop;
   dedicated_host_group_id : string prop;
   id : string prop;
@@ -207,6 +208,7 @@ let make ?auto_replace_on_failure ?id ?license_type ?tags ?timeouts
   let __type = "azurerm_dedicated_host" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_replace_on_failure =
          Prop.computed __type __id "auto_replace_on_failure";
        dedicated_host_group_id =

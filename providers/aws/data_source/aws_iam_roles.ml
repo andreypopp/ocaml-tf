@@ -56,6 +56,7 @@ let aws_iam_roles ?id ?name_regex ?path_prefix () : aws_iam_roles =
   { id; name_regex; path_prefix }
 
 type t = {
+  tf_name : string;
   arns : string list prop;
   id : string prop;
   name_regex : string prop;
@@ -67,6 +68,7 @@ let make ?id ?name_regex ?path_prefix __id =
   let __type = "aws_iam_roles" in
   let __attrs =
     ({
+       tf_name = __id;
        arns = Prop.computed __type __id "arns";
        id = Prop.computed __type __id "id";
        name_regex = Prop.computed __type __id "name_regex";

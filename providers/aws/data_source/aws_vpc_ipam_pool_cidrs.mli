@@ -34,6 +34,7 @@ val yojson_of_aws_vpc_ipam_pool_cidrs :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   ipam_pool_cidrs : ipam_pool_cidrs list prop;
   ipam_pool_id : string prop;

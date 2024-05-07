@@ -68,6 +68,7 @@ val yojson_of_azurerm_spring_cloud_customized_accelerator :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   accelerator_tags : string list prop;
   accelerator_type : string prop;
   description : string prop;

@@ -1325,6 +1325,7 @@ let google_bigquery_table ?clustering ?deletion_protection
   }
 
 type t = {
+  tf_name : string;
   clustering : string list prop;
   creation_time : float prop;
   dataset_id : string prop;
@@ -1362,6 +1363,7 @@ let make ?clustering ?deletion_protection ?description
   let __type = "google_bigquery_table" in
   let __attrs =
     ({
+       tf_name = __id;
        clustering = Prop.computed __type __id "clustering";
        creation_time = Prop.computed __type __id "creation_time";
        dataset_id = Prop.computed __type __id "dataset_id";

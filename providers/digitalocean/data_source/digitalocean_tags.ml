@@ -204,12 +204,17 @@ let digitalocean_tags ?id ?(sort = []) ~filter () : digitalocean_tags
     =
   { id; filter; sort }
 
-type t = { id : string prop; tags : tags list prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  tags : tags list prop;
+}
 
 let make ?id ?(sort = []) ~filter __id =
   let __type = "digitalocean_tags" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        tags = Prop.computed __type __id "tags";
      }

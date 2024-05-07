@@ -24,6 +24,7 @@ val yojson_of_azurerm_public_ip_prefix :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   ip_prefix : string prop;
   location : string prop;

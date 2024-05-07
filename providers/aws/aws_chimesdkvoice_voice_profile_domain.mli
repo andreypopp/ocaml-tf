@@ -39,6 +39,7 @@ val yojson_of_aws_chimesdkvoice_voice_profile_domain :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;

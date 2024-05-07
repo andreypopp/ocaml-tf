@@ -206,6 +206,7 @@ let azurerm_sql_elasticpool ?db_dtu_max ?db_dtu_min ?id ?pool_size
   }
 
 type t = {
+  tf_name : string;
   creation_date : string prop;
   db_dtu_max : float prop;
   db_dtu_min : float prop;
@@ -225,6 +226,7 @@ let make ?db_dtu_max ?db_dtu_min ?id ?pool_size ?tags ?timeouts ~dtu
   let __type = "azurerm_sql_elasticpool" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_date = Prop.computed __type __id "creation_date";
        db_dtu_max = Prop.computed __type __id "db_dtu_max";
        db_dtu_min = Prop.computed __type __id "db_dtu_min";

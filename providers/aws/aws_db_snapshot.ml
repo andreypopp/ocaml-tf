@@ -144,6 +144,7 @@ let aws_db_snapshot ?id ?shared_accounts ?tags ?tags_all ?timeouts
   }
 
 type t = {
+  tf_name : string;
   allocated_storage : float prop;
   availability_zone : string prop;
   db_instance_identifier : string prop;
@@ -174,6 +175,7 @@ let make ?id ?shared_accounts ?tags ?tags_all ?timeouts
   let __type = "aws_db_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        allocated_storage =
          Prop.computed __type __id "allocated_storage";
        availability_zone =

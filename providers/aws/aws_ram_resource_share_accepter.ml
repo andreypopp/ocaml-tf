@@ -85,6 +85,7 @@ let aws_ram_resource_share_accepter ?id ?timeouts ~share_arn () :
   { id; share_arn; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   invitation_arn : string prop;
   receiver_account_id : string prop;
@@ -100,6 +101,7 @@ let make ?id ?timeouts ~share_arn __id =
   let __type = "aws_ram_resource_share_accepter" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        invitation_arn = Prop.computed __type __id "invitation_arn";
        receiver_account_id =

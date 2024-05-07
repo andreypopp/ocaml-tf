@@ -35,6 +35,7 @@ val yojson_of_azurerm_storage_account_customer_managed_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   federated_identity_client_id : string prop;
   id : string prop;
   key_name : string prop;

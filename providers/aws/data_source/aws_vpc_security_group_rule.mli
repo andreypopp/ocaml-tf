@@ -23,6 +23,7 @@ val yojson_of_aws_vpc_security_group_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cidr_ipv4 : string prop;
   cidr_ipv6 : string prop;

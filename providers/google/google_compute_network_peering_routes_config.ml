@@ -140,6 +140,7 @@ let google_compute_network_peering_routes_config ?id ?project
   }
 
 type t = {
+  tf_name : string;
   export_custom_routes : bool prop;
   id : string prop;
   import_custom_routes : bool prop;
@@ -153,6 +154,7 @@ let make ?id ?project ?timeouts ~export_custom_routes
   let __type = "google_compute_network_peering_routes_config" in
   let __attrs =
     ({
+       tf_name = __id;
        export_custom_routes =
          Prop.computed __type __id "export_custom_routes";
        id = Prop.computed __type __id "id";

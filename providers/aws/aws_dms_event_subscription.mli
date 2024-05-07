@@ -35,6 +35,7 @@ val yojson_of_aws_dms_event_subscription :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   enabled : bool prop;
   event_categories : string list prop;

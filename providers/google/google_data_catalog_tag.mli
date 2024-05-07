@@ -43,6 +43,7 @@ val yojson_of_google_data_catalog_tag :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   column : string prop;
   id : string prop;
   name : string prop;

@@ -20,6 +20,7 @@ val yojson_of_google_bigquery_dataset_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dataset_id : string prop;
   etag : string prop;
   id : string prop;

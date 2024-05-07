@@ -37,6 +37,7 @@ val yojson_of_azurerm_databricks_virtual_network_peering :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address_space_prefixes : string list prop;
   allow_forwarded_traffic : bool prop;
   allow_gateway_transit : bool prop;

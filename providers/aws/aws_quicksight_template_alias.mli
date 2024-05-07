@@ -21,6 +21,7 @@ val yojson_of_aws_quicksight_template_alias : aws_quicksight_template_alias -> j
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name: string;
   alias_name: string prop;
   arn: string prop;
   aws_account_id: string prop;

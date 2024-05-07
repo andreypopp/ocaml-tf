@@ -108,6 +108,7 @@ let azurerm_palo_alto_virtual_network_appliance ?id ?timeouts ~name
   { id; name; virtual_hub_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   virtual_hub_id : string prop;
@@ -117,6 +118,7 @@ let make ?id ?timeouts ~name ~virtual_hub_id __id =
   let __type = "azurerm_palo_alto_virtual_network_appliance" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        virtual_hub_id = Prop.computed __type __id "virtual_hub_id";

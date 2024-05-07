@@ -117,6 +117,7 @@ let aws_chimesdkvoice_sip_media_application ?id ?tags ?tags_all
   { aws_region; id; name; tags; tags_all; endpoints }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   aws_region : string prop;
   id : string prop;
@@ -129,6 +130,7 @@ let make ?id ?tags ?tags_all ~aws_region ~name ~endpoints __id =
   let __type = "aws_chimesdkvoice_sip_media_application" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        aws_region = Prop.computed __type __id "aws_region";
        id = Prop.computed __type __id "id";

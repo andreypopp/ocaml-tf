@@ -73,6 +73,7 @@ val yojson_of_aws_imagebuilder_image : aws_imagebuilder_image -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   container_recipe_arn : string prop;
   date_created : string prop;

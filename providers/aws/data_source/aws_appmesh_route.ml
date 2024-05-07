@@ -2015,6 +2015,7 @@ let aws_appmesh_route ?id ?mesh_owner ?tags ~mesh_name ~name
   { id; mesh_name; mesh_owner; name; tags; virtual_router_name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_date : string prop;
   id : string prop;
@@ -2033,6 +2034,7 @@ let make ?id ?mesh_owner ?tags ~mesh_name ~name ~virtual_router_name
   let __type = "aws_appmesh_route" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_date = Prop.computed __type __id "created_date";
        id = Prop.computed __type __id "id";

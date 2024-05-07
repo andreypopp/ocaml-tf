@@ -86,6 +86,7 @@ val yojson_of_google_scc_project_custom_module :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   ancestor_module : string prop;
   display_name : string prop;
   enablement_state : string prop;

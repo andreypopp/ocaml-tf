@@ -32,6 +32,7 @@ val yojson_of_azurerm_data_factory_managed_private_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   data_factory_id : string prop;
   fqdns : string list prop;
   id : string prop;

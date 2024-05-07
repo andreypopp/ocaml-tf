@@ -25,6 +25,7 @@ val yojson_of_aws_resourcegroups_resource :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   group_arn : string prop;
   id : string prop;
   resource_arn : string prop;

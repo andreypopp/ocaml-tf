@@ -32,6 +32,7 @@ val yojson_of_azurerm_mysql_flexible_database :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   charset : string prop;
   collation : string prop;
   id : string prop;

@@ -420,6 +420,7 @@ let aws_vpclattice_target_group ?id ?tags ?tags_all ?(config = [])
   { id; name; tags; tags_all; type_; config; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;
@@ -434,6 +435,7 @@ let make ?id ?tags ?tags_all ?(config = []) ?timeouts ~name ~type_
   let __type = "aws_vpclattice_target_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

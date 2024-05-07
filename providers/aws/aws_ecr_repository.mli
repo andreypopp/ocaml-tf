@@ -41,6 +41,7 @@ val yojson_of_aws_ecr_repository : aws_ecr_repository -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   force_delete : bool prop;
   id : string prop;

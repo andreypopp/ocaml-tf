@@ -137,6 +137,7 @@ val yojson_of_google_container_azure_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   annotations : (string * string) list prop;
   azure_region : string prop;
   client : string prop;

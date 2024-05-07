@@ -130,6 +130,7 @@ val yojson_of_azurerm_service_fabric_managed_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backup_service_enabled : bool prop;
   client_connection_port : float prop;
   dns_name : string prop;

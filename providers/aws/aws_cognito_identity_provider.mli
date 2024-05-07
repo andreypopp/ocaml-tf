@@ -23,6 +23,7 @@ val yojson_of_aws_cognito_identity_provider :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   attribute_mapping : (string * string) list prop;
   id : string prop;
   idp_identifiers : string list prop;

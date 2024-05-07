@@ -86,6 +86,7 @@ let google_vmwareengine_cluster ?id ~name ~parent () :
   { id; name; parent }
 
 type t = {
+  tf_name : string;
   id : string prop;
   management : bool prop;
   name : string prop;
@@ -99,6 +100,7 @@ let make ?id ~name ~parent __id =
   let __type = "google_vmwareengine_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        management = Prop.computed __type __id "management";
        name = Prop.computed __type __id "name";

@@ -318,13 +318,14 @@ let aws_glue_classifier ?id ?(csv_classifier = [])
     xml_classifier;
   }
 
-type t = { id : string prop; name : string prop }
+type t = { tf_name : string; id : string prop; name : string prop }
 
 let make ?id ?(csv_classifier = []) ?(grok_classifier = [])
     ?(json_classifier = []) ?(xml_classifier = []) ~name __id =
   let __type = "aws_glue_classifier" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
      }

@@ -32,6 +32,7 @@ val yojson_of_azurerm_log_analytics_linked_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   read_access_id : string prop;

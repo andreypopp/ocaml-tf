@@ -45,6 +45,7 @@ let aws_ecr_authorization_token ?id ?registry_id () :
   { id; registry_id }
 
 type t = {
+  tf_name : string;
   authorization_token : string prop;
   expires_at : string prop;
   id : string prop;
@@ -58,6 +59,7 @@ let make ?id ?registry_id __id =
   let __type = "aws_ecr_authorization_token" in
   let __attrs =
     ({
+       tf_name = __id;
        authorization_token =
          Prop.computed __type __id "authorization_token";
        expires_at = Prop.computed __type __id "expires_at";

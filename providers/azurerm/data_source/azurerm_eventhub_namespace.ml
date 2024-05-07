@@ -85,6 +85,7 @@ let azurerm_eventhub_namespace ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   auto_inflate_enabled : bool prop;
   capacity : float prop;
   dedicated_cluster_id : string prop;
@@ -109,6 +110,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_eventhub_namespace" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_inflate_enabled =
          Prop.computed __type __id "auto_inflate_enabled";
        capacity = Prop.computed __type __id "capacity";

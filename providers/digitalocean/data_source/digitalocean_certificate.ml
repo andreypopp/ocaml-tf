@@ -40,6 +40,7 @@ let digitalocean_certificate ?id ~name () : digitalocean_certificate
   { id; name }
 
 type t = {
+  tf_name : string;
   domains : string list prop;
   id : string prop;
   name : string prop;
@@ -54,6 +55,7 @@ let make ?id ~name __id =
   let __type = "digitalocean_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        domains = Prop.computed __type __id "domains";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

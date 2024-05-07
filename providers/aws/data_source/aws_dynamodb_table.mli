@@ -57,6 +57,7 @@ val yojson_of_aws_dynamodb_table : aws_dynamodb_table -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   attribute : attribute list prop;
   billing_mode : string prop;

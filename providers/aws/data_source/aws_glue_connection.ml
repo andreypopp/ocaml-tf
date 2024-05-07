@@ -92,6 +92,7 @@ let aws_glue_connection ?tags ~id () : aws_glue_connection =
   { id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   catalog_id : string prop;
   connection_properties : (string * string) list prop;
@@ -109,6 +110,7 @@ let make ?tags ~id __id =
   let __type = "aws_glue_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        catalog_id = Prop.computed __type __id "catalog_id";
        connection_properties =

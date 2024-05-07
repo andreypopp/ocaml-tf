@@ -25,6 +25,7 @@ val yojson_of_aws_codeguruprofiler_profiling_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   compute_platform : string prop;
   id : string prop;

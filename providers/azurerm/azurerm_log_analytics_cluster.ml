@@ -195,6 +195,7 @@ let azurerm_log_analytics_cluster ?id ?size_gb ?tags ?timeouts
   }
 
 type t = {
+  tf_name : string;
   cluster_id : string prop;
   id : string prop;
   location : string prop;
@@ -209,6 +210,7 @@ let make ?id ?size_gb ?tags ?timeouts ~location ~name
   let __type = "azurerm_log_analytics_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_id = Prop.computed __type __id "cluster_id";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

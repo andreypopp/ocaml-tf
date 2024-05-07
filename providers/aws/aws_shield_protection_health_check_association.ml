@@ -56,6 +56,7 @@ let aws_shield_protection_health_check_association ?id
   { health_check_arn; id; shield_protection_id }
 
 type t = {
+  tf_name : string;
   health_check_arn : string prop;
   id : string prop;
   shield_protection_id : string prop;
@@ -65,6 +66,7 @@ let make ?id ~health_check_arn ~shield_protection_id __id =
   let __type = "aws_shield_protection_health_check_association" in
   let __attrs =
     ({
+       tf_name = __id;
        health_check_arn =
          Prop.computed __type __id "health_check_arn";
        id = Prop.computed __type __id "id";

@@ -27,6 +27,7 @@ val yojson_of_aws_lb_ssl_negotiation_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   lb_port : float prop;
   load_balancer : string prop;

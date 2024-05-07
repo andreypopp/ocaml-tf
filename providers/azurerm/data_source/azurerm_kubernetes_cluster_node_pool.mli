@@ -26,6 +26,7 @@ val yojson_of_azurerm_kubernetes_cluster_node_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enable_auto_scaling : bool prop;
   enable_node_public_ip : bool prop;
   eviction_policy : string prop;

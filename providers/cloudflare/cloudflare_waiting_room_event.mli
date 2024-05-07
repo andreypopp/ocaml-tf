@@ -34,6 +34,7 @@ val yojson_of_cloudflare_waiting_room_event :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created_on : string prop;
   custom_page_html : string prop;
   description : string prop;

@@ -94,6 +94,7 @@ val yojson_of_azurerm_container_registry :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   admin_enabled : bool prop;
   admin_password : string prop;
   admin_username : string prop;

@@ -148,6 +148,7 @@ let azurerm_iotcentral_organization ?id ?parent_organization_id
   }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   iotcentral_application_id : string prop;
@@ -160,6 +161,7 @@ let make ?id ?parent_organization_id ?timeouts ~display_name
   let __type = "azurerm_iotcentral_organization" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";
        iotcentral_application_id =

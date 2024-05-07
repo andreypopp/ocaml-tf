@@ -277,6 +277,7 @@ val yojson_of_azurerm_app_service_slot :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_service_name : string prop;
   app_service_plan_id : string prop;
   app_settings : (string * string) list prop;

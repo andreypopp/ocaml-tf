@@ -100,6 +100,7 @@ let cloudflare_user_agent_blocking_rule ?id ~description ~mode
   { description; id; mode; paused; zone_id; configuration }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   mode : string prop;
@@ -112,6 +113,7 @@ let make ?id ~description ~mode ~paused ~zone_id ~configuration __id
   let __type = "cloudflare_user_agent_blocking_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        mode = Prop.computed __type __id "mode";

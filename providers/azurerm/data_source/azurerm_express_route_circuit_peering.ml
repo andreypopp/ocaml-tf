@@ -102,6 +102,7 @@ let azurerm_express_route_circuit_peering ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   azure_asn : float prop;
   express_route_circuit_name : string prop;
   gateway_manager_etag : string prop;
@@ -124,6 +125,7 @@ let make ?id ?timeouts ~express_route_circuit_name ~peering_type
   let __type = "azurerm_express_route_circuit_peering" in
   let __attrs =
     ({
+       tf_name = __id;
        azure_asn = Prop.computed __type __id "azure_asn";
        express_route_circuit_name =
          Prop.computed __type __id "express_route_circuit_name";

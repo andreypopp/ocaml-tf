@@ -1055,6 +1055,7 @@ let aws_ce_tags ?id ?search_string ?tag_key ?(filter = [])
   { id; search_string; tag_key; filter; sort_by; time_period }
 
 type t = {
+  tf_name : string;
   id : string prop;
   search_string : string prop;
   tag_key : string prop;
@@ -1066,6 +1067,7 @@ let make ?id ?search_string ?tag_key ?(filter = []) ?(sort_by = [])
   let __type = "aws_ce_tags" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        search_string = Prop.computed __type __id "search_string";
        tag_key = Prop.computed __type __id "tag_key";

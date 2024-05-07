@@ -765,6 +765,7 @@ let cloudflare_teams_account ?activity_log_enabled ?id
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   activity_log_enabled : bool prop;
   id : string prop;
@@ -785,6 +786,7 @@ let make ?activity_log_enabled ?id
   let __type = "cloudflare_teams_account" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        activity_log_enabled =
          Prop.computed __type __id "activity_log_enabled";

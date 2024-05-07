@@ -162,6 +162,7 @@ let azurerm_bot_channel_email ?email_password ?id ?magic_code
   }
 
 type t = {
+  tf_name : string;
   bot_name : string prop;
   email_address : string prop;
   email_password : string prop;
@@ -176,6 +177,7 @@ let make ?email_password ?id ?magic_code ?timeouts ~bot_name
   let __type = "azurerm_bot_channel_email" in
   let __attrs =
     ({
+       tf_name = __id;
        bot_name = Prop.computed __type __id "bot_name";
        email_address = Prop.computed __type __id "email_address";
        email_password = Prop.computed __type __id "email_password";

@@ -194,6 +194,7 @@ let aws_datasync_agent ?activation_key ?id ?ip_address ?name
   }
 
 type t = {
+  tf_name : string;
   activation_key : string prop;
   arn : string prop;
   id : string prop;
@@ -213,6 +214,7 @@ let make ?activation_key ?id ?ip_address ?name ?private_link_endpoint
   let __type = "aws_datasync_agent" in
   let __attrs =
     ({
+       tf_name = __id;
        activation_key = Prop.computed __type __id "activation_key";
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";

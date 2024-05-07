@@ -98,6 +98,7 @@ val yojson_of_google_eventarc_trigger :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   channel : string prop;
   conditions : (string * string) list prop;
   create_time : string prop;

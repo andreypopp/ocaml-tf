@@ -26,6 +26,7 @@ val yojson_of_azurerm_servicebus_namespace_authorization_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   namespace_id : string prop;

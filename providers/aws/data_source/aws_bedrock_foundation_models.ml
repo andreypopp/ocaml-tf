@@ -167,6 +167,7 @@ let aws_bedrock_foundation_models ?by_customization_type
   }
 
 type t = {
+  tf_name : string;
   by_customization_type : string prop;
   by_inference_type : string prop;
   by_output_modality : string prop;
@@ -180,6 +181,7 @@ let make ?by_customization_type ?by_inference_type
   let __type = "aws_bedrock_foundation_models" in
   let __attrs =
     ({
+       tf_name = __id;
        by_customization_type =
          Prop.computed __type __id "by_customization_type";
        by_inference_type =

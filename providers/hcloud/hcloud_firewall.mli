@@ -40,6 +40,7 @@ val yojson_of_hcloud_firewall : hcloud_firewall -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   labels : (string * string) list prop;
   name : string prop;

@@ -31,6 +31,7 @@ val yojson_of_azurerm_sentinel_data_connector_threat_intelligence :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   log_analytics_workspace_id : string prop;
   lookback_date : string prop;

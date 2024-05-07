@@ -18,6 +18,7 @@ val yojson_of_google_compute_network : google_compute_network -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   gateway_ipv4 : string prop;
   id : string prop;

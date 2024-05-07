@@ -35,6 +35,7 @@ val yojson_of_azurerm_stream_analytics_output_cosmosdb :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   container_name : string prop;
   cosmosdb_account_key : string prop;
   cosmosdb_sql_database_id : string prop;

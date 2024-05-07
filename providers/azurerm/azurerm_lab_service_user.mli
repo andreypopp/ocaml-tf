@@ -32,6 +32,7 @@ val yojson_of_azurerm_lab_service_user :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   additional_usage_quota : string prop;
   email : string prop;
   id : string prop;

@@ -30,6 +30,7 @@ val yojson_of_aws_vpc_peering_connection_options :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   vpc_peering_connection_id : string prop;
 }

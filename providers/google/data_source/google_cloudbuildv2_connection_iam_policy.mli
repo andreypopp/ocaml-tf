@@ -20,6 +20,7 @@ val yojson_of_google_cloudbuildv2_connection_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   location : string prop;

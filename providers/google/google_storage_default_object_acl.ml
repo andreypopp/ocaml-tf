@@ -52,6 +52,7 @@ let google_storage_default_object_acl ?id ?role_entity ~bucket () :
   { bucket; id; role_entity }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   id : string prop;
   role_entity : string list prop;
@@ -61,6 +62,7 @@ let make ?id ?role_entity ~bucket __id =
   let __type = "google_storage_default_object_acl" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        id = Prop.computed __type __id "id";
        role_entity = Prop.computed __type __id "role_entity";

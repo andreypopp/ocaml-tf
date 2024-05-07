@@ -29,6 +29,7 @@ val yojson_of_aws_ec2_transit_gateway_peering_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   peer_account_id : string prop;
   peer_region : string prop;

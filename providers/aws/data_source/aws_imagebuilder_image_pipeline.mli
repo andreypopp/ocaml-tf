@@ -42,6 +42,7 @@ val yojson_of_aws_imagebuilder_image_pipeline :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   container_recipe_arn : string prop;
   date_created : string prop;

@@ -164,6 +164,7 @@ let azurerm_cost_anomaly_alert ?id ?message ?subscription_id
   }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   email_addresses : string list prop;
   email_subject : string prop;
@@ -178,6 +179,7 @@ let make ?id ?message ?subscription_id ?timeouts ~display_name
   let __type = "azurerm_cost_anomaly_alert" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        email_addresses = Prop.computed __type __id "email_addresses";
        email_subject = Prop.computed __type __id "email_subject";

@@ -259,6 +259,7 @@ let aws_api_gateway_rest_api ?api_key_source ?binary_media_types
   }
 
 type t = {
+  tf_name : string;
   api_key_source : string prop;
   arn : string prop;
   binary_media_types : string list prop;
@@ -286,6 +287,7 @@ let make ?api_key_source ?binary_media_types ?body ?description
   let __type = "aws_api_gateway_rest_api" in
   let __attrs =
     ({
+       tf_name = __id;
        api_key_source = Prop.computed __type __id "api_key_source";
        arn = Prop.computed __type __id "arn";
        binary_media_types =

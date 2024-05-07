@@ -125,6 +125,7 @@ let aws_db_snapshot ?db_instance_identifier ?db_snapshot_identifier
   }
 
 type t = {
+  tf_name : string;
   allocated_storage : float prop;
   availability_zone : string prop;
   db_instance_identifier : string prop;
@@ -158,6 +159,7 @@ let make ?db_instance_identifier ?db_snapshot_identifier ?id
   let __type = "aws_db_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        allocated_storage =
          Prop.computed __type __id "allocated_storage";
        availability_zone =

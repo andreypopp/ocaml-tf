@@ -21,6 +21,7 @@ val yojson_of_google_compute_instance_serial_port :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   contents : string prop;
   id : string prop;
   instance : string prop;

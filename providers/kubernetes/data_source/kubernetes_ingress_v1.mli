@@ -113,6 +113,7 @@ val yojson_of_kubernetes_ingress_v1 : kubernetes_ingress_v1 -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   spec : spec list prop;
   status : status list prop;

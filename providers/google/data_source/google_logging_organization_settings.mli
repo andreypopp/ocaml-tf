@@ -18,6 +18,7 @@ val yojson_of_google_logging_organization_settings :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   disable_default_sink : bool prop;
   id : string prop;
   kms_key_name : string prop;

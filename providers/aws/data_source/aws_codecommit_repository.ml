@@ -42,6 +42,7 @@ let aws_codecommit_repository ?id ~repository_name () :
   { id; repository_name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   clone_url_http : string prop;
   clone_url_ssh : string prop;
@@ -55,6 +56,7 @@ let make ?id ~repository_name __id =
   let __type = "aws_codecommit_repository" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        clone_url_http = Prop.computed __type __id "clone_url_http";
        clone_url_ssh = Prop.computed __type __id "clone_url_ssh";

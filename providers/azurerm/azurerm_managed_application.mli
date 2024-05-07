@@ -49,6 +49,7 @@ val yojson_of_azurerm_managed_application :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_definition_id : string prop;
   id : string prop;
   kind : string prop;

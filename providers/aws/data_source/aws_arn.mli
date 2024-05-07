@@ -12,6 +12,7 @@ val yojson_of_aws_arn : aws_arn -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account : string prop;
   arn : string prop;
   id : string prop;

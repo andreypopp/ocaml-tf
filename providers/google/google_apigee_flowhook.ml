@@ -138,6 +138,7 @@ let google_apigee_flowhook ?continue_on_error ?description ?id
   }
 
 type t = {
+  tf_name : string;
   continue_on_error : bool prop;
   description : string prop;
   environment : string prop;
@@ -152,6 +153,7 @@ let make ?continue_on_error ?description ?id ?timeouts ~environment
   let __type = "google_apigee_flowhook" in
   let __attrs =
     ({
+       tf_name = __id;
        continue_on_error =
          Prop.computed __type __id "continue_on_error";
        description = Prop.computed __type __id "description";

@@ -491,6 +491,7 @@ let aws_cloudwatch_metric_alarm ?actions_enabled ?alarm_actions
   }
 
 type t = {
+  tf_name : string;
   actions_enabled : bool prop;
   alarm_actions : string list prop;
   alarm_description : string prop;
@@ -527,6 +528,7 @@ let make ?actions_enabled ?alarm_actions ?alarm_description
   let __type = "aws_cloudwatch_metric_alarm" in
   let __attrs =
     ({
+       tf_name = __id;
        actions_enabled = Prop.computed __type __id "actions_enabled";
        alarm_actions = Prop.computed __type __id "alarm_actions";
        alarm_description =

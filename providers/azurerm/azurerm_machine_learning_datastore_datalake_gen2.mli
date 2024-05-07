@@ -38,6 +38,7 @@ val yojson_of_azurerm_machine_learning_datastore_datalake_gen2 :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authority_url : string prop;
   client_id : string prop;
   client_secret : string prop;

@@ -139,6 +139,7 @@ let aws_pinpoint_apns_channel ?bundle_id ?certificate
   }
 
 type t = {
+  tf_name : string;
   application_id : string prop;
   bundle_id : string prop;
   certificate : string prop;
@@ -157,6 +158,7 @@ let make ?bundle_id ?certificate ?default_authentication_method
   let __type = "aws_pinpoint_apns_channel" in
   let __attrs =
     ({
+       tf_name = __id;
        application_id = Prop.computed __type __id "application_id";
        bundle_id = Prop.computed __type __id "bundle_id";
        certificate = Prop.computed __type __id "certificate";

@@ -24,6 +24,7 @@ val yojson_of_aws_ram_resource_share_accepter :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   invitation_arn : string prop;
   receiver_account_id : string prop;

@@ -36,6 +36,7 @@ val yojson_of_aws_redshiftserverless_endpoint_access :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address : string prop;
   arn : string prop;
   endpoint_name : string prop;

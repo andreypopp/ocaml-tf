@@ -14,6 +14,7 @@ val yojson_of_aws_s3_bucket : aws_s3_bucket -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   bucket : string prop;
   bucket_domain_name : string prop;

@@ -24,6 +24,7 @@ val yojson_of_aws_directory_service_trust :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   conditional_forwarder_ip_addrs : string list prop;
   created_date_time : string prop;
   delete_associated_conditional_forwarder : bool prop;

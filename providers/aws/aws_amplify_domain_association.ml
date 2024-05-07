@@ -115,6 +115,7 @@ let aws_amplify_domain_association ?enable_auto_sub_domain ?id
   }
 
 type t = {
+  tf_name : string;
   app_id : string prop;
   arn : string prop;
   certificate_verification_dns_record : string prop;
@@ -129,6 +130,7 @@ let make ?enable_auto_sub_domain ?id ?wait_for_verification ~app_id
   let __type = "aws_amplify_domain_association" in
   let __attrs =
     ({
+       tf_name = __id;
        app_id = Prop.computed __type __id "app_id";
        arn = Prop.computed __type __id "arn";
        certificate_verification_dns_record =

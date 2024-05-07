@@ -197,6 +197,7 @@ let azurerm_logic_app_integration_account_assembly ?assembly_version
   }
 
 type t = {
+  tf_name : string;
   assembly_name : string prop;
   assembly_version : string prop;
   content : string prop;
@@ -214,6 +215,7 @@ let make ?assembly_version ?content ?content_link_uri ?id ?metadata
   let __type = "azurerm_logic_app_integration_account_assembly" in
   let __attrs =
     ({
+       tf_name = __id;
        assembly_name = Prop.computed __type __id "assembly_name";
        assembly_version =
          Prop.computed __type __id "assembly_version";

@@ -122,6 +122,7 @@ let azurerm_disk_pool_iscsi_target ?id ?target_iqn ?timeouts
   { acl_mode; disks_pool_id; id; name; target_iqn; timeouts }
 
 type t = {
+  tf_name : string;
   acl_mode : string prop;
   disks_pool_id : string prop;
   endpoints : string list prop;
@@ -136,6 +137,7 @@ let make ?id ?target_iqn ?timeouts ~acl_mode ~disks_pool_id ~name
   let __type = "azurerm_disk_pool_iscsi_target" in
   let __attrs =
     ({
+       tf_name = __id;
        acl_mode = Prop.computed __type __id "acl_mode";
        disks_pool_id = Prop.computed __type __id "disks_pool_id";
        endpoints = Prop.computed __type __id "endpoints";

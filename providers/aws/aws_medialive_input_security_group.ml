@@ -161,6 +161,7 @@ let aws_medialive_input_security_group ?id ?tags ?tags_all ?timeouts
   { id; tags; tags_all; timeouts; whitelist_rules }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   inputs : string list prop;
@@ -172,6 +173,7 @@ let make ?id ?tags ?tags_all ?timeouts ~whitelist_rules __id =
   let __type = "aws_medialive_input_security_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        inputs = Prop.computed __type __id "inputs";

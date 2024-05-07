@@ -192,6 +192,7 @@ let aws_gamelift_game_session_queue ?custom_event_data ?destinations
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   custom_event_data : string prop;
   destinations : string list prop;
@@ -209,6 +210,7 @@ let make ?custom_event_data ?destinations ?id ?notification_target
   let __type = "aws_gamelift_game_session_queue" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        custom_event_data =
          Prop.computed __type __id "custom_event_data";

@@ -44,6 +44,7 @@ let aws_lex_bot_alias ?id ~bot_name ~name () : aws_lex_bot_alias =
   { bot_name; id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   bot_name : string prop;
   bot_version : string prop;
@@ -59,6 +60,7 @@ let make ?id ~bot_name ~name __id =
   let __type = "aws_lex_bot_alias" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        bot_name = Prop.computed __type __id "bot_name";
        bot_version = Prop.computed __type __id "bot_version";

@@ -266,6 +266,7 @@ let google_cloudbuild_worker_pool ?annotations ?display_name ?id
   }
 
 type t = {
+  tf_name : string;
   annotations : (string * string) list prop;
   create_time : string prop;
   delete_time : string prop;
@@ -286,6 +287,7 @@ let make ?annotations ?display_name ?id ?project
   let __type = "google_cloudbuild_worker_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        annotations = Prop.computed __type __id "annotations";
        create_time = Prop.computed __type __id "create_time";
        delete_time = Prop.computed __type __id "delete_time";

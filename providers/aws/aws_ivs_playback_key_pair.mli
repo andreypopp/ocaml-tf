@@ -27,6 +27,7 @@ val yojson_of_aws_ivs_playback_key_pair :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   fingerprint : string prop;
   id : string prop;

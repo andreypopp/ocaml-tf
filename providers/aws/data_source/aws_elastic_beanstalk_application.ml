@@ -89,6 +89,7 @@ let aws_elastic_beanstalk_application ?id ~name () :
   { id; name }
 
 type t = {
+  tf_name : string;
   appversion_lifecycle : appversion_lifecycle list prop;
   arn : string prop;
   description : string prop;
@@ -100,6 +101,7 @@ let make ?id ~name __id =
   let __type = "aws_elastic_beanstalk_application" in
   let __attrs =
     ({
+       tf_name = __id;
        appversion_lifecycle =
          Prop.computed __type __id "appversion_lifecycle";
        arn = Prop.computed __type __id "arn";

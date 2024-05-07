@@ -19,6 +19,7 @@ val yojson_of_aws_ec2_tag : aws_ec2_tag -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   key : string prop;
   resource_id : string prop;

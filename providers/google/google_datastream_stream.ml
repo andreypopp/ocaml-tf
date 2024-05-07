@@ -2940,6 +2940,7 @@ let google_datastream_stream ?customer_managed_encryption_key
   }
 
 type t = {
+  tf_name : string;
   customer_managed_encryption_key : string prop;
   desired_state : string prop;
   display_name : string prop;
@@ -2961,6 +2962,7 @@ let make ?customer_managed_encryption_key ?desired_state ?id ?labels
   let __type = "google_datastream_stream" in
   let __attrs =
     ({
+       tf_name = __id;
        customer_managed_encryption_key =
          Prop.computed __type __id "customer_managed_encryption_key";
        desired_state = Prop.computed __type __id "desired_state";

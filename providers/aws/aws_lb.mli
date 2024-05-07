@@ -81,6 +81,7 @@ val yojson_of_aws_lb : aws_lb -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   arn_suffix : string prop;
   customer_owned_ipv4_pool : string prop;

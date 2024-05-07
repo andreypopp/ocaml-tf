@@ -176,6 +176,7 @@ let google_apigee_instance ?consumer_accept_list ?description
   }
 
 type t = {
+  tf_name : string;
   consumer_accept_list : string list prop;
   description : string prop;
   disk_encryption_key_name : string prop;
@@ -197,6 +198,7 @@ let make ?consumer_accept_list ?description ?disk_encryption_key_name
   let __type = "google_apigee_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        consumer_accept_list =
          Prop.computed __type __id "consumer_accept_list";
        description = Prop.computed __type __id "description";

@@ -127,6 +127,7 @@ val yojson_of_google_looker_instance : google_looker_instance -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   consumer_network : string prop;
   create_time : string prop;
   egress_public_ip : string prop;

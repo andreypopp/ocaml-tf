@@ -320,6 +320,7 @@ let azurerm_subnet ?enforce_private_link_endpoint_network_policies
   }
 
 type t = {
+  tf_name : string;
   address_prefixes : string list prop;
   enforce_private_link_endpoint_network_policies : bool prop;
   enforce_private_link_service_network_policies : bool prop;
@@ -343,6 +344,7 @@ let make ?enforce_private_link_endpoint_network_policies
   let __type = "azurerm_subnet" in
   let __attrs =
     ({
+       tf_name = __id;
        address_prefixes =
          Prop.computed __type __id "address_prefixes";
        enforce_private_link_endpoint_network_policies =

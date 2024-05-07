@@ -34,6 +34,7 @@ val yojson_of_azurerm_express_route_circuit_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address_prefix_ipv4 : string prop;
   address_prefix_ipv6 : string prop;
   authorization_key : string prop;

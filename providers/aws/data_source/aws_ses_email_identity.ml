@@ -38,12 +38,18 @@ let _ = yojson_of_aws_ses_email_identity
 let aws_ses_email_identity ?id ~email () : aws_ses_email_identity =
   { email; id }
 
-type t = { arn : string prop; email : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  arn : string prop;
+  email : string prop;
+  id : string prop;
+}
 
 let make ?id ~email __id =
   let __type = "aws_ses_email_identity" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        email = Prop.computed __type __id "email";
        id = Prop.computed __type __id "id";

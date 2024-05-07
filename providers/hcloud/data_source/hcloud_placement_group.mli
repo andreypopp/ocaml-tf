@@ -21,6 +21,7 @@ val yojson_of_hcloud_placement_group : hcloud_placement_group -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : float prop;
   labels : (string * string) list prop;
   most_recent : bool prop;

@@ -245,6 +245,7 @@ let azurerm_local_network_gateway ?address_space ?gateway_address
   }
 
 type t = {
+  tf_name : string;
   address_space : string list prop;
   gateway_address : string prop;
   gateway_fqdn : string prop;
@@ -261,6 +262,7 @@ let make ?address_space ?gateway_address ?gateway_fqdn ?id ?tags
   let __type = "azurerm_local_network_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        address_space = Prop.computed __type __id "address_space";
        gateway_address = Prop.computed __type __id "gateway_address";
        gateway_fqdn = Prop.computed __type __id "gateway_fqdn";

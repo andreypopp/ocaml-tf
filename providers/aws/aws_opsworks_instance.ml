@@ -612,6 +612,7 @@ let aws_opsworks_instance ?agent_version ?ami_id ?architecture
   }
 
 type t = {
+  tf_name : string;
   agent_version : string prop;
   ami_id : string prop;
   architecture : string prop;
@@ -669,6 +670,7 @@ let make ?agent_version ?ami_id ?architecture ?auto_scaling_type
   let __type = "aws_opsworks_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        agent_version = Prop.computed __type __id "agent_version";
        ami_id = Prop.computed __type __id "ami_id";
        architecture = Prop.computed __type __id "architecture";

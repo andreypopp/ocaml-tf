@@ -14,6 +14,7 @@ val yojson_of_aws_lambda_functions : aws_lambda_functions -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   function_arns : string list prop;
   function_names : string list prop;
   id : string prop;

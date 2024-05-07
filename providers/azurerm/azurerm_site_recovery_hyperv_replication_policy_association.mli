@@ -30,6 +30,7 @@ val yojson_of_azurerm_site_recovery_hyperv_replication_policy_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   hyperv_site_id : string prop;
   id : string prop;
   name : string prop;

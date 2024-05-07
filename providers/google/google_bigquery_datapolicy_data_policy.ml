@@ -179,6 +179,7 @@ let google_bigquery_datapolicy_data_policy ?id ?project
   }
 
 type t = {
+  tf_name : string;
   data_policy_id : string prop;
   data_policy_type : string prop;
   id : string prop;
@@ -193,6 +194,7 @@ let make ?id ?project ?(data_masking_policy = []) ?timeouts
   let __type = "google_bigquery_datapolicy_data_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        data_policy_id = Prop.computed __type __id "data_policy_id";
        data_policy_type =
          Prop.computed __type __id "data_policy_type";

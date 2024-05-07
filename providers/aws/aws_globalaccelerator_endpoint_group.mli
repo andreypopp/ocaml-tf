@@ -54,6 +54,7 @@ val yojson_of_aws_globalaccelerator_endpoint_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   endpoint_group_region : string prop;
   health_check_interval_seconds : float prop;

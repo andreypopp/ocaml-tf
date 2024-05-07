@@ -23,6 +23,7 @@ val yojson_of_azurerm_virtual_wan : azurerm_virtual_wan -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_branch_to_branch_traffic : bool prop;
   disable_vpn_encryption : bool prop;
   id : string prop;

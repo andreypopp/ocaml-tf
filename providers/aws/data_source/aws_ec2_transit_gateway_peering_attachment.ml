@@ -125,6 +125,7 @@ let aws_ec2_transit_gateway_peering_attachment ?id ?tags ?timeouts
   { id; tags; filter; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   peer_account_id : string prop;
   peer_region : string prop;
@@ -138,6 +139,7 @@ let make ?id ?tags ?timeouts ~filter __id =
   let __type = "aws_ec2_transit_gateway_peering_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        peer_account_id = Prop.computed __type __id "peer_account_id";
        peer_region = Prop.computed __type __id "peer_region";

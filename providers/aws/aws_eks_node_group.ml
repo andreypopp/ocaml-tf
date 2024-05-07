@@ -604,6 +604,7 @@ let aws_eks_node_group ?ami_type ?capacity_type ?disk_size
   }
 
 type t = {
+  tf_name : string;
   ami_type : string prop;
   arn : string prop;
   capacity_type : string prop;
@@ -634,6 +635,7 @@ let make ?ami_type ?capacity_type ?disk_size ?force_update_version
   let __type = "aws_eks_node_group" in
   let __attrs =
     ({
+       tf_name = __id;
        ami_type = Prop.computed __type __id "ami_type";
        arn = Prop.computed __type __id "arn";
        capacity_type = Prop.computed __type __id "capacity_type";

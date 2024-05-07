@@ -130,6 +130,7 @@ let aws_glue_schema ?description ?id ?registry_arn ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   compatibility : string prop;
   data_format : string prop;
@@ -152,6 +153,7 @@ let make ?description ?id ?registry_arn ?tags ?tags_all
   let __type = "aws_glue_schema" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        compatibility = Prop.computed __type __id "compatibility";
        data_format = Prop.computed __type __id "data_format";

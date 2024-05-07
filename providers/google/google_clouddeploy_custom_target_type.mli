@@ -72,6 +72,7 @@ val yojson_of_google_clouddeploy_custom_target_type :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   annotations : (string * string) list prop;
   create_time : string prop;
   custom_target_type_id : string prop;

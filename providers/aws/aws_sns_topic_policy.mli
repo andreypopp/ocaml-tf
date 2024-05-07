@@ -18,6 +18,7 @@ val yojson_of_aws_sns_topic_policy : aws_sns_topic_policy -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   owner : string prop;

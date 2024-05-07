@@ -32,6 +32,7 @@ val yojson_of_azurerm_storage_container :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   container_access_type : string prop;
   has_immutability_policy : bool prop;
   has_legal_hold : bool prop;

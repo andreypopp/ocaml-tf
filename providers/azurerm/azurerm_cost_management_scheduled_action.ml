@@ -241,6 +241,7 @@ let azurerm_cost_management_scheduled_action ?day_of_month
   }
 
 type t = {
+  tf_name : string;
   day_of_month : float prop;
   days_of_week : string list prop;
   display_name : string prop;
@@ -265,6 +266,7 @@ let make ?day_of_month ?days_of_week ?hour_of_day ?id ?message
   let __type = "azurerm_cost_management_scheduled_action" in
   let __attrs =
     ({
+       tf_name = __id;
        day_of_month = Prop.computed __type __id "day_of_month";
        days_of_week = Prop.computed __type __id "days_of_week";
        display_name = Prop.computed __type __id "display_name";

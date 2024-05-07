@@ -187,6 +187,7 @@ let azurerm_cosmosdb_restorable_database_accounts ?id ?timeouts
   { id; location; name; timeouts }
 
 type t = {
+  tf_name : string;
   accounts : accounts list prop;
   id : string prop;
   location : string prop;
@@ -197,6 +198,7 @@ let make ?id ?timeouts ~location ~name __id =
   let __type = "azurerm_cosmosdb_restorable_database_accounts" in
   let __attrs =
     ({
+       tf_name = __id;
        accounts = Prop.computed __type __id "accounts";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

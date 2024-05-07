@@ -60,6 +60,7 @@ val yojson_of_aws_connect_user_hierarchy_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   hierarchy_group_id : string prop;
   hierarchy_path : hierarchy_path list prop;

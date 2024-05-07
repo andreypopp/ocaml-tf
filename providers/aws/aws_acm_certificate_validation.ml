@@ -92,6 +92,7 @@ let aws_acm_certificate_validation ?id ?validation_record_fqdns
   { certificate_arn; id; validation_record_fqdns; timeouts }
 
 type t = {
+  tf_name : string;
   certificate_arn : string prop;
   id : string prop;
   validation_record_fqdns : string list prop;
@@ -102,6 +103,7 @@ let make ?id ?validation_record_fqdns ?timeouts ~certificate_arn __id
   let __type = "aws_acm_certificate_validation" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_arn = Prop.computed __type __id "certificate_arn";
        id = Prop.computed __type __id "id";
        validation_record_fqdns =

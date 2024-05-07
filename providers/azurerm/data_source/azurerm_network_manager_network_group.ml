@@ -86,6 +86,7 @@ let azurerm_network_manager_network_group ?id ?timeouts ~name
   { id; name; network_manager_id; timeouts }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   name : string prop;
@@ -96,6 +97,7 @@ let make ?id ?timeouts ~name ~network_manager_id __id =
   let __type = "azurerm_network_manager_network_group" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

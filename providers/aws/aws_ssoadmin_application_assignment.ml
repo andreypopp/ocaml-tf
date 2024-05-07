@@ -51,6 +51,7 @@ let aws_ssoadmin_application_assignment ~application_arn
   { application_arn; principal_id; principal_type }
 
 type t = {
+  tf_name : string;
   application_arn : string prop;
   id : string prop;
   principal_id : string prop;
@@ -61,6 +62,7 @@ let make ~application_arn ~principal_id ~principal_type __id =
   let __type = "aws_ssoadmin_application_assignment" in
   let __attrs =
     ({
+       tf_name = __id;
        application_arn = Prop.computed __type __id "application_arn";
        id = Prop.computed __type __id "id";
        principal_id = Prop.computed __type __id "principal_id";

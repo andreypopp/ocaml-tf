@@ -212,6 +212,7 @@ let aws_networkmanager_vpc_attachment ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   attachment_policy_rule_number : float prop;
   attachment_type : string prop;
@@ -234,6 +235,7 @@ let make ?id ?tags ?tags_all ?(options = []) ?timeouts
   let __type = "aws_networkmanager_vpc_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        attachment_policy_rule_number =
          Prop.computed __type __id "attachment_policy_rule_number";

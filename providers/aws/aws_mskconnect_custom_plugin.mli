@@ -40,6 +40,7 @@ val yojson_of_aws_mskconnect_custom_plugin :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   content_type : string prop;
   description : string prop;

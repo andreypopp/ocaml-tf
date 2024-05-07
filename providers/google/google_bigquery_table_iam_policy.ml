@@ -66,6 +66,7 @@ let google_bigquery_table_iam_policy ?id ?project ~dataset_id
   { dataset_id; id; policy_data; project; table_id }
 
 type t = {
+  tf_name : string;
   dataset_id : string prop;
   etag : string prop;
   id : string prop;
@@ -78,6 +79,7 @@ let make ?id ?project ~dataset_id ~policy_data ~table_id __id =
   let __type = "google_bigquery_table_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        dataset_id = Prop.computed __type __id "dataset_id";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

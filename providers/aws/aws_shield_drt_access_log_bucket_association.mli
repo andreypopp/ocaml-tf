@@ -24,6 +24,7 @@ val yojson_of_aws_shield_drt_access_log_bucket_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   log_bucket : string prop;
   role_arn_association_id : string prop;

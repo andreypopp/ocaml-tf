@@ -19,6 +19,7 @@ val yojson_of_aws_appsync_api_key : aws_appsync_api_key -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_id : string prop;
   description : string prop;
   expires : string prop;

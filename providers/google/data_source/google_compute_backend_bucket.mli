@@ -54,6 +54,7 @@ val yojson_of_google_compute_backend_bucket :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket_name : string prop;
   cdn_policy : cdn_policy list prop;
   compression_mode : string prop;

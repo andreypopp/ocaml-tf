@@ -53,6 +53,7 @@ let aws_organizations_delegated_administrator ?id ~account_id
   { account_id; id; service_principal }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   arn : string prop;
   delegation_enabled_date : string prop;
@@ -69,6 +70,7 @@ let make ?id ~account_id ~service_principal __id =
   let __type = "aws_organizations_delegated_administrator" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        arn = Prop.computed __type __id "arn";
        delegation_enabled_date =

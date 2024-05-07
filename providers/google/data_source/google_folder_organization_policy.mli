@@ -39,6 +39,7 @@ val yojson_of_google_folder_organization_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   boolean_policy : boolean_policy list prop;
   constraint_ : string prop;
   etag : string prop;

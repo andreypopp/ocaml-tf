@@ -46,6 +46,7 @@ val yojson_of_aws_connect_hours_of_operation :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   hours_of_operation_id : string prop;

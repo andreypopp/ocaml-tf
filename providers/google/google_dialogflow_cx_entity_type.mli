@@ -48,6 +48,7 @@ val yojson_of_google_dialogflow_cx_entity_type :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_expansion_mode : string prop;
   display_name : string prop;
   enable_fuzzy_extraction : bool prop;

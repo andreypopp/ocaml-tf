@@ -358,6 +358,7 @@ let aws_sesv2_configuration_set_event_destination ?id
   }
 
 type t = {
+  tf_name : string;
   configuration_set_name : string prop;
   event_destination_name : string prop;
   id : string prop;
@@ -368,6 +369,7 @@ let make ?id ~configuration_set_name ~event_destination_name
   let __type = "aws_sesv2_configuration_set_event_destination" in
   let __attrs =
     ({
+       tf_name = __id;
        configuration_set_name =
          Prop.computed __type __id "configuration_set_name";
        event_destination_name =

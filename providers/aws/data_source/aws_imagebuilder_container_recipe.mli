@@ -60,6 +60,7 @@ val yojson_of_aws_imagebuilder_container_recipe :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   component : component list prop;
   container_type : string prop;

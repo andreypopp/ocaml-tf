@@ -52,6 +52,7 @@ let aws_ram_resource_association ?id ~resource_arn
   { id; resource_arn; resource_share_arn }
 
 type t = {
+  tf_name : string;
   id : string prop;
   resource_arn : string prop;
   resource_share_arn : string prop;
@@ -61,6 +62,7 @@ let make ?id ~resource_arn ~resource_share_arn __id =
   let __type = "aws_ram_resource_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        resource_arn = Prop.computed __type __id "resource_arn";
        resource_share_arn =

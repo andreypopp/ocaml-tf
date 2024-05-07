@@ -26,6 +26,7 @@ val yojson_of_aws_fsx_backup : aws_fsx_backup -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   file_system_id : string prop;
   id : string prop;

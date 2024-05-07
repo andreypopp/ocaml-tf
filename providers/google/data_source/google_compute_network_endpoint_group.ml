@@ -78,6 +78,7 @@ let google_compute_network_endpoint_group ?id ?name ?project
   { id; name; project; self_link; zone }
 
 type t = {
+  tf_name : string;
   default_port : float prop;
   description : string prop;
   id : string prop;
@@ -95,6 +96,7 @@ let make ?id ?name ?project ?self_link ?zone __id =
   let __type = "google_compute_network_endpoint_group" in
   let __attrs =
     ({
+       tf_name = __id;
        default_port = Prop.computed __type __id "default_port";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

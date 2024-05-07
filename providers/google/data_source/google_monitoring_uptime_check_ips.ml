@@ -74,6 +74,7 @@ let google_monitoring_uptime_check_ips ?id () :
   { id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   uptime_check_ips : uptime_check_ips list prop;
 }
@@ -82,6 +83,7 @@ let make ?id __id =
   let __type = "google_monitoring_uptime_check_ips" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        uptime_check_ips =
          Prop.computed __type __id "uptime_check_ips";

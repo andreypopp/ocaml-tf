@@ -80,6 +80,7 @@ let aws_rds_reserved_instance_offering ?id ~db_instance_class
   }
 
 type t = {
+  tf_name : string;
   currency_code : string prop;
   db_instance_class : string prop;
   duration : float prop;
@@ -96,6 +97,7 @@ let make ?id ~db_instance_class ~duration ~multi_az ~offering_type
   let __type = "aws_rds_reserved_instance_offering" in
   let __attrs =
     ({
+       tf_name = __id;
        currency_code = Prop.computed __type __id "currency_code";
        db_instance_class =
          Prop.computed __type __id "db_instance_class";

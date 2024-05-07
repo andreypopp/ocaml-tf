@@ -25,6 +25,7 @@ val yojson_of_azurerm_network_service_tags :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address_prefixes : string list prop;
   id : string prop;
   ipv4_cidrs : string list prop;

@@ -138,6 +138,7 @@ let aws_fsx_backup ?file_system_id ?id ?tags ?tags_all ?volume_id
   { file_system_id; id; tags; tags_all; volume_id; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   file_system_id : string prop;
   id : string prop;
@@ -154,6 +155,7 @@ let make ?file_system_id ?id ?tags ?tags_all ?volume_id ?timeouts
   let __type = "aws_fsx_backup" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        file_system_id = Prop.computed __type __id "file_system_id";
        id = Prop.computed __type __id "id";

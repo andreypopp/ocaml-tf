@@ -30,6 +30,7 @@ let aws_bedrock_foundation_model ~model_id () :
   { model_id }
 
 type t = {
+  tf_name : string;
   customizations_supported : string list prop;
   id : string prop;
   inference_types_supported : string list prop;
@@ -46,6 +47,7 @@ let make ~model_id __id =
   let __type = "aws_bedrock_foundation_model" in
   let __attrs =
     ({
+       tf_name = __id;
        customizations_supported =
          Prop.computed __type __id "customizations_supported";
        id = Prop.computed __type __id "id";

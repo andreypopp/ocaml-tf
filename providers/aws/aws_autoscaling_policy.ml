@@ -1921,6 +1921,7 @@ let aws_autoscaling_policy ?adjustment_type ?cooldown ?enabled
   }
 
 type t = {
+  tf_name : string;
   adjustment_type : string prop;
   arn : string prop;
   autoscaling_group_name : string prop;
@@ -1944,6 +1945,7 @@ let make ?adjustment_type ?cooldown ?enabled
   let __type = "aws_autoscaling_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        adjustment_type = Prop.computed __type __id "adjustment_type";
        arn = Prop.computed __type __id "arn";
        autoscaling_group_name =

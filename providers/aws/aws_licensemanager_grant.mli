@@ -21,6 +21,7 @@ val yojson_of_aws_licensemanager_grant :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allowed_operations : string list prop;
   arn : string prop;
   home_region : string prop;

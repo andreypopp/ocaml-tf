@@ -1126,6 +1126,7 @@ let google_alloydb_cluster ?annotations ?cluster_type
   }
 
 type t = {
+  tf_name : string;
   annotations : (string * string) list prop;
   backup_source : backup_source list prop;
   cluster_id : string prop;
@@ -1162,6 +1163,7 @@ let make ?annotations ?cluster_type ?database_version
   let __type = "google_alloydb_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        annotations = Prop.computed __type __id "annotations";
        backup_source = Prop.computed __type __id "backup_source";
        cluster_id = Prop.computed __type __id "cluster_id";

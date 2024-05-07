@@ -25,6 +25,7 @@ val yojson_of_cloudflare_authenticated_origin_pulls :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authenticated_origin_pulls_certificate : string prop;
   enabled : bool prop;
   hostname : string prop;

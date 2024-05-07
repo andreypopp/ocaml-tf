@@ -24,6 +24,7 @@ val yojson_of_azurerm_private_dns_resolver_outbound_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;

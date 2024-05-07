@@ -116,6 +116,7 @@ let google_vmwareengine_external_access_rule ?id ~name ~parent () :
   { id; name; parent }
 
 type t = {
+  tf_name : string;
   action : string prop;
   create_time : string prop;
   description : string prop;
@@ -137,6 +138,7 @@ let make ?id ~name ~parent __id =
   let __type = "google_vmwareengine_external_access_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";

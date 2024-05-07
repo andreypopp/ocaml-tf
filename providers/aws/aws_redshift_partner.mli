@@ -20,6 +20,7 @@ val yojson_of_aws_redshift_partner : aws_redshift_partner -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   cluster_identifier : string prop;
   database_name : string prop;

@@ -260,6 +260,7 @@ let azurerm_traffic_manager_profile ?id ?tags ?traffic_view_enabled
   }
 
 type t = {
+  tf_name : string;
   dns_config : dns_config list prop;
   fqdn : string prop;
   id : string prop;
@@ -277,6 +278,7 @@ let make ?id ?tags ?traffic_view_enabled ?timeouts ~name
   let __type = "azurerm_traffic_manager_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        dns_config = Prop.computed __type __id "dns_config";
        fqdn = Prop.computed __type __id "fqdn";
        id = Prop.computed __type __id "id";

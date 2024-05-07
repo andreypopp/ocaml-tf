@@ -21,6 +21,7 @@ val yojson_of_aws_sagemaker_prebuilt_ecr_image :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dns_suffix : string prop;
   id : string prop;
   image_tag : string prop;

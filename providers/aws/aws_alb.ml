@@ -568,6 +568,7 @@ let aws_alb ?customer_owned_ipv4_pool ?desync_mitigation_mode
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   arn_suffix : string prop;
   customer_owned_ipv4_pool : string prop;
@@ -614,6 +615,7 @@ let make ?customer_owned_ipv4_pool ?desync_mitigation_mode
   let __type = "aws_alb" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        arn_suffix = Prop.computed __type __id "arn_suffix";
        customer_owned_ipv4_pool =

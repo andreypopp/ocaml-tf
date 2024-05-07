@@ -40,6 +40,7 @@ val yojson_of_azurerm_spring_cloud_build_pack_binding :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   binding_type : string prop;
   id : string prop;
   name : string prop;

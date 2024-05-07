@@ -42,12 +42,13 @@ let _ = yojson_of_aws_elb_hosted_zone_id
 let aws_elb_hosted_zone_id ?id ?region () : aws_elb_hosted_zone_id =
   { id; region }
 
-type t = { id : string prop; region : string prop }
+type t = { tf_name : string; id : string prop; region : string prop }
 
 let make ?id ?region __id =
   let __type = "aws_elb_hosted_zone_id" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        region = Prop.computed __type __id "region";
      }

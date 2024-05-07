@@ -21,6 +21,7 @@ val yojson_of_aws_ec2_transit_gateway_route :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   blackhole : bool prop;
   destination_cidr_block : string prop;
   id : string prop;

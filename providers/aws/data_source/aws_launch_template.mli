@@ -269,6 +269,7 @@ val yojson_of_aws_launch_template : aws_launch_template -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   block_device_mappings : block_device_mappings list prop;
   capacity_reservation_specification :

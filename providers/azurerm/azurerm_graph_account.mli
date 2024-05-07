@@ -31,6 +31,7 @@ val yojson_of_azurerm_graph_account : azurerm_graph_account -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_id : string prop;
   billing_plan_id : string prop;
   id : string prop;

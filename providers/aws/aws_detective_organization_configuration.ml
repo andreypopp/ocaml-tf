@@ -50,6 +50,7 @@ let aws_detective_organization_configuration ?id ~auto_enable
   { auto_enable; graph_arn; id }
 
 type t = {
+  tf_name : string;
   auto_enable : bool prop;
   graph_arn : string prop;
   id : string prop;
@@ -59,6 +60,7 @@ let make ?id ~auto_enable ~graph_arn __id =
   let __type = "aws_detective_organization_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_enable = Prop.computed __type __id "auto_enable";
        graph_arn = Prop.computed __type __id "graph_arn";
        id = Prop.computed __type __id "id";

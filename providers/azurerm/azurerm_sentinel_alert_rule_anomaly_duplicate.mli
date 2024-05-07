@@ -76,6 +76,7 @@ val yojson_of_azurerm_sentinel_alert_rule_anomaly_duplicate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   anomaly_settings_version : float prop;
   anomaly_version : string prop;
   built_in_rule_id : string prop;

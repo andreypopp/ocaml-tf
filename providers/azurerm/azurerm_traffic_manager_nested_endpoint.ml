@@ -321,6 +321,7 @@ let azurerm_traffic_manager_nested_endpoint ?enabled
   }
 
 type t = {
+  tf_name : string;
   enabled : bool prop;
   endpoint_location : string prop;
   geo_mappings : string list prop;
@@ -344,6 +345,7 @@ let make ?enabled ?endpoint_location ?geo_mappings ?id
   let __type = "azurerm_traffic_manager_nested_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        endpoint_location =
          Prop.computed __type __id "endpoint_location";

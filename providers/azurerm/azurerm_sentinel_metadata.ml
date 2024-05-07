@@ -510,6 +510,7 @@ let azurerm_sentinel_metadata ?content_schema_version ?custom_version
   }
 
 type t = {
+  tf_name : string;
   content_id : string prop;
   content_schema_version : string prop;
   custom_version : string prop;
@@ -539,6 +540,7 @@ let make ?content_schema_version ?custom_version ?dependency
   let __type = "azurerm_sentinel_metadata" in
   let __attrs =
     ({
+       tf_name = __id;
        content_id = Prop.computed __type __id "content_id";
        content_schema_version =
          Prop.computed __type __id "content_schema_version";

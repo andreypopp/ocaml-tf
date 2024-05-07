@@ -27,6 +27,7 @@ val yojson_of_cloudflare_access_custom_page :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   app_count : float prop;
   custom_html : string prop;

@@ -19,6 +19,7 @@ val yojson_of_digitalocean_volume : digitalocean_volume -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   droplet_ids : float list prop;
   filesystem_label : string prop;

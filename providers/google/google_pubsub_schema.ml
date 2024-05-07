@@ -128,6 +128,7 @@ let google_pubsub_schema ?definition ?id ?project ?type_ ?timeouts
   { definition; id; name; project; type_; timeouts }
 
 type t = {
+  tf_name : string;
   definition : string prop;
   id : string prop;
   name : string prop;
@@ -139,6 +140,7 @@ let make ?definition ?id ?project ?type_ ?timeouts ~name __id =
   let __type = "google_pubsub_schema" in
   let __attrs =
     ({
+       tf_name = __id;
        definition = Prop.computed __type __id "definition";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

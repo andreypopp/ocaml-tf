@@ -28,6 +28,7 @@ val yojson_of_google_organization_iam_audit_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   org_id : string prop;

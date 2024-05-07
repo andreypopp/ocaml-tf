@@ -35,12 +35,13 @@ let aws_billing_service_account ?id () : aws_billing_service_account
     =
   { id }
 
-type t = { arn : string prop; id : string prop }
+type t = { tf_name : string; arn : string prop; id : string prop }
 
 let make ?id __id =
   let __type = "aws_billing_service_account" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
      }

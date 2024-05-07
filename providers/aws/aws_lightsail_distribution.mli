@@ -101,6 +101,7 @@ val yojson_of_aws_lightsail_distribution :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alternative_domain_names : string list prop;
   arn : string prop;
   bundle_id : string prop;

@@ -95,6 +95,7 @@ let aws_grafana_license_association ?id ?timeouts ~license_type
   { id; license_type; workspace_id; timeouts }
 
 type t = {
+  tf_name : string;
   free_trial_expiration : string prop;
   id : string prop;
   license_expiration : string prop;
@@ -106,6 +107,7 @@ let make ?id ?timeouts ~license_type ~workspace_id __id =
   let __type = "aws_grafana_license_association" in
   let __attrs =
     ({
+       tf_name = __id;
        free_trial_expiration =
          Prop.computed __type __id "free_trial_expiration";
        id = Prop.computed __type __id "id";

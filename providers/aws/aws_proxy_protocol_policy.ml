@@ -53,6 +53,7 @@ let aws_proxy_protocol_policy ?id ~instance_ports ~load_balancer () :
   { id; instance_ports; load_balancer }
 
 type t = {
+  tf_name : string;
   id : string prop;
   instance_ports : string list prop;
   load_balancer : string prop;
@@ -62,6 +63,7 @@ let make ?id ~instance_ports ~load_balancer __id =
   let __type = "aws_proxy_protocol_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        instance_ports = Prop.computed __type __id "instance_ports";
        load_balancer = Prop.computed __type __id "load_balancer";

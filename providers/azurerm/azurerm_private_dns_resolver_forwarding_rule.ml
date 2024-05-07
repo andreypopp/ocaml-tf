@@ -212,6 +212,7 @@ let azurerm_private_dns_resolver_forwarding_rule ?enabled ?id
   }
 
 type t = {
+  tf_name : string;
   dns_forwarding_ruleset_id : string prop;
   domain_name : string prop;
   enabled : bool prop;
@@ -225,6 +226,7 @@ let make ?enabled ?id ?metadata ?timeouts ~dns_forwarding_ruleset_id
   let __type = "azurerm_private_dns_resolver_forwarding_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        dns_forwarding_ruleset_id =
          Prop.computed __type __id "dns_forwarding_ruleset_id";
        domain_name = Prop.computed __type __id "domain_name";

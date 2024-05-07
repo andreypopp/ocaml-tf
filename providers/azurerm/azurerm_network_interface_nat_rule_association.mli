@@ -30,6 +30,7 @@ val yojson_of_azurerm_network_interface_nat_rule_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   ip_configuration_name : string prop;
   nat_rule_id : string prop;

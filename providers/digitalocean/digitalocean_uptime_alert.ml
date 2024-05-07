@@ -164,6 +164,7 @@ let digitalocean_uptime_alert ?comparison ?period ?threshold
   }
 
 type t = {
+  tf_name : string;
   check_id : string prop;
   comparison : string prop;
   id : string prop;
@@ -178,6 +179,7 @@ let make ?comparison ?period ?threshold ~check_id ~name ~type_
   let __type = "digitalocean_uptime_alert" in
   let __attrs =
     ({
+       tf_name = __id;
        check_id = Prop.computed __type __id "check_id";
        comparison = Prop.computed __type __id "comparison";
        id = Prop.computed __type __id "id";

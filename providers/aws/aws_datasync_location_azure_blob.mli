@@ -31,6 +31,7 @@ val yojson_of_aws_datasync_location_azure_blob :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_tier : string prop;
   agent_arns : string list prop;
   arn : string prop;

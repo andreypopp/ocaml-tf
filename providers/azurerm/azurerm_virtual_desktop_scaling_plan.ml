@@ -463,6 +463,7 @@ let azurerm_virtual_desktop_scaling_plan ?description ?exclusion_tag
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   exclusion_tag : string prop;
   friendly_name : string prop;
@@ -480,6 +481,7 @@ let make ?description ?exclusion_tag ?friendly_name ?id ?tags
   let __type = "azurerm_virtual_desktop_scaling_plan" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        exclusion_tag = Prop.computed __type __id "exclusion_tag";
        friendly_name = Prop.computed __type __id "friendly_name";

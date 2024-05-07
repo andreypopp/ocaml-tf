@@ -19,6 +19,7 @@ val yojson_of_aws_ses_receipt_filter : aws_ses_receipt_filter -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cidr : string prop;
   id : string prop;

@@ -29,6 +29,7 @@ val yojson_of_aws_cognito_resource_server :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   identifier : string prop;
   name : string prop;

@@ -33,6 +33,7 @@ val yojson_of_aws_appintegrations_data_integration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;

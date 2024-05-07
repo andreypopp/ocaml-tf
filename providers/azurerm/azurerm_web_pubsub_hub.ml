@@ -309,6 +309,7 @@ let azurerm_web_pubsub_hub ?anonymous_connections_enabled ?id
   }
 
 type t = {
+  tf_name : string;
   anonymous_connections_enabled : bool prop;
   id : string prop;
   name : string prop;
@@ -320,6 +321,7 @@ let make ?anonymous_connections_enabled ?id ?(event_handler = [])
   let __type = "azurerm_web_pubsub_hub" in
   let __attrs =
     ({
+       tf_name = __id;
        anonymous_connections_enabled =
          Prop.computed __type __id "anonymous_connections_enabled";
        id = Prop.computed __type __id "id";

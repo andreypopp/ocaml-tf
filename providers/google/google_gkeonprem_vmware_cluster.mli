@@ -285,6 +285,7 @@ val yojson_of_google_gkeonprem_vmware_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   admin_cluster_membership : string prop;
   annotations : (string * string) list prop;
   create_time : string prop;

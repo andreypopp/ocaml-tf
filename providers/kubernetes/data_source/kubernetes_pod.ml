@@ -9041,6 +9041,7 @@ let kubernetes_pod ?id ~metadata () : kubernetes_pod =
   { id; metadata }
 
 type t = {
+  tf_name : string;
   id : string prop;
   spec : spec list prop;
   status : string prop;
@@ -9050,6 +9051,7 @@ let make ?id ~metadata __id =
   let __type = "kubernetes_pod" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        spec = Prop.computed __type __id "spec";
        status = Prop.computed __type __id "status";

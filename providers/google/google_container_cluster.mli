@@ -1081,6 +1081,7 @@ val yojson_of_google_container_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_net_admin : bool prop;
   cluster_ipv4_cidr : string prop;
   datapath_provider : string prop;

@@ -34,6 +34,7 @@ val yojson_of_azurerm_api_management_redis_cache :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_management_id : string prop;
   cache_location : string prop;
   connection_string : string prop;

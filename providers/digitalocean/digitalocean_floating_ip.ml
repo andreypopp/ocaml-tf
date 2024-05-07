@@ -63,6 +63,7 @@ let digitalocean_floating_ip ?droplet_id ?id ?ip_address ~region () :
   { droplet_id; id; ip_address; region }
 
 type t = {
+  tf_name : string;
   droplet_id : float prop;
   id : string prop;
   ip_address : string prop;
@@ -74,6 +75,7 @@ let make ?droplet_id ?id ?ip_address ~region __id =
   let __type = "digitalocean_floating_ip" in
   let __attrs =
     ({
+       tf_name = __id;
        droplet_id = Prop.computed __type __id "droplet_id";
        id = Prop.computed __type __id "id";
        ip_address = Prop.computed __type __id "ip_address";

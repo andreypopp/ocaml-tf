@@ -265,6 +265,7 @@ let google_app_engine_application ?auth_domain ?database_type ?id
   }
 
 type t = {
+  tf_name : string;
   app_id : string prop;
   auth_domain : string prop;
   code_bucket : string prop;
@@ -286,6 +287,7 @@ let make ?auth_domain ?database_type ?id ?project ?serving_status
   let __type = "google_app_engine_application" in
   let __attrs =
     ({
+       tf_name = __id;
        app_id = Prop.computed __type __id "app_id";
        auth_domain = Prop.computed __type __id "auth_domain";
        code_bucket = Prop.computed __type __id "code_bucket";

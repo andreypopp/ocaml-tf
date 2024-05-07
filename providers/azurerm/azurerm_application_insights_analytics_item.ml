@@ -159,6 +159,7 @@ let azurerm_application_insights_analytics_item ?function_alias ?id
   }
 
 type t = {
+  tf_name : string;
   application_insights_id : string prop;
   content : string prop;
   function_alias : string prop;
@@ -176,6 +177,7 @@ let make ?function_alias ?id ?timeouts ~application_insights_id
   let __type = "azurerm_application_insights_analytics_item" in
   let __attrs =
     ({
+       tf_name = __id;
        application_insights_id =
          Prop.computed __type __id "application_insights_id";
        content = Prop.computed __type __id "content";

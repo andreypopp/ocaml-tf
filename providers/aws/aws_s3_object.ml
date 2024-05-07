@@ -430,6 +430,7 @@ let aws_s3_object ?acl ?bucket_key_enabled ?cache_control
   }
 
 type t = {
+  tf_name : string;
   acl : string prop;
   arn : string prop;
   bucket : string prop;
@@ -476,6 +477,7 @@ let make ?acl ?bucket_key_enabled ?cache_control ?checksum_algorithm
   let __type = "aws_s3_object" in
   let __attrs =
     ({
+       tf_name = __id;
        acl = Prop.computed __type __id "acl";
        arn = Prop.computed __type __id "arn";
        bucket = Prop.computed __type __id "bucket";

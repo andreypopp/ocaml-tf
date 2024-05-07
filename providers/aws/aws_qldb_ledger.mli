@@ -28,6 +28,7 @@ val yojson_of_aws_qldb_ledger : aws_qldb_ledger -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   deletion_protection : bool prop;
   id : string prop;

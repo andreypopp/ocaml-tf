@@ -1040,6 +1040,7 @@ let aws_route53domains_registered_domain ?admin_privacy ?auto_renew
   }
 
 type t = {
+  tf_name : string;
   abuse_contact_email : string prop;
   abuse_contact_phone : string prop;
   admin_privacy : bool prop;
@@ -1070,6 +1071,7 @@ let make ?admin_privacy ?auto_renew ?billing_privacy ?id
   let __type = "aws_route53domains_registered_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        abuse_contact_email =
          Prop.computed __type __id "abuse_contact_email";
        abuse_contact_phone =

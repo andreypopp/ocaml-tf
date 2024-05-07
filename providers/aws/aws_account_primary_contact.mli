@@ -30,6 +30,7 @@ val yojson_of_aws_account_primary_contact :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   address_line_1 : string prop;
   address_line_2 : string prop;

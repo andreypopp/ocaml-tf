@@ -35,6 +35,7 @@ val yojson_of_cloudflare_zone_lockdown :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   paused : bool prop;

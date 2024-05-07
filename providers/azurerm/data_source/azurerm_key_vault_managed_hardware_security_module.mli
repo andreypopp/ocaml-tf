@@ -24,6 +24,7 @@ val yojson_of_azurerm_key_vault_managed_hardware_security_module :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   admin_object_ids : string list prop;
   hsm_uri : string prop;
   id : string prop;

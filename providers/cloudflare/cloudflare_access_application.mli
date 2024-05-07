@@ -115,6 +115,7 @@ val yojson_of_cloudflare_access_application :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   allow_authenticate_via_warp : bool prop;
   allowed_idps : string list prop;

@@ -43,11 +43,13 @@ let aws_redshift_data_shares ?(data_shares = []) () :
     aws_redshift_data_shares =
   { data_shares }
 
-type t = { id : string prop }
+type t = { tf_name : string; id : string prop }
 
 let make ?(data_shares = []) __id =
   let __type = "aws_redshift_data_shares" in
-  let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
+  let __attrs =
+    ({ tf_name = __id; id = Prop.computed __type __id "id" } : t)
+  in
   {
     Tf_core.id = __id;
     type_ = __type;

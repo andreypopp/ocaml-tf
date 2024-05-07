@@ -555,6 +555,7 @@ let azurerm_api_management ?id ?tags ?timeouts ~name
   { id; name; resource_group_name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   additional_location : additional_location list prop;
   developer_portal_url : string prop;
   gateway_regional_url : string prop;
@@ -583,6 +584,7 @@ let make ?id ?tags ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_api_management" in
   let __attrs =
     ({
+       tf_name = __id;
        additional_location =
          Prop.computed __type __id "additional_location";
        developer_portal_url =

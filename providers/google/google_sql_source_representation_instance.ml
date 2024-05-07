@@ -210,6 +210,7 @@ let google_sql_source_representation_instance ?ca_certificate
   }
 
 type t = {
+  tf_name : string;
   ca_certificate : string prop;
   client_certificate : string prop;
   client_key : string prop;
@@ -231,6 +232,7 @@ let make ?ca_certificate ?client_certificate ?client_key
   let __type = "google_sql_source_representation_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        ca_certificate = Prop.computed __type __id "ca_certificate";
        client_certificate =
          Prop.computed __type __id "client_certificate";

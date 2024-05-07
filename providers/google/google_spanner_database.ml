@@ -214,6 +214,7 @@ let google_spanner_database ?database_dialect ?ddl
   }
 
 type t = {
+  tf_name : string;
   database_dialect : string prop;
   ddl : string list prop;
   deletion_protection : bool prop;
@@ -232,6 +233,7 @@ let make ?database_dialect ?ddl ?deletion_protection
   let __type = "google_spanner_database" in
   let __attrs =
     ({
+       tf_name = __id;
        database_dialect =
          Prop.computed __type __id "database_dialect";
        ddl = Prop.computed __type __id "ddl";

@@ -138,6 +138,7 @@ let aws_internet_gateway ?id ?tags ?tags_all ?vpc_id ?timeouts () :
   { id; tags; tags_all; vpc_id; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   owner_id : string prop;
@@ -150,6 +151,7 @@ let make ?id ?tags ?tags_all ?vpc_id ?timeouts __id =
   let __type = "aws_internet_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        owner_id = Prop.computed __type __id "owner_id";

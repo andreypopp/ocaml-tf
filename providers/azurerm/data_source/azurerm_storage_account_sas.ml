@@ -341,6 +341,7 @@ let azurerm_storage_account_sas ?https_only ?id ?ip_addresses
   }
 
 type t = {
+  tf_name : string;
   connection_string : string prop;
   expiry : string prop;
   https_only : bool prop;
@@ -357,6 +358,7 @@ let make ?https_only ?id ?ip_addresses ?signed_version ?timeouts
   let __type = "azurerm_storage_account_sas" in
   let __attrs =
     ({
+       tf_name = __id;
        connection_string =
          Prop.computed __type __id "connection_string";
        expiry = Prop.computed __type __id "expiry";

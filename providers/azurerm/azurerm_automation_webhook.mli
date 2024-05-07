@@ -37,6 +37,7 @@ val yojson_of_azurerm_automation_webhook :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automation_account_name : string prop;
   enabled : bool prop;
   expiry_time : string prop;

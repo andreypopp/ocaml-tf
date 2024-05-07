@@ -82,11 +82,13 @@ let aws_ssoadmin_application_providers ?(application_providers = [])
     () : aws_ssoadmin_application_providers =
   { application_providers }
 
-type t = { id : string prop }
+type t = { tf_name : string; id : string prop }
 
 let make ?(application_providers = []) __id =
   let __type = "aws_ssoadmin_application_providers" in
-  let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
+  let __attrs =
+    ({ tf_name = __id; id = Prop.computed __type __id "id" } : t)
+  in
   {
     Tf_core.id = __id;
     type_ = __type;

@@ -34,6 +34,7 @@ val yojson_of_azurerm_template_deployment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   deployment_mode : string prop;
   id : string prop;
   name : string prop;

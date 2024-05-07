@@ -32,6 +32,7 @@ val yojson_of_aws_verifiedaccess_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   creation_time : string prop;
   description : string prop;
   fips_enabled : bool prop;

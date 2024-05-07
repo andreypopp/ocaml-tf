@@ -51,6 +51,7 @@ val yojson_of_azurerm_cdn_endpoint_custom_domain :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cdn_endpoint_id : string prop;
   host_name : string prop;
   id : string prop;

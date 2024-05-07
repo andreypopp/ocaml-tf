@@ -2062,6 +2062,7 @@ let azurerm_container_app ?id ?tags ?workload_profile_name
   }
 
 type t = {
+  tf_name : string;
   container_app_environment_id : string prop;
   custom_domain_verification_id : string prop;
   id : string prop;
@@ -2083,6 +2084,7 @@ let make ?id ?tags ?workload_profile_name ?(dapr = [])
   let __type = "azurerm_container_app" in
   let __attrs =
     ({
+       tf_name = __id;
        container_app_environment_id =
          Prop.computed __type __id "container_app_environment_id";
        custom_domain_verification_id =

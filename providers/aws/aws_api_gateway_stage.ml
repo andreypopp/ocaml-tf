@@ -304,6 +304,7 @@ let aws_api_gateway_stage ?cache_cluster_enabled ?cache_cluster_size
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cache_cluster_enabled : bool prop;
   cache_cluster_size : string prop;
@@ -331,6 +332,7 @@ let make ?cache_cluster_enabled ?cache_cluster_size
   let __type = "aws_api_gateway_stage" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cache_cluster_enabled =
          Prop.computed __type __id "cache_cluster_enabled";

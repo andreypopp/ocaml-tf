@@ -45,6 +45,7 @@ let google_app_engine_default_service_account ?id ?project () :
   { id; project }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   email : string prop;
   id : string prop;
@@ -58,6 +59,7 @@ let make ?id ?project __id =
   let __type = "google_app_engine_default_service_account" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        email = Prop.computed __type __id "email";
        id = Prop.computed __type __id "id";

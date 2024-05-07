@@ -38,6 +38,7 @@ val yojson_of_azurerm_virtual_desktop_application :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_group_id : string prop;
   command_line_argument_policy : string prop;
   command_line_arguments : string prop;

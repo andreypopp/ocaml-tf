@@ -89,6 +89,7 @@ let aws_codeartifact_domain ?encryption_key ?id ?tags ?tags_all
   { domain; encryption_key; id; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   asset_size_bytes : string prop;
   created_time : string prop;
@@ -106,6 +107,7 @@ let make ?encryption_key ?id ?tags ?tags_all ~domain __id =
   let __type = "aws_codeartifact_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        asset_size_bytes =
          Prop.computed __type __id "asset_size_bytes";

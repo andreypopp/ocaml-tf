@@ -80,6 +80,7 @@ let aws_egress_only_internet_gateway ?id ?tags ?tags_all ~vpc_id () :
   { id; tags; tags_all; vpc_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   tags : (string * string) list prop;
   tags_all : (string * string) list prop;
@@ -90,6 +91,7 @@ let make ?id ?tags ?tags_all ~vpc_id __id =
   let __type = "aws_egress_only_internet_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        tags = Prop.computed __type __id "tags";
        tags_all = Prop.computed __type __id "tags_all";

@@ -864,6 +864,7 @@ let azurerm_firewall_policy ?auto_learn_private_ranges_enabled
   }
 
 type t = {
+  tf_name : string;
   auto_learn_private_ranges_enabled : bool prop;
   base_policy_id : string prop;
   child_policies : string list prop;
@@ -890,6 +891,7 @@ let make ?auto_learn_private_ranges_enabled ?base_policy_id ?id
   let __type = "azurerm_firewall_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_learn_private_ranges_enabled =
          Prop.computed __type __id
            "auto_learn_private_ranges_enabled";

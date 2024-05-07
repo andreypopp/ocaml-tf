@@ -50,6 +50,7 @@ let google_data_catalog_policy_tag_iam_policy ?id ~policy_data
   { id; policy_data; policy_tag }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   policy_data : string prop;
@@ -60,6 +61,7 @@ let make ?id ~policy_data ~policy_tag __id =
   let __type = "google_data_catalog_policy_tag_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        policy_data = Prop.computed __type __id "policy_data";

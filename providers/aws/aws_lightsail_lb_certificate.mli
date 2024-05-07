@@ -28,6 +28,7 @@ val yojson_of_aws_lightsail_lb_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   created_at : string prop;
   domain_name : string prop;

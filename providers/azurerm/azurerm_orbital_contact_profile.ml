@@ -397,6 +397,7 @@ let azurerm_orbital_contact_profile ?event_hub_uri ?id
   }
 
 type t = {
+  tf_name : string;
   auto_tracking : string prop;
   event_hub_uri : string prop;
   id : string prop;
@@ -417,6 +418,7 @@ let make ?event_hub_uri ?id ?minimum_elevation_degrees ?tags
   let __type = "azurerm_orbital_contact_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_tracking = Prop.computed __type __id "auto_tracking";
        event_hub_uri = Prop.computed __type __id "event_hub_uri";
        id = Prop.computed __type __id "id";

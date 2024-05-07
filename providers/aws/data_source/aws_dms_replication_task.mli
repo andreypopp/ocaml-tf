@@ -19,6 +19,7 @@ val yojson_of_aws_dms_replication_task :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cdc_start_position : string prop;
   cdc_start_time : string prop;
   id : string prop;

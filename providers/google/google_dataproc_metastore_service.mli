@@ -129,6 +129,7 @@ val yojson_of_google_dataproc_metastore_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   artifact_gcs_uri : string prop;
   database_type : string prop;
   effective_labels : (string * string) list prop;

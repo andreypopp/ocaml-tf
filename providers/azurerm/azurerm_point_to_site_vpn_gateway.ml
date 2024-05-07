@@ -429,6 +429,7 @@ let azurerm_point_to_site_vpn_gateway ?dns_servers ?id
   }
 
 type t = {
+  tf_name : string;
   dns_servers : string list prop;
   id : string prop;
   location : string prop;
@@ -448,6 +449,7 @@ let make ?dns_servers ?id ?routing_preference_internet_enabled ?tags
   let __type = "azurerm_point_to_site_vpn_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        dns_servers = Prop.computed __type __id "dns_servers";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

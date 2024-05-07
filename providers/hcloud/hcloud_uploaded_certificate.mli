@@ -21,6 +21,7 @@ val yojson_of_hcloud_uploaded_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate : string prop;
   created : string prop;
   domain_names : string list prop;

@@ -36,6 +36,7 @@ val yojson_of_azurerm_security_center_assessment_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   categories : string list prop;
   description : string prop;
   display_name : string prop;

@@ -40,6 +40,7 @@ val yojson_of_aws_rds_orderable_db_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   availability_zone_group : string prop;
   availability_zones : string list prop;
   engine : string prop;

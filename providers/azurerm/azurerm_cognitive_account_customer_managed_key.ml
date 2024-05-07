@@ -142,6 +142,7 @@ let azurerm_cognitive_account_customer_managed_key ?id
   }
 
 type t = {
+  tf_name : string;
   cognitive_account_id : string prop;
   id : string prop;
   identity_client_id : string prop;
@@ -153,6 +154,7 @@ let make ?id ?identity_client_id ?timeouts ~cognitive_account_id
   let __type = "azurerm_cognitive_account_customer_managed_key" in
   let __attrs =
     ({
+       tf_name = __id;
        cognitive_account_id =
          Prop.computed __type __id "cognitive_account_id";
        id = Prop.computed __type __id "id";

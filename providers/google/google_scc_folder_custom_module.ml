@@ -447,6 +447,7 @@ let google_scc_folder_custom_module ?id ?timeouts ~display_name
   }
 
 type t = {
+  tf_name : string;
   ancestor_module : string prop;
   display_name : string prop;
   enablement_state : string prop;
@@ -462,6 +463,7 @@ let make ?id ?timeouts ~display_name ~enablement_state ~folder
   let __type = "google_scc_folder_custom_module" in
   let __attrs =
     ({
+       tf_name = __id;
        ancestor_module = Prop.computed __type __id "ancestor_module";
        display_name = Prop.computed __type __id "display_name";
        enablement_state =

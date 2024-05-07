@@ -20,6 +20,7 @@ val yojson_of_aws_autoscaling_notification :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   group_names : string list prop;
   id : string prop;
   notifications : string list prop;

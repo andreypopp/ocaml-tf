@@ -341,6 +341,7 @@ let azurerm_web_pubsub ?aad_auth_enabled ?capacity ?id
   }
 
 type t = {
+  tf_name : string;
   aad_auth_enabled : bool prop;
   capacity : float prop;
   external_ip : string prop;
@@ -370,6 +371,7 @@ let make ?aad_auth_enabled ?capacity ?id ?local_auth_enabled
   let __type = "azurerm_web_pubsub" in
   let __attrs =
     ({
+       tf_name = __id;
        aad_auth_enabled =
          Prop.computed __type __id "aad_auth_enabled";
        capacity = Prop.computed __type __id "capacity";

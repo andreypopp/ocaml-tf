@@ -48,6 +48,7 @@ val yojson_of_azurerm_mssql_failover_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   databases : string list prop;
   id : string prop;
   name : string prop;

@@ -156,6 +156,7 @@ let aws_sfn_alias ?description ?id ?timeouts ~name
   { description; id; name; routing_configuration; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   creation_date : string prop;
   description : string prop;
@@ -168,6 +169,7 @@ let make ?description ?id ?timeouts ~name ~routing_configuration __id
   let __type = "aws_sfn_alias" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        creation_date = Prop.computed __type __id "creation_date";
        description = Prop.computed __type __id "description";

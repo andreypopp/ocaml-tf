@@ -19,6 +19,7 @@ val yojson_of_aws_lightsail_static_ip_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   instance_name : string prop;
   ip_address : string prop;

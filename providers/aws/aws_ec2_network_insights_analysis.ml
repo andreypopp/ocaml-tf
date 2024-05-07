@@ -4241,6 +4241,7 @@ let aws_ec2_network_insights_analysis ?filter_in_arns ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   alternate_path_hints : alternate_path_hints list prop;
   arn : string prop;
   explanations : explanations list prop;
@@ -4264,6 +4265,7 @@ let make ?filter_in_arns ?id ?tags ?tags_all ?wait_for_completion
   let __type = "aws_ec2_network_insights_analysis" in
   let __attrs =
     ({
+       tf_name = __id;
        alternate_path_hints =
          Prop.computed __type __id "alternate_path_hints";
        arn = Prop.computed __type __id "arn";

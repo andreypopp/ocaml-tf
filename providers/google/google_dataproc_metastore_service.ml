@@ -737,6 +737,7 @@ let google_dataproc_metastore_service ?database_type ?id ?labels
   }
 
 type t = {
+  tf_name : string;
   artifact_gcs_uri : string prop;
   database_type : string prop;
   effective_labels : (string * string) list prop;
@@ -766,6 +767,7 @@ let make ?database_type ?id ?labels ?location ?network ?port ?project
   let __type = "google_dataproc_metastore_service" in
   let __attrs =
     ({
+       tf_name = __id;
        artifact_gcs_uri =
          Prop.computed __type __id "artifact_gcs_uri";
        database_type = Prop.computed __type __id "database_type";

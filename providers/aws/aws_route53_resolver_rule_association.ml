@@ -108,6 +108,7 @@ let aws_route53_resolver_rule_association ?id ?name ?timeouts
   { id; name; resolver_rule_id; vpc_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   resolver_rule_id : string prop;
@@ -118,6 +119,7 @@ let make ?id ?name ?timeouts ~resolver_rule_id ~vpc_id __id =
   let __type = "aws_route53_resolver_rule_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        resolver_rule_id =

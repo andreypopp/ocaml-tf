@@ -19,6 +19,7 @@ val yojson_of_digitalocean_project_resources :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   project : string prop;
   resources : string list prop;

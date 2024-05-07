@@ -30,6 +30,7 @@ val yojson_of_cloudflare_user_agent_blocking_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   mode : string prop;

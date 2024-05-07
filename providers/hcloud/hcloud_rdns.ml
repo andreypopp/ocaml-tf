@@ -97,6 +97,7 @@ let hcloud_rdns ?floating_ip_id ?id ?load_balancer_id ?primary_ip_id
   }
 
 type t = {
+  tf_name : string;
   dns_ptr : string prop;
   floating_ip_id : float prop;
   id : string prop;
@@ -111,6 +112,7 @@ let make ?floating_ip_id ?id ?load_balancer_id ?primary_ip_id
   let __type = "hcloud_rdns" in
   let __attrs =
     ({
+       tf_name = __id;
        dns_ptr = Prop.computed __type __id "dns_ptr";
        floating_ip_id = Prop.computed __type __id "floating_ip_id";
        id = Prop.computed __type __id "id";

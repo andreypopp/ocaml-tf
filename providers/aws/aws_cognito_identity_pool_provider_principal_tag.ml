@@ -91,6 +91,7 @@ let aws_cognito_identity_pool_provider_principal_tag ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   identity_pool_id : string prop;
   identity_provider_name : string prop;
@@ -103,6 +104,7 @@ let make ?id ?principal_tags ?use_defaults ~identity_pool_id
   let __type = "aws_cognito_identity_pool_provider_principal_tag" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        identity_pool_id =
          Prop.computed __type __id "identity_pool_id";

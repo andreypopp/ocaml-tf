@@ -35,6 +35,7 @@ val yojson_of_aws_s3_bucket_intelligent_tiering_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket : string prop;
   id : string prop;
   name : string prop;

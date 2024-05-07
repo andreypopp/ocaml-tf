@@ -129,6 +129,7 @@ let aws_ssm_activation ?description ?expiration_date ?id ?name
   }
 
 type t = {
+  tf_name : string;
   activation_code : string prop;
   description : string prop;
   expiration_date : string prop;
@@ -147,6 +148,7 @@ let make ?description ?expiration_date ?id ?name ?registration_limit
   let __type = "aws_ssm_activation" in
   let __attrs =
     ({
+       tf_name = __id;
        activation_code = Prop.computed __type __id "activation_code";
        description = Prop.computed __type __id "description";
        expiration_date = Prop.computed __type __id "expiration_date";

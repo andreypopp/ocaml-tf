@@ -50,6 +50,7 @@ let aws_lightsail_bucket_resource_access ?id ~bucket_name
   { bucket_name; id; resource_name }
 
 type t = {
+  tf_name : string;
   bucket_name : string prop;
   id : string prop;
   resource_name : string prop;
@@ -59,6 +60,7 @@ let make ?id ~bucket_name ~resource_name __id =
   let __type = "aws_lightsail_bucket_resource_access" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket_name = Prop.computed __type __id "bucket_name";
        id = Prop.computed __type __id "id";
        resource_name = Prop.computed __type __id "resource_name";

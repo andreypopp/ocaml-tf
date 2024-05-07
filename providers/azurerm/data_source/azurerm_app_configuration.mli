@@ -68,6 +68,7 @@ val yojson_of_azurerm_app_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   encryption : encryption list prop;
   endpoint : string prop;
   id : string prop;

@@ -225,6 +225,7 @@ let azurerm_api_management_subscription ?allow_tracing ?api_id ?id
   }
 
 type t = {
+  tf_name : string;
   allow_tracing : bool prop;
   api_id : string prop;
   api_management_name : string prop;
@@ -245,6 +246,7 @@ let make ?allow_tracing ?api_id ?id ?primary_key ?product_id
   let __type = "azurerm_api_management_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_tracing = Prop.computed __type __id "allow_tracing";
        api_id = Prop.computed __type __id "api_id";
        api_management_name =

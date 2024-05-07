@@ -55,6 +55,7 @@ val yojson_of_aws_grafana_workspace : aws_grafana_workspace -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_access_type : string prop;
   arn : string prop;
   authentication_providers : string list prop;

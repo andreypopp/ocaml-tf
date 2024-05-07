@@ -95,6 +95,7 @@ let aws_route53_resolver_rules ?id ?name_regex ?owner_id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name_regex : string prop;
   owner_id : string prop;
@@ -109,6 +110,7 @@ let make ?id ?name_regex ?owner_id ?resolver_endpoint_id ?rule_type
   let __type = "aws_route53_resolver_rules" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name_regex = Prop.computed __type __id "name_regex";
        owner_id = Prop.computed __type __id "owner_id";

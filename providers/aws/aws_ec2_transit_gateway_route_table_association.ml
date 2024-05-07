@@ -76,6 +76,7 @@ let aws_ec2_transit_gateway_route_table_association ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   replace_existing_association : bool prop;
   resource_id : string prop;
@@ -90,6 +91,7 @@ let make ?id ?replace_existing_association
   let __type = "aws_ec2_transit_gateway_route_table_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        replace_existing_association =
          Prop.computed __type __id "replace_existing_association";

@@ -21,6 +21,7 @@ val yojson_of_aws_apigatewayv2_api_mapping :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_id : string prop;
   api_mapping_key : string prop;
   domain_name : string prop;

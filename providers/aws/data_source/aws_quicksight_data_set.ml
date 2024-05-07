@@ -1514,6 +1514,7 @@ let aws_quicksight_data_set ?aws_account_id ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   aws_account_id : string prop;
   column_groups : column_groups list prop;
@@ -1540,6 +1541,7 @@ let make ?aws_account_id ?id ?tags ?tags_all
   let __type = "aws_quicksight_data_set" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        aws_account_id = Prop.computed __type __id "aws_account_id";
        column_groups = Prop.computed __type __id "column_groups";

@@ -31,6 +31,7 @@ val yojson_of_azurerm_stream_analytics_job_schedule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   last_output_time : string prop;
   start_mode : string prop;

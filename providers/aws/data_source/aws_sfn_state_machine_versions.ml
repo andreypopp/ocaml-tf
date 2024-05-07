@@ -43,6 +43,7 @@ let aws_sfn_state_machine_versions ?id ~statemachine_arn () :
   { id; statemachine_arn }
 
 type t = {
+  tf_name : string;
   id : string prop;
   statemachine_arn : string prop;
   statemachine_versions : string list prop;
@@ -52,6 +53,7 @@ let make ?id ~statemachine_arn __id =
   let __type = "aws_sfn_state_machine_versions" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        statemachine_arn =
          Prop.computed __type __id "statemachine_arn";

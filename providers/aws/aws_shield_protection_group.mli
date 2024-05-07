@@ -24,6 +24,7 @@ val yojson_of_aws_shield_protection_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   aggregation : string prop;
   id : string prop;
   members : string list prop;

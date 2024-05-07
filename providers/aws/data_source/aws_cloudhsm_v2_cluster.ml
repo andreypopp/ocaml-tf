@@ -113,6 +113,7 @@ let aws_cloudhsm_v2_cluster ?cluster_state ?id ~cluster_id () :
   { cluster_id; cluster_state; id }
 
 type t = {
+  tf_name : string;
   cluster_certificates : cluster_certificates list prop;
   cluster_id : string prop;
   cluster_state : string prop;
@@ -126,6 +127,7 @@ let make ?cluster_state ?id ~cluster_id __id =
   let __type = "aws_cloudhsm_v2_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_certificates =
          Prop.computed __type __id "cluster_certificates";
        cluster_id = Prop.computed __type __id "cluster_id";

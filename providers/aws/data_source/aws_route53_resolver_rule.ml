@@ -114,6 +114,7 @@ let aws_route53_resolver_rule ?domain_name ?id ?name
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   domain_name : string prop;
   id : string prop;
@@ -131,6 +132,7 @@ let make ?domain_name ?id ?name ?resolver_endpoint_id
   let __type = "aws_route53_resolver_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        domain_name = Prop.computed __type __id "domain_name";
        id = Prop.computed __type __id "id";

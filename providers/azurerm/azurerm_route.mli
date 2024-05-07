@@ -33,6 +33,7 @@ val yojson_of_azurerm_route : azurerm_route -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   address_prefix : string prop;
   id : string prop;
   name : string prop;

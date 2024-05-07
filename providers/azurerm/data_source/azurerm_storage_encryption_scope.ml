@@ -86,6 +86,7 @@ let azurerm_storage_encryption_scope ?id ?timeouts ~name
   { id; name; storage_account_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   key_vault_key_id : string prop;
   name : string prop;
@@ -97,6 +98,7 @@ let make ?id ?timeouts ~name ~storage_account_id __id =
   let __type = "azurerm_storage_encryption_scope" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        key_vault_key_id =
          Prop.computed __type __id "key_vault_key_id";

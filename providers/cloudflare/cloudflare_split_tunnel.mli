@@ -34,6 +34,7 @@ val yojson_of_cloudflare_split_tunnel :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   mode : string prop;

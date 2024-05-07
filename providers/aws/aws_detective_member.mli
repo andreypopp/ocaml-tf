@@ -21,6 +21,7 @@ val yojson_of_aws_detective_member : aws_detective_member -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   administrator_id : string prop;
   disable_email_notification : bool prop;

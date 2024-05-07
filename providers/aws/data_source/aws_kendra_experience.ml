@@ -194,6 +194,7 @@ let aws_kendra_experience ?id ~experience_id ~index_id () :
   { experience_id; id; index_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   configuration : configuration list prop;
   created_at : string prop;
@@ -213,6 +214,7 @@ let make ?id ~experience_id ~index_id __id =
   let __type = "aws_kendra_experience" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        configuration = Prop.computed __type __id "configuration";
        created_at = Prop.computed __type __id "created_at";

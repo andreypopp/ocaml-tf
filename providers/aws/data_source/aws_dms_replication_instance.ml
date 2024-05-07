@@ -64,6 +64,7 @@ let aws_dms_replication_instance ?id ?tags ~replication_instance_id
   { id; replication_instance_id; tags }
 
 type t = {
+  tf_name : string;
   allocated_storage : float prop;
   auto_minor_version_upgrade : bool prop;
   availability_zone : string prop;
@@ -88,6 +89,7 @@ let make ?id ?tags ~replication_instance_id __id =
   let __type = "aws_dms_replication_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        allocated_storage =
          Prop.computed __type __id "allocated_storage";
        auto_minor_version_upgrade =

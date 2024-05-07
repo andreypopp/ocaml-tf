@@ -76,6 +76,7 @@ let aws_opsworks_user_profile ?allow_self_management ?id
   }
 
 type t = {
+  tf_name : string;
   allow_self_management : bool prop;
   id : string prop;
   ssh_public_key : string prop;
@@ -88,6 +89,7 @@ let make ?allow_self_management ?id ?ssh_public_key ~ssh_username
   let __type = "aws_opsworks_user_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_self_management =
          Prop.computed __type __id "allow_self_management";
        id = Prop.computed __type __id "id";

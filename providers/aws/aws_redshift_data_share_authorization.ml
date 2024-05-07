@@ -55,6 +55,7 @@ let aws_redshift_data_share_authorization ?allow_writes
   { allow_writes; consumer_identifier; data_share_arn }
 
 type t = {
+  tf_name : string;
   allow_writes : bool prop;
   consumer_identifier : string prop;
   data_share_arn : string prop;
@@ -67,6 +68,7 @@ let make ?allow_writes ~consumer_identifier ~data_share_arn __id =
   let __type = "aws_redshift_data_share_authorization" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_writes = Prop.computed __type __id "allow_writes";
        consumer_identifier =
          Prop.computed __type __id "consumer_identifier";

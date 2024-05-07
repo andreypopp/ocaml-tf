@@ -274,6 +274,7 @@ let google_cloudbuild_bitbucket_server_config ?id ?peered_network
   }
 
 type t = {
+  tf_name : string;
   api_key : string prop;
   config_id : string prop;
   host_uri : string prop;
@@ -293,6 +294,7 @@ let make ?id ?peered_network ?project ?ssl_ca ?timeouts ~api_key
   let __type = "google_cloudbuild_bitbucket_server_config" in
   let __attrs =
     ({
+       tf_name = __id;
        api_key = Prop.computed __type __id "api_key";
        config_id = Prop.computed __type __id "config_id";
        host_uri = Prop.computed __type __id "host_uri";

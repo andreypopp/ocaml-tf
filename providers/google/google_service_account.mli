@@ -27,6 +27,7 @@ val yojson_of_google_service_account : google_service_account -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   create_ignore_already_exists : bool prop;
   description : string prop;

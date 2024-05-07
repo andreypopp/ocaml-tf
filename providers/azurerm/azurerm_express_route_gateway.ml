@@ -181,6 +181,7 @@ let azurerm_express_route_gateway ?allow_non_virtual_wan_traffic ?id
   }
 
 type t = {
+  tf_name : string;
   allow_non_virtual_wan_traffic : bool prop;
   id : string prop;
   location : string prop;
@@ -196,6 +197,7 @@ let make ?allow_non_virtual_wan_traffic ?id ?tags ?timeouts ~location
   let __type = "azurerm_express_route_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        allow_non_virtual_wan_traffic =
          Prop.computed __type __id "allow_non_virtual_wan_traffic";
        id = Prop.computed __type __id "id";

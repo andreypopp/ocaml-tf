@@ -31,6 +31,7 @@ val yojson_of_aws_devicefarm_test_grid_project :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;

@@ -124,6 +124,7 @@ let azurerm_spring_cloud_active_deployment ?id ?timeouts
   { deployment_name; id; spring_cloud_app_id; timeouts }
 
 type t = {
+  tf_name : string;
   deployment_name : string prop;
   id : string prop;
   spring_cloud_app_id : string prop;
@@ -133,6 +134,7 @@ let make ?id ?timeouts ~deployment_name ~spring_cloud_app_id __id =
   let __type = "azurerm_spring_cloud_active_deployment" in
   let __attrs =
     ({
+       tf_name = __id;
        deployment_name = Prop.computed __type __id "deployment_name";
        id = Prop.computed __type __id "id";
        spring_cloud_app_id =

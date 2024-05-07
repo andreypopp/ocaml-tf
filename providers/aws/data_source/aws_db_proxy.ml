@@ -97,6 +97,7 @@ let _ = yojson_of_aws_db_proxy
 let aws_db_proxy ?id ~name () : aws_db_proxy = { id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   auth : auth list prop;
   debug_logging : bool prop;
@@ -116,6 +117,7 @@ let make ?id ~name __id =
   let __type = "aws_db_proxy" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        auth = Prop.computed __type __id "auth";
        debug_logging = Prop.computed __type __id "debug_logging";

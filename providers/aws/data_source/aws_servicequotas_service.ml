@@ -40,6 +40,7 @@ let aws_servicequotas_service ?id ~service_name () :
   { id; service_name }
 
 type t = {
+  tf_name : string;
   id : string prop;
   service_code : string prop;
   service_name : string prop;
@@ -49,6 +50,7 @@ let make ?id ~service_name __id =
   let __type = "aws_servicequotas_service" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        service_code = Prop.computed __type __id "service_code";
        service_name = Prop.computed __type __id "service_name";

@@ -602,6 +602,7 @@ let azurerm_mobile_network_service ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   mobile_network_id : string prop;
@@ -615,6 +616,7 @@ let make ?id ?tags ?(service_qos_policy = []) ?timeouts ~location
   let __type = "azurerm_mobile_network_service" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        mobile_network_id =

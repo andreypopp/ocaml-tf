@@ -227,6 +227,7 @@ let aws_eks_addon ?addon_version ?configuration_values ?id ?preserve
   }
 
 type t = {
+  tf_name : string;
   addon_name : string prop;
   addon_version : string prop;
   arn : string prop;
@@ -251,6 +252,7 @@ let make ?addon_version ?configuration_values ?id ?preserve
   let __type = "aws_eks_addon" in
   let __attrs =
     ({
+       tf_name = __id;
        addon_name = Prop.computed __type __id "addon_name";
        addon_version = Prop.computed __type __id "addon_version";
        arn = Prop.computed __type __id "arn";

@@ -30,6 +30,7 @@ let cloudflare_origin_ca_certificate ~id () :
   { id }
 
 type t = {
+  tf_name : string;
   certificate : string prop;
   expires_on : string prop;
   hostnames : string list prop;
@@ -42,6 +43,7 @@ let make ~id __id =
   let __type = "cloudflare_origin_ca_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate = Prop.computed __type __id "certificate";
        expires_on = Prop.computed __type __id "expires_on";
        hostnames = Prop.computed __type __id "hostnames";

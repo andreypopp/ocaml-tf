@@ -58,6 +58,7 @@ val yojson_of_azurerm_redis_cache : azurerm_redis_cache -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   capacity : float prop;
   enable_non_ssl_port : bool prop;
   family : string prop;

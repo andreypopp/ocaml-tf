@@ -213,6 +213,7 @@ let azurerm_bot_connection ?id ?parameters ?scopes ?tags ?timeouts
   }
 
 type t = {
+  tf_name : string;
   bot_name : string prop;
   client_id : string prop;
   client_secret : string prop;
@@ -232,6 +233,7 @@ let make ?id ?parameters ?scopes ?tags ?timeouts ~bot_name ~client_id
   let __type = "azurerm_bot_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        bot_name = Prop.computed __type __id "bot_name";
        client_id = Prop.computed __type __id "client_id";
        client_secret = Prop.computed __type __id "client_secret";

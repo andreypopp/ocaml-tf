@@ -188,6 +188,7 @@ let azurerm_monitor_data_collection_endpoint ?description ?id ?kind
   }
 
 type t = {
+  tf_name : string;
   configuration_access_endpoint : string prop;
   description : string prop;
   id : string prop;
@@ -205,6 +206,7 @@ let make ?description ?id ?kind ?public_network_access_enabled ?tags
   let __type = "azurerm_monitor_data_collection_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        configuration_access_endpoint =
          Prop.computed __type __id "configuration_access_endpoint";
        description = Prop.computed __type __id "description";

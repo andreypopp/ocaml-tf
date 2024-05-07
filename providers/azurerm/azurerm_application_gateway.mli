@@ -458,6 +458,7 @@ val yojson_of_azurerm_application_gateway :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enable_http2 : bool prop;
   fips_enabled : bool prop;
   firewall_policy_id : string prop;

@@ -136,6 +136,7 @@ let azurerm_app_service_certificate_order ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   app_service_certificate_not_renewable_reasons : string list prop;
   auto_renew : bool prop;
   certificates : certificates list prop;
@@ -162,6 +163,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_app_service_certificate_order" in
   let __attrs =
     ({
+       tf_name = __id;
        app_service_certificate_not_renewable_reasons =
          Prop.computed __type __id
            "app_service_certificate_not_renewable_reasons";

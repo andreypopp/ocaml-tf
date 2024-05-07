@@ -46,6 +46,7 @@ val yojson_of_azurerm_stream_analytics_stream_input_iothub :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   endpoint : string prop;
   eventhub_consumer_group_name : string prop;
   id : string prop;

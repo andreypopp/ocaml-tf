@@ -24,6 +24,7 @@ val yojson_of_aws_redshift_snapshot_schedule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   definitions : string list prop;
   description : string prop;

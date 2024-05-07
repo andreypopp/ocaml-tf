@@ -34,6 +34,7 @@ val yojson_of_cloudflare_device_dex_test :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   created : string prop;
   description : string prop;

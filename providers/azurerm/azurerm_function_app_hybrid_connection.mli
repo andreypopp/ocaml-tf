@@ -33,6 +33,7 @@ val yojson_of_azurerm_function_app_hybrid_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   function_app_id : string prop;
   hostname : string prop;
   id : string prop;

@@ -26,6 +26,7 @@ val yojson_of_aws_db_snapshot : aws_db_snapshot -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allocated_storage : float prop;
   availability_zone : string prop;
   db_instance_identifier : string prop;

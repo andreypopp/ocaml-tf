@@ -34,6 +34,7 @@ val yojson_of_azurerm_log_analytics_data_export_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   destination_resource_id : string prop;
   enabled : bool prop;
   export_rule_id : string prop;

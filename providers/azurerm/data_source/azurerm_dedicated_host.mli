@@ -24,6 +24,7 @@ val yojson_of_azurerm_dedicated_host : azurerm_dedicated_host -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dedicated_host_group_name : string prop;
   id : string prop;
   location : string prop;

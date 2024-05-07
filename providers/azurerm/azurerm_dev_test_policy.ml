@@ -199,6 +199,7 @@ let azurerm_dev_test_policy ?description ?fact_data ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   evaluator_type : string prop;
   fact_data : string prop;
@@ -217,6 +218,7 @@ let make ?description ?fact_data ?id ?tags ?timeouts ~evaluator_type
   let __type = "azurerm_dev_test_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        evaluator_type = Prop.computed __type __id "evaluator_type";
        fact_data = Prop.computed __type __id "fact_data";

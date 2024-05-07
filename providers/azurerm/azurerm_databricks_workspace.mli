@@ -73,6 +73,7 @@ val yojson_of_azurerm_databricks_workspace :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   customer_managed_key_enabled : bool prop;
   disk_encryption_set_id : string prop;
   id : string prop;

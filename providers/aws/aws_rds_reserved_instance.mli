@@ -39,6 +39,7 @@ val yojson_of_aws_rds_reserved_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   currency_code : string prop;
   db_instance_class : string prop;

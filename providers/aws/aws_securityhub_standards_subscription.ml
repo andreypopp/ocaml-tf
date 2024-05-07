@@ -40,12 +40,17 @@ let aws_securityhub_standards_subscription ?id ~standards_arn () :
     aws_securityhub_standards_subscription =
   { id; standards_arn }
 
-type t = { id : string prop; standards_arn : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  standards_arn : string prop;
+}
 
 let make ?id ~standards_arn __id =
   let __type = "aws_securityhub_standards_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        standards_arn = Prop.computed __type __id "standards_arn";
      }

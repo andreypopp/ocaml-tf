@@ -167,6 +167,7 @@ let azurerm_automation_connection_certificate ?description ?id
   }
 
 type t = {
+  tf_name : string;
   automation_account_name : string prop;
   automation_certificate_name : string prop;
   description : string prop;
@@ -182,6 +183,7 @@ let make ?description ?id ?timeouts ~automation_account_name
   let __type = "azurerm_automation_connection_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        automation_account_name =
          Prop.computed __type __id "automation_account_name";
        automation_certificate_name =

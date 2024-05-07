@@ -60,6 +60,7 @@ val yojson_of_aws_storagegateway_smb_file_share :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_based_enumeration : bool prop;
   admin_user_list : string list prop;
   arn : string prop;

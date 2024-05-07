@@ -190,6 +190,7 @@ let google_vertex_ai_tensorboard ?description ?id ?labels ?project
   }
 
 type t = {
+  tf_name : string;
   blob_storage_path_prefix : string prop;
   create_time : string prop;
   description : string prop;
@@ -210,6 +211,7 @@ let make ?description ?id ?labels ?project ?region
   let __type = "google_vertex_ai_tensorboard" in
   let __attrs =
     ({
+       tf_name = __id;
        blob_storage_path_prefix =
          Prop.computed __type __id "blob_storage_path_prefix";
        create_time = Prop.computed __type __id "create_time";

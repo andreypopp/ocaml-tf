@@ -323,6 +323,7 @@ let aws_config_configuration_recorder ?id ?name
   { id; name; role_arn; recording_group; recording_mode }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   role_arn : string prop;
@@ -333,6 +334,7 @@ let make ?id ?name ?(recording_group = []) ?(recording_mode = [])
   let __type = "aws_config_configuration_recorder" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        role_arn = Prop.computed __type __id "role_arn";

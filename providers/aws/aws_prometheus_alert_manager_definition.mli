@@ -19,6 +19,7 @@ val yojson_of_aws_prometheus_alert_manager_definition :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   definition : string prop;
   id : string prop;
   workspace_id : string prop;

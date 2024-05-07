@@ -41,6 +41,7 @@ val yojson_of_google_dataflow_job : google_dataflow_job -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   additional_experiments : string list prop;
   effective_labels : (string * string) list prop;
   enable_streaming_engine : bool prop;

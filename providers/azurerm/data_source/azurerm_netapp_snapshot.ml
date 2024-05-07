@@ -112,6 +112,7 @@ let azurerm_netapp_snapshot ?id ?timeouts ~account_name ~name
   }
 
 type t = {
+  tf_name : string;
   account_name : string prop;
   id : string prop;
   location : string prop;
@@ -126,6 +127,7 @@ let make ?id ?timeouts ~account_name ~name ~pool_name
   let __type = "azurerm_netapp_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        account_name = Prop.computed __type __id "account_name";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

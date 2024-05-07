@@ -36,6 +36,7 @@ val yojson_of_google_scc_notification_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   config_id : string prop;
   description : string prop;
   id : string prop;

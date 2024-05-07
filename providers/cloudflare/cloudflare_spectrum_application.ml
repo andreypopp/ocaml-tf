@@ -301,6 +301,7 @@ let cloudflare_spectrum_application ?argo_smart_routing ?id
   }
 
 type t = {
+  tf_name : string;
   argo_smart_routing : bool prop;
   id : string prop;
   ip_firewall : bool prop;
@@ -320,6 +321,7 @@ let make ?argo_smart_routing ?id ?ip_firewall ?origin_direct
   let __type = "cloudflare_spectrum_application" in
   let __attrs =
     ({
+       tf_name = __id;
        argo_smart_routing =
          Prop.computed __type __id "argo_smart_routing";
        id = Prop.computed __type __id "id";

@@ -42,6 +42,7 @@ val yojson_of_azurerm_fluid_relay_server :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   frs_tenant_id : string prop;
   id : string prop;
   location : string prop;

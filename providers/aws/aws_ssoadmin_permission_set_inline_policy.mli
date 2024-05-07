@@ -26,6 +26,7 @@ val yojson_of_aws_ssoadmin_permission_set_inline_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   inline_policy : string prop;
   instance_arn : string prop;

@@ -729,6 +729,7 @@ val yojson_of_aws_ec2_network_insights_analysis :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alternate_path_hints : alternate_path_hints list prop;
   arn : string prop;
   explanations : explanations list prop;

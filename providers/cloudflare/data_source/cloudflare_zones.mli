@@ -32,7 +32,11 @@ val yojson_of_cloudflare_zones : cloudflare_zones -> json
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; zones : zones list prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  zones : zones list prop;
+}
 
 val register :
   ?tf_module:tf_module ->

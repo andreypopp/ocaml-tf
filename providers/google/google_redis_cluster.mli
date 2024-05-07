@@ -66,6 +66,7 @@ val yojson_of_google_redis_cluster : google_redis_cluster -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authorization_mode : string prop;
   create_time : string prop;
   discovery_endpoints : discovery_endpoints list prop;

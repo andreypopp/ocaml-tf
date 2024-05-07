@@ -18,6 +18,7 @@ val yojson_of_aws_route53_query_log : aws_route53_query_log -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cloudwatch_log_group_arn : string prop;
   id : string prop;

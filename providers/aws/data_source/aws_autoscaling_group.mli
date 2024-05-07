@@ -212,6 +212,7 @@ val yojson_of_aws_autoscaling_group : aws_autoscaling_group -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   availability_zones : string list prop;
   default_cooldown : float prop;

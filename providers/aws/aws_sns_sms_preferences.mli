@@ -23,6 +23,7 @@ val yojson_of_aws_sns_sms_preferences :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   default_sender_id : string prop;
   default_sms_type : string prop;
   delivery_status_iam_role_arn : string prop;

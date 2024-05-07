@@ -161,6 +161,7 @@ let aws_glue_partition_index ?catalog_id ?id ?timeouts ~database_name
   }
 
 type t = {
+  tf_name : string;
   catalog_id : string prop;
   database_name : string prop;
   id : string prop;
@@ -172,6 +173,7 @@ let make ?catalog_id ?id ?timeouts ~database_name ~table_name
   let __type = "aws_glue_partition_index" in
   let __attrs =
     ({
+       tf_name = __id;
        catalog_id = Prop.computed __type __id "catalog_id";
        database_name = Prop.computed __type __id "database_name";
        id = Prop.computed __type __id "id";

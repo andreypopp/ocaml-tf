@@ -131,6 +131,7 @@ let aws_accessanalyzer_archive_rule ?id ~analyzer_name ~rule_name
   { analyzer_name; id; rule_name; filter }
 
 type t = {
+  tf_name : string;
   analyzer_name : string prop;
   id : string prop;
   rule_name : string prop;
@@ -140,6 +141,7 @@ let make ?id ~analyzer_name ~rule_name ~filter __id =
   let __type = "aws_accessanalyzer_archive_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        analyzer_name = Prop.computed __type __id "analyzer_name";
        id = Prop.computed __type __id "id";
        rule_name = Prop.computed __type __id "rule_name";

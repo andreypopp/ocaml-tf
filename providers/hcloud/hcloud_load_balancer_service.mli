@@ -58,6 +58,7 @@ val yojson_of_hcloud_load_balancer_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   destination_port : float prop;
   id : string prop;
   listen_port : float prop;

@@ -33,6 +33,7 @@ val yojson_of_azurerm_search_shared_private_link_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   request_message : string prop;

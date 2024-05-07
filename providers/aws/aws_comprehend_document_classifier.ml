@@ -490,6 +490,7 @@ let aws_comprehend_document_classifier ?id ?mode ?model_kms_key_id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   data_access_role_arn : string prop;
   id : string prop;
@@ -512,6 +513,7 @@ let make ?id ?mode ?model_kms_key_id ?tags ?tags_all ?version_name
   let __type = "aws_comprehend_document_classifier" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        data_access_role_arn =
          Prop.computed __type __id "data_access_role_arn";

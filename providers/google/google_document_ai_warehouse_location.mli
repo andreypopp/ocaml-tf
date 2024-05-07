@@ -29,6 +29,7 @@ val yojson_of_google_document_ai_warehouse_location :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_control_mode : string prop;
   database_type : string prop;
   document_creator_default_role : string prop;

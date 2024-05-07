@@ -288,6 +288,7 @@ let google_compute_region_commitment ?auto_renew ?category
   }
 
 type t = {
+  tf_name : string;
   auto_renew : bool prop;
   category : string prop;
   commitment_id : float prop;
@@ -312,6 +313,7 @@ let make ?auto_renew ?category ?description ?id ?project ?region
   let __type = "google_compute_region_commitment" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_renew = Prop.computed __type __id "auto_renew";
        category = Prop.computed __type __id "category";
        commitment_id = Prop.computed __type __id "commitment_id";

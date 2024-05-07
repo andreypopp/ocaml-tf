@@ -58,6 +58,7 @@ let google_storage_project_service_account ?id ?project ?user_project
   { id; project; user_project }
 
 type t = {
+  tf_name : string;
   email_address : string prop;
   id : string prop;
   member : string prop;
@@ -69,6 +70,7 @@ let make ?id ?project ?user_project __id =
   let __type = "google_storage_project_service_account" in
   let __attrs =
     ({
+       tf_name = __id;
        email_address = Prop.computed __type __id "email_address";
        id = Prop.computed __type __id "id";
        member = Prop.computed __type __id "member";

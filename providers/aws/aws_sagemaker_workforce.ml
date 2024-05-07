@@ -294,6 +294,7 @@ let aws_sagemaker_workforce ?id ?(cognito_config = [])
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   subdomain : string prop;
@@ -306,6 +307,7 @@ let make ?id ?(cognito_config = []) ?(oidc_config = [])
   let __type = "aws_sagemaker_workforce" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        subdomain = Prop.computed __type __id "subdomain";

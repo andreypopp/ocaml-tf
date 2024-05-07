@@ -193,12 +193,17 @@ let aws_ecr_replication_configuration ?id
     aws_ecr_replication_configuration =
   { id; replication_configuration }
 
-type t = { id : string prop; registry_id : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  registry_id : string prop;
+}
 
 let make ?id ?(replication_configuration = []) __id =
   let __type = "aws_ecr_replication_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        registry_id = Prop.computed __type __id "registry_id";
      }

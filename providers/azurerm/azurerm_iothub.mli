@@ -157,6 +157,7 @@ val yojson_of_azurerm_iothub : azurerm_iothub -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   endpoint : endpoint list prop;
   enrichment : enrichment list prop;
   event_hub_events_endpoint : string prop;

@@ -31,6 +31,7 @@ val yojson_of_google_datastore_index : google_datastore_index -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   ancestor : string prop;
   id : string prop;
   index_id : string prop;

@@ -104,6 +104,7 @@ let google_biglake_catalog ?id ?project ?timeouts ~location ~name ()
   { id; location; name; project; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   delete_time : string prop;
   expire_time : string prop;
@@ -118,6 +119,7 @@ let make ?id ?project ?timeouts ~location ~name __id =
   let __type = "google_biglake_catalog" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        delete_time = Prop.computed __type __id "delete_time";
        expire_time = Prop.computed __type __id "expire_time";

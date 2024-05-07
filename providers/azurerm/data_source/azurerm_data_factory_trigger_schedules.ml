@@ -80,6 +80,7 @@ let azurerm_data_factory_trigger_schedules ?id ?timeouts
   { data_factory_id; id; timeouts }
 
 type t = {
+  tf_name : string;
   data_factory_id : string prop;
   id : string prop;
   items : string list prop;
@@ -89,6 +90,7 @@ let make ?id ?timeouts ~data_factory_id __id =
   let __type = "azurerm_data_factory_trigger_schedules" in
   let __attrs =
     ({
+       tf_name = __id;
        data_factory_id = Prop.computed __type __id "data_factory_id";
        id = Prop.computed __type __id "id";
        items = Prop.computed __type __id "items";

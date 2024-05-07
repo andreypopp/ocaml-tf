@@ -203,6 +203,7 @@ let google_workbench_instance ?desired_state ?disable_proxy_access ?id ?instance
   } : google_workbench_instance);;
 
 type t = {
+  tf_name: string;
   create_time: string prop;
   creator: string prop;
   desired_state: string prop;
@@ -227,6 +228,7 @@ type t = {
 let make ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners ?labels ?project ?(gce_setup=[]) ?timeouts ~location ~name __id =
   let __type = "google_workbench_instance" in
   let __attrs = ({
+    tf_name = __id;
     create_time = Prop.computed __type __id "create_time";
     creator = Prop.computed __type __id "creator";
     desired_state = Prop.computed __type __id "desired_state";

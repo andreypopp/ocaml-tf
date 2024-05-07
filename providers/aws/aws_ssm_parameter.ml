@@ -191,6 +191,7 @@ let aws_ssm_parameter ?allowed_pattern ?arn ?data_type ?description
   }
 
 type t = {
+  tf_name : string;
   allowed_pattern : string prop;
   arn : string prop;
   data_type : string prop;
@@ -214,6 +215,7 @@ let make ?allowed_pattern ?arn ?data_type ?description ?id
   let __type = "aws_ssm_parameter" in
   let __attrs =
     ({
+       tf_name = __id;
        allowed_pattern = Prop.computed __type __id "allowed_pattern";
        arn = Prop.computed __type __id "arn";
        data_type = Prop.computed __type __id "data_type";

@@ -114,6 +114,7 @@ let aws_cloudwatch_event_permission ?action ?event_bus_name ?id
   { action; event_bus_name; id; principal; statement_id; condition }
 
 type t = {
+  tf_name : string;
   action : string prop;
   event_bus_name : string prop;
   id : string prop;
@@ -126,6 +127,7 @@ let make ?action ?event_bus_name ?id ?(condition = []) ~principal
   let __type = "aws_cloudwatch_event_permission" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        event_bus_name = Prop.computed __type __id "event_bus_name";
        id = Prop.computed __type __id "id";

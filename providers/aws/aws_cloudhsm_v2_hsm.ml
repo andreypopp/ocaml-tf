@@ -125,6 +125,7 @@ let aws_cloudhsm_v2_hsm ?availability_zone ?id ?ip_address ?subnet_id
   }
 
 type t = {
+  tf_name : string;
   availability_zone : string prop;
   cluster_id : string prop;
   hsm_eni_id : string prop;
@@ -140,6 +141,7 @@ let make ?availability_zone ?id ?ip_address ?subnet_id ?timeouts
   let __type = "aws_cloudhsm_v2_hsm" in
   let __attrs =
     ({
+       tf_name = __id;
        availability_zone =
          Prop.computed __type __id "availability_zone";
        cluster_id = Prop.computed __type __id "cluster_id";

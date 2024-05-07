@@ -97,6 +97,7 @@ let aws_elasticsearch_domain_policy ?id ?timeouts ~access_policies
   { access_policies; domain_name; id; timeouts }
 
 type t = {
+  tf_name : string;
   access_policies : string prop;
   domain_name : string prop;
   id : string prop;
@@ -106,6 +107,7 @@ let make ?id ?timeouts ~access_policies ~domain_name __id =
   let __type = "aws_elasticsearch_domain_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        access_policies = Prop.computed __type __id "access_policies";
        domain_name = Prop.computed __type __id "domain_name";
        id = Prop.computed __type __id "id";

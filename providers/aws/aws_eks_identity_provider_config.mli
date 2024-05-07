@@ -41,6 +41,7 @@ val yojson_of_aws_eks_identity_provider_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cluster_name : string prop;
   id : string prop;

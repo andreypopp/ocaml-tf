@@ -19,6 +19,7 @@ val yojson_of_aws_vpc_dhcp_options_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dhcp_options_id : string prop;
   id : string prop;
   vpc_id : string prop;

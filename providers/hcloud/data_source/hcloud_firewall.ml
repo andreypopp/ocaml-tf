@@ -228,6 +228,7 @@ let hcloud_firewall ?id ?labels ?most_recent ?name ?with_selector
   { id; labels; most_recent; name; with_selector; apply_to; rule }
 
 type t = {
+  tf_name : string;
   id : float prop;
   labels : (string * string) list prop;
   most_recent : bool prop;
@@ -240,6 +241,7 @@ let make ?id ?labels ?most_recent ?name ?with_selector ~apply_to
   let __type = "hcloud_firewall" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        labels = Prop.computed __type __id "labels";
        most_recent = Prop.computed __type __id "most_recent";

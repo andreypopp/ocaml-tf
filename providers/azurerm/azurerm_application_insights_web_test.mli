@@ -41,6 +41,7 @@ val yojson_of_azurerm_application_insights_web_test :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_insights_id : string prop;
   configuration : string prop;
   description : string prop;

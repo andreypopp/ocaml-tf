@@ -51,6 +51,7 @@ val yojson_of_google_dataplex_lake : google_dataplex_lake -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   asset_status : asset_status list prop;
   create_time : string prop;
   description : string prop;

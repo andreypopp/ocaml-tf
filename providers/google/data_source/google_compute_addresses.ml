@@ -129,6 +129,7 @@ let google_compute_addresses ?filter ?id ?project ?region () :
   { filter; id; project; region }
 
 type t = {
+  tf_name : string;
   addresses : addresses list prop;
   filter : string prop;
   id : string prop;
@@ -140,6 +141,7 @@ let make ?filter ?id ?project ?region __id =
   let __type = "google_compute_addresses" in
   let __attrs =
     ({
+       tf_name = __id;
        addresses = Prop.computed __type __id "addresses";
        filter = Prop.computed __type __id "filter";
        id = Prop.computed __type __id "id";

@@ -55,6 +55,7 @@ val yojson_of_azurerm_elastic_cloud_elasticsearch :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   elastic_cloud_deployment_id : string prop;
   elastic_cloud_email_address : string prop;
   elastic_cloud_sso_default_url : string prop;

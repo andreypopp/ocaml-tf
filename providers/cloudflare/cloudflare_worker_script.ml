@@ -524,6 +524,7 @@ let cloudflare_worker_script ?compatibility_date ?compatibility_flags
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   compatibility_date : string prop;
   compatibility_flags : string list prop;
@@ -542,6 +543,7 @@ let make ?compatibility_date ?compatibility_flags ?id ?logpush
   let __type = "cloudflare_worker_script" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        compatibility_date =
          Prop.computed __type __id "compatibility_date";

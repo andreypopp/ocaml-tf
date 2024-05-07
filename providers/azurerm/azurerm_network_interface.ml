@@ -364,6 +364,7 @@ let azurerm_network_interface ?auxiliary_mode ?auxiliary_sku
   }
 
 type t = {
+  tf_name : string;
   applied_dns_servers : string list prop;
   auxiliary_mode : string prop;
   auxiliary_sku : string prop;
@@ -391,6 +392,7 @@ let make ?auxiliary_mode ?auxiliary_sku ?dns_servers ?edge_zone
   let __type = "azurerm_network_interface" in
   let __attrs =
     ({
+       tf_name = __id;
        applied_dns_servers =
          Prop.computed __type __id "applied_dns_servers";
        auxiliary_mode = Prop.computed __type __id "auxiliary_mode";

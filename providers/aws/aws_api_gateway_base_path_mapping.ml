@@ -70,6 +70,7 @@ let aws_api_gateway_base_path_mapping ?base_path ?id ?stage_name
   { api_id; base_path; domain_name; id; stage_name }
 
 type t = {
+  tf_name : string;
   api_id : string prop;
   base_path : string prop;
   domain_name : string prop;
@@ -81,6 +82,7 @@ let make ?base_path ?id ?stage_name ~api_id ~domain_name __id =
   let __type = "aws_api_gateway_base_path_mapping" in
   let __attrs =
     ({
+       tf_name = __id;
        api_id = Prop.computed __type __id "api_id";
        base_path = Prop.computed __type __id "base_path";
        domain_name = Prop.computed __type __id "domain_name";

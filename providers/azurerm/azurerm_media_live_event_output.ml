@@ -184,6 +184,7 @@ let azurerm_media_live_event_output ?description
   }
 
 type t = {
+  tf_name : string;
   archive_window_duration : string prop;
   asset_name : string prop;
   description : string prop;
@@ -203,6 +204,7 @@ let make ?description ?hls_fragments_per_ts_segment ?id
   let __type = "azurerm_media_live_event_output" in
   let __attrs =
     ({
+       tf_name = __id;
        archive_window_duration =
          Prop.computed __type __id "archive_window_duration";
        asset_name = Prop.computed __type __id "asset_name";

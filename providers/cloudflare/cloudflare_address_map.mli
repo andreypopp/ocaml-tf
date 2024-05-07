@@ -35,6 +35,7 @@ val yojson_of_cloudflare_address_map : cloudflare_address_map -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   can_delete : bool prop;
   can_modify_ips : bool prop;

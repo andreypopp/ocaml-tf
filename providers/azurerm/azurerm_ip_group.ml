@@ -156,6 +156,7 @@ let azurerm_ip_group ?cidrs ?id ?tags ?timeouts ~location ~name
   { cidrs; id; location; name; resource_group_name; tags; timeouts }
 
 type t = {
+  tf_name : string;
   cidrs : string list prop;
   firewall_ids : string list prop;
   firewall_policy_ids : string list prop;
@@ -171,6 +172,7 @@ let make ?cidrs ?id ?tags ?timeouts ~location ~name
   let __type = "azurerm_ip_group" in
   let __attrs =
     ({
+       tf_name = __id;
        cidrs = Prop.computed __type __id "cidrs";
        firewall_ids = Prop.computed __type __id "firewall_ids";
        firewall_policy_ids =

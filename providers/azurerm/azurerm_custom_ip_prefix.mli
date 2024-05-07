@@ -39,6 +39,7 @@ val yojson_of_azurerm_custom_ip_prefix :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cidr : string prop;
   commissioning_enabled : bool prop;
   id : string prop;

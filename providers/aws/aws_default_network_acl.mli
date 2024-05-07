@@ -53,6 +53,7 @@ val yojson_of_aws_default_network_acl :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   default_network_acl_id : string prop;
   id : string prop;

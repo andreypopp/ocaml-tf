@@ -893,6 +893,7 @@ let azurerm_automation_software_update_configuration ?duration ?id
   }
 
 type t = {
+  tf_name : string;
   automation_account_id : string prop;
   duration : string prop;
   error_code : string prop;
@@ -912,6 +913,7 @@ let make ?duration ?id ?non_azure_computer_names ?operating_system
   let __type = "azurerm_automation_software_update_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        automation_account_id =
          Prop.computed __type __id "automation_account_id";
        duration = Prop.computed __type __id "duration";

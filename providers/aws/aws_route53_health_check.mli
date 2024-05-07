@@ -39,6 +39,7 @@ val yojson_of_aws_route53_health_check :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   child_health_threshold : float prop;
   child_healthchecks : string list prop;

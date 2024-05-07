@@ -258,6 +258,7 @@ let azurerm_sentinel_alert_rule_template ?display_name ?id ?name
   { display_name; id; log_analytics_workspace_id; name; timeouts }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   log_analytics_workspace_id : string prop;
@@ -272,6 +273,7 @@ let make ?display_name ?id ?name ?timeouts
   let __type = "azurerm_sentinel_alert_rule_template" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        id = Prop.computed __type __id "id";
        log_analytics_workspace_id =

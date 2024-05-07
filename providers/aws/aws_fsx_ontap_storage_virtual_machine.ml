@@ -508,6 +508,7 @@ let aws_fsx_ontap_storage_virtual_machine ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   endpoints : endpoints list prop;
   file_system_id : string prop;
@@ -527,6 +528,7 @@ let make ?id ?root_volume_security_style ?svm_admin_password ?tags
   let __type = "aws_fsx_ontap_storage_virtual_machine" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        endpoints = Prop.computed __type __id "endpoints";
        file_system_id = Prop.computed __type __id "file_system_id";

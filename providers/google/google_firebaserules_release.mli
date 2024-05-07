@@ -26,6 +26,7 @@ val yojson_of_google_firebaserules_release :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   disabled : bool prop;
   id : string prop;

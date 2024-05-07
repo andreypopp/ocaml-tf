@@ -52,6 +52,7 @@ let google_sql_database_instance_latest_recovery_time ?id ?project
   { id; instance; project }
 
 type t = {
+  tf_name : string;
   id : string prop;
   instance : string prop;
   latest_recovery_time : string prop;
@@ -62,6 +63,7 @@ let make ?id ?project ~instance __id =
   let __type = "google_sql_database_instance_latest_recovery_time" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        instance = Prop.computed __type __id "instance";
        latest_recovery_time =

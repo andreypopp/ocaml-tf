@@ -46,6 +46,7 @@ val yojson_of_google_dialogflow_fulfillment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   enabled : bool prop;
   id : string prop;

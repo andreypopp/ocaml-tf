@@ -56,12 +56,17 @@ let aws_emr_supported_instance_types ?(supported_instance_types = [])
     ~release_label () : aws_emr_supported_instance_types =
   { release_label; supported_instance_types }
 
-type t = { id : string prop; release_label : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  release_label : string prop;
+}
 
 let make ?(supported_instance_types = []) ~release_label __id =
   let __type = "aws_emr_supported_instance_types" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        release_label = Prop.computed __type __id "release_label";
      }

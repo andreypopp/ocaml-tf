@@ -163,6 +163,7 @@ let aws_sns_topic_subscription ?confirmation_timeout_in_minutes
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   confirmation_timeout_in_minutes : float prop;
   confirmation_was_authenticated : bool prop;
@@ -189,6 +190,7 @@ let make ?confirmation_timeout_in_minutes ?delivery_policy
   let __type = "aws_sns_topic_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        confirmation_timeout_in_minutes =
          Prop.computed __type __id "confirmation_timeout_in_minutes";

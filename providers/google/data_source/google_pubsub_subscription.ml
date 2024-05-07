@@ -407,6 +407,7 @@ let google_pubsub_subscription ?id ?project ~name () :
   { id; name; project }
 
 type t = {
+  tf_name : string;
   ack_deadline_seconds : float prop;
   bigquery_config : bigquery_config list prop;
   cloud_storage_config : cloud_storage_config list prop;
@@ -432,6 +433,7 @@ let make ?id ?project ~name __id =
   let __type = "google_pubsub_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        ack_deadline_seconds =
          Prop.computed __type __id "ack_deadline_seconds";
        bigquery_config = Prop.computed __type __id "bigquery_config";

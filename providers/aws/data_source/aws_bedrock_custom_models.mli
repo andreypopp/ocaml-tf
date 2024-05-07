@@ -20,6 +20,7 @@ val yojson_of_aws_bedrock_custom_models :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   model_summaries : model_summaries list prop;
 }

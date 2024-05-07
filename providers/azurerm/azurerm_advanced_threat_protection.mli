@@ -30,6 +30,7 @@ val yojson_of_azurerm_advanced_threat_protection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   target_resource_id : string prop;

@@ -463,6 +463,7 @@ let azurerm_healthcare_fhir_service ?access_policy_object_ids
   }
 
 type t = {
+  tf_name : string;
   access_policy_object_ids : string list prop;
   configuration_export_storage_account_name : string prop;
   container_registry_login_server_url : string list prop;
@@ -484,6 +485,7 @@ let make ?access_policy_object_ids
   let __type = "azurerm_healthcare_fhir_service" in
   let __attrs =
     ({
+       tf_name = __id;
        access_policy_object_ids =
          Prop.computed __type __id "access_policy_object_ids";
        configuration_export_storage_account_name =

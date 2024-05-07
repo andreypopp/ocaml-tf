@@ -21,6 +21,7 @@ val yojson_of_google_monitoring_uptime_check_ips :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   uptime_check_ips : uptime_check_ips list prop;
 }

@@ -19,6 +19,7 @@ val yojson_of_aws_wafregional_regex_pattern_set :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   regex_pattern_strings : string list prop;

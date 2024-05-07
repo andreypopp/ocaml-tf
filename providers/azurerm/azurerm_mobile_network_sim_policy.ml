@@ -475,6 +475,7 @@ let azurerm_mobile_network_sim_policy ?id
   }
 
 type t = {
+  tf_name : string;
   default_slice_id : string prop;
   id : string prop;
   location : string prop;
@@ -492,6 +493,7 @@ let make ?id ?rat_frequency_selection_priority_index
   let __type = "azurerm_mobile_network_sim_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        default_slice_id =
          Prop.computed __type __id "default_slice_id";
        id = Prop.computed __type __id "id";

@@ -71,7 +71,11 @@ val yojson_of_google_access_context_manager_service_perimeter_ingress_policy :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; perimeter : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  perimeter : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

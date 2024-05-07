@@ -180,6 +180,7 @@ let google_compute_region_network_endpoint_group ?id ?name ?project
   { id; name; project; region; self_link }
 
 type t = {
+  tf_name : string;
   app_engine : app_engine list prop;
   cloud_function : cloud_function list prop;
   cloud_run : cloud_run list prop;
@@ -199,6 +200,7 @@ let make ?id ?name ?project ?region ?self_link __id =
   let __type = "google_compute_region_network_endpoint_group" in
   let __attrs =
     ({
+       tf_name = __id;
        app_engine = Prop.computed __type __id "app_engine";
        cloud_function = Prop.computed __type __id "cloud_function";
        cloud_run = Prop.computed __type __id "cloud_run";

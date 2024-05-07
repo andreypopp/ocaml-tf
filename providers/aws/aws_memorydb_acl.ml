@@ -105,6 +105,7 @@ let aws_memorydb_acl ?id ?name ?name_prefix ?tags ?tags_all
   { id; name; name_prefix; tags; tags_all; user_names }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   minimum_engine_version : string prop;
@@ -119,6 +120,7 @@ let make ?id ?name ?name_prefix ?tags ?tags_all ?user_names __id =
   let __type = "aws_memorydb_acl" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        minimum_engine_version =

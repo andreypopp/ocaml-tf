@@ -202,6 +202,7 @@ let azurerm_storage_table ?id ?timeouts ~name ~storage_account_name
   { id; name; storage_account_name; acl; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   storage_account_name : string prop;
@@ -211,6 +212,7 @@ let make ?id ?timeouts ~name ~storage_account_name ~acl __id =
   let __type = "azurerm_storage_table" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        storage_account_name =

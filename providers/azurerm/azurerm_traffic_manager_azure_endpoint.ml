@@ -279,6 +279,7 @@ let azurerm_traffic_manager_azure_endpoint ?always_serve_enabled
   }
 
 type t = {
+  tf_name : string;
   always_serve_enabled : bool prop;
   enabled : bool prop;
   geo_mappings : string list prop;
@@ -296,6 +297,7 @@ let make ?always_serve_enabled ?enabled ?geo_mappings ?id ?priority
   let __type = "azurerm_traffic_manager_azure_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        always_serve_enabled =
          Prop.computed __type __id "always_serve_enabled";
        enabled = Prop.computed __type __id "enabled";

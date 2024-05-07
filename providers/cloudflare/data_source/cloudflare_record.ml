@@ -79,6 +79,7 @@ let cloudflare_record ?content ?id ?priority ?type_ ~hostname
   { content; hostname; id; priority; type_; zone_id }
 
 type t = {
+  tf_name : string;
   content : string prop;
   hostname : string prop;
   id : string prop;
@@ -97,6 +98,7 @@ let make ?content ?id ?priority ?type_ ~hostname ~zone_id __id =
   let __type = "cloudflare_record" in
   let __attrs =
     ({
+       tf_name = __id;
        content = Prop.computed __type __id "content";
        hostname = Prop.computed __type __id "hostname";
        id = Prop.computed __type __id "id";

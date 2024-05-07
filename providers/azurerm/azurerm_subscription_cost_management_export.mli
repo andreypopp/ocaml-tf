@@ -52,6 +52,7 @@ val yojson_of_azurerm_subscription_cost_management_export :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   active : bool prop;
   id : string prop;
   name : string prop;

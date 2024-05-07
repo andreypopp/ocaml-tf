@@ -344,6 +344,7 @@ let azurerm_app_service_source_control ?branch ?id ?repo_url
   }
 
 type t = {
+  tf_name : string;
   app_id : string prop;
   branch : string prop;
   id : string prop;
@@ -362,6 +363,7 @@ let make ?branch ?id ?repo_url ?rollback_enabled ?use_local_git
   let __type = "azurerm_app_service_source_control" in
   let __attrs =
     ({
+       tf_name = __id;
        app_id = Prop.computed __type __id "app_id";
        branch = Prop.computed __type __id "branch";
        id = Prop.computed __type __id "id";

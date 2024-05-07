@@ -392,6 +392,7 @@ let azurerm_netapp_snapshot_policy ?id ?tags ?(daily_schedule = [])
   }
 
 type t = {
+  tf_name : string;
   account_name : string prop;
   enabled : bool prop;
   id : string prop;
@@ -408,6 +409,7 @@ let make ?id ?tags ?(daily_schedule = []) ?(hourly_schedule = [])
   let __type = "azurerm_netapp_snapshot_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        account_name = Prop.computed __type __id "account_name";
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";

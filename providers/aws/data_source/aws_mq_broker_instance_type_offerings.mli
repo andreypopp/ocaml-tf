@@ -37,6 +37,7 @@ val yojson_of_aws_mq_broker_instance_type_offerings :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   broker_instance_options : broker_instance_options list prop;
   engine_type : string prop;
   host_instance_type : string prop;

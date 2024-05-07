@@ -41,6 +41,7 @@ let google_organization_iam_policy ?id ~org_id () :
   { id; org_id }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   org_id : string prop;
@@ -51,6 +52,7 @@ let make ?id ~org_id __id =
   let __type = "google_organization_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        org_id = Prop.computed __type __id "org_id";

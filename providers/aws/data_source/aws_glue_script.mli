@@ -47,6 +47,7 @@ val yojson_of_aws_glue_script : aws_glue_script -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   language : string prop;
   python_script : string prop;

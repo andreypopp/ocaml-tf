@@ -323,6 +323,7 @@ let google_edgecontainer_vpn_connection ?enable_high_availability ?id
   }
 
 type t = {
+  tf_name : string;
   cluster : string prop;
   create_time : string prop;
   details : details list prop;
@@ -346,6 +347,7 @@ let make ?enable_high_availability ?id ?labels ?nat_gateway_ip
   let __type = "google_edgecontainer_vpn_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster = Prop.computed __type __id "cluster";
        create_time = Prop.computed __type __id "create_time";
        details = Prop.computed __type __id "details";

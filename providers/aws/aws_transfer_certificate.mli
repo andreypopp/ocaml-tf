@@ -24,6 +24,7 @@ val yojson_of_aws_transfer_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   active_date : string prop;
   arn : string prop;
   certificate : string prop;

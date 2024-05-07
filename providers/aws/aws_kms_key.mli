@@ -34,6 +34,7 @@ val yojson_of_aws_kms_key : aws_kms_key -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   bypass_policy_lockout_safety_check : bool prop;
   custom_key_store_id : string prop;

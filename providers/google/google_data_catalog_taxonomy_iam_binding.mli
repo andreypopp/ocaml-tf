@@ -32,6 +32,7 @@ val yojson_of_google_data_catalog_taxonomy_iam_binding :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   members : string list prop;

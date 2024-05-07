@@ -345,6 +345,7 @@ val yojson_of_azurerm_batch_pool : azurerm_batch_pool -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_name : string prop;
   display_name : string prop;
   id : string prop;

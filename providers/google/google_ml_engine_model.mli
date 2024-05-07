@@ -38,6 +38,7 @@ val yojson_of_google_ml_engine_model : google_ml_engine_model -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   effective_labels : (string * string) list prop;
   id : string prop;

@@ -21,6 +21,7 @@ val yojson_of_cloudflare_logpull_retention :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   zone_id : string prop;

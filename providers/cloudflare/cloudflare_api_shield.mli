@@ -28,7 +28,11 @@ val yojson_of_cloudflare_api_shield : cloudflare_api_shield -> json
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; zone_id : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  zone_id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

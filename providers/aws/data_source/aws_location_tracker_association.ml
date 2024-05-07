@@ -50,6 +50,7 @@ let aws_location_tracker_association ?id ~consumer_arn ~tracker_name
   { consumer_arn; id; tracker_name }
 
 type t = {
+  tf_name : string;
   consumer_arn : string prop;
   id : string prop;
   tracker_name : string prop;
@@ -59,6 +60,7 @@ let make ?id ~consumer_arn ~tracker_name __id =
   let __type = "aws_location_tracker_association" in
   let __attrs =
     ({
+       tf_name = __id;
        consumer_arn = Prop.computed __type __id "consumer_arn";
        id = Prop.computed __type __id "id";
        tracker_name = Prop.computed __type __id "tracker_name";

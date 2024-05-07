@@ -33,6 +33,7 @@ val yojson_of_azurerm_log_analytics_datasource_windows_event :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   event_log_name : string prop;
   event_types : string list prop;
   id : string prop;

@@ -551,6 +551,7 @@ let aws_lakeformation_permissions ?catalog_id ?catalog_resource ?id
   }
 
 type t = {
+  tf_name : string;
   catalog_id : string prop;
   catalog_resource : bool prop;
   id : string prop;
@@ -567,6 +568,7 @@ let make ?catalog_id ?catalog_resource ?id
   let __type = "aws_lakeformation_permissions" in
   let __attrs =
     ({
+       tf_name = __id;
        catalog_id = Prop.computed __type __id "catalog_id";
        catalog_resource =
          Prop.computed __type __id "catalog_resource";

@@ -185,6 +185,7 @@ let aws_networkmanager_connect_attachment ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   attachment_id : string prop;
   attachment_policy_rule_number : float prop;
@@ -207,6 +208,7 @@ let make ?id ?tags ?tags_all ?timeouts ~core_network_id
   let __type = "aws_networkmanager_connect_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        attachment_id = Prop.computed __type __id "attachment_id";
        attachment_policy_rule_number =

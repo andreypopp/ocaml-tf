@@ -34,6 +34,7 @@ val yojson_of_azurerm_spring_cloud_app_mysql_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   database_name : string prop;
   id : string prop;
   mysql_server_id : string prop;

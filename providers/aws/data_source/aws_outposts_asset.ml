@@ -44,6 +44,7 @@ let aws_outposts_asset ?id ~arn ~asset_id () : aws_outposts_asset =
   { arn; asset_id; id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   asset_id : string prop;
   asset_type : string prop;
@@ -57,6 +58,7 @@ let make ?id ~arn ~asset_id __id =
   let __type = "aws_outposts_asset" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        asset_id = Prop.computed __type __id "asset_id";
        asset_type = Prop.computed __type __id "asset_type";

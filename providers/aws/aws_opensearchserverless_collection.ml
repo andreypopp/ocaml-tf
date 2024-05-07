@@ -128,6 +128,7 @@ let aws_opensearchserverless_collection ?description
   { description; name; standby_replicas; tags; type_; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   collection_endpoint : string prop;
   dashboard_endpoint : string prop;
@@ -146,6 +147,7 @@ let make ?description ?standby_replicas ?tags ?type_ ?timeouts ~name
   let __type = "aws_opensearchserverless_collection" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        collection_endpoint =
          Prop.computed __type __id "collection_endpoint";

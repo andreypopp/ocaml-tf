@@ -213,6 +213,7 @@ let aws_vpc ?cidr_block ?default ?dhcp_options_id ?id ?state ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   cidr_block : string prop;
   cidr_block_associations : cidr_block_associations list prop;
@@ -236,6 +237,7 @@ let make ?cidr_block ?default ?dhcp_options_id ?id ?state ?tags
   let __type = "aws_vpc" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        cidr_block = Prop.computed __type __id "cidr_block";
        cidr_block_associations =

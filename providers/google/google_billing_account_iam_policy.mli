@@ -19,6 +19,7 @@ val yojson_of_google_billing_account_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   billing_account_id : string prop;
   etag : string prop;
   id : string prop;

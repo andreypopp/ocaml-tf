@@ -403,6 +403,7 @@ let azurerm_consumption_budget_subscription ?id ?timeouts ~name
   { id; name; subscription_id; timeouts }
 
 type t = {
+  tf_name : string;
   amount : float prop;
   filter : filter list prop;
   id : string prop;
@@ -417,6 +418,7 @@ let make ?id ?timeouts ~name ~subscription_id __id =
   let __type = "azurerm_consumption_budget_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        amount = Prop.computed __type __id "amount";
        filter = Prop.computed __type __id "filter";
        id = Prop.computed __type __id "id";

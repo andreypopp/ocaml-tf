@@ -162,6 +162,7 @@ let google_identity_platform_oauth_idp_config ?client_secret
   }
 
 type t = {
+  tf_name : string;
   client_id : string prop;
   client_secret : string prop;
   display_name : string prop;
@@ -177,6 +178,7 @@ let make ?client_secret ?display_name ?enabled ?id ?project ?timeouts
   let __type = "google_identity_platform_oauth_idp_config" in
   let __attrs =
     ({
+       tf_name = __id;
        client_id = Prop.computed __type __id "client_id";
        client_secret = Prop.computed __type __id "client_secret";
        display_name = Prop.computed __type __id "display_name";

@@ -30,6 +30,7 @@ val yojson_of_azurerm_cdn_frontdoor_custom_domain_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cdn_frontdoor_custom_domain_id : string prop;
   cdn_frontdoor_route_ids : string list prop;
   id : string prop;

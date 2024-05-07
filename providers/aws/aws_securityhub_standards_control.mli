@@ -20,6 +20,7 @@ val yojson_of_aws_securityhub_standards_control :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   control_id : string prop;
   control_status : string prop;
   control_status_updated_at : string prop;

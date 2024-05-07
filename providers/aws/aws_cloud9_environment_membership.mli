@@ -20,6 +20,7 @@ val yojson_of_aws_cloud9_environment_membership :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   environment_id : string prop;
   id : string prop;
   permissions : string prop;

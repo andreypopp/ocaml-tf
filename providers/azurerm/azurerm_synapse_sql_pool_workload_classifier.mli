@@ -36,6 +36,7 @@ val yojson_of_azurerm_synapse_sql_pool_workload_classifier :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   context : string prop;
   end_time : string prop;
   id : string prop;

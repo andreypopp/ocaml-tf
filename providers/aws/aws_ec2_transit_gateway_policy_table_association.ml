@@ -64,6 +64,7 @@ let aws_ec2_transit_gateway_policy_table_association ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   resource_id : string prop;
   resource_type : string prop;
@@ -76,6 +77,7 @@ let make ?id ~transit_gateway_attachment_id
   let __type = "aws_ec2_transit_gateway_policy_table_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        resource_id = Prop.computed __type __id "resource_id";
        resource_type = Prop.computed __type __id "resource_type";

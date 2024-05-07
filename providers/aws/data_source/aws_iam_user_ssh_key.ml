@@ -57,6 +57,7 @@ let aws_iam_user_ssh_key ?id ~encoding ~ssh_public_key_id ~username
   { encoding; id; ssh_public_key_id; username }
 
 type t = {
+  tf_name : string;
   encoding : string prop;
   fingerprint : string prop;
   id : string prop;
@@ -70,6 +71,7 @@ let make ?id ~encoding ~ssh_public_key_id ~username __id =
   let __type = "aws_iam_user_ssh_key" in
   let __attrs =
     ({
+       tf_name = __id;
        encoding = Prop.computed __type __id "encoding";
        fingerprint = Prop.computed __type __id "fingerprint";
        id = Prop.computed __type __id "id";

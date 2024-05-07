@@ -43,6 +43,7 @@ val yojson_of_aws_docdb_cluster_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   apply_immediately : bool prop;
   arn : string prop;
   auto_minor_version_upgrade : bool prop;

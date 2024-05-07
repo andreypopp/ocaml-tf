@@ -95,6 +95,7 @@ let azurerm_private_dns_zone_virtual_network_link ?id ?timeouts ~name
   { id; name; private_dns_zone_name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   private_dns_zone_name : string prop;
@@ -109,6 +110,7 @@ let make ?id ?timeouts ~name ~private_dns_zone_name
   let __type = "azurerm_private_dns_zone_virtual_network_link" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        private_dns_zone_name =

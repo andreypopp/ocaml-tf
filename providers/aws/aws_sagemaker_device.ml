@@ -100,6 +100,7 @@ let aws_sagemaker_device ?id ~device_fleet_name ~device () :
   { device_fleet_name; id; device }
 
 type t = {
+  tf_name : string;
   agent_version : string prop;
   arn : string prop;
   device_fleet_name : string prop;
@@ -110,6 +111,7 @@ let make ?id ~device_fleet_name ~device __id =
   let __type = "aws_sagemaker_device" in
   let __attrs =
     ({
+       tf_name = __id;
        agent_version = Prop.computed __type __id "agent_version";
        arn = Prop.computed __type __id "arn";
        device_fleet_name =

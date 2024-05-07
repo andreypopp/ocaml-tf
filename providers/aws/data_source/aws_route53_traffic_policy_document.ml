@@ -742,6 +742,7 @@ let aws_route53_traffic_policy_document ?id ?record_type
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   json : string prop;
   record_type : string prop;
@@ -755,6 +756,7 @@ let make ?id ?record_type ?start_endpoint ?start_rule ?version
   let __type = "aws_route53_traffic_policy_document" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        json = Prop.computed __type __id "json";
        record_type = Prop.computed __type __id "record_type";

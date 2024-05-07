@@ -198,6 +198,7 @@ let azurerm_stream_analytics_output_table ?columns_to_remove ?id
   }
 
 type t = {
+  tf_name : string;
   batch_size : float prop;
   columns_to_remove : string list prop;
   id : string prop;
@@ -217,6 +218,7 @@ let make ?columns_to_remove ?id ?timeouts ~batch_size ~name
   let __type = "azurerm_stream_analytics_output_table" in
   let __attrs =
     ({
+       tf_name = __id;
        batch_size = Prop.computed __type __id "batch_size";
        columns_to_remove =
          Prop.computed __type __id "columns_to_remove";

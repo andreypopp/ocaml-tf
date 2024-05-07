@@ -849,6 +849,7 @@ val yojson_of_google_container_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   addons_config : addons_config list prop;
   allow_net_admin : bool prop;
   authenticator_groups_config :

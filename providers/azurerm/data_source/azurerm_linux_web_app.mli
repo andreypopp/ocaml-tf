@@ -483,6 +483,7 @@ val yojson_of_azurerm_linux_web_app : azurerm_linux_web_app -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_metadata : (string * string) list prop;
   app_settings : (string * string) list prop;
   auth_settings : auth_settings list prop;

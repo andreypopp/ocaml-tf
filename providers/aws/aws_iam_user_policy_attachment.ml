@@ -46,6 +46,7 @@ let aws_iam_user_policy_attachment ?id ~policy_arn ~user () :
   { id; policy_arn; user }
 
 type t = {
+  tf_name : string;
   id : string prop;
   policy_arn : string prop;
   user : string prop;
@@ -55,6 +56,7 @@ let make ?id ~policy_arn ~user __id =
   let __type = "aws_iam_user_policy_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        policy_arn = Prop.computed __type __id "policy_arn";
        user = Prop.computed __type __id "user";

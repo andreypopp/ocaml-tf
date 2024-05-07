@@ -49,6 +49,7 @@ val yojson_of_aws_emrcontainers_virtual_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;

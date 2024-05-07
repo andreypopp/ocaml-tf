@@ -57,6 +57,7 @@ let aws_ssmcontacts_contact ?id ?tags ~arn () :
   { arn; id; tags }
 
 type t = {
+  tf_name : string;
   alias : string prop;
   arn : string prop;
   display_name : string prop;
@@ -69,6 +70,7 @@ let make ?id ?tags ~arn __id =
   let __type = "aws_ssmcontacts_contact" in
   let __attrs =
     ({
+       tf_name = __id;
        alias = Prop.computed __type __id "alias";
        arn = Prop.computed __type __id "arn";
        display_name = Prop.computed __type __id "display_name";

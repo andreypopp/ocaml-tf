@@ -298,6 +298,7 @@ let azurerm_private_link_service ?auto_approval_subscription_ids
   }
 
 type t = {
+  tf_name : string;
   alias : string prop;
   auto_approval_subscription_ids : string list prop;
   enable_proxy_protocol : bool prop;
@@ -318,6 +319,7 @@ let make ?auto_approval_subscription_ids ?enable_proxy_protocol
   let __type = "azurerm_private_link_service" in
   let __attrs =
     ({
+       tf_name = __id;
        alias = Prop.computed __type __id "alias";
        auto_approval_subscription_ids =
          Prop.computed __type __id "auto_approval_subscription_ids";

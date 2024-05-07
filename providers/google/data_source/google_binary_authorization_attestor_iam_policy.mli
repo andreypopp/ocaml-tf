@@ -19,6 +19,7 @@ val yojson_of_google_binary_authorization_attestor_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   attestor : string prop;
   etag : string prop;
   id : string prop;

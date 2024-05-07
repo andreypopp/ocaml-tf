@@ -112,6 +112,7 @@ let aws_appstream_directory_config ?id ~directory_name
   }
 
 type t = {
+  tf_name : string;
   created_time : string prop;
   directory_name : string prop;
   id : string prop;
@@ -123,6 +124,7 @@ let make ?id ~directory_name ~organizational_unit_distinguished_names
   let __type = "aws_appstream_directory_config" in
   let __attrs =
     ({
+       tf_name = __id;
        created_time = Prop.computed __type __id "created_time";
        directory_name = Prop.computed __type __id "directory_name";
        id = Prop.computed __type __id "id";

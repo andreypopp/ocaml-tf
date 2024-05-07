@@ -260,6 +260,7 @@ let azurerm_analysis_services_server ?admin_users
   }
 
 type t = {
+  tf_name : string;
   admin_users : string list prop;
   backup_blob_container_uri : string prop;
   enable_power_bi_service : bool prop;
@@ -280,6 +281,7 @@ let make ?admin_users ?backup_blob_container_uri
   let __type = "azurerm_analysis_services_server" in
   let __attrs =
     ({
+       tf_name = __id;
        admin_users = Prop.computed __type __id "admin_users";
        backup_blob_container_uri =
          Prop.computed __type __id "backup_blob_container_uri";

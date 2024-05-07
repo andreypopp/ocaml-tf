@@ -134,6 +134,7 @@ let aws_ebs_volume ?id ?most_recent ?tags ?timeouts ~filter () :
   { id; most_recent; tags; filter; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zone : string prop;
   encrypted : bool prop;
@@ -155,6 +156,7 @@ let make ?id ?most_recent ?tags ?timeouts ~filter __id =
   let __type = "aws_ebs_volume" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zone =
          Prop.computed __type __id "availability_zone";

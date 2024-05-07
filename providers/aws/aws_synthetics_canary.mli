@@ -83,6 +83,7 @@ val yojson_of_aws_synthetics_canary : aws_synthetics_canary -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   artifact_s3_location : string prop;
   delete_lambda : bool prop;

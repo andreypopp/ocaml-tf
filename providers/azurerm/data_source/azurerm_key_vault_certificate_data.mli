@@ -25,6 +25,7 @@ val yojson_of_azurerm_key_vault_certificate_data :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificates_count : float prop;
   expires : string prop;
   hex : string prop;

@@ -54,6 +54,7 @@ let google_container_registry_repository ?id ?project ?region () :
   { id; project; region }
 
 type t = {
+  tf_name : string;
   id : string prop;
   project : string prop;
   region : string prop;
@@ -64,6 +65,7 @@ let make ?id ?project ?region __id =
   let __type = "google_container_registry_repository" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        project = Prop.computed __type __id "project";
        region = Prop.computed __type __id "region";

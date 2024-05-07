@@ -319,6 +319,7 @@ let aws_networkmanager_device ?description ?id ?model ?serial_number
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   global_network_id : string prop;
@@ -338,6 +339,7 @@ let make ?description ?id ?model ?serial_number ?site_id ?tags
   let __type = "aws_networkmanager_device" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        global_network_id =

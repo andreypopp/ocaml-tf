@@ -68,6 +68,7 @@ val yojson_of_aws_verifiedaccess_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_domain : string prop;
   attachment_type : string prop;
   description : string prop;

@@ -183,6 +183,7 @@ let azurerm_aadb2c_directory ?country_code ?display_name ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   billing_type : string prop;
   country_code : string prop;
   data_residency_location : string prop;
@@ -202,6 +203,7 @@ let make ?country_code ?display_name ?id ?tags ?timeouts
   let __type = "azurerm_aadb2c_directory" in
   let __attrs =
     ({
+       tf_name = __id;
        billing_type = Prop.computed __type __id "billing_type";
        country_code = Prop.computed __type __id "country_code";
        data_residency_location =

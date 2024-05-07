@@ -119,6 +119,7 @@ let aws_grafana_role_association ?group_ids ?id ?user_ids ?timeouts
   { group_ids; id; role; user_ids; workspace_id; timeouts }
 
 type t = {
+  tf_name : string;
   group_ids : string list prop;
   id : string prop;
   role : string prop;
@@ -131,6 +132,7 @@ let make ?group_ids ?id ?user_ids ?timeouts ~role ~workspace_id __id
   let __type = "aws_grafana_role_association" in
   let __attrs =
     ({
+       tf_name = __id;
        group_ids = Prop.computed __type __id "group_ids";
        id = Prop.computed __type __id "id";
        role = Prop.computed __type __id "role";

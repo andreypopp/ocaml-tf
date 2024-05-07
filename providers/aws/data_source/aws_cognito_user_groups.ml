@@ -48,12 +48,17 @@ let aws_cognito_user_groups ?(groups = []) ~user_pool_id () :
     aws_cognito_user_groups =
   { user_pool_id; groups }
 
-type t = { id : string prop; user_pool_id : string prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  user_pool_id : string prop;
+}
 
 let make ?(groups = []) ~user_pool_id __id =
   let __type = "aws_cognito_user_groups" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        user_pool_id = Prop.computed __type __id "user_pool_id";
      }

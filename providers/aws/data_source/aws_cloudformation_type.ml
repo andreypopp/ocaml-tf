@@ -111,6 +111,7 @@ let aws_cloudformation_type ?arn ?id ?type_ ?type_name ?version_id ()
   { arn; id; type_; type_name; version_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   default_version_id : string prop;
   deprecated_status : string prop;
@@ -134,6 +135,7 @@ let make ?arn ?id ?type_ ?type_name ?version_id __id =
   let __type = "aws_cloudformation_type" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        default_version_id =
          Prop.computed __type __id "default_version_id";

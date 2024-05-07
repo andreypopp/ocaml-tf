@@ -98,6 +98,7 @@ let google_access_context_manager_egress_policy ?id ?timeouts
   { egress_policy_name; id; resource; timeouts }
 
 type t = {
+  tf_name : string;
   egress_policy_name : string prop;
   id : string prop;
   resource : string prop;
@@ -107,6 +108,7 @@ let make ?id ?timeouts ~egress_policy_name ~resource __id =
   let __type = "google_access_context_manager_egress_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        egress_policy_name =
          Prop.computed __type __id "egress_policy_name";
        id = Prop.computed __type __id "id";

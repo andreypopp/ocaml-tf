@@ -65,6 +65,7 @@ val yojson_of_aws_storagegateway_nfs_file_share :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   audit_destination_arn : string prop;
   bucket_region : string prop;

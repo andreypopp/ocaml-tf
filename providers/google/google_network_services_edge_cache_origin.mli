@@ -98,6 +98,7 @@ val yojson_of_google_network_services_edge_cache_origin :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   effective_labels : (string * string) list prop;
   failover_origin : string prop;

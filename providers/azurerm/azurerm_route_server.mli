@@ -35,6 +35,7 @@ val yojson_of_azurerm_route_server : azurerm_route_server -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   branch_to_branch_traffic_enabled : bool prop;
   id : string prop;
   location : string prop;

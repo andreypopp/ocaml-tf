@@ -53,6 +53,7 @@ val yojson_of_azurerm_voice_services_communications_gateway :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_bridge : string prop;
   auto_generated_domain_name_label_scope : string prop;
   codecs : string prop;

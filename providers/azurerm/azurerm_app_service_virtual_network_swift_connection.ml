@@ -124,6 +124,7 @@ let azurerm_app_service_virtual_network_swift_connection ?id
   { app_service_id; id; subnet_id; timeouts }
 
 type t = {
+  tf_name : string;
   app_service_id : string prop;
   id : string prop;
   subnet_id : string prop;
@@ -135,6 +136,7 @@ let make ?id ?timeouts ~app_service_id ~subnet_id __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        app_service_id = Prop.computed __type __id "app_service_id";
        id = Prop.computed __type __id "id";
        subnet_id = Prop.computed __type __id "subnet_id";

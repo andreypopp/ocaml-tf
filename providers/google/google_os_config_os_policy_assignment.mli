@@ -470,6 +470,7 @@ val yojson_of_google_os_config_os_policy_assignment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   baseline : bool prop;
   deleted : bool prop;
   description : string prop;

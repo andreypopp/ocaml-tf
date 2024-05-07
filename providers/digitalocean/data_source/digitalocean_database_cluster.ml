@@ -78,6 +78,7 @@ let digitalocean_database_cluster ?id ?tags ~name () :
   { id; name; tags }
 
 type t = {
+  tf_name : string;
   database : string prop;
   engine : string prop;
   host : string prop;
@@ -105,6 +106,7 @@ let make ?id ?tags ~name __id =
   let __type = "digitalocean_database_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        database = Prop.computed __type __id "database";
        engine = Prop.computed __type __id "engine";
        host = Prop.computed __type __id "host";

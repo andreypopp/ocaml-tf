@@ -109,6 +109,7 @@ let google_organization_iam_binding ?id ?(condition = []) ~members
   { id; members; org_id; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   members : string list prop;
@@ -120,6 +121,7 @@ let make ?id ?(condition = []) ~members ~org_id ~role __id =
   let __type = "google_organization_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        members = Prop.computed __type __id "members";

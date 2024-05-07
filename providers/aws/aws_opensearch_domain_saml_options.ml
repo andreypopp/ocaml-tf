@@ -235,12 +235,17 @@ let aws_opensearch_domain_saml_options ?id ?(saml_options = [])
     ?timeouts ~domain_name () : aws_opensearch_domain_saml_options =
   { domain_name; id; saml_options; timeouts }
 
-type t = { domain_name : string prop; id : string prop }
+type t = {
+  tf_name : string;
+  domain_name : string prop;
+  id : string prop;
+}
 
 let make ?id ?(saml_options = []) ?timeouts ~domain_name __id =
   let __type = "aws_opensearch_domain_saml_options" in
   let __attrs =
     ({
+       tf_name = __id;
        domain_name = Prop.computed __type __id "domain_name";
        id = Prop.computed __type __id "id";
      }

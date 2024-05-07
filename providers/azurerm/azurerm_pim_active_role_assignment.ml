@@ -280,6 +280,7 @@ let azurerm_pim_active_role_assignment ?id ?justification
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   justification : string prop;
   principal_id : string prop;
@@ -293,6 +294,7 @@ let make ?id ?justification ?(schedule = []) ?(ticket = []) ?timeouts
   let __type = "azurerm_pim_active_role_assignment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        justification = Prop.computed __type __id "justification";
        principal_id = Prop.computed __type __id "principal_id";

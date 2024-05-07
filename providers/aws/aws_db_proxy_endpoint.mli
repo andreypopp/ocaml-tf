@@ -33,6 +33,7 @@ val yojson_of_aws_db_proxy_endpoint : aws_db_proxy_endpoint -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   db_proxy_endpoint_name : string prop;
   db_proxy_name : string prop;

@@ -37,6 +37,7 @@ val yojson_of_azurerm_app_configuration_keys :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   configuration_store_id : string prop;
   id : string prop;
   items : items list prop;

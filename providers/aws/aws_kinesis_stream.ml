@@ -257,6 +257,7 @@ let aws_kinesis_stream ?arn ?encryption_type
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   encryption_type : string prop;
   enforce_consumer_deletion : bool prop;
@@ -277,6 +278,7 @@ let make ?arn ?encryption_type ?enforce_consumer_deletion ?id
   let __type = "aws_kinesis_stream" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        encryption_type = Prop.computed __type __id "encryption_type";
        enforce_consumer_deletion =

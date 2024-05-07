@@ -186,6 +186,7 @@ let aws_emr_instance_group ?autoscaling_policy ?bid_price
   }
 
 type t = {
+  tf_name : string;
   autoscaling_policy : string prop;
   bid_price : string prop;
   cluster_id : string prop;
@@ -205,6 +206,7 @@ let make ?autoscaling_policy ?bid_price ?configurations_json
   let __type = "aws_emr_instance_group" in
   let __attrs =
     ({
+       tf_name = __id;
        autoscaling_policy =
          Prop.computed __type __id "autoscaling_policy";
        bid_price = Prop.computed __type __id "bid_price";

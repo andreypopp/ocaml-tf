@@ -51,6 +51,7 @@ let google_access_context_manager_access_policy_iam_policy ?id ~name
   { id; name; policy_data }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   name : string prop;
@@ -63,6 +64,7 @@ let make ?id ~name ~policy_data __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

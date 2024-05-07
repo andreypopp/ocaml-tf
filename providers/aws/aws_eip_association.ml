@@ -106,6 +106,7 @@ let aws_eip_association ?allocation_id ?allow_reassociation ?id
   }
 
 type t = {
+  tf_name : string;
   allocation_id : string prop;
   allow_reassociation : bool prop;
   id : string prop;
@@ -120,6 +121,7 @@ let make ?allocation_id ?allow_reassociation ?id ?instance_id
   let __type = "aws_eip_association" in
   let __attrs =
     ({
+       tf_name = __id;
        allocation_id = Prop.computed __type __id "allocation_id";
        allow_reassociation =
          Prop.computed __type __id "allow_reassociation";

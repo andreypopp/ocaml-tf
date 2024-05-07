@@ -50,6 +50,7 @@ let aws_sagemaker_image_version ?id ~base_image ~image_name () :
   { base_image; id; image_name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   base_image : string prop;
   container_image : string prop;
@@ -63,6 +64,7 @@ let make ?id ~base_image ~image_name __id =
   let __type = "aws_sagemaker_image_version" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        base_image = Prop.computed __type __id "base_image";
        container_image = Prop.computed __type __id "container_image";

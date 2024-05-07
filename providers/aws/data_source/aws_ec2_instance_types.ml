@@ -101,12 +101,17 @@ let aws_ec2_instance_types ?id ?timeouts ~filter () :
     aws_ec2_instance_types =
   { id; filter; timeouts }
 
-type t = { id : string prop; instance_types : string list prop }
+type t = {
+  tf_name : string;
+  id : string prop;
+  instance_types : string list prop;
+}
 
 let make ?id ?timeouts ~filter __id =
   let __type = "aws_ec2_instance_types" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        instance_types = Prop.computed __type __id "instance_types";
      }

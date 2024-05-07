@@ -203,6 +203,7 @@ let azurerm_lb_backend_address_pool_address
   }
 
 type t = {
+  tf_name : string;
   backend_address_ip_configuration_id : string prop;
   backend_address_pool_id : string prop;
   id : string prop;
@@ -219,6 +220,7 @@ let make ?backend_address_ip_configuration_id ?id ?ip_address
   let __type = "azurerm_lb_backend_address_pool_address" in
   let __attrs =
     ({
+       tf_name = __id;
        backend_address_ip_configuration_id =
          Prop.computed __type __id
            "backend_address_ip_configuration_id";

@@ -114,6 +114,7 @@ let aws_guardduty_threatintelset ?id ?tags ?tags_all ~activate
   }
 
 type t = {
+  tf_name : string;
   activate : bool prop;
   arn : string prop;
   detector_id : string prop;
@@ -130,6 +131,7 @@ let make ?id ?tags ?tags_all ~activate ~detector_id ~format ~location
   let __type = "aws_guardduty_threatintelset" in
   let __attrs =
     ({
+       tf_name = __id;
        activate = Prop.computed __type __id "activate";
        arn = Prop.computed __type __id "arn";
        detector_id = Prop.computed __type __id "detector_id";

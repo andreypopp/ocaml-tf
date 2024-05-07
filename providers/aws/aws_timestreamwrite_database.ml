@@ -90,6 +90,7 @@ let aws_timestreamwrite_database ?id ?kms_key_id ?tags ?tags_all
   { database_name; id; kms_key_id; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   database_name : string prop;
   id : string prop;
@@ -103,6 +104,7 @@ let make ?id ?kms_key_id ?tags ?tags_all ~database_name __id =
   let __type = "aws_timestreamwrite_database" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        database_name = Prop.computed __type __id "database_name";
        id = Prop.computed __type __id "id";

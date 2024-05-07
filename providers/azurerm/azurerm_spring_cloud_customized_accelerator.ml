@@ -397,6 +397,7 @@ let azurerm_spring_cloud_customized_accelerator ?accelerator_tags
   }
 
 type t = {
+  tf_name : string;
   accelerator_tags : string list prop;
   accelerator_type : string prop;
   description : string prop;
@@ -413,6 +414,7 @@ let make ?accelerator_tags ?accelerator_type ?description
   let __type = "azurerm_spring_cloud_customized_accelerator" in
   let __attrs =
     ({
+       tf_name = __id;
        accelerator_tags =
          Prop.computed __type __id "accelerator_tags";
        accelerator_type =

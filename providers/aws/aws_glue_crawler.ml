@@ -948,6 +948,7 @@ let aws_glue_crawler ?classifiers ?configuration ?description ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   classifiers : string list prop;
   configuration : string prop;
@@ -975,6 +976,7 @@ let make ?classifiers ?configuration ?description ?id ?schedule
   let __type = "aws_glue_crawler" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        classifiers = Prop.computed __type __id "classifiers";
        configuration = Prop.computed __type __id "configuration";

@@ -154,6 +154,7 @@ let azurerm_dashboard_grafana ?id ?(identity = []) ?timeouts ~name
   { id; name; resource_group_name; identity; timeouts }
 
 type t = {
+  tf_name : string;
   api_key_enabled : bool prop;
   auto_generated_domain_name_label_scope : string prop;
   azure_monitor_workspace_integrations :
@@ -178,6 +179,7 @@ let make ?id ?(identity = []) ?timeouts ~name ~resource_group_name
   let __type = "azurerm_dashboard_grafana" in
   let __attrs =
     ({
+       tf_name = __id;
        api_key_enabled = Prop.computed __type __id "api_key_enabled";
        auto_generated_domain_name_label_scope =
          Prop.computed __type __id

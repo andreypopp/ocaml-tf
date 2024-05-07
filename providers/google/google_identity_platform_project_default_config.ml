@@ -337,6 +337,7 @@ let google_identity_platform_project_default_config ?id ?project
   { id; project; sign_in; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   project : string prop;
@@ -346,6 +347,7 @@ let make ?id ?project ?(sign_in = []) ?timeouts __id =
   let __type = "google_identity_platform_project_default_config" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        project = Prop.computed __type __id "project";

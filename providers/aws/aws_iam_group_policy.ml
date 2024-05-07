@@ -69,6 +69,7 @@ let aws_iam_group_policy ?id ?name ?name_prefix ~group ~policy () :
   { group; id; name; name_prefix; policy }
 
 type t = {
+  tf_name : string;
   group : string prop;
   id : string prop;
   name : string prop;
@@ -80,6 +81,7 @@ let make ?id ?name ?name_prefix ~group ~policy __id =
   let __type = "aws_iam_group_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        group = Prop.computed __type __id "group";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

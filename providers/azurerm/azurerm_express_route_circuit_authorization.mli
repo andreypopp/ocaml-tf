@@ -30,6 +30,7 @@ val yojson_of_azurerm_express_route_circuit_authorization :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authorization_key : string prop;
   authorization_use_status : string prop;
   express_route_circuit_name : string prop;

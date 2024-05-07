@@ -44,6 +44,7 @@ let aws_route53_delegation_set ?id ?reference_name () :
   { id; reference_name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name_servers : string list prop;
@@ -54,6 +55,7 @@ let make ?id ?reference_name __id =
   let __type = "aws_route53_delegation_set" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        name_servers = Prop.computed __type __id "name_servers";

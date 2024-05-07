@@ -76,6 +76,7 @@ let google_kms_crypto_key_version ?id ?version ~crypto_key () :
   { crypto_key; id; version }
 
 type t = {
+  tf_name : string;
   algorithm : string prop;
   crypto_key : string prop;
   id : string prop;
@@ -90,6 +91,7 @@ let make ?id ?version ~crypto_key __id =
   let __type = "google_kms_crypto_key_version" in
   let __attrs =
     ({
+       tf_name = __id;
        algorithm = Prop.computed __type __id "algorithm";
        crypto_key = Prop.computed __type __id "crypto_key";
        id = Prop.computed __type __id "id";

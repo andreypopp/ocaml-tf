@@ -89,6 +89,7 @@ let azurerm_private_dns_resolver_virtual_network_link ?id ?timeouts
   { dns_forwarding_ruleset_id; id; name; timeouts }
 
 type t = {
+  tf_name : string;
   dns_forwarding_ruleset_id : string prop;
   id : string prop;
   metadata : (string * string) list prop;
@@ -100,6 +101,7 @@ let make ?id ?timeouts ~dns_forwarding_ruleset_id ~name __id =
   let __type = "azurerm_private_dns_resolver_virtual_network_link" in
   let __attrs =
     ({
+       tf_name = __id;
        dns_forwarding_ruleset_id =
          Prop.computed __type __id "dns_forwarding_ruleset_id";
        id = Prop.computed __type __id "id";

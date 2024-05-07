@@ -195,6 +195,7 @@ let azurerm_netapp_pool ?encryption_type ?id ?qos_type ?tags
   }
 
 type t = {
+  tf_name : string;
   account_name : string prop;
   encryption_type : string prop;
   id : string prop;
@@ -213,6 +214,7 @@ let make ?encryption_type ?id ?qos_type ?tags ?timeouts ~account_name
   let __type = "azurerm_netapp_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        account_name = Prop.computed __type __id "account_name";
        encryption_type = Prop.computed __type __id "encryption_type";
        id = Prop.computed __type __id "id";

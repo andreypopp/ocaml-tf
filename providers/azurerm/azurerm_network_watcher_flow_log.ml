@@ -322,6 +322,7 @@ let azurerm_network_watcher_flow_log ?id ?location ?tags ?version
   }
 
 type t = {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   location : string prop;
@@ -341,6 +342,7 @@ let make ?id ?location ?tags ?version ?timeouts
   let __type = "azurerm_network_watcher_flow_log" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

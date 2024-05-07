@@ -373,6 +373,7 @@ val yojson_of_cloudflare_ruleset : cloudflare_ruleset -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   description : string prop;
   id : string prop;

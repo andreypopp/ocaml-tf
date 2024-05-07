@@ -227,11 +227,13 @@ let kubernetes_cluster_role_binding_v1 ?id ~metadata ~role_ref
     ~subject () : kubernetes_cluster_role_binding_v1 =
   { id; metadata; role_ref; subject }
 
-type t = { id : string prop }
+type t = { tf_name : string; id : string prop }
 
 let make ?id ~metadata ~role_ref ~subject __id =
   let __type = "kubernetes_cluster_role_binding_v1" in
-  let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
+  let __attrs =
+    ({ tf_name = __id; id = Prop.computed __type __id "id" } : t)
+  in
   {
     Tf_core.id = __id;
     type_ = __type;

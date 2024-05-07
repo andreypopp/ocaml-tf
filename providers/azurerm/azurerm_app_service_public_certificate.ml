@@ -141,6 +141,7 @@ let azurerm_app_service_public_certificate ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   app_service_name : string prop;
   blob : string prop;
   certificate_location : string prop;
@@ -155,6 +156,7 @@ let make ?id ?timeouts ~app_service_name ~blob ~certificate_location
   let __type = "azurerm_app_service_public_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        app_service_name =
          Prop.computed __type __id "app_service_name";
        blob = Prop.computed __type __id "blob";

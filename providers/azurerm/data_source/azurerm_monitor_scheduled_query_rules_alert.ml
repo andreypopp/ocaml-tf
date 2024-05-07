@@ -218,6 +218,7 @@ let azurerm_monitor_scheduled_query_rules_alert ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   action : action list prop;
   authorized_resource_ids : string list prop;
   data_source_id : string prop;
@@ -241,6 +242,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_monitor_scheduled_query_rules_alert" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        authorized_resource_ids =
          Prop.computed __type __id "authorized_resource_ids";

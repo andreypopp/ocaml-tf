@@ -343,6 +343,7 @@ let azurerm_cosmosdb_cassandra_table ?analytical_storage_ttl
   }
 
 type t = {
+  tf_name : string;
   analytical_storage_ttl : float prop;
   cassandra_keyspace_id : string prop;
   default_ttl : float prop;
@@ -357,6 +358,7 @@ let make ?analytical_storage_ttl ?default_ttl ?id ?throughput
   let __type = "azurerm_cosmosdb_cassandra_table" in
   let __attrs =
     ({
+       tf_name = __id;
        analytical_storage_ttl =
          Prop.computed __type __id "analytical_storage_ttl";
        cassandra_keyspace_id =

@@ -145,6 +145,7 @@ let aws_efs_file_system ?creation_token ?file_system_id ?id ?tags ()
   { creation_token; file_system_id; id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   availability_zone_id : string prop;
   availability_zone_name : string prop;
@@ -168,6 +169,7 @@ let make ?creation_token ?file_system_id ?id ?tags __id =
   let __type = "aws_efs_file_system" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        availability_zone_id =
          Prop.computed __type __id "availability_zone_id";

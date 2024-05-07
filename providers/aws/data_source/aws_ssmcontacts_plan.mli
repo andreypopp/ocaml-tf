@@ -40,6 +40,7 @@ val yojson_of_aws_ssmcontacts_plan : aws_ssmcontacts_plan -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   contact_id : string prop;
   id : string prop;
   stage : stage list prop;

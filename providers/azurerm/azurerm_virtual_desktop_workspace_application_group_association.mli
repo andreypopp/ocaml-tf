@@ -30,6 +30,7 @@ val yojson_of_azurerm_virtual_desktop_workspace_application_group_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_group_id : string prop;
   id : string prop;
   workspace_id : string prop;

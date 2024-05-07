@@ -41,6 +41,7 @@ let aws_cloudwatch_event_connection ?id ~name () :
   { id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   authorization_type : string prop;
   id : string prop;
@@ -52,6 +53,7 @@ let make ?id ~name __id =
   let __type = "aws_cloudwatch_event_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        authorization_type =
          Prop.computed __type __id "authorization_type";

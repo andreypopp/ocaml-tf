@@ -115,6 +115,7 @@ let google_scc_source_iam_binding ?id ?(condition = []) ~members
   { id; members; organization; role; source; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   members : string list prop;
@@ -128,6 +129,7 @@ let make ?id ?(condition = []) ~members ~organization ~role ~source
   let __type = "google_scc_source_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        members = Prop.computed __type __id "members";

@@ -1504,6 +1504,7 @@ let aws_networkfirewall_rule_group ?description ?id ?rules ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   capacity : float prop;
   description : string prop;
@@ -1522,6 +1523,7 @@ let make ?description ?id ?rules ?tags ?tags_all
   let __type = "aws_networkfirewall_rule_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        capacity = Prop.computed __type __id "capacity";
        description = Prop.computed __type __id "description";

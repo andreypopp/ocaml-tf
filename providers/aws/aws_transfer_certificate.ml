@@ -125,6 +125,7 @@ let aws_transfer_certificate ?certificate_chain ?description ?id
   }
 
 type t = {
+  tf_name : string;
   active_date : string prop;
   arn : string prop;
   certificate : string prop;
@@ -144,6 +145,7 @@ let make ?certificate_chain ?description ?id ?private_key ?tags
   let __type = "aws_transfer_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        active_date = Prop.computed __type __id "active_date";
        arn = Prop.computed __type __id "arn";
        certificate = Prop.computed __type __id "certificate";

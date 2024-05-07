@@ -53,6 +53,7 @@ val yojson_of_azurerm_traffic_manager_external_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   always_serve_enabled : bool prop;
   enabled : bool prop;
   endpoint_location : string prop;

@@ -277,6 +277,7 @@ let azurerm_app_service_plan ?app_service_environment_id ?id
   }
 
 type t = {
+  tf_name : string;
   app_service_environment_id : string prop;
   id : string prop;
   is_xenon : bool prop;
@@ -299,6 +300,7 @@ let make ?app_service_environment_id ?id ?is_xenon ?kind
   let __type = "azurerm_app_service_plan" in
   let __attrs =
     ({
+       tf_name = __id;
        app_service_environment_id =
          Prop.computed __type __id "app_service_environment_id";
        id = Prop.computed __type __id "id";

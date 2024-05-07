@@ -119,6 +119,7 @@ let azurerm_app_service_plan ?id ?timeouts ~name ~resource_group_name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   app_service_environment_id : string prop;
   id : string prop;
   is_xenon : bool prop;
@@ -139,6 +140,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_app_service_plan" in
   let __attrs =
     ({
+       tf_name = __id;
        app_service_environment_id =
          Prop.computed __type __id "app_service_environment_id";
        id = Prop.computed __type __id "id";

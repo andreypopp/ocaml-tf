@@ -37,6 +37,7 @@ val yojson_of_aws_securityhub_organization_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_enable : bool prop;
   auto_enable_standards : string prop;
   id : string prop;

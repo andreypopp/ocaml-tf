@@ -225,6 +225,7 @@ val yojson_of_google_database_migration_service_connection_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   connection_profile_id : string prop;
   create_time : string prop;
   dbprovider : string prop;

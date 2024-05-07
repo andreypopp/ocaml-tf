@@ -36,6 +36,7 @@ val yojson_of_hcloud_images : hcloud_images -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   images : images list prop;
   include_deprecated : bool prop;

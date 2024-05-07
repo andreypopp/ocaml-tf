@@ -175,6 +175,7 @@ let aws_ec2_local_gateway_route_table ?id ?local_gateway_id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   local_gateway_id : string prop;
   local_gateway_route_table_id : string prop;
@@ -188,6 +189,7 @@ let make ?id ?local_gateway_id ?local_gateway_route_table_id
   let __type = "aws_ec2_local_gateway_route_table" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        local_gateway_id =
          Prop.computed __type __id "local_gateway_id";

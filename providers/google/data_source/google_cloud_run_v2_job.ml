@@ -974,6 +974,7 @@ let google_cloud_run_v2_job ?id ?location ?project ~name () :
   { id; location; name; project }
 
 type t = {
+  tf_name : string;
   annotations : (string * string) list prop;
   binary_authorization : binary_authorization list prop;
   client : string prop;
@@ -1009,6 +1010,7 @@ let make ?id ?location ?project ~name __id =
   let __type = "google_cloud_run_v2_job" in
   let __attrs =
     ({
+       tf_name = __id;
        annotations = Prop.computed __type __id "annotations";
        binary_authorization =
          Prop.computed __type __id "binary_authorization";

@@ -108,6 +108,7 @@ let aws_dms_certificate ?certificate_pem ?certificate_wallet ?id
   }
 
 type t = {
+  tf_name : string;
   certificate_arn : string prop;
   certificate_id : string prop;
   certificate_pem : string prop;
@@ -122,6 +123,7 @@ let make ?certificate_pem ?certificate_wallet ?id ?tags ?tags_all
   let __type = "aws_dms_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_arn = Prop.computed __type __id "certificate_arn";
        certificate_id = Prop.computed __type __id "certificate_id";
        certificate_pem = Prop.computed __type __id "certificate_pem";

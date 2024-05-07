@@ -72,6 +72,7 @@ val yojson_of_azurerm_resource_deployment_script_azure_cli :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cleanup_preference : string prop;
   command_line : string prop;
   force_update_tag : string prop;

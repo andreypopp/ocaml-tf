@@ -72,6 +72,7 @@ val yojson_of_google_compute_router_peer :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   advertise_mode : string prop;
   advertised_groups : string list prop;
   advertised_route_priority : float prop;

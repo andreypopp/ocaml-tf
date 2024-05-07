@@ -1590,6 +1590,7 @@ let aws_launch_template ?id ?name ?tags ?timeouts ~filter () :
   { id; name; tags; filter; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   block_device_mappings : block_device_mappings list prop;
   capacity_reservation_specification :
@@ -1636,6 +1637,7 @@ let make ?id ?name ?tags ?timeouts ~filter __id =
   let __type = "aws_launch_template" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        block_device_mappings =
          Prop.computed __type __id "block_device_mappings";

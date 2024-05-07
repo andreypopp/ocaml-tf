@@ -395,6 +395,7 @@ let aws_elastictranscoder_pipeline ?aws_kms_key_arn ?id ?name
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   aws_kms_key_arn : string prop;
   id : string prop;
@@ -411,6 +412,7 @@ let make ?aws_kms_key_arn ?id ?name ?output_bucket
   let __type = "aws_elastictranscoder_pipeline" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        aws_kms_key_arn = Prop.computed __type __id "aws_kms_key_arn";
        id = Prop.computed __type __id "id";

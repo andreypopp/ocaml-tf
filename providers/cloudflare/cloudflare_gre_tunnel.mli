@@ -29,6 +29,7 @@ val yojson_of_cloudflare_gre_tunnel : cloudflare_gre_tunnel -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   cloudflare_gre_endpoint : string prop;
   customer_gre_endpoint : string prop;

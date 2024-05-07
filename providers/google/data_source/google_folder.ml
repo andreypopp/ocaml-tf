@@ -53,6 +53,7 @@ let google_folder ?id ?lookup_organization ~folder () : google_folder
   { folder; id; lookup_organization }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   display_name : string prop;
   folder : string prop;
@@ -69,6 +70,7 @@ let make ?id ?lookup_organization ~folder __id =
   let __type = "google_folder" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        display_name = Prop.computed __type __id "display_name";
        folder = Prop.computed __type __id "folder";

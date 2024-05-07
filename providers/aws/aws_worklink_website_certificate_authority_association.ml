@@ -65,6 +65,7 @@ let aws_worklink_website_certificate_authority_association
   { certificate; display_name; fleet_arn; id }
 
 type t = {
+  tf_name : string;
   certificate : string prop;
   display_name : string prop;
   fleet_arn : string prop;
@@ -78,6 +79,7 @@ let make ?display_name ?id ~certificate ~fleet_arn __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        certificate = Prop.computed __type __id "certificate";
        display_name = Prop.computed __type __id "display_name";
        fleet_arn = Prop.computed __type __id "fleet_arn";

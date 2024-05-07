@@ -25,6 +25,7 @@ val yojson_of_google_document_ai_processor_default_version :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   processor : string prop;
   version : string prop;

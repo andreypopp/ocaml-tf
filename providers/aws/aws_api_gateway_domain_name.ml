@@ -281,6 +281,7 @@ let aws_api_gateway_domain_name ?certificate_arn ?certificate_body
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   certificate_arn : string prop;
   certificate_body : string prop;
@@ -311,6 +312,7 @@ let make ?certificate_arn ?certificate_body ?certificate_chain
   let __type = "aws_api_gateway_domain_name" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        certificate_arn = Prop.computed __type __id "certificate_arn";
        certificate_body =

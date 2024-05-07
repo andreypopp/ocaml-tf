@@ -36,6 +36,7 @@ val yojson_of_aws_servicequotas_service_quota :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   adjustable : bool prop;
   arn : string prop;
   default_value : float prop;

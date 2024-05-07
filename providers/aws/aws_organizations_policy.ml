@@ -124,6 +124,7 @@ let aws_organizations_policy ?description ?id ?skip_destroy ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   content : string prop;
   description : string prop;
@@ -140,6 +141,7 @@ let make ?description ?id ?skip_destroy ?tags ?tags_all ?type_
   let __type = "aws_organizations_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        content = Prop.computed __type __id "content";
        description = Prop.computed __type __id "description";

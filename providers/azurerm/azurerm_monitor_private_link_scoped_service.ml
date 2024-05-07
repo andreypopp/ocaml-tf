@@ -129,6 +129,7 @@ let azurerm_monitor_private_link_scoped_service ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   linked_resource_id : string prop;
   name : string prop;
@@ -141,6 +142,7 @@ let make ?id ?timeouts ~linked_resource_id ~name ~resource_group_name
   let __type = "azurerm_monitor_private_link_scoped_service" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        linked_resource_id =
          Prop.computed __type __id "linked_resource_id";

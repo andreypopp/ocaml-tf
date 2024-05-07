@@ -143,6 +143,7 @@ let cloudflare_address_map ?default_sni ?description ?id ~account_id
   }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   can_delete : bool prop;
   can_modify_ips : bool prop;
@@ -157,6 +158,7 @@ let make ?default_sni ?description ?id ~account_id ~enabled ~ips
   let __type = "cloudflare_address_map" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        can_delete = Prop.computed __type __id "can_delete";
        can_modify_ips = Prop.computed __type __id "can_modify_ips";

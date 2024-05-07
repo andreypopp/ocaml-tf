@@ -202,6 +202,7 @@ let google_vertex_ai_index ?id ?project ~name ~region () =
   } : google_vertex_ai_index);;
 
 type t = {
+  tf_name: string;
   create_time: string prop;
   deployed_indexes: deployed_indexes list prop;
   description: string prop;
@@ -224,6 +225,7 @@ type t = {
 let make ?id ?project ~name ~region __id =
   let __type = "google_vertex_ai_index" in
   let __attrs = ({
+    tf_name = __id;
     create_time = Prop.computed __type __id "create_time";
     deployed_indexes = Prop.computed __type __id "deployed_indexes";
     description = Prop.computed __type __id "description";

@@ -81,6 +81,7 @@ val yojson_of_aws_fms_policy : aws_fms_policy -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   delete_all_policy_resources : bool prop;
   delete_unused_fm_managed_resources : bool prop;

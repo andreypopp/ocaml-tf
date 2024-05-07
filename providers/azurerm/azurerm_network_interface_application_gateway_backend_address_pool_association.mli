@@ -31,6 +31,7 @@ val yojson_of_azurerm_network_interface_application_gateway_backend_address_pool
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backend_address_pool_id : string prop;
   id : string prop;
   ip_configuration_name : string prop;

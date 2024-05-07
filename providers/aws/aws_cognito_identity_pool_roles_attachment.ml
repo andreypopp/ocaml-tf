@@ -179,6 +179,7 @@ let aws_cognito_identity_pool_roles_attachment ?id ~identity_pool_id
   { id; identity_pool_id; roles; role_mapping }
 
 type t = {
+  tf_name : string;
   id : string prop;
   identity_pool_id : string prop;
   roles : (string * string) list prop;
@@ -188,6 +189,7 @@ let make ?id ~identity_pool_id ~roles ~role_mapping __id =
   let __type = "aws_cognito_identity_pool_roles_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        identity_pool_id =
          Prop.computed __type __id "identity_pool_id";

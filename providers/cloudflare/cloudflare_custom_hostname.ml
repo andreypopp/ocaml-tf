@@ -387,6 +387,7 @@ let cloudflare_custom_hostname ?custom_metadata ?custom_origin_server
   }
 
 type t = {
+  tf_name : string;
   custom_metadata : (string * string) list prop;
   custom_origin_server : string prop;
   custom_origin_sni : string prop;
@@ -405,6 +406,7 @@ let make ?custom_metadata ?custom_origin_server ?custom_origin_sni
   let __type = "cloudflare_custom_hostname" in
   let __attrs =
     ({
+       tf_name = __id;
        custom_metadata = Prop.computed __type __id "custom_metadata";
        custom_origin_server =
          Prop.computed __type __id "custom_origin_server";

@@ -33,6 +33,7 @@ val yojson_of_azurerm_nginx_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_virtual_path : string prop;
   id : string prop;
   key_vault_secret_id : string prop;

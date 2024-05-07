@@ -4698,6 +4698,7 @@ let digitalocean_app ?id ?project_id ?(spec = []) ?timeouts () :
   { id; project_id; spec; timeouts }
 
 type t = {
+  tf_name : string;
   active_deployment_id : string prop;
   created_at : string prop;
   default_ingress : string prop;
@@ -4712,6 +4713,7 @@ let make ?id ?project_id ?(spec = []) ?timeouts __id =
   let __type = "digitalocean_app" in
   let __attrs =
     ({
+       tf_name = __id;
        active_deployment_id =
          Prop.computed __type __id "active_deployment_id";
        created_at = Prop.computed __type __id "created_at";

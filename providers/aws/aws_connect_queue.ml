@@ -217,6 +217,7 @@ let aws_connect_queue ?description ?id ?max_contacts
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   hours_of_operation_id : string prop;
@@ -237,6 +238,7 @@ let make ?description ?id ?max_contacts ?quick_connect_ids ?status
   let __type = "aws_connect_queue" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        hours_of_operation_id =

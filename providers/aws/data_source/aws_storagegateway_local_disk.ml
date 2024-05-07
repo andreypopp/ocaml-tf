@@ -64,6 +64,7 @@ let aws_storagegateway_local_disk ?disk_node ?disk_path ?id
   { disk_node; disk_path; gateway_arn; id }
 
 type t = {
+  tf_name : string;
   disk_id : string prop;
   disk_node : string prop;
   disk_path : string prop;
@@ -75,6 +76,7 @@ let make ?disk_node ?disk_path ?id ~gateway_arn __id =
   let __type = "aws_storagegateway_local_disk" in
   let __attrs =
     ({
+       tf_name = __id;
        disk_id = Prop.computed __type __id "disk_id";
        disk_node = Prop.computed __type __id "disk_node";
        disk_path = Prop.computed __type __id "disk_path";

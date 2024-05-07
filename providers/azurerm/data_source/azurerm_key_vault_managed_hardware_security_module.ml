@@ -88,6 +88,7 @@ let azurerm_key_vault_managed_hardware_security_module ?id ?timeouts
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   admin_object_ids : string list prop;
   hsm_uri : string prop;
   id : string prop;
@@ -107,6 +108,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        admin_object_ids =
          Prop.computed __type __id "admin_object_ids";
        hsm_uri = Prop.computed __type __id "hsm_uri";

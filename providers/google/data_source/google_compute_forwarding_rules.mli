@@ -66,6 +66,7 @@ val yojson_of_google_compute_forwarding_rules :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   project : string prop;
   region : string prop;

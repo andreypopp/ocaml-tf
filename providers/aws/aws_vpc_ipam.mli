@@ -36,6 +36,7 @@ val yojson_of_aws_vpc_ipam : aws_vpc_ipam -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cascade : bool prop;
   default_resource_discovery_association_id : string prop;

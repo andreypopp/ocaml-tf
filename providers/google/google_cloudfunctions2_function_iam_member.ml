@@ -130,6 +130,7 @@ let google_cloudfunctions2_function_iam_member ?id ?location ?project
   { cloud_function; id; location; member; project; role; condition }
 
 type t = {
+  tf_name : string;
   cloud_function : string prop;
   etag : string prop;
   id : string prop;
@@ -144,6 +145,7 @@ let make ?id ?location ?project ?(condition = []) ~cloud_function
   let __type = "google_cloudfunctions2_function_iam_member" in
   let __attrs =
     ({
+       tf_name = __id;
        cloud_function = Prop.computed __type __id "cloud_function";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

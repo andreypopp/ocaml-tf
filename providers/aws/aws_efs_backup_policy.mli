@@ -21,7 +21,11 @@ val yojson_of_aws_efs_backup_policy : aws_efs_backup_policy -> json
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { file_system_id : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  file_system_id : string prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

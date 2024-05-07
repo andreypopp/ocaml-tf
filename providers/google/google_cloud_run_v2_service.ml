@@ -2146,6 +2146,7 @@ let google_cloud_run_v2_service ?annotations ?client ?client_version
   }
 
 type t = {
+  tf_name : string;
   annotations : (string * string) list prop;
   client : string prop;
   client_version : string prop;
@@ -2187,6 +2188,7 @@ let make ?annotations ?client ?client_version ?custom_audiences
   let __type = "google_cloud_run_v2_service" in
   let __attrs =
     ({
+       tf_name = __id;
        annotations = Prop.computed __type __id "annotations";
        client = Prop.computed __type __id "client";
        client_version = Prop.computed __type __id "client_version";

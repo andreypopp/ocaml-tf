@@ -203,6 +203,7 @@ let azurerm_databricks_virtual_network_peering
   }
 
 type t = {
+  tf_name : string;
   address_space_prefixes : string list prop;
   allow_forwarded_traffic : bool prop;
   allow_gateway_transit : bool prop;
@@ -224,6 +225,7 @@ let make ?allow_forwarded_traffic ?allow_gateway_transit
   let __type = "azurerm_databricks_virtual_network_peering" in
   let __attrs =
     ({
+       tf_name = __id;
        address_space_prefixes =
          Prop.computed __type __id "address_space_prefixes";
        allow_forwarded_traffic =

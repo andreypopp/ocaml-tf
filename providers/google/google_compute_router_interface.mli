@@ -33,6 +33,7 @@ val yojson_of_google_compute_router_interface :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   interconnect_attachment : string prop;
   ip_range : string prop;

@@ -258,6 +258,7 @@ let azurerm_bot_channel_directline ?id ?timeouts ~bot_name ~location
   { bot_name; id; location; resource_group_name; site; timeouts }
 
 type t = {
+  tf_name : string;
   bot_name : string prop;
   id : string prop;
   location : string prop;
@@ -269,6 +270,7 @@ let make ?id ?timeouts ~bot_name ~location ~resource_group_name ~site
   let __type = "azurerm_bot_channel_directline" in
   let __attrs =
     ({
+       tf_name = __id;
        bot_name = Prop.computed __type __id "bot_name";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

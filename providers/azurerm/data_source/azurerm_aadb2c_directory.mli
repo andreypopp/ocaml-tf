@@ -24,6 +24,7 @@ val yojson_of_azurerm_aadb2c_directory :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   billing_type : string prop;
   data_residency_location : string prop;
   domain_name : string prop;

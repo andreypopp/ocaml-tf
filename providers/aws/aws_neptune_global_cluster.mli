@@ -38,6 +38,7 @@ val yojson_of_aws_neptune_global_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   deletion_protection : bool prop;
   engine : string prop;

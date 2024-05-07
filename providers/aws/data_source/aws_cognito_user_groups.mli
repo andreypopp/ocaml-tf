@@ -21,7 +21,11 @@ val yojson_of_aws_cognito_user_groups :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; user_pool_id : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  user_pool_id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

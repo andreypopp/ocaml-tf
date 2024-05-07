@@ -165,6 +165,7 @@ let azurerm_data_protection_backup_instance_postgresql
   }
 
 type t = {
+  tf_name : string;
   backup_policy_id : string prop;
   database_credential_key_vault_secret_id : string prop;
   database_id : string prop;
@@ -181,6 +182,7 @@ let make ?database_credential_key_vault_secret_id ?id ?timeouts
   in
   let __attrs =
     ({
+       tf_name = __id;
        backup_policy_id =
          Prop.computed __type __id "backup_policy_id";
        database_credential_key_vault_secret_id =

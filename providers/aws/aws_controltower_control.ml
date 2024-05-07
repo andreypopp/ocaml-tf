@@ -98,6 +98,7 @@ let aws_controltower_control ?id ?timeouts ~control_identifier
   { control_identifier; id; target_identifier; timeouts }
 
 type t = {
+  tf_name : string;
   control_identifier : string prop;
   id : string prop;
   target_identifier : string prop;
@@ -107,6 +108,7 @@ let make ?id ?timeouts ~control_identifier ~target_identifier __id =
   let __type = "aws_controltower_control" in
   let __attrs =
     ({
+       tf_name = __id;
        control_identifier =
          Prop.computed __type __id "control_identifier";
        id = Prop.computed __type __id "id";

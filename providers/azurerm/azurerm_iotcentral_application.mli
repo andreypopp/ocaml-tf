@@ -42,6 +42,7 @@ val yojson_of_azurerm_iotcentral_application :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   location : string prop;

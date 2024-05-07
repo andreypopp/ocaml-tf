@@ -75,6 +75,7 @@ let cloudflare_tunnel_route ?comment ?id ?virtual_network_id
   { account_id; comment; id; network; tunnel_id; virtual_network_id }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   comment : string prop;
   id : string prop;
@@ -88,6 +89,7 @@ let make ?comment ?id ?virtual_network_id ~account_id ~network
   let __type = "cloudflare_tunnel_route" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        comment = Prop.computed __type __id "comment";
        id = Prop.computed __type __id "id";

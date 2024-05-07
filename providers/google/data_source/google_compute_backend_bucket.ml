@@ -254,6 +254,7 @@ let google_compute_backend_bucket ?id ?project ~name () :
   { id; name; project }
 
 type t = {
+  tf_name : string;
   bucket_name : string prop;
   cdn_policy : cdn_policy list prop;
   compression_mode : string prop;
@@ -272,6 +273,7 @@ let make ?id ?project ~name __id =
   let __type = "google_compute_backend_bucket" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket_name = Prop.computed __type __id "bucket_name";
        cdn_policy = Prop.computed __type __id "cdn_policy";
        compression_mode =

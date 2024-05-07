@@ -58,6 +58,7 @@ val yojson_of_google_binary_authorization_attestor :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   id : string prop;
   name : string prop;

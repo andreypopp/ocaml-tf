@@ -35,6 +35,7 @@ val yojson_of_azurerm_log_analytics_storage_insights :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   blob_container_names : string list prop;
   id : string prop;
   name : string prop;

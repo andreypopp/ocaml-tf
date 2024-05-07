@@ -29,7 +29,11 @@ val yojson_of_aws_emr_managed_scaling_policy :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { cluster_id : string prop; id : string prop }
+type t = private {
+  tf_name : string;
+  cluster_id : string prop;
+  id : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

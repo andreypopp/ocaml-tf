@@ -313,6 +313,7 @@ let azurerm_servicebus_queue ?auto_delete_on_idle
   }
 
 type t = {
+  tf_name : string;
   auto_delete_on_idle : string prop;
   dead_lettering_on_message_expiration : bool prop;
   default_message_ttl : string prop;
@@ -344,6 +345,7 @@ let make ?auto_delete_on_idle ?dead_lettering_on_message_expiration
   let __type = "azurerm_servicebus_queue" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_delete_on_idle =
          Prop.computed __type __id "auto_delete_on_idle";
        dead_lettering_on_message_expiration =

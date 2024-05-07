@@ -190,6 +190,7 @@ let azurerm_security_center_subscription_pricing ?id ?resource_type
   { id; resource_type; subplan; tier; extension; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   resource_type : string prop;
   subplan : string prop;
@@ -201,6 +202,7 @@ let make ?id ?resource_type ?subplan ?timeouts ~tier ~extension __id
   let __type = "azurerm_security_center_subscription_pricing" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        resource_type = Prop.computed __type __id "resource_type";
        subplan = Prop.computed __type __id "subplan";

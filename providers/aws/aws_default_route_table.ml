@@ -269,6 +269,7 @@ let aws_default_route_table ?id ?propagating_vgws ?route ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   default_route_table_id : string prop;
   id : string prop;
@@ -285,6 +286,7 @@ let make ?id ?propagating_vgws ?route ?tags ?tags_all ?timeouts
   let __type = "aws_default_route_table" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        default_route_table_id =
          Prop.computed __type __id "default_route_table_id";

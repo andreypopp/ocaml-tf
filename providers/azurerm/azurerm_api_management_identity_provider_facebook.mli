@@ -32,6 +32,7 @@ val yojson_of_azurerm_api_management_identity_provider_facebook :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_management_name : string prop;
   app_id : string prop;
   app_secret : string prop;

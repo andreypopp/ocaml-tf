@@ -51,6 +51,7 @@ val yojson_of_azurerm_api_management_logger :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_management_name : string prop;
   buffered : bool prop;
   description : string prop;

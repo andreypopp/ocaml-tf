@@ -88,6 +88,7 @@ val yojson_of_google_compute_per_instance_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   instance_group_manager : string prop;
   minimal_action : string prop;

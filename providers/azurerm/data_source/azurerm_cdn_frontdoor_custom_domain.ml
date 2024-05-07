@@ -137,6 +137,7 @@ let azurerm_cdn_frontdoor_custom_domain ?id ?timeouts ~name
   { id; name; profile_name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   cdn_frontdoor_profile_id : string prop;
   dns_zone_id : string prop;
   expiration_date : string prop;
@@ -154,6 +155,7 @@ let make ?id ?timeouts ~name ~profile_name ~resource_group_name __id
   let __type = "azurerm_cdn_frontdoor_custom_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        cdn_frontdoor_profile_id =
          Prop.computed __type __id "cdn_frontdoor_profile_id";
        dns_zone_id = Prop.computed __type __id "dns_zone_id";

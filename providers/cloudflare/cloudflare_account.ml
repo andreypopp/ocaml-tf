@@ -63,6 +63,7 @@ let cloudflare_account ?enforce_twofactor ?id ?type_ ~name () :
   { enforce_twofactor; id; name; type_ }
 
 type t = {
+  tf_name : string;
   enforce_twofactor : bool prop;
   id : string prop;
   name : string prop;
@@ -73,6 +74,7 @@ let make ?enforce_twofactor ?id ?type_ ~name __id =
   let __type = "cloudflare_account" in
   let __attrs =
     ({
+       tf_name = __id;
        enforce_twofactor =
          Prop.computed __type __id "enforce_twofactor";
        id = Prop.computed __type __id "id";

@@ -127,6 +127,7 @@ let google_pubsub_lite_reservation ?id ?project ?region ?timeouts
   { id; name; project; region; throughput_capacity; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   project : string prop;
@@ -139,6 +140,7 @@ let make ?id ?project ?region ?timeouts ~name ~throughput_capacity
   let __type = "google_pubsub_lite_reservation" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        project = Prop.computed __type __id "project";

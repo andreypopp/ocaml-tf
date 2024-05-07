@@ -256,6 +256,7 @@ let google_compute_node_template ?cpu_overcommit_type ?description
   }
 
 type t = {
+  tf_name : string;
   cpu_overcommit_type : string prop;
   creation_timestamp : string prop;
   description : string prop;
@@ -275,6 +276,7 @@ let make ?cpu_overcommit_type ?description ?id ?name
   let __type = "google_compute_node_template" in
   let __attrs =
     ({
+       tf_name = __id;
        cpu_overcommit_type =
          Prop.computed __type __id "cpu_overcommit_type";
        creation_timestamp =

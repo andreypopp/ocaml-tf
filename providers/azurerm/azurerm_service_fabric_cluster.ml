@@ -1350,6 +1350,7 @@ let azurerm_service_fabric_cluster ?add_on_features
   }
 
 type t = {
+  tf_name : string;
   add_on_features : string list prop;
   cluster_code_version : string prop;
   cluster_endpoint : string prop;
@@ -1380,6 +1381,7 @@ let make ?add_on_features ?cluster_code_version ?id
   let __type = "azurerm_service_fabric_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        add_on_features = Prop.computed __type __id "add_on_features";
        cluster_code_version =
          Prop.computed __type __id "cluster_code_version";

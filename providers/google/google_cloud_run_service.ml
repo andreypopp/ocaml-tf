@@ -1949,6 +1949,7 @@ let google_cloud_run_service ?autogenerate_revision_name ?id ?project
   }
 
 type t = {
+  tf_name : string;
   autogenerate_revision_name : bool prop;
   id : string prop;
   location : string prop;
@@ -1962,6 +1963,7 @@ let make ?autogenerate_revision_name ?id ?project ?(metadata = [])
   let __type = "google_cloud_run_service" in
   let __attrs =
     ({
+       tf_name = __id;
        autogenerate_revision_name =
          Prop.computed __type __id "autogenerate_revision_name";
        id = Prop.computed __type __id "id";

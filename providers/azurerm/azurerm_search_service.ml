@@ -325,6 +325,7 @@ let azurerm_search_service ?allowed_ips ?authentication_failure_mode
   }
 
 type t = {
+  tf_name : string;
   allowed_ips : string list prop;
   authentication_failure_mode : string prop;
   customer_managed_key_enforcement_enabled : bool prop;
@@ -354,6 +355,7 @@ let make ?allowed_ips ?authentication_failure_mode
   let __type = "azurerm_search_service" in
   let __attrs =
     ({
+       tf_name = __id;
        allowed_ips = Prop.computed __type __id "allowed_ips";
        authentication_failure_mode =
          Prop.computed __type __id "authentication_failure_mode";

@@ -363,6 +363,7 @@ val yojson_of_google_data_loss_prevention_inspect_template :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   id : string prop;

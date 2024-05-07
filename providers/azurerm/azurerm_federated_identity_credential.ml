@@ -159,6 +159,7 @@ let azurerm_federated_identity_credential ?id ?timeouts ~audience
   }
 
 type t = {
+  tf_name : string;
   audience : string list prop;
   id : string prop;
   issuer : string prop;
@@ -173,6 +174,7 @@ let make ?id ?timeouts ~audience ~issuer ~name ~parent_id
   let __type = "azurerm_federated_identity_credential" in
   let __attrs =
     ({
+       tf_name = __id;
        audience = Prop.computed __type __id "audience";
        id = Prop.computed __type __id "id";
        issuer = Prop.computed __type __id "issuer";

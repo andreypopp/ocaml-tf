@@ -49,6 +49,7 @@ let aws_cloudfront_distribution ?tags ~id () :
   { id; tags }
 
 type t = {
+  tf_name : string;
   aliases : string list prop;
   arn : string prop;
   domain_name : string prop;
@@ -67,6 +68,7 @@ let make ?tags ~id __id =
   let __type = "aws_cloudfront_distribution" in
   let __attrs =
     ({
+       tf_name = __id;
        aliases = Prop.computed __type __id "aliases";
        arn = Prop.computed __type __id "arn";
        domain_name = Prop.computed __type __id "domain_name";

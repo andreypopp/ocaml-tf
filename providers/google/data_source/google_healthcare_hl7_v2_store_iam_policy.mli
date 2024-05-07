@@ -18,6 +18,7 @@ val yojson_of_google_healthcare_hl7_v2_store_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   hl7_v2_store_id : string prop;
   id : string prop;

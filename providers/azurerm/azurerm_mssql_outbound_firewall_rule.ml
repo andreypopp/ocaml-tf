@@ -105,6 +105,7 @@ let azurerm_mssql_outbound_firewall_rule ?id ?timeouts ~name
   { id; name; server_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   server_id : string prop;
@@ -114,6 +115,7 @@ let make ?id ?timeouts ~name ~server_id __id =
   let __type = "azurerm_mssql_outbound_firewall_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        server_id = Prop.computed __type __id "server_id";

@@ -185,6 +185,7 @@ let aws_lambda_function_event_invoke_config ?id
   }
 
 type t = {
+  tf_name : string;
   function_name : string prop;
   id : string prop;
   maximum_event_age_in_seconds : float prop;
@@ -197,6 +198,7 @@ let make ?id ?maximum_event_age_in_seconds ?maximum_retry_attempts
   let __type = "aws_lambda_function_event_invoke_config" in
   let __attrs =
     ({
+       tf_name = __id;
        function_name = Prop.computed __type __id "function_name";
        id = Prop.computed __type __id "id";
        maximum_event_age_in_seconds =

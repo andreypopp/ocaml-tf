@@ -227,6 +227,7 @@ let azurerm_storage_data_lake_gen2_path ?group ?id ?owner ?timeouts
   }
 
 type t = {
+  tf_name : string;
   filesystem_name : string prop;
   group : string prop;
   id : string prop;
@@ -241,6 +242,7 @@ let make ?group ?id ?owner ?timeouts ~filesystem_name ~path ~resource
   let __type = "azurerm_storage_data_lake_gen2_path" in
   let __attrs =
     ({
+       tf_name = __id;
        filesystem_name = Prop.computed __type __id "filesystem_name";
        group = Prop.computed __type __id "group";
        id = Prop.computed __type __id "id";

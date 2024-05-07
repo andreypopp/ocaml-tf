@@ -139,6 +139,7 @@ let aws_ec2_client_vpn_authorization_rule ?access_group_id
   }
 
 type t = {
+  tf_name : string;
   access_group_id : string prop;
   authorize_all_groups : bool prop;
   client_vpn_endpoint_id : string prop;
@@ -152,6 +153,7 @@ let make ?access_group_id ?authorize_all_groups ?description ?id
   let __type = "aws_ec2_client_vpn_authorization_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        access_group_id = Prop.computed __type __id "access_group_id";
        authorize_all_groups =
          Prop.computed __type __id "authorize_all_groups";

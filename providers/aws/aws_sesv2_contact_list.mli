@@ -31,6 +31,7 @@ val yojson_of_aws_sesv2_contact_list : aws_sesv2_contact_list -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   contact_list_name : string prop;
   created_timestamp : string prop;

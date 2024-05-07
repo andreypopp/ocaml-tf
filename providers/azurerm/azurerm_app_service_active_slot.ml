@@ -138,6 +138,7 @@ let azurerm_app_service_active_slot ?id ?timeouts ~app_service_name
   }
 
 type t = {
+  tf_name : string;
   app_service_name : string prop;
   app_service_slot_name : string prop;
   id : string prop;
@@ -149,6 +150,7 @@ let make ?id ?timeouts ~app_service_name ~app_service_slot_name
   let __type = "azurerm_app_service_active_slot" in
   let __attrs =
     ({
+       tf_name = __id;
        app_service_name =
          Prop.computed __type __id "app_service_name";
        app_service_slot_name =

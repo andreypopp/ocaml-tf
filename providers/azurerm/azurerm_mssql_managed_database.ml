@@ -280,6 +280,7 @@ let azurerm_mssql_managed_database ?id ?short_term_retention_days
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   managed_instance_id : string prop;
   name : string prop;
@@ -292,6 +293,7 @@ let make ?id ?short_term_retention_days
   let __type = "azurerm_mssql_managed_database" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        managed_instance_id =
          Prop.computed __type __id "managed_instance_id";

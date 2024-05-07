@@ -21,6 +21,7 @@ val yojson_of_google_gke_backup_restore_plan_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   location : string prop;

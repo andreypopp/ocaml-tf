@@ -1404,6 +1404,7 @@ let cloudflare_zone_settings_override ?id ?(settings = []) ~zone_id
   { id; zone_id; settings }
 
 type t = {
+  tf_name : string;
   id : string prop;
   initial_settings : initial_settings list prop;
   initial_settings_read_at : string prop;
@@ -1417,6 +1418,7 @@ let make ?id ?(settings = []) ~zone_id __id =
   let __type = "cloudflare_zone_settings_override" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        initial_settings =
          Prop.computed __type __id "initial_settings";

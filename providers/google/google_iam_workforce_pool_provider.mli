@@ -73,6 +73,7 @@ val yojson_of_google_iam_workforce_pool_provider :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   attribute_condition : string prop;
   attribute_mapping : (string * string) list prop;
   description : string prop;

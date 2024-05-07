@@ -33,6 +33,7 @@ val yojson_of_azurerm_api_connection : azurerm_api_connection -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   managed_api_id : string prop;

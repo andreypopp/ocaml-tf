@@ -357,6 +357,7 @@ val yojson_of_azurerm_workloads_sap_three_tier_virtual_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_location : string prop;
   environment : string prop;
   id : string prop;

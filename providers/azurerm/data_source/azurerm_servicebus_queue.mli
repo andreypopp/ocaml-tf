@@ -26,6 +26,7 @@ val yojson_of_azurerm_servicebus_queue :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_delete_on_idle : string prop;
   dead_lettering_on_message_expiration : bool prop;
   default_message_ttl : string prop;

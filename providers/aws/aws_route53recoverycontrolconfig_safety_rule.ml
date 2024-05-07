@@ -154,6 +154,7 @@ let aws_route53recoverycontrolconfig_safety_rule ?asserted_controls
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   asserted_controls : string list prop;
   control_panel_arn : string prop;
@@ -170,6 +171,7 @@ let make ?asserted_controls ?gating_controls ?id ?target_controls
   let __type = "aws_route53recoverycontrolconfig_safety_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        asserted_controls =
          Prop.computed __type __id "asserted_controls";

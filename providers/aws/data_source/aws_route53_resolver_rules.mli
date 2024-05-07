@@ -22,6 +22,7 @@ val yojson_of_aws_route53_resolver_rules :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name_regex : string prop;
   owner_id : string prop;

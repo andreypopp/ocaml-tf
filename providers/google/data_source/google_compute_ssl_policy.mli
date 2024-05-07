@@ -19,6 +19,7 @@ val yojson_of_google_compute_ssl_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   creation_timestamp : string prop;
   custom_features : string list prop;
   description : string prop;

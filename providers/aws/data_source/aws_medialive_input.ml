@@ -188,6 +188,7 @@ let _ = yojson_of_aws_medialive_input
 let aws_medialive_input ~id () : aws_medialive_input = { id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   attached_channels : string list prop;
   destinations : destinations list prop;
@@ -210,6 +211,7 @@ let make ~id __id =
   let __type = "aws_medialive_input" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        attached_channels =
          Prop.computed __type __id "attached_channels";

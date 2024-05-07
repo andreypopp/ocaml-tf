@@ -54,6 +54,7 @@ val yojson_of_azurerm_cognitive_deployment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cognitive_account_id : string prop;
   id : string prop;
   name : string prop;

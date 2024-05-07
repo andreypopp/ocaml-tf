@@ -140,6 +140,7 @@ val yojson_of_cloudflare_page_rule : cloudflare_page_rule -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   priority : float prop;
   status : string prop;

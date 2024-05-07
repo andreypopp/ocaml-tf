@@ -1274,6 +1274,7 @@ let aws_msk_cluster ?enhanced_monitoring ?id ?storage_mode ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   bootstrap_brokers : string prop;
   bootstrap_brokers_public_sasl_iam : string prop;
@@ -1307,6 +1308,7 @@ let make ?enhanced_monitoring ?id ?storage_mode ?tags ?tags_all
   let __type = "aws_msk_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        bootstrap_brokers =
          Prop.computed __type __id "bootstrap_brokers";

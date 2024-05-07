@@ -94,6 +94,7 @@ let google_apigee_nat_address ?id ?timeouts ~instance_id ~name () :
   { id; instance_id; name; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   instance_id : string prop;
   ip_address : string prop;
@@ -105,6 +106,7 @@ let make ?id ?timeouts ~instance_id ~name __id =
   let __type = "google_apigee_nat_address" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        instance_id = Prop.computed __type __id "instance_id";
        ip_address = Prop.computed __type __id "ip_address";

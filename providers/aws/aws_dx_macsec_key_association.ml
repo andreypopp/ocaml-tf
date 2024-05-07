@@ -74,6 +74,7 @@ let aws_dx_macsec_key_association ?cak ?ckn ?id ?secret_arn
   { cak; ckn; connection_id; id; secret_arn }
 
 type t = {
+  tf_name : string;
   cak : string prop;
   ckn : string prop;
   connection_id : string prop;
@@ -87,6 +88,7 @@ let make ?cak ?ckn ?id ?secret_arn ~connection_id __id =
   let __type = "aws_dx_macsec_key_association" in
   let __attrs =
     ({
+       tf_name = __id;
        cak = Prop.computed __type __id "cak";
        ckn = Prop.computed __type __id "ckn";
        connection_id = Prop.computed __type __id "connection_id";

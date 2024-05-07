@@ -70,6 +70,7 @@ let aws_ecr_pull_through_cache_rule ?credential_arn ?id
   }
 
 type t = {
+  tf_name : string;
   credential_arn : string prop;
   ecr_repository_prefix : string prop;
   id : string prop;
@@ -82,6 +83,7 @@ let make ?credential_arn ?id ~ecr_repository_prefix
   let __type = "aws_ecr_pull_through_cache_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        credential_arn = Prop.computed __type __id "credential_arn";
        ecr_repository_prefix =
          Prop.computed __type __id "ecr_repository_prefix";

@@ -55,6 +55,7 @@ let aws_ses_identity_policy ?id ~identity ~name ~policy () :
   { id; identity; name; policy }
 
 type t = {
+  tf_name : string;
   id : string prop;
   identity : string prop;
   name : string prop;
@@ -65,6 +66,7 @@ let make ?id ~identity ~name ~policy __id =
   let __type = "aws_ses_identity_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        identity = Prop.computed __type __id "identity";
        name = Prop.computed __type __id "name";

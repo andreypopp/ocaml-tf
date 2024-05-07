@@ -24,6 +24,7 @@ val yojson_of_google_iap_client : google_iap_client -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   brand : string prop;
   client_id : string prop;
   display_name : string prop;

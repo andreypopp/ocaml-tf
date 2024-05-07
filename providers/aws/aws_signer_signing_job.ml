@@ -279,6 +279,7 @@ let aws_signer_signing_job ?id ?ignore_signing_job_failure
   }
 
 type t = {
+  tf_name : string;
   completed_at : string prop;
   created_at : string prop;
   id : string prop;
@@ -303,6 +304,7 @@ let make ?id ?ignore_signing_job_failure ~profile_name ~destination
   let __type = "aws_signer_signing_job" in
   let __attrs =
     ({
+       tf_name = __id;
        completed_at = Prop.computed __type __id "completed_at";
        created_at = Prop.computed __type __id "created_at";
        id = Prop.computed __type __id "id";

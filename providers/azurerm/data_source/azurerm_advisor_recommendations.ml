@@ -179,6 +179,7 @@ let azurerm_advisor_recommendations ?filter_by_category
   { filter_by_category; filter_by_resource_groups; id; timeouts }
 
 type t = {
+  tf_name : string;
   filter_by_category : string list prop;
   filter_by_resource_groups : string list prop;
   id : string prop;
@@ -190,6 +191,7 @@ let make ?filter_by_category ?filter_by_resource_groups ?id ?timeouts
   let __type = "azurerm_advisor_recommendations" in
   let __attrs =
     ({
+       tf_name = __id;
        filter_by_category =
          Prop.computed __type __id "filter_by_category";
        filter_by_resource_groups =

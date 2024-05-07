@@ -692,6 +692,7 @@ let azurerm_site_recovery_replicated_vm ?id ?managed_disk
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   managed_disk : managed_disk list prop;
   multi_vm_group_name : string prop;
@@ -734,6 +735,7 @@ let make ?id ?managed_disk ?multi_vm_group_name ?network_interface
   let __type = "azurerm_site_recovery_replicated_vm" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        managed_disk = Prop.computed __type __id "managed_disk";
        multi_vm_group_name =

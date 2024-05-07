@@ -112,6 +112,7 @@ let azurerm_app_service_environment ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   cluster_setting : cluster_setting list prop;
   front_end_scale_factor : float prop;
   id : string prop;
@@ -129,6 +130,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_app_service_environment" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_setting = Prop.computed __type __id "cluster_setting";
        front_end_scale_factor =
          Prop.computed __type __id "front_end_scale_factor";

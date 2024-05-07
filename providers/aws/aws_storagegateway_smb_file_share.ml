@@ -433,6 +433,7 @@ let aws_storagegateway_smb_file_share ?access_based_enumeration
   }
 
 type t = {
+  tf_name : string;
   access_based_enumeration : bool prop;
   admin_user_list : string list prop;
   arn : string prop;
@@ -475,6 +476,7 @@ let make ?access_based_enumeration ?admin_user_list
   let __type = "aws_storagegateway_smb_file_share" in
   let __attrs =
     ({
+       tf_name = __id;
        access_based_enumeration =
          Prop.computed __type __id "access_based_enumeration";
        admin_user_list = Prop.computed __type __id "admin_user_list";

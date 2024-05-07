@@ -152,6 +152,7 @@ val yojson_of_aws_codepipeline : aws_codepipeline -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   execution_mode : string prop;
   id : string prop;

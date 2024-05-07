@@ -113,6 +113,7 @@ let aws_memorydb_subnet_group ?description ?id ?name ?name_prefix
   { description; id; name; name_prefix; subnet_ids; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -129,6 +130,7 @@ let make ?description ?id ?name ?name_prefix ?tags ?tags_all
   let __type = "aws_memorydb_subnet_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

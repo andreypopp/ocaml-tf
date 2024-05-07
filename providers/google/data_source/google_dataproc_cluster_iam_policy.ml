@@ -64,6 +64,7 @@ let google_dataproc_cluster_iam_policy ?id ?project ?region ~cluster
   { cluster; id; project; region }
 
 type t = {
+  tf_name : string;
   cluster : string prop;
   etag : string prop;
   id : string prop;
@@ -76,6 +77,7 @@ let make ?id ?project ?region ~cluster __id =
   let __type = "google_dataproc_cluster_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster = Prop.computed __type __id "cluster";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

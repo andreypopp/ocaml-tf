@@ -189,6 +189,7 @@ let azurerm_bot_channel_direct_line_speech ?cognitive_account_id
   }
 
 type t = {
+  tf_name : string;
   bot_name : string prop;
   cognitive_account_id : string prop;
   cognitive_service_access_key : string prop;
@@ -207,6 +208,7 @@ let make ?cognitive_account_id ?custom_speech_model_id
   let __type = "azurerm_bot_channel_direct_line_speech" in
   let __attrs =
     ({
+       tf_name = __id;
        bot_name = Prop.computed __type __id "bot_name";
        cognitive_account_id =
          Prop.computed __type __id "cognitive_account_id";

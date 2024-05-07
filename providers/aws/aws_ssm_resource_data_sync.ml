@@ -113,12 +113,13 @@ let aws_ssm_resource_data_sync ?id ~name ~s3_destination () :
     aws_ssm_resource_data_sync =
   { id; name; s3_destination }
 
-type t = { id : string prop; name : string prop }
+type t = { tf_name : string; id : string prop; name : string prop }
 
 let make ?id ~name ~s3_destination __id =
   let __type = "aws_ssm_resource_data_sync" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
      }

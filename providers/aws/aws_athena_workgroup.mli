@@ -71,6 +71,7 @@ val yojson_of_aws_athena_workgroup : aws_athena_workgroup -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   force_destroy : bool prop;

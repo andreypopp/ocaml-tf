@@ -261,6 +261,7 @@ let aws_rds_custom_db_engine_version
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   create_time : string prop;
   database_installation_files_s3_bucket_name : string prop;
@@ -290,6 +291,7 @@ let make ?database_installation_files_s3_bucket_name
   let __type = "aws_rds_custom_db_engine_version" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        create_time = Prop.computed __type __id "create_time";
        database_installation_files_s3_bucket_name =

@@ -19,6 +19,7 @@ val yojson_of_hcloud_server_type : hcloud_server_type -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   architecture : string prop;
   cores : float prop;
   cpu_type : string prop;

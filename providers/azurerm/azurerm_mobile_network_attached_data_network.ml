@@ -428,6 +428,7 @@ let azurerm_mobile_network_attached_data_network ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   dns_addresses : string list prop;
   id : string prop;
   location : string prop;
@@ -452,6 +453,7 @@ let make ?id ?tags ?user_equipment_address_pool_prefixes
   let __type = "azurerm_mobile_network_attached_data_network" in
   let __attrs =
     ({
+       tf_name = __id;
        dns_addresses = Prop.computed __type __id "dns_addresses";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

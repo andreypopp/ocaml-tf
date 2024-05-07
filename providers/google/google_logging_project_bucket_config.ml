@@ -181,6 +181,7 @@ let google_logging_project_bucket_config ?description
   }
 
 type t = {
+  tf_name : string;
   bucket_id : string prop;
   description : string prop;
   enable_analytics : bool prop;
@@ -199,6 +200,7 @@ let make ?description ?enable_analytics ?id ?locked ?retention_days
   let __type = "google_logging_project_bucket_config" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket_id = Prop.computed __type __id "bucket_id";
        description = Prop.computed __type __id "description";
        enable_analytics =

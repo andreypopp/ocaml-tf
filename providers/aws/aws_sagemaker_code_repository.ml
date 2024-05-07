@@ -142,6 +142,7 @@ let aws_sagemaker_code_repository ?id ?tags ?tags_all
   { code_repository_name; id; tags; tags_all; git_config }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   code_repository_name : string prop;
   id : string prop;
@@ -153,6 +154,7 @@ let make ?id ?tags ?tags_all ~code_repository_name ~git_config __id =
   let __type = "aws_sagemaker_code_repository" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        code_repository_name =
          Prop.computed __type __id "code_repository_name";

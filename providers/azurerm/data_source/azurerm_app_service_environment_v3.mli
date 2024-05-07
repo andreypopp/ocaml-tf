@@ -35,6 +35,7 @@ val yojson_of_azurerm_app_service_environment_v3 :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_new_private_endpoint_connections : bool prop;
   cluster_setting : cluster_setting list prop;
   dedicated_host_count : float prop;

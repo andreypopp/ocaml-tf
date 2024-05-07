@@ -121,6 +121,7 @@ val yojson_of_aws_vpn_connection : aws_vpn_connection -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   core_network_arn : string prop;
   core_network_attachment_arn : string prop;

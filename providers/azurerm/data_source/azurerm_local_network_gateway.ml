@@ -126,6 +126,7 @@ let azurerm_local_network_gateway ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   address_space : string list prop;
   bgp_settings : bgp_settings list prop;
   gateway_address : string prop;
@@ -141,6 +142,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_local_network_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        address_space = Prop.computed __type __id "address_space";
        bgp_settings = Prop.computed __type __id "bgp_settings";
        gateway_address = Prop.computed __type __id "gateway_address";

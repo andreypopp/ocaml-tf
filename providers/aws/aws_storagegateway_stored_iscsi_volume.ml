@@ -152,6 +152,7 @@ let aws_storagegateway_stored_iscsi_volume ?id ?kms_encrypted
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   chap_enabled : bool prop;
   disk_id : string prop;
@@ -181,6 +182,7 @@ let make ?id ?kms_encrypted ?kms_key ?snapshot_id ?tags ?tags_all
   let __type = "aws_storagegateway_stored_iscsi_volume" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        chap_enabled = Prop.computed __type __id "chap_enabled";
        disk_id = Prop.computed __type __id "disk_id";

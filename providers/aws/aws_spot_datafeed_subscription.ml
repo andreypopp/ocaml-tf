@@ -50,6 +50,7 @@ let aws_spot_datafeed_subscription ?id ?prefix ~bucket () :
   { bucket; id; prefix }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   id : string prop;
   prefix : string prop;
@@ -59,6 +60,7 @@ let make ?id ?prefix ~bucket __id =
   let __type = "aws_spot_datafeed_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        id = Prop.computed __type __id "id";
        prefix = Prop.computed __type __id "prefix";

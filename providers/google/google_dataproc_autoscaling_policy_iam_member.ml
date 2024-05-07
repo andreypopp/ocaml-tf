@@ -128,6 +128,7 @@ let google_dataproc_autoscaling_policy_iam_member ?id ?location
   { id; location; member; policy_id; project; role; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   location : string prop;
@@ -142,6 +143,7 @@ let make ?id ?location ?project ?(condition = []) ~member ~policy_id
   let __type = "google_dataproc_autoscaling_policy_iam_member" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

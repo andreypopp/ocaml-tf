@@ -134,6 +134,7 @@ let azurerm_mobile_network_sim_group ?id ?timeouts ~mobile_network_id
   { id; mobile_network_id; name; timeouts }
 
 type t = {
+  tf_name : string;
   encryption_key_url : string prop;
   id : string prop;
   identity : identity list prop;
@@ -147,6 +148,7 @@ let make ?id ?timeouts ~mobile_network_id ~name __id =
   let __type = "azurerm_mobile_network_sim_group" in
   let __attrs =
     ({
+       tf_name = __id;
        encryption_key_url =
          Prop.computed __type __id "encryption_key_url";
        id = Prop.computed __type __id "id";

@@ -19,6 +19,7 @@ val yojson_of_aws_redshift_snapshot_schedule_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_identifier : string prop;
   id : string prop;
   schedule_identifier : string prop;

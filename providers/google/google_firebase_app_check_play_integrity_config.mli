@@ -30,6 +30,7 @@ val yojson_of_google_firebase_app_check_play_integrity_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_id : string prop;
   id : string prop;
   name : string prop;

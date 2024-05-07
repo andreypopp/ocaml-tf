@@ -307,6 +307,7 @@ let azurerm_express_route_connection ?authorization_key
   }
 
 type t = {
+  tf_name : string;
   authorization_key : string prop;
   enable_internet_security : bool prop;
   express_route_circuit_peering_id : string prop;
@@ -324,6 +325,7 @@ let make ?authorization_key ?enable_internet_security
   let __type = "azurerm_express_route_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        authorization_key =
          Prop.computed __type __id "authorization_key";
        enable_internet_security =

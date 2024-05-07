@@ -85,6 +85,7 @@ let aws_rekognition_collection ?tags ?timeouts ~collection_id () :
   { collection_id; tags; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   collection_id : string prop;
   face_model_version : string prop;
@@ -97,6 +98,7 @@ let make ?tags ?timeouts ~collection_id __id =
   let __type = "aws_rekognition_collection" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        collection_id = Prop.computed __type __id "collection_id";
        face_model_version =

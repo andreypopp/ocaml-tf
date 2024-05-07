@@ -29,6 +29,7 @@ val yojson_of_aws_sns_topic_subscription :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   confirmation_timeout_in_minutes : float prop;
   confirmation_was_authenticated : bool prop;

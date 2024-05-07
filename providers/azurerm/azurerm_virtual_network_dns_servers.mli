@@ -30,6 +30,7 @@ val yojson_of_azurerm_virtual_network_dns_servers :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dns_servers : string list prop;
   id : string prop;
   virtual_network_id : string prop;

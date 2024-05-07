@@ -31,6 +31,7 @@ val yojson_of_google_apigee_instance : google_apigee_instance -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   consumer_accept_list : string list prop;
   description : string prop;
   disk_encryption_key_name : string prop;

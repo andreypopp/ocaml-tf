@@ -25,6 +25,7 @@ val yojson_of_aws_elasticache_replication_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   auth_token_enabled : bool prop;
   automatic_failover_enabled : bool prop;

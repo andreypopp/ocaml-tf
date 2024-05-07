@@ -669,6 +669,7 @@ let google_cloudfunctions2_function ?id ?project ~location ~name () :
   { id; location; name; project }
 
 type t = {
+  tf_name : string;
   build_config : build_config list prop;
   description : string prop;
   effective_labels : (string * string) list prop;
@@ -691,6 +692,7 @@ let make ?id ?project ~location ~name __id =
   let __type = "google_cloudfunctions2_function" in
   let __attrs =
     ({
+       tf_name = __id;
        build_config = Prop.computed __type __id "build_config";
        description = Prop.computed __type __id "description";
        effective_labels =

@@ -151,6 +151,7 @@ let azurerm_storage_table_entities ?id ?select ?timeouts ~filter
   { filter; id; select; storage_account_name; table_name; timeouts }
 
 type t = {
+  tf_name : string;
   filter : string prop;
   id : string prop;
   items : items list prop;
@@ -164,6 +165,7 @@ let make ?id ?select ?timeouts ~filter ~storage_account_name
   let __type = "azurerm_storage_table_entities" in
   let __attrs =
     ({
+       tf_name = __id;
        filter = Prop.computed __type __id "filter";
        id = Prop.computed __type __id "id";
        items = Prop.computed __type __id "items";

@@ -270,6 +270,7 @@ let aws_sqs_queue ?content_based_deduplication ?deduplication_scope
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   content_based_deduplication : bool prop;
   deduplication_scope : string prop;
@@ -304,6 +305,7 @@ let make ?content_based_deduplication ?deduplication_scope
   let __type = "aws_sqs_queue" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        content_based_deduplication =
          Prop.computed __type __id "content_based_deduplication";

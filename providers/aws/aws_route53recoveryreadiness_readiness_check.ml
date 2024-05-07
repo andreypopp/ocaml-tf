@@ -132,6 +132,7 @@ let aws_route53recoveryreadiness_readiness_check ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   readiness_check_name : string prop;
@@ -145,6 +146,7 @@ let make ?id ?tags ?tags_all ?timeouts ~readiness_check_name
   let __type = "aws_route53recoveryreadiness_readiness_check" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        readiness_check_name =

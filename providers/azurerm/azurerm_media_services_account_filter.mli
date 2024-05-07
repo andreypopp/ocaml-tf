@@ -62,6 +62,7 @@ val yojson_of_azurerm_media_services_account_filter :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   first_quality_bitrate : float prop;
   id : string prop;
   media_services_account_name : string prop;

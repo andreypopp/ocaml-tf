@@ -419,6 +419,7 @@ let aws_verifiedaccess_endpoint ?description ?id ?policy_document
   }
 
 type t = {
+  tf_name : string;
   application_domain : string prop;
   attachment_type : string prop;
   description : string prop;
@@ -445,6 +446,7 @@ let make ?description ?id ?policy_document ?security_group_ids ?tags
   let __type = "aws_verifiedaccess_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        application_domain =
          Prop.computed __type __id "application_domain";
        attachment_type = Prop.computed __type __id "attachment_type";

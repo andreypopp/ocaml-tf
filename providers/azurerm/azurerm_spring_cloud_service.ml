@@ -1004,6 +1004,7 @@ let azurerm_spring_cloud_service ?build_agent_pool_size ?id
   }
 
 type t = {
+  tf_name : string;
   build_agent_pool_size : string prop;
   id : string prop;
   location : string prop;
@@ -1032,6 +1033,7 @@ let make ?build_agent_pool_size ?id
   let __type = "azurerm_spring_cloud_service" in
   let __attrs =
     ({
+       tf_name = __id;
        build_agent_pool_size =
          Prop.computed __type __id "build_agent_pool_size";
        id = Prop.computed __type __id "id";

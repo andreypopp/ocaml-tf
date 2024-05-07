@@ -31,6 +31,7 @@ let _ = yojson_of_aws_ssoadmin_instances
 let aws_ssoadmin_instances ?id () : aws_ssoadmin_instances = { id }
 
 type t = {
+  tf_name : string;
   arns : string list prop;
   id : string prop;
   identity_store_ids : string list prop;
@@ -40,6 +41,7 @@ let make ?id __id =
   let __type = "aws_ssoadmin_instances" in
   let __attrs =
     ({
+       tf_name = __id;
        arns = Prop.computed __type __id "arns";
        id = Prop.computed __type __id "id";
        identity_store_ids =

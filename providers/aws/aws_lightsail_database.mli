@@ -32,6 +32,7 @@ val yojson_of_aws_lightsail_database : aws_lightsail_database -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   apply_immediately : bool prop;
   arn : string prop;
   availability_zone : string prop;

@@ -121,6 +121,7 @@ let azurerm_data_share ?id ?timeouts ~account_id ~name () :
   { account_id; id; name; timeouts }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   description : string prop;
   id : string prop;
@@ -134,6 +135,7 @@ let make ?id ?timeouts ~account_id ~name __id =
   let __type = "azurerm_data_share" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

@@ -35,6 +35,7 @@ let aws_quicksight_iam_policy_assignment ?aws_account_id ?namespace ?policy_arn 
   } : aws_quicksight_iam_policy_assignment);;
 
 type t = {
+  tf_name: string;
   assignment_id: string prop;
   assignment_name: string prop;
   assignment_status: string prop;
@@ -47,6 +48,7 @@ type t = {
 let make ?aws_account_id ?namespace ?policy_arn ?(identities=[]) ~assignment_name ~assignment_status __id =
   let __type = "aws_quicksight_iam_policy_assignment" in
   let __attrs = ({
+    tf_name = __id;
     assignment_id = Prop.computed __type __id "assignment_id";
     assignment_name = Prop.computed __type __id "assignment_name";
     assignment_status = Prop.computed __type __id "assignment_status";

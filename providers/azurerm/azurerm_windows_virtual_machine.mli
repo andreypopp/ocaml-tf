@@ -194,6 +194,7 @@ val yojson_of_azurerm_windows_virtual_machine :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   admin_password : string prop;
   admin_username : string prop;
   allow_extension_operations : bool prop;

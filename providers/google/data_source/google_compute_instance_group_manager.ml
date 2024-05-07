@@ -633,6 +633,7 @@ let google_compute_instance_group_manager ?id ?name ?project
   { id; name; project; self_link; zone }
 
 type t = {
+  tf_name : string;
   all_instances_config : all_instances_config list prop;
   auto_healing_policies : auto_healing_policies list prop;
   base_instance_name : string prop;
@@ -665,6 +666,7 @@ let make ?id ?name ?project ?self_link ?zone __id =
   let __type = "google_compute_instance_group_manager" in
   let __attrs =
     ({
+       tf_name = __id;
        all_instances_config =
          Prop.computed __type __id "all_instances_config";
        auto_healing_policies =

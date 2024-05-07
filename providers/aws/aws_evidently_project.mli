@@ -52,6 +52,7 @@ val yojson_of_aws_evidently_project : aws_evidently_project -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   active_experiment_count : float prop;
   active_launch_count : float prop;
   arn : string prop;

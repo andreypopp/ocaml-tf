@@ -39,6 +39,7 @@ val yojson_of_azurerm_data_factory_linked_service_cosmosdb :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_endpoint : string prop;
   account_key : string prop;
   additional_properties : (string * string) list prop;

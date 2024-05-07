@@ -48,6 +48,7 @@ let aws_cloudwatch_log_stream ?id ~log_group_name ~name () :
   { id; log_group_name; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   log_group_name : string prop;
@@ -58,6 +59,7 @@ let make ?id ~log_group_name ~name __id =
   let __type = "aws_cloudwatch_log_stream" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        log_group_name = Prop.computed __type __id "log_group_name";

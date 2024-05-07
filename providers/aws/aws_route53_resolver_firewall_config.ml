@@ -54,6 +54,7 @@ let aws_route53_resolver_firewall_config ?firewall_fail_open ?id
   { firewall_fail_open; id; resource_id }
 
 type t = {
+  tf_name : string;
   firewall_fail_open : string prop;
   id : string prop;
   owner_id : string prop;
@@ -64,6 +65,7 @@ let make ?firewall_fail_open ?id ~resource_id __id =
   let __type = "aws_route53_resolver_firewall_config" in
   let __attrs =
     ({
+       tf_name = __id;
        firewall_fail_open =
          Prop.computed __type __id "firewall_fail_open";
        id = Prop.computed __type __id "id";

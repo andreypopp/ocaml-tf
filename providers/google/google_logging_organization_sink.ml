@@ -208,6 +208,7 @@ let google_logging_organization_sink ?description ?disabled ?filter
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   destination : string prop;
   disabled : bool prop;
@@ -225,6 +226,7 @@ let make ?description ?disabled ?filter ?id ?include_children
   let __type = "google_logging_organization_sink" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        destination = Prop.computed __type __id "destination";
        disabled = Prop.computed __type __id "disabled";

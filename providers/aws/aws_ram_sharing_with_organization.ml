@@ -13,12 +13,14 @@ let aws_ram_sharing_with_organization ?id () =
   } : aws_ram_sharing_with_organization);;
 
 type t = {
+  tf_name: string;
   id: string prop;
 }
 
 let make ?id __id =
   let __type = "aws_ram_sharing_with_organization" in
   let __attrs = ({
+    tf_name = __id;
     id = Prop.computed __type __id "id";
   } : t) in
   {Tf_core.

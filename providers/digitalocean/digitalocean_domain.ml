@@ -49,6 +49,7 @@ let digitalocean_domain ?id ?ip_address ~name () :
   { id; ip_address; name }
 
 type t = {
+  tf_name : string;
   id : string prop;
   ip_address : string prop;
   name : string prop;
@@ -60,6 +61,7 @@ let make ?id ?ip_address ~name __id =
   let __type = "digitalocean_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ip_address = Prop.computed __type __id "ip_address";
        name = Prop.computed __type __id "name";

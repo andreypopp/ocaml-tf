@@ -18,6 +18,7 @@ val yojson_of_aws_controltower_controls :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enabled_controls : string list prop;
   id : string prop;
   target_identifier : string prop;

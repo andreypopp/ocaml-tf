@@ -25,6 +25,7 @@ val yojson_of_google_logging_sink : google_logging_sink -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bigquery_options : bigquery_options list prop;
   description : string prop;
   destination : string prop;

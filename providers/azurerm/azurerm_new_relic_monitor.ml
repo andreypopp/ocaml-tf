@@ -309,6 +309,7 @@ let azurerm_new_relic_monitor ?account_creation_source ?account_id
   }
 
 type t = {
+  tf_name : string;
   account_creation_source : string prop;
   account_id : string prop;
   id : string prop;
@@ -327,6 +328,7 @@ let make ?account_creation_source ?account_id ?id ?ingestion_key
   let __type = "azurerm_new_relic_monitor" in
   let __attrs =
     ({
+       tf_name = __id;
        account_creation_source =
          Prop.computed __type __id "account_creation_source";
        account_id = Prop.computed __type __id "account_id";

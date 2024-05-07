@@ -135,6 +135,7 @@ let aws_devicefarm_instance_profile ?description
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   exclude_app_packages_from_cleanup : string list prop;
@@ -151,6 +152,7 @@ let make ?description ?exclude_app_packages_from_cleanup ?id
   let __type = "aws_devicefarm_instance_profile" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        exclude_app_packages_from_cleanup =

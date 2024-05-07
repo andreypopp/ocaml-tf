@@ -693,6 +693,7 @@ let google_notebooks_instance ?boot_disk_size_gb ?boot_disk_type
   }
 
 type t = {
+  tf_name : string;
   boot_disk_size_gb : float prop;
   boot_disk_type : string prop;
   create_time : string prop;
@@ -741,6 +742,7 @@ let make ?boot_disk_size_gb ?boot_disk_type ?create_time
   let __type = "google_notebooks_instance" in
   let __attrs =
     ({
+       tf_name = __id;
        boot_disk_size_gb =
          Prop.computed __type __id "boot_disk_size_gb";
        boot_disk_type = Prop.computed __type __id "boot_disk_type";

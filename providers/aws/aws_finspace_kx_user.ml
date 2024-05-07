@@ -148,6 +148,7 @@ let aws_finspace_kx_user ?id ?tags ?tags_all ?timeouts
   { environment_id; iam_role; id; name; tags; tags_all; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   environment_id : string prop;
   iam_role : string prop;
@@ -162,6 +163,7 @@ let make ?id ?tags ?tags_all ?timeouts ~environment_id ~iam_role
   let __type = "aws_finspace_kx_user" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        environment_id = Prop.computed __type __id "environment_id";
        iam_role = Prop.computed __type __id "iam_role";

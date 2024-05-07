@@ -377,6 +377,7 @@ let cloudflare_rate_limit ?bypass_url_patterns ?description ?disabled
   }
 
 type t = {
+  tf_name : string;
   bypass_url_patterns : string list prop;
   description : string prop;
   disabled : bool prop;
@@ -392,6 +393,7 @@ let make ?bypass_url_patterns ?description ?disabled ?id
   let __type = "cloudflare_rate_limit" in
   let __attrs =
     ({
+       tf_name = __id;
        bypass_url_patterns =
          Prop.computed __type __id "bypass_url_patterns";
        description = Prop.computed __type __id "description";

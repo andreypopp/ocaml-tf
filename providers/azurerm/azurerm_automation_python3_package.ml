@@ -196,6 +196,7 @@ let azurerm_automation_python3_package ?content_version
   }
 
 type t = {
+  tf_name : string;
   automation_account_name : string prop;
   content_uri : string prop;
   content_version : string prop;
@@ -213,6 +214,7 @@ let make ?content_version ?hash_algorithm ?hash_value ?id ?tags
   let __type = "azurerm_automation_python3_package" in
   let __attrs =
     ({
+       tf_name = __id;
        automation_account_name =
          Prop.computed __type __id "automation_account_name";
        content_uri = Prop.computed __type __id "content_uri";

@@ -67,6 +67,7 @@ let aws_outposts_outpost_instance_type ?id ?instance_type
   { arn; id; instance_type; preferred_instance_types }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   instance_type : string prop;
@@ -77,6 +78,7 @@ let make ?id ?instance_type ?preferred_instance_types ~arn __id =
   let __type = "aws_outposts_outpost_instance_type" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        instance_type = Prop.computed __type __id "instance_type";

@@ -36,6 +36,7 @@ val yojson_of_google_storage_transfer_agent_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   id : string prop;
   name : string prop;

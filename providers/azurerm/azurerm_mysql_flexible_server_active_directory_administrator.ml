@@ -151,6 +151,7 @@ let azurerm_mysql_flexible_server_active_directory_administrator ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   identity_id : string prop;
   login : string prop;
@@ -166,6 +167,7 @@ let make ?id ?timeouts ~identity_id ~login ~object_id ~server_id
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        identity_id = Prop.computed __type __id "identity_id";
        login = Prop.computed __type __id "login";

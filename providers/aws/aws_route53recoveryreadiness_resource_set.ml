@@ -410,6 +410,7 @@ let aws_route53recoveryreadiness_resource_set ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   resource_set_name : string prop;
@@ -423,6 +424,7 @@ let make ?id ?tags ?tags_all ?timeouts ~resource_set_name
   let __type = "aws_route53recoveryreadiness_resource_set" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        resource_set_name =

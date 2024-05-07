@@ -127,6 +127,7 @@ let azurerm_servicebus_subscription ?id ?namespace_name
   }
 
 type t = {
+  tf_name : string;
   auto_delete_on_idle : string prop;
   dead_lettering_on_filter_evaluation_error : bool prop;
   dead_lettering_on_message_expiration : bool prop;
@@ -150,6 +151,7 @@ let make ?id ?namespace_name ?resource_group_name ?topic_id
   let __type = "azurerm_servicebus_subscription" in
   let __attrs =
     ({
+       tf_name = __id;
        auto_delete_on_idle =
          Prop.computed __type __id "auto_delete_on_idle";
        dead_lettering_on_filter_evaluation_error =

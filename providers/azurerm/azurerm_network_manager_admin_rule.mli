@@ -55,6 +55,7 @@ val yojson_of_azurerm_network_manager_admin_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   action : string prop;
   admin_rule_collection_id : string prop;
   description : string prop;

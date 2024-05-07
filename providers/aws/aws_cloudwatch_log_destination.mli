@@ -22,6 +22,7 @@ val yojson_of_aws_cloudwatch_log_destination :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;

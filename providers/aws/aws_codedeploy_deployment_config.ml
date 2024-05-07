@@ -259,6 +259,7 @@ let aws_codedeploy_deployment_config ?compute_platform ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   compute_platform : string prop;
   deployment_config_id : string prop;
@@ -271,6 +272,7 @@ let make ?compute_platform ?id ?(minimum_healthy_hosts = [])
   let __type = "aws_codedeploy_deployment_config" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        compute_platform =
          Prop.computed __type __id "compute_platform";

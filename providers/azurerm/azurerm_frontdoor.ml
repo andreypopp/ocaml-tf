@@ -1034,6 +1034,7 @@ let azurerm_frontdoor ?friendly_name ?id ?load_balancer_enabled ?tags
   }
 
 type t = {
+  tf_name : string;
   backend_pool_health_probes : (string * string) list prop;
   backend_pool_load_balancing_settings : (string * string) list prop;
   backend_pools : (string * string) list prop;
@@ -1058,6 +1059,7 @@ let make ?friendly_name ?id ?load_balancer_enabled ?tags
   let __type = "azurerm_frontdoor" in
   let __attrs =
     ({
+       tf_name = __id;
        backend_pool_health_probes =
          Prop.computed __type __id "backend_pool_health_probes";
        backend_pool_load_balancing_settings =

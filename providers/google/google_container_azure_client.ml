@@ -128,6 +128,7 @@ let google_container_azure_client ?id ?project ?timeouts
   }
 
 type t = {
+  tf_name : string;
   application_id : string prop;
   certificate : string prop;
   create_time : string prop;
@@ -144,6 +145,7 @@ let make ?id ?project ?timeouts ~application_id ~location ~name
   let __type = "google_container_azure_client" in
   let __attrs =
     ({
+       tf_name = __id;
        application_id = Prop.computed __type __id "application_id";
        certificate = Prop.computed __type __id "certificate";
        create_time = Prop.computed __type __id "create_time";

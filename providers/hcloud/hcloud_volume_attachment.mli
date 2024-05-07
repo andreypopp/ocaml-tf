@@ -20,6 +20,7 @@ val yojson_of_hcloud_volume_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automount : bool prop;
   id : string prop;
   server_id : float prop;

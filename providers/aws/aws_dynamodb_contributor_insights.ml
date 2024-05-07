@@ -99,6 +99,7 @@ let aws_dynamodb_contributor_insights ?id ?index_name ?timeouts
   { id; index_name; table_name; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   index_name : string prop;
   table_name : string prop;
@@ -108,6 +109,7 @@ let make ?id ?index_name ?timeouts ~table_name __id =
   let __type = "aws_dynamodb_contributor_insights" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        index_name = Prop.computed __type __id "index_name";
        table_name = Prop.computed __type __id "table_name";

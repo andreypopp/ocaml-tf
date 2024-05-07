@@ -371,6 +371,7 @@ let digitalocean_database_kafka_topic ?id ?partition_count
   }
 
 type t = {
+  tf_name : string;
   cluster_id : string prop;
   id : string prop;
   name : string prop;
@@ -384,6 +385,7 @@ let make ?id ?partition_count ?replication_factor ?(config = [])
   let __type = "digitalocean_database_kafka_topic" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_id = Prop.computed __type __id "cluster_id";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

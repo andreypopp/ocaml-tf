@@ -107,6 +107,7 @@ let aws_opensearch_package ?id ?package_description ~package_name
   }
 
 type t = {
+  tf_name : string;
   available_package_version : string prop;
   id : string prop;
   package_description : string prop;
@@ -120,6 +121,7 @@ let make ?id ?package_description ~package_name ~package_type
   let __type = "aws_opensearch_package" in
   let __attrs =
     ({
+       tf_name = __id;
        available_package_version =
          Prop.computed __type __id "available_package_version";
        id = Prop.computed __type __id "id";

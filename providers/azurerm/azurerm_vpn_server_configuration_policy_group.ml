@@ -193,6 +193,7 @@ let azurerm_vpn_server_configuration_policy_group ?id ?is_default
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   is_default : bool prop;
   name : string prop;
@@ -205,6 +206,7 @@ let make ?id ?is_default ?priority ?timeouts ~name
   let __type = "azurerm_vpn_server_configuration_policy_group" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        is_default = Prop.computed __type __id "is_default";
        name = Prop.computed __type __id "name";

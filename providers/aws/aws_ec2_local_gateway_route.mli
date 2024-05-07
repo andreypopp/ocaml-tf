@@ -20,6 +20,7 @@ val yojson_of_aws_ec2_local_gateway_route :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   destination_cidr_block : string prop;
   id : string prop;
   local_gateway_route_table_id : string prop;

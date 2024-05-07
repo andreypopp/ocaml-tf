@@ -38,6 +38,7 @@ val yojson_of_aws_batch_scheduling_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   name : string prop;

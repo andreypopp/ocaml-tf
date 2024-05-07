@@ -22,6 +22,7 @@ val yojson_of_cloudflare_worker_route :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   pattern : string prop;
   script_name : string prop;

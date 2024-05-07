@@ -73,6 +73,7 @@ let google_sql_backup_run ?backup_id ?id ?most_recent ?project
   { backup_id; id; instance; most_recent; project }
 
 type t = {
+  tf_name : string;
   backup_id : float prop;
   id : string prop;
   instance : string prop;
@@ -87,6 +88,7 @@ let make ?backup_id ?id ?most_recent ?project ~instance __id =
   let __type = "google_sql_backup_run" in
   let __attrs =
     ({
+       tf_name = __id;
        backup_id = Prop.computed __type __id "backup_id";
        id = Prop.computed __type __id "id";
        instance = Prop.computed __type __id "instance";

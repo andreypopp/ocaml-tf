@@ -55,6 +55,7 @@ let cloudflare_access_keys_configuration ?id
   { account_id; id; key_rotation_interval_days }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   key_rotation_interval_days : float prop;
@@ -64,6 +65,7 @@ let make ?id ?key_rotation_interval_days ~account_id __id =
   let __type = "cloudflare_access_keys_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        key_rotation_interval_days =

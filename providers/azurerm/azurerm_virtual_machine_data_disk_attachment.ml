@@ -166,6 +166,7 @@ let azurerm_virtual_machine_data_disk_attachment ?create_option ?id
   }
 
 type t = {
+  tf_name : string;
   caching : string prop;
   create_option : string prop;
   id : string prop;
@@ -180,6 +181,7 @@ let make ?create_option ?id ?write_accelerator_enabled ?timeouts
   let __type = "azurerm_virtual_machine_data_disk_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        caching = Prop.computed __type __id "caching";
        create_option = Prop.computed __type __id "create_option";
        id = Prop.computed __type __id "id";

@@ -135,6 +135,7 @@ let aws_redshift_hsm_configuration ?id ?tags ?tags_all ~description
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   hsm_configuration_identifier : string prop;
@@ -153,6 +154,7 @@ let make ?id ?tags ?tags_all ~description
   let __type = "aws_redshift_hsm_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        hsm_configuration_identifier =

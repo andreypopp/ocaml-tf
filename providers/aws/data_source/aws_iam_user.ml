@@ -56,6 +56,7 @@ let aws_iam_user ?id ?tags ~user_name () : aws_iam_user =
   { id; tags; user_name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   path : string prop;
@@ -69,6 +70,7 @@ let make ?id ?tags ~user_name __id =
   let __type = "aws_iam_user" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        path = Prop.computed __type __id "path";

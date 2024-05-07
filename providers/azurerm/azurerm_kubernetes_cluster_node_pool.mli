@@ -160,6 +160,7 @@ val yojson_of_azurerm_kubernetes_cluster_node_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   capacity_reservation_group_id : string prop;
   custom_ca_trust_enabled : bool prop;
   enable_auto_scaling : bool prop;

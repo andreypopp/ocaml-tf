@@ -35,6 +35,7 @@ val yojson_of_azurerm_netapp_volume : azurerm_netapp_volume -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_name : string prop;
   data_protection_replication :
     data_protection_replication list prop;

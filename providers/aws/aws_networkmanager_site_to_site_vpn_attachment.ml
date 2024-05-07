@@ -154,6 +154,7 @@ let aws_networkmanager_site_to_site_vpn_attachment ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   attachment_policy_rule_number : float prop;
   attachment_type : string prop;
@@ -175,6 +176,7 @@ let make ?id ?tags ?tags_all ?timeouts ~core_network_id
   let __type = "aws_networkmanager_site_to_site_vpn_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        attachment_policy_rule_number =
          Prop.computed __type __id "attachment_policy_rule_number";

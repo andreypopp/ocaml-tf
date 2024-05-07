@@ -19,6 +19,7 @@ val yojson_of_aws_rds_clusters : aws_rds_clusters -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_arns : string list prop;
   cluster_identifiers : string list prop;
   id : string prop;

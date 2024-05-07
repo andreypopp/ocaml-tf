@@ -223,6 +223,7 @@ let google_logging_project_sink ?custom_writer_identity ?description
   }
 
 type t = {
+  tf_name : string;
   custom_writer_identity : string prop;
   description : string prop;
   destination : string prop;
@@ -241,6 +242,7 @@ let make ?custom_writer_identity ?description ?disabled ?filter ?id
   let __type = "google_logging_project_sink" in
   let __attrs =
     ({
+       tf_name = __id;
        custom_writer_identity =
          Prop.computed __type __id "custom_writer_identity";
        description = Prop.computed __type __id "description";

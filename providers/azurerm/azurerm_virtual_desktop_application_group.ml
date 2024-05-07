@@ -202,6 +202,7 @@ let azurerm_virtual_desktop_application_group
   }
 
 type t = {
+  tf_name : string;
   default_desktop_display_name : string prop;
   description : string prop;
   friendly_name : string prop;
@@ -220,6 +221,7 @@ let make ?default_desktop_display_name ?description ?friendly_name
   let __type = "azurerm_virtual_desktop_application_group" in
   let __attrs =
     ({
+       tf_name = __id;
        default_desktop_display_name =
          Prop.computed __type __id "default_desktop_display_name";
        description = Prop.computed __type __id "description";

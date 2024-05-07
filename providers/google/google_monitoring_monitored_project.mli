@@ -25,6 +25,7 @@ val yojson_of_google_monitoring_monitored_project :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   id : string prop;
   metrics_scope : string prop;

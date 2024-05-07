@@ -152,7 +152,7 @@ val yojson_of_kubernetes_pod_security_policy_v1beta1 :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop }
+type t = private { tf_name : string; id : string prop }
 
 val register :
   ?tf_module:tf_module ->

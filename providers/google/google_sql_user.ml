@@ -311,6 +311,7 @@ let google_sql_user ?deletion_policy ?host ?id ?password ?project
   }
 
 type t = {
+  tf_name : string;
   deletion_policy : string prop;
   host : string prop;
   id : string prop;
@@ -327,6 +328,7 @@ let make ?deletion_policy ?host ?id ?password ?project ?type_
   let __type = "google_sql_user" in
   let __attrs =
     ({
+       tf_name = __id;
        deletion_policy = Prop.computed __type __id "deletion_policy";
        host = Prop.computed __type __id "host";
        id = Prop.computed __type __id "id";

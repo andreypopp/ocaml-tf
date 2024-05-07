@@ -168,6 +168,7 @@ let azurerm_spring_cloud_app ?id ?timeouts ~name ~resource_group_name
   { id; name; resource_group_name; service_name; timeouts }
 
 type t = {
+  tf_name : string;
   fqdn : string prop;
   https_only : bool prop;
   id : string prop;
@@ -186,6 +187,7 @@ let make ?id ?timeouts ~name ~resource_group_name ~service_name __id
   let __type = "azurerm_spring_cloud_app" in
   let __attrs =
     ({
+       tf_name = __id;
        fqdn = Prop.computed __type __id "fqdn";
        https_only = Prop.computed __type __id "https_only";
        id = Prop.computed __type __id "id";

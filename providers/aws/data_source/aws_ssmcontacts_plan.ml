@@ -180,6 +180,7 @@ let aws_ssmcontacts_plan ?id ~contact_id () : aws_ssmcontacts_plan =
   { contact_id; id }
 
 type t = {
+  tf_name : string;
   contact_id : string prop;
   id : string prop;
   stage : stage list prop;
@@ -189,6 +190,7 @@ let make ?id ~contact_id __id =
   let __type = "aws_ssmcontacts_plan" in
   let __attrs =
     ({
+       tf_name = __id;
        contact_id = Prop.computed __type __id "contact_id";
        id = Prop.computed __type __id "id";
        stage = Prop.computed __type __id "stage";

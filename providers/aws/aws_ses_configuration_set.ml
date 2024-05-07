@@ -149,6 +149,7 @@ let aws_ses_configuration_set ?id ?reputation_metrics_enabled
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   last_fresh_start : string prop;
@@ -162,6 +163,7 @@ let make ?id ?reputation_metrics_enabled ?sending_enabled
   let __type = "aws_ses_configuration_set" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        last_fresh_start =

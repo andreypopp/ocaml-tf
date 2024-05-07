@@ -122,6 +122,7 @@ let azurerm_sentinel_data_connector_azure_security_center ?id
   { id; log_analytics_workspace_id; name; subscription_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   log_analytics_workspace_id : string prop;
   name : string prop;
@@ -135,6 +136,7 @@ let make ?id ?subscription_id ?timeouts ~log_analytics_workspace_id
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        log_analytics_workspace_id =
          Prop.computed __type __id "log_analytics_workspace_id";

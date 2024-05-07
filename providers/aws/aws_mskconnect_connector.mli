@@ -182,6 +182,7 @@ val yojson_of_aws_mskconnect_connector :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   connector_configuration : (string * string) list prop;
   description : string prop;

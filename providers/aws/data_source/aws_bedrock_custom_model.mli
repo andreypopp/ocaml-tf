@@ -35,6 +35,7 @@ val yojson_of_aws_bedrock_custom_model :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   base_model_arn : string prop;
   creation_time : string prop;
   hyperparameters : (string * string) list prop;

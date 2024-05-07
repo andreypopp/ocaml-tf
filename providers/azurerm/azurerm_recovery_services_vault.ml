@@ -412,6 +412,7 @@ let azurerm_recovery_services_vault
   }
 
 type t = {
+  tf_name : string;
   classic_vmware_replication_enabled : bool prop;
   cross_region_restore_enabled : bool prop;
   id : string prop;
@@ -435,6 +436,7 @@ let make ?classic_vmware_replication_enabled
   let __type = "azurerm_recovery_services_vault" in
   let __attrs =
     ({
+       tf_name = __id;
        classic_vmware_replication_enabled =
          Prop.computed __type __id
            "classic_vmware_replication_enabled";

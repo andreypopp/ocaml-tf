@@ -75,7 +75,11 @@ val yojson_of_kubernetes_nodes : kubernetes_nodes -> json
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; nodes : nodes list prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  nodes : nodes list prop;
+}
 
 val register :
   ?tf_module:tf_module ->

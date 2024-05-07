@@ -81,6 +81,7 @@ let aws_connect_vocabulary ?id ?name ?tags ?vocabulary_id
   { id; instance_id; name; tags; vocabulary_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   content : string prop;
   failure_reason : string prop;
@@ -98,6 +99,7 @@ let make ?id ?name ?tags ?vocabulary_id ~instance_id __id =
   let __type = "aws_connect_vocabulary" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        content = Prop.computed __type __id "content";
        failure_reason = Prop.computed __type __id "failure_reason";

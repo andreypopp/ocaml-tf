@@ -541,6 +541,7 @@ let aws_quicksight_data_set ?aws_account_id ?id ?tags ?tags_all ?(column_groups=
   } : aws_quicksight_data_set);;
 
 type t = {
+  tf_name: string;
   arn: string prop;
   aws_account_id: string prop;
   data_set_id: string prop;
@@ -555,6 +556,7 @@ type t = {
 let make ?aws_account_id ?id ?tags ?tags_all ?(column_groups=[]) ?(column_level_permission_rules=[]) ?(data_set_usage_configuration=[]) ?(refresh_properties=[]) ?(row_level_permission_data_set=[]) ?(row_level_permission_tag_configuration=[]) ~data_set_id ~import_mode ~name ~field_folders ~logical_table_map ~permissions ~physical_table_map __id =
   let __type = "aws_quicksight_data_set" in
   let __attrs = ({
+    tf_name = __id;
     arn = Prop.computed __type __id "arn";
     aws_account_id = Prop.computed __type __id "aws_account_id";
     data_set_id = Prop.computed __type __id "data_set_id";

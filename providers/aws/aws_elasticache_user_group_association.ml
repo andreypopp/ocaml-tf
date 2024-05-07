@@ -50,6 +50,7 @@ let aws_elasticache_user_group_association ?id ~user_group_id
   { id; user_group_id; user_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   user_group_id : string prop;
   user_id : string prop;
@@ -59,6 +60,7 @@ let make ?id ~user_group_id ~user_id __id =
   let __type = "aws_elasticache_user_group_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        user_group_id = Prop.computed __type __id "user_group_id";
        user_id = Prop.computed __type __id "user_id";

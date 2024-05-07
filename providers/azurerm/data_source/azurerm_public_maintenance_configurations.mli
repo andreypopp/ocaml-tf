@@ -36,6 +36,7 @@ val yojson_of_azurerm_public_maintenance_configurations :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   configs : configs list prop;
   id : string prop;
   location : string prop;

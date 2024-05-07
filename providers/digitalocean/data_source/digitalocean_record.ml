@@ -44,6 +44,7 @@ let digitalocean_record ?id ~domain ~name () : digitalocean_record =
   { domain; id; name }
 
 type t = {
+  tf_name : string;
   data : string prop;
   domain : string prop;
   flags : float prop;
@@ -61,6 +62,7 @@ let make ?id ~domain ~name __id =
   let __type = "digitalocean_record" in
   let __attrs =
     ({
+       tf_name = __id;
        data = Prop.computed __type __id "data";
        domain = Prop.computed __type __id "domain";
        flags = Prop.computed __type __id "flags";

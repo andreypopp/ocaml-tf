@@ -20,6 +20,7 @@ val yojson_of_aws_auditmanager_framework_share :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   comment : string prop;
   destination_account : string prop;
   destination_region : string prop;

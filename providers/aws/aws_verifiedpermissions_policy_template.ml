@@ -53,6 +53,7 @@ let aws_verifiedpermissions_policy_template ?description
   { description; policy_store_id; statement }
 
 type t = {
+  tf_name : string;
   created_date : string prop;
   description : string prop;
   id : string prop;
@@ -65,6 +66,7 @@ let make ?description ~policy_store_id ~statement __id =
   let __type = "aws_verifiedpermissions_policy_template" in
   let __attrs =
     ({
+       tf_name = __id;
        created_date = Prop.computed __type __id "created_date";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

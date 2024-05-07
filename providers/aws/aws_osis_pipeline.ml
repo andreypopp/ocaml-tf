@@ -348,6 +348,7 @@ let aws_osis_pipeline ?tags ?(buffer_options = [])
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   ingest_endpoint_urls : string list prop;
   max_units : float prop;
@@ -366,6 +367,7 @@ let make ?tags ?(buffer_options = [])
   let __type = "aws_osis_pipeline" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ingest_endpoint_urls =
          Prop.computed __type __id "ingest_endpoint_urls";

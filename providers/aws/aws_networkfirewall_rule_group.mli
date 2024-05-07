@@ -289,6 +289,7 @@ val yojson_of_aws_networkfirewall_rule_group :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   capacity : float prop;
   description : string prop;

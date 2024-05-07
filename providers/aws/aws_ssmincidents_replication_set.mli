@@ -35,6 +35,7 @@ val yojson_of_aws_ssmincidents_replication_set :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   created_by : string prop;
   deletion_protected : bool prop;

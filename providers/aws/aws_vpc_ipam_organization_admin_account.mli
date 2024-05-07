@@ -18,6 +18,7 @@ val yojson_of_aws_vpc_ipam_organization_admin_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   delegated_admin_account_id : string prop;
   email : string prop;

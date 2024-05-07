@@ -201,6 +201,7 @@ let azurerm_resource_group_template_deployment ?debug_level ?id
   }
 
 type t = {
+  tf_name : string;
   debug_level : string prop;
   deployment_mode : string prop;
   id : string prop;
@@ -219,6 +220,7 @@ let make ?debug_level ?id ?parameters_content ?tags ?template_content
   let __type = "azurerm_resource_group_template_deployment" in
   let __attrs =
     ({
+       tf_name = __id;
        debug_level = Prop.computed __type __id "debug_level";
        deployment_mode = Prop.computed __type __id "deployment_mode";
        id = Prop.computed __type __id "id";

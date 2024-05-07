@@ -196,6 +196,7 @@ let azurerm_security_center_assessment_policy ?categories ?id
   }
 
 type t = {
+  tf_name : string;
   categories : string list prop;
   description : string prop;
   display_name : string prop;
@@ -214,6 +215,7 @@ let make ?categories ?id ?implementation_effort
   let __type = "azurerm_security_center_assessment_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        categories = Prop.computed __type __id "categories";
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";

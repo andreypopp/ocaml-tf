@@ -113,6 +113,7 @@ let aws_lightsail_key_pair ?id ?name ?name_prefix ?pgp_key
   { id; name; name_prefix; pgp_key; public_key; tags; tags_all }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   encrypted_fingerprint : string prop;
   encrypted_private_key : string prop;
@@ -132,6 +133,7 @@ let make ?id ?name ?name_prefix ?pgp_key ?public_key ?tags ?tags_all
   let __type = "aws_lightsail_key_pair" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        encrypted_fingerprint =
          Prop.computed __type __id "encrypted_fingerprint";

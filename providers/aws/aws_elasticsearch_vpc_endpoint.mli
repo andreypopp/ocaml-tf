@@ -37,6 +37,7 @@ val yojson_of_aws_elasticsearch_vpc_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   domain_arn : string prop;
   endpoint : string prop;
   id : string prop;

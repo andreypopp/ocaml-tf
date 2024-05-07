@@ -245,6 +245,7 @@ let aws_launch_configuration ?id ~name () : aws_launch_configuration
   { id; name }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   associate_public_ip_address : bool prop;
   ebs_block_device : ebs_block_device list prop;
@@ -269,6 +270,7 @@ let make ?id ~name __id =
   let __type = "aws_launch_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        associate_public_ip_address =
          Prop.computed __type __id "associate_public_ip_address";

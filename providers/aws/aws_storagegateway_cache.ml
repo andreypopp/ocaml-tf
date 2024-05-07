@@ -46,6 +46,7 @@ let aws_storagegateway_cache ?id ~disk_id ~gateway_arn () :
   { disk_id; gateway_arn; id }
 
 type t = {
+  tf_name : string;
   disk_id : string prop;
   gateway_arn : string prop;
   id : string prop;
@@ -55,6 +56,7 @@ let make ?id ~disk_id ~gateway_arn __id =
   let __type = "aws_storagegateway_cache" in
   let __attrs =
     ({
+       tf_name = __id;
        disk_id = Prop.computed __type __id "disk_id";
        gateway_arn = Prop.computed __type __id "gateway_arn";
        id = Prop.computed __type __id "id";

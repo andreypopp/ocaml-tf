@@ -145,6 +145,7 @@ let azurerm_container_group ?id ?zones ?timeouts ~name
   { id; name; resource_group_name; zones; timeouts }
 
 type t = {
+  tf_name : string;
   fqdn : string prop;
   id : string prop;
   identity : identity list prop;
@@ -161,6 +162,7 @@ let make ?id ?zones ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_container_group" in
   let __attrs =
     ({
+       tf_name = __id;
        fqdn = Prop.computed __type __id "fqdn";
        id = Prop.computed __type __id "id";
        identity = Prop.computed __type __id "identity";

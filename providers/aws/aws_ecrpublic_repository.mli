@@ -39,6 +39,7 @@ val yojson_of_aws_ecrpublic_repository :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   force_destroy : bool prop;
   id : string prop;

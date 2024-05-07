@@ -62,6 +62,7 @@ let digitalocean_container_registry ?id ?region ~name
   { id; name; region; subscription_tier_slug }
 
 type t = {
+  tf_name : string;
   created_at : string prop;
   endpoint : string prop;
   id : string prop;
@@ -76,6 +77,7 @@ let make ?id ?region ~name ~subscription_tier_slug __id =
   let __type = "digitalocean_container_registry" in
   let __attrs =
     ({
+       tf_name = __id;
        created_at = Prop.computed __type __id "created_at";
        endpoint = Prop.computed __type __id "endpoint";
        id = Prop.computed __type __id "id";

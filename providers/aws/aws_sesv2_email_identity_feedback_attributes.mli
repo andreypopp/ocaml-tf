@@ -19,6 +19,7 @@ val yojson_of_aws_sesv2_email_identity_feedback_attributes :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   email_forwarding_enabled : bool prop;
   email_identity : string prop;
   id : string prop;

@@ -39,6 +39,7 @@ val yojson_of_azurerm_stream_analytics_output_mssql :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authentication_mode : string prop;
   database : string prop;
   id : string prop;

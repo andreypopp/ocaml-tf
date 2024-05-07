@@ -62,6 +62,7 @@ let aws_s3control_object_lambda_access_point_policy ?account_id ?id
   { account_id; id; name; policy }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   has_public_access_policy : bool prop;
   id : string prop;
@@ -73,6 +74,7 @@ let make ?account_id ?id ~name ~policy __id =
   let __type = "aws_s3control_object_lambda_access_point_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        has_public_access_policy =
          Prop.computed __type __id "has_public_access_policy";

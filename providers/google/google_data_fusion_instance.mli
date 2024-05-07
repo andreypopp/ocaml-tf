@@ -75,6 +75,7 @@ val yojson_of_google_data_fusion_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_endpoint : string prop;
   create_time : string prop;
   dataproc_service_account : string prop;

@@ -70,12 +70,17 @@ let aws_licensemanager_received_licenses ?id ~filter () :
     aws_licensemanager_received_licenses =
   { id; filter }
 
-type t = { arns : string list prop; id : string prop }
+type t = {
+  tf_name : string;
+  arns : string list prop;
+  id : string prop;
+}
 
 let make ?id ~filter __id =
   let __type = "aws_licensemanager_received_licenses" in
   let __attrs =
     ({
+       tf_name = __id;
        arns = Prop.computed __type __id "arns";
        id = Prop.computed __type __id "id";
      }

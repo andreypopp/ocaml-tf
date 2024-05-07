@@ -175,6 +175,7 @@ let azurerm_kusto_cluster_managed_private_endpoint ?id
   }
 
 type t = {
+  tf_name : string;
   cluster_name : string prop;
   group_id : string prop;
   id : string prop;
@@ -191,6 +192,7 @@ let make ?id ?private_link_resource_region ?request_message ?timeouts
   let __type = "azurerm_kusto_cluster_managed_private_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_name = Prop.computed __type __id "cluster_name";
        group_id = Prop.computed __type __id "group_id";
        id = Prop.computed __type __id "id";

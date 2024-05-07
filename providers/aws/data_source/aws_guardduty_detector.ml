@@ -103,6 +103,7 @@ let _ = yojson_of_aws_guardduty_detector
 let aws_guardduty_detector ?id () : aws_guardduty_detector = { id }
 
 type t = {
+  tf_name : string;
   features : features list prop;
   finding_publishing_frequency : string prop;
   id : string prop;
@@ -114,6 +115,7 @@ let make ?id __id =
   let __type = "aws_guardduty_detector" in
   let __attrs =
     ({
+       tf_name = __id;
        features = Prop.computed __type __id "features";
        finding_publishing_frequency =
          Prop.computed __type __id "finding_publishing_frequency";

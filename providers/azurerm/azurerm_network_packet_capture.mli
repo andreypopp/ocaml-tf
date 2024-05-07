@@ -55,6 +55,7 @@ val yojson_of_azurerm_network_packet_capture :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   maximum_bytes_per_packet : float prop;
   maximum_bytes_per_session : float prop;

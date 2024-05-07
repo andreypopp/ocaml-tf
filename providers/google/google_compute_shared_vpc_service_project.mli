@@ -26,6 +26,7 @@ val yojson_of_google_compute_shared_vpc_service_project :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   deletion_policy : string prop;
   host_project : string prop;
   id : string prop;

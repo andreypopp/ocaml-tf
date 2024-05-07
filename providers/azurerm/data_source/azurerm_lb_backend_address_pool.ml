@@ -202,6 +202,7 @@ let azurerm_lb_backend_address_pool ?id ?timeouts ~loadbalancer_id
   { id; loadbalancer_id; name; timeouts }
 
 type t = {
+  tf_name : string;
   backend_address : backend_address list prop;
   backend_ip_configurations : backend_ip_configurations list prop;
   id : string prop;
@@ -216,6 +217,7 @@ let make ?id ?timeouts ~loadbalancer_id ~name __id =
   let __type = "azurerm_lb_backend_address_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        backend_address = Prop.computed __type __id "backend_address";
        backend_ip_configurations =
          Prop.computed __type __id "backend_ip_configurations";

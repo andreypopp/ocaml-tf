@@ -79,6 +79,7 @@ let aws_cognito_user_group ?description ?id ?precedence ?role_arn
   { description; id; name; precedence; role_arn; user_pool_id }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   name : string prop;
@@ -92,6 +93,7 @@ let make ?description ?id ?precedence ?role_arn ~name ~user_pool_id
   let __type = "aws_cognito_user_group" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

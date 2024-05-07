@@ -323,6 +323,7 @@ let aws_rbin_rule ?description ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -339,6 +340,7 @@ let make ?description ?tags ?tags_all ?(lock_configuration = [])
   let __type = "aws_rbin_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

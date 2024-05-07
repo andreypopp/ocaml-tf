@@ -272,6 +272,7 @@ val yojson_of_google_network_services_edge_cache_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   disable_http2 : bool prop;
   disable_quic : bool prop;

@@ -49,6 +49,7 @@ val yojson_of_azurerm_nginx_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   nginx_deployment_id : string prop;
   package_data : string prop;

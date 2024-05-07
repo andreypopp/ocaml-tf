@@ -59,6 +59,7 @@ let aws_route53_traffic_policy ?comment ?id ~document ~name () :
   { comment; document; id; name }
 
 type t = {
+  tf_name : string;
   comment : string prop;
   document : string prop;
   id : string prop;
@@ -71,6 +72,7 @@ let make ?comment ?id ~document ~name __id =
   let __type = "aws_route53_traffic_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        comment = Prop.computed __type __id "comment";
        document = Prop.computed __type __id "document";
        id = Prop.computed __type __id "id";

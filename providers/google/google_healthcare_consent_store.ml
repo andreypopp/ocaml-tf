@@ -153,6 +153,7 @@ let google_healthcare_consent_store ?default_consent_ttl
   }
 
 type t = {
+  tf_name : string;
   dataset : string prop;
   default_consent_ttl : string prop;
   effective_labels : (string * string) list prop;
@@ -168,6 +169,7 @@ let make ?default_consent_ttl ?enable_consent_create_on_update ?id
   let __type = "google_healthcare_consent_store" in
   let __attrs =
     ({
+       tf_name = __id;
        dataset = Prop.computed __type __id "dataset";
        default_consent_ttl =
          Prop.computed __type __id "default_consent_ttl";

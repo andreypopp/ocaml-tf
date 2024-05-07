@@ -76,6 +76,7 @@ val yojson_of_aws_sesv2_configuration_set :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   configuration_set_name : string prop;
   id : string prop;

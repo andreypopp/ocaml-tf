@@ -59,6 +59,7 @@ let aws_amplify_webhook ?description ?id ~app_id ~branch_name () :
   { app_id; branch_name; description; id }
 
 type t = {
+  tf_name : string;
   app_id : string prop;
   arn : string prop;
   branch_name : string prop;
@@ -71,6 +72,7 @@ let make ?description ?id ~app_id ~branch_name __id =
   let __type = "aws_amplify_webhook" in
   let __attrs =
     ({
+       tf_name = __id;
        app_id = Prop.computed __type __id "app_id";
        arn = Prop.computed __type __id "arn";
        branch_name = Prop.computed __type __id "branch_name";

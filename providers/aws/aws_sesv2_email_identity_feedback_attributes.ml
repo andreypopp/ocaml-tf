@@ -57,6 +57,7 @@ let aws_sesv2_email_identity_feedback_attributes
   { email_forwarding_enabled; email_identity; id }
 
 type t = {
+  tf_name : string;
   email_forwarding_enabled : bool prop;
   email_identity : string prop;
   id : string prop;
@@ -66,6 +67,7 @@ let make ?email_forwarding_enabled ?id ~email_identity __id =
   let __type = "aws_sesv2_email_identity_feedback_attributes" in
   let __attrs =
     ({
+       tf_name = __id;
        email_forwarding_enabled =
          Prop.computed __type __id "email_forwarding_enabled";
        email_identity = Prop.computed __type __id "email_identity";

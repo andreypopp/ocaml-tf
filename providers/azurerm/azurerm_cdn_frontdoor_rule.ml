@@ -2015,6 +2015,7 @@ let azurerm_cdn_frontdoor_rule ?behavior_on_match ?id
   }
 
 type t = {
+  tf_name : string;
   behavior_on_match : string prop;
   cdn_frontdoor_rule_set_id : string prop;
   cdn_frontdoor_rule_set_name : string prop;
@@ -2028,6 +2029,7 @@ let make ?behavior_on_match ?id ?(conditions = []) ?timeouts
   let __type = "azurerm_cdn_frontdoor_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        behavior_on_match =
          Prop.computed __type __id "behavior_on_match";
        cdn_frontdoor_rule_set_id =

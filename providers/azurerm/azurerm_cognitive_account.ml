@@ -584,6 +584,7 @@ let azurerm_cognitive_account
   }
 
 type t = {
+  tf_name : string;
   custom_question_answering_search_service_id : string prop;
   custom_question_answering_search_service_key : string prop;
   custom_subdomain_name : string prop;
@@ -622,6 +623,7 @@ let make ?custom_question_answering_search_service_id
   let __type = "azurerm_cognitive_account" in
   let __attrs =
     ({
+       tf_name = __id;
        custom_question_answering_search_service_id =
          Prop.computed __type __id
            "custom_question_answering_search_service_id";

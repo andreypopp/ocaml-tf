@@ -129,6 +129,7 @@ let azurerm_storage_containers ?id ?name_prefix ?timeouts
   { id; name_prefix; storage_account_id; timeouts }
 
 type t = {
+  tf_name : string;
   containers : containers list prop;
   id : string prop;
   name_prefix : string prop;
@@ -139,6 +140,7 @@ let make ?id ?name_prefix ?timeouts ~storage_account_id __id =
   let __type = "azurerm_storage_containers" in
   let __attrs =
     ({
+       tf_name = __id;
        containers = Prop.computed __type __id "containers";
        id = Prop.computed __type __id "id";
        name_prefix = Prop.computed __type __id "name_prefix";

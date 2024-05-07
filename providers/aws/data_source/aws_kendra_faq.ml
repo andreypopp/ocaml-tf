@@ -92,6 +92,7 @@ let aws_kendra_faq ?id ?tags ~faq_id ~index_id () : aws_kendra_faq =
   { faq_id; id; index_id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_at : string prop;
   description : string prop;
@@ -113,6 +114,7 @@ let make ?id ?tags ~faq_id ~index_id __id =
   let __type = "aws_kendra_faq" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_at = Prop.computed __type __id "created_at";
        description = Prop.computed __type __id "description";

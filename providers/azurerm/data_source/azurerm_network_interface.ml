@@ -214,6 +214,7 @@ let azurerm_network_interface ?id ?timeouts ~name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   applied_dns_servers : string list prop;
   dns_servers : string list prop;
   enable_accelerated_networking : bool prop;
@@ -236,6 +237,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_network_interface" in
   let __attrs =
     ({
+       tf_name = __id;
        applied_dns_servers =
          Prop.computed __type __id "applied_dns_servers";
        dns_servers = Prop.computed __type __id "dns_servers";

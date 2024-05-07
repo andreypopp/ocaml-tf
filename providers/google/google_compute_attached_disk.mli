@@ -29,6 +29,7 @@ val yojson_of_google_compute_attached_disk :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   device_name : string prop;
   disk : string prop;
   id : string prop;

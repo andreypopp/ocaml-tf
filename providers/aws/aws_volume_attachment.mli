@@ -28,6 +28,7 @@ val yojson_of_aws_volume_attachment : aws_volume_attachment -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   device_name : string prop;
   force_detach : bool prop;
   id : string prop;

@@ -19,6 +19,7 @@ val yojson_of_aws_xray_encryption_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   key_id : string prop;
   type_ : string prop;

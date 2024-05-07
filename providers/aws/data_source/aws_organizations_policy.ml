@@ -40,6 +40,7 @@ let aws_organizations_policy ?id ~policy_id () :
   { id; policy_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   aws_managed : bool prop;
   content : string prop;
@@ -54,6 +55,7 @@ let make ?id ~policy_id __id =
   let __type = "aws_organizations_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        aws_managed = Prop.computed __type __id "aws_managed";
        content = Prop.computed __type __id "content";

@@ -26,6 +26,7 @@ val yojson_of_aws_cloudformation_type :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   default_version_id : string prop;
   deprecated_status : string prop;

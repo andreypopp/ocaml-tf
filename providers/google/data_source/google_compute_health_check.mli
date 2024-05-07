@@ -76,6 +76,7 @@ val yojson_of_google_compute_health_check :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   check_interval_sec : float prop;
   creation_timestamp : string prop;
   description : string prop;

@@ -110,6 +110,7 @@ let azurerm_nat_gateway_public_ip_association ?id ?timeouts
   { id; nat_gateway_id; public_ip_address_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   nat_gateway_id : string prop;
   public_ip_address_id : string prop;
@@ -119,6 +120,7 @@ let make ?id ?timeouts ~nat_gateway_id ~public_ip_address_id __id =
   let __type = "azurerm_nat_gateway_public_ip_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        nat_gateway_id = Prop.computed __type __id "nat_gateway_id";
        public_ip_address_id =

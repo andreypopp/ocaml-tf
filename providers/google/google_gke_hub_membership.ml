@@ -234,6 +234,7 @@ let google_gke_hub_membership ?id ?labels ?location ?project
   }
 
 type t = {
+  tf_name : string;
   effective_labels : (string * string) list prop;
   id : string prop;
   labels : (string * string) list prop;
@@ -249,6 +250,7 @@ let make ?id ?labels ?location ?project ?(authority = [])
   let __type = "google_gke_hub_membership" in
   let __attrs =
     ({
+       tf_name = __id;
        effective_labels =
          Prop.computed __type __id "effective_labels";
        id = Prop.computed __type __id "id";

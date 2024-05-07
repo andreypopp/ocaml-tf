@@ -24,6 +24,7 @@ val yojson_of_azurerm_digital_twins_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   host_name : string prop;
   id : string prop;
   location : string prop;

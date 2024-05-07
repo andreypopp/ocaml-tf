@@ -396,6 +396,7 @@ let google_iam_workforce_pool_provider ?attribute_condition
   }
 
 type t = {
+  tf_name : string;
   attribute_condition : string prop;
   attribute_mapping : (string * string) list prop;
   description : string prop;
@@ -415,6 +416,7 @@ let make ?attribute_condition ?attribute_mapping ?description
   let __type = "google_iam_workforce_pool_provider" in
   let __attrs =
     ({
+       tf_name = __id;
        attribute_condition =
          Prop.computed __type __id "attribute_condition";
        attribute_mapping =

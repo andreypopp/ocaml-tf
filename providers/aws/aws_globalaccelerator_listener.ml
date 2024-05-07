@@ -173,6 +173,7 @@ let aws_globalaccelerator_listener ?client_affinity ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   accelerator_arn : string prop;
   client_affinity : string prop;
   id : string prop;
@@ -184,6 +185,7 @@ let make ?client_affinity ?id ?timeouts ~accelerator_arn ~protocol
   let __type = "aws_globalaccelerator_listener" in
   let __attrs =
     ({
+       tf_name = __id;
        accelerator_arn = Prop.computed __type __id "accelerator_arn";
        client_affinity = Prop.computed __type __id "client_affinity";
        id = Prop.computed __type __id "id";

@@ -66,6 +66,7 @@ val yojson_of_azurerm_storage_account_sas :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   connection_string : string prop;
   expiry : string prop;
   https_only : bool prop;

@@ -55,6 +55,7 @@ val yojson_of_azurerm_machine_learning_inference_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_purpose : string prop;
   description : string prop;
   id : string prop;

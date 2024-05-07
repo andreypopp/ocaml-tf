@@ -23,6 +23,7 @@ val yojson_of_aws_api_gateway_domain_name :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   certificate_arn : string prop;
   certificate_name : string prop;

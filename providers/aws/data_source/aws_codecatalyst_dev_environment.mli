@@ -34,6 +34,7 @@ val yojson_of_aws_codecatalyst_dev_environment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   alias : string prop;
   creator_id : string prop;
   env_id : string prop;

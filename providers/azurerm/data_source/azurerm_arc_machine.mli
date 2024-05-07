@@ -104,6 +104,7 @@ val yojson_of_azurerm_arc_machine : azurerm_arc_machine -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   active_directory_fqdn : string prop;
   agent : agent list prop;
   agent_version : string prop;

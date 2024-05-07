@@ -64,6 +64,7 @@ let aws_kinesis_stream_consumer ?arn ?id ?name ~stream_arn () :
   { arn; id; name; stream_arn }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   creation_timestamp : string prop;
   id : string prop;
@@ -76,6 +77,7 @@ let make ?arn ?id ?name ~stream_arn __id =
   let __type = "aws_kinesis_stream_consumer" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";

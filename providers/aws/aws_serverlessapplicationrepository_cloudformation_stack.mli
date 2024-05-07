@@ -34,6 +34,7 @@ val yojson_of_aws_serverlessapplicationrepository_cloudformation_stack :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_id : string prop;
   capabilities : string list prop;
   id : string prop;

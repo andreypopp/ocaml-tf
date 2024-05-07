@@ -150,6 +150,7 @@ let hcloud_server_types ?id ?server_type_ids () : hcloud_server_types
   { id; server_type_ids }
 
 type t = {
+  tf_name : string;
   descriptions : string list prop;
   id : string prop;
   names : string list prop;
@@ -161,6 +162,7 @@ let make ?id ?server_type_ids __id =
   let __type = "hcloud_server_types" in
   let __attrs =
     ({
+       tf_name = __id;
        descriptions = Prop.computed __type __id "descriptions";
        id = Prop.computed __type __id "id";
        names = Prop.computed __type __id "names";

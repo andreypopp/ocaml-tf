@@ -69,6 +69,7 @@ val yojson_of_aws_s3_bucket_inventory :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket : string prop;
   enabled : bool prop;
   id : string prop;

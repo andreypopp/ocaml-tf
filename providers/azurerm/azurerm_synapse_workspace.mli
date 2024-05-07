@@ -104,6 +104,7 @@ val yojson_of_azurerm_synapse_workspace :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   aad_admin : aad_admin list prop;
   azuread_authentication_only : bool prop;
   compute_subnet_id : string prop;

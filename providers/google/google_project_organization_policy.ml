@@ -356,6 +356,7 @@ let google_project_organization_policy ?id ?version
   }
 
 type t = {
+  tf_name : string;
   constraint_ : string prop;
   etag : string prop;
   id : string prop;
@@ -369,6 +370,7 @@ let make ?id ?version ?(boolean_policy = []) ?(list_policy = [])
   let __type = "google_project_organization_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        constraint_ = Prop.computed __type __id "constraint";
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";

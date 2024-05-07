@@ -1001,6 +1001,7 @@ let azurerm_web_application_firewall_policy ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   http_listener_ids : string list prop;
   id : string prop;
   location : string prop;
@@ -1016,6 +1017,7 @@ let make ?id ?tags ?(custom_rules = []) ?(policy_settings = [])
   let __type = "azurerm_web_application_firewall_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        http_listener_ids =
          Prop.computed __type __id "http_listener_ids";
        id = Prop.computed __type __id "id";

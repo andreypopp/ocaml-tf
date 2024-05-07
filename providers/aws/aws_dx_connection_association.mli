@@ -19,6 +19,7 @@ val yojson_of_aws_dx_connection_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   connection_id : string prop;
   id : string prop;
   lag_id : string prop;

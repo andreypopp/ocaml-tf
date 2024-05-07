@@ -81,6 +81,7 @@ let aws_autoscaling_groups ?id ?names ~filter () :
   { id; names; filter }
 
 type t = {
+  tf_name : string;
   arns : string list prop;
   id : string prop;
   names : string list prop;
@@ -90,6 +91,7 @@ let make ?id ?names ~filter __id =
   let __type = "aws_autoscaling_groups" in
   let __attrs =
     ({
+       tf_name = __id;
        arns = Prop.computed __type __id "arns";
        id = Prop.computed __type __id "id";
        names = Prop.computed __type __id "names";

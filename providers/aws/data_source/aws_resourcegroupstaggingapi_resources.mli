@@ -42,6 +42,7 @@ val yojson_of_aws_resourcegroupstaggingapi_resources :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   exclude_compliant_resources : bool prop;
   id : string prop;
   include_compliance_details : bool prop;

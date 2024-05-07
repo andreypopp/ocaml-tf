@@ -117,6 +117,7 @@ let hcloud_placement_groups ?id ?most_recent ?with_selector () :
   { id; most_recent; with_selector }
 
 type t = {
+  tf_name : string;
   id : string prop;
   most_recent : bool prop;
   placement_groups : placement_groups list prop;
@@ -127,6 +128,7 @@ let make ?id ?most_recent ?with_selector __id =
   let __type = "hcloud_placement_groups" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        most_recent = Prop.computed __type __id "most_recent";
        placement_groups =

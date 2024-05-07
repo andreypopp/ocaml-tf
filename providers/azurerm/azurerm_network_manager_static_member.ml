@@ -117,6 +117,7 @@ let azurerm_network_manager_static_member ?id ?timeouts ~name
   { id; name; network_group_id; target_virtual_network_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   network_group_id : string prop;
@@ -129,6 +130,7 @@ let make ?id ?timeouts ~name ~network_group_id
   let __type = "azurerm_network_manager_static_member" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        network_group_id =

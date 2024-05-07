@@ -233,6 +233,7 @@ let aws_route53_resolver_endpoint ?id ?name ?protocols
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   direction : string prop;
   host_vpc_id : string prop;
@@ -250,6 +251,7 @@ let make ?id ?name ?protocols ?resolver_endpoint_type ?tags ?tags_all
   let __type = "aws_route53_resolver_endpoint" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        direction = Prop.computed __type __id "direction";
        host_vpc_id = Prop.computed __type __id "host_vpc_id";

@@ -40,6 +40,7 @@ let digitalocean_database_ca ?id ~cluster_id () :
   { cluster_id; id }
 
 type t = {
+  tf_name : string;
   certificate : string prop;
   cluster_id : string prop;
   id : string prop;
@@ -49,6 +50,7 @@ let make ?id ~cluster_id __id =
   let __type = "digitalocean_database_ca" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate = Prop.computed __type __id "certificate";
        cluster_id = Prop.computed __type __id "cluster_id";
        id = Prop.computed __type __id "id";

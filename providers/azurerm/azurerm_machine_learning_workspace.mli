@@ -81,6 +81,7 @@ val yojson_of_azurerm_machine_learning_workspace :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_insights_id : string prop;
   container_registry_id : string prop;
   description : string prop;

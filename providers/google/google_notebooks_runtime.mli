@@ -158,6 +158,7 @@ val yojson_of_google_notebooks_runtime :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   effective_labels : (string * string) list prop;
   health_state : string prop;
   id : string prop;

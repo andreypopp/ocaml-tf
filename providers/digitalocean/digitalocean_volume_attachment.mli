@@ -19,6 +19,7 @@ val yojson_of_digitalocean_volume_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   droplet_id : float prop;
   id : string prop;
   volume_id : string prop;

@@ -488,6 +488,7 @@ let cloudflare_access_identity_provider ?account_id ?id ?zone_id
   { account_id; id; name; type_; zone_id; config; scim_config }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   name : string prop;
@@ -500,6 +501,7 @@ let make ?account_id ?id ?zone_id ?(config = []) ?(scim_config = [])
   let __type = "cloudflare_access_identity_provider" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

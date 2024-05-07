@@ -201,6 +201,7 @@ let azurerm_logz_sub_account ?enabled ?id ?tags ?timeouts
   { enabled; id; logz_monitor_id; name; tags; timeouts; user }
 
 type t = {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   logz_monitor_id : string prop;
@@ -213,6 +214,7 @@ let make ?enabled ?id ?tags ?timeouts ~logz_monitor_id ~name ~user
   let __type = "azurerm_logz_sub_account" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";
        logz_monitor_id = Prop.computed __type __id "logz_monitor_id";

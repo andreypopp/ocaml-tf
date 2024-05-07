@@ -1582,6 +1582,7 @@ let azurerm_hdinsight_hbase_cluster ?id ?tags ?tls_min_version
   }
 
 type t = {
+  tf_name : string;
   cluster_version : string prop;
   https_endpoint : string prop;
   id : string prop;
@@ -1603,6 +1604,7 @@ let make ?id ?tags ?tls_min_version ?(compute_isolation = [])
   let __type = "azurerm_hdinsight_hbase_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_version = Prop.computed __type __id "cluster_version";
        https_endpoint = Prop.computed __type __id "https_endpoint";
        id = Prop.computed __type __id "id";

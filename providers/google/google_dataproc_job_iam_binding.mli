@@ -32,6 +32,7 @@ val yojson_of_google_dataproc_job_iam_binding :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   job_id : string prop;

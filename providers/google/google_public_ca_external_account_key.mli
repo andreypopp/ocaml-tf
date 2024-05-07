@@ -25,6 +25,7 @@ val yojson_of_google_public_ca_external_account_key :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   b64_mac_key : string prop;
   id : string prop;
   key_id : string prop;

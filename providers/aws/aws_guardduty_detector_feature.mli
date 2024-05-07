@@ -29,6 +29,7 @@ val yojson_of_aws_guardduty_detector_feature :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   detector_id : string prop;
   id : string prop;
   name : string prop;

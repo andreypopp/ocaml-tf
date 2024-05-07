@@ -372,6 +372,7 @@ let azurerm_chaos_studio_experiment ?id ?(identity = []) ?timeouts
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   name : string prop;
@@ -383,6 +384,7 @@ let make ?id ?(identity = []) ?timeouts ~location ~name
   let __type = "azurerm_chaos_studio_experiment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        name = Prop.computed __type __id "name";

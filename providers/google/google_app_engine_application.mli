@@ -50,6 +50,7 @@ val yojson_of_google_app_engine_application :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_id : string prop;
   auth_domain : string prop;
   code_bucket : string prop;

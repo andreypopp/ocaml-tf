@@ -23,6 +23,7 @@ val yojson_of_digitalocean_spaces_bucket_objects :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bucket : string prop;
   common_prefixes : string list prop;
   delimiter : string prop;

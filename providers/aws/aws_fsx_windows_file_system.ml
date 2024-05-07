@@ -538,6 +538,7 @@ let aws_fsx_windows_file_system ?active_directory_id ?aliases
   }
 
 type t = {
+  tf_name : string;
   active_directory_id : string prop;
   aliases : string list prop;
   arn : string prop;
@@ -578,6 +579,7 @@ let make ?active_directory_id ?aliases
   let __type = "aws_fsx_windows_file_system" in
   let __attrs =
     ({
+       tf_name = __id;
        active_directory_id =
          Prop.computed __type __id "active_directory_id";
        aliases = Prop.computed __type __id "aliases";

@@ -62,6 +62,7 @@ let cloudflare_api_shield_operation ?id ~endpoint ~host ~method_
   { endpoint; host; id; method_; zone_id }
 
 type t = {
+  tf_name : string;
   endpoint : string prop;
   host : string prop;
   id : string prop;
@@ -73,6 +74,7 @@ let make ?id ~endpoint ~host ~method_ ~zone_id __id =
   let __type = "cloudflare_api_shield_operation" in
   let __attrs =
     ({
+       tf_name = __id;
        endpoint = Prop.computed __type __id "endpoint";
        host = Prop.computed __type __id "host";
        id = Prop.computed __type __id "id";

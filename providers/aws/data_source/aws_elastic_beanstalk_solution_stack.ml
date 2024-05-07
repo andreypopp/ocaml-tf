@@ -54,6 +54,7 @@ let aws_elastic_beanstalk_solution_stack ?id ?most_recent ~name_regex
   { id; most_recent; name_regex }
 
 type t = {
+  tf_name : string;
   id : string prop;
   most_recent : bool prop;
   name : string prop;
@@ -64,6 +65,7 @@ let make ?id ?most_recent ~name_regex __id =
   let __type = "aws_elastic_beanstalk_solution_stack" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        most_recent = Prop.computed __type __id "most_recent";
        name = Prop.computed __type __id "name";

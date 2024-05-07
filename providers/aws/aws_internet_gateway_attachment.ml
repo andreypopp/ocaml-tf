@@ -98,6 +98,7 @@ let aws_internet_gateway_attachment ?id ?timeouts
   { id; internet_gateway_id; vpc_id; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   internet_gateway_id : string prop;
   vpc_id : string prop;
@@ -107,6 +108,7 @@ let make ?id ?timeouts ~internet_gateway_id ~vpc_id __id =
   let __type = "aws_internet_gateway_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        internet_gateway_id =
          Prop.computed __type __id "internet_gateway_id";

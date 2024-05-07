@@ -77,6 +77,7 @@ val yojson_of_aws_cloudtrail : aws_cloudtrail -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   cloud_watch_logs_group_arn : string prop;
   cloud_watch_logs_role_arn : string prop;

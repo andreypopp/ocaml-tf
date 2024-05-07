@@ -21,6 +21,7 @@ val yojson_of_aws_key_pair : aws_key_pair -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   fingerprint : string prop;
   id : string prop;

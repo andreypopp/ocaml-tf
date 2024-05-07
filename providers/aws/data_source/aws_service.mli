@@ -21,6 +21,7 @@ val yojson_of_aws_service : aws_service -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   dns_name : string prop;
   id : string prop;
   partition : string prop;

@@ -69,6 +69,7 @@ let aws_rds_clusters ?id ~filter () : aws_rds_clusters =
   { id; filter }
 
 type t = {
+  tf_name : string;
   cluster_arns : string list prop;
   cluster_identifiers : string list prop;
   id : string prop;
@@ -78,6 +79,7 @@ let make ?id ~filter __id =
   let __type = "aws_rds_clusters" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_arns = Prop.computed __type __id "cluster_arns";
        cluster_identifiers =
          Prop.computed __type __id "cluster_identifiers";

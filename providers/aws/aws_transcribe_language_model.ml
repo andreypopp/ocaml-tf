@@ -195,6 +195,7 @@ let aws_transcribe_language_model ?id ?tags ?tags_all ?timeouts
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   base_model_name : string prop;
   id : string prop;
@@ -209,6 +210,7 @@ let make ?id ?tags ?tags_all ?timeouts ~base_model_name
   let __type = "aws_transcribe_language_model" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        base_model_name = Prop.computed __type __id "base_model_name";
        id = Prop.computed __type __id "id";

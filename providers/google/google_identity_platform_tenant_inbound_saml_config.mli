@@ -63,6 +63,7 @@ val yojson_of_google_identity_platform_tenant_inbound_saml_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   display_name : string prop;
   enabled : bool prop;
   id : string prop;

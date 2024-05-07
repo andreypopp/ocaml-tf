@@ -275,6 +275,7 @@ let google_container_analysis_note ?expiration_time ?id
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   expiration_time : string prop;
   id : string prop;
@@ -293,6 +294,7 @@ let make ?expiration_time ?id ?long_description ?project
   let __type = "google_container_analysis_note" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        expiration_time = Prop.computed __type __id "expiration_time";
        id = Prop.computed __type __id "id";

@@ -18,6 +18,7 @@ val yojson_of_aws_lex_bot : aws_lex_bot -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   checksum : string prop;
   child_directed : bool prop;

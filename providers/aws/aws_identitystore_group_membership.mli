@@ -20,6 +20,7 @@ val yojson_of_aws_identitystore_group_membership :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   group_id : string prop;
   id : string prop;
   identity_store_id : string prop;

@@ -229,6 +229,7 @@ let aws_vpc_peering_connection_accepter ?auto_accept ?id ?tags
   }
 
 type t = {
+  tf_name : string;
   accept_status : string prop;
   auto_accept : bool prop;
   id : string prop;
@@ -246,6 +247,7 @@ let make ?auto_accept ?id ?tags ?tags_all ?(accepter = [])
   let __type = "aws_vpc_peering_connection_accepter" in
   let __attrs =
     ({
+       tf_name = __id;
        accept_status = Prop.computed __type __id "accept_status";
        auto_accept = Prop.computed __type __id "auto_accept";
        id = Prop.computed __type __id "id";

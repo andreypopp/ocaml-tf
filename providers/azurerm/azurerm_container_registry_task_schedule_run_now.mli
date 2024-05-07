@@ -28,6 +28,7 @@ val yojson_of_azurerm_container_registry_task_schedule_run_now :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   container_registry_task_id : string prop;
   id : string prop;
 }

@@ -24,6 +24,7 @@ val yojson_of_aws_ssoadmin_principal_application_assignments :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   instance_arn : string prop;
   principal_id : string prop;

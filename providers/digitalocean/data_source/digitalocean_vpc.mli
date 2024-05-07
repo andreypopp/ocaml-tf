@@ -18,6 +18,7 @@ val yojson_of_digitalocean_vpc : digitalocean_vpc -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created_at : string prop;
   default : bool prop;
   description : string prop;

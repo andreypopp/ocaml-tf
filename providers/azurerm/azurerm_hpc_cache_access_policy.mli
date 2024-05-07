@@ -45,6 +45,7 @@ val yojson_of_azurerm_hpc_cache_access_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   hpc_cache_id : string prop;
   id : string prop;
   name : string prop;

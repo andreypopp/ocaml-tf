@@ -31,6 +31,7 @@ val yojson_of_azurerm_monitor_private_link_scoped_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   linked_resource_id : string prop;
   name : string prop;

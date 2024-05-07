@@ -53,6 +53,7 @@ val yojson_of_digitalocean_firewall : digitalocean_firewall -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   created_at : string prop;
   droplet_ids : float list prop;
   id : string prop;

@@ -274,6 +274,7 @@ let azurerm_network_manager ?description ?id ?tags ?timeouts
   }
 
 type t = {
+  tf_name : string;
   cross_tenant_scopes : cross_tenant_scopes list prop;
   description : string prop;
   id : string prop;
@@ -289,6 +290,7 @@ let make ?description ?id ?tags ?timeouts ~location ~name
   let __type = "azurerm_network_manager" in
   let __attrs =
     ({
+       tf_name = __id;
        cross_tenant_scopes =
          Prop.computed __type __id "cross_tenant_scopes";
        description = Prop.computed __type __id "description";

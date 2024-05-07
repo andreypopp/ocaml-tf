@@ -18,6 +18,7 @@ val yojson_of_aws_msk_bootstrap_brokers :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   bootstrap_brokers : string prop;
   bootstrap_brokers_public_sasl_iam : string prop;
   bootstrap_brokers_public_sasl_scram : string prop;

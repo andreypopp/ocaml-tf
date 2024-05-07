@@ -193,6 +193,7 @@ val yojson_of_google_dataproc_job : google_dataproc_job -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   driver_controls_files_uri : string prop;
   driver_output_resource_uri : string prop;
   effective_labels : (string * string) list prop;

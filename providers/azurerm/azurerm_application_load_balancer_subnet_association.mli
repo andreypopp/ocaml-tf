@@ -32,6 +32,7 @@ val yojson_of_azurerm_application_load_balancer_subnet_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   application_load_balancer_id : string prop;
   id : string prop;
   name : string prop;

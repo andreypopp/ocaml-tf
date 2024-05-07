@@ -113,6 +113,7 @@ val yojson_of_azurerm_kubernetes_flux_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_id : string prop;
   continuous_reconciliation_enabled : bool prop;
   id : string prop;

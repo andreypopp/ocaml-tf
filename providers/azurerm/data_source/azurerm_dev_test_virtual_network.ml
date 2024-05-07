@@ -197,6 +197,7 @@ let azurerm_dev_test_virtual_network ?id ?timeouts ~lab_name ~name
   { id; lab_name; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   allowed_subnets : allowed_subnets list prop;
   id : string prop;
   lab_name : string prop;
@@ -210,6 +211,7 @@ let make ?id ?timeouts ~lab_name ~name ~resource_group_name __id =
   let __type = "azurerm_dev_test_virtual_network" in
   let __attrs =
     ({
+       tf_name = __id;
        allowed_subnets = Prop.computed __type __id "allowed_subnets";
        id = Prop.computed __type __id "id";
        lab_name = Prop.computed __type __id "lab_name";

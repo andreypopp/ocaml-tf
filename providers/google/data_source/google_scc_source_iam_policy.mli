@@ -19,6 +19,7 @@ val yojson_of_google_scc_source_iam_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   organization : string prop;

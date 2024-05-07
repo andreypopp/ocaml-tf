@@ -22,6 +22,7 @@ val yojson_of_aws_codestarconnections_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   connection_status : string prop;
   host_arn : string prop;

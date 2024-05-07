@@ -71,6 +71,7 @@ let digitalocean_uptime_check ?enabled ?regions ?type_ ~name ~target
   { enabled; name; regions; target; type_ }
 
 type t = {
+  tf_name : string;
   enabled : bool prop;
   id : string prop;
   name : string prop;
@@ -83,6 +84,7 @@ let make ?enabled ?regions ?type_ ~name ~target __id =
   let __type = "digitalocean_uptime_check" in
   let __attrs =
     ({
+       tf_name = __id;
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

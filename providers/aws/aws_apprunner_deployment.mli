@@ -22,6 +22,7 @@ val yojson_of_aws_apprunner_deployment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   operation_id : string prop;
   service_arn : string prop;

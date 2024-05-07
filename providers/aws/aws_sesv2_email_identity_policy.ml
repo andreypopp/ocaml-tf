@@ -58,6 +58,7 @@ let aws_sesv2_email_identity_policy ?id ~email_identity ~policy
   { email_identity; id; policy; policy_name }
 
 type t = {
+  tf_name : string;
   email_identity : string prop;
   id : string prop;
   policy : string prop;
@@ -68,6 +69,7 @@ let make ?id ~email_identity ~policy ~policy_name __id =
   let __type = "aws_sesv2_email_identity_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        email_identity = Prop.computed __type __id "email_identity";
        id = Prop.computed __type __id "id";
        policy = Prop.computed __type __id "policy";

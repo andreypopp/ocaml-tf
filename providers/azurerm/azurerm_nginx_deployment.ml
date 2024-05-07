@@ -443,6 +443,7 @@ let azurerm_nginx_deployment ?automatic_upgrade_channel ?capacity
   }
 
 type t = {
+  tf_name : string;
   automatic_upgrade_channel : string prop;
   capacity : float prop;
   diagnose_support_enabled : bool prop;
@@ -467,6 +468,7 @@ let make ?automatic_upgrade_channel ?capacity
   let __type = "azurerm_nginx_deployment" in
   let __attrs =
     ({
+       tf_name = __id;
        automatic_upgrade_channel =
          Prop.computed __type __id "automatic_upgrade_channel";
        capacity = Prop.computed __type __id "capacity";

@@ -24,6 +24,7 @@ val yojson_of_digitalocean_database_replica :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_id : string prop;
   database : string prop;
   host : string prop;

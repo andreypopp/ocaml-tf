@@ -38,6 +38,7 @@ val yojson_of_aws_codepipeline_webhook :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   authentication : string prop;
   id : string prop;

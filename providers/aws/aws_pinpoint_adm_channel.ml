@@ -67,6 +67,7 @@ let aws_pinpoint_adm_channel ?enabled ?id ~application_id ~client_id
   { application_id; client_id; client_secret; enabled; id }
 
 type t = {
+  tf_name : string;
   application_id : string prop;
   client_id : string prop;
   client_secret : string prop;
@@ -79,6 +80,7 @@ let make ?enabled ?id ~application_id ~client_id ~client_secret __id
   let __type = "aws_pinpoint_adm_channel" in
   let __attrs =
     ({
+       tf_name = __id;
        application_id = Prop.computed __type __id "application_id";
        client_id = Prop.computed __type __id "client_id";
        client_secret = Prop.computed __type __id "client_secret";

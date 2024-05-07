@@ -25,6 +25,7 @@ val yojson_of_google_monitoring_istio_canonical_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   canonical_service : string prop;
   canonical_service_namespace : string prop;
   display_name : string prop;

@@ -291,6 +291,7 @@ let azurerm_vmware_private_cloud ?id ?internet_connection_enabled
   }
 
 type t = {
+  tf_name : string;
   circuit : circuit list prop;
   hcx_cloud_manager_endpoint : string prop;
   id : string prop;
@@ -318,6 +319,7 @@ let make ?id ?internet_connection_enabled ?nsxt_password ?tags
   let __type = "azurerm_vmware_private_cloud" in
   let __attrs =
     ({
+       tf_name = __id;
        circuit = Prop.computed __type __id "circuit";
        hcx_cloud_manager_endpoint =
          Prop.computed __type __id "hcx_cloud_manager_endpoint";

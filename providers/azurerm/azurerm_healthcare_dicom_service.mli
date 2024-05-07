@@ -52,6 +52,7 @@ val yojson_of_azurerm_healthcare_dicom_service :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authentication : authentication list prop;
   id : string prop;
   location : string prop;

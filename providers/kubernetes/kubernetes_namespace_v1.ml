@@ -168,6 +168,7 @@ let kubernetes_namespace_v1 ?id ?wait_for_default_service_account
   { id; wait_for_default_service_account; metadata; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   wait_for_default_service_account : bool prop;
 }
@@ -177,6 +178,7 @@ let make ?id ?wait_for_default_service_account ?timeouts ~metadata
   let __type = "kubernetes_namespace_v1" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        wait_for_default_service_account =
          Prop.computed __type __id "wait_for_default_service_account";

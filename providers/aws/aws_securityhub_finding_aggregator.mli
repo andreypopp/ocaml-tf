@@ -19,6 +19,7 @@ val yojson_of_aws_securityhub_finding_aggregator :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   linking_mode : string prop;
   specified_regions : string list prop;

@@ -166,6 +166,7 @@ let azurerm_express_route_circuit_connection ?address_prefix_ipv6
   }
 
 type t = {
+  tf_name : string;
   address_prefix_ipv4 : string prop;
   address_prefix_ipv6 : string prop;
   authorization_key : string prop;
@@ -180,6 +181,7 @@ let make ?address_prefix_ipv6 ?authorization_key ?id ?timeouts
   let __type = "azurerm_express_route_circuit_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        address_prefix_ipv4 =
          Prop.computed __type __id "address_prefix_ipv4";
        address_prefix_ipv6 =

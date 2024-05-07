@@ -172,6 +172,7 @@ let google_dialogflow_entity_type ?enable_fuzzy_extraction ?id
   }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   enable_fuzzy_extraction : bool prop;
   id : string prop;
@@ -185,6 +186,7 @@ let make ?enable_fuzzy_extraction ?id ?project ?(entities = [])
   let __type = "google_dialogflow_entity_type" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        enable_fuzzy_extraction =
          Prop.computed __type __id "enable_fuzzy_extraction";

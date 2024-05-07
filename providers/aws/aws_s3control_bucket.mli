@@ -20,6 +20,7 @@ val yojson_of_aws_s3control_bucket : aws_s3control_bucket -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   bucket : string prop;
   creation_date : string prop;

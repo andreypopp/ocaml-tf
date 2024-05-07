@@ -22,6 +22,7 @@ val yojson_of_aws_route53_traffic_policy_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   hosted_zone_id : string prop;
   id : string prop;
   name : string prop;

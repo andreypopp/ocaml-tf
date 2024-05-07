@@ -45,6 +45,7 @@ let aws_cloudwatch_event_source ?id ?name_prefix () :
   { id; name_prefix }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   created_by : string prop;
   id : string prop;
@@ -57,6 +58,7 @@ let make ?id ?name_prefix __id =
   let __type = "aws_cloudwatch_event_source" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        created_by = Prop.computed __type __id "created_by";
        id = Prop.computed __type __id "id";

@@ -79,6 +79,7 @@ let aws_ssoadmin_principal_application_assignments
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   instance_arn : string prop;
   principal_id : string prop;
@@ -90,6 +91,7 @@ let make ?(application_assignments = []) ~instance_arn ~principal_id
   let __type = "aws_ssoadmin_principal_application_assignments" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        instance_arn = Prop.computed __type __id "instance_arn";
        principal_id = Prop.computed __type __id "principal_id";

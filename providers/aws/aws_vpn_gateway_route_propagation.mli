@@ -25,6 +25,7 @@ val yojson_of_aws_vpn_gateway_route_propagation :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   route_table_id : string prop;
   vpn_gateway_id : string prop;

@@ -20,6 +20,7 @@ val yojson_of_aws_iam_signing_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_body : string prop;
   certificate_id : string prop;
   id : string prop;

@@ -4741,6 +4741,7 @@ let aws_securityhub_insight ?id ~group_by_attribute ~name ~filters ()
   { group_by_attribute; id; name; filters }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   group_by_attribute : string prop;
   id : string prop;
@@ -4751,6 +4752,7 @@ let make ?id ~group_by_attribute ~name ~filters __id =
   let __type = "aws_securityhub_insight" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        group_by_attribute =
          Prop.computed __type __id "group_by_attribute";

@@ -33,6 +33,7 @@ val yojson_of_kubernetes_node_taint : kubernetes_node_taint -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   field_manager : string prop;
   force : bool prop;
   id : string prop;

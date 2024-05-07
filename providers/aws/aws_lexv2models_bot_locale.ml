@@ -185,6 +185,7 @@ let aws_lexv2models_bot_locale ?description ?name ?timeouts
   }
 
 type t = {
+  tf_name : string;
   bot_id : string prop;
   bot_version : string prop;
   description : string prop;
@@ -199,6 +200,7 @@ let make ?description ?name ?timeouts ?(voice_settings = []) ~bot_id
   let __type = "aws_lexv2models_bot_locale" in
   let __attrs =
     ({
+       tf_name = __id;
        bot_id = Prop.computed __type __id "bot_id";
        bot_version = Prop.computed __type __id "bot_version";
        description = Prop.computed __type __id "description";

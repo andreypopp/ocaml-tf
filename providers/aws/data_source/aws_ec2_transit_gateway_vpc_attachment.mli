@@ -29,6 +29,7 @@ val yojson_of_aws_ec2_transit_gateway_vpc_attachment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   appliance_mode_support : string prop;
   dns_support : string prop;
   id : string prop;

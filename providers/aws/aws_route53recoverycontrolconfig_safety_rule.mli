@@ -33,6 +33,7 @@ val yojson_of_aws_route53recoverycontrolconfig_safety_rule :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   asserted_controls : string list prop;
   control_panel_arn : string prop;

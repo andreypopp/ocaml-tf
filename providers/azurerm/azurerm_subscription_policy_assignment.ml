@@ -498,6 +498,7 @@ let azurerm_subscription_policy_assignment ?description ?display_name
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   enforce : bool prop;
@@ -519,6 +520,7 @@ let make ?description ?display_name ?enforce ?id ?location ?metadata
   let __type = "azurerm_subscription_policy_assignment" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        display_name = Prop.computed __type __id "display_name";
        enforce = Prop.computed __type __id "enforce";

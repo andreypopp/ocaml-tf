@@ -1015,6 +1015,7 @@ let aws_rds_cluster ?allocated_storage ?allow_major_version_upgrade
   }
 
 type t = {
+  tf_name : string;
   allocated_storage : float prop;
   allow_major_version_upgrade : bool prop;
   apply_immediately : bool prop;
@@ -1099,6 +1100,7 @@ let make ?allocated_storage ?allow_major_version_upgrade
   let __type = "aws_rds_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        allocated_storage =
          Prop.computed __type __id "allocated_storage";
        allow_major_version_upgrade =

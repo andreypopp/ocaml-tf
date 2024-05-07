@@ -230,6 +230,7 @@ let azurerm_lab_service_schedule ?id ?notes ?start_time
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   lab_id : string prop;
   name : string prop;
@@ -244,6 +245,7 @@ let make ?id ?notes ?start_time ?(recurrence = []) ?timeouts ~lab_id
   let __type = "azurerm_lab_service_schedule" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        lab_id = Prop.computed __type __id "lab_id";
        name = Prop.computed __type __id "name";

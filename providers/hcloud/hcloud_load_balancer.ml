@@ -201,6 +201,7 @@ let hcloud_load_balancer ?delete_protection ?id ?labels ?location
   }
 
 type t = {
+  tf_name : string;
   delete_protection : bool prop;
   id : string prop;
   ipv4 : string prop;
@@ -219,6 +220,7 @@ let make ?delete_protection ?id ?labels ?location ?network_zone
   let __type = "hcloud_load_balancer" in
   let __attrs =
     ({
+       tf_name = __id;
        delete_protection =
          Prop.computed __type __id "delete_protection";
        id = Prop.computed __type __id "id";

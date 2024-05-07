@@ -116,6 +116,7 @@ val yojson_of_google_container_attached_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   annotations : (string * string) list prop;
   cluster_region : string prop;
   create_time : string prop;

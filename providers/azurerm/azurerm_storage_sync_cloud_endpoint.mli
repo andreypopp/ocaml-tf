@@ -32,6 +32,7 @@ val yojson_of_azurerm_storage_sync_cloud_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   file_share_name : string prop;
   id : string prop;
   name : string prop;

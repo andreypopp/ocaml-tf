@@ -73,6 +73,7 @@ let azurerm_extended_locations ?id ?timeouts ~location () :
   { id; location; timeouts }
 
 type t = {
+  tf_name : string;
   extended_locations : string list prop;
   id : string prop;
   location : string prop;
@@ -82,6 +83,7 @@ let make ?id ?timeouts ~location __id =
   let __type = "azurerm_extended_locations" in
   let __attrs =
     ({
+       tf_name = __id;
        extended_locations =
          Prop.computed __type __id "extended_locations";
        id = Prop.computed __type __id "id";

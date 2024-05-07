@@ -160,6 +160,7 @@ let google_vmwareengine_cluster ?id ?timeouts ~name ~parent
   { id; name; parent; node_type_configs; timeouts }
 
 type t = {
+  tf_name : string;
   id : string prop;
   management : bool prop;
   name : string prop;
@@ -172,6 +173,7 @@ let make ?id ?timeouts ~name ~parent ~node_type_configs __id =
   let __type = "google_vmwareengine_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        management = Prop.computed __type __id "management";
        name = Prop.computed __type __id "name";

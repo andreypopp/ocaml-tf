@@ -33,6 +33,7 @@ val yojson_of_azurerm_network_manager_scope_connection :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   connection_state : string prop;
   description : string prop;
   id : string prop;

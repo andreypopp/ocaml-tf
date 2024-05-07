@@ -325,6 +325,7 @@ let google_vertex_ai_feature_online_store_featureview ?id ?labels
   }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   effective_labels : (string * string) list prop;
   feature_online_store : string prop;
@@ -343,6 +344,7 @@ let make ?id ?labels ?name ?project ?(big_query_source = [])
   let __type = "google_vertex_ai_feature_online_store_featureview" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        effective_labels =
          Prop.computed __type __id "effective_labels";

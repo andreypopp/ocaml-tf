@@ -392,6 +392,7 @@ let aws_imagebuilder_image_pipeline ?container_recipe_arn
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   container_recipe_arn : string prop;
   date_created : string prop;
@@ -420,6 +421,7 @@ let make ?container_recipe_arn ?description
   let __type = "aws_imagebuilder_image_pipeline" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        container_recipe_arn =
          Prop.computed __type __id "container_recipe_arn";

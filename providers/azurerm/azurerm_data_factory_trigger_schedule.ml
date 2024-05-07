@@ -422,6 +422,7 @@ let azurerm_data_factory_trigger_schedule ?activated ?annotations
   }
 
 type t = {
+  tf_name : string;
   activated : bool prop;
   annotations : string list prop;
   data_factory_id : string prop;
@@ -444,6 +445,7 @@ let make ?activated ?annotations ?description ?end_time ?frequency
   let __type = "azurerm_data_factory_trigger_schedule" in
   let __attrs =
     ({
+       tf_name = __id;
        activated = Prop.computed __type __id "activated";
        annotations = Prop.computed __type __id "annotations";
        data_factory_id = Prop.computed __type __id "data_factory_id";

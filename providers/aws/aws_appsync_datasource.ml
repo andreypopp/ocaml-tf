@@ -662,6 +662,7 @@ let aws_appsync_datasource ?description ?id ?service_role_arn
   }
 
 type t = {
+  tf_name : string;
   api_id : string prop;
   arn : string prop;
   description : string prop;
@@ -679,6 +680,7 @@ let make ?description ?id ?service_role_arn ?(dynamodb_config = [])
   let __type = "aws_appsync_datasource" in
   let __attrs =
     ({
+       tf_name = __id;
        api_id = Prop.computed __type __id "api_id";
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";

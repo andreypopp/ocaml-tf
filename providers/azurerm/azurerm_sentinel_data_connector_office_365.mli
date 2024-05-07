@@ -34,6 +34,7 @@ val yojson_of_azurerm_sentinel_data_connector_office_365 :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   exchange_enabled : bool prop;
   id : string prop;
   log_analytics_workspace_id : string prop;

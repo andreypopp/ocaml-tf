@@ -65,6 +65,7 @@ let google_dataproc_metastore_service_iam_policy ?id ?location
   { id; location; project; service_id }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   location : string prop;
@@ -77,6 +78,7 @@ let make ?id ?location ?project ~service_id __id =
   let __type = "google_dataproc_metastore_service_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

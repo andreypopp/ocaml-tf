@@ -83,12 +83,18 @@ let aws_wafregional_ipset ?id ~name ~ip_set_descriptor () :
     aws_wafregional_ipset =
   { id; name; ip_set_descriptor }
 
-type t = { arn : string prop; id : string prop; name : string prop }
+type t = {
+  tf_name : string;
+  arn : string prop;
+  id : string prop;
+  name : string prop;
+}
 
 let make ?id ~name ~ip_set_descriptor __id =
   let __type = "aws_wafregional_ipset" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

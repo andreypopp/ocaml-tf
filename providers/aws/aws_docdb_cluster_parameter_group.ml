@@ -171,6 +171,7 @@ let aws_docdb_cluster_parameter_group ?description ?id ?name
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   family : string prop;
@@ -186,6 +187,7 @@ let make ?description ?id ?name ?name_prefix ?tags ?tags_all ~family
   let __type = "aws_docdb_cluster_parameter_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        family = Prop.computed __type __id "family";

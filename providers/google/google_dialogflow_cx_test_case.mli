@@ -235,6 +235,7 @@ val yojson_of_google_dialogflow_cx_test_case :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   creation_time : string prop;
   display_name : string prop;
   id : string prop;

@@ -86,6 +86,7 @@ let aws_db_instances ?id ?tags ~filter () : aws_db_instances =
   { id; tags; filter }
 
 type t = {
+  tf_name : string;
   id : string prop;
   instance_arns : string list prop;
   instance_identifiers : string list prop;
@@ -96,6 +97,7 @@ let make ?id ?tags ~filter __id =
   let __type = "aws_db_instances" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        instance_arns = Prop.computed __type __id "instance_arns";
        instance_identifiers =

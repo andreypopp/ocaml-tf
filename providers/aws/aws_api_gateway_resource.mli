@@ -20,6 +20,7 @@ val yojson_of_aws_api_gateway_resource :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   parent_id : string prop;
   path : string prop;

@@ -208,6 +208,7 @@ let aws_api_gateway_method_settings ?id ~method_path ~rest_api_id
   { id; method_path; rest_api_id; stage_name; settings }
 
 type t = {
+  tf_name : string;
   id : string prop;
   method_path : string prop;
   rest_api_id : string prop;
@@ -218,6 +219,7 @@ let make ?id ~method_path ~rest_api_id ~stage_name ~settings __id =
   let __type = "aws_api_gateway_method_settings" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        method_path = Prop.computed __type __id "method_path";
        rest_api_id = Prop.computed __type __id "rest_api_id";

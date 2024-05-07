@@ -58,6 +58,7 @@ let aws_service_discovery_http_namespace ?id ?tags ~name () :
   { id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   http_name : string prop;
@@ -70,6 +71,7 @@ let make ?id ?tags ~name __id =
   let __type = "aws_service_discovery_http_namespace" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        http_name = Prop.computed __type __id "http_name";

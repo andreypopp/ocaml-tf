@@ -176,6 +176,7 @@ let aws_dynamodb_table_replica ?id ?kms_key_arn
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   global_table_arn : string prop;
   id : string prop;
@@ -192,6 +193,7 @@ let make ?id ?kms_key_arn ?point_in_time_recovery
   let __type = "aws_dynamodb_table_replica" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        global_table_arn =
          Prop.computed __type __id "global_table_arn";

@@ -118,6 +118,7 @@ let azurerm_static_site_custom_domain ?id ?validation_type ?timeouts
   { domain_name; id; static_site_id; validation_type; timeouts }
 
 type t = {
+  tf_name : string;
   domain_name : string prop;
   id : string prop;
   static_site_id : string prop;
@@ -130,6 +131,7 @@ let make ?id ?validation_type ?timeouts ~domain_name ~static_site_id
   let __type = "azurerm_static_site_custom_domain" in
   let __attrs =
     ({
+       tf_name = __id;
        domain_name = Prop.computed __type __id "domain_name";
        id = Prop.computed __type __id "id";
        static_site_id = Prop.computed __type __id "static_site_id";

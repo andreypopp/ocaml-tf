@@ -282,6 +282,7 @@ let aws_s3_bucket_notification ?eventbridge ?id
   { bucket; eventbridge; id; lambda_function; queue; topic }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   eventbridge : bool prop;
   id : string prop;
@@ -292,6 +293,7 @@ let make ?eventbridge ?id ?(lambda_function = []) ?(queue = [])
   let __type = "aws_s3_bucket_notification" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        eventbridge = Prop.computed __type __id "eventbridge";
        id = Prop.computed __type __id "id";

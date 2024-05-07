@@ -52,6 +52,7 @@ let digitalocean_vpc ?id ?name ?region () : digitalocean_vpc =
   { id; name; region }
 
 type t = {
+  tf_name : string;
   created_at : string prop;
   default : bool prop;
   description : string prop;
@@ -66,6 +67,7 @@ let make ?id ?name ?region __id =
   let __type = "digitalocean_vpc" in
   let __attrs =
     ({
+       tf_name = __id;
        created_at = Prop.computed __type __id "created_at";
        default = Prop.computed __type __id "default";
        description = Prop.computed __type __id "description";

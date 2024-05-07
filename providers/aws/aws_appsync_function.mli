@@ -49,6 +49,7 @@ val yojson_of_aws_appsync_function : aws_appsync_function -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_id : string prop;
   arn : string prop;
   code : string prop;

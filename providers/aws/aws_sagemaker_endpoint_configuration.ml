@@ -1155,6 +1155,7 @@ let aws_sagemaker_endpoint_configuration ?id ?kms_key_arn ?name
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   kms_key_arn : string prop;
@@ -1170,6 +1171,7 @@ let make ?id ?kms_key_arn ?name ?name_prefix ?tags ?tags_all
   let __type = "aws_sagemaker_endpoint_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        kms_key_arn = Prop.computed __type __id "kms_key_arn";

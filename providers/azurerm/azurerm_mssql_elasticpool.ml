@@ -330,6 +330,7 @@ let azurerm_mssql_elasticpool ?enclave_type ?id ?license_type
   }
 
 type t = {
+  tf_name : string;
   enclave_type : string prop;
   id : string prop;
   license_type : string prop;
@@ -352,6 +353,7 @@ let make ?enclave_type ?id ?license_type
   let __type = "azurerm_mssql_elasticpool" in
   let __attrs =
     ({
+       tf_name = __id;
        enclave_type = Prop.computed __type __id "enclave_type";
        id = Prop.computed __type __id "id";
        license_type = Prop.computed __type __id "license_type";

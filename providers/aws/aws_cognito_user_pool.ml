@@ -1466,6 +1466,7 @@ let aws_cognito_user_pool ?alias_attributes ?auto_verified_attributes
   }
 
 type t = {
+  tf_name : string;
   alias_attributes : string list prop;
   arn : string prop;
   auto_verified_attributes : string list prop;
@@ -1503,6 +1504,7 @@ let make ?alias_attributes ?auto_verified_attributes
   let __type = "aws_cognito_user_pool" in
   let __attrs =
     ({
+       tf_name = __id;
        alias_attributes =
          Prop.computed __type __id "alias_attributes";
        arn = Prop.computed __type __id "arn";

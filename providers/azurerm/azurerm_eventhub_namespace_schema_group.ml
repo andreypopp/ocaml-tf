@@ -127,6 +127,7 @@ let azurerm_eventhub_namespace_schema_group ?id ?timeouts ~name
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   namespace_id : string prop;
@@ -139,6 +140,7 @@ let make ?id ?timeouts ~name ~namespace_id ~schema_compatibility
   let __type = "azurerm_eventhub_namespace_schema_group" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        namespace_id = Prop.computed __type __id "namespace_id";

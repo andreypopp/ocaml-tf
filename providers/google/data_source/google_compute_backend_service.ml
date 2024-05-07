@@ -937,6 +937,7 @@ let google_compute_backend_service ?id ?project ~name () :
   { id; name; project }
 
 type t = {
+  tf_name : string;
   affinity_cookie_ttl_sec : float prop;
   backend : backend list prop;
   cdn_policy : cdn_policy list prop;
@@ -975,6 +976,7 @@ let make ?id ?project ~name __id =
   let __type = "google_compute_backend_service" in
   let __attrs =
     ({
+       tf_name = __id;
        affinity_cookie_ttl_sec =
          Prop.computed __type __id "affinity_cookie_ttl_sec";
        backend = Prop.computed __type __id "backend";

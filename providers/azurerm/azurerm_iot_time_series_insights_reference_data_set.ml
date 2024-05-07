@@ -209,6 +209,7 @@ let azurerm_iot_time_series_insights_reference_data_set
   }
 
 type t = {
+  tf_name : string;
   data_string_comparison_behavior : string prop;
   id : string prop;
   location : string prop;
@@ -225,6 +226,7 @@ let make ?data_string_comparison_behavior ?id ?tags ?timeouts
   in
   let __attrs =
     ({
+       tf_name = __id;
        data_string_comparison_behavior =
          Prop.computed __type __id "data_string_comparison_behavior";
        id = Prop.computed __type __id "id";

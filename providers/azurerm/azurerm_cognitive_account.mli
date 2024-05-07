@@ -92,6 +92,7 @@ val yojson_of_azurerm_cognitive_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   custom_question_answering_search_service_id : string prop;
   custom_question_answering_search_service_key : string prop;
   custom_subdomain_name : string prop;

@@ -246,6 +246,7 @@ let azurerm_kusto_eventhub_data_connection ?compression ?data_format
   }
 
 type t = {
+  tf_name : string;
   cluster_name : string prop;
   compression : string prop;
   consumer_group : string prop;
@@ -271,6 +272,7 @@ let make ?compression ?data_format ?database_routing_type
   let __type = "azurerm_kusto_eventhub_data_connection" in
   let __attrs =
     ({
+       tf_name = __id;
        cluster_name = Prop.computed __type __id "cluster_name";
        compression = Prop.computed __type __id "compression";
        consumer_group = Prop.computed __type __id "consumer_group";

@@ -42,6 +42,7 @@ val yojson_of_aws_cloudhsm_v2_cluster :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_certificates : cluster_certificates list prop;
   cluster_id : string prop;
   cluster_state : string prop;

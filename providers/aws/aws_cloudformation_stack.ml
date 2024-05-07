@@ -276,6 +276,7 @@ let aws_cloudformation_stack ?capabilities ?disable_rollback
   }
 
 type t = {
+  tf_name : string;
   capabilities : string list prop;
   disable_rollback : bool prop;
   iam_role_arn : string prop;
@@ -301,6 +302,7 @@ let make ?capabilities ?disable_rollback ?iam_role_arn ?id
   let __type = "aws_cloudformation_stack" in
   let __attrs =
     ({
+       tf_name = __id;
        capabilities = Prop.computed __type __id "capabilities";
        disable_rollback =
          Prop.computed __type __id "disable_rollback";

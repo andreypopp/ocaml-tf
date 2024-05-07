@@ -105,6 +105,7 @@ let google_kms_crypto_key ?id ~key_ring ~name () :
   { id; key_ring; name }
 
 type t = {
+  tf_name : string;
   destroy_scheduled_duration : string prop;
   effective_labels : (string * string) list prop;
   id : string prop;
@@ -124,6 +125,7 @@ let make ?id ~key_ring ~name __id =
   let __type = "google_kms_crypto_key" in
   let __attrs =
     ({
+       tf_name = __id;
        destroy_scheduled_duration =
          Prop.computed __type __id "destroy_scheduled_duration";
        effective_labels =

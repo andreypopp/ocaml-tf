@@ -32,6 +32,7 @@ val yojson_of_aws_vpn_gateway : aws_vpn_gateway -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   amazon_side_asn : string prop;
   arn : string prop;
   attached_vpc_id : string prop;

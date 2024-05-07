@@ -42,6 +42,7 @@ val yojson_of_azurerm_lb_backend_address_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backend_ip_configurations : string list prop;
   id : string prop;
   inbound_nat_rules : string list prop;

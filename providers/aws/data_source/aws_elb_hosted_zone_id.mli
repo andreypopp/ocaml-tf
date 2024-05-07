@@ -16,7 +16,11 @@ val yojson_of_aws_elb_hosted_zone_id : aws_elb_hosted_zone_id -> json
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; region : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  region : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

@@ -94,6 +94,7 @@ let azurerm_network_service_tags ?id ?location_filter ?timeouts
   { id; location; location_filter; service; timeouts }
 
 type t = {
+  tf_name : string;
   address_prefixes : string list prop;
   id : string prop;
   ipv4_cidrs : string list prop;
@@ -108,6 +109,7 @@ let make ?id ?location_filter ?timeouts ~location ~service __id =
   let __type = "azurerm_network_service_tags" in
   let __attrs =
     ({
+       tf_name = __id;
        address_prefixes =
          Prop.computed __type __id "address_prefixes";
        id = Prop.computed __type __id "id";

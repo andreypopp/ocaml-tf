@@ -14,6 +14,7 @@ val yojson_of_aws_caller_identity : aws_caller_identity -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   arn : string prop;
   id : string prop;

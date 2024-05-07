@@ -34,6 +34,7 @@ val yojson_of_aws_connect_user : aws_connect_user -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   directory_user_id : string prop;
   hierarchy_group_id : string prop;

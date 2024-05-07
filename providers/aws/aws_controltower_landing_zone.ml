@@ -163,6 +163,7 @@ let aws_controltower_landing_zone ?id ?tags ?tags_all ?timeouts
   { id; manifest_json; tags; tags_all; version; timeouts }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   drift_status : drift_status list prop;
   id : string prop;
@@ -177,6 +178,7 @@ let make ?id ?tags ?tags_all ?timeouts ~manifest_json ~version __id =
   let __type = "aws_controltower_landing_zone" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        drift_status = Prop.computed __type __id "drift_status";
        id = Prop.computed __type __id "id";

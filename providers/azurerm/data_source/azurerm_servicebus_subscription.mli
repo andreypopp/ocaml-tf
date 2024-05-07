@@ -27,6 +27,7 @@ val yojson_of_azurerm_servicebus_subscription :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   auto_delete_on_idle : string prop;
   dead_lettering_on_filter_evaluation_error : bool prop;
   dead_lettering_on_message_expiration : bool prop;

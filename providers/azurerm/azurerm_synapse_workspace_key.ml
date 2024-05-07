@@ -150,6 +150,7 @@ let azurerm_synapse_workspace_key
   }
 
 type t = {
+  tf_name : string;
   active : bool prop;
   customer_managed_key_name : string prop;
   customer_managed_key_versionless_id : string prop;
@@ -162,6 +163,7 @@ let make ?customer_managed_key_versionless_id ?id ?timeouts ~active
   let __type = "azurerm_synapse_workspace_key" in
   let __attrs =
     ({
+       tf_name = __id;
        active = Prop.computed __type __id "active";
        customer_managed_key_name =
          Prop.computed __type __id "customer_managed_key_name";

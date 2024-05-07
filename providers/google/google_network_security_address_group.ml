@@ -179,6 +179,7 @@ let google_network_security_address_group ?description ?id ?items
   }
 
 type t = {
+  tf_name : string;
   capacity : float prop;
   create_time : string prop;
   description : string prop;
@@ -199,6 +200,7 @@ let make ?description ?id ?items ?labels ?parent ?timeouts ~capacity
   let __type = "google_network_security_address_group" in
   let __attrs =
     ({
+       tf_name = __id;
        capacity = Prop.computed __type __id "capacity";
        create_time = Prop.computed __type __id "create_time";
        description = Prop.computed __type __id "description";

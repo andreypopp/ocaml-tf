@@ -66,6 +66,7 @@ let cloudflare_logpush_ownership_challenge ?account_id ?id ?zone_id
   { account_id; destination_conf; id; zone_id }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   destination_conf : string prop;
   id : string prop;
@@ -77,6 +78,7 @@ let make ?account_id ?id ?zone_id ~destination_conf __id =
   let __type = "cloudflare_logpush_ownership_challenge" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        destination_conf =
          Prop.computed __type __id "destination_conf";

@@ -43,6 +43,7 @@ let google_service_account_iam_policy ?id ~service_account_id () :
   { id; service_account_id }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   policy_data : string prop;
@@ -53,6 +54,7 @@ let make ?id ~service_account_id __id =
   let __type = "google_service_account_iam_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        policy_data = Prop.computed __type __id "policy_data";

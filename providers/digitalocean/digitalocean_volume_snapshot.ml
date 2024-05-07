@@ -62,6 +62,7 @@ let digitalocean_volume_snapshot ?id ?tags ~name ~volume_id () :
   { id; name; tags; volume_id }
 
 type t = {
+  tf_name : string;
   created_at : string prop;
   id : string prop;
   min_disk_size : float prop;
@@ -76,6 +77,7 @@ let make ?id ?tags ~name ~volume_id __id =
   let __type = "digitalocean_volume_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        created_at = Prop.computed __type __id "created_at";
        id = Prop.computed __type __id "id";
        min_disk_size = Prop.computed __type __id "min_disk_size";

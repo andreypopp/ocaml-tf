@@ -139,6 +139,7 @@ let aws_batch_scheduling_policy ?id ?tags ~arn () :
   { arn; id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   fair_share_policy : fair_share_policy list prop;
   id : string prop;
@@ -150,6 +151,7 @@ let make ?id ?tags ~arn __id =
   let __type = "aws_batch_scheduling_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        fair_share_policy =
          Prop.computed __type __id "fair_share_policy";

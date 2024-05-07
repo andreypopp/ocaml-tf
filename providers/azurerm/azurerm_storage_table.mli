@@ -47,6 +47,7 @@ val yojson_of_azurerm_storage_table : azurerm_storage_table -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   storage_account_name : string prop;

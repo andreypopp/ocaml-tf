@@ -28,6 +28,7 @@ val yojson_of_azurerm_web_pubsub_private_link_resource :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   shared_private_link_resource_types :
     shared_private_link_resource_types list prop;

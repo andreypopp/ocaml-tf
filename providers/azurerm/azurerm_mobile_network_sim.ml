@@ -251,6 +251,7 @@ let azurerm_mobile_network_sim ?device_type ?id ?sim_policy_id
   }
 
 type t = {
+  tf_name : string;
   authentication_key : string prop;
   device_type : string prop;
   id : string prop;
@@ -273,6 +274,7 @@ let make ?device_type ?id ?sim_policy_id
   let __type = "azurerm_mobile_network_sim" in
   let __attrs =
     ({
+       tf_name = __id;
        authentication_key =
          Prop.computed __type __id "authentication_key";
        device_type = Prop.computed __type __id "device_type";

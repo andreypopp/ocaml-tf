@@ -137,6 +137,7 @@ let azurerm_postgresql_flexible_server_firewall_rule ?id ?timeouts
   { end_ip_address; id; name; server_id; start_ip_address; timeouts }
 
 type t = {
+  tf_name : string;
   end_ip_address : string prop;
   id : string prop;
   name : string prop;
@@ -149,6 +150,7 @@ let make ?id ?timeouts ~end_ip_address ~name ~server_id
   let __type = "azurerm_postgresql_flexible_server_firewall_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        end_ip_address = Prop.computed __type __id "end_ip_address";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

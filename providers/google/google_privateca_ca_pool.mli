@@ -219,6 +219,7 @@ val yojson_of_google_privateca_ca_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   effective_labels : (string * string) list prop;
   id : string prop;
   labels : (string * string) list prop;

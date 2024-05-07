@@ -226,6 +226,7 @@ let aws_iam_role ?description ?force_detach_policies ?id
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   assume_role_policy : string prop;
   create_date : string prop;
@@ -250,6 +251,7 @@ let make ?description ?force_detach_policies ?id ?managed_policy_arns
   let __type = "aws_iam_role" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        assume_role_policy =
          Prop.computed __type __id "assume_role_policy";

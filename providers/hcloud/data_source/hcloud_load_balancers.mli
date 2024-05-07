@@ -80,6 +80,7 @@ val yojson_of_hcloud_load_balancers : hcloud_load_balancers -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   load_balancers : load_balancers list prop;
   with_selector : string prop;

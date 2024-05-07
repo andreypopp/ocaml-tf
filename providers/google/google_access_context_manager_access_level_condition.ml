@@ -391,6 +391,7 @@ let google_access_context_manager_access_level_condition ?id
   }
 
 type t = {
+  tf_name : string;
   access_level : string prop;
   id : string prop;
   ip_subnetworks : string list prop;
@@ -408,6 +409,7 @@ let make ?id ?ip_subnetworks ?members ?negate ?regions
   in
   let __attrs =
     ({
+       tf_name = __id;
        access_level = Prop.computed __type __id "access_level";
        id = Prop.computed __type __id "id";
        ip_subnetworks = Prop.computed __type __id "ip_subnetworks";

@@ -24,6 +24,7 @@ val yojson_of_azurerm_billing_mpa_account_scope :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   billing_account_name : string prop;
   customer_name : string prop;
   id : string prop;

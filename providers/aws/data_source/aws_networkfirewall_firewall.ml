@@ -367,6 +367,7 @@ let aws_networkfirewall_firewall ?arn ?id ?name ?tags () :
   { arn; id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   delete_protection : bool prop;
   description : string prop;
@@ -387,6 +388,7 @@ let make ?arn ?id ?name ?tags __id =
   let __type = "aws_networkfirewall_firewall" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        delete_protection =
          Prop.computed __type __id "delete_protection";

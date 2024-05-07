@@ -21,6 +21,7 @@ val yojson_of_aws_redshift_endpoint_authorization :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account : string prop;
   allowed_all_vpcs : bool prop;
   cluster_identifier : string prop;

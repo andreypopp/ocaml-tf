@@ -85,6 +85,7 @@ let azurerm_eventgrid_topic ?id ?timeouts ~name ~resource_group_name
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   endpoint : string prop;
   id : string prop;
   location : string prop;
@@ -99,6 +100,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_eventgrid_topic" in
   let __attrs =
     ({
+       tf_name = __id;
        endpoint = Prop.computed __type __id "endpoint";
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";

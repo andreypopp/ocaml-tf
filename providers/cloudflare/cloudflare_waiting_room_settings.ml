@@ -55,6 +55,7 @@ let cloudflare_waiting_room_settings ?id
   { id; search_engine_crawler_bypass; zone_id }
 
 type t = {
+  tf_name : string;
   id : string prop;
   search_engine_crawler_bypass : bool prop;
   zone_id : string prop;
@@ -64,6 +65,7 @@ let make ?id ?search_engine_crawler_bypass ~zone_id __id =
   let __type = "cloudflare_waiting_room_settings" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        search_engine_crawler_bypass =
          Prop.computed __type __id "search_engine_crawler_bypass";

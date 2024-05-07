@@ -24,6 +24,7 @@ val yojson_of_azurerm_cdn_frontdoor_firewall_policy :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   enabled : bool prop;
   frontend_endpoint_ids : string list prop;
   id : string prop;

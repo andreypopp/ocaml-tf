@@ -200,6 +200,7 @@ let aws_ssoadmin_trusted_token_issuer ?client_token ?tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   client_token : string prop;
   id : string prop;
@@ -216,6 +217,7 @@ let make ?client_token ?tags
   let __type = "aws_ssoadmin_trusted_token_issuer" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        client_token = Prop.computed __type __id "client_token";
        id = Prop.computed __type __id "id";

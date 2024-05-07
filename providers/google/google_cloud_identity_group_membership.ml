@@ -211,6 +211,7 @@ let google_cloud_identity_group_membership ?id
   { group; id; preferred_member_key; roles; timeouts }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   group : string prop;
   id : string prop;
@@ -224,6 +225,7 @@ let make ?id ?(preferred_member_key = []) ?timeouts ~group ~roles
   let __type = "google_cloud_identity_group_membership" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        group = Prop.computed __type __id "group";
        id = Prop.computed __type __id "id";

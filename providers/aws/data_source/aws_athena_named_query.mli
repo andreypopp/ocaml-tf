@@ -18,6 +18,7 @@ val yojson_of_aws_athena_named_query : aws_athena_named_query -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   database : string prop;
   description : string prop;
   id : string prop;

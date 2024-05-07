@@ -167,6 +167,7 @@ let aws_datasync_location_nfs ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   server_hostname : string prop;
@@ -181,6 +182,7 @@ let make ?id ?tags ?tags_all ?(mount_options = []) ~server_hostname
   let __type = "aws_datasync_location_nfs" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        server_hostname = Prop.computed __type __id "server_hostname";

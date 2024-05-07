@@ -246,6 +246,7 @@ let azurerm_stream_analytics_stream_input_blob ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   date_format : string prop;
   id : string prop;
   name : string prop;
@@ -265,6 +266,7 @@ let make ?id ?timeouts ~date_format ~name ~path_pattern
   let __type = "azurerm_stream_analytics_stream_input_blob" in
   let __attrs =
     ({
+       tf_name = __id;
        date_format = Prop.computed __type __id "date_format";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

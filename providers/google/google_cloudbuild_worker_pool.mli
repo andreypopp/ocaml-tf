@@ -51,6 +51,7 @@ val yojson_of_google_cloudbuild_worker_pool :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   annotations : (string * string) list prop;
   create_time : string prop;
   delete_time : string prop;

@@ -42,6 +42,7 @@ val yojson_of_azurerm_automation_connection_type :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automation_account_name : string prop;
   id : string prop;
   is_global : bool prop;

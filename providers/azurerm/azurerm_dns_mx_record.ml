@@ -199,6 +199,7 @@ let azurerm_dns_mx_record ?id ?name ?tags ?timeouts
   }
 
 type t = {
+  tf_name : string;
   fqdn : string prop;
   id : string prop;
   name : string prop;
@@ -213,6 +214,7 @@ let make ?id ?name ?tags ?timeouts ~resource_group_name ~ttl
   let __type = "azurerm_dns_mx_record" in
   let __attrs =
     ({
+       tf_name = __id;
        fqdn = Prop.computed __type __id "fqdn";
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";

@@ -35,6 +35,7 @@ let aws_wafv2_regex_pattern_set ?description ?id ?tags ?tags_all ~name ~scope ~r
   } : aws_wafv2_regex_pattern_set);;
 
 type t = {
+  tf_name: string;
   arn: string prop;
   description: string prop;
   id: string prop;
@@ -48,6 +49,7 @@ type t = {
 let make ?description ?id ?tags ?tags_all ~name ~scope ~regular_expression __id =
   let __type = "aws_wafv2_regex_pattern_set" in
   let __attrs = ({
+    tf_name = __id;
     arn = Prop.computed __type __id "arn";
     description = Prop.computed __type __id "description";
     id = Prop.computed __type __id "id";

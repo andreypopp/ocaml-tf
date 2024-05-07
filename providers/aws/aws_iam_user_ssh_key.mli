@@ -20,6 +20,7 @@ val yojson_of_aws_iam_user_ssh_key : aws_iam_user_ssh_key -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   encoding : string prop;
   fingerprint : string prop;
   id : string prop;

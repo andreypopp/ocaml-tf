@@ -28,6 +28,7 @@ val yojson_of_aws_rds_export_task : aws_rds_export_task -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   export_only : string list prop;
   export_task_identifier : string prop;
   failure_cause : string prop;

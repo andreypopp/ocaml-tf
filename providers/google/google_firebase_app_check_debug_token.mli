@@ -31,6 +31,7 @@ val yojson_of_google_firebase_app_check_debug_token :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_id : string prop;
   debug_token_id : string prop;
   display_name : string prop;

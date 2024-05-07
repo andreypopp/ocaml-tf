@@ -255,6 +255,7 @@ let aws_organizations_organization ?aws_service_access_principals
   }
 
 type t = {
+  tf_name : string;
   accounts : accounts list prop;
   arn : string prop;
   aws_service_access_principals : string list prop;
@@ -273,6 +274,7 @@ let make ?aws_service_access_principals ?enabled_policy_types
   let __type = "aws_organizations_organization" in
   let __attrs =
     ({
+       tf_name = __id;
        accounts = Prop.computed __type __id "accounts";
        arn = Prop.computed __type __id "arn";
        aws_service_access_principals =

@@ -194,6 +194,7 @@ let aws_ssoadmin_application ?client_token ?description ?status ?tags
   }
 
 type t = {
+  tf_name : string;
   application_account : string prop;
   application_arn : string prop;
   application_provider_arn : string prop;
@@ -213,6 +214,7 @@ let make ?client_token ?description ?status ?tags
   let __type = "aws_ssoadmin_application" in
   let __attrs =
     ({
+       tf_name = __id;
        application_account =
          Prop.computed __type __id "application_account";
        application_arn = Prop.computed __type __id "application_arn";

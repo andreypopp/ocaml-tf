@@ -20,6 +20,7 @@ val yojson_of_aws_backup_vault_notifications :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   backup_vault_arn : string prop;
   backup_vault_events : string list prop;
   backup_vault_name : string prop;

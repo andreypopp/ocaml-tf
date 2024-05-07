@@ -415,6 +415,7 @@ let aws_opsworks_stack ?agent_version ?berkshelf_version ?color
   }
 
 type t = {
+  tf_name : string;
   agent_version : string prop;
   arn : string prop;
   berkshelf_version : string prop;
@@ -454,6 +455,7 @@ let make ?agent_version ?berkshelf_version ?color
   let __type = "aws_opsworks_stack" in
   let __attrs =
     ({
+       tf_name = __id;
        agent_version = Prop.computed __type __id "agent_version";
        arn = Prop.computed __type __id "arn";
        berkshelf_version =

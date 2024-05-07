@@ -307,6 +307,7 @@ let cloudflare_waiting_room ?cookie_suffix ?custom_page_html
   }
 
 type t = {
+  tf_name : string;
   cookie_suffix : string prop;
   custom_page_html : string prop;
   default_template_language : string prop;
@@ -336,6 +337,7 @@ let make ?cookie_suffix ?custom_page_html ?default_template_language
   let __type = "cloudflare_waiting_room" in
   let __attrs =
     ({
+       tf_name = __id;
        cookie_suffix = Prop.computed __type __id "cookie_suffix";
        custom_page_html =
          Prop.computed __type __id "custom_page_html";

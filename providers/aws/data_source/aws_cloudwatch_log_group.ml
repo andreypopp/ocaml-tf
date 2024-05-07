@@ -57,6 +57,7 @@ let aws_cloudwatch_log_group ?id ?tags ~name () :
   { id; name; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   creation_time : float prop;
   id : string prop;
@@ -71,6 +72,7 @@ let make ?id ?tags ~name __id =
   let __type = "aws_cloudwatch_log_group" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        creation_time = Prop.computed __type __id "creation_time";
        id = Prop.computed __type __id "id";

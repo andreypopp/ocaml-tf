@@ -20,6 +20,7 @@ val yojson_of_aws_iot_certificate : aws_iot_certificate -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   active : bool prop;
   arn : string prop;
   ca_certificate_id : string prop;

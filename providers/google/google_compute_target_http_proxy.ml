@@ -155,6 +155,7 @@ let google_compute_target_http_proxy ?description
   }
 
 type t = {
+  tf_name : string;
   creation_timestamp : string prop;
   description : string prop;
   http_keep_alive_timeout_sec : float prop;
@@ -172,6 +173,7 @@ let make ?description ?http_keep_alive_timeout_sec ?id ?project
   let __type = "google_compute_target_http_proxy" in
   let __attrs =
     ({
+       tf_name = __id;
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";
        description = Prop.computed __type __id "description";

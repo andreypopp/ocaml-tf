@@ -19,6 +19,7 @@ val yojson_of_aws_appstream_fleet_stack_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   fleet_name : string prop;
   id : string prop;
   stack_name : string prop;

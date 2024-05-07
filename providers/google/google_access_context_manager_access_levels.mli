@@ -117,7 +117,11 @@ val yojson_of_google_access_context_manager_access_levels :
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; parent : string prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  parent : string prop;
+}
 
 val register :
   ?tf_module:tf_module ->

@@ -75,6 +75,7 @@ let aws_redshift_endpoint_authorization ?force_delete ?id ?vpc_ids
   { account; cluster_identifier; force_delete; id; vpc_ids }
 
 type t = {
+  tf_name : string;
   account : string prop;
   allowed_all_vpcs : bool prop;
   cluster_identifier : string prop;
@@ -91,6 +92,7 @@ let make ?force_delete ?id ?vpc_ids ~account ~cluster_identifier __id
   let __type = "aws_redshift_endpoint_authorization" in
   let __attrs =
     ({
+       tf_name = __id;
        account = Prop.computed __type __id "account";
        allowed_all_vpcs =
          Prop.computed __type __id "allowed_all_vpcs";

@@ -49,6 +49,7 @@ val yojson_of_google_bigtable_app_profile :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   app_profile_id : string prop;
   description : string prop;
   id : string prop;

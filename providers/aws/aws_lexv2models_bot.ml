@@ -264,6 +264,7 @@ let aws_lexv2models_bot ?description ?tags ?test_bot_alias_tags
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   description : string prop;
   id : string prop;
@@ -282,6 +283,7 @@ let make ?description ?tags ?test_bot_alias_tags ?type_
   let __type = "aws_lexv2models_bot" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";

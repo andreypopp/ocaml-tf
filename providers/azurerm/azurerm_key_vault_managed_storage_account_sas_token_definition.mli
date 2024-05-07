@@ -35,6 +35,7 @@ val yojson_of_azurerm_key_vault_managed_storage_account_sas_token_definition :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   managed_storage_account_id : string prop;
   name : string prop;

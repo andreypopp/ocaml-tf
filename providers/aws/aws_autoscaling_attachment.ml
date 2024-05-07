@@ -65,6 +65,7 @@ let aws_autoscaling_attachment ?elb ?id ?lb_target_group_arn
   { autoscaling_group_name; elb; id; lb_target_group_arn }
 
 type t = {
+  tf_name : string;
   autoscaling_group_name : string prop;
   elb : string prop;
   id : string prop;
@@ -75,6 +76,7 @@ let make ?elb ?id ?lb_target_group_arn ~autoscaling_group_name __id =
   let __type = "aws_autoscaling_attachment" in
   let __attrs =
     ({
+       tf_name = __id;
        autoscaling_group_name =
          Prop.computed __type __id "autoscaling_group_name";
        elb = Prop.computed __type __id "elb";

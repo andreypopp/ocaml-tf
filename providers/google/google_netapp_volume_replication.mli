@@ -63,6 +63,7 @@ val yojson_of_google_netapp_volume_replication :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   create_time : string prop;
   delete_destination_volume : bool prop;
   description : string prop;

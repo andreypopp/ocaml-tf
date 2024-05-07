@@ -166,6 +166,7 @@ let azurerm_lb ?id ?timeouts ~name ~resource_group_name () :
   { id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   frontend_ip_configuration : frontend_ip_configuration list prop;
   id : string prop;
   location : string prop;
@@ -181,6 +182,7 @@ let make ?id ?timeouts ~name ~resource_group_name __id =
   let __type = "azurerm_lb" in
   let __attrs =
     ({
+       tf_name = __id;
        frontend_ip_configuration =
          Prop.computed __type __id "frontend_ip_configuration";
        id = Prop.computed __type __id "id";

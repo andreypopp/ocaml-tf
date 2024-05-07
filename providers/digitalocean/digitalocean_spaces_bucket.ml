@@ -384,6 +384,7 @@ let digitalocean_spaces_bucket ?acl ?force_destroy ?id ?region
   }
 
 type t = {
+  tf_name : string;
   acl : string prop;
   bucket_domain_name : string prop;
   endpoint : string prop;
@@ -399,6 +400,7 @@ let make ?acl ?force_destroy ?id ?region ?(cors_rule = [])
   let __type = "digitalocean_spaces_bucket" in
   let __attrs =
     ({
+       tf_name = __id;
        acl = Prop.computed __type __id "acl";
        bucket_domain_name =
          Prop.computed __type __id "bucket_domain_name";

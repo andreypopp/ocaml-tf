@@ -41,6 +41,7 @@ let aws_route53_resolver_dnssec_config ?id ~resource_id () :
   { id; resource_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   owner_id : string prop;
@@ -52,6 +53,7 @@ let make ?id ~resource_id __id =
   let __type = "aws_route53_resolver_dnssec_config" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        owner_id = Prop.computed __type __id "owner_id";

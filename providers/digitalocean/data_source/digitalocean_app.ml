@@ -3553,6 +3553,7 @@ let digitalocean_app ?id ~app_id () : digitalocean_app =
   { app_id; id }
 
 type t = {
+  tf_name : string;
   active_deployment_id : string prop;
   app_id : string prop;
   created_at : string prop;
@@ -3569,6 +3570,7 @@ let make ?id ~app_id __id =
   let __type = "digitalocean_app" in
   let __attrs =
     ({
+       tf_name = __id;
        active_deployment_id =
          Prop.computed __type __id "active_deployment_id";
        app_id = Prop.computed __type __id "app_id";

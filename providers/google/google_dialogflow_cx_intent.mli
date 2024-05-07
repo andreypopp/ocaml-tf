@@ -64,6 +64,7 @@ val yojson_of_google_dialogflow_cx_intent :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   effective_labels : (string * string) list prop;

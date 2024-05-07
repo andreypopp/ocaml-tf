@@ -90,6 +90,7 @@ val yojson_of_azurerm_monitor_activity_log_alert :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   enabled : bool prop;
   id : string prop;

@@ -120,6 +120,7 @@ let google_pubsub_subscription_iam_binding ?id ?project
   { id; members; project; role; subscription; condition }
 
 type t = {
+  tf_name : string;
   etag : string prop;
   id : string prop;
   members : string list prop;
@@ -133,6 +134,7 @@ let make ?id ?project ?(condition = []) ~members ~role ~subscription
   let __type = "google_pubsub_subscription_iam_binding" in
   let __attrs =
     ({
+       tf_name = __id;
        etag = Prop.computed __type __id "etag";
        id = Prop.computed __type __id "id";
        members = Prop.computed __type __id "members";

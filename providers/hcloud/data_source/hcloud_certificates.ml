@@ -139,6 +139,7 @@ let hcloud_certificates ?id ?with_selector () : hcloud_certificates =
   { id; with_selector }
 
 type t = {
+  tf_name : string;
   certificates : certificates list prop;
   id : string prop;
   with_selector : string prop;
@@ -148,6 +149,7 @@ let make ?id ?with_selector __id =
   let __type = "hcloud_certificates" in
   let __attrs =
     ({
+       tf_name = __id;
        certificates = Prop.computed __type __id "certificates";
        id = Prop.computed __type __id "id";
        with_selector = Prop.computed __type __id "with_selector";

@@ -227,6 +227,7 @@ let azurerm_spring_cloud_java_deployment ?environment_variables ?id
   }
 
 type t = {
+  tf_name : string;
   environment_variables : (string * string) list prop;
   id : string prop;
   instance_count : float prop;
@@ -242,6 +243,7 @@ let make ?environment_variables ?id ?instance_count ?jvm_options
   let __type = "azurerm_spring_cloud_java_deployment" in
   let __attrs =
     ({
+       tf_name = __id;
        environment_variables =
          Prop.computed __type __id "environment_variables";
        id = Prop.computed __type __id "id";

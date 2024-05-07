@@ -130,6 +130,7 @@ let google_essential_contacts_contact ?id ?timeouts ~email
   }
 
 type t = {
+  tf_name : string;
   email : string prop;
   id : string prop;
   language_tag : string prop;
@@ -143,6 +144,7 @@ let make ?id ?timeouts ~email ~language_tag
   let __type = "google_essential_contacts_contact" in
   let __attrs =
     ({
+       tf_name = __id;
        email = Prop.computed __type __id "email";
        id = Prop.computed __type __id "id";
        language_tag = Prop.computed __type __id "language_tag";

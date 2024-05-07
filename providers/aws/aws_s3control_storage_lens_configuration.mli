@@ -236,6 +236,7 @@ val yojson_of_aws_s3control_storage_lens_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   account_id : string prop;
   arn : string prop;
   config_id : string prop;

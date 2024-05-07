@@ -24,6 +24,7 @@ val yojson_of_aws_acm_certificate_validation :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   certificate_arn : string prop;
   id : string prop;
   validation_record_fqdns : string list prop;

@@ -182,6 +182,7 @@ let azurerm_stream_analytics_output_function ?batch_max_count
   }
 
 type t = {
+  tf_name : string;
   api_key : string prop;
   batch_max_count : float prop;
   batch_max_in_bytes : float prop;
@@ -199,6 +200,7 @@ let make ?batch_max_count ?batch_max_in_bytes ?id ?timeouts ~api_key
   let __type = "azurerm_stream_analytics_output_function" in
   let __attrs =
     ({
+       tf_name = __id;
        api_key = Prop.computed __type __id "api_key";
        batch_max_count = Prop.computed __type __id "batch_max_count";
        batch_max_in_bytes =

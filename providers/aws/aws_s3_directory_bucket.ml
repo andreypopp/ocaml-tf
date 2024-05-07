@@ -104,6 +104,7 @@ let aws_s3_directory_bucket ?data_redundancy ?force_destroy ?type_
   { bucket; data_redundancy; force_destroy; type_; location }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   bucket : string prop;
   data_redundancy : string prop;
@@ -117,6 +118,7 @@ let make ?data_redundancy ?force_destroy ?type_ ?(location = [])
   let __type = "aws_s3_directory_bucket" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        bucket = Prop.computed __type __id "bucket";
        data_redundancy = Prop.computed __type __id "data_redundancy";

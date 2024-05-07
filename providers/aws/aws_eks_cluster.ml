@@ -619,6 +619,7 @@ let aws_eks_cluster ?enabled_cluster_log_types ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   certificate_authority : certificate_authority list prop;
   cluster_id : string prop;
@@ -643,6 +644,7 @@ let make ?enabled_cluster_log_types ?id ?tags ?tags_all ?version
   let __type = "aws_eks_cluster" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        certificate_authority =
          Prop.computed __type __id "certificate_authority";

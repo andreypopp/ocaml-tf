@@ -78,6 +78,7 @@ let aws_rum_metrics_destination ?destination_arn ?iam_role_arn ?id
   }
 
 type t = {
+  tf_name : string;
   app_monitor_name : string prop;
   destination : string prop;
   destination_arn : string prop;
@@ -90,6 +91,7 @@ let make ?destination_arn ?iam_role_arn ?id ~app_monitor_name
   let __type = "aws_rum_metrics_destination" in
   let __attrs =
     ({
+       tf_name = __id;
        app_monitor_name =
          Prop.computed __type __id "app_monitor_name";
        destination = Prop.computed __type __id "destination";

@@ -31,6 +31,7 @@ let _ = yojson_of_aws_caller_identity
 let aws_caller_identity ?id () : aws_caller_identity = { id }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   arn : string prop;
   id : string prop;
@@ -41,6 +42,7 @@ let make ?id __id =
   let __type = "aws_caller_identity" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";

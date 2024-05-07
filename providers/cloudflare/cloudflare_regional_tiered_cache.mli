@@ -23,6 +23,7 @@ val yojson_of_cloudflare_regional_tiered_cache :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   value : string prop;
   zone_id : string prop;

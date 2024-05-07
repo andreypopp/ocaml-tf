@@ -31,6 +31,7 @@ val yojson_of_aws_wafv2_regex_pattern_set : aws_wafv2_regex_pattern_set -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name: string;
   arn: string prop;
   description: string prop;
   id: string prop;

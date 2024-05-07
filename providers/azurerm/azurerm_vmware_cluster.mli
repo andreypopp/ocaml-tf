@@ -31,6 +31,7 @@ val yojson_of_azurerm_vmware_cluster : azurerm_vmware_cluster -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_node_count : float prop;
   cluster_number : float prop;
   hosts : string list prop;

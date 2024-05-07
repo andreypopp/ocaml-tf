@@ -110,6 +110,7 @@ let cloudflare_access_rule ?account_id ?id ?notes ?zone_id ~mode
   { account_id; id; mode; notes; zone_id; configuration }
 
 type t = {
+  tf_name : string;
   account_id : string prop;
   id : string prop;
   mode : string prop;
@@ -121,6 +122,7 @@ let make ?account_id ?id ?notes ?zone_id ~mode ~configuration __id =
   let __type = "cloudflare_access_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        account_id = Prop.computed __type __id "account_id";
        id = Prop.computed __type __id "id";
        mode = Prop.computed __type __id "mode";

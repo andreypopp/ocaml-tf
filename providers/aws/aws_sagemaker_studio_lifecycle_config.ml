@@ -112,6 +112,7 @@ let aws_sagemaker_studio_lifecycle_config ?id ?tags ?tags_all
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   studio_lifecycle_config_app_type : string prop;
@@ -127,6 +128,7 @@ let make ?id ?tags ?tags_all ~studio_lifecycle_config_app_type
   let __type = "aws_sagemaker_studio_lifecycle_config" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        studio_lifecycle_config_app_type =

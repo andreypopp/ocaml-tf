@@ -95,6 +95,7 @@ let aws_signer_signing_profile_permission ?id ?profile_version
   }
 
 type t = {
+  tf_name : string;
   action : string prop;
   id : string prop;
   principal : string prop;
@@ -109,6 +110,7 @@ let make ?id ?profile_version ?statement_id ?statement_id_prefix
   let __type = "aws_signer_signing_profile_permission" in
   let __attrs =
     ({
+       tf_name = __id;
        action = Prop.computed __type __id "action";
        id = Prop.computed __type __id "id";
        principal = Prop.computed __type __id "principal";

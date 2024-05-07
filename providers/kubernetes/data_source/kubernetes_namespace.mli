@@ -26,7 +26,11 @@ val yojson_of_kubernetes_namespace : kubernetes_namespace -> json
 
 (** RESOURCE REGISTRATION *)
 
-type t = private { id : string prop; spec : spec list prop }
+type t = private {
+  tf_name : string;
+  id : string prop;
+  spec : spec list prop;
+}
 
 val register :
   ?tf_module:tf_module ->

@@ -29,6 +29,7 @@ val yojson_of_aws_cloudfront_realtime_log_config :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   endpoint : endpoint list prop;
   fields : string list prop;

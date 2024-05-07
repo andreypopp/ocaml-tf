@@ -24,6 +24,7 @@ val yojson_of_azurerm_blueprint_definition :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   description : string prop;
   display_name : string prop;
   id : string prop;

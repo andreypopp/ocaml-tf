@@ -271,6 +271,7 @@ val yojson_of_google_app_engine_flexible_app_version :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   beta_settings : (string * string) list prop;
   default_expiration : string prop;
   delete_service_on_destroy : bool prop;

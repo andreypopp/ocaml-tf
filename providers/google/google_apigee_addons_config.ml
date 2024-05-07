@@ -354,12 +354,13 @@ let google_apigee_addons_config ?id ?(addons_config = []) ?timeouts
     ~org () : google_apigee_addons_config =
   { id; org; addons_config; timeouts }
 
-type t = { id : string prop; org : string prop }
+type t = { tf_name : string; id : string prop; org : string prop }
 
 let make ?id ?(addons_config = []) ?timeouts ~org __id =
   let __type = "google_apigee_addons_config" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        org = Prop.computed __type __id "org";
      }

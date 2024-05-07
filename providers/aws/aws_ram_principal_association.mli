@@ -19,6 +19,7 @@ val yojson_of_aws_ram_principal_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   principal : string prop;
   resource_share_arn : string prop;

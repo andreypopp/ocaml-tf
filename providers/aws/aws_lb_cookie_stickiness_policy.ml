@@ -67,6 +67,7 @@ let aws_lb_cookie_stickiness_policy ?cookie_expiration_period ?id
   { cookie_expiration_period; id; lb_port; load_balancer; name }
 
 type t = {
+  tf_name : string;
   cookie_expiration_period : float prop;
   id : string prop;
   lb_port : float prop;
@@ -79,6 +80,7 @@ let make ?cookie_expiration_period ?id ~lb_port ~load_balancer ~name
   let __type = "aws_lb_cookie_stickiness_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        cookie_expiration_period =
          Prop.computed __type __id "cookie_expiration_period";
        id = Prop.computed __type __id "id";

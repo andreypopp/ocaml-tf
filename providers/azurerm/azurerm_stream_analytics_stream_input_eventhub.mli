@@ -48,6 +48,7 @@ val yojson_of_azurerm_stream_analytics_stream_input_eventhub :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   authentication_mode : string prop;
   eventhub_consumer_group_name : string prop;
   eventhub_name : string prop;

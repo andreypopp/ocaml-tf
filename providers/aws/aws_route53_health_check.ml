@@ -304,6 +304,7 @@ let aws_route53_health_check ?child_health_threshold
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   child_health_threshold : float prop;
   child_healthchecks : string list prop;
@@ -340,6 +341,7 @@ let make ?child_health_threshold ?child_healthchecks
   let __type = "aws_route53_health_check" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        child_health_threshold =
          Prop.computed __type __id "child_health_threshold";

@@ -1941,6 +1941,7 @@ let azurerm_storage_account ?access_tier ?account_kind
   }
 
 type t = {
+  tf_name : string;
   access_tier : string prop;
   account_kind : string prop;
   account_replication_type : string prop;
@@ -2059,6 +2060,7 @@ let make ?access_tier ?account_kind ?allow_nested_items_to_be_public
   let __type = "azurerm_storage_account" in
   let __attrs =
     ({
+       tf_name = __id;
        access_tier = Prop.computed __type __id "access_tier";
        account_kind = Prop.computed __type __id "account_kind";
        account_replication_type =

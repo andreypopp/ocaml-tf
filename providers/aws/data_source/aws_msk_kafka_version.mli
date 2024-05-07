@@ -18,6 +18,7 @@ val yojson_of_aws_msk_kafka_version : aws_msk_kafka_version -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   preferred_versions : string list prop;
   status : string prop;

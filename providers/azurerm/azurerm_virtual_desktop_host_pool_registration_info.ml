@@ -123,6 +123,7 @@ let azurerm_virtual_desktop_host_pool_registration_info ?id ?timeouts
   { expiration_date; hostpool_id; id; timeouts }
 
 type t = {
+  tf_name : string;
   expiration_date : string prop;
   hostpool_id : string prop;
   id : string prop;
@@ -135,6 +136,7 @@ let make ?id ?timeouts ~expiration_date ~hostpool_id __id =
   in
   let __attrs =
     ({
+       tf_name = __id;
        expiration_date = Prop.computed __type __id "expiration_date";
        hostpool_id = Prop.computed __type __id "hostpool_id";
        id = Prop.computed __type __id "id";

@@ -178,6 +178,7 @@ let azurerm_key_vault_managed_storage_account_sas_token_definition
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   managed_storage_account_id : string prop;
   name : string prop;
@@ -195,6 +196,7 @@ let make ?id ?tags ?timeouts ~managed_storage_account_id ~name
   in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        managed_storage_account_id =
          Prop.computed __type __id "managed_storage_account_id";

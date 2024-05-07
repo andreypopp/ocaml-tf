@@ -350,6 +350,7 @@ let azurerm_datadog_monitor ?id ?monitoring_enabled ?tags
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   location : string prop;
   marketplace_subscription_status : string prop;
@@ -366,6 +367,7 @@ let make ?id ?monitoring_enabled ?tags ?(identity = []) ?timeouts
   let __type = "azurerm_datadog_monitor" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        location = Prop.computed __type __id "location";
        marketplace_subscription_status =

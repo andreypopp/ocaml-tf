@@ -157,6 +157,7 @@ let azurerm_spring_cloud_app_redis_association ?id ?ssl_enabled
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   redis_access_key : string prop;
@@ -170,6 +171,7 @@ let make ?id ?ssl_enabled ?timeouts ~name ~redis_access_key
   let __type = "azurerm_spring_cloud_app_redis_association" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        redis_access_key =

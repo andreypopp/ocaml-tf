@@ -239,6 +239,7 @@ let azurerm_lb_nat_rule ?backend_address_pool_id ?enable_floating_ip
   }
 
 type t = {
+  tf_name : string;
   backend_address_pool_id : string prop;
   backend_ip_configuration_id : string prop;
   backend_port : float prop;
@@ -265,6 +266,7 @@ let make ?backend_address_pool_id ?enable_floating_ip
   let __type = "azurerm_lb_nat_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        backend_address_pool_id =
          Prop.computed __type __id "backend_address_pool_id";
        backend_ip_configuration_id =

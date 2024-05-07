@@ -51,6 +51,7 @@ val yojson_of_azurerm_eventgrid_domain :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   endpoint : string prop;
   id : string prop;
   identity : identity list prop;

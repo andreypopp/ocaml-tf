@@ -99,6 +99,7 @@ val yojson_of_google_dialogflow_cx_agent :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   avatar_uri : string prop;
   default_language_code : string prop;
   description : string prop;

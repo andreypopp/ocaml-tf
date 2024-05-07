@@ -144,6 +144,7 @@ let azurerm_mssql_virtual_network_rule ?id
   }
 
 type t = {
+  tf_name : string;
   id : string prop;
   ignore_missing_vnet_service_endpoint : bool prop;
   name : string prop;
@@ -156,6 +157,7 @@ let make ?id ?ignore_missing_vnet_service_endpoint ?timeouts ~name
   let __type = "azurerm_mssql_virtual_network_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        ignore_missing_vnet_service_endpoint =
          Prop.computed __type __id

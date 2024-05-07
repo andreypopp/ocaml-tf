@@ -159,6 +159,7 @@ let google_compute_snapshot ?filter ?id ?most_recent ?name ?project
   { filter; id; most_recent; name; project }
 
 type t = {
+  tf_name : string;
   chain_name : string prop;
   creation_timestamp : string prop;
   description : string prop;
@@ -187,6 +188,7 @@ let make ?filter ?id ?most_recent ?name ?project __id =
   let __type = "google_compute_snapshot" in
   let __attrs =
     ({
+       tf_name = __id;
        chain_name = Prop.computed __type __id "chain_name";
        creation_timestamp =
          Prop.computed __type __id "creation_timestamp";

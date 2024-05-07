@@ -555,6 +555,7 @@ let aws_imagebuilder_distribution_configuration ?id ?tags ~arn () :
   { arn; id; tags }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   date_created : string prop;
   date_updated : string prop;
@@ -569,6 +570,7 @@ let make ?id ?tags ~arn __id =
   let __type = "aws_imagebuilder_distribution_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        date_created = Prop.computed __type __id "date_created";
        date_updated = Prop.computed __type __id "date_updated";

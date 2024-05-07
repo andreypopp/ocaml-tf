@@ -22,6 +22,7 @@ val yojson_of_aws_iam_openid_connect_provider :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   client_id_list : string list prop;
   id : string prop;

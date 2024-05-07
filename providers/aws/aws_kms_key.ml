@@ -237,6 +237,7 @@ let aws_kms_key ?bypass_policy_lockout_safety_check
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   bypass_policy_lockout_safety_check : bool prop;
   custom_key_store_id : string prop;
@@ -262,6 +263,7 @@ let make ?bypass_policy_lockout_safety_check ?custom_key_store_id
   let __type = "aws_kms_key" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        bypass_policy_lockout_safety_check =
          Prop.computed __type __id

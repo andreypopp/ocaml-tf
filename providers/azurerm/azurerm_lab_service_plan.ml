@@ -415,6 +415,7 @@ let azurerm_lab_service_plan ?default_network_subnet_id ?id
   }
 
 type t = {
+  tf_name : string;
   allowed_regions : string list prop;
   default_network_subnet_id : string prop;
   id : string prop;
@@ -432,6 +433,7 @@ let make ?default_network_subnet_id ?id ?shared_gallery_id ?tags
   let __type = "azurerm_lab_service_plan" in
   let __attrs =
     ({
+       tf_name = __id;
        allowed_regions = Prop.computed __type __id "allowed_regions";
        default_network_subnet_id =
          Prop.computed __type __id "default_network_subnet_id";

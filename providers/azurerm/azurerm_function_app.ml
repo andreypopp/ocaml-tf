@@ -1514,6 +1514,7 @@ let azurerm_function_app ?app_settings ?client_cert_mode
   }
 
 type t = {
+  tf_name : string;
   app_service_plan_id : string prop;
   app_settings : (string * string) list prop;
   client_cert_mode : string prop;
@@ -1549,6 +1550,7 @@ let make ?app_settings ?client_cert_mode ?daily_memory_time_quota
   let __type = "azurerm_function_app" in
   let __attrs =
     ({
+       tf_name = __id;
        app_service_plan_id =
          Prop.computed __type __id "app_service_plan_id";
        app_settings = Prop.computed __type __id "app_settings";

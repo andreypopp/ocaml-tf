@@ -235,6 +235,7 @@ let aws_ivschat_room ?id ?logging_configuration_identifiers
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   id : string prop;
   logging_configuration_identifiers : string list prop;
@@ -251,6 +252,7 @@ let make ?id ?logging_configuration_identifiers
   let __type = "aws_ivschat_room" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        id = Prop.computed __type __id "id";
        logging_configuration_identifiers =

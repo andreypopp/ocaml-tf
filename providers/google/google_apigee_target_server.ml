@@ -330,6 +330,7 @@ let google_apigee_target_server ?description ?id ?is_enabled
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   env_id : string prop;
   host : string prop;
@@ -345,6 +346,7 @@ let make ?description ?id ?is_enabled ?protocol ?(s_sl_info = [])
   let __type = "google_apigee_target_server" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        env_id = Prop.computed __type __id "env_id";
        host = Prop.computed __type __id "host";

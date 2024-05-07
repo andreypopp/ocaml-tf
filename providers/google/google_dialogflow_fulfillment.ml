@@ -235,6 +235,7 @@ let google_dialogflow_fulfillment ?enabled ?id ?project
   }
 
 type t = {
+  tf_name : string;
   display_name : string prop;
   enabled : bool prop;
   id : string prop;
@@ -247,6 +248,7 @@ let make ?enabled ?id ?project ?(features = [])
   let __type = "google_dialogflow_fulfillment" in
   let __attrs =
     ({
+       tf_name = __id;
        display_name = Prop.computed __type __id "display_name";
        enabled = Prop.computed __type __id "enabled";
        id = Prop.computed __type __id "id";

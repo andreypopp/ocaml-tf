@@ -21,6 +21,7 @@ val yojson_of_aws_dx_macsec_key_association :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cak : string prop;
   ckn : string prop;
   connection_id : string prop;

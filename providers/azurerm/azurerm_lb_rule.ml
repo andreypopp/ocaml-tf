@@ -239,6 +239,7 @@ let azurerm_lb_rule ?backend_address_pool_ids ?disable_outbound_snat
   }
 
 type t = {
+  tf_name : string;
   backend_address_pool_ids : string list prop;
   backend_port : float prop;
   disable_outbound_snat : bool prop;
@@ -264,6 +265,7 @@ let make ?backend_address_pool_ids ?disable_outbound_snat
   let __type = "azurerm_lb_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        backend_address_pool_ids =
          Prop.computed __type __id "backend_address_pool_ids";
        backend_port = Prop.computed __type __id "backend_port";

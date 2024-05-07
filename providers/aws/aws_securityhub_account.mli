@@ -20,6 +20,7 @@ val yojson_of_aws_securityhub_account :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   arn : string prop;
   auto_enable_controls : bool prop;
   control_finding_generator : string prop;

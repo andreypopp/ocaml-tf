@@ -74,6 +74,7 @@ val yojson_of_google_alloydb_instance :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   annotations : (string * string) list prop;
   availability_type : string prop;
   cluster : string prop;

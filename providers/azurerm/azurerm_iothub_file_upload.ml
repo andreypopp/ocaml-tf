@@ -213,6 +213,7 @@ let azurerm_iothub_file_upload ?authentication_type ?default_ttl ?id
   }
 
 type t = {
+  tf_name : string;
   authentication_type : string prop;
   connection_string : string prop;
   container_name : string prop;
@@ -233,6 +234,7 @@ let make ?authentication_type ?default_ttl ?id ?identity_id
   let __type = "azurerm_iothub_file_upload" in
   let __attrs =
     ({
+       tf_name = __id;
        authentication_type =
          Prop.computed __type __id "authentication_type";
        connection_string =

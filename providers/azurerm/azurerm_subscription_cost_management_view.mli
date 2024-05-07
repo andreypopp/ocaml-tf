@@ -77,6 +77,7 @@ val yojson_of_azurerm_subscription_cost_management_view :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   accumulated : bool prop;
   chart_type : string prop;
   display_name : string prop;

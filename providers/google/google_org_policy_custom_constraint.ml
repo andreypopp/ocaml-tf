@@ -169,6 +169,7 @@ let google_org_policy_custom_constraint ?description ?display_name
   }
 
 type t = {
+  tf_name : string;
   action_type : string prop;
   condition : string prop;
   description : string prop;
@@ -186,6 +187,7 @@ let make ?description ?display_name ?id ?timeouts ~action_type
   let __type = "google_org_policy_custom_constraint" in
   let __attrs =
     ({
+       tf_name = __id;
        action_type = Prop.computed __type __id "action_type";
        condition = Prop.computed __type __id "condition";
        description = Prop.computed __type __id "description";

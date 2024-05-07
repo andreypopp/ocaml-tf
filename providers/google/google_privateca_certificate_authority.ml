@@ -1433,6 +1433,7 @@ let google_privateca_certificate_authority ?deletion_protection
   }
 
 type t = {
+  tf_name : string;
   access_urls : access_urls list prop;
   certificate_authority_id : string prop;
   create_time : string prop;
@@ -1465,6 +1466,7 @@ let make ?deletion_protection ?desired_state ?gcs_bucket ?id
   let __type = "google_privateca_certificate_authority" in
   let __attrs =
     ({
+       tf_name = __id;
        access_urls = Prop.computed __type __id "access_urls";
        certificate_authority_id =
          Prop.computed __type __id "certificate_authority_id";

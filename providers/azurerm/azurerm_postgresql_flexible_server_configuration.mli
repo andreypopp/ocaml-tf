@@ -31,6 +31,7 @@ val yojson_of_azurerm_postgresql_flexible_server_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   name : string prop;
   server_id : string prop;

@@ -82,6 +82,7 @@ let aws_ec2_transit_gateway_route_table ?id ?tags ?tags_all
   { id; tags; tags_all; transit_gateway_id }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   default_association_route_table : bool prop;
   default_propagation_route_table : bool prop;
@@ -95,6 +96,7 @@ let make ?id ?tags ?tags_all ~transit_gateway_id __id =
   let __type = "aws_ec2_transit_gateway_route_table" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        default_association_route_table =
          Prop.computed __type __id "default_association_route_table";

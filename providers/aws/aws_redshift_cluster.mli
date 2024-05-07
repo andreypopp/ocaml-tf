@@ -96,6 +96,7 @@ val yojson_of_aws_redshift_cluster : aws_redshift_cluster -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   allow_version_upgrade : bool prop;
   apply_immediately : bool prop;
   aqua_configuration_status : string prop;

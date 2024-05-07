@@ -155,6 +155,7 @@ let aws_s3_bucket_cors_configuration ?expected_bucket_owner ?id
   { bucket; expected_bucket_owner; id; cors_rule }
 
 type t = {
+  tf_name : string;
   bucket : string prop;
   expected_bucket_owner : string prop;
   id : string prop;
@@ -164,6 +165,7 @@ let make ?expected_bucket_owner ?id ~bucket ~cors_rule __id =
   let __type = "aws_s3_bucket_cors_configuration" in
   let __attrs =
     ({
+       tf_name = __id;
        bucket = Prop.computed __type __id "bucket";
        expected_bucket_owner =
          Prop.computed __type __id "expected_bucket_owner";

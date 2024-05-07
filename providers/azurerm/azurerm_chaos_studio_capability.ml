@@ -109,6 +109,7 @@ let azurerm_chaos_studio_capability ?id ?timeouts ~capability_type
   { capability_type; chaos_studio_target_id; id; timeouts }
 
 type t = {
+  tf_name : string;
   capability_type : string prop;
   chaos_studio_target_id : string prop;
   id : string prop;
@@ -120,6 +121,7 @@ let make ?id ?timeouts ~capability_type ~chaos_studio_target_id __id
   let __type = "azurerm_chaos_studio_capability" in
   let __attrs =
     ({
+       tf_name = __id;
        capability_type = Prop.computed __type __id "capability_type";
        chaos_studio_target_id =
          Prop.computed __type __id "chaos_studio_target_id";

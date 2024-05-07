@@ -132,6 +132,7 @@ val yojson_of_azurerm_automanage_configuration :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   automation_account_enabled : bool prop;
   boot_diagnostics_enabled : bool prop;
   defender_for_cloud_enabled : bool prop;

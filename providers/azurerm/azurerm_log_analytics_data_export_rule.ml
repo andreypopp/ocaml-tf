@@ -168,6 +168,7 @@ let azurerm_log_analytics_data_export_rule ?enabled ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   destination_resource_id : string prop;
   enabled : bool prop;
   export_rule_id : string prop;
@@ -183,6 +184,7 @@ let make ?enabled ?id ?timeouts ~destination_resource_id ~name
   let __type = "azurerm_log_analytics_data_export_rule" in
   let __attrs =
     ({
+       tf_name = __id;
        destination_resource_id =
          Prop.computed __type __id "destination_resource_id";
        enabled = Prop.computed __type __id "enabled";

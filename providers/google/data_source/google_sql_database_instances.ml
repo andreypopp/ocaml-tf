@@ -1550,6 +1550,7 @@ let google_sql_database_instances ?database_version ?id ?project
   { database_version; id; project; region; state; tier; zone }
 
 type t = {
+  tf_name : string;
   database_version : string prop;
   id : string prop;
   instances : instances list prop;
@@ -1565,6 +1566,7 @@ let make ?database_version ?id ?project ?region ?state ?tier ?zone
   let __type = "google_sql_database_instances" in
   let __attrs =
     ({
+       tf_name = __id;
        database_version =
          Prop.computed __type __id "database_version";
        id = Prop.computed __type __id "id";

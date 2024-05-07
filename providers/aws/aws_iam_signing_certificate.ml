@@ -62,6 +62,7 @@ let aws_iam_signing_certificate ?id ?status ~certificate_body
   { certificate_body; id; status; user_name }
 
 type t = {
+  tf_name : string;
   certificate_body : string prop;
   certificate_id : string prop;
   id : string prop;
@@ -73,6 +74,7 @@ let make ?id ?status ~certificate_body ~user_name __id =
   let __type = "aws_iam_signing_certificate" in
   let __attrs =
     ({
+       tf_name = __id;
        certificate_body =
          Prop.computed __type __id "certificate_body";
        certificate_id = Prop.computed __type __id "certificate_id";

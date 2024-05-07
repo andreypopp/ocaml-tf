@@ -30,6 +30,7 @@ val yojson_of_hcloud_floating_ips : hcloud_floating_ips -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   floating_ips : floating_ips list prop;
   id : string prop;
   with_selector : string prop;

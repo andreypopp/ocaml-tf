@@ -250,6 +250,7 @@ let azurerm_web_pubsub_network_acl ?default_action ?id ?timeouts
   }
 
 type t = {
+  tf_name : string;
   default_action : string prop;
   id : string prop;
   web_pubsub_id : string prop;
@@ -260,6 +261,7 @@ let make ?default_action ?id ?timeouts ~web_pubsub_id
   let __type = "azurerm_web_pubsub_network_acl" in
   let __attrs =
     ({
+       tf_name = __id;
        default_action = Prop.computed __type __id "default_action";
        id = Prop.computed __type __id "id";
        web_pubsub_id = Prop.computed __type __id "web_pubsub_id";

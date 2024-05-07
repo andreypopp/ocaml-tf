@@ -64,6 +64,7 @@ let google_secret_manager_secret_version ?id ?project ?version
   { id; project; secret; version }
 
 type t = {
+  tf_name : string;
   create_time : string prop;
   destroy_time : string prop;
   enabled : bool prop;
@@ -79,6 +80,7 @@ let make ?id ?project ?version ~secret __id =
   let __type = "google_secret_manager_secret_version" in
   let __attrs =
     ({
+       tf_name = __id;
        create_time = Prop.computed __type __id "create_time";
        destroy_time = Prop.computed __type __id "destroy_time";
        enabled = Prop.computed __type __id "enabled";

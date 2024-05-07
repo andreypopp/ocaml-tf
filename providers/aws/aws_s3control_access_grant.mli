@@ -39,6 +39,7 @@ val yojson_of_aws_s3control_access_grant :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   access_grant_arn : string prop;
   access_grant_id : string prop;
   access_grants_location_id : string prop;

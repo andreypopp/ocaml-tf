@@ -524,6 +524,7 @@ let azurerm_iot_security_solution ?disabled_data_sources ?enabled
   }
 
 type t = {
+  tf_name : string;
   disabled_data_sources : string list prop;
   display_name : string prop;
   enabled : bool prop;
@@ -549,6 +550,7 @@ let make ?disabled_data_sources ?enabled ?events_to_export ?id
   let __type = "azurerm_iot_security_solution" in
   let __attrs =
     ({
+       tf_name = __id;
        disabled_data_sources =
          Prop.computed __type __id "disabled_data_sources";
        display_name = Prop.computed __type __id "display_name";

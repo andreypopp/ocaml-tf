@@ -264,6 +264,7 @@ let azurerm_netapp_snapshot_policy ?id ?timeouts ~account_name ~name
   { account_name; id; name; resource_group_name; timeouts }
 
 type t = {
+  tf_name : string;
   account_name : string prop;
   daily_schedule : daily_schedule list prop;
   enabled : bool prop;
@@ -282,6 +283,7 @@ let make ?id ?timeouts ~account_name ~name ~resource_group_name __id
   let __type = "azurerm_netapp_snapshot_policy" in
   let __attrs =
     ({
+       tf_name = __id;
        account_name = Prop.computed __type __id "account_name";
        daily_schedule = Prop.computed __type __id "daily_schedule";
        enabled = Prop.computed __type __id "enabled";

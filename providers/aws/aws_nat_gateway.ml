@@ -214,6 +214,7 @@ let aws_nat_gateway ?allocation_id ?connectivity_type ?id ?private_ip
   }
 
 type t = {
+  tf_name : string;
   allocation_id : string prop;
   association_id : string prop;
   connectivity_type : string prop;
@@ -236,6 +237,7 @@ let make ?allocation_id ?connectivity_type ?id ?private_ip
   let __type = "aws_nat_gateway" in
   let __attrs =
     ({
+       tf_name = __id;
        allocation_id = Prop.computed __type __id "allocation_id";
        association_id = Prop.computed __type __id "association_id";
        connectivity_type =

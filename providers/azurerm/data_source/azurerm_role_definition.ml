@@ -173,6 +173,7 @@ let azurerm_role_definition ?id ?name ?role_definition_id ?scope
   { id; name; role_definition_id; scope; timeouts }
 
 type t = {
+  tf_name : string;
   assignable_scopes : string list prop;
   description : string prop;
   id : string prop;
@@ -187,6 +188,7 @@ let make ?id ?name ?role_definition_id ?scope ?timeouts __id =
   let __type = "azurerm_role_definition" in
   let __attrs =
     ({
+       tf_name = __id;
        assignable_scopes =
          Prop.computed __type __id "assignable_scopes";
        description = Prop.computed __type __id "description";

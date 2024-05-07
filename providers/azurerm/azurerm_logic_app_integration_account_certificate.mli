@@ -43,6 +43,7 @@ val yojson_of_azurerm_logic_app_integration_account_certificate :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   id : string prop;
   integration_account_name : string prop;
   metadata : string prop;

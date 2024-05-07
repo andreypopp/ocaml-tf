@@ -76,6 +76,7 @@ let aws_sagemaker_prebuilt_ecr_image ?dns_suffix ?id ?image_tag
   { dns_suffix; id; image_tag; region; repository_name }
 
 type t = {
+  tf_name : string;
   dns_suffix : string prop;
   id : string prop;
   image_tag : string prop;
@@ -89,6 +90,7 @@ let make ?dns_suffix ?id ?image_tag ?region ~repository_name __id =
   let __type = "aws_sagemaker_prebuilt_ecr_image" in
   let __attrs =
     ({
+       tf_name = __id;
        dns_suffix = Prop.computed __type __id "dns_suffix";
        id = Prop.computed __type __id "id";
        image_tag = Prop.computed __type __id "image_tag";

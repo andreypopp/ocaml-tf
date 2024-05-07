@@ -19,6 +19,7 @@ val yojson_of_digitalocean_database_db :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cluster_id : string prop;
   id : string prop;
   name : string prop;

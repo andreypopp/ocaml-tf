@@ -202,6 +202,7 @@ let aws_rds_engine_version ?default_only ?has_major_target
   }
 
 type t = {
+  tf_name : string;
   default_character_set : string prop;
   default_only : bool prop;
   engine : string prop;
@@ -240,6 +241,7 @@ let make ?default_only ?has_major_target ?has_minor_target ?id
   let __type = "aws_rds_engine_version" in
   let __attrs =
     ({
+       tf_name = __id;
        default_character_set =
          Prop.computed __type __id "default_character_set";
        default_only = Prop.computed __type __id "default_only";

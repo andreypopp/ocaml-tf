@@ -18,6 +18,7 @@ val yojson_of_aws_iam_security_token_service_preferences :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   global_endpoint_token_version : string prop;
   id : string prop;
 }

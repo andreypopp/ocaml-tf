@@ -426,6 +426,7 @@ let google_compute_router_peer ?advertise_mode ?advertised_groups
   }
 
 type t = {
+  tf_name : string;
   advertise_mode : string prop;
   advertised_groups : string list prop;
   advertised_route_priority : float prop;
@@ -456,6 +457,7 @@ let make ?advertise_mode ?advertised_groups
   let __type = "google_compute_router_peer" in
   let __attrs =
     ({
+       tf_name = __id;
        advertise_mode = Prop.computed __type __id "advertise_mode";
        advertised_groups =
          Prop.computed __type __id "advertised_groups";

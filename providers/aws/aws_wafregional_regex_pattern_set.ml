@@ -56,6 +56,7 @@ let aws_wafregional_regex_pattern_set ?id ?regex_pattern_strings
   { id; name; regex_pattern_strings }
 
 type t = {
+  tf_name : string;
   id : string prop;
   name : string prop;
   regex_pattern_strings : string list prop;
@@ -65,6 +66,7 @@ let make ?id ?regex_pattern_strings ~name __id =
   let __type = "aws_wafregional_regex_pattern_set" in
   let __attrs =
     ({
+       tf_name = __id;
        id = Prop.computed __type __id "id";
        name = Prop.computed __type __id "name";
        regex_pattern_strings =

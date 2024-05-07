@@ -169,6 +169,7 @@ let azurerm_spring_cloud_elastic_application_performance_monitoring
   }
 
 type t = {
+  tf_name : string;
   application_packages : string list prop;
   globally_enabled : bool prop;
   id : string prop;
@@ -185,6 +186,7 @@ let make ?globally_enabled ?id ?timeouts ~application_packages ~name
   in
   let __attrs =
     ({
+       tf_name = __id;
        application_packages =
          Prop.computed __type __id "application_packages";
        globally_enabled =

@@ -393,6 +393,7 @@ let aws_elasticache_serverless_cache ?daily_snapshot_time
   }
 
 type t = {
+  tf_name : string;
   arn : string prop;
   create_time : string prop;
   daily_snapshot_time : string prop;
@@ -423,6 +424,7 @@ let make ?daily_snapshot_time ?description ?kms_key_id
   let __type = "aws_elasticache_serverless_cache" in
   let __attrs =
     ({
+       tf_name = __id;
        arn = Prop.computed __type __id "arn";
        create_time = Prop.computed __type __id "create_time";
        daily_snapshot_time =

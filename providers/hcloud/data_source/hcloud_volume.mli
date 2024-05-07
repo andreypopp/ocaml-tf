@@ -22,6 +22,7 @@ val yojson_of_hcloud_volume : hcloud_volume -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   delete_protection : bool prop;
   id : float prop;
   labels : (string * string) list prop;

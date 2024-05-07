@@ -37,6 +37,7 @@ val yojson_of_google_firestore_index : google_firestore_index -> json
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_scope : string prop;
   collection : string prop;
   database : string prop;

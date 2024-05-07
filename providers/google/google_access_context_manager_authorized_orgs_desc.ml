@@ -159,6 +159,7 @@ let google_access_context_manager_authorized_orgs_desc ?asset_type
   }
 
 type t = {
+  tf_name : string;
   asset_type : string prop;
   authorization_direction : string prop;
   authorization_type : string prop;
@@ -177,6 +178,7 @@ let make ?asset_type ?authorization_direction ?authorization_type ?id
   in
   let __attrs =
     ({
+       tf_name = __id;
        asset_type = Prop.computed __type __id "asset_type";
        authorization_direction =
          Prop.computed __type __id "authorization_direction";

@@ -46,6 +46,7 @@ val yojson_of_azurerm_hpc_cache_nfs_target :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   cache_name : string prop;
   id : string prop;
   name : string prop;

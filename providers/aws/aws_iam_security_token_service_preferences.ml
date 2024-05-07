@@ -49,6 +49,7 @@ let aws_iam_security_token_service_preferences ?id
   { global_endpoint_token_version; id }
 
 type t = {
+  tf_name : string;
   global_endpoint_token_version : string prop;
   id : string prop;
 }
@@ -57,6 +58,7 @@ let make ?id ~global_endpoint_token_version __id =
   let __type = "aws_iam_security_token_service_preferences" in
   let __attrs =
     ({
+       tf_name = __id;
        global_endpoint_token_version =
          Prop.computed __type __id "global_endpoint_token_version";
        id = Prop.computed __type __id "id";

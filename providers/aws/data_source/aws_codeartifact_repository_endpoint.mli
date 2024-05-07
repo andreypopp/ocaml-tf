@@ -21,6 +21,7 @@ val yojson_of_aws_codeartifact_repository_endpoint :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   domain : string prop;
   domain_owner : string prop;
   format : string prop;

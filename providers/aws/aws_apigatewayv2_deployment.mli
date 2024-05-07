@@ -20,6 +20,7 @@ val yojson_of_aws_apigatewayv2_deployment :
 (** RESOURCE REGISTRATION *)
 
 type t = private {
+  tf_name : string;
   api_id : string prop;
   auto_deployed : bool prop;
   description : string prop;

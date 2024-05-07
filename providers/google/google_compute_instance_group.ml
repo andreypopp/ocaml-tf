@@ -198,6 +198,7 @@ let google_compute_instance_group ?description ?id ?instances
   }
 
 type t = {
+  tf_name : string;
   description : string prop;
   id : string prop;
   instances : string list prop;
@@ -214,6 +215,7 @@ let make ?description ?id ?instances ?network ?project ?zone
   let __type = "google_compute_instance_group" in
   let __attrs =
     ({
+       tf_name = __id;
        description = Prop.computed __type __id "description";
        id = Prop.computed __type __id "id";
        instances = Prop.computed __type __id "instances";
